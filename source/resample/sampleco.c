@@ -76,7 +76,7 @@ static double WeightDirectionalMean(double *totalWeight, /* write-only total of 
 
   tC /= *totalWeight;
   tS /= *totalWeight;
-  R = sqrt(tC * tC + tS * tS);
+  R = sqrt((tC * tC) + (tS * tS));
   meanIn = atan2(tS / R, tC / R);
 
   /* atan2 -> [-PI, PI], this has to be : [0, 2 * PI> */

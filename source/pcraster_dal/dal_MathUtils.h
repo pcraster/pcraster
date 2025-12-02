@@ -640,8 +640,8 @@ inline void interpolate(
     else {
       assert(!pcr::isMV(*dist1_it));
       assert(!pcr::isMV(*dist2_it));
-      *result_it = (*dist2_it * *cell1_it + *dist1_it * *cell2_it) /
-         *dist1_it + *dist2_it;
+      *result_it = ((*dist2_it * *cell1_it + *dist1_it * *cell2_it) /
+         *dist1_it) + *dist2_it;
     }
   }
 }
@@ -779,7 +779,7 @@ inline T clamp(
     }
     else {
       // Outside of interval, pick the last value in the interval.
-      result = first + ((last - first) / interval) * interval;
+      result = first + (((last - first) / interval) * interval);
     }
   }
 

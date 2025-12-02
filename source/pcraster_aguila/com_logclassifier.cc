@@ -52,7 +52,7 @@ void com_LogClassifier<T>::classify(std::vector<T> &b, T min, T max, size_t n)
   double const width = (lmax - lmin) / (n - 1);
 
   for(size_t i = 0; i < n - 1; i++)  // Calculate all but the last class border.
-    b[i] = static_cast<T>(std::pow(10.0, lmin + i * width));
+    b[i] = static_cast<T>(std::pow(10.0, lmin + (i * width)));
   b[n - 1] = max;                      // Set the last class border to \a max.
 }
 
@@ -90,7 +90,7 @@ void com_LogClassifier<T>::autoClassify(std::vector<T> &b, T min, T max,
   b.resize(nn);
 
   for(size_t i = 0; i < nn - 1; i++) // Calculate all but the last class border.
-    b[i] = static_cast<T>(std::pow(10.0, nmin + i * width));
+    b[i] = static_cast<T>(std::pow(10.0, nmin + (i * width)));
   b[nn - 1] = static_cast<T>(std::pow(10.0, nmax)); // Set last border to max.
 }
 

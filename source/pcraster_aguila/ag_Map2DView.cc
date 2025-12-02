@@ -976,14 +976,14 @@ bool Map2DView::map(
          worldUnitsToPixels(dataObject().map2DOffset().x()) +
          anchor().x() - // Pixel coordinates of the center.
          // Distance in pixels from center of map to x.
-         worldUnitsToPixels(0.5 * dimensions.longitudinalExtent() -
+         worldUnitsToPixels((0.5 * dimensions.longitudinalExtent()) -
               (x - dimensions.west()));
     pos.ry() =
          // Amount of pixels the map is offset from the center.
          worldUnitsToPixels(dataObject().map2DOffset().y()) +
          anchor().y() - // Pixel coordinate of the center.
          // Distance in pixels from center of map to y.
-         worldUnitsToPixels(0.5 * dimensions.latitudinalExtent() -
+         worldUnitsToPixels((0.5 * dimensions.latitudinalExtent()) -
               (dimensions.north() - y));
 
     return true;

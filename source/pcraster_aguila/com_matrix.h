@@ -306,7 +306,7 @@ inline const T &Matrix<T>::element(size_t r, size_t c) const
   assert(r > 0 && c > 0);
   assert(r <= d_nr && c <= d_nc);
 
-  return d_data[(r - 1) * d_nc + c - 1];
+  return d_data[((r - 1) * d_nc) + c - 1];
 }
 
 /*!
@@ -340,7 +340,7 @@ inline void Matrix<T>::setElement(size_t r, size_t c, const T &v)
   assert(r > 0 && c > 0);
   assert(r <= d_nr && c <= d_nc);
 
-  d_data[(r - 1) * d_nc + c - 1] = v;
+  d_data[((r - 1) * d_nc) + c - 1] = v;
 }
 
 /*!
@@ -372,7 +372,7 @@ inline Matrix<T> Matrix<T>::identity(size_t nr)
 
   // Set the diagonal elements to 1.
   for(size_t i = 0; i < m.d_nr; ++i)
-    m.d_data[i * m.d_nc + i] = static_cast<T>(1);
+    m.d_data[(i * m.d_nc) + i] = static_cast<T>(1);
 
   return m;
 }

@@ -291,7 +291,7 @@ void Vector::calculateExtremes()
   for(size_t i = 0; i < nrCells; ++i) {
     if(!pcr::isMV(x[i]) && !pcr::isMV(y[i])) {
       // Don't take the sqrt because it is not necessary.
-      value = x[i] * x[i] + y[i] * y[i];
+      value = (x[i] * x[i]) + (y[i] * y[i]);
 
       if(!initialized) {
         min = value;
@@ -319,8 +319,8 @@ void Vector::calculateExtremes()
   }
 
   if(initialized) {
-    _min = std::sqrt(minX * minX + minY * minY);
-    _max = std::sqrt(maxX * maxX + maxY * maxY);
+    _min = std::sqrt((minX * minX) + (minY * minY));
+    _max = std::sqrt((maxX * maxX) + (maxY * maxY));
   }
 }
 

@@ -129,7 +129,7 @@ static const LOOK_UP_TABLE *CreateMatrix(const LOOK_UP_TABLE *t)
   /* fill matrix */
   for (r = 1; r < m->nrRecords; r++) {
     for (i = 1; i < (m->nrKeys + 1); i++) {
-      m->records[r][i] = t->records[(r - 1) * m->nrKeys + (i - 1)][2];
+      m->records[r][i] = t->records[((r - 1) * m->nrKeys) + (i - 1)][2];
       POSTCOND(m->records[r][i].t == TEST_ONE || m->records[r][i].t == TEST_NOKEY);
       m->records[r][i].t = TEST_ONE;
     }

@@ -229,13 +229,13 @@ int ClassLegendBody::height() const
       if(d_drawProperties.nrClasses()) {
         result =
           // n keys + space inbetween
-          (d_drawProperties.nrClasses() - 1) * (keySize().height() +
-            keyOffset()) + keySize().height() +
+          ((d_drawProperties.nrClasses() - 1) * (keySize().height() +
+            keyOffset())) + keySize().height() +
           // We need an additional row of pixels.
           1 +
           // 0.5 fontsize because some letters extent below the base line
           // (g, y, etc).
-          0.5 * QFontMetrics(qApp->font()).height()
+          (0.5 * QFontMetrics(qApp->font()).height())
           ;
       }
 

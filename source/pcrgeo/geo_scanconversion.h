@@ -245,7 +245,7 @@ T& midpointLineENE(Integral x1, Integral y1, Integral x2, Integral y2, T& op) {
 
   size_t const dx = x2 - x1;
   size_t const dy = y2 - y1;
-  int d = 2 * dy - dx;
+  int d = ((2 * dy)) - dx;
 
   size_t const incrE = 2 * dy;
   size_t const incrNE = 2 * (dy - dx);
@@ -445,7 +445,7 @@ T& midpointCircle(Integral xCenter, Integral yCenter, size_t radius, T& op) {
 
   int d = 1 - radius;
   size_t deltaE = 3;
-  int deltaSE = -2 * radius + 5;
+  int deltaSE = ((-2 * radius)) + 5;
 
   while(y > (x + 1)) {
     if(d < 0) {
@@ -611,8 +611,8 @@ T& midpointCircle(Integral xCenter, Integral yCenter, size_t fromRadius,
   for(i = 0; i < nrInnerPointsOctant; ++i) {
 
     x++;
-    yFrom = innerPoints[4 + i * 8].second + 1 - yCenter;
-    yTo = outerPoints[4 + i * 8].second - yCenter;
+    yFrom = innerPoints[4 + ((i * 8))].second + 1 - yCenter;
+    yTo = outerPoints[4 + ((i * 8))].second - yCenter;
 
     while(yFrom < yTo) {
 
@@ -624,8 +624,8 @@ T& midpointCircle(Integral xCenter, Integral yCenter, size_t fromRadius,
   if(innerXIsYPresent) {
 
     x++;
-    yFrom = innerPoints[4 + i * 8].second + 1 - yCenter;
-    yTo = outerPoints[4 + i * 8].second - yCenter;
+    yFrom = innerPoints[4 + ((i * 8))].second + 1 - yCenter;
+    yTo = outerPoints[4 + ((i * 8))].second - yCenter;
 
     for(; yFrom < yTo; ++yFrom) {
       circlePoints(xCenter, yCenter, x, yFrom, op);
@@ -638,7 +638,7 @@ T& midpointCircle(Integral xCenter, Integral yCenter, size_t fromRadius,
 
     x++;
     yFrom = x;
-    yTo = outerPoints[4 + i * 8].second - yCenter;
+    yTo = outerPoints[4 + ((i * 8))].second - yCenter;
 
     // Point x, yFrom lies on x = y.
     op(xCenter + x, yCenter + yFrom);

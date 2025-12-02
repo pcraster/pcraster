@@ -93,25 +93,25 @@ void geo::WMatrix::setMatrix(REAL8 m11, REAL8 m12, REAL8 m13, REAL8 m21, REAL8 m
 
 void geo::WMatrix::bmul(const WMatrix &m)
 {
-  setMatrix(m.d_m11 * d_m11 + m.d_m12 * d_m21 + m.d_m13 * d_m31,
-            m.d_m11 * d_m12 + m.d_m12 * d_m22 + m.d_m13 * d_m32,
-            m.d_m11 * d_m13 + m.d_m12 * d_m23 + m.d_m13 * d_m33,
-            m.d_m21 * d_m11 + m.d_m22 * d_m21 + m.d_m23 * d_m31,
-            m.d_m21 * d_m12 + m.d_m22 * d_m22 + m.d_m23 * d_m32,
-            m.d_m21 * d_m13 + m.d_m22 * d_m23 + m.d_m23 * d_m33,
-            m.d_m31 * d_m11 + m.d_m32 * d_m21 + m.d_m33 * d_m31,
-            m.d_m31 * d_m12 + m.d_m32 * d_m22 + m.d_m33 * d_m32,
-            m.d_m31 * d_m13 + m.d_m32 * d_m23 + m.d_m33 * d_m33,
-            m.d_dx * d_m11 + m.d_dy * d_m21 + m.d_dz * d_m31 + d_dx,
-            m.d_dx * d_m12 + m.d_dy * d_m22 + m.d_dz * d_m32 + d_dy,
-            m.d_dx * d_m13 + m.d_dy * d_m23 + m.d_dz * d_m33 + d_dz);
+  setMatrix((m.d_m11 * d_m11) + (m.d_m12 * d_m21) + (m.d_m13 * d_m31),
+            (m.d_m11 * d_m12) + (m.d_m12 * d_m22) + (m.d_m13 * d_m32),
+            (m.d_m11 * d_m13) + (m.d_m12 * d_m23) + (m.d_m13 * d_m33),
+            (m.d_m21 * d_m11) + (m.d_m22 * d_m21) + (m.d_m23 * d_m31),
+            (m.d_m21 * d_m12) + (m.d_m22 * d_m22) + (m.d_m23 * d_m32),
+            (m.d_m21 * d_m13) + (m.d_m22 * d_m23) + (m.d_m23 * d_m33),
+            (m.d_m31 * d_m11) + (m.d_m32 * d_m21) + (m.d_m33 * d_m31),
+            (m.d_m31 * d_m12) + (m.d_m32 * d_m22) + (m.d_m33 * d_m32),
+            (m.d_m31 * d_m13) + (m.d_m32 * d_m23) + (m.d_m33 * d_m33),
+            (m.d_dx * d_m11) + (m.d_dy * d_m21) + (m.d_dz * d_m31) + d_dx,
+            (m.d_dx * d_m12) + (m.d_dy * d_m22) + (m.d_dz * d_m32) + d_dy,
+            (m.d_dx * d_m13) + (m.d_dy * d_m23) + (m.d_dz * d_m33) + d_dz);
 }
 
 void geo::WMatrix::map(REAL8 x, REAL8 y, REAL8 z, REAL8 *tx, REAL8 *ty, REAL8 *tz)
 {
-  *tx = d_m11 * x + d_m21 * y + d_m31 * z + d_dx;
-  *ty = d_m12 * x + d_m22 * y + d_m32 * z + d_dy;
-  *tz = d_m13 * x + d_m23 * y + d_m33 * z + d_dz;
+  *tx = (d_m11 * x) + (d_m21 * y) + (d_m31 * z) + d_dx;
+  *ty = (d_m12 * x) + (d_m22 * y) + (d_m32 * z) + d_dy;
+  *tz = (d_m13 * x) + (d_m23 * y) + (d_m33 * z) + d_dz;
 }
 
 void geo::WMatrix::translate(REAL8 dx, REAL8 dy, REAL8 dz)

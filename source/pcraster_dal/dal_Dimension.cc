@@ -477,7 +477,7 @@ size_t Dimension::nrCoordinates() const
       auto first = boost::any_cast<float>(_values[0]);
       auto last = boost::any_cast<float>(_values[1]);
       auto interval = boost::any_cast<float>(_values[2]);
-      result = round<float, size_t>((last - first) / interval + float(1.0));
+      result = round<float, size_t>(((last - first) / interval) + float(1.0));
 
       break;
     }
@@ -486,7 +486,7 @@ size_t Dimension::nrCoordinates() const
       auto first = boost::any_cast<size_t>(_values[0]);
       auto last = boost::any_cast<size_t>(_values[1]);
       auto interval = boost::any_cast<size_t>(_values[2]);
-      result = (last - first) / interval + 1;
+      result = ((last - first) / interval) + 1;
 
       break;
     }

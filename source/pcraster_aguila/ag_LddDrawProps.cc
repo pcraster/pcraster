@@ -228,7 +228,7 @@ GLuint ag::LddDrawProps::texture(unsigned char gdd, UINT1 ldd) const
     for(size_t j = 0; j < 64; ++j) {
       // Loop over bytes in row.
       for(size_t k = 0; k < 8; ++k) {
-        texture[j * 8 + k] = _data->_lddTextures[ldd - 1][j * 8 + k];
+        texture[(j * 8) + k] = _data->_lddTextures[ldd - 1][(j * 8) + k];
       }
     }
 
@@ -241,7 +241,7 @@ GLuint ag::LddDrawProps::texture(unsigned char gdd, UINT1 ldd) const
           // Loop over bytes in row.
           for(size_t k = 0; k < 8; ++k) {
             // 'or' the current with an existing one for the target direction.
-            texture[j * 8 + k] |= _data->_gddTextures[i][j * 8 + k];
+            texture[(j * 8) + k] |= _data->_gddTextures[i][(j * 8) + k];
           }
         }
       }

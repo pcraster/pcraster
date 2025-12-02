@@ -89,7 +89,7 @@ REAL8 com::RIMap::transform(int v) const
   if (d_conv == 0.0) {
     return 0.0;
   } else {
-    return d_r1 + static_cast<double>(v - d_i1) / d_conv;
+    return d_r1 + (static_cast<double>(v - d_i1) / d_conv);
   }
 }
 

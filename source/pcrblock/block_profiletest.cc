@@ -44,7 +44,7 @@ BOOST_AUTO_TEST_CASE(test)
     }
 
     // Center of voxel.
-    profile(result, date, (i - 1) * thickness + 0.5 * thickness);
+    profile(result, date, ((i - 1) * thickness) + (0.5 * thickness));
     BOOST_CHECK(dal::comparable(result.cell(0), REAL4(i)));
 
     for(size_t j = 0; j < raster.nrCells(); ++j) {

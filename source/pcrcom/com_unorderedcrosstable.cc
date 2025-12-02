@@ -83,7 +83,7 @@ size_t com::UnOrderedCrossTable::calculateIndex(size_t size, size_t row, size_t 
     std::swap(row, col);
   }
 
-  size_t const i1 = row * size + col;
+  size_t const i1 = (row * size) + col;
   size_t const i2 = i1 / size;
   size_t i3 = 0;
   for (size_t i = 1; i <= i2; ++i) {
@@ -118,7 +118,7 @@ inline size_t com::UnOrderedCrossTable::length(size_t size) const
 {
   // PRECOND(d_size % 2 == 1);  // Make sure that d_size is not even.
 
-  return size * size - (size * size - size) / 2;
+  return (size * size) - ((size * size - size) / 2);
 }
 
 //------------------------------------------------------------------------------

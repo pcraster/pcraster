@@ -30,7 +30,7 @@ struct Algorithm
           result = value;
         }
         else{
-          result = 2.0 * std::numbers::pi_v<Result> + value; // i.e. + (-value)
+          result = (2.0 * std::numbers::pi_v<Result>) + value; // i.e. + (-value)
         }
     }
 

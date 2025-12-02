@@ -89,7 +89,7 @@ int Diffuse1(MAP_REAL8 *stateOut,     /* Read-write state map */
           AddToState(-fc, r, c, stateOut);
           break;
         case 1:
-          a = (M_PI) / 2 - dirVal;
+          a = ((M_PI) / 2) - dirVal;
           fc = fluxInVal * cos(a);
           fs = fluxInVal * sin(a);
           ReplaceOutFlux(fc, r, c, fluxOut);
@@ -99,7 +99,7 @@ int Diffuse1(MAP_REAL8 *stateOut,     /* Read-write state map */
           AddToState(-fc, r, c, stateOut);
           break;
         case 2:
-          a = dirVal - (M_PI) / 2;
+          a = dirVal - ((M_PI) / 2);
           fc = fluxInVal * cos(a);
           fs = fluxInVal * sin(a);
           ReplaceOutFlux(fc, r, c, fluxOut);
@@ -152,7 +152,7 @@ int Diffuse1(MAP_REAL8 *stateOut,     /* Read-write state map */
         case 8: /* 8 should not happen but numerical rounding 
                      * may cause it 
                      */
-          a = 2 * M_PI - dirVal;
+          a = (2 * M_PI) - dirVal;
           fc = fluxInVal * cos(a);
           fs = fluxInVal * sin(a);
           ReplaceOutFlux(fc, r, c, fluxOut);

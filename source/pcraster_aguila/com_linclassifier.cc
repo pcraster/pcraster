@@ -57,7 +57,7 @@ void com_LinClassifier<T>::classify(std::vector<T> &b, T min, T max, size_t n)
   b.resize(n);
   T width = (max - min) / (n - 1);     // Calculate class width.
   for(size_t i = 0; i < n - 1; i++) {
-    b[i] = min + i * width;            // Calculate most class borders.
+    b[i] = min + (i * width);            // Calculate most class borders.
   }
   b[n - 1] = max;                      // Set last class border to max.
 }
@@ -95,7 +95,7 @@ void com_LinClassifier<T>::autoClassify(std::vector<T> &b, T min, T max,
   b.resize(nn);
 
   for(size_t i = 0; i < nn - 1; i++)
-    b[i] = nmin + i * width;
+    b[i] = nmin + (i * width);
   b[nn - 1] = nmax;
 }
 

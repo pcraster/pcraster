@@ -42,21 +42,21 @@ void DirectionalMoments(double *mean,          /* write-only, mean */
   }
   tC /= n;
   tS /= n;
-  R = sqrt(tC * tC + tS * tS);
+  R = sqrt((tC * tC) + (tS * tS));
   meanIn = atan2(tS / R, tC / R);
 
   for (i = 0, p = samples; i < n; p++, i++) {
     tD += cos(*p - meanIn);
   }
 
-  D = 1 - tD / n;
+  D = 1 - (tD / n);
 
   tC2 /= n;
   tS2 /= n;
-  R2 = sqrt(tC2 * tC2 + tS2 * tS2);
+  R2 = sqrt((tC2 * tC2) + (tS2 * tS2));
   m2 = atan2(tS2 / R2, tC2 / R2);
 
-  t1 = m2 - 2 * meanIn;
+  t1 = m2 - (2 * meanIn);
   skewIn = R2 * sin(t1) / D / sqrt(D);
 
   t2 = (1 - D);
@@ -93,7 +93,7 @@ double DirectionalMean(const double *samples, /* array of n samples, in radians 
   }
   tC /= n;
   tS /= n;
-  R = sqrt(tC * tC + tS * tS);
+  R = sqrt((tC * tC) + (tS * tS));
   meanIn = atan2(tS / R, tC / R);
 
   return ScaleRad(meanIn);

@@ -100,7 +100,7 @@ void BinaryReader::read(const std::string & err_mgs, const std::string & filenam
 
   // jump to the right block and position, skip the metadata, block marker;
   // multiplier holds layer number of the layer we are interested in
-  size_t const new_pos = nr_bytes + 36 + 8 + multiplier * (nr_cells * nr_bytes);
+  size_t const new_pos = nr_bytes + 36 + 8 + (multiplier * (nr_cells * nr_bytes));
 
 
   //size_t nr_cells = row * col;

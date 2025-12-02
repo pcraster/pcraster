@@ -188,8 +188,8 @@ int Cholesky(const double **a, /* Matrix (n*n elements) to be decomposed */
         result += sqrta[i][k] * sqrta[j][k];
       }
       result = fabs(result);
-      if ((fabs(a[i][j]) > (1E-12 + (1.0 + eps) * result)) ||
-          (result > (1E-12 + (1.0 + eps) * fabs(a[i][j])))) {
+      if ((fabs(a[i][j]) > (1E-12 + ((1.0 + eps) * result))) ||
+          (result > (1E-12 + ((1.0 + eps) * fabs(a[i][j]))))) {
         return (1);
       }
     }

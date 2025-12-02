@@ -47,7 +47,7 @@ public:
 
 geo::Neighbourhood::Neighbourhood(size_t radius)
 
-    : geo::SimpleRaster<double>(2 * radius + 1, 2 * radius + 1, 0.0), d_radius(radius),
+    : geo::SimpleRaster<double>((2 * radius) + 1, (2 * radius) + 1, 0.0), d_radius(radius),
       d_fromRadius(0.0), d_toRadius(static_cast<double>(radius))
 
 {
@@ -64,8 +64,8 @@ geo::Neighbourhood::Neighbourhood(size_t radius)
 */
 geo::Neighbourhood::Neighbourhood(double toRadius)
 
-    : geo::SimpleRaster<double>(2 * static_cast<size_t>(std::ceil(toRadius)) + 1,
-                                2 * static_cast<size_t>(std::ceil(toRadius)) + 1, 0.0),
+    : geo::SimpleRaster<double>((2 * static_cast<size_t>(std::ceil(toRadius))) + 1,
+                                (2 * static_cast<size_t>(std::ceil(toRadius))) + 1, 0.0),
       d_radius(static_cast<size_t>(std::ceil(toRadius))), d_fromRadius(0.0), d_toRadius(toRadius)
 
 {
@@ -74,8 +74,8 @@ geo::Neighbourhood::Neighbourhood(double toRadius)
 
 geo::Neighbourhood::Neighbourhood(double fromRadius, double toRadius)
 
-    : geo::SimpleRaster<double>(2 * static_cast<size_t>(std::ceil(toRadius)) + 1,
-                                2 * static_cast<size_t>(std::ceil(toRadius)) + 1, 0.0),
+    : geo::SimpleRaster<double>((2 * static_cast<size_t>(std::ceil(toRadius))) + 1,
+                                (2 * static_cast<size_t>(std::ceil(toRadius))) + 1, 0.0),
       d_radius(static_cast<size_t>(std::ceil(toRadius))), d_fromRadius(fromRadius), d_toRadius(toRadius)
 
 {
@@ -86,7 +86,7 @@ geo::Neighbourhood::Neighbourhood(double fromRadius, double toRadius)
 
 geo::Neighbourhood::Neighbourhood(size_t radius, double *cells)
 
-    : geo::SimpleRaster<double>(2 * radius + 1, 2 * radius + 1, cells), d_radius(radius),
+    : geo::SimpleRaster<double>((2 * radius) + 1, (2 * radius) + 1, cells), d_radius(radius),
       d_fromRadius(0.0), d_toRadius(static_cast<double>(radius))
 
 {

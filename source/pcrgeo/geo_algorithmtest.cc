@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_CASE(maximum_)
 
     for (size_t row = 0; row < nrRows; ++row) {
       for (size_t col = 0; col < nrCols; ++col) {
-        points.push_back(PointValue<Punt, Value>(Punt(row, col), row * nrCols + col));
+        points.push_back(PointValue<Punt, Value>(Punt(row, col), (row * nrCols) + col));
       }
     }
 
@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_CASE(maximum_)
 
     for (size_t row = 0; row < nrRows; ++row) {
       for (size_t col = 0; col < nrCols; ++col) {
-        points.push_back(PointValue<Point, Value>(Point(row, col), row * nrCols + col));
+        points.push_back(PointValue<Point, Value>(Point(row, col), (row * nrCols) + col));
       }
     }
 

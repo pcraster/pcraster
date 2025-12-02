@@ -144,9 +144,9 @@ double com::DiMap::invTransform(int y) const
     return 0.0;
   } else {
     if (d_log) {
-      return std::exp(d_x1 + double(y - d_y1) / d_cnv);
+      return std::exp(d_x1 + (double(y - d_y1) / d_cnv));
     } else {
-      return (d_x1 + double(y - d_y1) / d_cnv);
+      return (d_x1 + (double(y - d_y1) / d_cnv));
     }
   }
 }
@@ -187,9 +187,9 @@ double com::DiMap::xTransform(double x) const
   double rv = NAN;
 
   if (d_log) {
-    rv = static_cast<double>(d_y1) + (std::log(x) - d_x1) * d_cnv;
+    rv = static_cast<double>(d_y1) + ((std::log(x) - d_x1) * d_cnv);
   } else {
-    rv = static_cast<double>(d_y1) + (x - d_x1) * d_cnv;
+    rv = static_cast<double>(d_y1) + ((x - d_x1) * d_cnv);
   }
 
   return rv;

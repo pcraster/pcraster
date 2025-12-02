@@ -87,7 +87,7 @@ void com::RangeMap<T, U>::setRanges(const T& lower1, const T& upper1,
 template<class T, class U>
 U com::RangeMap<T, U>::map(const T& value)
 {
-  return static_cast<U>(d_lower2 + (value - d_lower1) * d_scale);
+  return static_cast<U>(d_lower2 + ((value - d_lower1) * d_scale));
 }
 
 

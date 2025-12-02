@@ -60,14 +60,14 @@ static void DirectionalStatistics(long double *mean,          /* write-only, mea
   }
   tC /= n;
   tS /= n;
-  R = sqrt(tC * tC + tS * tS);
+  R = sqrt((tC * tC) + (tS * tS));
   meanIn = atan2(tS / R, tC / R);
 
   for (i = 0, p = samples; i < n; p++, i++) {
     tD += cos(*p - meanIn);
   }
 
-  D = 1 - tD / n;
+  D = 1 - (tD / n);
   *mean = meanIn;
   *sd = sqrt(-2 * log(1 - D));
 }

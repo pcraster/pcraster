@@ -73,7 +73,7 @@ static void ComputeTangent(MAP_REAL8 *result, REAL8 viewAngleVal, const MAP_REAL
   } else {
     l.slope = -tan(a);
     l.parY = false;
-    l.yInt = p.y - l.slope * p.x;
+    l.yInt = p.y - (l.slope * p.x);
   }
 
   dem->Get(&startZ, ry, cx, dem);

@@ -503,7 +503,7 @@ pybind11::tuple fieldGetCellRowCol(
   --col;
 
   return fieldGetCellIndex(
-         field, row * globals.cloneSpace().nrCols() + col + 1);
+         field, (row * globals.cloneSpace().nrCols()) + col + 1);
 }
 
 
@@ -587,7 +587,7 @@ pybind11::tuple cellvalue_by_indices(
   }
 
   return cellvalue_by_index(
-         field, row * globals.cloneSpace().nrCols() + col);
+         field, (row * globals.cloneSpace().nrCols()) + col);
 }
 
 
@@ -611,8 +611,8 @@ pybind11::tuple cellvalue_by_coordinates(
   size_t const nr_rows = globals.cloneSpace().nrRows();
   size_t const nr_cols = globals.cloneSpace().nrCols();
   double const cellsize = globals.cloneSpace().cellSize();
-  double const east = west + nr_cols * cellsize;
-  double const south = north - nr_rows * cellsize;
+  double const east = west + (nr_cols * cellsize);
+  double const south = north - (nr_rows * cellsize);
 
   if((xcoordinate < west) || (xcoordinate > east)){
     std::ostringstream errMsg;
@@ -644,7 +644,7 @@ pybind11::tuple cellvalue_by_coordinates(
   size_t const row = std::floor(yRow);
   size_t const col = std::floor(xCol);
 
-  return cellvalue_by_index(field, row * nr_cols + col);
+  return cellvalue_by_index(field, (row * nr_cols) + col);
 }
 
 

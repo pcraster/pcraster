@@ -70,7 +70,7 @@ void com_Util::linSpace(std::vector<double>::iterator begin,
   size_t i = 0;
   for(v = begin, i = 0; v != end; v++, i++)
   {
-    *v = min + static_cast<double>(i) * step;
+    *v = min + (static_cast<double>(i) * step);
   }
 }
 
@@ -106,7 +106,7 @@ void com_Util::logSpace(std::vector<double>::iterator begin,
   size_t i = 0;
   for(v = begin + 1, i = 1; v != end - 1; v++, i++)
   {
-    *v = std::exp(lmin + static_cast<double>(i) * lstep);
+    *v = std::exp(lmin + (static_cast<double>(i) * lstep));
   }
 }
 

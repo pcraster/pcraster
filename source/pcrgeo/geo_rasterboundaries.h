@@ -215,7 +215,7 @@ inline RasterBoundaries<ValueType>::RasterBoundaries(
 {
   PRECOND(nrRows && nrCols);
 
-  d_nrValues = 2 * d_nrRows * d_nrCols + d_nrRows + d_nrCols;
+  d_nrValues = ((2 * d_nrRows * d_nrCols)) + d_nrRows + d_nrCols;
   d_values = new ValueType[nrValues()];
 }
 
@@ -362,7 +362,7 @@ inline size_t RasterBoundaries<ValueType>::nrCols() const
 template<typename ValueType>
 size_t RasterBoundaries<ValueType>::indexLeft(size_t row, size_t col) const
 {
-  return 2 * row * d_nrCols + d_nrCols + row + col;
+  return ((2 * row * d_nrCols)) + d_nrCols + row + col;
 }
 
 
@@ -381,7 +381,7 @@ size_t RasterBoundaries<ValueType>::indexLeft(size_t row, size_t col) const
 template<typename ValueType>
 size_t RasterBoundaries<ValueType>::indexTop(size_t row, size_t col) const
 {
-  return 2 * row * d_nrCols + row + col;
+  return ((2 * row * d_nrCols)) + row + col;
 }
 
 

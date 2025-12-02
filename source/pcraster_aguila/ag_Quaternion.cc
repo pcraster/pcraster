@@ -47,7 +47,7 @@ ag::Quaternion::Quaternion(GLfloat x, GLfloat y, GLfloat z)
 ag::Quaternion::Quaternion(GLfloat angle, GLfloat x, GLfloat y, GLfloat z)
 {
   // Normalize the axis.
-  GLfloat const factor = x * x + y * y + z * z;
+  GLfloat const factor = (x * x) + (y * y) + (z * z);
   assert(factor != 0.0);
 
   GLfloat const scale(1.0 / std::sqrt(static_cast<double>(factor)));
@@ -88,8 +88,8 @@ ag::Quaternion& ag::Quaternion::operator=(const Quaternion& q)
 
 void ag::Quaternion::normalize()
 {
-  GLfloat const factor = d_val[0] * d_val[0] + d_val[1] * d_val[1] +
-                   d_val[2] * d_val[2] + d_val[3] * d_val[3];
+  GLfloat const factor = (d_val[0] * d_val[0]) + (d_val[1] * d_val[1]) +
+                   (d_val[2] * d_val[2]) + (d_val[3] * d_val[3]);
   assert(factor != 0.0);
   GLfloat const scale = 1.0 / std::sqrt(static_cast<double>(factor));
   d_val[0] *= scale;
@@ -124,19 +124,19 @@ void ag::Quaternion::matrix(GLfloat m[16])
 
   #define M(x, y)  m[(x) + (y) * 4]
 
-  M(0, 0) = 1.0 - 2.0 * (yy + zz);
+  M(0, 0) = 1.0 - (2.0 * (yy + zz));
   M(1, 0) = 2.0 * (x * y + w * z);
   M(2, 0) = 2.0 * (x * z - w * y);
   M(3, 0) = 0.0;
 
   M(0, 1) = 2.0 * (x * y - w * z);
-  M(1, 1) = 1.0 - 2.0 * (xx + zz);
+  M(1, 1) = 1.0 - (2.0 * (xx + zz));
   M(2, 1) = 2.0 * (y * z + w * x);
   M(3, 1) = 0.0;
 
   M(0, 2) = 2.0 * (x * z + w * y);
   M(1, 2) = 2.0 * (y * z - w * x);
-  M(2, 2) = 1.0 - 2.0 * (xx + yy);
+  M(2, 2) = 1.0 - (2.0 * (xx + yy));
   M(3, 2) = 0.0;
 
   M(0, 3) = 0.0;
@@ -156,25 +156,25 @@ void ag::Quaternion::postMult(const Quaternion& q)
 
 void ag::Quaternion::multAndSet(const Quaternion& q1, const Quaternion& q2)
 {
-  d_val[0] =  q2.d_val[0] * q1.d_val[0]
-            - q2.d_val[1] * q1.d_val[1]
-            - q2.d_val[2] * q1.d_val[2]
-            - q2.d_val[3] * q1.d_val[3];
+  d_val[0] =  (q2.d_val[0] * q1.d_val[0])
+            - (q2.d_val[1] * q1.d_val[1])
+            - (q2.d_val[2] * q1.d_val[2])
+            - (q2.d_val[3] * q1.d_val[3]);
 
-  d_val[1] =  q2.d_val[0] * q1.d_val[1]
-            + q2.d_val[1] * q1.d_val[0]
-            + q2.d_val[2] * q1.d_val[3]
-            - q2.d_val[3] * q1.d_val[2];
+  d_val[1] =  (q2.d_val[0] * q1.d_val[1])
+            + (q2.d_val[1] * q1.d_val[0])
+            + (q2.d_val[2] * q1.d_val[3])
+            - (q2.d_val[3] * q1.d_val[2]);
 
-  d_val[2] =  q2.d_val[0] * q1.d_val[2]
-            - q2.d_val[1] * q1.d_val[3]
-            + q2.d_val[2] * q1.d_val[0]
-            + q2.d_val[3] * q1.d_val[1];
+  d_val[2] =  (q2.d_val[0] * q1.d_val[2])
+            - (q2.d_val[1] * q1.d_val[3])
+            + (q2.d_val[2] * q1.d_val[0])
+            + (q2.d_val[3] * q1.d_val[1]);
 
-  d_val[3] =  q2.d_val[0] * q1.d_val[3]
-            + q2.d_val[1] * q1.d_val[2]
-            - q2.d_val[2] * q1.d_val[1]
-            + q2.d_val[3] * q1.d_val[0];
+  d_val[3] =  (q2.d_val[0] * q1.d_val[3])
+            + (q2.d_val[1] * q1.d_val[2])
+            - (q2.d_val[2] * q1.d_val[1])
+            + (q2.d_val[3] * q1.d_val[0]);
 }
 
 

@@ -310,9 +310,9 @@ void BufferedWidget::resizeEvent(
 
     // Determine delta width at the left and right side. Make sure that
     // the the anchor point stays in the center.
-    double const deltaWidthLeft = newSize.width() / 2.0 - oldSize.width() / 2.0;
+    double const deltaWidthLeft = (newSize.width() / 2.0) - (oldSize.width() / 2.0);
     double const deltaWidthRight = deltaWidth - deltaWidthLeft;
-    double const deltaHeightTop = newSize.height() / 2.0 - oldSize.height() / 2.0;
+    double const deltaHeightTop = (newSize.height() / 2.0) - (oldSize.height() / 2.0);
     double const deltaHeightBottom = deltaHeight - deltaHeightTop;
 
     assert(deltaWidthLeft + deltaWidthRight == deltaWidth);

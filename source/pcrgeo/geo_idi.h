@@ -28,7 +28,7 @@ public:
       double distSqr(const Point& c) const {
            double const x = static_cast<double>(d_c.x())-c.x();
            double const y = static_cast<double>(d_c.y())-c.y();
-           return (x*x+y*y);
+           return (((x*x))+((y*y)));
        }
       double value() const {
          return d_val;

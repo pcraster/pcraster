@@ -870,7 +870,7 @@ static double iterateToQnew(
     // common terms
     ab_pQ = alpha*beta*std::pow(((Qold+Qin)/2),beta-1);
     deltaTX = sliceInSecs/deltaX;
-    C = deltaTX*Qin + alpha*std::pow(Qold,beta) + sliceInSecs*q;
+    C = (deltaTX*Qin) + (alpha*std::pow(Qold,beta)) + (sliceInSecs*q);
 
     //  1. Initial guess Qk1.
     //  2. Evaluate function f at Qkx.
@@ -883,14 +883,14 @@ static double iterateToQnew(
     // convergence loop healthy.
     Qkx   = (deltaTX * Qin + Qold * ab_pQ + sliceInSecs * q) / (deltaTX + ab_pQ);
     Qkx   = std::max(Qkx, (REAL)1e-30); /* added test-case calc::KinematicTest::iterate1 */
-    fQkx  = deltaTX * Qkx + alpha * std::pow(Qkx, (REAL)beta) - C;   /* Current k */
-    dfQkx = deltaTX + alpha * beta * std::pow(Qkx, (REAL)beta - 1);  /* Current k */
+    fQkx  = (deltaTX * Qkx) + (alpha * std::pow(Qkx, (REAL)beta)) - C;   /* Current k */
+    dfQkx = deltaTX + (alpha * beta * std::pow(Qkx, (REAL)beta - 1));  /* Current k */
     Qkx   -= fQkx / dfQkx;                                /* Next k */
     Qkx   = std::max(Qkx, (REAL)1e-30);
     count = 0;
     do {
-      fQkx  = deltaTX * Qkx + alpha * std::pow(Qkx, (REAL)beta) - C;   /* Current k */
-      dfQkx = deltaTX + alpha * beta * std::pow(Qkx, (REAL)beta - 1);  /* Current k */
+      fQkx  = (deltaTX * Qkx) + (alpha * std::pow(Qkx, (REAL)beta)) - C;   /* Current k */
+      dfQkx = deltaTX + (alpha * beta * std::pow(Qkx, (REAL)beta - 1));  /* Current k */
       Qkx   -= fQkx / dfQkx;                                /* Next k */
       Qkx   = std::max(Qkx, (REAL)1e-30);
       count++;

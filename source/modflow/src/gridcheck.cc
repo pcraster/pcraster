@@ -70,8 +70,8 @@ void GridCheck::testMV(const float *values, const std::string &methodName){
   size_t const size = d_mf->d_nrOfCells;
   for(size_t i = 0; i < size; ++i){
     if(IS_MV_REAL4(values + i)){
-      size_t const row = 1 + i / d_mf->d_nrOfColumns;
-      size_t const col = 1 + i % d_mf->d_nrOfColumns;
+      size_t const row = 1 + (i / d_mf->d_nrOfColumns);
+      size_t const col = 1 + (i % d_mf->d_nrOfColumns);
       std::stringstream stmp;
       stmp << "Missing value detected in row " << row << " column " << col; 
       d_mf->d_cmethods->error(stmp.str(), methodName);
@@ -87,8 +87,8 @@ void GridCheck::testMV(const int *values, const std::string &methodName){
   size_t const size = d_mf->d_nrOfCells;
   for(size_t i = 0; i < size; ++i){
     if(IS_MV_INT4(values + i)){
-      size_t const row = 1 + i / d_mf->d_nrOfColumns;
-      size_t const col = 1 + i % d_mf->d_nrOfColumns;
+      size_t const row = 1 + (i / d_mf->d_nrOfColumns);
+      size_t const col = 1 + (i % d_mf->d_nrOfColumns);
       std::stringstream stmp;
       stmp << "Missing value detected in row " << row << " column " << col;
       d_mf->d_cmethods->error(stmp.str(), methodName);

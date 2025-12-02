@@ -180,7 +180,7 @@ double StepMapper::destination(
          double sourceStep) const
 {
   return d_destinationFirstStep +
-         (sourceStep - d_sourceFirstStep) * d_conversionFactor;
+         ((sourceStep - d_sourceFirstStep) * d_conversionFactor);
 }
 
 
@@ -193,7 +193,7 @@ double StepMapper::source(
   }
   else {
     return d_sourceFirstStep +
-         (destinationStep - d_destinationFirstStep) / d_conversionFactor;
+         ((destinationStep - d_destinationFirstStep) / d_conversionFactor);
   }
 }
 

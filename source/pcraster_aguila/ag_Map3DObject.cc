@@ -158,8 +158,8 @@ void ag::Map3DObject::createHeightScene(const ag::DataObject& o,
   Raster const& heightRaster(o.rasterDataSources().data(h));
 
   // Check if there're enough cells in the raster.
-  if(!(heightRaster.dimensions().nrCols() >= 2 * d_quadLength + 1 &&
-       heightRaster.dimensions().nrRows() >= 2 * d_quadLength + 1)) {
+  if(!(heightRaster.dimensions().nrCols() >= (2 * d_quadLength) + 1 &&
+       heightRaster.dimensions().nrRows() >= (2 * d_quadLength) + 1)) {
     return;
   }
 
@@ -187,7 +187,7 @@ void ag::Map3DObject::createHeightScene(const ag::DataObject& o,
   GLfloat scale = d_scale;             // Scale for height values.
 
   dx = d_quadLength * heightRaster.dimensions().cellSize();
-  dy = minHeight + 0.5 * (maxHeight - minHeight);
+  dy = minHeight + (0.5 * (maxHeight - minHeight));
   dz = d_quadLength * heightRaster.dimensions().cellSize();
 
   setSize(heightRaster.dimensions().longitudinalExtent(), heightRaster.dimensions().latitudinalExtent(), maxHeight - minHeight);
@@ -217,14 +217,14 @@ void ag::Map3DObject::createHeightScene(const ag::DataObject& o,
   glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mat_shininess);
   glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, mat_emission);
 
-  cBack = -0.5 * heightRaster.dimensions().latitudinalExtent() + 0.5 * (d_quadLength + 1) * heightRaster.dimensions().cellSize();
+  cBack = (-0.5 * heightRaster.dimensions().latitudinalExtent()) + (0.5 * (d_quadLength + 1) * heightRaster.dimensions().cellSize());
 
   for(size_t row = 0; row < (heightRaster.dimensions().nrRows() - d_quadLength);
          row += d_quadLength) {
 
     glBegin(GL_TRIANGLE_STRIP);
-    cLeft  = -0.5 * heightRaster.dimensions().longitudinalExtent() +
-         0.5 * (d_quadLength + 1) * heightRaster.dimensions().cellSize();
+    cLeft  = (-0.5 * heightRaster.dimensions().longitudinalExtent()) +
+         (0.5 * (d_quadLength + 1) * heightRaster.dimensions().cellSize());
     cFront = cBack + dz;
 
     for(size_t col = 0; col < (heightRaster.dimensions().nrCols() - d_quadLength);
@@ -242,9 +242,9 @@ void ag::Map3DObject::createHeightScene(const ag::DataObject& o,
       }
       else {
 
-        zCurrent = zCurrent * scale - dy;
-        zFront   = zFront * scale - dy;
-        zRight   = zRight * scale - dy;
+        zCurrent = (zCurrent * scale) - dy;
+        zFront   = (zFront * scale) - dy;
+        zRight   = (zRight * scale) - dy;
 
         geo::normal<GLfloat>(cLeft, cBack, zCurrent, cLeft, cFront, zFront,
                    cRight, cBack, zRight, &nx, &ny, &nz);
@@ -362,8 +362,8 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject& dataObject,
   Raster const& heightRaster(dataObject.rasterDataSources().data(h));
 
   // Check if there're enough cells in the raster.
-  if(!(heightRaster.dimensions().nrCols() >= 2 * d_quadLength + 1 &&
-       heightRaster.dimensions().nrRows() >= 2 * d_quadLength + 1)) {
+  if(!(heightRaster.dimensions().nrCols() >= (2 * d_quadLength) + 1 &&
+       heightRaster.dimensions().nrRows() >= (2 * d_quadLength) + 1)) {
     return;
   }
 
@@ -473,7 +473,7 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject& dataObject,
     GLfloat scale = d_scale;             // Scale for height values.
 
     dx = d_quadLength * heightRaster.dimensions().cellSize();
-    dy = minHeight + 0.5 * (maxHeight - minHeight);
+    dy = minHeight + (0.5 * (maxHeight - minHeight));
     dz = d_quadLength * heightRaster.dimensions().cellSize();
 
     setSize(heightRaster.dimensions().longitudinalExtent(), heightRaster.dimensions().latitudinalExtent(), maxHeight - minHeight);
@@ -507,13 +507,13 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject& dataObject,
     glNewList(d_list, GL_COMPILE);
 
     // Draw the quads.
-    cBack = -0.5 * heightRaster.dimensions().latitudinalExtent() +
-                     0.5 * (d_quadLength + 1) * heightRaster.dimensions().cellSize();
+    cBack = (-0.5 * heightRaster.dimensions().latitudinalExtent()) +
+                     (0.5 * (d_quadLength + 1) * heightRaster.dimensions().cellSize());
 
     for(size_t r = firstRow; r <= lastRow; r += d_quadLength)
     {
-      cLeft  = -0.5 * heightRaster.dimensions().longitudinalExtent() +
-                     0.5 * (d_quadLength + 1) * heightRaster.dimensions().cellSize();
+      cLeft  = (-0.5 * heightRaster.dimensions().longitudinalExtent()) +
+                     (0.5 * (d_quadLength + 1) * heightRaster.dimensions().cellSize());
       cFront = cBack + dz;
 
       for(size_t c = firstCol; c <= lastCol; c += d_quadLength)

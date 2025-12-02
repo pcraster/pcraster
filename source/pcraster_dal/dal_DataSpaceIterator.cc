@@ -352,7 +352,7 @@ void DataSpaceIterator::initialiseOnLast(
           float const last = dimension.value<float>(1);
           float const interval = dimension.value<float>(2);
           d_setIndices[i] = round<float, size_t>((last - first) / interval);
-          d_address.setCoordinate<float>(i, first + d_setIndices[i] * interval);
+          d_address.setCoordinate<float>(i, first + (d_setIndices[i] * interval));
           // FEATURE replace above code by something like this:
           // d_address.setCoordinate<float>(i,
           //   round<float, size_t>((last - first) / interval));
@@ -501,7 +501,7 @@ void DataSpaceIterator::increment()
           float const last = dimension.value<float>(1);
           float const interval = dimension.value<float>(2);
           // FEATURE get rid of d_setIndices code here...
-          float const value = first + (d_setIndices[i - 1] + 1) * interval;
+          float const value = first + ((d_setIndices[i - 1] + 1) * interval);
           if(value < last || comparable<float>(value, last)) {
             ++d_setIndices[i - 1];
             d_address.setCoordinate<float>(i - 1, value);
@@ -620,7 +620,7 @@ void DataSpaceIterator::decrement()
           // if(d_address.coordinate<float>(i - 1) >= first + interval) {
             --d_setIndices[i - 1];
             d_address.setCoordinate<float>(i - 1,
-               first + d_setIndices[i - 1] * interval);
+               first + (d_setIndices[i - 1] * interval));
             // d_address.setCoordinate<float>(i - 1,
             //    d_address.coordinate<float>(i - 1) - interval);
             initialiseOnLast(i);

@@ -195,7 +195,7 @@ inline LinearLoc RasterDim::convert(const CellLoc& c) const
 
 inline LinearLoc RasterDim::convert(size_t row, size_t col) const
 {
-  return row * d_nrCols + col;
+  return ((row * d_nrCols)) + col;
 }
 
 /*!

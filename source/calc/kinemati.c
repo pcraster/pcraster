@@ -83,7 +83,7 @@ double IterateToQnew(double Qin,  /* summed Q new in for all sub-cachments */
   /* common terms */
   ab_pQ = alpha * beta * pow(((Qold + Qin) / 2), beta - 1);
   deltaTX = deltaT / deltaX;
-  C = deltaTX * Qin + alpha * pow(Qold, beta) + deltaT * q;
+  C = (deltaTX * Qin) + (alpha * pow(Qold, beta)) + (deltaT * q);
 
   /*  1. Initial guess Qk1.             */
   /*  2. Evaluate function f at Qkx.    */
@@ -98,14 +98,14 @@ double IterateToQnew(double Qin,  /* summed Q new in for all sub-cachments */
      */
   Qkx = (deltaTX * Qin + Qold * ab_pQ + deltaT * q) / (deltaTX + ab_pQ);
   Qkx = MAX(Qkx, 1e-30);                             /* added test-case calc::KinematicTest::iterate1 */
-  fQkx = deltaTX * Qkx + alpha * pow(Qkx, beta) - C; /* Current k */
-  dfQkx = deltaTX + alpha * beta * pow(Qkx, beta - 1); /* Current k */
+  fQkx = (deltaTX * Qkx) + (alpha * pow(Qkx, beta)) - C; /* Current k */
+  dfQkx = deltaTX + (alpha * beta * pow(Qkx, beta - 1)); /* Current k */
   Qkx -= fQkx / dfQkx;                                 /* Next k */
   Qkx = MAX(Qkx, 1e-30);
   count = 0;
   do {
-    fQkx = deltaTX * Qkx + alpha * pow(Qkx, beta) - C;   /* Current k */
-    dfQkx = deltaTX + alpha * beta * pow(Qkx, beta - 1); /* Current k */
+    fQkx = (deltaTX * Qkx) + (alpha * pow(Qkx, beta)) - C;   /* Current k */
+    dfQkx = deltaTX + (alpha * beta * pow(Qkx, beta - 1)); /* Current k */
     Qkx -= fQkx / dfQkx;                                 /* Next k */
     Qkx = MAX(Qkx, 1e-30);
     count++;

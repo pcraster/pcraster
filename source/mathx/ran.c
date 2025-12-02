@@ -149,9 +149,9 @@ double GasDev(void)
 
   if (!iset) {
     do {
-      v1 = 2.0 * Ran() - 1.0;
-      v2 = 2.0 * Ran() - 1.0;
-      r = v1 * v1 + v2 * v2;
+      v1 = (2.0 * Ran()) - 1.0;
+      v2 = (2.0 * Ran()) - 1.0;
+      r = (v1 * v1) + (v2 * v2);
     } while (r >= 1.0 || r == 0.0);
     fac = sqrt(-2.0 * log(r) / r);
     gset = v1 * fac;
@@ -400,10 +400,10 @@ static void start_random_number(int seed_a, int seed_b)
   unsigned int bit_number = 0;
 
   sd = collapse(seed_a, PM1 * PM1);
-  ii = 1 + sd / PM1;
-  jj = 1 + sd % PM1;
+  ii = 1 + (sd / PM1);
+  jj = 1 + (sd % PM1);
   sd = collapse(seed_b, PM1 * Q);
-  kk = 1 + sd / PM1;
+  kk = 1 + (sd / PM1);
   ll = sd % Q;
   if (ii == 1 && jj == 1 && kk == 1) {
     ii = 2;

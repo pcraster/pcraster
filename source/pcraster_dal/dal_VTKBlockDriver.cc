@@ -54,7 +54,7 @@ void VTKBlockDriver::cellData(
   // Store pointers to stacks for efficiency.
   for(long row = block.nrRows() - 1; row >= 0; --row) {
     for(size_t col = 0; col < block.nrCols(); ++col) {
-      i = row * block.nrCols() + col;
+      i = (row * block.nrCols()) + col;
       stacks[i] = &block.cell<std::vector<ValueType> >(i);
     }
   }
@@ -65,7 +65,7 @@ void VTKBlockDriver::cellData(
   for(size_t voxel = 0; voxel < nrVoxelsPerStack; ++voxel) {
     for(long row = block.nrRows() - 1; row >= 0; --row) {
       for(size_t col = 0; col < block.nrCols(); ++col) {
-        i = row * block.nrCols() + col;
+        i = (row * block.nrCols()) + col;
         result += " ";
         if(pcr::isMV((*stacks[i])[voxel])) {
           result += "-999";

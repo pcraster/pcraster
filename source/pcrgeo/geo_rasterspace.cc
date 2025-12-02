@@ -151,8 +151,8 @@ void geo::RasterSpace::rowCol2Coords(double row, double col, double &x, double &
 {
   double const yRow = d_cellSize * row;
   double const xCol = d_cellSize * col;
-  double const xCol_t = xCol * d_angleCos - yRow * d_angleSin;
-  double const yRow_t = xCol * d_angleSin + yRow * d_angleCos;
+  double const xCol_t = (xCol * d_angleCos) - (yRow * d_angleSin);
+  double const yRow_t = (xCol * d_angleSin) + (yRow * d_angleCos);
 
   x = d_left + xCol_t;
   if (d_projection == YIncrT2B) {
@@ -217,8 +217,8 @@ void geo::RasterSpace::coords2RowCol(double x, double y, double &row, double &co
   double const c = d_angleCos;    /* cos(t) == cos(-t) */
   double const s = -(d_angleSin); /* -sin(t) == sin(-t) */
 
-  col = xCol * c - yRow * s;
-  row = xCol * s + yRow * c;
+  col = (xCol * c) - (yRow * s);
+  row = (xCol * s) + (yRow * c);
 }
 
 //! Determines quadrant of cell where point \a x, \a y is located in.

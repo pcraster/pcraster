@@ -320,7 +320,7 @@ static void CalcRecordId(const MAP *out) /* file to use for co-ordinate
   for (i = 0; i < nrRecords; i++) {
     if (AppRgetRowCol(out, recList[i][POS_X], recList[i][POS_Y], &row, &col)) {
       /* coordinate is in the map, give linear ID */
-      long int cell_id = (long int)row * (long int)nrCols + (long int)col;
+      long int cell_id = ((long int)row * (long int)nrCols) + (long int)col;
       recList[i][POS_ID] = cell_id;
     } else {
       recList[i][POS_ID] = ID_NOT_IN_MAP;

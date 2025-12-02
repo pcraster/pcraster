@@ -252,7 +252,7 @@ inline void Vector::cell(
   if(!pcr::isMV(x) && !pcr::isMV(y)) {
     // TODO this template is instantiated for non-float types, hence the cast.
     // TODO update calling code to not instantiate for non-float types.
-    value = static_cast<T>(std::sqrt(double(x * x + y * y)));
+    value = static_cast<T>(std::sqrt(double((x * x) + (y * y))));
   }
   else {
     pcr::setMV(value);

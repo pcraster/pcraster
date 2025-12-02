@@ -622,7 +622,7 @@ inline T Dimension::coordinate(
     case RegularDiscretisation: {
       T first = this->template value<T>(0);
       T interval = this->template value<T>(2);
-      result = first + index * interval;
+      result = first + (index * interval);
       break;
     }
     default: {

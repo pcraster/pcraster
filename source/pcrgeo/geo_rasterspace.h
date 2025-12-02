@@ -217,15 +217,15 @@ inline double geo::RasterSpace::west() const
 { return d_left; }
 
 inline double geo::RasterSpace::east() const
-{ return d_left + nrCols() * d_cellSize; }
+{ return d_left + ((nrCols() * d_cellSize)); }
 
 inline double geo::RasterSpace::north() const
 { return d_top; }
 
 inline double geo::RasterSpace::south() const
 {
-  return d_projection == YIncrT2B ? d_top + nrRows() * d_cellSize
-                                  : d_top - nrRows() * d_cellSize;
+  return d_projection == YIncrT2B ? d_top + ((nrRows() * d_cellSize))
+                                  : d_top - ((nrRows() * d_cellSize));
 }
 
 inline double geo::RasterSpace::left() const

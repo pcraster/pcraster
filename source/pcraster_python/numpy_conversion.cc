@@ -39,7 +39,7 @@ void fill_data(char * data, calc::Field const* field, bool is_spatial, size_t nr
     }
     else {
         for (size_t i = 0; i < nr_values; ++i){
-            std::memcpy(data + i * sizeof(T), field->src(), sizeof(T));
+            std::memcpy(data + (i * sizeof(T)), field->src(), sizeof(T));
         }
     }
 }

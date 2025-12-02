@@ -427,7 +427,7 @@ VisGroup* Viewer::createMultiMapView(
 
     for(size_t row = 0; row < d_nrViewRows; ++row) {
       for(size_t col = 0; col < d_nrViewCols; ++col) {
-        viewId = row * d_nrViewCols + col;
+        viewId = (row * d_nrViewCols) + col;
 
         if(viewId < guideCollections.size()) {
           std::vector<DataGuide> const& guides(guideCollections[viewId]);

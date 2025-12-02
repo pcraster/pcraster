@@ -469,7 +469,7 @@ void RangeDrawPropertiesWidget::apply()
       assert(dal::greaterOrComparable(alpha, 0.0));
       borders.push_back(0.0);
       borders.push_back(0.5 * alpha);
-      borders.push_back(1.0 - 0.5 * alpha);
+      borders.push_back(1.0 - (0.5 * alpha));
       borders.push_back(1.0);
       userDefinedClassifier->setBorders(borders);
 

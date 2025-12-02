@@ -16,10 +16,10 @@ static double AactToLevel(double Aact, double Bw, double yc, double z, double FW
 {
   double const Acmax = (Bw + z * yc) * yc;
   if (Aact > Acmax) {
-    return yc + (Aact - Acmax) / FW;
+    return yc + ((Aact - Acmax) / FW);
   }
   if (z > 0) {
-    return (-Bw + std::sqrt(com::pow2(Bw) + 4 * z * Aact)) / (2 * z);  // abc-formula
+    return (-Bw + std::sqrt(com::pow2(Bw) + (4 * z * Aact))) / (2 * z);  // abc-formula
   }
   return Aact / Bw;
 }
@@ -29,7 +29,7 @@ static double LevelToAact(double y, double Bw, double yc, double z, double FW)
   if (y < yc) {
     return (Bw + z * y) * y;
   }
-  return (Bw + z * yc) * yc + (y - yc) * FW;
+  return ((Bw + z * yc) * yc) + ((y - yc) * FW);
 }
 
 static double LevelToAactStream(double y, double Bw, double z)
@@ -51,7 +51,7 @@ static double LevelToAactStream(double y, double Bw, double z)
 
 static double LevelToPStream(double y, double Bw, double z)
 {
-  return Bw + 2 * y * std::sqrt(1 + com::pow2(z));
+  return Bw + (2 * y * std::sqrt(1 + com::pow2(z)));
 }
 
 inline static double sqrtSf(double Sf)
@@ -236,7 +236,7 @@ extern "C" int DynamicWave(MAP_REAL8 *m_resultQ,    // scalar, new Q      [  , m
           if (check != -1) {
             return RetError(1, domains[check].msg().c_str());  // pcrcalc/test349
           }
-          if (!(FW[c] >= (Bw[c] + yc[c] * z[c]))) {
+          if (!(FW[c] >= (Bw[c] + (yc[c] * z[c])))) {
             return RetError(1,  // pcrcalc/test351
                             "FloodplainWidth not wider than bankfull channel width");
           }

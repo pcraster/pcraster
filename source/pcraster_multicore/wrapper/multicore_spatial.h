@@ -121,7 +121,7 @@ inline void Spatial<T>::set_cell(size_t index) const {
 
 template<class T>
 inline size_t Spatial<T>::index(size_t idx1, size_t idx2) const {
-  return idx1 * cols + idx2;
+  return (idx1 * cols) + idx2;
 }
 
 

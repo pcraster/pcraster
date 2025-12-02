@@ -130,7 +130,7 @@ void MultiMap2DWindow::addAttribute(size_t row, size_t col,
          DataGuide const& guide)
 {
   d_map->addAttribute(row, col, guide);
-  d_engines[row * d_map->nrCols() + col]->addAttribute(dataObject(), guide);
+  d_engines[(row * d_map->nrCols()) + col]->addAttribute(dataObject(), guide);
   visualisationEngine().addAttribute(dataObject(), guide);
 }
 

@@ -113,14 +113,14 @@ void geo::MooreNeighbourhood::addRing(size_t radius)
 
   size_t const upperLeft = this->radius() - radius;
 
-  for (size_t row = upperLeft; row < upperLeft + 2 * radius + 1; ++row) {
+  for (size_t row = upperLeft; row < upperLeft + (2 * radius) + 1; ++row) {
     cell(row, upperLeft) = 1.0;
-    cell(row, upperLeft + 2 * radius) = 1.0;
+    cell(row, upperLeft + (2 * radius)) = 1.0;
   }
 
-  for (size_t col = upperLeft + 1; col < upperLeft + 2 * radius; ++col) {
+  for (size_t col = upperLeft + 1; col < upperLeft + (2 * radius); ++col) {
     cell(upperLeft, col) = 1.0;
-    cell(upperLeft + 2 * radius, col) = 1.0;
+    cell(upperLeft + (2 * radius), col) = 1.0;
   }
 }
 

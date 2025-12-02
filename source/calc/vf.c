@@ -138,11 +138,11 @@ int vf_divergence(MAP_REAL8 *result, const MAP_REAL8 *vectorfieldx, const MAP_RE
 
         if (vectorfieldy->Get(&up, r - 1, c, vectorfieldy) &&
             vectorfieldy->Get(&down, r + 1, c, vectorfieldy)) {
-          res = res + (up - down) / (2 * dy);
+          res = res + ((up - down) / (2 * dy));
         } else if (vectorfieldy->Get(&up, r - 1, c, vectorfieldy)) {
-          res = res + (up) / dy;
+          res = res + ((up) / dy);
         } else if (vectorfieldy->Get(&down, r + 1, c, vectorfieldy)) {
-          res = res + (-down) / dy;
+          res = res + ((-down) / dy);
         }
 
         result->Put(res, r, c, result);
@@ -199,15 +199,15 @@ int vf_diver(MAP_REAL8 *result, const MAP_REAL8 *vectorfieldx, const MAP_REAL8 *
           vectorfieldy->Get(&valueUp, r + 1, c, vectorfieldy) &&
           vectorfieldy->Get(&valueDown, r + 1, c, vectorfieldy)) {
         deltay->Get(&dy, r, c, deltay);
-        result->Put(res + (valueUp - valueDown) / (2 * dy), r, c, result);
+        result->Put(res + ((valueUp - valueDown) / (2 * dy)), r, c, result);
       } else if (vectorfieldy->Get(&value, r, c, vectorfieldy) &&
                  vectorfieldy->Get(&valueUp, r + 1, c, vectorfieldy)) {
         deltay->Get(&dy, r, c, deltay);
-        result->Put(res + (valueUp - value) / dy, r, c, result);
+        result->Put(res + ((valueUp - value) / dy), r, c, result);
       } else if (vectorfieldy->Get(&value, r, c, vectorfieldy) &&
                  vectorfieldy->Get(&valueDown, r - 1, c, vectorfieldy)) {
         deltay->Get(&dy, r, c, deltay);
-        result->Put(res + (value - valueDown) / dy, r, c, result);
+        result->Put(res + ((value - valueDown) / dy), r, c, result);
       } else {
         result->PutMV(r, c, result);
       }
@@ -243,38 +243,38 @@ int vf_lax(MAP_REAL8 *result, MAP_REAL8 const *input, MAP_REAL8 const *fractMap)
       hh = 0;
       if (input->Get(&cellv, r, c, input) && fractMap->Get(&frac, r, c, fractMap)) {
         if (input->Get(&othercellv, r - 1, c - 1, input)) {
-          gg = gg + 2 * othercellv;
+          gg = gg + (2 * othercellv);
           hh = hh + 2;
         }
         if (input->Get(&othercellv, r - 1, c + 0, input)) {
-          gg = gg + 3 * othercellv;
+          gg = gg + (3 * othercellv);
           hh = hh + 3;
         }
         if (input->Get(&othercellv, r - 1, c + 1, input)) {
-          gg = gg + 2 * othercellv;
+          gg = gg + (2 * othercellv);
           hh = hh + 2;
         }
         if (input->Get(&othercellv, r + 0, c - 1, input)) {
-          gg = gg + 3 * othercellv;
+          gg = gg + (3 * othercellv);
           hh = hh + 3;
         }
         if (input->Get(&othercellv, r + 0, c + 1, input)) {
-          gg = gg + 3 * othercellv;
+          gg = gg + (3 * othercellv);
           hh = hh + 3;
         }
         if (input->Get(&othercellv, r + 1, c - 1, input)) {
-          gg = gg + 2 * othercellv;
+          gg = gg + (2 * othercellv);
           hh = hh + 2;
         }
         if (input->Get(&othercellv, r + 1, c + 0, input)) {
-          gg = gg + 3 * othercellv;
+          gg = gg + (3 * othercellv);
           hh = hh + 3;
         }
         if (input->Get(&othercellv, r + 1, c + 1, input)) {
-          gg = gg + 2 * othercellv;
+          gg = gg + (2 * othercellv);
           hh = hh + 2;
         }
-        result->Put((1 - frac) * cellv + frac * (gg / hh), r, c, result);
+        result->Put(((1 - frac) * cellv) + (frac * (gg / hh)), r, c, result);
       } else {
         result->PutMV(r, c, result);
       }
@@ -304,44 +304,44 @@ extern int vf_laplacian(MAP_REAL8 *result, const MAP_REAL8 *scalar)
       gg = 0;
       if (scalar->Get(&value, r + 0, c + 0, scalar)) {
         if (scalar->Get(&neighbour, r - 1, c - 1, scalar)) {
-          gg = gg + 2 * neighbour;
+          gg = gg + (2 * neighbour);
         } else {
-          gg = gg + 2 * value;
+          gg = gg + (2 * value);
         }
         if (scalar->Get(&neighbour, r - 1, c + 0, scalar)) {
-          gg = gg + 3 * neighbour;
+          gg = gg + (3 * neighbour);
         } else {
-          gg = gg + 3 * value;
+          gg = gg + (3 * value);
         }
         if (scalar->Get(&neighbour, r - 1, c + 1, scalar)) {
-          gg = gg + 2 * neighbour;
+          gg = gg + (2 * neighbour);
         } else {
-          gg = gg + 2 * value;
+          gg = gg + (2 * value);
         }
         if (scalar->Get(&neighbour, r + 0, c - 1, scalar)) {
-          gg = gg + 3 * neighbour;
+          gg = gg + (3 * neighbour);
         } else {
-          gg = gg + 3 * value;
+          gg = gg + (3 * value);
         }
         if (scalar->Get(&neighbour, r + 0, c + 1, scalar)) {
-          gg = gg + 3 * neighbour;
+          gg = gg + (3 * neighbour);
         } else {
-          gg = gg + 3 * value;
+          gg = gg + (3 * value);
         }
         if (scalar->Get(&neighbour, r + 1, c - 1, scalar)) {
-          gg = gg + 2 * neighbour;
+          gg = gg + (2 * neighbour);
         } else {
-          gg = gg + 2 * value;
+          gg = gg + (2 * value);
         }
         if (scalar->Get(&neighbour, r + 1, c + 0, scalar)) {
-          gg = gg + 3 * neighbour;
+          gg = gg + (3 * neighbour);
         } else {
-          gg = gg + 3 * value;
+          gg = gg + (3 * value);
         }
         if (scalar->Get(&neighbour, r + 1, c + 1, scalar)) {
-          gg = gg + 2 * neighbour;
+          gg = gg + (2 * neighbour);
         } else {
-          gg = gg + 2 * value;
+          gg = gg + (2 * value);
         }
         result->Put((gg - 20 * value) / (dx * dx), r, c, result);
       } else {

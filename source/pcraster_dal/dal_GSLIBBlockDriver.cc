@@ -125,7 +125,7 @@ void GSLIBBlockDriver::write(
   // Store pointers to stacks for efficiency.
   for(long row = block.nrRows() - 1; row >= 0; --row) {
     for(size_t col = 0; col < block.nrCols(); ++col) {
-      i = row * block.nrCols() + col;
+      i = (row * block.nrCols()) + col;
       stacks[i] = &block.cell<std::vector<T> >(i);
     }
   }
@@ -133,7 +133,7 @@ void GSLIBBlockDriver::write(
   for(size_t voxel = 0; voxel < nrVoxelsPerStack; ++voxel) {
     for(long row = block.nrRows() - 1; row >= 0; --row) {
       for(size_t col = 0; col < block.nrCols(); ++col) {
-        i = row * block.nrCols() + col;
+        i = (row * block.nrCols()) + col;
         if(pcr::isMV((*stacks[i])[voxel])) {
           stream << std::numeric_limits<T>::min() << '\n';
         }
@@ -161,7 +161,7 @@ void GSLIBBlockDriver::write<UINT1>(
   // Store pointers to stacks for efficiency.
   for(long row = block.nrRows() - 1; row >= 0; --row) {
     for(size_t col = 0; col < block.nrCols(); ++col) {
-      i = row * block.nrCols() + col;
+      i = (row * block.nrCols()) + col;
       stacks[i] = &block.cell<std::vector<UINT1> >(i);
     }
   }
@@ -169,7 +169,7 @@ void GSLIBBlockDriver::write<UINT1>(
   for(size_t voxel = 0; voxel < nrVoxelsPerStack; ++voxel) {
     for(long row = block.nrRows() - 1; row >= 0; --row) {
       for(size_t col = 0; col < block.nrCols(); ++col) {
-        i = row * block.nrCols() + col;
+        i = (row * block.nrCols()) + col;
         if(pcr::isMV((*stacks[i])[voxel])) {
           stream << 255 << '\n';
         }

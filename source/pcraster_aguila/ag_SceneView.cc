@@ -252,7 +252,7 @@ void ag::SceneView::resetViewport(int w, int h)
                    d_data->d_userCamera->x(), d_data->d_userCamera->y(),
                    d_data->d_userCamera->z());
     GLfloat const aspect = static_cast<GLfloat>(w) / h;
-    GLfloat const d = std::sqrt(widthScene() * widthScene() +
+    GLfloat const d = std::sqrt((widthScene() * widthScene()) +
                    depthScene() + depthScene());
     detail::glu_perspective(fovy, aspect, 0.05 * d, 5.0 * d);
     d_data->d_userCamera->setSize(0.1 * d, 0.3 * d, 0.1 * d);
@@ -362,7 +362,7 @@ void ag::SceneView::reset()
 void ag::SceneView::setInitHead(double x, double y, double z)
 {
   d_data->d_userCamera->setInitPosition(x, y, z);
-  d_data->d_step = std::sqrt(x * x + y * y + z * z) / 20;
+  d_data->d_step = std::sqrt((x * x) + (y * y) + (z * z)) / 20;
 }
 
 
@@ -806,7 +806,7 @@ void ag::SceneView::installCamera(Camera c)
     GLfloat yaw = NAN;
     GLfloat pitch = NAN;
     GLfloat roll = NAN;
-    GLfloat const d = 4.0 * std::sqrt(widthScene() * widthScene() +
+    GLfloat const d = 4.0 * std::sqrt((widthScene() * widthScene()) +
                    depthScene() + depthScene());
 
     if(c == TOP) {

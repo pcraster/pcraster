@@ -71,8 +71,8 @@ std::tuple<QTransform, QTransform> MapDrawer::mappers(
 
   double const x = (_overallDimensions.east() - _overallDimensions.west()) /(envelopeInPixels.right() - envelopeInPixels.left()) ;
   double const y = -1.0 * std::fabs((_overallDimensions.south()  -_overallDimensions.north()) / (envelopeInPixels.bottom() - envelopeInPixels.top()));
-  double const dx = -1*x*(envelopeInPixels.left())  + _overallDimensions.west() ;
-  double const dy = -1*y*(envelopeInPixels.top()) + _overallDimensions.north();
+  double const dx = (-1*x*(envelopeInPixels.left()))  + _overallDimensions.west() ;
+  double const dy = (-1*y*(envelopeInPixels.top())) + _overallDimensions.north();
 
   QTransform  const screen_to_world = QTransform(x, 0.0, 0.0, 0.0, y, 0.0, dx, dy, 1.0);
   QTransform  const world_to_screen= screen_to_world.inverted();

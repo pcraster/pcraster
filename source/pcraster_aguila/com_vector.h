@@ -212,9 +212,9 @@ inline Vector<T> Vector<T>::cross(const Vector& v1, const Vector& v2)
   assert(v2.d_size == 3);
 
   Vector<T> const v(3);
-  v.d_data[0] = v1.d_data[1] * v2.d_data[2] - v1.d_data[2] * v2.d_data[1];
-  v.d_data[1] = v1.d_data[2] * v2.d_data[0] - v1.d_data[0] * v2.d_data[2];
-  v.d_data[2] = v1.d_data[0] * v2.d_data[1] - v1.d_data[1] * v2.d_data[0];
+  v.d_data[0] = (v1.d_data[1] * v2.d_data[2]) - (v1.d_data[2] * v2.d_data[1]);
+  v.d_data[1] = (v1.d_data[2] * v2.d_data[0]) - (v1.d_data[0] * v2.d_data[2]);
+  v.d_data[2] = (v1.d_data[0] * v2.d_data[1]) - (v1.d_data[1] * v2.d_data[0]);
   return v;
 }
 

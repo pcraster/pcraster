@@ -217,7 +217,7 @@ inline bool IRaster<T>::isOutside(int row, int col) const
 template<class T>
 inline size_t IRaster<T>::index(size_t row, size_t col) const
 {
-  return row*nrCols()+col;
+  return (row*nrCols())+col;
 }
 
 template<class T>

@@ -568,7 +568,7 @@ inline T& SimpleRaster<T>::cell(size_t r, size_t c)
     PRECOND(r < nrRows() && c < nrCols());
 #endif
 
-  return d_values[r * nrCols() + c];
+  return d_values[((r * nrCols())) + c];
 }
 
 //! Returns a read-only reference to a cell value.
@@ -586,7 +586,7 @@ inline const T& SimpleRaster<T>::cell(size_t r, size_t c) const
   PRECOND(r < nrRows() && c < nrCols());
 #endif
 
-  return d_values[r * nrCols() + c];
+  return d_values[((r * nrCols())) + c];
 }
 
 /*!

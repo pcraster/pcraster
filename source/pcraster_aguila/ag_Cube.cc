@@ -77,9 +77,9 @@ void ag::Cube::createList()
   GLfloat blue[4]     = { 0.0, 0.0, 1.0, 1.0 };
   GLfloat emission[4] = { 0.25, 0.25, 0.25, 1.0 };
 
-  GLfloat const x  = SceneObject::x() - 0.5 * width();
-  GLfloat const y  = SceneObject::y() - 0.5 * height();
-  GLfloat const z  = SceneObject::z() - 0.5 * depth();
+  GLfloat const x  = SceneObject::x() - (0.5 * width());
+  GLfloat const y  = SceneObject::y() - (0.5 * height());
+  GLfloat const z  = SceneObject::z() - (0.5 * depth());
 
   size_t const n   = 10;
   GLfloat const dx = width() / n;
@@ -103,10 +103,10 @@ void ag::Cube::createList()
     glNormal3f(0, 0, 1);
     for(size_t i = 0; i < n; ++i) {
       for(size_t j = 0; j < n; ++j) {
-        glVertex3f(x      + i * dx, y + dy + j * dy, z + depth());
-        glVertex3f(x      + i * dx, y      + j * dy, z + depth());
-        glVertex3f(x + dx + i * dx, y      + j * dy, z + depth());
-        glVertex3f(x + dx + i * dx, y + dy + j * dy, z + depth());
+        glVertex3f(x      + (i * dx), y + dy + (j * dy), z + depth());
+        glVertex3f(x      + (i * dx), y      + (j * dy), z + depth());
+        glVertex3f(x + dx + (i * dx), y      + (j * dy), z + depth());
+        glVertex3f(x + dx + (i * dx), y + dy + (j * dy), z + depth());
       }
     }
 
@@ -114,10 +114,10 @@ void ag::Cube::createList()
     glNormal3f(0, 0, -1);
     for(size_t i = 0; i < n; ++i) {
       for(size_t j = 0; j < n; ++j) {
-        glVertex3f(x      + i * dx, y + dy + j * dy, z);
-        glVertex3f(x + dx + i * dx, y + dy + j * dy, z);
-        glVertex3f(x + dx + i * dx, y      + j * dy, z);
-        glVertex3f(x      + i * dx, y      + j * dy, z);
+        glVertex3f(x      + (i * dx), y + dy + (j * dy), z);
+        glVertex3f(x + dx + (i * dx), y + dy + (j * dy), z);
+        glVertex3f(x + dx + (i * dx), y      + (j * dy), z);
+        glVertex3f(x      + (i * dx), y      + (j * dy), z);
       }
     }
 
@@ -127,10 +127,10 @@ void ag::Cube::createList()
     glNormal3f(-1, 0, 0);
     for(size_t i = 0; i < n; ++i) {
       for(size_t j = 0; j < n; ++j) {
-        glVertex3f(x, y      + i * dy, z      + j * dz);
-        glVertex3f(x, y      + i * dy, z + dz + j * dz);
-        glVertex3f(x, y + dy + i * dy, z + dz + j * dz);
-        glVertex3f(x, y + dy + i * dy, z      + j * dz);
+        glVertex3f(x, y      + (i * dy), z      + (j * dz));
+        glVertex3f(x, y      + (i * dy), z + dz + (j * dz));
+        glVertex3f(x, y + dy + (i * dy), z + dz + (j * dz));
+        glVertex3f(x, y + dy + (i * dy), z      + (j * dz));
       }
     }
 
@@ -138,10 +138,10 @@ void ag::Cube::createList()
     glNormal3f(1, 0, 0);
     for(size_t i = 0; i < n; ++i) {
       for(size_t j = 0; j < n; ++j) {
-        glVertex3f(x + width(), y      + i * dy, z      + j * dz);
-        glVertex3f(x + width(), y + dy + i * dy, z      + j * dz);
-        glVertex3f(x + width(), y + dy + i * dy, z + dz + j * dz);
-        glVertex3f(x + width(), y      + i * dy, z + dz + j * dz);
+        glVertex3f(x + width(), y      + (i * dy), z      + (j * dz));
+        glVertex3f(x + width(), y + dy + (i * dy), z      + (j * dz));
+        glVertex3f(x + width(), y + dy + (i * dy), z + dz + (j * dz));
+        glVertex3f(x + width(), y      + (i * dy), z + dz + (j * dz));
       }
     }
 
@@ -151,10 +151,10 @@ void ag::Cube::createList()
     glNormal3f(0, 1, 0);
     for(size_t i = 0; i < n; ++i) {
       for(size_t j = 0; j < n; ++j) {
-        glVertex3f(x      + i * dx, y + height(), z      + j * dz);
-        glVertex3f(x      + i * dx, y + height(), z + dz + j * dz);
-        glVertex3f(x + dx + i * dx, y + height(), z + dz + j * dz);
-        glVertex3f(x + dx + i * dx, y + height(), z      + j * dz);
+        glVertex3f(x      + (i * dx), y + height(), z      + (j * dz));
+        glVertex3f(x      + (i * dx), y + height(), z + dz + (j * dz));
+        glVertex3f(x + dx + (i * dx), y + height(), z + dz + (j * dz));
+        glVertex3f(x + dx + (i * dx), y + height(), z      + (j * dz));
       }
     }
 
@@ -162,10 +162,10 @@ void ag::Cube::createList()
     glNormal3f(0, -1, 0);
     for(size_t i = 0; i < n; ++i) {
       for(size_t j = 0; j < n; ++j) {
-        glVertex3f(x      + i * dx, y, z      + j * dz);
-        glVertex3f(x + dx + i * dx, y, z      + j * dz);
-        glVertex3f(x + dx + i * dx, y, z + dz + j * dz);
-        glVertex3f(x      + i * dx, y, z + dz + j * dz);
+        glVertex3f(x      + (i * dx), y, z      + (j * dz));
+        glVertex3f(x + dx + (i * dx), y, z      + (j * dz));
+        glVertex3f(x + dx + (i * dx), y, z + dz + (j * dz));
+        glVertex3f(x      + (i * dx), y, z + dz + (j * dz));
       }
     }
 

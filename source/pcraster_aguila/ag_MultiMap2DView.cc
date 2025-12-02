@@ -117,8 +117,8 @@ void MultiMap2DView::createInterface()
 */
 void MultiMap2DView::setLabel(size_t row, size_t col)
 {
-  QLineEdit* label = std::get<0>(d_mapViews[row * d_nrCols + col]);
-  Map2DView const* view = std::get<1>(d_mapViews[row * d_nrCols + col]);
+  QLineEdit* label = std::get<0>(d_mapViews[(row * d_nrCols) + col]);
+  Map2DView const* view = std::get<1>(d_mapViews[(row * d_nrCols) + col]);
 
   if(!label->isModified()) {
 
@@ -148,7 +148,7 @@ void MultiMap2DView::addAttribute(DataGuide const& guide)
 void MultiMap2DView::addAttribute(size_t row, size_t col,
          DataGuide const& guide)
 {
-  std::get<1>(d_mapViews[row * d_nrCols + col])->addAttribute(guide);
+  std::get<1>(d_mapViews[(row * d_nrCols) + col])->addAttribute(guide);
   setLabel(row, col);
 }
 

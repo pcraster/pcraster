@@ -172,7 +172,7 @@ void RangeLegendBody::paintKeyLegend()
 
   // Values -> pixels.
   double const y_factor = -1.0 * keyBoxHeight() / (_drawProperties.maxCutoff() - _drawProperties.minCutoff()) ;
-  double const y_offset = keyBoxHeight() - _drawProperties.minCutoff() * y_factor;
+  double const y_offset = keyBoxHeight() - (_drawProperties.minCutoff() * y_factor);
 
   QTransform const map = QTransform(0, 0, 0, 0, y_factor, 0, 0, y_offset, 1);
 
@@ -238,7 +238,7 @@ void RangeLegendBody::paintVectorLegend()
 
   // Values -> pixels.
   double const delta = -1.0 * keyBoxHeight() / (_drawProperties.maxCutoff() - _drawProperties.minCutoff()) ;
-  double const y_offset = keyBoxHeight() - _drawProperties.minCutoff() * delta;
+  double const y_offset = keyBoxHeight() - (_drawProperties.minCutoff() * delta);
 
   QTransform const map = QTransform(0, 0, 0, 0, delta, 0, 0, y_offset, 1);
 
@@ -347,7 +347,7 @@ void RangeLegendBody::paintLabels(
     double classHeightInPixels = map.map(QPointF(0, borders[1])).y() -
        map.map(QPointF(0, borders[0])).y();
     bottom = keyBoxOffset().height() + qRound(map.map(QPointF(0, borders[0])).y() +
-       classHeightInPixels / 2.0);
+       (classHeightInPixels / 2.0));
     painter.drawText(right + labelOffset().width(),
             bottom + labelOffset().height(),
             _drawProperties.probabilityScale() ==
@@ -359,7 +359,7 @@ void RangeLegendBody::paintLabels(
     classHeightInPixels = map.map(QPointF(0, borders[2])).y() -
        map.map(QPointF(0, borders[1])).y();
     bottom = keyBoxOffset().height() + qRound(map.map(QPointF(0, borders[1])).y() +
-       classHeightInPixels / 2.0);
+       (classHeightInPixels / 2.0));
     painter.drawText(right + labelOffset().width(),
             bottom + labelOffset().height(), "Not distinguishable");
 
@@ -367,7 +367,7 @@ void RangeLegendBody::paintLabels(
     classHeightInPixels = map.map(QPointF(0, borders[3])).y() -
        map.map(QPointF(0, borders[2])).y();
     bottom = keyBoxOffset().height() + qRound(map.map(QPointF(0, borders[2])).y() +
-       classHeightInPixels / 2.0);
+       (classHeightInPixels / 2.0));
     painter.drawText(right + labelOffset().width(),
             bottom + labelOffset().height(),
             _drawProperties.probabilityScale() ==

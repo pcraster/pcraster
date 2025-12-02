@@ -243,8 +243,8 @@ void BCF::calcVCond(std::stringstream &aStream, size_t layer, const std::string 
                            + (thickLower / d_mf->d_vCond->cell(i)[layer-2]);
 
       if(std::isfinite(denominator) == 0){
-        int const row = 1 + i / d_mf->d_nrOfColumns;
-        int const col = 1 + i % d_mf->d_nrOfColumns;
+        int const row = 1 + (i / d_mf->d_nrOfColumns);
+        int const col = 1 + (i % d_mf->d_nrOfColumns);
         std::stringstream stmp;
         stmp << "Can not calculate VCONT in row " << row << " cell " << col << ", divsion by 0? " << '\n';
         d_mf->d_cmethods->error(stmp.str(), "run");
@@ -267,8 +267,8 @@ void BCF::calcVCond(std::stringstream &aStream, size_t layer, const std::string 
                            + (thickLower/d_mf->d_vCond->cell(i)[layer-1]);
 
       if(std::isfinite(denominator) == 0){
-        int const row = 1 + i / d_mf->d_nrOfColumns;
-        int const col = 1 + i % d_mf->d_nrOfColumns;
+        int const row = 1 + (i / d_mf->d_nrOfColumns);
+        int const col = 1 + (i % d_mf->d_nrOfColumns);
         std::stringstream stmp;
         stmp << "Can not calculate VCONT in row " << row << " cell " << col << ", divsion by 0? " << '\n';
         d_mf->d_cmethods->error(stmp.str(), "run");
@@ -421,7 +421,7 @@ void BCF::get_binary(float *values, const std::string& description, size_t start
 
   // first we should check if the requested content is at 'that' position...
   // 36 metadata; 16 2 * block markers
-  int const skip_bytes_until_block = mf::recordMarkerSize + start * (36 + 16 + nr_cells * nr_result_layer * nr_bytes);
+  int const skip_bytes_until_block = mf::recordMarkerSize + (start * (36 + 16 + nr_cells * nr_result_layer * nr_bytes));
 
   file.seekg(skip_bytes_until_block);
 
@@ -441,7 +441,7 @@ void BCF::get_binary(float *values, const std::string& description, size_t start
 
   // jump to the right block and position, skip the metadata, block marker;
   // multiplier holds layer number of the layer we are interested in
-  size_t const new_pos = skip_bytes_until_block + 36 + 8 + nr_cells * multiplier * nr_bytes;
+  size_t const new_pos = skip_bytes_until_block + 36 + 8 + (nr_cells * multiplier * nr_bytes);
   file.seekg(new_pos);
 
   char *charData = new char[nr_cells * nr_bytes];
@@ -949,8 +949,8 @@ void BCF::write_vcond(std::string const& path)  {
                                 + (thickLower / d_mf->d_vCond->cell(i)[blockLayer-2]);
 
             if(std::isfinite(denominator) == 0){
-              int const row = 1 + i / d_mf->d_nrOfColumns;
-              int const col = 1 + i % d_mf->d_nrOfColumns;
+              int const row = 1 + (i / d_mf->d_nrOfColumns);
+              int const col = 1 + (i % d_mf->d_nrOfColumns);
               std::stringstream stmp;
               stmp << "Can not calculate VCONT in row " << row << " cell " << col << ", divsion by 0? " << '\n';
               d_mf->d_cmethods->error(stmp.str(), "run");
@@ -978,8 +978,8 @@ void BCF::write_vcond(std::string const& path)  {
                                 + (thickLower/d_mf->d_vCond->cell(i)[blockLayer-1]);
 
             if(std::isfinite(denominator) == 0){
-              int const row = 1 + i / d_mf->d_nrOfColumns;
-              int const col = 1 + i % d_mf->d_nrOfColumns;
+              int const row = 1 + (i / d_mf->d_nrOfColumns);
+              int const col = 1 + (i % d_mf->d_nrOfColumns);
               std::stringstream stmp;
               stmp << "Can not calculate VCONT in row " << row << " cell " << col << ", divsion by 0? " << '\n';
               d_mf->d_cmethods->error(stmp.str(), "run");

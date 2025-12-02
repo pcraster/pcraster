@@ -69,8 +69,8 @@ geo::BandMap::BandMap(const com::PathName &pn, const RasterSpace &rs, CSF_CR cel
       d_cellRepr(cellRepr == CR_INT4 ? CR_INT2 : cellRepr), d_hasHostByteOrder(true), d_layout(BIL),
       d_skipBytes(0),  // d_bandGapBytes(0),
       d_bandRowBytes(d_nrCols * CELLSIZE(d_cellRepr)), d_totalRowBytes(d_nrCols * CELLSIZE(d_cellRepr)),
-      d_cellSize(rs.cellSize()), d_ulXMap(rs.left() + 0.5 * d_cellSize),
-      d_ulYMap(rs.top() - 0.5 * d_cellSize), d_mvIsSet(mvIsSet), d_mvValue(mvValue)
+      d_cellSize(rs.cellSize()), d_ulXMap(rs.left() + (0.5 * d_cellSize)),
+      d_ulYMap(rs.top() - (0.5 * d_cellSize)), d_mvIsSet(mvIsSet), d_mvValue(mvValue)
 {
   bool const supportedCellRepr =
       d_cellRepr == CR_UINT1 || d_cellRepr == CR_INT2 || d_cellRepr == CR_REAL4;
@@ -424,7 +424,7 @@ geo::RasterSpace geo::BandMap::rasterSpace() const
    |_|_|_
    ^ lowest y value
   */
-  return {d_nrRows, d_nrCols, d_cellSize, d_ulXMap - 0.5 * d_cellSize, d_ulYMap + 0.5 * d_cellSize,
+  return {d_nrRows, d_nrCols, d_cellSize, d_ulXMap - (0.5 * d_cellSize), d_ulYMap + (0.5 * d_cellSize),
           YIncrB2T};
 }
 

@@ -596,25 +596,25 @@ void pt::ParticleTracker::generateDistribution(
 
           // Calculate coordinates of p1.
           p1[0] = left + d3;
-          p1[1] = top + sign * d3;
+          p1[1] = top + (sign * d3);
           p1.setBirthCell(row, col);
           p1.setConcentration(conc.cell(row, col));
 
           // Calculate coordinates of p2.
           p2[0] = right - d3;
-          p2[1] = top + sign * d3;
+          p2[1] = top + (sign * d3);
           p2.setBirthCell(row, col);
           p2.setConcentration(conc.cell(row, col));
 
           // Calculate coordinates of p3.
           p3[0] = right - d3;
-          p3[1] = bottom - sign * d3;
+          p3[1] = bottom - (sign * d3);
           p3.setBirthCell(row, col);
           p3.setConcentration(conc.cell(row, col));
 
           // Calculate coordinates of p4.
           p4[0] = left + d3;
-          p4[1] = bottom - sign * d3;
+          p4[1] = bottom - (sign * d3);
           p4.setBirthCell(row, col);
           p4.setConcentration(conc.cell(row, col));
 
@@ -685,25 +685,25 @@ void pt::ParticleTracker::generateDistribution(
 
           // Calculate coordinates of p1.
           p1[0] = left + d2;
-          p1[1] = top + sign * d3;
+          p1[1] = top + (sign * d3);
           p1.setBirthCell(row, col);
           p1.setConcentration(conc.cell(row, col));
 
           // Calculate coordinates of p2.
           p2[0] = right - d3;
-          p2[1] = top + sign * d2;
+          p2[1] = top + (sign * d2);
           p2.setBirthCell(row, col);
           p2.setConcentration(conc.cell(row, col));
 
           // Calculate coordinates of p3.
           p3[0] = left + d2;
-          p3[1] = bottom - sign * d3;
+          p3[1] = bottom - (sign * d3);
           p3.setBirthCell(row, col);
           p3.setConcentration(conc.cell(row, col));
 
           // Calculate coordinates of p4.
           p4[0] = left + d3;
-          p4[1] = top + sign * d2;
+          p4[1] = top + (sign * d2);
           p4.setBirthCell(row, col);
           p4.setConcentration(conc.cell(row, col));
 
@@ -1445,7 +1445,7 @@ void pt::ParticleTracker::changeInConcentrations(
          satThickness, satThicknessPrevious, timeIncrement, *visitor);
       POSTCOND(!pcr::isMV(gradient1));
       POSTCOND(!pcr::isMV(gradient2));
-      deltaConc.cell(*visitor) = factor * gradient1 + factor * gradient2;
+      deltaConc.cell(*visitor) = (factor * gradient1) + (factor * gradient2);
 
       if(deltaConc.cell(*visitor) < 0.0) {
 
@@ -2327,7 +2327,7 @@ void pt::ParticleTracker::adjustConcentration(const geo::CellLoc& loc,
           _particles.begin(loc); it != _particles.end(loc); ++it) {
         PRECOND((*it).concentration() >= 0.0);
         (*it).setConcentration((*it).concentration() +
-            percentage * (*it).concentration());
+            (percentage * (*it).concentration()));
         POSTCOND((*it).concentration() >= 0.0);
       }
     }
@@ -2373,7 +2373,7 @@ void pt::ParticleTracker::adjustConcentration(
           _particles.begin(*loc); it != _particles.end(*loc); ++it) {
         PRECOND((*it).concentration() >= 0.0);
         (*it).setConcentration((*it).concentration() +
-            adjustConc.cell(*loc) * (*it).concentration());
+            (adjustConc.cell(*loc) * (*it).concentration()));
         POSTCOND((*it).concentration() >= 0.0);
       }
     }

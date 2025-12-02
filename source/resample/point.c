@@ -197,8 +197,8 @@ void ModRaster(RASTER *raster,            /* read-write raster */
       }
 
       /* take center of subpixel -> + 05 * step */
-      point[0].x = out[0].x + i * stepX + 0.5 * stepX;
-      point[0].y = out[0].y + j * stepY + 0.5 * stepY;
+      point[0].x = out[0].x + (i * stepX) + (0.5 * stepX);
+      point[0].y = out[0].y + (j * stepY) + (0.5 * stepY);
 
       PRECOND(in[0].x == in[nrPoints].x);
       PRECOND(in[0].y == in[nrPoints].y);
@@ -206,7 +206,7 @@ void ModRaster(RASTER *raster,            /* read-write raster */
       if (PointInPolygon(point, in, nrPoints))
       /* subpixel is covered by input cell */
       {
-        SetBit1(raster->field, ((int)(i * raster->rasterSize + j)));
+        SetBit1(raster->field, ((int)((i * raster->rasterSize) + j)));
         raster->count++;
         if (raster->nrCoverCells <= raster->count) {
           raster->covered = true;

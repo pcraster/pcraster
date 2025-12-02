@@ -502,7 +502,7 @@ const ag::Quaternion& ag::SceneObject::quaternion() const
 */
 GLfloat ag::SceneObject::left() const
 {
-  return x() - 0.5 * width();
+  return x() - (0.5 * width());
 }
 
 
@@ -515,7 +515,7 @@ GLfloat ag::SceneObject::left() const
 */
 GLfloat ag::SceneObject::right() const
 {
-  return x() + 0.5 * width();
+  return x() + (0.5 * width());
 }
 
 
@@ -528,7 +528,7 @@ GLfloat ag::SceneObject::right() const
 */
 GLfloat ag::SceneObject::front() const
 {
-  return z() + 0.5 * depth();
+  return z() + (0.5 * depth());
 }
 
 
@@ -541,7 +541,7 @@ GLfloat ag::SceneObject::front() const
 */
 GLfloat ag::SceneObject::back() const
 {
-  return z() - 0.5 * depth();
+  return z() - (0.5 * depth());
 }
 
 
@@ -554,7 +554,7 @@ GLfloat ag::SceneObject::back() const
 */
 GLfloat ag::SceneObject::top() const
 {
-  return y() + 0.5 * height();
+  return y() + (0.5 * height());
 }
 
 
@@ -567,7 +567,7 @@ GLfloat ag::SceneObject::top() const
 */
 GLfloat ag::SceneObject::bottom() const
 {
-  return y() - 0.5 * height();
+  return y() - (0.5 * height());
 }
 
 

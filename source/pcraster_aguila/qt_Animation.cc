@@ -362,7 +362,7 @@ size_t qt::Animation::nrSteps() const
   }
   else {
     assert(d_last >= d_first);
-    return 1 + (d_last - d_first) / d_stepInterval;
+    return 1 + ((d_last - d_first) / d_stepInterval);
   }
 }
 

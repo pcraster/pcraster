@@ -38,8 +38,8 @@ void qt::center(const QWidget &w1, QWidget &w2)
 
   if(g1.isValid() && g2.isValid())
   {
-    int const x = std::max<int>(w1.x(), w1.x() + (g1.width()  - g2.width())  / 2);
-    int const y = std::max<int>(w1.y(), w1.y() + (g1.height() - g2.height()) / 2);
+    int const x = std::max<int>(w1.x(), w1.x() + ((g1.width()  - g2.width())  / 2));
+    int const y = std::max<int>(w1.y(), w1.y() + ((g1.height() - g2.height()) / 2));
     w2.setGeometry(x, y, w2.width(), w2.height());
   }
 }

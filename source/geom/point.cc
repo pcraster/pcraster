@@ -647,7 +647,7 @@ double AreaOfPolygon(const POINT2D *p, /* the polygon */
 
     for (i = 0; i < nr; i++)
         a +=
-            LDouble(p[i].x) * LDouble(p[i + 1].y) - LDouble(p[i].y) * LDouble(p[i + 1].x);
+            (LDouble(p[i].x) * LDouble(p[i + 1].y)) - (LDouble(p[i].y) * LDouble(p[i + 1].x));
     a /= -2;
     return ((double)std::abs(a));
 }
@@ -694,7 +694,7 @@ double CWAngle(const POINT2D *p) /* the point */
     if (p->y == 0) {
         if (p->x > 0)
             return (std::numbers::pi / 2);
-        return (std::numbers::pi + std::numbers::pi / 2);
+        return (std::numbers::pi + (std::numbers::pi / 2));
     }
 
     angle = atan2(p->x, p->y);

@@ -240,7 +240,7 @@ discr::VoxelStack* voxelStack(
 
   --row; --col;
 
-  return new discr::VoxelStack(block.cell(row * block.nrCols() + col));
+  return new discr::VoxelStack(block.cell((row * block.nrCols()) + col));
 }
 
 
@@ -256,7 +256,7 @@ std::vector<T>* voxelStackData(
 
   --row; --col;
 
-  return new std::vector<T>(data.cell(row * data.block()->nrCols() + col));
+  return new std::vector<T>(data.cell((row * data.block()->nrCols()) + col));
 }
 
 template

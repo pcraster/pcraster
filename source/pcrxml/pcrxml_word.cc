@@ -9,11 +9,9 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC WORD MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -21,8 +19,8 @@
 //------------------------------------------------------------------------------
 
 //! construct from element
-pcrxml::Word::Word(const QDomNode& owningElement, const std::string& name, bool required):
-  String(owningElement,name,required)
+pcrxml::Word::Word(const QDomNode &owningElement, const std::string &name, bool required)
+    : String(owningElement, name, required)
 {
   if (!present())
     return;
@@ -33,14 +31,12 @@ pcrxml::Word::Word(const QDomNode& owningElement, const std::string& name, bool 
 }
 
 //! ctor from a string
-pcrxml::Word::Word(const std::string& value):
-  String(value)
+pcrxml::Word::Word(const std::string &value) : String(value)
 {
 }
 
 //! ctor from a string
-pcrxml::Word::Word(const char* value):
-  String(value)
+pcrxml::Word::Word(const char *value) : String(value)
 {
 }
 
@@ -54,17 +50,11 @@ pcrxml::Word::~Word()
 {
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

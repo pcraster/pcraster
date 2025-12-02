@@ -39,7 +39,6 @@
 #endif
 
 
-
 //------------------------------------------------------------------------------
 
 
@@ -48,167 +47,119 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
-template<class T>
-com::Legend<T>::Legend()
+template <class T> com::Legend<T>::Legend()
 {
 }
 
-
-
-template<class T>
+template <class T>
 com::Legend<T>::Legend(const std::string &t)
 
-  : d_title(t)
+    : d_title(t)
 
 {
 }
 
+template <class T>
+com::Legend<T>::Legend(const std::vector<com_LegendClass<T>> &c)
 
-
-template<class T>
-com::Legend<T>::Legend(const std::vector<com_LegendClass<T> > &c)
-
-  : d_classes(c)
+    : d_classes(c)
 
 {
 }
 
+template <class T>
+com::Legend<T>::Legend(const std::string &t, const std::vector<com_LegendClass<T>> &c)
 
-
-template<class T>
-com::Legend<T>::Legend(const std::string &t,
-                          const std::vector<com_LegendClass<T> > &c)
-
-  : d_title(t), d_classes(c)
+    : d_title(t), d_classes(c)
 
 {
 }
 
-
-
-template<class T>
-com::Legend<T>::~Legend()
+template <class T> com::Legend<T>::~Legend()
 {
 }
 
-
-
-template<class T>
-void com::Legend<T>::setTitle(const std::string &t)
+template <class T> void com::Legend<T>::setTitle(const std::string &t)
 {
   d_title = t;
 }
 
-
-
-template<class T>
-void com::Legend<T>::setClasses(const std::vector<com_LegendClass<T> > &c)
+template <class T> void com::Legend<T>::setClasses(const std::vector<com_LegendClass<T>> &c)
 {
   d_classes = c;
 }
 
-
-
-template<class T>
-const std::string &com::Legend<T>::title() const
+template <class T> const std::string &com::Legend<T>::title() const
 {
   return d_title;
 }
 
-
-
-template<class T>
-const std::vector<com_LegendClass<T> > &com::Legend<T>::classes() const
+template <class T> const std::vector<com_LegendClass<T>> &com::Legend<T>::classes() const
 {
   return d_classes;
 }
 
-
-
-template<class T>
-typename com::Legend<T>::iterator com::Legend<T>::begin()
+template <class T> typename com::Legend<T>::iterator com::Legend<T>::begin()
 {
   return d_classes.begin();
 }
 
-
-
-template<class T>
-typename com::Legend<T>::iterator com::Legend<T>::end()
+template <class T> typename com::Legend<T>::iterator com::Legend<T>::end()
 {
   return d_classes.end();
 }
 
-
-
-template<class T>
-typename com::Legend<T>::const_iterator com::Legend<T>::begin() const
+template <class T> typename com::Legend<T>::const_iterator com::Legend<T>::begin() const
 {
   return d_classes.begin();
 }
 
-
-
-template<class T>
-typename com::Legend<T>::const_iterator com::Legend<T>::end() const
+template <class T> typename com::Legend<T>::const_iterator com::Legend<T>::end() const
 {
   return d_classes.end();
 }
 
-
-
-template<class T>
-size_t com::Legend<T>::nrClasses() const
+template <class T> size_t com::Legend<T>::nrClasses() const
 {
   return d_classes.size();
 }
 
-
-
-template<class T>
-void com::Legend<T>::setNrClasses(size_t n)
+template <class T> void com::Legend<T>::setNrClasses(size_t n)
 {
   d_classes.resize(n);
 }
 
-
-
-template<class T>
-bool com::Legend<T>::binary_search(T c) const
+template <class T> bool com::Legend<T>::binary_search(T c) const
 {
-//   // Doesn't work in msvs-8.0
-//   return std::binary_search(d_classes.begin(), d_classes.end(), c,
-//                             ::compClass<T>());
+  //   // Doesn't work in msvs-8.0
+  //   return std::binary_search(d_classes.begin(), d_classes.end(), c,
+  //                             ::compClass<T>());
 
-                            // ::bind2nd(equalClass<T>(), c));
+  // ::bind2nd(equalClass<T>(), c));
 
 
   size_t i = 0;
 
-  while(i < nrClasses() && d_classes[i].value() != c) {
+  while (i < nrClasses() && d_classes[i].value() != c) {
     i++;
   }
 
   return i < d_classes.size();
 }
 
-
-
-template<class T>
-typename com::Legend<T>::iterator com::Legend<T>::lower_bound(T c)
+template <class T> typename com::Legend<T>::iterator com::Legend<T>::lower_bound(T c)
 {
-//   // Doesn't work in msvs-8.0
-//   return std::lower_bound(d_classes.begin(), d_classes.end(), c, 
-//                           ::compClass<T>());
+  //   // Doesn't work in msvs-8.0
+  //   return std::lower_bound(d_classes.begin(), d_classes.end(), c,
+  //                           ::compClass<T>());
 
   size_t i = 0;
 
-  while(i < nrClasses() && d_classes[i].value() != c)
+  while (i < nrClasses() && d_classes[i].value() != c)
     i++;
 
 #ifdef DEBUG_DEVELOP
@@ -218,20 +169,14 @@ typename com::Legend<T>::iterator com::Legend<T>::lower_bound(T c)
   return d_classes.begin() + i;
 }
 
-
-
-template<class T>
-void com::Legend<T>::insert(iterator p, T c)
+template <class T> void com::Legend<T>::insert(iterator p, T c)
 {
   d_classes.insert(p, com_LegendClass<T>(c));
 }
 
-
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -239,9 +184,6 @@ void com::Legend<T>::insert(iterator p, T c)
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

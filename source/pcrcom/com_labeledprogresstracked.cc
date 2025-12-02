@@ -15,12 +15,10 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the LabeledProgressTracked class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -46,65 +44,48 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC LABELEDPROGRESSTRACKED MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF LABELEDPROGRESSTRACKED MEMBERS
 //------------------------------------------------------------------------------
 
-template<typename StreamProgressTracker>
+template <typename StreamProgressTracker>
 com::LabeledProgressTracked<StreamProgressTracker>::LabeledProgressTracked()
 
-  : ProgressTracked<LabeledProgressTracker<StreamProgressTracker> >()
+    : ProgressTracked<LabeledProgressTracker<StreamProgressTracker>>()
 
 {
 }
 
-
-
-template<typename StreamProgressTracker>
+template <typename StreamProgressTracker>
 com::LabeledProgressTracked<StreamProgressTracker>::~LabeledProgressTracked()
 {
 }
 
-
-
-template<typename StreamProgressTracker>
-void com::LabeledProgressTracked<StreamProgressTracker>::setLabel(
-         const std::string& label)
+template <typename StreamProgressTracker>
+void com::LabeledProgressTracked<StreamProgressTracker>::setLabel(const std::string &label)
 {
-  if(this->tracker()) {
+  if (this->tracker()) {
     this->tracker()->setLabel(label);
   }
 }
 
-
-
-template<typename StreamProgressTracker>
-void com::LabeledProgressTracked<StreamProgressTracker>::init(
-         const std::string& label,
-         size_t nrSteps)
+template <typename StreamProgressTracker>
+void com::LabeledProgressTracked<StreamProgressTracker>::init(const std::string &label, size_t nrSteps)
 {
   setLabel(label);
-  ProgressTracked<LabeledProgressTracker<StreamProgressTracker> >::init(
-         nrSteps);
+  ProgressTracked<LabeledProgressTracker<StreamProgressTracker>>::init(nrSteps);
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-

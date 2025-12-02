@@ -12,7 +12,6 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
 /*
@@ -36,14 +35,12 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLIBERROR MEMBERS
 //------------------------------------------------------------------------------
 
-std::string   com::ClibError::d_libErrorStr;
-bool          com::ClibError::d_errorHandlerCalled;
-
+std::string com::ClibError::d_libErrorStr;
+bool com::ClibError::d_errorHandlerCalled;
 
 //------------------------------------------------------------------------------
 // DEFINITION OF CLIBERROR MEMBERS
@@ -52,8 +49,6 @@ bool          com::ClibError::d_errorHandlerCalled;
 com::ClibError::ClibError()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -69,8 +64,6 @@ com::ClibError::~ClibError()
 {
 }
 
-
-
 /* NOT IMPLEMENTED
 //! Assignment operator.
 com::ClibError& com::ClibError::operator=(ClibError const& rhs)
@@ -85,14 +78,12 @@ com::ClibError& com::ClibError::operator=(ClibError const& rhs)
 extern "C" void com::ClibError::HandleLibError(const char *msg)
 {
   d_libErrorStr = msg;
-  d_errorHandlerCalled=true;
+  d_errorHandlerCalled = true;
 }
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

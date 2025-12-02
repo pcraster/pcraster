@@ -19,7 +19,6 @@
 #endif
 
 
-
 /*!
   \file
    implement Raster template
@@ -27,11 +26,9 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -42,57 +39,39 @@
   \param     nr Number of rows.
   \param     nc Number of columns.
 */
-template<class T>
-geo::Raster<T>::Raster(size_t nr, size_t nc, double cellSize,
-                       double left, double top, Projection proj)
+template <class T>
+geo::Raster<T>::Raster(size_t nr, size_t nc, double cellSize, double left, double top, Projection proj)
 
-  : SimpleRaster<T>(nr, nc),
-    d_space(nr, nc, cellSize, left, top, proj)
+    : SimpleRaster<T>(nr, nc), d_space(nr, nc, cellSize, left, top, proj)
 
 {
 }
 
+template <class T>
+geo::Raster<T>::Raster(const RasterSpace &rs)
 
-
-template<class T>
-geo::Raster<T>::Raster(const RasterSpace& rs)
-
-  : SimpleRaster<T>(rs.nrRows(), rs.nrCols()),
-    d_space(rs)
+    : SimpleRaster<T>(rs.nrRows(), rs.nrCols()), d_space(rs)
 
 {
 }
 
-
-
-template<class T>
+template <class T>
 geo::Raster<T>::Raster(const Raster &rhs)
 
-  : SimpleRaster<T>(rhs),
-    d_space(rhs.d_space)
+    : SimpleRaster<T>(rhs), d_space(rhs.d_space)
 
 {
 }
 
-
-
-template<class T>
-geo::Raster<T>::~Raster()
+template <class T> geo::Raster<T>::~Raster()
 {
 }
 
-
-
-template<class T>
-const geo::RasterSpace& geo::Raster<T>::space() const
+template <class T> const geo::RasterSpace &geo::Raster<T>::space() const
 {
   return d_space;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
-

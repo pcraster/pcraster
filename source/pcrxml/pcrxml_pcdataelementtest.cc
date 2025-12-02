@@ -5,25 +5,29 @@
 #include "pcrxml_document.h"
 #include "pcrgenxml_dataenvelop.h"
 
-
 BOOST_AUTO_TEST_CASE(test)
 {
   using namespace pcrxml;
 
   struct Verify {
     // test sets either str or doc
-    std::string  str;
-    Document    *doc{nullptr};
-    QDomDocument textDoc,cdataDoc;
+    std::string str;
+    Document *doc{nullptr};
+    QDomDocument textDoc, cdataDoc;
     DataEnvelop *s{nullptr};
 
     Verify()
-    {}
-    ~Verify() {
+    {
+    }
+
+    ~Verify()
+    {
       delete s;
       delete doc;
     }
-    void create() {
+
+    void create()
+    {
       if (str.size()) {
         s = new DataEnvelop(str);
         s->encoding = pcrxml::DataEnvelopEncoding::text;
@@ -37,42 +41,48 @@ BOOST_AUTO_TEST_CASE(test)
       s->setAsCDATASection(true);
       cdataDoc = s->toDomDocument();
     }
-    static std::string expected() {
-       return "x &><\"' bla x";
+
+    static std::string expected()
+    {
+      return "x &><\"' bla x";
     }
 
-    bool testContents() const {
-      return s->contents() == expected(); // "x bla bla x";
+    bool testContents() const
+    {
+      return s->contents() == expected();  // "x bla bla x";
     }
-    bool testCDATA() const {
-     DomDiff const diff(contentsAsString(cdataDoc),
-     "<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>"
-     "<!DOCTYPE dataEnvelop PUBLIC '-//PCRaster//Generic' 'pcraster.dtd'>"
-     "<dataEnvelop encoding='text' xmlns='http://www.pcraster.nl/xml'>"
-     "<![CDATA[x &><\"' bla x]]></dataEnvelop>");
-     return diff.equal(false);
+
+    bool testCDATA() const
+    {
+      DomDiff const diff(contentsAsString(cdataDoc),
+                         "<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>"
+                         "<!DOCTYPE dataEnvelop PUBLIC '-//PCRaster//Generic' 'pcraster.dtd'>"
+                         "<dataEnvelop encoding='text' xmlns='http://www.pcraster.nl/xml'>"
+                         "<![CDATA[x &><\"' bla x]]></dataEnvelop>");
+      return diff.equal(false);
     }
-    bool testText() const {
-     DomDiff const diff(contentsAsString(textDoc),
-     "<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>"
-     "<!DOCTYPE dataEnvelop PUBLIC '-//PCRaster//Generic' 'pcraster.dtd'>"
-     "<dataEnvelop encoding='text' xmlns='http://www.pcraster.nl/xml'>"
-     "x &amp;>&lt;&quot;' bla x</dataEnvelop>");
-     return diff.equal(false);
+
+    bool testText() const
+    {
+      DomDiff const diff(contentsAsString(textDoc),
+                         "<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>"
+                         "<!DOCTYPE dataEnvelop PUBLIC '-//PCRaster//Generic' 'pcraster.dtd'>"
+                         "<dataEnvelop encoding='text' xmlns='http://www.pcraster.nl/xml'>"
+                         "x &amp;>&lt;&quot;' bla x</dataEnvelop>");
+      return diff.equal(false);
     }
   };
 
-  { // correct xml all in CDATA
+  {  // correct xml all in CDATA
     Verify v;
-    v.doc = new Document(
-           "<!DOCTYPE dataEnvelop> "
-           " <dataEnvelop encoding='text'><![CDATA[x &><\"' bla x]]></dataEnvelop> ");
+    v.doc = new Document("<!DOCTYPE dataEnvelop> "
+                         " <dataEnvelop encoding='text'><![CDATA[x &><\"' bla x]]></dataEnvelop> ");
     v.create();
     BOOST_CHECK(v.testContents());
     BOOST_CHECK(v.testText());
     BOOST_CHECK(v.testCDATA());
   }
-  { // itself is correct xml
+  {  // itself is correct xml
     Verify v;
     v.str = v.expected();
     v.create();
@@ -80,55 +90,52 @@ BOOST_AUTO_TEST_CASE(test)
     BOOST_CHECK(v.testText());
     BOOST_CHECK(v.testCDATA());
   }
-  { // inner CDATA section
+  {  // inner CDATA section
     Verify v;
-    v.doc = new Document(
-           "<!DOCTYPE dataEnvelop> "
-           " <dataEnvelop encoding='text'>x <![CDATA[&><\"' bla x]]></dataEnvelop> ");
+    v.doc = new Document("<!DOCTYPE dataEnvelop> "
+                         " <dataEnvelop encoding='text'>x <![CDATA[&><\"' bla x]]></dataEnvelop> ");
     v.create();
     BOOST_CHECK(v.testContents());
     BOOST_CHECK(v.testText());
     BOOST_CHECK(v.testCDATA());
   }
-  { // inner CDATA section, some entitity encoding
+  {  // inner CDATA section, some entitity encoding
     Verify v;
-    v.doc = new Document(
-           "<!DOCTYPE dataEnvelop> "
-           " <dataEnvelop encoding='text'>x &amp;>&lt;<![CDATA[\"' bla x]]></dataEnvelop> ");
+    v.doc =
+        new Document("<!DOCTYPE dataEnvelop> "
+                     " <dataEnvelop encoding='text'>x &amp;>&lt;<![CDATA[\"' bla x]]></dataEnvelop> ");
     v.create();
     BOOST_CHECK(v.testContents());
     BOOST_CHECK(v.testText());
     BOOST_CHECK(v.testCDATA());
   }
-  { // all entitity encoding
+  {  // all entitity encoding
     Verify v;
-    v.doc = new Document(
-           "<!DOCTYPE dataEnvelop> "
-           " <dataEnvelop encoding='text'>x &amp;&gt;&lt;&quot;&apos; bla x</dataEnvelop> ");
+    v.doc =
+        new Document("<!DOCTYPE dataEnvelop> "
+                     " <dataEnvelop encoding='text'>x &amp;&gt;&lt;&quot;&apos; bla x</dataEnvelop> ");
     v.create();
     BOOST_CHECK(v.testContents());
     BOOST_CHECK(v.testText());
     BOOST_CHECK(v.testCDATA());
   }
-  { // empty ok
+  {  // empty ok
     Verify v;
-    v.doc = new Document(
-           "<!DOCTYPE dataEnvelop> "
-           " <dataEnvelop encoding='text'/> ");
+    v.doc = new Document("<!DOCTYPE dataEnvelop> "
+                         " <dataEnvelop encoding='text'/> ");
     v.create();
     BOOST_CHECK(v.s->contents().empty());
   }
-  { // mixed content model not allowed
-   bool catchedExpectedException(false);
-   try {
+  {  // mixed content model not allowed
+    bool catchedExpectedException(false);
+    try {
       Verify v;
-      v.doc = new Document(
-           "<!DOCTYPE dataEnvelop> "
-           " <dataEnvelop encoding='text'> xx <InnerTag/></dataEnvelop> ");
+      v.doc = new Document("<!DOCTYPE dataEnvelop> "
+                           " <dataEnvelop encoding='text'> xx <InnerTag/></dataEnvelop> ");
       v.create();
-   } catch (const com::BadStreamFormat& ) {
-     catchedExpectedException = true;
-   }
-   BOOST_CHECK(catchedExpectedException);
+    } catch (const com::BadStreamFormat &) {
+      catchedExpectedException = true;
+    }
+    BOOST_CHECK(catchedExpectedException);
   }
 }

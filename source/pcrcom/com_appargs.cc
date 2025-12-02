@@ -4,57 +4,55 @@
 
 #include <cstring>
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 //!  Constructor
-com::AppArgs::AppArgs(const std::string& arg0, 
-                      const std::string& otherArgs)
+com::AppArgs::AppArgs(const std::string &arg0, const std::string &otherArgs)
 {
- POSTCOND(!arg0.empty());
- init(arg0+" "+otherArgs);
+  POSTCOND(!arg0.empty());
+  init(arg0 + " " + otherArgs);
 }
 
-com::AppArgs::AppArgs (const std::string& allArgs)
+com::AppArgs::AppArgs(const std::string &allArgs)
 {
- POSTCOND(!allArgs.empty());
- init(allArgs);
+  POSTCOND(!allArgs.empty());
+  init(allArgs);
 }
 
-void com::AppArgs::init(const std::string& args)
+void com::AppArgs::init(const std::string &args)
 {
-  d_argv=nullptr;
-  d_buffer=nullptr;
+  d_argv = nullptr;
+  d_buffer = nullptr;
   try {
-    std::vector<std::string>argv(com::split(args));
+    std::vector<std::string> argv(com::split(args));
     POSTCOND(!argv.empty());
-    d_argc   = argv.size();
-    d_argv   = new char *[d_argc+1]; // +1 for end 0
+    d_argc = argv.size();
+    d_argv = new char *[d_argc + 1];  // +1 for end 0
     // args.size -> size of string
     //    d_argc -> nr of '\0' terminators
-    d_buffer = new char  [args.size()+d_argc]; 
+    d_buffer = new char[args.size() + d_argc];
     char *ptr = d_buffer;
-      for(size_t i=0; i < d_argc; i++) {
-        d_argv[i] = ::strcpy(ptr,argv[i].c_str());
-        ptr += argv[i].size()+1; // 1 for '\0'
-      }
-  } catch(...) {
-   delete [] d_argv;
-   delete [] d_buffer;
+    for (size_t i = 0; i < d_argc; i++) {
+      d_argv[i] = ::strcpy(ptr, argv[i].c_str());
+      ptr += argv[i].size() + 1;  // 1 for '\0'
+    }
+  } catch (...) {
+    delete[] d_argv;
+    delete[] d_buffer;
   }
-  d_argv[d_argc]=nullptr; // end 0
+  d_argv[d_argc] = nullptr;  // end 0
 }
 
-com::AppArgs::~AppArgs ()
+com::AppArgs::~AppArgs()
 {
-  delete [] d_argv;
-  delete [] d_buffer;
+  delete[] d_argv;
+  delete[] d_buffer;
 }
 
 size_t com::AppArgs::argc() const

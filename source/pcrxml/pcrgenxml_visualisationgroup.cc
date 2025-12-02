@@ -8,52 +8,65 @@ Do not edit, generated from libs/pcrxml/generate.py
 #include <qdom.h>
 
 const std::string pcrxml::VisualisationGroup::d_elementName("VisualisationGroup");
-//! ctor
-pcrxml::VisualisationGroup::VisualisationGroup(const QDomElement& element):Element(element,d_elementName)
- {
-  try {
-   ChildElementVisitor v(element);
 
-   // required element
-   v.checkRequiredChild("DataObject");
-   dataObject = new DataObject(v.processChild());
-  } catch (...) { clean(); throw; }
- }
-pcrxml::VisualisationGroup::VisualisationGroup():Element()
- 
- {
- }
-const std::string& pcrxml::VisualisationGroup::elementName() const
+//! ctor
+pcrxml::VisualisationGroup::VisualisationGroup(const QDomElement &element)
+    : Element(element, d_elementName)
 {
- return d_elementName;
+  try {
+    ChildElementVisitor v(element);
+
+    // required element
+    v.checkRequiredChild("DataObject");
+    dataObject = new DataObject(v.processChild());
+  } catch (...) {
+    clean();
+    throw;
+  }
 }
+
+pcrxml::VisualisationGroup::VisualisationGroup() : Element()
+
+{
+}
+
+const std::string &pcrxml::VisualisationGroup::elementName() const
+{
+  return d_elementName;
+}
+
 //! dtor
 pcrxml::VisualisationGroup::~VisualisationGroup()
 {
- clean();
+  clean();
 }
+
 //! clean
 void pcrxml::VisualisationGroup::clean()
 {
- delete dataObject;dataObject=nullptr;
+  delete dataObject;
+  dataObject = nullptr;
 }
+
 //! copy ctor
-pcrxml::VisualisationGroup::VisualisationGroup(const VisualisationGroup& src):
-pcrxml::Element(src)
+pcrxml::VisualisationGroup::VisualisationGroup(const VisualisationGroup &src) : pcrxml::Element(src)
 {
- dataObject=new DataObject(*(src.dataObject));
+  dataObject = new DataObject(*(src.dataObject));
 }
+
 //! assignment operator
-pcrxml::VisualisationGroup& pcrxml::VisualisationGroup::operator=(const VisualisationGroup& src)
+pcrxml::VisualisationGroup &pcrxml::VisualisationGroup::operator=(const VisualisationGroup &src)
 {
- if(this != &src)
- {
-   clean(); PRECOND(false);
-  dataObject=new DataObject(*(src.dataObject));
- }
-return *this;
+  if (this != &src) {
+    clean();
+    PRECOND(false);
+    dataObject = new DataObject(*(src.dataObject));
+  }
+  return *this;
 }
+
 void pcrxml::VisualisationGroup::fill(QDomElement el) const
 {
- if (dataObject) dataObject->appendTo(el);
+  if (dataObject)
+    dataObject->appendTo(el);
 }

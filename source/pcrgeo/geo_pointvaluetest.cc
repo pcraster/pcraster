@@ -3,7 +3,6 @@
 #include "geo_point.h"
 #include "geo_pointvalue.h"
 
-
 BOOST_AUTO_TEST_CASE(test)
 {
   using namespace geo;

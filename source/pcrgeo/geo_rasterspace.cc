@@ -12,7 +12,6 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
@@ -33,14 +32,13 @@
  * assert(rs.valid());
  * \endcode
  */
-geo::RasterSpace::RasterSpace():
- RasterDim()
+geo::RasterSpace::RasterSpace() : RasterDim()
 {
-  d_cellSize   = 1;
-  d_left       = 0;
-  d_top        = 0;
+  d_cellSize = 1;
+  d_left = 0;
+  d_top = 0;
   d_projection = YIncrB2T;
-  d_angle      = 0;
+  d_angle = 0;
 
   setup();
 }
@@ -49,41 +47,27 @@ geo::RasterSpace::RasterSpace():
 /*
  * \pre proj!=IllegalProjection
  */
-geo::RasterSpace::RasterSpace(size_t nrRows, size_t nrCols,
- double cellSize,
- double leftWest, double topNorth, Projection proj, double angle ):
-  RasterDim(nrRows,nrCols), d_cellSize(cellSize),
-  d_left(leftWest), d_top(topNorth),
-  d_angle(angle),
-  d_projection(proj)
+geo::RasterSpace::RasterSpace(size_t nrRows, size_t nrCols, double cellSize, double leftWest,
+                              double topNorth, Projection proj, double angle)
+    : RasterDim(nrRows, nrCols), d_cellSize(cellSize), d_left(leftWest), d_top(topNorth), d_angle(angle),
+      d_projection(proj)
 {
-  PRECOND(proj!=IllegalProjection);
+  PRECOND(proj != IllegalProjection);
   setup();
 }
 
-
-
-geo::RasterSpace::RasterSpace(dal::Raster const& raster)
-  : RasterDim(raster.nrRows(), raster.nrCols()), d_cellSize(raster.cellSize()),
-    d_left(raster.west()), d_top(raster.north()),
-    d_angle(0.0), d_projection(YIncrB2T)
+geo::RasterSpace::RasterSpace(dal::Raster const &raster)
+    : RasterDim(raster.nrRows(), raster.nrCols()), d_cellSize(raster.cellSize()), d_left(raster.west()),
+      d_top(raster.north()), d_angle(0.0), d_projection(YIncrB2T)
 {
   setup();
 }
 
-
-
-bool geo::RasterSpace::equals(const RasterSpace& c) const
+bool geo::RasterSpace::equals(const RasterSpace &c) const
 {
-  return (
-    nrRows()     == c.nrRows() &&
-    nrCols()     == c.nrCols() &&
-    d_cellSize   == c.d_cellSize &&
-    d_left       == c.d_left &&
-    d_top        == c.d_top &&
-    d_projection == c.d_projection &&
-    d_angle == c.d_angle
-    );
+  return (nrRows() == c.nrRows() && nrCols() == c.nrCols() && d_cellSize == c.d_cellSize &&
+          d_left == c.d_left && d_top == c.d_top && d_projection == c.d_projection &&
+          d_angle == c.d_angle);
 }
 
 geo::RasterSpace::~RasterSpace()
@@ -92,36 +76,27 @@ geo::RasterSpace::~RasterSpace()
 
 void geo::RasterSpace::center(size_t r, size_t c, double &x, double &y) const
 {
-   rowCol2Coords(r+0.5, c+0.5, x, y);
+  rowCol2Coords(r + 0.5, c + 0.5, x, y);
 }
 
-
-
-void geo::RasterSpace::center(CellLoc const& loc, double &x, double &y) const
+void geo::RasterSpace::center(CellLoc const &loc, double &x, double &y) const
 {
   center(loc.row(), loc.col(), x, y);
 }
 
-
-
-void geo::RasterSpace::upperLeft(size_t r, size_t c,
-         double &x, double &y) const
+void geo::RasterSpace::upperLeft(size_t r, size_t c, double &x, double &y) const
 {
-   rowCol2Coords(r, c, x, y);
+  rowCol2Coords(r, c, x, y);
 }
 
-
-
-void geo::RasterSpace::lowerRight(size_t r, size_t c,
-         double &x, double &y) const
+void geo::RasterSpace::lowerRight(size_t r, size_t c, double &x, double &y) const
 {
-   rowCol2Coords(r + 1, c + 1, x, y);
+  rowCol2Coords(r + 1, c + 1, x, y);
 }
-
 
 void geo::RasterSpace::setup()
 {
-/* set the map angle cosine and sin in header
+  /* set the map angle cosine and sin in header
  * these values are only used in the co-ordinate conversion
  * routines. And since they do a counter clockwise rotation we
  * take the sine and cosine of the negative angle.
@@ -151,10 +126,9 @@ void geo::RasterSpace::setCellSize(double s)
 void geo::RasterSpace::setUpperLeft(double x, double y)
 {
   d_left = x;
-  d_top  = y;
+  d_top = y;
   setup();
 }
-
 
 //! compute true world co-ordinate from row, column index
 /*!rowCol2Coords computes the true world co-ordinate from a
@@ -173,37 +147,28 @@ void geo::RasterSpace::setUpperLeft(double x, double y)
  * <li>  \a y    write-only. y co-ordinate.
  * </ul>
  */
-void geo::RasterSpace::rowCol2Coords(
-  double row,
-  double col,
-  double &x,
-  double &y) const
+void geo::RasterSpace::rowCol2Coords(double row, double col, double &x, double &y) const
 {
-  double const yRow   = d_cellSize * row;
-  double const xCol   = d_cellSize * col;
+  double const yRow = d_cellSize * row;
+  double const xCol = d_cellSize * col;
   double const xCol_t = xCol * d_angleCos - yRow * d_angleSin;
   double const yRow_t = xCol * d_angleSin + yRow * d_angleCos;
 
   x = d_left + xCol_t;
-  if(d_projection == YIncrT2B)
+  if (d_projection == YIncrT2B)
     y = d_top + yRow_t;
-  else  /* all other projections */
+  else /* all other projections */
     y = d_top - yRow_t;
 }
-
-
 
 //! Computes true world co-ordinate from cell location.
 /*!
   \sa        rowCol2Coords(double, double, double&, double&)
 */
-void geo::RasterSpace::loc2Coords(const CellLoc& loc, double& x,
-         double& y) const
+void geo::RasterSpace::loc2Coords(const CellLoc &loc, double &x, double &y) const
 {
   rowCol2Coords(loc.row(), loc.col(), x, y);
 }
-
-
 
 //! Computes row and col indices from true world coordinates.
 /*!
@@ -217,18 +182,13 @@ void geo::RasterSpace::loc2Coords(const CellLoc& loc, double& x,
   casted to an unsigned integer. This means the result of calculating the
   row and col indices must be larger or equal to 0.0.
 */
-void geo::RasterSpace::coords2Loc(
-         double x,
-         double y,
-         CellLoc& loc) const
+void geo::RasterSpace::coords2Loc(double x, double y, CellLoc &loc) const
 {
   double row = NAN;
   double col = NAN;
   coords2RowCol(x, y, row, col);
   loc.setIndices(static_cast<size_t>(row), static_cast<size_t>(col));
 }
-
-
 
 //! compute (fractional) row, column index from true world co-ordinate.
 /*!
@@ -242,27 +202,23 @@ void geo::RasterSpace::coords2Loc(
    The x,y co-ordinate don't have to be on the map. They are just relative to
    upper left position.
 */
-void geo::RasterSpace::coords2RowCol(double x, double y,
-                   double& row, double& col) const
+void geo::RasterSpace::coords2RowCol(double x, double y, double &row, double &col) const
 {
   double const xCol = (x - d_left) / d_cellSize;
   double yRow = NAN;
-  if(d_projection == YIncrT2B) {
+  if (d_projection == YIncrT2B) {
     yRow = (y - d_top) / d_cellSize;
-  }
-  else {
+  } else {
     yRow = (d_top - y) / d_cellSize;
   }
 
   /* rotate clockwise: */
-  double const c = d_angleCos;     /* cos(t) == cos(-t) */
-  double const s = -(d_angleSin);  /* -sin(t) == sin(-t) */
+  double const c = d_angleCos;    /* cos(t) == cos(-t) */
+  double const s = -(d_angleSin); /* -sin(t) == sin(-t) */
 
   col = xCol * c - yRow * s;
   row = xCol * s + yRow * c;
 }
-
-
 
 //! Determines quadrant of cell where point \a x, \a y is located in.
 /*!
@@ -285,32 +241,27 @@ geo::Quadrant geo::RasterSpace::quadrant(double x, double y) const
   // Determine quadrant.
   double const sign = projection() == geo::YIncrB2T ? -1.0 : 1.0;
 
-  if(x < xCenter && (sign * (y - yCenter)) < 0.0) {
+  if (x < xCenter && (sign * (y - yCenter)) < 0.0) {
     // North west quadrant.
     quadrant = NorthWest;
-  }
-  else if(x >= xCenter && (sign * (y - yCenter)) < 0.0) {
+  } else if (x >= xCenter && (sign * (y - yCenter)) < 0.0) {
     // North east quadrant.
     quadrant = NorthEast;
-  }
-  else if(x >= xCenter && (sign * (y - yCenter)) >= 0.0) {
+  } else if (x >= xCenter && (sign * (y - yCenter)) >= 0.0) {
     // South east quadrant.
     quadrant = SouthEast;
-  }
-  else if(x < xCenter && (sign * (y - yCenter)) >= 0.0){
+  } else if (x < xCenter && (sign * (y - yCenter)) >= 0.0) {
     // South west quadrant.
     quadrant = SouthWest;
-  }
-  else {
+  } else {
     PRECOND(false);
   }
 
   return quadrant;
 }
 
-
-
-namespace geo {
+namespace geo
+{
 
 //! Determines x and y world coordinates of \a cell.
 /*!
@@ -319,15 +270,10 @@ namespace geo {
   \param     cell Location of cell to find coordinates of.
   \todo      Get rid of loc2Coords which doesn't adher to our styleguide.
 */
-void RasterSpace::coordinates(
-         double& x,
-         double& y,
-         CellLoc const& cell) const
+void RasterSpace::coordinates(double &x, double &y, CellLoc const &cell) const
 {
   loc2Coords(cell, x, y);
 }
-
-
 
 //! Determines x and y world coordinates of \a cell.
 /*!
@@ -338,17 +284,12 @@ void RasterSpace::coordinates(
 
   \todo      Get rid of rowCol2Coords which doesn't adher to our styleguide.
 */
-void RasterSpace::coordinates(
-         double& x,
-         double& y,
-         LinearLoc const& cell) const
+void RasterSpace::coordinates(double &x, double &y, LinearLoc const &cell) const
 {
   rowCol2Coords(cell / nrCols(), cell % nrCols(), x, y);
 }
 
-} // namespace
-
-
+}  // namespace geo
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
@@ -357,21 +298,17 @@ void RasterSpace::coordinates(
 //! Completely equal
 /*! Note that is dangerous, since most fields are floats!
 */
-bool geo::operator==(const RasterSpace& lhs, const RasterSpace& rhs)
+bool geo::operator==(const RasterSpace &lhs, const RasterSpace &rhs)
 {
   return lhs.equals(rhs);
 }
 
-
-
-bool geo::operator!=(const RasterSpace& lhs, const RasterSpace& rhs)
+bool geo::operator!=(const RasterSpace &lhs, const RasterSpace &rhs)
 {
   return !lhs.equals(rhs);
 }
 
-
-
-std::ostream& geo::operator<<(std::ostream& s, const RasterSpace& rs)
+std::ostream &geo::operator<<(std::ostream &s, const RasterSpace &rs)
 {
   s << rs.nrRows() << ' ' << rs.nrCols() << ' ' << rs.d_cellSize << '\n'
     << rs.d_projection << ' ' << rs.d_left << ' ' << rs.d_top << '\n'
@@ -380,29 +317,27 @@ std::ostream& geo::operator<<(std::ostream& s, const RasterSpace& rs)
   return s;
 }
 
-
-
-std::istream& geo::operator>>(std::istream& s, RasterSpace& rs)
+std::istream &geo::operator>>(std::istream &s, RasterSpace &rs)
 {
   int p = 0;
   size_t nrRows = 0;
   size_t nrCols = 0;
 
-  s >> nrRows >> nrCols >> rs.d_cellSize
-                   >> p >> rs.d_left >> rs.d_top
-                   >> rs.d_angle;
+  s >> nrRows >> nrCols >> rs.d_cellSize >> p >> rs.d_left >> rs.d_top >> rs.d_angle;
 
   rs.setNrRows(nrRows);
   rs.setNrCols(nrCols);
 
   rs.d_projection = static_cast<Projection>(p);
 
-  switch(rs.d_projection) {
+  switch (rs.d_projection) {
     case YIncrB2T:
-    case YIncrT2B: break;
-    default: throw com::BadStreamFormat("Rasterspace: Bad integer value for Projection");
+    case YIncrT2B:
+      break;
+    default:
+      throw com::BadStreamFormat("Rasterspace: Bad integer value for Projection");
   }
-  if(!s.good())
+  if (!s.good())
     throw com::BadStreamFormat("Rasterspace: Bad format");
 
   rs.setup();
@@ -410,12 +345,9 @@ std::istream& geo::operator>>(std::istream& s, RasterSpace& rs)
   return s;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

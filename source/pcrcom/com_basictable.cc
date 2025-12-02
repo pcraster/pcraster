@@ -20,11 +20,9 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -34,71 +32,57 @@
 com::BasicTable::BasicTable()
 
 
-
 {
 }
-
-
 
 com::BasicTable::BasicTable(size_t nrCols, size_t nrRecs)
 {
   resize(nrCols, nrRecs);
 }
 
-
-
 com::BasicTable::~BasicTable()
 {
   clean();
 }
 
-
-
 void com::BasicTable::clean()
 {
-  for(auto & d_column : d_columns) {
+  for (auto &d_column : d_columns) {
     delete d_column;
   }
 
   d_columns.erase(d_columns.begin(), d_columns.end());
 }
 
-
-
 void com::BasicTable::resize(size_t n)
 {
   long const dn = n - d_columns.size();
 
-  if(dn < 0) {
-    for(size_t i = n; i != d_columns.size(); i++) {
+  if (dn < 0) {
+    for (size_t i = n; i != d_columns.size(); i++) {
       delete d_columns[i];
     }
 
     d_columns.erase(d_columns.begin() + n, d_columns.end());
-  }
-  else if(dn > 0) {
+  } else if (dn > 0) {
     d_columns.resize(n);
 
-    for(size_t i = d_columns.size() - dn; i != d_columns.size(); i++) {
+    for (size_t i = d_columns.size() - dn; i != d_columns.size(); i++) {
       d_columns[i] = new std::vector<double>;
     }
   }
 }
 
-
-
 void com::BasicTable::resize(size_t nrCols, size_t nrRecs)
 {
   resize(nrCols);
 
-  for(auto & d_column : d_columns) {
+  for (auto &d_column : d_columns) {
     d_column->resize(nrRecs);
   }
 
   d_nrRecs = nrRecs;
 }
-
-
 
 void com::BasicTable::setValue(size_t col, size_t rec, double value) const
 {
@@ -108,8 +92,6 @@ void com::BasicTable::setValue(size_t col, size_t rec, double value) const
   (*d_columns[col])[rec] = value;
 }
 
-
-
 void com::BasicTable::setMV(size_t col, size_t rec)
 {
   PRECOND(col < nrCols());
@@ -117,8 +99,6 @@ void com::BasicTable::setMV(size_t col, size_t rec)
 
   pcr::setMV((*d_columns[col])[rec]);
 }
-
-
 
 /*!
   \return  Number of columns in the table.
@@ -128,8 +108,6 @@ size_t com::BasicTable::nrCols() const
 {
   return d_columns.size();
 }
-
-
 
 /*!
   \return  Number of records in the table.
@@ -142,8 +120,6 @@ size_t com::BasicTable::nrRecs() const
   return d_nrRecs;
 }
 
-
-
 bool com::BasicTable::isMV(size_t col, size_t rec)
 {
   PRECOND(col < nrCols());
@@ -151,8 +127,6 @@ bool com::BasicTable::isMV(size_t col, size_t rec)
 
   return pcr::isMV((*d_columns[col])[rec]);
 }
-
-
 
 //! Returns true if all values in column \a i are missing values.
 /*!
@@ -163,8 +137,8 @@ bool com::BasicTable::isMV(size_t col, size_t rec)
 */
 bool com::BasicTable::allMV(size_t i) const
 {
-  for(auto it = begin(i); it != end(i); ++it) {
-    if(!pcr::isMV(*it)) {
+  for (auto it = begin(i); it != end(i); ++it) {
+    if (!pcr::isMV(*it)) {
       return false;
     }
   }
@@ -172,19 +146,16 @@ bool com::BasicTable::allMV(size_t i) const
   return true;
 }
 
-
-
 double com::BasicTable::min(size_t i) const
 {
   double min = NAN;
   pcr::setMV(min);
 
-  for(auto it = begin(i); it != end(i); ++it) {
-    if(!pcr::isMV(*it)) {
-      if(pcr::isMV(min)) {
+  for (auto it = begin(i); it != end(i); ++it) {
+    if (!pcr::isMV(*it)) {
+      if (pcr::isMV(min)) {
         min = *it;
-      }
-      else {
+      } else {
         min = std::min(min, *it);
       }
     }
@@ -193,19 +164,16 @@ double com::BasicTable::min(size_t i) const
   return min;
 }
 
-
-
 double com::BasicTable::max(size_t i) const
 {
   double max = NAN;
   pcr::setMV(max);
 
-  for(auto it = begin(i); it != end(i); ++it) {
-    if(!pcr::isMV(*it)) {
-      if(pcr::isMV(max)) {
+  for (auto it = begin(i); it != end(i); ++it) {
+    if (!pcr::isMV(*it)) {
+      if (pcr::isMV(max)) {
         max = *it;
-      }
-      else {
+      } else {
         max = std::max(max, *it);
       }
     }
@@ -213,8 +181,6 @@ double com::BasicTable::max(size_t i) const
 
   return max;
 }
-
-
 
 double com::BasicTable::value(size_t col, size_t rec) const
 {
@@ -224,17 +190,13 @@ double com::BasicTable::value(size_t col, size_t rec) const
   return (*d_columns[col])[rec];
 }
 
-
-
-double& com::BasicTable::value(size_t col, size_t rec)
+double &com::BasicTable::value(size_t col, size_t rec)
 {
   PRECOND(col < nrCols());
   PRECOND(rec < nrRecs());
 
   return (*d_columns[col])[rec];
 }
-
-
 
 /*!
   \param   i Column number/index.
@@ -245,14 +207,12 @@ double& com::BasicTable::value(size_t col, size_t rec)
 */
 com::BasicTable::const_iterator com::BasicTable::begin(size_t i) const
 {
-  if(i > d_columns.size() - 1) {
+  if (i > d_columns.size() - 1) {
     throw std::range_error("com::BasicTable::begin");
   }
 
   return d_columns[i]->begin();
 }
-
-
 
 /*!
   \param   i Column number/index.
@@ -263,20 +223,19 @@ com::BasicTable::const_iterator com::BasicTable::begin(size_t i) const
 */
 com::BasicTable::const_iterator com::BasicTable::end(size_t i) const
 {
-  if(i > d_columns.size() - 1) {
+  if (i > d_columns.size() - 1) {
     throw std::range_error("com::BasicTable::end");
   }
 
   return d_columns[i]->end();
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
-namespace com {
+namespace com
+{
 
 /*!
   \param   s Output stream to write to.
@@ -296,13 +255,11 @@ namespace com {
 */
 std::ostream &operator<<(std::ostream &s, const BasicTable &t)
 {
-  if(t.nrCols())
-  {
+  if (t.nrCols()) {
     size_t r = 0;
     size_t c = 0;
-    for(r = 0; r < t.nrRecs(); r++)
-    {
-      for(c = 0; c < t.nrCols() - 1; c++)
+    for (r = 0; r < t.nrRecs(); r++) {
+      for (c = 0; c < t.nrCols() - 1; c++)
         s << (*(t.d_columns[c]))[r] << ' ';
       s << (*(t.d_columns[c]))[r] << '\n';
     }
@@ -330,7 +287,7 @@ std::istream &operator>>(std::istream &s, BasicTable &t)
   //  3. Read the columns.
   // 10. Return the stream.
 
-  t.clean();                                                               // 1.
+  t.clean();  // 1.
 
   // std::pos_type on Borland?
   // std::streampos p = s.tellg();                                            // 2.
@@ -344,31 +301,26 @@ std::istream &operator>>(std::istream &s, BasicTable &t)
 
   size_t i = 0;
   size_t l = 1;    // Line number.                                         // 3.
-  double v = NAN;        // Value read.
-  char c = 0;          // Character read.
+  double v = NAN;  // Value read.
+  char c = 0;      // Character read.
 
-//  s.seekg(p); Bugs on VS2005
-// instead add the line read and start at line 2
+  //  s.seekg(p); Bugs on VS2005
+  // instead add the line read and start at line 2
   std::istringstream firstLine(line);
-  for(i = 0; i < n; i++) {
-      firstLine >> v;
-      t.d_columns[i]->push_back(v);
+  for (i = 0; i < n; i++) {
+    firstLine >> v;
+    t.d_columns[i]->push_back(v);
   }
 
-  while(s)
-  {
+  while (s) {
     l++;
-    for(i = 0; i < n; i++)
-    {
+    for (i = 0; i < n; i++) {
       s >> v;
 
-      if(!s)
-      {
+      if (!s) {
         // Check if this is a real error situation.
-        if(!s.eof() || (s.eof() && i > 0))
-        {
-          std::string const m = createMessage(
-            "bad format: line %d of table, token %d", l, i + 1);
+        if (!s.eof() || (s.eof() && i > 0)) {
+          std::string const m = createMessage("bad format: line %d of table, token %d", l, i + 1);
           throw BadStreamFormat(m);
         }
         break;
@@ -378,38 +330,31 @@ std::istream &operator>>(std::istream &s, BasicTable &t)
     }
 
     // Check for remaining tokens.
-    while(s.get(c))
-    {
-      if(c == '\n')                    // Ok, just some optional whitespace and
-      {                                // the newline.
+    while (s.get(c)) {
+      if (c == '\n')  // Ok, just some optional whitespace and
+      {               // the newline.
         break;
-      }
-      else if(!std::isspace(c))             // Not a newline, space or tab.
+      } else if (!std::isspace(c))  // Not a newline, space or tab.
       {
-        std::string const m = createMessage(
-                                     "bad format, line %d, token %d", l, i + 1);
+        std::string const m = createMessage("bad format, line %d, token %d", l, i + 1);
         throw BadStreamFormat(m);
       }
     }
   }
 
   // Update number of records variable.
-  for(i = 0; i < n; i++)
+  for (i = 0; i < n; i++)
     t.d_nrRecs = std::max(t.d_nrRecs, t.d_columns[i]->size());
 
-  return s;                                                               // 10.
+  return s;  // 10.
 }
 
 
-
-} // namespace com
-
-
+}  // namespace com
 
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -417,9 +362,6 @@ std::istream &operator>>(std::istream &s, BasicTable &t)
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

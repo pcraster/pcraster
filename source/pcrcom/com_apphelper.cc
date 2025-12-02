@@ -15,12 +15,10 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the AppHelper class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -46,11 +44,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC APPHELPER MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -62,25 +58,21 @@ public:
   \param     application Application object.
   \warning   \a application must not be 0.
 */
-com::AppHelper::AppHelper(App* application)
+com::AppHelper::AppHelper(App *application)
 
-  : d_application(application)
+    : d_application(application)
 
 {
   DEVELOP_PRECOND(application);
 }
 
-
-
 //! Copy constructor.
-com::AppHelper::AppHelper(AppHelper const& rhs)
+com::AppHelper::AppHelper(AppHelper const &rhs)
 
-  : d_application(rhs.d_application)
+    : d_application(rhs.d_application)
 
 {
 }
-
-
 
 //! Destructor.
 /*!
@@ -89,8 +81,6 @@ com::AppHelper::AppHelper(AppHelper const& rhs)
 com::AppHelper::~AppHelper()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -103,38 +93,29 @@ com::AppHelper& com::AppHelper::operator=(AppHelper const& rhs)
 */
 
 
+//! Returns the layered application object.
+/*!
+  \return    Application object.
+*/
+com::App *com::AppHelper::application()
+{
+  return d_application;
+}
 
 //! Returns the layered application object.
 /*!
   \return    Application object.
 */
-com::App* com::AppHelper::application()
+com::App const *com::AppHelper::application() const
 {
   return d_application;
 }
-
-
-
-//! Returns the layered application object.
-/*!
-  \return    Application object.
-*/
-com::App const* com::AppHelper::application() const
-{
-  return d_application;
-}
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

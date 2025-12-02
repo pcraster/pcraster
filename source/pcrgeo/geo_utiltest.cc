@@ -5,7 +5,6 @@
 #include "geo_simpleraster.h"
 #include "geo_util.h"
 
-
 BOOST_AUTO_TEST_CASE(raster2boundaries)
 {
   using namespace geo;
@@ -181,7 +180,6 @@ BOOST_AUTO_TEST_CASE(raster2boundaries)
   }
 }
 
-
 BOOST_AUTO_TEST_CASE(magnitude)
 {
   using namespace geo;
@@ -218,30 +216,30 @@ BOOST_AUTO_TEST_CASE(magnitude)
   geo::magnitude(velocity, velocity, magnitude);
 
   // Vertical boundaries.
-  BOOST_CHECK(com::equal_epsilon(magnitude.leftBoundary(0, 0),  std::sqrt( 2.0)));
-  BOOST_CHECK(com::equal_epsilon(magnitude.leftBoundary(1, 0),  std::sqrt(18.0)));
-  BOOST_CHECK(com::equal_epsilon(magnitude.leftBoundary(2, 0),  std::sqrt(32.0)));
+  BOOST_CHECK(com::equal_epsilon(magnitude.leftBoundary(0, 0), std::sqrt(2.0)));
+  BOOST_CHECK(com::equal_epsilon(magnitude.leftBoundary(1, 0), std::sqrt(18.0)));
+  BOOST_CHECK(com::equal_epsilon(magnitude.leftBoundary(2, 0), std::sqrt(32.0)));
   BOOST_CHECK(com::equal_epsilon(magnitude.rightBoundary(0, 0), std::sqrt(18.0)));
   BOOST_CHECK(com::equal_epsilon(magnitude.rightBoundary(0, 1), std::sqrt(32.0)));
-  BOOST_CHECK(com::equal_epsilon(magnitude.rightBoundary(0, 2), std::sqrt( 2.0)));
+  BOOST_CHECK(com::equal_epsilon(magnitude.rightBoundary(0, 2), std::sqrt(2.0)));
   BOOST_CHECK(com::equal_epsilon(magnitude.rightBoundary(1, 0), std::sqrt(32.0)));
-  BOOST_CHECK(com::equal_epsilon(magnitude.rightBoundary(1, 1), std::sqrt( 2.0)));
+  BOOST_CHECK(com::equal_epsilon(magnitude.rightBoundary(1, 1), std::sqrt(2.0)));
   BOOST_CHECK(com::equal_epsilon(magnitude.rightBoundary(1, 2), std::sqrt(18.0)));
-  BOOST_CHECK(com::equal_epsilon(magnitude.rightBoundary(2, 0), std::sqrt( 2.0)));
+  BOOST_CHECK(com::equal_epsilon(magnitude.rightBoundary(2, 0), std::sqrt(2.0)));
   BOOST_CHECK(com::equal_epsilon(magnitude.rightBoundary(2, 1), std::sqrt(18.0)));
   BOOST_CHECK(com::equal_epsilon(magnitude.rightBoundary(2, 2), std::sqrt(32.0)));
 
   // Horizontal boundaries.
-  BOOST_CHECK(com::equal_epsilon(magnitude.topBoundary(0, 0), std::sqrt( 2.0)));
+  BOOST_CHECK(com::equal_epsilon(magnitude.topBoundary(0, 0), std::sqrt(2.0)));
   BOOST_CHECK(com::equal_epsilon(magnitude.topBoundary(0, 1), std::sqrt(18.0)));
   BOOST_CHECK(com::equal_epsilon(magnitude.topBoundary(0, 2), std::sqrt(32.0)));
   BOOST_CHECK(com::equal_epsilon(magnitude.bottomBoundary(0, 0), std::sqrt(18.0)));
   BOOST_CHECK(com::equal_epsilon(magnitude.bottomBoundary(0, 1), std::sqrt(32.0)));
-  BOOST_CHECK(com::equal_epsilon(magnitude.bottomBoundary(0, 2), std::sqrt( 2.0)));
+  BOOST_CHECK(com::equal_epsilon(magnitude.bottomBoundary(0, 2), std::sqrt(2.0)));
   BOOST_CHECK(com::equal_epsilon(magnitude.bottomBoundary(1, 0), std::sqrt(32.0)));
-  BOOST_CHECK(com::equal_epsilon(magnitude.bottomBoundary(1, 1), std::sqrt( 2.0)));
+  BOOST_CHECK(com::equal_epsilon(magnitude.bottomBoundary(1, 1), std::sqrt(2.0)));
   BOOST_CHECK(com::equal_epsilon(magnitude.bottomBoundary(1, 2), std::sqrt(18.0)));
-  BOOST_CHECK(com::equal_epsilon(magnitude.bottomBoundary(2, 0), std::sqrt( 2.0)));
+  BOOST_CHECK(com::equal_epsilon(magnitude.bottomBoundary(2, 0), std::sqrt(2.0)));
   BOOST_CHECK(com::equal_epsilon(magnitude.bottomBoundary(2, 1), std::sqrt(18.0)));
   BOOST_CHECK(com::equal_epsilon(magnitude.bottomBoundary(2, 2), std::sqrt(32.0)));
 }

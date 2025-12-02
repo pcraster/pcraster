@@ -7,13 +7,10 @@
 #include <sstream>
 #include <stdexcept>
 
-
-
 /*!
   \file
   This file contains the implementation of the KeyValueTable class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -24,21 +21,20 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF KEYVALUETABLE MEMBERS
 //------------------------------------------------------------------------------
 
 //! ctor
 com::KeyValueTable::KeyValueTable()
-  
+
 {
 }
 
 //! dtor
 com::KeyValueTable::~KeyValueTable()
 {
-  for(auto & d_keyConfig : d_keyConfigs)
+  for (auto &d_keyConfig : d_keyConfigs)
     delete d_keyConfig.second;
 }
 
@@ -52,7 +48,7 @@ com::KeyValueTable::~KeyValueTable()
  */
 void com::KeyValueTable::setDiscardUnknownKeys(bool discardUnknownKeys)
 {
- d_discardUnknownKeys=discardUnknownKeys;
+  d_discardUnknownKeys = discardUnknownKeys;
 }
 
 /*!
@@ -62,12 +58,12 @@ void com::KeyValueTable::setDiscardUnknownKeys(bool discardUnknownKeys)
  * \pre
  *   key with that name is not yet present in the table
  */
-void com::KeyValueTable::insertKey(const KeyValueConfig& kvc, bool required)
+void com::KeyValueTable::insertKey(const KeyValueConfig &kvc, bool required)
 {
-    PRECOND(!d_keyConfigs.count(kvc.keyName()));
-    KeyValueConfig *k = kvc.createClone();
-    k->setRequired(required);
-    d_keyConfigs.insert(std::make_pair(kvc.keyName(),k));
+  PRECOND(!d_keyConfigs.count(kvc.keyName()));
+  KeyValueConfig *k = kvc.createClone();
+  k->setRequired(required);
+  d_keyConfigs.insert(std::make_pair(kvc.keyName(), k));
 }
 
 //! add and validate  key,value pair to table
@@ -76,33 +72,34 @@ void com::KeyValueTable::insertKey(const KeyValueConfig& kvc, bool required)
  * \throws
  *   struct UnknownKey, struct DuplicateKey or struct IllegalValue
  */
-void com::KeyValueTable::add(const std::string& key, const std::string& value)
+void com::KeyValueTable::add(const std::string &key, const std::string &value)
 {
-  auto kc=d_keyConfigs.find(key);
+  auto kc = d_keyConfigs.find(key);
   if (kc == d_keyConfigs.end()) {
     if (d_discardUnknownKeys)
-       return;
-    throw UnknownKey(key,"unknown keyword");
+      return;
+    throw UnknownKey(key, "unknown keyword");
   }
   if (isSet(key))
-    throw DuplicateKey(key,value,"keyword defined twice");
+    throw DuplicateKey(key, value, "keyword defined twice");
 
-  try { kc->second->validate(value);
-  } catch (const com::Exception& e) {
-    throw IllegalValue(key,value,e.messages());
+  try {
+    kc->second->validate(value);
+  } catch (const com::Exception &e) {
+    throw IllegalValue(key, value, e.messages());
   }
 
-  d_keyValues.insert(std::make_pair(key,value));
+  d_keyValues.insert(std::make_pair(key, value));
 }
 
 //! is \a key set in the table?
-bool com::KeyValueTable::isSet(const std::string& key) const
+bool com::KeyValueTable::isSet(const std::string &key) const
 {
-  auto ka=d_keyValues.find(key);
-  return ka!=d_keyValues.end();
+  auto ka = d_keyValues.find(key);
+  return ka != d_keyValues.end();
 }
 
-bool com::KeyValueTable::isSet(const KeyValueConfig& key) const
+bool com::KeyValueTable::isSet(const KeyValueConfig &key) const
 {
   return isSet(key.keyName());
 }
@@ -110,11 +107,11 @@ bool com::KeyValueTable::isSet(const KeyValueConfig& key) const
 /*! value associated with key
  *   \pre isSet(key)
  */
-const std::string& com::KeyValueTable::value(const std::string& key) const
+const std::string &com::KeyValueTable::value(const std::string &key) const
 {
   PRECOND(isSet(key));
-  auto ka=d_keyValues.find(key);
-  PRECOND(ka!=d_keyValues.end());
+  auto ka = d_keyValues.find(key);
+  PRECOND(ka != d_keyValues.end());
   return ka->second;
 }
 
@@ -124,16 +121,15 @@ const std::string& com::KeyValueTable::value(const std::string& key) const
  */
 void com::KeyValueTable::checkRequired() const
 {
-  for(const auto & d_keyConfig : d_keyConfigs) {
-      const KeyValueConfig* kc = d_keyConfig.second;
-      if (kc->required() && !isSet(*kc))
-        throw MissingKey(kc->keyName(), "is not present");
+  for (const auto &d_keyConfig : d_keyConfigs) {
+    const KeyValueConfig *kc = d_keyConfig.second;
+    if (kc->required() && !isSet(*kc))
+      throw MissingKey(kc->keyName(), "is not present");
   }
 }
 
 //! ctor
-com::KeyValueConfig::KeyValueConfig(const std::string& keyName):
-  d_keyName(keyName)
+com::KeyValueConfig::KeyValueConfig(const std::string &keyName) : d_keyName(keyName)
 {
 }
 
@@ -143,7 +139,7 @@ com::KeyValueConfig::~KeyValueConfig()
 
 void com::KeyValueConfig::setRequired(bool required)
 {
-  d_required=required;
+  d_required = required;
 }
 
 bool com::KeyValueConfig::required() const
@@ -152,7 +148,7 @@ bool com::KeyValueConfig::required() const
 }
 
 //! name of key
-const std::string& com::KeyValueConfig::keyName() const
+const std::string &com::KeyValueConfig::keyName() const
 {
   return d_keyName;
 }
@@ -161,43 +157,35 @@ const std::string& com::KeyValueConfig::keyName() const
 // DEFINITION OF EXCEPTIONS
 //------------------------------------------------------------------------------
 
-com::KeyValueTable::UnknownKey::UnknownKey(
-    const std::string& keyName,
-    const std::string& message)
+com::KeyValueTable::UnknownKey::UnknownKey(const std::string &keyName, const std::string &message)
 {
   std::ostringstream str;
   str << "keyword '" << keyName << "': " << message;
   append(str.str());
 }
 
-com::KeyValueTable::MissingKey::MissingKey(
-    const std::string& keyName,
-    const std::string& message)
+com::KeyValueTable::MissingKey::MissingKey(const std::string &keyName, const std::string &message)
 {
   std::ostringstream str;
   str << "keyword '" << keyName << "': " << message;
   append(str.str());
 }
 
-com::KeyValueTable::DuplicateKey::DuplicateKey(
-    const std::string& key,
-    const std::string& value,
-    const std::string& message)
+com::KeyValueTable::DuplicateKey::DuplicateKey(const std::string &key, const std::string &value,
+                                               const std::string &message)
 {
   std::ostringstream str;
-  str << "keyword '" << key   << "': "
-      << "value '"   << value << "': " << message;
+  str << "keyword '" << key << "': "
+      << "value '" << value << "': " << message;
   append(str.str());
 }
 
-com::KeyValueTable::IllegalValue::IllegalValue(
-    const std::string& key,
-    const std::string& value,
-    const std::string& message)
+com::KeyValueTable::IllegalValue::IllegalValue(const std::string &key, const std::string &value,
+                                               const std::string &message)
 {
   std::ostringstream str;
-  str << "keyword '" << key   << "': "
-      << "value '"   << value << "': " << message;
+  str << "keyword '" << key << "': "
+      << "value '" << value << "': " << message;
   append(str.str());
 }
 
@@ -207,9 +195,7 @@ com::KeyValueTable::IllegalValue::IllegalValue(
  * \pre
  *    isSet(kv)
  */
-void com::KeyValueTable::throwIllegalValue(
-    const KeyValueConfig& kv,
-    const std::string& message) const
+void com::KeyValueTable::throwIllegalValue(const KeyValueConfig &kv, const std::string &message) const
 {
   PRECOND(isSet(kv));
   throw IllegalValue(kv.keyName(), value(kv.keyName()), message);
@@ -220,8 +206,7 @@ void com::KeyValueTable::throwIllegalValue(
 //------------------------------------------------------------------------------
 
 //! ctor
-com::KeyValueString::KeyValueString(const std::string& keyName):
- KeyValueConfig(keyName)
+com::KeyValueString::KeyValueString(const std::string &keyName) : KeyValueConfig(keyName)
 {
 }
 
@@ -231,11 +216,11 @@ com::KeyValueString::~KeyValueString()
 }
 
 //! validate on string is a no-op assuming empty strings are allowed
-void com::KeyValueString::validate(const std::string& /* value */) const
+void com::KeyValueString::validate(const std::string & /* value */) const
 {
 }
 
-com::KeyValueString* com::KeyValueString::createClone() const
+com::KeyValueString *com::KeyValueString::createClone() const
 {
   return new KeyValueString(*this);
 }
@@ -245,7 +230,7 @@ com::KeyValueString* com::KeyValueString::createClone() const
  * \pre
  *   \a kvt must have the key, see com::KeyValueTable::isSet()
  */
-const std::string& com::KeyValueString::value(const com::KeyValueTable& kvt) const
+const std::string &com::KeyValueString::value(const com::KeyValueTable &kvt) const
 {
   return kvt.value(keyName());
 }
@@ -255,8 +240,7 @@ const std::string& com::KeyValueString::value(const com::KeyValueTable& kvt) con
 //------------------------------------------------------------------------------
 
 //! ctor
-com::KeyValueEnum::KeyValueEnum(const std::string& keyName):
- KeyValueConfig(keyName)
+com::KeyValueEnum::KeyValueEnum(const std::string &keyName) : KeyValueConfig(keyName)
 {
 }
 
@@ -266,13 +250,12 @@ com::KeyValueEnum::~KeyValueEnum()
 }
 
 //! Copy constructor.
-com::KeyValueEnum::KeyValueEnum(const KeyValueEnum& kve):
-   KeyValueConfig(kve.keyName()),
-   d_enumValues(kve.d_enumValues)
+com::KeyValueEnum::KeyValueEnum(const KeyValueEnum &kve)
+    : KeyValueConfig(kve.keyName()), d_enumValues(kve.d_enumValues)
 {
 }
 
-com::KeyValueEnum* com::KeyValueEnum::createClone() const
+com::KeyValueEnum *com::KeyValueEnum::createClone() const
 {
   return new KeyValueEnum(*this);
 }
@@ -282,7 +265,7 @@ com::KeyValueEnum* com::KeyValueEnum::createClone() const
  * \pre
  *   at least one enum value must be inserted
  */
-void com::KeyValueEnum::validate(const std::string& value) const
+void com::KeyValueEnum::validate(const std::string &value) const
 {
   PRECOND(!d_enumValues.empty());
   auto p = d_enumValues.find(value);
@@ -293,7 +276,7 @@ void com::KeyValueEnum::validate(const std::string& value) const
 //! insert an enum
 /*! duplicate insertions are discarded
  */
-void com::KeyValueEnum::insert(const std::string& enumValue)
+void com::KeyValueEnum::insert(const std::string &enumValue)
 {
   d_enumValues.insert(enumValue);
 }
@@ -303,13 +286,13 @@ void com::KeyValueEnum::insert(const std::string& enumValue)
  * \pre
  *   \a kvt must have the key, see com::KeyValueTable::isSet()
  */
-const std::string& com::KeyValueEnum::value(const com::KeyValueTable& kvt) const
+const std::string &com::KeyValueEnum::value(const com::KeyValueTable &kvt) const
 {
   return kvt.value(keyName());
 }
 
 //! return value for key \a kvt with casing as inserted with insert()
-const std::string& com::KeyValueEnum::configValue(const KeyValueTable& kvt) const
+const std::string &com::KeyValueEnum::configValue(const KeyValueTable &kvt) const
 {
   auto p = d_enumValues.find(kvt.value(keyName()));
   PRECOND(p != d_enumValues.end());
@@ -325,28 +308,25 @@ const std::string& com::KeyValueEnum::configValue(const KeyValueTable& kvt) cons
  *  \param keyName keyword, name of key
  *  \param iv      valid range, 0 if no range, a clone copy of iv is generated
  */
-com::KeyValueNumber::KeyValueNumber(
-    const std::string& keyName,
-    const Interval<double>* iv):
- KeyValueConfig(keyName)
+com::KeyValueNumber::KeyValueNumber(const std::string &keyName, const Interval<double> *iv)
+    : KeyValueConfig(keyName)
 {
- if (iv)
-  d_iv=iv->createClone();
+  if (iv)
+    d_iv = iv->createClone();
 }
 
-com::KeyValueNumber::KeyValueNumber(const KeyValueNumber& k):
- KeyValueConfig(k.keyName())
+com::KeyValueNumber::KeyValueNumber(const KeyValueNumber &k) : KeyValueConfig(k.keyName())
 {
- if (k.d_iv)
-  d_iv=k.d_iv->createClone();
+  if (k.d_iv)
+    d_iv = k.d_iv->createClone();
 }
 
-com::KeyValueNumber&  com::KeyValueNumber::operator=(const KeyValueNumber& k)
+com::KeyValueNumber &com::KeyValueNumber::operator=(const KeyValueNumber &k)
 {
   if (this != &k) {
     *this = k;
     delete this->d_iv;
-    this->d_iv=nullptr;
+    this->d_iv = nullptr;
     if (k.d_iv)
       this->d_iv = k.d_iv->createClone();
   }
@@ -359,24 +339,22 @@ com::KeyValueNumber::~KeyValueNumber()
   delete d_iv;
 }
 
-
-
-void com::KeyValueNumber::setInterval(const Interval<double>& iv)
+void com::KeyValueNumber::setInterval(const Interval<double> &iv)
 {
   delete d_iv;
   d_iv = iv.createClone();
 }
 
 //! validate on string is a no-op assuming empty strings are allowed
-void com::KeyValueNumber::validate(const std::string& value ) const
+void com::KeyValueNumber::validate(const std::string &value) const
 {
   try {
-   double const numericValue = typeValidate(value);
-   if (d_iv)
-    if (!d_iv->valid(numericValue))
-      throw com::Exception(d_iv->msg());
-  } catch (const std::range_error& re) {
-      throw com::Exception(re.what());
+    double const numericValue = typeValidate(value);
+    if (d_iv)
+      if (!d_iv->valid(numericValue))
+        throw com::Exception(d_iv->msg());
+  } catch (const std::range_error &re) {
+    throw com::Exception(re.what());
   }
 }
 
@@ -384,10 +362,8 @@ void com::KeyValueNumber::validate(const std::string& value ) const
  *  \param keyName keyword, name of key
  *  \param iv      valid range, 0 if no range, a clone copy of iv is generated
  */
-com::KeyValueInteger::KeyValueInteger(
-    const std::string& keyName,
-    const Interval<double>* iv):
-  KeyValueNumber(keyName,iv)
+com::KeyValueInteger::KeyValueInteger(const std::string &keyName, const Interval<double> *iv)
+    : KeyValueNumber(keyName, iv)
 {
 }
 
@@ -395,7 +371,7 @@ com::KeyValueInteger::~KeyValueInteger()
 {
 }
 
-com::KeyValueInteger* com::KeyValueInteger::createClone() const
+com::KeyValueInteger *com::KeyValueInteger::createClone() const
 {
   return new KeyValueInteger(*this);
 }
@@ -405,26 +381,26 @@ com::KeyValueInteger* com::KeyValueInteger::createClone() const
  * \pre
  *   \a kvt must have the key, see com::KeyValueTable::isSet()
  */
-int com::KeyValueInteger::value(const com::KeyValueTable& kvt) const
+int com::KeyValueInteger::value(const com::KeyValueTable &kvt) const
 {
   return fromString<int>(kvt.value(keyName()));
 }
 
 //! set \a v to value() iff key is set
-void com::KeyValueInteger::setConditional(int& v, const KeyValueTable& kvt) const
+void com::KeyValueInteger::setConditional(int &v, const KeyValueTable &kvt) const
 {
   if (kvt.isSet(keyName()))
     v = value(kvt);
 }
 
 //! set \a v to value() iff key is set
-void com::KeyValueInteger::setConditional(size_t& v, const KeyValueTable& kvt) const
+void com::KeyValueInteger::setConditional(size_t &v, const KeyValueTable &kvt) const
 {
   if (kvt.isSet(keyName()))
     v = value(kvt);
 }
 
-double com::KeyValueInteger::typeValidate(const std::string& value) const
+double com::KeyValueInteger::typeValidate(const std::string &value) const
 {
   return fromString<int>(value);
 }
@@ -433,10 +409,8 @@ double com::KeyValueInteger::typeValidate(const std::string& value) const
  *  \param keyName keyword, name of key
  *  \param iv      valid range, 0 if no range, a clone copy of iv is generated
  */
-com::KeyValueDouble::KeyValueDouble(
-    const std::string& keyName,
-    const Interval<double>* iv):
-  KeyValueNumber(keyName,iv)
+com::KeyValueDouble::KeyValueDouble(const std::string &keyName, const Interval<double> *iv)
+    : KeyValueNumber(keyName, iv)
 {
 }
 
@@ -444,7 +418,7 @@ com::KeyValueDouble::~KeyValueDouble()
 {
 }
 
-com::KeyValueDouble* com::KeyValueDouble::createClone() const
+com::KeyValueDouble *com::KeyValueDouble::createClone() const
 {
   return new KeyValueDouble(*this);
 }
@@ -454,18 +428,18 @@ com::KeyValueDouble* com::KeyValueDouble::createClone() const
  * \pre
  *   \a kvt must have the key, see com::KeyValueTable::isSet()
  */
-double com::KeyValueDouble::value(const com::KeyValueTable& kvt) const
+double com::KeyValueDouble::value(const com::KeyValueTable &kvt) const
 {
   return fromString<double>(kvt.value(keyName()));
 }
 
-double com::KeyValueDouble::typeValidate(const std::string& value) const
+double com::KeyValueDouble::typeValidate(const std::string &value) const
 {
   return fromString<double>(value);
 }
 
 //! set \a v to value() iff key is set
-void com::KeyValueDouble::setConditional(double& v, const KeyValueTable& kvt) const
+void com::KeyValueDouble::setConditional(double &v, const KeyValueTable &kvt) const
 {
   if (kvt.isSet(keyName()))
     v = value(kvt);
@@ -476,10 +450,6 @@ void com::KeyValueDouble::setConditional(double& v, const KeyValueTable& kvt) co
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

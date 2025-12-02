@@ -26,12 +26,10 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the SpiritFileLineParser class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -57,24 +55,19 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC SPIRITFILELINEPARSER MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF SPIRITFILELINEPARSER MEMBERS
 //------------------------------------------------------------------------------
 
-com::SpiritFileLineParser::SpiritFileLineParser(
-    const com::PathName& pn,
-    size_t nrHeaderLinesToSkip):
-  d_pn(pn),
-  d_nrNewLinesRead(0)
+com::SpiritFileLineParser::SpiritFileLineParser(const com::PathName &pn, size_t nrHeaderLinesToSkip)
+    : d_pn(pn), d_nrNewLinesRead(0)
 {
-  open(d_ifs,pn);
+  open(d_ifs, pn);
   skipLines(nrHeaderLinesToSkip);
 }
 
@@ -103,27 +96,27 @@ com::SpiritFileLineParser::SpiritFileLineParser(const SpiritFileLineParser& rhs)
  */
 void com::SpiritFileLineParser::advance()
 {
-  bool allWhiteSpace=true;
-  while(allWhiteSpace) {
+  bool allWhiteSpace = true;
+  while (allWhiteSpace) {
     char c;
-    d_end=d_buffer;
-    while(d_ifs.get(c)) {
-      if (d_end == begin()+CAPACITY)
-        throw FileFormatError(d_pn,"exceeds buffer");
+    d_end = d_buffer;
+    while (d_ifs.get(c)) {
+      if (d_end == begin() + CAPACITY)
+        throw FileFormatError(d_pn, "exceeds buffer");
       *d_end = c;
       d_end++;
       allWhiteSpace = allWhiteSpace && (std::isspace(c));
       if (c == '\n') {
-         d_nrNewLinesRead++; 
-         break;
+        d_nrNewLinesRead++;
+        break;
       }
     }
     if (d_ifs.eof()) {
-      d_nrNewLinesRead++; // let eof also be a terminator
+      d_nrNewLinesRead++;  // let eof also be a terminator
       return;
     } else {
-       if (!d_ifs)
-        throw FileFormatError(d_pn,"input error");
+      if (!d_ifs)
+        throw FileFormatError(d_pn, "input error");
     }
   }
 }
@@ -133,18 +126,19 @@ void com::SpiritFileLineParser::skipLines(size_t nrLinesToSkip)
   size_t nrNewLinesNowRead(0);
 
   char c;
-  while( nrNewLinesNowRead != nrLinesToSkip && d_ifs.get(c)) {
+  while (nrNewLinesNowRead != nrLinesToSkip && d_ifs.get(c)) {
     if (c == '\n') {
-       d_nrNewLinesRead++;
-       ++nrNewLinesNowRead;
+      d_nrNewLinesRead++;
+      ++nrNewLinesNowRead;
     }
   }
   advance();
 }
 
 //! we do have a full match if there is only white space left
-bool com::SpiritFileLineParser::fullMatch() const {
-  for(iterator i=pi.stop; i != end(); ++i)
+bool com::SpiritFileLineParser::fullMatch() const
+{
+  for (iterator i = pi.stop; i != end(); ++i)
     if (!std::isspace(*i))
       return false;
   return true;
@@ -164,25 +158,26 @@ bool com::SpiritFileLineParser::fullMatch() const {
  *  forthcoming spirit 1.7 has position_iterator2 that can give us the 
  *  current line data we hack here
  */
-void com::SpiritFileLineParser::errorAtStop() const {
+void com::SpiritFileLineParser::errorAtStop() const
+{
   // vreet bcc32 niet
   // std::string(pi.stop.pos(),d_fend).substr(0,5)+"'");
 
   // eat away trailing space
-  iterator colPos=pi.stop;
-  while(std::isspace(*colPos))
+  iterator colPos = pi.stop;
+  while (std::isspace(*colPos))
     ++colPos;
   std::string s;
-  for(iterator i=colPos; i != end(); ++i) {
-      if (*i=='\n')
-        break;
-      s+=*i;
-      if (s.size()==5)
-        break;
+  for (iterator i = colPos; i != end(); ++i) {
+    if (*i == '\n')
+      break;
+    s += *i;
+    if (s.size() == 5)
+      break;
   }
 
-  throw com::FilePositionError(d_pn,d_nrNewLinesRead,colPos-begin()+1,
-   "unexpected format: '"+s+",");
+  throw com::FilePositionError(d_pn, d_nrNewLinesRead, colPos - begin() + 1,
+                               "unexpected format: '" + s + ",");
 }
 
 //! get current line nr of file position
@@ -196,11 +191,9 @@ bool com::SpiritFileLineParser::eof() const
   return d_ifs.eof();
 }
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

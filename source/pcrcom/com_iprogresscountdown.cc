@@ -1,13 +1,10 @@
 #include "stddefx.h"
 #include "com_iprogresscountdown.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the IProgressCountdown class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -33,11 +30,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC IPROGRESSCOUNTDOWN MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -46,21 +41,17 @@ public:
 
 com::IProgressCountdown::IProgressCountdown()
 
-  : ProgressTracker()
+    : ProgressTracker()
 
 {
 }
-
-
 
 com::IProgressCountdown::IProgressCountdown(size_t nrSteps)
 
-  : ProgressTracker(nrSteps)
+    : ProgressTracker(nrSteps)
 
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -73,12 +64,9 @@ com::IProgressCountdown::IProgressCountdown(IProgressCountdown const& rhs)
 */
 
 
-
 com::IProgressCountdown::~IProgressCountdown()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -91,16 +79,11 @@ com::IProgressCountdown& com::IProgressCountdown::operator=(IProgressCountdown c
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

@@ -15,18 +15,15 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the Kernel class.
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC KERNEL MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -38,25 +35,20 @@
   \param     radius Radius of the kernel.
   \param     raster Raster to operate kernel on.
 */
-template<class T, class U>
-geo::Kernel<T, U>::Kernel(size_t radius, const SimpleRaster<T>& raster)
+template <class T, class U>
+geo::Kernel<T, U>::Kernel(size_t radius, const SimpleRaster<T> &raster)
 
-  : d_radius(radius), d_raster(raster)
+    : d_radius(radius), d_raster(raster)
 
 {
 }
-
-
 
 //! Destructor.
 /*!
 */
-template<class T, class U>
-geo::Kernel<T, U>::~Kernel()
+template <class T, class U> geo::Kernel<T, U>::~Kernel()
 {
 }
-
-
 
 //! Returns the size.
 /*!
@@ -65,36 +57,26 @@ geo::Kernel<T, U>::~Kernel()
 
   The size of a kernel is 2 * radius + 1.
 */
-template<class T, class U>
-size_t geo::Kernel<T, U>::size() const
+template <class T, class U> size_t geo::Kernel<T, U>::size() const
 {
   return 2 * d_radius + 1;
 }
-
-
 
 //! Returns the number of cells.
 /*!
   \return    Number of cells.
   \sa        radius(), size()
 */
-template<class T, class U>
-size_t geo::Kernel<T, U>::nrCells() const
+template <class T, class U> size_t geo::Kernel<T, U>::nrCells() const
 {
   return size() * size();
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

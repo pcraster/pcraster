@@ -1,12 +1,10 @@
 #include "stddefx.h"
 #include "com_pathname.h"
-#include "com_pathinfo.h"              // currentWorkingDirectory()
+#include "com_pathinfo.h"  // currentWorkingDirectory()
 #include "com_strlib.h"
 
 #include <algorithm>
 #include <iostream>
-
-
 
 /*!
   \file
@@ -16,48 +14,43 @@
 */
 
 
-namespace com {
+namespace com
+{
 
-const char DIR_PATH_DELIM=DIR_PATH_DELIM_CHAR;
+const char DIR_PATH_DELIM = DIR_PATH_DELIM_CHAR;
 
 #ifdef WIN32
-const char DRIVE_DELIM=':';
+const char DRIVE_DELIM = ':';
 #endif
 
-} // namespace com
-
-
+}  // namespace com
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
 
-const std::string& com::PathName::dirPathDelimNative()
+const std::string &com::PathName::dirPathDelimNative()
 {
-  static std::string const str(1,DIR_PATH_DELIM);
+  static std::string const str(1, DIR_PATH_DELIM);
   return str;
 }
 
 //! test if two path fragments are equal
-bool com::PathName::equal(
-                      const std::string& pathFragment1,
-                      const std::string& pathFragment2)
+bool com::PathName::equal(const std::string &pathFragment1, const std::string &pathFragment2)
 {
- return com::PathName::compare(pathFragment1,pathFragment2) == 0;
+  return com::PathName::compare(pathFragment1, pathFragment2) == 0;
 }
 
 //! compare two path fragments
 /*!
   \return    -1,0,1 as in std::string::compare()
 */
-int com::PathName::compare(
-    const std::string& pathFragment1,
-    const std::string& pathFragment2)
+int com::PathName::compare(const std::string &pathFragment1, const std::string &pathFragment2)
 {
 #ifdef WIN32
-      return com::compareNoCase(pathFragment1,pathFragment2);
+  return com::compareNoCase(pathFragment1, pathFragment2);
 #else
-      return pathFragment1.compare(pathFragment2);
+  return pathFragment1.compare(pathFragment2);
 #endif
 }
 
@@ -74,29 +67,21 @@ com::PathName::PathName()
 {
 }
 
-
-
 //! Constructor.
 /*!
     \param     pn Character string representation of a path name.
 */
-com::PathName::PathName(const char *pn)
-  : d_path(pn)
+com::PathName::PathName(const char *pn) : d_path(pn)
 {
 }
-
-
 
 /*!
   \brief     Constructor.
   \param     pn String representation of a path name.
 */
-com::PathName::PathName(const std::string &pn)
-  : d_path(pn)
+com::PathName::PathName(const std::string &pn) : d_path(pn)
 {
 }
-
-
 
 //! Constructor.
 /*!
@@ -105,32 +90,25 @@ com::PathName::PathName(const std::string &pn)
              performed by this constructor. It is assumed that \a path already
              is valid.
 */
-com::PathName::PathName(std::filesystem::path const& path)
+com::PathName::PathName(std::filesystem::path const &path)
 
-  : d_path(path)
+    : d_path(path)
 
 {
 }
 
-
-
-void com::PathName::set(const std::string& path)
+void com::PathName::set(const std::string &path)
 {
-  d_path=Path(path);
+  d_path = Path(path);
 }
-
-
 
 /*!
   \brief     Copy constructor.
   \param     pn Path name object to copy.
 */
-com::PathName::PathName(const PathName &pn)
-  : d_path(pn.d_path)
+com::PathName::PathName(const PathName &pn) : d_path(pn.d_path)
 {
 }
-
-
 
 /*!
   \brief     Destructor.
@@ -138,8 +116,6 @@ com::PathName::PathName(const PathName &pn)
 com::PathName::~PathName()
 {
 }
-
-
 
 //! Returns true if the path name has a directory name.
 /*!
@@ -151,7 +127,6 @@ bool com::PathName::hasDirectoryName() const
   return path().has_parent_path();
 }
 
-
 //! Returns true if the path name has a base name.
 /*!
   \return    true or false
@@ -162,8 +137,6 @@ bool com::PathName::hasBaseName() const
   return path().has_filename();
 }
 
-
-
 /*!
   \brief     Assignment operator.
   \param     pn Path name to assign from.
@@ -171,14 +144,12 @@ bool com::PathName::hasBaseName() const
 */
 com::PathName &com::PathName::operator=(const PathName &pn)
 {
-  if(&pn != this) {
+  if (&pn != this) {
     d_path = pn.path();
   }
 
   return *this;
 }
-
-
 
 //! Concatenates path name \a addAtEnd to this.
 /*!
@@ -197,8 +168,6 @@ void com::PathName::clear()
   *this = com::PathName();
 }
 
-
-
 //! Concatenates \a addAtEnd to the end of this.
 /*!
   \param     addAtEnd Path name to concatenate to this.
@@ -214,8 +183,6 @@ com::PathName &com::PathName::operator+=(const PathName &addAtEnd)
   return *this;
 }
 
-
-
 //! Converts foreign path names to native ones.
 /*!
   For example the unix path 'project/scripts/rain.mod' will be converted to
@@ -227,15 +194,13 @@ com::PathName &com::PathName::operator+=(const PathName &addAtEnd)
 */
 void com::PathName::makeNative()
 {
- // BUGGED d_path.make_preferred();
+  // BUGGED d_path.make_preferred();
 #ifdef WIN32
- std::string str = toString();
- std::replace(str.begin(), str.end(),'/','\\');
- d_path = str;
+  std::string str = toString();
+  std::replace(str.begin(), str.end(), '/', '\\');
+  d_path = str;
 #endif
 }
-
-
 
 //! Makes the path name an absulute path name.
 /*!
@@ -247,14 +212,11 @@ void com::PathName::makeNative()
 */
 void com::PathName::makeAbsolute()
 {
-  if(!path().is_absolute()) {
+  if (!path().is_absolute()) {
     *this = currentWorkingDirectory() + *this;
   }
   POSTCOND(isAbsolute());
 }
-
-
-
 
 //! Go one directory up; Removes a file or last directory name from the end of the path name.
 /*!
@@ -267,21 +229,17 @@ void com::PathName::makeAbsolute()
 */
 void com::PathName::up()
 {
-  d_path=path().parent_path();
+  d_path = path().parent_path();
 }
-
-
 
 //! Returns the layerd Path object.
 /*!
   \return    Path object.
 */
-const com::PathName::Path& com::PathName::path() const
+const com::PathName::Path &com::PathName::path() const
 {
   return d_path;
 }
-
-
 
 /*!
   \brief     Returns true if \a pn is equal to this.
@@ -297,8 +255,6 @@ bool com::PathName::equals(const PathName &pn) const
   return compare(pn) == 0;
 }
 
-
-
 //! Compares this with \a pathName.
 /*!
   \param     pathName Path name to compare with.
@@ -310,12 +266,10 @@ bool com::PathName::equals(const PathName &pn) const
   before it. This function takes into account if case matters. So on MSWindows
   for example, the path names "bla" and "BLA" compare equal.
 */
-int com::PathName::compare(const PathName& pathName) const
+int com::PathName::compare(const PathName &pathName) const
 {
-      return compare(toString(), pathName.toString());
+  return compare(toString(), pathName.toString());
 }
-
-
 
 //! Returns true if this starts with \a aString.
 /*!
@@ -326,19 +280,16 @@ int com::PathName::compare(const PathName& pathName) const
   The comparison is done case insensitive on platforms where path names are
   case insensitive. Otherwise a case sensitive comparison made.
 */
-bool com::PathName::startsWith(const std::string& aString) const
+bool com::PathName::startsWith(const std::string &aString) const
 {
   std::string const pathName = toString();
 #ifdef WIN32
-  return pathName.length() >= aString.length() && com::compareNoCase(
-                   pathName.substr(0, aString.length()), aString) == 0;
-#else
   return pathName.length() >= aString.length() &&
-                   pathName.substr(0, aString.length()) == aString;
+         com::compareNoCase(pathName.substr(0, aString.length()), aString) == 0;
+#else
+  return pathName.length() >= aString.length() && pathName.substr(0, aString.length()) == aString;
 #endif
 }
-
-
 
 /*!
   \brief     Returns the path name as a string.
@@ -376,8 +327,6 @@ std::string com::PathName::baseName() const
   return path().filename().string();
 }
 
-
-
 //! Returns the extension, without the "." itself.
 /*!
   \return    Extension or an empty string if the path name doesn't contain
@@ -390,7 +339,7 @@ std::string com::PathName::extension() const
   size_t const i = filename.find_last_of('.');
   // found and not as last char
   if (i != std::string::npos && i < filename.size() - 1)
-   return filename.substr(i+1); // +1 do not include "."
+    return filename.substr(i + 1);  // +1 do not include "."
   return "";
 }
 
@@ -408,22 +357,23 @@ bool com::PathName::hasExtension() const
 /*!
  * overwrite the extension already present or add extension if not yet present
  */
-void com::PathName::setExtension(const std::string& e)
+void com::PathName::setExtension(const std::string &e)
 {
   removeExtension();
   addExtension(e);
 }
 
-namespace boost {
-  namespace filesystem {
-    int fooCeesBug()
-    {
-           std::cout << "fooCeesBug \n";
-           return 0;
-    }
-  }
+namespace boost
+{
+namespace filesystem
+{
+int fooCeesBug()
+{
+  std::cout << "fooCeesBug \n";
+  return 0;
 }
-
+}  // namespace filesystem
+}  // namespace boost
 
 //! remove the extension, including the ".", if there is an extension
 /*!
@@ -434,13 +384,12 @@ void com::PathName::removeExtension()
   std::string const ext(extension());
   if (!ext.empty()) {
     std::string s(path().string());
-    PRECOND(s.rfind(ext)!=std::string::npos);
-    size_t const dotPos = s.rfind(ext)-1;
+    PRECOND(s.rfind(ext) != std::string::npos);
+    size_t const dotPos = s.rfind(ext) - 1;
     s.erase(dotPos);
     set(s);
   }
 }
-
 
 //! Adds extension \a e to the pathname.
 /*!
@@ -451,15 +400,15 @@ void com::PathName::removeExtension()
   empty. The extension is always appended, even when an extension is already
   present. setExtension() will overwrite the last extension present
 */
-void com::PathName::addExtension(const std::string& e)
+void com::PathName::addExtension(const std::string &e)
 {
   if (e.empty())
     return;
   std::string s(path().string());
   std::string dot;
-  if (s.empty() || s[s.size()-1] != '.')
-   dot=".";
-  s+=dot+e;
+  if (s.empty() || s[s.size() - 1] != '.')
+    dot = ".";
+  s += dot + e;
   set(s);
 }
 
@@ -471,8 +420,6 @@ size_t com::PathName::length() const
 {
   return toString().length();
 }
-
-
 
 /*!
   \brief     Returns true if the path name is relative.
@@ -488,8 +435,6 @@ bool com::PathName::isRelative() const
   return !path().is_absolute();
 }
 
-
-
 /*!
   \brief     Returns true if the path name is absolute.
   \return    True if path name is absolute.
@@ -499,8 +444,6 @@ bool com::PathName::isAbsolute() const
 {
   return path().is_absolute();
 }
-
-
 
 //! Returns true if the path name is empty.
 /*!
@@ -514,15 +457,10 @@ bool com::PathName::isEmpty() const
   return empty();
 }
 
-
-
 bool com::PathName::empty() const
 {
   return path().empty();
 }
-
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
@@ -540,8 +478,6 @@ bool com::operator==(const PathName &lhs, const PathName &rhs)
   return lhs.equals(rhs);
 }
 
-
-
 /*!
   \relates   PathName
   \brief     Inequality operator.
@@ -554,14 +490,10 @@ bool com::operator!=(const PathName &lhs, const PathName &rhs)
   return !lhs.equals(rhs);
 }
 
-
-
 bool com::operator<(const PathName &rhs, const PathName &lhs)
 {
   return lhs.compare(rhs) < 0;
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
@@ -582,8 +514,6 @@ com::PathName com::operator+(const PathName &firstPart, const PathName &secondPa
   return pn;
 }
 
-
-
 //! Writes \a pathName to \a stream.
 /*!
   \relates   PathName
@@ -595,7 +525,7 @@ com::PathName com::operator+(const PathName &firstPart, const PathName &secondPa
   This operator calls toString() on \a pathName and writes the result to
   \a stream.
 */
-std::ostream& com::operator<<(std::ostream& stream, const PathName& pathName)
+std::ostream &com::operator<<(std::ostream &stream, const PathName &pathName)
 {
   stream << pathName.toString();
   return stream;
@@ -612,7 +542,7 @@ std::ostream& com::operator<<(std::ostream& stream, const PathName& pathName)
  * \pre relativePathName must be relative
   \relates   PathName
 */
-com::PathName      com::nativePathName      (const std::string& relativePathName)
+com::PathName com::nativePathName(const std::string &relativePathName)
 {
   com::PathName pn(relativePathName);
   PRECOND(pn.isRelative());
@@ -620,12 +550,9 @@ com::PathName      com::nativePathName      (const std::string& relativePathName
   return pn;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -633,9 +560,6 @@ com::PathName      com::nativePathName      (const std::string& relativePathName
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

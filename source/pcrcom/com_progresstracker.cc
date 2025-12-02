@@ -3,13 +3,10 @@
 
 #include <algorithm>
 
-
-
 /*!
   \file
   This file contains the implementation of the ProgressTracker class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -35,11 +32,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC IPROGRESSTRACKER MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -52,12 +47,9 @@ public:
 */
 com::ProgressTracker::ProgressTracker()
 
-   
 
 {
 }
-
-
 
 //! Constructor.
 /*!
@@ -65,12 +57,10 @@ com::ProgressTracker::ProgressTracker()
 */
 com::ProgressTracker::ProgressTracker(size_t nrSteps)
 
-  : d_nrSteps(nrSteps) 
+    : d_nrSteps(nrSteps)
 
 {
 }
-
-
 
 //! Destructor.
 /*!
@@ -78,8 +68,6 @@ com::ProgressTracker::ProgressTracker(size_t nrSteps)
 com::ProgressTracker::~ProgressTracker()
 {
 }
-
-
 
 //! Returns the number of steps to be performed.
 /*!
@@ -94,8 +82,6 @@ size_t com::ProgressTracker::nrSteps() const
 
   return d_nrSteps;
 }
-
-
 
 //! Returns the number of finished steps.
 /*!
@@ -112,8 +98,6 @@ size_t com::ProgressTracker::nrFinishedSteps() const
   return d_nrFinishedSteps;
 }
 
-
-
 //! Sets the number of steps to be performed to \a nrSteps.
 /*!
   \param     nrSteps New number steps to be performed.
@@ -127,8 +111,6 @@ void com::ProgressTracker::setNrSteps(size_t nrSteps)
   d_nrFinishedSteps = std::min(d_nrFinishedSteps, d_nrSteps);
 }
 
-
-
 //! Sets the number of finished steps to \a nrSteps.
 /*!
   \param     nrSteps New number of finished steps.
@@ -140,13 +122,11 @@ void com::ProgressTracker::setNrFinishedSteps(size_t nrSteps)
   DEVELOP_PRECOND(nrSteps <= d_nrSteps);
   DEVELOP_PRECOND(nrSteps >= d_nrFinishedSteps);
 
-  if(nrSteps != d_nrFinishedSteps) {
+  if (nrSteps != d_nrFinishedSteps) {
     d_nrFinishedSteps = nrSteps;
     update();
   }
 }
-
-
 
 //! Returns if the number of steps finished >= number of steps to process.
 /*!
@@ -156,8 +136,6 @@ bool com::ProgressTracker::finished() const
 {
   return d_nrFinishedSteps >= d_nrSteps;
 }
-
-
 
 //! Notifies the object that a step has finished.
 /*!
@@ -173,8 +151,6 @@ void com::ProgressTracker::finishedStep()
   finishedSteps(1);
 }
 
-
-
 //! Notifies the object that nrSteps steps have finished.
 /*!
   \sa        update()
@@ -188,13 +164,11 @@ void com::ProgressTracker::finishedSteps(size_t nrSteps)
 {
   DEVELOP_PRECOND(d_nrFinishedSteps + nrSteps <= d_nrSteps);
 
-  if(nrSteps && (d_nrFinishedSteps + nrSteps) <= d_nrSteps) {
+  if (nrSteps && (d_nrFinishedSteps + nrSteps) <= d_nrSteps) {
     d_nrFinishedSteps += nrSteps;
     update();
   }
 }
-
-
 
 //! Notifies the object that all steps have finished.
 /*!
@@ -212,8 +186,6 @@ void com::ProgressTracker::finishedSteps()
   finishedSteps(d_nrSteps - d_nrFinishedSteps);
 }
 
-
-
 //! Clears the progress indicator.
 /*!
   The default does nothing.
@@ -221,8 +193,6 @@ void com::ProgressTracker::finishedSteps()
 void com::ProgressTracker::clear()
 {
 }
-
-
 
 //! Initializes the progress object.
 /*!
@@ -241,15 +211,11 @@ void com::ProgressTracker::init()
   d_nrFinishedSteps = 0;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-

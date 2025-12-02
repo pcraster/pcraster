@@ -15,12 +15,10 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the SingleValuedRaster class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -46,35 +44,27 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC SINGLEVALUEDRASTER MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF SINGLEVALUEDRASTER MEMBERS
 //------------------------------------------------------------------------------
 
-template<typename T>
-com::SingleValuedRaster<T>& com::SingleValuedRaster<T>::add(
-       const IRaster<T>& /* rhs */)
+template <typename T>
+com::SingleValuedRaster<T> &com::SingleValuedRaster<T>::add(const IRaster<T> & /* rhs */)
 {
   // FIXME
   return *this;
 }
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

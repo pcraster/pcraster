@@ -38,19 +38,18 @@
 #endif
 
 
-
 /*!
   \file
   This file contains the implementation of the GriddedPoints class.
 */
 
 
-namespace geo {
+namespace geo
+{
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC GRIDDEDPOINTS MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -66,51 +65,39 @@ namespace geo {
 
   All cell are initialized as non-missing value, empty cells.
 */
-template<class Point>
-GriddedPoints<Point>::GriddedPoints(const RasterSpace& space)
+template <class Point>
+GriddedPoints<Point>::GriddedPoints(const RasterSpace &space)
 
-  : d_space(space), d_points(space.nrRows(), space.nrCols()), 
-    d_missingValues(space.nrRows(), space.nrCols(), false)
-
-{
-  PRECOND((space.nrRows() > 0) && (space.nrCols() > 0));
-}
-
-
-
-template<class Point>
-GriddedPoints<Point>::GriddedPoints(const RasterSpace& space,
-         const MVRaster& missingValues)
-
-  : d_space(space), d_points(space.nrRows(), space.nrCols()),
-    d_missingValues(missingValues)
+    : d_space(space), d_points(space.nrRows(), space.nrCols()),
+      d_missingValues(space.nrRows(), space.nrCols(), false)
 
 {
   PRECOND((space.nrRows() > 0) && (space.nrCols() > 0));
 }
 
+template <class Point>
+GriddedPoints<Point>::GriddedPoints(const RasterSpace &space, const MVRaster &missingValues)
 
+    : d_space(space), d_points(space.nrRows(), space.nrCols()), d_missingValues(missingValues)
 
-template<class Point>
-GriddedPoints<Point>::GriddedPoints(const GriddedPoints& rhs)
+{
+  PRECOND((space.nrRows() > 0) && (space.nrCols() > 0));
+}
 
-  : d_space(rhs.d_space),
-    d_points(static_cast<RasterDim const&>(rhs.d_points)),
-    d_missingValues(rhs.d_missingValues)
+template <class Point>
+GriddedPoints<Point>::GriddedPoints(const GriddedPoints &rhs)
+
+    : d_space(rhs.d_space), d_points(static_cast<RasterDim const &>(rhs.d_points)),
+      d_missingValues(rhs.d_missingValues)
 
 {
   d_points = rhs.d_points;
 }
 
-
-
 //! dtor
-template<class Point>
-GriddedPoints<Point>::~GriddedPoints()
+template <class Point> GriddedPoints<Point>::~GriddedPoints()
 {
 }
-
-
 
 //! Sets cell \a row, \a col to a missing value.
 /*!
@@ -118,23 +105,17 @@ GriddedPoints<Point>::~GriddedPoints()
   \param     col Column index.
   \warning   All points in this cell are removed.
 */
-template<class Point>
-void GriddedPoints<Point>::setMV(size_t row, size_t col)
+template <class Point> void GriddedPoints<Point>::setMV(size_t row, size_t col)
 {
   d_points.cell(row, col).clear();
   d_missingValues.cell(row, col) = true;
 }
 
-
-
-template<class Point>
-void GriddedPoints<Point>::setMV(const CellLoc& loc)
+template <class Point> void GriddedPoints<Point>::setMV(const CellLoc &loc)
 {
   d_points.cell(loc.row(), loc.col()).clear();
   d_missingValues.cell(loc.row(), loc.col()) = true;
 }
-
-
 
 //! Inserts point \a point in a grid cell.
 /*!
@@ -144,11 +125,10 @@ void GriddedPoints<Point>::setMV(const CellLoc& loc)
   \warning   The coordinates of \a point must correspond to a cell in the raster. This cell must not be a missing value cell.
   \sa        .
 */
-template<class Point>
-typename GriddedPoints<Point>::iterator
-         GriddedPoints<Point>::insert(const Point& point)
+template <class Point>
+typename GriddedPoints<Point>::iterator GriddedPoints<Point>::insert(const Point &point)
 {
-/*
+  /*
  *double r, c;
 
  *d_space.coords2RowCol(point[0], point[1], r, c);
@@ -172,19 +152,13 @@ typename GriddedPoints<Point>::iterator
   return --d_points.cell(loc).end();
 }
 
-
-
 //! Removes all points from the raster. Makes each raster cell empty.
 /*!
 */
-template<class Point>
-void GriddedPoints<Point>::clear()
+template <class Point> void GriddedPoints<Point>::clear()
 {
-  std::for_each(d_points.begin(), d_points.end(),
-         std::mem_fn(&List::clear));
+  std::for_each(d_points.begin(), d_points.end(), std::mem_fn(&List::clear));
 }
-
-
 
 //! Removes point pointed to by \a it from cell \a row, \a col.
 /*!
@@ -196,8 +170,7 @@ void GriddedPoints<Point>::clear()
   \sa        .
   \todo      check if precondition is still needed.
 */
-template<class Point>
-void GriddedPoints<Point>::remove(iterator it, size_t row, size_t col)
+template <class Point> void GriddedPoints<Point>::remove(iterator it, size_t row, size_t col)
 {
   PRECOND(!isMV(row, col));
   PRECOND(std::find(begin(row, col), end(row, col), *it) != end(row, col));
@@ -205,11 +178,7 @@ void GriddedPoints<Point>::remove(iterator it, size_t row, size_t col)
   d_points.cell(row, col).erase(it);
 }
 
-
-
-template<class Point>
-void GriddedPoints<Point>::remove(const Point& point, size_t row,
-         size_t col)
+template <class Point> void GriddedPoints<Point>::remove(const Point &point, size_t row, size_t col)
 {
   PRECOND(!isMV(row, col));
 
@@ -218,8 +187,6 @@ void GriddedPoints<Point>::remove(const Point& point, size_t row,
 
   d_points.cell(row, col).erase(it);
 }
-
-
 
 //!
 /*!
@@ -232,89 +199,64 @@ void GriddedPoints<Point>::remove(const Point& point, size_t row,
   This function assumes that the co-ordinates of the point in *it have changed.
 
 */
-template<class Point>
-void GriddedPoints<Point>::move(iterator it, size_t row, size_t col)
+template <class Point> void GriddedPoints<Point>::move(iterator it, size_t row, size_t col)
 {
   Point point = *it;
   remove(it, row, col);
   insert(point);
 }
 
-
-
-template<class Point>
-const RasterSpace& GriddedPoints<Point>::space() const
+template <class Point> const RasterSpace &GriddedPoints<Point>::space() const
 {
   return d_space;
 }
 
-
-
-template<class Point>
-const typename GriddedPoints<Point>::MVRaster&
-         GriddedPoints<Point>::missingValues() const
+template <class Point>
+const typename GriddedPoints<Point>::MVRaster &GriddedPoints<Point>::missingValues() const
 {
   return d_missingValues;
 }
 
-
-
-template<class Point>
-typename GriddedPoints<Point>::List& GriddedPoints<Point>::cell(
-         LinearLoc loc)
+template <class Point> typename GriddedPoints<Point>::List &GriddedPoints<Point>::cell(LinearLoc loc)
 {
   DEVELOP_PRECOND(!isMV(loc));
 
   return d_points.cell(loc);
 }
 
-
-
-template<class Point>
-typename GriddedPoints<Point>::List const& GriddedPoints<Point>::cell(
-         LinearLoc loc) const
+template <class Point>
+typename GriddedPoints<Point>::List const &GriddedPoints<Point>::cell(LinearLoc loc) const
 {
   DEVELOP_PRECOND(!isMV(loc));
 
   return d_points.cell(loc);
 }
 
-
-
-template<class Point>
-const typename GriddedPoints<Point>::List&
-         GriddedPoints<Point>::cell(const CellLoc& loc) const
+template <class Point>
+const typename GriddedPoints<Point>::List &GriddedPoints<Point>::cell(const CellLoc &loc) const
 {
   DEVELOP_PRECOND(!isMV(loc));
 
   return d_points.cell(loc);
 }
 
-
-
-template<class Point>
-typename GriddedPoints<Point>::List&
-         GriddedPoints<Point>::cell(const CellLoc& loc)
+template <class Point>
+typename GriddedPoints<Point>::List &GriddedPoints<Point>::cell(const CellLoc &loc)
 {
   DEVELOP_PRECOND(!isMV(loc));
 
   return d_points.cell(loc);
 }
 
-
-
-template<class Point>
-typename GriddedPoints<Point>::const_iterator GriddedPoints<Point>::begin(
-                   size_t row, size_t col) const
+template <class Point>
+typename GriddedPoints<Point>::const_iterator GriddedPoints<Point>::begin(size_t row, size_t col) const
 {
   DEVELOP_PRECOND(!isMV(row, col));
 
   return d_points.cell(row, col).begin();
 }
 
-
-
-template<class Point>
+template <class Point>
 typename GriddedPoints<Point>::const_iterator GriddedPoints<Point>::end(size_t row, size_t col) const
 {
   DEVELOP_PRECOND(!isMV(row, col));
@@ -322,9 +264,7 @@ typename GriddedPoints<Point>::const_iterator GriddedPoints<Point>::end(size_t r
   return d_points.cell(row, col).end();
 }
 
-
-
-template<class Point>
+template <class Point>
 typename GriddedPoints<Point>::iterator GriddedPoints<Point>::begin(size_t row, size_t col)
 {
   DEVELOP_PRECOND(!isMV(row, col));
@@ -332,9 +272,7 @@ typename GriddedPoints<Point>::iterator GriddedPoints<Point>::begin(size_t row, 
   return d_points.cell(row, col).begin();
 }
 
-
-
-template<class Point>
+template <class Point>
 typename GriddedPoints<Point>::iterator GriddedPoints<Point>::end(size_t row, size_t col)
 {
   DEVELOP_PRECOND(!isMV(row, col));
@@ -342,166 +280,116 @@ typename GriddedPoints<Point>::iterator GriddedPoints<Point>::end(size_t row, si
   return d_points.cell(row, col).end();
 }
 
-
-
-template<class Point>
-typename GriddedPoints<Point>::iterator GriddedPoints<Point>::begin(const CellLoc& loc)
+template <class Point>
+typename GriddedPoints<Point>::iterator GriddedPoints<Point>::begin(const CellLoc &loc)
 {
   DEVELOP_PRECOND(!isMV(loc.row(), loc.col()));
 
   return d_points.cell(loc.row(), loc.col()).begin();
 }
 
-
-
-
-template<class Point>
-typename GriddedPoints<Point>::iterator GriddedPoints<Point>::end(const CellLoc& loc)
+template <class Point>
+typename GriddedPoints<Point>::iterator GriddedPoints<Point>::end(const CellLoc &loc)
 {
   DEVELOP_PRECOND(!isMV(loc.row(), loc.col()));
 
   return d_points.cell(loc.row(), loc.col()).end();
 }
 
-
-
-template<class Point>
-typename GriddedPoints<Point>::const_iterator GriddedPoints<Point>::begin(const CellLoc& loc) const
+template <class Point>
+typename GriddedPoints<Point>::const_iterator GriddedPoints<Point>::begin(const CellLoc &loc) const
 {
   DEVELOP_PRECOND(!isMV(loc.row(), loc.col()));
 
   return d_points.cell(loc.row(), loc.col()).begin();
 }
 
-
-
-
-template<class Point>
-typename GriddedPoints<Point>::const_iterator GriddedPoints<Point>::end(const CellLoc& loc) const
+template <class Point>
+typename GriddedPoints<Point>::const_iterator GriddedPoints<Point>::end(const CellLoc &loc) const
 {
   DEVELOP_PRECOND(!isMV(loc.row(), loc.col()));
 
   return d_points.cell(loc.row(), loc.col()).end();
 }
 
-
-
-template<class Point>
-bool GriddedPoints<Point>::empty() const
+template <class Point> bool GriddedPoints<Point>::empty() const
 {
   return nrPoints() == 0;
 }
 
-
-
-template<class Point>
-bool GriddedPoints<Point>::empty(LinearLoc loc) const
+template <class Point> bool GriddedPoints<Point>::empty(LinearLoc loc) const
 {
   DEVELOP_PRECOND(!isMV(loc));
 
   return d_points.cell(loc).empty();
 }
 
-
-
-template<class Point>
-bool GriddedPoints<Point>::empty(size_t row, size_t col) const
+template <class Point> bool GriddedPoints<Point>::empty(size_t row, size_t col) const
 {
   DEVELOP_PRECOND(!isMV(row, col));
 
   return d_points.cell(row, col).empty();
 }
 
-
-
-template<class Point>
-size_t GriddedPoints<Point>::size() const
+template <class Point> size_t GriddedPoints<Point>::size() const
 {
   size_t sum = 0;
 
-  for(typename PointsRaster::const_iterator it = d_points.begin();
-         it != d_points.end(); ++it) {
+  for (typename PointsRaster::const_iterator it = d_points.begin(); it != d_points.end(); ++it) {
     sum += (*it).size();
   }
 
   return sum;
 }
 
-
-
-template<class Point>
-size_t GriddedPoints<Point>::size(size_t row, size_t col) const
+template <class Point> size_t GriddedPoints<Point>::size(size_t row, size_t col) const
 {
   DEVELOP_PRECOND(!isMV(row, col));
 
   return d_points.cell(row, col).size();
 }
 
-
-
-template<class Point>
-size_t GriddedPoints<Point>::size(const CellLoc& loc) const
+template <class Point> size_t GriddedPoints<Point>::size(const CellLoc &loc) const
 {
   return d_points.cell(loc).size();
 }
 
-
-
-template<class Point>
-bool GriddedPoints<Point>::isMV(LinearLoc loc) const
+template <class Point> bool GriddedPoints<Point>::isMV(LinearLoc loc) const
 {
   return d_missingValues.cell(loc);
 }
 
-
-
-template<class Point>
-bool GriddedPoints<Point>::isMV(size_t row, size_t col) const
+template <class Point> bool GriddedPoints<Point>::isMV(size_t row, size_t col) const
 {
   return d_missingValues.cell(row, col);
 }
 
-
-
-template<class Point>
-bool GriddedPoints<Point>::isMV(const CellLoc& loc) const
+template <class Point> bool GriddedPoints<Point>::isMV(const CellLoc &loc) const
 {
   return d_missingValues.cell(loc.row(), loc.col());
 }
 
-
-
-template<class Point>
-size_t GriddedPoints<Point>::nrRows() const
+template <class Point> size_t GriddedPoints<Point>::nrRows() const
 {
   return d_space.nrRows();
 }
 
-
-
-template<class Point>
-size_t GriddedPoints<Point>::nrCols() const
+template <class Point> size_t GriddedPoints<Point>::nrCols() const
 {
   return d_space.nrCols();
 }
 
-
-
-template<class Point>
-size_t GriddedPoints<Point>::nrCells() const
+template <class Point> size_t GriddedPoints<Point>::nrCells() const
 {
   return d_space.nrCells();
 }
 
-
-
-template<class Point>
-size_t GriddedPoints<Point>::nrPoints() const
+template <class Point> size_t GriddedPoints<Point>::nrPoints() const
 {
   size_t sum = 0;
 
-  for(size_t row = 0; row < nrRows(); ++row) {
-    for(size_t col = 0; col < nrCols(); ++col) {
+  for (size_t row = 0; row < nrRows(); ++row) {
+    for (size_t col = 0; col < nrCols(); ++col) {
       sum += nrPoints(row, col);
     }
   }
@@ -509,23 +397,15 @@ size_t GriddedPoints<Point>::nrPoints() const
   return sum;
 }
 
-
-
-template<class Point>
-size_t GriddedPoints<Point>::nrPoints(size_t row, size_t col) const
+template <class Point> size_t GriddedPoints<Point>::nrPoints(size_t row, size_t col) const
 {
-  return !isMV(row, col) ? d_points.cell(row, col).size(): 0;
+  return !isMV(row, col) ? d_points.cell(row, col).size() : 0;
 }
 
-
-
-template<class Point>
-size_t GriddedPoints<Point>::nrPoints(const CellLoc& loc) const
+template <class Point> size_t GriddedPoints<Point>::nrPoints(const CellLoc &loc) const
 {
-  return !isMV(loc) ? d_points.cell(loc).size(): 0;
+  return !isMV(loc) ? d_points.cell(loc).size() : 0;
 }
-
-
 
 /*
 namespace geo {
@@ -566,50 +446,41 @@ public:
 */
 
 
-
-template<class Point>
-void GriddedPoints<Point>::points(const CellLoc& loc,
-         double radius, std::vector<Point>& points) const
+template <class Point>
+void GriddedPoints<Point>::points(const CellLoc &loc, double radius, std::vector<Point> &points) const
 {
   CircularNeighbourhood const neighbourhood(0, radius);
   this->points(loc, neighbourhood, points);
 }
 
-
-
-template<class Point>
-void GriddedPoints<Point>::points(const CellLoc& loc,
-         double radius, std::vector<Point*>& points)
+template <class Point>
+void GriddedPoints<Point>::points(const CellLoc &loc, double radius, std::vector<Point *> &points)
 {
   CircularNeighbourhood const neighbourhood(0, radius);
   this->points(loc, neighbourhood, points);
 }
 
-
-
-template<class Point>
-void GriddedPoints<Point>::points(const CellLoc& loc,
-         const Neighbourhood& neighbourhood, std::vector<Point>& points) const
+template <class Point>
+void GriddedPoints<Point>::points(const CellLoc &loc, const Neighbourhood &neighbourhood,
+                                  std::vector<Point> &points) const
 {
   int startRow = 0;
   int startCol = 0;
   int rowOffset = 0;
   int colOffset = 0;
 
-  if(loc.row() < neighbourhood.radius()) {
+  if (loc.row() < neighbourhood.radius()) {
     startRow = 0;
     rowOffset = neighbourhood.radius() - loc.row();
-  }
-  else {
+  } else {
     startRow = loc.row() - neighbourhood.radius();
     rowOffset = -startRow;
   }
 
-  if(loc.col() < neighbourhood.radius()) {
+  if (loc.col() < neighbourhood.radius()) {
     startCol = 0;
     colOffset = neighbourhood.radius() - loc.col();
-  }
-  else {
+  } else {
     startCol = loc.col() - neighbourhood.radius();
     colOffset = -startCol;
   }
@@ -617,41 +488,36 @@ void GriddedPoints<Point>::points(const CellLoc& loc,
   size_t const endRow = std::min(loc.row() + neighbourhood.radius(), nrRows() - 1);
   size_t const endCol = std::min(loc.col() + neighbourhood.radius(), nrCols() - 1);
 
-  for(size_t row = startRow; row <= endRow; ++row) {
-    for(size_t col = startCol; col <= endCol; ++col) {
-      if(neighbourhood.cell(rowOffset + row, colOffset + col) > 0.0 &&
-         !isMV(row, col)) {
+  for (size_t row = startRow; row <= endRow; ++row) {
+    for (size_t col = startCol; col <= endCol; ++col) {
+      if (neighbourhood.cell(rowOffset + row, colOffset + col) > 0.0 && !isMV(row, col)) {
         points.insert(points.end(), begin(row, col), end(row, col));
       }
     }
   }
 }
 
-
-
-template<class Point>
-void GriddedPoints<Point>::points(const CellLoc& loc,
-         const Neighbourhood& neighbourhood, std::vector<Point*>& points)
+template <class Point>
+void GriddedPoints<Point>::points(const CellLoc &loc, const Neighbourhood &neighbourhood,
+                                  std::vector<Point *> &points)
 {
   int startRow = 0;
   int startCol = 0;
   int rowOffset = 0;
   int colOffset = 0;
 
-  if(loc.row() < neighbourhood.radius()) {
+  if (loc.row() < neighbourhood.radius()) {
     startRow = 0;
     rowOffset = neighbourhood.radius() - loc.row();
-  }
-  else {
+  } else {
     startRow = loc.row() - neighbourhood.radius();
     rowOffset = -startRow;
   }
 
-  if(loc.col() < neighbourhood.radius()) {
+  if (loc.col() < neighbourhood.radius()) {
     startCol = 0;
     colOffset = neighbourhood.radius() - loc.col();
-  }
-  else {
+  } else {
     startCol = loc.col() - neighbourhood.radius();
     colOffset = -startCol;
   }
@@ -659,11 +525,10 @@ void GriddedPoints<Point>::points(const CellLoc& loc,
   size_t const endRow = std::min(loc.row() + neighbourhood.radius(), nrRows() - 1);
   size_t const endCol = std::min(loc.col() + neighbourhood.radius(), nrCols() - 1);
 
-  for(size_t row = startRow; row <= endRow; ++row) {
-    for(size_t col = startCol; col <= endCol; ++col) {
-      if(neighbourhood.cell(rowOffset + row, colOffset + col) > 0.0 &&
-         !isMV(row, col)) {
-        for(auto it = begin(row, col); it != end(row, col); ++it) {
+  for (size_t row = startRow; row <= endRow; ++row) {
+    for (size_t col = startCol; col <= endCol; ++col) {
+      if (neighbourhood.cell(rowOffset + row, colOffset + col) > 0.0 && !isMV(row, col)) {
+        for (auto it = begin(row, col); it != end(row, col); ++it) {
           points.push_back(&*it);
         }
       }
@@ -671,17 +536,13 @@ void GriddedPoints<Point>::points(const CellLoc& loc,
   }
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace
-
+}  // namespace geo

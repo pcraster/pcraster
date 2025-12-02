@@ -3,24 +3,23 @@
 #include "geo_rasterdim.h"
 #include "geo_neighbour.h"
 
-
 BOOST_AUTO_TEST_CASE(target)
 {
   using namespace geo;
 
-  RasterDim const rd(3,3);
+  RasterDim const rd(3, 3);
 
   // all NBS are inside grid
-  LinearLoc const f=rd.convert(CellLoc(1,1));
-  BOOST_CHECK(f==4);
+  LinearLoc const f = rd.convert(CellLoc(1, 1));
+  BOOST_CHECK(f == 4);
 
 
-  BOOST_CHECK(rd.target<LDD>(f,7)==0);
-  BOOST_CHECK(rd.target<LDD>(f,3)==8);
-  BOOST_CHECK(rd.target<LDD>(f,5)==4);
+  BOOST_CHECK(rd.target<LDD>(f, 7) == 0);
+  BOOST_CHECK(rd.target<LDD>(f, 3) == 8);
+  BOOST_CHECK(rd.target<LDD>(f, 5) == 4);
 
-  BOOST_CHECK(rd.target<NB>(f,2)==8);
-/*
+  BOOST_CHECK(rd.target<NB>(f, 2) == 8);
+  /*
   std::cout << "val " << rd.target<LDD>(f,7) << " \n";
   BOOST_CHECK(rd.target<NB>(f,1, false));
   BOOST_CHECK(rd.target<NB>(f,2, false));
@@ -30,7 +29,7 @@ BOOST_AUTO_TEST_CASE(target)
   BOOST_CHECK(rd.target<NB>(f,6, false));
 */
   //BOOST_CHECK(nbTarget(f,rd,7, false));
-/*
+  /*
   // left NBs are outside
   f=rd.convert(CellLoc(1,0));
 

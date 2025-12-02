@@ -3,7 +3,6 @@
 #include "geo_countfilter.h"
 #include "geo_filterengine.h"
 
-
 BOOST_AUTO_TEST_CASE(test)
 {
   using namespace geo;
@@ -44,6 +43,6 @@ BOOST_AUTO_TEST_CASE(test)
 
   // see __x86_64__
   // TODO Suse problem: 8 byte isMV template instantion for unsigned long
-  bool const size_tRequires8Byteonx86_64=false;
+  bool const size_tRequires8Byteonx86_64 = false;
   BOOST_WARN(size_tRequires8Byteonx86_64);
 }

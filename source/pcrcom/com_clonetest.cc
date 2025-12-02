@@ -4,23 +4,22 @@
 #include "com_intervaltypes.h"
 #include "com_clone.h"
 
-
 BOOST_AUTO_TEST_CASE(reset_clone)
 {
   using namespace com;
 
   // typedef Interval<float> I; // virtual base of I
-  typedef EqualTo<float>  E;
+  typedef EqualTo<float> E;
   {
-    E* dest=new E(4);
-    E* src(nullptr);
-    resetClone(dest,src);
-    BOOST_CHECK(dest==nullptr);
+    E *dest = new E(4);
+    E *src(nullptr);
+    resetClone(dest, src);
+    BOOST_CHECK(dest == nullptr);
 
-    dest=new E(8);
-    BOOST_CHECK(dest->min()==8);
-    resetClone(dest,new E(2));
-    BOOST_CHECK(dest->min()==2);
+    dest = new E(8);
+    BOOST_CHECK(dest->min() == 8);
+    resetClone(dest, new E(2));
+    BOOST_CHECK(dest->min() == 2);
 
     delete dest;
   }

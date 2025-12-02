@@ -3,27 +3,32 @@
 #include "com_math.h"
 #include "geo_riksneighbourhood.h"
 
-class RiksNeighbourhoodWrapper : geo::RiksNeighbourhood {
+class RiksNeighbourhoodWrapper : geo::RiksNeighbourhood
+{
 public:
-   RiksNeighbourhoodWrapper(double fromRadius, double toRadius) : RiksNeighbourhood(fromRadius, toRadius) {
-   }
+  RiksNeighbourhoodWrapper(double fromRadius, double toRadius) : RiksNeighbourhood(fromRadius, toRadius)
+  {
+  }
 
-   RiksNeighbourhoodWrapper(double toRadius) : RiksNeighbourhood(toRadius) {
-   }
+  RiksNeighbourhoodWrapper(double toRadius) : RiksNeighbourhood(toRadius)
+  {
+  }
 
-   double sum() const {
-     return RiksNeighbourhood::sum();
-   }
+  double sum() const
+  {
+    return RiksNeighbourhood::sum();
+  }
 
-   double cell(size_t a, size_t b){
-     return RiksNeighbourhood::cell(a,b);
-   }
+  double cell(size_t a, size_t b)
+  {
+    return RiksNeighbourhood::cell(a, b);
+  }
 
-   size_t radius() const {
-     return RiksNeighbourhood::radius();
-   }
+  size_t radius() const
+  {
+    return RiksNeighbourhood::radius();
+  }
 };
-
 
 BOOST_AUTO_TEST_CASE(test)
 {

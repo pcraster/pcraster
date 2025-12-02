@@ -24,12 +24,10 @@
 #endif
 
 
-
 /*!
   \file
   This file contains the implementation of the Win32RegistryKey class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -40,28 +38,27 @@
 //------------------------------------------------------------------------------
 
 
-namespace com {
-  static HKEY topLevelKey(Win32RegistryKey::TopLevel tl)
-  {
-    switch(tl) {
-      case Win32RegistryKey::CurrentUser:  return HKEY_CURRENT_USER;
-      case Win32RegistryKey::LocalMachine: return HKEY_LOCAL_MACHINE;
-    }
-    return HKEY_LOCAL_MACHINE;
+namespace com
+{
+static HKEY topLevelKey(Win32RegistryKey::TopLevel tl)
+{
+  switch (tl) {
+    case Win32RegistryKey::CurrentUser:
+      return HKEY_CURRENT_USER;
+    case Win32RegistryKey::LocalMachine:
+      return HKEY_LOCAL_MACHINE;
   }
-};
-
-
+  return HKEY_LOCAL_MACHINE;
+}
+};  // namespace com
 
 //------------------------------------------------------------------------------
 // DEFINITION OF WIN32REGISTRYKEY MEMBERS
 //------------------------------------------------------------------------------
 
 //! ctor
-com::Win32RegistryKey::Win32RegistryKey(
-    TopLevel tl,
-    const std::string&  subKey):
-     d_tl(tl),d_subKey(subKey)
+com::Win32RegistryKey::Win32RegistryKey(TopLevel tl, const std::string &subKey)
+    : d_tl(tl), d_subKey(subKey)
 {
 }
 
@@ -70,16 +67,13 @@ com::Win32RegistryKey::~Win32RegistryKey()
 {
 }
 
-LONG com::Win32RegistryKey::open(HKEY& key) const
+LONG com::Win32RegistryKey::open(HKEY &key) const
 {
-  return RegOpenKeyEx(
-                 topLevelKey(d_tl),
-                 d_subKey.c_str(),
-                 0, // ulOptions
-                 KEY_ALL_ACCESS, // or KEY_READ?
-                 &key);
+  return RegOpenKeyEx(topLevelKey(d_tl), d_subKey.c_str(),
+                      0,               // ulOptions
+                      KEY_ALL_ACCESS,  // or KEY_READ?
+                      &key);
 }
-
 
 bool com::Win32RegistryKey::exists() const
 {
@@ -105,17 +99,16 @@ std::string com::Win32RegistryKey::value() const
     HKEY key;
     BYTE buf[MAX_PATH];
     DWORD type;
-    DWORD len =MAX_PATH;
+    DWORD len = MAX_PATH;
     LONG result;
     if (open(key) == ERROR_SUCCESS) {
-     result = RegQueryValueEx(
-                   key, // , topLevelKey(d_tl),
-                   0, // d_subKKey.c_str(),
-                   0,&type, buf,&len);
-     RegCloseKey(key);
+      result = RegQueryValueEx(key,  // , topLevelKey(d_tl),
+                               0,    // d_subKKey.c_str(),
+                               0, &type, buf, &len);
+      RegCloseKey(key);
     }
     if (result == ERROR_SUCCESS)
-        return std::string((const char *)buf);
+      return std::string((const char *)buf);
   }
   return "";
 }
@@ -127,46 +120,35 @@ std::string com::Win32RegistryKey::value() const
   *  \todo
   *    check return of type
   */
-std::string com::Win32RegistryKey::value(const std::string& name) const
+std::string com::Win32RegistryKey::value(const std::string &name) const
 {
   if (exists()) {
     // std::string val=d_subKey+"\\(Default)";
     HKEY key;
     BYTE buf[MAX_PATH];
     DWORD type;
-    DWORD len =MAX_PATH;
+    DWORD len = MAX_PATH;
     LONG result;
     if (open(key) == ERROR_SUCCESS) {
-     result = RegQueryValueEx(
-                   key,
-                   name.c_str(),
-                   0,&type, buf,&len);
-     RegCloseKey(key);
+      result = RegQueryValueEx(key, name.c_str(), 0, &type, buf, &len);
+      RegCloseKey(key);
     }
     if (result == ERROR_SUCCESS)
-        return std::string((const char *)buf);
+      return std::string((const char *)buf);
   }
   return "";
 }
 
 //! returns if value could be set
-bool com::Win32RegistryKey::set(const std::string& newValue) const
+bool com::Win32RegistryKey::set(const std::string &newValue) const
 {
   HKEY hKey;
   DWORD dwDis;
-  LONG result = RegCreateKeyEx(
-                 topLevelKey(d_tl),
-                 d_subKey.c_str(),
-                 0,NULL,
-                 REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL,
-                 &hKey, &dwDis);
+  LONG result = RegCreateKeyEx(topLevelKey(d_tl), d_subKey.c_str(), 0, NULL, REG_OPTION_NON_VOLATILE,
+                               KEY_ALL_ACCESS, NULL, &hKey, &dwDis);
   if (result == ERROR_SUCCESS) {
-     result = RegSetValueEx(
-                 hKey,
-                 0,
-                 0,REG_SZ,
-                 (const BYTE *)newValue.c_str(), newValue.size()+1);
-     RegCloseKey(hKey);
+    result = RegSetValueEx(hKey, 0, 0, REG_SZ, (const BYTE *)newValue.c_str(), newValue.size() + 1);
+    RegCloseKey(hKey);
   }
   return result == ERROR_SUCCESS;
 }
@@ -189,7 +171,6 @@ bool com::Win32RegistryKey::remove() const
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

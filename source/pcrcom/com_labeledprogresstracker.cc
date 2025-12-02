@@ -15,12 +15,10 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the LabeledProgressTracker class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -46,45 +44,36 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC LABELEDPROGRESSTRACKER MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF LABELEDPROGRESSTRACKER MEMBERS
 //------------------------------------------------------------------------------
 
-template<typename StreamProgressTracker>
+template <typename StreamProgressTracker>
 com::LabeledProgressTracker<StreamProgressTracker>::LabeledProgressTracker(
-         StreamProgressTracker& tracker, size_t labelWidth)
+    StreamProgressTracker &tracker, size_t labelWidth)
 
-  : ILabeledProgressTracker(tracker.nrSteps()),
-    StreamWriter(tracker.stream()),
-    d_tracker(tracker), d_labelWidth(labelWidth)
+    : ILabeledProgressTracker(tracker.nrSteps()), StreamWriter(tracker.stream()), d_tracker(tracker),
+      d_labelWidth(labelWidth)
 
 {
 }
 
-
-
-template<typename StreamProgressTracker>
+template <typename StreamProgressTracker>
 com::LabeledProgressTracker<StreamProgressTracker>::LabeledProgressTracker(
-         StreamProgressTracker& tracker, std::string const& label,
-         size_t labelWidth)
+    StreamProgressTracker &tracker, std::string const &label, size_t labelWidth)
 
-  : ILabeledProgressTracker(tracker.nrSteps(), label),
-    StreamWriter(tracker.stream()),
-    d_tracker(tracker), d_labelWidth(labelWidth)
+    : ILabeledProgressTracker(tracker.nrSteps(), label), StreamWriter(tracker.stream()),
+      d_tracker(tracker), d_labelWidth(labelWidth)
 
 {
 }
 
-
-
-template<typename StreamProgressTracker>
+template <typename StreamProgressTracker>
 com::LabeledProgressTracker<StreamProgressTracker>::~LabeledProgressTracker()
 {
   /*
@@ -94,9 +83,7 @@ com::LabeledProgressTracker<StreamProgressTracker>::~LabeledProgressTracker()
   */
 }
 
-
-
-template<typename StreamProgressTracker>
+template <typename StreamProgressTracker>
 void com::LabeledProgressTracker<StreamProgressTracker>::update()
 {
   DEVELOP_PRECOND(nrCharactersWritten() == width());
@@ -105,38 +92,30 @@ void com::LabeledProgressTracker<StreamProgressTracker>::update()
   d_tracker.update();
 }
 
-
-
-template<typename StreamProgressTracker>
+template <typename StreamProgressTracker>
 size_t com::LabeledProgressTracker<StreamProgressTracker>::width() const
 {
   return d_labelWidth + 1;
 }
 
-
-
-template<typename StreamProgressTracker>
+template <typename StreamProgressTracker>
 size_t com::LabeledProgressTracker<StreamProgressTracker>::labelWidth() const
 {
   return d_labelWidth;
 }
 
-
-
-template<typename StreamProgressTracker>
-void com::LabeledProgressTracker<StreamProgressTracker>::init()
+template <typename StreamProgressTracker> void com::LabeledProgressTracker<StreamProgressTracker>::init()
 {
   DEVELOP_PRECOND(nrCharactersWritten() == 0);
 
   com::ProgressTracker::init();
   d_tracker.setNrSteps(nrSteps());
 
-  if(label().size() >= labelWidth()) {
+  if (label().size() >= labelWidth()) {
     *this << label().substr(0, labelWidth());
-  }
-  else {
+  } else {
     *this << label();
-    for(size_t i = label().size(); i < labelWidth(); ++i) {
+    for (size_t i = label().size(); i < labelWidth(); ++i) {
       *this << ' ';
     }
   }
@@ -149,9 +128,7 @@ void com::LabeledProgressTracker<StreamProgressTracker>::init()
   DEVELOP_POSTCOND(nrCharactersWritten() == width());
 }
 
-
-
-template<typename StreamProgressTracker>
+template <typename StreamProgressTracker>
 void com::LabeledProgressTracker<StreamProgressTracker>::clear()
 {
   d_tracker.clear();
@@ -160,16 +137,11 @@ void com::LabeledProgressTracker<StreamProgressTracker>::clear()
   DEVELOP_POSTCOND(nrCharactersWritten() == 0);
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-

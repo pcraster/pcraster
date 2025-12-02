@@ -3,7 +3,6 @@
 #include "geo_scanconversion.h"
 #include <algorithm>
 
-
 BOOST_AUTO_TEST_CASE(midpoint_line)
 {
   using namespace geo;
@@ -173,34 +172,23 @@ BOOST_AUTO_TEST_CASE(midpoint_line)
   }
 }
 
-
-
-template<class Integral>
-void testCirclePoints(
-         const geo::RememberPoints<Integral>& points,
-         const std::pair<Integral, Integral>& point) {
+template <class Integral>
+void testCirclePoints(const geo::RememberPoints<Integral> &points,
+                      const std::pair<Integral, Integral> &point)
+{
   typedef std::pair<Integral, Integral> Point;
   Integral x = point.first;
   Integral y = point.second;
 
-  BOOST_CHECK(std::find(points.begin(), points.end(),
-         Point(x, y)) != points.end());
-  BOOST_CHECK(std::find(points.begin(), points.end(),
-         Point(x, -y)) != points.end());
-  BOOST_CHECK(std::find(points.begin(), points.end(),
-         Point(-x, -y)) != points.end());
-  BOOST_CHECK(std::find(points.begin(), points.end(),
-         Point(-x, y)) != points.end());
-  BOOST_CHECK(std::find(points.begin(), points.end(),
-         Point(y, x)) != points.end());
-  BOOST_CHECK(std::find(points.begin(), points.end(),
-         Point(y, -x)) != points.end());
-  BOOST_CHECK(std::find(points.begin(), points.end(),
-         Point(-y, -x)) != points.end());
-  BOOST_CHECK(std::find(points.begin(), points.end(),
-         Point(-y, x)) != points.end());
+  BOOST_CHECK(std::find(points.begin(), points.end(), Point(x, y)) != points.end());
+  BOOST_CHECK(std::find(points.begin(), points.end(), Point(x, -y)) != points.end());
+  BOOST_CHECK(std::find(points.begin(), points.end(), Point(-x, -y)) != points.end());
+  BOOST_CHECK(std::find(points.begin(), points.end(), Point(-x, y)) != points.end());
+  BOOST_CHECK(std::find(points.begin(), points.end(), Point(y, x)) != points.end());
+  BOOST_CHECK(std::find(points.begin(), points.end(), Point(y, -x)) != points.end());
+  BOOST_CHECK(std::find(points.begin(), points.end(), Point(-y, -x)) != points.end());
+  BOOST_CHECK(std::find(points.begin(), points.end(), Point(-y, x)) != points.end());
 }
-
 
 BOOST_AUTO_TEST_CASE(midpoint_circle_nr_points)
 {
@@ -243,7 +231,6 @@ BOOST_AUTO_TEST_CASE(midpoint_circle_nr_points)
   }
 }
 
-
 BOOST_AUTO_TEST_CASE(midpoint_circle)
 {
   using namespace geo;
@@ -254,14 +241,10 @@ BOOST_AUTO_TEST_CASE(midpoint_circle)
     RememberPoints<int> points;
     points = midpointCircle(0, 0, 1, points);
     BOOST_CHECK(points.size() == 4);
-    BOOST_CHECK(std::find(points.begin(), points.end(),
-         Point(0, 1)) != points.end());
-    BOOST_CHECK(std::find(points.begin(), points.end(),
-         Point(1, 0)) != points.end());
-    BOOST_CHECK(std::find(points.begin(), points.end(),
-         Point(0, -1)) != points.end());
-    BOOST_CHECK(std::find(points.begin(), points.end(),
-         Point(-1, 0)) != points.end());
+    BOOST_CHECK(std::find(points.begin(), points.end(), Point(0, 1)) != points.end());
+    BOOST_CHECK(std::find(points.begin(), points.end(), Point(1, 0)) != points.end());
+    BOOST_CHECK(std::find(points.begin(), points.end(), Point(0, -1)) != points.end());
+    BOOST_CHECK(std::find(points.begin(), points.end(), Point(-1, 0)) != points.end());
   }
 
   {
@@ -269,22 +252,22 @@ BOOST_AUTO_TEST_CASE(midpoint_circle)
     points = midpointCircle(0, 0, 17, points);
     BOOST_CHECK(points.size() == 96);
     std::vector<Point> pointsInOctant;
-    pointsInOctant.push_back(Point( 0, 17));
-    pointsInOctant.push_back(Point( 1, 17));
-    pointsInOctant.push_back(Point( 2, 17));
-    pointsInOctant.push_back(Point( 3, 17));
-    pointsInOctant.push_back(Point( 4, 17));
-    pointsInOctant.push_back(Point( 5, 16));
-    pointsInOctant.push_back(Point( 6, 16));
-    pointsInOctant.push_back(Point( 7, 15));
-    pointsInOctant.push_back(Point( 8, 15));
-    pointsInOctant.push_back(Point( 9, 14));
+    pointsInOctant.push_back(Point(0, 17));
+    pointsInOctant.push_back(Point(1, 17));
+    pointsInOctant.push_back(Point(2, 17));
+    pointsInOctant.push_back(Point(3, 17));
+    pointsInOctant.push_back(Point(4, 17));
+    pointsInOctant.push_back(Point(5, 16));
+    pointsInOctant.push_back(Point(6, 16));
+    pointsInOctant.push_back(Point(7, 15));
+    pointsInOctant.push_back(Point(8, 15));
+    pointsInOctant.push_back(Point(9, 14));
     pointsInOctant.push_back(Point(10, 14));
     pointsInOctant.push_back(Point(11, 13));
     pointsInOctant.push_back(Point(12, 12));
-    pointsInOctant.push_back(Point(17,  0));
+    pointsInOctant.push_back(Point(17, 0));
 
-    for(auto & it : pointsInOctant) {
+    for (auto &it : pointsInOctant) {
       testCirclePoints(points, it);
     }
   }
@@ -294,30 +277,30 @@ BOOST_AUTO_TEST_CASE(midpoint_circle)
     innerPoints = midpointCircle(0, 0, 13, innerPoints);
     BOOST_CHECK(innerPoints.size() == 72);
     std::vector<Point> pointsInOctant;
-    pointsInOctant.push_back(Point( 0, 13));
-    pointsInOctant.push_back(Point( 1, 13));
-    pointsInOctant.push_back(Point( 2, 13));
-    pointsInOctant.push_back(Point( 3, 13));
-    pointsInOctant.push_back(Point( 4, 12));
-    pointsInOctant.push_back(Point( 5, 12));
-    pointsInOctant.push_back(Point( 6, 12));
-    pointsInOctant.push_back(Point( 7, 11));
-    pointsInOctant.push_back(Point( 8, 10));
-    pointsInOctant.push_back(Point( 9,  9));
+    pointsInOctant.push_back(Point(0, 13));
+    pointsInOctant.push_back(Point(1, 13));
+    pointsInOctant.push_back(Point(2, 13));
+    pointsInOctant.push_back(Point(3, 13));
+    pointsInOctant.push_back(Point(4, 12));
+    pointsInOctant.push_back(Point(5, 12));
+    pointsInOctant.push_back(Point(6, 12));
+    pointsInOctant.push_back(Point(7, 11));
+    pointsInOctant.push_back(Point(8, 10));
+    pointsInOctant.push_back(Point(9, 9));
 
-    for(auto & it : pointsInOctant) {
+    for (auto &it : pointsInOctant) {
       testCirclePoints(innerPoints, it);
     }
 
-    size_t const nrPointsInnerOctant = static_cast<size_t>(static_cast<double>(
-         innerPoints.size()) / 8.0) - 1;
+    size_t const nrPointsInnerOctant =
+        static_cast<size_t>(static_cast<double>(innerPoints.size()) / 8.0) - 1;
     BOOST_CHECK(nrPointsInnerOctant == 8);
 
     RememberPoints<int> outerPoints;
     outerPoints = midpointCircle(0, 0, 17, outerPoints);
 
-    size_t const nrPointsOuterOctant = static_cast<size_t>(static_cast<double>(
-         outerPoints.size()) / 8.0) - 1;
+    size_t const nrPointsOuterOctant =
+        static_cast<size_t>(static_cast<double>(outerPoints.size()) / 8.0) - 1;
     BOOST_CHECK(nrPointsOuterOctant == 11);
   }
 
@@ -329,66 +312,66 @@ BOOST_AUTO_TEST_CASE(midpoint_circle)
     std::vector<Point> pointsInOctant;
 
     // Inner circle.
-    pointsInOctant.push_back(Point( 0, 13));
-    pointsInOctant.push_back(Point( 1, 13));
-    pointsInOctant.push_back(Point( 2, 13));
-    pointsInOctant.push_back(Point( 3, 13));
-    pointsInOctant.push_back(Point( 4, 12));
-    pointsInOctant.push_back(Point( 5, 12));
-    pointsInOctant.push_back(Point( 6, 12));
-    pointsInOctant.push_back(Point( 7, 11));
-    pointsInOctant.push_back(Point( 8, 10));
-    pointsInOctant.push_back(Point( 9,  9));
+    pointsInOctant.push_back(Point(0, 13));
+    pointsInOctant.push_back(Point(1, 13));
+    pointsInOctant.push_back(Point(2, 13));
+    pointsInOctant.push_back(Point(3, 13));
+    pointsInOctant.push_back(Point(4, 12));
+    pointsInOctant.push_back(Point(5, 12));
+    pointsInOctant.push_back(Point(6, 12));
+    pointsInOctant.push_back(Point(7, 11));
+    pointsInOctant.push_back(Point(8, 10));
+    pointsInOctant.push_back(Point(9, 9));
 
     // Outer circle.
-    pointsInOctant.push_back(Point( 0, 17));
-    pointsInOctant.push_back(Point( 1, 17));
-    pointsInOctant.push_back(Point( 2, 17));
-    pointsInOctant.push_back(Point( 3, 17));
-    pointsInOctant.push_back(Point( 4, 17));
-    pointsInOctant.push_back(Point( 5, 16));
-    pointsInOctant.push_back(Point( 6, 16));
-    pointsInOctant.push_back(Point( 7, 15));
-    pointsInOctant.push_back(Point( 8, 15));
-    pointsInOctant.push_back(Point( 9, 14));
+    pointsInOctant.push_back(Point(0, 17));
+    pointsInOctant.push_back(Point(1, 17));
+    pointsInOctant.push_back(Point(2, 17));
+    pointsInOctant.push_back(Point(3, 17));
+    pointsInOctant.push_back(Point(4, 17));
+    pointsInOctant.push_back(Point(5, 16));
+    pointsInOctant.push_back(Point(6, 16));
+    pointsInOctant.push_back(Point(7, 15));
+    pointsInOctant.push_back(Point(8, 15));
+    pointsInOctant.push_back(Point(9, 14));
     pointsInOctant.push_back(Point(10, 14));
     pointsInOctant.push_back(Point(11, 13));
     pointsInOctant.push_back(Point(12, 12));
 
     // Points between circles.
-    pointsInOctant.push_back(Point( 0, 14));
-    pointsInOctant.push_back(Point( 0, 15));
-    pointsInOctant.push_back(Point( 0, 16));
-    pointsInOctant.push_back(Point( 1, 14));
-    pointsInOctant.push_back(Point( 1, 15));
-    pointsInOctant.push_back(Point( 1, 16));
-    pointsInOctant.push_back(Point( 2, 14));
-    pointsInOctant.push_back(Point( 2, 15));
-    pointsInOctant.push_back(Point( 2, 16));
-    pointsInOctant.push_back(Point( 3, 14));
-    pointsInOctant.push_back(Point( 3, 15));
-    pointsInOctant.push_back(Point( 3, 16));
-    pointsInOctant.push_back(Point( 4, 13));
-    pointsInOctant.push_back(Point( 4, 14));
-    pointsInOctant.push_back(Point( 4, 15));
-    pointsInOctant.push_back(Point( 4, 16));
-    pointsInOctant.push_back(Point( 5, 13));
-    pointsInOctant.push_back(Point( 5, 14));
-    pointsInOctant.push_back(Point( 5, 15));
-    pointsInOctant.push_back(Point( 6, 13));
-    pointsInOctant.push_back(Point( 6, 14));
-    pointsInOctant.push_back(Point( 6, 15));
-    pointsInOctant.push_back(Point( 7, 12));
-    pointsInOctant.push_back(Point( 7, 13));
-    pointsInOctant.push_back(Point( 7, 14));
-    pointsInOctant.push_back(Point( 8, 11));
-    pointsInOctant.push_back(Point( 8, 12));
-    pointsInOctant.push_back(Point( 8, 13));
-    pointsInOctant.push_back(Point( 8, 14));
-    pointsInOctant.push_back(Point( 9, 10));
-    pointsInOctant.push_back(Point( 9, 11));
-    pointsInOctant.push_back(Point( 9, 12));
-    pointsInOctant.push_back(Point( 9, 13));
+    pointsInOctant.push_back(Point(0, 14));
+    pointsInOctant.push_back(Point(0, 15));
+    pointsInOctant.push_back(Point(0, 16));
+    pointsInOctant.push_back(Point(1, 14));
+    pointsInOctant.push_back(Point(1, 15));
+    pointsInOctant.push_back(Point(1, 16));
+    pointsInOctant.push_back(Point(2, 14));
+    pointsInOctant.push_back(Point(2, 15));
+    pointsInOctant.push_back(Point(2, 16));
+    pointsInOctant.push_back(Point(3, 14));
+    pointsInOctant.push_back(Point(3, 15));
+    pointsInOctant.push_back(Point(3, 16));
+    pointsInOctant.push_back(Point(4, 13));
+    pointsInOctant.push_back(Point(4, 14));
+    pointsInOctant.push_back(Point(4, 15));
+    pointsInOctant.push_back(Point(4, 16));
+    pointsInOctant.push_back(Point(5, 13));
+    pointsInOctant.push_back(Point(5, 14));
+    pointsInOctant.push_back(Point(5, 15));
+    pointsInOctant.push_back(Point(6, 13));
+    pointsInOctant.push_back(Point(6, 14));
+    pointsInOctant.push_back(Point(6, 15));
+    pointsInOctant.push_back(Point(7, 12));
+    pointsInOctant.push_back(Point(7, 13));
+    pointsInOctant.push_back(Point(7, 14));
+    pointsInOctant.push_back(Point(8, 11));
+    pointsInOctant.push_back(Point(8, 12));
+    pointsInOctant.push_back(Point(8, 13));
+    pointsInOctant.push_back(Point(8, 14));
+    pointsInOctant.push_back(Point(9, 10));
+    pointsInOctant.push_back(Point(9, 11));
+    pointsInOctant.push_back(Point(9, 12));
+    pointsInOctant.push_back(Point(9, 13));
     pointsInOctant.push_back(Point(10, 10));
     pointsInOctant.push_back(Point(10, 11));
     pointsInOctant.push_back(Point(10, 12));
@@ -396,7 +379,7 @@ BOOST_AUTO_TEST_CASE(midpoint_circle)
     pointsInOctant.push_back(Point(11, 11));
     pointsInOctant.push_back(Point(11, 12));
 
-    for(auto & it : pointsInOctant) {
+    for (auto &it : pointsInOctant) {
       testCirclePoints(points, it);
     }
   }

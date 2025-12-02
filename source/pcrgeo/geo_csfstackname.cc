@@ -12,38 +12,40 @@
 #include <sstream>
 #include <cctype>
 
-
 //------------------------------------------------------------------------------
 
-namespace geo {
+namespace geo
+{
 
 
 class CSFStackNamePrivate
 {
 private:
-  void checkFirstLastOrder() {
-    if(first > last)
+  void checkFirstLastOrder()
+  {
+    if (first > last)
       throw com::Exception("last timestep must be larger than first timestep");
   }
-  void wrongFormatIf(bool test) {
-    if(test)
+
+  void wrongFormatIf(bool test)
+  {
+    if (test)
       throw com::Exception("wrong format for stack name");
   }
+
 public:
+  com::PathName d_path;  // Path name without time step nrs.
+  size_t first;          // First timestep available.
+  size_t last;           // Last timestep available.
+  bool dynamic;          // Stack is dynamic or not.
 
-  com::PathName d_path;                // Path name without time step nrs.
-  size_t      first;                   // First timestep available.
-  size_t      last;                    // Last timestep available.
-  bool        dynamic;                 // Stack is dynamic or not.
-
-  CSFStackNamePrivate(const com::PathName& pn, size_t f, size_t l)
-    : d_path(pn), first(f), last(l), dynamic(true)
+  CSFStackNamePrivate(const com::PathName &pn, size_t f, size_t l)
+      : d_path(pn), first(f), last(l), dynamic(true)
   {
     checkFirstLastOrder();
   }
 
-  CSFStackNamePrivate(const com::PathName &n)
-    : first(0), last(0)
+  CSFStackNamePrivate(const com::PathName &n) : first(0), last(0)
   {
     std::string str(n.toString());
     // position of plus
@@ -51,37 +53,37 @@ public:
     // presence of plus means dynamic
     dynamic = pos != std::string::npos;
     if (!dynamic)
-      d_path  = n;
+      d_path = n;
     else {
-      std::string lastStr = str.substr(pos+1);
+      std::string lastStr = str.substr(pos + 1);
       wrongFormatIf(lastStr.empty());
 
       std::string firstStr;
       do {
-          // on break, pos is always the last char
-          // to be included in d_path
-          --pos;
-          if (firstStr.size() == lastStr.size())
-            break; // can never be longer than last
-                   // because last is a bigger number
-          if(str[pos] == '.')
-             continue; // skip the . in between the DOS 8+3
-          else {
-             if(std::isdigit(str[pos]))
-               firstStr += str[pos];
-             else
-               break; // break on the character being end of stackname
-          }
-      } while(pos);
-      std::reverse(firstStr.begin(),firstStr.end());
+        // on break, pos is always the last char
+        // to be included in d_path
+        --pos;
+        if (firstStr.size() == lastStr.size())
+          break;  // can never be longer than last
+                  // because last is a bigger number
+        if (str[pos] == '.')
+          continue;  // skip the . in between the DOS 8+3
+        else {
+          if (std::isdigit(str[pos]))
+            firstStr += str[pos];
+          else
+            break;  // break on the character being end of stackname
+        }
+      } while (pos);
+      std::reverse(firstStr.begin(), firstStr.end());
       wrongFormatIf(firstStr.empty());
 
       // The code above might still result in a point at the end of the
       // pathname. Remove it if so.
-      if(pos && str[pos] == '.') {
+      if (pos && str[pos] == '.') {
         --pos;
       }
-      d_path = str.substr(0,pos+1);
+      d_path = str.substr(0, pos + 1);
 
       /*
        * Given the DOS naming rules of PCRaster stacknames we can determine
@@ -94,41 +96,34 @@ public:
        * possible value.
        */
       if (lastStr.size() > firstStr.size())
-        lastStr.assign(firstStr.size(),'9');
+        lastStr.assign(firstStr.size(), '9');
 
       try {
-       first = com::strToSize_t(firstStr);
-       last  = com::strToSize_t(lastStr);
-      } catch(...) {
+        first = com::strToSize_t(firstStr);
+        last = com::strToSize_t(lastStr);
+      } catch (...) {
         wrongFormatIf(true);
       }
       checkFirstLastOrder();
     }
   }
-
 };
 
-} // namespace geo
-
-
+}  // namespace geo
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
 
-std::string geo::CSFStackName::asAguilaArgument(
-         const std::string& stackName, int start, int stop)
+std::string geo::CSFStackName::asAguilaArgument(const std::string &stackName, int start, int stop)
 {
   DEVELOP_PRECOND(!stackName.empty());
   DEVELOP_PRECOND(stackName.find('.') != stackName.size() - 1);
-  std::string arg(dal::timeStepPath83(std::filesystem::path(
-         stackName), start).string());
-  arg+="+";
-  arg+=com::intToStr(stop);
+  std::string arg(dal::timeStepPath83(std::filesystem::path(stackName), start).string());
+  arg += "+";
+  arg += com::intToStr(stop);
   return arg;
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF CLASS MEMBERS
@@ -169,26 +164,22 @@ std::string geo::CSFStackName::asAguilaArgument(
 */
 geo::CSFStackName::CSFStackName(const com::PathName &n, bool scanIt)
 
-  : d_data(nullptr)
+    : d_data(nullptr)
 
 {
   try {
 
     init(n);
 
-    if(isDynamic() && scanIt)
+    if (isDynamic() && scanIt)
       scan();
 
-  }
-  catch(...) {
+  } catch (...) {
 
     clean();
     throw;
-
   }
 }
-
-
 
 //! Constructs a CSFStackName object for a dynamic stack.
 /*!
@@ -209,8 +200,7 @@ geo::CSFStackName::CSFStackName(const com::PathName &n, bool scanIt)
     CSFStack ds("/home/tjalling/data/dem",1,100);
   \endcode
 */
-geo::CSFStackName::CSFStackName(const com::PathName& pn, size_t f, size_t l,
-                   bool scanIt)
+geo::CSFStackName::CSFStackName(const com::PathName &pn, size_t f, size_t l, bool scanIt)
 {
   PRECOND(f > 0 && l > 0 && f < l);
 
@@ -218,18 +208,15 @@ geo::CSFStackName::CSFStackName(const com::PathName& pn, size_t f, size_t l,
     d_data = new CSFStackNamePrivate(pn, f, l);
     d_scanned = false;
 
-    if(scanIt)
+    if (scanIt)
       scan();
 
     POSTCOND(isDynamic());
-  }
-  catch(...) {
+  } catch (...) {
     clean();
     throw;
   }
 }
-
-
 
 /*!
   \brief   Copy constructor.
@@ -238,15 +225,13 @@ geo::CSFStackName::CSFStackName(const com::PathName& pn, size_t f, size_t l,
 */
 geo::CSFStackName::CSFStackName(const geo::CSFStackName &n)
 
-  : d_data(nullptr)
+    : d_data(nullptr)
 
 {
-  d_data    = new CSFStackNamePrivate(*(n.d_data));
+  d_data = new CSFStackNamePrivate(*(n.d_data));
   d_scanned = n.d_scanned;
-  d_steps   = n.d_steps;
+  d_steps = n.d_steps;
 }
-
-
 
 /*!
   \brief   Destructor.
@@ -256,28 +241,23 @@ geo::CSFStackName::~CSFStackName()
   clean();
 }
 
-
-
 /*!
   \brief   Initialises an object.
 */
 void geo::CSFStackName::init(const com::PathName &n)
 {
-  d_data    = new CSFStackNamePrivate(n);
+  d_data = new CSFStackNamePrivate(n);
   d_scanned = false;
 }
-
-
 
 /*!
   \brief   Frees dynamically allocated memory.
 */
 void geo::CSFStackName::clean()
 {
-  delete d_data; d_data = nullptr;
+  delete d_data;
+  d_data = nullptr;
 }
-
-
 
 /*!
   \brief   Assignment operator.
@@ -289,16 +269,14 @@ geo::CSFStackName &geo::CSFStackName::operator=(const geo::CSFStackName &rhs)
   PRECOND(d_data);
 #endif
 
-  if(this != &rhs) {
-    *d_data   = *(rhs.d_data);
+  if (this != &rhs) {
+    *d_data = *(rhs.d_data);
     d_scanned = rhs.d_scanned;
-    d_steps   = rhs.d_steps;
+    d_steps = rhs.d_steps;
   }
 
   return *this;
 }
-
-
 
 //! Returns true if \a fileName is a member of the stack.
 /*!
@@ -307,54 +285,51 @@ geo::CSFStackName &geo::CSFStackName::operator=(const geo::CSFStackName &rhs)
   \warning   fileName must be equal to its base name (must not contain a
              directory name or a drive letter).
 */
-bool geo::CSFStackName::isMemberOfStack(const com::PathName& fileName) const
+bool geo::CSFStackName::isMemberOfStack(const com::PathName &fileName) const
 {
-    PRECOND(fileName == fileName.baseName());
+  PRECOND(fileName == fileName.baseName());
 
-    // Check if fileName is smaller then or equal to 8 + 1 + 3 in length.
-    if(!(fileName.length() <= 12)) {
-      return false;
-    }
+  // Check if fileName is smaller then or equal to 8 + 1 + 3 in length.
+  if (!(fileName.length() <= 12)) {
+    return false;
+  }
 
-    // Check if fileName starts with base name.
-    if(!fileName.startsWith(baseName().baseName())) {
-      return false;
-    }
+  // Check if fileName starts with base name.
+  if (!fileName.startsWith(baseName().baseName())) {
+    return false;
+  }
 
-    // Check if stuff after base name is numbers and optionally one ".".
-    size_t const i = baseName().baseName().length();
-    size_t const n = fileName.length() - baseName().baseName().length();
-    std::string numbers = fileName.toString().substr(i, n);
+  // Check if stuff after base name is numbers and optionally one ".".
+  size_t const i = baseName().baseName().length();
+  size_t const n = fileName.length() - baseName().baseName().length();
+  std::string numbers = fileName.toString().substr(i, n);
 
-    bool extensionSeen = false;
-    for(std::string::iterator it = numbers.begin(); it != numbers.end(); ++it) {
+  bool extensionSeen = false;
+  for (std::string::iterator it = numbers.begin(); it != numbers.end(); ++it) {
 
-      if(!std::isdigit(*it)) {
-        // Not a digit, should be the one extension separator.
-        if(*it == '.') {
+    if (!std::isdigit(*it)) {
+      // Not a digit, should be the one extension separator.
+      if (*it == '.') {
 
-          if(extensionSeen) {
+        if (extensionSeen) {
 
-            // Second extension separator seen.
+          // Second extension separator seen.
+          return false;
+        } else {
+
+          if (std::distance(it, numbers.end()) != 4) {
+            // Extension to small or large (according to PCRaster specs).
             return false;
           }
-          else {
 
-            if(std::distance(it, numbers.end()) != 4) {
-              // Extension to small or large (according to PCRaster specs).
-              return false;
-            }
-
-            extensionSeen = true;
-          }
+          extensionSeen = true;
         }
       }
     }
+  }
 
-    return true;
+  return true;
 }
-
-
 
 //! Fills \a pool with interesting file names which might be part of the stack.
 /*!
@@ -377,7 +352,7 @@ bool geo::CSFStackName::isMemberOfStack(const com::PathName& fileName) const
         pool.push_back;
      EN pool.size <= aantal directory entries -> kan ook last verkleinen.
 */
-void geo::CSFStackName::stackNamePool(std::vector<com::PathName>& pool) const
+void geo::CSFStackName::stackNamePool(std::vector<com::PathName> &pool) const
 {
   PRECOND(isDynamic());
 
@@ -385,14 +360,13 @@ void geo::CSFStackName::stackNamePool(std::vector<com::PathName>& pool) const
   // directory.
   com::PathName directoryName;
 
-  if(baseName().hasDirectoryName()) {
+  if (baseName().hasDirectoryName()) {
     directoryName = baseName().directoryName();
-  }
-  else {
+  } else {
     directoryName = com::currentWorkingDirectory();
   }
 
-  if(!com::PathInfo(directoryName).isDirectory()) {
+  if (!com::PathInfo(directoryName).isDirectory()) {
     throw com::OpenFileError(directoryName.toString(), "Not a directory");
   }
 
@@ -400,9 +374,8 @@ void geo::CSFStackName::stackNamePool(std::vector<com::PathName>& pool) const
   // Loop over all file names.
   std::filesystem::directory_iterator const end_iter;
 
-  for (std::filesystem::directory_iterator f(directoryName.path());
-       f != end_iter; ++f) {
-    if(isMemberOfStack(f->path().filename()))
+  for (std::filesystem::directory_iterator f(directoryName.path()); f != end_iter; ++f) {
+    if (isMemberOfStack(f->path().filename()))
       pool.push_back(f->path().filename());
   }
 
@@ -411,16 +384,13 @@ void geo::CSFStackName::stackNamePool(std::vector<com::PathName>& pool) const
   std::sort(pool.begin(), pool.end(), com::PathName::LessThen());
 }
 
-
-
 //! Determines if a file name for time step \a step is in \a pool.
 /*!
   \param     pool Pool of file names to search in.
   \param     step Time step to look for.
   \return    true or false.
 */
-bool geo::CSFStackName::findTimeStep(std::vector<com::PathName>& pool,
-                   size_t& step) const
+bool geo::CSFStackName::findTimeStep(std::vector<com::PathName> &pool, size_t &step) const
 {
   bool result = false;
   com::PathName::Equals const equals;
@@ -431,24 +401,23 @@ bool geo::CSFStackName::findTimeStep(std::vector<com::PathName>& pool,
 
   // If pool.back() < searchName then there's no chance that this
   // or the next file(s) will be found.
-  if(lessThen(pool.back(), searchName)) {
+  if (lessThen(pool.back(), searchName)) {
 
     pool.clear();
-  }
-  else {
+  } else {
 
     // Check if there's a chance that the pool contains the file name.
     // If searchName < pool.front() than there's no such chance.
-    if(!lessThen(searchName, pool.front())) {
+    if (!lessThen(searchName, pool.front())) {
 
       auto poolIter = pool.begin();
 
       // Advance through pool.
-      while(poolIter != pool.end() && lessThen(*poolIter, searchName)) {
+      while (poolIter != pool.end() && lessThen(*poolIter, searchName)) {
         ++poolIter;
       }
 
-      if(poolIter != pool.end() && equals(searchName, *poolIter)) {
+      if (poolIter != pool.end() && equals(searchName, *poolIter)) {
         // Found a match!
         ++poolIter;
 
@@ -464,8 +433,6 @@ bool geo::CSFStackName::findTimeStep(std::vector<com::PathName>& pool,
   return result;
 }
 
-
-
 //! Finds the first available time step of the stack.
 /*!
   \param     pool Pool of file names to search in.
@@ -473,30 +440,27 @@ bool geo::CSFStackName::findTimeStep(std::vector<com::PathName>& pool,
   \return    Nothing, time step found through \a step. If no time step was
              found, then \a step will be 0.
 */
-void geo::CSFStackName::firstAvailableTimeStep(
-                   std::vector<com::PathName>& pool, size_t& step) const
+void geo::CSFStackName::firstAvailableTimeStep(std::vector<com::PathName> &pool, size_t &step) const
 {
   // Initial setting signals that no file name was found.
   step = 0;
 
   // Stop this loop as soon as there's no more hope to do something useful!
-  for(size_t i = d_data->first; i <= d_data->last; ++i) {
+  for (size_t i = d_data->first; i <= d_data->last; ++i) {
 
     // Stop if the pool is empty.
-    if(pool.empty()) {
+    if (pool.empty()) {
       break;
     }
 
     // Find the time step. This changes pool. Stop if the first time step
     // is found.
-    if(findTimeStep(pool, i)) {
+    if (findTimeStep(pool, i)) {
       step = i;
       break;
     }
   }
 }
-
-
 
 //! Finds all available time steps of the stack.
 /*!
@@ -505,8 +469,8 @@ void geo::CSFStackName::firstAvailableTimeStep(
   \return    Nothing, time steps found through \a steps. If no time steps
              were found, then \a steps will not be changed.
 */
-void geo::CSFStackName::availableTimeSteps(std::vector<com::PathName>& pool,
-                   std::vector<size_t>& steps) const
+void geo::CSFStackName::availableTimeSteps(std::vector<com::PathName> &pool,
+                                           std::vector<size_t> &steps) const
 {
   PRECOND(steps.empty());
 
@@ -520,21 +484,19 @@ void geo::CSFStackName::availableTimeSteps(std::vector<com::PathName>& pool,
   // the search is not performed for that particular file name.
 
   // Stop this loop as soon as there's no more hope to do something useful!
-  for(size_t i = d_data->first; i <= d_data->last; ++i) {
+  for (size_t i = d_data->first; i <= d_data->last; ++i) {
 
     // Stop if the pool is empty.
-    if(pool.empty()) {
+    if (pool.empty()) {
       break;
     }
 
     // Find the time step. This changes pool.
-    if(findTimeStep(pool, i)) {
+    if (findTimeStep(pool, i)) {
       steps.push_back(i);
     }
   }
 }
-
-
 
 /*!
   \brief   Scans the stack for available timesteps.
@@ -554,7 +516,7 @@ void geo::CSFStackName::scan()
   // Erase current settings.
   d_steps.erase(d_steps.begin(), d_steps.end());
 
-  if(isDynamic()) {
+  if (isDynamic()) {
 
     // Create pool of interesting file names.
     std::vector<com::PathName> pool;
@@ -568,8 +530,6 @@ void geo::CSFStackName::scan()
   d_scanned = true;
 }
 
-
-
 /*!
   \brief   Returns the number of layers in the stack.
   \return  Number of timesteps in the stack. If the stack is not dynamic, than
@@ -579,13 +539,11 @@ void geo::CSFStackName::scan()
 */
 size_t geo::CSFStackName::nrLayers() const
 {
-  if(isDynamic())
+  if (isDynamic())
     return d_steps.size();
   else
     return 1;
 }
-
-
 
 /*!
   \brief   Returns the base name of the stack.
@@ -624,15 +582,13 @@ com::PathName geo::CSFStackName::fileName() const
 {
   com::PathName pn;
 
-  if(!isDynamic()) {
+  if (!isDynamic()) {
     pn = d_data->d_path;
-  }
-  else {
+  } else {
 
-    if(scanned()) {
+    if (scanned()) {
       pn = fileName(*begin());
-    }
-    else {
+    } else {
 
       // Create pool of interesting file names.
       std::vector<com::PathName> pool;
@@ -643,7 +599,7 @@ com::PathName geo::CSFStackName::fileName() const
       size_t step = 0;
       firstAvailableTimeStep(pool, step);
 
-      if(!step) {
+      if (!step) {
         std::ostringstream s;
         s << "Stack '" << baseName().toString() << "': is empty";
         throw com::Exception(s.str());
@@ -668,15 +624,13 @@ com::PathName geo::CSFStackName::fileName() const
 */
 com::PathName geo::CSFStackName::fileName(size_t t) const
 {
-  if(isDynamic()) {
+  if (isDynamic()) {
     DEVELOP_PRECOND(!d_data->d_path.toString().empty());
     DEVELOP_PRECOND(d_data->d_path.toString().find('.') != d_data->d_path.toString().size() - 1);
-     return dal::timeStepPath83(d_data->d_path.path(), t);
+    return dal::timeStepPath83(d_data->d_path.path(), t);
   }
   return d_data->d_path;
 }
-
-
 
 /*!
   \brief   Returns an iterator to the first timestep available.
@@ -691,8 +645,6 @@ geo::CSFStackName::const_iterator geo::CSFStackName::begin() const
   return d_steps.begin();
 }
 
-
-
 /*!
   \brief   Returns an iterator to the one-past-the-last timestep available.
   \return  An iterator to the one-past-the-last timestep.
@@ -703,8 +655,6 @@ geo::CSFStackName::const_iterator geo::CSFStackName::end() const
   return d_steps.end();
 }
 
-
-
 /*!
   \brief   Returns true if the stack has been scanned for available layers.
   \return  True if the scan() function has been called.
@@ -714,8 +664,6 @@ bool geo::CSFStackName::scanned() const
 {
   return d_scanned;
 }
-
-
 
 /*!
   \brief   Returns true if the stack is dynamic.
@@ -733,8 +681,6 @@ bool geo::CSFStackName::isDynamic() const
   return d_data->dynamic;
 }
 
-
-
 //! Returns true if data for time step \a t is available.
 /*!
   \param     t Time step.
@@ -744,54 +690,45 @@ bool geo::CSFStackName::isAvailable(size_t t) const
 {
   PRECOND(scanned());
 
-  if(!isDynamic()) {
+  if (!isDynamic()) {
     return true;
-  }
-  else {
+  } else {
     return std::find(d_steps.begin(), d_steps.end(), t) != d_steps.end();
   }
 }
-
-
 
 //------------------------------------------------------------------------------
 // IMPLEMENTATION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 #ifdef DEBUG_DEVELOP
-namespace geo {
+namespace geo
+{
 std::ostream &operator<<(std::ostream &s, const CSFStackName &n)
 {
   PRECOND(n.d_data);
 
   s << n.d_data->d_path.baseName() << '\n'
     << "  directory         " << n.d_data->d_path.directoryName() << '\n';
-  if(n.d_data->dynamic)
-  {
+  if (n.d_data->dynamic) {
     s << "  dynamic stack\n";
-    if(n.d_scanned)
-    {
+    if (n.d_scanned) {
       s << "  first timestep:   " << n.d_data->first << '\n'
         << "  last timestep :   " << n.d_data->last << '\n'
         << "  nr available  :   " << n.d_steps.size() << '\n';
-    }
-    else
-    {
+    } else {
       s << "  first timestep:   unknown\n"
         << "  last timestep :   unknown\n";
     }
-  }
-  else
-  {
+  } else {
     s << "  static stack\n";
   }
 
   s << std::flush;
   return s;
 }
-}
+}  // namespace geo
 #endif
-
 
 
 //------------------------------------------------------------------------------
@@ -801,7 +738,6 @@ std::ostream &operator<<(std::ostream &s, const CSFStackName &n)
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF INLINE FUNCTIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

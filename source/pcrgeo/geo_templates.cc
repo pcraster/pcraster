@@ -16,4 +16,4 @@ template class geo::CSFRaster<INT4>;
 template class geo::CSFRaster<REAL4>;
 template class geo::CSFRaster<REAL8>;
 
-template class geo::GriddedPoints<geo::Point<double, 2> >;
+template class geo::GriddedPoints<geo::Point<double, 2>>;

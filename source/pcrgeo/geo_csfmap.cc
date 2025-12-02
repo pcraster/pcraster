@@ -7,8 +7,6 @@
 #include "geo_rasterspace.h"
 #include "geo_util.h"
 
-
-
 /*!
   \file
   encapsulates and enriches the C csf library
@@ -16,12 +14,9 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
-
-
 
 
 //------------------------------------------------------------------------------
@@ -38,41 +33,31 @@
 
   This constructor opens an existing csf raster file in mode \a m.
 */
-geo::CSFMap::CSFMap(const std::string &fn, bool allowUpdate)
-  : d_fn(fn), d_map(nullptr)
+geo::CSFMap::CSFMap(const std::string &fn, bool allowUpdate) : d_fn(fn), d_map(nullptr)
 
 {
   open(allowUpdate);
 }
 
-geo::CSFMap::CSFMap(const char *fn, bool allowUpdate)
-  : d_fn(fn), d_map(nullptr)
+geo::CSFMap::CSFMap(const char *fn, bool allowUpdate) : d_fn(fn), d_map(nullptr)
 {
   open(allowUpdate);
 }
 
-
-
-geo::CSFMap::CSFMap(const com::PathName &fn, bool allowUpdate)
-  : d_fn(fn.toString()), d_map(nullptr)
+geo::CSFMap::CSFMap(const com::PathName &fn, bool allowUpdate) : d_fn(fn.toString()), d_map(nullptr)
 
 {
   open(allowUpdate);
 }
-
-
 
 //! Copy constructor, use only on read only!
-geo::CSFMap::CSFMap(const CSFMap &rhs)
-  : d_fn(rhs.d_fn), d_map(nullptr)
+geo::CSFMap::CSFMap(const CSFMap &rhs) : d_fn(rhs.d_fn), d_map(nullptr)
 
 {
   PRECOND(MopenPerm(rhs.d_map) == M_READ);
-  if(rhs.isOpen())
+  if (rhs.isOpen())
     open(false);
 }
-
-
 
 /*!
   \param     fn Filename of new csf raster file.
@@ -90,49 +75,44 @@ geo::CSFMap::CSFMap(const CSFMap &rhs)
 
   This constructor creates a new csf raster file.
 */
-geo::CSFMap::CSFMap(const std::string &fn, size_t nr, size_t nc,
-         CSF_VS vs, CSF_PT proj, REAL8 left, REAL8 top, REAL8 a, REAL8 cs, CSF_CR cr)
-  : d_fn(fn), d_map(nullptr)
+geo::CSFMap::CSFMap(const std::string &fn, size_t nr, size_t nc, CSF_VS vs, CSF_PT proj, REAL8 left,
+                    REAL8 top, REAL8 a, REAL8 cs, CSF_CR cr)
+    : d_fn(fn), d_map(nullptr)
 
 {
-  create(nr, nc, vs, proj, left, top, a, cs,cr);
+  create(nr, nc, vs, proj, left, top, a, cs, cr);
 }
 
 //! create csf map from space description
 /*! \exception com::FileError as thrown by create()
  */
-geo::CSFMap::CSFMap(const std::string& name,const geo::RasterSpace& rs,
-      CSF_VS vs, CSF_CR cr): d_fn(name), d_map(nullptr)
+geo::CSFMap::CSFMap(const std::string &name, const geo::RasterSpace &rs, CSF_VS vs, CSF_CR cr)
+    : d_fn(name), d_map(nullptr)
 {
-  create(rs.nrRows(), rs.nrCols(), vs,
-    geoProjToCsf(rs.projection()), rs.left(), rs.top(), rs.angle(),
-  rs.cellSize(),cr);
+  create(rs.nrRows(), rs.nrCols(), vs, geoProjToCsf(rs.projection()), rs.left(), rs.top(), rs.angle(),
+         rs.cellSize(), cr);
 }
 
 //! create csf map from space description
 /*! \exception com::FileError as thrown by create()
  */
-geo::CSFMap::CSFMap(const com::PathName& name,const geo::RasterSpace& rs,
-      CSF_VS vs, CSF_CR cr): d_fn(name.toString()), d_map(nullptr)
+geo::CSFMap::CSFMap(const com::PathName &name, const geo::RasterSpace &rs, CSF_VS vs, CSF_CR cr)
+    : d_fn(name.toString()), d_map(nullptr)
 {
-  create(rs.nrRows(), rs.nrCols(), vs,
-    geoProjToCsf(rs.projection()), rs.left(), rs.top(), rs.angle(),
-  rs.cellSize(),cr);
+  create(rs.nrRows(), rs.nrCols(), vs, geoProjToCsf(rs.projection()), rs.left(), rs.top(), rs.angle(),
+         rs.cellSize(), cr);
 }
 
 //! clone  csf map from other map description
 /*! \exception com::FileError as thrown by create()
  */
-geo::CSFMap::CSFMap(const std::string& name,const CSFMap& clone,
-      CSF_VS vs, CSF_CR cr): d_fn(name), d_map(nullptr)
+geo::CSFMap::CSFMap(const std::string &name, const CSFMap &clone, CSF_VS vs, CSF_CR cr)
+    : d_fn(name), d_map(nullptr)
 {
   RasterSpace const rs(clone.rasterSpace());
-  create(rs.nrRows(), rs.nrCols(), vs,
-    geoProjToCsf(rs.projection()), rs.left(), rs.top(), rs.angle(),
-  rs.cellSize(),cr);
+  create(rs.nrRows(), rs.nrCols(), vs, geoProjToCsf(rs.projection()), rs.left(), rs.top(), rs.angle(),
+         rs.cellSize(), cr);
 }
-
-
 
 geo::CSFMap::~CSFMap()
 {
@@ -142,11 +122,8 @@ geo::CSFMap::~CSFMap()
 //! rasterSpace
 geo::RasterSpace geo::CSFMap::rasterSpace() const
 {
-  return {nrRows(),nrCols(), cellSize(),
-                     left(), top(), geo::csfProjToGeo(projection()), angle()};
+  return {nrRows(), nrCols(), cellSize(), left(), top(), geo::csfProjToGeo(projection()), angle()};
 }
-
-
 
 /*!
   \param     allowUpdate if updating/writing is also allowed on this existing map.
@@ -164,15 +141,15 @@ void geo::CSFMap::open(bool allowUpdate)
    *       I have not seen any use of it
    */
   if (!allowUpdate)
-        com::testOpenForReading(d_fn);
+    com::testOpenForReading(d_fn);
   // else com::testOpenForUpdate(d_fn);
 
   d_map = Mopen(d_fn.c_str(), p);
 
-  if(!d_map) {
-   if (Merrno == NOT_CSF)
-    throw NotA_PCRasterMap(d_fn);
-   throwFileError("error opening raster",true);
+  if (!d_map) {
+    if (Merrno == NOT_CSF)
+      throw NotA_PCRasterMap(d_fn);
+    throwFileError("error opening raster", true);
   }
 }
 
@@ -187,18 +164,15 @@ void geo::CSFMap::open(bool allowUpdate)
  * \param mErrnoDefined if true, append the value of MstrError to message
  * \exception com_OpenFileError always
  */
-void geo::CSFMap::throwFileError(
-  const std::string& prefix,
-  bool  mErrnoDefined)
+void geo::CSFMap::throwFileError(const std::string &prefix, bool mErrnoDefined)
 {
-    std::string msg = prefix;
-    if (mErrnoDefined) {
-        msg += ": "; // leestekens tegen het laatste woord, zie hier!
-        msg += MstrError();
-    }
-    throw com::FileError(d_fn,msg);
+  std::string msg = prefix;
+  if (mErrnoDefined) {
+    msg += ": ";  // leestekens tegen het laatste woord, zie hier!
+    msg += MstrError();
+  }
+  throw com::FileError(d_fn, msg);
 }
-
 
 /*!
   \param     nr Number of rows.
@@ -213,8 +187,8 @@ void geo::CSFMap::throwFileError(
              default cell size for the value scale of this map.
   \exception com_FileError If the csf raster file could not be created.
 */
-void geo::CSFMap::create(size_t nr, size_t nc, CSF_VS vs,
-         CSF_PT proj, REAL8 left, REAL8 top, REAL8 a, REAL8 cs, CSF_CR cr)
+void geo::CSFMap::create(size_t nr, size_t nc, CSF_VS vs, CSF_PT proj, REAL8 left, REAL8 top, REAL8 a,
+                         REAL8 cs, CSF_CR cr)
 {
 #ifdef DEBUG_DEVELOP
   PRECOND(!d_map);
@@ -225,11 +199,9 @@ void geo::CSFMap::create(size_t nr, size_t nc, CSF_VS vs,
 
   d_map = Rcreate(d_fn.c_str(), nr, nc, cr, vs, proj, left, top, a, cs);
 
-  if(!d_map)
-    throwFileError("error creating raster",true);
+  if (!d_map)
+    throwFileError("error creating raster", true);
 }
-
-
 
 /*!
   \exception com_FileError If the csf raster file could not be closed.
@@ -241,12 +213,10 @@ void geo::CSFMap::close()
   PRECOND(d_map);
 #endif
 
-  if(Mclose(d_map))
-    throwFileError("error closing raster",true);
+  if (Mclose(d_map))
+    throwFileError("error closing raster", true);
   d_map = nullptr;
 }
-
-
 
 /*!
   \return    True if the filepointer is open.
@@ -257,8 +227,6 @@ bool geo::CSFMap::isOpen() const
   return d_map != nullptr;
 }
 
-
-
 /*!
   \param     cr In-app cell representation.
   \exception com_FileError If the csf raster file can't obey the conversion
@@ -267,11 +235,9 @@ bool geo::CSFMap::isOpen() const
 */
 void geo::CSFMap::useAs(CSF_CR cr)
 {
-  if(RuseAs(d_map, cr))
-            throwFileError("conversion rules not obeyed",true);
+  if (RuseAs(d_map, cr))
+    throwFileError("conversion rules not obeyed", true);
 }
-
-
 
 /*!
   \param     cs New cell size.
@@ -279,10 +245,9 @@ void geo::CSFMap::useAs(CSF_CR cr)
 */
 void geo::CSFMap::putCellSize(REAL8 cs)
 {
-  if(RputCellSize(d_map, cs) < 0.0)
-    throwFileError("error setting cell size:",true);
+  if (RputCellSize(d_map, cs) < 0.0)
+    throwFileError("error setting cell size:", true);
 }
-
 
 /*!
   \param     a New cell size.
@@ -290,11 +255,9 @@ void geo::CSFMap::putCellSize(REAL8 cs)
 */
 void geo::CSFMap::putAngle(REAL8 a)
 {
-  if(RputAngle(d_map, a) < 0.0)
-    throwFileError("error setting angle:",true);
+  if (RputAngle(d_map, a) < 0.0)
+    throwFileError("error setting angle:", true);
 }
-
-
 
 /*!
   \return    Filename of the csf raster file.
@@ -304,8 +267,6 @@ const std::string &geo::CSFMap::filename() const
   return d_fn;
 }
 
-
-
 /*!
   \return    In-file cell representation.
 */
@@ -313,8 +274,6 @@ CSF_CR geo::CSFMap::cellRepr() const
 {
   return RgetCellRepr(d_map);
 }
-
-
 
 /*!
   \return    Value scale.
@@ -324,8 +283,6 @@ CSF_VS geo::CSFMap::valueScale() const
   return RgetValueScale(d_map);
 }
 
-
-
 /*!
   \return    Projection.
 */
@@ -333,8 +290,6 @@ CSF_PT geo::CSFMap::projection() const
 {
   return MgetProjection(d_map);
 }
-
-
 
 /*!
   \return    Left coordinate.
@@ -344,8 +299,6 @@ REAL8 geo::CSFMap::left() const
   return RgetXUL(d_map);
 }
 
-
-
 /*!
   \return    Top coordinate.
 */
@@ -353,8 +306,6 @@ REAL8 geo::CSFMap::top() const
 {
   return RgetYUL(d_map);
 }
-
-
 
 /*!
   \return    Angle.
@@ -364,8 +315,6 @@ REAL8 geo::CSFMap::angle() const
   return RgetAngle(d_map);
 }
 
-
-
 /*!
   \return    Cell size.
 */
@@ -373,8 +322,6 @@ REAL8 geo::CSFMap::cellSize() const
 {
   return RgetCellSize(d_map);
 }
-
-
 
 /*!
   \return    Number of cols.
@@ -384,8 +331,6 @@ size_t geo::CSFMap::nrCols() const
   return RgetNrCols(d_map);
 }
 
-
-
 /*!
   \return    Number of rows.
 */
@@ -393,8 +338,6 @@ size_t geo::CSFMap::nrRows() const
 {
   return RgetNrRows(d_map);
 }
-
-
 
 /*!
   \return    Number of cells.
@@ -406,8 +349,6 @@ size_t geo::CSFMap::nrCells() const
   return nrCols() * nrRows();
 }
 
-
-
 /*!
   \param     buf Buffer large enough to contain all cell values in the in-app
              cell representation.
@@ -416,7 +357,7 @@ size_t geo::CSFMap::nrCells() const
 */
 void geo::CSFMap::getCells(void *buf)
 {
-  if(RgetSomeCells(d_map, 0, nrCells(), buf) != nrCells())
+  if (RgetSomeCells(d_map, 0, nrCells(), buf) != nrCells())
     throwFileError("error reading cells", false);
 }
 
@@ -429,11 +370,9 @@ void geo::CSFMap::getCells(void *buf)
 void geo::CSFMap::putCells(const void *buf)
 {
   PRECOND(RputDoNotChangeValues(d_map));
-  if(RputSomeCells(d_map, 0, nrCells(), const_cast<void *>(buf)) != nrCells())
+  if (RputSomeCells(d_map, 0, nrCells(), const_cast<void *>(buf)) != nrCells())
     throwFileError("error writing cells", false);
 }
-
-
 
 //! Write a stream of cells.
 /*!
@@ -443,16 +382,13 @@ void geo::CSFMap::putCells(const void *buf)
   \exception com::FileError If write fails.
   \sa        putCells(const void*)
 */
-void geo::CSFMap::putCells(size_t offset, size_t nrCells, const void* buffer)
+void geo::CSFMap::putCells(size_t offset, size_t nrCells, const void *buffer)
 {
   PRECOND(RputDoNotChangeValues(d_map));
-  if(RputSomeCells(d_map, offset, nrCells,
-                   const_cast<void *>(buffer)) != nrCells) {
+  if (RputSomeCells(d_map, offset, nrCells, const_cast<void *>(buffer)) != nrCells) {
     throwFileError("error writing cells", false);
   }
 }
-
-
 
 //! Write all cells with the same value stored in \a buf.
 /*!
@@ -460,10 +396,10 @@ void geo::CSFMap::putCells(size_t offset, size_t nrCells, const void* buffer)
  */
 void geo::CSFMap::putNonSpatial(const void *buf)
 {
-  size_t const n= nrCells();
-  for(size_t i=0; i < n; i++)
-   if (RputSomeCells(d_map,i,1, const_cast<void *>(buf)) != 1)
-          throwFileError("error writing cells", false);
+  size_t const n = nrCells();
+  for (size_t i = 0; i < n; i++)
+    if (RputSomeCells(d_map, i, 1, const_cast<void *>(buf)) != 1)
+      throwFileError("error writing cells", false);
 }
 
 /*!
@@ -476,11 +412,9 @@ void geo::CSFMap::putNonSpatial(const void *buf)
 */
 void geo::CSFMap::getCells(size_t off, size_t nc, void *buf)
 {
-  if(RgetSomeCells(d_map, off, nc, buf) != nc)
+  if (RgetSomeCells(d_map, off, nc, buf) != nc)
     throwFileError("error reading cells", false);
 }
-
-
 
 /*!
   \param     m Pointer to value which will be set to the minimum.
@@ -492,7 +426,6 @@ bool geo::CSFMap::min(void *m) const
 {
   return RgetMinVal(d_map, m) != 0;
 }
-
 
 /*!
   \param     m Pointer to value which will be set to the maximum.
@@ -512,16 +445,15 @@ bool geo::CSFMap::max(void *m) const
              false if the raster only contains missing values.
   \sa        min(), max()
 */
-bool geo::CSFMap::getMinMax(double &min, double& max) const
+bool geo::CSFMap::getMinMax(double &min, double &max) const
 {
   // save current
-  CSF_CR const currCr= RgetUseCellRepr(d_map);
+  CSF_CR const currCr = RgetUseCellRepr(d_map);
   RuseAs(d_map, CR_REAL8);
-  bool const minMaxSet = (RgetMinVal(d_map, &min) != 0)
-                 & (RgetMaxVal(d_map, &max) != 0);
-              // YES, bitwise &,eval both, do not shortcut
+  bool const minMaxSet = (RgetMinVal(d_map, &min) != 0) & (RgetMaxVal(d_map, &max) != 0);
+  // YES, bitwise &,eval both, do not shortcut
   // set to saved
-  RuseAs(d_map,currCr);
+  RuseAs(d_map, currCr);
   return minMaxSet;
 }
 
@@ -533,17 +465,15 @@ void geo::CSFMap::setMinMax(double min, double max)
 {
   PRECOND(MopenPerm(d_map) != M_READ);
   // save current
-  CSF_CR const currCr= RgetUseCellRepr(d_map);
+  CSF_CR const currCr = RgetUseCellRepr(d_map);
 
   RuseAs(d_map, CR_REAL8);
   RputMinVal(d_map, &min);
   RputMaxVal(d_map, &max);
 
   // set to saved
-  RuseAs(d_map,currCr);
+  RuseAs(d_map, currCr);
 }
-
-
 
 /*!
   \brief     Returns the CSF version of the layered map pointer.
@@ -554,8 +484,6 @@ UINT4 geo::CSFMap::version() const
   return MgetVersion(d_map);
 }
 
-
-
 //! Returns true if the map has a legend.
 /*!
   \return    true if the map has a legend.
@@ -563,11 +491,8 @@ UINT4 geo::CSFMap::version() const
 */
 bool geo::CSFMap::hasLegend() const
 {
-  return (MattributeAvail(d_map, ATTR_ID_LEGEND_V1) ||
-                   MattributeAvail(d_map, ATTR_ID_LEGEND_V2)) != 0;
+  return (MattributeAvail(d_map, ATTR_ID_LEGEND_V1) || MattributeAvail(d_map, ATTR_ID_LEGEND_V2)) != 0;
 }
-
-
 
 //! Returns the number of legend entries plus 1 for the name of the legend.
 /*!
@@ -578,8 +503,6 @@ size_t geo::CSFMap::nrLegendEntries() const
 {
   return MgetNrLegendEntries(d_map);
 }
-
-
 
 //! Returns the legend of the map.
 /*!
@@ -592,7 +515,7 @@ com::Legend<INT4> geo::CSFMap::legend() const
 {
   com::Legend<INT4> legend;
 
-  if(hasLegend()) {
+  if (hasLegend()) {
 
     CSF_LEGEND *l = nullptr;
 
@@ -601,7 +524,7 @@ com::Legend<INT4> geo::CSFMap::legend() const
       PRECOND(n > 0);
       l = new CSF_LEGEND[n];
 
-      if(MgetLegend(d_map, l) == 0) {
+      if (MgetLegend(d_map, l) == 0) {
         throw com::Exception("Unable to read csf-legend");
       }
 
@@ -609,13 +532,12 @@ com::Legend<INT4> geo::CSFMap::legend() const
       legend.setNrClasses(n - 1);
 
       auto it = legend.begin();
-      for(size_t i = 1; i < n; ++i) {
+      for (size_t i = 1; i < n; ++i) {
         (*it).setValue(l[i].nr);
         (*it).setDescr(l[i].descr);
         ++it;
       }
-    }
-    catch(...) {
+    } catch (...) {
       delete[] l;
       throw;
     }
@@ -626,12 +548,9 @@ com::Legend<INT4> geo::CSFMap::legend() const
   return legend;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -639,11 +558,9 @@ com::Legend<INT4> geo::CSFMap::legend() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -654,5 +571,3 @@ com::Legend<INT4> geo::CSFMap::legend() const
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

@@ -2,12 +2,10 @@
 #include "geo_mooreneighbourhood.h"
 #include <boost/math/special_functions/round.hpp>
 
-
 /*!
   \file
   This file contains the implementation of the MooreNeighbourhood class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -33,11 +31,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC MOORENEIGHBOURHOOD MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -59,13 +55,11 @@ public:
 */
 geo::MooreNeighbourhood::MooreNeighbourhood(double toRadius)
 
-  : Neighbourhood(toRadius)
+    : Neighbourhood(toRadius)
 
 {
   init();
 }
-
-
 
 //! Constructor.
 /*!
@@ -85,13 +79,11 @@ geo::MooreNeighbourhood::MooreNeighbourhood(double toRadius)
 */
 geo::MooreNeighbourhood::MooreNeighbourhood(double fromRadius, double toRadius)
 
-  : Neighbourhood(fromRadius, toRadius)
+    : Neighbourhood(fromRadius, toRadius)
 
 {
   init();
 }
-
-
 
 //! Destructor.
 /*!
@@ -100,20 +92,16 @@ geo::MooreNeighbourhood::~MooreNeighbourhood()
 {
 }
 
-
-
 //! Initialises the object.
 /*!
 */
 void geo::MooreNeighbourhood::init()
 {
-  for(size_t radius = static_cast<size_t>(boost::math::round(fromRadius()));
-         radius <= static_cast<size_t>(boost::math::round(toRadius())); ++radius) {
+  for (size_t radius = static_cast<size_t>(boost::math::round(fromRadius()));
+       radius <= static_cast<size_t>(boost::math::round(toRadius())); ++radius) {
     addRing(radius);
   }
 }
-
-
 
 //! Adds a ring with radius \a radius to the neighbourhood.
 /*!
@@ -125,23 +113,20 @@ void geo::MooreNeighbourhood::addRing(size_t radius)
 
   size_t const upperLeft = this->radius() - radius;
 
-  for(size_t row = upperLeft; row < upperLeft + 2 * radius + 1; ++row) {
+  for (size_t row = upperLeft; row < upperLeft + 2 * radius + 1; ++row) {
     cell(row, upperLeft) = 1.0;
     cell(row, upperLeft + 2 * radius) = 1.0;
   }
 
-  for(size_t col = upperLeft + 1; col < upperLeft + 2 * radius; ++col) {
+  for (size_t col = upperLeft + 1; col < upperLeft + 2 * radius; ++col) {
     cell(upperLeft, col) = 1.0;
     cell(upperLeft + 2 * radius, col) = 1.0;
   }
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

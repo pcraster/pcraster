@@ -5,19 +5,19 @@
 #include "com_progressbar.h"
 #include <sstream>
 
-template<typename T>
-class LabeledProgressTrackerWrapper : public com::LabeledProgressTracker<T> {
+template <typename T> class LabeledProgressTrackerWrapper : public com::LabeledProgressTracker<T>
+{
 public:
-   LabeledProgressTrackerWrapper(T& tracker, std::string const& label,size_t labelWidth)
-   : com::LabeledProgressTracker<T>(tracker, label, labelWidth)
-   {
-   }
+  LabeledProgressTrackerWrapper(T &tracker, std::string const &label, size_t labelWidth)
+      : com::LabeledProgressTracker<T>(tracker, label, labelWidth)
+  {
+  }
 
-   bool finished() const {
-     return com::LabeledProgressTracker<T>::finished();
-   }
+  bool finished() const
+  {
+    return com::LabeledProgressTracker<T>::finished();
+  }
 };
-
 
 BOOST_AUTO_TEST_CASE(test)
 {
@@ -34,12 +34,11 @@ BOOST_AUTO_TEST_CASE(test)
   BOOST_CHECK(labeledTracker.nrFinishedSteps() == 0);
 
   labeledTracker.init();
-  for(size_t step = 0; step < labeledTracker.nrSteps(); ++step) {
+  for (size_t step = 0; step < labeledTracker.nrSteps(); ++step) {
     labeledTracker.finishedStep();
     BOOST_CHECK(labeledTracker.nrFinishedSteps() == step + 1);
     result = "task   ";
-    BOOST_CHECK(stream.str().substr(0, labeledTracker.labelWidth() + 1) ==
-         result);
+    BOOST_CHECK(stream.str().substr(0, labeledTracker.labelWidth() + 1) == result);
   }
 
   BOOST_CHECK(labeledTracker.nrFinishedSteps() == 15);

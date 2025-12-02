@@ -4,9 +4,6 @@
 
 #include <algorithm>
 
-
-
-
 /*!
   \file
   brief
@@ -15,28 +12,22 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 com::Subject::Subject()
 {
 }
 
-
-
 com::Subject::~Subject()
 {
 }
-
-
 
 /*!
   \param     o Observer to attach.
@@ -53,8 +44,6 @@ void com::Subject::attach(Observer *o)
   d_observers.push_back(o);
 }
 
-
-
 /*!
   \param     o Observer to detach.
   \warning   It is assumed that \a o points to a previously \link attach()
@@ -65,35 +54,28 @@ void com::Subject::detach(Observer *o)
 {
 #ifdef DEBUG_DEVELOP
   PRECOND(o);
-  PRECOND(std::find(d_observers.begin(), d_observers.end(), o) !=
-          d_observers.end());
+  PRECOND(std::find(d_observers.begin(), d_observers.end(), o) != d_observers.end());
 #endif
 
   d_observers.erase(std::find(d_observers.begin(), d_observers.end(), o));
 }
 
-
-
 void com::Subject::notify()
 {
   std::vector<Observer *>::iterator it;
 
-  for(it = d_observers.begin(); it != d_observers.end(); ++it)
+  for (it = d_observers.begin(); it != d_observers.end(); ++it)
     (*it)->update(this);
 }
 
-
-
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -101,14 +83,11 @@ void com::Subject::notify()
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-

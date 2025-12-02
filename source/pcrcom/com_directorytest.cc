@@ -7,13 +7,11 @@
 #include "com_pathname.h"
 #include <iostream>
 
-
 BOOST_AUTO_TEST_CASE(create_directory)
 {
   using namespace com;
 
-  try
-  {
+  try {
     PathName pn;
     PathInfo pi;
     Directory dir;
@@ -25,8 +23,7 @@ BOOST_AUTO_TEST_CASE(create_directory)
     dir.create(true);
     BOOST_CHECK(pi.isDirectory());
 
-    pn = PathName("dir_dir1") + PathName("dir2") + PathName("dir3") +
-                   PathName("dir4");
+    pn = PathName("dir_dir1") + PathName("dir2") + PathName("dir3") + PathName("dir4");
     pi.setPathName(pn);
     dir.setPathName(pn);
     BOOST_CHECK(!pi.exists());
@@ -36,44 +33,35 @@ BOOST_AUTO_TEST_CASE(create_directory)
     // cannot create directory with name of
     //  existing file
     bool catched = false;
-    try
-    {
+    try {
       pn = PathName("pi_failureExpectedMkDir");
       pi.setPathName(pn);
       dir.setPathName(pn);
       BOOST_CHECK(pi.exists());
       dir.create(false);
-      BOOST_CHECK(0); // never go here
-    }
-    catch(const OpenFileError& )
-    {
+      BOOST_CHECK(0);  // never go here
+    } catch (const OpenFileError &) {
       catched = true;
     }
     BOOST_CHECK(catched);
 
     // throw for not existing parent dir
     catched = false;
-    try
-    {
+    try {
       pn = "failureExpectedDir/yeah";
       pi.setPathName(pn);
       dir.setPathName(pn);
       BOOST_CHECK(!pi.exists());
       dir.create(false);
-      BOOST_CHECK(0); // never go here
-    }
-    catch(const OpenFileError& )
-    {
+      BOOST_CHECK(0);  // never go here
+    } catch (const OpenFileError &) {
       catched = true;
     }
     BOOST_CHECK(catched);
-  }
-  catch(const OpenFileError& )
-  {
+  } catch (const OpenFileError &) {
     BOOST_CHECK(0);
   }
 }
-
 
 BOOST_AUTO_TEST_CASE(erase_directory)
 {
@@ -101,8 +89,8 @@ BOOST_AUTO_TEST_CASE(erase_directory)
     dir.erase(true);
     BOOST_CHECK(!pi.exists());
 
-    pn=PathName("dir_removeSub");
-    pn+="rmThis";
+    pn = PathName("dir_removeSub");
+    pn += "rmThis";
     pi.setPathName(pn);
     dir.setPathName(pn);
     BOOST_CHECK(pi.exists());
@@ -111,8 +99,7 @@ BOOST_AUTO_TEST_CASE(erase_directory)
     pi.setPathName("dir_removeSub");
     BOOST_CHECK(pi.exists());
 
-  }
-  catch(FileError& ) {
+  } catch (FileError &) {
     const bool expectNoException(false);
     BOOST_CHECK(expectNoException);
   }

@@ -4,14 +4,12 @@
 #include <string>
 
 
-
 /*!
   \fn const int geo_Const::YINCRT2B
 
   Projection type: y increases from top to bottom.
 */
 const int geo_Const::YINCRT2B = 1;
-
 
 
 /*!
@@ -22,14 +20,12 @@ const int geo_Const::YINCRT2B = 1;
 const int geo_Const::YINCRB2T = 2;
 
 
-
 /*!
   \fn const int geo_Const::UPPERLEFT
 
   Upper left corner.
 */
 const int geo_Const::UPPERLEFT = 3;
-
 
 
 /*!
@@ -40,14 +36,12 @@ const int geo_Const::UPPERLEFT = 3;
 const int geo_Const::LOWERRIGHT = 4;
 
 
-
 /*!
   \fn const int geo_Const::LEGENDINWINDOW
 
   Place legend in separate window.
 */
 const int geo_Const::LEGENDINWINDOW = 5;
-
 
 
 /*!
@@ -58,14 +52,12 @@ const int geo_Const::LEGENDINWINDOW = 5;
 const int geo_Const::LEGENDUPPERLEFT = 6;
 
 
-
 /*!
   \fn const int geo_Const::LEGENDUPPERRIGHT
 
   Place legend in upper right corner of display window.
 */
 const int geo_Const::LEGENDUPPERRIGHT = 7;
-
 
 
 /*!
@@ -76,14 +68,12 @@ const int geo_Const::LEGENDUPPERRIGHT = 7;
 const int geo_Const::LEGENDLOWERLEFT = 8;
 
 
-
 /*!
   \fn const int geo_Const::LEGENDLOWERRIGHT
 
   Place legend in lower right corner of display window.
 */
 const int geo_Const::LEGENDLOWERRIGHT = 9;
-
 
 
 /*!
@@ -94,11 +84,9 @@ const int geo_Const::LEGENDLOWERRIGHT = 9;
 const int geo_Const::VECTOR = 100;
 
 
-
 /*!
   \fn const int geo_Const::RASTER
 
   Code for raster topology.
 */
 const int geo_Const::RASTER = 101;
-

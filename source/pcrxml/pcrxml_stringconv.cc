@@ -9,11 +9,9 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC STRING MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -22,10 +20,10 @@
 
 
 //! convert
-std::string pcrxml::asString(const QString& s)
+std::string pcrxml::asString(const QString &s)
 {
   if (s.isEmpty())
-   return {};
+    return {};
 
   QByteArray const asciiData = s.toLatin1();
   return std::string(asciiData.constData());
@@ -47,19 +45,16 @@ std::string pcrxml::asString(const XMLCh *s)
 */
 
 //! convert
-QString pcrxml::asQString(const std::string& s)
+QString pcrxml::asQString(const std::string &s)
 {
   return {s.c_str()};
 }
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-

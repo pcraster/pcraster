@@ -18,12 +18,10 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the CpuCycleCounter class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -35,10 +33,10 @@ static com::CpuCycleCounter::Uint64 pentiumClock()
   PRECOND(sizeof(UI64) == 8);
 #if defined(GCC) && !defined(__aarch64__)
   unsigned long high, low;
-   __asm__ __volatile__(".byte 0x0f,0x31" : "=a" (low), "=d" (high));
-   return ((UI64) high << 32) + low;
+  __asm__ __volatile__(".byte 0x0f,0x31" : "=a"(low), "=d"(high));
+  return ((UI64)high << 32) + low;
 #else
-   return 0;
+  return 0;
 #endif
 }
 
@@ -48,23 +46,18 @@ com::CpuCycleCounter::Interval::Interval()
   PRECOND(sizeof(Uint64) == 8);
 }
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CPUCYCLECOUNTER MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF CPUCYCLECOUNTER MEMBERS
 //------------------------------------------------------------------------------
 
-com::CpuCycleCounter::CpuCycleCounter(size_t nrCounters):
-   d_counters(nrCounters)
+com::CpuCycleCounter::CpuCycleCounter(size_t nrCounters) : d_counters(nrCounters)
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -77,12 +70,9 @@ com::CpuCycleCounter::CpuCycleCounter(CpuCycleCounter const& rhs)
 */
 
 
-
 com::CpuCycleCounter::~CpuCycleCounter()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -97,15 +87,14 @@ com::CpuCycleCounter& com::CpuCycleCounter::operator=(CpuCycleCounter const& rhs
 void com::CpuCycleCounter::start(size_t nr)
 {
   PRECOND(nr < d_counters.size());
-  d_counters[nr].d_start=pentiumClock();
+  d_counters[nr].d_start = pentiumClock();
 }
 
 void com::CpuCycleCounter::stop(size_t nr)
 {
   PRECOND(nr < d_counters.size());
-  d_counters[nr].d_total+=
-    pentiumClock()-d_counters[nr].d_start;
-  d_counters[nr].d_start=0;
+  d_counters[nr].d_total += pentiumClock() - d_counters[nr].d_start;
+  d_counters[nr].d_start = 0;
 }
 
 /*
@@ -138,23 +127,22 @@ void com::CpuCycleCounter::stop(size_t nr)
  * all values are bit shifted until all value are smaller than
  * \a maxCount
  */
-std::vector<size_t>  com::CpuCycleCounter::counters(
-    size_t maxCount) const
+std::vector<size_t> com::CpuCycleCounter::counters(size_t maxCount) const
 {
-  Uint64 max=0;
-  for(auto d_counter : d_counters)
-    com::maximize(max,d_counter.d_total);
+  Uint64 max = 0;
+  for (auto d_counter : d_counters)
+    com::maximize(max, d_counter.d_total);
 
-  size_t skipBits=0;
-  while(max > maxCount) {
+  size_t skipBits = 0;
+  while (max > maxCount) {
     max = max >> 1;
     skipBits++;
   }
 
   std::vector<size_t> counters(d_counters.size());
 
-  for(size_t i=0;i<d_counters.size();++i)
-    counters[i]= (size_t)(d_counters[i].d_total >> skipBits);
+  for (size_t i = 0; i < d_counters.size(); ++i)
+    counters[i] = (size_t)(d_counters[i].d_total >> skipBits);
 
   return counters;
 }
@@ -164,10 +152,6 @@ std::vector<size_t>  com::CpuCycleCounter::counters(
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

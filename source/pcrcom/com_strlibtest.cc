@@ -6,7 +6,6 @@
 #include "com_strlib.h"
 #include "com_strconv.h"
 
-
 //! test all strTo* funcs
 BOOST_AUTO_TEST_CASE(from_string)
 {
@@ -28,109 +27,107 @@ BOOST_AUTO_TEST_CASE(from_string)
 
   bool visit = false;
 
-  visit=false;
+  visit = false;
   try {
     strToSize_t(std::string("-0001"));
-  } catch (const std::range_error&) {
-    visit=true;
+  } catch (const std::range_error &) {
+    visit = true;
   }
   BOOST_CHECK(visit);
 
   BOOST_CHECK(strToDouble("0.25") == 0.25);
   BOOST_CHECK(strToDouble("2") == 2);
 
-  visit=false;
+  visit = false;
   try {
     strToDouble(std::string(" 1 -10.7 -10.7 "));
-  } catch (const std::range_error&) {
-    visit=true;
+  } catch (const std::range_error &) {
+    visit = true;
   }
   BOOST_CHECK(visit);
 
-  visit=false;
+  visit = false;
   try {
     strToSize_t(std::string("00X0001"));
-  } catch (const std::range_error& ) {
-    visit=true;
+  } catch (const std::range_error &) {
+    visit = true;
   }
   BOOST_CHECK(visit);
 
 
-  visit=false;
+  visit = false;
   try {
     strToInt(std::string("NotAnInteger"));
-  } catch (const std::range_error& ) {
-    visit=true;
+  } catch (const std::range_error &) {
+    visit = true;
   }
   BOOST_CHECK(visit);
 
-  visit=false;
+  visit = false;
   try {
     strToSize_t(std::string("1.0"));
-  } catch (const std::range_error& ) {
-    visit=true;
+  } catch (const std::range_error &) {
+    visit = true;
   }
   BOOST_CHECK(visit);
 
-  visit=false;
+  visit = false;
   try {
     strToInt(std::string("1.0"));
-  } catch (const std::range_error& ) {
-    visit=true;
+  } catch (const std::range_error &) {
+    visit = true;
   }
   BOOST_CHECK(visit);
 
-  visit=false;
+  visit = false;
   try {
     strToDouble(std::string("NotADouble"));
-  } catch (const std::range_error& ) {
-    visit=true;
+  } catch (const std::range_error &) {
+    visit = true;
   }
   BOOST_CHECK(visit);
 
-  visit=false;
+  visit = false;
   try {
     strToInt(std::string(""));
-  } catch (const std::range_error& ) {
-    visit=true;
+  } catch (const std::range_error &) {
+    visit = true;
   }
   BOOST_CHECK(visit);
 
-  visit=false;
+  visit = false;
   try {
     strToInt(std::string("   \t \t \n  "));
-  } catch (const std::range_error& ) {
-    visit=true;
+  } catch (const std::range_error &) {
+    visit = true;
   }
   BOOST_CHECK(visit);
 
-  visit=false;
+  visit = false;
   try {
     strToDouble(std::string(""));
-  } catch (const std::range_error& ) {
-    visit=true;
+  } catch (const std::range_error &) {
+    visit = true;
   }
   BOOST_CHECK(visit);
 
-  visit=false;
+  visit = false;
   try {
     strToDouble(std::string("   \t \t \n  "));
-  } catch (const std::range_error& ) {
-    visit=true;
+  } catch (const std::range_error &) {
+    visit = true;
   }
   BOOST_CHECK(visit);
 
   // hex must not be supported
-  visit=false;
+  visit = false;
   try {
-   strToInt(std::string("0x0001"));
-  } catch (const std::range_error& ) {
-    visit=true;
+    strToInt(std::string("0x0001"));
+  } catch (const std::range_error &) {
+    visit = true;
   }
   BOOST_CHECK(visit);
-
 }
-
 
 //! test all *ToStr funcs
 BOOST_AUTO_TEST_CASE(to_string)
@@ -146,49 +143,45 @@ BOOST_AUTO_TEST_CASE(to_string)
   integers.push_back(4);
   integers.push_back(1);
 
-  std::string const result = com::toString<int>(integers.begin(), integers.end(),
-         std::string(", "));
+  std::string const result = com::toString<int>(integers.begin(), integers.end(), std::string(", "));
   BOOST_CHECK(result == "5, 2, 4, 1");
 
   // I demand no space!
-  double const doubleV=122;
+  double const doubleV = 122;
   BOOST_CHECK(doubleToStr(doubleV) == "122");
 }
-
 
 BOOST_AUTO_TEST_CASE(is_number)
 {
   using namespace com;
 
-  BOOST_CHECK( isDouble("3.4"));
-  BOOST_CHECK( isDouble(" \t4\n"));
+  BOOST_CHECK(isDouble("3.4"));
+  BOOST_CHECK(isDouble(" \t4\n"));
   BOOST_CHECK(!isDouble(""));
   BOOST_CHECK(!isDouble(" \t \n"));
   BOOST_CHECK(!isDouble("3.4 4.5"));
 }
-
 
 //! test compareNoCase()
 BOOST_AUTO_TEST_CASE(compare_no_case)
 {
   using namespace com;
 
-  BOOST_CHECK(compareNoCase("xFg","XFG") == 0);
+  BOOST_CHECK(compareNoCase("xFg", "XFG") == 0);
 
-  BOOST_CHECK(compareNoCase("xFg","XF")  != 0);
-  BOOST_CHECK(compareNoCase("tFg","XF")  != 0);
+  BOOST_CHECK(compareNoCase("xFg", "XF") != 0);
+  BOOST_CHECK(compareNoCase("tFg", "XF") != 0);
 
-  BOOST_CHECK(compareNoCase("aBC","bBC") < 0);
-  BOOST_CHECK(compareNoCase("bBC","aBC") > 0);
+  BOOST_CHECK(compareNoCase("aBC", "bBC") < 0);
+  BOOST_CHECK(compareNoCase("bBC", "aBC") > 0);
 
   StringLessNoCase const lnc;
-  BOOST_CHECK( lnc("aBC","bBC"));
-  BOOST_CHECK(!lnc("bBC","bBC"));
+  BOOST_CHECK(lnc("aBC", "bBC"));
+  BOOST_CHECK(!lnc("bBC", "bBC"));
 
-  BOOST_CHECK( lnc("a","b"));
-  BOOST_CHECK(!lnc("b","a"));
+  BOOST_CHECK(lnc("a", "b"));
+  BOOST_CHECK(!lnc("b", "a"));
 }
-
 
 //! test RemoveFrontEndSpace()
 BOOST_AUTO_TEST_CASE(remove_front_end_space)
@@ -198,7 +191,7 @@ BOOST_AUTO_TEST_CASE(remove_front_end_space)
   std::string const in1("no whe at end");
   std::string out1(in1);
   removeFrontEndSpace(out1);
-  BOOST_CHECK(in1==out1);
+  BOOST_CHECK(in1 == out1);
 
   std::string const in2(" \t two words \n ");
   std::string out2(in2);
@@ -215,7 +208,6 @@ BOOST_AUTO_TEST_CASE(remove_front_end_space)
   removeFrontEndSpace(out4);
   BOOST_CHECK(out4 == "");
 }
-
 
 //! test RemoveAllSpace()
 BOOST_AUTO_TEST_CASE(remove_all_space)
@@ -248,96 +240,94 @@ BOOST_AUTO_TEST_CASE(split_and_join)
 {
   using namespace com;
 
- {
-  std::string const in1("no whe at end");
-  std::vector<std::string> s1(split(in1));
-  BOOST_CHECK(s1.size()==4);
-  BOOST_CHECK(s1[0] == "no");
-  BOOST_CHECK(s1[1] == "whe");
-  BOOST_CHECK(s1[2] == "at");
-  BOOST_CHECK(s1[3] == "end");
+  {
+    std::string const in1("no whe at end");
+    std::vector<std::string> s1(split(in1));
+    BOOST_CHECK(s1.size() == 4);
+    BOOST_CHECK(s1[0] == "no");
+    BOOST_CHECK(s1[1] == "whe");
+    BOOST_CHECK(s1[2] == "at");
+    BOOST_CHECK(s1[3] == "end");
 
-  std::string const joined(join(s1));
-  BOOST_CHECK(in1 == joined);
- }
- {
-  std::string const in1("no \t \n whe at        end \n \t ");
-  std::vector<std::string> s1(split(in1));
-  BOOST_CHECK(s1.size()==4);
-  BOOST_CHECK(s1[0] == "no");
-  BOOST_CHECK(s1[1] == "whe");
-  BOOST_CHECK(s1[2] == "at");
-  BOOST_CHECK(s1[3] == "end");
+    std::string const joined(join(s1));
+    BOOST_CHECK(in1 == joined);
+  }
+  {
+    std::string const in1("no \t \n whe at        end \n \t ");
+    std::vector<std::string> s1(split(in1));
+    BOOST_CHECK(s1.size() == 4);
+    BOOST_CHECK(s1[0] == "no");
+    BOOST_CHECK(s1[1] == "whe");
+    BOOST_CHECK(s1[2] == "at");
+    BOOST_CHECK(s1[3] == "end");
 
-  std::string const joinRes1("noXwheXatXend");
-  std::string const joined1(join(s1,"X"));
-  BOOST_CHECK(joinRes1 == joined1);
+    std::string const joinRes1("noXwheXatXend");
+    std::string const joined1(join(s1, "X"));
+    BOOST_CHECK(joinRes1 == joined1);
 
-  std::string const joinRes2("nowheatend");
-  std::string const joined2(join(s1,""));
-  BOOST_CHECK(joinRes2 == joined2);
- }
- {
-  std::string const in1("");
-  std::vector<std::string> const s1(split(in1));
-  BOOST_CHECK(s1.size()==0);
-  std::string const joined(join(s1,"X"));
-  BOOST_CHECK(in1 == joined);
- }
- {
-  std::string const in1(" \t \n   \n ");
-  std::vector<std::string> const s1(split(in1));
-  BOOST_CHECK(s1.size()==0);
-  std::string const joined(join(s1,"X"));
-  BOOST_CHECK(joined.empty());
- }
- {
-  std::string const in1("no_spaces");
-  std::vector<std::string> s1(split(in1));
-  BOOST_CHECK(s1.size()==1);
-  BOOST_CHECK(s1[0]==in1);
-  std::string const joined(join(s1,"X"));
-  BOOST_CHECK(in1 == joined);
- }
+    std::string const joinRes2("nowheatend");
+    std::string const joined2(join(s1, ""));
+    BOOST_CHECK(joinRes2 == joined2);
+  }
+  {
+    std::string const in1("");
+    std::vector<std::string> const s1(split(in1));
+    BOOST_CHECK(s1.size() == 0);
+    std::string const joined(join(s1, "X"));
+    BOOST_CHECK(in1 == joined);
+  }
+  {
+    std::string const in1(" \t \n   \n ");
+    std::vector<std::string> const s1(split(in1));
+    BOOST_CHECK(s1.size() == 0);
+    std::string const joined(join(s1, "X"));
+    BOOST_CHECK(joined.empty());
+  }
+  {
+    std::string const in1("no_spaces");
+    std::vector<std::string> s1(split(in1));
+    BOOST_CHECK(s1.size() == 1);
+    BOOST_CHECK(s1[0] == in1);
+    std::string const joined(join(s1, "X"));
+    BOOST_CHECK(in1 == joined);
+  }
 }
-
 
 //! test split(string, splitChar)
 BOOST_AUTO_TEST_CASE(split_at_char)
 {
   using namespace com;
 
- {
-  std::string const in1("no whe at end");
-  std::vector<std::string> s1(split(in1,' '));
-  BOOST_CHECK(s1.size()==4);
-  BOOST_CHECK(s1[0] == "no");
-  BOOST_CHECK(s1[1] == "whe");
-  BOOST_CHECK(s1[2] == "at");
-  BOOST_CHECK(s1[3] == "end");
- }
- {
-  std::string const in1("");
-  std::vector<std::string> const s1(split(in1,' '));
-  BOOST_CHECK(s1.size()==0);
- }
- {
-  std::string const in1("no_spaces");
-  std::vector<std::string> s1(split(in1,' '));
-  BOOST_CHECK(s1.size()==1);
-  BOOST_CHECK(s1[0]==in1);
- }
- {
-  std::string const in1("no\twhe\tat\tend\t");
-  std::vector<std::string> s1(split(in1,'\t'));
-  BOOST_CHECK(s1.size()==4);
-  BOOST_CHECK(s1[0] == "no");
-  BOOST_CHECK(s1[1] == "whe");
-  BOOST_CHECK(s1[2] == "at");
-  BOOST_CHECK(s1[3] == "end");
- }
+  {
+    std::string const in1("no whe at end");
+    std::vector<std::string> s1(split(in1, ' '));
+    BOOST_CHECK(s1.size() == 4);
+    BOOST_CHECK(s1[0] == "no");
+    BOOST_CHECK(s1[1] == "whe");
+    BOOST_CHECK(s1[2] == "at");
+    BOOST_CHECK(s1[3] == "end");
+  }
+  {
+    std::string const in1("");
+    std::vector<std::string> const s1(split(in1, ' '));
+    BOOST_CHECK(s1.size() == 0);
+  }
+  {
+    std::string const in1("no_spaces");
+    std::vector<std::string> s1(split(in1, ' '));
+    BOOST_CHECK(s1.size() == 1);
+    BOOST_CHECK(s1[0] == in1);
+  }
+  {
+    std::string const in1("no\twhe\tat\tend\t");
+    std::vector<std::string> s1(split(in1, '\t'));
+    BOOST_CHECK(s1.size() == 4);
+    BOOST_CHECK(s1[0] == "no");
+    BOOST_CHECK(s1[1] == "whe");
+    BOOST_CHECK(s1[2] == "at");
+    BOOST_CHECK(s1[3] == "end");
+  }
 }
-
 
 //! test createAsCStr()
 BOOST_AUTO_TEST_CASE(duplicate_as_c_str)
@@ -347,19 +337,18 @@ BOOST_AUTO_TEST_CASE(duplicate_as_c_str)
   std::string const s1in("this in");
   char *s1out = createAsCStr(s1in);
   BOOST_CHECK(s1in == s1out);
-  delete [] s1out;
+  delete[] s1out;
 
   std::string const s2in("");
   char *s2out = createAsCStr(s2in);
   BOOST_CHECK(s2in == s2out);
-  delete [] s2out;
+  delete[] s2out;
 
   std::string const s3in("\n");
   char *s3out = createAsCStr(s3in);
   BOOST_CHECK(s3in == s3out);
-  delete [] s3out;
+  delete[] s3out;
 }
-
 
 //! test equalNoSpace
 BOOST_AUTO_TEST_CASE(equal_no_space)
@@ -368,9 +357,8 @@ BOOST_AUTO_TEST_CASE(equal_no_space)
 
   std::string const s1("this in\n\nand becomes out");
   std::string const s2("this in andbecomes out");
-  BOOST_CHECK(equalNoSpace(s1,s2));
+  BOOST_CHECK(equalNoSpace(s1, s2));
 }
-
 
 BOOST_AUTO_TEST_CASE(remove_front_end_char)
 {
@@ -419,7 +407,6 @@ BOOST_AUTO_TEST_CASE(remove_front_end_char)
   BOOST_CHECK(str == "b");
 }
 
-
 BOOST_AUTO_TEST_CASE(replace_chars)
 {
   using namespace com;
@@ -427,23 +414,21 @@ BOOST_AUTO_TEST_CASE(replace_chars)
   std::string str;
 
   str = "";
-  replaceChars(str,'x', "XX");
+  replaceChars(str, 'x', "XX");
   BOOST_CHECK(str == "");
 
   str = "x132";
-  replaceChars(str,'x', "Y");
+  replaceChars(str, 'x', "Y");
   BOOST_CHECK(str == "x132");
 
   str = "b.b.b";
-  replaceChars(str,'_',".");
+  replaceChars(str, '_', ".");
   BOOST_CHECK(str == "b_b_b");
 
   str = "b.b.b";
-  replaceChars(str,'_',".b");
+  replaceChars(str, '_', ".b");
   BOOST_CHECK(str == "_____");
-
 }
-
 
 BOOST_AUTO_TEST_CASE(replace_str_by_str)
 {
@@ -452,22 +437,21 @@ BOOST_AUTO_TEST_CASE(replace_str_by_str)
   std::string str;
 
   str = "";
-  BOOST_CHECK(replaceStrByStr(str,"x", "XX")=="");
+  BOOST_CHECK(replaceStrByStr(str, "x", "XX") == "");
 
   str = "x132";
-  BOOST_CHECK(replaceStrByStr(str,"Y", "x")== "x132");
-  BOOST_CHECK(replaceStrByStr(str,"x", "Y")== "Y132");
+  BOOST_CHECK(replaceStrByStr(str, "Y", "x") == "x132");
+  BOOST_CHECK(replaceStrByStr(str, "x", "Y") == "Y132");
 
   str = "b.b.b";
-  BOOST_CHECK(replaceStrByStr(str,".","_")  == "b_b_b");
-  BOOST_CHECK(replaceStrByStr(str,"b.","_")  == "__b");
-  BOOST_CHECK(replaceStrByStr(str,".b","_")  == "b__");
+  BOOST_CHECK(replaceStrByStr(str, ".", "_") == "b_b_b");
+  BOOST_CHECK(replaceStrByStr(str, "b.", "_") == "__b");
+  BOOST_CHECK(replaceStrByStr(str, ".b", "_") == "b__");
 
   // Empty string to replace. This used to crash.
-  BOOST_CHECK(replaceStrByStr(str,"","_")  == "b.b.b");
-  BOOST_CHECK(replaceStrByStr(str,".","")  == "bbb");
+  BOOST_CHECK(replaceStrByStr(str, "", "_") == "b.b.b");
+  BOOST_CHECK(replaceStrByStr(str, ".", "") == "bbb");
 }
-
 
 BOOST_AUTO_TEST_CASE(remove_front_end_string)
 {
@@ -512,7 +496,6 @@ BOOST_AUTO_TEST_CASE(remove_front_end_string)
   BOOST_CHECK(str == "bab");
 }
 
-
 BOOST_AUTO_TEST_CASE(string_less)
 {
   using namespace com;
@@ -527,7 +510,6 @@ BOOST_AUTO_TEST_CASE(string_less)
   BOOST_CHECK(comp(str3, str2) == false);
   BOOST_CHECK(comp(str3, str3) == false);
 }
-
 
 BOOST_AUTO_TEST_CASE(format_)
 {

@@ -3,78 +3,76 @@
 #include "stddefx.h"
 #include "com_raster.h"
 
-
 BOOST_AUTO_TEST_CASE(outside)
 {
   using namespace com;
 
-  Raster<UINT1> v(4,5,8);
+  Raster<UINT1> v(4, 5, 8);
 
-  BOOST_CHECK(!v.isOutside( 0, 0));
-  BOOST_CHECK( v.isOutside(-1, 0));
-  BOOST_CHECK( v.isOutside(-1, -1));
-  BOOST_CHECK( v.isOutside( 0, -1));
-  BOOST_CHECK( v.isOutside( 4,  5));
-  BOOST_CHECK( v.isOutside( 3,  6));
-  BOOST_CHECK( v.isOutside( 4,  2));
+  BOOST_CHECK(!v.isOutside(0, 0));
+  BOOST_CHECK(v.isOutside(-1, 0));
+  BOOST_CHECK(v.isOutside(-1, -1));
+  BOOST_CHECK(v.isOutside(0, -1));
+  BOOST_CHECK(v.isOutside(4, 5));
+  BOOST_CHECK(v.isOutside(3, 6));
+  BOOST_CHECK(v.isOutside(4, 2));
 
-  BOOST_CHECK(v.cell(3,4)==8);
+  BOOST_CHECK(v.cell(3, 4) == 8);
 
-  v.setMV(0,2);
+  v.setMV(0, 2);
 
-  BOOST_CHECK(v.isMV(0,2));
-  BOOST_CHECK(!v.isMV(3,4));
+  BOOST_CHECK(v.isMV(0, 2));
+  BOOST_CHECK(!v.isMV(3, 4));
 }
-
 
 BOOST_AUTO_TEST_CASE(get_cell)
 {
   using namespace com;
 
-  Raster<UINT1> v(4,5,8);
-  v.setMV(0,2);
+  Raster<UINT1> v(4, 5, 8);
+  v.setMV(0, 2);
 
-  BOOST_CHECK(!v.isMV(3,4));
+  BOOST_CHECK(!v.isMV(3, 4));
 
 
   {
-  int const r=0;
-  int const c=0;
-  UINT1 result=10;
-  BOOST_CHECK(v.cell(result,r,c));
-  BOOST_CHECK(result==8);
+    int const r = 0;
+    int const c = 0;
+    UINT1 result = 10;
+    BOOST_CHECK(v.cell(result, r, c));
+    BOOST_CHECK(result == 8);
   }
 
   {
-  size_t const r=0;
-  size_t const c=0;
-  UINT1 result=10;
-  BOOST_CHECK(v.cell(result,r,c));
-  BOOST_CHECK(result==8);
+    size_t const r = 0;
+    size_t const c = 0;
+    UINT1 result = 10;
+    BOOST_CHECK(v.cell(result, r, c));
+    BOOST_CHECK(result == 8);
   }
 
   {
-  int const r=-1;
-  int const c=0;
-  UINT1 result=10;
-  BOOST_CHECK(!v.cell(result,r,c));
-  BOOST_CHECK(result==10); // untouched
+    int const r = -1;
+    int const c = 0;
+    UINT1 result = 10;
+    BOOST_CHECK(!v.cell(result, r, c));
+    BOOST_CHECK(result == 10);  // untouched
   }
   {
-   int const r=0;
-   int const c=2;
-   UINT1 result=10;
-   BOOST_CHECK(v.isMV(r,c));
-   BOOST_CHECK(!v.cell(result,r,c));
-   BOOST_CHECK(result==10);
+    int const r = 0;
+    int const c = 2;
+    UINT1 result = 10;
+    BOOST_CHECK(v.isMV(r, c));
+    BOOST_CHECK(!v.cell(result, r, c));
+    BOOST_CHECK(result == 10);
   }
 
   {
-   size_t const r=0;
-   size_t const c=2;
-   UINT1 result=10;
-   BOOST_CHECK(v.isMV(r,c));
-   BOOST_CHECK(!v.cell(result,r,c));
-   BOOST_CHECK(result==10);
+    size_t const r = 0;
+    size_t const c = 2;
+    UINT1 result = 10;
+    BOOST_CHECK(v.isMV(r, c));
+    BOOST_CHECK(!v.cell(result, r, c));
+    BOOST_CHECK(result == 10);
   }
 }

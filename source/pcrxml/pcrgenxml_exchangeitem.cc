@@ -8,58 +8,69 @@ Do not edit, generated from libs/pcrxml/generate.py
 #include <qdom.h>
 
 const std::string pcrxml::ExchangeItem::d_elementName("exchangeItem");
-//! ctor
-pcrxml::ExchangeItem::ExchangeItem(const QDomElement& element):Element(element,d_elementName)
- ,exchangeDirection(element,"exchangeDirection",false)
- ,index(element,"index",false)
- {
-  try {
-   ChildElementVisitor v(element);
 
-   // required element
-   v.checkRequiredChild("variable");
-   variable = new Variable(v.processChild());
-  } catch (...) { clean(); throw; }
- }
-pcrxml::ExchangeItem::ExchangeItem():Element()
- 
- {
- }
-const std::string& pcrxml::ExchangeItem::elementName() const
+//! ctor
+pcrxml::ExchangeItem::ExchangeItem(const QDomElement &element)
+    : Element(element, d_elementName), exchangeDirection(element, "exchangeDirection", false),
+      index(element, "index", false)
 {
- return d_elementName;
+  try {
+    ChildElementVisitor v(element);
+
+    // required element
+    v.checkRequiredChild("variable");
+    variable = new Variable(v.processChild());
+  } catch (...) {
+    clean();
+    throw;
+  }
 }
+
+pcrxml::ExchangeItem::ExchangeItem() : Element()
+
+{
+}
+
+const std::string &pcrxml::ExchangeItem::elementName() const
+{
+  return d_elementName;
+}
+
 //! dtor
 pcrxml::ExchangeItem::~ExchangeItem()
 {
- clean();
+  clean();
 }
+
 //! clean
 void pcrxml::ExchangeItem::clean()
 {
- delete variable;variable=nullptr;
+  delete variable;
+  variable = nullptr;
 }
+
 //! copy ctor
-pcrxml::ExchangeItem::ExchangeItem(const ExchangeItem& src):
-pcrxml::Element(src)
-,exchangeDirection(src.exchangeDirection)
-,index(src.index)
+pcrxml::ExchangeItem::ExchangeItem(const ExchangeItem &src)
+    : pcrxml::Element(src), exchangeDirection(src.exchangeDirection), index(src.index)
 {
- variable=new Variable(*(src.variable));
+  variable = new Variable(*(src.variable));
 }
+
 //! assignment operator
-pcrxml::ExchangeItem& pcrxml::ExchangeItem::operator=(const ExchangeItem& src)
+pcrxml::ExchangeItem &pcrxml::ExchangeItem::operator=(const ExchangeItem &src)
 {
- if(this != &src)
- {
-   clean(); PRECOND(false);
-  variable=new Variable(*(src.variable));
- }
-return *this;
+  if (this != &src) {
+    clean();
+    PRECOND(false);
+    variable = new Variable(*(src.variable));
+  }
+  return *this;
 }
+
 void pcrxml::ExchangeItem::fill(QDomElement el) const
 {
- exchangeDirection.addToElement(el,"exchangeDirection");
- index.addToElement(el,"index");
- if (variable) variable->appendTo(el);
+  exchangeDirection.addToElement(el, "exchangeDirection");
+  index.addToElement(el, "index");
+  if (variable)
+    variable->appendTo(el);
 }

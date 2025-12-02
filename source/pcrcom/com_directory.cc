@@ -20,7 +20,6 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
@@ -35,8 +34,6 @@ com::Directory::Directory()
 {
 }
 
-
-
 /*!
   \brief     Constructor.
   \param     pn Path name of the directory this objects points to.
@@ -44,25 +41,21 @@ com::Directory::Directory()
 */
 com::Directory::Directory(const PathName &pn)
 
-  : d_path(pn)
+    : d_path(pn)
 
 {
 }
-
-
 
 //! Copy constructor.
 /*!
   \param     d Directory object to copy from.
 */
-com::Directory::Directory(const Directory& d)
+com::Directory::Directory(const Directory &d)
 
-  : d_path(d.d_path)
+    : d_path(d.d_path)
 
 {
 }
-
-
 
 /*!
   \brief     Destructor.
@@ -71,23 +64,19 @@ com::Directory::~Directory()
 {
 }
 
-
-
 //! Assignment operator.
 /*!
   \param     d Directory object to copy from.
   \return    Reference to *this.
 */
-com::Directory& com::Directory::operator=(const Directory& d)
+com::Directory &com::Directory::operator=(const Directory &d)
 {
-  if(this != &d) {
+  if (this != &d) {
     d_path = d.d_path;
   }
 
   return *this;
 }
-
-
 
 /*!
   \brief     Sets the path name of the directory to \a pn.
@@ -121,14 +110,12 @@ void com::Directory::create(bool makeParentDirectories)
 {
   PRECOND(!d_path.toString().empty());
 
-  if(makeParentDirectories)
-  {
+  if (makeParentDirectories) {
     std::vector<std::string> dirs;
     PathName pn(d_path);
     std::string dirPart(pn.directoryName());
 
-    while (dirPart != "")
-    {
+    while (dirPart != "") {
       dirs.push_back(pn.baseName());
       pn = dirPart;
       dirPart = pn.directoryName();
@@ -136,41 +123,35 @@ void com::Directory::create(bool makeParentDirectories)
 
     dirs.push_back(pn.baseName());
 
-    size_t i  = dirs.size();
+    size_t i = dirs.size();
 
     pn = PathName("");
-    while (i > 0)
-    {
+    while (i > 0) {
       i--;
       pn += dirs[i];
       try {
         Directory dir(pn);
         dir.create(false);
-      }
-      catch (const OpenFileError& er) {
+      } catch (const OpenFileError &er) {
         std::string const msg("while creating " + d_path.toString() + ":");
-        throw OpenFileError(er.fileName(),msg+er.diagnosis());
+        throw OpenFileError(er.fileName(), msg + er.diagnosis());
       }
     }
-  }
-  else
-  {
+  } else {
     PathInfo const pi(d_path);
-    if(pi.isDirectory()){
-      return; // already exists as an directory, done
+    if (pi.isDirectory()) {
+      return;  // already exists as an directory, done
     }
-    if(std::filesystem::is_regular_file(d_path.path())){
+    if (std::filesystem::is_regular_file(d_path.path())) {
       throw OpenFileErrnoMsg(d_path, "can not create directory");
     }
     try {
       std::filesystem::create_directory(d_path.path());
-    } catch(...) {
-       throw OpenFileErrnoMsg(d_path, "can not create directory");
+    } catch (...) {
+      throw OpenFileErrnoMsg(d_path, "can not create directory");
     }
   }
 }
-
-
 
 /*!
   \brief     Creates a sub directory.
@@ -202,8 +183,6 @@ void com::Directory::create(const PathName &pn, bool makeParentDirectories)
   dir.create(makeParentDirectories);
 }
 
-
-
 //! Erases the layered directory path.
 /*!
   \param     recurse If true, then recursively delete all subdirectories.
@@ -224,11 +203,9 @@ void com::Directory::erase(bool recurse)
       std::filesystem::remove(d_path.path());
     }
   } catch (...) {
-      throw FileErrnoMsg(d_path, "can not delete directory: ");
+    throw FileErrnoMsg(d_path, "can not delete directory: ");
   }
 }
-
-
 
 //! Erases the sub-directory \a pn from the layered one.
 /*!
@@ -238,29 +215,25 @@ void com::Directory::erase(bool recurse)
   \warning   \a pn must be a normalized path name.
   \sa        erase(bool), create(bool), create(const PathName&, bool)
 */
-void com::Directory::erase(const PathName& pn, bool recurse)
+void com::Directory::erase(const PathName &pn, bool recurse)
 {
-  PathName const npn = d_path + pn;          // 'Normalized' path name.
+  PathName const npn = d_path + pn;  // 'Normalized' path name.
   Directory subDir(npn);
   subDir.erase(recurse);
 }
-
 
 //! Return the PathName of the Directory.
 /*!
   \return    PathName of the Directory.
 */
-const com::PathName& com::Directory::pathName() const
+const com::PathName &com::Directory::pathName() const
 {
   return d_path;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -298,7 +271,7 @@ void com::createDirectory(const PathName &pn, bool makeParentDirectories)
 {
   Directory dir;
 
-  if(pn.isRelative())
+  if (pn.isRelative())
     dir.setPathName(currentWorkingDirectory() + pn);
   else
     dir.setPathName(pn);
@@ -317,8 +290,8 @@ void com::createNewDirectory(const PathName &pn)
 {
   Directory const dir;
 
-  if(PathInfo(pn).exists())
-    throw OpenFileError(pn.toString(),E_EXIST);
+  if (PathInfo(pn).exists())
+    throw OpenFileError(pn.toString(), E_EXIST);
   createDirectory(pn, false);
 }
 
@@ -327,15 +300,11 @@ void com::createNewDirectory(const PathName &pn)
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

@@ -8,12 +8,10 @@
 #endif
 
 
-
 /*!
   \file
   This file contains the implementation of the Date class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -21,14 +19,13 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF DATE MEMBERS
 //------------------------------------------------------------------------------
 
 //! ctor
-pcrxml::Date::Date(const QDomNode& owningElement, const std::string& name, bool required):
-   String(owningElement,name,required)
+pcrxml::Date::Date(const QDomNode &owningElement, const std::string &name, bool required)
+    : String(owningElement, name, required)
 {
 }
 
@@ -42,16 +39,11 @@ pcrxml::Date::~Date()
 {
 }
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

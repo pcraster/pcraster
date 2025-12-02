@@ -41,12 +41,10 @@
 
 #include <memory>
 
-
 /*!
   \file
   This file contains the implementation of the SpiritFileLineParserTest class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -54,9 +52,9 @@
 //------------------------------------------------------------------------------
 
 //! suite
-boost::unit_test::test_suite*com::SpiritFileLineParserTest::suite()
+boost::unit_test::test_suite *com::SpiritFileLineParserTest::suite()
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
+  boost::unit_test::test_suite *suite = BOOST_TEST_SUITE(__FILE__);
   std::shared_ptr<SpiritFileLineParserTest> instance(new SpiritFileLineParserTest());
 
   suite->add(BOOST_CLASS_TEST_CASE(&SpiritFileLineParserTest::testOne, instance));
@@ -65,8 +63,6 @@ boost::unit_test::test_suite*com::SpiritFileLineParserTest::suite()
 
   return suite;
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF SPIRITFILELINEPARSER MEMBERS
@@ -91,39 +87,36 @@ void com::SpiritFileLineParserTest::testOne()
 {
   com::PathName pn("testparser.txt");
   const char *d[2] = {
-   "1 2 3 4\n \n  5 A6\n", // \n at end
-   "1 2 3 4\n \n  5 A6"   // no \n at end
+      "1 2 3 4\n \n  5 A6\n",  // \n at end
+      "1 2 3 4\n \n  5 A6"     // no \n at end
   };
 
-  for(size_t i=0;i < 2; ++i) {
+  for (size_t i = 0; i < 2; ++i) {
 
-    write(d[i],pn);
+    write(d[i], pn);
     SpiritFileLineParser sfp(pn);
 
     using namespace boost::spirit;
     std::vector<int> parsed;
-    sfp.pi= parse(sfp.begin(),sfp.end(),
-           +(int_p[append(parsed)]), space_p);
-    BOOST_CHECK(parsed.size()==4);
-    BOOST_CHECK(parsed[3]==4);
+    sfp.pi = parse(sfp.begin(), sfp.end(), +(int_p[append(parsed)]), space_p);
+    BOOST_CHECK(parsed.size() == 4);
+    BOOST_CHECK(parsed[3] == 4);
     BOOST_CHECK(sfp.fullMatch());
 
     sfp.advance();
 #ifndef BORLANDC
-    bool catched=false;
+    bool catched = false;
     try {
-     sfp.pi= parse(sfp.begin(),sfp.end(),
-           int_p[append(parsed)] >> int_p[append(parsed)], space_p);
-     sfp.errorAtStop();
-     } catch (const com::FilePositionError& cpe) {
-         ;
+      sfp.pi = parse(sfp.begin(), sfp.end(), int_p[append(parsed)] >> int_p[append(parsed)], space_p);
+      sfp.errorAtStop();
+    } catch (const com::FilePositionError &cpe) {
+      ;
       BOOST_CHECK(!sfp.fullMatch());
-      BOOST_CHECK(cpe.lineNr()==3);
-      BOOST_CHECK(cpe.columnNr()==5);
-      BOOST_CHECK(cpe.messages().find("A6")!=std::string::npos);
-      catched=true;
-
-     }
+      BOOST_CHECK(cpe.lineNr() == 3);
+      BOOST_CHECK(cpe.columnNr() == 5);
+      BOOST_CHECK(cpe.messages().find("A6") != std::string::npos);
+      catched = true;
+    }
     BOOST_CHECK(catched);
 #endif
   }
@@ -131,47 +124,43 @@ void com::SpiritFileLineParserTest::testOne()
   bool compileErrorIfdeffed(false);
   BOOST_CHECK(compileErrorIfdeffed);
 #endif
-
 }
 
 void com::SpiritFileLineParserTest::testTwo()
 {
   com::PathName pn("testparser.txt");
   const char *d[2] = {
-   "1 2 3 4\n \n  5 6\n", // \n at end
-   "1 2 3 4\n \n  5 6"   // no \n at end
+      "1 2 3 4\n \n  5 6\n",  // \n at end
+      "1 2 3 4\n \n  5 6"     // no \n at end
   };
 
-  for(size_t i=0;i < 2; ++i) {
+  for (size_t i = 0; i < 2; ++i) {
 
-    write(d[i],pn);
+    write(d[i], pn);
     SpiritFileLineParser sfp(pn);
 
     using namespace boost::spirit;
     std::vector<int> parsed;
-    sfp.pi= parse(sfp.begin(),sfp.end(),
-           +(int_p[append(parsed)]), space_p);
-    BOOST_CHECK(parsed.size()==4);
-    BOOST_CHECK(parsed[3]==4);
+    sfp.pi = parse(sfp.begin(), sfp.end(), +(int_p[append(parsed)]), space_p);
+    BOOST_CHECK(parsed.size() == 4);
+    BOOST_CHECK(parsed[3] == 4);
     BOOST_CHECK(sfp.fullMatch());
 
     sfp.advance();
 
-    sfp.pi= parse(sfp.begin(),sfp.end(),
-           int_p[append(parsed)] >> int_p[append(parsed)], space_p);
+    sfp.pi = parse(sfp.begin(), sfp.end(), int_p[append(parsed)] >> int_p[append(parsed)], space_p);
     BOOST_CHECK(sfp.fullMatch());
-    BOOST_CHECK(parsed.size()==6);
-    BOOST_CHECK(parsed[5]==6);
+    BOOST_CHECK(parsed.size() == 6);
+    BOOST_CHECK(parsed[5] == 6);
 
     sfp.advance();
     BOOST_CHECK(sfp.eof());
 
     // NO MORE INPUT
-    sfp.pi= parse(sfp.begin(),sfp.end(),
-           *(int_p[append(parsed)]), space_p);
+    sfp.pi = parse(sfp.begin(), sfp.end(), *(int_p[append(parsed)]), space_p);
     BOOST_CHECK(sfp.fullMatch());
-    BOOST_CHECK(parsed.size()==6);
-    BOOST_CHECK(parsed[5]==6);
+    BOOST_CHECK(parsed.size() == 6);
+    BOOST_CHECK(parsed[5] == 6);
   }
 }
 
@@ -179,22 +168,21 @@ void com::SpiritFileLineParserTest::testEmpty()
 {
   com::PathName pn("testparser.txt");
   const char *d[4] = {
-   "\n", // \n at end
-   "",   // empty
-   "\n  \n \t  ", // only space
-   "\n  \n \t  \n", // only space
+      "\n",             // \n at end
+      "",               // empty
+      "\n  \n \t  ",    // only space
+      "\n  \n \t  \n",  // only space
   };
 
-  for(size_t i=0;i < 4; ++i) {
+  for (size_t i = 0; i < 4; ++i) {
 
-    write(d[i],pn);
+    write(d[i], pn);
     SpiritFileLineParser sfp(pn);
     BOOST_CHECK(sfp.eof());
 
     using namespace boost::spirit;
     std::vector<int> parsed;
-    sfp.pi= parse(sfp.begin(),sfp.end(),
-           +(int_p[append(parsed)]), space_p);
+    sfp.pi = parse(sfp.begin(), sfp.end(), +(int_p[append(parsed)]), space_p);
     BOOST_CHECK(parsed.empty());
     BOOST_CHECK(sfp.fullMatch());
   }

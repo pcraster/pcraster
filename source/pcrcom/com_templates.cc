@@ -7,7 +7,6 @@
 #include "com_legend.cc"
 
 
-
 template class com_Axis<REAL8>;
 
 template class com_LegendClass<UINT1>;
@@ -25,31 +24,31 @@ template class com::Legend<REAL8>;
 // #include "com_exclusiveargument.cc"
 // #include "com_repeatableargument.cc"
 // #include "com_repeatableexclusiveargument.cc"
-// 
+//
 // template class com::RepeatableArgument<com::PositionalValue<std::string> >;
 // template class com::RepeatableArgument<com::PositionalValue<int> >;
 // template class com::RepeatableArgument<com::PositionalValue<double> >;
-// 
+//
 // template class com::RepeatableArgument<com::PositionalList<std::string> >;
 // template class com::RepeatableArgument<com::PositionalList<int> >;
 // template class com::RepeatableArgument<com::PositionalList<double> >;
-// 
+//
 // template class com::RepeatableArgument<com::OptionValue<std::string> >;
-// 
+//
 // template class com::RepeatableExclusiveArgument<com::OptionValue<std::string> >;
 // template class com::RepeatableExclusiveArgument<com::OptionList<std::string> >;
-// 
+//
 // /*
 // template class com::RepeatableArgument<com::ExclusiveArgument<
 //                    com::OptionList<std::string> > >;
 // */
-// 
+//
 // template class com::ExclusiveArgument<com::Option>;
 // template class com::ExclusiveArgument<com::OptionList<std::string> >;
 // template class com::ExclusiveArgument<com::OptionList<int> >;
 // template class com::ExclusiveArgument<com::OptionList<double> >;
 // template class com::ExclusiveArgument<com::CommandModeArgument>;
-// 
+//
 //------------------------------------------------------------------------------
 #include "com_raster.cc"
 #include "com_singlevaluedraster.cc"
@@ -71,9 +70,6 @@ template class com::SingleValuedRaster<REAL8>;
 #include "com_labeledprogresstracker.cc"
 #include "com_progresstracked.cc"
 
-template class
-  com::LabeledProgressTracker<com::ProgressBar>;
-template class
-  com::ProgressTracked<com::LabeledProgressTracker<com::ProgressBar> >;
-template class
-  com::LabeledProgressTracked<com::ProgressBar>;
+template class com::LabeledProgressTracker<com::ProgressBar>;
+template class com::ProgressTracked<com::LabeledProgressTracker<com::ProgressBar>>;
+template class com::LabeledProgressTracked<com::ProgressBar>;

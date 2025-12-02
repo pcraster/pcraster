@@ -3,7 +3,6 @@
 #include "geo_averagefilter.h"
 #include "geo_filterengine.h"
 
-
 BOOST_AUTO_TEST_CASE(test)
 {
   using namespace geo;

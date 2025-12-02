@@ -35,11 +35,9 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CSFRASTER MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -50,10 +48,10 @@
 /*!
    Note that \a map is modified for 'useAs' cell type
  */
-template<class T>
-geo::CSFRaster<T>::CSFRaster(CSFMap& map)
+template <class T>
+geo::CSFRaster<T>::CSFRaster(CSFMap &map)
 
-  : Raster<T>(map.rasterSpace()) // CSFMap has RasterSpace conversion
+    : Raster<T>(map.rasterSpace())  // CSFMap has RasterSpace conversion
 
 {
   // Side effect.
@@ -65,25 +63,16 @@ geo::CSFRaster<T>::CSFRaster(CSFMap& map)
   map.getCells(this->cells());
 }
 
-
-
 //! dtor
-template<class T>
-geo::CSFRaster<T>::~CSFRaster()
+template <class T> geo::CSFRaster<T>::~CSFRaster()
 {
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

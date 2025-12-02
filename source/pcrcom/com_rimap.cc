@@ -11,25 +11,20 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 com::RIMap::RIMap()
 
-   
 
 {
 }
-
-
 
 com::RIMap::RIMap(REAL8 r1, REAL8 r2, int i1, int i2)
 {
@@ -37,23 +32,17 @@ com::RIMap::RIMap(REAL8 r1, REAL8 r2, int i1, int i2)
   setIntRange(i1, i2);
 }
 
-
-
 com::RIMap::~RIMap()
 {
 }
 
-
-
 void com::RIMap::recalc()
 {
-  if(d_r1 != d_r2)
+  if (d_r1 != d_r2)
     d_conv = static_cast<REAL8>(d_i2 - d_i1) / (d_r2 - d_r1);
   else
     d_conv = 0.0;
 }
-
-
 
 void com::RIMap::setRealRange(REAL8 r1, REAL8 r2)
 {
@@ -62,8 +51,6 @@ void com::RIMap::setRealRange(REAL8 r1, REAL8 r2)
   recalc();
 }
 
-
-
 void com::RIMap::setIntRange(int i1, int i2)
 {
   d_i1 = i1;
@@ -71,77 +58,57 @@ void com::RIMap::setIntRange(int i1, int i2)
   recalc();
 }
 
-
-
 REAL8 com::RIMap::r1() const
 {
   return d_r1;
 }
-
-
 
 REAL8 com::RIMap::r2() const
 {
   return d_r2;
 }
 
-
-
 int com::RIMap::i1() const
 {
   return d_i1;
 }
-
-
 
 int com::RIMap::i2() const
 {
   return d_i2;
 }
 
-
-
 int com::RIMap::transform(REAL8 v) const
 {
   return d_i1 + boost::math::iround((v - d_r1) * d_conv);
 }
 
-
-
 REAL8 com::RIMap::transform(int v) const
 {
-  if(d_conv == 0.0)
+  if (d_conv == 0.0)
     return 0.0;
   else
     return d_r1 + static_cast<double>(v - d_i1) / d_conv;
 }
-
-
 
 bool com::RIMap::inRange(REAL8 r) const
 {
   return d_r1 <= r && r <= d_r2;
 }
 
-
-
 bool com::RIMap::inRange(int i) const
 {
   return d_i1 <= i && i <= d_i2;
 }
 
-
-
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -149,15 +116,11 @@ bool com::RIMap::inRange(int i) const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

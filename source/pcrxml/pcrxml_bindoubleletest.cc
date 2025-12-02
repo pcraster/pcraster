@@ -2,7 +2,6 @@
 #include <boost/test/unit_test.hpp>
 #include "pcrxml_bindoublele.h"
 
-
 BOOST_AUTO_TEST_CASE(encoding)
 {
   using namespace pcrxml;

@@ -3,7 +3,6 @@
 #include "stddefx.h"
 #include "com_unorderedcrosstable.h"
 
-
 // TODO Check that the table mirrors indices.
 BOOST_AUTO_TEST_CASE(simple_usage)
 {

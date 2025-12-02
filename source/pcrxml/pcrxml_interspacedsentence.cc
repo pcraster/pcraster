@@ -3,12 +3,10 @@
 #include "com_strlib.h"
 #include "com_exception.h"
 
-
 /*!
   \file
   This file contains the implementation of the InterSpacedSentence class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -16,22 +14,22 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF INTERSPACEDSENTENCE MEMBERS
 //------------------------------------------------------------------------------
 
 //! ctor
-pcrxml::InterSpacedSentence::InterSpacedSentence(const QDomNode& owningElement, const std::string& name, bool required):
-  String(owningElement,name,required)
+pcrxml::InterSpacedSentence::InterSpacedSentence(const QDomNode &owningElement, const std::string &name,
+                                                 bool required)
+    : String(owningElement, name, required)
 {
   validate();
 }
 
-pcrxml::InterSpacedSentence& pcrxml::InterSpacedSentence::operator=(const std::string& value)
+pcrxml::InterSpacedSentence &pcrxml::InterSpacedSentence::operator=(const std::string &value)
 {
   setPresent(true);
-  d_value=value;
+  d_value = value;
   validate();
   return *this;
 }
@@ -56,16 +54,11 @@ void pcrxml::InterSpacedSentence::validate() const
     throw com::BadStreamFormat("not a pcrxml::InterSpacedSentence");
 }
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

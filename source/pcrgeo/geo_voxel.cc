@@ -1,8 +1,6 @@
 #include "stddefx.h"
 #include "geo_voxel.h"
 
-
-
 /*!
   \file
   brief
@@ -11,70 +9,54 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 geo::Voxel::Voxel(INT4 s)
 
-  : d_sedType(s), d_thickness(0.0), d_origThickness(0.0)
+    : d_sedType(s), d_thickness(0.0), d_origThickness(0.0)
 
 {
 }
-
-
 
 geo::Voxel::Voxel(INT4 s, REAL8 t)
 
-  : d_sedType(s), d_thickness(t), d_origThickness(t)
+    : d_sedType(s), d_thickness(t), d_origThickness(t)
 
 {
 }
-
-
 
 geo::Voxel::Voxel(INT4 s, REAL8 t, REAL8 ot)
 
-  : d_sedType(s), d_thickness(t), d_origThickness(ot)
+    : d_sedType(s), d_thickness(t), d_origThickness(ot)
 
 {
 }
-
-
 
 geo::Voxel::Voxel(const Voxel &rhs)
 
-  : d_sedType(rhs.d_sedType),
-    d_thickness(rhs.d_thickness), d_origThickness(rhs.d_origThickness)
+    : d_sedType(rhs.d_sedType), d_thickness(rhs.d_thickness), d_origThickness(rhs.d_origThickness)
 
 {
 }
-
-
 
 geo::Voxel::~Voxel()
 {
 }
 
-
-
 void geo::Voxel::clean()
 {
 }
 
-
-
 geo::Voxel &geo::Voxel::operator=(const Voxel &rhs)
 {
-  if(this != &rhs)
-  {
+  if (this != &rhs) {
     d_sedType = rhs.d_sedType;
     d_thickness = rhs.d_thickness;
     d_origThickness = rhs.d_origThickness;
@@ -83,18 +65,14 @@ geo::Voxel &geo::Voxel::operator=(const Voxel &rhs)
   return *this;
 }
 
-
-
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -102,15 +80,11 @@ geo::Voxel &geo::Voxel::operator=(const Voxel &rhs)
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

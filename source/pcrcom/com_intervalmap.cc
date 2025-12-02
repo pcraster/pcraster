@@ -7,14 +7,12 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC INTERVALMAP MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -55,25 +53,23 @@ com::IntervalMap::IntervalMap(const IntervalMap& rhs):
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-template <typename R>
-bool com::noOverlap(const std::vector<const Interval<R> *>& v)
+template <typename R> bool com::noOverlap(const std::vector<const Interval<R> *> &v)
 {
-  IntervalMap<bool,R> m; // TODO actually an IntervalSet<R> suffices
-  for(size_t i=0; i<v.size(); ++i)
+  IntervalMap<bool, R> m;  // TODO actually an IntervalSet<R> suffices
+  for (size_t i = 0; i < v.size(); ++i)
     if (!m.insertInterval(*v[i]))
       return false;
   return true;
-
 }
 
-namespace com {
+namespace com
+{
 
-template bool noOverlap<float>(const std::vector<const Interval<float> *>& v);
-template bool noOverlap<double>(const std::vector<const Interval<double> *>& v);
+template bool noOverlap<float>(const std::vector<const Interval<float> *> &v);
+template bool noOverlap<double>(const std::vector<const Interval<double> *> &v);
 
-}
+}  // namespace com

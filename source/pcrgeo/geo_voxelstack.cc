@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <functional>
 
-
 /*!
   \file
   brief
@@ -13,34 +12,33 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
 //       1         2         3         4         5         6         7         8
 
-namespace geo {
-
-struct addDepth
+namespace geo
 {
-  typedef const Voxel& argument_type;
+
+struct addDepth {
+  typedef const Voxel &argument_type;
   typedef void result_type;
   REAL8 depth{0.0};
 
   addDepth()
-  {}
+  {
+  }
 
   void operator()(const Voxel &v)
-  { depth += v.thickness(); }
+  {
+    depth += v.thickness();
+  }
 };
 
-} // namespace geo
-
-
+}  // namespace geo
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -50,34 +48,25 @@ struct addDepth
 geo::VoxelStack::VoxelStack()
 
 
-
 {
 }
 
-
-
-geo::VoxelStack::VoxelStack(const VoxelStack& /* vs */)
+geo::VoxelStack::VoxelStack(const VoxelStack & /* vs */)
 {
   // geo::Raster needs this, but we haven't implemented it yet.
   PRECOND(false);
 }
-
-
 
 geo::VoxelStack::~VoxelStack()
 {
   clean();
 }
 
-
-
 void geo::VoxelStack::clean()
 {
 }
 
-
-
-geo::VoxelStack& geo::VoxelStack::operator=(const VoxelStack& vs )
+geo::VoxelStack &geo::VoxelStack::operator=(const VoxelStack &vs)
 {
   PRECOND(false);
   (void)vs;  // Shut up compiler
@@ -85,8 +74,6 @@ geo::VoxelStack& geo::VoxelStack::operator=(const VoxelStack& vs )
   static VoxelStack dummy;
   return dummy;
 }
-
-
 
 /*!
   \param     it Iterator to voxel whose depth must be calculated.
@@ -116,8 +103,7 @@ REAL8 geo::VoxelStack::depth(const_iterator it) const
 {
   REAL8 d = 0.0;
 
-  if(it != d_column.end())
-  {
+  if (it != d_column.end()) {
     addDepth const a = std::for_each(++it, end(), addDepth());
     d = a.depth;
   }
@@ -125,13 +111,9 @@ REAL8 geo::VoxelStack::depth(const_iterator it) const
   return d;
 }
 
-
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -139,15 +121,11 @@ REAL8 geo::VoxelStack::depth(const_iterator it) const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

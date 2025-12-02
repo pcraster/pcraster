@@ -19,12 +19,10 @@
 #endif
 
 
-
 /*!
   \file
   This file contains the implementation of the ReadWrite class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -32,45 +30,36 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF READWRITE MEMBERS
 //------------------------------------------------------------------------------
 
 //! ctor
-template<class UseAsT>
- fieldapi::ReadWrite<UseAsT>::ReadWrite(size_t nrRows, size_t nrCols):
-  Common(nrRows,nrCols)
+template <class UseAsT>
+fieldapi::ReadWrite<UseAsT>::ReadWrite(size_t nrRows, size_t nrCols) : Common(nrRows, nrCols)
 {
 }
 
 //! dtor
-template<class UseAsT>
- fieldapi::ReadWrite<UseAsT>::~ReadWrite()
+template <class UseAsT> fieldapi::ReadWrite<UseAsT>::~ReadWrite()
 {
 }
 
-template<class UseAsT>
- void fieldapi::ReadWrite<UseAsT>::copy(
-   const ReadOnly<UseAsT>& src, const geo::CellLoc& l)
+template <class UseAsT>
+void fieldapi::ReadWrite<UseAsT>::copy(const ReadOnly<UseAsT> &src, const geo::CellLoc &l)
 {
   UseAsT v;
-  if (src.get(v,l))
-     put(v,l);
+  if (src.get(v, l))
+    put(v, l);
   else
-     putMV(l);
+    putMV(l);
 }
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

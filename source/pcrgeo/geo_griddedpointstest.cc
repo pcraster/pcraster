@@ -4,16 +4,14 @@
 #include "geo_rasterspace.h"
 #include "geo_point.h"
 
-
 BOOST_AUTO_TEST_CASE(constructor)
 {
   using namespace geo;
 
   RasterSpace const space(5, 6, 10.0, 0.0, 1.0, YIncrB2T);
-  GriddedPoints<Point<double, 2> > const points(space);
+  GriddedPoints<Point<double, 2>> const points(space);
   // BOOST_CHECK(false);
 }
-
 
 BOOST_AUTO_TEST_CASE(nr_points)
 {
@@ -21,7 +19,7 @@ BOOST_AUTO_TEST_CASE(nr_points)
 
   // Raster with one row and two columns.
   RasterSpace const space(1, 2, 1.0, 0.0, 0.0, YIncrB2T);
-  GriddedPoints<Point<double, 2> > points(space);
+  GriddedPoints<Point<double, 2>> points(space);
 
   BOOST_CHECK(points.nrPoints(0, 0) == 0);
   BOOST_CHECK(points.nrPoints(0, 1) == 0);
@@ -41,16 +39,15 @@ BOOST_AUTO_TEST_CASE(nr_points)
   BOOST_CHECK(points.nrPoints(0, 1) == 3);
 }
 
-
 BOOST_AUTO_TEST_CASE(points)
 {
   using namespace geo;
 
-  std::vector<Point<double, 2> > points;
+  std::vector<Point<double, 2>> points;
 
   {
     RasterSpace const space(1, 1, 1.0, 0.0, 0.0, YIncrB2T);
-    GriddedPoints<Point<double, 2> > griddedPoints(space);
+    GriddedPoints<Point<double, 2>> griddedPoints(space);
 
     points.clear();
     griddedPoints.points(CellLoc(0, 0), 3, points);
@@ -77,17 +74,16 @@ BOOST_AUTO_TEST_CASE(points)
 
   {
     RasterSpace const space(3, 3, 1.0, 0.0, 0.0, YIncrT2B);
-    GriddedPoints<Point<double, 2> > griddedPoints(space);
+    GriddedPoints<Point<double, 2>> griddedPoints(space);
 
     points.clear();
     griddedPoints.points(CellLoc(0, 0), 1, points);
     BOOST_CHECK(points.empty());
 
     // Put a point in each cell.
-    for(size_t row = 0; row < griddedPoints.nrRows(); ++row) {
-      for(size_t col = 0; col < griddedPoints.nrCols(); ++col) {
-        griddedPoints.insert(
-              Point<double, 2>(row * 1.0, col * 1.0));
+    for (size_t row = 0; row < griddedPoints.nrRows(); ++row) {
+      for (size_t col = 0; col < griddedPoints.nrCols(); ++col) {
+        griddedPoints.insert(Point<double, 2>(row * 1.0, col * 1.0));
       }
     }
 
@@ -98,23 +94,22 @@ BOOST_AUTO_TEST_CASE(points)
   }
 }
 
-
 BOOST_AUTO_TEST_CASE(copy)
 {
   using namespace geo;
 
   // Create and fill an object.
-    RasterSpace const space(3, 3, 1.0, 0.0, 0.0, YIncrT2B);
-    GriddedPoints<Point<double, 2> > source(space);
-    for(size_t row = 0; row < source.nrRows(); ++row) {
-      for(size_t col = 0; col < source.nrCols(); ++col) {
-        source.insert(Point<double, 2>(row * 1.0, col * 1.0));
-      }
+  RasterSpace const space(3, 3, 1.0, 0.0, 0.0, YIncrT2B);
+  GriddedPoints<Point<double, 2>> source(space);
+  for (size_t row = 0; row < source.nrRows(); ++row) {
+    for (size_t col = 0; col < source.nrCols(); ++col) {
+      source.insert(Point<double, 2>(row * 1.0, col * 1.0));
     }
+  }
 
   // Create a copy.
-    GriddedPoints<Point<double, 2> > const target(source);
+  GriddedPoints<Point<double, 2>> const target(source);
 
   // Compare source and target objects.
-    BOOST_CHECK(source.size() == target.size());
+  BOOST_CHECK(source.size() == target.size());
 }

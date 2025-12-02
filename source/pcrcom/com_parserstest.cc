@@ -3,7 +3,6 @@
 #include "stddefx.h"
 #include "com_parsers.h"
 
-
 BOOST_AUTO_TEST_CASE(comment_parser)
 {
   using namespace com;
@@ -31,15 +30,14 @@ BOOST_AUTO_TEST_CASE(comment_parser)
   invalid.push_back("/* # bla");
   invalid.push_back("/* # bla */");
 
-  for(auto & it : valid) {
+  for (auto &it : valid) {
     BOOST_CHECK(boost::spirit::parse(it.c_str(), parser).full);
   }
 
-  for(auto & it : invalid) {
+  for (auto &it : invalid) {
     BOOST_CHECK(!boost::spirit::parse(it.c_str(), parser).full);
   }
 }
-
 
 BOOST_AUTO_TEST_CASE(section_header_parser)
 {
@@ -60,15 +58,14 @@ BOOST_AUTO_TEST_CASE(section_header_parser)
   invalid.push_back("binding ");
   invalid.push_back(" binding ");
 
-  for(auto & it : valid) {
+  for (auto &it : valid) {
     BOOST_CHECK(boost::spirit::parse(it.c_str(), parser).full);
   }
 
-  for(auto & it : invalid) {
+  for (auto &it : invalid) {
     BOOST_CHECK(!boost::spirit::parse(it.c_str(), parser).full);
   }
 }
-
 
 BOOST_AUTO_TEST_CASE(number_parser)
 {
@@ -88,15 +85,14 @@ BOOST_AUTO_TEST_CASE(number_parser)
   invalid.push_back(" ");
   invalid.push_back(" 5");
 
-  for(auto & it : valid) {
+  for (auto &it : valid) {
     BOOST_CHECK(boost::spirit::parse(it.c_str(), parser).full);
   }
 
-  for(auto & it : invalid) {
+  for (auto &it : invalid) {
     BOOST_CHECK(!boost::spirit::parse(it.c_str(), parser).full);
   }
 }
-
 
 BOOST_AUTO_TEST_CASE(variable_name_parser)
 {
@@ -123,15 +119,14 @@ BOOST_AUTO_TEST_CASE(variable_name_parser)
   // invalid.push_back("(");
   // invalid.push_back("f()");
 
-  for(auto & it : valid) {
+  for (auto &it : valid) {
     BOOST_CHECK(boost::spirit::parse(it.c_str(), parser).full);
   }
 
-  for(auto & it : invalid) {
+  for (auto &it : invalid) {
     BOOST_CHECK(!boost::spirit::parse(it.c_str(), parser).full);
   }
 }
-
 
 BOOST_AUTO_TEST_CASE(filename_parser)
 {
@@ -154,21 +149,20 @@ BOOST_AUTO_TEST_CASE(filename_parser)
   invalid.push_back(" ");
   invalid.push_back("abcdefghi");
 
-  for(auto & it : valid) {
+  for (auto &it : valid) {
     BOOST_CHECK(boost::spirit::parse(it.c_str(), parser).full);
   }
 
-  for(auto & it : invalid) {
+  for (auto &it : invalid) {
     BOOST_CHECK(!boost::spirit::parse(it.c_str(), parser).full);
   }
 }
-
 
 BOOST_AUTO_TEST_CASE(function_call_parser)
 {
   using namespace com;
 
-/*
+  /*
   // boost::spirit::rule<> parser = functionCallParser();
   boost::spirit::rule<> funNameParser = variableNameGrammar();
   boost::spirit::rule<> numParser = numberParser();
@@ -209,7 +203,6 @@ BOOST_AUTO_TEST_CASE(function_call_parser)
   }
   */
 }
-
 
 BOOST_AUTO_TEST_CASE(expression_parser)
 {

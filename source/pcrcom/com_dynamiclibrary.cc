@@ -4,11 +4,11 @@
 
 #ifdef WIN32
 
-  #include "com_win32.h"
+#include "com_win32.h"
 
 #else
 
-  #include <dlfcn.h>
+#include <dlfcn.h>
 
 #include <cassert>
 #include <sstream>
@@ -32,21 +32,18 @@ bool com::DynamicLibrary::checkError() const
    wasAlreadyLoaded is set accordingly.
   \throws com::DynamicLibraryException if lib not found or other error
 */
-com::DynamicLibrary::DynamicLibrary(
- const std::string& libNameNoExt):
-  d_libName(libNameNoExt)
+com::DynamicLibrary::DynamicLibrary(const std::string &libNameNoExt) : d_libName(libNameNoExt)
 {
 #ifdef WIN32
   bool failure(false);
   d_dllHandle = ::GetModuleHandle(nativeLibName().c_str());
   d_wasAlreadyLoaded = d_dllHandle != NULL;
   if (!d_wasAlreadyLoaded) {
-   d_dllHandle = ::LoadLibrary(nativeLibName().c_str());
-   failure = ((unsigned)(d_dllHandle) <= HINSTANCE_ERROR);
-
+    d_dllHandle = ::LoadLibrary(nativeLibName().c_str());
+    failure = ((unsigned)(d_dllHandle) <= HINSTANCE_ERROR);
   }
 #else
-  d_dllHandle=  ::dlopen(nativeLibName().c_str(),RTLD_NOW);
+  d_dllHandle = ::dlopen(nativeLibName().c_str(), RTLD_NOW);
   bool const failure = checkError();
 #endif
 
@@ -58,9 +55,9 @@ com::DynamicLibrary::DynamicLibrary(
 com::DynamicLibrary::~DynamicLibrary()
 {
 #ifdef WIN32
-  if (!d_wasAlreadyLoaded) // no need to unload
-   if (!::FreeLibrary(d_dllHandle))
-     throwException();
+  if (!d_wasAlreadyLoaded)  // no need to unload
+    if (!::FreeLibrary(d_dllHandle))
+      throwException();
 #else
   ::dlclose(d_dllHandle);
   if (checkError())
@@ -77,16 +74,16 @@ std::string com::DynamicLibrary::osError() const
 #endif
 }
 
-std::string com::DynamicLibrary::nativeLibName()const
+std::string com::DynamicLibrary::nativeLibName() const
 {
   com::PathName const libPath(d_libName);
   std::string const base = libPath.baseName();
 #ifdef WIN32
-  com::PathName baseName(base+".dll");
+  com::PathName baseName(base + ".dll");
 #elif __APPLE__
-  com::PathName baseName("lib"+base+".dylib");
+  com::PathName baseName("lib" + base + ".dylib");
 #else
-  com::PathName const baseName("lib"+base+".so");
+  com::PathName const baseName("lib" + base + ".so");
 #endif
   com::PathName path(libPath.directoryName());
   path += baseName;
@@ -94,21 +91,15 @@ std::string com::DynamicLibrary::nativeLibName()const
   return path.toString();
 }
 
-void com::DynamicLibrary::throwException(const std::string& symbol)const
+void com::DynamicLibrary::throwException(const std::string &symbol) const
 {
- std::ostringstream str;
- str << "Library "
-     << nativeLibName()
-     << ": ";
- if (!symbol.empty())
-    str << "symbol "
-        <<  symbol
-        << ": ";
- str << osError();
- throw com::DynamicLibraryException(str.str());
+  std::ostringstream str;
+  str << "Library " << nativeLibName() << ": ";
+  if (!symbol.empty())
+    str << "symbol " << symbol << ": ";
+  str << osError();
+  throw com::DynamicLibraryException(str.str());
 }
-
-
 
 //! Returns the address of the symbol with name \a symbolName.
 /*!
@@ -116,18 +107,18 @@ void com::DynamicLibrary::throwException(const std::string& symbol)const
   \return    Address or 0.
   \todo      Still unsure on win32 linking, FTTB  check both (_)?name
 */
-void* com::DynamicLibrary::address(const std::string& symbolName) const
+void *com::DynamicLibrary::address(const std::string &symbolName) const
 {
 #ifdef WIN32
-  void *addr = (void *)GetProcAddress(d_dllHandle,symbolName.c_str());
-  if(!addr) { // FTTB
+  void *addr = (void *)GetProcAddress(d_dllHandle, symbolName.c_str());
+  if (!addr) {  // FTTB
     std::string s2("_");
     s2 += symbolName;
-    addr = (void *)GetProcAddress(d_dllHandle,s2.c_str());
+    addr = (void *)GetProcAddress(d_dllHandle, s2.c_str());
   }
 #else
-  void *addr = ::dlsym(d_dllHandle,symbolName.c_str());
-  if(checkError()) {
+  void *addr = ::dlsym(d_dllHandle, symbolName.c_str());
+  if (checkError()) {
     addr = nullptr;
   }
 #endif
@@ -140,7 +131,7 @@ void* com::DynamicLibrary::address(const std::string& symbolName) const
 /*! quick hack to find directory where library is found, by searching
  *  symbol and setting the directory if found
  */
-void* com::DynamicLibrary::addressAndSetLibPath(const std::string& symbolName)
+void *com::DynamicLibrary::addressAndSetLibPath(const std::string &symbolName)
 {
   void *addr = address(symbolName);
   if (!addr)
@@ -149,16 +140,16 @@ void* com::DynamicLibrary::addressAndSetLibPath(const std::string& symbolName)
   d_directory.clear();
 #ifdef WIN32
   char dllFileNameCstr[2048];
-  GetModuleFileName(d_dllHandle,dllFileNameCstr,2047);
+  GetModuleFileName(d_dllHandle, dllFileNameCstr, 2047);
   d_directory = com::PathName(dllFileNameCstr).directoryName();
 #else
-// #ifndef _GNU_SOURCE
-// #error   linux requires GNU compiler for dladdr extension
-// #endif
+  // #ifndef _GNU_SOURCE
+  // #error   linux requires GNU compiler for dladdr extension
+  // #endif
   Dl_info loc;
-  if (dladdr(addr,&loc)) {
-    d_directory=loc.dli_fname;
-  }  else {
+  if (dladdr(addr, &loc)) {
+    d_directory = loc.dli_fname;
+  } else {
     assert(false);
   }
   d_directory = com::PathName(d_directory).directoryName();
@@ -167,30 +158,25 @@ void* com::DynamicLibrary::addressAndSetLibPath(const std::string& symbolName)
   return addr;
 }
 
-
-
 //! Returns true if a symbol with name \a symbolName exists in the library.
 /*!
   \param     symbolName Name of symbol to look for.
   \return    true or false.
 */
-bool com::DynamicLibrary::hasSymbol(const std::string& symbolName) const
+bool com::DynamicLibrary::hasSymbol(const std::string &symbolName) const
 {
   return address(symbolName) != nullptr;
 }
-
-
 
 //! load a symbol named \a symName
 /*!
   \throws com::DynamicLibraryException if \a symName not found or other error
 */
-void *com::DynamicLibrary::loadSymbol(
-  const std::string& symName) const
+void *com::DynamicLibrary::loadSymbol(const std::string &symName) const
 {
-  void* addr = address(symName);
+  void *addr = address(symName);
 
-  if(!addr) {
+  if (!addr) {
     throwException(symName);
   }
   return addr;
@@ -199,8 +185,7 @@ void *com::DynamicLibrary::loadSymbol(
 //! load a function named \a symName
 /*! simply a const wrapper around loadSymbol()
  */
-const void *com::DynamicLibrary::loadFunction(
-  const std::string& symName) const
+const void *com::DynamicLibrary::loadFunction(const std::string &symName) const
 {
   return loadSymbol(symName);
 }

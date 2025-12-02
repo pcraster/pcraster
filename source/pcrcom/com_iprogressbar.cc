@@ -1,13 +1,10 @@
 #include "stddefx.h"
 #include "com_iprogressbar.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the IProgressBar class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -33,11 +30,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC IPROGRESSBAR MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -51,13 +46,10 @@ public:
 */
 com::IProgressBar::IProgressBar(size_t nrSteps, size_t width)
 
-  : ProgressTracker(nrSteps),
-    d_width(width)
+    : ProgressTracker(nrSteps), d_width(width)
 
 {
 }
-
-
 
 //! Destructor.
 /*!
@@ -65,8 +57,6 @@ com::IProgressBar::IProgressBar(size_t nrSteps, size_t width)
 com::IProgressBar::~IProgressBar()
 {
 }
-
-
 
 //! Returns the width of the progress bar.
 /*!
@@ -82,10 +72,6 @@ size_t com::IProgressBar::width() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

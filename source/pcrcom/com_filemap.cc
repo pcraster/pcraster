@@ -11,202 +11,203 @@
 #include <windows.h>
 #include "com_win32.h"
 
-
 /*!
   \file
   This file contains the implementation of the FileMap class.
 */
 
 
-static int getPageSize() {
+static int getPageSize()
+{
   SYSTEM_INFO si;
   GetSystemInfo(&si);
   return si.dwPageSize;
 }
 
-namespace com {
+namespace com
+{
 class FileMapPrivate
+{
+  void *d_ptr;
+  HANDLE d_fd;
+  HANDLE d_map;
+  size_t d_mappedLen;
+  std::string d_fileName;
+
+  void clean()
   {
-    void   *d_ptr;
-    HANDLE  d_fd;
-    HANDLE  d_map;
-    size_t  d_mappedLen;
-    std::string d_fileName;
-
-    void clean() {
-      int r;
-      if (d_ptr) {
-       r = UnmapViewOfFile(d_ptr);
-       POSTCOND(r);
-       d_ptr=0;
-      }
-      if (d_map != NULL) {
-        r = CloseHandle(d_map);
-        POSTCOND(r);
-        d_map=NULL;
-      }
-      if (d_fd != INVALID_HANDLE_VALUE) {
-        r=CloseHandle(d_fd);
-        POSTCOND(r);
-        d_fd=INVALID_HANDLE_VALUE;
-      }
-   }
-
-   void throwError(const std::string& msg) {
-      clean();
-      throw com::OpenFileError(d_fileName,msg+" win32msg: "+win32GetLastError());
-   }
-
-   public:
-
-    FileMapPrivate(
-      const char *fileName,
-      bool            update,
-      size_t          offset,
-      size_t          len):
-       d_ptr(0), // default for empty file
-       d_fd(INVALID_HANDLE_VALUE),
-       d_map(NULL), // default for empty file
-       d_mappedLen(len),
-       d_fileName(fileName)
-    {
-      DWORD    prot = GENERIC_READ;
-      prot |= (update?GENERIC_WRITE:0);
-      d_fd = CreateFile(fileName, prot,0 /* no share r|w*/,NULL,
-                OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL,NULL);
-      if (d_fd == INVALID_HANDLE_VALUE)
-        throwError("CreateFile failed");
-      if (!len) {
-        // compute length
-        DWORD size = GetFileSize(d_fd,NULL);
-        if (size  == 0xFFFFFFFF)
-          throwError("GetFileSize failed");
-        d_mappedLen = (size_t)size-offset;
-      }
-      if (d_mappedLen) {
-        prot = PAGE_READONLY;
-        if (update)
-          prot = PAGE_READWRITE;
-        d_map = CreateFileMapping(d_fd,NULL,prot,0,len,NULL);
-        if (d_map == NULL)
-          throwError("CreateFileMapping failed");
-        prot = FILE_MAP_READ;
-        if (update)
-          prot = FILE_MAP_WRITE;
-        d_ptr = (void * )MapViewOfFile(d_map,prot,0,offset,len);
-        if (d_ptr == NULL) // this one fails if it is too big
-          throwError("Too large to map in memory");
-      }
+    int r;
+    if (d_ptr) {
+      r = UnmapViewOfFile(d_ptr);
+      POSTCOND(r);
+      d_ptr = 0;
     }
-
-    ~FileMapPrivate()
-    {
-      clean();
+    if (d_map != NULL) {
+      r = CloseHandle(d_map);
+      POSTCOND(r);
+      d_map = NULL;
     }
-    void *pointer() const {
-      return d_ptr;
+    if (d_fd != INVALID_HANDLE_VALUE) {
+      r = CloseHandle(d_fd);
+      POSTCOND(r);
+      d_fd = INVALID_HANDLE_VALUE;
     }
-    size_t mappedLen() const {
-      return d_mappedLen;
+  }
+
+  void throwError(const std::string &msg)
+  {
+    clean();
+    throw com::OpenFileError(d_fileName, msg + " win32msg: " + win32GetLastError());
+  }
+
+public:
+  FileMapPrivate(const char *fileName, bool update, size_t offset,
+                 size_t len)
+      : d_ptr(0),                                 // default for empty file
+        d_fd(INVALID_HANDLE_VALUE), d_map(NULL),  // default for empty file
+        d_mappedLen(len), d_fileName(fileName)
+  {
+    DWORD prot = GENERIC_READ;
+    prot |= (update ? GENERIC_WRITE : 0);
+    d_fd = CreateFile(fileName, prot, 0 /* no share r|w*/, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL,
+                      NULL);
+    if (d_fd == INVALID_HANDLE_VALUE)
+      throwError("CreateFile failed");
+    if (!len) {
+      // compute length
+      DWORD size = GetFileSize(d_fd, NULL);
+      if (size == 0xFFFFFFFF)
+        throwError("GetFileSize failed");
+      d_mappedLen = (size_t)size - offset;
     }
+    if (d_mappedLen) {
+      prot = PAGE_READONLY;
+      if (update)
+        prot = PAGE_READWRITE;
+      d_map = CreateFileMapping(d_fd, NULL, prot, 0, len, NULL);
+      if (d_map == NULL)
+        throwError("CreateFileMapping failed");
+      prot = FILE_MAP_READ;
+      if (update)
+        prot = FILE_MAP_WRITE;
+      d_ptr = (void *)MapViewOfFile(d_map, prot, 0, offset, len);
+      if (d_ptr == NULL)  // this one fails if it is too big
+        throwError("Too large to map in memory");
+    }
+  }
 
-  };
+  ~FileMapPrivate()
+  {
+    clean();
+  }
 
-} // namespace com
+  void *pointer() const
+  {
+    return d_ptr;
+  }
+
+  size_t mappedLen() const
+  {
+    return d_mappedLen;
+  }
+};
+
+}  // namespace com
 
 #else
-  // linux/posix
+// linux/posix
 
-# include <unistd.h>
-# include <sys/mman.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <sys/fcntl.h>
+#include <unistd.h>
+#include <sys/mman.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/fcntl.h>
 
-static int getPageSize() {
+static int getPageSize()
+{
   return getpagesize();
 }
 
-namespace com {
+namespace com
+{
 class FileMapPrivate
+{
+  std::string d_fileName;
+  // the memory ptr of the map
+  void *d_ptr{nullptr};
+  // length of the mapping
+  size_t d_mappedLen{0};
+  // file descriptor
+  int d_fd{-1};
+
+  void throwError(const char *msg)
   {
-    std::string d_fileName;
-    // the memory ptr of the map
-    void   *d_ptr{nullptr};
-    // length of the mapping
-    size_t d_mappedLen{0};
-    // file descriptor
-    int    d_fd{-1};
+    clean();
+    throw com::OpenFileError(d_fileName, msg);
+  }
 
-    void throwError(const char *msg) {
-      clean();
-      throw com::OpenFileError(d_fileName,msg);
+  void clean()
+  {
+    if (d_fd != -1)
+      close(d_fd);
+    d_fd = -1;
+    if (d_ptr) {
+      int r = msync(d_ptr, d_mappedLen, 0);
+      POSTCOND(!r);
+      r = munmap(d_ptr, d_mappedLen);
+      POSTCOND(!r);
+      (void)r;  // Shut up compiler
     }
+    d_ptr = nullptr;
+  }
 
-    void clean() {
-      if (d_fd != -1)
-        close(d_fd);
-      d_fd=-1;
-      if (d_ptr) {
-       int r = msync(d_ptr,d_mappedLen,0);
-       POSTCOND(!r);
-       r = munmap(d_ptr, d_mappedLen);
-       POSTCOND(!r);
-       (void)r;  // Shut up compiler
-      }
-      d_ptr=nullptr;
+public:
+  FileMapPrivate(const char *fileName, bool update, size_t offset, size_t len) : d_fileName(fileName)
+  {
+    d_fd = ::open(fileName, (update ? O_RDWR : O_RDONLY) | O_NONBLOCK, 0);
+    if (d_fd == -1)
+      throwError("open failed");
+    if (!len) {
+      // compute length
+      off_t const size = lseek(d_fd, 0, SEEK_END);
+      if (size == -1)
+        throwError("lseek failed");
+      len = (size_t)size - offset;
+      if (!len)
+        throwError("mmap does not support 0 sized files");
     }
-   public:
+    int prot = PROT_READ;
+    if (update)
+      prot |= PROT_WRITE;
+    d_ptr = mmap(nullptr, len, prot, (update ? MAP_SHARED : MAP_PRIVATE), d_fd, (off_t)offset);
+    if (d_ptr == MAP_FAILED)
+      throwError("mmap failed");
+    d_mappedLen = len;
+  }
 
-    FileMapPrivate(
-      const char *fileName,
-      bool            update,
-      size_t          offset,
-      size_t          len):
-        d_fileName(fileName)
-    {
-      d_fd = ::open(fileName, (update ? O_RDWR:O_RDONLY)|O_NONBLOCK,0);
-      if (d_fd == -1)
-        throwError("open failed");
-      if (!len) {
-        // compute length
-        off_t const size = lseek(d_fd,0,SEEK_END);
-        if (size  == -1)
-         throwError("lseek failed");
-        len = (size_t)size-offset;
-        if (!len)
-         throwError("mmap does not support 0 sized files");
-      }
-      int prot = PROT_READ;
-      if (update)
-        prot |= PROT_WRITE;
-      d_ptr = mmap(nullptr,len,prot,(update?MAP_SHARED:MAP_PRIVATE),d_fd,(off_t)offset);
-      if (d_ptr == MAP_FAILED)
-        throwError("mmap failed");
-      d_mappedLen = len;
-    }
+  ~FileMapPrivate()
+  {
+    clean();
+  }
 
-    ~FileMapPrivate()
-    {
-      clean();
-    }
-    void *pointer() const {
-      return d_ptr;
-    }
-    size_t mappedLen() const {
-      return d_mappedLen;
-    }
+  void *pointer() const
+  {
+    return d_ptr;
+  }
 
-  };
+  size_t mappedLen() const
+  {
+    return d_mappedLen;
+  }
+};
 
-} // namespace com
+}  // namespace com
 
 #endif
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC FILEMAP MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -226,21 +227,17 @@ class FileMapPrivate
  *               too large to map (2 Gb limit or a bit less in practice).
  *               On linux it also throws OpenFileError if a 0 sized file is mapped
  */
-com::FileMap::FileMap(
-    const PathName& pn,
-    bool            update,
-    size_t          offset,
-    size_t          len)
+com::FileMap::FileMap(const PathName &pn, bool update, size_t offset, size_t len)
 {
   if (update)
     testOpenForWriting(pn);
   else {
-    if (size(pn) > gigaByte<size_t>(2)-1) {
-      throw com::OpenFileError(pn,"Too large to map in memory");
+    if (size(pn) > gigaByte<size_t>(2) - 1) {
+      throw com::OpenFileError(pn, "Too large to map in memory");
     }
     testOpenForReading(pn);
   }
-  d_data = new FileMapPrivate(pn.toString().c_str(), update,offset,len);
+  d_data = new FileMapPrivate(pn.toString().c_str(), update, offset, len);
 }
 
 com::FileMap::~FileMap()
@@ -259,14 +256,14 @@ size_t com::FileMap::pageSize()
   return (size_t)getPageSize();
 }
 
-const char* com::FileMap::begin() const
+const char *com::FileMap::begin() const
 {
   return (const char *)pointer();
 }
 
-const char* com::FileMap::end() const
+const char *com::FileMap::end() const
 {
-  return begin()+d_data->mappedLen();
+  return begin() + d_data->mappedLen();
 }
 
 //------------------------------------------------------------------------------
@@ -274,10 +271,6 @@ const char* com::FileMap::end() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

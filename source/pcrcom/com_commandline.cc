@@ -33,18 +33,15 @@
 #endif
 
 
-
 /*!
   \file
   This file contains the implementation of the CommandLine class.
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC COMMANDLINE MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -57,31 +54,26 @@
   \param     version Command's version.
   \param     argv0 Command name as used on the command line.
 */
-com::CommandLine::CommandLine(const std::string& name,
-                   const std::string& version, const std::string& argv0)
+com::CommandLine::CommandLine(const std::string &name, const std::string &version,
+                              const std::string &argv0)
 
-  : d_name(name), d_version(version), d_command(
-    std::filesystem::path(argv0).filename().string())
+    : d_name(name), d_version(version), d_command(std::filesystem::path(argv0).filename().string())
 
 {
 }
-
-
 
 //! Copy constructor.
 /*!
   \param     aCmdLine CommandLine object to copy from.
   \warning   Shallow copy of command line arguments.
 */
-com::CommandLine::CommandLine(const CommandLine& aCmdLine)
+com::CommandLine::CommandLine(const CommandLine &aCmdLine)
 
-  : d_name(aCmdLine.d_name), d_version(aCmdLine.d_version),
-    d_command(aCmdLine.d_command), d_arguments(aCmdLine.d_arguments)
+    : d_name(aCmdLine.d_name), d_version(aCmdLine.d_version), d_command(aCmdLine.d_command),
+      d_arguments(aCmdLine.d_arguments)
 
 {
 }
-
-
 
 //! Destructor.
 /*!
@@ -89,8 +81,6 @@ com::CommandLine::CommandLine(const CommandLine& aCmdLine)
 com::CommandLine::~CommandLine()
 {
 }
-
-
 
 //! Adds an argument to the command line.
 /*!
@@ -101,13 +91,10 @@ com::CommandLine::~CommandLine()
   This function should be called before the command line is
   parse(int, const char* const*) d.
 */
-void com::CommandLine::addArgument(CommandLineArgument* arg,
-         bool isDefaultArgument)
+void com::CommandLine::addArgument(CommandLineArgument *arg, bool isDefaultArgument)
 {
   d_arguments.add(arg, isDefaultArgument);
 }
-
-
 
 //! Parses the command line.
 /*!
@@ -122,22 +109,21 @@ void com::CommandLine::addArgument(CommandLineArgument* arg,
   those arguments who need a value have been given a value. You only need to
   test these values.
 */
-void com::CommandLine::parse(size_t argc, const char* const* argv)
+void com::CommandLine::parse(size_t argc, const char *const *argv)
 {
   // Make a local copy of the argv argument because it will be edited during
   // the parse.
-  char** localArgv = new char*[argc];
-  for(size_t i = 0; i < argc; ++i) {
-    localArgv[i] = new char[std::strlen(argv[i])+1];
+  char **localArgv = new char *[argc];
+  for (size_t i = 0; i < argc; ++i) {
+    localArgv[i] = new char[std::strlen(argv[i]) + 1];
     strcpy(localArgv[i], argv[i]);
   }
 
   try {
     d_arguments.parse(argc, localArgv);
-  }
-  catch(...) {
+  } catch (...) {
 
-    for(size_t i = 0; i < argc; ++i) {
+    for (size_t i = 0; i < argc; ++i) {
       delete[] localArgv[i];
     }
     delete[] localArgv;
@@ -145,69 +131,55 @@ void com::CommandLine::parse(size_t argc, const char* const* argv)
     throw;
   }
 
-  for(size_t i = 0; i < argc; ++i) {
+  for (size_t i = 0; i < argc; ++i) {
     delete[] localArgv[i];
   }
   delete[] localArgv;
 }
-
-
 
 void com::CommandLine::check() const
 {
   d_arguments.check();
 }
 
-
-
 //! Returns the name of the command.
 /*!
   \return    Name.
   \sa        version(), command()
 */
-const std::string& com::CommandLine::name() const
+const std::string &com::CommandLine::name() const
 {
   return d_name;
 }
-
-
 
 //! Returns the name of the version.
 /*!
   \return    Version.
   \sa        name(), command()
 */
-const std::string& com::CommandLine::version() const
+const std::string &com::CommandLine::version() const
 {
   return d_version;
 }
-
-
 
 //! Returns the name of the command as used on the command line.
 /*!
   \return    Name.
   \sa        name(), version()
 */
-const std::string& com::CommandLine::command() const
+const std::string &com::CommandLine::command() const
 {
   return d_command;
 }
 
-
-
-void com::CommandLine::printUsage(std::ostream& stream,
-                   size_t offset, size_t width) const
+void com::CommandLine::printUsage(std::ostream &stream, size_t offset, size_t width) const
 {
   printSynopsis(stream, offset + 4, width - 4);
   stream << std::string("\n");
   printDescription(stream, offset, width);
 }
 
-
-
-void com::CommandLine::printSynopsis(std::ostream& stream,
-                   size_t offset, size_t width) const
+void com::CommandLine::printSynopsis(std::ostream &stream, size_t offset, size_t width) const
 {
   stream << std::string("Usage:\n\n");
 
@@ -223,32 +195,21 @@ void com::CommandLine::printSynopsis(std::ostream& stream,
   stream << synopsis << std::string("\n");
 }
 
-
-
-void com::CommandLine::printDescription(std::ostream& stream,
-                   size_t offset, size_t width) const
+void com::CommandLine::printDescription(std::ostream &stream, size_t offset, size_t width) const
 {
   d_arguments.printDescription(stream, offset, width);
 }
-
-
 
 void com::CommandLine::clear()
 {
   d_arguments.clear();
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

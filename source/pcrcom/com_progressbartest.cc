@@ -5,21 +5,24 @@
 #include <sstream>
 #include "com_progressbar.h"
 
-class ProgressBarWrapper : public com::ProgressBar {
+class ProgressBarWrapper : public com::ProgressBar
+{
 public:
-  ProgressBarWrapper(size_t nrSteps, size_t width, std::ostream& stream)
-    : com::ProgressBar(nrSteps, width, stream) {
+  ProgressBarWrapper(size_t nrSteps, size_t width, std::ostream &stream)
+      : com::ProgressBar(nrSteps, width, stream)
+  {
   }
 
-  size_t width() const {
+  size_t width() const
+  {
     return ProgressBar::width();
   }
 
-  bool finished() const {
+  bool finished() const
+  {
     return ProgressBar::finished();
   }
 };
-
 
 BOOST_AUTO_TEST_CASE(test)
 {
@@ -34,14 +37,11 @@ BOOST_AUTO_TEST_CASE(test)
   BOOST_CHECK(progressBar.width() == 12);
 
   progressBar.init();
-  for(size_t step = 0; step < 10; ++step) {
+  for (size_t step = 0; step < 10; ++step) {
     progressBar.finishedStep();
     BOOST_CHECK(progressBar.nrFinishedSteps() == step + 1);
-    result = std::format("[{0}{1}]",
-         std::string(step + 1, '#'),
-         std::string(10 - (step + 1), ' '));
-    BOOST_CHECK(stream.str().substr(stream.str().find_last_of('\b') + 1) ==
-         result);
+    result = std::format("[{0}{1}]", std::string(step + 1, '#'), std::string(10 - (step + 1), ' '));
+    BOOST_CHECK(stream.str().substr(stream.str().find_last_of('\b') + 1) == result);
   }
 
   BOOST_CHECK(progressBar.nrFinishedSteps() == 10);

@@ -15,12 +15,10 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the RepeatableArgument class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -46,11 +44,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC REPEATABLEARGUMENT MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -67,42 +63,36 @@ public:
 
   The \a argument is used to create new ArgumentType objects for parsing.
 */
-template<class ArgumentType, class CollectionType>
+template <class ArgumentType, class CollectionType>
 com::RepeatableArgument<ArgumentType, CollectionType>::RepeatableArgument(
-                   const std::string& description, bool isRequired,
-                   const ArgumentType& argument,
-                   const std::back_insert_iterator<CollectionType>& inserter)
+    const std::string &description, bool isRequired, const ArgumentType &argument,
+    const std::back_insert_iterator<CollectionType> &inserter)
 
-  : CommandLineArgument(description, isRequired),
-    d_argument(argument), d_inserter(inserter), d_nrParsedArguments(0)
+    : CommandLineArgument(description, isRequired), d_argument(argument), d_inserter(inserter),
+      d_nrParsedArguments(0)
 
 {
 }
-
-
 
 //! Destructor.
 /*!
 */
-template<class ArgumentType, class CollectionType>
+template <class ArgumentType, class CollectionType>
 com::RepeatableArgument<ArgumentType, CollectionType>::~RepeatableArgument()
 {
 }
 
-
-
-template<class ArgumentType, class CollectionType>
-size_t com::RepeatableArgument<ArgumentType, CollectionType>::parse(
-                   size_t argc, char* const* argv)
+template <class ArgumentType, class CollectionType>
+size_t com::RepeatableArgument<ArgumentType, CollectionType>::parse(size_t argc, char *const *argv)
 {
   size_t totalNrTokensParsed = 0;
   size_t nrTokensParsed;
 
   // Parse as many arguments as possible.
-  while(1) {
+  while (1) {
 
     // Stop if we're out of arguments.
-    if(totalNrTokensParsed == argc) {
+    if (totalNrTokensParsed == argc) {
       break;
     }
 
@@ -111,13 +101,12 @@ size_t com::RepeatableArgument<ArgumentType, CollectionType>::parse(
     PRECOND(!argument.isParsed());
 
     // Stop if we cannot parse the next argument.
-    if(!argument.canParse(*(argv + totalNrTokensParsed))) {
+    if (!argument.canParse(*(argv + totalNrTokensParsed))) {
       break;
     }
 
     // Parse the next argument and skip arguments already parsed.
-    nrTokensParsed = argument.parse(argc - totalNrTokensParsed,
-                   argv + totalNrTokensParsed);
+    nrTokensParsed = argument.parse(argc - totalNrTokensParsed, argv + totalNrTokensParsed);
 
     // This function should only be called if canParse(...) returns true.
     POSTCOND(nrTokensParsed > 0);
@@ -133,26 +122,19 @@ size_t com::RepeatableArgument<ArgumentType, CollectionType>::parse(
   return totalNrTokensParsed;
 }
 
-
-
-template<class ArgumentType, class CollectionType>
+template <class ArgumentType, class CollectionType>
 bool com::RepeatableArgument<ArgumentType, CollectionType>::isParsed() const
 {
   return d_nrParsedArguments > 0;
 }
 
-
-
-template<class ArgumentType, class CollectionType>
-bool com::RepeatableArgument<ArgumentType, CollectionType>::canParse(
-                   const char* token) const
+template <class ArgumentType, class CollectionType>
+bool com::RepeatableArgument<ArgumentType, CollectionType>::canParse(const char *token) const
 {
   return d_argument.canParse(token);
 }
 
-
-
-template<class ArgumentType, class CollectionType>
+template <class ArgumentType, class CollectionType>
 void com::RepeatableArgument<ArgumentType, CollectionType>::check() const
 {
   CommandLineArgument::check();
@@ -161,46 +143,36 @@ void com::RepeatableArgument<ArgumentType, CollectionType>::check() const
   // arguments.
 }
 
-
-
-template<class ArgumentType, class CollectionType>
-void com::RepeatableArgument<ArgumentType, CollectionType>::printSynopsis(
-                   std::ostream& stream) const
+template <class ArgumentType, class CollectionType>
+void com::RepeatableArgument<ArgumentType, CollectionType>::printSynopsis(std::ostream &stream) const
 {
-  if(!isRequired()) {
+  if (!isRequired()) {
     stream << '[';
   }
 
   d_argument.printSynopsis(stream);
 
-  if(!isRequired()) {
+  if (!isRequired()) {
     stream << ']';
   }
 
   stream << "*";
 }
 
-
-
-template<class ArgumentType, class CollectionType>
-void com::RepeatableArgument<ArgumentType, CollectionType>::printDescription(
-                   std::ostream& stream,
-                   size_t offset, size_t width) const
+template <class ArgumentType, class CollectionType>
+void com::RepeatableArgument<ArgumentType, CollectionType>::printDescription(std::ostream &stream,
+                                                                             size_t offset,
+                                                                             size_t width) const
 {
-  stream << std::string(offset, ' ')
-         << description() << std::string(":\n");
+  stream << std::string(offset, ' ') << description() << std::string(":\n");
   d_argument.printDescription(stream, offset, width);
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-

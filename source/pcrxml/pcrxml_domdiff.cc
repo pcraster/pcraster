@@ -15,11 +15,12 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
-namespace pcrxml {
-namespace Private {
+namespace pcrxml
+{
+namespace Private
+{
 
 /*!
  * NodeList does the stuff for diffing
@@ -31,82 +32,96 @@ namespace Private {
  *  .
  */
 struct NodeList : public std::list<QDomNode> {
-   void operator()(const QDomNode& n) {
-     push_back(n);
-   }
-/*
+  void operator()(const QDomNode &n)
+  {
+    push_back(n);
+  }
+
+  /*
  *  WANT THIS  but ended up with create() below
    NodeList(QDomNode n) {
     forEachNode(n,std::ptr_fun(this->push_back));
      nl.deleteEmptyTextNodes();
    }
 */
-   static bool emptyTextNode(const QDomNode& n) {
-     QDomText const t= n.toText();
-     if (t.isNull())
-       return false;
-     QString const contents=t.nodeValue().trimmed();
-     return contents.isEmpty();
-   }
-   void deleteEmptyTextNodes() {
-     remove_if(NodeList::emptyTextNode);
-   }
-   static NodeList create(const QDomNode& n) {
-     NodeList nl;
-     forEachNode(n,nl);
-     // TODO seems empty are already deleted
-     nl.deleteEmptyTextNodes();
-     return nl;
-   }
-   bool equal(
-       const NodeList& nl2, bool throwOnDiff)
-   {
-     typedef NodeList::const_iterator I;
+  static bool emptyTextNode(const QDomNode &n)
+  {
+    QDomText const t = n.toText();
+    if (t.isNull())
+      return false;
+    QString const contents = t.nodeValue().trimmed();
+    return contents.isEmpty();
+  }
 
-     struct Equal {
-       bool               d_throwOnDiff;
-       void print(const QDomNode& n, std::ostringstream& s) const {
-         QString str;
-         QTextStream qs(&str);
-         qs << "nodeName: "   << n.nodeName()  <<
-               " nodeValue: " << n.nodeValue() <<
-               " nodeType: "  << n.nodeType()  <<
-               " nodeAsXml (next line):\n" << n << "\n";
-         s << std::string(str.toLatin1());
-       }
-       bool error    (const std::string& msg) const {
-         if (d_throwOnDiff)
-           throw com::Exception(msg);
-         return false;
-       }
-       //! conditional error
-       bool operator ()(bool eq, I n1, I n2, const char* cause) const {
-         if (eq)
-           return true;
-         std::ostringstream ostr;
-         ostr << "DomDiff difference on: " << cause << '\n';
-         print(*n1,ostr);
-         print(*n2,ostr);
-         return error(ostr.str());
-       }
-     } equal{}; equal.d_throwOnDiff=throwOnDiff;
+  void deleteEmptyTextNodes()
+  {
+    remove_if(NodeList::emptyTextNode);
+  }
 
-     auto ni =    begin();
-     auto ni2=nl2.begin();
-     for(  ; ni!=end() && ni2!=nl2.end(); ++ni,++ni2) {
-       if (!equal(ni->nodeName()== ni2->nodeName(),ni,ni2,"nodeName"))
-         return false;
-       if (!equal(ni->nodeValue()== ni2->nodeValue(),ni,ni2,"nodeValue"))
-         return false;
-       if (!equal(ni->nodeType()== ni2->nodeType(),ni,ni2,"nodeType"))
-         return false;
+  static NodeList create(const QDomNode &n)
+  {
+    NodeList nl;
+    forEachNode(n, nl);
+    // TODO seems empty are already deleted
+    nl.deleteEmptyTextNodes();
+    return nl;
+  }
+
+  bool equal(const NodeList &nl2, bool throwOnDiff)
+  {
+    typedef NodeList::const_iterator I;
+
+    struct Equal {
+      bool d_throwOnDiff;
+
+      void print(const QDomNode &n, std::ostringstream &s) const
+      {
+        QString str;
+        QTextStream qs(&str);
+        qs << "nodeName: " << n.nodeName() << " nodeValue: " << n.nodeValue()
+           << " nodeType: " << n.nodeType() << " nodeAsXml (next line):\n"
+           << n << "\n";
+        s << std::string(str.toLatin1());
+      }
+
+      bool error(const std::string &msg) const
+      {
+        if (d_throwOnDiff)
+          throw com::Exception(msg);
+        return false;
+      }
+
+      //! conditional error
+      bool operator()(bool eq, I n1, I n2, const char *cause) const
+      {
+        if (eq)
+          return true;
+        std::ostringstream ostr;
+        ostr << "DomDiff difference on: " << cause << '\n';
+        print(*n1, ostr);
+        print(*n2, ostr);
+        return error(ostr.str());
+      }
+    } equal{};
+
+    equal.d_throwOnDiff = throwOnDiff;
+
+    auto ni = begin();
+    auto ni2 = nl2.begin();
+    for (; ni != end() && ni2 != nl2.end(); ++ni, ++ni2) {
+      if (!equal(ni->nodeName() == ni2->nodeName(), ni, ni2, "nodeName"))
+        return false;
+      if (!equal(ni->nodeValue() == ni2->nodeValue(), ni, ni2, "nodeValue"))
+        return false;
+      if (!equal(ni->nodeType() == ni2->nodeType(), ni, ni2, "nodeType"))
+        return false;
       /* print all nodes
        std::ostringstream s;
        equal.print(*ni,s);
        equal.print(*ni2,s);
        std::cerr << s.str() << std::endl;
       */
-         /*enum QDomNode::NodeType:
+      /*enum QDomNode::NodeType:
            ElementNode = 1
            AttributeNode = 2
            TextNode = 3
@@ -122,12 +137,12 @@ struct NodeList : public std::list<QDomNode> {
            BaseNode = 21
            CharacterDataNode = 22
          */
-     }
-     if (empty())
-       return equal.error("this node list is empty");
-     if (nl2.empty())
-       return equal.error("node list 2 is empty");
-/*
+    }
+    if (empty())
+      return equal.error("this node list is empty");
+    if (nl2.empty())
+      return equal.error("node list 2 is empty");
+    /*
    extensive log of nrOfNodes difference
    compare size, on error print last node contents
 
@@ -143,38 +158,31 @@ struct NodeList : public std::list<QDomNode> {
        throw com::Exception(ostr.str());
      }
 */
-     // short log of nrOfNodes difference, print - end nodes
-     if (!equal(!(ni != end() || ni2 != nl2.end()),--end(),--nl2.end(),
-           "nrOfNodes-lastNodesPrintedBelow"))
-       return false;
+    // short log of nrOfNodes difference, print - end nodes
+    if (!equal(!(ni != end() || ni2 != nl2.end()), --end(), --nl2.end(),
+               "nrOfNodes-lastNodesPrintedBelow"))
+      return false;
     return true;
-   }
+  }
 };
 
-}
-} // namespace pcrxml
-
-
+}  // namespace Private
+}  // namespace pcrxml
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC DOMDIFF MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF DOMDIFF MEMBERS
 //------------------------------------------------------------------------------
 
-pcrxml::DomDiff::DomDiff(
-              const std::string& contents1,
-              const std::string& contents2)
+pcrxml::DomDiff::DomDiff(const std::string &contents1, const std::string &contents2)
 {
   d_doc1.setContent(QString(contents1.c_str()));
   d_doc2.setContent(QString(contents2.c_str()));
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -187,12 +195,9 @@ pcrxml::DomDiff::DomDiff(DomDiff const& rhs)
 */
 
 
-
 pcrxml::DomDiff::~DomDiff()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -209,19 +214,14 @@ bool pcrxml::DomDiff::equal(bool throwOnDiff) const
   Private::NodeList nv1(Private::NodeList::create(d_doc1));
   Private::NodeList const nv2(Private::NodeList::create(d_doc2));
 
-  return  nv1.equal(nv2,throwOnDiff);
+  return nv1.equal(nv2, throwOnDiff);
 }
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

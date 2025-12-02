@@ -3,7 +3,6 @@
 #include "geo_cellloc.h"
 #include "fieldapi_interface.h"
 
-
 /*!
   \file
   This file contains the implementation of the ScalarDomainCheck class.
@@ -15,33 +14,30 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF SCALARDOMAINCHECK MEMBERS
 //------------------------------------------------------------------------------
 
 //! ctor
-fieldapi::ScalarDomainCheck:: ScalarDomainCheck(const ReadOnlyReal8& map,
-      const char *parName, const com::IntervalD& v):
-      d_map(map),d_parName(parName),d_v(v.createClone())
+fieldapi::ScalarDomainCheck::ScalarDomainCheck(const ReadOnlyReal8 &map, const char *parName,
+                                               const com::IntervalD &v)
+    : d_map(map), d_parName(parName), d_v(v.createClone())
 {
 }
 
 //! Assignment constructor.
-fieldapi::ScalarDomainCheck& fieldapi::ScalarDomainCheck::operator=(
-    const ScalarDomainCheck& s)
+fieldapi::ScalarDomainCheck &fieldapi::ScalarDomainCheck::operator=(const ScalarDomainCheck &s)
 {
-     if (this != &s) {
-        *this = s;
-        this->d_v = s.d_v->createClone();
-     }
-     return *this;
+  if (this != &s) {
+    *this = s;
+    this->d_v = s.d_v->createClone();
+  }
+  return *this;
 }
 
 //! Copy constructor.
-fieldapi::ScalarDomainCheck::ScalarDomainCheck(
-   const ScalarDomainCheck& s):
-      d_map(s.d_map),d_parName(s.d_parName),d_v(s.d_v->createClone())
+fieldapi::ScalarDomainCheck::ScalarDomainCheck(const ScalarDomainCheck &s)
+    : d_map(s.d_map), d_parName(s.d_parName), d_v(s.d_v->createClone())
 {
 }
 
@@ -52,7 +48,7 @@ fieldapi::ScalarDomainCheck::~ScalarDomainCheck()
 }
 
 //! check domain range for location \a l
-bool fieldapi::ScalarDomainCheck::valid(const geo::CellLoc& l) const
+bool fieldapi::ScalarDomainCheck::valid(const geo::CellLoc &l) const
 {
   return d_v->valid(d_map[l]);
 }
@@ -61,17 +57,15 @@ bool fieldapi::ScalarDomainCheck::valid(const geo::CellLoc& l) const
 std::string fieldapi::ScalarDomainCheck::msg() const
 {
   std::string s("argument '");
-   s+=d_parName;
-   s+="' must be ";
-   s+=d_v->msg();
+  s += d_parName;
+  s += "' must be ";
+  s += d_v->msg();
   return s;
 }
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -79,21 +73,15 @@ std::string fieldapi::ScalarDomainCheck::msg() const
 //------------------------------------------------------------------------------
 
 
-
-
-
-
 //! check a vector of scalar domains for \a loc
 /*!
    \returns -1 if all valid, the index of the first
      one found to be invalid
  */
-int fieldapi::checkScalarDomains(
-    const std::vector<ScalarDomainCheck>& v,
-    const geo::CellLoc& loc)
+int fieldapi::checkScalarDomains(const std::vector<ScalarDomainCheck> &v, const geo::CellLoc &loc)
 {
-  for(size_t i=0; i < v.size(); i++)
-    if (! v[i].valid(loc))
+  for (size_t i = 0; i < v.size(); i++)
+    if (!v[i].valid(loc))
       return i;
   return -1;
 }

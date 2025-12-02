@@ -40,23 +40,20 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC COMMANDLINEARGUMENTS MEMBERS
 //------------------------------------------------------------------------------
 
 //! suite
-boost::unit_test::test_suite*com::CommandLineArgumentsTest::suite()
+boost::unit_test::test_suite *com::CommandLineArgumentsTest::suite()
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
+  boost::unit_test::test_suite *suite = BOOST_TEST_SUITE(__FILE__);
   std::shared_ptr<CommandLineArgumentsTest> instance(new CommandLineArgumentsTest());
 
   suite->add(BOOST_CLASS_TEST_CASE(&CommandLineArgumentsTest::testOptions, instance));
 
   return suite;
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF COMMANDLINEARGUMENTS MEMBERS
@@ -66,8 +63,6 @@ boost::unit_test::test_suite*com::CommandLineArgumentsTest::suite()
 com::CommandLineArgumentsTest::CommandLineArgumentsTest()
 {
 }
-
-
 
 //! setUp
 void com::CommandLineArgumentsTest::setUp()
@@ -79,15 +74,13 @@ void com::CommandLineArgumentsTest::tearDown()
 {
 }
 
-
-
 void com::CommandLineArgumentsTest::testOptions()
 {
   {
-    char c1[4] = { "cmd" };
-    char c2[3] = { "-a" };
-    char c3[3] = { "-b" };
-    char* argv[] = {c1, c2, c3 };
+    char c1[4] = {"cmd"};
+    char c2[3] = {"-a"};
+    char c3[3] = {"-b"};
+    char *argv[] = {c1, c2, c3};
     const size_t argc = ARRAY_SIZE(argv);
 
     com::Option arg1('a', "aa", "An argument", true);
@@ -112,9 +105,9 @@ void com::CommandLineArgumentsTest::testOptions()
 
   // Terse mode.
   {
-    char c1[4] = { "cmd" };
-    char c2[4] = { "-ab" };
-    char* argv[] = { c1, c2 };
+    char c1[4] = {"cmd"};
+    char c2[4] = {"-ab"};
+    char *argv[] = {c1, c2};
     const size_t argc = ARRAY_SIZE(argv);
     POSTCOND(argc == 2);
 
@@ -139,14 +132,14 @@ void com::CommandLineArgumentsTest::testOptions()
   }
   // OptionValues
   {
-    char c1[4] = { "cmd" };
-    char c2[4] = { "-ab" };
-    char c3[4] = { "bla" };
-    char *argv[] = { c1, c2, c3 };
+    char c1[4] = {"cmd"};
+    char c2[4] = {"-ab"};
+    char c3[4] = {"bla"};
+    char *argv[] = {c1, c2, c3};
     const size_t argc = ARRAY_SIZE(argv);
     POSTCOND(argc == 3);
 
-    com::Option                   arg1('a', "aa", "An argument", true);
+    com::Option arg1('a', "aa", "An argument", true);
     com::OptionValue<std::string> arg2('b', "bb", "An argument", "Nog iets", true);
 
     com::CommandLineArguments arguments;

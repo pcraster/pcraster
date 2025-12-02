@@ -7,35 +7,32 @@
 #include "com_math.h"
 #include "com_exception.h"
 
-
 BOOST_AUTO_TEST_CASE(empty_file)
 {
-    com::PathName const pn("empty.filemap");
-    com::create(pn);
+  com::PathName const pn("empty.filemap");
+  com::create(pn);
 #ifdef WIN32
-    com::FileMap fm(pn);
-    BOOST_CHECK(fm.begin() == fm.pointer());
-    BOOST_CHECK(fm.begin() == fm.end());
+  com::FileMap fm(pn);
+  BOOST_CHECK(fm.begin() == fm.pointer());
+  BOOST_CHECK(fm.begin() == fm.end());
 #else
-    // linux no mmap call with length 0 allowed since 2.6.something
-    bool catched=false;
-    try {
-     com::FileMap const fm(pn);
-    } catch(const com::OpenFileError& e) {
-      catched=true;
-      BOOST_CHECK(e.messages().find(
-         "mmap does not support 0 sized files") != std::string::npos);
-    }
-    BOOST_CHECK(catched);
+  // linux no mmap call with length 0 allowed since 2.6.something
+  bool catched = false;
+  try {
+    com::FileMap const fm(pn);
+  } catch (const com::OpenFileError &e) {
+    catched = true;
+    BOOST_CHECK(e.messages().find("mmap does not support 0 sized files") != std::string::npos);
+  }
+  BOOST_CHECK(catched);
 #endif
 }
-
 
 BOOST_AUTO_TEST_CASE(iterators)
 {
 
   // read some stuff
-  const char *files[2] = {"zinc.unix.eas","zinc.dos.eas"};
+  const char *files[2] = {"zinc.unix.eas", "zinc.dos.eas"};
   std::vector<std::string> header;
   header.push_back("Zinc measurements on River Meuse flood plains");
   header.push_back("3");
@@ -44,25 +41,24 @@ BOOST_AUTO_TEST_CASE(iterators)
   header.push_back("zinc, ppm");
   header.push_back("181072 333611 1022");
 
-  for(auto & file : files) {
+  for (auto &file : files) {
     com::PathName const pn(file);
-    com::FileMap  const fm(pn);
-    std::string   const contents(fm.begin(),fm.end());
-    std::vector<std::string> lines(com::split(contents,'\n'));
-    BOOST_CHECK(lines.size() == 5+155);
-    for(size_t l=0; l<header.size(); l++) {
+    com::FileMap const fm(pn);
+    std::string const contents(fm.begin(), fm.end());
+    std::vector<std::string> lines(com::split(contents, '\n'));
+    BOOST_CHECK(lines.size() == 5 + 155);
+    for (size_t l = 0; l < header.size(); l++) {
       if (lines[l][0] == '\r')
-        lines[l].erase(0,1);
+        lines[l].erase(0, 1);
       if (!lines[l].empty()) {
-        size_t const last=lines[l].size()-1;
+        size_t const last = lines[l].size() - 1;
         if (lines[l][last] == '\r')
-          lines[l].erase(last,1);
-       }
+          lines[l].erase(last, 1);
+      }
       BOOST_CHECK(header[l] == lines[l]);
     }
   }
 }
-
 
 BOOST_AUTO_TEST_CASE(file_map_to_large)
 {
@@ -78,11 +74,11 @@ BOOST_AUTO_TEST_CASE(file_map_to_large)
     testOpenForReading(big);
     bool catched(false);
     try {
-     FileMap const n(big);
-    } catch (const com::OpenFileError& e) {
-      catched=true;
+      FileMap const n(big);
+    } catch (const com::OpenFileError &e) {
+      catched = true;
 
-      BOOST_CHECK(e.messages().find("Too large to map in memory")!=std::string::npos);
+      BOOST_CHECK(e.messages().find("Too large to map in memory") != std::string::npos);
     }
     BOOST_CHECK(catched);
   }

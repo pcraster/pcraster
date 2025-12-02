@@ -3,7 +3,6 @@
 #include "com_pathname.h"
 #include "geo_rasterfileconverter.h"
 
-
 BOOST_AUTO_TEST_CASE(bil2ascii)
 {
   using namespace geo;

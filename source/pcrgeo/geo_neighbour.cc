@@ -5,18 +5,15 @@
 
 #include <limits>
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC XXXXX MEMBERS
 //------------------------------------------------------------------------------
 
-namespace geo {
+namespace geo
+{
 
 /* names as winddirection */
-const char* lddValueName[10]={ "",
-    "SW","S"  ,"SE",
-    "W ","Pit","E",
-    "NW","N"  ,"NE"};
+const char *lddValueName[10] = {"", "SW", "S", "SE", "W ", "Pit", "E", "NW", "N", "NE"};
 
 /* A one byte Neighbour bit code can be used to encode multiple neighbours.
  * Bit nrs set refer to the following ldd:
@@ -29,33 +26,29 @@ const char* lddValueName[10]={ "",
  */
 
 struct Delta {
- int deltaCol,
- deltaRow;
+  int deltaCol, deltaRow;
 };
 
-static Delta lddNBCode[8] = {
-               {-1,   1},  /* 0 */
-               { 0,   1},  /* 1 */
-               { 1,   1},  /* 2 */
-               {-1,   0},  /* 3 */
-               { 1,   0},  /* 4 */
-               {-1,  -1},  /* 5 */
-               { 0,  -1},  /* 6 */
-               { 1,  -1}}; /* 7 */
+static Delta lddNBCode[8] = {{-1, 1},  /* 0 */
+                             {0, 1},   /* 1 */
+                             {1, 1},   /* 2 */
+                             {-1, 0},  /* 3 */
+                             {1, 0},   /* 4 */
+                             {-1, -1}, /* 5 */
+                             {0, -1},  /* 6 */
+                             {1, -1}}; /* 7 */
 
 //! indices to point to cells
-static Delta lddDirection[10] = {
-               { 0,   0},
-               {-1,   1},    /* 1 */
-               { 0,   1},    /* 2 */
-               { 1,   1},    /* 3 */
-               {-1,   0},    /* 4 */
-               { 0,   0},    /* LDD_PIT */
-               { 1,   0},    /* 6 */
-               {-1,  -1},    /* 7 */
-               { 0,  -1},    /* 8 */
-               { 1,  -1} };  /* 9 = NR_LDD_DIR */
-  /* local drain direction maps have values for directions as
+static Delta lddDirection[10] = {{0, 0},   {-1, 1}, /* 1 */
+                                 {0, 1},            /* 2 */
+                                 {1, 1},            /* 3 */
+                                 {-1, 0},           /* 4 */
+                                 {0, 0},            /* LDD_PIT */
+                                 {1, 0},            /* 6 */
+                                 {-1, -1},          /* 7 */
+                                 {0, -1},           /* 8 */
+                                 {1, -1}};          /* 9 = NR_LDD_DIR */
+/* local drain direction maps have values for directions as
    * following:
    *  7   8   9
    *   \  |  /
@@ -65,44 +58,35 @@ static Delta lddDirection[10] = {
    */
 
 
-} // namespace geo
+}  // namespace geo
 
 //! return cell location of down stream cell
 /*!
  *  \pre result location is valid
  */
-geo::CellLoc geo::LDD::target(
-      const geo::CellLoc& from,
-      LDD::Code           dir)
+geo::CellLoc geo::LDD::target(const geo::CellLoc &from, LDD::Code dir)
 {
 #ifdef DEBUG_DEVELOP
   PRECOND(LDD::valid(dir));
-  PRECOND(static_cast<int>(from.row())+lddDirection[dir].deltaRow >= 0);
-  PRECOND(static_cast<int>(from.col())+lddDirection[dir].deltaCol >= 0);
+  PRECOND(static_cast<int>(from.row()) + lddDirection[dir].deltaRow >= 0);
+  PRECOND(static_cast<int>(from.col()) + lddDirection[dir].deltaCol >= 0);
 #endif
-  return {
-     from.row()+lddDirection[dir].deltaRow,
-     from.col()+lddDirection[dir].deltaCol};
+  return {from.row() + lddDirection[dir].deltaRow, from.col() + lddDirection[dir].deltaCol};
 }
 
 //! return cell location of neigbour
-geo::CellLoc geo::NB::target(
-      const geo::CellLoc& from,
-      NB::Code dir)
+geo::CellLoc geo::NB::target(const geo::CellLoc &from, NB::Code dir)
 {
-  return {
-     from.row()+lddNBCode[dir].deltaRow,
-     from.col()+lddNBCode[dir].deltaCol};
+  return {from.row() + lddNBCode[dir].deltaRow, from.col() + lddNBCode[dir].deltaCol};
 }
 
 //! ctor
 /*!
    create with a location and bit array coding all nb's as ldd dirs
  */
-geo::UpstreamNeighbourVisitor::UpstreamNeighbourVisitor(
-      const geo::CellLoc& l, unsigned short int upstreamNeighbourDirs):
-       geo::CellLoc(l),
-       d_upstreamNeighbourDirs(upstreamNeighbourDirs)
+geo::UpstreamNeighbourVisitor::UpstreamNeighbourVisitor(const geo::CellLoc &l,
+                                                        unsigned short int upstreamNeighbourDirs)
+    : geo::CellLoc(l), d_upstreamNeighbourDirs(upstreamNeighbourDirs)
 {
 }
 
@@ -110,7 +94,7 @@ geo::UpstreamNeighbourVisitor::UpstreamNeighbourVisitor(
 void geo::UpstreamNeighbourVisitor::operator++()
 {
   while (valid()) {
-    if (d_upstreamNeighbourDirs  & (1<<d_nextNeighbourToVisit))
+    if (d_upstreamNeighbourDirs & (1 << d_nextNeighbourToVisit))
       break;
     d_nextNeighbourToVisit++;
   }
@@ -119,7 +103,7 @@ void geo::UpstreamNeighbourVisitor::operator++()
 //! current neighbour, set by ++
 geo::CellLoc geo::UpstreamNeighbourVisitor::nb() const
 {
-  return LDD::downstreamCell(*this, (1<<d_nextNeighbourToVisit));
+  return LDD::downstreamCell(*this, (1 << d_nextNeighbourToVisit));
 }
 
 //------------------------------------------------------------------------------
@@ -158,21 +142,17 @@ size_t geo::lddVal2OutflowNBCode(size_t lddVal)
 */
 
 //! compute cell loc (rowNB,colNB)
-void geo::intDownstreamCell(
-      int& rowNB,
-      int& colNB,
-      const geo::CellLoc& from,
-      unsigned int fromLddVal)
+void geo::intDownstreamCell(int &rowNB, int &colNB, const geo::CellLoc &from, unsigned int fromLddVal)
 {
 #ifdef DEBUG_DEVELOP
   PRECOND(fromLddVal <= 9);
 #endif
-  rowNB = from.row()+lddDirection[fromLddVal].deltaRow;
-  colNB = from.col()+lddDirection[fromLddVal].deltaCol;
+  rowNB = from.row() + lddDirection[fromLddVal].deltaRow;
+  colNB = from.col() + lddDirection[fromLddVal].deltaCol;
 }
 
-
-namespace geo {
+namespace geo
+{
 /*!
  * \return
  *    d, the result, neigbour downstream cell or
@@ -182,11 +162,8 @@ namespace geo {
  * \todo
  *   measure if outOfRange should be done full or short circuit
  */
-static inline LinearLoc adjLinearLoc(
-      LinearLoc  s, /* source */
-      size_t     nrCells,
-      size_t     nrCols,
-      Delta      l)
+static inline LinearLoc adjLinearLoc(LinearLoc s, /* source */
+                                     size_t nrCells, size_t nrCols, Delta l)
 {
   /*
    * colInc,  d=s+1;       outOfRange=(s%nrCols)==0 ;
@@ -197,32 +174,44 @@ static inline LinearLoc adjLinearLoc(
    *                                ; unsigned overflow ->
    *                                 = d >= nrCells
    */
-  LinearLoc result[2] = { s, std::numeric_limits<LinearLoc>::max() };
+  LinearLoc result[2] = {s, std::numeric_limits<LinearLoc>::max()};
 
-#define colInc  (l.deltaCol == 1)
-#define colDec  (l.deltaCol == -1)
+#define colInc (l.deltaCol == 1)
+#define colDec (l.deltaCol == -1)
 
   // inc/dec result[0] to become d
 
   // row inc/dec
-  result[0]+=(l.deltaRow*nrCols);
+  result[0] += (l.deltaRow * nrCols);
   // row dec/inc
-  result[0]+=l.deltaCol;
+  result[0] += l.deltaCol;
   bool const outOfRange =
-   // row decrement yield this
-   // row increment yield this after
-   //  overflow on the (rather) save assumption:
-   //  --> std::numeric_limits<LinearLoc>::max  >= (nrCells+nrCols)
-   (result[0] >= nrCells) ||
-   // on col decrement a source
-   // on the left border will get out of range
-   (colDec && !(s % nrCols)) ||
-   // on col increment a result
-   // on the left border, indicates a row wrap
-   (colInc && !(result[0] % nrCols));
+      // row decrement yield this
+      // row increment yield this after
+      //  overflow on the (rather) save assumption:
+      //  --> std::numeric_limits<LinearLoc>::max  >= (nrCells+nrCols)
+      (result[0] >= nrCells) ||
+      // on col decrement a source
+      // on the left border will get out of range
+      (colDec && !(s % nrCols)) ||
+      // on col increment a result
+      // on the left border, indicates a row wrap
+      (colInc && !(result[0] % nrCols));
   return result[outOfRange];
 }
 
+}  // namespace geo
+
+/*!
+ * \return
+ *    d, the result, neigbour downstream cell or
+ *       std::limits<LinearLoc>::max()
+ *       if neigbour is outside of map
+ */
+geo::LinearLoc geo::LDD::target(LinearLoc s, /* source */
+                                NB::Code l, size_t nrCells, size_t nrCols)
+{
+  return adjLinearLoc(s, nrCells, nrCols, lddDirection[l]);
 }
 
 /*!
@@ -231,28 +220,10 @@ static inline LinearLoc adjLinearLoc(
  *       std::limits<LinearLoc>::max()
  *       if neigbour is outside of map
  */
-geo::LinearLoc geo::LDD::target(
-      LinearLoc  s, /* source */
-      NB::Code    l,
-      size_t     nrCells,
-      size_t     nrCols)
+geo::LinearLoc geo::NB::target(LinearLoc s, /* source */
+                               NB::Code l, size_t nrCells, size_t nrCols)
 {
-  return adjLinearLoc(s,nrCells,nrCols,lddDirection[l]);
-}
-
-/*!
- * \return
- *    d, the result, neigbour downstream cell or
- *       std::limits<LinearLoc>::max()
- *       if neigbour is outside of map
- */
-geo::LinearLoc geo::NB::target(
-      LinearLoc  s, /* source */
-      NB::Code    l,
-      size_t     nrCells,
-      size_t     nrCols)
-{
-  return adjLinearLoc(s,nrCells,nrCols,lddNBCode[l]);
+  return adjLinearLoc(s, nrCells, nrCols, lddNBCode[l]);
 }
 
 //! compute NB::code from 2 neighbours \a from and \a to
@@ -260,19 +231,16 @@ geo::LinearLoc geo::NB::target(
  * \pre
  *   to != from, to and from are neighbours
  */
-geo::NB::Code geo::NB::code(const CellLoc& from, const CellLoc& to)
+geo::NB::Code geo::NB::code(const CellLoc &from, const CellLoc &to)
 {
-  int const deltaRow=to.row()-from.row();
-  int const deltaCol=to.col()-from.col();
+  int const deltaRow = to.row() - from.row();
+  int const deltaCol = to.col() - from.col();
   DEVELOP_PRECOND(to != from);
   DEVELOP_PRECOND(deltaRow >= -1 && deltaRow <= 1);
   DEVELOP_PRECOND(deltaCol >= -1 && deltaCol <= 1);
-  Code  const delta[/*row*/3][/*col*/3] = {
-       { 5, 6, 7 },
-       { 3,99, 4 },
-       { 0, 1, 2 } };
-  DEVELOP_PRECOND(delta[deltaRow+1][deltaCol+1] < 8);
-  return delta[deltaRow+1][deltaCol+1];
+  Code const delta[/*row*/ 3][/*col*/ 3] = {{5, 6, 7}, {3, 99, 4}, {0, 1, 2}};
+  DEVELOP_PRECOND(delta[deltaRow + 1][deltaCol + 1] < 8);
+  return delta[deltaRow + 1][deltaCol + 1];
 }
 
 //! check if 2 neighbours \a from and \a to are diagonal neighours
@@ -280,10 +248,10 @@ geo::NB::Code geo::NB::code(const CellLoc& from, const CellLoc& to)
  * \pre
  *   to != from, to and from are neighbours
  */
-bool geo::NB::diagonal(const CellLoc& from, const CellLoc& to)
+bool geo::NB::diagonal(const CellLoc &from, const CellLoc &to)
 {
-  int const deltaRow=to.row()-from.row();
-  int const deltaCol=to.col()-from.col();
+  int const deltaRow = to.row() - from.row();
+  int const deltaCol = to.col() - from.col();
   DEVELOP_PRECOND(to != from);
   DEVELOP_PRECOND(deltaRow >= -1 && deltaRow <= 1);
   DEVELOP_PRECOND(deltaCol >= -1 && deltaCol <= 1);
@@ -296,23 +264,18 @@ bool geo::NB::diagonal(const CellLoc& from, const CellLoc& to)
  *  nb is one of the eight neighbours of
  *   l, is a diagonal or a close neighbour
  */
-bool geo::closeNB(
-      LinearLoc  l,
-      LinearLoc  nb,
-      size_t     nrCols)
+bool geo::closeNB(LinearLoc l, LinearLoc nb, size_t nrCols)
 {
   return
-   // both on same column
-   (l%nrCols)==(nb%nrCols)
-     ||
-   // both on same row
-   std::abs(l-nb)==1; /* (l^nb) == 1 ??? */
+      // both on same column
+      (l % nrCols) == (nb % nrCols) ||
+      // both on same row
+      std::abs(l - nb) == 1; /* (l^nb) == 1 ??? */
 }
-leftBorderExclMaskNbCode= (1<<0)|(1<<3)|(1<<5);
-topBorderExclMaskNbCode = (1<<5)|(1<<6)|(1<<7);
-id (row==0) nbs^=topBorderExclMaskNbCode;
- -->
- nbs^=
-  (((row==0)-1)&topBorderExclMaskNbCode)
-  (row==0)-1 should overflow to full-1 mask or all-0 mask
+
+leftBorderExclMaskNbCode = (1 << 0) | (1 << 3) | (1 << 5);
+topBorderExclMaskNbCode = (1 << 5) | (1 << 6) | (1 << 7);
+id(row == 0) nbs ^= topBorderExclMaskNbCode;
+--> nbs ^= (((row == 0) - 1) & topBorderExclMaskNbCode)(row == 0) - 1 should overflow to full - 1 mask or
+           all - 0 mask
 #endif

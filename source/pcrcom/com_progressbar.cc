@@ -4,12 +4,10 @@
 
 #include <boost/math/special_functions/round.hpp>
 
-
 /*!
   \file
   This file contains the implementation of the ProgressBar class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -35,11 +33,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC PROGRESSBAR MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -51,17 +47,13 @@ public:
   \param     stream Stream to print progress bar on.
   \param     width Width of progress bar in number of characters.
 */
-com::ProgressBar::ProgressBar(size_t width, std::ostream& stream)
+com::ProgressBar::ProgressBar(size_t width, std::ostream &stream)
 
-  : IProgressBar(0, width),
-    StreamWriter(stream),
-    d_nrHashesWritten(0)
+    : IProgressBar(0, width), StreamWriter(stream), d_nrHashesWritten(0)
 
 {
   POSTCOND(width > 2);
 }
-
-
 
 //! Constructor.
 /*!
@@ -69,18 +61,13 @@ com::ProgressBar::ProgressBar(size_t width, std::ostream& stream)
   \param     stream Stream to print progress bar on.
   \param     width Width of progress bar in characters.
 */
-com::ProgressBar::ProgressBar(size_t nrSteps, size_t width,
-         std::ostream& stream)
+com::ProgressBar::ProgressBar(size_t nrSteps, size_t width, std::ostream &stream)
 
-  : IProgressBar(nrSteps, width),
-    StreamWriter(stream),
-    d_nrHashesWritten(0)
+    : IProgressBar(nrSteps, width), StreamWriter(stream), d_nrHashesWritten(0)
 
 {
   POSTCOND(width > 2);
 }
-
-
 
 //! Destructor.
 /*!
@@ -88,8 +75,6 @@ com::ProgressBar::ProgressBar(size_t nrSteps, size_t width,
 com::ProgressBar::~ProgressBar()
 {
 }
-
-
 
 void com::ProgressBar::clear()
 {
@@ -99,14 +84,12 @@ void com::ProgressBar::clear()
   DEVELOP_POSTCOND(nrCharactersWritten() == 0);
 }
 
-
-
 void com::ProgressBar::init()
 {
   ProgressTracker::init();
 
   *this << '[';
-  for(size_t i = 0; i < width() - 2; ++i) {
+  for (size_t i = 0; i < width() - 2; ++i) {
     *this << ' ';
   }
   *this << ']';
@@ -115,28 +98,25 @@ void com::ProgressBar::init()
   d_nrHashesWritten = 0;
 }
 
-
-
 void com::ProgressBar::update()
 {
   DEVELOP_PRECOND(nrCharactersWritten() == width());
 
   // Determine nr of hashes to print.
   com::DiMap const map(0, nrSteps(), 0.0, static_cast<double>(width() - 2));
-  size_t const nrHashes = static_cast<size_t>(
-                   boost::math::round(map.invTransform(nrFinishedSteps())));
+  size_t const nrHashes = static_cast<size_t>(boost::math::round(map.invTransform(nrFinishedSteps())));
 
-  if(nrHashes != d_nrHashesWritten) {
+  if (nrHashes != d_nrHashesWritten) {
     clear();
     *this << '[';
 
     // Print hashes.
-    for(size_t i = 0; i < nrHashes; ++i) {
+    for (size_t i = 0; i < nrHashes; ++i) {
       *this << '#';
     }
 
     // Pad with spaces.
-    for(size_t i = nrHashes; i < width() - 2; ++i) {
+    for (size_t i = nrHashes; i < width() - 2; ++i) {
       *this << ' ';
     }
 
@@ -148,15 +128,11 @@ void com::ProgressBar::update()
   DEVELOP_POSTCOND(nrCharactersWritten() == width());
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-

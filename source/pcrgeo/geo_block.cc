@@ -3,8 +3,6 @@
 #include "com_file.h"
 #include "geo_util.h"
 
-
-
 /*!
   \file
   brief
@@ -13,11 +11,9 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -34,95 +30,77 @@ geo::Block::Block()
 */
 
 
+geo::Block::Block(size_t nr, size_t nc, REAL8 cellSize, REAL8 left, REAL8 top, Projection proj)
 
-geo::Block::Block(size_t nr, size_t nc, REAL8 cellSize,
-                  REAL8 left, REAL8 top, Projection proj)
-
-  : Raster<VoxelStack>(nr, nc, cellSize, left, top, proj)
+    : Raster<VoxelStack>(nr, nc, cellSize, left, top, proj)
 
 {
 }
-
-
 
 geo::Block::~Block()
 {
 }
 
-
-
 void geo::Block::clean()
 {
 }
 
-
-
 void geo::Block::addLayer(size_t n, INT4 s, REAL8 t)
 {
-  for(auto & it : *this)
+  for (auto &it : *this)
     it.add(n, s, t);
 }
-
-
 
 REAL8 geo::Block::thickness() const
 {
   REAL8 t = 0;
 
-  for(const auto & it : *this)
+  for (const auto &it : *this)
     t = std::max(t, it.thickness());
 
   return t;
 }
 
-
-
 REAL8 geo::Block::low() const
 {
   REAL8 b = 0;
 
-  for(const auto & it : *this)
+  for (const auto &it : *this)
     b = std::min(b, it.bottom());
 
   return b;
 }
 
-
-
 REAL8 geo::Block::high() const
 {
   REAL8 h = 0;
 
-  for(const auto & it : *this)
+  for (const auto &it : *this)
     h = std::max(h, it.top());
 
   return h;
 }
 
-
-
 size_t geo::Block::nrVoxels() const
 {
   size_t n = 0;
 
-  for(const auto & it : *this)
+  for (const auto &it : *this)
     n += it.nrVoxels();
 
   return n;
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 //! DISABLED: Input operator for reading Block objects from an input stream.
-std::istream &operator>>(std::istream &s, geo::Block &/*b*/)
+std::istream &operator>>(std::istream &s, geo::Block & /*b*/)
 {
   PRECOND(false);
 
-/*
+  /*
   char ch;
   size_t cellSize, nr, nc;
   REAL8 left, top, bottom, thickness, origThickness;
@@ -191,14 +169,12 @@ std::istream &operator>>(std::istream &s, geo::Block &/*b*/)
   return s;
 }
 
-
-
 //! DISABLED: Output operator for writing Block objects to an output stream.
 std::ostream &operator<<(std::ostream &s, const geo::Block & /*b*/)
 {
   PRECOND(false);
 
-/*
+  /*
   // Write the number of rows.
   s << b.nrRows() << '\n';
 
@@ -237,12 +213,9 @@ std::ostream &operator<<(std::ostream &s, const geo::Block & /*b*/)
   return s;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -250,9 +223,6 @@ std::ostream &operator<<(std::ostream &s, const geo::Block & /*b*/)
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

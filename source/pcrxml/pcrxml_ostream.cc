@@ -7,13 +7,11 @@
 
 #include <iostream>
 
-
-std::ostream& operator<< (std::ostream& s,
-                          const QDomDocument& d)
+std::ostream &operator<<(std::ostream &s, const QDomDocument &d)
 {
-  QString   str;
+  QString str;
   QTextStream qs(&str);
-  d.save(qs,1);
+  d.save(qs, 1);
   s << pcrxml::asString(str);
   return s;
 }

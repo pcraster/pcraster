@@ -26,11 +26,9 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC NONSPATIAL MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -38,41 +36,34 @@
 //------------------------------------------------------------------------------
 
 //! ctor
-template<class UseAsT>
- fieldapi::ReadOnlyNonSpatial<UseAsT>::ReadOnlyNonSpatial(
-     UseAsT value,
-     size_t nrRows,size_t nrCols):
-       ReadOnly<UseAsT>(nrRows,nrCols),
-       d_value(value)
+template <class UseAsT>
+fieldapi::ReadOnlyNonSpatial<UseAsT>::ReadOnlyNonSpatial(UseAsT value, size_t nrRows, size_t nrCols)
+    : ReadOnly<UseAsT>(nrRows, nrCols), d_value(value)
 {
 }
 
 //! dtor
-template<class UseAsT>
- fieldapi::ReadOnlyNonSpatial<UseAsT>::~ReadOnlyNonSpatial()
+template <class UseAsT> fieldapi::ReadOnlyNonSpatial<UseAsT>::~ReadOnlyNonSpatial()
 {
 }
 
-
-template<class UseAsT>
- bool fieldapi::ReadOnlyNonSpatial<UseAsT>::get(
-     UseAsT& value, int rowIndex, int colIndex) const
+template <class UseAsT>
+bool fieldapi::ReadOnlyNonSpatial<UseAsT>::get(UseAsT &value, int rowIndex, int colIndex) const
 {
-  if (this->outOfRange(rowIndex,colIndex))
+  if (this->outOfRange(rowIndex, colIndex))
     return false;
   value = d_value;
   return true;
 }
 
-template<class UseAsT>
- bool fieldapi::ReadOnlyNonSpatial<UseAsT>::get(
-     UseAsT& value, size_t rowIndex, size_t colIndex) const
+template <class UseAsT>
+bool fieldapi::ReadOnlyNonSpatial<UseAsT>::get(UseAsT &value, size_t rowIndex, size_t colIndex) const
 {
 #ifdef DEBUG_DEVELOP
-  PRECOND(!this->outOfRange(rowIndex,colIndex));
+  PRECOND(!this->outOfRange(rowIndex, colIndex));
 #endif
-  (void)rowIndex; // Shut up compiler
-  (void)colIndex; // Shut up compiler
+  (void)rowIndex;  // Shut up compiler
+  (void)colIndex;  // Shut up compiler
   value = d_value;
   return true;
 }
@@ -82,21 +73,19 @@ template<class UseAsT>
      maybe remove develop check on MV, for UINT1 and
      INT4 it might be handy to get MV back as result
  */
-template<class UseAsT>
- UseAsT fieldapi::ReadOnlyNonSpatial<UseAsT>::value(
-     size_t rowIndex, size_t colIndex) const
+template <class UseAsT>
+UseAsT fieldapi::ReadOnlyNonSpatial<UseAsT>::value(size_t rowIndex, size_t colIndex) const
 {
 #ifdef DEBUG_DEVELOP
-  PRECOND(!this->outOfRange(rowIndex,colIndex));
+  PRECOND(!this->outOfRange(rowIndex, colIndex));
   PRECOND(!pcr::isMV(d_value));
 #endif
-  (void)rowIndex; // Shut up compiler
-  (void)colIndex; // Shut up compiler
+  (void)rowIndex;  // Shut up compiler
+  (void)colIndex;  // Shut up compiler
   return d_value;
 }
 
-template<class UseAsT>
- bool fieldapi::ReadOnlyNonSpatial<UseAsT>::spatial() const
+template <class UseAsT> bool fieldapi::ReadOnlyNonSpatial<UseAsT>::spatial() const
 {
   return false;
 }
@@ -106,10 +95,6 @@ template<class UseAsT>
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

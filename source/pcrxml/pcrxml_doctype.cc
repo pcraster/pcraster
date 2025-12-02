@@ -8,12 +8,10 @@
 #endif
 
 
-
 /*!
   \file
   This file contains the implementation of the DocType class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -21,14 +19,13 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF DOCTYPE MEMBERS
 //------------------------------------------------------------------------------
 
 //! ctor
-pcrxml::DocType::DocType(const std::string& documentElementName):
-  d_documentElementName(documentElementName)
+pcrxml::DocType::DocType(const std::string &documentElementName)
+    : d_documentElementName(documentElementName)
 {
 }
 
@@ -41,8 +38,8 @@ pcrxml::DocType::~DocType()
 std::string pcrxml::DocType::asString() const
 {
   std::string str("<?xml version='1.0' encoding='ascii'?>\n");
-  str+="<!DOCTYPE "+d_documentElementName+
-       " PUBLIC '-//PCRaster//Application 0.01//EN' 'pcraster.dtd'>\n"; // ext ID
+  str += "<!DOCTYPE " + d_documentElementName +
+         " PUBLIC '-//PCRaster//Application 0.01//EN' 'pcraster.dtd'>\n";  // ext ID
   /* internal DTD
    * str+="[\n"+d_pcrInternalDtd;
    * str+="]\n\n";
@@ -55,10 +52,6 @@ std::string pcrxml::DocType::asString() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

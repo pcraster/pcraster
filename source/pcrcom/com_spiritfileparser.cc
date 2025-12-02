@@ -7,12 +7,10 @@
 #include "com_math.h"
 
 
-
 /*!
   \file
   This file contains the implementation of the SpiritFileParser class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -38,11 +36,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC SPIRITFILEPARSER MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -53,20 +49,20 @@ public:
  * \throws
  *   com::OpenFileError if file is larger than 512 Mb
  */
-com::SpiritFileParser::SpiritFileParser(const com::PathName& pn)
+com::SpiritFileParser::SpiritFileParser(const com::PathName &pn)
 //  :d_fbegin(pn.toString().c_str()),
 //   d_fend(d_fbegin.make_end()),
 //   d_begin(d_fbegin,d_fend,pn.toString()),
 //   d_current(d_begin)
 {
-    com::testOpenForReading(pn);
-    if (com::size(pn) > megaByte<size_t>(512))
-      throw com::OpenFileError(pn,"File too large for reading");
-    d_fileMap = new FileMap(pn);
-    d_fbegin  = d_fileMap->begin();
-    d_fend    = d_fileMap->end();
-    d_begin   = iterator(d_fbegin,d_fend,pn.toString());
-    d_current = d_begin;
+  com::testOpenForReading(pn);
+  if (com::size(pn) > megaByte<size_t>(512))
+    throw com::OpenFileError(pn, "File too large for reading");
+  d_fileMap = new FileMap(pn);
+  d_fbegin = d_fileMap->begin();
+  d_fend = d_fileMap->end();
+  d_begin = iterator(d_fbegin, d_fend, pn.toString());
+  d_current = d_begin;
 }
 
 /*!
@@ -118,7 +114,8 @@ void com::SpiritFileParser::advance()
  *  forthcoming spirit 1.7 has position_iterator2 that can give us the 
  *  current line data we hack here
  */
-void com::SpiritFileParser::errorAtStop() const {
+void com::SpiritFileParser::errorAtStop() const
+{
   boost::spirit::classic::file_position const fp(pi.stop.get_position());
   std::string const s;
   /*
@@ -131,8 +128,7 @@ void com::SpiritFileParser::errorAtStop() const {
   }
   */
 
-  throw com::FilePositionError(fp.file,fp.line,fp.column,
-   "unexpected format: '"+s+",");
+  throw com::FilePositionError(fp.file, fp.line, fp.column, "unexpected format: '" + s + ",");
 }
 
 //! get current line nr of file position
@@ -142,11 +138,9 @@ size_t com::SpiritFileParser::lineNr() const
   return fp.line;
 }
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

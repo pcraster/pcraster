@@ -3,7 +3,6 @@
 #include "geo_assignfilter.h"
 #include "geo_filterengine.h"
 
-
 BOOST_AUTO_TEST_CASE(test)
 {
   using namespace geo;

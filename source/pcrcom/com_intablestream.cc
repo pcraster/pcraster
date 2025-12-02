@@ -4,12 +4,10 @@
 
 #include <boost/spirit/dynamic/while.hpp>
 
-
 /*!
   \file
   This file contains the implementation of the InTableStream class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -35,11 +33,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC INTABLESTREAM MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -51,14 +47,13 @@ public:
  * \throws
  *   FileFormatError if the file format is not recognized
  */
-com::InTableStream::InTableStream(const com::PathName& pn):
-  TableInfo(pn),
-  d_parser(pn,nrHeaderLines()),
-  d_lineNrStartLastRead(0)
+com::InTableStream::InTableStream(const com::PathName &pn)
+    : TableInfo(pn), d_parser(pn, nrHeaderLines()), d_lineNrStartLastRead(0)
 {
-  switch(layout()) {
-    case UNKNOWN: throw FileFormatError(pn,"Format of file not recognized");
-    default:      ;
+  switch (layout()) {
+    case UNKNOWN:
+      throw FileFormatError(pn, "Format of file not recognized");
+    default:;
   }
 }
 
@@ -90,7 +85,7 @@ bool com::InTableStream::moreHeaderLinesToSkip()
 
 void com::InTableStream::parseHeader()
 {
-  d_parser.skipLines(nrColumns()+2);
+  d_parser.skipLines(nrColumns() + 2);
 }
 
 //! the line nr of the table stream before the last >> is done
@@ -107,9 +102,9 @@ size_t com::InTableStream::lineNrStartLastRead() const
  * \throws 
  *   com::FilePositionError for the position the last read (>>) started.
  */
-void com::InTableStream::throwForLastRead(const std::string& msg) const
+void com::InTableStream::throwForLastRead(const std::string &msg) const
 {
-  throw FilePositionError(fileName(),d_lineNrStartLastRead,0,msg);
+  throw FilePositionError(fileName(), d_lineNrStartLastRead, 0, msg);
 }
 
 //! read next line
@@ -130,14 +125,14 @@ void com::InTableStream::throwForLastRead(const std::string& msg) const
  *  // do something
  * }
  */
-bool com::InTableStream::operator>>(std::vector<double>& record)
+bool com::InTableStream::operator>>(std::vector<double> &record)
 {
   record.clear();
   using namespace boost::spirit;
   d_lineNrStartLastRead = d_parser.lineNr();
-  d_parser.pi = parse(d_parser.begin(),d_parser.end(),
-      // line of numbers followed by a newline
-      *real_p[append(record)],space_p);
+  d_parser.pi = parse(d_parser.begin(), d_parser.end(),
+                      // line of numbers followed by a newline
+                      *real_p[append(record)], space_p);
   if (!d_parser.fullMatch())
     d_parser.errorAtStop();
 
@@ -150,10 +145,6 @@ bool com::InTableStream::operator>>(std::vector<double>& record)
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

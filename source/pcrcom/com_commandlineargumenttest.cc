@@ -49,12 +49,10 @@
 
 #include <memory>
 
-
 /*!
   \file
   This file contains the implementation of the CommandLineArgumentTest class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -62,9 +60,9 @@
 //------------------------------------------------------------------------------
 
 //! suite
-boost::unit_test::test_suite*com::CommandLineArgumentTest::suite()
+boost::unit_test::test_suite *com::CommandLineArgumentTest::suite()
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
+  boost::unit_test::test_suite *suite = BOOST_TEST_SUITE(__FILE__);
   std::shared_ptr<CommandLineArgumentTest> instance(new CommandLineArgumentTest());
 
   suite->add(BOOST_CLASS_TEST_CASE(&CommandLineArgumentTest::testPositionalValue, instance));
@@ -80,8 +78,6 @@ boost::unit_test::test_suite*com::CommandLineArgumentTest::suite()
   return suite;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF COMMANDLINEARGUMENT MEMBERS
 //------------------------------------------------------------------------------
@@ -90,8 +86,6 @@ boost::unit_test::test_suite*com::CommandLineArgumentTest::suite()
 com::CommandLineArgumentTest::CommandLineArgumentTest()
 {
 }
-
-
 
 //! setUp
 void com::CommandLineArgumentTest::setUp()
@@ -103,21 +97,17 @@ void com::CommandLineArgumentTest::tearDown()
 {
 }
 
-
-
 void com::CommandLineArgumentTest::testPositionalValue()
 {
-  char c1[4] = { "cmd" };
-  char c2[5] = { "arg1" };
-  char c3[3] = { "-f" };
-  char c4[10] = { "file-name" };
-  char* const argv[] = { c1, c2, c3, c4 };
+  char c1[4] = {"cmd"};
+  char c2[5] = {"arg1"};
+  char c3[3] = {"-f"};
+  char c4[10] = {"file-name"};
+  char *const argv[] = {c1, c2, c3, c4};
   const size_t argc = ARRAY_SIZE(argv);
 
-  PositionalValue<std::string> arg1("test argument 1", "Just a test argument",
-                   true);
-  PositionalValue<std::string> arg2("test argument 2", "Just a test argument",
-                   true);
+  PositionalValue<std::string> arg1("test argument 1", "Just a test argument", true);
+  PositionalValue<std::string> arg2("test argument 2", "Just a test argument", true);
 
   BOOST_CHECK_EQUAL(arg1.isRequired(), true);
   BOOST_CHECK_EQUAL(arg2.isRequired(), true);
@@ -137,8 +127,8 @@ void com::CommandLineArgumentTest::testPositionalValue()
   BOOST_CHECK_EQUAL(arg2.value(), "");
 
   {
-    char c1[2] = { "5" };
-    char* const argv[] = { c1 };
+    char c1[2] = {"5"};
+    char *const argv[] = {c1};
     const size_t argc = ARRAY_SIZE(argv);
 
     PositionalValue<int> positional("radius", "Neighbourhood radius", true);
@@ -153,8 +143,8 @@ void com::CommandLineArgumentTest::testPositionalValue()
   }
 
   {
-    char c1[4] = { "5.5" };
-    char* const argv[] = { c1 };
+    char c1[4] = {"5.5"};
+    char *const argv[] = {c1};
     const size_t argc = ARRAY_SIZE(argv);
 
     PositionalValue<int> positional("radius", "Neighbourhood radius", true);
@@ -164,8 +154,7 @@ void com::CommandLineArgumentTest::testPositionalValue()
     BOOST_CHECK(positional.canParse(*argv));
     try {
       nrTokensParsed = positional.parse(argc, argv);
-    }
-    catch(com::CommandLineException& exception) {
+    } catch (com::CommandLineException &exception) {
       BOOST_CHECK_EQUAL(exception.size(), (size_t)3);
       BOOST_CHECK_EQUAL(exception[0], "Can not parse value:");
       BOOST_CHECK_EQUAL(exception[1], "5.5");
@@ -175,21 +164,17 @@ void com::CommandLineArgumentTest::testPositionalValue()
   }
 }
 
-
-
 void com::CommandLineArgumentTest::testPositionalList()
 {
-  char c1[4] = { "cmd" };
-  char c2[5] = { "arg1" };
-  char c3[10] = { "file-name" };
-  char c4[3] = { "-f" };
-  char* const argv[] = { c1, c2, c3, c4 };
+  char c1[4] = {"cmd"};
+  char c2[5] = {"arg1"};
+  char c3[10] = {"file-name"};
+  char c4[3] = {"-f"};
+  char *const argv[] = {c1, c2, c3, c4};
   const size_t argc = ARRAY_SIZE(argv);
 
-  PositionalList<std::string> arg1("test argument 1", "Just a test argument",
-                   true);
-  PositionalValue<std::string> arg2("test argument 2", "Just a test argument",
-                   true);
+  PositionalList<std::string> arg1("test argument 1", "Just a test argument", true);
+  PositionalValue<std::string> arg2("test argument 2", "Just a test argument", true);
 
   BOOST_CHECK_EQUAL(arg1.isRequired(), true);
   BOOST_CHECK_EQUAL(arg2.isRequired(), true);
@@ -209,8 +194,8 @@ void com::CommandLineArgumentTest::testPositionalList()
   BOOST_CHECK_EQUAL(arg2.isParsed(), false);
 
   {
-    char c1[4] = { "5.5" };
-    char* const argv[] = { c1 };
+    char c1[4] = {"5.5"};
+    char *const argv[] = {c1};
     const size_t argc = ARRAY_SIZE(argv);
 
     PositionalList<int> positional("value", "Values", true);
@@ -220,8 +205,7 @@ void com::CommandLineArgumentTest::testPositionalList()
     BOOST_CHECK(positional.canParse(*argv));
     try {
       nrTokensParsed = positional.parse(argc, argv);
-    }
-    catch(com::CommandLineException& exception) {
+    } catch (com::CommandLineException &exception) {
       BOOST_CHECK_EQUAL(exception.size(), (size_t)3);
       BOOST_CHECK_EQUAL(exception[0], "Can not parse value:");
       BOOST_CHECK_EQUAL(exception[1], "5.5");
@@ -230,8 +214,6 @@ void com::CommandLineArgumentTest::testPositionalList()
     BOOST_CHECK_EQUAL(positional.isParsed(), false);
   }
 }
-
-
 
 void com::CommandLineArgumentTest::testOption()
 {
@@ -249,11 +231,11 @@ void com::CommandLineArgumentTest::testOption()
   }
 
   {
-    char c1[4] = { "cmd" };
-    char c2[3] = { "-a" };
-    char c3[3] = { "-b" };
-    char c4[3] = { "-c" };
-    char* const argv[] = { c1, c2, c3, c4 };
+    char c1[4] = {"cmd"};
+    char c2[3] = {"-a"};
+    char c3[3] = {"-b"};
+    char c4[3] = {"-c"};
+    char *const argv[] = {c1, c2, c3, c4};
     const size_t argc = ARRAY_SIZE(argv);
 
     Option optionA('a', "aaaa", "just an option", true);
@@ -279,7 +261,7 @@ void com::CommandLineArgumentTest::testOption()
   }
 
   {
-    char * argv[2];
+    char *argv[2];
     argv[0] = new char[4];
     argv[1] = new char[5];
 
@@ -309,22 +291,17 @@ void com::CommandLineArgumentTest::testOption()
     BOOST_CHECK_EQUAL(nrTokensParsed, 1);
     BOOST_CHECK_EQUAL(optionC.isParsed(), true);
 
-    delete [] argv[0];
-    delete [] argv[1];
+    delete[] argv[0];
+    delete[] argv[1];
   }
 }
-
-
 
 void com::CommandLineArgumentTest::testOptionValue()
 {
   {
-    OptionValue<std::string> optionA('a', "aaaa", "an argument",
-           "Just an argument", true);
-    OptionValue<std::string> optionB('b', "bbbb", "an argument",
-           "Just an argument", true);
-    OptionValue<std::string> optionC('c', "cccc", "an argument",
-           "Just an argument", true);
+    OptionValue<std::string> optionA('a', "aaaa", "an argument", "Just an argument", true);
+    OptionValue<std::string> optionB('b', "bbbb", "an argument", "Just an argument", true);
+    OptionValue<std::string> optionC('c', "cccc", "an argument", "Just an argument", true);
 
     BOOST_CHECK_EQUAL(optionA.isRequired(), true);
     BOOST_CHECK_EQUAL(optionB.isRequired(), true);
@@ -335,22 +312,19 @@ void com::CommandLineArgumentTest::testOptionValue()
   }
 
   {
-    char c1[4] = { "cmd" };
-    char c2[3] = { "-a" };
-    char c3[7] = { "valueA" };
-    char c4[3] = { "-b" };
-    char c5[7] = { "valueB" };
-    char c6[3] = { "-c" };
-    char c7[7] = { "valueC" };
-    char* const argv[] = { c1, c2, c3, c4, c5, c6, c7 };
+    char c1[4] = {"cmd"};
+    char c2[3] = {"-a"};
+    char c3[7] = {"valueA"};
+    char c4[3] = {"-b"};
+    char c5[7] = {"valueB"};
+    char c6[3] = {"-c"};
+    char c7[7] = {"valueC"};
+    char *const argv[] = {c1, c2, c3, c4, c5, c6, c7};
     const size_t argc = ARRAY_SIZE(argv);
 
-    OptionValue<std::string> optionA('a', "aaaa", "an argument",
-           "Just an argument", true);
-    OptionValue<std::string> optionB('b', "bbbb", "an argument",
-           "Just an argument", true);
-    OptionValue<std::string> optionC('c', "cccc", "an argument",
-           "Just an argument", true);
+    OptionValue<std::string> optionA('a', "aaaa", "an argument", "Just an argument", true);
+    OptionValue<std::string> optionB('b', "bbbb", "an argument", "Just an argument", true);
+    OptionValue<std::string> optionC('c', "cccc", "an argument", "Just an argument", true);
 
     size_t nrTokensParsed;
 
@@ -374,19 +348,16 @@ void com::CommandLineArgumentTest::testOptionValue()
   }
 
   {
-    char c1[4] = { "cmd" };
-    char c2[9] = { "-avalueA" };
-    char c3[9] = { "-bvalueB" };
-    char c4[9] = { "-cvalueC" };
-    char* const argv[] = { c1, c2, c3, c4 };
+    char c1[4] = {"cmd"};
+    char c2[9] = {"-avalueA"};
+    char c3[9] = {"-bvalueB"};
+    char c4[9] = {"-cvalueC"};
+    char *const argv[] = {c1, c2, c3, c4};
     const size_t argc = ARRAY_SIZE(argv);
 
-    OptionValue<std::string> optionA('a', "aaaa", "an argument",
-           "Just an argument", true);
-    OptionValue<std::string> optionB('b', "bbbb", "an argument",
-           "Just an argument", true);
-    OptionValue<std::string> optionC('c', "cccc", "an argument",
-           "Just an argument", true);
+    OptionValue<std::string> optionA('a', "aaaa", "an argument", "Just an argument", true);
+    OptionValue<std::string> optionB('b', "bbbb", "an argument", "Just an argument", true);
+    OptionValue<std::string> optionC('c', "cccc", "an argument", "Just an argument", true);
 
     size_t nrTokensParsed;
 
@@ -410,17 +381,12 @@ void com::CommandLineArgumentTest::testOptionValue()
   }
 }
 
-
-
 void com::CommandLineArgumentTest::testOptionList()
 {
   {
-    OptionList<std::string> optionA('a', "aaaa", "some arguments",
-           "Just some argument", true);
-    OptionList<std::string> optionB('b', "bbbb", "some arguments",
-           "Just some argument", true);
-    OptionList<std::string> optionC('c', "cccc", "some arguments",
-           "Just some argument", true);
+    OptionList<std::string> optionA('a', "aaaa", "some arguments", "Just some argument", true);
+    OptionList<std::string> optionB('b', "bbbb", "some arguments", "Just some argument", true);
+    OptionList<std::string> optionC('c', "cccc", "some arguments", "Just some argument", true);
 
     BOOST_CHECK_EQUAL(optionA.isRequired(), true);
     BOOST_CHECK_EQUAL(optionB.isRequired(), true);
@@ -431,25 +397,22 @@ void com::CommandLineArgumentTest::testOptionList()
   }
 
   {
-    char c1[4] = { "cmd" };
-    char c2[3] = { "-a" };
-    char c3[8] = { "valueA1" };
-    char c4[8] = { "valueA2" };
-    char c5[8] = { "valueA3" };
-    char c6[3] = { "-b" };
-    char c7[8] = { "valueB1" };
-    char c8[3] = { "-c" };
-    char c9[8] = { "valueC1" };
-    char c10[8] = { "valueC2" };
-    char* const argv[] = { c1, c2, c3, c4, c5, c6, c7, c8, c9, c10 };
+    char c1[4] = {"cmd"};
+    char c2[3] = {"-a"};
+    char c3[8] = {"valueA1"};
+    char c4[8] = {"valueA2"};
+    char c5[8] = {"valueA3"};
+    char c6[3] = {"-b"};
+    char c7[8] = {"valueB1"};
+    char c8[3] = {"-c"};
+    char c9[8] = {"valueC1"};
+    char c10[8] = {"valueC2"};
+    char *const argv[] = {c1, c2, c3, c4, c5, c6, c7, c8, c9, c10};
     const size_t argc = ARRAY_SIZE(argv);
 
-    OptionList<std::string> optionA('a', "aaaa", "some arguments",
-           "Just some argument", true);
-    OptionList<std::string> optionB('b', "bbbb", "some arguments",
-           "Just some argument", true);
-    OptionList<std::string> optionC('c', "cccc", "some arguments",
-           "Just some argument", true);
+    OptionList<std::string> optionA('a', "aaaa", "some arguments", "Just some argument", true);
+    OptionList<std::string> optionB('b', "bbbb", "some arguments", "Just some argument", true);
+    OptionList<std::string> optionC('c', "cccc", "some arguments", "Just some argument", true);
 
     size_t nrTokensParsed;
 
@@ -479,22 +442,19 @@ void com::CommandLineArgumentTest::testOptionList()
   }
 
   {
-    char c1[4] = { "cmd" };
-    char c2[10] = { "-avalueA1" };
-    char c3[8] = { "valueA2" };
-    char c4[8] = { "valueA3" };
-    char c5[10] = { "-bvalueB1" };
-    char c6[10] = { "-cvalueC1" };
-    char c7[8] = { "valueC2" };
-    char* const argv[] = { c1, c2, c3, c4, c5, c6, c7 };
+    char c1[4] = {"cmd"};
+    char c2[10] = {"-avalueA1"};
+    char c3[8] = {"valueA2"};
+    char c4[8] = {"valueA3"};
+    char c5[10] = {"-bvalueB1"};
+    char c6[10] = {"-cvalueC1"};
+    char c7[8] = {"valueC2"};
+    char *const argv[] = {c1, c2, c3, c4, c5, c6, c7};
     const size_t argc = ARRAY_SIZE(argv);
 
-    OptionList<std::string> optionA('a', "aaaa", "some arguments",
-           "Just some argument", true);
-    OptionList<std::string> optionB('b', "bbbb", "some arguments",
-           "Just some argument", true);
-    OptionList<std::string> optionC('c', "cccc", "some arguments",
-           "Just some argument", true);
+    OptionList<std::string> optionA('a', "aaaa", "some arguments", "Just some argument", true);
+    OptionList<std::string> optionB('b', "bbbb", "some arguments", "Just some argument", true);
+    OptionList<std::string> optionC('c', "cccc", "some arguments", "Just some argument", true);
 
     size_t nrTokensParsed;
 
@@ -526,10 +486,9 @@ void com::CommandLineArgumentTest::testOptionList()
 
   {
     char c1[8] = "-a 1,2,";
-    char* const arg = { c1 };
+    char *const arg = {c1};
 
-    OptionList<std::string> optionA('a', "aaaa", "some arguments",
-           "Just some argument", true);
+    OptionList<std::string> optionA('a', "aaaa", "some arguments", "Just some argument", true);
 
     optionA.setSeparator(',');
 
@@ -539,24 +498,21 @@ void com::CommandLineArgumentTest::testOptionList()
     BOOST_CHECK(optionA.canParse(arg));
     try {
       optionA.parse(1, &arg);
-    }
-    catch(com::Exception const& exception) {
+    } catch (com::Exception const &exception) {
       exceptionThrown = true;
       // TODO Check error message, missing value.
     }
     BOOST_WARN(exceptionThrown);
   }
   {
-    char c1[4] = { "cmd" };
-    char c2[14] = { "-a v1, v2, v3" };
-    char c3[12] = { "-b v4,v5,v6" };
-    char* const argv[] = { c1, c2, c3 };
+    char c1[4] = {"cmd"};
+    char c2[14] = {"-a v1, v2, v3"};
+    char c3[12] = {"-b v4,v5,v6"};
+    char *const argv[] = {c1, c2, c3};
     const size_t argc = ARRAY_SIZE(argv);
 
-    OptionList<std::string> optionA('a', "aaaa", "some arguments",
-           "Just some argument", true);
-    OptionList<std::string> optionB('b', "bbbb", "some arguments",
-           "Just some argument", true);
+    OptionList<std::string> optionA('a', "aaaa", "some arguments", "Just some argument", true);
+    OptionList<std::string> optionB('b', "bbbb", "some arguments", "Just some argument", true);
 
     optionA.setSeparator(',');
     optionB.setSeparator(',');
@@ -583,8 +539,6 @@ void com::CommandLineArgumentTest::testOptionList()
   }
 }
 
-
-
 void com::CommandLineArgumentTest::testArgumentSort()
 {
   // Adding arguments also partly sorts them. Options come before the
@@ -595,10 +549,8 @@ void com::CommandLineArgumentTest::testArgumentSort()
   Option optionB('b', "bbbb", "just an option", true);
   Option optionC('c', "cccc", "just an option", true);
 
-  PositionalValue<std::string> positional1("test argument 1",
-         "Just a test argument", true);
-  PositionalValue<std::string> positional2("test argument 2",
-         "Just a test argument", true);
+  PositionalValue<std::string> positional1("test argument 1", "Just a test argument", true);
+  PositionalValue<std::string> positional2("test argument 2", "Just a test argument", true);
 
   CommandLineArguments::const_iterator iterator;
 
@@ -663,15 +615,13 @@ void com::CommandLineArgumentTest::testArgumentSort()
   BOOST_CHECK(*iterator++ == &positional2);
 }
 
-
-
 void com::CommandLineArgumentTest::testRepeatableArgument()
 {
-  char c1[4] = { "cmd" };
-  char c2[5] = { "arg1" };
-  char c3[5] = { "arg2" };
-  char c4[5] = { "arg3" };
-  char* const argv[] = { c1, c2, c3, c4 };
+  char c1[4] = {"cmd"};
+  char c2[5] = {"arg1"};
+  char c3[5] = {"arg2"};
+  char c4[5] = {"arg3"};
+  char *const argv[] = {c1, c2, c3, c4};
   const size_t argc = ARRAY_SIZE(argv);
 
   // This is where the parsed arguments end up.
@@ -679,10 +629,9 @@ void com::CommandLineArgumentTest::testRepeatableArgument()
   typedef std::vector<ArgType> ColType;
 
   ColType arguments;
-  RepeatableArgument<ArgType> repArg(
-                   "repeatable test argument", true,
-                   ArgType("test argument", "Just a test argument", true),
-                   std::back_inserter(arguments));
+  RepeatableArgument<ArgType> repArg("repeatable test argument", true,
+                                     ArgType("test argument", "Just a test argument", true),
+                                     std::back_inserter(arguments));
 
   BOOST_CHECK_EQUAL(repArg.isRequired(), true);
   BOOST_CHECK_EQUAL(repArg.isParsed(), false);
@@ -698,15 +647,13 @@ void com::CommandLineArgumentTest::testRepeatableArgument()
   BOOST_CHECK_EQUAL(arguments[2].value(), "arg3");
 }
 
-
-
 void com::CommandLineArgumentTest::testExclusiveArgument()
 {
-  char c1[4] = { "cmd" };
-  char c2[3] = { "-b" };
-  char c3[5] = { "arg2" };
-  char c4[5] = { "arg3" };
-  char* const argv[] = { c1, c2, c3, c4 };
+  char c1[4] = {"cmd"};
+  char c2[3] = {"-b"};
+  char c3[5] = {"arg2"};
+  char c4[5] = {"arg3"};
+  char *const argv[] = {c1, c2, c3, c4};
   const size_t argc = ARRAY_SIZE(argv);
 
   Option optionA('a', "aaaa", "just an option", true);
@@ -726,18 +673,16 @@ void com::CommandLineArgumentTest::testExclusiveArgument()
   BOOST_CHECK_EQUAL(optionB.isParsed(), true);
 }
 
-
-
 void com::CommandLineArgumentTest::testRepeatableExclusiveArgument()
 {
-  char c1[4] = { "cmd" };
-  char c2[3] = { "-a" };
-  char c3[4] = { "aaa" };
-  char c4[3] = { "-b" };
-  char c5[4] = { "bbb" };
-  char c6[3] = { "-c" };
-  char c7[4] = { "ccc" };
-  char* const argv[] = { c1, c2, c3, c4, c5, c6, c7 };
+  char c1[4] = {"cmd"};
+  char c2[3] = {"-a"};
+  char c3[4] = {"aaa"};
+  char c4[3] = {"-b"};
+  char c5[4] = {"bbb"};
+  char c6[3] = {"-c"};
+  char c7[4] = {"ccc"};
+  char *const argv[] = {c1, c2, c3, c4, c5, c6, c7};
   const size_t argc = ARRAY_SIZE(argv);
 
   // This is where the parsed arguments end up.
@@ -749,13 +694,10 @@ void com::CommandLineArgumentTest::testRepeatableExclusiveArgument()
   ColType argumentsC;
 
   RepeatableExclusiveArgument<ArgType> repExclArg(
-                   "repeatable exclusive test argument", true,
-                   ArgType('a', "bla", "a argument", "Just a a argument", true),
-                   std::back_inserter(argumentsA),
-                   ArgType('b', "bli", "b argument", "Just a b argument", true),
-                   std::back_inserter(argumentsB),
-                   ArgType('c', "blo", "c argument", "Just a c argument", true),
-                   std::back_inserter(argumentsC));
+      "repeatable exclusive test argument", true,
+      ArgType('a', "bla", "a argument", "Just a a argument", true), std::back_inserter(argumentsA),
+      ArgType('b', "bli", "b argument", "Just a b argument", true), std::back_inserter(argumentsB),
+      ArgType('c', "blo", "c argument", "Just a c argument", true), std::back_inserter(argumentsC));
 
   BOOST_CHECK_EQUAL(repExclArg.isRequired(), true);
   BOOST_CHECK_EQUAL(repExclArg.isParsed(), false);
@@ -772,6 +714,3 @@ void com::CommandLineArgumentTest::testRepeatableExclusiveArgument()
   BOOST_CHECK_EQUAL(argumentsC.size(), 1);
   BOOST_CHECK_EQUAL(argumentsC[0].value(), "ccc");
 }
-
-
-

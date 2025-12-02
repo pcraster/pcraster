@@ -10,32 +10,33 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
-namespace pcrxml {
- namespace Private {
-  struct ChildrenByTagName {
-    QString d_tagName;
-    std::vector<QDomElement> d_result;
-    ChildrenByTagName(const QString& tagName):
-       d_tagName(tagName)
-    {
-    }
-    void operator()(const QDomElement& el) {
-      if (el.tagName() == d_tagName)
-        d_result.push_back(el);
-    }
-  };
+namespace pcrxml
+{
+namespace Private
+{
+struct ChildrenByTagName {
+  QString d_tagName;
+  std::vector<QDomElement> d_result;
 
- }
-}
+  ChildrenByTagName(const QString &tagName) : d_tagName(tagName)
+  {
+  }
 
+  void operator()(const QDomElement &el)
+  {
+    if (el.tagName() == d_tagName)
+      d_result.push_back(el);
+  }
+};
+
+}  // namespace Private
+}  // namespace pcrxml
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -52,17 +53,15 @@ namespace pcrxml {
  * \pre     tagName not empty
  * \returns the element found, if not found a null element
  */
-QDomElement pcrxml::firstMatchByTagName(
-    const QDomElement& tree,
-    const QString& tagName)
+QDomElement pcrxml::firstMatchByTagName(const QDomElement &tree, const QString &tagName)
 {
   // find descendant elements
   QDomNodeList const mrsList(tree.elementsByTagName(tagName));
 
   // get first one in preorder traversal
   if (mrsList.count() != 0) {
-        PRECOND(!mrsList.item(0).toElement().isNull());
-        return mrsList.item(0).toElement();
+    PRECOND(!mrsList.item(0).toElement().isNull());
+    return mrsList.item(0).toElement();
   }
 
   return {};
@@ -79,28 +78,24 @@ QDomElement pcrxml::firstMatchByTagName(
  * \returns vector of elements, can be empty if none found
 *  \sa      pcrxml::firstMatchByTagName()
  */
-std::vector<QDomElement>
- pcrxml::matchByTagName(
-    const QDomElement& tree,
-    const QString& tagName)
+std::vector<QDomElement> pcrxml::matchByTagName(const QDomElement &tree, const QString &tagName)
 {
   QDomNodeList const mrsList(tree.elementsByTagName(tagName));
   std::vector<QDomElement> v;
-  for(size_t i=0; i < (size_t)mrsList.count(); i++)
-       v.push_back(mrsList.item(i).toElement());
+  for (size_t i = 0; i < (size_t)mrsList.count(); i++)
+    v.push_back(mrsList.item(i).toElement());
   return v;
 }
 
 /*! return a list of child elements
  */
-std::vector<QDomElement> pcrxml::childElements(
-    const QDomElement& parent)
+std::vector<QDomElement> pcrxml::childElements(const QDomElement &parent)
 {
- QDomNodeList const nodes(parent.childNodes());
+  QDomNodeList const nodes(parent.childNodes());
   std::vector<QDomElement> v;
-  for(size_t i=0; i < (size_t)nodes.count(); i++)
+  for (size_t i = 0; i < (size_t)nodes.count(); i++)
     if (nodes.item(i).isElement())
-       v.push_back(nodes.item(i).toElement());
+      v.push_back(nodes.item(i).toElement());
   return v;
 }
 
@@ -109,16 +104,13 @@ std::vector<QDomElement> pcrxml::childElements(
  * if \a e does not have an attribute with name \a oldName nothing
  * is done.
  */
-void pcrxml::changeAttrName(
-          QDomElement& e,
-    const QString&     oldName,
-    const QString&     newName)
+void pcrxml::changeAttrName(QDomElement &e, const QString &oldName, const QString &newName)
 {
   QString const attrValue = e.attribute(oldName);
   if (attrValue.isNull())
     return;
   e.removeAttribute(oldName);
-  e.setAttribute(newName,attrValue);
+  e.setAttribute(newName, attrValue);
 }
 
 //! \a e is an element with only text (PCDATA)
@@ -130,8 +122,7 @@ void pcrxml::changeAttrName(
  *  code is very equal to
  *    pcrxml::ElementCDATASection::ElementCDATASection(QDomNode n)
  */
-QString pcrxml::textOnlyContents(
-          QDomElement e)
+QString pcrxml::textOnlyContents(QDomElement e)
 {
   e.normalize();
   QDomNodeList const c(e.childNodes());
@@ -149,16 +140,13 @@ QString pcrxml::textOnlyContents(
  * \returns vector of elements, can be empty if none found
 *  \sa      pcrxml::matchByTagName()
  */
-std::vector<QDomElement>
- pcrxml::childrenByTagName(
-    const QDomElement& parent,
-    const QString& tagName)
+std::vector<QDomElement> pcrxml::childrenByTagName(const QDomElement &parent, const QString &tagName)
 {
   PRECOND(!tagName.isEmpty());
 
 
   Private::ChildrenByTagName fo(tagName);
-  forEachChildElement(parent,fo);
+  forEachChildElement(parent, fo);
   return fo.d_result;
 }
 
@@ -169,22 +157,20 @@ std::vector<QDomElement>
  * \pre     tagName not empty
  * \returns the element found, if not found a null element
  */
-QDomElement pcrxml::firstChildByTagName(
-    const QDomElement& parent,
-    const QString& tagName)
+QDomElement pcrxml::firstChildByTagName(const QDomElement &parent, const QString &tagName)
 {
-  std::vector<QDomElement> els(childrenByTagName(parent,tagName));
+  std::vector<QDomElement> els(childrenByTagName(parent, tagName));
   if (els.empty())
-     return {};
+    return {};
   return els[0];
 }
 
 //! stream element contents
-std::ostream& operator<<(std::ostream& stream, const QDomElement& e)
+std::ostream &operator<<(std::ostream &stream, const QDomElement &e)
 {
-        QString      result;
-        QTextStream pr(&result);
-        pr << e << "\n";
-        stream << std::string(result.toLatin1());
-        return stream;
+  QString result;
+  QTextStream pr(&result);
+  pr << e << "\n";
+  stream << std::string(result.toLatin1());
+  return stream;
 }

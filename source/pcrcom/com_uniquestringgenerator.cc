@@ -2,12 +2,10 @@
 #include "com_uniquestringgenerator.h"
 #include "com_strlib.h"
 
-
 /*!
   \file
   This file contains the implementation of the UniqueStringGenerator class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -33,11 +31,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC UNIQUESTRINGGENERATOR MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -57,9 +53,9 @@ com::UniqueStringGenerator::~UniqueStringGenerator()
 //! set the prefix
 /*! generate() create a unique string 
  */
-void com::UniqueStringGenerator::setPrefix(const std::string& prefix)
+void com::UniqueStringGenerator::setPrefix(const std::string &prefix)
 {
-   d_prefix=prefix;
+  d_prefix = prefix;
 }
 
 /*! create an unique string of format prefixNumber
@@ -71,13 +67,13 @@ void com::UniqueStringGenerator::setPrefix(const std::string& prefix)
  */
 std::string com::UniqueStringGenerator::generate()
 {
-   int i=0;
-   std::string n;
-   do {
-         n=d_prefix+com::intToStr(++i);
-   } while (count(n));
-   insert(n);
-   return n;
+  int i = 0;
+  std::string n;
+  do {
+    n = d_prefix + com::intToStr(++i);
+  } while (count(n));
+  insert(n);
+  return n;
 }
 
 //------------------------------------------------------------------------------
@@ -85,10 +81,6 @@ std::string com::UniqueStringGenerator::generate()
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

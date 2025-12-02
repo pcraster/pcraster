@@ -22,7 +22,7 @@ template class fieldapi::ReadWriteData<REAL8, UINT1>;
 template class fieldapi::ReadWriteData<REAL8, INT4>;
 template class fieldapi::ReadWriteData<REAL8, REAL4>;
 
-template class fieldapi::ReadWriteData<INT4,UINT1>;
+template class fieldapi::ReadWriteData<INT4, UINT1>;
 template class fieldapi::ReadWriteData<INT4, INT4>;
 
 template class fieldapi::ReadWriteData<UINT1, UINT1>;
@@ -31,7 +31,7 @@ template class fieldapi::ReadOnlySpatial<REAL8, UINT1>;
 template class fieldapi::ReadOnlySpatial<REAL8, INT4>;
 template class fieldapi::ReadOnlySpatial<REAL8, REAL4>;
 
-template class fieldapi::ReadOnlySpatial<INT4,UINT1>;
+template class fieldapi::ReadOnlySpatial<INT4, UINT1>;
 template class fieldapi::ReadOnlySpatial<INT4, INT4>;
 
 template class fieldapi::ReadOnlySpatial<UINT1, UINT1>;

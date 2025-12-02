@@ -5,7 +5,6 @@
 #include "geo_filterengine.h"
 #include "geo_fractionfilter.h"
 
-
 BOOST_AUTO_TEST_CASE(test)
 {
   using namespace geo;

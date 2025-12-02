@@ -19,12 +19,10 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the CommandLineApp class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -32,31 +30,25 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF COMMANDLINEAPP MEMBERS
 //------------------------------------------------------------------------------
 
 //! ctor
-com::CommandLineApp::CommandLineApp(int argc, char** argv,
-                   const CommandLine& cmdLine, License license)
+com::CommandLineApp::CommandLineApp(int argc, char **argv, const CommandLine &cmdLine, License license)
 
-  : App(argc, argv, cmdLine, license),
-    // d_nrMessagesOnCout(0), d_nrMessagesOnCerr(0),
-    d_quietArg("quiet", "do not print info messages", false)
+    : App(argc, argv, cmdLine, license),
+      // d_nrMessagesOnCout(0), d_nrMessagesOnCerr(0),
+      d_quietArg("quiet", "do not print info messages", false)
 
 {
   addArgument(&d_quietArg, true);
 }
 
-
-
 //! dtor
 com::CommandLineApp::~CommandLineApp()
 {
 }
-
-
 
 //! Returns whether the app should run in quiet mode or not.
 /*!
@@ -69,14 +61,12 @@ bool com::CommandLineApp::quiet() const
   return d_quietArg.isParsed();
 }
 
-
-
 /*!
   \warning   Nothing happens if the app runs in quiet mode.
 */
-void com::CommandLineApp::showInfo(const std::string& msg) const
+void com::CommandLineApp::showInfo(const std::string &msg) const
 {
-  if(!quiet()) {
+  if (!quiet()) {
     /*
     if(d_nrMessagesOnCerr > 0 || d_nrMessagesOnCout > 0) {
       std::cout << std::endl;
@@ -88,9 +78,7 @@ void com::CommandLineApp::showInfo(const std::string& msg) const
   }
 }
 
-
-
-void com::CommandLineApp::showWarning(const std::string& msg) const
+void com::CommandLineApp::showWarning(const std::string &msg) const
 {
   /*
   if(d_nrMessagesOnCerr > 0 || d_nrMessagesOnCout > 0) {
@@ -102,9 +90,7 @@ void com::CommandLineApp::showWarning(const std::string& msg) const
   std::cerr << "warning: " << msg << std::endl;
 }
 
-
-
-void com::CommandLineApp::showError(const std::string& msg) const
+void com::CommandLineApp::showError(const std::string &msg) const
 {
   /*
   if(d_nrMessagesOnCerr > 0 || d_nrMessagesOnCout > 0) {
@@ -116,17 +102,12 @@ void com::CommandLineApp::showError(const std::string& msg) const
   std::cerr << "error: " << msg << std::endl;
 }
 
-
-
-void com::CommandLineApp::showError(Exception::const_iterator begin,
-         Exception::const_iterator end) const
+void com::CommandLineApp::showError(Exception::const_iterator begin, Exception::const_iterator end) const
 {
-  for(Exception::const_iterator it = begin; it != end; ++it) {
+  for (Exception::const_iterator it = begin; it != end; ++it) {
     showError(*it);
   }
 }
-
-
 
 //! Shows the splash message.
 /*!
@@ -135,12 +116,10 @@ void com::CommandLineApp::showError(Exception::const_iterator begin,
 */
 void com::CommandLineApp::showSplash() const
 {
-  if(!d_splash.empty()) {
+  if (!d_splash.empty()) {
     showInfo(d_splash);
   }
 }
-
-
 
 //! Creates a default splash message.
 /*!
@@ -153,12 +132,10 @@ void com::CommandLineApp::createDefaultSplash()
 {
   d_splash = name() + ' ' + version();
 
-  if(!d_developer.empty()) {
+  if (!d_developer.empty()) {
     d_splash += "\n" + d_developer;
   }
 }
-
-
 
 // Sets the splash message to \a splash.
 /*
@@ -173,7 +150,6 @@ void com::CommandLineApp::setSplash(const std::string& splash)
 */
 
 
-
 //! Sets the developer text.
 /*!
   \param     developer Text with name of developer.
@@ -181,22 +157,16 @@ void com::CommandLineApp::setSplash(const std::string& splash)
 
   This string is used in the default splash text.
 */
-void com::CommandLineApp::setDeveloper(const std::string& developer)
+void com::CommandLineApp::setDeveloper(const std::string &developer)
 {
   d_developer = developer;
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

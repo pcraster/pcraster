@@ -13,18 +13,14 @@
 */
 
 
-
 template class com::CountedObject<com::UnOrderedCrossTable>;
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CROSSTABLE MEMBERS
 //------------------------------------------------------------------------------
 
-std::map<size_t, size_t**> com::UnOrderedCrossTable::d_indicesMap;
-
-
+std::map<size_t, size_t **> com::UnOrderedCrossTable::d_indicesMap;
 
 //! Generates a 2D array with indices.
 /*!
@@ -44,22 +40,22 @@ std::map<size_t, size_t**> com::UnOrderedCrossTable::d_indicesMap;
 */
 void com::UnOrderedCrossTable::createIndices(size_t size)
 {
-/*
+  /*
 #ifdef DEBUG_DEVELOP
   PRECOND(d_indicesMap.find(size) == d_indicesMap.end());
 #endif
 */
 
-  if(d_indicesMap.find(size) == d_indicesMap.end()) {
+  if (d_indicesMap.find(size) == d_indicesMap.end()) {
 
-    auto ** indices = new size_t*[size];
+    auto **indices = new size_t *[size];
 
-    for(size_t i = 0; i < size; ++i) {
+    for (size_t i = 0; i < size; ++i) {
       indices[i] = new size_t[size];
     }
 
-    for(size_t r = 0; r < size; ++r) {
-      for(size_t c = 0; c < size; ++c) {
+    for (size_t r = 0; r < size; ++r) {
+      for (size_t c = 0; c < size; ++c) {
         indices[r][c] = calculateIndex(size, r, c);
       }
     }
@@ -70,8 +66,6 @@ void com::UnOrderedCrossTable::createIndices(size_t size)
   }
 }
 
-
-
 //! Calculates an index into a 1D array from indices of a 2D array.
 /*!
   \param     size Size/dimension of 2D array.
@@ -79,27 +73,24 @@ void com::UnOrderedCrossTable::createIndices(size_t size)
   \param     col Column index.
   \return    Index.
 */
-size_t com::UnOrderedCrossTable::calculateIndex(size_t size, size_t row,
-                   size_t col)
+size_t com::UnOrderedCrossTable::calculateIndex(size_t size, size_t row, size_t col)
 {
 #ifdef DEBUG_DEVELOP
   PRECOND(row < size && col < size);
 #endif
 
-  if(row > col) {
+  if (row > col) {
     std::swap(row, col);
   }
 
   size_t const i1 = row * size + col;
   size_t const i2 = i1 / size;
   size_t i3 = 0;
-  for(size_t i = 1; i <= i2; ++i) {
+  for (size_t i = 1; i <= i2; ++i) {
     i3 += i;
   }
   return i1 - i3;
 }
-
-
 
 //! Looks up an index into a 1D array from indices of a 2D array.
 /*!
@@ -118,8 +109,6 @@ size_t com::UnOrderedCrossTable::index(size_t size, size_t row, size_t col)
   return d_indicesMap[size][row][col];
 }
 
-
-
 //! Calculates the length of the array needed to store all values.
 /*!
   \param     size Size of matrix.
@@ -132,8 +121,6 @@ inline size_t com::UnOrderedCrossTable::length(size_t size) const
   return size * size - (size * size - size) / 2;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF CROSSTABLE MEMBERS
 //------------------------------------------------------------------------------
@@ -144,8 +131,8 @@ inline size_t com::UnOrderedCrossTable::length(size_t size) const
 */
 com::UnOrderedCrossTable::UnOrderedCrossTable(size_t size)
 
-  : CountedObject<UnOrderedCrossTable>(),
-    d_size(size), d_length(length(size)), d_cells(new size_t[d_length])
+    : CountedObject<UnOrderedCrossTable>(), d_size(size), d_length(length(size)),
+      d_cells(new size_t[d_length])
 
 {
   std::fill(d_cells, d_cells + d_length, 0);
@@ -159,23 +146,18 @@ com::UnOrderedCrossTable::UnOrderedCrossTable(size_t size)
   d_indices = d_indicesMap[size];
 }
 
-
-
 //! Copy constructor.
 /*!
   \param     aTable Cross table to copy from.
 */
-com::UnOrderedCrossTable::UnOrderedCrossTable(const UnOrderedCrossTable& aTable)
+com::UnOrderedCrossTable::UnOrderedCrossTable(const UnOrderedCrossTable &aTable)
 
-  : CountedObject<UnOrderedCrossTable>(),
-    d_size(aTable.d_size), d_length(aTable.d_length),
-    d_cells(new size_t[d_length]), d_indices(aTable.d_indices)
+    : CountedObject<UnOrderedCrossTable>(), d_size(aTable.d_size), d_length(aTable.d_length),
+      d_cells(new size_t[d_length]), d_indices(aTable.d_indices)
 
 {
   std::copy(aTable.d_cells, aTable.d_cells + d_length, d_cells);
 }
-
-
 
 //! Destructor.
 /*!
@@ -184,13 +166,13 @@ com::UnOrderedCrossTable::~UnOrderedCrossTable()
 {
   delete[] d_cells;
 
-  if(nrObjectsCreated() == 1) {
-    for(auto & it : d_indicesMap) {
+  if (nrObjectsCreated() == 1) {
+    for (auto &it : d_indicesMap) {
 
       size_t const size = it.first;
-      size_t** indices = it.second;
+      size_t **indices = it.second;
 
-      for(size_t i = 0; i < size; ++i) {
+      for (size_t i = 0; i < size; ++i) {
         delete[] indices[i];
       }
 
@@ -201,8 +183,6 @@ com::UnOrderedCrossTable::~UnOrderedCrossTable()
   }
 }
 
-
-
 //! Assignment operator.
 /*!
   \param     aTable Cross table to assign from.
@@ -210,21 +190,18 @@ com::UnOrderedCrossTable::~UnOrderedCrossTable()
   \exception .
   \warning   The dimension of \a aTable must match the dimension of *this.
 */
-com::UnOrderedCrossTable& com::UnOrderedCrossTable::operator=(
-                   const UnOrderedCrossTable& aTable)
+com::UnOrderedCrossTable &com::UnOrderedCrossTable::operator=(const UnOrderedCrossTable &aTable)
 {
 #ifdef DEBUG_DEVELOP
   PRECOND(d_size == aTable.d_size);
 #endif
 
-  if(this != &aTable) {
+  if (this != &aTable) {
     std::copy(aTable.d_cells, aTable.d_cells + d_length, d_cells);
   }
 
   return *this;
 }
-
-
 
 //! Returns the number of cells in the cross table.
 /*!
@@ -236,8 +213,6 @@ size_t com::UnOrderedCrossTable::nrCells() const
   return d_size * d_size;
 }
 
-
-
 //! Returns the size/dimension of the cross table.
 /*!
   \return    Size.
@@ -248,8 +223,6 @@ size_t com::UnOrderedCrossTable::size() const
   return d_size;
 }
 
-
-
 //! Returns a pointer to the first cell.
 /*!
   \return    Pointer to first cell.
@@ -257,12 +230,10 @@ size_t com::UnOrderedCrossTable::size() const
              pointer.
   \sa        begin(), end()
 */
-const size_t* com::UnOrderedCrossTable::cells() const
+const size_t *com::UnOrderedCrossTable::cells() const
 {
   return d_cells;
 }
-
-
 
 //! Returns an iterator to the first cell.
 /*!
@@ -276,8 +247,6 @@ com::UnOrderedCrossTable::iterator com::UnOrderedCrossTable::begin()
   return d_cells;
 }
 
-
-
 //! Returns an iterator to the one-past-the-last cell.
 /*!
   \return    iterator.
@@ -290,8 +259,6 @@ com::UnOrderedCrossTable::iterator com::UnOrderedCrossTable::end()
   return d_cells + d_length;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
@@ -302,11 +269,10 @@ com::UnOrderedCrossTable::iterator com::UnOrderedCrossTable::end()
   \param     table Table to write.
   \return    The output stream.
 */
-std::ostream& com::operator<<(std::ostream& stream,
-                   const UnOrderedCrossTable& table)
+std::ostream &com::operator<<(std::ostream &stream, const UnOrderedCrossTable &table)
 {
-  for(size_t r = 0; r < table.size(); ++r) {
-    for(size_t c = r; c < table.size() - 1; ++c) {
+  for (size_t r = 0; r < table.size(); ++r) {
+    for (size_t c = r; c < table.size() - 1; ++c) {
       stream << table.cell(r, c) << ' ';
     }
 
@@ -315,8 +281,6 @@ std::ostream& com::operator<<(std::ostream& stream,
 
   return stream;
 }
-
-
 
 //! Read a table from a stream.
 /*!
@@ -327,23 +291,18 @@ std::ostream& com::operator<<(std::ostream& stream,
   \warning   \a table must have the right size for the table in \a stream.
   \bug       Don't skip the newline. Check if the right amount of information is present on each line.
 */
-std::istream& com::operator>>(std::istream& stream, UnOrderedCrossTable& table)
+std::istream &com::operator>>(std::istream &stream, UnOrderedCrossTable &table)
 {
-  for(size_t i = 0; i < table.d_length; ++i) {
+  for (size_t i = 0; i < table.d_length; ++i) {
     stream >> table.d_cells[i];
   }
 
-  if(!stream)
+  if (!stream)
     throw com::Exception("Cell value: Wrong format");
 
   return stream;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

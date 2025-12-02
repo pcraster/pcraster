@@ -21,25 +21,21 @@
 // DEFINITION OF STATIC DOCUMENT MEMBERS
 //------------------------------------------------------------------------------
 
-namespace pcrxml {
-//! create with empty Document Element
-static Document createEmptyDocElPcrDocument(
-    QString const& docElName)
+namespace pcrxml
 {
- QDomImplementation i;
- Document doc(i.createDocument(
-     "http://www.pcraster.nl/xml",
-     docElName,
-     i.createDocumentType(
-      docElName,
-      "-//PCRaster//Generic" ,
-      "pcraster.dtd")));
- QDomNode const decl=doc.createProcessingInstruction("xml",
-     "version='1.0' encoding='ISO-8859-1' standalone='yes'");
- doc.insertBefore(decl,doc.firstChild());
- return doc;
+//! create with empty Document Element
+static Document createEmptyDocElPcrDocument(QString const &docElName)
+{
+  QDomImplementation i;
+  Document doc(
+      i.createDocument("http://www.pcraster.nl/xml", docElName,
+                       i.createDocumentType(docElName, "-//PCRaster//Generic", "pcraster.dtd")));
+  QDomNode const decl =
+      doc.createProcessingInstruction("xml", "version='1.0' encoding='ISO-8859-1' standalone='yes'");
+  doc.insertBefore(decl, doc.firstChild());
+  return doc;
 }
-}
+}  // namespace pcrxml
 
 //! create Document with PCRaster stuff
 /*!
@@ -48,11 +44,10 @@ static Document createEmptyDocElPcrDocument(
  * Both the DOCTYPE and xmlns attribute are set to support PCRaster.
  * Recognition of the type of contents is done on base of finding a '<'-character, e.g. start of element.
  */
-pcrxml::Document pcrxml::createPcrDocument(
-    const std::string& contents)
+pcrxml::Document pcrxml::createPcrDocument(const std::string &contents)
 {
   if (contents.find('<') == std::string::npos) {
-   return createEmptyDocElPcrDocument(QString(contents.c_str()));
+    return createEmptyDocElPcrDocument(QString(contents.c_str()));
   }
   Document contentsDoc;
 
@@ -67,21 +62,20 @@ pcrxml::Document pcrxml::createPcrDocument(
   QDomElement const docEl(contentsDoc.documentElement());
   Document doc(createEmptyDocElPcrDocument(docEl.tagName()));
   QDomNamedNodeMap const attrs(docEl.attributes());
-  for(size_t i=0; std::cmp_less(i , attrs.length()); ++i) {
-    QDomAttr const a=doc.importNode(attrs.item(i),true).toAttr();
-    if (a.nodeName()!="xmlns") // seems xmlns is not as an attribute recognized
-     if (!doc.documentElement().hasAttribute(a.nodeName())) {
-       doc.documentElement().setAttributeNode(a);
-     }
+  for (size_t i = 0; std::cmp_less(i, attrs.length()); ++i) {
+    QDomAttr const a = doc.importNode(attrs.item(i), true).toAttr();
+    if (a.nodeName() != "xmlns")  // seems xmlns is not as an attribute recognized
+      if (!doc.documentElement().hasAttribute(a.nodeName())) {
+        doc.documentElement().setAttributeNode(a);
+      }
   }
   QDomNodeList const dnl(docEl.childNodes());
-  for(size_t i=0; std::cmp_less(i , dnl.length()); ++i) {
-      QDomNode const n(doc.importNode(dnl.item(i),true));
-      doc.documentElement().appendChild(n);
+  for (size_t i = 0; std::cmp_less(i, dnl.length()); ++i) {
+    QDomNode const n(doc.importNode(dnl.item(i), true));
+    doc.documentElement().appendChild(n);
   }
   return doc;
 }
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF DOCUMENT MEMBERS
@@ -94,22 +88,22 @@ pcrxml::Document pcrxml::createPcrDocument(
    \todo
     I guess it is sensible to check here that the HAS a documentElement
  */
-void pcrxml::Document::initFromStr(const QString&       content)
+void pcrxml::Document::initFromStr(const QString &content)
 {
-   QString errMsg;
+  QString errMsg;
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
-   ParseResult const success = setContent(content, ParseOption::Default);
-   errMsg = success.errorMessage;
+  ParseResult const success = setContent(content, ParseOption::Default);
+  errMsg = success.errorMessage;
 #else
-   bool success = setContent(content,false,&errMsg);
+  bool success = setContent(content, false, &errMsg);
 #endif
 
-   if (!success) {
-     QByteArray const asciiData = errMsg.toLatin1();
-     const char *goodData = asciiData.constData();
-     throw com::BadStreamFormat(goodData);
-     }
+  if (!success) {
+    QByteArray const asciiData = errMsg.toLatin1();
+    const char *goodData = asciiData.constData();
+    throw com::BadStreamFormat(goodData);
+  }
 }
 
 //! Create Dom document from a string (in memory)
@@ -117,13 +111,12 @@ void pcrxml::Document::initFromStr(const QString&       content)
    \throws
       com::BadStreamFormat if xml is not valid
  */
-pcrxml::Document::Document(const QString&       content)
+pcrxml::Document::Document(const QString &content)
 {
   initFromStr(content);
 }
 
-pcrxml::Document::Document(const QDomDocument& doc):
-  QDomDocument(doc)
+pcrxml::Document::Document(const QDomDocument &doc) : QDomDocument(doc)
 {
 }
 
@@ -132,7 +125,7 @@ pcrxml::Document::Document()
 }
 
 //! Identical to pcrxml::Document::Document(const QString& content)
-pcrxml::Document::Document(const char*content)
+pcrxml::Document::Document(const char *content)
 {
   initFromStr(content);
 }
@@ -147,7 +140,7 @@ pcrxml::Document::Document(const char*content)
    \todo
     can do line and column numbers on error msg
 */
-pcrxml::Document::Document(const com::PathName& file)
+pcrxml::Document::Document(const com::PathName &file)
 {
   com::PathInfo(file).testOpenForReading();
   QFile f(QString(file.toString().c_str()));
@@ -156,30 +149,30 @@ pcrxml::Document::Document(const com::PathName& file)
   // but it does not:
   //  POSTCOND(success);
   if (!success)
-    throw com::OpenFileError(file.toString(),com::E_ACCESREAD);
+    throw com::OpenFileError(file.toString(), com::E_ACCESREAD);
 
   QString errMsg;
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
-   ParseResult const parse_success = setContent(&f, ParseOption::Default);
-   errMsg = parse_success.errorMessage;
+  ParseResult const parse_success = setContent(&f, ParseOption::Default);
+  errMsg = parse_success.errorMessage;
 #else
-   bool parse_success = setContent(&f,false,&errMsg);
+  bool parse_success = setContent(&f, false, &errMsg);
 #endif
 
   if (!parse_success) {
-     QByteArray const asciiData = errMsg.toLatin1();
-     const char *goodData = asciiData.constData();
-     throw com::BadStreamFormat(goodData);
+    QByteArray const asciiData = errMsg.toLatin1();
+    const char *goodData = asciiData.constData();
+    throw com::BadStreamFormat(goodData);
   }
-  POSTCOND(parse_success); // if nothing thrown then ok here
+  POSTCOND(parse_success);  // if nothing thrown then ok here
 }
 
 //! a wrapper on QDomDocument::toString()
-void pcrxml::Document::write(const com::PathName& file) const
+void pcrxml::Document::write(const com::PathName &file) const
 {
   com::PathInfo(file).testOpenForWriting();
-  com::write(toStdString(),file);
+  com::write(toStdString(), file);
 }
 
 //! a wrapper on QDomDocument::toString()
@@ -188,12 +181,12 @@ void pcrxml::Document::write(const com::PathName& file) const
  */
 std::string pcrxml::Document::toStdString() const
 {
- return contentsAsString(*this);
+  return contentsAsString(*this);
 }
 
-std::string  pcrxml::contentsAsString( QDomDocument const& doc)
+std::string pcrxml::contentsAsString(QDomDocument const &doc)
 {
- return std::string(doc.toString().toLatin1());
+  return std::string(doc.toString().toLatin1());
 }
 
 //! dtor
@@ -215,8 +208,7 @@ pcrxml::Document::~Document()
  * \pre     tagName not empty
  * \returns the element found, if not found a null element
  */
-QDomElement pcrxml::Document::firstMatchByTagName(
-    const QString& tagName) const
+QDomElement pcrxml::Document::firstMatchByTagName(const QString &tagName) const
 {
   PRECOND(!tagName.isEmpty());
 
@@ -225,24 +217,16 @@ QDomElement pcrxml::Document::firstMatchByTagName(
   // QDomElement::elementsByTagName only return descendant elements!
   // not the element if the element itself matches
   if (de.tagName() == tagName)
-          return de;
+    return de;
 
   return pcrxml::firstMatchByTagName(de, tagName);
 }
-
-
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

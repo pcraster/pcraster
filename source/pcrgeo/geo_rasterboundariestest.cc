@@ -3,7 +3,6 @@
 #define private public
 #include "geo_rasterboundaries.h"
 
-
 BOOST_AUTO_TEST_CASE(index_left)
 {
   using namespace geo;
@@ -16,7 +15,6 @@ BOOST_AUTO_TEST_CASE(index_left)
   BOOST_CHECK(boundaries.indexLeft(2, 0) == 12);
   BOOST_CHECK(boundaries.indexLeft(2, 1) == 13);
 }
-
 
 BOOST_AUTO_TEST_CASE(index_top)
 {
@@ -31,7 +29,6 @@ BOOST_AUTO_TEST_CASE(index_top)
   BOOST_CHECK(boundaries.indexTop(2, 1) == 11);
 }
 
-
 BOOST_AUTO_TEST_CASE(index_right)
 {
   using namespace geo;
@@ -45,7 +42,6 @@ BOOST_AUTO_TEST_CASE(index_right)
   BOOST_CHECK(boundaries.indexRight(2, 1) == 14);
 }
 
-
 BOOST_AUTO_TEST_CASE(index_bottom)
 {
   using namespace geo;
@@ -58,7 +54,6 @@ BOOST_AUTO_TEST_CASE(index_bottom)
   BOOST_CHECK(boundaries.indexBottom(2, 0) == 15);
   BOOST_CHECK(boundaries.indexBottom(2, 1) == 16);
 }
-
 
 BOOST_AUTO_TEST_CASE(boundaries)
 {

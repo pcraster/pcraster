@@ -29,7 +29,6 @@
 
 #include <memory>
 
-
 /*!
   \file
   This file contains the implementation of the ArgumentParserTest class.
@@ -42,9 +41,9 @@
 //------------------------------------------------------------------------------
 
 //! suite
-boost::unit_test::test_suite*com::ArgumentParserTest::suite()
+boost::unit_test::test_suite *com::ArgumentParserTest::suite()
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
+  boost::unit_test::test_suite *suite = BOOST_TEST_SUITE(__FILE__);
   std::shared_ptr<ArgumentParserTest> instance(new ArgumentParserTest());
 
   suite->add(BOOST_CLASS_TEST_CASE(&ArgumentParserTest::testString, instance));
@@ -55,8 +54,6 @@ boost::unit_test::test_suite*com::ArgumentParserTest::suite()
   return suite;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF ARGUMENTPARSER MEMBERS
 //------------------------------------------------------------------------------
@@ -66,21 +63,15 @@ com::ArgumentParserTest::ArgumentParserTest()
 {
 }
 
-
-
 //! setUp
 void com::ArgumentParserTest::setUp()
 {
 }
 
-
-
 //! tearDown
 void com::ArgumentParserTest::tearDown()
 {
 }
-
-
 
 void com::ArgumentParserTest::testString()
 {
@@ -107,8 +98,6 @@ void com::ArgumentParserTest::testString()
   BOOST_CHECK(parser.length() == 3);
   BOOST_CHECK(parser.full());
 }
-
-
 
 void com::ArgumentParserTest::testSize_t()
 {
@@ -145,8 +134,6 @@ void com::ArgumentParserTest::testSize_t()
   BOOST_CHECK(parser.length() == 1);
   BOOST_CHECK(!parser.full());
 }
-
-
 
 void com::ArgumentParserTest::testInt()
 {
@@ -186,8 +173,6 @@ void com::ArgumentParserTest::testInt()
   BOOST_CHECK(!parser.full());
 }
 
-
-
 void com::ArgumentParserTest::testDouble()
 {
   ArgumentParser<double> parser;
@@ -225,4 +210,3 @@ void com::ArgumentParserTest::testDouble()
   BOOST_CHECK(parser.length() == 3);
   BOOST_CHECK(parser.full());
 }
-

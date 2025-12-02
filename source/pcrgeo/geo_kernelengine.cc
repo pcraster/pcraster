@@ -15,18 +15,15 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the KernelEngine class.
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC KERNELENGINE MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -43,12 +40,12 @@
              the back of the source raster. There must be enough space in the
              source raster for the kernel to operate on.
 */
-template<class T, class U, class V>
-geo::KernelEngine<T, U, V>::KernelEngine(KernelSourceBuffer<T, U>& sourceBuffer,
-                   SimpleRaster<V>& targetRaster, Kernel<U, V>& kernel)
+template <class T, class U, class V>
+geo::KernelEngine<T, U, V>::KernelEngine(KernelSourceBuffer<T, U> &sourceBuffer,
+                                         SimpleRaster<V> &targetRaster, Kernel<U, V> &kernel)
 
-  : com::LabeledProgressTracked<com::ProgressBar>(), 
-    d_sourceBuffer(sourceBuffer), d_targetRaster(targetRaster), d_kernel(kernel)
+    : com::LabeledProgressTracked<com::ProgressBar>(), d_sourceBuffer(sourceBuffer),
+      d_targetRaster(targetRaster), d_kernel(kernel)
 
 {
   PRECOND(sourceBuffer.row() == sourceBuffer.border() + d_kernel.radius());
@@ -64,57 +61,44 @@ geo::KernelEngine<T, U, V>::KernelEngine(KernelSourceBuffer<T, U>& sourceBuffer,
 
   V borderValue = d_kernel.borderCellValue();
 
-  for(size_t b = 0; b < sourceBuffer.border() + d_kernel.radius(); ++b) {
+  for (size_t b = 0; b < sourceBuffer.border() + d_kernel.radius(); ++b) {
 
     // Top and bottom row(s).
-    for(size_t c = 0; c < targetRaster.nrCols(); ++c) {
+    for (size_t c = 0; c < targetRaster.nrCols(); ++c) {
       targetRaster.cell(0 + b, c) = borderValue;
       targetRaster.cell(targetRaster.nrRows() - 1 - b, c) = borderValue;
     }
 
     // Left and right col(s).
-    for(size_t r = 0; r < targetRaster.nrRows(); ++r) {
+    for (size_t r = 0; r < targetRaster.nrRows(); ++r) {
       targetRaster.cell(r, 0 + b) = borderValue;
       targetRaster.cell(r, targetRaster.nrCols() - 1 - b) = borderValue;
     }
   }
 }
 
-
-
 //! Destructor.
 /*!
 */
-template<class T, class U, class V>
-geo::KernelEngine<T, U, V>::~KernelEngine()
+template <class T, class U, class V> geo::KernelEngine<T, U, V>::~KernelEngine()
 {
 }
 
-
-
-template<class T, class U, class V>
-geo::KernelSourceBuffer<T, U>& geo::KernelEngine<T, U, V>::sourceBuffer()
+template <class T, class U, class V>
+geo::KernelSourceBuffer<T, U> &geo::KernelEngine<T, U, V>::sourceBuffer()
 {
   return d_sourceBuffer;
 }
 
-
-
-template<class T, class U, class V>
-geo::SimpleRaster<V>& geo::KernelEngine<T, U, V>::targetRaster()
+template <class T, class U, class V> geo::SimpleRaster<V> &geo::KernelEngine<T, U, V>::targetRaster()
 {
   return d_targetRaster;
 }
 
-
-
-template<class T, class U, class V>
-const geo::Kernel<U, V>& geo::KernelEngine<T, U, V>::kernel() const
+template <class T, class U, class V> const geo::Kernel<U, V> &geo::KernelEngine<T, U, V>::kernel() const
 {
   return d_kernel;
 }
-
-
 
 //! Operates the kernel on the values in the source buffer.
 /*!
@@ -125,48 +109,37 @@ const geo::Kernel<U, V>& geo::KernelEngine<T, U, V>::kernel() const
   Since this function can take a long time to finish it notifies finished
   actions to the com::ProgressTracked base.
 */
-template<class T, class U, class V>
-void geo::KernelEngine<T, U, V>::run()
+template <class T, class U, class V> void geo::KernelEngine<T, U, V>::run()
 {
 
-  com::ProgressTracked<com::LabeledProgressTracker<com::ProgressBar> >::
-         init(d_sourceBuffer.nrRowsToProcess());
+  com::ProgressTracked<com::LabeledProgressTracker<com::ProgressBar>>::init(
+      d_sourceBuffer.nrRowsToProcess());
 
   // Buffer is already filled with values of the back of the raster.
-  for(size_t i = d_kernel.radius();
-                   i < d_kernel.raster().nrCols() - d_kernel.radius();
-                   ++i) {
+  for (size_t i = d_kernel.radius(); i < d_kernel.raster().nrCols() - d_kernel.radius(); ++i) {
     d_targetRaster.cell(d_sourceBuffer.row(), d_sourceBuffer.border() + i) =
-                   d_kernel.process(d_kernel.radius(), i);
+        d_kernel.process(d_kernel.radius(), i);
   }
 
   finishedStep();
 
   // Move buffer to the front.
-  while(d_sourceBuffer.advanceRow()) {
+  while (d_sourceBuffer.advanceRow()) {
 
-    for(size_t i = d_kernel.radius();
-                   i < d_kernel.raster().nrCols() - d_kernel.radius();
-                   ++i) {
+    for (size_t i = d_kernel.radius(); i < d_kernel.raster().nrCols() - d_kernel.radius(); ++i) {
       d_targetRaster.cell(d_sourceBuffer.row(), d_sourceBuffer.border() + i) =
-                   d_kernel.process(d_kernel.radius(), i);
+          d_kernel.process(d_kernel.radius(), i);
     }
 
     finishedStep();
   }
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

@@ -15,12 +15,10 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the ReadOnly class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -28,42 +26,32 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF READONLY MEMBERS
 //------------------------------------------------------------------------------
 
 //! ctor
-template<class UseAsT>
- fieldapi::ReadOnly<UseAsT>::ReadOnly(
-       size_t nrRows,size_t nrCols):
-  Common(nrRows,nrCols)
+template <class UseAsT>
+fieldapi::ReadOnly<UseAsT>::ReadOnly(size_t nrRows, size_t nrCols) : Common(nrRows, nrCols)
 {
 }
 
 //! dtor
-template<class UseAsT>
- fieldapi::ReadOnly<UseAsT>::~ReadOnly()
+template <class UseAsT> fieldapi::ReadOnly<UseAsT>::~ReadOnly()
 {
 }
 
-template<class UseAsT>
-  bool fieldapi::ReadOnly<UseAsT>::isMV(const geo::CellLoc& l) const
+template <class UseAsT> bool fieldapi::ReadOnly<UseAsT>::isMV(const geo::CellLoc &l) const
 {
   UseAsT v;
-  return !get(v,l);
+  return !get(v, l);
 }
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

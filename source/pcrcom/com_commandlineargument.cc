@@ -38,12 +38,10 @@
 #endif
 
 
-
 /*!
   \file
   This file contains the implementation of the CommandLineArgument class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -56,12 +54,10 @@
 
   A token is a value or an option.
 */
-bool com::CommandLineArgument::isValue(const char* token)
+bool com::CommandLineArgument::isValue(const char *token)
 {
   return !isOption(token);
 }
-
-
 
 //! Returns true if \a token can be considered as an option.
 /*!
@@ -75,12 +71,10 @@ bool com::CommandLineArgument::isValue(const char* token)
   A token is an option if isShortOption(const char*) or
   isLongOption(const char*) returns true.
 */
-bool com::CommandLineArgument::isOption(const char* token)
+bool com::CommandLineArgument::isOption(const char *token)
 {
   return isShortOption(token) || isLongOption(token);
 }
-
-
 
 //! Returns true if \a token is an option character.
 /*!
@@ -91,12 +85,10 @@ bool com::CommandLineArgument::isOption(const char* token)
   An option character is a character prepended by '-'. For example, given the
   option '-v', the option character is 'v'.
 */
-bool com::CommandLineArgument::isShortOption(const char* token)
+bool com::CommandLineArgument::isShortOption(const char *token)
 {
   return std::strlen(token) >= 2 && token[0] == '-' && token[1] != '-';
 }
-
-
 
 //! Returns true if \a token is an option name.
 /*!
@@ -108,13 +100,10 @@ bool com::CommandLineArgument::isShortOption(const char* token)
   '--verbose', the option name is 'verbose'. The option name must have more
   than one character.
 */
-bool com::CommandLineArgument::isLongOption(const char* token)
+bool com::CommandLineArgument::isLongOption(const char *token)
 {
-  return std::strlen(token) > 2 && token[0] == '-' && token[1] == '-' &&
-                   token[2] != '-';
+  return std::strlen(token) > 2 && token[0] == '-' && token[1] == '-' && token[2] != '-';
 }
-
-
 
 //! Returns the option shortOption if matched, else '\0'.
 /*!
@@ -122,12 +111,10 @@ bool com::CommandLineArgument::isLongOption(const char* token)
   \return    Option character or '\0'.
   \sa        determineLongOption(const char*)
 */
-char com::CommandLineArgument::determineShortOption(const char* token)
+char com::CommandLineArgument::determineShortOption(const char *token)
 {
   return isShortOption(token) ? token[1] : '\0';
 }
-
-
 
 //! Returns the option name if matched, else 0.
 /*!
@@ -135,28 +122,23 @@ char com::CommandLineArgument::determineShortOption(const char* token)
   \return    Option name or 0.
   \sa        determineShortOption(const char*)
 */
-const char* com::CommandLineArgument::determineLongOption(const char* token)
+const char *com::CommandLineArgument::determineLongOption(const char *token)
 {
   return isLongOption(token) ? token + 2 : 0;
 }
 
-
-
-void com::CommandLineArgument::throwCanNotParseValueException(
-         std::string const& argument, size_t length)
+void com::CommandLineArgument::throwCanNotParseValueException(std::string const &argument, size_t length)
 {
   std::ostringstream stream;
   com::CommandLineException exception("Can not parse value:");
   exception.append(argument);
-  for(size_t i = 0; i < length; ++i) {
+  for (size_t i = 0; i < length; ++i) {
     stream << '-';
   }
   stream << '^';
   exception.append(stream.str());
   throw exception;
 }
-
-
 
 //------------------------------------------------------------------------------
 
@@ -165,15 +147,12 @@ void com::CommandLineArgument::throwCanNotParseValueException(
   \param     description Description of the argument.
   \param     isRequired Some arguments are optional, others are required.
 */
-com::CommandLineArgument::CommandLineArgument(const std::string& description,
-                   bool isRequired)
+com::CommandLineArgument::CommandLineArgument(const std::string &description, bool isRequired)
 
-  : d_description(description), d_required(isRequired)
+    : d_description(description), d_required(isRequired)
 
 {
 }
-
-
 
 //! Destructor.
 /*!
@@ -181,8 +160,6 @@ com::CommandLineArgument::CommandLineArgument(const std::string& description,
 com::CommandLineArgument::~CommandLineArgument()
 {
 }
-
-
 
 //! Returns true if the argument is required.
 /*!
@@ -195,20 +172,16 @@ bool com::CommandLineArgument::isRequired() const
   return d_required;
 }
 
-
-
 //! Returns the description of the argument.
 /*!
   \return    Description.
 
   Each command line argument has a description.
 */
-const std::string& com::CommandLineArgument::description() const
+const std::string &com::CommandLineArgument::description() const
 {
   return d_description;
 }
-
-
 
 //! Returns true if the argument is a positional argument.
 /*!
@@ -220,8 +193,6 @@ bool com::CommandLineArgument::isPositional() const
 {
   return false;
 }
-
-
 
 //! Returns true if the argument can parse \a token.
 /*!
@@ -236,12 +207,10 @@ bool com::CommandLineArgument::isPositional() const
   This function returns false if a token has already been parsed by the
   object: no argument can parse tokens more than once.
 */
-bool com::CommandLineArgument::canParse(const char* /* token */) const
+bool com::CommandLineArgument::canParse(const char * /* token */) const
 {
   return false;
 }
-
-
 
 //! Checks the argument.
 /*!
@@ -251,7 +220,7 @@ bool com::CommandLineArgument::canParse(const char* /* token */) const
 */
 void com::CommandLineArgument::check() const
 {
-  if(isRequired() && !isParsed()) {
+  if (isRequired() && !isParsed()) {
     // At least one argument is missing from the command line.
     std::ostringstream stream;
     stream << "Not enough arguments: Argument '";
@@ -261,8 +230,6 @@ void com::CommandLineArgument::check() const
   }
 }
 
-
-
 //------------------------------------------------------------------------------
 
 //! Constructor.
@@ -270,14 +237,12 @@ void com::CommandLineArgument::check() const
   \param     description Description of the positional
   \param     isRequired Whether the argument is required or not.
 */
-com::Positional::Positional(const std::string& description, bool isRequired)
+com::Positional::Positional(const std::string &description, bool isRequired)
 
-  : CommandLineArgument(description, isRequired)
+    : CommandLineArgument(description, isRequired)
 
 {
 }
-
-
 
 //! Destructor.
 /*!
@@ -286,21 +251,15 @@ com::Positional::~Positional()
 {
 }
 
-
-
 bool com::Positional::isPositional() const
 {
   return true;
 }
 
-
-
-bool com::Positional::canParse(const char* token) const
+bool com::Positional::canParse(const char *token) const
 {
   return !isParsed() && isValue(token);
 }
-
-
 
 //------------------------------------------------------------------------------
 
@@ -313,18 +272,15 @@ bool com::Positional::canParse(const char* token) const
   \pre       \a shortOption should not be a whitespace character
              and \a name should not be empty.
 */
-com::Option::Option(const std::string& longOption,
-                   const std::string& description, bool isRequired)
+com::Option::Option(const std::string &longOption, const std::string &description, bool isRequired)
 
-  : CommandLineArgument(description, isRequired),
-    d_parsed(false), d_shortOption('\0'), d_longOption(longOption)
+    : CommandLineArgument(description, isRequired), d_parsed(false), d_shortOption('\0'),
+      d_longOption(longOption)
 
 {
   PRECOND(skipShortOption() || !std::isspace(d_shortOption));
   PRECOND(!d_longOption.empty());
 }
-
-
 
 //! Constructor.
 /*!
@@ -336,18 +292,16 @@ com::Option::Option(const std::string& longOption,
              application. \a shortOption should not be a whitespace shortOption
              and \a name should not be empty.
 */
-com::Option::Option(char shortOption, const std::string& longOption,
-                   const std::string& description, bool isRequired)
+com::Option::Option(char shortOption, const std::string &longOption, const std::string &description,
+                    bool isRequired)
 
-  : CommandLineArgument(description, isRequired),
-    d_parsed(false), d_shortOption(shortOption), d_longOption(longOption)
+    : CommandLineArgument(description, isRequired), d_parsed(false), d_shortOption(shortOption),
+      d_longOption(longOption)
 
 {
   PRECOND(skipShortOption() || !std::isspace(d_shortOption));
   PRECOND(!d_longOption.empty());
 }
-
-
 
 //! Destructor.
 /*!
@@ -356,12 +310,10 @@ com::Option::~Option()
 {
 }
 
-
-
-bool com::Option::operator<(const CommandLineArgument& arg) const
+bool com::Option::operator<(const CommandLineArgument &arg) const
 {
   try {
-    const Option& option = dynamic_cast<const Option&>(arg);
+    const Option &option = dynamic_cast<const Option &>(arg);
     std::string shortOption1(1, shortOption());
     std::string shortOption2(1, option.shortOption());
     std::string longOption1 = longOption();
@@ -369,55 +321,46 @@ bool com::Option::operator<(const CommandLineArgument& arg) const
 
     PRECOND(!longOption1.empty() && !longOption2.empty());
 
-    if(!skipShortOption()) {
-      if(!option.skipShortOption()) {
+    if (!skipShortOption()) {
+      if (!option.skipShortOption()) {
         PRECOND(shortOption1 != shortOption2);
         return shortOption1 < shortOption2;
-      }
-      else {
+      } else {
         PRECOND(!longOption2.empty());
         return shortOption1 < longOption2;
       }
-    }
-    else {
-      if(!option.skipShortOption()) {
+    } else {
+      if (!option.skipShortOption()) {
         return longOption1 < shortOption2;
-      }
-      else {
+      } else {
         return longOption1 < longOption2;
       }
     }
-  }
-  catch(std::bad_cast&) {
+  } catch (std::bad_cast &) {
     // Argument is not an option.
     return true;
   }
 }
 
-
-
-size_t com::Option::parse(size_t argc, char* const* argv)
+size_t com::Option::parse(size_t argc, char *const *argv)
 {
   size_t nrTokensParsed = 0;
-  char* token = argv[0];
+  char *token = argv[0];
 
-  if(argc >= 1 && matched(token)) {
+  if (argc >= 1 && matched(token)) {
     d_parsed = true;
-    if(isShortOption(token) && (std::strlen(token) > 2)) {
+    if (isShortOption(token) && (std::strlen(token) > 2)) {
 
       // There are more option characters in the token. Remove our character
       // and leave the other(s) for the next command line argument object(s)
       // to parse.
       std::copy(token + 2, token + std::strlen(token) + 1, token + 1);
-    }
-    else {
+    } else {
       ++nrTokensParsed;
     }
   }
   return nrTokensParsed;
 }
-
-
 
 //! return nr of prefix characters matched
 /*!
@@ -425,14 +368,9 @@ size_t com::Option::parse(size_t argc, char* const* argv)
  */
 size_t com::Option::matched(const char *token) const
 {
-  return (!skipShortOption() &&
-         isShortOption(token) &&
-         determineShortOption(token) == shortOption()) ||
-         (isLongOption(token) &&
-         determineLongOption(token) == longOption());
+  return (!skipShortOption() && isShortOption(token) && determineShortOption(token) == shortOption()) ||
+         (isLongOption(token) && determineLongOption(token) == longOption());
 }
-
-
 
 /*
 bool com::Option::firstOfMultipleShorts(const char *token) const
@@ -440,7 +378,6 @@ bool com::Option::firstOfMultipleShorts(const char *token) const
     return isShortOption(token) && std::strlen(token) > 2;
 }
 */
-
 
 
 //! Returns true if the option shortOption should not be regarded during parsing.
@@ -452,8 +389,6 @@ bool com::Option::skipShortOption() const
   return d_shortOption == '\0';
 }
 
-
-
 //! Returns the character of the option.
 /*!
   \return    Character.
@@ -463,63 +398,49 @@ char com::Option::shortOption() const
   return d_shortOption;
 }
 
-
-
 //! Returns the name of the option.
 /*!
   \return    Name.
   \sa        shortOption()
 */
-const std::string& com::Option::longOption() const
+const std::string &com::Option::longOption() const
 {
   return d_longOption;
 }
 
-
-
-bool com::Option::canParse(const char* token) const
+bool com::Option::canParse(const char *token) const
 {
   return !isParsed() && matched(token);
 }
-
-
 
 bool com::Option::isParsed() const
 {
   return d_parsed;
 }
 
-
-
-void com::Option::printSynopsis(std::ostream& stream) const
+void com::Option::printSynopsis(std::ostream &stream) const
 {
-  if(!skipShortOption()) {
+  if (!skipShortOption()) {
     stream << std::string("-") << shortOption() << std::string("/");
   }
 
   stream << std::string("--") << longOption();
 }
 
-
-
-void com::Option::printDescription(std::ostream& stream,
-                   size_t offset, size_t /* width */) const
+void com::Option::printDescription(std::ostream &stream, size_t offset, size_t /* width */) const
 {
   std::ostringstream stringStream;
   stringStream << std::string(offset, ' ');
 
-  if(!skipShortOption()) {
+  if (!skipShortOption()) {
     stringStream << std::string("-") << shortOption() << std::string("/");
   }
 
   stringStream << std::string("--") << longOption();
 
-  stream << std::setiosflags(std::ios::left) << std::setw(30) 
-         << stringStream.str().c_str()
+  stream << std::setiosflags(std::ios::left) << std::setw(30) << stringStream.str().c_str()
          << std::string(" ") << description() << std::string("\n");
 }
-
-
 
 //------------------------------------------------------------------------------
 
@@ -528,94 +449,75 @@ void com::Option::printDescription(std::ostream& stream,
   \param     description Description of values.
   \warning   \a description should not be empty.
 */
-template<class ValueType, class ValueParser>
-com::ListArgument<ValueType, ValueParser>::ListArgument(const std::string& description)
+template <class ValueType, class ValueParser>
+com::ListArgument<ValueType, ValueParser>::ListArgument(const std::string &description)
 
-  : d_separator('\n'), d_description(description)
+    : d_separator('\n'), d_description(description)
 
 {
   PRECOND(!description.empty());
 }
 
-
-
 //! Destructor.
 /*!
 */
-template<class ValueType, class ValueParser>
-com::ListArgument<ValueType, ValueParser>::~ListArgument()
+template <class ValueType, class ValueParser> com::ListArgument<ValueType, ValueParser>::~ListArgument()
 {
 }
 
-
-
-template<class ValueType, class ValueParser>
+template <class ValueType, class ValueParser>
 void com::ListArgument<ValueType, ValueParser>::setSeparator(char separator)
 {
   d_separator = separator;
 }
 
-
-
-template<class ValueType, class ValueParser>
-bool com::ListArgument<ValueType, ValueParser>::whiteSpaceSeparator () const
+template <class ValueType, class ValueParser>
+bool com::ListArgument<ValueType, ValueParser>::whiteSpaceSeparator() const
 {
   return separator() == '\n';
 }
 
-
-
-template<class ValueType, class ValueParser>
+template <class ValueType, class ValueParser>
 char com::ListArgument<ValueType, ValueParser>::separator() const
 {
   return d_separator;
 }
 
-
-
 //! Adds a parsed value to the collection.
 /*!
   \param     value Value just parsed.
 */
-template<class ValueType, class ValueParser>
-void com::ListArgument<ValueType, ValueParser>::addValue(const ValueType& value)
+template <class ValueType, class ValueParser>
+void com::ListArgument<ValueType, ValueParser>::addValue(const ValueType &value)
 {
   d_values.push_back(value);
 }
-
-
 
 //! Returns the description of the values.
 /*!
   \return    Description.
 */
-template<class ValueType, class ValueParser>
-const std::string& com::ListArgument<ValueType, ValueParser>::description() const
+template <class ValueType, class ValueParser>
+const std::string &com::ListArgument<ValueType, ValueParser>::description() const
 {
   return d_description;
 }
-
-
 
 //! Parses the value in \a token.
 /*!
   \param     value Token with one value.
 */
-template<class ValueType, class ValueParser>
-void com::ListArgument<ValueType, ValueParser>::parseValue(
-         std::string const& argument)
+template <class ValueType, class ValueParser>
+void com::ListArgument<ValueType, ValueParser>::parseValue(std::string const &argument)
 {
   ValueType value = d_parser.parse(argument.c_str());
 
-  if(!d_parser.full()) {
-    com::CommandLineArgument::throwCanNotParseValueException(
-         argument, d_parser.length());
+  if (!d_parser.full()) {
+    com::CommandLineArgument::throwCanNotParseValueException(argument, d_parser.length());
   }
 
   addValue(value);
 }
-
-
 
 //! Parses the values in the argument vector \a argv and return the number of values parsed.
 /*!
@@ -623,15 +525,14 @@ void com::ListArgument<ValueType, ValueParser>::parseValue(
   \param     argv Argument vector.
   \return    Number of values parsed.
 */
-template<class ValueType, class ValueParser>
-size_t com::ListArgument<ValueType, ValueParser>::parseArguments(
-         size_t argc, char* const* argv)
+template <class ValueType, class ValueParser>
+size_t com::ListArgument<ValueType, ValueParser>::parseArguments(size_t argc, char *const *argv)
 {
   size_t nrTokensParsed = 0;
 
   // Continue parsing untill an argument is not a value.
-  for(size_t i = 0; i < argc; ++i) {
-    if(!CommandLineArgument::isValue(argv[i])) {
+  for (size_t i = 0; i < argc; ++i) {
+    if (!CommandLineArgument::isValue(argv[i])) {
       break;
     }
 
@@ -642,70 +543,58 @@ size_t com::ListArgument<ValueType, ValueParser>::parseArguments(
   return nrTokensParsed;
 }
 
-
-
 //! Parses the value(s) in \a argument.
 /*!
   \param     argument Argument with at least one value.
 */
-template<class ValueType, class ValueParser>
-void com::ListArgument<ValueType, ValueParser>::parseArgument(
-         std::string const& argument)
+template <class ValueType, class ValueParser>
+void com::ListArgument<ValueType, ValueParser>::parseArgument(std::string const &argument)
 {
   PRECOND(!argument.empty());
 
-  if(whiteSpaceSeparator()) {
+  if (whiteSpaceSeparator()) {
     parseValue(argument.c_str());
-  }
-  else {
+  } else {
     typedef std::vector<std::string> Tokens;
     Tokens tokens = com::split(argument, separator());
     POSTCOND(!argument.empty());
-    for(Tokens::const_iterator it = tokens.begin(); it != tokens.end(); ++it) {
+    for (Tokens::const_iterator it = tokens.begin(); it != tokens.end(); ++it) {
       parseValue((*it).c_str());
     }
   }
 }
 
-
-
 //! Returns true if one or more values where parsed / added.
 /*!
   \return    true or false.
 */
-template<class ValueType, class ValueParser>
+template <class ValueType, class ValueParser>
 bool com::ListArgument<ValueType, ValueParser>::isParsed() const
 {
   return size() > 0;
 }
-
-
 
 //! Returns the amount of added / parsed values.
 /*!
   \return    Amount.
   \sa        empty()
 */
-template<class ValueType, class ValueParser>
+template <class ValueType, class ValueParser>
 size_t com::ListArgument<ValueType, ValueParser>::size() const
 {
   return d_values.size();
 }
-
-
 
 //! Returns whether the amount of parsed values is zero.
 /*!
   \return    true or false
   \sa        size()
 */
-template<class ValueType, class ValueParser>
+template <class ValueType, class ValueParser>
 bool com::ListArgument<ValueType, ValueParser>::empty() const
 {
   return d_values.empty();
 }
-
-
 
 //! Returns the values at position \a index in the collection.
 /*!
@@ -713,15 +602,13 @@ bool com::ListArgument<ValueType, ValueParser>::empty() const
   \return    Value.
   \sa        operator[](size_t)
 */
-template<class ValueType, class ValueParser>
-const ValueType& com::ListArgument<ValueType, ValueParser>::value(size_t index) const
+template <class ValueType, class ValueParser>
+const ValueType &com::ListArgument<ValueType, ValueParser>::value(size_t index) const
 {
   PRECOND(index < d_values.size());
 
   return d_values[index];
 }
-
-
 
 //! Returns the values at position \a index in the collection.
 /*!
@@ -729,42 +616,37 @@ const ValueType& com::ListArgument<ValueType, ValueParser>::value(size_t index) 
   \return    Value.
   \sa        value(size_t)
 */
-template<class ValueType, class ValueParser>
-const ValueType& com::ListArgument<ValueType, ValueParser>::operator[](size_t index) const
+template <class ValueType, class ValueParser>
+const ValueType &com::ListArgument<ValueType, ValueParser>::operator[](size_t index) const
 {
   PRECOND(index < d_values.size());
 
   return d_values[index];
 }
 
-
-
 //! Returns an iterator to the first value in the collection.
 /*!
   \return    Iterator.
   \sa        end()
 */
-template<class ValueType, class ValueParser>
+template <class ValueType, class ValueParser>
 typename com::ListArgument<ValueType, ValueParser>::const_iterator
-         com::ListArgument<ValueType, ValueParser>:: begin() const
+com::ListArgument<ValueType, ValueParser>::begin() const
 {
   return d_values.begin();
 }
-
-
 
 //! Returns an iterator to the one past the last value in the collection.
 /*!
   \return    Iterator.
   \sa        begin()
 */
-template<class ValueType, class ValueParser>
-typename com::ListArgument<ValueType, ValueParser>::const_iterator com::ListArgument<ValueType, ValueParser>::end() const
+template <class ValueType, class ValueParser>
+typename com::ListArgument<ValueType, ValueParser>::const_iterator
+com::ListArgument<ValueType, ValueParser>::end() const
 {
   return d_values.end();
 }
-
-
 
 //------------------------------------------------------------------------------
 
@@ -774,30 +656,26 @@ typename com::ListArgument<ValueType, ValueParser>::const_iterator com::ListArgu
   \param     description Description of the argument.
   \param     isRequired Whether the argument is required or not.
 */
-template<class ValueType, class ValueParser>
-com::PositionalValue<ValueType, ValueParser>::PositionalValue(const std::string& valueDescription,
-                   const std::string& description, bool isRequired)
+template <class ValueType, class ValueParser>
+com::PositionalValue<ValueType, ValueParser>::PositionalValue(const std::string &valueDescription,
+                                                              const std::string &description,
+                                                              bool isRequired)
 
-  : ValueArgument<ValueType, ValueParser>(valueDescription),
-    Positional(description, isRequired)
+    : ValueArgument<ValueType, ValueParser>(valueDescription), Positional(description, isRequired)
 
 {
 }
-
-
 
 //! Destructor.
 /*!
 */
-template<class ValueType, class ValueParser>
+template <class ValueType, class ValueParser>
 com::PositionalValue<ValueType, ValueParser>::~PositionalValue()
 {
 }
 
-
-
-template<class ValueType, class ValueParser>
-size_t com::PositionalValue<ValueType, ValueParser>::parse(size_t argc, char* const* argv)
+template <class ValueType, class ValueParser>
+size_t com::PositionalValue<ValueType, ValueParser>::parse(size_t argc, char *const *argv)
 {
   PRECOND(argc && canParse(argv[0]));
 
@@ -813,38 +691,28 @@ size_t com::PositionalValue<ValueType, ValueParser>::parse(size_t argc, char* co
   return 1;
 }
 
-
-
-template<class ValueType, class ValueParser>
+template <class ValueType, class ValueParser>
 bool com::PositionalValue<ValueType, ValueParser>::isParsed() const
 {
   return ValueArgument<ValueType, ValueParser>::isParsed();
 }
 
-
-
-template<class ValueType, class ValueParser>
-void com::PositionalValue<ValueType, ValueParser>::printSynopsis(std::ostream& s) const
+template <class ValueType, class ValueParser>
+void com::PositionalValue<ValueType, ValueParser>::printSynopsis(std::ostream &s) const
 {
   s << ValueArgument<ValueType, ValueParser>::description();
 }
 
-
-
-template<class ValueType, class ValueParser>
-void com::PositionalValue<ValueType, ValueParser>::printDescription(std::ostream& stream,
-                   size_t offset, size_t /* width */) const
+template <class ValueType, class ValueParser>
+void com::PositionalValue<ValueType, ValueParser>::printDescription(std::ostream &stream, size_t offset,
+                                                                    size_t /* width */) const
 {
   std::ostringstream stringStream;
-  stringStream << std::string(offset, ' ')
-    << ValueArgument<ValueType, ValueParser>::description();
+  stringStream << std::string(offset, ' ') << ValueArgument<ValueType, ValueParser>::description();
 
-  stream << std::setiosflags(std::ios::left) << std::setw(30) 
-         << stringStream.str().c_str()
+  stream << std::setiosflags(std::ios::left) << std::setw(30) << stringStream.str().c_str()
          << std::string(" ") << Positional::description() << std::string("\n");
 }
-
-
 
 //------------------------------------------------------------------------------
 
@@ -854,74 +722,58 @@ void com::PositionalValue<ValueType, ValueParser>::printDescription(std::ostream
   \param     description Description of the positional.
   \param     isRequired Whether the argument is required or not.
 */
-template<class ValueType, class ValueParser>
-com::PositionalList<ValueType, ValueParser>::PositionalList(const std::string& valueDescription,
-                   const std::string& description, bool isRequired)
+template <class ValueType, class ValueParser>
+com::PositionalList<ValueType, ValueParser>::PositionalList(const std::string &valueDescription,
+                                                            const std::string &description,
+                                                            bool isRequired)
 
-  : ListArgument<ValueType, ValueParser>(valueDescription),
-    Positional(description, isRequired)
+    : ListArgument<ValueType, ValueParser>(valueDescription), Positional(description, isRequired)
 
 {
 }
-
-
 
 //! Destructor.
 /*!
 */
-template<class ValueType, class ValueParser>
+template <class ValueType, class ValueParser>
 com::PositionalList<ValueType, ValueParser>::~PositionalList()
 {
 }
 
-
-
-template<class ValueType, class ValueParser>
-size_t com::PositionalList<ValueType, ValueParser>::parse(
-         size_t argc, char* const* argv)
+template <class ValueType, class ValueParser>
+size_t com::PositionalList<ValueType, ValueParser>::parse(size_t argc, char *const *argv)
 {
   PRECOND(argc && canParse(argv[0]));
 
-  size_t nrArgumentsParsed =
-         ListArgument<ValueType, ValueParser>::parseArguments(argc, argv);
+  size_t nrArgumentsParsed = ListArgument<ValueType, ValueParser>::parseArguments(argc, argv);
 
   POSTCOND(nrArgumentsParsed > 0);
 
   return nrArgumentsParsed;
 }
 
-
-
-template<class ValueType, class ValueParser>
+template <class ValueType, class ValueParser>
 bool com::PositionalList<ValueType, ValueParser>::isParsed() const
 {
   return ListArgument<ValueType, ValueParser>::isParsed();
 }
 
-
-
-template<class ValueType, class ValueParser>
-void com::PositionalList<ValueType, ValueParser>::printSynopsis(std::ostream& stream) const
+template <class ValueType, class ValueParser>
+void com::PositionalList<ValueType, ValueParser>::printSynopsis(std::ostream &stream) const
 {
   stream << ListArgument<ValueType, ValueParser>::description() << std::string("...");
 }
 
-
-
-template<class ValueType, class ValueParser>
-void com::PositionalList<ValueType, ValueParser>::printDescription(std::ostream& stream,
-                   size_t offset, size_t /* width */) const
+template <class ValueType, class ValueParser>
+void com::PositionalList<ValueType, ValueParser>::printDescription(std::ostream &stream, size_t offset,
+                                                                   size_t /* width */) const
 {
   std::ostringstream stringStream;
-  stringStream << std::string(offset, ' ')
-    << ListArgument<ValueType, ValueParser>::description();
+  stringStream << std::string(offset, ' ') << ListArgument<ValueType, ValueParser>::description();
 
-  stream << std::setiosflags(std::ios::left) << std::setw(30) 
-         << stringStream.str().c_str()
+  stream << std::setiosflags(std::ios::left) << std::setw(30) << stringStream.str().c_str()
          << std::string(" ") << Positional::description() << std::string("\n");
 }
-
-
 
 //------------------------------------------------------------------------------
 
@@ -932,18 +784,16 @@ void com::PositionalList<ValueType, ValueParser>::printDescription(std::ostream&
   \param     description Description of the option.
   \param     isRequired Whether the option is required or not.
 */
-template<class ValueType, class ValueParser>
-com::OptionValue<ValueType, ValueParser>::OptionValue(
-         const std::string& longOption, const std::string& valueDescription,
-         const std::string& description, bool isRequired)
+template <class ValueType, class ValueParser>
+com::OptionValue<ValueType, ValueParser>::OptionValue(const std::string &longOption,
+                                                      const std::string &valueDescription,
+                                                      const std::string &description, bool isRequired)
 
-  : ValueArgument<ValueType, ValueParser>(valueDescription),
-    Option(longOption, description, isRequired)
+    : ValueArgument<ValueType, ValueParser>(valueDescription),
+      Option(longOption, description, isRequired)
 
 {
 }
-
-
 
 //! Constructor.
 /*!
@@ -953,18 +803,16 @@ com::OptionValue<ValueType, ValueParser>::OptionValue(
   \param     description Description of the option.
   \param     isRequired Whether the option is required or not.
 */
-template<class ValueType, class ValueParser>
-com::OptionValue<ValueType, ValueParser>::OptionValue(char shortOption,
-         const std::string& longOption, const std::string& valueDescription,
-         const std::string& description, bool isRequired)
+template <class ValueType, class ValueParser>
+com::OptionValue<ValueType, ValueParser>::OptionValue(char shortOption, const std::string &longOption,
+                                                      const std::string &valueDescription,
+                                                      const std::string &description, bool isRequired)
 
-  : ValueArgument<ValueType, ValueParser>(valueDescription),
-    Option(shortOption, longOption, description, isRequired)
+    : ValueArgument<ValueType, ValueParser>(valueDescription),
+      Option(shortOption, longOption, description, isRequired)
 
 {
 }
-
-
 
 //! Constructor.
 /*!
@@ -975,29 +823,24 @@ com::OptionValue<ValueType, ValueParser>::OptionValue(char shortOption,
   \param     defaultValue Default value.
   \param     isRequired Whether the option is required or not.
 */
-template<class ValueType, class ValueParser>
-com::OptionValue<ValueType, ValueParser>::OptionValue(char shortOption,
-         const std::string& longOption, const std::string& valueDescription,
-         const std::string& description, ValueType const& defaultValue,
-         bool isRequired)
+template <class ValueType, class ValueParser>
+com::OptionValue<ValueType, ValueParser>::OptionValue(char shortOption, const std::string &longOption,
+                                                      const std::string &valueDescription,
+                                                      const std::string &description,
+                                                      ValueType const &defaultValue, bool isRequired)
 
-  : ValueArgument<ValueType, ValueParser>(valueDescription, defaultValue),
-    Option(shortOption, longOption, description, isRequired)
+    : ValueArgument<ValueType, ValueParser>(valueDescription, defaultValue),
+      Option(shortOption, longOption, description, isRequired)
 
 {
 }
-
-
 
 //! Destructor.
 /*!
 */
-template<class ValueType, class ValueParser>
-com::OptionValue<ValueType, ValueParser>::~OptionValue()
+template <class ValueType, class ValueParser> com::OptionValue<ValueType, ValueParser>::~OptionValue()
 {
 }
-
-
 
 //!
 /*!
@@ -1009,25 +852,24 @@ com::OptionValue<ValueType, ValueParser>::~OptionValue()
   \todo      Code to support --optionvalue or -ov. Not finished yet. Dont forget OptionValue<string>. Don't throw exceptions! Eerst test maken met string en een met integer argument.
 */
 
-template<class ValueType, class ValueParser>
-size_t com::OptionValue<ValueType, ValueParser>::parse(size_t argc, char* const* argv)
+template <class ValueType, class ValueParser>
+size_t com::OptionValue<ValueType, ValueParser>::parse(size_t argc, char *const *argv)
 {
   PRECOND(argc && canParse(argv[0]));
 
   size_t nrTokensParsed = 0;
-  char* token = argv[0];
+  char *token = argv[0];
 
-  if(isShortOption(token) && (std::strlen(token) > 2)) {
+  if (isShortOption(token) && (std::strlen(token) > 2)) {
 
     // The value of the argument is in the first argument, after the short
     // option character.
     ValueArgument<ValueType, ValueParser>::parse(token + 2);
     nrTokensParsed = 1;
-  }
-  else {
+  } else {
 
     // The value is in the second argument.
-    if(argc < 2) {
+    if (argc < 2) {
       throw com::Exception("Missing argument value");
     }
 
@@ -1040,49 +882,40 @@ size_t com::OptionValue<ValueType, ValueParser>::parse(size_t argc, char* const*
   return nrTokensParsed;
 }
 
-
-
-template<class ValueType, class ValueParser>
+template <class ValueType, class ValueParser>
 bool com::OptionValue<ValueType, ValueParser>::isParsed() const
 {
   return ValueArgument<ValueType, ValueParser>::isParsed();
 }
 
-
-
-template<class ValueType, class ValueParser>
-void com::OptionValue<ValueType, ValueParser>::printSynopsis(std::ostream& stream) const
+template <class ValueType, class ValueParser>
+void com::OptionValue<ValueType, ValueParser>::printSynopsis(std::ostream &stream) const
 {
-  if(!skipShortOption()) {
+  if (!skipShortOption()) {
     stream << std::string("-") << shortOption() << std::string("/");
   }
 
-  stream << std::string("--") << longOption()
-         << std::string(" ") << ValueArgument<ValueType, ValueParser>::description();
+  stream << std::string("--") << longOption() << std::string(" ")
+         << ValueArgument<ValueType, ValueParser>::description();
 }
 
-
-
-template<class ValueType, class ValueParser>
-void com::OptionValue<ValueType, ValueParser>::printDescription(std::ostream& stream,
-                   size_t offset, size_t /* width */) const
+template <class ValueType, class ValueParser>
+void com::OptionValue<ValueType, ValueParser>::printDescription(std::ostream &stream, size_t offset,
+                                                                size_t /* width */) const
 {
   std::ostringstream stringStream;
   stringStream << std::string(offset, ' ');
 
-  if(!skipShortOption()) {
+  if (!skipShortOption()) {
     stringStream << std::string("-") << shortOption() << std::string("/");
   }
 
-  stringStream << std::string("--") << longOption()
-               << std::string(" ") << ValueArgument<ValueType, ValueParser>::description();
+  stringStream << std::string("--") << longOption() << std::string(" ")
+               << ValueArgument<ValueType, ValueParser>::description();
 
-  stream << std::setiosflags(std::ios::left) << std::setw(30)
-         << stringStream.str().c_str()
+  stream << std::setiosflags(std::ios::left) << std::setw(30) << stringStream.str().c_str()
          << std::string(" ") << Option::description() << std::string("\n");
 }
-
-
 
 //------------------------------------------------------------------------------
 
@@ -1091,18 +924,15 @@ void com::OptionValue<ValueType, ValueParser>::printDescription(std::ostream& st
   \param     valueDescription Description of argument values.
   \param     description Description of option.
 */
-template<class ValueType, class ValueParser>
-com::OptionList<ValueType, ValueParser>::OptionList(const std::string& longOption,
-                   const std::string& valueDescription,
-                   const std::string& description, bool isRequired)
+template <class ValueType, class ValueParser>
+com::OptionList<ValueType, ValueParser>::OptionList(const std::string &longOption,
+                                                    const std::string &valueDescription,
+                                                    const std::string &description, bool isRequired)
 
-  : ListArgument<ValueType, ValueParser>(valueDescription),
-    Option(longOption, description, isRequired)
+    : ListArgument<ValueType, ValueParser>(valueDescription), Option(longOption, description, isRequired)
 
 {
 }
-
-
 
 //! Constructor.
 /*!
@@ -1111,32 +941,26 @@ com::OptionList<ValueType, ValueParser>::OptionList(const std::string& longOptio
   \param     valueDescription Description of argument values.
   \param     description Description of option.
 */
-template<class ValueType, class ValueParser>
-com::OptionList<ValueType, ValueParser>::OptionList(char shortOption, const std::string& longOption,
-                   const std::string& valueDescription,
-                   const std::string& description, bool isRequired)
+template <class ValueType, class ValueParser>
+com::OptionList<ValueType, ValueParser>::OptionList(char shortOption, const std::string &longOption,
+                                                    const std::string &valueDescription,
+                                                    const std::string &description, bool isRequired)
 
-  : ListArgument<ValueType, ValueParser>(valueDescription),
-    Option(shortOption, longOption, description, isRequired)
+    : ListArgument<ValueType, ValueParser>(valueDescription),
+      Option(shortOption, longOption, description, isRequired)
 
 {
 }
-
-
 
 //! Destructor.
 /*!
 */
-template<class ValueType, class ValueParser>
-com::OptionList<ValueType, ValueParser>::~OptionList()
+template <class ValueType, class ValueParser> com::OptionList<ValueType, ValueParser>::~OptionList()
 {
 }
 
-
-
-template<class ValueType, class ValueParser>
-size_t com::OptionList<ValueType, ValueParser>::parse(
-         size_t argc, char* const* argv)
+template <class ValueType, class ValueParser>
+size_t com::OptionList<ValueType, ValueParser>::parse(size_t argc, char *const *argv)
 {
   PRECOND(argc && canParse(argv[0]));
 
@@ -1145,7 +969,7 @@ size_t com::OptionList<ValueType, ValueParser>::parse(
   std::string argument(argv[0]);
 
   // Handle -i 5 and -i5 cases.
-  if(isShortOption(argument.c_str()) && argument.length() > 2) {
+  if (isShortOption(argument.c_str()) && argument.length() > 2) {
 
     // The value of the argument is in the first argument, after the short
     // option character.
@@ -1157,10 +981,10 @@ size_t com::OptionList<ValueType, ValueParser>::parse(
 
   POSTCOND(nrArgumentsParsed == 1);
 
-  nrArgumentsParsed += ListArgument<ValueType, ValueParser>::parseArguments(
-         argc - nrArgumentsParsed, argv + nrArgumentsParsed);
+  nrArgumentsParsed += ListArgument<ValueType, ValueParser>::parseArguments(argc - nrArgumentsParsed,
+                                                                            argv + nrArgumentsParsed);
 
-  if(!this->size()) {
+  if (!this->size()) {
     // Only the option stuff is found.
     throw com::Exception("Missing argument value");
   }
@@ -1168,50 +992,40 @@ size_t com::OptionList<ValueType, ValueParser>::parse(
   return nrArgumentsParsed;
 }
 
-
-
-template<class ValueType, class ValueParser>
+template <class ValueType, class ValueParser>
 bool com::OptionList<ValueType, ValueParser>::isParsed() const
 {
   return ListArgument<ValueType, ValueParser>::isParsed();
 }
 
-
-
-template<class ValueType, class ValueParser>
-void com::OptionList<ValueType, ValueParser>::printSynopsis(std::ostream& stream) const
+template <class ValueType, class ValueParser>
+void com::OptionList<ValueType, ValueParser>::printSynopsis(std::ostream &stream) const
 {
-  if(!skipShortOption()) {
+  if (!skipShortOption()) {
     stream << std::string("-") << shortOption() << std::string("/");
   }
 
-  stream << std::string("--") << longOption()
-         << std::string(" ")
-         << ListArgument<ValueType, ValueParser>::description()
-         << std::string("...");
+  stream << std::string("--") << longOption() << std::string(" ")
+         << ListArgument<ValueType, ValueParser>::description() << std::string("...");
 }
 
-
-
-template<class ValueType, class ValueParser>
-void com::OptionList<ValueType, ValueParser>::printDescription(std::ostream& stream,
-                   size_t offset, size_t /* width */) const
+template <class ValueType, class ValueParser>
+void com::OptionList<ValueType, ValueParser>::printDescription(std::ostream &stream, size_t offset,
+                                                               size_t /* width */) const
 {
   std::ostringstream stringStream;
   stringStream << std::string(offset, ' ');
 
-  if(!skipShortOption()) {
+  if (!skipShortOption()) {
     stringStream << std::string("-") << shortOption() << std::string("/");
   }
 
-  stringStream << std::string("--") << longOption()
-               << std::string(" ") << ListArgument<ValueType, ValueParser>::description();
+  stringStream << std::string("--") << longOption() << std::string(" ")
+               << ListArgument<ValueType, ValueParser>::description();
 
-  stream << std::setiosflags(std::ios::left) << std::setw(30) 
-         << stringStream.str().c_str()
+  stream << std::setiosflags(std::ios::left) << std::setw(30) << stringStream.str().c_str()
          << std::string(" ") << Option::description() << std::string("\n");
 }
-
 
 
 //------------------------------------------------------------------------------

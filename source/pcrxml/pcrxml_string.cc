@@ -10,11 +10,9 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC STRING MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -22,8 +20,8 @@
 //------------------------------------------------------------------------------
 
 //! ctor from DOM Tree
-pcrxml::String::String(const QDomNode& owningElement, const std::string& name, bool required):
-  Attribute(owningElement,name,required)
+pcrxml::String::String(const QDomNode &owningElement, const std::string &name, bool required)
+    : Attribute(owningElement, name, required)
 {
   if (!present())
     return;
@@ -31,22 +29,17 @@ pcrxml::String::String(const QDomNode& owningElement, const std::string& name, b
 }
 
 //! ctor from a string
-pcrxml::String::String(const std::string& value):
-  Attribute(true),
-  d_value(value)
+pcrxml::String::String(const std::string &value) : Attribute(true), d_value(value)
 {
 }
 
 //! ctor from a string
-pcrxml::String::String(const char* value):
-  Attribute(true),
-  d_value(value)
+pcrxml::String::String(const char *value) : Attribute(true), d_value(value)
 {
 }
 
 //! default ctor, attribute not present
-pcrxml::String::String():
-  Attribute(false)
+pcrxml::String::String() : Attribute(false)
 {
 }
 
@@ -69,16 +62,11 @@ std::string pcrxml::String::attrValueStr() const
   return value();
 }
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

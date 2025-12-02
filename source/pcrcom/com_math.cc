@@ -1,13 +1,10 @@
 #include "stddefx.h"
 #include "com_math.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the Math class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -36,21 +33,15 @@ public:
  *
  * \pre x is in range [x1,x2] or [x2,x1]
  */
-double com::interpolate2(
-    double x,
-    double x1,
-    double y1,
-    double x2,
-    double y2)
+double com::interpolate2(double x, double x1, double y1, double x2, double y2)
 {
   if (x1 == x2)
-     return y1;
-  DEVELOP_PRECOND(limUnordered(x,x1,x2) == x); // is in range x1-x2
-  double const w1=std::fabs(x1-x);
-  double const w2=std::fabs(x2-x);
-  return ((y1*w2)+(y2*w1))/(w1+w2);
+    return y1;
+  DEVELOP_PRECOND(limUnordered(x, x1, x2) == x);  // is in range x1-x2
+  double const w1 = std::fabs(x1 - x);
+  double const w2 = std::fabs(x2 - x);
+  return ((y1 * w2) + (y2 * w1)) / (w1 + w2);
 }
-
 
 /* integer division
 * Fdiv() divides x by abs(y), returning an integer value I (in double
@@ -60,17 +51,15 @@ double com::interpolate2(
 *  the integer division value as a floating-point number.
 */
 double Fdiv(double x, /* x    */
-           double y) /*  y */
+            double y) /*  y */
 {
- double const t = floor(fabs(x)/fabs(y)); 
- return x < 0 ? -t : t;
+  double const t = floor(fabs(x) / fabs(y));
+  return x < 0 ? -t : t;
 }
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC MATH MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -82,17 +71,16 @@ double Fdiv(double x, /* x    */
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 extern "C" int com_equalEpsilonFloat(float a, float b)
 {
-  return com::equal_epsilon<float>(a,b);
-}
-extern "C" int com_equalEpsilonDouble(double a, double b)
-{
-  return com::equal_epsilon<double>(a,b);
+  return com::equal_epsilon<float>(a, b);
 }
 
+extern "C" int com_equalEpsilonDouble(double a, double b)
+{
+  return com::equal_epsilon<double>(a, b);
+}

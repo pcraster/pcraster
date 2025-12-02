@@ -12,10 +12,7 @@
 const double com::DiMap::logMin = 1.0e-150;
 
 
-
 const double com::DiMap::logMax = 1.0e150;
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF CLASS MEMBERS
@@ -27,11 +24,8 @@ const double com::DiMap::logMax = 1.0e150;
 com::DiMap::DiMap()
 
 
-
 {
 }
-
-
 
 /*!
   \param   i1 First border of integer interval.
@@ -45,17 +39,13 @@ com::DiMap::DiMap()
 com::DiMap::DiMap(int i1, int i2, double d1, double d2, bool logarithmic)
 {
   d_log = logarithmic;
-  setIntRange(i1,i2);
+  setIntRange(i1, i2);
   setDblRange(d1, d2);
 }
-
-
 
 com::DiMap::~DiMap()
 {
 }
-
-
 
 /*!
   \param   x Value.
@@ -63,10 +53,8 @@ com::DiMap::~DiMap()
 */
 bool com::DiMap::contains(double x) const
 {
-  return ( (x >= std::min(d_x1, d_x1)) && (x <= std::max(d_x1, d_x2)));
+  return ((x >= std::min(d_x1, d_x1)) && (x <= std::max(d_x1, d_x2)));
 }
-
-
 
 /*!
   \param   x Value.
@@ -77,8 +65,6 @@ bool com::DiMap::contains(int x) const
   return (x >= std::min(d_y1, d_y1)) && (x <= std::max(d_y1, d_y2));
 }
 
-
-
 /*!
   \param   d1 First border.
   \param   d2 Second border.
@@ -86,33 +72,28 @@ bool com::DiMap::contains(int x) const
 */
 void com::DiMap::setDblRange(double d1, double d2, bool lg)
 {
-  if(lg)
-  {
+  if (lg) {
     d_log = true;
-    if(d1 < logMin)
+    if (d1 < logMin)
       d1 = logMin;
-    else if(d1 > logMax)
+    else if (d1 > logMax)
       d1 = logMax;
 
-    if(d2 < logMin)
+    if (d2 < logMin)
       d2 = logMin;
     else if (d2 > logMax)
       d2 = logMax;
 
     d_x1 = std::log(d1);
     d_x2 = std::log(d2);
-  }
-  else
-  {
+  } else {
     d_log = false;
-    d_x1  = d1;
-    d_x2  = d2;
+    d_x1 = d1;
+    d_x2 = d2;
   }
 
   newFactor();
 }
-
-
 
 /*!
   \param   i1 First border.
@@ -124,8 +105,6 @@ void com::DiMap::setIntRange(int i1, int i2)
   d_y2 = i2;
   newFactor();
 }
-
-
 
 /*!
   \param  x Value in double interval.
@@ -141,13 +120,11 @@ void com::DiMap::setIntRange(int i1, int i2)
 */
 int com::DiMap::transform(double x) const
 {
-  if(d_log)
+  if (d_log)
     return (d_y1 + boost::math::iround((std::log(x) - d_x1) * d_cnv));
   else
     return (d_y1 + boost::math::iround((x - d_x1) * d_cnv));
 }
-
-
 
 /*!
   \param   y Integer value to be transformed.
@@ -160,20 +137,15 @@ int com::DiMap::transform(double x) const
 */
 double com::DiMap::invTransform(int y) const
 {
-  if(d_cnv == 0.0)
-  {
+  if (d_cnv == 0.0) {
     return 0.0;
-  }
-  else
-  {
-    if(d_log)
+  } else {
+    if (d_log)
       return std::exp(d_x1 + double(y - d_y1) / d_cnv);
     else
       return (d_x1 + double(y - d_y1) / d_cnv);
   }
 }
-
-
 
 /*!
   \param   x Value to be transformed.
@@ -185,15 +157,13 @@ double com::DiMap::invTransform(int y) const
 */
 int com::DiMap::limTransform(double x) const
 {
-  if(x > std::max(d_x1, d_x2))
+  if (x > std::max(d_x1, d_x2))
     x = std::max(d_x1, d_x2);
-  else if(x < std::min(d_x1, d_x2))
+  else if (x < std::min(d_x1, d_x2))
     x = std::min(d_x1, d_x2);
 
   return transform(x);
 }
-
-
 
 /*!
   \param   x Value to be transformed.
@@ -211,67 +181,51 @@ double com::DiMap::xTransform(double x) const
 {
   double rv = NAN;
 
-  if(d_log) {
+  if (d_log) {
     rv = static_cast<double>(d_y1) + (std::log(x) - d_x1) * d_cnv;
-  }
-  else {
+  } else {
     rv = static_cast<double>(d_y1) + (x - d_x1) * d_cnv;
   }
 
   return rv;
 }
 
-
-
 void com::DiMap::newFactor()
 {
-  if(d_x2 != d_x1)
+  if (d_x2 != d_x1)
     d_cnv = static_cast<double>(d_y2 - d_y1) / (d_x2 - d_x1);
   else
     d_cnv = 0.0;
 }
-
-
 
 double com::DiMap::d1() const
 {
   return d_x1;
 }
 
-
-
 double com::DiMap::d2() const
 {
   return d_x2;
 }
-
-
 
 int com::DiMap::i1() const
 {
   return d_y1;
 }
 
-
-
 int com::DiMap::i2() const
 {
   return d_y2;
 }
-
-
 
 double com::DiMap::scale() const
 {
   return d_cnv;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -282,5 +236,3 @@ double com::DiMap::scale() const
   \fn      bool com::DiMap::logarithmic() const
   \return  True if the double interval is scaled logarithmically.
 */
-
-

@@ -2,13 +2,18 @@
 #include "geo_apprasterspace.h"
 #include "app.h"
 
-geo::AppRasterSpace::AppRasterSpace(const RasterSpace& rs):
-  d_rs(rs),d_trueCoords(appUnitTrue != 0)
+geo::AppRasterSpace::AppRasterSpace(const RasterSpace &rs) : d_rs(rs), d_trueCoords(appUnitTrue != 0)
 {
-  switch(appCoord) {
-    case APP_UL: d_xInc=d_yInc=0.0; break;
-    case APP_C : d_xInc=d_yInc=0.5; break;
-    case APP_LR: d_xInc=d_yInc=1.0; break;
+  switch (appCoord) {
+    case APP_UL:
+      d_xInc = d_yInc = 0.0;
+      break;
+    case APP_C:
+      d_xInc = d_yInc = 0.5;
+      break;
+    case APP_LR:
+      d_xInc = d_yInc = 1.0;
+      break;
   }
 }
 
@@ -21,16 +26,12 @@ geo::AppRasterSpace::AppRasterSpace(const RasterSpace& rs):
   <li>\a y  write-only. Returns y of output co-ordinate
  </UL>
  */
-void geo::AppRasterSpace::getCoords(
-  size_t row,
-  size_t col,
-  double &x,
-  double &y) const
+void geo::AppRasterSpace::getCoords(size_t row, size_t col, double &x, double &y) const
 {
   x = col + d_xInc;
   y = row + d_yInc;
-  if(d_trueCoords)
-    d_rs.rowCol2Coords(y,x,x,y);
+  if (d_trueCoords)
+    d_rs.rowCol2Coords(y, x, x, y);
 }
 
 //! the cellsize or 1 in case of --unitcell
@@ -44,5 +45,5 @@ double geo::AppRasterSpace::cellSize() const
 //! the cell-area or 1 in case of --unitcell
 double geo::AppRasterSpace::cellArea() const
 {
-  return cellSize()*cellSize();
+  return cellSize() * cellSize();
 }

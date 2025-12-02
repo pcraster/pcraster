@@ -10,12 +10,9 @@
 // Application headers.
 
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -23,20 +20,17 @@
 //------------------------------------------------------------------------------
 
 //! ctor
-pcrxml::PCDATAElement::PCDATAElement():
-   Element()
+pcrxml::PCDATAElement::PCDATAElement() : Element()
 
 {
 }
-
 
 //! ctor from DOM
 /*!
    \throws  com::BadStreamFormat if no valid contents
  */
-pcrxml::PCDATAElement::PCDATAElement(const QDomElement& n,
-                                     const std::string& elementName):
-  Element(n, elementName)
+pcrxml::PCDATAElement::PCDATAElement(const QDomElement &n, const std::string &elementName)
+    : Element(n, elementName)
 {
   /*
   Calling normalize() on an element converts all its children into a
@@ -48,32 +42,29 @@ pcrxml::PCDATAElement::PCDATAElement(const QDomElement& n,
   */
 
   QDomNodeList const c(n.childNodes());
-  for(size_t i=0; std::cmp_less(i , c.length()); ++i) {
-   if (c.item(i).isCDATASection()) {
-     QDomCDATASection const d(c.item(i).toCDATASection());
-     d_contents+= asString(d.data());
-     continue;
-   }
-   if (c.item(i).isText()) {
-     QDomText const d(c.item(i).toText());
-     d_contents+= asString(d.data());
-     continue;
-   }
-   throw com::BadStreamFormat("expected empty or simple content model");
+  for (size_t i = 0; std::cmp_less(i, c.length()); ++i) {
+    if (c.item(i).isCDATASection()) {
+      QDomCDATASection const d(c.item(i).toCDATASection());
+      d_contents += asString(d.data());
+      continue;
+    }
+    if (c.item(i).isText()) {
+      QDomText const d(c.item(i).toText());
+      d_contents += asString(d.data());
+      continue;
+    }
+    throw com::BadStreamFormat("expected empty or simple content model");
   }
 }
 
 //! ctor from sections' contents
-pcrxml::PCDATAElement::PCDATAElement(const std::string& contents):
-  d_contents(contents)
+pcrxml::PCDATAElement::PCDATAElement(const std::string &contents) : d_contents(contents)
 {
 }
 
 //! copy ctor
-pcrxml::PCDATAElement::PCDATAElement(const PCDATAElement& src):
-  Element(src),
-  d_contents(src.d_contents),
-  d_asCDATASection(src.d_asCDATASection)
+pcrxml::PCDATAElement::PCDATAElement(const PCDATAElement &src)
+    : Element(src), d_contents(src.d_contents), d_asCDATASection(src.d_asCDATASection)
 {
 }
 
@@ -82,24 +73,23 @@ pcrxml::PCDATAElement::~PCDATAElement()
 {
 }
 
-
 //! derived class needs this to construct QDomElement
-QDomNode pcrxml::PCDATAElement::contentsNode(const QDomNode& parent) const
+QDomNode pcrxml::PCDATAElement::contentsNode(const QDomNode &parent) const
 {
-   QDomDocument doc(parent.ownerDocument());
-   QString const c(asQString(d_contents));
-   POSTCOND(!doc.isNull());
+  QDomDocument doc(parent.ownerDocument());
+  QString const c(asQString(d_contents));
+  POSTCOND(!doc.isNull());
 
-   if (d_asCDATASection)
+  if (d_asCDATASection)
     return doc.createCDATASection(c);
-   else
+  else
     return doc.createTextNode(c);
 }
 
 //! set value of d_asCDATASection
 void pcrxml::PCDATAElement::setAsCDATASection(bool asCDATASection)
 {
-  d_asCDATASection=asCDATASection;
+  d_asCDATASection = asCDATASection;
 }
 
 //! get value of d_asCDATASection
@@ -109,27 +99,22 @@ bool pcrxml::PCDATAElement::asCDATASection() const
 }
 
 //! set value of d_contents
-void pcrxml::PCDATAElement::setContents(const std::string& contents)
+void pcrxml::PCDATAElement::setContents(const std::string &contents)
 {
-  d_contents=contents;
+  d_contents = contents;
 }
 
 //! get value of d_contents
-const std::string& pcrxml::PCDATAElement::contents() const
+const std::string &pcrxml::PCDATAElement::contents() const
 {
   return d_contents;
 }
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

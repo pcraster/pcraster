@@ -34,12 +34,10 @@
 
 #include <memory>
 
-
 /*!
   \file
   This file contains the implementation of the CommandLineTest class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -47,9 +45,9 @@
 //------------------------------------------------------------------------------
 
 //! suite
-boost::unit_test::test_suite*com::CommandLineTest::suite()
+boost::unit_test::test_suite *com::CommandLineTest::suite()
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
+  boost::unit_test::test_suite *suite = BOOST_TEST_SUITE(__FILE__);
   std::shared_ptr<CommandLineTest> instance(new CommandLineTest());
 
   suite->add(BOOST_CLASS_TEST_CASE(&CommandLineTest::testConstructor, instance));
@@ -58,8 +56,6 @@ boost::unit_test::test_suite*com::CommandLineTest::suite()
   return suite;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF COMMANDLINE MEMBERS
 //------------------------------------------------------------------------------
@@ -67,12 +63,10 @@ boost::unit_test::test_suite*com::CommandLineTest::suite()
 //! ctor
 com::CommandLineTest::CommandLineTest()
 
- :   d_commandLine(0)
+    : d_commandLine(0)
 
 {
 }
-
-
 
 //! setUp
 void com::CommandLineTest::setUp()
@@ -80,15 +74,11 @@ void com::CommandLineTest::setUp()
   d_commandLine = new CommandLine("Application", "version", "app");
 }
 
-
-
 //! tearDown
 void com::CommandLineTest::tearDown()
 {
   delete d_commandLine;
 }
-
-
 
 void com::CommandLineTest::testConstructor()
 {
@@ -99,8 +89,6 @@ void com::CommandLineTest::testConstructor()
   tearDown();
 }
 
-
-
 void com::CommandLineTest::testPositionalValue()
 {
   setUp();
@@ -108,7 +96,7 @@ void com::CommandLineTest::testPositionalValue()
     PositionalValue<int> intValue("An integer", "Integer");
     d_commandLine->clear();
     d_commandLine->addArgument(&intValue);
-    char const* const argv[] = { "app", "5" };
+    char const *const argv[] = {"app", "5"};
     const size_t argc = ARRAY_SIZE(argv);
     d_commandLine->parse(argc - 1, argv + 1);
     BOOST_CHECK(intValue.isParsed());
@@ -118,12 +106,11 @@ void com::CommandLineTest::testPositionalValue()
     PositionalValue<int> intValue("An integer", "Integer");
     d_commandLine->clear();
     d_commandLine->addArgument(&intValue);
-    char const* const argv[] = { "app", "five" };
+    char const *const argv[] = {"app", "five"};
     const size_t argc = ARRAY_SIZE(argv);
     try {
       d_commandLine->parse(argc - 1, argv + 1);
-    }
-    catch(CommandLineException const& exception) {
+    } catch (CommandLineException const &exception) {
       BOOST_CHECK(exception.size() == 4);
       BOOST_CHECK(exception[0] == "Command line argument 'five': Error");
       BOOST_CHECK(exception[1] == "Can not parse value:");
@@ -134,6 +121,3 @@ void com::CommandLineTest::testPositionalValue()
   }
   tearDown();
 }
-
-
-

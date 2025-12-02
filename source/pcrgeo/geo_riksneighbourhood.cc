@@ -2,13 +2,10 @@
 #include "geo_riksneighbourhood.h"
 #include "com_math.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the RiksNeighbourhood class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -34,7 +31,6 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC RIKSNEIGHBOURHOOD MEMBERS
 //------------------------------------------------------------------------------
@@ -52,17 +48,16 @@ std::tuple<size_t, size_t> geo::RiksNeighbourhood::circleCell(double radius)
   auto maxRadius = static_cast<size_t>(std::ceil(radius));
 
   // Only handle one quarter of the circle.
-  for(size_t row = 0; row <= maxRadius; ++row) {
-    for(size_t col = 0; col <= maxRadius; ++col) {
+  for (size_t row = 0; row <= maxRadius; ++row) {
+    for (size_t col = 0; col <= maxRadius; ++col) {
 
-      if(row == 0 && col == 0) {
+      if (row == 0 && col == 0) {
         // First cell handled.
         difference = std::abs(radius - std::hypot<double>(row, col));
         cell = std::make_tuple(row, col);
-      }
-      else {
+      } else {
         currentDifference = std::abs(radius - std::hypot<double>(row, col));
-        if(currentDifference < difference) {
+        if (currentDifference < difference) {
           difference = currentDifference;
           cell = std::make_tuple(row, col);
         }
@@ -73,37 +68,29 @@ std::tuple<size_t, size_t> geo::RiksNeighbourhood::circleCell(double radius)
   return cell;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF RIKSNEIGHBOURHOOD MEMBERS
 //------------------------------------------------------------------------------
 
 geo::RiksNeighbourhood::RiksNeighbourhood(double toRadius)
 
-  : Neighbourhood(toRadius)
+    : Neighbourhood(toRadius)
 
 {
   init();
 }
-
-
 
 geo::RiksNeighbourhood::RiksNeighbourhood(double fromRadius, double toRadius)
 
-  : Neighbourhood(fromRadius, toRadius)
+    : Neighbourhood(fromRadius, toRadius)
 
 {
   init();
 }
-
-
 
 geo::RiksNeighbourhood::~RiksNeighbourhood()
 {
 }
-
-
 
 //!
 /*!
@@ -120,20 +107,18 @@ void geo::RiksNeighbourhood::init()
   std::tuple<size_t, size_t> fromCircleCell = std::make_tuple(0, 0);
   std::tuple<size_t, size_t> toCircleCell(fromCircleCell);
 
-  if(fromRadius() > 0.0) {
+  if (fromRadius() > 0.0) {
     fromCircleCell = circleCell(fromRadius());
   }
 
-  if(toRadius() > 0.0) {
+  if (toRadius() > 0.0) {
     toCircleCell = circleCell(toRadius());
   }
 
   // Determine the radiusses of the Riks neighbourhoods of which the selected
   // cells are part.
-  double const fromRadius = std::hypot<double>(
-         std::get<0>(fromCircleCell), std::get<1>(fromCircleCell));
-  double const toRadius = std::hypot<double>(
-         std::get<0>(toCircleCell), std::get<1>(toCircleCell));
+  double const fromRadius = std::hypot<double>(std::get<0>(fromCircleCell), std::get<1>(fromCircleCell));
+  double const toRadius = std::hypot<double>(std::get<0>(toCircleCell), std::get<1>(toCircleCell));
 
   // Make sure the current set radius is equal of larger than the selected one.
   POSTCOND(static_cast<double>(radius()) >= toRadius);
@@ -141,11 +126,10 @@ void geo::RiksNeighbourhood::init()
   // Determine which cells are part of the Riks neighbourhood with the
   // selected radius.
   size_t const offset = radius();
-  for(size_t row = 0; row <= radius(); ++row) {
-    for(size_t col = 0; col <= radius(); ++col) {
+  for (size_t row = 0; row <= radius(); ++row) {
+    for (size_t col = 0; col <= radius(); ++col) {
       double const radius = std::hypot<double>(row, col);
-      if((radius > fromRadius && radius < toRadius) ||
-          com::equal_epsilon(radius, fromRadius) ||
+      if ((radius > fromRadius && radius < toRadius) || com::equal_epsilon(radius, fromRadius) ||
           com::equal_epsilon(radius, toRadius)) {
         this->cell(offset + row, offset + col) = 1.0;
         this->cell(offset + row, offset - col) = 1.0;
@@ -156,17 +140,11 @@ void geo::RiksNeighbourhood::init()
   }
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

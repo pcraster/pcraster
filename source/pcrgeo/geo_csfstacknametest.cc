@@ -4,7 +4,6 @@
 #include "com_exception.h"
 #include "geo_csfstackname.h"
 
-
 BOOST_AUTO_TEST_CASE(base_name)
 {
   using namespace geo;
@@ -39,42 +38,41 @@ BOOST_AUTO_TEST_CASE(base_name)
   }
 }
 
-
 BOOST_AUTO_TEST_CASE(filename)
 {
   using namespace geo;
 
- {
-  // Static stack in current dir.
-  com::PathName const pn = "soil.csf";
-  geo::CSFStackName const sn(pn);
-  BOOST_CHECK(sn.fileName(50) == "soil.csf");
- } 
- // pcrcalc has a trick that if the extension
- // is given each timestep is written to the
- // same file
- {
-  // CW wanted to use this one  in pcrcalc
-  com::PathName const pn = "tmp.res";
-  geo::CSFStackName const sn(pn);
-  BOOST_CHECK(!sn.isDynamic());
-  BOOST_CHECK(sn.fileName(1) == "tmp.res");
-  BOOST_CHECK(sn.fileName(300) == "tmp.res");
- }
- {
-  // and not this one in pcrcalc
-  com::PathName const pn = "tmp.res";
-  geo::CSFStackName const sn(pn,1,1000);
-  BOOST_CHECK(sn.isDynamic());
-  BOOST_CHECK(sn.fileName(1) == "tmp.res");
-  BOOST_CHECK(sn.fileName(300) == "tmp.res");
- }
- {
-  // Dynamic stack in current dir.
-  com::PathName const pn = "soil0000.010+100";
-  geo::CSFStackName const sn(pn);
-  BOOST_CHECK(sn.fileName(50) == "soil0000.050");
- }
+  {
+    // Static stack in current dir.
+    com::PathName const pn = "soil.csf";
+    geo::CSFStackName const sn(pn);
+    BOOST_CHECK(sn.fileName(50) == "soil.csf");
+  }
+  // pcrcalc has a trick that if the extension
+  // is given each timestep is written to the
+  // same file
+  {
+    // CW wanted to use this one  in pcrcalc
+    com::PathName const pn = "tmp.res";
+    geo::CSFStackName const sn(pn);
+    BOOST_CHECK(!sn.isDynamic());
+    BOOST_CHECK(sn.fileName(1) == "tmp.res");
+    BOOST_CHECK(sn.fileName(300) == "tmp.res");
+  }
+  {
+    // and not this one in pcrcalc
+    com::PathName const pn = "tmp.res";
+    geo::CSFStackName const sn(pn, 1, 1000);
+    BOOST_CHECK(sn.isDynamic());
+    BOOST_CHECK(sn.fileName(1) == "tmp.res");
+    BOOST_CHECK(sn.fileName(300) == "tmp.res");
+  }
+  {
+    // Dynamic stack in current dir.
+    com::PathName const pn = "soil0000.010+100";
+    geo::CSFStackName const sn(pn);
+    BOOST_CHECK(sn.fileName(50) == "soil0000.050");
+  }
 
   {
     com::PathName const pn = "soilsoil.010+100";
@@ -88,7 +86,6 @@ BOOST_AUTO_TEST_CASE(filename)
     BOOST_CHECK(sn.fileName(50) == "soilsoil.s50");
   }
 }
-
 
 BOOST_AUTO_TEST_CASE(nr_layers)
 {
@@ -104,9 +101,8 @@ BOOST_AUTO_TEST_CASE(nr_layers)
   // Dynamic stack in current dir.
   pn = "soil0000.010+100";
   sn = pn;
-  BOOST_CHECK(sn.nrLayers() == 0); // Stack doesn't exist in current dir.
+  BOOST_CHECK(sn.nrLayers() == 0);  // Stack doesn't exist in current dir.
 }
-
 
 BOOST_AUTO_TEST_CASE(constructor)
 {
@@ -136,73 +132,69 @@ BOOST_AUTO_TEST_CASE(constructor)
   sn = pn;
   BOOST_CHECK(sn.scanned());
   BOOST_CHECK(sn.isDynamic());
-
 }
-
 
 BOOST_AUTO_TEST_CASE(bad_formats)
 {
   using namespace geo;
 
   bool catchWrongFormat = false;
-  
+
   // stupid error
-  catchWrongFormat=false;
+  catchWrongFormat = false;
   try {
-       com::PathName const pn("+");
-       geo::CSFStackName const sn(pn);
-  } catch (const com::Exception& ) {
-   catchWrongFormat=true;
+    com::PathName const pn("+");
+    geo::CSFStackName const sn(pn);
+  } catch (const com::Exception &) {
+    catchWrongFormat = true;
   }
   BOOST_CHECK(catchWrongFormat);
 
   // no last timestep
-  catchWrongFormat=false;
+  catchWrongFormat = false;
   try {
-       com::PathName const pn("rnpnts00.001+");
-       geo::CSFStackName const sn(pn);
-  } catch (const com::Exception& ) {
-   catchWrongFormat=true;
+    com::PathName const pn("rnpnts00.001+");
+    geo::CSFStackName const sn(pn);
+  } catch (const com::Exception &) {
+    catchWrongFormat = true;
   }
   BOOST_CHECK(catchWrongFormat);
-  
+
   // last timestep is not numeric
-  catchWrongFormat=false;
+  catchWrongFormat = false;
   try {
-       com::PathName const pn("rnpnts00.001+XXX");
-       geo::CSFStackName const sn(pn);
-  } catch (const com::Exception& ) {
-   catchWrongFormat=true;
+    com::PathName const pn("rnpnts00.001+XXX");
+    geo::CSFStackName const sn(pn);
+  } catch (const com::Exception &) {
+    catchWrongFormat = true;
   }
   BOOST_CHECK(catchWrongFormat);
 
   // no first timestep
-  catchWrongFormat=false;
+  catchWrongFormat = false;
   try {
-       com::PathName const pn("rnpntsxx.xxx+431");
-       geo::CSFStackName const sn(pn);
-  } catch (const com::Exception& ) {
-   catchWrongFormat=true;
+    com::PathName const pn("rnpntsxx.xxx+431");
+    geo::CSFStackName const sn(pn);
+  } catch (const com::Exception &) {
+    catchWrongFormat = true;
   }
   BOOST_CHECK(catchWrongFormat);
 
-  catchWrongFormat=false;
+  catchWrongFormat = false;
   // first timestep larger than second
   try {
-       com::PathName const pn("XXXX970.009+3");
-       geo::CSFStackName const sn(pn);
-  } catch (const com::Exception& ) {
-    catchWrongFormat=true;
+    com::PathName const pn("XXXX970.009+3");
+    geo::CSFStackName const sn(pn);
+  } catch (const com::Exception &) {
+    catchWrongFormat = true;
   }
   BOOST_CHECK(catchWrongFormat);
-
 }
-
 
 BOOST_AUTO_TEST_CASE(as_aguila_argument)
 {
   using namespace geo;
 
-  std::string const r(CSFStackName::asAguilaArgument("prefix",1,100));
+  std::string const r(CSFStackName::asAguilaArgument("prefix", 1, 100));
   BOOST_CHECK(r == "prefix00.001+100");
 }

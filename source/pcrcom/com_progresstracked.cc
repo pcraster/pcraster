@@ -19,12 +19,10 @@
 #endif
 
 
-
 /*!
   \file
   This file contains the implementation of the ProgressTracked class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -50,33 +48,26 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC PROGRESSTRACKED MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF PROGRESSTRACKED MEMBERS
 //------------------------------------------------------------------------------
 
-template<typename ProgressTracker>
+template <typename ProgressTracker>
 com::ProgressTracked<ProgressTracker>::ProgressTracked()
 
-  : d_tracker(nullptr)
+    : d_tracker(nullptr)
 
 {
 }
 
-
-
-template<typename ProgressTracker>
-com::ProgressTracked<ProgressTracker>::~ProgressTracked()
+template <typename ProgressTracker> com::ProgressTracked<ProgressTracker>::~ProgressTracked()
 {
 }
-
-
 
 /*
 template<typename ProgressTracker>
@@ -100,18 +91,14 @@ void com::ProgressTracked<ProgressTracker>::init()
 */
 
 
-
-template<typename ProgressTracker>
-void com::ProgressTracked<ProgressTracker>::init(size_t nrSteps)
+template <typename ProgressTracker> void com::ProgressTracked<ProgressTracker>::init(size_t nrSteps)
 {
-  if(d_tracker) {
+  if (d_tracker) {
     d_tracker->setNrSteps(nrSteps);
     d_tracker->clear();
     d_tracker->init();
   }
 }
-
-
 
 //! Calls ProgressTracker::setNrSteps(size_t).
 /*!
@@ -119,60 +106,50 @@ void com::ProgressTracked<ProgressTracker>::init(size_t nrSteps)
   \warning   Nothing happends if a tracker is not set.
   \sa        setProgress(ProgressTracker*)
 */
-template<typename ProgressTracker>
+template <typename ProgressTracker>
 void com::ProgressTracked<ProgressTracker>::setNrSteps(size_t nrSteps)
 {
-  if(d_tracker) {
+  if (d_tracker) {
     d_tracker->setNrSteps(nrSteps);
   }
 }
-
-
 
 //! Calls ProgressTracker::finishedStep().
 /*!
   \warning   Nothing happends if a tracker is not set.
   \sa        setProgress(ProgressTracker*)
 */
-template<typename ProgressTracker>
-void com::ProgressTracked<ProgressTracker>::finishedStep()
+template <typename ProgressTracker> void com::ProgressTracked<ProgressTracker>::finishedStep()
 {
-  if(d_tracker) {
+  if (d_tracker) {
     d_tracker->finishedStep();
   }
 }
-
-
 
 //! Calls ProgressTracker::finishedSteps().
 /*!
   \warning   Nothing happends if a tracker is not set.
   \sa        setProgress(ProgressTracker*)
 */
-template<typename ProgressTracker>
-void com::ProgressTracked<ProgressTracker>::finishedSteps()
+template <typename ProgressTracker> void com::ProgressTracked<ProgressTracker>::finishedSteps()
 {
-  if(d_tracker) {
+  if (d_tracker) {
     d_tracker->finishedSteps();
   }
 }
-
-
 
 //! Calls ProgressTracker::finishedSteps(size_t).
 /*!
   \warning   Nothing happends if a tracker is not set.
   \sa        setProgress(ProgressTracker*)
 */
-template<typename ProgressTracker>
+template <typename ProgressTracker>
 void com::ProgressTracked<ProgressTracker>::finishedSteps(size_t nrSteps)
 {
-  if(d_tracker) {
+  if (d_tracker) {
     d_tracker->finishedSteps(nrSteps);
   }
 }
-
-
 
 //! Sets the ProgressTracker member to \a tracker.
 /*!
@@ -180,34 +157,25 @@ void com::ProgressTracked<ProgressTracker>::finishedSteps(size_t nrSteps)
 
   \a tracker can be 0.
 */
-template<typename ProgressTracker>
-void com::ProgressTracked<ProgressTracker>::setTracker(ProgressTracker* tracker)
+template <typename ProgressTracker>
+void com::ProgressTracked<ProgressTracker>::setTracker(ProgressTracker *tracker)
 {
   d_tracker = tracker;
 }
 
-
-
-template<typename ProgressTracker>
-ProgressTracker* com::ProgressTracked<ProgressTracker>::tracker()
+template <typename ProgressTracker> ProgressTracker *com::ProgressTracked<ProgressTracker>::tracker()
 {
   return d_tracker;
 }
 
-
-
-template<typename ProgressTracker>
-size_t com::ProgressTracked<ProgressTracker>::nrFinishedSteps() const
+template <typename ProgressTracker> size_t com::ProgressTracked<ProgressTracker>::nrFinishedSteps() const
 {
   return d_tracker->nrFinishedSteps();
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

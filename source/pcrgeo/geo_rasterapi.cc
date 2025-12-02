@@ -19,12 +19,10 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the RasterAPI class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -50,11 +48,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC RASTERAPI MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -62,71 +58,52 @@ public:
 //------------------------------------------------------------------------------
 
 //! ctor
-template<typename T>
-geo::RasterAPI<T>::RasterAPI(const RasterSpace& rasterSpace)
+template <typename T>
+geo::RasterAPI<T>::RasterAPI(const RasterSpace &rasterSpace)
 
- : com::IRaster<T>(rasterSpace.nrRows(), rasterSpace.nrCols()),
-   d_data(new com::Raster<T>(rasterSpace.nrRows(), rasterSpace.nrCols()))
+    : com::IRaster<T>(rasterSpace.nrRows(), rasterSpace.nrCols()),
+      d_data(new com::Raster<T>(rasterSpace.nrRows(), rasterSpace.nrCols()))
 
 {
 }
-
-
 
 //! ctor
 /*
  * \warning   This owns \a data and will delete it on destruction.
  */
-template<typename T>
-geo::RasterAPI<T>::RasterAPI(const RasterSpace& rasterSpace,
-         com::IRaster<T>* data)
+template <typename T>
+geo::RasterAPI<T>::RasterAPI(const RasterSpace &rasterSpace, com::IRaster<T> *data)
 
- : com::IRaster<T>(rasterSpace.nrRows(), rasterSpace.nrCols()),
-   d_data(data)
+    : com::IRaster<T>(rasterSpace.nrRows(), rasterSpace.nrCols()), d_data(data)
 
 {
 }
 
-
-
 //! dtor
-template<typename T>
-geo::RasterAPI<T>::~RasterAPI()
+template <typename T> geo::RasterAPI<T>::~RasterAPI()
 {
   delete d_data;
 }
 
-
-
-template<typename T>
-geo::RasterAPI<T>& geo::RasterAPI<T>::add(const com::IRaster<T>& from)
+template <typename T> geo::RasterAPI<T> &geo::RasterAPI<T>::add(const com::IRaster<T> &from)
 {
   ensurePointOperationPossible(from.isSpatial());
   d_data->add(from);
   return *this;
 }
 
-
-
-template<typename T>
-geo::RasterAPI<T>& geo::RasterAPI<T>::minus(const com::IRaster<T>& from)
+template <typename T> geo::RasterAPI<T> &geo::RasterAPI<T>::minus(const com::IRaster<T> &from)
 {
   ensurePointOperationPossible(from.isSpatial());
   d_data->minus(from);
   return *this;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

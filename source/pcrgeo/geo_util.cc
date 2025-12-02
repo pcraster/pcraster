@@ -31,7 +31,6 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
 static const std::string YIncrB2TString = ("y increases from bottom to top");
@@ -42,17 +41,14 @@ static const std::string YIncrT2BString = ("y increases from top to bottom");
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -87,8 +83,8 @@ bool geo::geoEasFormat(std::istream &s)
   bool result = true;
   try {
     com::removeFrontEndSpace(l);
-    (void)com::strToInt(l);     // Ignore result.
-  } catch (const std::range_error&) {
+    (void)com::strToInt(l);  // Ignore result.
+  } catch (const std::range_error &) {
     result = false;
   }
 
@@ -98,9 +94,7 @@ bool geo::geoEasFormat(std::istream &s)
   return result;
 }
 
-
-
-bool geo::isCSFStack(const com::PathName& pn)
+bool geo::isCSFStack(const com::PathName &pn)
 {
   bool result = false;
 
@@ -109,22 +103,19 @@ bool geo::isCSFStack(const com::PathName& pn)
     com::PathName const fn = sn.fileName();
     geo::CSFMap const m(fn);
     result = true;
-  }
-  catch(geo::NotA_PCRasterMap& /* e */) {
+  } catch (geo::NotA_PCRasterMap & /* e */) {
     result = false;
   }
 
   return result;
 }
 
-
-
 /*!
   \param     pn Path name of file to test.
   \return    true if \a pn is the name of a block file.
   \sa        isCSFStack(const com::PathName&)
 */
-bool geo::isBlock(const com::PathName& pn)
+bool geo::isBlock(const com::PathName &pn)
 {
   // Open file.
   std::ifstream s;
@@ -135,20 +126,18 @@ bool geo::isBlock(const com::PathName& pn)
   size_t n = 0;
   std::getline(s, line);
   n = com::split(line).size();
-  if(n != 5) {
+  if (n != 5) {
     return false;
   }
 
   // Read second line: projection.
   std::getline(s, line);
-  if(line != YIncrB2TString && line != YIncrT2BString) {
+  if (line != YIncrB2TString && line != YIncrT2BString) {
     return false;
   }
 
   return true;
 }
-
-
 
 //! Returns true if \a pathName points to a time series file.
 /*!
@@ -160,13 +149,13 @@ bool geo::isBlock(const com::PathName& pn)
   This function returns true if the first line of the data section contains
   an equal amount of values as there are columns according to the header.
 */
-bool geo::isTimeSeriesFile(const com::PathName& pathName)
+bool geo::isTimeSeriesFile(const com::PathName &pathName)
 {
   // Open file.
   std::ifstream stream;
   com::open(stream, pathName);
 
-  if(geoEasFormat(stream)) {
+  if (geoEasFormat(stream)) {
     return true;
   }
 
@@ -177,7 +166,7 @@ bool geo::isTimeSeriesFile(const com::PathName& pathName)
   std::vector<std::string> fields = com::split(line);
 
   // Time series file must have at least 2 columns.
-  if(fields.size() < 2) {
+  if (fields.size() < 2) {
     return false;
   }
 
@@ -185,16 +174,16 @@ bool geo::isTimeSeriesFile(const com::PathName& pathName)
   // positive integer value.
   try {
     (void)com::strToSize_t(fields[0]);
-  } catch (std::range_error&) {
+  } catch (std::range_error &) {
     return false;
   }
 
   // Check if all columns, but the first, contain numbers (first column is
   // checked above).
-  for(size_t i = 1; i < fields.size(); ++i) {
+  for (size_t i = 1; i < fields.size(); ++i) {
     try {
       (void)com::strToDouble(fields[i]);
-    } catch (std::range_error&) {
+    } catch (std::range_error &) {
       return false;
     }
   }
@@ -202,7 +191,7 @@ bool geo::isTimeSeriesFile(const com::PathName& pathName)
   // File seems to contain one or more time series.
   return true;
 
-/*
+  /*
     std::getline(stream, line);
 
     // Line 2: header, number of columns.
@@ -250,8 +239,6 @@ bool geo::isTimeSeriesFile(const com::PathName& pathName)
 */
 }
 
-
-
 /*!
   \param     pn Path name of file to test.
   \return    true if \a pn is the name of file containing columns.
@@ -260,7 +247,7 @@ bool geo::isTimeSeriesFile(const com::PathName& pathName)
   A file is considered to be formatted in columns if the first 5 lines contain
   equal numbers of tokens and if this number of tokens is larger than 0.
 */
-bool geo::isColumnFile(const com::PathName& pn)
+bool geo::isColumnFile(const com::PathName &pn)
 {
   // Open file.
   std::ifstream stream;
@@ -273,22 +260,21 @@ bool geo::isColumnFile(const com::PathName& pn)
 
   std::getline(stream, line);
   nc = com::split(line).size();
-  if(nc == 0) {
+  if (nc == 0) {
     return false;
   }
 
   // Try to check the first 4 lines.
-  for(size_t i = 1; i < 4; ++i) {
+  for (size_t i = 1; i < 4; ++i) {
 
-    if(stream.eof()) {
+    if (stream.eof()) {
       // Benefit of the doubt.
       return true;
-    }
-    else {
+    } else {
       // Another line to read.
       std::getline(stream, line);
       n = com::split(line).size();
-      if(n != nc) {
+      if (n != nc) {
         // Number of tokens doesn't equal number of tokens in first line.
         return false;
       }
@@ -299,15 +285,11 @@ bool geo::isColumnFile(const com::PathName& pn)
   return true;
 }
 
-
-
-bool geo::isModelScriptFile(const com::PathName& /* pathName */)
+bool geo::isModelScriptFile(const com::PathName & /* pathName */)
 {
   // Return true if
   return true;
 }
-
-
 
 // geo::DataType geo::dataType(const com::PathName& pathName)
 // {
@@ -354,7 +336,6 @@ bool geo::isModelScriptFile(const com::PathName& /* pathName */)
 // }
 
 
-
 /*!
   \param     p CSF Projection type to convert.
   \return    The geo::Projection type version of \a p.
@@ -363,9 +344,9 @@ geo::Projection geo::csfProjToGeo(CSF_PT p)
 {
   Projection proj;
 
-  if(p == PT_YINCT2B)
+  if (p == PT_YINCT2B)
     proj = YIncrT2B;
-  else if(p == PT_YDECT2B)
+  else if (p == PT_YDECT2B)
     proj = YIncrB2T;
   else
     proj = IllegalProjection;
@@ -373,15 +354,13 @@ geo::Projection geo::csfProjToGeo(CSF_PT p)
   return proj;
 }
 
-
-
 CSF_PT geo::geoProjToCsf(Projection p)
 {
   CSF_PT proj;
 
-  if(p == YIncrT2B)
+  if (p == YIncrT2B)
     proj = PT_YINCT2B;
-  else if(p == YIncrB2T)
+  else if (p == YIncrB2T)
     proj = PT_YDECT2B;
   else
     proj = PT_UNDEFINED;
@@ -389,15 +368,13 @@ CSF_PT geo::geoProjToCsf(Projection p)
   return proj;
 }
 
-
-
 std::string geo::projToStr(Projection p)
 {
   std::string s;
 
-  if(p == YIncrB2T)
+  if (p == YIncrB2T)
     s = YIncrB2TString;
-  else if(p == YIncrT2B)
+  else if (p == YIncrT2B)
     s = YIncrT2BString;
   else
     s = "illegal projection";
@@ -405,15 +382,13 @@ std::string geo::projToStr(Projection p)
   return s;
 }
 
-
-
 geo::Projection geo::strToProj(const std::string &s)
 {
   Projection p;
 
-  if(s == YIncrB2TString)
+  if (s == YIncrB2TString)
     p = YIncrB2T;
-  else if(s == YIncrT2BString)
+  else if (s == YIncrT2BString)
     p = YIncrT2B;
   else
     p = IllegalProjection;
@@ -421,45 +396,35 @@ geo::Projection geo::strToProj(const std::string &s)
   return p;
 }
 
-
-
 CSF_VS geo::strToValueScale(const std::string &str)
 {
   CSF_VS vs;
 
-  if(str == "BOOLEAN") {
+  if (str == "BOOLEAN") {
     vs = VS_BOOLEAN;
-  }
-  else if(str == "NOMINAL") {
+  } else if (str == "NOMINAL") {
     vs = VS_NOMINAL;
-  }
-  else if(str == "ORDINAL") {
+  } else if (str == "ORDINAL") {
     vs = VS_ORDINAL;
-  }
-  else if(str == "SCALAR") {
+  } else if (str == "SCALAR") {
     vs = VS_SCALAR;
-  }
-  else if(str == "DIRECTIONAL") {
+  } else if (str == "DIRECTIONAL") {
     vs = VS_DIRECTION;
-  }
-  else if(str == "LDD") {
+  } else if (str == "LDD") {
     vs = VS_LDD;
-  }
-  else {
+  } else {
     PRECOND(false);
-    vs = VS_UNDEFINED;       // Never reached.
+    vs = VS_UNDEFINED;  // Never reached.
   }
 
   return vs;
 }
 
-
-
-std::string geo::valueScaleToStr(const CSF_VS& vs)
+std::string geo::valueScaleToStr(const CSF_VS &vs)
 {
   std::string str;
 
-  switch(vs) {
+  switch (vs) {
 
     case VS_BOOLEAN:
       str = "BOOLEAN";
@@ -487,15 +452,12 @@ std::string geo::valueScaleToStr(const CSF_VS& vs)
 
     default:
       PRECOND(false);
-      str = "UNKOWN";        // Never reached.
+      str = "UNKOWN";  // Never reached.
       break;
-
   }
 
   return str;
 }
-
-
 
 // std::string geo::dataTypeToStr(const DataType& dataType)
 // {
@@ -538,33 +500,37 @@ std::string geo::valueScaleToStr(const CSF_VS& vs)
 // }
 
 
-
 CSF_CR geo::ValueScale2CellRepr::defaultCR() const
 {
-    switch(d_vs) {
-     case VS_SCALAR:
-     case VS_DIRECTION:
-        return CR_REAL4; break;
-     case VS_NOMINAL:
-     case VS_ORDINAL:
-        return CR_INT4; break;
+  switch (d_vs) {
+    case VS_SCALAR:
+    case VS_DIRECTION:
+      return CR_REAL4;
+      break;
+    case VS_NOMINAL:
+    case VS_ORDINAL:
+      return CR_INT4;
+      break;
     case VS_BOOLEAN:
     case VS_LDD:
-        return CR_UINT1; break;
+      return CR_UINT1;
+      break;
     default:
-        PRECOND(false);
-        return CR_UNDEFINED; break;          // Never reached.
-   }
+      PRECOND(false);
+      return CR_UNDEFINED;
+      break;  // Never reached.
+  }
 }
 
 CSF_CR geo::ValueScale2CellRepr::smallCR() const
 {
-   switch(d_vs) {
-     case VS_NOMINAL:
-     case VS_ORDINAL:
-       return CR_UINT1; break;
-     default:
-       return defaultCR();
+  switch (d_vs) {
+    case VS_NOMINAL:
+    case VS_ORDINAL:
+      return CR_UINT1;
+      break;
+    default:
+      return defaultCR();
   }
 }
 
@@ -572,8 +538,6 @@ CSF_CR geo::ValueScale2CellRepr::largeCR() const
 {
   return defaultCR();
 }
-
-
 
 /*
 template<class T>
@@ -597,9 +561,7 @@ void geo::nonMVRowSection(const geo::Raster<T>& raster,
 */
 
 
-
-template<class T>
-T geo::average(const Raster<T>& raster, size_t r, size_t c, size_t l)
+template <class T> T geo::average(const Raster<T> &raster, size_t r, size_t c, size_t l)
 {
   T mv;
   pcr::setMV(mv);
@@ -607,9 +569,9 @@ T geo::average(const Raster<T>& raster, size_t r, size_t c, size_t l)
   T a = 0;
   size_t n = 0;
 
-  for(size_t i = 0; i < l; ++i) {
-    for(size_t j = 0; j < l; ++j) {
-      if(!pcr::isMV(raster.cell(r + i, c + j))) {
+  for (size_t i = 0; i < l; ++i) {
+    for (size_t j = 0; j < l; ++j) {
+      if (!pcr::isMV(raster.cell(r + i, c + j))) {
         a += raster.cell(r + i, c + j);
         ++n;
       }
@@ -619,11 +581,8 @@ T geo::average(const Raster<T>& raster, size_t r, size_t c, size_t l)
   return n == 0 ? mv : a / n;
 }
 
-
-
-template<class T>
-T geo::average(T const* cells, geo::RasterDim const& dim,
-         size_t row, size_t col, size_t length)
+template <class T>
+T geo::average(T const *cells, geo::RasterDim const &dim, size_t row, size_t col, size_t length)
 {
   T mv;
   pcr::setMV(mv);
@@ -632,10 +591,10 @@ T geo::average(T const* cells, geo::RasterDim const& dim,
   size_t n = 0;
   size_t index = 0;
 
-  for(size_t i = 0; i < length; ++i) {
-    for(size_t j = 0; j < length; ++j) {
+  for (size_t i = 0; i < length; ++i) {
+    for (size_t j = 0; j < length; ++j) {
       index = dim.convert(row + i, col + j);
-      if(!pcr::isMV(cells[index])) {
+      if (!pcr::isMV(cells[index])) {
         average += cells[index];
         ++n;
       }
@@ -644,8 +603,6 @@ T geo::average(T const* cells, geo::RasterDim const& dim,
 
   return n == 0 ? mv : average / n;
 }
-
-
 
 //! Assigns values from \a raster to \a boundaries.
 /*!
@@ -656,9 +613,8 @@ T geo::average(T const* cells, geo::RasterDim const& dim,
   Values from \a raster are converted to boundary values by taking the
   average value of the cell values at either side of the boundary.
 */
-template<class T>
-void geo::raster2Boundaries(const SimpleRaster<T>& raster,
-         RasterBoundaries<T>& boundaries)
+template <class T>
+void geo::raster2Boundaries(const SimpleRaster<T> &raster, RasterBoundaries<T> &boundaries)
 {
   PRECOND(raster.nrRows() == boundaries.nrRows());
   PRECOND(raster.nrCols() == boundaries.nrCols());
@@ -677,7 +633,7 @@ void geo::raster2Boundaries(const SimpleRaster<T>& raster,
   SimpleRaster<double> dummy(raster.nrRows(), raster.nrCols());
 
   // Engine to manage the filter.
-  std::unique_ptr<FilterEngine<T, double> > engine;
+  std::unique_ptr<FilterEngine<T, double>> engine;
 
   // Filter weights.
   SimpleRaster<double> weights(3, 3, 0.0);
@@ -694,8 +650,8 @@ void geo::raster2Boundaries(const SimpleRaster<T>& raster,
   engine->calc();
 
   // Extract values from raster.
-  for(size_t row = 0; row < raster.nrRows(); ++row) {
-    for(size_t col = 0; col < raster.nrCols(); ++col) {
+  for (size_t row = 0; row < raster.nrRows(); ++row) {
+    for (size_t col = 0; col < raster.nrCols(); ++col) {
 
       // Set right boundary value.
       boundaries.rightBoundary(row, col) = dummy.cell(row, col);
@@ -714,8 +670,8 @@ void geo::raster2Boundaries(const SimpleRaster<T>& raster,
   engine->calc();
 
   // Extract values from raster.
-  for(size_t row = 0; row < raster.nrRows(); ++row) {
-    for(size_t col = 0; col < raster.nrCols(); ++col) {
+  for (size_t row = 0; row < raster.nrRows(); ++row) {
+    for (size_t col = 0; col < raster.nrCols(); ++col) {
 
       // Set bottom boundary value.
       boundaries.bottomBoundary(row, col) = dummy.cell(row, col);
@@ -725,7 +681,7 @@ void geo::raster2Boundaries(const SimpleRaster<T>& raster,
   // Calculate values for cells missed.
   // Cell values for left boundary of first column equals the raster values
   // of the first column.
-  for(size_t row = 0; row < raster.nrRows(); ++row) {
+  for (size_t row = 0; row < raster.nrRows(); ++row) {
 
     // Set left boundary value.
     boundaries.leftBoundary(row, 0) = raster.cell(row, 0);
@@ -733,7 +689,7 @@ void geo::raster2Boundaries(const SimpleRaster<T>& raster,
 
   // Cell values for top boundary of first row equals the raster values
   // of the first row.
-  for(size_t col = 0; col < raster.nrCols(); ++col) {
+  for (size_t col = 0; col < raster.nrCols(); ++col) {
 
     // Set top boundary value.
     boundaries.topBoundary(0, col) = raster.cell(0, col);
@@ -747,11 +703,11 @@ void geo::raster2Boundaries(const SimpleRaster<T>& raster,
   // The right value of the middle cell equals the value of V2.
   // So, find all MV and check whether they have a neighbour on their right or
   // bottom.
-  if(raster.nrRows() > 2) {
-    for(size_t row = 0; row < raster.nrRows() - 1; ++row) {
-      for(size_t col = 0; col < raster.nrCols(); ++col) {
-        if(pcr::isMV(raster.cell(row, col))) {
-          if(!pcr::isMV(raster.cell(row + 1, col))) {
+  if (raster.nrRows() > 2) {
+    for (size_t row = 0; row < raster.nrRows() - 1; ++row) {
+      for (size_t col = 0; col < raster.nrCols(); ++col) {
+        if (pcr::isMV(raster.cell(row, col))) {
+          if (!pcr::isMV(raster.cell(row + 1, col))) {
             // Copy value from bottom neighbour.
             boundaries.bottomBoundary(row, col) = raster.cell(row + 1, col);
           }
@@ -760,11 +716,11 @@ void geo::raster2Boundaries(const SimpleRaster<T>& raster,
     }
   }
 
-  if(raster.nrCols() > 2) {
-    for(size_t row = 0; row < raster.nrRows(); ++row) {
-      for(size_t col = 0; col < raster.nrCols() - 1; ++col) {
-        if(pcr::isMV(raster.cell(row, col))) {
-          if(!pcr::isMV(raster.cell(row, col + 1))) {
+  if (raster.nrCols() > 2) {
+    for (size_t row = 0; row < raster.nrRows(); ++row) {
+      for (size_t col = 0; col < raster.nrCols() - 1; ++col) {
+        if (pcr::isMV(raster.cell(row, col))) {
+          if (!pcr::isMV(raster.cell(row, col + 1))) {
             // Copy value from right neighbour.
             boundaries.rightBoundary(row, col) = raster.cell(row, col + 1);
           }
@@ -774,11 +730,9 @@ void geo::raster2Boundaries(const SimpleRaster<T>& raster,
   }
 }
 
-
-
-template<class T>
-void geo::magnitude(const RasterBoundaries<T>& xVector,
-         const RasterBoundaries<T>& yVector, RasterBoundaries<T>& result)
+template <class T>
+void geo::magnitude(const RasterBoundaries<T> &xVector, const RasterBoundaries<T> &yVector,
+                    RasterBoundaries<T> &result)
 {
   PRECOND(xVector.nrRows() == yVector.nrRows());
   PRECOND(xVector.nrRows() == result.nrRows());
@@ -789,78 +743,60 @@ void geo::magnitude(const RasterBoundaries<T>& xVector,
   size_t const nrCols = xVector.nrCols();
 
   // Right and bottom boundaries of all cells.
-  for(size_t row = 0; row < nrRows; ++row) {
-    for(size_t col = 0; col < nrCols; ++col) {
+  for (size_t row = 0; row < nrRows; ++row) {
+    for (size_t col = 0; col < nrCols; ++col) {
 
-      if(pcr::isMV(xVector.rightBoundary(row, col)) ||
-         pcr::isMV(yVector.rightBoundary(row, col))) {
+      if (pcr::isMV(xVector.rightBoundary(row, col)) || pcr::isMV(yVector.rightBoundary(row, col))) {
         pcr::setMV(result.rightBoundary(row, col));
-      }
-      else {
+      } else {
         result.rightBoundary(row, col) =
-          std::hypot(xVector.rightBoundary(row, col),
-                     yVector.rightBoundary(row, col));
+            std::hypot(xVector.rightBoundary(row, col), yVector.rightBoundary(row, col));
       }
 
-      if(pcr::isMV(xVector.bottomBoundary(row, col)) ||
-         pcr::isMV(yVector.bottomBoundary(row, col))) {
+      if (pcr::isMV(xVector.bottomBoundary(row, col)) || pcr::isMV(yVector.bottomBoundary(row, col))) {
         pcr::setMV(result.bottomBoundary(row, col));
-      }
-      else {
+      } else {
         result.bottomBoundary(row, col) =
-          std::hypot(xVector.bottomBoundary(row, col),
-                     yVector.bottomBoundary(row, col));
+            std::hypot(xVector.bottomBoundary(row, col), yVector.bottomBoundary(row, col));
       }
     }
   }
 
   // Left boundaries of first column.
-  for(size_t row = 0; row < nrRows; ++row) {
-    if(pcr::isMV(xVector.leftBoundary(row, 0)) ||
-       pcr::isMV(yVector.leftBoundary(row, 0))) {
+  for (size_t row = 0; row < nrRows; ++row) {
+    if (pcr::isMV(xVector.leftBoundary(row, 0)) || pcr::isMV(yVector.leftBoundary(row, 0))) {
       pcr::setMV(result.leftBoundary(row, 0));
-    }
-    else {
+    } else {
       result.leftBoundary(row, 0) =
-        std::hypot(xVector.leftBoundary(row, 0),
-                   yVector.leftBoundary(row, 0));
+          std::hypot(xVector.leftBoundary(row, 0), yVector.leftBoundary(row, 0));
     }
   }
 
   // Top boundaries of first row.
-  for(size_t col = 0; col < nrCols; ++col) {
-    if(pcr::isMV(xVector.topBoundary(0, col)) ||
-       pcr::isMV(yVector.topBoundary(0, col))) {
+  for (size_t col = 0; col < nrCols; ++col) {
+    if (pcr::isMV(xVector.topBoundary(0, col)) || pcr::isMV(yVector.topBoundary(0, col))) {
       pcr::setMV(result.topBoundary(0, col));
-    }
-    else {
-      result.topBoundary(0, col) =
-        std::hypot(xVector.topBoundary(0, col),
-                   yVector.topBoundary(0, col));
+    } else {
+      result.topBoundary(0, col) = std::hypot(xVector.topBoundary(0, col), yVector.topBoundary(0, col));
     }
   }
 }
 
-
-
 // Instantiate the template functions using explicit instantiation declarations.
-namespace geo {
-template float average<float>(const Raster<float>&, size_t, size_t, size_t);
-template double average<double>(const Raster<double>&, size_t, size_t, size_t);
-template float average<float>(float const* cells, RasterDim const& dim, size_t, size_t, size_t);
-template double average<double>(double const* cells, RasterDim const& dim, size_t, size_t, size_t);
-template void raster2Boundaries<double>(const SimpleRaster<double>&,
-         RasterBoundaries<double>&);
-template void magnitude<double>(const RasterBoundaries<double>&,
-         const RasterBoundaries<double>&, RasterBoundaries<double>&);
-}
-
-
+namespace geo
+{
+template float average<float>(const Raster<float> &, size_t, size_t, size_t);
+template double average<double>(const Raster<double> &, size_t, size_t, size_t);
+template float average<float>(float const *cells, RasterDim const &dim, size_t, size_t, size_t);
+template double average<double>(double const *cells, RasterDim const &dim, size_t, size_t, size_t);
+template void raster2Boundaries<double>(const SimpleRaster<double> &, RasterBoundaries<double> &);
+template void magnitude<double>(const RasterBoundaries<double> &, const RasterBoundaries<double> &,
+                                RasterBoundaries<double> &);
+}  // namespace geo
 
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -868,9 +804,6 @@ template void magnitude<double>(const RasterBoundaries<double>&,
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

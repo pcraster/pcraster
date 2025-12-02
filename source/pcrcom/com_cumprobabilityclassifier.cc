@@ -1,16 +1,14 @@
 #include "stddefx.h"
 #include "com_cumprobabilityclassifier.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the CumProbabilityClassifier class.
 */
 
 
-
-namespace com {
+namespace com
+{
 
 //------------------------------------------------------------------------------
 
@@ -31,11 +29,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CUMPROBABILITYCLASSIFIER MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -45,8 +41,6 @@ public:
 CumProbabilityClassifier::CumProbabilityClassifier()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -60,12 +54,9 @@ CumProbabilityClassifier::CumProbabilityClassifier(
 */
 
 
-
 CumProbabilityClassifier::~CumProbabilityClassifier()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -79,11 +70,9 @@ CumProbabilityClassifier& CumProbabilityClassifier::operator=(
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -91,6 +80,4 @@ CumProbabilityClassifier& CumProbabilityClassifier::operator=(
 //------------------------------------------------------------------------------
 
 
-
-} // namespace com
-
+}  // namespace com

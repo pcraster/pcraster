@@ -95,8 +95,9 @@ BOOST_AUTO_TEST_CASE(visit)
                   10,  // <4, >
                   4,   // <3,4]
                   5};  // <4, >
-  for (double const i : val)
+  for (double const i : val) {
     m.visit(i);
+  }
 
   BOOST_CHECK(m.outside().count == 1);         // 2
   BOOST_CHECK(m.outside().data[0] == 2);       // 2

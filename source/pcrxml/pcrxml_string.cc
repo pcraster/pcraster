@@ -23,8 +23,9 @@
 pcrxml::String::String(const QDomNode &owningElement, const std::string &name, bool required)
     : Attribute(owningElement, name, required)
 {
-  if (!present())
+  if (!present()) {
     return;
+  }
   d_value = inputValueStr(owningElement, name);
 }
 

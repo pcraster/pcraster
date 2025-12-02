@@ -20,8 +20,9 @@ static const EnumNmToken<OutputType> classOutputType;
 pcrxml::OutputType::OutputType(const QDomNode &owningElement, const std::string &nameOfAttr, bool req)
     : Attribute(owningElement, nameOfAttr, req)
 {
-  if (present())
+  if (present()) {
     d_value = classOutputType.value(owningElement, nameOfAttr);
+  }
 }
 
 pcrxml::OutputType::OutputType() : Attribute(false)

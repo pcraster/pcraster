@@ -38,10 +38,11 @@ com::RIMap::~RIMap()
 
 void com::RIMap::recalc()
 {
-  if (d_r1 != d_r2)
+  if (d_r1 != d_r2) {
     d_conv = static_cast<REAL8>(d_i2 - d_i1) / (d_r2 - d_r1);
-  else
+  } else {
     d_conv = 0.0;
+  }
 }
 
 void com::RIMap::setRealRange(REAL8 r1, REAL8 r2)
@@ -85,10 +86,11 @@ int com::RIMap::transform(REAL8 v) const
 
 REAL8 com::RIMap::transform(int v) const
 {
-  if (d_conv == 0.0)
+  if (d_conv == 0.0) {
     return 0.0;
-  else
+  } else {
     return d_r1 + static_cast<double>(v - d_i1) / d_conv;
+  }
 }
 
 bool com::RIMap::inRange(REAL8 r) const

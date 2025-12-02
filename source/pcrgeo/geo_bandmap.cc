@@ -40,8 +40,9 @@ const std::string BandMap::d_otherByteOrder("I");
 //! ensure extension is stripped
 void geo::BandMap::initPathName()
 {
-  if (d_pn.hasExtension())
+  if (d_pn.hasExtension()) {
     d_pn.removeExtension();
+  }
 }
 
 //! create new band map
@@ -76,8 +77,9 @@ geo::BandMap::BandMap(const com::PathName &pn, const RasterSpace &rs, CSF_CR cel
 #ifdef DEBUG
   PRECOND(supportedCellRepr);
 #endif
-  if (!supportedCellRepr)
+  if (!supportedCellRepr) {
     throw com::Exception("programming error unsupported cell representation");
+  }
 
   if (!d_mvIsSet) {
     d_mvIsSet = true;
@@ -277,8 +279,9 @@ void geo::BandMap::open(bool /*allowUpdate*/)
       // ignore debris or comments
       // header lines may have comments after keyword value
       // so more than 2 tokens is ok
-      if (tokens.size() < 2)
+      if (tokens.size() < 2) {
         continue;
+      }
       kvt.add(tokens[0], tokens[1]);
     }  // while
     kvt.checkRequired();
@@ -312,22 +315,25 @@ void geo::BandMap::open(bool /*allowUpdate*/)
       }
     }
 
-    if (kvt.isSet(byteOrder))
+    if (kvt.isSet(byteOrder)) {
       d_hasHostByteOrder = (d_hostByteOrder == byteOrder.configValue(kvt));
+    }
 
     skipBytes.setConditional(d_skipBytes, kvt);
 
     size_t const defaultBandRowBytes = d_nrCols * CELLSIZE(d_cellRepr);
     d_bandRowBytes = defaultBandRowBytes;
     bandRowBytes.setConditional(d_bandRowBytes, kvt);
-    if (d_bandRowBytes != defaultBandRowBytes)
+    if (d_bandRowBytes != defaultBandRowBytes) {
       kvt.throwIllegalValue(bandRowBytes, "not supported");
+    }
 
     size_t const defaultTotalRowBytes = d_nrCols * CELLSIZE(d_cellRepr);
     d_totalRowBytes = defaultTotalRowBytes;
     totalRowBytes.setConditional(d_totalRowBytes, kvt);
-    if (d_totalRowBytes != defaultTotalRowBytes)
+    if (d_totalRowBytes != defaultTotalRowBytes) {
       kvt.throwIllegalValue(totalRowBytes, "not supported");
+    }
 
 
     {
@@ -336,8 +342,9 @@ void geo::BandMap::open(bool /*allowUpdate*/)
       if (kvt.isSet(xDim) && kvt.isSet(yDim)) {
         xDim.setConditional(x, kvt);
         yDim.setConditional(y, kvt);
-        if (x != y)
+        if (x != y) {
           kvt.throwIllegalValue(xDim, "not equal to YDIM");
+        }
       }  // else set to default 1
       d_cellSize = x;
     }
@@ -395,13 +402,16 @@ void geo::BandMap::writeHeader()
       << "ULYMAP        " << std::setprecision(8) << d_ulYMap << "\n"
       << "XDIM          " << d_cellSize << "\n"
       << "YDIM          " << d_cellSize << "\n";
-  if (mvIsSet())
+  if (mvIsSet()) {
     str << "NODATA        " << d_mvValue << "\n";
-  if (pixelType)
+  }
+  if (pixelType) {
     str << "PIXELTYPE     " << pixelType << "\n";
+  }
 
-  if (!str || str.eof())
+  if (!str || str.eof()) {
     throw com::FileFormatError(headerPn, " write error");
+  }
 }
 
 geo::RasterSpace geo::BandMap::rasterSpace() const
@@ -446,10 +456,11 @@ void geo::BandMap::getCellsRaw(void *buf) const
     }
   }
 
-  if (!stream || stream.eof())
+  if (!stream || stream.eof()) {
     throw com::FileFormatError(dataPn, " read error");
+  }
 
-  if (!d_hasHostByteOrder)
+  if (!d_hasHostByteOrder) {
     switch (LOG_CELLSIZE(d_cellRepr)) {
       case 0:
         break;
@@ -460,6 +471,7 @@ void geo::BandMap::getCellsRaw(void *buf) const
         std::for_each((INT4 *)buf, ((INT4 *)buf) + nrCells(), com::EndianSwapINT4());
         break;
     }
+  }
 }
 
 //! read and convert to a PCRaster UINT1 type
@@ -550,13 +562,15 @@ void geo::BandMap::putCellsRaw(const void *buf) const
 
   // write empty header
   char const filler = 0;
-  for (size_t i = 0; i < d_skipBytes; i++)
+  for (size_t i = 0; i < d_skipBytes; i++) {
     stream.write(&filler, 1);
+  }
 
   stream.write((char *)buf, nrCells() * CELLSIZE(d_cellRepr));
 
-  if (!stream || stream.eof())
+  if (!stream || stream.eof()) {
     throw com::FileFormatError(dataPn, " write error");
+  }
 
   // write .stx file with  min and max
   double minV(-1);
@@ -587,8 +601,9 @@ void geo::BandMap::putCellsRaw(const void *buf) const
   std::ofstream stx;
   com::open(stx, stxPn);
   stx << "1 " << minV << " " << maxV << "\n";
-  if (!stx || stx.eof())
+  if (!stx || stx.eof()) {
     throw com::FileFormatError(stxPn, " write error");
+  }
 }
 
 /*!
@@ -611,8 +626,9 @@ void geo::BandMap::putCellsAsREAL4(const REAL4 *buf) const
     std::transform(buf, buf + nrCells(), dest.begin(),
                    pcr::FromStdMV<REAL4>(static_cast<REAL4>(d_mvValue)));
     putCellsRaw(dest.cells());
-  } else
+  } else {
     putCellsRaw(buf);
+  }
 }
 
 /*! write a INT4 map as INT2, MV_INT4 is replaced by MV_INT2

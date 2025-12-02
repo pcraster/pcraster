@@ -18,14 +18,17 @@ pcrxml::ExchangeModel::ExchangeModel(const QDomElement &element)
     ChildElementVisitor v(element);
 
     // optional element
-    if (v.currentChildEq("integerTimer"))
+    if (v.currentChildEq("integerTimer")) {
       integerTimer = new IntegerTimer(v.processChild());
+    }
     // optional element
-    if (v.currentChildEq("areaMapDTD"))
+    if (v.currentChildEq("areaMapDTD")) {
       areaMapDTD = new AreaMapDTD(v.processChild());
+    }
     // * repeated element
-    while (v.currentChildEq("exchangeItem"))
+    while (v.currentChildEq("exchangeItem")) {
       exchangeItem.push_back(new ExchangeItem(v.processChild()));
+    }
   } catch (...) {
     clean();
     throw;
@@ -55,8 +58,9 @@ void pcrxml::ExchangeModel::clean()
   integerTimer = nullptr;
   delete areaMapDTD;
   areaMapDTD = nullptr;
-  for (auto &i : exchangeItem)
+  for (auto &i : exchangeItem) {
     delete i;
+  }
   exchangeItem.clear();
 }
 
@@ -66,8 +70,9 @@ pcrxml::ExchangeModel::ExchangeModel(const ExchangeModel &src)
 {
   integerTimer = (src.integerTimer) ? new IntegerTimer(*(src.integerTimer)) : nullptr;
   areaMapDTD = (src.areaMapDTD) ? new AreaMapDTD(*(src.areaMapDTD)) : nullptr;
-  for (auto i : src.exchangeItem)
+  for (auto i : src.exchangeItem) {
     exchangeItem.push_back(new ExchangeItem(*i));
+  }
 }
 
 //! assignment operator
@@ -78,8 +83,9 @@ pcrxml::ExchangeModel &pcrxml::ExchangeModel::operator=(const ExchangeModel &src
     PRECOND(false);
     integerTimer = (src.integerTimer) ? new IntegerTimer(*(src.integerTimer)) : nullptr;
     areaMapDTD = (src.areaMapDTD) ? new AreaMapDTD(*(src.areaMapDTD)) : nullptr;
-    for (auto i : src.exchangeItem)
+    for (auto i : src.exchangeItem) {
       exchangeItem.push_back(new ExchangeItem(*i));
+    }
   }
   return *this;
 }
@@ -89,10 +95,13 @@ void pcrxml::ExchangeModel::fill(QDomElement el) const
   id.addToElement(el, "id");
   ioStrategy.addToElement(el, "ioStrategy");
   description.addToElement(el, "description");
-  if (integerTimer)
+  if (integerTimer) {
     integerTimer->appendTo(el);
-  if (areaMapDTD)
+  }
+  if (areaMapDTD) {
     areaMapDTD->appendTo(el);
-  for (auto i : exchangeItem)
+  }
+  for (auto i : exchangeItem) {
     i->appendTo(el);
+  }
 }

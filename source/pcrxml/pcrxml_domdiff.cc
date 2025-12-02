@@ -47,8 +47,9 @@ struct NodeList : public std::list<QDomNode> {
   static bool emptyTextNode(const QDomNode &n)
   {
     QDomText const t = n.toText();
-    if (t.isNull())
+    if (t.isNull()) {
       return false;
+    }
     QString const contents = t.nodeValue().trimmed();
     return contents.isEmpty();
   }
@@ -86,16 +87,18 @@ struct NodeList : public std::list<QDomNode> {
 
       bool error(const std::string &msg) const
       {
-        if (d_throwOnDiff)
+        if (d_throwOnDiff) {
           throw com::Exception(msg);
+        }
         return false;
       }
 
       //! conditional error
       bool operator()(bool eq, I n1, I n2, const char *cause) const
       {
-        if (eq)
+        if (eq) {
           return true;
+        }
         std::ostringstream ostr;
         ostr << "DomDiff difference on: " << cause << '\n';
         print(*n1, ostr);
@@ -109,12 +112,15 @@ struct NodeList : public std::list<QDomNode> {
     auto ni = begin();
     auto ni2 = nl2.begin();
     for (; ni != end() && ni2 != nl2.end(); ++ni, ++ni2) {
-      if (!equal(ni->nodeName() == ni2->nodeName(), ni, ni2, "nodeName"))
+      if (!equal(ni->nodeName() == ni2->nodeName(), ni, ni2, "nodeName")) {
         return false;
-      if (!equal(ni->nodeValue() == ni2->nodeValue(), ni, ni2, "nodeValue"))
+      }
+      if (!equal(ni->nodeValue() == ni2->nodeValue(), ni, ni2, "nodeValue")) {
         return false;
-      if (!equal(ni->nodeType() == ni2->nodeType(), ni, ni2, "nodeType"))
+      }
+      if (!equal(ni->nodeType() == ni2->nodeType(), ni, ni2, "nodeType")) {
         return false;
+      }
       /* print all nodes
        std::ostringstream s;
        equal.print(*ni,s);
@@ -138,10 +144,12 @@ struct NodeList : public std::list<QDomNode> {
            CharacterDataNode = 22
          */
     }
-    if (empty())
+    if (empty()) {
       return equal.error("this node list is empty");
-    if (nl2.empty())
+    }
+    if (nl2.empty()) {
       return equal.error("node list 2 is empty");
+    }
     /*
    extensive log of nrOfNodes difference
    compare size, on error print last node contents
@@ -160,8 +168,9 @@ struct NodeList : public std::list<QDomNode> {
 */
     // short log of nrOfNodes difference, print - end nodes
     if (!equal(!(ni != end() || ni2 != nl2.end()), --end(), --nl2.end(),
-               "nrOfNodes-lastNodesPrintedBelow"))
+               "nrOfNodes-lastNodesPrintedBelow")) {
       return false;
+    }
     return true;
   }
 };

@@ -30,15 +30,17 @@ void geo::AppRasterSpace::getCoords(size_t row, size_t col, double &x, double &y
 {
   x = col + d_xInc;
   y = row + d_yInc;
-  if (d_trueCoords)
+  if (d_trueCoords) {
     d_rs.rowCol2Coords(y, x, x, y);
+  }
 }
 
 //! the cellsize or 1 in case of --unitcell
 double geo::AppRasterSpace::cellSize() const
 {
-  if (d_trueCoords)
+  if (d_trueCoords) {
     return d_rs.cellSize();
+  }
   return 1;
 }
 

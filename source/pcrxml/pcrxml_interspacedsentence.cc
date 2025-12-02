@@ -46,12 +46,14 @@ pcrxml::InterSpacedSentence::~InterSpacedSentence()
 
 void pcrxml::InterSpacedSentence::validate() const
 {
-  if (!present())
+  if (!present()) {
     return;
+  }
   std::string testCopy(value());
   com::removeFrontEndSpace(testCopy);
-  if (testCopy != value() || testCopy.empty())
+  if (testCopy != value() || testCopy.empty()) {
     throw com::BadStreamFormat("not a pcrxml::InterSpacedSentence");
+  }
 }
 
 //------------------------------------------------------------------------------

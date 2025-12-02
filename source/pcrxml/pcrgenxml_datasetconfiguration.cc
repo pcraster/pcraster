@@ -23,11 +23,13 @@ pcrxml::DataSetConfiguration::DataSetConfiguration(const QDomElement &element)
     v.checkRequiredChild("Compute");
     compute = new Compute(v.processChild());
     // optional element
-    if (v.currentChildEq("Interpolate"))
+    if (v.currentChildEq("Interpolate")) {
       interpolate = new Interpolate(v.processChild());
+    }
     // optional element
-    if (v.currentChildEq("Lodings"))
+    if (v.currentChildEq("Lodings")) {
       lodings = new Lodings(v.processChild());
+    }
   } catch (...) {
     clean();
     throw;
@@ -90,12 +92,16 @@ pcrxml::DataSetConfiguration &pcrxml::DataSetConfiguration::operator=(const Data
 void pcrxml::DataSetConfiguration::fill(QDomElement el) const
 {
   version.addToElement(el, "version");
-  if (input)
+  if (input) {
     input->appendTo(el);
-  if (compute)
+  }
+  if (compute) {
     compute->appendTo(el);
-  if (interpolate)
+  }
+  if (interpolate) {
     interpolate->appendTo(el);
-  if (lodings)
+  }
+  if (lodings) {
     lodings->appendTo(el);
+  }
 }

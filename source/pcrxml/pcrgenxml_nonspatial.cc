@@ -68,6 +68,7 @@ pcrxml::NonSpatial &pcrxml::NonSpatial::operator=(const NonSpatial &src)
 void pcrxml::NonSpatial::fill(QDomElement el) const
 {
   value.addToElement(el, "value");
-  if (dataTypeDTD)
+  if (dataTypeDTD) {
     dataTypeDTD->appendTo(el);
+  }
 }

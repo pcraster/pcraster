@@ -12,8 +12,9 @@ void BootTestApi(double cellSize, int doesYincT2B)
 {
   /* init stuff */
   REAL8 x = cellSize;
-  if (!appUnitTrue)
+  if (!appUnitTrue) {
     x = (REAL8)1;
+  }
 
   /*  testApiNrRows = (int)nrRows; */
   /*  testApiNrCols = (int)nrCols; */

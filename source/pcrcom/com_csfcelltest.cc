@@ -30,15 +30,18 @@ BOOST_AUTO_TEST_CASE(cast_and_copy_cells)
   INT4 *int4 = new INT4[NR];
 
   auto *uint1 = reinterpret_cast<UINT1 *>(int4);
-  for (size_t i = 0; i < 10; i++)
+  for (size_t i = 0; i < 10; i++) {
     int4[i] = i;
+  }
   copyCells(uint1, int4, NR);
-  for (size_t i = 0; i < 10; i++)
+  for (size_t i = 0; i < 10; i++) {
     BOOST_CHECK(static_cast<size_t>(uint1[i]) == i);
+  }
 
   copyCells(int4, uint1, NR);
-  for (size_t i = 0; i < 10; i++)
+  for (size_t i = 0; i < 10; i++) {
     BOOST_CHECK(int4[i] == static_cast<INT4>(i));
+  }
 
   delete[] int4;
 

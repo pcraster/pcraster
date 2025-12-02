@@ -46,8 +46,9 @@ public:
 pcrxml::BinDoubleLE::BinDoubleLE(const QDomNode &owningElement, const std::string &name, bool required)
     : Attribute(owningElement, name, required)
 {
-  if (!present())
+  if (!present()) {
     return;
+  }
   d_value = hexToDouble(inputValueStr(owningElement, name));
 }
 

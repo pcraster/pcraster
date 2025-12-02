@@ -80,10 +80,11 @@ QDomNode pcrxml::PCDATAElement::contentsNode(const QDomNode &parent) const
   QString const c(asQString(d_contents));
   POSTCOND(!doc.isNull());
 
-  if (d_asCDATASection)
+  if (d_asCDATASection) {
     return doc.createCDATASection(c);
-  else
+  } else {
     return doc.createTextNode(c);
+  }
 }
 
 //! set value of d_asCDATASection

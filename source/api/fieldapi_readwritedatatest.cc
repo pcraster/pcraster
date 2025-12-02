@@ -45,7 +45,7 @@ template <class UseAsT, class StoredAsT> void testType()
   BOOST_CHECK(t.value(1, 0) == 3);
   BOOST_CHECK(t.value(1, 2) == 5);
 
-  for (size_t r = 0; r < t.nrRows(); r++)
+  for (size_t r = 0; r < t.nrRows(); r++) {
     for (size_t c = 0; c < t.nrCols(); c++) {
       if (t.get(v, r, c)) {
         t.put(v * 10, r, c);
@@ -58,11 +58,14 @@ template <class UseAsT, class StoredAsT> void testType()
         BOOST_CHECK(t.value(r, c) == v);
       }
     }
+  }
 
   t.putAllMV();
-  for (size_t r = 0; r < t.nrRows(); r++)
-    for (size_t c = 0; c < t.nrCols(); c++)
+  for (size_t r = 0; r < t.nrRows(); r++) {
+    for (size_t c = 0; c < t.nrCols(); c++) {
       BOOST_CHECK(!t.get(v, r, c));
+    }
+  }
 }
 
 BOOST_AUTO_TEST_CASE(all)

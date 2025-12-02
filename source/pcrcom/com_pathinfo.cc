@@ -71,8 +71,9 @@ com::PathName com::currentWorkingDirectory()
   char buffer[2048];
   char *currentDir = nullptr;
 
-  if ((currentDir = ::getcwd(buffer, com::detail::MAX_PATH_LENGTH)) == nullptr)
+  if ((currentDir = ::getcwd(buffer, com::detail::MAX_PATH_LENGTH)) == nullptr) {
     throw std::logic_error(std::string("unable to determine current working directory"));
+  }
   PathName const pn(currentDir);
   return pn;
 }
@@ -135,11 +136,13 @@ com::PathName com::tempDirectoryName()
     tempDirName = buf;
 #else
   char *r = getenv("TMP");
-  if (r)
+  if (r) {
     tempDirName = r;
+  }
 #endif
-  if (!PathInfo(tempDirName).isDirectory())
+  if (!PathInfo(tempDirName).isDirectory()) {
     tempDirName = "";  // make it set to current working directory
+  }
 
   if (tempDirName.isEmpty()) {
     tempDirName = currentWorkingDirectory();
@@ -159,8 +162,9 @@ com::PathName com::tempDirectoryName()
 */
 bool com::pathExists(const std::string &pn)
 {
-  if (pn == ".")  // current directory exists by definition
+  if (pn == ".") {  // current directory exists by definition
     return true;
+  }
   return pn.empty() ? false : (::access(pn.c_str(), F_OK) == 0);
 }
 
@@ -264,12 +268,14 @@ bool com::PathInfo::isDirectory() const
 */
 bool com::PathInfo::isFile() const
 {
-  if (!exists())
+  if (!exists()) {
     return false;
+  }
 #ifndef WIN32
   struct stat s{};
-  if (stat(d_pathName.toString().c_str(), &s))
+  if (stat(d_pathName.toString().c_str(), &s)) {
     throw std::runtime_error(d_pathName.toString() + ": " + strerror(errno));
+  }
   return S_ISREG(s.st_mode) || S_ISLNK(s.st_mode);
 #else
   // MISCHIEN, WEET NIET TEST CASE MAKEN
@@ -314,9 +320,11 @@ void com::PathInfo::testValidName() const
 {
   std::string const base(d_pathName.baseName());
   const char *names[2] = {"aux", "con"};
-  for (auto &name : names)
-    if (base == name)
+  for (auto &name : names) {
+    if (base == name) {
       throw com::OpenFileError(d_pathName.toString(), "Not a valid filename");
+    }
+  }
 }
 
 //! test if the layered path name is an existing regular file that can be read
@@ -344,14 +352,18 @@ void com::PathInfo::testOpenForReading() const
   PRECOND(!d_pathName.toString().empty());
   testValidName();
 
-  if (!exists())
+  if (!exists()) {
     throwOpenError(d_pathName, E_NOENT);
-  if (isDirectory())
+  }
+  if (isDirectory()) {
     throwOpenError(d_pathName, E_ISDIR);
-  if (!isFile())
+  }
+  if (!isFile()) {
     throwOpenError(d_pathName, E_NOTREGFILE);
-  if (!isReadable())
+  }
+  if (!isReadable()) {
     throwOpenError(d_pathName, E_ACCESREAD);
+  }
 }
 
 //! test if the layered path name can be written
@@ -374,8 +386,9 @@ void com::PathInfo::testOpenForWriting() const
   }
 
   if (exists()) {
-    if (!isWritable())  // not overwritable
+    if (!isWritable()) {  // not overwritable
       throwOpenError(d_pathName, E_ACCESWRITE);
+    }
   } else {
     PathInfo di;
 
@@ -389,10 +402,12 @@ void com::PathInfo::testOpenForWriting() const
       di = PathInfo(currentWorkingDirectory());
     }
 
-    if (!di.exists())
+    if (!di.exists()) {
       throwOpenError(d_pathName, E_DIRPARTNOENT);
-    if (!di.isWritable())
+    }
+    if (!di.isWritable()) {
       throwOpenError(d_pathName, E_ACCESCREATE);
+    }
   }
 }
 

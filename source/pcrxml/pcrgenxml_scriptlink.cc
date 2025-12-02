@@ -17,8 +17,9 @@ pcrxml::ScriptLink::ScriptLink(const QDomElement &element) : Element(element, d_
 
     // + repeated element
     v.checkRequiredChild("Data");
-    while (v.currentChildEq("Data"))
+    while (v.currentChildEq("Data")) {
       data.push_back(new Data(v.processChild()));
+    }
   } catch (...) {
     clean();
     throw;
@@ -43,16 +44,18 @@ pcrxml::ScriptLink::~ScriptLink()
 //! clean
 void pcrxml::ScriptLink::clean()
 {
-  for (auto &i : data)
+  for (auto &i : data) {
     delete i;
+  }
   data.clear();
 }
 
 //! copy ctor
 pcrxml::ScriptLink::ScriptLink(const ScriptLink &src) : pcrxml::Element(src)
 {
-  for (auto i : src.data)
+  for (auto i : src.data) {
     data.push_back(new Data(*i));
+  }
 }
 
 //! assignment operator
@@ -61,14 +64,16 @@ pcrxml::ScriptLink &pcrxml::ScriptLink::operator=(const ScriptLink &src)
   if (this != &src) {
     clean();
     PRECOND(false);
-    for (auto i : src.data)
+    for (auto i : src.data) {
       data.push_back(new Data(*i));
+    }
   }
   return *this;
 }
 
 void pcrxml::ScriptLink::fill(QDomElement el) const
 {
-  for (auto i : data)
+  for (auto i : data) {
     i->appendTo(el);
+  }
 }

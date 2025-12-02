@@ -344,12 +344,13 @@ geo::Projection geo::csfProjToGeo(CSF_PT p)
 {
   Projection proj;
 
-  if (p == PT_YINCT2B)
+  if (p == PT_YINCT2B) {
     proj = YIncrT2B;
-  else if (p == PT_YDECT2B)
+  } else if (p == PT_YDECT2B) {
     proj = YIncrB2T;
-  else
+  } else {
     proj = IllegalProjection;
+  }
 
   return proj;
 }
@@ -358,12 +359,13 @@ CSF_PT geo::geoProjToCsf(Projection p)
 {
   CSF_PT proj;
 
-  if (p == YIncrT2B)
+  if (p == YIncrT2B) {
     proj = PT_YINCT2B;
-  else if (p == YIncrB2T)
+  } else if (p == YIncrB2T) {
     proj = PT_YDECT2B;
-  else
+  } else {
     proj = PT_UNDEFINED;
+  }
 
   return proj;
 }
@@ -372,12 +374,13 @@ std::string geo::projToStr(Projection p)
 {
   std::string s;
 
-  if (p == YIncrB2T)
+  if (p == YIncrB2T) {
     s = YIncrB2TString;
-  else if (p == YIncrT2B)
+  } else if (p == YIncrT2B) {
     s = YIncrT2BString;
-  else
+  } else {
     s = "illegal projection";
+  }
 
   return s;
 }
@@ -386,12 +389,13 @@ geo::Projection geo::strToProj(const std::string &s)
 {
   Projection p;
 
-  if (s == YIncrB2TString)
+  if (s == YIncrB2TString) {
     p = YIncrB2T;
-  else if (s == YIncrT2BString)
+  } else if (s == YIncrT2BString) {
     p = YIncrT2B;
-  else
+  } else {
     p = IllegalProjection;
+  }
 
   return p;
 }

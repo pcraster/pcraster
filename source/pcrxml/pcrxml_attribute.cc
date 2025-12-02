@@ -43,9 +43,10 @@ pcrxml::Attribute::Attribute(const QDomNode &owningElement, const std::string &n
 {
   QDomNode const a(attrNode(owningElement, nameOfAttr));
   d_present = !a.isNull();
-  if (!present() && required)
+  if (!present() && required) {
     throw com::BadStreamFormat("expected attribute '" + nameOfAttr + "' as part of element " +
                                asString(owningElement.nodeName()));
+  }
 }
 
 //! default ctor of attribute that is not present
@@ -61,8 +62,9 @@ pcrxml::Attribute::~Attribute()
 //! add attribute with name \a name having my value to element \a e
 void pcrxml::Attribute::addToElement(QDomElement &e, const std::string &name) const
 {
-  if (present())
+  if (present()) {
     e.setAttribute(asQString(name), asQString(attrValueStr()));
+  }
 }
 
 //------------------------------------------------------------------------------

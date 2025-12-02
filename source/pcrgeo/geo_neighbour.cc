@@ -94,8 +94,9 @@ geo::UpstreamNeighbourVisitor::UpstreamNeighbourVisitor(const geo::CellLoc &l,
 void geo::UpstreamNeighbourVisitor::operator++()
 {
   while (valid()) {
-    if (d_upstreamNeighbourDirs & (1 << d_nextNeighbourToVisit))
+    if (d_upstreamNeighbourDirs & (1 << d_nextNeighbourToVisit)) {
       break;
+    }
     d_nextNeighbourToVisit++;
   }
 }

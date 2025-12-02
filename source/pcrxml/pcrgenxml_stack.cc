@@ -19,8 +19,9 @@ pcrxml::Stack::Stack(const QDomElement &element) : Element(element, d_elementNam
     v.checkRequiredChild("dataTypeDTD");
     dataTypeDTD = new DataTypeDTD(v.processChild());
     // optional element
-    if (v.currentChildEq("TimestepRange"))
+    if (v.currentChildEq("TimestepRange")) {
       timestepRange = new TimestepRange(v.processChild());
+    }
   } catch (...) {
     clean();
     throw;
@@ -73,8 +74,10 @@ pcrxml::Stack &pcrxml::Stack::operator=(const Stack &src)
 
 void pcrxml::Stack::fill(QDomElement el) const
 {
-  if (dataTypeDTD)
+  if (dataTypeDTD) {
     dataTypeDTD->appendTo(el);
-  if (timestepRange)
+  }
+  if (timestepRange) {
     timestepRange->appendTo(el);
+  }
 }

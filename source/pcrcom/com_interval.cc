@@ -76,11 +76,13 @@ template <typename R> void com::Interval<R>::print(std::ostream &stream) const
     return;
   }
   stream << std::string(valid(min()) ? "[" : "<");
-  if (min() != minLimit())
+  if (min() != minLimit()) {
     stream << min();
+  }
   stream << ",";
-  if (max() != maxLimit())
+  if (max() != maxLimit()) {
     stream << max();
+  }
   stream << std::string(valid(max()) ? "]" : ">");
 }
 
@@ -178,12 +180,14 @@ com::BetweenLimits<R>::BetweenLimits(const LowerLimit<R> &lowerLimit, const Uppe
   R min(d_lowerLimit->min());
   R max(d_upperLimit->max());
 
-  if (min < max)
+  if (min < max) {
     return;
+  }
 
   // most certain errors, except the case [2,2]
-  if (min == max && valid(min) && valid(max))
+  if (min == max && valid(min) && valid(max)) {
     return;
+  }
 
   clean();
   throw com::BadIntervalFormat("lower value is higher than high value");
@@ -277,8 +281,9 @@ static void spiritParser(const std::string &str, std::vector<char> &ranges, OD &
                              //  End grammar
                              space_p)
                            .full;
-  if (!correct)
+  if (!correct) {
     throw com::BadIntervalFormat("illegal key format");
+  }
 }
 }  // namespace com
 
@@ -299,8 +304,9 @@ template <typename R> com::Interval<R> *com::createIntervalFromLookupTableKey(co
   spiritParser(str, ranges, singleValue, low, high);
 
   if (!low && !high) {
-    if (!singleValue)
+    if (!singleValue) {
       return new com::AnythingInterval<R>();  // infinity
+    }
     return new com::EqualTo<R>((R)*singleValue);
   }
 
@@ -312,25 +318,27 @@ template <typename R> com::Interval<R> *com::createIntervalFromLookupTableKey(co
   com::LowerLimit<R> *l(nullptr);
 
   if (high) {
-    if (highRange == ']')
+    if (highRange == ']') {
       h = new com::LessThanEqualTo<R>((R)*high);  // ... ,h]
-    else {
+    } else {
       POSTCOND(highRange == '>');
       h = new com::LessThan<R>((R)*high);  // ... ,h>
     }
-    if (!low)
+    if (!low) {
       return h;  // < inf, ...
+    }
   }
 
   if (low) {
-    if (lowRange == '[')
+    if (lowRange == '[') {
       l = new com::GreaterThanEqualTo<R>((R)*low);  // [l, ...
-    else {
+    } else {
       POSTCOND(lowRange == '<');
       l = new com::GreaterThan<R>((R)*low);  // <l, ...
     }
-    if (!h)
+    if (!h) {
       return l;  // ... , inf >
+    }
   }
 
   PRECOND(l && h);

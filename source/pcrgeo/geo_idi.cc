@@ -49,8 +49,9 @@ bool geo::idi(double &value, const std::vector<IdiPoint<Point>> &points, double 
     }
   }
 
-  if (!nrKeys)
+  if (!nrKeys) {
     return false;
+  }
 
   if (nrKeys > maxNr) {
     // more keys candidate than allowed
@@ -59,17 +60,20 @@ bool geo::idi(double &value, const std::vector<IdiPoint<Point>> &points, double 
     std::partial_sort(keyPtr, keyPtr + maxNr, keyPtr + nrKeys, CmpSortKey());
 #ifdef DEBUG_DEVELOP
     // check if partial_sort does what it promised
-    for (size_t i = 1; i < maxNr; i++)
+    for (size_t i = 1; i < maxNr; i++) {
       POSTCOND(keys[i - 1].distSqr <= keys[i].distSqr);
-    for (size_t i = maxNr; i < nrKeys; i++)
+    }
+    for (size_t i = maxNr; i < nrKeys; i++) {
       POSTCOND(keys[maxNr - 1].distSqr <= keys[i].distSqr);
+    }
 #endif
   }
 
   ComputeValue<Point> cv(c, idp);
   maxNr = std::min(nrKeys, maxNr);
-  for (size_t i = 0; i < maxNr; i++)
+  for (size_t i = 0; i < maxNr; i++) {
     cv.add(points[keys[i].pId]);
+  }
   value = cv.value();
 
   return true;

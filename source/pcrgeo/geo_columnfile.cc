@@ -53,8 +53,9 @@ void geo_ColumnFile::initialise()
 
   if (d_ad) {
     std::vector<std::vector<double> *>::iterator it;
-    for (it = d_data.begin(); it != d_data.end(); it++)
+    for (it = d_data.begin(); it != d_data.end(); it++) {
       delete *it;
+    }
   }
 
   d_data.erase(d_data.begin(), d_data.end());
@@ -69,8 +70,9 @@ void geo_ColumnFile::initialise()
 */
 void geo_ColumnFile::setFilename(const std::string &fn)
 {
-  if (d_state != INITIAL)
+  if (d_state != INITIAL) {
     initialise();
+  }
 
   d_fn = fn;
 }
@@ -154,8 +156,9 @@ void geo_ColumnFile::readHeader()
     d_nrVars = t.size();
     d_varNames.resize(d_nrVars);
 
-    for (size_t i = 0; i < d_nrVars; i++)
+    for (size_t i = 0; i < d_nrVars; i++) {
       d_varNames[i] = com::intToStr(i + 1);
+    }
   }
 
   d_state = HEADER_READ;
@@ -184,21 +187,24 @@ void geo_ColumnFile::readData()
 
   if (d_selVars.empty())  // 2.
   {
-    for (i = 1; i <= d_nrVars; i++)
+    for (i = 1; i <= d_nrVars; i++) {
       d_selVars.insert(i);
+    }
   }
 
   if (d_ad) {
     std::vector<std::vector<double> *>::iterator it;
-    for (it = d_data.begin(); it != d_data.end(); it++)
+    for (it = d_data.begin(); it != d_data.end(); it++) {
       delete *it;
+    }
   }
 
   d_data.resize(d_selVars.size());  // 3.
 
   std::vector<std::vector<double> *>::iterator it;
-  for (it = d_data.begin(); it != d_data.end(); it++)
+  for (it = d_data.begin(); it != d_data.end(); it++) {
     *it = new std::vector<double>;
+  }
 
   std::set<size_t>::const_iterator setIt;
 
@@ -206,11 +212,13 @@ void geo_ColumnFile::readData()
 
   while (d_fs)  // Do for the rest of the file...
   {
-    for (i = 0; i < d_nrVars && d_fs; i++)  // 4.
+    for (i = 0; i < d_nrVars && d_fs; i++) {  // 4.
       d_fs >> buffer[i];
+    }
 
-    if (d_fs.eof())
+    if (d_fs.eof()) {
       break;  // Possibly eof reached.
+    }
 
     n++;  // We've read a line.
 
@@ -273,8 +281,9 @@ size_t geo_ColumnFile::nrSelVars() const
 */
 const std::string &geo_ColumnFile::varName(size_t n) const
 {
-  if (n > d_varNames.size())
+  if (n > d_varNames.size()) {
     throw std::range_error("geo_ColumnFile::varName(size_t)");
+  }
 
   return d_varNames[n - 1];
 }
@@ -301,14 +310,16 @@ bool geo_ColumnFile::geoEasFormat(std::ifstream &fs) const
 
   // Ignore the first line.
   fs.ignore(1000, '\n');
-  if (!fs)
+  if (!fs) {
     return false;
+  }
   std::string buf;
 
   // Read the second line.
   getline(fs, buf);
-  if (!fs)
+  if (!fs) {
     return false;
+  }
 
   // Check if the string contains an integer and nothing more.
   try {
@@ -340,8 +351,9 @@ geo_ColumnFile::const_iterator geo_ColumnFile::begin(size_t n) const
 {
   auto it = d_selVars.find(n);
 
-  if (it == d_selVars.end())
+  if (it == d_selVars.end()) {
     throw std::range_error("geo_ColumnFile::begin(size_t)");
+  }
 
   size_t i(0);
 #ifdef BORLANDC
@@ -364,8 +376,9 @@ geo_ColumnFile::const_iterator geo_ColumnFile::end(size_t n) const
 {
   auto it = d_selVars.find(n);
 
-  if (it == d_selVars.end())
+  if (it == d_selVars.end()) {
     throw std::range_error("geo_ColumnFile::end(size_t)");
+  }
 
   size_t i(0);
 #ifdef BORLANDC
@@ -381,8 +394,9 @@ std::vector<double> *geo_ColumnFile::data(size_t n) const
 {
   auto it = d_selVars.find(n);
 
-  if (it == d_selVars.end())
+  if (it == d_selVars.end()) {
     throw std::range_error("geo_ColumnFile::data(size_t)");
+  }
 
   size_t i(0);
 #ifdef BORLANDC

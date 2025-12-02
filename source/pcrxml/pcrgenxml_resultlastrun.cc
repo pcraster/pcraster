@@ -23,8 +23,9 @@ pcrxml::ResultLastRun::ResultLastRun(const QDomNode &owningElement, const std::s
                                      bool req)
     : Attribute(owningElement, nameOfAttr, req)
 {
-  if (present())
+  if (present()) {
     d_value = classResultLastRun.value(owningElement, nameOfAttr);
+  }
 }
 
 pcrxml::ResultLastRun::ResultLastRun() : Attribute(false)

@@ -20,8 +20,9 @@ static const EnumNmToken<IoType> classIoType;
 pcrxml::IoType::IoType(const QDomNode &owningElement, const std::string &nameOfAttr, bool req)
     : Attribute(owningElement, nameOfAttr, req)
 {
-  if (present())
+  if (present()) {
     d_value = classIoType.value(owningElement, nameOfAttr);
+  }
 }
 
 pcrxml::IoType::IoType() : Attribute(false)

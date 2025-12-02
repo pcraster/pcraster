@@ -66,6 +66,7 @@ pcrxml::Table &pcrxml::Table::operator=(const Table &src)
 
 void pcrxml::Table::fill(QDomElement el) const
 {
-  if (dataTypeDTD)
+  if (dataTypeDTD) {
     dataTypeDTD->appendTo(el);
+  }
 }

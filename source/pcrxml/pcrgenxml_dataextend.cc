@@ -18,8 +18,9 @@ pcrxml::DataExtend::DataExtend(const QDomElement &element)
 
     // + repeated element
     v.checkRequiredChild("Coefficient");
-    while (v.currentChildEq("Coefficient"))
+    while (v.currentChildEq("Coefficient")) {
       coefficient.push_back(new Coefficient(v.processChild()));
+    }
   } catch (...) {
     clean();
     throw;
@@ -44,8 +45,9 @@ pcrxml::DataExtend::~DataExtend()
 //! clean
 void pcrxml::DataExtend::clean()
 {
-  for (auto &i : coefficient)
+  for (auto &i : coefficient) {
     delete i;
+  }
   coefficient.clear();
 }
 
@@ -53,8 +55,9 @@ void pcrxml::DataExtend::clean()
 pcrxml::DataExtend::DataExtend(const DataExtend &src)
     : pcrxml::Element(src), migrationDirection(src.migrationDirection)
 {
-  for (auto i : src.coefficient)
+  for (auto i : src.coefficient) {
     coefficient.push_back(new Coefficient(*i));
+  }
 }
 
 //! assignment operator
@@ -63,8 +66,9 @@ pcrxml::DataExtend &pcrxml::DataExtend::operator=(const DataExtend &src)
   if (this != &src) {
     clean();
     PRECOND(false);
-    for (auto i : src.coefficient)
+    for (auto i : src.coefficient) {
       coefficient.push_back(new Coefficient(*i));
+    }
   }
   return *this;
 }
@@ -72,6 +76,7 @@ pcrxml::DataExtend &pcrxml::DataExtend::operator=(const DataExtend &src)
 void pcrxml::DataExtend::fill(QDomElement el) const
 {
   migrationDirection.addToElement(el, "migrationDirection");
-  for (auto i : coefficient)
+  for (auto i : coefficient) {
     i->appendTo(el);
+  }
 }

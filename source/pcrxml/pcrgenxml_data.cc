@@ -19,20 +19,25 @@ pcrxml::Data::Data(const QDomElement &element)
     ChildElementVisitor v(element);
 
     // optional element
-    if (v.currentChildEq("Map"))
+    if (v.currentChildEq("Map")) {
       map = new Map(v.processChild());
+    }
     // optional element
-    if (v.currentChildEq("NonSpatial"))
+    if (v.currentChildEq("NonSpatial")) {
       nonSpatial = new NonSpatial(v.processChild());
+    }
     // optional element
-    if (v.currentChildEq("Stack"))
+    if (v.currentChildEq("Stack")) {
       stack = new Stack(v.processChild());
+    }
     // optional element
-    if (v.currentChildEq("TimeSeries"))
+    if (v.currentChildEq("TimeSeries")) {
       timeSeries = new TimeSeries(v.processChild());
+    }
     // optional element
-    if (v.currentChildEq("Table"))
+    if (v.currentChildEq("Table")) {
       table = new Table(v.processChild());
+    }
   } catch (...) {
     clean();
     throw;
@@ -103,14 +108,19 @@ void pcrxml::Data::fill(QDomElement el) const
   description.addToElement(el, "description");
   externalFileName.addToElement(el, "externalFileName");
   ioType.addToElement(el, "ioType");
-  if (map)
+  if (map) {
     map->appendTo(el);
-  if (nonSpatial)
+  }
+  if (nonSpatial) {
     nonSpatial->appendTo(el);
-  if (stack)
+  }
+  if (stack) {
     stack->appendTo(el);
-  if (timeSeries)
+  }
+  if (timeSeries) {
     timeSeries->appendTo(el);
-  if (table)
+  }
+  if (table) {
     table->appendTo(el);
+  }
 }

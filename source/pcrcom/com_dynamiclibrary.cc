@@ -47,8 +47,9 @@ com::DynamicLibrary::DynamicLibrary(const std::string &libNameNoExt) : d_libName
   bool const failure = checkError();
 #endif
 
-  if (failure)
+  if (failure) {
     throwException();
+  }
 }
 
 //! unload the library
@@ -60,8 +61,9 @@ com::DynamicLibrary::~DynamicLibrary()
       throwException();
 #else
   ::dlclose(d_dllHandle);
-  if (checkError())
+  if (checkError()) {
     throwException();
+  }
 #endif
 }
 
@@ -95,8 +97,9 @@ void com::DynamicLibrary::throwException(const std::string &symbol) const
 {
   std::ostringstream str;
   str << "Library " << nativeLibName() << ": ";
-  if (!symbol.empty())
+  if (!symbol.empty()) {
     str << "symbol " << symbol << ": ";
+  }
   str << osError();
   throw com::DynamicLibraryException(str.str());
 }
@@ -134,8 +137,9 @@ void *com::DynamicLibrary::address(const std::string &symbolName) const
 void *com::DynamicLibrary::addressAndSetLibPath(const std::string &symbolName)
 {
   void *addr = address(symbolName);
-  if (!addr)
+  if (!addr) {
     return nullptr;
+  }
 
   d_directory.clear();
 #ifdef WIN32

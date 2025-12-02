@@ -80,8 +80,9 @@ const std::string &com::Table::descr() const
 */
 const std::string &com::Table::name(size_t i) const
 {
-  if (i >= d_names.size())
+  if (i >= d_names.size()) {
     throw std::range_error("com::Table::name");
+  }
   return d_names[i];
 }
 
@@ -183,26 +184,30 @@ std::istream &operator>>(std::istream &s, Table &t)
 
   // Read the description.
   std::getline(s, t.d_descr);
-  if (!s)
+  if (!s) {
     throw com::BadStreamFormat("bad format: header corrupt");
+  }
 
 
   // Read the number of variables.
   size_t n = 0;
   s >> n;
-  if (!s)
+  if (!s) {
     throw com::BadStreamFormat("bad format: header corrupt");
+  }
   t.d_names.resize(n);
   char c = 0;
-  while (s.get(c) && c != '\n')
+  while (s.get(c) && c != '\n') {
     ;
+  }
 
   // Read the column names.
   for (size_t i = 0; i < n; i++) {
     std::getline(s, t.d_names[i]);
   }
-  if (!s)
+  if (!s) {
     throw com::BadStreamFormat("bad format: header corrupt");
+  }
 
   // Read the cells.
   s >> (BasicTable &)t;

@@ -49,10 +49,11 @@ template <class UseAsT>
 void fieldapi::ReadWrite<UseAsT>::copy(const ReadOnly<UseAsT> &src, const geo::CellLoc &l)
 {
   UseAsT v;
-  if (src.get(v, l))
+  if (src.get(v, l)) {
     put(v, l);
-  else
+  } else {
     putMV(l);
+  }
 }
 
 //------------------------------------------------------------------------------

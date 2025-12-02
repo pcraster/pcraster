@@ -20,14 +20,17 @@ pcrxml::ParameterItem::ParameterItem(const QDomElement &element)
     v.checkRequiredChild("ScriptLink");
     scriptLink = new ScriptLink(v.processChild());
     // optional element
-    if (v.currentChildEq("NumericInput"))
+    if (v.currentChildEq("NumericInput")) {
       numericInput = new NumericInput(v.processChild());
+    }
     // optional element
-    if (v.currentChildEq("FileInput"))
+    if (v.currentChildEq("FileInput")) {
       fileInput = new FileInput(v.processChild());
+    }
     // optional element
-    if (v.currentChildEq("ShowData"))
+    if (v.currentChildEq("ShowData")) {
       showData = new ShowData(v.processChild());
+    }
   } catch (...) {
     clean();
     throw;
@@ -89,12 +92,16 @@ pcrxml::ParameterItem &pcrxml::ParameterItem::operator=(const ParameterItem &src
 void pcrxml::ParameterItem::fill(QDomElement el) const
 {
   label.addToElement(el, "label");
-  if (scriptLink)
+  if (scriptLink) {
     scriptLink->appendTo(el);
-  if (numericInput)
+  }
+  if (numericInput) {
     numericInput->appendTo(el);
-  if (fileInput)
+  }
+  if (fileInput) {
     fileInput->appendTo(el);
-  if (showData)
+  }
+  if (showData) {
     showData->appendTo(el);
+  }
 }

@@ -60,9 +60,11 @@ com::IntervalMap::IntervalMap(const IntervalMap& rhs):
 template <typename R> bool com::noOverlap(const std::vector<const Interval<R> *> &v)
 {
   IntervalMap<bool, R> m;  // TODO actually an IntervalSet<R> suffices
-  for (size_t i = 0; i < v.size(); ++i)
-    if (!m.insertInterval(*v[i]))
+  for (size_t i = 0; i < v.size(); ++i) {
+    if (!m.insertInterval(*v[i])) {
       return false;
+    }
+  }
   return true;
 }
 

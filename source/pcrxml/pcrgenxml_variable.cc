@@ -20,8 +20,9 @@ pcrxml::Variable::Variable(const QDomElement &element)
 
     // + repeated element
     v.checkRequiredChild("dataTypeDTD");
-    while (v.currentChildEq("dataTypeDTD"))
+    while (v.currentChildEq("dataTypeDTD")) {
       dataTypeDTD.push_back(new DataTypeDTD(v.processChild()));
+    }
   } catch (...) {
     clean();
     throw;
@@ -46,8 +47,9 @@ pcrxml::Variable::~Variable()
 //! clean
 void pcrxml::Variable::clean()
 {
-  for (auto &i : dataTypeDTD)
+  for (auto &i : dataTypeDTD) {
     delete i;
+  }
   dataTypeDTD.clear();
 }
 
@@ -56,8 +58,9 @@ pcrxml::Variable::Variable(const Variable &src)
     : pcrxml::Element(src), id(src.id), description(src.description), spatial(src.spatial),
       input(src.input), output(src.output)
 {
-  for (auto i : src.dataTypeDTD)
+  for (auto i : src.dataTypeDTD) {
     dataTypeDTD.push_back(new DataTypeDTD(*i));
+  }
 }
 
 //! assignment operator
@@ -66,8 +69,9 @@ pcrxml::Variable &pcrxml::Variable::operator=(const Variable &src)
   if (this != &src) {
     clean();
     PRECOND(false);
-    for (auto i : src.dataTypeDTD)
+    for (auto i : src.dataTypeDTD) {
       dataTypeDTD.push_back(new DataTypeDTD(*i));
+    }
   }
   return *this;
 }
@@ -79,6 +83,7 @@ void pcrxml::Variable::fill(QDomElement el) const
   spatial.addToElement(el, "spatial");
   input.addToElement(el, "input");
   output.addToElement(el, "output");
-  for (auto i : dataTypeDTD)
+  for (auto i : dataTypeDTD) {
     i->appendTo(el);
+  }
 }

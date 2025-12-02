@@ -64,10 +64,11 @@ void com::Exception::add(const std::string &m, bool atEnd)
   std::string t(m);
   removeFrontEndSpace(t);
   DEVELOP_PRECOND(!t.empty());
-  if (atEnd)
+  if (atEnd) {
     d_messages.push_back(t);
-  else
+  } else {
     d_messages.insert(d_messages.begin(), t);
+  }
 }
 
 /*!
@@ -280,8 +281,9 @@ std::string com::FilePositionError::makePositionDiagnose(size_t lineNr, size_t c
 {
   std::ostringstream s;
   s << "at line '" << lineNr << "'";
-  if (columnNr)
+  if (columnNr) {
     s << " column '" << columnNr << "'";
+  }
   s << ": " << msg;
   return s.str();
 }

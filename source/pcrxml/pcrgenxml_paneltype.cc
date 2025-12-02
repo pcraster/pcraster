@@ -20,8 +20,9 @@ static const EnumNmToken<PanelType> classPanelType;
 pcrxml::PanelType::PanelType(const QDomNode &owningElement, const std::string &nameOfAttr, bool req)
     : Attribute(owningElement, nameOfAttr, req)
 {
-  if (present())
+  if (present()) {
     d_value = classPanelType.value(owningElement, nameOfAttr);
+  }
 }
 
 pcrxml::PanelType::PanelType() : Attribute(false)

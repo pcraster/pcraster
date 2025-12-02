@@ -48,12 +48,14 @@ BOOST_AUTO_TEST_CASE(iterators)
     std::vector<std::string> lines(com::split(contents, '\n'));
     BOOST_CHECK(lines.size() == 5 + 155);
     for (size_t l = 0; l < header.size(); l++) {
-      if (lines[l][0] == '\r')
+      if (lines[l][0] == '\r') {
         lines[l].erase(0, 1);
+      }
       if (!lines[l].empty()) {
         size_t const last = lines[l].size() - 1;
-        if (lines[l][last] == '\r')
+        if (lines[l][last] == '\r') {
           lines[l].erase(last, 1);
+        }
       }
       BOOST_CHECK(header[l] == lines[l]);
     }

@@ -19,8 +19,9 @@ pcrxml::DataObject::DataObject(const QDomElement &element) : Element(element, d_
     v.checkRequiredChild("Cursor");
     cursor = new Cursor(v.processChild());
     // * repeated element
-    while (v.currentChildEq("Data"))
+    while (v.currentChildEq("Data")) {
       data.push_back(new Data(v.processChild()));
+    }
   } catch (...) {
     clean();
     throw;
@@ -48,8 +49,9 @@ void pcrxml::DataObject::clean()
 {
   delete cursor;
   cursor = nullptr;
-  for (auto &i : data)
+  for (auto &i : data) {
     delete i;
+  }
   data.clear();
 }
 
@@ -57,8 +59,9 @@ void pcrxml::DataObject::clean()
 pcrxml::DataObject::DataObject(const DataObject &src) : pcrxml::Element(src)
 {
   cursor = new Cursor(*(src.cursor));
-  for (auto i : src.data)
+  for (auto i : src.data) {
     data.push_back(new Data(*i));
+  }
 }
 
 //! assignment operator
@@ -68,16 +71,19 @@ pcrxml::DataObject &pcrxml::DataObject::operator=(const DataObject &src)
     clean();
     PRECOND(false);
     cursor = new Cursor(*(src.cursor));
-    for (auto i : src.data)
+    for (auto i : src.data) {
       data.push_back(new Data(*i));
+    }
   }
   return *this;
 }
 
 void pcrxml::DataObject::fill(QDomElement el) const
 {
-  if (cursor)
+  if (cursor) {
     cursor->appendTo(el);
-  for (auto i : data)
+  }
+  for (auto i : data) {
     i->appendTo(el);
+  }
 }

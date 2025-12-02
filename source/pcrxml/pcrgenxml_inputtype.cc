@@ -20,8 +20,9 @@ static const EnumNmToken<InputType> classInputType;
 pcrxml::InputType::InputType(const QDomNode &owningElement, const std::string &nameOfAttr, bool req)
     : Attribute(owningElement, nameOfAttr, req)
 {
-  if (present())
+  if (present()) {
     d_value = classInputType.value(owningElement, nameOfAttr);
+  }
 }
 
 pcrxml::InputType::InputType() : Attribute(false)

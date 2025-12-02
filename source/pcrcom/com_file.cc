@@ -148,8 +148,9 @@ void com::remove(const PathName &fileName)
 
   if (fs::exists(pn)) {
     char const *msg = "could not remove file";
-    if (fs::is_directory(pn))
+    if (fs::is_directory(pn)) {
       msg = "could not remove directory";
+    }
     try {
       fs::remove(pn);
     } catch (...) {
@@ -164,12 +165,15 @@ void com::remove(const PathName &fileName)
 void com::expectExistingFile(const std::string &name)
 {
   PathInfo const p(name);
-  if (!p.exists())
+  if (!p.exists()) {
     throw OpenFileError(name, " does not exists");
-  if (p.isDirectory())
+  }
+  if (p.isDirectory()) {
     throw OpenFileError(name, " is a directory");
-  if (!p.isFile())
+  }
+  if (!p.isFile()) {
     throw OpenFileError(name, " is not a (regular) file");
+  }
 }
 
 //! Eats \a c characters from \a s and throws them away.
@@ -245,8 +249,9 @@ bool com::filesEqual(const std::string &fileName1, const std::string &fileName2,
   open(i2, fileName2, cmpMode);
   while (i1 && i2) {
     // TODO skip \r here if (cmpMode&std::ios::binary)==0
-    if (i1.get() != i2.get())
+    if (i1.get() != i2.get()) {
       return false;
+    }
   }
   return i1.eof() && i2.eof();
 }
@@ -258,8 +263,9 @@ bool com::filesEqual(const std::string &fileName1, const std::string &fileName2,
 bool com::filesExistsAndEqual(const std::string &fileName1, const std::string &fileName2,
                               std::ios::openmode cmpMode)
 {
-  if (!PathInfo(fileName1).exists() || !PathInfo(fileName2).exists())
+  if (!PathInfo(fileName1).exists() || !PathInfo(fileName2).exists()) {
     return false;
+  }
   return filesEqual(fileName1, fileName2, cmpMode);
 }
 
@@ -279,8 +285,9 @@ void com::read(std::string &fillThis, const PathName &fileName, std::ios::openmo
   open(ifs, fileName, m);
   fillThis.erase();
   char c = 0;
-  while (ifs.get(c))
+  while (ifs.get(c)) {
     fillThis += c;
+  }
   POSTCOND(ifs.eof());
 }
 
@@ -317,8 +324,9 @@ void com::copy(const PathName &src, const PathName &destArg)
   testOpenForReading(src);
 
   PathName dest(destArg);
-  if (PathInfo(dest).isDirectory())
+  if (PathInfo(dest).isDirectory()) {
     dest.join(src.baseName());
+  }
   testOpenForWriting(dest);
   std::string buf;
   read(buf, src, std::ios::binary);

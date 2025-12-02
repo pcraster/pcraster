@@ -67,6 +67,7 @@ pcrxml::VisualisationGroup &pcrxml::VisualisationGroup::operator=(const Visualis
 
 void pcrxml::VisualisationGroup::fill(QDomElement el) const
 {
-  if (dataObject)
+  if (dataObject) {
     dataObject->appendTo(el);
+  }
 }

@@ -148,8 +148,9 @@ class FileMapPrivate
 
   void clean()
   {
-    if (d_fd != -1)
+    if (d_fd != -1) {
       close(d_fd);
+    }
     d_fd = -1;
     if (d_ptr) {
       int r = msync(d_ptr, d_mappedLen, 0);
@@ -165,23 +166,28 @@ public:
   FileMapPrivate(const char *fileName, bool update, size_t offset, size_t len) : d_fileName(fileName)
   {
     d_fd = ::open(fileName, (update ? O_RDWR : O_RDONLY) | O_NONBLOCK, 0);
-    if (d_fd == -1)
+    if (d_fd == -1) {
       throwError("open failed");
+    }
     if (!len) {
       // compute length
       off_t const size = lseek(d_fd, 0, SEEK_END);
-      if (size == -1)
+      if (size == -1) {
         throwError("lseek failed");
+      }
       len = (size_t)size - offset;
-      if (!len)
+      if (!len) {
         throwError("mmap does not support 0 sized files");
+      }
     }
     int prot = PROT_READ;
-    if (update)
+    if (update) {
       prot |= PROT_WRITE;
+    }
     d_ptr = mmap(nullptr, len, prot, (update ? MAP_SHARED : MAP_PRIVATE), d_fd, (off_t)offset);
-    if (d_ptr == MAP_FAILED)
+    if (d_ptr == MAP_FAILED) {
       throwError("mmap failed");
+    }
     d_mappedLen = len;
   }
 
@@ -229,9 +235,9 @@ public:
  */
 com::FileMap::FileMap(const PathName &pn, bool update, size_t offset, size_t len)
 {
-  if (update)
+  if (update) {
     testOpenForWriting(pn);
-  else {
+  } else {
     if (size(pn) > gigaByte<size_t>(2) - 1) {
       throw com::OpenFileError(pn, "Too large to map in memory");
     }

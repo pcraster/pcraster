@@ -155,10 +155,11 @@ void geo::RasterSpace::rowCol2Coords(double row, double col, double &x, double &
   double const yRow_t = xCol * d_angleSin + yRow * d_angleCos;
 
   x = d_left + xCol_t;
-  if (d_projection == YIncrT2B)
+  if (d_projection == YIncrT2B) {
     y = d_top + yRow_t;
-  else /* all other projections */
+  } else { /* all other projections */
     y = d_top - yRow_t;
+  }
 }
 
 //! Computes true world co-ordinate from cell location.
@@ -337,8 +338,9 @@ std::istream &geo::operator>>(std::istream &s, RasterSpace &rs)
     default:
       throw com::BadStreamFormat("Rasterspace: Bad integer value for Projection");
   }
-  if (!s.good())
+  if (!s.good()) {
     throw com::BadStreamFormat("Rasterspace: Bad format");
+  }
 
   rs.setup();
 

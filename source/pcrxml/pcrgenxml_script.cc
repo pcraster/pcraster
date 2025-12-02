@@ -18,8 +18,9 @@ pcrxml::Script::Script(const QDomElement &element)
     ChildElementVisitor v(element);
 
     // optional element
-    if (v.currentChildEq("integerTimer"))
+    if (v.currentChildEq("integerTimer")) {
       integerTimer = new IntegerTimer(v.processChild());
+    }
     // required element
     v.checkRequiredChild("ScriptData");
     scriptData = new ScriptData(v.processChild());
@@ -80,8 +81,10 @@ void pcrxml::Script::fill(QDomElement el) const
   scriptFileName.addToElement(el, "scriptFileName");
   scriptType.addToElement(el, "scriptType");
   ioStrategy.addToElement(el, "ioStrategy");
-  if (integerTimer)
+  if (integerTimer) {
     integerTimer->appendTo(el);
-  if (scriptData)
+  }
+  if (scriptData) {
     scriptData->appendTo(el);
+  }
 }

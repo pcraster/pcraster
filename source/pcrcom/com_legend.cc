@@ -159,8 +159,9 @@ template <class T> typename com::Legend<T>::iterator com::Legend<T>::lower_bound
 
   size_t i = 0;
 
-  while (i < nrClasses() && d_classes[i].value() != c)
+  while (i < nrClasses() && d_classes[i].value() != c) {
     i++;
+  }
 
 #ifdef DEBUG_DEVELOP
   POSTCOND(d_classes[i].value() == c);

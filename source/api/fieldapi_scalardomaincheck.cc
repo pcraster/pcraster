@@ -80,8 +80,10 @@ std::string fieldapi::ScalarDomainCheck::msg() const
  */
 int fieldapi::checkScalarDomains(const std::vector<ScalarDomainCheck> &v, const geo::CellLoc &loc)
 {
-  for (size_t i = 0; i < v.size(); i++)
-    if (!v[i].valid(loc))
+  for (size_t i = 0; i < v.size(); i++) {
+    if (!v[i].valid(loc)) {
       return i;
+    }
+  }
   return -1;
 }

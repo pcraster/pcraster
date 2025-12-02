@@ -22,8 +22,9 @@ pcrxml::IOStrategyType::IOStrategyType(const QDomNode &owningElement, const std:
                                        bool req)
     : Attribute(owningElement, nameOfAttr, req)
 {
-  if (present())
+  if (present()) {
     d_value = classIOStrategyType.value(owningElement, nameOfAttr);
+  }
 }
 
 pcrxml::IOStrategyType::IOStrategyType() : Attribute(false)

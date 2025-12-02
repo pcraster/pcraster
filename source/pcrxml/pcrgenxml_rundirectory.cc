@@ -16,11 +16,13 @@ pcrxml::RunDirectory::RunDirectory(const QDomElement &element) : Element(element
     ChildElementVisitor v(element);
 
     // optional element
-    if (v.currentChildEq("ModelRunSettings"))
+    if (v.currentChildEq("ModelRunSettings")) {
       modelRunSettings = new ModelRunSettings(v.processChild());
+    }
     // optional element
-    if (v.currentChildEq("ModelRunStatus"))
+    if (v.currentChildEq("ModelRunStatus")) {
       modelRunStatus = new ModelRunStatus(v.processChild());
+    }
   } catch (...) {
     clean();
     throw;
@@ -73,8 +75,10 @@ pcrxml::RunDirectory &pcrxml::RunDirectory::operator=(const RunDirectory &src)
 
 void pcrxml::RunDirectory::fill(QDomElement el) const
 {
-  if (modelRunSettings)
+  if (modelRunSettings) {
     modelRunSettings->appendTo(el);
-  if (modelRunStatus)
+  }
+  if (modelRunStatus) {
     modelRunStatus->appendTo(el);
+  }
 }

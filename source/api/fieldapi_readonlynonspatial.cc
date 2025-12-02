@@ -50,8 +50,9 @@ template <class UseAsT> fieldapi::ReadOnlyNonSpatial<UseAsT>::~ReadOnlyNonSpatia
 template <class UseAsT>
 bool fieldapi::ReadOnlyNonSpatial<UseAsT>::get(UseAsT &value, int rowIndex, int colIndex) const
 {
-  if (this->outOfRange(rowIndex, colIndex))
+  if (this->outOfRange(rowIndex, colIndex)) {
     return false;
+  }
   value = d_value;
   return true;
 }

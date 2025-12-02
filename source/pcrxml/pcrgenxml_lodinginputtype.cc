@@ -22,8 +22,9 @@ pcrxml::LodingInputType::LodingInputType(const QDomNode &owningElement, const st
                                          bool req)
     : Attribute(owningElement, nameOfAttr, req)
 {
-  if (present())
+  if (present()) {
     d_value = classLodingInputType.value(owningElement, nameOfAttr);
+  }
 }
 
 pcrxml::LodingInputType::LodingInputType() : Attribute(false)

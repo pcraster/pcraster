@@ -31,9 +31,10 @@ BOOST_AUTO_TEST_CASE(non_mv)
   all.push_back(&t3);
   all.push_back(&t4);
   for (geo::CellLocVisitor v(t1.nrRows(), t1.nrCols()); v.valid(); ++v) {
-    if ((*v).row() == 0)
+    if ((*v).row() == 0) {
       BOOST_CHECK(nonMV(all, *v));
-    else
+    } else {
       BOOST_CHECK(!nonMV(all, *v));
+    }
   }
 }

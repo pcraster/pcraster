@@ -338,8 +338,9 @@ std::string com::PathName::extension() const
   std::string const filename(path().filename().string());
   size_t const i = filename.find_last_of('.');
   // found and not as last char
-  if (i != std::string::npos && i < filename.size() - 1)
+  if (i != std::string::npos && i < filename.size() - 1) {
     return filename.substr(i + 1);  // +1 do not include "."
+  }
   return "";
 }
 
@@ -402,12 +403,14 @@ void com::PathName::removeExtension()
 */
 void com::PathName::addExtension(const std::string &e)
 {
-  if (e.empty())
+  if (e.empty()) {
     return;
+  }
   std::string s(path().string());
   std::string dot;
-  if (s.empty() || s[s.size() - 1] != '.')
+  if (s.empty() || s[s.size() - 1] != '.') {
     dot = ".";
+  }
   s += dot + e;
   set(s);
 }

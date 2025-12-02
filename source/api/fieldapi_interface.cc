@@ -21,8 +21,9 @@ namespace fieldapi
 
 template <> ReadOnlyUint1 *spatialInterface<UINT1>(const MAP_UINT1 *o)
 {
-  if (o->inCellRepr == CR_UINT1)
+  if (o->inCellRepr == CR_UINT1) {
     return new ReadOnlySpatial<UINT1, UINT1>((UINT1 **)o->spatialValue, o->nrRows, o->nrCols);
+  }
   PRECOND(false);
   return nullptr;
 }
@@ -59,10 +60,11 @@ template <> ReadOnlyReal8 *spatialInterface<REAL8, MAP_REAL8>(const MAP_REAL8 *o
 template <class UseAsT, class OldMapApiT>
 fieldapi::UpgradeReadOnly<UseAsT, OldMapApiT>::UpgradeReadOnly(const OldMapApiT *o)
 {
-  if (o->spatial)
+  if (o->spatial) {
     d_ro = spatialInterface<UseAsT, OldMapApiT>(o);
-  else
+  } else {
     d_ro = new ReadOnlyNonSpatial<UseAsT>(o->nonSpatialValue, o->nrRows, o->nrCols);
+  }
 }
 
 //! dtor
@@ -85,8 +87,9 @@ template class fieldapi::UpgradeReadOnly<REAL8, MAP_REAL8>;
 
 template <> ReadWriteUint1 *spatialInterface<UINT1>(MAP_UINT1 *o)
 {
-  if (o->inCellRepr == CR_UINT1)
+  if (o->inCellRepr == CR_UINT1) {
     return new ReadWriteData<UINT1, UINT1>((UINT1 **)o->spatialValue, o->nrRows, o->nrCols);
+  }
   PRECOND(false);
   return nullptr;
 }
@@ -154,9 +157,11 @@ template class fieldapi::UpgradeReadWrite<REAL8, MAP_REAL8>;
  */
 bool nonMV(const std::vector<const fieldapi::Common *> &fields, const geo::CellLoc &l)
 {
-  for (auto field : fields)
-    if (field->isMV(l))
+  for (auto field : fields) {
+    if (field->isMV(l)) {
       return false;
+    }
+  }
   return true;
 }
 

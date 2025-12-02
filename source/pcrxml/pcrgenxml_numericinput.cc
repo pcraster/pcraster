@@ -16,11 +16,13 @@ pcrxml::NumericInput::NumericInput(const QDomElement &element) : Element(element
     ChildElementVisitor v(element);
 
     // optional element
-    if (v.currentChildEq("LowerLimit"))
+    if (v.currentChildEq("LowerLimit")) {
       lowerLimit = new LowerLimit(v.processChild());
+    }
     // optional element
-    if (v.currentChildEq("UpperLimit"))
+    if (v.currentChildEq("UpperLimit")) {
       upperLimit = new UpperLimit(v.processChild());
+    }
   } catch (...) {
     clean();
     throw;
@@ -73,8 +75,10 @@ pcrxml::NumericInput &pcrxml::NumericInput::operator=(const NumericInput &src)
 
 void pcrxml::NumericInput::fill(QDomElement el) const
 {
-  if (lowerLimit)
+  if (lowerLimit) {
     lowerLimit->appendTo(el);
-  if (upperLimit)
+  }
+  if (upperLimit) {
     upperLimit->appendTo(el);
+  }
 }

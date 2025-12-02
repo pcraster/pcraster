@@ -74,15 +74,17 @@ void com::DiMap::setDblRange(double d1, double d2, bool lg)
 {
   if (lg) {
     d_log = true;
-    if (d1 < logMin)
+    if (d1 < logMin) {
       d1 = logMin;
-    else if (d1 > logMax)
+    } else if (d1 > logMax) {
       d1 = logMax;
+    }
 
-    if (d2 < logMin)
+    if (d2 < logMin) {
       d2 = logMin;
-    else if (d2 > logMax)
+    } else if (d2 > logMax) {
       d2 = logMax;
+    }
 
     d_x1 = std::log(d1);
     d_x2 = std::log(d2);
@@ -120,10 +122,11 @@ void com::DiMap::setIntRange(int i1, int i2)
 */
 int com::DiMap::transform(double x) const
 {
-  if (d_log)
+  if (d_log) {
     return (d_y1 + boost::math::iround((std::log(x) - d_x1) * d_cnv));
-  else
+  } else {
     return (d_y1 + boost::math::iround((x - d_x1) * d_cnv));
+  }
 }
 
 /*!
@@ -140,10 +143,11 @@ double com::DiMap::invTransform(int y) const
   if (d_cnv == 0.0) {
     return 0.0;
   } else {
-    if (d_log)
+    if (d_log) {
       return std::exp(d_x1 + double(y - d_y1) / d_cnv);
-    else
+    } else {
       return (d_x1 + double(y - d_y1) / d_cnv);
+    }
   }
 }
 
@@ -157,10 +161,11 @@ double com::DiMap::invTransform(int y) const
 */
 int com::DiMap::limTransform(double x) const
 {
-  if (x > std::max(d_x1, d_x2))
+  if (x > std::max(d_x1, d_x2)) {
     x = std::max(d_x1, d_x2);
-  else if (x < std::min(d_x1, d_x2))
+  } else if (x < std::min(d_x1, d_x2)) {
     x = std::min(d_x1, d_x2);
+  }
 
   return transform(x);
 }
@@ -192,10 +197,11 @@ double com::DiMap::xTransform(double x) const
 
 void com::DiMap::newFactor()
 {
-  if (d_x2 != d_x1)
+  if (d_x2 != d_x1) {
     d_cnv = static_cast<double>(d_y2 - d_y1) / (d_x2 - d_x1);
-  else
+  } else {
     d_cnv = 0.0;
+  }
 }
 
 double com::DiMap::d1() const

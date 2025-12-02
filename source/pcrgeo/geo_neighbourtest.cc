@@ -8,8 +8,9 @@ static bool neighbourTarget(geo::LinearLoc s, const geo::RasterDim &rd, geo::LDD
   using namespace geo;
 
   LinearLoc const d = LDD::target(s, l, rd.nrCells(), rd.nrCols());
-  if (d >= rd.nrCells())
+  if (d >= rd.nrCells()) {
     return outside;
+  }
   CellLoc const d2 = LDD::target(rd.convert(s), l);
   return d2 == rd.convert(d);
 }
@@ -19,8 +20,9 @@ static bool nbTarget(geo::LinearLoc s, const geo::RasterDim &rd, geo::NB::Code l
   using namespace geo;
 
   LinearLoc const d = NB::target(s, l, rd.nrCells(), rd.nrCols());
-  if (d >= rd.nrCells())
+  if (d >= rd.nrCells()) {
     return outside;
+  }
   CellLoc const d2 = NB::target(rd.convert(s), l);
   return d2 == rd.convert(d);
 }

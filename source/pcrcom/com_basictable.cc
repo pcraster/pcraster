@@ -259,8 +259,9 @@ std::ostream &operator<<(std::ostream &s, const BasicTable &t)
     size_t r = 0;
     size_t c = 0;
     for (r = 0; r < t.nrRecs(); r++) {
-      for (c = 0; c < t.nrCols() - 1; c++)
+      for (c = 0; c < t.nrCols() - 1; c++) {
         s << (*(t.d_columns[c]))[r] << ' ';
+      }
       s << (*(t.d_columns[c]))[r] << '\n';
     }
   }
@@ -343,8 +344,9 @@ std::istream &operator>>(std::istream &s, BasicTable &t)
   }
 
   // Update number of records variable.
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     t.d_nrRecs = std::max(t.d_nrRecs, t.d_columns[i]->size());
+  }
 
   return s;  // 10.
 }

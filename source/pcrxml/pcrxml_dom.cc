@@ -26,8 +26,9 @@ struct ChildrenByTagName {
 
   void operator()(const QDomElement &el)
   {
-    if (el.tagName() == d_tagName)
+    if (el.tagName() == d_tagName) {
       d_result.push_back(el);
+    }
   }
 };
 
@@ -82,8 +83,9 @@ std::vector<QDomElement> pcrxml::matchByTagName(const QDomElement &tree, const Q
 {
   QDomNodeList const mrsList(tree.elementsByTagName(tagName));
   std::vector<QDomElement> v;
-  for (size_t i = 0; i < (size_t)mrsList.count(); i++)
+  for (size_t i = 0; i < (size_t)mrsList.count(); i++) {
     v.push_back(mrsList.item(i).toElement());
+  }
   return v;
 }
 
@@ -93,9 +95,11 @@ std::vector<QDomElement> pcrxml::childElements(const QDomElement &parent)
 {
   QDomNodeList const nodes(parent.childNodes());
   std::vector<QDomElement> v;
-  for (size_t i = 0; i < (size_t)nodes.count(); i++)
-    if (nodes.item(i).isElement())
+  for (size_t i = 0; i < (size_t)nodes.count(); i++) {
+    if (nodes.item(i).isElement()) {
       v.push_back(nodes.item(i).toElement());
+    }
+  }
   return v;
 }
 
@@ -107,8 +111,9 @@ std::vector<QDomElement> pcrxml::childElements(const QDomElement &parent)
 void pcrxml::changeAttrName(QDomElement &e, const QString &oldName, const QString &newName)
 {
   QString const attrValue = e.attribute(oldName);
-  if (attrValue.isNull())
+  if (attrValue.isNull()) {
     return;
+  }
   e.removeAttribute(oldName);
   e.setAttribute(newName, attrValue);
 }
@@ -126,8 +131,9 @@ QString pcrxml::textOnlyContents(QDomElement e)
 {
   e.normalize();
   QDomNodeList const c(e.childNodes());
-  if (!c.length())
+  if (!c.length()) {
     return "";
+  }
   PRECOND(c.length() == 1 && c.item(0).isCharacterData());
   return c.item(0).nodeValue();
 }
@@ -160,8 +166,9 @@ std::vector<QDomElement> pcrxml::childrenByTagName(const QDomElement &parent, co
 QDomElement pcrxml::firstChildByTagName(const QDomElement &parent, const QString &tagName)
 {
   std::vector<QDomElement> els(childrenByTagName(parent, tagName));
-  if (els.empty())
+  if (els.empty()) {
     return {};
+  }
   return els[0];
 }
 

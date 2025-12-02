@@ -20,8 +20,9 @@ static const EnumNmToken<IoStrategy> classIoStrategy;
 pcrxml::IoStrategy::IoStrategy(const QDomNode &owningElement, const std::string &nameOfAttr, bool req)
     : Attribute(owningElement, nameOfAttr, req)
 {
-  if (present())
+  if (present()) {
     d_value = classIoStrategy.value(owningElement, nameOfAttr);
+  }
 }
 
 pcrxml::IoStrategy::IoStrategy() : Attribute(false)

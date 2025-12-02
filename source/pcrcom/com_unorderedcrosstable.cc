@@ -297,8 +297,9 @@ std::istream &com::operator>>(std::istream &stream, UnOrderedCrossTable &table)
     stream >> table.d_cells[i];
   }
 
-  if (!stream)
+  if (!stream) {
     throw com::Exception("Cell value: Wrong format");
+  }
 
   return stream;
 }

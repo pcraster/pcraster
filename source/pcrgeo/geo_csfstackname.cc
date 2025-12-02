@@ -23,14 +23,16 @@ class CSFStackNamePrivate
 private:
   void checkFirstLastOrder()
   {
-    if (first > last)
+    if (first > last) {
       throw com::Exception("last timestep must be larger than first timestep");
+    }
   }
 
   void wrongFormatIf(bool test)
   {
-    if (test)
+    if (test) {
       throw com::Exception("wrong format for stack name");
+    }
   }
 
 public:
@@ -52,9 +54,9 @@ public:
     size_t pos = str.rfind('+');
     // presence of plus means dynamic
     dynamic = pos != std::string::npos;
-    if (!dynamic)
+    if (!dynamic) {
       d_path = n;
-    else {
+    } else {
       std::string lastStr = str.substr(pos + 1);
       wrongFormatIf(lastStr.empty());
 
@@ -63,16 +65,18 @@ public:
         // on break, pos is always the last char
         // to be included in d_path
         --pos;
-        if (firstStr.size() == lastStr.size())
+        if (firstStr.size() == lastStr.size()) {
           break;  // can never be longer than last
-                  // because last is a bigger number
-        if (str[pos] == '.')
+        }
+        // because last is a bigger number
+        if (str[pos] == '.') {
           continue;  // skip the . in between the DOS 8+3
-        else {
-          if (std::isdigit(str[pos]))
+        } else {
+          if (std::isdigit(str[pos])) {
             firstStr += str[pos];
-          else
+          } else {
             break;  // break on the character being end of stackname
+          }
         }
       } while (pos);
       std::reverse(firstStr.begin(), firstStr.end());
@@ -95,8 +99,9 @@ public:
        * this according to the naming rules, we reset last to the maximum
        * possible value.
        */
-      if (lastStr.size() > firstStr.size())
+      if (lastStr.size() > firstStr.size()) {
         lastStr.assign(firstStr.size(), '9');
+      }
 
       try {
         first = com::strToSize_t(firstStr);
@@ -171,8 +176,9 @@ geo::CSFStackName::CSFStackName(const com::PathName &n, bool scanIt)
 
     init(n);
 
-    if (isDynamic() && scanIt)
+    if (isDynamic() && scanIt) {
       scan();
+    }
 
   } catch (...) {
 
@@ -208,8 +214,9 @@ geo::CSFStackName::CSFStackName(const com::PathName &pn, size_t f, size_t l, boo
     d_data = new CSFStackNamePrivate(pn, f, l);
     d_scanned = false;
 
-    if (scanIt)
+    if (scanIt) {
       scan();
+    }
 
     POSTCOND(isDynamic());
   } catch (...) {
@@ -375,8 +382,9 @@ void geo::CSFStackName::stackNamePool(std::vector<com::PathName> &pool) const
   std::filesystem::directory_iterator const end_iter;
 
   for (std::filesystem::directory_iterator f(directoryName.path()); f != end_iter; ++f) {
-    if (isMemberOfStack(f->path().filename()))
+    if (isMemberOfStack(f->path().filename())) {
       pool.push_back(f->path().filename());
+    }
   }
 
   // Sort pool of interesting file names. This sort takes into account that
@@ -539,10 +547,11 @@ void geo::CSFStackName::scan()
 */
 size_t geo::CSFStackName::nrLayers() const
 {
-  if (isDynamic())
+  if (isDynamic()) {
     return d_steps.size();
-  else
+  } else {
     return 1;
+  }
 }
 
 /*!

@@ -74,12 +74,14 @@ void geo::RasterFileConverter::writeAscii(std::ostream &ofs) const
   for (size_t r = 0; r < d_bandMap->nrRows(); r++) {
     for (size_t c = 0; c < d_bandMap->nrCols(); c++) {
       PRECOND(i < d_bandMap->nrCells());
-      if (pcr::isMV(val[i]))
+      if (pcr::isMV(val[i])) {
         ofs << "-999";
-      else
+      } else {
         ofs << val[i];
-      if (c != d_bandMap->nrCols() - 1)
+      }
+      if (c != d_bandMap->nrCols() - 1) {
         ofs << " ";
+      }
       i++;
     }
     ofs << '\n';

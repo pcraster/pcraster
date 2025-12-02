@@ -30,8 +30,9 @@ pcrxml::DimensionBaseEnum::DimensionBaseEnum(const QDomNode &owningElement,
                                              const std::string &nameOfAttr, bool req)
     : Attribute(owningElement, nameOfAttr, req)
 {
-  if (present())
+  if (present()) {
     d_value = classDimensionBaseEnum.value(owningElement, nameOfAttr);
+  }
 }
 
 pcrxml::DimensionBaseEnum::DimensionBaseEnum() : Attribute(false)

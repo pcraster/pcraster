@@ -59,10 +59,12 @@ public:
     PRECOND(str.present());
     // size_t i=lookup(str,d_strings,d_nrValues); dunno non-inline
     size_t i = 0;
-    for (i=0; i < d_nrStrings && (str.value() != d_strings[i]); i++)
+    for (i=0; i < d_nrStrings && (str.value() != d_strings[i]); i++) {
        ;
-    if (i == d_nrStrings)
+    }
+    if (i == d_nrStrings) {
       throw com::BadStreamFormat("attribute "+name+": "+str.value()+" is not a defined NMTOKEN value");
+    }
     return static_cast<EnumType>(i);
   }
 

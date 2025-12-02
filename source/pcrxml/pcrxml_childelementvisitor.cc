@@ -41,8 +41,9 @@ pcrxml::ChildElementVisitor::~ChildElementVisitor()
 void pcrxml::ChildElementVisitor::advance()
 {
   for (; !allChildrenProcessed(); d_current++) {
-    if (currentChild().isElement())
+    if (currentChild().isElement()) {
       break;
+    }
   }
   POSTCOND(allChildrenProcessed() || currentChild().isElement());
 }
@@ -69,8 +70,9 @@ QDomElement pcrxml::ChildElementVisitor::processChild()
  */
 bool pcrxml::ChildElementVisitor::currentChildEq(const std::string &childName) const
 {
-  if (allChildrenProcessed())
+  if (allChildrenProcessed()) {
     return false;
+  }
   return currentChild().nodeName() == asQString(childName);
 }
 
@@ -79,9 +81,10 @@ bool pcrxml::ChildElementVisitor::currentChildEq(const std::string &childName) c
 */
 void pcrxml::ChildElementVisitor::checkRequiredChild(const std::string &childName) const
 {
-  if (!currentChildEq(childName))
+  if (!currentChildEq(childName)) {
     throw com::BadStreamFormat("expected child element " + childName + " as part of element " +
                                asString(d_elem.nodeName()));
+  }
 }
 
 //------------------------------------------------------------------------------

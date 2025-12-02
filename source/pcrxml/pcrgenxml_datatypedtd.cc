@@ -17,8 +17,9 @@ pcrxml::DataTypeDTD::DataTypeDTD(const QDomElement &element)
     ChildElementVisitor v(element);
 
     // * repeated element
-    while (v.currentChildEq("dimension"))
+    while (v.currentChildEq("dimension")) {
       dimension.push_back(new Dimension(v.processChild()));
+    }
   } catch (...) {
     clean();
     throw;
@@ -43,16 +44,18 @@ pcrxml::DataTypeDTD::~DataTypeDTD()
 //! clean
 void pcrxml::DataTypeDTD::clean()
 {
-  for (auto &i : dimension)
+  for (auto &i : dimension) {
     delete i;
+  }
   dimension.clear();
 }
 
 //! copy ctor
 pcrxml::DataTypeDTD::DataTypeDTD(const DataTypeDTD &src) : pcrxml::Element(src), value(src.value)
 {
-  for (auto i : src.dimension)
+  for (auto i : src.dimension) {
     dimension.push_back(new Dimension(*i));
+  }
 }
 
 //! assignment operator
@@ -61,8 +64,9 @@ pcrxml::DataTypeDTD &pcrxml::DataTypeDTD::operator=(const DataTypeDTD &src)
   if (this != &src) {
     clean();
     PRECOND(false);
-    for (auto i : src.dimension)
+    for (auto i : src.dimension) {
       dimension.push_back(new Dimension(*i));
+    }
   }
   return *this;
 }
@@ -70,6 +74,7 @@ pcrxml::DataTypeDTD &pcrxml::DataTypeDTD::operator=(const DataTypeDTD &src)
 void pcrxml::DataTypeDTD::fill(QDomElement el) const
 {
   value.addToElement(el, "value");
-  for (auto i : dimension)
+  for (auto i : dimension) {
     i->appendTo(el);
+  }
 }

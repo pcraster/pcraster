@@ -50,10 +50,12 @@ template <class UseAsT, class StoredAsT> fieldapi::ReadOnlySpatial<UseAsT, Store
 template <class UseAsT, class StoredAsT>
 bool fieldapi::ReadOnlySpatial<UseAsT, StoredAsT>::get(UseAsT &value, int rowIndex, int colIndex) const
 {
-  if (this->outOfRange(rowIndex, colIndex))
+  if (this->outOfRange(rowIndex, colIndex)) {
     return false;
-  if (pcr::isMV(d_data[rowIndex][colIndex]))
+  }
+  if (pcr::isMV(d_data[rowIndex][colIndex])) {
     return false;
+  }
   value = d_data[rowIndex][colIndex];
   return true;
 }
@@ -65,8 +67,9 @@ bool fieldapi::ReadOnlySpatial<UseAsT, StoredAsT>::get(UseAsT &value, size_t row
 #ifdef DEBUG_DEVELOP
   PRECOND(!this->outOfRange(rowIndex, colIndex));
 #endif
-  if (pcr::isMV(d_data[rowIndex][colIndex]))
+  if (pcr::isMV(d_data[rowIndex][colIndex])) {
     return false;
+  }
   value = d_data[rowIndex][colIndex];
   return true;
 }

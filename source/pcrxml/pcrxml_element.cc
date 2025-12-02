@@ -48,9 +48,10 @@ pcrxml::Element::Element(const Element &)
  */
 pcrxml::Element::Element(const QDomElement &e, const std::string &elementName)
 {
-  if (!e.isElement() || elementName != asString(e.nodeName()))
+  if (!e.isElement() || elementName != asString(e.nodeName())) {
     throw com::BadStreamFormat("initializing element " + elementName + " with wrong element " +
                                asString(e.nodeName()));
+  }
 }
 
 //! dtor

@@ -37,8 +37,9 @@ std::string com::createMessage(const char *format, ...)
 
 static void rangeErrorIf(bool test, const char *msg)
 {
-  if (test)
+  if (test) {
     throw std::range_error(msg);
+  }
 }
 
 //! Converts \a s to a size_t.
@@ -59,10 +60,12 @@ size_t com::strToSize_t(const std::string &s)
  */
 bool com::strToBool(const std::string &s)
 {
-  if (s == "true")
+  if (s == "true") {
     return true;
-  if (s == "false")
+  }
+  if (s == "false") {
     return false;
+  }
   throw std::range_error("not a boolean");
 }
 
@@ -132,8 +135,9 @@ std::string com::size_tToStr(size_t v)
 //! Converts \a v to a string containing "true" or "false"
 std::string com::boolToStr(bool v)
 {
-  if (v)
+  if (v) {
     return "true";
+  }
   return "false";
 }
 
@@ -310,11 +314,13 @@ bool com::equalNoCase(const std::string &s, const std::string &s2)
 void com::removeFrontEndSpace(std::string &str)
 {
   std::string::iterator it(str.begin());
-  while (it != str.end() && std::isspace(*it))
+  while (it != str.end() && std::isspace(*it)) {
     it++;
+  }
   str.erase(str.begin(), it);
-  if (str.empty())
+  if (str.empty()) {
     return;
+  }
   it = str.end();
   do {
     it--;
@@ -340,9 +346,11 @@ std::string com::removeFrontEndSpace(std::string const &str)
 void com::removeAllSpace(std::string &str)
 {
   std::string newStr;
-  for (char const i : str)
-    if (!std::isspace(i))
+  for (char const i : str) {
+    if (!std::isspace(i)) {
       newStr += i;
+    }
+  }
   str = newStr;
 }
 
@@ -356,14 +364,16 @@ void com::removeFrontEndChar(std::string &str, char c)
 {
   // Front of string.
   std::string::iterator it = str.begin();
-  while (it != str.end() && *it == c)
+  while (it != str.end() && *it == c) {
     ++it;
+  }
   str.erase(str.begin(), it);
 
   // End of string.
   std::string::reverse_iterator rit = str.rbegin();
-  while (rit != str.rend() && *rit == c)
+  while (rit != str.rend() && *rit == c) {
     ++rit;
+  }
   str.erase(str.length() - (rit - str.rbegin()), str.length() - (str.length() - (rit - str.rbegin())));
 }
 
@@ -477,9 +487,11 @@ void com::replaceChars(std::string &str, char resultChar, const std::string &cha
 {
   std::set<char> replaceSet;
   com::insertTo(charsToBeReplaced, replaceSet);
-  for (char &i : str)
-    if (replaceSet.count(i))
+  for (char &i : str) {
+    if (replaceSet.count(i)) {
       i = resultChar;
+    }
+  }
 }
 
 /*!
@@ -497,10 +509,11 @@ std::string com::replaceCharByStr(const std::string &str, char c, const std::str
 {
   std::string d;
   for (char const i : str) {
-    if (i == c)
+    if (i == c) {
       d += with;
-    else
+    } else {
       d += i;
+    }
   }
   return d;
 }
@@ -524,7 +537,7 @@ std::string com::replaceStrByStr(const std::string &str, const std::string &subS
   if (subStr.empty()) {
     d = str;
   } else {
-    for (size_t i = 0; i < str.size(); /* inc in loop */)
+    for (size_t i = 0; i < str.size(); /* inc in loop */) {
       if (str.find(subStr, i) == i) {
         d += newSubStr;
         i += subStr.size();
@@ -532,6 +545,7 @@ std::string com::replaceStrByStr(const std::string &str, const std::string &subS
         d += str[i];
         i++;
       }
+    }
   }
 
   return d;

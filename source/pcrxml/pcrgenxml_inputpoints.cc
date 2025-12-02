@@ -18,11 +18,13 @@ pcrxml::InputPoints::InputPoints(const QDomElement &element)
     ChildElementVisitor v(element);
 
     // optional element
-    if (v.currentChildEq("ComputedRiverAxis"))
+    if (v.currentChildEq("ComputedRiverAxis")) {
       computedRiverAxis = new ComputedRiverAxis(v.processChild());
+    }
     // optional element
-    if (v.currentChildEq("RiverAxisFile"))
+    if (v.currentChildEq("RiverAxisFile")) {
       riverAxisFile = new RiverAxisFile(v.processChild());
+    }
   } catch (...) {
     clean();
     throw;
@@ -80,8 +82,10 @@ void pcrxml::InputPoints::fill(QDomElement el) const
 {
   lodingDistance.addToElement(el, "lodingDistance");
   maxPointDeviation.addToElement(el, "maxPointDeviation");
-  if (computedRiverAxis)
+  if (computedRiverAxis) {
     computedRiverAxis->appendTo(el);
-  if (riverAxisFile)
+  }
+  if (riverAxisFile) {
     riverAxisFile->appendTo(el);
+  }
 }

@@ -55,8 +55,9 @@ geo::CSFMap::CSFMap(const CSFMap &rhs) : d_fn(rhs.d_fn), d_map(nullptr)
 
 {
   PRECOND(MopenPerm(rhs.d_map) == M_READ);
-  if (rhs.isOpen())
+  if (rhs.isOpen()) {
     open(false);
+  }
 }
 
 /*!
@@ -140,15 +141,17 @@ void geo::CSFMap::open(bool allowUpdate)
   /* CW Note: the other M_WRITE (write only is an historical artifact)
    *       I have not seen any use of it
    */
-  if (!allowUpdate)
+  if (!allowUpdate) {
     com::testOpenForReading(d_fn);
+  }
   // else com::testOpenForUpdate(d_fn);
 
   d_map = Mopen(d_fn.c_str(), p);
 
   if (!d_map) {
-    if (Merrno == NOT_CSF)
+    if (Merrno == NOT_CSF) {
       throw NotA_PCRasterMap(d_fn);
+    }
     throwFileError("error opening raster", true);
   }
 }
@@ -194,13 +197,15 @@ void geo::CSFMap::create(size_t nr, size_t nc, CSF_VS vs, CSF_PT proj, REAL8 lef
   PRECOND(!d_map);
 #endif
   com::testOpenForWriting(d_fn);
-  if (cr == CR_UNDEFINED)
+  if (cr == CR_UNDEFINED) {
     cr = ValueScale2CellRepr(vs).defaultCR();
+  }
 
   d_map = Rcreate(d_fn.c_str(), nr, nc, cr, vs, proj, left, top, a, cs);
 
-  if (!d_map)
+  if (!d_map) {
     throwFileError("error creating raster", true);
+  }
 }
 
 /*!
@@ -213,8 +218,9 @@ void geo::CSFMap::close()
   PRECOND(d_map);
 #endif
 
-  if (Mclose(d_map))
+  if (Mclose(d_map)) {
     throwFileError("error closing raster", true);
+  }
   d_map = nullptr;
 }
 
@@ -235,8 +241,9 @@ bool geo::CSFMap::isOpen() const
 */
 void geo::CSFMap::useAs(CSF_CR cr)
 {
-  if (RuseAs(d_map, cr))
+  if (RuseAs(d_map, cr)) {
     throwFileError("conversion rules not obeyed", true);
+  }
 }
 
 /*!
@@ -245,8 +252,9 @@ void geo::CSFMap::useAs(CSF_CR cr)
 */
 void geo::CSFMap::putCellSize(REAL8 cs)
 {
-  if (RputCellSize(d_map, cs) < 0.0)
+  if (RputCellSize(d_map, cs) < 0.0) {
     throwFileError("error setting cell size:", true);
+  }
 }
 
 /*!
@@ -255,8 +263,9 @@ void geo::CSFMap::putCellSize(REAL8 cs)
 */
 void geo::CSFMap::putAngle(REAL8 a)
 {
-  if (RputAngle(d_map, a) < 0.0)
+  if (RputAngle(d_map, a) < 0.0) {
     throwFileError("error setting angle:", true);
+  }
 }
 
 /*!
@@ -357,8 +366,9 @@ size_t geo::CSFMap::nrCells() const
 */
 void geo::CSFMap::getCells(void *buf)
 {
-  if (RgetSomeCells(d_map, 0, nrCells(), buf) != nrCells())
+  if (RgetSomeCells(d_map, 0, nrCells(), buf) != nrCells()) {
     throwFileError("error reading cells", false);
+  }
 }
 
 /*!
@@ -370,8 +380,9 @@ void geo::CSFMap::getCells(void *buf)
 void geo::CSFMap::putCells(const void *buf)
 {
   PRECOND(RputDoNotChangeValues(d_map));
-  if (RputSomeCells(d_map, 0, nrCells(), const_cast<void *>(buf)) != nrCells())
+  if (RputSomeCells(d_map, 0, nrCells(), const_cast<void *>(buf)) != nrCells()) {
     throwFileError("error writing cells", false);
+  }
 }
 
 //! Write a stream of cells.
@@ -397,9 +408,11 @@ void geo::CSFMap::putCells(size_t offset, size_t nrCells, const void *buffer)
 void geo::CSFMap::putNonSpatial(const void *buf)
 {
   size_t const n = nrCells();
-  for (size_t i = 0; i < n; i++)
-    if (RputSomeCells(d_map, i, 1, const_cast<void *>(buf)) != 1)
+  for (size_t i = 0; i < n; i++) {
+    if (RputSomeCells(d_map, i, 1, const_cast<void *>(buf)) != 1) {
       throwFileError("error writing cells", false);
+    }
+  }
 }
 
 /*!
@@ -412,8 +425,9 @@ void geo::CSFMap::putNonSpatial(const void *buf)
 */
 void geo::CSFMap::getCells(size_t off, size_t nc, void *buf)
 {
-  if (RgetSomeCells(d_map, off, nc, buf) != nc)
+  if (RgetSomeCells(d_map, off, nc, buf) != nc) {
     throwFileError("error reading cells", false);
+  }
 }
 
 /*!

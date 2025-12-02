@@ -24,8 +24,9 @@ class NodeSet :
 {
   public:
     NodeSet(const QDomNamedNodeMap& map) {
-      for(size_t i=0; i < (size_t)map.count(); ++i)
+      for(size_t i=0; i < (size_t)map.count(); ++i) {
         insert(map.item(i));
+      }
     }
 };
 
@@ -47,11 +48,13 @@ template <class Operation>
 void forEachNode(QDomNode node, Operation& o) {
   o(node);
   NodeSet const attrs(node.attributes());
-  for(const auto & attr : attrs)
+  for(const auto & attr : attrs) {
     o(attr);
+  }
   QDomNodeList const list = node.childNodes();
-  for(size_t i=0; i < (size_t)list.count(); ++i)
+  for(size_t i=0; i < (size_t)list.count(); ++i) {
     forEachNode(list.item(i),o);
+  }
 }
 
 /*!
@@ -70,9 +73,11 @@ template <class Operation>
  void forEachElement(QDomElement e, Operation& o) {
   o(e);
   QDomNodeList const list = e.childNodes();
-   for(size_t i=0; i < (size_t)list.count(); i++)
-     if (list.item(i).isElement())
+   for(size_t i=0; i < (size_t)list.count(); i++) {
+     if (list.item(i).isElement()) {
        forEachElement(list.item(i).toElement(),o);
+     }
+   }
 }
 
 /*!
@@ -86,10 +91,12 @@ template <class Operation>
 template <class Operation>
  void forEachChildElement(const QDomElement& e, Operation& o) {
  QDomNodeList const list = e.childNodes();
-   for(size_t i=0; i < (size_t)list.count(); i++)
-     if (list.item(i).isElement())
+   for(size_t i=0; i < (size_t)list.count(); i++) {
+     if (list.item(i).isElement()) {
        o(list.item(i).toElement());
-}
+     }
+   }
+ }
 }
 
 #endif

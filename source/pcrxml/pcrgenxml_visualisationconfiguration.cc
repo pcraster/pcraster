@@ -18,8 +18,9 @@ pcrxml::VisualisationConfiguration::VisualisationConfiguration(const QDomElement
     ChildElementVisitor v(element);
 
     // * repeated element
-    while (v.currentChildEq("VisualisationGroup"))
+    while (v.currentChildEq("VisualisationGroup")) {
       visualisationGroup.push_back(new VisualisationGroup(v.processChild()));
+    }
   } catch (...) {
     clean();
     throw;
@@ -44,8 +45,9 @@ pcrxml::VisualisationConfiguration::~VisualisationConfiguration()
 //! clean
 void pcrxml::VisualisationConfiguration::clean()
 {
-  for (auto &i : visualisationGroup)
+  for (auto &i : visualisationGroup) {
     delete i;
+  }
   visualisationGroup.clear();
 }
 
@@ -53,8 +55,9 @@ void pcrxml::VisualisationConfiguration::clean()
 pcrxml::VisualisationConfiguration::VisualisationConfiguration(const VisualisationConfiguration &src)
     : pcrxml::Element(src), date(src.date), version(src.version), cwd(src.cwd), os(src.os)
 {
-  for (auto i : src.visualisationGroup)
+  for (auto i : src.visualisationGroup) {
     visualisationGroup.push_back(new VisualisationGroup(*i));
+  }
 }
 
 //! assignment operator
@@ -64,8 +67,9 @@ pcrxml::VisualisationConfiguration::operator=(const VisualisationConfiguration &
   if (this != &src) {
     clean();
     PRECOND(false);
-    for (auto i : src.visualisationGroup)
+    for (auto i : src.visualisationGroup) {
       visualisationGroup.push_back(new VisualisationGroup(*i));
+    }
   }
   return *this;
 }
@@ -76,6 +80,7 @@ void pcrxml::VisualisationConfiguration::fill(QDomElement el) const
   version.addToElement(el, "version");
   cwd.addToElement(el, "cwd");
   os.addToElement(el, "os");
-  for (auto i : visualisationGroup)
+  for (auto i : visualisationGroup) {
     i->appendTo(el);
+  }
 }

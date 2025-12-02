@@ -64,8 +64,9 @@ void com::Subject::notify()
 {
   std::vector<Observer *>::iterator it;
 
-  for (it = d_observers.begin(); it != d_observers.end(); ++it)
+  for (it = d_observers.begin(); it != d_observers.end(); ++it) {
     (*it)->update(this);
+  }
 }
 
 //------------------------------------------------------------------------------

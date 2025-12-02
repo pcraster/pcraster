@@ -18,15 +18,18 @@ pcrxml::Input::Input(const QDomElement &element)
     ChildElementVisitor v(element);
 
     // optional element
-    if (v.currentChildEq("InputLodings"))
+    if (v.currentChildEq("InputLodings")) {
       inputLodings = new InputLodings(v.processChild());
+    }
     // optional element
-    if (v.currentChildEq("InputPoints"))
+    if (v.currentChildEq("InputPoints")) {
       inputPoints = new InputPoints(v.processChild());
+    }
     // + repeated element
     v.checkRequiredChild("InputFile");
-    while (v.currentChildEq("InputFile"))
+    while (v.currentChildEq("InputFile")) {
       inputFile.push_back(new InputFile(v.processChild()));
+    }
   } catch (...) {
     clean();
     throw;
@@ -56,8 +59,9 @@ void pcrxml::Input::clean()
   inputLodings = nullptr;
   delete inputPoints;
   inputPoints = nullptr;
-  for (auto &i : inputFile)
+  for (auto &i : inputFile) {
     delete i;
+  }
   inputFile.clear();
 }
 
@@ -68,8 +72,9 @@ pcrxml::Input::Input(const Input &src)
 {
   inputLodings = (src.inputLodings) ? new InputLodings(*(src.inputLodings)) : nullptr;
   inputPoints = (src.inputPoints) ? new InputPoints(*(src.inputPoints)) : nullptr;
-  for (auto i : src.inputFile)
+  for (auto i : src.inputFile) {
     inputFile.push_back(new InputFile(*i));
+  }
 }
 
 //! assignment operator
@@ -80,8 +85,9 @@ pcrxml::Input &pcrxml::Input::operator=(const Input &src)
     PRECOND(false);
     inputLodings = (src.inputLodings) ? new InputLodings(*(src.inputLodings)) : nullptr;
     inputPoints = (src.inputPoints) ? new InputPoints(*(src.inputPoints)) : nullptr;
-    for (auto i : src.inputFile)
+    for (auto i : src.inputFile) {
       inputFile.push_back(new InputFile(*i));
+    }
   }
   return *this;
 }
@@ -91,10 +97,13 @@ void pcrxml::Input::fill(QDomElement el) const
   flipZ.addToElement(el, "flipZ");
   samplingInterval.addToElement(el, "samplingInterval");
   migrDirection.addToElement(el, "migrDirection");
-  if (inputLodings)
+  if (inputLodings) {
     inputLodings->appendTo(el);
-  if (inputPoints)
+  }
+  if (inputPoints) {
     inputPoints->appendTo(el);
-  for (auto i : inputFile)
+  }
+  for (auto i : inputFile) {
     i->appendTo(el);
+  }
 }

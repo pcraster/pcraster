@@ -17,20 +17,25 @@ pcrxml::FileInput::FileInput(const QDomElement &element)
     ChildElementVisitor v(element);
 
     // optional element
-    if (v.currentChildEq("Map"))
+    if (v.currentChildEq("Map")) {
       map = new Map(v.processChild());
+    }
     // optional element
-    if (v.currentChildEq("Stack"))
+    if (v.currentChildEq("Stack")) {
       stack = new Stack(v.processChild());
+    }
     // optional element
-    if (v.currentChildEq("TimeSeries"))
+    if (v.currentChildEq("TimeSeries")) {
       timeSeries = new TimeSeries(v.processChild());
+    }
     // optional element
-    if (v.currentChildEq("Table"))
+    if (v.currentChildEq("Table")) {
       table = new Table(v.processChild());
+    }
     // * repeated element
-    while (v.currentChildEq("Data"))
+    while (v.currentChildEq("Data")) {
       data.push_back(new Data(v.processChild()));
+    }
   } catch (...) {
     clean();
     throw;
@@ -64,8 +69,9 @@ void pcrxml::FileInput::clean()
   timeSeries = nullptr;
   delete table;
   table = nullptr;
-  for (auto &i : data)
+  for (auto &i : data) {
     delete i;
+  }
   data.clear();
 }
 
@@ -77,8 +83,9 @@ pcrxml::FileInput::FileInput(const FileInput &src)
   stack = (src.stack) ? new Stack(*(src.stack)) : nullptr;
   timeSeries = (src.timeSeries) ? new TimeSeries(*(src.timeSeries)) : nullptr;
   table = (src.table) ? new Table(*(src.table)) : nullptr;
-  for (auto i : src.data)
+  for (auto i : src.data) {
     data.push_back(new Data(*i));
+  }
 }
 
 //! assignment operator
@@ -91,8 +98,9 @@ pcrxml::FileInput &pcrxml::FileInput::operator=(const FileInput &src)
     stack = (src.stack) ? new Stack(*(src.stack)) : nullptr;
     timeSeries = (src.timeSeries) ? new TimeSeries(*(src.timeSeries)) : nullptr;
     table = (src.table) ? new Table(*(src.table)) : nullptr;
-    for (auto i : src.data)
+    for (auto i : src.data) {
       data.push_back(new Data(*i));
+    }
   }
   return *this;
 }
@@ -100,14 +108,19 @@ pcrxml::FileInput &pcrxml::FileInput::operator=(const FileInput &src)
 void pcrxml::FileInput::fill(QDomElement el) const
 {
   canChooseOtherFiles.addToElement(el, "canChooseOtherFiles");
-  if (map)
+  if (map) {
     map->appendTo(el);
-  if (stack)
+  }
+  if (stack) {
     stack->appendTo(el);
-  if (timeSeries)
+  }
+  if (timeSeries) {
     timeSeries->appendTo(el);
-  if (table)
+  }
+  if (table) {
     table->appendTo(el);
-  for (auto i : data)
+  }
+  for (auto i : data) {
     i->appendTo(el);
+  }
 }

@@ -798,8 +798,9 @@ BOOST_AUTO_TEST_CASE(unc)
 
 #ifndef WIN32
   bool const notWin32 = true;
-  if (notWin32)
+  if (notWin32) {
     return;
+  }
 #endif
 
   PathName const pn(R"(\\P4\bin)");

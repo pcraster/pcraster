@@ -17,8 +17,9 @@ struct CountNodeAttrs {
 
   void operator()(const QDomNode &n)
   {
-    if (n.isAttr())
+    if (n.isAttr()) {
       nr++;
+    }
   }
 };
 
@@ -31,8 +32,9 @@ struct ConcatNodeValues {
 
   void operator()(const QDomNode &n)
   {
-    if (n.nodeValue() != QString())
+    if (n.nodeValue() != QString()) {
       val += n.nodeValue();
+    }
   }
 };
 

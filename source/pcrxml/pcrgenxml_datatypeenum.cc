@@ -23,8 +23,9 @@ pcrxml::DataTypeEnum::DataTypeEnum(const QDomNode &owningElement, const std::str
                                    bool req)
     : Attribute(owningElement, nameOfAttr, req)
 {
-  if (present())
+  if (present()) {
     d_value = classDataTypeEnum.value(owningElement, nameOfAttr);
+  }
 }
 
 pcrxml::DataTypeEnum::DataTypeEnum() : Attribute(false)

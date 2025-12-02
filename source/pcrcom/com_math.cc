@@ -35,8 +35,9 @@ public:
  */
 double com::interpolate2(double x, double x1, double y1, double x2, double y2)
 {
-  if (x1 == x2)
+  if (x1 == x2) {
     return y1;
+  }
   DEVELOP_PRECOND(limUnordered(x, x1, x2) == x);  // is in range x1-x2
   double const w1 = std::fabs(x1 - x);
   double const w2 = std::fabs(x2 - x);

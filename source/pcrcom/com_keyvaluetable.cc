@@ -34,8 +34,9 @@ com::KeyValueTable::KeyValueTable()
 //! dtor
 com::KeyValueTable::~KeyValueTable()
 {
-  for (auto &d_keyConfig : d_keyConfigs)
+  for (auto &d_keyConfig : d_keyConfigs) {
     delete d_keyConfig.second;
+  }
 }
 
 //! set if unknown keys must be discarded
@@ -76,12 +77,14 @@ void com::KeyValueTable::add(const std::string &key, const std::string &value)
 {
   auto kc = d_keyConfigs.find(key);
   if (kc == d_keyConfigs.end()) {
-    if (d_discardUnknownKeys)
+    if (d_discardUnknownKeys) {
       return;
+    }
     throw UnknownKey(key, "unknown keyword");
   }
-  if (isSet(key))
+  if (isSet(key)) {
     throw DuplicateKey(key, value, "keyword defined twice");
+  }
 
   try {
     kc->second->validate(value);
@@ -123,8 +126,9 @@ void com::KeyValueTable::checkRequired() const
 {
   for (const auto &d_keyConfig : d_keyConfigs) {
     const KeyValueConfig *kc = d_keyConfig.second;
-    if (kc->required() && !isSet(*kc))
+    if (kc->required() && !isSet(*kc)) {
       throw MissingKey(kc->keyName(), "is not present");
+    }
   }
 }
 
@@ -269,8 +273,9 @@ void com::KeyValueEnum::validate(const std::string &value) const
 {
   PRECOND(!d_enumValues.empty());
   auto p = d_enumValues.find(value);
-  if (p == d_enumValues.end())
+  if (p == d_enumValues.end()) {
     throw com::Exception("value not allowed");
+  }
 }
 
 //! insert an enum
@@ -311,14 +316,16 @@ const std::string &com::KeyValueEnum::configValue(const KeyValueTable &kvt) cons
 com::KeyValueNumber::KeyValueNumber(const std::string &keyName, const Interval<double> *iv)
     : KeyValueConfig(keyName)
 {
-  if (iv)
+  if (iv) {
     d_iv = iv->createClone();
+  }
 }
 
 com::KeyValueNumber::KeyValueNumber(const KeyValueNumber &k) : KeyValueConfig(k.keyName())
 {
-  if (k.d_iv)
+  if (k.d_iv) {
     d_iv = k.d_iv->createClone();
+  }
 }
 
 com::KeyValueNumber &com::KeyValueNumber::operator=(const KeyValueNumber &k)
@@ -327,8 +334,9 @@ com::KeyValueNumber &com::KeyValueNumber::operator=(const KeyValueNumber &k)
     *this = k;
     delete this->d_iv;
     this->d_iv = nullptr;
-    if (k.d_iv)
+    if (k.d_iv) {
       this->d_iv = k.d_iv->createClone();
+    }
   }
   return *this;
 }
@@ -350,9 +358,11 @@ void com::KeyValueNumber::validate(const std::string &value) const
 {
   try {
     double const numericValue = typeValidate(value);
-    if (d_iv)
-      if (!d_iv->valid(numericValue))
+    if (d_iv) {
+      if (!d_iv->valid(numericValue)) {
         throw com::Exception(d_iv->msg());
+      }
+    }
   } catch (const std::range_error &re) {
     throw com::Exception(re.what());
   }
@@ -389,15 +399,17 @@ int com::KeyValueInteger::value(const com::KeyValueTable &kvt) const
 //! set \a v to value() iff key is set
 void com::KeyValueInteger::setConditional(int &v, const KeyValueTable &kvt) const
 {
-  if (kvt.isSet(keyName()))
+  if (kvt.isSet(keyName())) {
     v = value(kvt);
+  }
 }
 
 //! set \a v to value() iff key is set
 void com::KeyValueInteger::setConditional(size_t &v, const KeyValueTable &kvt) const
 {
-  if (kvt.isSet(keyName()))
+  if (kvt.isSet(keyName())) {
     v = value(kvt);
+  }
 }
 
 double com::KeyValueInteger::typeValidate(const std::string &value) const
@@ -441,8 +453,9 @@ double com::KeyValueDouble::typeValidate(const std::string &value) const
 //! set \a v to value() iff key is set
 void com::KeyValueDouble::setConditional(double &v, const KeyValueTable &kvt) const
 {
-  if (kvt.isSet(keyName()))
+  if (kvt.isSet(keyName())) {
     v = value(kvt);
+  }
 }
 
 //------------------------------------------------------------------------------

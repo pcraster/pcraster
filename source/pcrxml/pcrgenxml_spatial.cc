@@ -19,8 +19,9 @@ static const EnumNmToken<Spatial> classSpatial;
 pcrxml::Spatial::Spatial(const QDomNode &owningElement, const std::string &nameOfAttr, bool req)
     : Attribute(owningElement, nameOfAttr, req)
 {
-  if (present())
+  if (present()) {
     d_value = classSpatial.value(owningElement, nameOfAttr);
+  }
 }
 
 pcrxml::Spatial::Spatial() : Attribute(false)

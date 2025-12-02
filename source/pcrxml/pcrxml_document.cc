@@ -64,10 +64,11 @@ pcrxml::Document pcrxml::createPcrDocument(const std::string &contents)
   QDomNamedNodeMap const attrs(docEl.attributes());
   for (size_t i = 0; std::cmp_less(i, attrs.length()); ++i) {
     QDomAttr const a = doc.importNode(attrs.item(i), true).toAttr();
-    if (a.nodeName() != "xmlns")  // seems xmlns is not as an attribute recognized
+    if (a.nodeName() != "xmlns") {  // seems xmlns is not as an attribute recognized
       if (!doc.documentElement().hasAttribute(a.nodeName())) {
         doc.documentElement().setAttributeNode(a);
       }
+    }
   }
   QDomNodeList const dnl(docEl.childNodes());
   for (size_t i = 0; std::cmp_less(i, dnl.length()); ++i) {
@@ -148,8 +149,9 @@ pcrxml::Document::Document(const com::PathName &file)
   // com::testOpenForReading() should assert this
   // but it does not:
   //  POSTCOND(success);
-  if (!success)
+  if (!success) {
     throw com::OpenFileError(file.toString(), com::E_ACCESREAD);
+  }
 
   QString errMsg;
 
@@ -216,8 +218,9 @@ QDomElement pcrxml::Document::firstMatchByTagName(const QString &tagName) const
 
   // QDomElement::elementsByTagName only return descendant elements!
   // not the element if the element itself matches
-  if (de.tagName() == tagName)
+  if (de.tagName() == tagName) {
     return de;
+  }
 
   return pcrxml::firstMatchByTagName(de, tagName);
 }

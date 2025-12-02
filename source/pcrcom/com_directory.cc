@@ -196,9 +196,9 @@ void com::Directory::create(const PathName &pn, bool makeParentDirectories)
 void com::Directory::erase(bool recurse)
 {
   try {
-    if (recurse)
+    if (recurse) {
       std::filesystem::remove_all(d_path.path());
-    else {
+    } else {
       // Erase files and empty directories.
       std::filesystem::remove(d_path.path());
     }
@@ -271,10 +271,11 @@ void com::createDirectory(const PathName &pn, bool makeParentDirectories)
 {
   Directory dir;
 
-  if (pn.isRelative())
+  if (pn.isRelative()) {
     dir.setPathName(currentWorkingDirectory() + pn);
-  else
+  } else {
     dir.setPathName(pn);
+  }
 
   dir.create(makeParentDirectories);
 }
@@ -290,8 +291,9 @@ void com::createNewDirectory(const PathName &pn)
 {
   Directory const dir;
 
-  if (PathInfo(pn).exists())
+  if (PathInfo(pn).exists()) {
     throw OpenFileError(pn.toString(), E_EXIST);
+  }
   createDirectory(pn, false);
 }
 

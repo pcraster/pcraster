@@ -36,8 +36,9 @@ template <class DestType, class SrcType>
 void copyCellsBig2Small(DestType *dest, const SrcType *src, size_t nrCells)
 {
   PRECOND(sizeof(DestType) <= sizeof(SrcType));
-  for (size_t i = 0; i < nrCells; i++)
+  for (size_t i = 0; i < nrCells; i++) {
     CastCell<DestType, SrcType>()(dest[i], src[i]);
+  }
 }
 
 //! copy \a nrCells from \a src to \a dest array with proper conversion
@@ -92,12 +93,13 @@ void com::copyCells(INT2 *dest, const INT4 *src, size_t n)
 void com::copyCells2Boolean(UINT1 *dest, const INT4 *src, size_t n)
 {
   PRECOND(sizeof(UINT1) <= sizeof(INT4));
-  for (size_t i = 0; i < n; i++)
-    if (pcr::isMV(src[i]))
+  for (size_t i = 0; i < n; i++) {
+    if (pcr::isMV(src[i])) {
       pcr::setMV(dest[i]);
-    else {
+    } else {
       dest[i] = (src[i] != 0);
     }
+  }
 }
 
 //! test if v can be represented exactly as an UINT1

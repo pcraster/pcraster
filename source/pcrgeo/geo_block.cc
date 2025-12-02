@@ -47,16 +47,18 @@ void geo::Block::clean()
 
 void geo::Block::addLayer(size_t n, INT4 s, REAL8 t)
 {
-  for (auto &it : *this)
+  for (auto &it : *this) {
     it.add(n, s, t);
+  }
 }
 
 REAL8 geo::Block::thickness() const
 {
   REAL8 t = 0;
 
-  for (const auto &it : *this)
+  for (const auto &it : *this) {
     t = std::max(t, it.thickness());
+  }
 
   return t;
 }
@@ -65,8 +67,9 @@ REAL8 geo::Block::low() const
 {
   REAL8 b = 0;
 
-  for (const auto &it : *this)
+  for (const auto &it : *this) {
     b = std::min(b, it.bottom());
+  }
 
   return b;
 }
@@ -75,8 +78,9 @@ REAL8 geo::Block::high() const
 {
   REAL8 h = 0;
 
-  for (const auto &it : *this)
+  for (const auto &it : *this) {
     h = std::max(h, it.top());
+  }
 
   return h;
 }
@@ -85,8 +89,9 @@ size_t geo::Block::nrVoxels() const
 {
   size_t n = 0;
 
-  for (const auto &it : *this)
+  for (const auto &it : *this) {
     n += it.nrVoxels();
+  }
 
   return n;
 }

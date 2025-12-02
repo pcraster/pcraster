@@ -22,8 +22,9 @@ pcrxml::ExchangeDirection::ExchangeDirection(const QDomNode &owningElement,
                                              const std::string &nameOfAttr, bool req)
     : Attribute(owningElement, nameOfAttr, req)
 {
-  if (present())
+  if (present()) {
     d_value = classExchangeDirection.value(owningElement, nameOfAttr);
+  }
 }
 
 pcrxml::ExchangeDirection::ExchangeDirection() : Attribute(false)

@@ -16,11 +16,13 @@ pcrxml::AreaMapDTD::AreaMapDTD(const QDomElement &element) : Element(element, d_
     ChildElementVisitor v(element);
 
     // optional element
-    if (v.currentChildEq("rasterSpace"))
+    if (v.currentChildEq("rasterSpace")) {
       rasterSpace = new RasterSpace(v.processChild());
+    }
     // optional element
-    if (v.currentChildEq("rasterMask"))
+    if (v.currentChildEq("rasterMask")) {
       rasterMask = new RasterMask(v.processChild());
+    }
   } catch (...) {
     clean();
     throw;
@@ -73,8 +75,10 @@ pcrxml::AreaMapDTD &pcrxml::AreaMapDTD::operator=(const AreaMapDTD &src)
 
 void pcrxml::AreaMapDTD::fill(QDomElement el) const
 {
-  if (rasterSpace)
+  if (rasterSpace) {
     rasterSpace->appendTo(el);
-  if (rasterMask)
+  }
+  if (rasterMask) {
     rasterMask->appendTo(el);
+  }
 }

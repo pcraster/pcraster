@@ -83,8 +83,9 @@ template <class T>
 pcrxml::SimpleAttr<T>::SimpleAttr(const QDomNode &owningElement, const std::string &name, bool required)
     : Attribute(owningElement, name, required)
 {
-  if (!present())
+  if (!present()) {
     return;
+  }
   try {
     d_value = fromString<T>(inputValueStr(owningElement, name));
   } catch (const std::range_error &) {
@@ -106,8 +107,9 @@ template <class T> pcrxml::SimpleAttr<T>::SimpleAttr() : Attribute(false)
 //! ctor
 template <class T> pcrxml::SimpleAttr<T>::SimpleAttr(const SimpleAttr &rhs) : Attribute(rhs)
 {
-  if (rhs.present())
+  if (rhs.present()) {
     d_value = rhs.d_value;
+  }
 }
 
 //! Assignment operator.

@@ -35,8 +35,9 @@
 geo::FileCreateTester::FileCreateTester(const com::PathName &fileToCreate, bool removeNow)
     : d_fileToCreate(fileToCreate)
 {
-  if (removeNow && com::exists(fileToCreate))
+  if (removeNow && com::exists(fileToCreate)) {
     com::remove(fileToCreate);
+  }
 }
 
 //! dtor
@@ -81,8 +82,9 @@ class DiffMap
   {
     if (!d_values) {
       d_values = new Raster<UINT1>(d_rs);
-      for (size_t i = 0; i < d_values->nrCells(); i++)
+      for (size_t i = 0; i < d_values->nrCells(); i++) {
         (*d_values)[i] = MV_UINT1;
+      }
     }
   }
 
@@ -106,8 +108,9 @@ public:
     if (d_diffMapWanted) {
       init();
       (*d_values)[index] = 1;
-    } else
+    } else {
       d_tr.falseOrThrow("MV cells differ");
+    }
   }
 
   void setValuesDiffer(size_t index)
@@ -116,15 +119,17 @@ public:
     if (d_diffMapWanted) {
       init();
       (*d_values)[index] = 2;
-    } else
+    } else {
       d_tr.falseOrThrow("value cells differ");
+    }
   }
 
   //! return 0 if no diffs detected or wanted
   UINT1 *diffs()
   {
-    if (d_values)
+    if (d_values) {
       return d_values->cells();
+    }
     return nullptr;
   }
 
@@ -148,8 +153,9 @@ public:
 bool geo::FileCreateTester::equalTo(const com::PathName &eqTo, bool throwWhatDifferent) const
 {
   if (!com::exists(d_fileToCreate)) {
-    if (throwWhatDifferent)
+    if (throwWhatDifferent) {
       throw com::FileError(d_fileToCreate, "is not created");
+    }
     return false;
   }
 
@@ -176,33 +182,37 @@ bool geo::FileCreateTester::equalToTss(const com::PathName &eqTo, bool throwWhat
 
   ThrowOrReturn tr(d_fileToCreate, eqTo, throwWhatDifferent);
 
-  if (tss1.nrRecs() != tss2.nrRecs())
+  if (tss1.nrRecs() != tss2.nrRecs()) {
     return tr.falseOrThrow(" nr of timesteps differ");
-  if (tss1.nrCols() != tss2.nrCols())
+  }
+  if (tss1.nrCols() != tss2.nrCols()) {
     return tr.falseOrThrow(" nr of columns differ");
+  }
 
   std::string firstErrMsg;
 
-  for (size_t r = 0; r < tss1.nrRecs(); ++r)
+  for (size_t r = 0; r < tss1.nrRecs(); ++r) {
     for (size_t c = 0; c < tss1.nrCols(); ++c) {
       double const v1 = tss1.value(c, r);
       double const v2 = tss2.value(c, r);
       double diff = v1 - v2;
-      if (com::equal_epsilon(v1, v2, 0.00001))
+      if (com::equal_epsilon(v1, v2, 0.00001)) {
         diff = 0;  // do not write epsilon diff to difference file
-      else if (firstErrMsg.empty()) {
+      } else if (firstErrMsg.empty()) {
         std::ostringstream str;
         str << "value at (timestep,colNr) (" << r + 1 << "," << c + 1 << ") differ:\n  " << v1 << "-"
             << v2 << "=" << diff << '\n';
         firstErrMsg = str.str();
       }
       if (c) {  // skip time column
-        if (diff != 0 && d_percentageDifference)
+        if (diff != 0 && d_percentageDifference) {
           tss1.setValue(c, r, com::fractionDifference(v1, v2));
-        else
+        } else {
           tss1.setValue(c, r, diff);
+        }
       }
     }
+  }
 
   if (!firstErrMsg.empty()) {
     if (!d_diffMapName.isEmpty()) {
@@ -222,10 +232,12 @@ bool geo::FileCreateTester::equalToCsf(const com::PathName &eqTo, bool throwWhat
   CSFMap map2(eqTo);
   ThrowOrReturn tr(map1.filename(), map2.filename(), throwWhatDifferent);
 
-  if (map1.rasterSpace() != map2.rasterSpace())
+  if (map1.rasterSpace() != map2.rasterSpace()) {
     return tr.falseOrThrow("location attributes differ");
-  if (map1.valueScale() != map2.valueScale())
+  }
+  if (map1.valueScale() != map2.valueScale()) {
     return tr.falseOrThrow("data type (aka value scale) differ");
+  }
 
   // side effect useAs needed for min/max checking?
   CSFRaster<REAL8> r1(map1);
@@ -234,16 +246,19 @@ bool geo::FileCreateTester::equalToCsf(const com::PathName &eqTo, bool throwWhat
 
   DiffMap dm(!d_diffMapName.isEmpty(), tr, map1.rasterSpace());
 
-  for (size_t i = 0; i < r1.nrCells(); i++)
+  for (size_t i = 0; i < r1.nrCells(); i++) {
     if (pcr::isMV(r1[i])) {
-      if (!pcr::isMV(r2[i]))
+      if (!pcr::isMV(r2[i])) {
         dm.setMVDiffer(i);
+      }
     } else {
-      if (pcr::isMV(r2[i]))
+      if (pcr::isMV(r2[i])) {
         dm.setMVDiffer(i);
-      else if (!com::equal_epsilon(r1[i], r2[i], d_csfCellEpsilon))
+      } else if (!com::equal_epsilon(r1[i], r2[i], d_csfCellEpsilon)) {
         dm.setValuesDiffer(i);
+      }
     }
+  }
 
   if (dm.diffs()) {
     POSTCOND(!d_diffMapName.isEmpty());
@@ -253,10 +268,12 @@ bool geo::FileCreateTester::equalToCsf(const com::PathName &eqTo, bool throwWhat
 
   double m1 = NAN;
   double m2 = NAN;
-  if (map1.min(&m1) != map2.min(&m2) || !com::equal_epsilon(m1, m2))
+  if (map1.min(&m1) != map2.min(&m2) || !com::equal_epsilon(m1, m2)) {
     return tr.falseOrThrow("header minimum differ");
-  if (map1.max(&m1) != map2.max(&m2) || !com::equal_epsilon(m1, m2))
+  }
+  if (map1.max(&m1) != map2.max(&m2) || !com::equal_epsilon(m1, m2)) {
     return tr.falseOrThrow("header maximum differ");
+  }
 
   return !dm.diffNoted();
 }

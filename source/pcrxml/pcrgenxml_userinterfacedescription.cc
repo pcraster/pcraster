@@ -18,8 +18,9 @@ pcrxml::UserInterfaceDescription::UserInterfaceDescription(const QDomElement &el
     ChildElementVisitor v(element);
 
     // * repeated element
-    while (v.currentChildEq("ParameterPanel"))
+    while (v.currentChildEq("ParameterPanel")) {
       parameterPanel.push_back(new ParameterPanel(v.processChild()));
+    }
   } catch (...) {
     clean();
     throw;
@@ -44,8 +45,9 @@ pcrxml::UserInterfaceDescription::~UserInterfaceDescription()
 //! clean
 void pcrxml::UserInterfaceDescription::clean()
 {
-  for (auto &i : parameterPanel)
+  for (auto &i : parameterPanel) {
     delete i;
+  }
   parameterPanel.clear();
 }
 
@@ -53,8 +55,9 @@ void pcrxml::UserInterfaceDescription::clean()
 pcrxml::UserInterfaceDescription::UserInterfaceDescription(const UserInterfaceDescription &src)
     : pcrxml::Element(src), scriptFile(src.scriptFile), panelType(src.panelType)
 {
-  for (auto i : src.parameterPanel)
+  for (auto i : src.parameterPanel) {
     parameterPanel.push_back(new ParameterPanel(*i));
+  }
 }
 
 //! assignment operator
@@ -64,8 +67,9 @@ pcrxml::UserInterfaceDescription::operator=(const UserInterfaceDescription &src)
   if (this != &src) {
     clean();
     PRECOND(false);
-    for (auto i : src.parameterPanel)
+    for (auto i : src.parameterPanel) {
       parameterPanel.push_back(new ParameterPanel(*i));
+    }
   }
   return *this;
 }
@@ -74,6 +78,7 @@ void pcrxml::UserInterfaceDescription::fill(QDomElement el) const
 {
   scriptFile.addToElement(el, "scriptFile");
   panelType.addToElement(el, "panelType");
-  for (auto i : parameterPanel)
+  for (auto i : parameterPanel) {
     i->appendTo(el);
+  }
 }

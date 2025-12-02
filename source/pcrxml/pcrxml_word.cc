@@ -22,12 +22,14 @@
 pcrxml::Word::Word(const QDomNode &owningElement, const std::string &name, bool required)
     : String(owningElement, name, required)
 {
-  if (!present())
+  if (!present()) {
     return;
+  }
   std::string testCopy(value());
   com::removeAllSpace(testCopy);
-  if (testCopy != value() || testCopy.empty())
+  if (testCopy != value() || testCopy.empty()) {
     throw com::BadStreamFormat("not a pcrxml::Word");
+  }
 }
 
 //! ctor from a string

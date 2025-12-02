@@ -56,8 +56,9 @@ com::SpiritFileParser::SpiritFileParser(const com::PathName &pn)
 //   d_current(d_begin)
 {
   com::testOpenForReading(pn);
-  if (com::size(pn) > megaByte<size_t>(512))
+  if (com::size(pn) > megaByte<size_t>(512)) {
     throw com::OpenFileError(pn, "File too large for reading");
+  }
   d_fileMap = new FileMap(pn);
   d_fbegin = d_fileMap->begin();
   d_fend = d_fileMap->end();

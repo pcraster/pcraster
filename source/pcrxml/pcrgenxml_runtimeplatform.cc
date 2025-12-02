@@ -22,8 +22,9 @@ pcrxml::RuntimePlatform::RuntimePlatform(const QDomNode &owningElement, const st
                                          bool req)
     : Attribute(owningElement, nameOfAttr, req)
 {
-  if (present())
+  if (present()) {
     d_value = classRuntimePlatform.value(owningElement, nameOfAttr);
+  }
 }
 
 pcrxml::RuntimePlatform::RuntimePlatform() : Attribute(false)

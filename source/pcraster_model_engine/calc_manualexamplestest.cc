@@ -11,22 +11,18 @@
 #include <iostream>
 #endif
 
-struct Fixture
-{
+struct Fixture {
 
-    Fixture()
-    {
-        calc::globalInit();
-    }
+  Fixture()
+  {
+    calc::globalInit();
+  }
 
-
-    ~Fixture()
-    {
-        calc::globalEnd();
-    }
-
+  ~Fixture()
+  {
+    calc::globalEnd();
+  }
 };
-
 
 BOOST_GLOBAL_FIXTURE(Fixture);
 
@@ -34,34 +30,33 @@ BOOST_AUTO_TEST_CASE(testAll)
 {
   using namespace calc;
 
-    std::vector<ManualExampleTester> et;
+  std::vector<ManualExampleTester> et;
 #include "cpptest.cc"
-    std::vector<std::string> failMsgs;
-    for(auto & i : et)
-      try {
-        i.test();
-      } catch (const com::Exception& e) {
-        failMsgs.push_back(e.messages());
-      }
-
-    size_t const nrFailuresAllowed=0;
-
-    std::ostringstream msgs;
-    if (failMsgs.size()) {
-     // msgs << " compile mode:  " << compile[c] << "\n";
-     for (size_t i=0; i < failMsgs.size(); ++i)
-     {
-        msgs << "---- MANUAL EXAMPLE FAILURE # " << i << "---------------------------------" << "\n";
-        msgs << failMsgs[i];
-     }
-     msgs << failMsgs.size() << " MANUAL EXAMPLES FAILURES OUT OF " << et.size() << "\n";
+  std::vector<std::string> failMsgs;
+  for (auto &i : et)
+    try {
+      i.test();
+    } catch (const com::Exception &e) {
+      failMsgs.push_back(e.messages());
     }
+
+  size_t const nrFailuresAllowed = 0;
+
+  std::ostringstream msgs;
+  if (failMsgs.size()) {
+    // msgs << " compile mode:  " << compile[c] << "\n";
+    for (size_t i = 0; i < failMsgs.size(); ++i) {
+      msgs << "---- MANUAL EXAMPLE FAILURE # " << i << "---------------------------------" << "\n";
+      msgs << failMsgs[i];
+    }
+    msgs << failMsgs.size() << " MANUAL EXAMPLES FAILURES OUT OF " << et.size() << "\n";
+  }
 #if _MSC_VER
 #ifdef DEBUG_DEVELOP
-   // Bugzilla 178
-   nrFailuresAllowed=2;
+  // Bugzilla 178
+  nrFailuresAllowed = 2;
 #endif
 #endif
-    // TODO this will fail on WIN32 due to view function (see above)
-    BOOST_CHECK_MESSAGE(failMsgs.size() == nrFailuresAllowed, msgs.str());
+  // TODO this will fail on WIN32 due to view function (see above)
+  BOOST_CHECK_MESSAGE(failMsgs.size() == nrFailuresAllowed, msgs.str());
 }

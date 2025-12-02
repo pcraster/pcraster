@@ -23,32 +23,27 @@
 #include <fstream>
 #include <sstream>
 
-
 /*!
   \file
   This file contains the implementation of the CursorWindow class.
 */
 
 
-
-namespace ag {
-
+namespace ag
+{
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CURSORWINDOW MEMBERS
 //------------------------------------------------------------------------------
 
-CursorWindow* CursorWindow::instance(DataObject* object)
+CursorWindow *CursorWindow::instance(DataObject *object)
 {
-  CursorWindow* dialog =
-         VisualisationDialog<DataObject*, CursorWindow>::instance(
-         object, object);
+  CursorWindow *dialog = VisualisationDialog<DataObject *, CursorWindow>::instance(object, object);
 
-  if(dialog) {
+  if (dialog) {
     dialog->raise();
-  }
-  else {
+  } else {
     // Create and add instance.
     dialog = new CursorWindow(object);
     addInstance(object, object, dialog);
@@ -60,44 +55,38 @@ CursorWindow* CursorWindow::instance(DataObject* object)
 }
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF CURSORWINDOW MEMBERS
 //------------------------------------------------------------------------------
 
-CursorWindow::CursorWindow(
-         DataObject* object)
+CursorWindow::CursorWindow(DataObject *object)
 
-  : VisualisationDialog<DataObject*, CursorWindow>(object, "Cursor And Values")//,
-         // 0, false, Qt::WindowStaysOnTopHint),
+    : VisualisationDialog<DataObject *, CursorWindow>(object, "Cursor And Values")  //,
+// 0, false, Qt::WindowStaysOnTopHint),
 {
   createInterface();
 }
 
-
-
 CursorWindow::~CursorWindow()
 {
 }
-
-
 
 void CursorWindow::createInterface()
 {
   assert(!d_cursorView);
 
   d_cursorView = new CursorView(&dataObject(), this);
-  QBoxLayout* topLayout = new QVBoxLayout(this);
+  QBoxLayout *topLayout = new QVBoxLayout(this);
   topLayout->addWidget(d_cursorView);
 
-  QBoxLayout* buttonLayout = new QHBoxLayout();
+  QBoxLayout *buttonLayout = new QHBoxLayout();
   topLayout->addLayout(buttonLayout);
 
   // Stretch.
   buttonLayout->addStretch(1);
 
   // Button.
-  auto* close = new QPushButton("Close", this);
+  auto *close = new QPushButton("Close", this);
   close->setDefault(true);
   // close->setFixedSize(qt::BUTTONWIDTH, qt::BUTTONHEIGHT);
   connect(close, SIGNAL(clicked()), SLOT(close()));
@@ -121,7 +110,6 @@ void CursorWindow::createInterface()
   assert(d_cursorView);
 }
 
-
 void CursorWindow::get()
 {
   pcrxsd::DOMInput d(pcrxsd::DOMInput::CompiledIn);
@@ -131,18 +119,17 @@ void CursorWindow::get()
   try {
     std::unique_ptr<pcrxml::Cursor> cursor(pcrxml::aguilaCursor(*d.document()));
 
-    if(cursor->x().present() && cursor->y().present()) {
+    if (cursor->x().present() && cursor->y().present()) {
       dataObject().setXY(cursor->x().get(), cursor->y().get());
     }
-  }
-  catch(pcrxsd::Exception const& e) {
+  } catch (pcrxsd::Exception const &e) {
     qt::AppWindow::showError("Aguila", e.msg());
   }
 }
 
 void CursorWindow::save()
 {
-/*
+  /*
   // Ask for a filename to use.
   QString fileName = QFileDialog::getSaveFileName(QString::null,
          "Cursor and Values (*.xml)", this, "save file dialog",
@@ -160,49 +147,44 @@ void CursorWindow::save()
     // the fan, user is however not interested in that so then
     // we may ignore the exception, and no data is appended to
     // d_cursorValueMonitorPath file
-       // bool mustFixSaveToXMLHack=true;
-       // PRINT_VAR(mustFixSaveToXMLHack);
+    // bool mustFixSaveToXMLHack=true;
+    // PRINT_VAR(mustFixSaveToXMLHack);
 #endif
-       appendToCursorValueMonitorFile();
-  } catch(...) {
+    appendToCursorValueMonitorFile();
+  } catch (...) {
 #ifdef DEBUG_DEVELOP
-       // bool mustFixSaveToXMLHack=true;
-       // PRINT_VAR(mustFixSaveToXMLHack);
+    // bool mustFixSaveToXMLHack=true;
+    // PRINT_VAR(mustFixSaveToXMLHack);
 #endif
   }
 }
 
-
-
 //! write cursor and values into free from text format
-void CursorWindow::saveToText(
-    std::filesystem::path const& path)
+void CursorWindow::saveToText(std::filesystem::path const &path)
 {
   // Get the current values and cursor settings and write them out.
-  DataObject const& dataObject(d_cursorView->dataObject());
-  dal::DataSpace const& space(dataObject.dataSpace());
-  dal::DataSpaceAddress const& address(dataObject.dataSpaceAddress());
+  DataObject const &dataObject(d_cursorView->dataObject());
+  dal::DataSpace const &space(dataObject.dataSpace());
+  dal::DataSpaceAddress const &address(dataObject.dataSpaceAddress());
 
   // collect info in the streams and compose later to single file
   std::stringstream dataSpaceStream;
   std::stringstream globalCursorStream;
   std::stringstream worldCursorStream;
 
-  for(size_t i = 0; i < space.size(); ++i) {
-    dal::Dimension const& dimension(space.dimension(i));
+  for (size_t i = 0; i < space.size(); ++i) {
+    dal::Dimension const &dimension(space.dimension(i));
     assert(dimension.nrValues() > 0);
 
-    switch(dimension.meaning()) {
+    switch (dimension.meaning()) {
       case dal::Scenarios: {
         dataSpaceStream << "scenarios = {";
 
-        for(size_t j = 0; j < dimension.nrValues() - 1; ++j) {
+        for (size_t j = 0; j < dimension.nrValues() - 1; ++j) {
           dataSpaceStream << dimension.value<std::string>(j) << ", ";
         }
 
-        dataSpaceStream
-            << dimension.value<std::string>(dimension.nrValues() - 1)
-            << "}\n";
+        dataSpaceStream << dimension.value<std::string>(dimension.nrValues() - 1) << "}\n";
         globalCursorStream << "scenario = *";
         worldCursorStream << "scenario = *";
         break;
@@ -210,24 +192,20 @@ void CursorWindow::saveToText(
       case dal::CumulativeProbabilities: {
         dataSpaceStream << "cumulative probabilities = ";
 
-        switch(dimension.discretisation()) {
+        switch (dimension.discretisation()) {
           case dal::RegularDiscretisation: {
-            dataSpaceStream << '['
-                 << dimension.value<float>(0) << ", "
-                 << dimension.value<float>(1) << ", "
-                 << dimension.value<float>(2) << "]\n";
+            dataSpaceStream << '[' << dimension.value<float>(0) << ", " << dimension.value<float>(1)
+                            << ", " << dimension.value<float>(2) << "]\n";
             break;
           }
           case dal::ExactDiscretisation: {
             dataSpaceStream << '{';
 
-            for(size_t j = 0; j < dimension.nrValues() - 1; ++j) {
+            for (size_t j = 0; j < dimension.nrValues() - 1; ++j) {
               dataSpaceStream << dimension.value<float>(j) << ", ";
             }
 
-            dataSpaceStream
-                 << dimension.value<float>(dimension.nrValues() - 1)
-                 << "}\n";
+            dataSpaceStream << dimension.value<float>(dimension.nrValues() - 1) << "}\n";
             break;
           }
           default: {
@@ -236,34 +214,29 @@ void CursorWindow::saveToText(
           }
         }
 
-        globalCursorStream << "cummulative probability = "
-            << address.coordinate<float>(i);
+        globalCursorStream << "cummulative probability = " << address.coordinate<float>(i);
         worldCursorStream << "cummulative probability = "
-            << dataObject.globalToWorldMapper().toString(address, i) << '\n';
+                          << dataObject.globalToWorldMapper().toString(address, i) << '\n';
 
         break;
       }
       case dal::Samples: {
         dataSpaceStream << "samples = ";
 
-        switch(dimension.discretisation()) {
+        switch (dimension.discretisation()) {
           case dal::RegularDiscretisation: {
-            dataSpaceStream << '['
-                 << dimension.value<size_t>(0) << ", "
-                 << dimension.value<size_t>(1) << ", "
-                 << dimension.value<size_t>(2) << "]\n";
+            dataSpaceStream << '[' << dimension.value<size_t>(0) << ", " << dimension.value<size_t>(1)
+                            << ", " << dimension.value<size_t>(2) << "]\n";
             break;
           }
           case dal::ExactDiscretisation: {
             dataSpaceStream << '{';
 
-            for(size_t j = 0; j < dimension.nrValues() - 1; ++j) {
+            for (size_t j = 0; j < dimension.nrValues() - 1; ++j) {
               dataSpaceStream << dimension.value<size_t>(j) << ", ";
             }
 
-            dataSpaceStream
-                 << dimension.value<size_t>(dimension.nrValues() - 1)
-                 << "}\n";
+            dataSpaceStream << dimension.value<size_t>(dimension.nrValues() - 1) << "}\n";
             break;
           }
           default: {
@@ -273,32 +246,28 @@ void CursorWindow::saveToText(
         }
 
         globalCursorStream << "sample = " << address.coordinate<size_t>(i);
-        worldCursorStream << "sample = "
-            << dataObject.globalToWorldMapper().toString(address, i) << '\n';
+        worldCursorStream << "sample = " << dataObject.globalToWorldMapper().toString(address, i)
+                          << '\n';
 
         break;
       }
       case dal::Time: {
         dataSpaceStream << "time = ";
 
-        switch(dimension.discretisation()) {
+        switch (dimension.discretisation()) {
           case dal::RegularDiscretisation: {
-            dataSpaceStream << '['
-                 << dimension.value<size_t>(0) << ", "
-                 << dimension.value<size_t>(1) << ", "
-                 << dimension.value<size_t>(2) << "]\n";
+            dataSpaceStream << '[' << dimension.value<size_t>(0) << ", " << dimension.value<size_t>(1)
+                            << ", " << dimension.value<size_t>(2) << "]\n";
             break;
           }
           case dal::ExactDiscretisation: {
             dataSpaceStream << "{";
 
-            for(size_t j = 0; j < dimension.nrValues() - 1; ++j) {
+            for (size_t j = 0; j < dimension.nrValues() - 1; ++j) {
               dataSpaceStream << dimension.value<size_t>(j) << ", ";
             }
 
-            dataSpaceStream
-                 << dimension.value<size_t>(dimension.nrValues() - 1)
-                 << "}\n";
+            dataSpaceStream << dimension.value<size_t>(dimension.nrValues() - 1) << "}\n";
             break;
           }
           default: {
@@ -310,19 +279,16 @@ void CursorWindow::saveToText(
         // timestep
         globalCursorStream << "time = " << address.coordinate<size_t>(i);
         // real time
-        worldCursorStream << "date = "
-            << dataObject.globalToWorldMapper().toString(address, i) << '\n';
+        worldCursorStream << "date = " << dataObject.globalToWorldMapper().toString(address, i) << '\n';
 
         break;
       }
       case dal::Space: {
-        auto const& spatialAddress(
-              address.coordinate<dal::SpatialCoordinate>(i));
+        auto const &spatialAddress(address.coordinate<dal::SpatialCoordinate>(i));
 
-        switch(dimension.discretisation()) {
+        switch (dimension.discretisation()) {
           case dal::RegularDiscretisation: {
-            auto const& rasterDimensions(
-                   space.dimension(i).value<dal::RasterDimensions>(0));
+            auto const &rasterDimensions(space.dimension(i).value<dal::RasterDimensions>(0));
             double row = NAN;
             double col = NAN;
             rasterDimensions.indices(spatialAddress, row, col);
@@ -365,20 +331,15 @@ void CursorWindow::saveToText(
   std::ofstream stream{path};
   stream << "data space:\n" << dataSpaceStream.str();
   stream << "cursor position:\n" << globalCursorStream.str();
-  stream << "cursor position in world coordinates:\n"
-       << worldCursorStream.str();
+  stream << "cursor position in world coordinates:\n" << worldCursorStream.str();
   stream << "data sets:\n";
 
   std::vector<DataGuide> const guides(dataObject.dataGuides());
 
-  for(auto & guide : guides) {
-    stream
-       << dataObject.name(guide) << " = "
-       << dataObject.label(guide) << '\n';
+  for (auto &guide : guides) {
+    stream << dataObject.name(guide) << " = " << dataObject.label(guide) << '\n';
   }
 }
-
-
 
 //! append cursor and values to the specified d_cursorValueMonitorPath file
 /*!
@@ -386,15 +347,15 @@ void CursorWindow::saveToText(
  */
 void CursorWindow::appendToCursorValueMonitorFile()
 {
- /* TODO: this is a rewrite  of saveToText, some info
+  /* TODO: this is a rewrite  of saveToText, some info
   *  is still written to unused streams should be replaced
   *  with XML when schema of aguilaCursorValue is extended
   */
 
   // Get the current values and cursor settings and write them out.
-  DataObject const& dataObject(d_cursorView->dataObject());
-  dal::DataSpace const& space(dataObject.dataSpace());
-  dal::DataSpaceAddress const& address(dataObject.dataSpaceAddress());
+  DataObject const &dataObject(d_cursorView->dataObject());
+  dal::DataSpace const &space(dataObject.dataSpace());
+  dal::DataSpaceAddress const &address(dataObject.dataSpaceAddress());
 
   // collect info in the streams, not used, see above
   std::stringstream dataSpaceStream;
@@ -403,21 +364,19 @@ void CursorWindow::appendToCursorValueMonitorFile()
   pcrxml::AguilaCursorValue acv;
   acv.cursor(pcrxml::Cursor());
 
-  for(size_t i = 0; i < space.size(); ++i) {
-    dal::Dimension const& dimension(space.dimension(i));
+  for (size_t i = 0; i < space.size(); ++i) {
+    dal::Dimension const &dimension(space.dimension(i));
     assert(dimension.nrValues() > 0);
 
-    switch(dimension.meaning()) {
+    switch (dimension.meaning()) {
       case dal::Scenarios: {
         dataSpaceStream << "scenarios = {";
 
-        for(size_t j = 0; j < dimension.nrValues() - 1; ++j) {
+        for (size_t j = 0; j < dimension.nrValues() - 1; ++j) {
           dataSpaceStream << dimension.value<std::string>(j) << ", ";
         }
 
-        dataSpaceStream
-            << dimension.value<std::string>(dimension.nrValues() - 1)
-            << "}\n";
+        dataSpaceStream << dimension.value<std::string>(dimension.nrValues() - 1) << "}\n";
         globalCursorStream << "scenario = *";
         worldCursorStream << "scenario = *";
         break;
@@ -425,24 +384,20 @@ void CursorWindow::appendToCursorValueMonitorFile()
       case dal::CumulativeProbabilities: {
         dataSpaceStream << "cumulative probabilities = ";
 
-        switch(dimension.discretisation()) {
+        switch (dimension.discretisation()) {
           case dal::RegularDiscretisation: {
-            dataSpaceStream << '['
-                 << dimension.value<float>(0) << ", "
-                 << dimension.value<float>(1) << ", "
-                 << dimension.value<float>(2) << "]\n";
+            dataSpaceStream << '[' << dimension.value<float>(0) << ", " << dimension.value<float>(1)
+                            << ", " << dimension.value<float>(2) << "]\n";
             break;
           }
           case dal::ExactDiscretisation: {
             dataSpaceStream << '{';
 
-            for(size_t j = 0; j < dimension.nrValues() - 1; ++j) {
+            for (size_t j = 0; j < dimension.nrValues() - 1; ++j) {
               dataSpaceStream << dimension.value<float>(j) << ", ";
             }
 
-            dataSpaceStream
-                 << dimension.value<float>(dimension.nrValues() - 1)
-                 << "}\n";
+            dataSpaceStream << dimension.value<float>(dimension.nrValues() - 1) << "}\n";
             break;
           }
           default: {
@@ -451,34 +406,29 @@ void CursorWindow::appendToCursorValueMonitorFile()
           }
         }
 
-        globalCursorStream << "cummulative probability = "
-            << address.coordinate<float>(i);
+        globalCursorStream << "cummulative probability = " << address.coordinate<float>(i);
         worldCursorStream << "cummulative probability = "
-            << dataObject.globalToWorldMapper().toString(address, i) << '\n';
+                          << dataObject.globalToWorldMapper().toString(address, i) << '\n';
 
         break;
       }
       case dal::Samples: {
         dataSpaceStream << "samples = ";
 
-        switch(dimension.discretisation()) {
+        switch (dimension.discretisation()) {
           case dal::RegularDiscretisation: {
-            dataSpaceStream << '['
-                 << dimension.value<size_t>(0) << ", "
-                 << dimension.value<size_t>(1) << ", "
-                 << dimension.value<size_t>(2) << "]\n";
+            dataSpaceStream << '[' << dimension.value<size_t>(0) << ", " << dimension.value<size_t>(1)
+                            << ", " << dimension.value<size_t>(2) << "]\n";
             break;
           }
           case dal::ExactDiscretisation: {
             dataSpaceStream << '{';
 
-            for(size_t j = 0; j < dimension.nrValues() - 1; ++j) {
+            for (size_t j = 0; j < dimension.nrValues() - 1; ++j) {
               dataSpaceStream << dimension.value<size_t>(j) << ", ";
             }
 
-            dataSpaceStream
-                 << dimension.value<size_t>(dimension.nrValues() - 1)
-                 << "}\n";
+            dataSpaceStream << dimension.value<size_t>(dimension.nrValues() - 1) << "}\n";
             break;
           }
           default: {
@@ -488,32 +438,28 @@ void CursorWindow::appendToCursorValueMonitorFile()
         }
 
         globalCursorStream << "sample = " << address.coordinate<size_t>(i);
-        worldCursorStream << "sample = "
-            << dataObject.globalToWorldMapper().toString(address, i) << '\n';
+        worldCursorStream << "sample = " << dataObject.globalToWorldMapper().toString(address, i)
+                          << '\n';
 
         break;
       }
       case dal::Time: {
         dataSpaceStream << "time = ";
 
-        switch(dimension.discretisation()) {
+        switch (dimension.discretisation()) {
           case dal::RegularDiscretisation: {
-            dataSpaceStream << '['
-                 << dimension.value<size_t>(0) << ", "
-                 << dimension.value<size_t>(1) << ", "
-                 << dimension.value<size_t>(2) << "]\n";
+            dataSpaceStream << '[' << dimension.value<size_t>(0) << ", " << dimension.value<size_t>(1)
+                            << ", " << dimension.value<size_t>(2) << "]\n";
             break;
           }
           case dal::ExactDiscretisation: {
             dataSpaceStream << "{";
 
-            for(size_t j = 0; j < dimension.nrValues() - 1; ++j) {
+            for (size_t j = 0; j < dimension.nrValues() - 1; ++j) {
               dataSpaceStream << dimension.value<size_t>(j) << ", ";
             }
 
-            dataSpaceStream
-                 << dimension.value<size_t>(dimension.nrValues() - 1)
-                 << "}\n";
+            dataSpaceStream << dimension.value<size_t>(dimension.nrValues() - 1) << "}\n";
             break;
           }
           default: {
@@ -529,36 +475,31 @@ void CursorWindow::appendToCursorValueMonitorFile()
         std::string const rt(dataObject.globalToWorldMapper().toString(address, i));
         // if not iso format then there is no real mapper
         // iso format has T seperator for date and time part
-        if(rt.find('T') != std::string::npos) {
+        if (rt.find('T') != std::string::npos) {
           // TODO XSD acv.cursor()->date(rt);
         }
 
         break;
       }
       case dal::Space: {
-        assert(dimension.discretisation() ==
-            dal::RegularDiscretisation);
+        assert(dimension.discretisation() == dal::RegularDiscretisation);
 
-        std::string const worldStr =
-           dataObject.globalToWorldMapper().toString(address, i);
+        std::string const worldStr = dataObject.globalToWorldMapper().toString(address, i);
         auto v = boost::lexical_cast<double>(worldStr);
-        if(i == space.indexOf(dal::Space)) {
+        if (i == space.indexOf(dal::Space)) {
           // First space dimension: rows, y coordinates.
           dataSpaceStream << "rows = ";
           globalCursorStream << "row = ";
           acv.cursor()->y(v);
-        }
-        else {
+        } else {
           // Second space dimension: cols, x coordinates.
           dataSpaceStream << "cols = ";
           globalCursorStream << "col = ";
           acv.cursor()->x(v);
         }
 
-        dataSpaceStream << '['
-            << dimension.value<size_t>(0) << ", "
-            << dimension.value<size_t>(1) << ", "
-            << dimension.value<size_t>(2) << "]\n";
+        dataSpaceStream << '[' << dimension.value<size_t>(0) << ", " << dimension.value<size_t>(1)
+                        << ", " << dimension.value<size_t>(2) << "]\n";
         globalCursorStream << address.coordinate<size_t>(i) << '\n';
 
         break;
@@ -572,11 +513,8 @@ void CursorWindow::appendToCursorValueMonitorFile()
 
   std::vector<DataGuide> const guides(dataObject.dataGuides());
 
-  for(auto & guide : guides) {
-    acv.dataValue().push_back(
-        pcrxml::DataValue(
-         dataObject.name(guide),
-        dataObject.label(guide)));
+  for (auto &guide : guides) {
+    acv.dataValue().push_back(pcrxml::DataValue(dataObject.name(guide), dataObject.label(guide)));
   }
 
   pcrxsd::DOMInput d(pcrxsd::DOMInput::CompiledIn);
@@ -585,16 +523,13 @@ void CursorWindow::appendToCursorValueMonitorFile()
 
   try {
     // append acv to existing file (created in setCursorIO)
-    std::unique_ptr<pcrxml::AguilaCursorValues>
-      appendToThis(pcrxml::aguilaCursorValues(*d.document()));
+    std::unique_ptr<pcrxml::AguilaCursorValues> appendToThis(pcrxml::aguilaCursorValues(*d.document()));
 
     appendToThis->aguilaCursorValue().push_back(acv);
 
     std::ofstream out{d_cursorValueMonitorPath};
-    pcrxml::aguilaCursorValues(out,*appendToThis,
-         pcrxsd::namespaceInfoMap("Aguila.xsd"));
-  }
-  catch(pcrxsd::Exception const& e) {
+    pcrxml::aguilaCursorValues(out, *appendToThis, pcrxsd::namespaceInfoMap("Aguila.xsd"));
+  } catch (pcrxsd::Exception const &e) {
     qt::AppWindow::showError("Aguila", e.msg());
   }
 
@@ -607,8 +542,6 @@ void CursorWindow::appendToCursorValueMonitorFile()
   stream << "data sets:\n";
   */
 }
-
-
 
 /*
 void CursorWindow::rescan()
@@ -635,42 +568,34 @@ std::string CursorWindow::windowName() const
 */
 
 
-
-void CursorWindow::setCursorIO(
-     std::string const& cursorValueMonitorFile,
-     std::string const& fileToGetCursorValue)
+void CursorWindow::setCursorIO(std::string const &cursorValueMonitorFile,
+                               std::string const &fileToGetCursorValue)
 {
   if (!cursorValueMonitorFile.empty()) {
-   d_cursorValueMonitorPath = std::filesystem::path(
-         dal::addExtensionIfNeeded(cursorValueMonitorFile, ".xml"));
-   d_save->setEnabled(true);
+    d_cursorValueMonitorPath =
+        std::filesystem::path(dal::addExtensionIfNeeded(cursorValueMonitorFile, ".xml"));
+    d_save->setEnabled(true);
 
-   // create file with 0 sub-elements
-   pcrxml::AguilaCursorValues const acv;
-   std::ofstream stream{d_cursorValueMonitorPath};
-   pcrxml::aguilaCursorValues(stream,acv,pcrxsd::namespaceInfoMap("Aguila.xsd"));
+    // create file with 0 sub-elements
+    pcrxml::AguilaCursorValues const acv;
+    std::ofstream stream{d_cursorValueMonitorPath};
+    pcrxml::aguilaCursorValues(stream, acv, pcrxsd::namespaceInfoMap("Aguila.xsd"));
   }
   if (!fileToGetCursorValue.empty()) {
-   d_fileToGetCursorValue = std::filesystem::path(
-         dal::addExtensionIfNeeded(fileToGetCursorValue, ".xml"));
-   d_get->setEnabled(true);
+    d_fileToGetCursorValue =
+        std::filesystem::path(dal::addExtensionIfNeeded(fileToGetCursorValue, ".xml"));
+    d_get->setEnabled(true);
   }
 }
-
-
 
 void CursorWindow::rescan()
 {
   visualisationEngine().rescan(dataObject());
 }
 
-
-
 void CursorWindow::process()
 {
 }
-
-
 
 void CursorWindow::visualise()
 {
@@ -684,25 +609,18 @@ void CursorWindow::visualise()
   visualisationEngine().finishedScanning(dataObject());
 }
 
-
-
-void CursorWindow::addAttribute(
-         DataGuide const& guide)
+void CursorWindow::addAttribute(DataGuide const &guide)
 {
   d_cursorView->addAttribute(guide);
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace ag
-
+}  // namespace ag

@@ -6,21 +6,18 @@
 
 #include <format>
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
-ag::TimePlotWindow::TimePlotWindow(const qt::AppWindowProperties& props,
-         DataObject* object)
+ag::TimePlotWindow::TimePlotWindow(const qt::AppWindowProperties &props, DataObject *object)
 
-  : VisualisationWindow(props, "Timeplot", object, Qt::Window)
+    : VisualisationWindow(props, "Timeplot", object, Qt::Window)
 
 {
   std::vector<com::FileFormatInfo> fileFormats;
@@ -30,13 +27,9 @@ ag::TimePlotWindow::TimePlotWindow(const qt::AppWindowProperties& props,
   createInterface();
 }
 
-
-
 ag::TimePlotWindow::~TimePlotWindow()
 {
 }
-
-
 
 void ag::TimePlotWindow::createInterface()
 {
@@ -47,29 +40,22 @@ void ag::TimePlotWindow::createInterface()
   setCentralWidget(d_plot);
 }
 
-
-
 void ag::TimePlotWindow::rescan()
 {
   visualisationEngine().rescan(dataObject());
   VisualisationWindow::rescan();
 }
 
-
-
-void ag::TimePlotWindow::addAttribute(
-         DataGuide const& guide)
+void ag::TimePlotWindow::addAttribute(DataGuide const &guide)
 {
   dal::DataSpace const space(dataObject().dataSpace(guide));
 
-  if(!space.hasTime()) {
-    std::string const message = std::format(
-         "Unable to add {0} to a {1} visualisation.\n"
-         "Dataset does not contain temporal information.\n"
-         "Dimensions present: {2}.",
-         dataObject().description(guide),
-         visualisationName(),
-         dal::dataSpaceToString(space));
+  if (!space.hasTime()) {
+    std::string const message =
+        std::format("Unable to add {0} to a {1} visualisation.\n"
+                    "Dataset does not contain temporal information.\n"
+                    "Dimensions present: {2}.",
+                    dataObject().description(guide), visualisationName(), dal::dataSpaceToString(space));
     throw com::Exception(message);
   }
 
@@ -77,16 +63,14 @@ void ag::TimePlotWindow::addAttribute(
   d_plot->addAttribute(guide);
 }
 
-
-
 std::string ag::TimePlotWindow::windowName() const
 {
   std::string name = "No data loaded";
   std::vector<DataGuide> dataGuides = visualisationEngine().dataGuides();
 
-  if(!dataGuides.empty()) {
+  if (!dataGuides.empty()) {
     name = dataObject().description(dataGuides[0]);
-    for(size_t i = 1; i < dataGuides.size(); ++i) {
+    for (size_t i = 1; i < dataGuides.size(); ++i) {
       name += " + " + dataObject().description(dataGuides[i]);
     }
   }
@@ -94,22 +78,15 @@ std::string ag::TimePlotWindow::windowName() const
   return name;
 }
 
-
-
 bool ag::TimePlotWindow::dataVisualised() const
 {
   return visualisationEngine().dataGuides().size() > 0;
 }
 
-
-
-void ag::TimePlotWindow::saveAsPNG(
-         std::filesystem::path const& path)
+void ag::TimePlotWindow::saveAsPNG(std::filesystem::path const &path)
 {
   d_plot->saveAsPNG(path);
 }
-
-
 
 /*
 void ag::TimePlotWindow::showEvent(QShowEvent* event)
@@ -131,7 +108,6 @@ void ag::TimePlotWindow::showEvent(QShowEvent* event)
 */
 
 
-
 /*
 ag::TimePlotWindow *ag::TimePlotWindow::copy(ag::DataObject *o) const
 {
@@ -146,12 +122,11 @@ ag::TimePlotWindow *ag::TimePlotWindow::copy(ag::DataObject *o) const
 */
 
 
-
 /*!
  *  \todo
  *    does save the correct part of the tss
  */
- /*
+/*
 void ag::TimePlotWindow::saveAsPNG(const com::PathName& pathName)
 {
   if(d_data->d_plotView->pixmap()->isNull()) {
@@ -170,11 +145,9 @@ void ag::TimePlotWindow::saveAsPNG(const com::PathName& pathName)
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -182,15 +155,11 @@ void ag::TimePlotWindow::saveAsPNG(const com::PathName& pathName)
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

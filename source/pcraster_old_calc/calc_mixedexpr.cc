@@ -1,20 +1,16 @@
 #include "stddefx.h"
-# include "calc_mixedexpr.h"
+#include "calc_mixedexpr.h"
 #include "calc_infoscript.h"
 
-calc::MixedExpr::MixedExpr(
-  const calc::Element&     pos,
-  const calc::Operator& op,
-        calc::FieldExprArgs& fa):
-  calc::FieldExpr(pos), calc::FieldArgs(pos,op,fa),
-  d_type(op)
+calc::MixedExpr::MixedExpr(const calc::Element &pos, const calc::Operator &op, calc::FieldExprArgs &fa)
+    : calc::FieldExpr(pos), calc::FieldArgs(pos, op, fa), d_type(op)
 {
 }
 
-void calc::MixedExpr::buildTypesRecursive(VS )
+void calc::MixedExpr::buildTypesRecursive(VS)
 {
-  Args& fa = fieldArgs();
-  for(size_t i=0; i < nrFieldArgs(); i++)
+  Args &fa = fieldArgs();
+  for (size_t i = 0; i < nrFieldArgs(); i++)
     fa[i]->buildTypesRecursive(vs());
   buildTypes();
 }
@@ -32,30 +28,30 @@ void calc::MixedExpr::skipExecution()
 void calc::MixedExpr::buildTypes()
 {
   bool isSpatial = false;
-  Args& fa = fieldArgs();
-  for(size_t i=0; i < nrFieldArgs(); i++)
+  Args &fa = fieldArgs();
+  for (size_t i = 0; i < nrFieldArgs(); i++)
     if (fa[i]->spatial())
       isSpatial = true;
   restrictFieldArgs(1);
 
-  d_type.restrictSystem(d_type.vs(),isSpatial);
+  d_type.restrictSystem(d_type.vs(), isSpatial);
 }
 
-calc::FieldType& calc::MixedExpr::restrictType()
+calc::FieldType &calc::MixedExpr::restrictType()
 {
   return d_type;
 }
 
-const calc::FieldType& calc::MixedExpr::fieldType() const
+const calc::FieldType &calc::MixedExpr::fieldType() const
 {
   return d_type;
 }
 
-void calc::MixedExpr::printFieldArgs(calc::InfoScript& si)const
+void calc::MixedExpr::printFieldArgs(calc::InfoScript &si) const
 {
-  const Args& fa = fieldArgs();
+  const Args &fa = fieldArgs();
   for (size_t i = 0; i < nrFieldArgs(); i++) {
-     si.stream() << ",";
-     fa[i]->print(si);
+    si.stream() << ",";
+    fa[i]->print(si);
   }
 }

@@ -15,7 +15,6 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CALC MEMBERS
 //------------------------------------------------------------------------------
@@ -29,11 +28,7 @@
 /*! sets default for doing something
     with a script
  */
-calc::Calc::Calc(
-    std::ostream& stdOut,
-    std::ostream& stdErr):
-  d_stdOut(stdOut),
-  d_stdErr(stdErr)
+calc::Calc::Calc(std::ostream &stdOut, std::ostream &stdErr) : d_stdOut(stdOut), d_stdErr(stdErr)
 {
   globalInit();
 }
@@ -62,29 +57,25 @@ void calc::Calc::parse()
 int calc::Calc::executeScript()
 {
   try {
-   d_executeScriptStatus = ErrorExecScript;
-   d_executeScriptStatus = FinishedExecScript;
-  }
-  catch (const QuitForExitOption&) {
-   // thrown by
-   // calc::Script::processFileOutputValue
-   d_executeScriptStatus = FileOutputValueExecScript;
-   }
-  catch (const QuitForProgressCallBack& ){
-     // Script::updateProgress is already updated
+    d_executeScriptStatus = ErrorExecScript;
+    d_executeScriptStatus = FinishedExecScript;
+  } catch (const QuitForExitOption &) {
+    // thrown by
+    // calc::Script::processFileOutputValue
+    d_executeScriptStatus = FileOutputValueExecScript;
+  } catch (const QuitForProgressCallBack &) {
+    // Script::updateProgress is already updated
     d_executeScriptStatus = CanceledExecScript;
-   }
- PRECOND(false);
- return 0; // script().exitVal();
+  }
+  PRECOND(false);
+  return 0;  // script().exitVal();
 }
 
 //! returns the  ExecuteScriptStatus set in last call to executeScript()
-calc::ExecuteScriptStatus
-   calc::Calc::executeScriptStatus() const
+calc::ExecuteScriptStatus calc::Calc::executeScriptStatus() const
 {
-    return d_executeScriptStatus;
+  return d_executeScriptStatus;
 }
-
 
 //! runs execute(), catching all errors and putting it on Calc::d_stdErr
 /*!
@@ -95,13 +86,15 @@ calc::ExecuteScriptStatus
  */
 int calc::Calc::run(int returnValueOnException)
 {
- int status=returnValueOnException;
- extern void dumpZero();
+  int status = returnValueOnException;
+  extern void dumpZero();
 
- TRY_ALL {
-   status = execute();
- } CATCH_ALL_EXCEPTIONS(d_stdErr);
- return status;
+  TRY_ALL
+  {
+    status = execute();
+  }
+  CATCH_ALL_EXCEPTIONS(d_stdErr);
+  return status;
 }
 
 void calc::Calc::setProgressCallBack(ProgressCallBack *)
@@ -116,4 +109,3 @@ void calc::Calc::setProgressCallBack(ProgressCallBack *)
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-

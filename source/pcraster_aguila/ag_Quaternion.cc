@@ -2,16 +2,13 @@
 #include <cassert>
 #include <cmath>
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 ag::Quaternion::Quaternion()
@@ -19,17 +16,13 @@ ag::Quaternion::Quaternion()
   reset();
 }
 
-
-
-ag::Quaternion::Quaternion(const Quaternion& q)
+ag::Quaternion::Quaternion(const Quaternion &q)
 {
   d_val[0] = q.d_val[0];
   d_val[1] = q.d_val[1];
   d_val[2] = q.d_val[2];
   d_val[3] = q.d_val[3];
 }
-
-
 
 ag::Quaternion::Quaternion(GLfloat x, GLfloat y, GLfloat z)
 {
@@ -41,8 +34,6 @@ ag::Quaternion::Quaternion(GLfloat x, GLfloat y, GLfloat z)
   postMult(qy);
   postMult(qz);
 }
-
-
 
 ag::Quaternion::Quaternion(GLfloat angle, GLfloat x, GLfloat y, GLfloat z)
 {
@@ -64,17 +55,13 @@ ag::Quaternion::Quaternion(GLfloat angle, GLfloat x, GLfloat y, GLfloat z)
   d_val[3] = z * sinha;
 }
 
-
-
 ag::Quaternion::~Quaternion()
 {
 }
 
-
-
-ag::Quaternion& ag::Quaternion::operator=(const Quaternion& q)
+ag::Quaternion &ag::Quaternion::operator=(const Quaternion &q)
 {
-  if(this != &q) {
+  if (this != &q) {
     d_val[0] = q.d_val[0];
     d_val[1] = q.d_val[1];
     d_val[2] = q.d_val[2];
@@ -84,20 +71,16 @@ ag::Quaternion& ag::Quaternion::operator=(const Quaternion& q)
   return *this;
 }
 
-
-
 void ag::Quaternion::normalize()
 {
-  GLfloat const factor = (d_val[0] * d_val[0]) + (d_val[1] * d_val[1]) +
-                   (d_val[2] * d_val[2]) + (d_val[3] * d_val[3]);
+  GLfloat const factor =
+      (d_val[0] * d_val[0]) + (d_val[1] * d_val[1]) + (d_val[2] * d_val[2]) + (d_val[3] * d_val[3]);
   assert(factor != 0.0);
   GLfloat const scale = 1.0 / std::sqrt(static_cast<double>(factor));
   d_val[0] *= scale;
   d_val[1] *= scale;
   d_val[2] *= scale;
 }
-
-
 
 void ag::Quaternion::reset()
 {
@@ -106,8 +89,6 @@ void ag::Quaternion::reset()
   d_val[2] = 0.0;
   d_val[3] = 0.0;
 }
-
-
 
 void ag::Quaternion::matrix(GLfloat m[16])
 {
@@ -122,7 +103,7 @@ void ag::Quaternion::matrix(GLfloat m[16])
   GLfloat const yy = y * y;
   GLfloat const zz = z * z;
 
-  #define M(x, y)  m[(x) + (y) * 4]
+#define M(x, y) m[(x) + (y) * 4]
 
   M(0, 0) = 1.0 - (2.0 * (yy + zz));
   M(1, 0) = 2.0 * (x * y + w * z);
@@ -145,50 +126,35 @@ void ag::Quaternion::matrix(GLfloat m[16])
   M(3, 3) = 1.0;
 }
 
-
-
-void ag::Quaternion::postMult(const Quaternion& q)
+void ag::Quaternion::postMult(const Quaternion &q)
 {
   Quaternion const tmp(*this);
   multAndSet(tmp, q);
 }
 
-
-void ag::Quaternion::multAndSet(const Quaternion& q1, const Quaternion& q2)
+void ag::Quaternion::multAndSet(const Quaternion &q1, const Quaternion &q2)
 {
-  d_val[0] =  (q2.d_val[0] * q1.d_val[0])
-            - (q2.d_val[1] * q1.d_val[1])
-            - (q2.d_val[2] * q1.d_val[2])
-            - (q2.d_val[3] * q1.d_val[3]);
+  d_val[0] = (q2.d_val[0] * q1.d_val[0]) - (q2.d_val[1] * q1.d_val[1]) - (q2.d_val[2] * q1.d_val[2]) -
+             (q2.d_val[3] * q1.d_val[3]);
 
-  d_val[1] =  (q2.d_val[0] * q1.d_val[1])
-            + (q2.d_val[1] * q1.d_val[0])
-            + (q2.d_val[2] * q1.d_val[3])
-            - (q2.d_val[3] * q1.d_val[2]);
+  d_val[1] = (q2.d_val[0] * q1.d_val[1]) + (q2.d_val[1] * q1.d_val[0]) + (q2.d_val[2] * q1.d_val[3]) -
+             (q2.d_val[3] * q1.d_val[2]);
 
-  d_val[2] =  (q2.d_val[0] * q1.d_val[2])
-            - (q2.d_val[1] * q1.d_val[3])
-            + (q2.d_val[2] * q1.d_val[0])
-            + (q2.d_val[3] * q1.d_val[1]);
+  d_val[2] = (q2.d_val[0] * q1.d_val[2]) - (q2.d_val[1] * q1.d_val[3]) + (q2.d_val[2] * q1.d_val[0]) +
+             (q2.d_val[3] * q1.d_val[1]);
 
-  d_val[3] =  (q2.d_val[0] * q1.d_val[3])
-            + (q2.d_val[1] * q1.d_val[2])
-            - (q2.d_val[2] * q1.d_val[1])
-            + (q2.d_val[3] * q1.d_val[0]);
+  d_val[3] = (q2.d_val[0] * q1.d_val[3]) + (q2.d_val[1] * q1.d_val[2]) - (q2.d_val[2] * q1.d_val[1]) +
+             (q2.d_val[3] * q1.d_val[0]);
 }
 
-
-
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -196,15 +162,11 @@ void ag::Quaternion::multAndSet(const Quaternion& q1, const Quaternion& q2)
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

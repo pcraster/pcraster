@@ -8,20 +8,19 @@
 // Module headers.
 
 
-
-namespace geo {
+namespace geo
+{
 
 // Code that is private to this module.
-namespace detail {
+namespace detail
+{
 
-} // namespace detail
-
-
+}  // namespace detail
 
 // DataType dataType(const com::PathName& pathName)
 // {
 //   DataType dataType = DT_INVALID;
-// 
+//
 //   if(isCSFStack(pathName)) {
 //     dataType = STACK;
 //   }
@@ -37,39 +36,31 @@ namespace detail {
 //   else if(isBlock(pathName)) {
 //     dataType = BLOCK;
 //   }
-// 
+//
 //   return dataType;
 // }
 
 
-
-bool isSpatial(
-         DataType dataType)
+bool isSpatial(DataType dataType)
 {
   return dataType == STACK || dataType == FEATURE;
 }
-
-
 
 bool isTimeSeries(DataType dataType)
 {
   return dataType == TIMESERIES;
 }
 
-
-
 bool isModelScript(DataType dataType)
 {
   return dataType == MODELSCRIPT;
 }
 
-
-
-std::string dataTypeToStr(const DataType& dataType)
+std::string dataTypeToStr(const DataType &dataType)
 {
   std::string result;
 
-  switch(dataType) {
+  switch (dataType) {
     case STACK: {
       result = "STACK";
       break;
@@ -100,7 +91,7 @@ std::string dataTypeToStr(const DataType& dataType)
     }
     default: {
       assert(false);
-      result = "UNKOWN";        // Never reached.
+      result = "UNKOWN";  // Never reached.
       break;
     }
   }
@@ -108,5 +99,4 @@ std::string dataTypeToStr(const DataType& dataType)
   return result;
 }
 
-} // namespace geo
-
+}  // namespace geo

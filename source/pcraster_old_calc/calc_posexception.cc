@@ -13,34 +13,24 @@
 // DEFINITION OF STATIC POSEXCEPTION MEMBERS
 //------------------------------------------------------------------------------
 
-std::string  hackMsg;
+std::string hackMsg;
 
 //------------------------------------------------------------------------------
 // DEFINITION OF POSEXCEPTION MEMBERS
 //------------------------------------------------------------------------------
 
-calc::PosException::PosException(
-     const std::string& fileName,
-     size_t lineNr,size_t charNr,
-     const std::string& message)
+calc::PosException::PosException(const std::string &fileName, size_t lineNr, size_t charNr,
+                                 const std::string &message)
 {
   std::ostringstream str;
-  str<< fileName
-     << ":"
-     << lineNr
-     << ":"
-     << charNr
-     << ":ERROR: "
-     << message
-     ;
+  str << fileName << ":" << lineNr << ":" << charNr << ":ERROR: " << message;
   append(str.str());
   hackMsg = messages();
 }
 
-calc::PosException::PosException(
-     const std::string& message)
+calc::PosException::PosException(const std::string &message)
 {
-  append("ERROR: "+message);
+  append("ERROR: " + message);
   hackMsg = messages();
 }
 
@@ -54,10 +44,6 @@ calc::PosException::~PosException()
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

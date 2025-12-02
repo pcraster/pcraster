@@ -7,7 +7,7 @@
 #include "ag_Feedback.h"
 
 #if defined(_WIN32)
-  #include <windows.h>
+#include <windows.h>
 #endif
 
 // #ifdef __APPLE__
@@ -27,75 +27,76 @@
 
 //------------------------------------------------------------------------------
 
-namespace ag {
+namespace ag
+{
 
 
-namespace detail {
+namespace detail
+{
 
-  std::string glu_error_string(GLenum glErrCode) {
-    // See https://www.khronos.org/opengl/wiki/OpenGL_Error
-    std::unordered_map<GLuint, std::string> gl_error_messages = {
-      { GL_NO_ERROR, "no error" },
-      { GL_INVALID_ENUM, "invalid enumeration parameter" },
-      { GL_INVALID_VALUE, "invalid value" },
-      { GL_INVALID_OPERATION, "invalid operation" },
-      { GL_STACK_OVERFLOW, "stack overflow" },
-      { GL_STACK_UNDERFLOW, "stack underflow" },
-      { GL_OUT_OF_MEMORY, "out of memory" },
-      { GL_INVALID_FRAMEBUFFER_OPERATION, "invalid framebuffer operation" }
-    };
+std::string glu_error_string(GLenum glErrCode)
+{
+  // See https://www.khronos.org/opengl/wiki/OpenGL_Error
+  std::unordered_map<GLuint, std::string> gl_error_messages = {
+      {GL_NO_ERROR, "no error"},
+      {GL_INVALID_ENUM, "invalid enumeration parameter"},
+      {GL_INVALID_VALUE, "invalid value"},
+      {GL_INVALID_OPERATION, "invalid operation"},
+      {GL_STACK_OVERFLOW, "stack overflow"},
+      {GL_STACK_UNDERFLOW, "stack underflow"},
+      {GL_OUT_OF_MEMORY, "out of memory"},
+      {GL_INVALID_FRAMEBUFFER_OPERATION, "invalid framebuffer operation"}};
 
-    if (auto err = gl_error_messages.find(glErrCode); err != gl_error_messages.end()) {
-      return std::format("error reported by OpenGL library: {0}", err->second);
-    }
-    else{
-      return std::format("error code reported by OpenGL library: {0}", glErrCode);
-    }
+  if (auto err = gl_error_messages.find(glErrCode); err != gl_error_messages.end()) {
+    return std::format("error reported by OpenGL library: {0}", err->second);
+  } else {
+    return std::format("error code reported by OpenGL library: {0}", glErrCode);
   }
+}
 
-  void glu_perspective(GLfloat fovy, GLfloat aspect, GLfloat znear, GLfloat zfar) {
-    // See https://www.khronos.org/opengl/wiki/GluPerspective_code
-    //     https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/gluPerspective.xml
+void glu_perspective(GLfloat fovy, GLfloat aspect, GLfloat znear, GLfloat zfar)
+{
+  // See https://www.khronos.org/opengl/wiki/GluPerspective_code
+  //     https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/gluPerspective.xml
 
-    // 4x4 column-major matrix
-    GLfloat matrix[16] = {0};
+  // 4x4 column-major matrix
+  GLfloat matrix[16] = {0};
 
-    // Degrees to radians
-    GLfloat const fovy_radians = fovy * std::numbers::pi / 180.0f;
-    // Cotangent
-    GLfloat const f = 1.0f / std::tan(fovy_radians / 2.0f);
-    GLfloat const diff = znear - zfar;
+  // Degrees to radians
+  GLfloat const fovy_radians = fovy * std::numbers::pi / 180.0f;
+  // Cotangent
+  GLfloat const f = 1.0f / std::tan(fovy_radians / 2.0f);
+  GLfloat const diff = znear - zfar;
 
-    // matrix[0][0]
-    matrix[0] = f / aspect;
-    // matrix[1][1]
-    matrix[5] = f;
-    // matrix[2][2]
-    matrix[10] = (zfar + znear) / diff;
-    // matrix[2][3]
-    matrix[11] = -1.0f;
-    // matrix[3][2]
-    matrix[14] = (2.0f * zfar * znear) / diff;
+  // matrix[0][0]
+  matrix[0] = f / aspect;
+  // matrix[1][1]
+  matrix[5] = f;
+  // matrix[2][2]
+  matrix[10] = (zfar + znear) / diff;
+  // matrix[2][3]
+  matrix[11] = -1.0f;
+  // matrix[3][2]
+  matrix[14] = (2.0f * zfar * znear) / diff;
 
-    glMultMatrixf(matrix);
-  }
+  glMultMatrixf(matrix);
+}
 
-} // detail
+}  // namespace detail
 
-
-typedef std::vector<ag::SceneObject*>::iterator so_it;
+typedef std::vector<ag::SceneObject *>::iterator so_it;
 
 class SceneViewPrivate
 {
 public:
-  bool             d_dirty{false};            // If d_dirty is true, redraw is req.
-  bool             d_valid{true};            // If d_valid is false, recreate is req.
+  bool d_dirty{false};  // If d_dirty is true, redraw is req.
+  bool d_valid{true};   // If d_valid is false, recreate is req.
 
-  ag::Camera*     d_userCamera;       // Controllable camera.
-  ag::Camera*     d_staticCamera{nullptr};     // Static camera.
-  std::vector<ag::SceneObject*> d_sceneObjects;
-  GLfloat          d_step{0.0};
-  GLfloat          d_angle{5.0};
+  ag::Camera *d_userCamera;             // Controllable camera.
+  ag::Camera *d_staticCamera{nullptr};  // Static camera.
+  std::vector<ag::SceneObject *> d_sceneObjects;
+  GLfloat d_step{0.0};
+  GLfloat d_angle{5.0};
 
   SceneViewPrivate()
 
@@ -106,15 +107,13 @@ public:
   ~SceneViewPrivate()
   {
     delete d_userCamera;
-    if(d_staticCamera) {
+    if (d_staticCamera) {
       delete d_staticCamera;
     }
   }
 };
 
-}
-
-
+}  // namespace ag
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
@@ -128,28 +127,21 @@ GLfloat ag::SceneView::calcFOV(double s, double d)
   return static_cast<GLfloat>(deg);
 }
 
-
-
 // Scene is positioned around the origin.
-GLfloat ag::SceneView::calcFOV(double w, double d, double h, double x, double y,
-                   double z)
+GLfloat ag::SceneView::calcFOV(double w, double d, double h, double x, double y, double z)
 {
   //  1. The radius of bounding sphere is the distance from center of the
   //     bounding box to any corner.
   //  2. Calculate the distance between the center of the bounding sphere to
   //     the viewpoint.
 
-  double const r    = std::sqrt(std::pow(0.5 * w, 2.0) + std::pow(0.5 * d, 2.0) +
-                   std::pow(0.5 * h, 2.0));
-  double const dist = std::sqrt(std::pow(x, 2.0) + std::pow(y, 2.0) +
-                   std::pow(z, 2.0));
-  double const rad  = 2.0 * std::atan2(r, dist);
-  double const deg  = (180.0 * rad) / std::numbers::pi;
+  double const r = std::sqrt(std::pow(0.5 * w, 2.0) + std::pow(0.5 * d, 2.0) + std::pow(0.5 * h, 2.0));
+  double const dist = std::sqrt(std::pow(x, 2.0) + std::pow(y, 2.0) + std::pow(z, 2.0));
+  double const rad = 2.0 * std::atan2(r, dist);
+  double const deg = (180.0 * rad) / std::numbers::pi;
 
   return static_cast<GLfloat>(deg);
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF CLASS MEMBERS
@@ -160,15 +152,12 @@ GLfloat ag::SceneView::calcFOV(double w, double d, double h, double x, double y,
 */
 ag::SceneView::SceneView(QWidget *p)
 
-  : QOpenGLWidget(p),
-    d_data(new SceneViewPrivate())
+    : QOpenGLWidget(p), d_data(new SceneViewPrivate())
 
 {
   // Make sure that this rendering context is valid.
   assert(isValid());
 }
-
-
 
 //! Destructs a SceneView object.
 /*!
@@ -177,8 +166,6 @@ ag::SceneView::~SceneView()
 {
   delete d_data;
 }
-
-
 
 void ag::SceneView::initializeGL()
 {
@@ -193,35 +180,32 @@ void ag::SceneView::initializeGL()
 
   // PORT: Updated code but not tested yet.
   // qglClearColor(colorGroup().background());                               // 10.
-  glClearColor(palette().window().color().redF(), palette().window().color().greenF(), palette().window().color().blueF(), palette().window().color().alphaF());   // 10.
+  glClearColor(palette().window().color().redF(), palette().window().color().greenF(),
+               palette().window().color().blueF(), palette().window().color().alphaF());  // 10.
   glShadeModel(GL_FLAT);
-  glEnable(GL_DEPTH_TEST);                                                // 30.
-  glEnable(GL_TEXTURE_2D);   // Ldd drawer.
-  glEnable(GL_BLEND);        // Ldd drawer.
+  glEnable(GL_DEPTH_TEST);  // 30.
+  glEnable(GL_TEXTURE_2D);  // Ldd drawer.
+  glEnable(GL_BLEND);       // Ldd drawer.
 
   glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
   glPixelStorei(GL_PACK_ALIGNMENT, 1);
 
-  GLfloat pos[] = { 0.0, 0.0, 0.0, 1.0 };                                 // 40.
-  GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
-  GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+  GLfloat pos[] = {0.0, 0.0, 0.0, 1.0};  // 40.
+  GLfloat light_diffuse[] = {1.0, 1.0, 1.0, 1.0};
+  GLfloat light_specular[] = {1.0, 1.0, 1.0, 1.0};
 
   glLightfv(GL_LIGHT0, GL_POSITION, pos);
   glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
   glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-  setShowLight(true);        // Ride the lightning!
+  setShowLight(true);  // Ride the lightning!
 
-  checkForGLErrors();                                                     // 99.
+  checkForGLErrors();  // 99.
 }
-
-
 
 void ag::SceneView::resizeGL(int w, int h)
 {
   resetViewport(w, h);
 }
-
-
 
 //! Resets the projection matrix.
 /*!
@@ -241,53 +225,47 @@ void ag::SceneView::resetViewport(int w, int h)
   // 35. Projection transformation: choosing the lens.
   // 99. Check for any errors detected by the opengl lib.
   makeCurrent();
-  glViewport(0, 0, static_cast<GLsizei>(w), static_cast<GLsizei>(h));     // 10.
+  glViewport(0, 0, static_cast<GLsizei>(w), static_cast<GLsizei>(h));  // 10.
   glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();                                                       // 30.
+  glLoadIdentity();  // 30.
 
   // Yes! We have data.
-  if(widthScene() > 0.0 && depthScene() > 0.0 && heightScene() > 0.0)
-  {
-    GLfloat const fovy = calcFOV(widthScene(), depthScene(), heightScene(),     // 35.
-                   d_data->d_userCamera->x(), d_data->d_userCamera->y(),
-                   d_data->d_userCamera->z());
+  if (widthScene() > 0.0 && depthScene() > 0.0 && heightScene() > 0.0) {
+    GLfloat const fovy =
+        calcFOV(widthScene(), depthScene(), heightScene(),  // 35.
+                d_data->d_userCamera->x(), d_data->d_userCamera->y(), d_data->d_userCamera->z());
     GLfloat const aspect = static_cast<GLfloat>(w) / h;
-    GLfloat const d = std::sqrt((widthScene() * widthScene()) +
-                   depthScene() + depthScene());
+    GLfloat const d = std::sqrt((widthScene() * widthScene()) + depthScene() + depthScene());
     detail::glu_perspective(fovy, aspect, 0.05 * d, 5.0 * d);
     d_data->d_userCamera->setSize(0.1 * d, 0.3 * d, 0.1 * d);
   }
 
   d_data->d_dirty = true;
   glMatrixMode(GL_MODELVIEW);
-  checkForGLErrors();                                                     // 99.
+  checkForGLErrors();  // 99.
 }
-
-
 
 void ag::SceneView::paintGL()
 {
-  if(dirty()) {
+  if (dirty()) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
-    if(d_data->d_staticCamera) {
+    if (d_data->d_staticCamera) {
       d_data->d_staticCamera->apply();
       d_data->d_userCamera->render();
-    }
-    else {
+    } else {
       d_data->d_userCamera->apply();
     }
 
-    std::vector<ag::SceneObject*>::iterator it;
-    for(it = d_data->d_sceneObjects.begin();
-                   it != d_data->d_sceneObjects.end(); ++it) {
+    std::vector<ag::SceneObject *>::iterator it;
+    for (it = d_data->d_sceneObjects.begin(); it != d_data->d_sceneObjects.end(); ++it) {
       (*it)->render();
     }
 
-    glFlush();                                                            // 98.
+    glFlush();  // 98.
     d_data->d_dirty = false;
-    checkForGLErrors();                                                   // 99.
+    checkForGLErrors();  // 99.
   }
 }
 
@@ -317,7 +295,6 @@ void ag::SceneView::paintGL()
 */
 
 
-
 //! Checks if the OpenGL library has detected an error.
 /*!
   \exception com::Exception The OpenGL library detected an error.
@@ -327,12 +304,10 @@ void ag::SceneView::checkForGLErrors()
 {
   static GLenum glErrCode;
 
-  if((glErrCode = glGetError()) != GL_NO_ERROR) {
+  if ((glErrCode = glGetError()) != GL_NO_ERROR) {
     throw com::Exception(detail::glu_error_string(glErrCode));
   }
 }
-
-
 
 //! Resets all.
 /*!
@@ -342,14 +317,11 @@ void ag::SceneView::reset()
 {
   d_data->d_userCamera->reset();
 
-  std::vector<ag::SceneObject*>::iterator it;
-  for(it = d_data->d_sceneObjects.begin();
-                   it != d_data->d_sceneObjects.end(); ++it) {
+  std::vector<ag::SceneObject *>::iterator it;
+  for (it = d_data->d_sceneObjects.begin(); it != d_data->d_sceneObjects.end(); ++it) {
     (*it)->reset();
   }
 }
-
-
 
 /*!
   \param     x X-coordinate of new initial head position.
@@ -365,35 +337,25 @@ void ag::SceneView::setInitHead(double x, double y, double z)
   d_data->d_step = std::sqrt((x * x) + (y * y) + (z * z)) / 20;
 }
 
-
-
 void ag::SceneView::setHead(double x, double y, double z)
 {
   d_data->d_userCamera->setPosition(x, y, z);
 }
-
-
 
 void ag::SceneView::setInitHeadRotation(double rx, double ry, double rz)
 {
   d_data->d_userCamera->setInitRotation(ry, rx, rz);
 }
 
-
-
 void ag::SceneView::setHeadRotation(double rx, double ry, double rz)
 {
   d_data->d_userCamera->setRotation(ry, rx, rz);
 }
 
-
-
 void ag::SceneView::rotateHead(double rx, double ry, double rz)
 {
   d_data->d_userCamera->rotateBy(ry, rx, rz);
 }
-
-
 
 // Moves head in the direction of the head rotation.
 void ag::SceneView::moveHead(double mx, double my, double mz)
@@ -414,28 +376,20 @@ void ag::SceneView::moveHead(double mx, double my, double mz)
   d_data->d_userCamera->moveBy(mx, my, mz);
 }
 
-
-
 double ag::SceneView::widthScene() const
 {
   return std::abs(rightScene() - leftScene());
 }
-
-
 
 double ag::SceneView::depthScene() const
 {
   return std::abs(backScene() - frontScene());
 }
 
-
-
 double ag::SceneView::heightScene() const
 {
   return std::abs(topScene() - bottomScene());
 }
-
-
 
 void ag::SceneView::setShadeModel(GLenum m)
 {
@@ -445,19 +399,16 @@ void ag::SceneView::setShadeModel(GLenum m)
   assert(m != GL_INVALID_ENUM);
 #endif
 
-  if(shadeModel() != m)
-  {
+  if (shadeModel() != m) {
     glShadeModel(m);
     d_data->d_dirty = true;
   }
 }
 
-
-
 GLenum ag::SceneView::shadeModel() const
 {
   // Since makeCurrent is a non-const member we have to trick the compiler.
-  auto * const localThis = const_cast<SceneView *>(this);
+  auto *const localThis = const_cast<SceneView *>(this);
   localThis->makeCurrent();
 
   int m = 0;
@@ -470,18 +421,15 @@ GLenum ag::SceneView::shadeModel() const
   return static_cast<GLenum>(m);
 }
 
-
-
 void ag::SceneView::setShowLight(bool s)
 {
   makeCurrent();
 
-  if(s != showLight()) {
-    if(s) {
+  if (s != showLight()) {
+    if (s) {
       glEnable(GL_LIGHTING);
       glEnable(GL_LIGHT0);
-    }
-    else {
+    } else {
       glDisable(GL_LIGHTING);
       glDisable(GL_LIGHT0);
     }
@@ -490,12 +438,10 @@ void ag::SceneView::setShowLight(bool s)
   }
 }
 
-
-
 bool ag::SceneView::showLight() const
 {
   // Since makeCurrent is a non-const member we have to trick the compiler.
-  auto * const localThis = const_cast<SceneView *>(this);
+  auto *const localThis = const_cast<SceneView *>(this);
   localThis->makeCurrent();
 
   GLboolean s = 0;
@@ -503,35 +449,25 @@ bool ag::SceneView::showLight() const
   return s == GL_TRUE;
 }
 
-
-
 void ag::SceneView::setDirty()
 {
   d_data->d_dirty = true;
 }
-
-
 
 void ag::SceneView::setValid(bool s)
 {
   d_data->d_valid = s;
 }
 
-
-
 GLfloat ag::SceneView::step() const
 {
   return d_data->d_step;
 }
 
-
-
 GLfloat ag::SceneView::angle() const
 {
   return d_data->d_angle;
 }
-
-
 
 bool ag::SceneView::dirty() const
 {
@@ -543,25 +479,22 @@ bool ag::SceneView::dirty() const
   // }
   // else {
 
-  std::vector<ag::SceneObject*>::iterator it;
-  for(it = d_data->d_sceneObjects.begin();
-                   it != d_data->d_sceneObjects.end(); ++it) {
+  std::vector<ag::SceneObject *>::iterator it;
+  for (it = d_data->d_sceneObjects.begin(); it != d_data->d_sceneObjects.end(); ++it) {
     dirty = dirty || (*it)->dirty();
   }
-    // if(dirty) {
-    //   cout << "(*it)->dirty()" << endl;
-    // }
+  // if(dirty) {
+  //   cout << "(*it)->dirty()" << endl;
+  // }
   // }
 
   return dirty;
 }
 
-
-
-void ag::SceneView::keyPressEvent(QKeyEvent* event)
+void ag::SceneView::keyPressEvent(QKeyEvent *event)
 {
-  if(event->modifiers() & Qt::ShiftModifier) {
-    switch(event->key()) {
+  if (event->modifiers() & Qt::ShiftModifier) {
+    switch (event->key()) {
       case Qt::Key_Up: {
         // Move camera to the front.
         moveHead(0.0, 0.0, -step());
@@ -618,9 +551,8 @@ void ag::SceneView::keyPressEvent(QKeyEvent* event)
         break;
       }
     }
-  }
-  else if(event->modifiers() & Qt::ControlModifier) {
-    switch(event->key()) {
+  } else if (event->modifiers() & Qt::ControlModifier) {
+    switch (event->key()) {
       case Qt::Key_K: {
         // Move camera to the front.
         moveHead(0.0, 0.0, -step());
@@ -635,9 +567,8 @@ void ag::SceneView::keyPressEvent(QKeyEvent* event)
         break;
       }
     }
-  }
-  else {
-    switch(event->key()) {
+  } else {
+    switch (event->key()) {
       case Qt::Key_0: {
         // Install user camera.
         installCamera(SceneView::USER);
@@ -753,35 +684,26 @@ void ag::SceneView::keyPressEvent(QKeyEvent* event)
   }
 }
 
-
-
 bool ag::SceneView::valid() const
 {
   return d_data->d_valid && sceneObject().valid();
 }
 
-
-
-void ag::SceneView::addSceneObject(ag::SceneObject* s)
+void ag::SceneView::addSceneObject(ag::SceneObject *s)
 {
   assert(s);
   d_data->d_sceneObjects.push_back(s);
   d_data->d_dirty = true;
 }
 
-
-
-void ag::SceneView::removeSceneObject(ag::SceneObject* s)
+void ag::SceneView::removeSceneObject(ag::SceneObject *s)
 {
   assert(s);
-  auto it = std::find(d_data->d_sceneObjects.begin(),
-                   d_data->d_sceneObjects.end(), s);
+  auto it = std::find(d_data->d_sceneObjects.begin(), d_data->d_sceneObjects.end(), s);
   assert(it != d_data->d_sceneObjects.end());
   d_data->d_sceneObjects.erase(it);
   d_data->d_dirty = true;
 }
-
-
 
 void ag::SceneView::installCamera(Camera c)
 {
@@ -792,90 +714,80 @@ void ag::SceneView::installCamera(Camera c)
   // BACK : 190.0     0.0    0.0
   // RIGHT: 270.0     0.0    0.0
 
-  if(c == USER) {
-    if(d_data->d_staticCamera) {
+  if (c == USER) {
+    if (d_data->d_staticCamera) {
       delete d_data->d_staticCamera;
       d_data->d_staticCamera = nullptr;
       d_data->d_dirty = true;
     }
-  }
-  else {
+  } else {
     GLfloat x = NAN;
     GLfloat y = NAN;
     GLfloat z = NAN;
     GLfloat yaw = NAN;
     GLfloat pitch = NAN;
     GLfloat roll = NAN;
-    GLfloat const d = 4.0 * std::sqrt((widthScene() * widthScene()) +
-                   depthScene() + depthScene());
+    GLfloat const d = 4.0 * std::sqrt((widthScene() * widthScene()) + depthScene() + depthScene());
 
-    if(c == TOP) {
-      x     = 0.0;
-      y     = d;
-      z     = 0.0;
-      yaw   = 0.0;
+    if (c == TOP) {
+      x = 0.0;
+      y = d;
+      z = 0.0;
+      yaw = 0.0;
       pitch = 90.0 * com::DEG2RAD;
-      roll  = 0.0;
-    }
-    else if(c == FRONT) {
-      x     = 0.0;
-      y     = 0.0;
-      z     = d;
-      yaw   = 0.0;
+      roll = 0.0;
+    } else if (c == FRONT) {
+      x = 0.0;
+      y = 0.0;
+      z = d;
+      yaw = 0.0;
       pitch = 0.0;
-      roll  = 0.0;
-    }
-    else if(c == LEFT) {
-      x     = -d;
-      y     = 0.0;
-      z     = 0.0;
-      yaw   = 90.0 * com::DEG2RAD;
+      roll = 0.0;
+    } else if (c == LEFT) {
+      x = -d;
+      y = 0.0;
+      z = 0.0;
+      yaw = 90.0 * com::DEG2RAD;
       pitch = 0.0;
-      roll  = 0.0;
-    }
-    else if(c == BACK) {
-      x     = 0.0;
-      y     = 0.0;
-      z     = -d;
-      yaw   = 180.0 * com::DEG2RAD;
+      roll = 0.0;
+    } else if (c == BACK) {
+      x = 0.0;
+      y = 0.0;
+      z = -d;
+      yaw = 180.0 * com::DEG2RAD;
       pitch = 0.0;
-      roll  = 0.0;
-    }
-    else if(c == RIGHT) {
-      x     = d;
-      y     = 0.0;
-      z     = 0.0;
-      yaw   = 270.0 * com::DEG2RAD;
+      roll = 0.0;
+    } else if (c == RIGHT) {
+      x = d;
+      y = 0.0;
+      z = 0.0;
+      yaw = 270.0 * com::DEG2RAD;
       pitch = 0.0;
-      roll  = 0.0;
-    }
-    else {
+      roll = 0.0;
+    } else {
       assert(false);
-      x = y = z = yaw = pitch = roll = -99999.99999f;       // Never reached.
+      x = y = z = yaw = pitch = roll = -99999.99999f;  // Never reached.
     }
 
-    if(!d_data->d_staticCamera) {
+    if (!d_data->d_staticCamera) {
       d_data->d_staticCamera = new ag::Camera();
     }
 
-    if(d_data->d_staticCamera->x() != x || d_data->d_staticCamera->y() != y ||
-                   d_data->d_staticCamera->z() != z) {
+    if (d_data->d_staticCamera->x() != x || d_data->d_staticCamera->y() != y ||
+        d_data->d_staticCamera->z() != z) {
       d_data->d_staticCamera->setPosition(x, y, z);
       d_data->d_dirty = true;
     }
 
-    if(d_data->d_staticCamera->yaw() != yaw ||
-                   d_data->d_staticCamera->pitch() != pitch ||
-                   d_data->d_staticCamera->roll() != roll) {
+    if (d_data->d_staticCamera->yaw() != yaw || d_data->d_staticCamera->pitch() != pitch ||
+        d_data->d_staticCamera->roll() != roll) {
       d_data->d_staticCamera->setRotation(yaw, pitch, roll);
       d_data->d_dirty = true;
     }
   }
 }
 
-
-
-void ag::SceneView::retrieveFeedback(Feedback* feedback)
+void ag::SceneView::retrieveFeedback(Feedback *feedback)
 {
   //  1. Start feedback mode.
   //  2. Make scene dirty.
@@ -884,13 +796,11 @@ void ag::SceneView::retrieveFeedback(Feedback* feedback)
 
   assert(feedback);
 
-  feedback->start();                                                       // 1.
-  setDirty();                                                              // 2.
-  update();                                                                // 3.
-  feedback->stop();                                                        // 4.
+  feedback->start();  // 1.
+  setDirty();         // 2.
+  update();           // 3.
+  feedback->stop();   // 4.
 }
-
-
 
 int ag::SceneView::depthOfRenderingContext() const
 {
@@ -907,25 +817,19 @@ int ag::SceneView::depthOfRenderingContext() const
   return depth;
 }
 
-
-
 void ag::SceneView::rotateScene(double x, double y, double z)
 {
   sceneObject().rotateBy(y, x, z);
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -970,15 +874,11 @@ void ag::SceneView::rotateScene(double x, double y, double z)
 */
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

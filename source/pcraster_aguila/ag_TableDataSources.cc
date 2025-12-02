@@ -7,12 +7,10 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the TableDataSources class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -38,11 +36,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC TABLEDATASOURCES MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -51,39 +47,28 @@ public:
 
 ag::TableDataSources::TableDataSources()
 
-  : DataObjectBase<Table>(geo::TIMESERIES)
+    : DataObjectBase<Table>(geo::TIMESERIES)
 
 {
 }
-
-
 
 ag::TableDataSources::~TableDataSources()
 {
 }
 
-
-
-ag::DataInfo<ag::Table> ag::TableDataSources::openData(
-         std::string const &name,
-         dal::DataSpace const &space) const
+ag::DataInfo<ag::Table> ag::TableDataSources::openData(std::string const &name,
+                                                       dal::DataSpace const &space) const
 {
-  auto* table(new Table(name, space));
+  auto *table(new Table(name, space));
 
   return DataInfo<Table>(table, table->valueScale(), table->dataSpace());
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

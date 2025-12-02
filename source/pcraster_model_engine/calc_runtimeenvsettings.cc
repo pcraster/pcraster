@@ -3,7 +3,7 @@
 #include "PCRasterXSD.h"
 #include "com_exception.h"
 #include "appargs.h"
-#include "calc_globallibdefs.h" // setRan
+#include "calc_globallibdefs.h"  // setRan
 #include "calc_iostrategy.h"
 
 /*!
@@ -17,18 +17,16 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF RUNTIMEENVSETTINGS MEMBERS
 //------------------------------------------------------------------------------
 
 
-calc::RunTimeEnvSettings::RunTimeEnvSettings():
-  d_ioStrategy(new IOStrategy()),
-  d_externalBindingFile(),
-  
-  d_scriptFile()
-  
+calc::RunTimeEnvSettings::RunTimeEnvSettings()
+    : d_ioStrategy(new IOStrategy()), d_externalBindingFile(),
+
+      d_scriptFile()
+
 {
 }
 
@@ -38,38 +36,33 @@ calc::RunTimeEnvSettings::~RunTimeEnvSettings()
 }
 
 //! Assignment operator.
-calc::RunTimeEnvSettings& calc::RunTimeEnvSettings::operator=(const RunTimeEnvSettings& rhs)
+calc::RunTimeEnvSettings &calc::RunTimeEnvSettings::operator=(const RunTimeEnvSettings &rhs)
 {
   if (this != &rhs) {
-      delete d_ioStrategy;
-      d_ioStrategy                = new IOStrategy(*rhs.d_ioStrategy);
-      d_externalBindingFile       = rhs.d_externalBindingFile;
-      d_printShellExpansionOnly   = rhs.d_printShellExpansionOnly;
-      d_testScriptRunableOnly     = rhs.d_testScriptRunableOnly;
-      d_testCaseTypeOnExistingName= rhs.d_testCaseTypeOnExistingName;
-      d_scriptFile                = rhs.d_scriptFile;
-      d_compile                   = rhs.d_compile;
-      d_exitValueType             = rhs.d_exitValueType;
-      d_seed                      = rhs.d_seed;
-      d_profile                   = rhs.d_profile;
-      d_useDiskStorage            = rhs.d_useDiskStorage;
+    delete d_ioStrategy;
+    d_ioStrategy = new IOStrategy(*rhs.d_ioStrategy);
+    d_externalBindingFile = rhs.d_externalBindingFile;
+    d_printShellExpansionOnly = rhs.d_printShellExpansionOnly;
+    d_testScriptRunableOnly = rhs.d_testScriptRunableOnly;
+    d_testCaseTypeOnExistingName = rhs.d_testCaseTypeOnExistingName;
+    d_scriptFile = rhs.d_scriptFile;
+    d_compile = rhs.d_compile;
+    d_exitValueType = rhs.d_exitValueType;
+    d_seed = rhs.d_seed;
+    d_profile = rhs.d_profile;
+    d_useDiskStorage = rhs.d_useDiskStorage;
   }
   return *this;
 }
 
 //! Copy constructor.
-calc::RunTimeEnvSettings::RunTimeEnvSettings(const RunTimeEnvSettings& rhs):
-      d_ioStrategy                ( new IOStrategy(*rhs.d_ioStrategy)),
-      d_externalBindingFile       ( rhs.d_externalBindingFile),
-      d_printShellExpansionOnly   ( rhs.d_printShellExpansionOnly),
-      d_testScriptRunableOnly     ( rhs.d_testScriptRunableOnly),
-      d_testCaseTypeOnExistingName( rhs.d_testCaseTypeOnExistingName),
-      d_scriptFile                ( rhs.d_scriptFile),
-      d_compile                   ( rhs.d_compile),
-      d_exitValueType             ( rhs.d_exitValueType),
-      d_seed                      ( rhs.d_seed),
-      d_profile                   ( rhs.d_profile),
-      d_useDiskStorage            ( rhs.d_useDiskStorage)
+calc::RunTimeEnvSettings::RunTimeEnvSettings(const RunTimeEnvSettings &rhs)
+    : d_ioStrategy(new IOStrategy(*rhs.d_ioStrategy)), d_externalBindingFile(rhs.d_externalBindingFile),
+      d_printShellExpansionOnly(rhs.d_printShellExpansionOnly),
+      d_testScriptRunableOnly(rhs.d_testScriptRunableOnly),
+      d_testCaseTypeOnExistingName(rhs.d_testCaseTypeOnExistingName), d_scriptFile(rhs.d_scriptFile),
+      d_compile(rhs.d_compile), d_exitValueType(rhs.d_exitValueType), d_seed(rhs.d_seed),
+      d_profile(rhs.d_profile), d_useDiskStorage(rhs.d_useDiskStorage)
 {
 }
 
@@ -80,7 +73,7 @@ void calc::RunTimeEnvSettings::setMVCompression(bool mvCompression)
 }
 
 //! set value of debugMVAssignments
-void calc::RunTimeEnvSettings::setDebugMVAssignments(const std::string& debugMVAssignmentsMap)
+void calc::RunTimeEnvSettings::setDebugMVAssignments(const std::string &debugMVAssignmentsMap)
 {
   d_ioStrategy->setDebugMVAssignmentsMap(debugMVAssignmentsMap);
 }
@@ -91,7 +84,7 @@ void calc::RunTimeEnvSettings::setWriteEachTimeStep(bool writeEachTimeStep)
   d_ioStrategy->setWriteEachTimeStep(writeEachTimeStep);
 }
 
-void calc::RunTimeEnvSettings::setRunDirectory(const com::PathName& runDirectory)
+void calc::RunTimeEnvSettings::setRunDirectory(const com::PathName &runDirectory)
 {
   d_ioStrategy->setRunDirectory(runDirectory);
 }
@@ -99,13 +92,13 @@ void calc::RunTimeEnvSettings::setRunDirectory(const com::PathName& runDirectory
 //! set value of exitValueType
 void calc::RunTimeEnvSettings::setExitValueType(ExitValueType exitValueType)
 {
-  d_exitValueType=exitValueType;
+  d_exitValueType = exitValueType;
 }
 
 //! set value of seed
 void calc::RunTimeEnvSettings::setSeed(size_t seed)
 {
-  d_seed=seed;
+  d_seed = seed;
   setRan(seed);
 }
 
@@ -122,44 +115,43 @@ size_t calc::RunTimeEnvSettings::seed() const
 }
 
 //! get value of ioStrategy
-const calc::IOStrategy& calc::RunTimeEnvSettings::ioStrategy() const
+const calc::IOStrategy &calc::RunTimeEnvSettings::ioStrategy() const
 {
   return *d_ioStrategy;
 }
 
-
 //! set value of d_externalBindingFile
-void calc::RunTimeEnvSettings::setExternalBindingFile(const com::PathName& externalBindingFile)
+void calc::RunTimeEnvSettings::setExternalBindingFile(const com::PathName &externalBindingFile)
 {
-  d_externalBindingFile=externalBindingFile;
+  d_externalBindingFile = externalBindingFile;
 }
 
 //! set value of d_printShellExpansionOnly
 void calc::RunTimeEnvSettings::setPrintShellExpansionOnly(bool printShellExpansionOnly)
 {
-  d_printShellExpansionOnly=printShellExpansionOnly;
+  d_printShellExpansionOnly = printShellExpansionOnly;
 }
 
 //! set value of d_testScriptRunableOnly
 void calc::RunTimeEnvSettings::setTestScriptRunableOnly(bool testScriptRunableOnly)
 {
-  d_testScriptRunableOnly=testScriptRunableOnly;
+  d_testScriptRunableOnly = testScriptRunableOnly;
 }
 
 //! set value of d_testCaseTypeOnExistingName
 void calc::RunTimeEnvSettings::setTestCaseTypeOnExistingName(bool testCaseTypeOnExistingName)
 {
-  d_testCaseTypeOnExistingName=testCaseTypeOnExistingName;
+  d_testCaseTypeOnExistingName = testCaseTypeOnExistingName;
 }
 
 //! set value of d_scriptFile
-void calc::RunTimeEnvSettings::setScriptFile(const com::PathName& scriptFile)
+void calc::RunTimeEnvSettings::setScriptFile(const com::PathName &scriptFile)
 {
-  d_scriptFile=scriptFile;
+  d_scriptFile = scriptFile;
 }
 
 //! get value of d_externalBindingFile
-const com::PathName& calc::RunTimeEnvSettings::externalBindingFile() const
+const com::PathName &calc::RunTimeEnvSettings::externalBindingFile() const
 {
   return d_externalBindingFile;
 }
@@ -183,16 +175,15 @@ bool calc::RunTimeEnvSettings::testCaseTypeOnExistingName() const
 }
 
 //! get value of d_scriptFile
-const com::PathName& calc::RunTimeEnvSettings::scriptFile() const
+const com::PathName &calc::RunTimeEnvSettings::scriptFile() const
 {
   return d_scriptFile;
 }
 
-
 //! set value of d_compile
 void calc::RunTimeEnvSettings::setCompile(bool compile)
 {
-  d_compile=compile;
+  d_compile = compile;
 }
 
 //! get value of d_compile
@@ -204,7 +195,7 @@ bool calc::RunTimeEnvSettings::compile() const
 //! set value of d_profile
 void calc::RunTimeEnvSettings::setProfile(bool profile)
 {
-  d_profile=profile;
+  d_profile = profile;
 }
 
 //! get value of d_profile
@@ -216,7 +207,7 @@ bool calc::RunTimeEnvSettings::profile() const
 //! set value of d_useDiskStorage
 void calc::RunTimeEnvSettings::setUseDiskStorage(bool useDiskStorage)
 {
-  d_useDiskStorage=useDiskStorage;
+  d_useDiskStorage = useDiskStorage;
 }
 
 //! get value of d_useDiskStorage
@@ -225,9 +216,7 @@ bool calc::RunTimeEnvSettings::useDiskStorage() const
   return d_useDiskStorage;
 }
 
-
-
-const geo::RasterSpace& calc::RunTimeEnvSettings::rasterSpace() const
+const geo::RasterSpace &calc::RunTimeEnvSettings::rasterSpace() const
 {
   return d_ioStrategy->rasterSpace();
 }
@@ -239,85 +228,82 @@ const geo::RasterSpace& calc::RunTimeEnvSettings::rasterSpace() const
  *  - update the types of the data in \a symbols
  *  - check consistency of types and data
  */
-void  calc::RunTimeEnvSettings::resolve(
-    ASTSymbolTable& symbols,
-    std::string const& areaMap,
-    const Timer& timer)
+void calc::RunTimeEnvSettings::resolve(ASTSymbolTable &symbols, std::string const &areaMap,
+                                       const Timer &timer)
 {
-  d_ioStrategy->resolve(symbols,areaMap,timer);
+  d_ioStrategy->resolve(symbols, areaMap, timer);
 }
 
 /*! set settings from the XML areaMap and executionOptions sections
  *  \returns the area map reference (binding to definition) if found, empty otherwise
  */
-std::string  calc::RunTimeEnvSettings::setSettingsFromXML(
-    pcrxml::Script const& s)
+std::string calc::RunTimeEnvSettings::setSettingsFromXML(pcrxml::Script const &s)
 {
   if (s.executionOptions().present()) {
-     pcrxml::ExecutionOptions const& e(s.executionOptions().get());
+    pcrxml::ExecutionOptions const &e(s.executionOptions().get());
 
-     if (e.outputMapFormat().present()) {
+    if (e.outputMapFormat().present()) {
       //  set outputMapFormat
-      pcrxml::OutputMapFormat const& omf(e.outputMapFormat().get());
+      pcrxml::OutputMapFormat const &omf(e.outputMapFormat().get());
       // if (omf.pcrasterMapFormat())
       //  ; // default
       if (omf.bandMapFormat()) {
-         appIOstrategy=APP_IO_BANDMAP;
+        appIOstrategy = APP_IO_BANDMAP;
       }
       if (omf.esriGridFormat()) {
-         appIOstrategy=APP_IO_ESRIGRID;
+        appIOstrategy = APP_IO_ESRIGRID;
       }
     }
 
     if (e.diagonal().present()) {
-       appDiagonal= e.diagonal().get();
+      appDiagonal = e.diagonal().get();
     }
     if (e.twoColumnTableAsMatrix().present()) {
-       app2dMatrix= e.twoColumnTableAsMatrix().get();
+      app2dMatrix = e.twoColumnTableAsMatrix().get();
     }
     if (e.keepEdgePits().present()) {
-       appPitOnBorder= e.keepEdgePits().get();
+      appPitOnBorder = e.keepEdgePits().get();
     }
     if (e.trueCellUnits().present()) {
-       appUnitTrue= e.trueCellUnits().get();
+      appUnitTrue = e.trueCellUnits().get();
     }
     if (e.cellCoordinate().present()) {
-      if (e.cellCoordinate().get()== pcrxml::CellCoordinate::Centre)
-        appCoord=APP_C;
-      if (e.cellCoordinate().get()== pcrxml::CellCoordinate::LowerRight)
-        appCoord=APP_LR;
-      if (e.cellCoordinate().get()== pcrxml::CellCoordinate::UpperLeft)
-        appCoord=APP_UL;
+      if (e.cellCoordinate().get() == pcrxml::CellCoordinate::Centre)
+        appCoord = APP_C;
+      if (e.cellCoordinate().get() == pcrxml::CellCoordinate::LowerRight)
+        appCoord = APP_LR;
+      if (e.cellCoordinate().get() == pcrxml::CellCoordinate::UpperLeft)
+        appCoord = APP_UL;
     }
     if (e.directionalValueUnit().present()) {
-      if (e.directionalValueUnit().get()== pcrxml::DirectionalValueUnit::Radians)
-        appDirection=APP_RADIANS;
-      if (e.directionalValueUnit().get()== pcrxml::DirectionalValueUnit::Degrees)
-        appDirection=APP_DEGREES;
+      if (e.directionalValueUnit().get() == pcrxml::DirectionalValueUnit::Radians)
+        appDirection = APP_RADIANS;
+      if (e.directionalValueUnit().get() == pcrxml::DirectionalValueUnit::Degrees)
+        appDirection = APP_DEGREES;
     }
     if (e.lddCreateDemMethod().present()) {
-      if (e.lddCreateDemMethod().get()== pcrxml::LddCreateDemMethod::Cut)
-        appLddDemModifier=APP_LDDDEMCUT;
-      if (e.lddCreateDemMethod().get()== pcrxml::LddCreateDemMethod::Fill)
-        appLddDemModifier=APP_LDDDEMFILL;
+      if (e.lddCreateDemMethod().get() == pcrxml::LddCreateDemMethod::Cut)
+        appLddDemModifier = APP_LDDDEMCUT;
+      if (e.lddCreateDemMethod().get() == pcrxml::LddCreateDemMethod::Fill)
+        appLddDemModifier = APP_LDDDEMFILL;
     }
     if (e.dynamicWaveRoughness().present()) {
-      if (e.dynamicWaveRoughness().get()== pcrxml::DynamicWaveRoughness::Chezy)
-        appDynamicWaveRoughness=APP_DWR_CHEZY;
-      if (e.dynamicWaveRoughness().get()== pcrxml::DynamicWaveRoughness::Manning)
-        appDynamicWaveRoughness=APP_DWR_MANNING;
+      if (e.dynamicWaveRoughness().get() == pcrxml::DynamicWaveRoughness::Chezy)
+        appDynamicWaveRoughness = APP_DWR_CHEZY;
+      if (e.dynamicWaveRoughness().get() == pcrxml::DynamicWaveRoughness::Manning)
+        appDynamicWaveRoughness = APP_DWR_MANNING;
     }
     if (e.runDirectory().present()) {
-       setRunDirectory(e.runDirectory().get());
+      setRunDirectory(e.runDirectory().get());
     }
     if (e.randomGeneratorSeed().present()) {
-       setSeed(e.randomGeneratorSeed().get());
+      setSeed(e.randomGeneratorSeed().get());
     }
     if (e.maskCompression().present()) {
-       setMVCompression(true);
+      setMVCompression(true);
     }
     if (e.useDiskStorage().present()) {
-       setUseDiskStorage(true);
+      setUseDiskStorage(true);
     }
   }
   // order of statements important, since
@@ -325,9 +311,9 @@ std::string  calc::RunTimeEnvSettings::setSettingsFromXML(
   std::string areaMapReference;
 
   if (s.areaMap()) {
-   if (s.areaMap()->fieldReference()) {
+    if (s.areaMap()->fieldReference()) {
       areaMapReference = s.areaMap()->fieldReference().get().ref();
-   } else
+    } else
       d_ioStrategy->setXMLAreaMapScript(s.areaMap().get());
   }
   if (s.computationMask())
@@ -341,10 +327,6 @@ std::string  calc::RunTimeEnvSettings::setSettingsFromXML(
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

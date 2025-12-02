@@ -5,15 +5,12 @@
 #include "calc_modellink.h"
 
 //! ctor
-calc::UserModelLink::UserModelLink(
-  const Symbol& parName,
-  const Symbol& modelName):
-  UserSymbol(parName)
+calc::UserModelLink::UserModelLink(const Symbol &parName, const Symbol &modelName) : UserSymbol(parName)
 {
   d_modelInstance = createModelLink(modelName.name());
-  if(!d_modelInstance) {
-      // pcrcalc/test319
-      modelName.posError(modelName.qName()+" No such modellink");
+  if (!d_modelInstance) {
+    // pcrcalc/test319
+    modelName.posError(modelName.qName() + " No such modellink");
   }
 }
 
@@ -38,31 +35,30 @@ calc::UserModelLink::~UserModelLink()
 #endif
 }
 
-void calc::UserModelLink::initCheck(calc::ModelLinkMethodSignature& s) const
+void calc::UserModelLink::initCheck(calc::ModelLinkMethodSignature &s) const
 {
   d_modelInstance->initCheck(s);
 }
 
-bool calc::UserModelLink::methodCheck(const std::string& name, calc::ModelLinkMethodSignature& s) const
+bool calc::UserModelLink::methodCheck(const std::string &name, calc::ModelLinkMethodSignature &s) const
 {
-  return d_modelInstance->methodCheck(name,s);
+  return d_modelInstance->methodCheck(name, s);
 }
 
-void calc::UserModelLink::methodExecute(const std::string& name, calc::ModelLinkMethodSignature& s)
+void calc::UserModelLink::methodExecute(const std::string &name, calc::ModelLinkMethodSignature &s)
 {
-  d_modelInstance->methodExecute(name,s);
+  d_modelInstance->methodExecute(name, s);
 }
 
-void calc::UserModelLink::initExecute(calc::ModelLinkMethodSignature& s) const
+void calc::UserModelLink::initExecute(calc::ModelLinkMethodSignature &s) const
 {
-  d_modelInstance->initExecute(scriptConst().rasterSpace(),s);
+  d_modelInstance->initExecute(scriptConst().rasterSpace(), s);
 }
 
-const std::string& calc::UserModelLink::modelTypeName() const
+const std::string &calc::UserModelLink::modelTypeName() const
 {
   return d_modelInstance->name();
 }
-
 
 VS calc::UserModelLink::symbolType() const
 {

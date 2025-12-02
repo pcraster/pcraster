@@ -7,12 +7,10 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the BufferedVisualisation class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -38,54 +36,39 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC BUFFEREDVISUALISATION MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF BUFFEREDVISUALISATION MEMBERS
 //------------------------------------------------------------------------------
 
-ag::BufferedVisualisation::BufferedVisualisation(
-         DataObject* object,
-         std::string const& visualisationName,
-         Alignment alignment,
-         QWidget* parent,
-         Qt::WindowFlags flags)
+ag::BufferedVisualisation::BufferedVisualisation(DataObject *object,
+                                                 std::string const &visualisationName,
+                                                 Alignment alignment, QWidget *parent,
+                                                 Qt::WindowFlags flags)
 
-  : BufferedWidget(alignment, parent, flags),
-    IVisualisation(object, visualisationName)
+    : BufferedWidget(alignment, parent, flags), IVisualisation(object, visualisationName)
 
 {
 }
-
-
 
 ag::BufferedVisualisation::~BufferedVisualisation()
 {
 }
-
-
 
 bool ag::BufferedVisualisation::close()
 {
   return BufferedWidget::close();
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

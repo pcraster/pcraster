@@ -10,8 +10,6 @@
 #include "qt_Const.h"
 #include "qtw_PaletteBar.h"
 
-
-
 /*!
   \file
   brief
@@ -20,20 +18,18 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
-namespace qtd {
+namespace qtd
+{
 
-class SelectPalettePrivate: public QWidget
+class SelectPalettePrivate : public QWidget
 {
 
 public:
-
   std::vector<qtw::PaletteBar *> d_pb;
 
-  SelectPalettePrivate(QWidget *p)
-    : QWidget(p)
+  SelectPalettePrivate(QWidget *p) : QWidget(p)
   {
     resetLayout();
     adjustSize();
@@ -54,15 +50,14 @@ public:
 
   void resetLayout()
   {
-    if(layout())
+    if (layout())
       delete layout();
 
     auto *vbox = new QVBoxLayout(this);
     vbox->addStretch(1);
 
     std::vector<qtw::PaletteBar *>::const_iterator it;
-    for(it = d_pb.begin(); it != d_pb.end(); it++)
-    {
+    for (it = d_pb.begin(); it != d_pb.end(); it++) {
       vbox->addWidget(*it);
       vbox->addStretch(1);
     }
@@ -74,19 +69,18 @@ public:
     int h = 0;
 
     std::vector<qtw::PaletteBar *>::iterator it;
-    for(it = d_pb.begin(); it != d_pb.end(); it++)
-    {
+    for (it = d_pb.begin(); it != d_pb.end(); it++) {
       // w = std::max<int>(w, (*it)->minimumSize().width());
       w = std::max<int>(w, (*it)->sizeHint().width());
       h = std::max<int>(h, (*it)->sizeHint().height());
     }
 
-    for(it = d_pb.begin(); it != d_pb.end(); it++)
+    for (it = d_pb.begin(); it != d_pb.end(); it++)
       (*it)->setMinimumSize(w, h);
 
     h += d_pb.size() * h;
 
-    if(!d_pb.empty())
+    if (!d_pb.empty())
       h += (d_pb.size() - 1) * layout()->spacing();
 
     int left = 0;
@@ -99,17 +93,13 @@ public:
 
     setMinimumSize(w, h);
   }
-
 };
 
-} // namespace qtd
-
-
+}  // namespace qtd
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -118,7 +108,7 @@ public:
 
 qtd::SelectPalette::SelectPalette(QWidget *p, const char *n)
 
-  : qt::Dialog(p, n)
+    : qt::Dialog(p, n)
 
 
 {
@@ -126,44 +116,33 @@ qtd::SelectPalette::SelectPalette(QWidget *p, const char *n)
   setCentralWidget(d_cw);
 }
 
-
-
 qtd::SelectPalette::~SelectPalette()
 {
   clean();
 }
 
-
-
 void qtd::SelectPalette::clean()
 {
-  delete d_cw; d_cw = nullptr;
+  delete d_cw;
+  d_cw = nullptr;
 }
-
-
 
 void qtd::SelectPalette::addPalette(const com::RawPalette *p)
 {
   assert(p);
 
   auto *pb = new qtw::PaletteBar(p, d_cw);
-  connect(pb, SIGNAL(mousePressed(qtw::PaletteBar *, QMouseEvent *)),
-          this, SLOT(selectPaletteBar(qtw::PaletteBar *, QMouseEvent *)));
+  connect(pb, SIGNAL(mousePressed(qtw::PaletteBar *, QMouseEvent *)), this,
+          SLOT(selectPaletteBar(qtw::PaletteBar *, QMouseEvent *)));
   d_cw->addPalette(pb);
 }
 
-
-
-void qtd::SelectPalette::selectPaletteBar(qtw::PaletteBar *pb,
-                                               QMouseEvent *e)
+void qtd::SelectPalette::selectPaletteBar(qtw::PaletteBar *pb, QMouseEvent *e)
 {
-  if(e->button() == Qt::LeftButton)
-  {
+  if (e->button() == Qt::LeftButton) {
     std::vector<qtw::PaletteBar *>::iterator it;
-    for(it = d_cw->d_pb.begin(); it != d_cw->d_pb.end(); it++)
-    {
-      if((*it)->outline())
-      {
+    for (it = d_cw->d_pb.begin(); it != d_cw->d_pb.end(); it++) {
+      if ((*it)->outline()) {
         (*it)->setOutline(false);
         (*it)->repaint();
       }
@@ -174,17 +153,13 @@ void qtd::SelectPalette::selectPaletteBar(qtw::PaletteBar *pb,
   }
 }
 
-
-
 const com::RawPalette *qtd::SelectPalette::selected() const
 {
   const com::RawPalette *p = nullptr;
 
   std::vector<qtw::PaletteBar *>::const_iterator it;
-  for(it = d_cw->d_pb.begin(); it != d_cw->d_pb.end(); it++)
-  {
-    if((*it)->outline())
-    {
+  for (it = d_cw->d_pb.begin(); it != d_cw->d_pb.end(); it++) {
+    if ((*it)->outline()) {
       p = (*it)->palette();
       break;
     }
@@ -193,12 +168,9 @@ const com::RawPalette *qtd::SelectPalette::selected() const
   return p;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -206,11 +178,9 @@ const com::RawPalette *qtd::SelectPalette::selected() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -218,9 +188,6 @@ const com::RawPalette *qtd::SelectPalette::selected() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

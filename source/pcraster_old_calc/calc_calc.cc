@@ -7,7 +7,7 @@
 #include "com_exception.h"
 #include "com_tune.h"
 #include "com_pathname.h"
-#include "calc_liberror.h" // HandleLibError
+#include "calc_liberror.h"  // HandleLibError
 #include "calc_file.h"
 #include "calc_quitforexitoption.h"
 #include "calc_quitforprogresscallback.h"
@@ -20,7 +20,6 @@
   \file
   This file contains the implementation of the Calc class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -43,7 +42,7 @@ void calc::globalInit()
   SetRan(0); /* time seed */
 
   // the misc library
-  exitOnError =0;
+  exitOnError = 0;
   errorPrefixMsg = "";
   errorHandler = HandleLibError;
 
@@ -55,11 +54,7 @@ void calc::globalInit()
 /*! sets default for doing something
     with a script
  */
-calc::Calc::Calc(
-    std::ostream& stdOut,
-    std::ostream& stdErr):
-  d_stdOut(stdOut),
-  d_stdErr(stdErr)
+calc::Calc::Calc(std::ostream &stdOut, std::ostream &stdErr) : d_stdOut(stdOut), d_stdErr(stdErr)
 {
   globalInit();
 }
@@ -71,19 +66,17 @@ calc::Calc::~Calc()
 }
 
 //! install scriptFileName as the file containing the script
-void calc::Calc::setScriptFile(
-    const com::PathName& scriptName)
+void calc::Calc::setScriptFile(const com::PathName &scriptName)
 {
-    d_lexInput.installFileScript(scriptName.toString());
-    d_script.setScriptFileName(scriptName);
+  d_lexInput.installFileScript(scriptName.toString());
+  d_script.setScriptFileName(scriptName);
 }
 
-void calc::Calc::setRunDirectory(const com::PathName&  rd)
+void calc::Calc::setRunDirectory(const com::PathName &rd)
 {
   com::PathName const externalBindingFile;
-  script().setRunDirectory(rd,externalBindingFile);
+  script().setRunDirectory(rd, externalBindingFile);
 }
-
 
 //! process arguments
 /*!
@@ -91,12 +84,10 @@ void calc::Calc::setRunDirectory(const com::PathName&  rd)
  * actions associated with the arguments
  *  \return false if no other action is needed, true otherwise
  */
-bool calc::Calc::processArgs(
-   int   argc,
-   char**argv)
+bool calc::Calc::processArgs(int argc, char **argv)
 {
 
-    /*  WE CAN USE THE APP_ARG PARSER AS LONG AS WE
+  /*  WE CAN USE THE APP_ARG PARSER AS LONG AS WE
      *  KEEP THE CONVENTION:
      *  calc options { (-f script.calc) | statement) } [; arguments]
      *  all options must be in front, if calc uses a script then there
@@ -104,69 +95,81 @@ bool calc::Calc::processArgs(
      *    there is a problem
      */
 
-    appAllOptionsMostLeft = true;
-    if (InstallArgs(argc, argv, "cd*1m0eEr*s#tTf*F*X*K*b*p",
-        "pcrcalc"))
-             throwLibError();
+  appAllOptionsMostLeft = true;
+  if (InstallArgs(argc, argv, "cd*1m0eEr*s#tTf*F*X*K*b*p", "pcrcalc"))
+    throwLibError();
 
-    typedef enum SCRIPT_TYPE {
-         SCRIPT_CMD_LINE, SCRIPT_SCRIPT_FILE, SCRIPT_SHELL_FILE
-    } SCRIPT_TYPE;
-    SCRIPT_TYPE scriptType = SCRIPT_CMD_LINE;
+  typedef enum SCRIPT_TYPE {
+    SCRIPT_CMD_LINE,
+    SCRIPT_SCRIPT_FILE,
+    SCRIPT_SHELL_FILE
+  } SCRIPT_TYPE;
+
+  SCRIPT_TYPE scriptType = SCRIPT_CMD_LINE;
 
 
-    const char *scriptName = nullptr;
-    int  shellArgsStart = 1; /* pos in argv where shellArgs start */
-    // both empty if not set
-    com::PathName runDirectory;
-    com::PathName externalBindingFile;
+  const char *scriptName = nullptr;
+  int shellArgsStart = 1; /* pos in argv where shellArgs start */
+  // both empty if not set
+  com::PathName runDirectory;
+  com::PathName externalBindingFile;
 
-    int c = 0;
-    while ( (c = GetOpt()) != 0 )
-     switch(c) {
-      case 'c' : File::d_testCaseTypeOnExistingName=true;
-           break;
-      case 'T' : d_testScriptRunableOnly = true;
-           break;
-      case 'm' :
-            script().setMVCompression(true);
-            break;
-      case '0' :
-            // -0 implies -m due to way MaskChecker()
-            // is implemented
-            script().setMVCompression(true);
-            script().set0Compression(true);
-            break;
-      case '1' : script().setWriteEachTimeStep(true);
-            break;
-      case 'e' : script().setExitValueType(calc::Script::LAST_VAL);
-            break;
-      case 'E' : script().setExitValueType(calc::Script::EXIT_ON_0);
-            break;
-      case 'r' : runDirectory=(const char *)OptArg;
-            break;
-      case 'b' : externalBindingFile=(const char *)OptArg;
-            break;
-      case 's' : {
-            int const seed = *(const int *)OptArg;
-            if (seed <= 0) // args/test26
-              throw com::Exception("-s seed must be > 0 (not "+quote(seed)+")");
-            SetRan((unsigned int)seed);
-           } break;
-      case 't' : d_printShellExpansionOnly = true;
-            break;
-      case 'd' : script().setDebugMap((const char *)OptArg);
-            break;
+  int c = 0;
+  while ((c = GetOpt()) != 0)
+    switch (c) {
+      case 'c':
+        File::d_testCaseTypeOnExistingName = true;
+        break;
+      case 'T':
+        d_testScriptRunableOnly = true;
+        break;
+      case 'm':
+        script().setMVCompression(true);
+        break;
+      case '0':
+        // -0 implies -m due to way MaskChecker()
+        // is implemented
+        script().setMVCompression(true);
+        script().set0Compression(true);
+        break;
+      case '1':
+        script().setWriteEachTimeStep(true);
+        break;
+      case 'e':
+        script().setExitValueType(calc::Script::LAST_VAL);
+        break;
+      case 'E':
+        script().setExitValueType(calc::Script::EXIT_ON_0);
+        break;
+      case 'r':
+        runDirectory = (const char *)OptArg;
+        break;
+      case 'b':
+        externalBindingFile = (const char *)OptArg;
+        break;
+      case 's': {
+        int const seed = *(const int *)OptArg;
+        if (seed <= 0)  // args/test26
+          throw com::Exception("-s seed must be > 0 (not " + quote(seed) + ")");
+        SetRan((unsigned int)seed);
+      } break;
+      case 't':
+        d_printShellExpansionOnly = true;
+        break;
+      case 'd':
+        script().setDebugMap((const char *)OptArg);
+        break;
       // case 'H' : script().setHtmlFile((const char *)OptArg);
       //      break;
-      case 'X' : script().setXmlFile((const char *)OptArg);
-            break;
-      case 'f' :
-            setScriptFile((const char *)OptArg);
-            scriptType = SCRIPT_SCRIPT_FILE;
-            shellArgsStart = 1;
-            break;
-      case 'F' : /* this is in #! mode
+      case 'X':
+        script().setXmlFile((const char *)OptArg);
+        break;
+      case 'f':
+        setScriptFile((const char *)OptArg);
+        scriptType = SCRIPT_SCRIPT_FILE;
+        shellArgsStart = 1;
+        break;
+      case 'F': /* this is in #! mode
                   * after -F the global options are given which
                   * are passed by pcrcalc itself in InstallScript
                   * OptArg now contains everything after -F
@@ -176,45 +179,44 @@ bool calc::Calc::processArgs(
                   * other arguments at the command line are put after that
                   * argument
                   */
-             scriptType = SCRIPT_SHELL_FILE;
-             shellArgsStart = 2;
-             break;
-      case 'K'  : // hack to kill EsriGrids
-             scriptName = (const char *)OptArg;
-             d_esriGridKillHack = true;
-             break;
-      case 'p'    : d_printProfileInfo =true;
-                    break;
+        scriptType = SCRIPT_SHELL_FILE;
+        shellArgsStart = 2;
+        break;
+      case 'K':  // hack to kill EsriGrids
+        scriptName = (const char *)OptArg;
+        d_esriGridKillHack = true;
+        break;
+      case 'p':
+        d_printProfileInfo = true;
+        break;
     }
 
-    if (d_esriGridKillHack) {
-      script().removeOutputObject(std::string(scriptName));
-      return false;
-    }
+  if (d_esriGridKillHack) {
+    script().removeOutputObject(std::string(scriptName));
+    return false;
+  }
 
-    script().setRunDirectory(runDirectory,externalBindingFile);
+  script().setRunDirectory(runDirectory, externalBindingFile);
 
-    argv = ArgArguments(&argc);
-    switch(scriptType) {
-     case SCRIPT_SHELL_FILE:
-              if (argc == 1) /* no arguments specified after -F in #! line */
-               throw com::Exception(
-                 "-F found in '#!' line but no succeeding options\n"
-                 "use -f instead in '#!' line");  // args/test23
-              scriptName = argv[1]; /* this is the script */
-              d_lexInput.installFileScript(scriptName);
-              /* FALLTHROUGH */
-      case SCRIPT_SCRIPT_FILE:
-        d_lexInput.installShellArgs(argc-shellArgsStart,
-                                  (const char **)argv+shellArgsStart);
-              break;
-     case SCRIPT_CMD_LINE:
-      if ( argc <= 1)
-      throw com::Exception("No expression or script specified"); // args/test27
+  argv = ArgArguments(&argc);
+  switch (scriptType) {
+    case SCRIPT_SHELL_FILE:
+      if (argc == 1) /* no arguments specified after -F in #! line */
+        throw com::Exception("-F found in '#!' line but no succeeding options\n"
+                             "use -f instead in '#!' line");  // args/test23
+      scriptName = argv[1];                                   /* this is the script */
+      d_lexInput.installFileScript(scriptName);
+      /* FALLTHROUGH */
+    case SCRIPT_SCRIPT_FILE:
+      d_lexInput.installShellArgs(argc - shellArgsStart, (const char **)argv + shellArgsStart);
+      break;
+    case SCRIPT_CMD_LINE:
+      if (argc <= 1)
+        throw com::Exception("No expression or script specified");  // args/test27
       else
-       d_lexInput.installArgvScript(argc-1, (const char **)(argv+1));
-    }
-    return true;
+        d_lexInput.installArgvScript(argc - 1, (const char **)(argv + 1));
+  }
+  return true;
 }
 
 //! parse the input script, building symbol table and code tree
@@ -228,10 +230,10 @@ bool calc::Calc::processArgs(
 void calc::Calc::parse()
 {
   try {
-   ParserInput pi(d_lexInput);
-   ModelParser const mp(pi,script());
-   script().htmlPrint();
-  } catch(const Element::SyntaxErrorBug&) {
+    ParserInput pi(d_lexInput);
+    ModelParser const mp(pi, script());
+    script().htmlPrint();
+  } catch (const Element::SyntaxErrorBug &) {
     // pcrcalc/test345(ab)
     throw com::Exception("Syntax Error");
   }
@@ -245,29 +247,25 @@ void calc::Calc::parse()
 int calc::Calc::executeScript()
 {
   try {
-   d_executeScriptStatus = ErrorExecScript;
-   script().run();
-   d_executeScriptStatus = FinishedExecScript;
-  }
-  catch (const QuitForExitOption&) {
-   // thrown by
-   // calc::Script::processFileOutputValue
-   d_executeScriptStatus = FileOutputValueExecScript;
-   }
-  catch (const QuitForProgressCallBack&){
-     // Script::updateProgress is already updated
+    d_executeScriptStatus = ErrorExecScript;
+    script().run();
+    d_executeScriptStatus = FinishedExecScript;
+  } catch (const QuitForExitOption &) {
+    // thrown by
+    // calc::Script::processFileOutputValue
+    d_executeScriptStatus = FileOutputValueExecScript;
+  } catch (const QuitForProgressCallBack &) {
+    // Script::updateProgress is already updated
     d_executeScriptStatus = CanceledExecScript;
-   }
- return  script().exitVal();
+  }
+  return script().exitVal();
 }
 
 //! returns the  ExecuteScriptStatus set in last call to executeScript()
-calc::ExecuteScriptStatus
-   calc::Calc::executeScriptStatus() const
+calc::ExecuteScriptStatus calc::Calc::executeScriptStatus() const
 {
-    return d_executeScriptStatus;
+  return d_executeScriptStatus;
 }
-
 
 //! runs execute(), catching all errors and putting it on Calc::d_stdErr
 /*!
@@ -278,14 +276,16 @@ calc::ExecuteScriptStatus
  */
 int calc::Calc::run(int returnValueOnException)
 {
- int status=returnValueOnException;
- extern void dumpZero();
+  int status = returnValueOnException;
+  extern void dumpZero();
 
- TRY_ALL {
-   status = execute();
- } CATCH_ALL_EXCEPTIONS(d_stdErr);
- // dumpZero();
- return status;
+  TRY_ALL
+  {
+    status = execute();
+  }
+  CATCH_ALL_EXCEPTIONS(d_stdErr);
+  // dumpZero();
+  return status;
 }
 
 void calc::Calc::setProgressCallBack(ProgressCallBack *pcb)
@@ -314,16 +314,17 @@ bool calc::Calc::printProfileInfo() const
  */
 int calc::runScriptFile(const char *scriptName)
 {
-  appOutput=APP_NOOUT;
-  Script   s;
+  appOutput = APP_NOOUT;
+  Script s;
   com::PathName const sn(scriptName);
   ParserInput pi(sn);
 
-  ModelParser const mp(pi,s);
+  ModelParser const mp(pi, s);
 
   s.run();
   return s.exitVal();
 }
+
 //! run script \a scriptName with global setting --nothing
 /*! currently only used in test modules
    \returns as Calc::run() does
@@ -331,17 +332,15 @@ int calc::runScriptFile(const char *scriptName)
  */
 int calc::runScriptString(const char *script)
 {
-  appOutput=APP_NOOUT;
-  Script   s;
+  appOutput = APP_NOOUT;
+  Script s;
   std::string const si(script);
   ParserInput pi(si);
 
-  ModelParser const mp(pi,s);
+  ModelParser const mp(pi, s);
 
   s.run();
   return s.exitVal();
 
   return 0;
 }
-
-

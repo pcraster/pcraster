@@ -3,13 +3,10 @@
 #include "calc_spatialpacking.h"
 #include "calc_field.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the UnpackedSrc class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -35,11 +32,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC UNPACKEDSRC MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -51,18 +46,15 @@ public:
  * \param sp packing
  * \param packed field in possible \a sp packed form
  */
-calc::UnpackedSrc::UnpackedSrc( const SpatialPacking& sp,
-                                const Field* packed):
- d_sp(sp),d_packed(packed)
+calc::UnpackedSrc::UnpackedSrc(const SpatialPacking &sp, const Field *packed)
+    : d_sp(sp), d_packed(packed)
 {
 }
-
-
 
 calc::UnpackedSrc::~UnpackedSrc()
 {
   if (d_packed != d_unpacked)
-      delete d_unpacked;
+    delete d_unpacked;
 }
 
 /* NOT IMPLEMENTED
@@ -82,12 +74,10 @@ calc::UnpackedSrc::UnpackedSrc(const UnpackedSrc& rhs):
 */
 
 //! return field as a (use-only) source
-const calc::Field* calc::UnpackedSrc::src()
+const calc::Field *calc::UnpackedSrc::src()
 {
   if (!d_unpacked)
-    d_unpacked= d_packed->isSpatial()  ?
-                 d_sp.unpack(d_packed) :
-                 d_packed;
+    d_unpacked = d_packed->isSpatial() ? d_sp.unpack(d_packed) : d_packed;
   return d_unpacked;
 }
 
@@ -96,10 +86,6 @@ const calc::Field* calc::UnpackedSrc::src()
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

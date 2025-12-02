@@ -9,29 +9,23 @@
 #include "calc_field.h"
 #include "calc_p5stack.h"
 
-
 // NOTE use string failureExpected in files expected to fail, see style guide
 
-struct Fixture
-{
+struct Fixture {
 
-    Fixture()
-    {
-        calc::globalInit();
-    }
+  Fixture()
+  {
+    calc::globalInit();
+  }
 
-
-    ~Fixture()
-    {
-        calc::globalEnd();
-    }
-
+  ~Fixture()
+  {
+    calc::globalEnd();
+  }
 };
 
 
-
 BOOST_FIXTURE_TEST_SUITE(dynamicwave, Fixture)
-
 
 BOOST_AUTO_TEST_CASE(testSimpleInput)
 {
@@ -39,11 +33,11 @@ BOOST_AUTO_TEST_CASE(testSimpleInput)
 
   // pcrcalc507 basic dynamicwave
   // profileId=0,H=1,A=2,P=3
-  com::write("1 0 0 1\n1 1 2000 2000","tmp507.tbl");
+  com::write("1 0 0 1\n1 1 2000 2000", "tmp507.tbl");
 
   // first run no tests
   execTest("pcrcalc507");
-/*
+  /*
   // next some alterations:
   const char* pcrcalc507a=" \
       report tmp.state,tmp.flux=\n \

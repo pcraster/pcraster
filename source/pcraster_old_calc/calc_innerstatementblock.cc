@@ -2,10 +2,8 @@
 #include "calc_innerstatementblock.h"
 #include "calc_usersymbol.h"
 
-calc::InnerStatementBlock::InnerStatementBlock(
-  const calc::Element& p,
-  calc::StatementBlock *parentBlock):
-  calc::StatementBlock(p,parentBlock)
+calc::InnerStatementBlock::InnerStatementBlock(const calc::Element &p, calc::StatementBlock *parentBlock)
+    : calc::StatementBlock(p, parentBlock)
 {
 }
 
@@ -18,7 +16,7 @@ calc::InnerStatementBlock::~InnerStatementBlock()
 {
 }
 
-void calc::InnerStatementBlock::print(calc::InfoScript& i) const
+void calc::InnerStatementBlock::print(calc::InfoScript &i) const
 {
   printBlock(i);
 }

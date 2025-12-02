@@ -1,13 +1,10 @@
 #include "stddefx.h"
 #include "calc_objectlink.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the ObjectLink class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -33,11 +30,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC OBJECTLINK MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -54,8 +49,6 @@ calc::ObjectLink::ObjectLink()
 {
 }
 
-
-
 /* NOT IMPLEMENTED
 //! Copy constructor.
 calc::ObjectLink::ObjectLink(ObjectLink const& rhs)
@@ -67,12 +60,9 @@ calc::ObjectLink::ObjectLink(ObjectLink const& rhs)
 */
 
 
-
 calc::ObjectLink::~ObjectLink()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -101,16 +91,11 @@ calc::OVS calc::ObjectLink::ovs() const
   return VS_OBJECT;
 }
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

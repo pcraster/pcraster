@@ -6,15 +6,14 @@
 #include "calc_iscript.h"
 #include "calc_compressor.h"
 
-calc::FieldExpr::FieldExpr(
-  const calc::Element& name):
-  calc::Element(name)
+calc::FieldExpr::FieldExpr(const calc::Element &name) : calc::Element(name)
 {
 }
 
 calc::FieldExpr::~FieldExpr()
 {
 }
+
 VS calc::FieldExpr::vs() const
 {
   return fieldType().vs();
@@ -44,11 +43,11 @@ calc::FieldHandle calc::FieldExpr::createResultField() const
 {
   VS const v = biggestVs(vs());
   if (spatial())
-    return new Spatial(v,compressor().nrCellsCompressed(),true);
+    return new Spatial(v, compressor().nrCellsCompressed(), true);
   return new NonSpatial(v);
 }
 
-const calc::Compressor& calc::FieldExpr::compressor() const
+const calc::Compressor &calc::FieldExpr::compressor() const
 {
   return scriptConst().compressor();
 }

@@ -1,12 +1,11 @@
 #include "stddefx.h"
 #include "pcrcalc.h"
-#include "appargs.h" // APP_IO_STRATEGY
+#include "appargs.h"  // APP_IO_STRATEGY
 #include "com_pathname.h"
 #include "pcrxml_document.h"
 #include "calc_clientinterface.h"
 #include "calc_wldelfthabitat.h"
 #include "calc_catchallexceptions.h"
-
 
 /*! \todo
  *  make sure only one instance is created
@@ -24,40 +23,45 @@
 struct PcrScriptImpl {
 public:
   //! empty if no error
-  mutable std::ostringstream  d_errorStream;
+  mutable std::ostringstream d_errorStream;
   //! the buffer that remains valid
-  std::string                 d_errorMsg;
+  std::string d_errorMsg;
 
-  void clean() {
-    delete d_ci; d_ci=nullptr;
-    delete d_wl; d_wl=nullptr;
+  void clean()
+  {
+    delete d_ci;
+    d_ci = nullptr;
+    delete d_wl;
+    d_wl = nullptr;
   }
-  void cleanOnError() {
+
+  void cleanOnError()
+  {
     if (!errorMessage().empty())
       clean();
   }
-public:
-  calc::ClientInterface  *d_ci{nullptr};
-  calc::WlDelftHabitat   *d_wl{nullptr};
 
-  PcrScriptImpl(const char* scriptName);
+public:
+  calc::ClientInterface *d_ci{nullptr};
+  calc::WlDelftHabitat *d_wl{nullptr};
+
+  PcrScriptImpl(const char *scriptName);
 
   ~PcrScriptImpl();
 
   void run();
 
-  const std::string&  errorMessage()
+  const std::string &errorMessage()
   {
-   d_errorMsg=d_errorStream.str();
-   return d_errorMsg;
+    d_errorMsg = d_errorStream.str();
+    return d_errorMsg;
   }
-
 };
 
 #include <iostream>
 
 extern std::string hackMsg;
-static struct PcrScriptImpl *hackScript=nullptr;
+static struct PcrScriptImpl *hackScript = nullptr;
 
 /*
  static void foo()
@@ -79,79 +83,83 @@ static struct PcrScriptImpl *hackScript=nullptr;
 }
 */
 
-PcrScriptImpl::PcrScriptImpl(const char* scriptName)
+PcrScriptImpl::PcrScriptImpl(const char *scriptName)
 {
-    // multi-threaded, qt as shared lib needs this!
-    // std::set_terminate(foo);
+  // multi-threaded, qt as shared lib needs this!
+  // std::set_terminate(foo);
 
-    bool unknownDE(false);
-    TRY_ALL {
-      if (!scriptName)
-        throw com::Exception("call to pcr_createScript with 0 ptr argument");
-      com::PathName const pn(scriptName);
-      try {
-        pcrxml::Document const doc(pn);
-        QDomElement const de(doc.documentElement());
-        // if here then it is xml
-        if(de.tagName() == "Root" &&
-            (de.attribute("class") == "nl.wldelft.habitat.CaseHabitat" ||
-             de.attribute("class") == "nl.wldelft.spatialanalysis.damage.CaseDamage")
-          ){ appIOstrategy=APP_IO_BANDMAP;
-             d_wl = new calc::WlDelftHabitat(pn);
-        } else {
-          unknownDE=true;
-          std::ostringstream msg;
-          msg << "document element '"
-              << std::string(de.tagName().toLatin1())
-              << "' is not a valid PCRaster script tag";
-          throw com::FileFormatError(pn,msg.str());
-        }
-      } catch (...) {
-        if (unknownDE)
-          throw;
-        // a normal script
-        d_ci = new calc::ClientInterface();
-        d_ci->setScriptFile(scriptName);
+  bool unknownDE(false);
+  TRY_ALL
+  {
+    if (!scriptName)
+      throw com::Exception("call to pcr_createScript with 0 ptr argument");
+    com::PathName const pn(scriptName);
+    try {
+      pcrxml::Document const doc(pn);
+      QDomElement const de(doc.documentElement());
+      // if here then it is xml
+      if (de.tagName() == "Root" &&
+          (de.attribute("class") == "nl.wldelft.habitat.CaseHabitat" ||
+           de.attribute("class") == "nl.wldelft.spatialanalysis.damage.CaseDamage")) {
+        appIOstrategy = APP_IO_BANDMAP;
+        d_wl = new calc::WlDelftHabitat(pn);
+      } else {
+        unknownDE = true;
+        std::ostringstream msg;
+        msg << "document element '" << std::string(de.tagName().toLatin1())
+            << "' is not a valid PCRaster script tag";
+        throw com::FileFormatError(pn, msg.str());
       }
-    } CATCH_ALL_EXCEPTIONS(d_errorStream);
-    cleanOnError();
-    hackScript=this;
+    } catch (...) {
+      if (unknownDE)
+        throw;
+      // a normal script
+      d_ci = new calc::ClientInterface();
+      d_ci->setScriptFile(scriptName);
+    }
+  }
+  CATCH_ALL_EXCEPTIONS(d_errorStream);
+  cleanOnError();
+  hackScript = this;
 }
 
-PcrScriptImpl::~PcrScriptImpl() {
-  hackScript=nullptr;
+PcrScriptImpl::~PcrScriptImpl()
+{
+  hackScript = nullptr;
   clean();
 }
 
 void PcrScriptImpl::run()
 {
-  TRY_ALL {
-       if (d_ci) {
-           d_ci->run();
-           if (d_ci->executeScriptStatus()==calc::ErrorExecScript)
-              d_errorStream<<d_ci->errorMsg();
-       }
-       if (d_wl) {
-           d_wl->parseXml();
-           d_wl->execute();
-       }
-  } CATCH_ALL_EXCEPTIONS(d_errorStream);
+  TRY_ALL
+  {
+    if (d_ci) {
+      d_ci->run();
+      if (d_ci->executeScriptStatus() == calc::ErrorExecScript)
+        d_errorStream << d_ci->errorMsg();
+    }
+    if (d_wl) {
+      d_wl->parseXml();
+      d_wl->execute();
+    }
+  }
+  CATCH_ALL_EXCEPTIONS(d_errorStream);
   cleanOnError();
 }
 
 /*
  */
-extern "C" PCR_DLL_FUNC(PcrScriptImpl*) pcr_createScript(const char* scriptName)
+extern "C" PCR_DLL_FUNC(PcrScriptImpl *) pcr_createScript(const char *scriptName)
 {
   PcrScriptImpl *ps(nullptr);
   try {
-   ps = new PcrScriptImpl(scriptName);
+    ps = new PcrScriptImpl(scriptName);
   } catch (...) {
     // only here on std::bad_alloc for the few
     // bytes of PcrScriptImpl
     // other situs are catched with the TRY_ALL
     delete ps;
-    ps=nullptr;
+    ps = nullptr;
   }
   return ps;
 }
@@ -167,14 +175,15 @@ extern "C" PCR_DLL_FUNC(void) pcr_ScriptExecute(PcrScriptImpl *script)
 extern "C" PCR_DLL_FUNC(int) pcr_ScriptError(PcrScriptImpl *script)
 {
   if (!script)
-    return -1; // BAD!
+    return -1;  // BAD!
   return script->errorMessage().size();
 }
-extern "C" PCR_DLL_FUNC(const  char*) pcr_ScriptErrorMessage(PcrScriptImpl *script)
+
+extern "C" PCR_DLL_FUNC(const char *) pcr_ScriptErrorMessage(PcrScriptImpl *script)
 {
   if (!script)
     return "Error: called pcr_ScriptErrorMessage with 0 ptr";
- return script->errorMessage().c_str();
+  return script->errorMessage().c_str();
 }
 
 extern "C" PCR_DLL_FUNC(void) pcr_destroyScript(PcrScriptImpl *script)

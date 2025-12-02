@@ -1,12 +1,10 @@
 #include "stddefx.h"
 #include "calc_timer.h"
 
-
 /*!
   \file
   This file contains the implementation of the Timer class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -32,11 +30,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC TIMER MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -45,11 +41,9 @@ public:
 
 //! ctor, as a static timer
 calc::Timer::Timer()
-  
+
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -62,12 +56,9 @@ calc::Timer::Timer(Timer const& rhs)
 */
 
 
-
 calc::Timer::~Timer()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -82,19 +73,19 @@ calc::Timer& calc::Timer::operator=(Timer const& rhs)
 //! set value of d_currentInt
 void calc::Timer::setCurrentInt(size_t currentInt)
 {
-  d_currentInt=currentInt;
+  d_currentInt = currentInt;
 }
 
 //! set value of d_startInt
 void calc::Timer::setStartInt(size_t startInt)
 {
-  d_startInt=startInt;
+  d_startInt = startInt;
 }
 
 //! set value of d_lastInt
 void calc::Timer::setLastInt(size_t lastInt)
 {
-  d_lastInt=lastInt;
+  d_lastInt = lastInt;
 }
 
 //! get value of d_currentInt
@@ -120,25 +111,20 @@ bool calc::Timer::dynamic() const
   return d_lastInt != 0;
 }
 
-void  calc::Timer::increment()
+void calc::Timer::increment()
 {
   if (d_currentInt)
     ++d_currentInt;
   else {
-    d_currentInt=d_startInt;
+    d_currentInt = d_startInt;
   }
 }
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

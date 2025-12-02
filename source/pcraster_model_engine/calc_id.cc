@@ -1,16 +1,14 @@
 #include "stddefx.h"
 #include "calc_id.h"
 #include "calc_symexception.h"
-#include "calc_positionname.h" // TmpId
+#include "calc_positionname.h"  // TmpId
 #include "calc_position.h"
 #include "calc_quote.h"
-
 
 /*!
   \file
   This file contains the implementation of the Id class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -36,19 +34,16 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC ID MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF ID MEMBERS
 //------------------------------------------------------------------------------
 
-calc::TmpId::TmpId(const std::string& name):
-  Id()
+calc::TmpId::TmpId(const std::string &name) : Id()
 {
   PositionName pn("<noPosition>");
   setPosition(&pn);
@@ -56,15 +51,13 @@ calc::TmpId::TmpId(const std::string& name):
 }
 
 calc::Id::Id()
-  
+
 {
 }
 
-
-calc::Id::Id(const std::string &name, const Position *position):
-  d_name(name)
+calc::Id::Id(const std::string &name, const Position *position) : d_name(name)
 {
-    d_position=position->createClone();
+  d_position = position->createClone();
 }
 
 calc::Id::~Id()
@@ -73,50 +66,47 @@ calc::Id::~Id()
 }
 
 //! Assignment operator.
-calc::Id& calc::Id::operator=(const Id& rhs)
+calc::Id &calc::Id::operator=(const Id &rhs)
 {
   if (this != &rhs) {
-    d_name=rhs.d_name;
+    d_name = rhs.d_name;
     setPosition(rhs.d_position);
   }
   return *this;
 }
 
 //! Copy constructor.
-calc::Id::Id(const Id& rhs):
-  d_name(rhs.d_name)
+calc::Id::Id(const Id &rhs) : d_name(rhs.d_name)
 {
   setPosition(rhs.d_position);
 }
 
-
-void  calc::Id::symError(const std::string& msg) const
+void calc::Id::symError(const std::string &msg) const
 {
-  throw SymException(*position(),name(),msg);
+  throw SymException(*position(), name(), msg);
 }
-
 
 //! (re)set value of name
 /*!
  * \pre d_position != 0; this is not default constructed
  */
-void calc::Id::setName(const std::string& name)
+void calc::Id::setName(const std::string &name)
 {
   PRECOND(d_position);
-  d_name=name;
+  d_name = name;
 }
 
 //! set value of position
-void calc::Id::setPosition(const Position* position)
+void calc::Id::setPosition(const Position *position)
 {
   delete d_position;
-  d_position=nullptr;
+  d_position = nullptr;
   if (position)
-    d_position=position->createClone();
+    d_position = position->createClone();
 }
 
 //! get value of name
-const std::string& calc::Id::name() const
+const std::string &calc::Id::name() const
 {
   return d_name;
 }
@@ -127,7 +117,7 @@ std::string calc::Id::qName() const
 }
 
 //! get value of position
-calc::Position* calc::Id::position() const
+calc::Position *calc::Id::position() const
 {
   return d_position;
 }
@@ -135,44 +125,39 @@ calc::Position* calc::Id::position() const
 //! are there no action done after the default constructor?
 bool calc::Id::empty() const
 {
-  PRECOND( (d_position == nullptr) == d_name.empty());
+  PRECOND((d_position == nullptr) == d_name.empty());
   return d_position == nullptr;
 }
 
-void calc::Id::posError(const std::string& msg) const
+void calc::Id::posError(const std::string &msg) const
 {
   d_position->throwError(msg);
 }
 
-void calc::Id::posError(const std::ostringstream& msg) const
+void calc::Id::posError(const std::ostringstream &msg) const
 {
   posError(msg.str());
 }
 
-std::string calc::Id::shortPosText     () const
+std::string calc::Id::shortPosText() const
 {
   return d_position->shortText();
 }
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
-bool calc::operator<(const Id& lhs, const Id& rhs)
+bool calc::operator<(const Id &lhs, const Id &rhs)
 {
   return lhs.name() < rhs.name();
 }
-bool calc::operator==(const Id& lhs, const Id& rhs)
+
+bool calc::operator==(const Id &lhs, const Id &rhs)
 {
   return lhs.name() == rhs.name();
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

@@ -3,7 +3,7 @@
 #include "appargs.h"
 #include "calc_usepar.h"
 #include "calc_symboltable.h"
-#include "calc_field.h"     // FieldHandle
+#include "calc_field.h"  // FieldHandle
 #include "calc_fieldmapinputparameter.h"
 #include "calc_map2csf.h"
 #include "calc_usersymbol.h"
@@ -25,86 +25,86 @@
 #include "calc_nullcompressor.h"
 #include <cstring>
 
-namespace calc {
+namespace calc
+{
 
 static ProgressCallBack defaultProgressCallBack;
 }
 
-
 /* \brief ctor
  */
-calc::Script::Script():
-    StatementBlock(generatedSymbol("script","script"),nullptr),
-    d_progressCallBack(&defaultProgressCallBack)
-    
+calc::Script::Script()
+    : StatementBlock(generatedSymbol("script", "script"), nullptr),
+      d_progressCallBack(&defaultProgressCallBack)
+
 {
- d_ioFieldStrategy = IoFieldStrategy::createOnGlobalOption();
- d_symTab          = new SymbolTable(nullptr);
- // Make sure the singleton instance is clean.
- ExternalSymbols::clear();
+  d_ioFieldStrategy = IoFieldStrategy::createOnGlobalOption();
+  d_symTab = new SymbolTable(nullptr);
+  // Make sure the singleton instance is clean.
+  ExternalSymbols::clear();
 }
 
 calc::Script::~Script()
 {
-    delete [] d_areaMask;
-    delete d_areaMap;
-    delete d_compressor;
-    ExternalSymbols::clear();
-    delete d_symTab;
-    delete d_ioFieldStrategy;
+  delete[] d_areaMask;
+  delete d_areaMap;
+  delete d_compressor;
+  ExternalSymbols::clear();
+  delete d_symTab;
+  delete d_ioFieldStrategy;
 }
 
 //! see Script::d_fileOutputStream
-void calc::Script::setFileOutputStream(std::ostream* fileOutputStream)
+void calc::Script::setFileOutputStream(std::ostream *fileOutputStream)
 {
   d_fileOutputStream = fileOutputStream;
 }
 
 //! output html description file (broken;incomplete)
-void calc::Script::setHtmlFile(const std::string&  htmlFile)
+void calc::Script::setHtmlFile(const std::string &htmlFile)
 {
   PRECOND(!htmlFile.empty());
-  d_htmlFile=htmlFile;
+  d_htmlFile = htmlFile;
 }
 
 //! output xml description file
-void calc::Script::setXmlFile(const std::string&  xmlFile)
+void calc::Script::setXmlFile(const std::string &xmlFile)
 {
   PRECOND(!xmlFile.empty());
-  d_xmlFile=xmlFile;
+  d_xmlFile = xmlFile;
 }
 
-void calc::Script::setScriptFileName(const com::PathName& scriptFileName)
+void calc::Script::setScriptFileName(const com::PathName &scriptFileName)
 {
-  d_scriptFileName=scriptFileName;
+  d_scriptFileName = scriptFileName;
 }
 
 //! activate the debugging of assignments
-void calc::Script::setDebugMap(const std::string&  debugMapName)
+void calc::Script::setDebugMap(const std::string &debugMapName)
 {
   PRECOND(!debugMapName.empty());
-  d_debugMapName=debugMapName;
+  d_debugMapName = debugMapName;
 }
 
 void calc::Script::setWriteEachTimeStep(bool enable)
 {
-  d_writeEachTimeStep=enable;
+  d_writeEachTimeStep = enable;
 }
 
-void calc::Script::setMVCompression (bool enable)
+void calc::Script::setMVCompression(bool enable)
 {
- d_compression=enable;
+  d_compression = enable;
 }
 
-void calc::Script::set0Compression (bool enable)
+void calc::Script::set0Compression(bool enable)
 {
- d_0compression=enable;
+  d_0compression = enable;
 }
 
 //! set report of exit value
 void calc::Script::setExitValueType(ExitValueType exitValueType)
 {
- d_exitValueType=exitValueType;
+  d_exitValueType = exitValueType;
 }
 
 //! set run directory, will activate the Model Run Organizer
@@ -114,11 +114,11 @@ void calc::Script::setExitValueType(ExitValueType exitValueType)
    no directory set
    \arg externalBindingsFile external bindings file, empty is not set
 */
-void calc::Script::setRunDirectory(const com::PathName& runDirectory,
-                                   const com::PathName&  externalBindingsFile)
+void calc::Script::setRunDirectory(const com::PathName &runDirectory,
+                                   const com::PathName &externalBindingsFile)
 {
   d_runDirectory.setRunDirectory(runDirectory, externalBindingsFile);
-  d_bindingTable.setExternalBindings(this,d_runDirectory);
+  d_bindingTable.setExternalBindings(this, d_runDirectory);
 }
 
 /*! set/resets the strategy
@@ -138,12 +138,12 @@ void calc::Script::recheckIoFieldStrategy() const
   PRECOND(d_ioFieldStrategy);
   if (appIOstrategy != d_ioFieldStrategy->strategyType()) {
     delete d_ioFieldStrategy;
-    d_ioFieldStrategy=nullptr;
+    d_ioFieldStrategy = nullptr;
     d_ioFieldStrategy = IoFieldStrategy::createOnGlobalOption();
- }
+  }
 }
 
-calc::IoFieldStrategy& calc::Script::ioFieldStrategyMod()
+calc::IoFieldStrategy &calc::Script::ioFieldStrategyMod()
 {
   recheckIoFieldStrategy();
   PRECOND(d_ioFieldStrategy);
@@ -151,59 +151,56 @@ calc::IoFieldStrategy& calc::Script::ioFieldStrategyMod()
 }
 
 //! return ioFieldStrategy
-const calc::IoFieldStrategy& calc::Script::ioFieldStrategy() const
+const calc::IoFieldStrategy &calc::Script::ioFieldStrategy() const
 {
   recheckIoFieldStrategy();
   PRECOND(d_ioFieldStrategy);
   return *d_ioFieldStrategy;
 }
 
-
 bool calc::Script::esriGridIO() const
 {
   return ioFieldStrategy().strategyType() == APP_IO_ESRIGRID;
 }
 
-bool  calc::Script::writeEachTimeStep() const
+bool calc::Script::writeEachTimeStep() const
 {
-    return d_writeEachTimeStep;
+  return d_writeEachTimeStep;
 }
 
-bool  calc::Script::debugMvAssignments() const
+bool calc::Script::debugMvAssignments() const
 {
-    return !d_debugMapName.isEmpty();
+  return !d_debugMapName.isEmpty();
 }
 
-bool  calc::Script::zeroCompression() const
+bool calc::Script::zeroCompression() const
 {
-    return d_0compression;
+  return d_0compression;
 }
-
 
 std::string calc::Script::debugMapName() const
 {
-    PRECOND(!d_debugMapName.isEmpty());
-    return d_debugMapName.toString();
+  PRECOND(!d_debugMapName.isEmpty());
+  return d_debugMapName.toString();
 }
 
 unsigned char *calc::Script::areaMask() const
 {
-    return d_areaMask;
+  return d_areaMask;
 }
 
-const calc::Symbol* calc::Script::findBinding(const std::string& name) const
+const calc::Symbol *calc::Script::findBinding(const std::string &name) const
 {
   return d_bindingTable.find(name);
 }
-
 
 //! add a binding
 /*!
  * \param vs if given as a typed constant
  */
-void calc::Script::addBinding(const Symbol& left, const Symbol& right, VS vs)
+void calc::Script::addBinding(const Symbol &left, const Symbol &right, VS vs)
 {
-    d_bindingTable.add(left,right,vs);
+  d_bindingTable.add(left, right, vs);
 }
 
 /*! evaluate current bindings and move to those attched to a
@@ -211,12 +208,10 @@ void calc::Script::addBinding(const Symbol& left, const Symbol& right, VS vs)
  */
 void calc::Script::evaluateBindings()
 {
-  std::vector<UserSymbol *>
-    const newPars(d_bindingTable.moveConstantToParameters(this));
-  for(auto & newPar : newPars)
+  std::vector<UserSymbol *> const newPars(d_bindingTable.moveConstantToParameters(this));
+  for (auto &newPar : newPars)
     addSymbol(newPar);
 }
-
 
 //! add symbol to symbol table of whole script
 /*!  if duplicate then delete
@@ -227,139 +222,130 @@ void calc::Script::evaluateBindings()
  */
 void calc::Script::addSymbol(UserSymbol *newPar)
 {
-    d_symTab->add(newPar);
+  d_symTab->add(newPar);
 }
 
 void calc::Script::run()
 {
-    d_runDirectory.setupForExecution();
+  d_runDirectory.setupForExecution();
 
-    // start indicator
-    updateProgress(LoopPulse,0);
+  // start indicator
+  updateProgress(LoopPulse, 0);
 
-    d_symTab->goInScope();
+  d_symTab->goInScope();
 
-    calc::StatementBlock::run();
+  calc::StatementBlock::run();
 
-    // completion indicator
-    updateProgress(LoopPulse,nrTimeSteps()+1);
+  // completion indicator
+  updateProgress(LoopPulse, nrTimeSteps() + 1);
 }
 
 void calc::Script::executeBlock()
 {
-    executeStatements();
+  executeStatements();
 }
 
-calc::UserSymbol *calc::Script::findSymbol(const calc::Symbol* sym,
-        VS typesExpected, bool mustExist) const
+calc::UserSymbol *calc::Script::findSymbol(const calc::Symbol *sym, VS typesExpected,
+                                           bool mustExist) const
 {
-    return d_symTab->find(sym, typesExpected, mustExist);
+  return d_symTab->find(sym, typesExpected, mustExist);
 }
 
-calc::SubParameter *calc::Script::findRightParameter(
-          const ParsPar& par,
-        VS expectedVs ) const
+calc::SubParameter *calc::Script::findRightParameter(const ParsPar &par, VS expectedVs) const
 {
-    return d_symTab->findRightParameter(par, expectedVs);
+  return d_symTab->findRightParameter(par, expectedVs);
 }
 
-calc::SubParameter *calc::Script::findLeftParameter(
-          const ParsPar& par,
-        VS expectedVs ) const
+calc::SubParameter *calc::Script::findLeftParameter(const ParsPar &par, VS expectedVs) const
 {
-    return d_symTab->findLeftParameter(par, expectedVs);
+  return d_symTab->findLeftParameter(par, expectedVs);
 }
 
-void calc::Script::setTimer(
-    size_t start,
-    size_t end,
-    size_t slice)
+void calc::Script::setTimer(size_t start, size_t end, size_t slice)
 {
   d_timerStart = start;
-  d_timerEnd   =   end;
+  d_timerEnd = end;
   d_timerSlice = slice;
   POSTCOND(d_timerStart == 1);
   POSTCOND(d_timerSlice == 1);
   POSTCOND(d_timerStart <= d_timerEnd);
 }
 
-void calc::Script::setTimer(
-    const Symbol& tssIn)
+void calc::Script::setTimer(const Symbol &tssIn)
 {
- BindedSymbol tss(tssIn);
- tss.setInputFilePath();
- try {
-  TimeTable const tt(tss.externalName());
-  d_timerStart = 1;
-  d_timerEnd   = tt.nrTimeSteps();;
-  d_timerSlice = 1;
- } catch(const com::Exception& e) {
-   tss.posError(e.messages());
- }
+  BindedSymbol tss(tssIn);
+  tss.setInputFilePath();
+  try {
+    TimeTable const tt(tss.externalName());
+    d_timerStart = 1;
+    d_timerEnd = tt.nrTimeSteps();
+    ;
+    d_timerSlice = 1;
+  } catch (const com::Exception &e) {
+    tss.posError(e.messages());
+  }
 }
 
 //! adjust and check model tree
 void calc::Script::buildScript()
 {
-   // when building the script
-   // BuildType is already called
-   // NOTE that with multiple retyping only the spatial vs. non-spatial
-   // should be adjusted, thus type-related syntax error are only found
-   // in the first run. (when building the tree)
+  // when building the script
+  // BuildType is already called
+  // NOTE that with multiple retyping only the spatial vs. non-spatial
+  // should be adjusted, thus type-related syntax error are only found
+  // in the first run. (when building the tree)
 
-   // Now call it again, ONLY to fix for
-   // non-spatial -> spatial promotion
-   while (buildTypes())
-       /* just do buildTypes 'till solved */;    // pcrcalc/test60
+  // Now call it again, ONLY to fix for
+  // non-spatial -> spatial promotion
+  while (buildTypes())
+    /* just do buildTypes 'till solved */;  // pcrcalc/test60
 
-   prepareExecution();
+  prepareExecution();
 
-   d_symTab->finalCheck();
+  d_symTab->finalCheck();
 
-   if (d_stats.size() == 0)
-        throw com::Exception("Empty model script, nothing to execute");
+  if (d_stats.size() == 0)
+    throw com::Exception("Empty model script, nothing to execute");
 
-   setupClone();
+  setupClone();
 
 
-   if (!d_xmlFile.isEmpty()) {
-     pcrxml::Script s;
-     s.ioStrategy = ioFieldStrategy().xmlType();
-     s.scriptType= isDynamicModel() ? pcrxml::ScriptType::Dynamic :
-                                      pcrxml::ScriptType::Static;
-     if (!d_scriptFileName.isEmpty()) // cmd line otherwise
-       s.scriptFileName =  d_scriptFileName.toString();
-     if (isDynamicModel()) {
+  if (!d_xmlFile.isEmpty()) {
+    pcrxml::Script s;
+    s.ioStrategy = ioFieldStrategy().xmlType();
+    s.scriptType = isDynamicModel() ? pcrxml::ScriptType::Dynamic : pcrxml::ScriptType::Static;
+    if (!d_scriptFileName.isEmpty())  // cmd line otherwise
+      s.scriptFileName = d_scriptFileName.toString();
+    if (isDynamicModel()) {
       /*
        * s.integerTimer        = new pcrxml::IntegerTimer();
        * s.integerTimer->start = d_timerStart;
        * s.integerTimer->end   = d_timerEnd;
        * s.integerTimer->step  = d_timerSlice;
        */
-     }
-     s.scriptData = new pcrxml::ScriptData();
-     d_symTab->createXmlData(s.scriptData->data);
-     s.write(d_xmlFile);
-   }
+    }
+    s.scriptData = new pcrxml::ScriptData();
+    d_symTab->createXmlData(s.scriptData->data);
+    s.write(d_xmlFile);
+  }
 }
 
-const geo::RasterSpace& calc::Script::rasterSpace() const
+const geo::RasterSpace &calc::Script::rasterSpace() const
 {
-    return ioFieldStrategy().rasterSpace();
+  return ioFieldStrategy().rasterSpace();
 }
 
 /* will only return a valid Compressor after buildScript() is executed
  */
-const calc::Compressor& calc::Script::compressor() const
+const calc::Compressor &calc::Script::compressor() const
 {
-    PRECOND(d_compressor);
-    return *d_compressor;
+  PRECOND(d_compressor);
+  return *d_compressor;
 }
-
 
 bool calc::Script::inDynamic() const
 {
-    return false;
+  return false;
 }
 
 //! register that script contains at least one statement prefixed by report
@@ -368,12 +354,12 @@ bool calc::Script::inDynamic() const
  */
 void calc::Script::setReportFound()
 {
-    d_aReportFound = true;
+  d_aReportFound = true;
 }
 
-const calc::Report *calc::Script::reportDefault()const
+const calc::Report *calc::Script::reportDefault() const
 {
-    return d_reportTable.reportDefault();
+  return d_reportTable.reportDefault();
 }
 
 //! add a report, error if already defined
@@ -386,9 +372,9 @@ void calc::Script::addReport(const ReportDefinition *r)
 }
 
 //! find a report, that must exist
-const calc::Report *calc::Script::findReport(const Symbol& u) const
+const calc::Report *calc::Script::findReport(const Symbol &u) const
 {
-    return d_reportTable.find(u);
+  return d_reportTable.find(u);
 }
 
 /*!
@@ -397,68 +383,65 @@ const calc::Report *calc::Script::findReport(const Symbol& u) const
  */
 bool calc::Script::allIsWritten() const
 {
-    // in a dynamic model only write if there
-    //  is an explicit report
-    if(isDynamicModel())
-        return false;
-    // otherwise if none is specified with a report
-    // we do write all
+  // in a dynamic model only write if there
+  //  is an explicit report
+  if (isDynamicModel())
+    return false;
+  // otherwise if none is specified with a report
+  // we do write all
 
-    if (ioFieldStrategy().strategyType() == APP_IO_BANDMAP)
-     return false;  // clientinterface/test13
-    else
-     return !d_aReportFound;
+  if (ioFieldStrategy().strategyType() == APP_IO_BANDMAP)
+    return false;  // clientinterface/test13
+  else
+    return !d_aReportFound;
 }
 
-void calc::Script::print(calc::InfoScript& i)const
+void calc::Script::print(calc::InfoScript &i) const
 {
-    printBlock(i);
+  printBlock(i);
 }
 
 //! print html file iff user gave -H flag
 void calc::Script::htmlPrint() const
 {
-    if (d_htmlFile.isEmpty())
-        return;
+  if (d_htmlFile.isEmpty())
+    return;
 
-    calc::InfoScript si(d_htmlFile.toString());
-    print(si);
+  calc::InfoScript si(d_htmlFile.toString());
+  print(si);
 }
 
-
 //! detect format of \a par, check if valid
-calc::FieldMapInputParameter* calc::Script::detectExternalFieldLeaf(const ParsPar &par)
+calc::FieldMapInputParameter *calc::Script::detectExternalFieldLeaf(const ParsPar &par)
 {
-    calc::FieldMapInputParameter *f = nullptr;
-    try {
-      f=ioFieldStrategyMod().createFieldMapInputParameter(par);
-    } catch (const com::Exception& excep) {
-        par.symError(excep);
-    }
-    return f;
+  calc::FieldMapInputParameter *f = nullptr;
+  try {
+    f = ioFieldStrategyMod().createFieldMapInputParameter(par);
+  } catch (const com::Exception &excep) {
+    par.symError(excep);
+  }
+  return f;
 }
 
 //! set the area map
-void calc::Script::setAreaMap(const Symbol&  name)
+void calc::Script::setAreaMap(const Symbol &name)
 {
-    // we can not suffice with clone picked up
-    // somewhere in the script, by now
-    // the clone, MUST be set to the areamap or cli clone IF
-    // AVAILABLE, since DebugMvAssignments needs a boolean
+  // we can not suffice with clone picked up
+  // somewhere in the script, by now
+  // the clone, MUST be set to the areamap or cli clone IF
+  // AVAILABLE, since DebugMvAssignments needs a boolean
 
-    PRECOND(!d_areaMap); // should be called exactly once per script
-    UsePar pp(this, name);
-    pp.setInputFilePath();
-    d_areaMap = detectExternalFieldLeaf(pp);
+  PRECOND(!d_areaMap);  // should be called exactly once per script
+  UsePar pp(this, name);
+  pp.setInputFilePath();
+  d_areaMap = detectExternalFieldLeaf(pp);
 }
 
 //! make a non-user symbol
-calc::Symbol calc::Script::generatedSymbol(
-    const std::string& context,
-    const std::string& name)
+calc::Symbol calc::Script::generatedSymbol(const std::string &context, const std::string &name)
 {
   PositionNone pn(context);
-  return Symbol(this,name,&pn);
+  return Symbol(this, name, &pn);
 }
 
 /*!
@@ -475,14 +458,13 @@ void calc::Script::setupClone()
   // Do I need an explicit --clone/areamap setting
   bool const needClone = debugMvAssignments() || zeroCompression() || d_compression;
 
-  if (needClone
-      || rasterSpace().nrRows() == 0) // no clone booted
+  if (needClone || rasterSpace().nrRows() == 0)  // no clone booted
   {
-    if (!d_areaMap) { // we do not have an areamap, look for --clone
-      if (!appClone) // Except 1
+    if (!d_areaMap) {  // we do not have an areamap, look for --clone
+      if (!appClone)   // Except 1
         throw com::Exception("no clone or area map specified");
       // pcrcalc/test82
-      setAreaMap(generatedSymbol("--clone",appClone));
+      setAreaMap(generatedSymbol("--clone", appClone));
     }
   }
 
@@ -493,64 +475,62 @@ void calc::Script::setupClone()
   d_compressor = new NullCompressor(rasterSpace());
 
   if (needClone) {
-     if (!isIn(d_areaMap->vs(),VS_B)) { //pcrcalc test248a
+    if (!isIn(d_areaMap->vs(), VS_B)) {  //pcrcalc test248a
       d_areaMap->posError("area or clone map must be boolean when using -d or -m");
-     }
-     d_areaMap->restrictType().restrictSystem(VS_B,true);
-     d_areaMap->goInScope();
-     FieldHandle f = d_areaMap->value(0, true);
-     d_areaMask = new unsigned char[f->nrValues()];
-     std::memcpy(d_areaMask,f->srcValue(), f->nrValues());
+    }
+    d_areaMap->restrictType().restrictSystem(VS_B, true);
+    d_areaMap->goInScope();
+    FieldHandle f = d_areaMap->value(0, true);
+    d_areaMask = new unsigned char[f->nrValues()];
+    std::memcpy(d_areaMask, f->srcValue(), f->nrValues());
   }
 
   if (d_compression) {
     delete d_compressor;
-    d_compressor = new MaskCompressor(rasterSpace(),d_areaMask);
+    d_compressor = new MaskCompressor(rasterSpace(), d_areaMask);
   }
 }
 
 //! find an expected input map
-calc::FieldMapInputParameter* calc::Script::addExternalFieldLeaf(
-        const ParsPar &par)
+calc::FieldMapInputParameter *calc::Script::addExternalFieldLeaf(const ParsPar &par)
 {
-    calc::FieldMapInputParameter *p = detectExternalFieldLeaf(par);
-    addSymbol(p);
-    return p;
+  calc::FieldMapInputParameter *p = detectExternalFieldLeaf(par);
+  addSymbol(p);
+  return p;
 }
 
-void calc::Script::removeOutputObject(
-          const std::string& fileName) const
+void calc::Script::removeOutputObject(const std::string &fileName) const
 {
-   ioFieldStrategy().removeOutputObject(fileName);
+  ioFieldStrategy().removeOutputObject(fileName);
 }
 
 /*! create a map
     \exception com::Exception if the map can not be created
  */
-calc::GridMap *calc::Script::createMap(const std::string& fileName, VS vs) const
+calc::GridMap *calc::Script::createMap(const std::string &fileName, VS vs) const
 {
- try {
-  return ioFieldStrategy().createMap(fileName,vs);
- } catch( const com::FileError& f)  {
+  try {
+    return ioFieldStrategy().createMap(fileName, vs);
+  } catch (const com::FileError &f) {
     throw com::Exception(f.messages());
- }
+  }
 }
 
-void calc::Script::checkClone(const std::string& mapFileName)
+void calc::Script::checkClone(const std::string &mapFileName)
 {
-// only called from indextable initialization
- ioFieldStrategyMod().checkClone(mapFileName);
+  // only called from indextable initialization
+  ioFieldStrategyMod().checkClone(mapFileName);
 }
 
 //! RunDirectory::inputFilePath()
-std::string  calc::Script::inputFilePath(const std::string& fileName) const
+std::string calc::Script::inputFilePath(const std::string &fileName) const
 {
   bool found = false;
-  return d_runDirectory.inputFilePath(found,fileName);
+  return d_runDirectory.inputFilePath(found, fileName);
 }
 
 //! RunDirectory::outputFilePath()
-std::string calc::Script::outputFilePath(const std::string& fileName) const
+std::string calc::Script::outputFilePath(const std::string &fileName) const
 {
   return d_runDirectory.outputFilePath(fileName);
 }
@@ -559,16 +539,16 @@ std::string calc::Script::outputFilePath(const std::string& fileName) const
 /*!
     callee must delete
  */
-const calc::StackReader* calc::Script::createStackReader(const std::string& stackName)
+const calc::StackReader *calc::Script::createStackReader(const std::string &stackName)
 {
-  return ioFieldStrategyMod().createStackReader(d_runDirectory,stackName);
+  return ioFieldStrategyMod().createStackReader(d_runDirectory, stackName);
 }
 
 //! set the d_progressCallBack
 void calc::Script::setProgressCallBack(ProgressCallBack *progressCallBack)
 {
-  PRECOND(d_progressCallBack); // is always set
-  PRECOND(progressCallBack);   // is always set
+  PRECOND(d_progressCallBack);  // is always set
+  PRECOND(progressCallBack);    // is always set
   d_progressCallBack = progressCallBack;
 }
 
@@ -580,7 +560,7 @@ void calc::Script::setProgressCallBack(ProgressCallBack *progressCallBack)
  *   calc::QuitForProgressCallBack() if the callback function
  *   return non-zero
  */
-void calc::Script::updateProgress(ProgressPulse p,int step)
+void calc::Script::updateProgress(ProgressPulse p, int step)
 {
   PRECOND(d_progressCallBack);
 
@@ -589,33 +569,32 @@ void calc::Script::updateProgress(ProgressPulse p,int step)
 
   ProgressInfo pi{};
   if (step < 0)
-     step = currentTimeStep();
-  pi.inTimeStep =step;
-  pi.nrTimeSteps=isDynamicModel() ? nrTimeSteps() : 0;
+    step = currentTimeStep();
+  pi.inTimeStep = step;
+  pi.nrTimeSteps = isDynamicModel() ? nrTimeSteps() : 0;
   if (d_progressCallBack->update(pi))
     throw calc::QuitForProgressCallBack();
 }
 
-void calc::Script::processFileOutputValue(
-  double val)
+void calc::Script::processFileOutputValue(double val)
 {
   if (d_fileOutputStream) {
     *d_fileOutputStream << val << "\n";
-     d_fileOutputStream->flush();
+    d_fileOutputStream->flush();
   }
 
   int const ival(static_cast<int>(val));
   bool const quit = updateExitVal(ival);
 
 
-  if (quit) { // pcrcalc/test13b
+  if (quit) {  // pcrcalc/test13b
     updateExitVal(static_cast<int>(currentTimeStep()));
     throw calc::QuitForExitOption();
   }
 }
 
 //! register value of fileoutput expr, check if model must be aborted
- /*! returns true if we may quit, false otherwise
+/*! returns true if we may quit, false otherwise
   */
 bool calc::Script::updateExitVal(double val)
 {
@@ -632,8 +611,7 @@ int calc::Script::exitVal() const
   return d_exitVal;
 }
 
-void calc::Script::setArcViewExtCheckData(std::vector<ArcViewExtCheckData>& r)
-  const
+void calc::Script::setArcViewExtCheckData(std::vector<ArcViewExtCheckData> &r) const
 {
   d_symTab->setArcViewExtCheckData(r);
 }

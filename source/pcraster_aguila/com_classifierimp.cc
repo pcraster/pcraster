@@ -1,41 +1,30 @@
 #include "com_classifierimp.h"
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
-template<class T>
-com::ClassifierImp<T>::ClassifierImp()
+template <class T> com::ClassifierImp<T>::ClassifierImp()
 {
 }
 
-
-
-template<class T>
-com::ClassifierImp<T>::~ClassifierImp()
+template <class T> com::ClassifierImp<T>::~ClassifierImp()
 {
 }
-
-
 
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF INLINE FUNCTIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -53,4 +42,3 @@ com::ClassifierImp<T>::~ClassifierImp()
   \return  Classborders through argument \a b.
   \warning The result is undefined if n == 0.
 */
-

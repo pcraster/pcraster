@@ -9,7 +9,6 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
 /*
@@ -32,28 +31,19 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC STACKEDVALUE MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STACKEDVALUE MEMBERS
 //------------------------------------------------------------------------------
 
-calc::StackedValue::StackedValue(
-          RunTimeEnv&   rte,
-          const ASTSymbolInfo& symbol,
-          bool          lastUse):
-    d_rte(rte),
-    d_symbol(symbol),
-    d_lastUse(lastUse)
+calc::StackedValue::StackedValue(RunTimeEnv &rte, const ASTSymbolInfo &symbol, bool lastUse)
+    : d_rte(rte), d_symbol(symbol), d_lastUse(lastUse)
 {
 }
-
-
 
 calc::StackedValue::~StackedValue()
 {
@@ -75,8 +65,9 @@ calc::StackedValue::StackedValue(const StackedValue& rhs):
 }
 */
 
-calc::DataValue *calc::StackedValue::load() {
-  return d_rte.load(d_symbol.name(),d_symbol.externalName(), d_lastUse);
+calc::DataValue *calc::StackedValue::load()
+{
+  return d_rte.load(d_symbol.name(), d_symbol.externalName(), d_lastUse);
 }
 
 calc::OVS calc::StackedValue::ovs() const
@@ -94,10 +85,6 @@ bool calc::StackedValue::readOnlyReference() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

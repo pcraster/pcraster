@@ -4,11 +4,8 @@
 //      until unit tests work properly again on all platforms
 
 
-
-
 #define BOOST_TEST_MODULE calc test suite
 #include "stddefx.h"
-
 
 
 #ifndef INCLUDED_BOOST_TEST_INCLUDED_UNIT_TEST
@@ -67,7 +64,7 @@
 #define INCLUDED_CALC_RUNDIRECTORYTEST
 #endif
 #ifndef INCLUDED_CALC_GLOBALLIBDEFS
-#include "calc_globallibdefs.h" // globalInit
+#include "calc_globallibdefs.h"  // globalInit
 #define INCLUDED_CALC_GLOBALLIBDEFS
 #endif
 #ifndef INCLUDED_CALC_IOCSFFIELDSTRATEGYTEST
@@ -228,20 +225,16 @@
 #define INCLUDED_CALC_IOCSFFIELDSTRATEGYTEST
 #endif
 
-extern "C" int appUnitTest; // app/appinst.c
+extern "C" int appUnitTest;  // app/appinst.c
 
- boost::unit_test::test_suite* init_unit_test_suite(int argc, char ** const argv) {
+boost::unit_test::test_suite *init_unit_test_suite(int argc, char **const argv)
+{
   calc::globalInit();
-  appUnitTest=1;
+  appUnitTest = 1;
 
-  struct TestSuite: public boost::unit_test::test_suite,
-                    public calc::LibraryClassNoQt
-  {
-    TestSuite(
-         int /* argc */,
-         char** argv)
-      : boost::unit_test::test_suite("Master test suite"),
-        calc::LibraryClassNoQt(argv[0])
+  struct TestSuite : public boost::unit_test::test_suite, public calc::LibraryClassNoQt {
+    TestSuite(int /* argc */, char **argv)
+        : boost::unit_test::test_suite("Master test suite"), calc::LibraryClassNoQt(argv[0])
     {
       assert(dev::GDalClient::isInitialized());
       assert(dal::Client::isInitialized());
@@ -259,10 +252,9 @@ extern "C" int appUnitTest; // app/appinst.c
       //      some non-static singleton.
       calc::globalEnd();
     }
-
   };
 
-  TestSuite* test = new TestSuite(argc, argv);
+  TestSuite *test = new TestSuite(argc, argv);
 
   test->add(calc::AreaMapTest().suite());
   test->add(calc::ObjectLinkMetaTest().suite());
@@ -330,4 +322,3 @@ extern "C" int appUnitTest; // app/appinst.c
 
   return test;
 }
-

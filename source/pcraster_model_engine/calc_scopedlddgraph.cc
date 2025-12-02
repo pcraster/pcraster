@@ -4,13 +4,10 @@
 #include "calc_field.h"
 #include "calc_lddgraph.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the ScopedLddGraph class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -36,25 +33,21 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC SCOPEDLDDGRAPH MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF SCOPEDLDDGRAPH MEMBERS
 //------------------------------------------------------------------------------
 
-calc::ScopedLddGraph::ScopedLddGraph(RunTimeEnv* rte, const Field& ldd):
- d_lg(rte,&ldd)
+calc::ScopedLddGraph::ScopedLddGraph(RunTimeEnv *rte, const Field &ldd) : d_lg(rte, &ldd)
 {
- POSTCOND(ldd.vs()==VS_L);
- if (!d_lg.object())
-  d_lg.setObject(new LddGraph(ldd.src_1(),rte->ifieldRDConversion()));
+  POSTCOND(ldd.vs() == VS_L);
+  if (!d_lg.object())
+    d_lg.setObject(new LddGraph(ldd.src_1(), rte->ifieldRDConversion()));
 }
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -67,13 +60,10 @@ calc::ScopedLddGraph::ScopedLddGraph(ScopedLddGraph const& rhs)
 */
 
 
-
 calc::ScopedLddGraph::~ScopedLddGraph()
 {
   delete d_modifiedLg;
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -92,35 +82,29 @@ calc::ScopedLddGraph& calc::ScopedLddGraph::operator=(ScopedLddGraph const& rhs)
  *        in Field that created the graph) on output only MV's in the
  *        current graph before the possible change of current in this call.
  */
-void calc::ScopedLddGraph::setMVInput(BitField& mvAtInput)
+void calc::ScopedLddGraph::setMVInput(BitField &mvAtInput)
 {
   d_lg.object()->unsetMVField(mvAtInput);
   if (mvAtInput.any()) {
-    auto *n = new LddGraph(current(),mvAtInput,true);
+    auto *n = new LddGraph(current(), mvAtInput, true);
     delete d_modifiedLg;
-    d_modifiedLg=n;
+    d_modifiedLg = n;
   }
 }
 
 //! return the current graph
-const calc::LddGraph& calc::ScopedLddGraph::current() const
+const calc::LddGraph &calc::ScopedLddGraph::current() const
 {
   if (d_modifiedLg)
     return *d_modifiedLg;
   return *(d_lg.object());
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

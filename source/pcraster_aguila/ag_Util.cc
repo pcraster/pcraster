@@ -4,14 +4,14 @@
 
 #include <cassert>
 
-
 std::string ag::getOpenDataFileName(QWidget *p)
 {
-  QString const fn = QFileDialog::getOpenFileName(p, QString(), QString(),
-                   "All data files (*.csf *.map)");
+  QString const fn =
+      QFileDialog::getOpenFileName(p, QString(), QString(), "All data files (*.csf *.map)");
 
   return fn.isEmpty() ? std::string() : std::string(fn.toUtf8().constData());
 }
+
 #include "icons/booleanstack.xpm"
 #include "icons/directionalstack.xpm"
 // #include "icons/data.xpm"
@@ -23,14 +23,13 @@ std::string ag::getOpenDataFileName(QWidget *p)
 #include "icons/timeseries.xpm"
 #include "icons/vector.xpm"
 
-QPixmap ag::pixmap(
-         DataGuide const& guide)
+QPixmap ag::pixmap(DataGuide const &guide)
 {
   QPixmap result;
 
-  switch(guide.type()) {
+  switch (guide.type()) {
     case geo::STACK: {
-      switch(guide.valueScale()) {
+      switch (guide.valueScale()) {
         case VS_BOOLEAN: {
           result = QPixmap((const char **)booleanstack_xpm);
           break;
@@ -64,13 +63,12 @@ QPixmap ag::pixmap(
       break;
     }
     case geo::FEATURE: {
-      if(guide.valueScale() == VS_UNDEFINED) {
+      if (guide.valueScale() == VS_UNDEFINED) {
         // No attribute, only geometry.
         /// FEATURE create image for geometry only feature data.
         result = QPixmap((const char **)booleanstack_xpm);
-      }
-      else {
-        switch(guide.valueScale()) {
+      } else {
+        switch (guide.valueScale()) {
           /// FEATURE create images for feature data.
           case VS_BOOLEAN: {
             result = QPixmap((const char **)booleanstack_xpm);
@@ -115,5 +113,3 @@ QPixmap ag::pixmap(
 
   return result;
 }
-
-

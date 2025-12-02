@@ -14,16 +14,13 @@
 #include <string>
 #include <vector>
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 /*!
@@ -36,18 +33,13 @@
 */
 com::Classifier::Classifier()
 {
-  try
-  {
+  try {
     init();
-  }
-  catch(...)
-  {
+  } catch (...) {
     clean();
     throw;
   }
 }
-
-
 
 /*!
   \param   rhs Object to copy values from.
@@ -57,57 +49,47 @@ com::Classifier::Classifier()
 */
 com::Classifier &com::Classifier::operator=(const Classifier &rhs)
 {
-  if(this != &rhs)
-  {
+  if (this != &rhs) {
     clean();
 
     // Set d_classifier and d_algorithm.
-    if(rhs.d_algorithm == LIN) {
-      auto *c =
-                     dynamic_cast<com_LinClassifier<REAL8> *>(rhs.d_classifier);
+    if (rhs.d_algorithm == LIN) {
+      auto *c = dynamic_cast<com_LinClassifier<REAL8> *>(rhs.d_classifier);
       assert(c);
       d_classifier = new com_LinClassifier<REAL8>(*c);
-      d_algorithm  = LIN;
-    }
-    else if(rhs.d_algorithm == LOG) {
-      auto *c =
-                     dynamic_cast<com_LogClassifier<REAL8> *>(rhs.d_classifier);
+      d_algorithm = LIN;
+    } else if (rhs.d_algorithm == LOG) {
+      auto *c = dynamic_cast<com_LogClassifier<REAL8> *>(rhs.d_classifier);
       assert(c);
       d_classifier = new com_LogClassifier<REAL8>(*c);
-      d_algorithm  = LOG;
-    }
-    else if(rhs.d_algorithm == TLOG) {
-      auto *c =
-                    dynamic_cast<com_TLogClassifier<REAL8> *>(rhs.d_classifier);
+      d_algorithm = LOG;
+    } else if (rhs.d_algorithm == TLOG) {
+      auto *c = dynamic_cast<com_TLogClassifier<REAL8> *>(rhs.d_classifier);
       assert(c);
       d_classifier = new com_TLogClassifier<REAL8>(*c);
-      d_algorithm  = TLOG;
-    }
-    else if(rhs.d_algorithm == USERDEFINED) {
-      auto *c =
-                   dynamic_cast<UserDefinedClassifier<REAL8> *>(rhs.d_classifier);
+      d_algorithm = TLOG;
+    } else if (rhs.d_algorithm == USERDEFINED) {
+      auto *c = dynamic_cast<UserDefinedClassifier<REAL8> *>(rhs.d_classifier);
       assert(c);
       d_classifier = new UserDefinedClassifier<REAL8>(*c);
-      d_algorithm  = USERDEFINED;
+      d_algorithm = USERDEFINED;
     }
 
-    d_mode      = rhs.d_mode;
-    d_borders   = rhs.d_borders;
+    d_mode = rhs.d_mode;
+    d_borders = rhs.d_borders;
 
-    if(rhs.extremesAreValid()) {
+    if (rhs.extremesAreValid()) {
       d_min = rhs.d_min;
       d_max = rhs.d_max;
-    }
-    else {
+    } else {
       pcr::setMV(d_min);
       pcr::setMV(d_max);
     }
 
-    if(rhs.cutoffsAreValid()) {
+    if (rhs.cutoffsAreValid()) {
       d_minCutoff = rhs.d_minCutoff;
       d_maxCutoff = rhs.d_maxCutoff;
-    }
-    else {
+    } else {
       pcr::setMV(d_minCutoff);
       pcr::setMV(d_maxCutoff);
     }
@@ -117,8 +99,6 @@ com::Classifier &com::Classifier::operator=(const Classifier &rhs)
 
   return *this;
 }
-
-
 
 /*!
   \param   rhs Object to copy values from.
@@ -132,60 +112,49 @@ com::Classifier::Classifier(const Classifier &rhs)
   init();
 
   // Set d_classifier and d_algorithm.
-  if(rhs.d_algorithm == LIN) {
-    auto *c =
-         dynamic_cast<com_LinClassifier<REAL8> *>(rhs.d_classifier);
+  if (rhs.d_algorithm == LIN) {
+    auto *c = dynamic_cast<com_LinClassifier<REAL8> *>(rhs.d_classifier);
     assert(c);
     d_classifier = new com_LinClassifier<REAL8>(*c);
-    d_algorithm  = LIN;
-  }
-  else if(rhs.d_algorithm == LOG) {
-    auto *c =
-         dynamic_cast<com_LogClassifier<REAL8> *>(rhs.d_classifier);
+    d_algorithm = LIN;
+  } else if (rhs.d_algorithm == LOG) {
+    auto *c = dynamic_cast<com_LogClassifier<REAL8> *>(rhs.d_classifier);
     assert(c);
     d_classifier = new com_LogClassifier<REAL8>(*c);
-    d_algorithm  = LOG;
-  }
-  else if(rhs.d_algorithm == TLOG) {
-    auto *c =
-         dynamic_cast<com_TLogClassifier<REAL8> *>(rhs.d_classifier);
+    d_algorithm = LOG;
+  } else if (rhs.d_algorithm == TLOG) {
+    auto *c = dynamic_cast<com_TLogClassifier<REAL8> *>(rhs.d_classifier);
     assert(c);
     d_classifier = new com_TLogClassifier<REAL8>(*c);
-    d_algorithm  = TLOG;
-  }
-  else if(rhs.d_algorithm == USERDEFINED) {
-    auto *c =
-         dynamic_cast<UserDefinedClassifier<REAL8> *>(rhs.d_classifier);
+    d_algorithm = TLOG;
+  } else if (rhs.d_algorithm == USERDEFINED) {
+    auto *c = dynamic_cast<UserDefinedClassifier<REAL8> *>(rhs.d_classifier);
     assert(c);
     d_classifier = new UserDefinedClassifier<REAL8>(*c);
-    d_algorithm  = USERDEFINED;
+    d_algorithm = USERDEFINED;
   }
 
-  d_mode      = rhs.d_mode;
-  d_borders   = rhs.d_borders;
+  d_mode = rhs.d_mode;
+  d_borders = rhs.d_borders;
 
-  if(rhs.extremesAreValid()) {
+  if (rhs.extremesAreValid()) {
     d_min = rhs.d_min;
     d_max = rhs.d_max;
-  }
-  else {
+  } else {
     pcr::setMV(d_min);
     pcr::setMV(d_max);
   }
 
-  if(rhs.cutoffsAreValid()) {
+  if (rhs.cutoffsAreValid()) {
     d_minCutoff = rhs.d_minCutoff;
     d_maxCutoff = rhs.d_maxCutoff;
-  }
-  else {
+  } else {
     pcr::setMV(d_minCutoff);
     pcr::setMV(d_maxCutoff);
   }
 
   d_nrClasses = rhs.d_nrClasses;
 }
-
-
 
 /*!
   \param   min Minimum data value.
@@ -197,26 +166,21 @@ com::Classifier::Classifier(const Classifier &rhs)
 */
 com::Classifier::Classifier(REAL8 min, REAL8 max)
 {
-  try
-  {
+  try {
     init();
     d_min = min;
     d_max = max;
 
-    if(d_min > d_max)
+    if (d_min > d_max)
       std::swap(d_min, d_max);
 
     d_minCutoff = d_min;
     d_maxCutoff = d_max;
-  }
-  catch(...)
-  {
+  } catch (...) {
     clean();
     throw;
   }
 }
-
-
 
 /*!
   Calls clean().
@@ -225,8 +189,6 @@ com::Classifier::~Classifier()
 {
   clean();
 }
-
-
 
 /*!
   After calling this function you can't call the classify() or classify(size_t)
@@ -237,16 +199,14 @@ void com::Classifier::init()
 {
   d_classifier = nullptr;
   d_borders.erase(d_borders.begin(), d_borders.end());
-  d_algorithm  = INVALID_ALGORITHM;
-  d_mode       = AUTO;
+  d_algorithm = INVALID_ALGORITHM;
+  d_mode = AUTO;
   pcr::setMV(d_min);
   pcr::setMV(d_max);
   pcr::setMV(d_minCutoff);
   pcr::setMV(d_maxCutoff);
-  d_nrClasses  = 0;
+  d_nrClasses = 0;
 }
-
-
 
 /*!
   \warning  If you saved a copy of the pointer to that algorithm you're better
@@ -256,10 +216,9 @@ void com::Classifier::init()
 */
 void com::Classifier::clean()
 {
-  delete d_classifier; d_classifier = nullptr;
+  delete d_classifier;
+  d_classifier = nullptr;
 }
-
-
 
 //!
 /*!
@@ -271,19 +230,18 @@ void com::Classifier::clean()
 
   No need to check the classifier, this is determined by d_algorithm.
 */
-bool com::Classifier::equals(Classifier const& rhs) const
+bool com::Classifier::equals(Classifier const &rhs) const
 {
   bool extremesAreEqual = false;
 
-  if(!extremesAreValid()) {
-    if(!rhs.extremesAreValid()) {
+  if (!extremesAreValid()) {
+    if (!rhs.extremesAreValid()) {
       // Both objects have invalid/unset extremes.
       extremesAreEqual = true;
     }
-  }
-  else {
-    if(rhs.extremesAreValid()) {
-      if(d_min == rhs.d_min && d_max == rhs.d_max) {
+  } else {
+    if (rhs.extremesAreValid()) {
+      if (d_min == rhs.d_min && d_max == rhs.d_max) {
         // Both objects have valid and equal extremes.
         extremesAreEqual = true;
       }
@@ -292,30 +250,23 @@ bool com::Classifier::equals(Classifier const& rhs) const
 
   bool cutoffsAreEqual = false;
 
-  if(!cutoffsAreValid()) {
-    if(!rhs.cutoffsAreValid()) {
+  if (!cutoffsAreValid()) {
+    if (!rhs.cutoffsAreValid()) {
       // Both objects have invalid/unset cutoffs.
       cutoffsAreEqual = true;
     }
-  }
-  else {
-    if(rhs.cutoffsAreValid()) {
-      if(d_min == rhs.d_min && d_max == rhs.d_max) {
+  } else {
+    if (rhs.cutoffsAreValid()) {
+      if (d_min == rhs.d_min && d_max == rhs.d_max) {
         // Both objects have valid and equal cutoffs.
         cutoffsAreEqual = true;
       }
     }
   }
 
-  return d_algorithm == rhs.d_algorithm &&
-         d_mode == rhs.d_mode &&
-         d_borders == rhs.d_borders &&
-         extremesAreEqual &&
-         cutoffsAreEqual &&
-         d_nrClasses == rhs.d_nrClasses;
+  return d_algorithm == rhs.d_algorithm && d_mode == rhs.d_mode && d_borders == rhs.d_borders &&
+         extremesAreEqual && cutoffsAreEqual && d_nrClasses == rhs.d_nrClasses;
 }
-
-
 
 /*!
   \warning Don't forget to set the classification parameters before calling
@@ -330,10 +281,9 @@ void com::Classifier::classify()
 {
   assert(d_classifier);
 
-  if(!cutoffsAreValid() || d_minCutoff == d_maxCutoff) {
+  if (!cutoffsAreValid() || d_minCutoff == d_maxCutoff) {
     d_borders.resize(0);
-  }
-  else {
+  } else {
     assert(d_min <= d_max);
     assert(d_minCutoff <= d_maxCutoff);
     assert(!pcr::isMV(d_min));
@@ -341,11 +291,9 @@ void com::Classifier::classify()
     assert(!pcr::isMV(d_minCutoff));
     assert(!pcr::isMV(d_maxCutoff));
 
-    if(d_mode == AUTO) {
-      d_classifier->autoClassify(d_borders, d_minCutoff, d_maxCutoff,
-         d_nrClasses);
-    }
-    else if(d_mode == EXACT) {
+    if (d_mode == AUTO) {
+      d_classifier->autoClassify(d_borders, d_minCutoff, d_maxCutoff, d_nrClasses);
+    } else if (d_mode == EXACT) {
       d_classifier->classify(d_borders, d_minCutoff, d_maxCutoff, d_nrClasses);
     }
 #ifdef DEBUG_DEVELOP
@@ -355,14 +303,12 @@ void com::Classifier::classify()
 #endif
   }
 
-  if(!d_borders.empty()) {
+  if (!d_borders.empty()) {
     d_minCutoff = d_borders.front();
     d_maxCutoff = d_borders.back();
     d_nrClasses = d_borders.size() - 1;
   }
 }
-
-
 
 /*!
   \overload
@@ -378,25 +324,21 @@ void com::Classifier::classify(size_t n)
   classify();
 }
 
-
-
 /*!
   \param   a Algorithm to install.
   \sa      installLin(), installLog(), installTLog()
 */
 void com::Classifier::installAlgorithm(Algorithm a)
 {
-  if(a == LIN)
+  if (a == LIN)
     (void)installLin();
-  else if(a == LOG)
+  else if (a == LOG)
     (void)installLog();
-  else if(a == TLOG)
+  else if (a == TLOG)
     (void)installTLog();
-  else if(a == USERDEFINED)
+  else if (a == USERDEFINED)
     (void)installUserDefined();
 }
-
-
 
 /*!
   \return  Classification object created.
@@ -409,27 +351,23 @@ com_LinClassifier<REAL8> *com::Classifier::installLin()
 {
   delete d_classifier, d_classifier = nullptr;
   d_borders.erase(d_borders.begin(), d_borders.end());
-  d_algorithm  = INVALID_ALGORITHM;
+  d_algorithm = INVALID_ALGORITHM;
 
   com_LinClassifier<REAL8> *c = nullptr;
 
-  try
-  {
+  try {
     c = new com_LinClassifier<REAL8>();
     d_classifier = c;
     d_algorithm = LIN;
-  }
-  catch(...)
-  {
-    delete c; c = nullptr;
+  } catch (...) {
+    delete c;
+    c = nullptr;
     clean();
     throw;
   }
 
   return c;
 }
-
-
 
 /*!
   \return  Classification object created.
@@ -442,27 +380,23 @@ com_LogClassifier<REAL8> *com::Classifier::installLog()
 {
   delete d_classifier, d_classifier = nullptr;
   d_borders.erase(d_borders.begin(), d_borders.end());
-  d_algorithm  = INVALID_ALGORITHM;
+  d_algorithm = INVALID_ALGORITHM;
 
   com_LogClassifier<REAL8> *c = nullptr;
 
-  try
-  {
+  try {
     c = new com_LogClassifier<REAL8>();
     d_classifier = c;
-    d_algorithm  = LOG;
-  }
-  catch(...)
-  {
-    delete c; c = nullptr;
+    d_algorithm = LOG;
+  } catch (...) {
+    delete c;
+    c = nullptr;
     clean();
     throw;
   }
 
   return c;
 }
-
-
 
 /*!
   \return  Classification object created.
@@ -475,19 +409,17 @@ com_TLogClassifier<REAL8> *com::Classifier::installTLog()
 {
   delete d_classifier, d_classifier = nullptr;
   d_borders.erase(d_borders.begin(), d_borders.end());
-  d_algorithm  = INVALID_ALGORITHM;
+  d_algorithm = INVALID_ALGORITHM;
 
   com_TLogClassifier<REAL8> *c = nullptr;
 
-  try
-  {
+  try {
     c = new com_TLogClassifier<REAL8>();
     d_classifier = c;
-    d_algorithm  = TLOG;
-  }
-  catch(...)
-  {
-    delete c; c = nullptr;
+    d_algorithm = TLOG;
+  } catch (...) {
+    delete c;
+    c = nullptr;
     clean();
     throw;
   }
@@ -495,31 +427,27 @@ com_TLogClassifier<REAL8> *com::Classifier::installTLog()
   return c;
 }
 
-
-
 com::UserDefinedClassifier<REAL8> *com::Classifier::installUserDefined()
 {
   delete d_classifier, d_classifier = nullptr;
   d_borders.erase(d_borders.begin(), d_borders.end());
-  d_algorithm  = INVALID_ALGORITHM;
+  d_algorithm = INVALID_ALGORITHM;
 
-  UserDefinedClassifier<REAL8>* classifier = nullptr;
+  UserDefinedClassifier<REAL8> *classifier = nullptr;
 
   try {
     classifier = new UserDefinedClassifier<REAL8>();
     d_classifier = classifier;
-    d_algorithm  = USERDEFINED;
-  }
-  catch(...) {
-    delete classifier; classifier = nullptr;
+    d_algorithm = USERDEFINED;
+  } catch (...) {
+    delete classifier;
+    classifier = nullptr;
     clean();
     throw;
   }
 
   return classifier;
 }
-
-
 
 /*!
   \return  The number of classes calculated.
@@ -542,49 +470,35 @@ size_t com::Classifier::nrClasses() const
   return d_borders.empty() ? 0 : d_borders.size() - 1;
 }
 
-
-
 size_t com::Classifier::nrBorders() const
 {
   return d_borders.size();
 }
-
-
 
 size_t com::Classifier::nrClassesRequested() const
 {
   return d_nrClasses;
 }
 
-
-
 com::Classifier::const_iterator com::Classifier::begin() const
 {
   return d_borders.begin();
 }
-
-
 
 com::Classifier::const_iterator com::Classifier::end() const
 {
   return d_borders.end();
 }
 
-
-
 com::Classifier::Algorithm com::Classifier::algorithm() const
 {
   return d_algorithm;
 }
 
-
-
 const std::vector<REAL8> &com::Classifier::borders() const
 {
   return d_borders;
 }
-
-
 
 /*!
   \sa      max(), setExtremes()
@@ -595,8 +509,6 @@ REAL8 com::Classifier::min() const
   return d_min;
 }
 
-
-
 /*!
   \sa      min(), setExtremes()
 */
@@ -605,8 +517,6 @@ REAL8 com::Classifier::max() const
   assert(!pcr::isMV(d_max));
   return d_max;
 }
-
-
 
 /*!
   \sa      maxCutoff(), setCutoffs(), setMinCutoff(), setMaxCutoff()
@@ -617,8 +527,6 @@ REAL8 com::Classifier::minCutoff() const
   return d_minCutoff;
 }
 
-
-
 /*!
   \sa      minCutoff(), setCutoffs(), setMinCutoff(), setMaxCutoff()
 */
@@ -627,8 +535,6 @@ REAL8 com::Classifier::maxCutoff() const
   assert(!pcr::isMV(d_maxCutoff));
   return d_maxCutoff;
 }
-
-
 
 /*!
   \param   min New minimum value.
@@ -642,11 +548,9 @@ void com::Classifier::setExtremes(REAL8 min, REAL8 max)
   d_min = min;
   d_max = max;
 
-  if(d_min > d_max)
+  if (d_min > d_max)
     std::swap(d_min, d_max);
 }
-
-
 
 /*!
   \param   min New minimum cutoff value.
@@ -661,11 +565,9 @@ void com::Classifier::setCutoffs(REAL8 min, REAL8 max)
   d_minCutoff = min;
   d_maxCutoff = max;
 
-  if(d_minCutoff > d_maxCutoff)
+  if (d_minCutoff > d_maxCutoff)
     std::swap(d_minCutoff, d_maxCutoff);
 }
-
-
 
 /*!
   \sa      setCutoffs(), setMinCutoff(), setMaxCutoff(), minCutoff(),
@@ -677,21 +579,15 @@ void com::Classifier::resetCutoffs()
   d_maxCutoff = d_max;
 }
 
-
-
 void com::Classifier::resetMinCutoff()
 {
   d_minCutoff = d_min;
 }
 
-
-
 void com::Classifier::resetMaxCutoff()
 {
   d_maxCutoff = d_max;
 }
-
-
 
 /*!
   \param   v Value to classify.
@@ -712,13 +608,11 @@ size_t com::Classifier::classIndex(REAL8 v) const
 #endif
 
   auto it = std::upper_bound(begin() + 1, end(), v);
-  if(it != end())
+  if (it != end())
     return it - (begin() + 1);
   else
     return nrClasses() - 1;
 }
-
-
 
 /*!
   \param   i Class index.
@@ -733,8 +627,6 @@ REAL8 com::Classifier::classBorder(size_t i) const
   return d_borders[i];
 }
 
-
-
 /*!
   \param   n Number of class borders to calculate.
   \warning Only after classify() of classify(size_t) has been called the value
@@ -746,8 +638,6 @@ void com::Classifier::setNrClasses(size_t n)
   d_nrClasses = n;
 }
 
-
-
 /*!
   \param   v New minimum cutoff value.
   \sa      setMaxCutoff(), setCutoffs(), setExtremes(), minCutoff(), maxCutoff()
@@ -756,8 +646,6 @@ void com::Classifier::setMinCutoff(REAL8 v)
 {
   d_minCutoff = v;
 }
-
-
 
 /*!
   \param   v New maximum cutoff value.
@@ -768,21 +656,15 @@ void com::Classifier::setMaxCutoff(REAL8 v)
   d_maxCutoff = v;
 }
 
-
-
 void com::Classifier::setMode(Mode m)
 {
   d_mode = m;
 }
 
-
-
 com::Classifier::Mode com::Classifier::mode() const
 {
   return d_mode;
 }
-
-
 
 //! Merges properties of \a classifier with this classifier.
 /*!
@@ -793,54 +675,39 @@ com::Classifier::Mode com::Classifier::mode() const
   The most extreme values of the extreme values of *this and \a classifier
   are set as the extreme values of *this. Other stuff is untouched.
 */
-void com::Classifier::merge(Classifier const& classifier)
+void com::Classifier::merge(Classifier const &classifier)
 {
-  if(extremesAreValid()) {
-    if(classifier.extremesAreValid()) {
-      setExtremes(std::min(min(), classifier.min()),
-                  std::max(max(), classifier.max()));
+  if (extremesAreValid()) {
+    if (classifier.extremesAreValid()) {
+      setExtremes(std::min(min(), classifier.min()), std::max(max(), classifier.max()));
     }
-  }
-  else {
-    if(classifier.extremesAreValid()) {
+  } else {
+    if (classifier.extremesAreValid()) {
       setExtremes(classifier.min(), classifier.max());
     }
   }
 }
 
-
-
 bool com::Classifier::extremesAreValid() const
 {
-  return
-    !(pcr::isMV(d_min) || std::isnan(d_min)) &&
-    !(pcr::isMV(d_max) || std::isnan(d_max));
+  return !(pcr::isMV(d_min) || std::isnan(d_min)) && !(pcr::isMV(d_max) || std::isnan(d_max));
 }
-
-
 
 bool com::Classifier::cutoffsAreValid() const
 {
-  return
-    !(pcr::isMV(d_minCutoff) || std::isnan(d_minCutoff)) &&
-    !(pcr::isMV(d_maxCutoff) || std::isnan(d_maxCutoff));
+  return !(pcr::isMV(d_minCutoff) || std::isnan(d_minCutoff)) &&
+         !(pcr::isMV(d_maxCutoff) || std::isnan(d_maxCutoff));
 }
 
-
-
-bool com::operator==(Classifier const& lhs, Classifier const& rhs)
+bool com::operator==(Classifier const &lhs, Classifier const &rhs)
 {
   return lhs.equals(rhs);
 }
 
-
-
-bool com::operator!=(Classifier const& lhs, Classifier const& rhs)
+bool com::operator!=(Classifier const &lhs, Classifier const &rhs)
 {
   return !lhs.equals(rhs);
 }
-
-
 
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
@@ -873,15 +740,11 @@ bool com::operator!=(Classifier const& lhs, Classifier const& rhs)
 */
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

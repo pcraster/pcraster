@@ -12,37 +12,31 @@
 #include "ag_LegendView.h"
 #include "ag_VisEngine.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the CumDistributionFunction class.
 */
 
 
-namespace ag {
+namespace ag
+{
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CUMDISTRIBUTIONFUNCTION MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF CUMDISTRIBUTIONFUNCTION MEMBERS
 //------------------------------------------------------------------------------
 
-CumDistributionFunction::CumDistributionFunction(
-         DataObject* object,
-         QWidget* parent)
+CumDistributionFunction::CumDistributionFunction(DataObject *object, QWidget *parent)
 
-  : Visualisation<>(object, "Cumulative distribution function plot", parent) 
+    : Visualisation<>(object, "Cumulative distribution function plot", parent)
 
 {
   createInterface(object);
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -55,12 +49,9 @@ CumDistributionFunction::CumDistributionFunction(CumDistributionFunction const& 
 */
 
 
-
 CumDistributionFunction::~CumDistributionFunction()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -73,11 +64,10 @@ CumDistributionFunction& CumDistributionFunction::operator=(CumDistributionFunct
 */
 
 
-
-void CumDistributionFunction::createInterface(DataObject* object)
+void CumDistributionFunction::createInterface(DataObject *object)
 {
   d_splitter = new QSplitter(Qt::Horizontal, this);
-  auto* layout = new QVBoxLayout(this);
+  auto *layout = new QVBoxLayout(this);
   layout->addWidget(d_splitter);
 
   d_legendView = new LegendView(object, VT_Graph, d_splitter);
@@ -94,45 +84,33 @@ void CumDistributionFunction::createInterface(DataObject* object)
   d_splitter->setSizes(sizes);
 }
 
-
-
-void CumDistributionFunction::addAttribute(
-         DataGuide const& guide)
+void CumDistributionFunction::addAttribute(DataGuide const &guide)
 {
   d_plotView->addAttribute(guide);
   d_legendView->addAttribute(guide);
 }
-
-
 
 QSize CumDistributionFunction::sizeHint() const
 {
   return {500, 300};
 }
 
-
-
 void CumDistributionFunction::toggleMarker()
 {
   d_plotView->toggleMarker();
 }
-
-
 
 void CumDistributionFunction::rescan()
 {
   visualisationEngine().rescan(dataObject());
 }
 
-
-
 void CumDistributionFunction::process()
 {
-  if(visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
-    if(!dataObject().backgroundColour().isValid()) {
+  if (visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+    if (!dataObject().backgroundColour().isValid()) {
       setPalette(QPalette());
-    }
-    else {
+    } else {
       QPalette palette;
       palette.setColor(backgroundRole(), dataObject().backgroundColour());
       setPalette(palette);
@@ -140,27 +118,23 @@ void CumDistributionFunction::process()
   }
 }
 
-
-
 void CumDistributionFunction::visualise()
 {
   // Done scanning, update stuff if needed.
-  if(visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+  if (visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
     d_splitter->update();
   }
 
   visualisationEngine().finishedScanning(dataObject());
 }
+
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace ag
-
-
+}  // namespace ag

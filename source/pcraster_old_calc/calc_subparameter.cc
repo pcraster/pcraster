@@ -1,7 +1,7 @@
 #include "stddefx.h"
 #include "calc_subparameter.h"
 #include "calc_arraydefvector.h"
-#include "calc_file.h"   // Validation
+#include "calc_file.h"  // Validation
 #include "calc_writeinfo.h"
 #include "calc_infoscript.h"
 #include "calc_filewriter.h"
@@ -11,10 +11,8 @@
 #include "com_exception.h"
 #include "calc_position.h"
 
-calc::SubParameter::SubParameter(const calc::ParsPar& par, bool constant, bool input):
-  calc::Parameter(par,constant),
-  d_subscript(par.descriptor()),
-  d_input(input)
+calc::SubParameter::SubParameter(const calc::ParsPar &par, bool constant, bool input)
+    : calc::Parameter(par, constant), d_subscript(par.descriptor()), d_input(input)
 {
 }
 
@@ -33,10 +31,10 @@ size_t calc::SubParameter::nrElements() const
   return d_subscript.nrElements();
 }
 
-const class calc::ArrayDefVector& calc::SubParameter::arrayDefVector() const
-{ return d_subscript; }
-
-
+const class calc::ArrayDefVector &calc::SubParameter::arrayDefVector() const
+{
+  return d_subscript;
+}
 
 /*!
   \todo
@@ -44,52 +42,49 @@ const class calc::ArrayDefVector& calc::SubParameter::arrayDefVector() const
 */
 void calc::SubParameter::validateOutputFileName() const
 {
-  for(size_t i=0; i < nrElements();i++) {
+  for (size_t i = 0; i < nrElements(); i++) {
     std::string const fileName(outputFileName(i));
     try {
       moreValidation(fileName);
-    } catch(const com::Exception& err) {
-     // if: check on the (rare) case that fileName will be a timeseries file
-     //    but is now an ESRI GRID?
-     if (!(scriptConst().esriGridIO() && err.errorNr() == com::E_ISDIR)) {
-      // pcrcalc/test62
-      symError(err);
-     }
+    } catch (const com::Exception &err) {
+      // if: check on the (rare) case that fileName will be a timeseries file
+      //    but is now an ESRI GRID?
+      if (!(scriptConst().esriGridIO() && err.errorNr() == com::E_ISDIR)) {
+        // pcrcalc/test62
+        symError(err);
+      }
     }
- }
+  }
 }
 
 //! throw com::Exception if name validation fails
 /*! can be reimplemented bug should call this one
     assumes subparameter is a file not a directory as is the case in ESRI mode
  */
-void calc::SubParameter::moreValidation(
-  const std::string& fileName) const
+void calc::SubParameter::moreValidation(const std::string &fileName) const
 {
-    calc::File const f(fileName);
-    f.validateOutputName();
+  calc::File const f(fileName);
+  f.validateOutputName();
 }
 
-std::string calc::SubParameter::outputFileName(size_t index)const
+std::string calc::SubParameter::outputFileName(size_t index) const
 {
-  return externalName()+d_subscript.outputSuffix(index);
+  return externalName() + d_subscript.outputSuffix(index);
 }
 
-void calc::SubParameter::setReportPoint(
-  const Position *writtenHere,
-  const WriteInfo& w)
+void calc::SubParameter::setReportPoint(const Position *writtenHere, const WriteInfo &w)
 {
   if (d_writeInfo) {
     if (w.hasReportPrefix() && d_writeInfo->hasReportPrefix()) {
-    PRECOND(d_reportPoint);
-    writtenHere->throwError("Report already on "+quote(userName())+" done previous ("
-        +d_reportPoint->text()+")");
+      PRECOND(d_reportPoint);
+      writtenHere->throwError("Report already on " + quote(userName()) + " done previous (" +
+                              d_reportPoint->text() + ")");
     }
   } else {
     // first encounter of assigning to this parameter
     d_writeInfo = new calc::WriteInfo(w);
   }
-  if (! w.isWritten())
+  if (!w.isWritten())
     return;
   validateOutputFileName();
   // since we write the LAST assignment
@@ -127,12 +122,12 @@ bool calc::SubParameter::isInput() const
   return d_input;
 }
 
-std::string calc::SubParameter::arrayName()const
+std::string calc::SubParameter::arrayName() const
 {
-  return name()+d_subscript.name();
+  return name() + d_subscript.name();
 }
 
-void calc::SubParameter::printSubSpecific(calc::InfoScript& is)const
+void calc::SubParameter::printSubSpecific(calc::InfoScript &is) const
 {
   is.stream() << "no sub-specifics<BR>";
 }
@@ -155,23 +150,23 @@ const calc::WriteInfo *calc::SubParameter::writeInfo() const
 */
 pcrxml::Data *calc::SubParameter::createXmlData() const
 {
-   if (nrInSet(symbolType()) != 1)
-     return nullptr;
-   auto *d= new pcrxml::Data();
-   setDataSubType(d);
-   setName(d);
+  if (nrInSet(symbolType()) != 1)
+    return nullptr;
+  auto *d = new pcrxml::Data();
+  setDataSubType(d);
+  setName(d);
 
-   if (isInput()) {
-     d->ioType = pcrxml::IoType::Input;
-   } else {
-       if (isOutput())
-        d->ioType = pcrxml::IoType::Output;
-       else {
-         if (isConstantBinding())
-          d->ioType = pcrxml::IoType::Constant;
-         else
-          d->ioType = pcrxml::IoType::None;
-      }
-   }
-   return d;
+  if (isInput()) {
+    d->ioType = pcrxml::IoType::Input;
+  } else {
+    if (isOutput())
+      d->ioType = pcrxml::IoType::Output;
+    else {
+      if (isConstantBinding())
+        d->ioType = pcrxml::IoType::Constant;
+      else
+        d->ioType = pcrxml::IoType::None;
+    }
+  }
+  return d;
 }

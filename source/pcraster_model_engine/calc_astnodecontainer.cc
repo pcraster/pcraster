@@ -15,7 +15,6 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
@@ -27,49 +26,43 @@
 // DEFINITION OF ASTNODECONTAINER MEMBERS
 //------------------------------------------------------------------------------
 
-#define TEMPLATE_DECL template<typename S>
+#define TEMPLATE_DECL template <typename S>
 
 TEMPLATE_DECL
 calc::ASTNodeContainer<S>::ASTNodeContainer()
 {
 }
 
-
-
 //! Copy constructor.
 TEMPLATE_DECL
-calc::ASTNodeContainer<S>::ASTNodeContainer(ASTNodeContainer const& rhs)
-  :ASTNode(rhs)
+calc::ASTNodeContainer<S>::ASTNodeContainer(ASTNodeContainer const &rhs) : ASTNode(rhs)
 {
   deepClone(rhs.d_container);
 }
 
-
 TEMPLATE_DECL
 calc::ASTNodeContainer<S>::~ASTNodeContainer()
 {
-  com::forWhole(d_container,com::Delete<ASTNode>());
+  com::forWhole(d_container, com::Delete<ASTNode>());
 }
 
 TEMPLATE_DECL
 void calc::ASTNodeContainer<S>::clear()
 {
-  com::forWhole(d_container,com::Delete<ASTNode>());
+  com::forWhole(d_container, com::Delete<ASTNode>());
   d_container.clear();
 }
 
 TEMPLATE_DECL
-void calc::ASTNodeContainer<S>::deepClone(const AC& src)
+void calc::ASTNodeContainer<S>::deepClone(const AC &src)
 {
-    std::transform(src.begin(),src.end(), std::back_inserter(d_container),
-        std::mem_fn(&ASTNode::createClone));
+  std::transform(src.begin(), src.end(), std::back_inserter(d_container),
+                 std::mem_fn(&ASTNode::createClone));
 }
-
 
 //! Assignment operator.
 TEMPLATE_DECL
- calc::ASTNodeContainer<S>&
-  calc::ASTNodeContainer<S>::operator=(ASTNodeContainer<S> const& rhs)
+calc::ASTNodeContainer<S> &calc::ASTNodeContainer<S>::operator=(ASTNodeContainer<S> const &rhs)
 {
   if (this != &rhs) {
     clear();
@@ -79,16 +72,15 @@ TEMPLATE_DECL
 }
 
 TEMPLATE_DECL
-void calc::ASTNodeContainer<S>::accept(ASTVisitor& v)
+void calc::ASTNodeContainer<S>::accept(ASTVisitor &v)
 {
   visitAll(v);
 }
 
 TEMPLATE_DECL
-void calc::ASTNodeContainer<S>::visitAll(ASTVisitor& v)
+void calc::ASTNodeContainer<S>::visitAll(ASTVisitor &v)
 {
-  com::forWhole(d_container,
-      [&v](auto && PH1) { PH1->accept(v); });
+  com::forWhole(d_container, [&v](auto &&PH1) { PH1->accept(v); });
 }
 
 TEMPLATE_DECL
@@ -110,21 +102,19 @@ size_t calc::ASTNodeContainer<S>::size() const
 }
 
 TEMPLATE_DECL
-typename calc::ASTNodeContainer<S>::const_iterator
- calc::ASTNodeContainer<S>::begin() const
+typename calc::ASTNodeContainer<S>::const_iterator calc::ASTNodeContainer<S>::begin() const
 {
   return d_container.begin();
 }
 
 TEMPLATE_DECL
-typename calc::ASTNodeContainer<S>::const_iterator
- calc::ASTNodeContainer<S>::end() const
+typename calc::ASTNodeContainer<S>::const_iterator calc::ASTNodeContainer<S>::end() const
 {
   return d_container.end();
 }
 
 typedef std::deque<calc::ASTNode *> Deque;
-typedef std::list<calc::ASTNode *>  List;
+typedef std::list<calc::ASTNode *> List;
 template class calc::ASTNodeContainer<Deque>;
 template class calc::ASTNodeContainer<List>;
 
@@ -137,24 +127,21 @@ calc::ASTNodeVector::~ASTNodeVector()
 }
 
 //! Assignment operator.
-calc::ASTNodeVector& calc::ASTNodeVector::operator=(ASTNodeVector const& rhs)
+calc::ASTNodeVector &calc::ASTNodeVector::operator=(ASTNodeVector const &rhs)
 {
   if (this != &rhs) {
   }
   return *this;
 }
 
-calc::ASTNodeVector::ASTNodeVector(const ASTNodeVector& rhs):
-  ASTNodeContainer<Deque>(rhs)
+calc::ASTNodeVector::ASTNodeVector(const ASTNodeVector &rhs) : ASTNodeContainer<Deque>(rhs)
 {
 }
 
-
-calc::ASTNodeVector* calc::ASTNodeVector::createClone() const
+calc::ASTNodeVector *calc::ASTNodeVector::createClone() const
 {
   return new ASTNodeVector(*this);
 }
-
 
 //! release all contents into return argument
 /*!
@@ -163,7 +150,7 @@ calc::ASTNodeVector* calc::ASTNodeVector::createClone() const
  */
 std::deque<calc::ASTNode *> calc::ASTNodeVector::release()
 {
-  AC l=d_container;
+  AC l = d_container;
   d_container.clear();
   return l;
 }
@@ -175,12 +162,12 @@ size_t calc::ASTNodeVector::size() const
 }
 */
 
-calc::ASTNode* calc::ASTNodeVector::operator[](size_t i) const
+calc::ASTNode *calc::ASTNodeVector::operator[](size_t i) const
 {
   return at(i);
 }
 
-calc::ASTNode* calc::ASTNodeVector::at(size_t i) const
+calc::ASTNode *calc::ASTNodeVector::at(size_t i) const
 {
   PRECOND(i < d_container.size());
   return d_container[i];
@@ -190,38 +177,34 @@ calc::ASTNodeList::ASTNodeList()
 {
 }
 
-
-
 //! Copy constructor.
-calc::ASTNodeList::ASTNodeList(ASTNodeList const& rhs):
-  ASTNodeContainer<List>(rhs)
+calc::ASTNodeList::ASTNodeList(ASTNodeList const &rhs) : ASTNodeContainer<List>(rhs)
 {
 }
-
-
 
 calc::ASTNodeList::~ASTNodeList()
 {
 }
 
-
-
 //! Assignment operator.
-calc::ASTNodeList& calc::ASTNodeList::operator=(ASTNodeList const& rhs)
+calc::ASTNodeList &calc::ASTNodeList::operator=(ASTNodeList const &rhs)
 {
   if (this != &rhs) {
   }
   return *this;
 }
 
-calc::ASTNodeList::iterator calc::ASTNodeList::begin() {
-   return d_container.begin();
-}
-calc::ASTNodeList::iterator calc::ASTNodeList::end() {
-   return d_container.end();
+calc::ASTNodeList::iterator calc::ASTNodeList::begin()
+{
+  return d_container.begin();
 }
 
-void calc::ASTNodeList::accept(ASTVisitor& v)
+calc::ASTNodeList::iterator calc::ASTNodeList::end()
+{
+  return d_container.end();
+}
+
+void calc::ASTNodeList::accept(ASTVisitor &v)
 {
   v.visitNodeList(this);
 }
@@ -230,11 +213,11 @@ calc::ASTNodeList::const_iterator calc::ASTNodeList::begin() const
 {
   return ASTNodeContainer<List>::begin();
 }
+
 calc::ASTNodeList::const_iterator calc::ASTNodeList::end() const
 {
   return ASTNodeContainer<List>::end();
 }
-
 
 //! replace [begin,end) with by
 /*!
@@ -242,12 +225,11 @@ calc::ASTNodeList::const_iterator calc::ASTNodeList::end() const
  */
 void calc::ASTNodeList::replace(ASTNode *by, iterator begin, iterator end)
 {
-  auto i=d_container.erase(begin,end);
-  d_container.insert(i,by);
+  auto i = d_container.erase(begin, end);
+  d_container.insert(i, by);
 }
 
-
-calc::ASTNodeList* calc::ASTNodeList::createClone() const
+calc::ASTNodeList *calc::ASTNodeList::createClone() const
 {
   return new ASTNodeList(*this);
 }

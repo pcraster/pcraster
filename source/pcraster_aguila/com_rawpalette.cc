@@ -34,8 +34,6 @@
 #include "com_y2bpalette.h"
 #include "com_y2bmpalette.h"
 
-
-
 /*!
   \file
   brief
@@ -44,216 +42,160 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
 
-const com::RawPalette* com::RawPalette::COLOURCLASSPALETTE()
+const com::RawPalette *com::RawPalette::COLOURCLASSPALETTE()
 {
   static RawPalette const palette(classPalette, classPaletteSize, classColourMaxVal);
   return &palette;
 }
 
-
-
-const com::RawPalette* com::RawPalette::COLOURBOOLPALETTE()
+const com::RawPalette *com::RawPalette::COLOURBOOLPALETTE()
 {
   static RawPalette const palette(boolPalette, boolPaletteSize, boolColourMaxVal);
   return &palette;
 }
 
-
-
-const com::RawPalette* com::RawPalette::B2WPALETTE()
+const com::RawPalette *com::RawPalette::B2WPALETTE()
 {
   static RawPalette const palette(b2wPalette, b2wPaletteSize, b2wColourMaxVal);
   return &palette;
 }
 
-
-
-const com::RawPalette* com::RawPalette::B2WMPALETTE()
+const com::RawPalette *com::RawPalette::B2WMPALETTE()
 {
   static RawPalette const palette(b2wmPalette, b2wmPaletteSize, b2wmColourMaxVal);
   return &palette;
 }
 
-
-
-const com::RawPalette* com::RawPalette::W2BPALETTE()
+const com::RawPalette *com::RawPalette::W2BPALETTE()
 {
   static RawPalette const palette(w2bPalette, w2bPaletteSize, w2bColourMaxVal);
   return &palette;
 }
 
-
-
-const com::RawPalette* com::RawPalette::COLOURCONTPALETTE()
+const com::RawPalette *com::RawPalette::COLOURCONTPALETTE()
 {
   static RawPalette const palette(contPalette, contPaletteSize, contColourMaxVal);
   return &palette;
 }
 
-
-
-const com::RawPalette* com::RawPalette::RAINBOWPALETTE()
+const com::RawPalette *com::RawPalette::RAINBOWPALETTE()
 {
-  static RawPalette const palette(rainbowPalette, rainbowPaletteSize,
-              rainbowColourMaxVal);
+  static RawPalette const palette(rainbowPalette, rainbowPaletteSize, rainbowColourMaxVal);
   return &palette;
 }
 
-
-
-const com::RawPalette* com::RawPalette::R2PPALETTE()
+const com::RawPalette *com::RawPalette::R2PPALETTE()
 {
   static RawPalette const palette(r2pPalette, r2pPaletteSize, r2pColourMaxVal);
   return &palette;
 }
 
-
-
-const com::RawPalette* com::RawPalette::R2PMPALETTE()
+const com::RawPalette *com::RawPalette::R2PMPALETTE()
 {
   static RawPalette const palette(r2pmPalette, r2pmPaletteSize, r2pmColourMaxVal);
   return &palette;
 }
 
-
-
-const com::RawPalette* com::RawPalette::P2RMPALETTE()
+const com::RawPalette *com::RawPalette::P2RMPALETTE()
 {
   static RawPalette const palette(p2rmPalette, p2rmPaletteSize, p2rmColourMaxVal);
   return &palette;
 }
 
-
-
-const com::RawPalette* com::RawPalette::B2YPALETTE()
+const com::RawPalette *com::RawPalette::B2YPALETTE()
 {
   static RawPalette const palette(b2yPalette, b2yPaletteSize, b2yColourMaxVal);
   return &palette;
 }
 
-
-
-const com::RawPalette* com::RawPalette::Y2BPALETTE()
+const com::RawPalette *com::RawPalette::Y2BPALETTE()
 {
   static RawPalette const palette(y2bPalette, y2bPaletteSize, y2bColourMaxVal);
   return &palette;
 }
 
-
-
-const com::RawPalette* com::RawPalette::Y2BMPALETTE()
+const com::RawPalette *com::RawPalette::Y2BMPALETTE()
 {
   static RawPalette const palette(y2bmPalette, y2bmPaletteSize, y2bmColourMaxVal);
   return &palette;
 }
 
-
-
-const com::RawPalette* com::RawPalette::GRAYDIRECTPALETTE()
+const com::RawPalette *com::RawPalette::GRAYDIRECTPALETTE()
 {
-  static RawPalette const palette(grayDirectPalette, grayDirectPaletteSize,
-              grayDirectColourMaxVal);
+  static RawPalette const palette(grayDirectPalette, grayDirectPaletteSize, grayDirectColourMaxVal);
   return &palette;
 }
 
-
-
-const com::RawPalette* com::RawPalette::W2BMPALETTE()
+const com::RawPalette *com::RawPalette::W2BMPALETTE()
 {
   static RawPalette const palette(w2bmPalette, w2bmPaletteSize, w2bmColourMaxVal);
   return &palette;
 }
 
-
-
-const com::RawPalette* com::RawPalette::R2GPALETTE()
+const com::RawPalette *com::RawPalette::R2GPALETTE()
 {
   static RawPalette const palette(r2gPalette, r2gPaletteSize, r2gColourMaxVal);
   return &palette;
 }
 
-
-
-const com::RawPalette* com::RawPalette::R2GMPALETTE()
+const com::RawPalette *com::RawPalette::R2GMPALETTE()
 {
   static RawPalette const palette(r2gmPalette, r2gmPaletteSize, r2gmColourMaxVal);
   return &palette;
 }
 
-
-
-const com::RawPalette* com::RawPalette::G2RMPALETTE()
+const com::RawPalette *com::RawPalette::G2RMPALETTE()
 {
   static RawPalette const palette(g2rmPalette, g2rmPaletteSize, g2rmColourMaxVal);
   return &palette;
 }
 
-
-
-const com::RawPalette* com::RawPalette::B2RMPALETTE()
+const com::RawPalette *com::RawPalette::B2RMPALETTE()
 {
   static RawPalette const palette(b2rmPalette, b2rmPaletteSize, b2rmColourMaxVal);
   return &palette;
 }
 
-
-
-const com::RawPalette* com::RawPalette::B2YMPALETTE()
+const com::RawPalette *com::RawPalette::B2YMPALETTE()
 {
   static RawPalette const palette(b2ymPalette, b2ymPaletteSize, b2ymColourMaxVal);
   return &palette;
 }
 
-
-
-const com::RawPalette* com::RawPalette::netscapePalette()
+const com::RawPalette *com::RawPalette::netscapePalette()
 {
-  static RawPalette const palette(netscapePaletteColours, netscapePaletteSize,
-              netscapePaletteMaxVal);
+  static RawPalette const palette(netscapePaletteColours, netscapePaletteSize, netscapePaletteMaxVal);
   return &palette;
 }
 
-
-
-const com::RawPalette* com::RawPalette::booleanPalette()
+const com::RawPalette *com::RawPalette::booleanPalette()
 {
   return COLOURBOOLPALETTE();
 }
 
-
-
-const com::RawPalette* com::RawPalette::nominalPalette()
+const com::RawPalette *com::RawPalette::nominalPalette()
 {
   return COLOURCLASSPALETTE();
 }
 
-
-
-const com::RawPalette* com::RawPalette::ordinalPalette()
+const com::RawPalette *com::RawPalette::ordinalPalette()
 {
   return RAINBOWPALETTE();
 }
 
-
-
-const com::RawPalette* com::RawPalette::scalarPalette()
+const com::RawPalette *com::RawPalette::scalarPalette()
 {
   return RAINBOWPALETTE();
 }
 
-
-
-const com::RawPalette* com::RawPalette::directionalPalette()
+const com::RawPalette *com::RawPalette::directionalPalette()
 {
   return W2BMPALETTE();
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF CLASS MEMBERS
@@ -262,11 +204,8 @@ const com::RawPalette* com::RawPalette::directionalPalette()
 com::RawPalette::RawPalette()
 
 
-
 {
 }
-
-
 
 /*!
   \param     p One dimensional array with rgb tuples.
@@ -278,15 +217,13 @@ com::RawPalette::RawPalette()
 */
 com::RawPalette::RawPalette(const UINT2 *p, size_t n, UINT2 max)
 
-  : d_tuples(n), d_max(max)
+    : d_tuples(n), d_max(max)
 
 {
   const UINT2 *t = p;
-  for(auto it = begin(); it != end(); it++, t += 3)
+  for (auto it = begin(); it != end(); it++, t += 3)
     (*it).setRgb(*t, *(t + 1), *(t + 2));
 }
-
-
 
 /*!
   \param     p Two dimensional array with rgb tuples.
@@ -298,125 +235,93 @@ com::RawPalette::RawPalette(const UINT2 *p, size_t n, UINT2 max)
 */
 com::RawPalette::RawPalette(const UINT2 p[][3], size_t n, UINT2 max)
 
-  : d_tuples(n), d_max(max)
+    : d_tuples(n), d_max(max)
 
 {
-  const UINT2 (*t)[3] = p;   // Array of pointers to an array of rgb tuples.
-  for(auto it = begin(); it != end(); it++, t++)
+  const UINT2(*t)[3] = p;  // Array of pointers to an array of rgb tuples.
+  for (auto it = begin(); it != end(); it++, t++)
     (*it).setRgb(**t, *(*t + 1), *(*t + 2));
 }
-
-
 
 com::RawPalette::~RawPalette()
 {
 }
 
-
-
-bool com::RawPalette::equals(RawPalette const& rhs) const
+bool com::RawPalette::equals(RawPalette const &rhs) const
 {
   return d_tuples == rhs.d_tuples && d_max == rhs.d_max;
 }
-
-
 
 void com::RawPalette::resize(size_t n)
 {
   d_tuples.resize(n);
 }
 
-
-
 void com::RawPalette::setMaximum(UINT2 m)
 {
   d_max = m;
 }
-
-
 
 void com::RawPalette::insert(iterator pos, const RgbTuple &t)
 {
   d_tuples.insert(pos, t);
 }
 
-
-
 com::RawPalette::const_iterator com::RawPalette::begin() const
 {
   return d_tuples.begin();
 }
-
-
 
 com::RawPalette::iterator com::RawPalette::begin()
 {
   return d_tuples.begin();
 }
 
-
-
 com::RawPalette::const_iterator com::RawPalette::end() const
 {
   return d_tuples.end();
 }
-
-
 
 com::RawPalette::iterator com::RawPalette::end()
 {
   return d_tuples.end();
 }
 
-
-
 bool com::RawPalette::empty() const
 {
   return d_tuples.empty();
 }
-
-
 
 size_t com::RawPalette::nrColours() const
 {
   return d_tuples.size();
 }
 
-
-
 UINT2 com::RawPalette::max() const
 {
   return d_max;
 }
 
-
-
-com::RgbTuple const&  com::RawPalette::colour(size_t i) const
+com::RgbTuple const &com::RawPalette::colour(size_t i) const
 {
   assert(i < d_tuples.size());
 
   return d_tuples[i];
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
-bool com::operator==(RawPalette const& lhs, RawPalette const& rhs)
+bool com::operator==(RawPalette const &lhs, RawPalette const &rhs)
 {
   return lhs.equals(rhs);
 }
 
-
-
-bool com::operator!=(RawPalette const& lhs, RawPalette const& rhs)
+bool com::operator!=(RawPalette const &lhs, RawPalette const &rhs)
 {
   return !lhs.equals(rhs);
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
@@ -463,48 +368,43 @@ bool com::operator!=(RawPalette const& lhs, RawPalette const& rhs)
 // }
 
 
-
 //! Returns the default palette for data with value scale vs.
 /*!
   \param     vs Value scale.
   \return    Palette.
 */
-const com::RawPalette* com::defaultPalette(CSF_VS vs)
+const com::RawPalette *com::defaultPalette(CSF_VS vs)
 {
-  if(vs == VS_BOOLEAN)
+  if (vs == VS_BOOLEAN)
     return RawPalette::booleanPalette();
-  else if(vs == VS_NOMINAL)
+  else if (vs == VS_NOMINAL)
     return RawPalette::nominalPalette();
-  else if(vs == VS_ORDINAL)
+  else if (vs == VS_ORDINAL)
     return RawPalette::ordinalPalette();
-  else if(vs == VS_SCALAR)
+  else if (vs == VS_SCALAR)
     return RawPalette::scalarPalette();
-  else if(vs == VS_DIRECTION)
+  else if (vs == VS_DIRECTION)
     return RawPalette::directionalPalette();
-  else if(vs == VS_LDD)
+  else if (vs == VS_LDD)
     return RawPalette::nominalPalette();
-  else{
+  else {
     assert(false);
-    return nullptr;                // Never reached.
+    return nullptr;  // Never reached.
   }
 }
 
-
-
-std::vector<const com::RawPalette*> com::classPalettes()
+std::vector<const com::RawPalette *> com::classPalettes()
 {
-  std::vector<const RawPalette*> palettes;
+  std::vector<const RawPalette *> palettes;
   palettes.push_back(RawPalette::COLOURCLASSPALETTE());
   palettes.push_back(RawPalette::COLOURBOOLPALETTE());
   palettes.push_back(RawPalette::netscapePalette());
   return palettes;
 }
 
-
-
-std::vector<const com::RawPalette*> com::rangePalettes()
+std::vector<const com::RawPalette *> com::rangePalettes()
 {
-  std::vector<const com::RawPalette*> palettes;
+  std::vector<const com::RawPalette *> palettes;
   palettes.push_back(RawPalette::B2WPALETTE());
   palettes.push_back(RawPalette::B2WMPALETTE());
   palettes.push_back(RawPalette::W2BPALETTE());
@@ -528,8 +428,6 @@ std::vector<const com::RawPalette*> com::rangePalettes()
   return palettes;
 }
 
-
-
 /*!
   \param     p Palette to convert.
   \param     max New maximum rgb value.
@@ -541,34 +439,25 @@ void com::convert(const RawPalette &p, UINT2 max, UINT2 *a)
   assert(p.max() > 0);
 #endif
 
-  UINT2 *c = a;              // Current colour code.
+  UINT2 *c = a;  // Current colour code.
 
-  for(auto it = p.begin(); it != p.end(); it++)
-  {
+  for (auto it = p.begin(); it != p.end(); it++) {
     *c++ = (*it).red() * max / p.max();
     *c++ = (*it).green() * max / p.max();
     *c++ = (*it).blue() * max / p.max();
   }
 }
 
-
-
 void com::write(std::ostream &s, const RawPalette &p)
 {
-  for(const auto & it : p)
-  {
-    s << it.red() << ' ' << it.green() << ' '
-      << it.blue() << '\n';
+  for (const auto &it : p) {
+    s << it.red() << ' ' << it.green() << ' ' << it.blue() << '\n';
   }
 }
-
-
-
 
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -576,9 +465,6 @@ void com::write(std::ostream &s, const RawPalette &p)
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

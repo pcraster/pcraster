@@ -19,13 +19,12 @@
 */
 
 
-
-namespace ag {
+namespace ag
+{
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC BUFFEREDWIDGET MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -40,20 +39,14 @@ namespace ag {
 
   The default alignment is Center. The widget is dirty by default.
 */
-BufferedWidget::BufferedWidget(
-         Alignment alignment,
-         QWidget* parent,
-         Qt::WindowFlags flags)
+BufferedWidget::BufferedWidget(Alignment alignment, QWidget *parent, Qt::WindowFlags flags)
 
-  : QWidget(parent, flags),
-    _alignment(alignment)
+    : QWidget(parent, flags), _alignment(alignment)
 {
   // The child is responsible for drawing all dirty areas.
   setAttribute(Qt::WA_NoSystemBackground);
   setAttribute(Qt::WA_OpaquePaintEvent);
 }
-
-
 
 //! Destructor.
 /*!
@@ -62,14 +55,10 @@ BufferedWidget::~BufferedWidget()
 {
 }
 
-
-
 BufferedWidget::Alignment BufferedWidget::alignment() const
 {
   return _alignment;
 }
-
-
 
 //! Returns the buffer to draw on.
 /*!
@@ -77,19 +66,15 @@ BufferedWidget::Alignment BufferedWidget::alignment() const
 
   Use this buffer in an overloaded updateBuffer(QRectF const&).
 */
-QPixmap& BufferedWidget::buffer()
+QPixmap &BufferedWidget::buffer()
 {
   return _buffer;
 }
 
-
-
-QPixmap const& BufferedWidget::buffer() const
+QPixmap const &BufferedWidget::buffer() const
 {
   return _buffer;
 }
-
-
 
 //! Returns the anchor position which can be used to align the contents.
 /*!
@@ -97,12 +82,10 @@ QPixmap const& BufferedWidget::buffer() const
 
   If alignment is Center, the anchor position is in the center of the widget.
 */
-QPointF const& BufferedWidget::anchor() const
+QPointF const &BufferedWidget::anchor() const
 {
   return _anchor;
 }
-
-
 
 //! Sets the widget buffer state to dirty.
 /*!
@@ -116,8 +99,6 @@ void BufferedWidget::setDirty()
   _dirty = true;
 }
 
-
-
 //! Sets the widget buffer state to clean.
 /*!
   Call this function if you know the buffer is ok. After calling this function
@@ -127,13 +108,11 @@ void BufferedWidget::setDirty()
 void BufferedWidget::setClean()
 {
   _dirty = false;
-  _dirtyLeftArea   = QRectF();
-  _dirtyTopArea    = QRectF();
-  _dirtyRightArea  = QRectF();
+  _dirtyLeftArea = QRectF();
+  _dirtyTopArea = QRectF();
+  _dirtyRightArea = QRectF();
   _dirtyBottomArea = QRectF();
 }
-
-
 
 //! Updates the buffer's contents.
 /*!
@@ -146,11 +125,9 @@ void BufferedWidget::setClean()
   The default does nothing.
 */
 #ifdef DEBUG_DEVELOP
-void BufferedWidget::updateBuffer(
-         QRectF const& area)
+void BufferedWidget::updateBuffer(QRectF const &area)
 #else
-void BufferedWidget::updateBuffer(
-         QRectF const& /* area */)
+void BufferedWidget::updateBuffer(QRectF const & /* area */)
 #endif
 {
 #ifdef DEBUG_DEVELOP
@@ -160,12 +137,13 @@ void BufferedWidget::updateBuffer(
   static int green = 155;
   static int blue = 255;
 
-  QRectF const dirtyArea(area.left(), area.top(), area.width() - 1,
-         area.height() - 1);
+  QRectF const dirtyArea(area.left(), area.top(), area.width() - 1, area.height() - 1);
 
   // Draw the scene.
   painter.setPen(Qt::white);
-  red += 5; green += 20; blue += 15;
+  red += 5;
+  green += 20;
+  blue += 15;
   painter.setBrush(QColor(red % 255, green % 255, blue % 255));
   painter.drawRect(dirtyArea);
 
@@ -176,41 +154,37 @@ void BufferedWidget::updateBuffer(
 #endif
 }
 
-
-
 /*!
   \overload
 */
-void BufferedWidget::paintEvent(
-         QPaintEvent* event)
+void BufferedWidget::paintEvent(QPaintEvent *event)
 {
   // First update the dirty regions of the buffer. Than use the updated buffer
   // to repaint event->rect().
 
-  if(_dirty) {
+  if (_dirty) {
     // The whole buffer is dirty. Update the whole buffer. Resetting all 'dirty
     // settings'.
     updateBuffer(QRectF(0.0, 0.0, size().width(), size().height()));
     _dirty = false;
-  }
-  else {
+  } else {
     // Parts of the buffer are dirty. Update and reset only those parts.
-    if(_dirtyLeftArea.isValid()) {
+    if (_dirtyLeftArea.isValid()) {
       updateBuffer(_dirtyLeftArea);
       _dirtyLeftArea = QRectF();
     }
 
-    if(_dirtyTopArea.isValid()) {
+    if (_dirtyTopArea.isValid()) {
       updateBuffer(_dirtyTopArea);
       _dirtyTopArea = QRectF();
     }
 
-    if(_dirtyRightArea.isValid()) {
+    if (_dirtyRightArea.isValid()) {
       updateBuffer(_dirtyRightArea);
       _dirtyRightArea = QRectF();
     }
 
-    if(_dirtyBottomArea.isValid()) {
+    if (_dirtyBottomArea.isValid()) {
       updateBuffer(_dirtyBottomArea);
       _dirtyBottomArea = QRectF();
     }
@@ -219,8 +193,6 @@ void BufferedWidget::paintEvent(
   QPainter painter(this);
   painter.drawPixmap(event->rect().topLeft(), _buffer, event->rect());
 }
-
-
 
 //! Initializes the widget's settings.
 /*!
@@ -241,19 +213,15 @@ void BufferedWidget::initializeWidget()
 {
 }
 
-
-
 /*!
   \overload
 */
-void BufferedWidget::resizeEvent(
-         QResizeEvent* event)
+void BufferedWidget::resizeEvent(QResizeEvent *event)
 {
   // Testing testing. Is the buffer in sync with the widget?
-  assert(
-       (event->oldSize().isEmpty() && _buffer.size().isNull()) ||
-       (event->oldSize().width() == _buffer.size().width() &&
-       event->oldSize().height() == _buffer.size().height()));
+  assert((event->oldSize().isEmpty() && _buffer.size().isNull()) ||
+         (event->oldSize().width() == _buffer.size().width() &&
+          event->oldSize().height() == _buffer.size().height()));
   assert(event->size() == size());
 
   QSize const oldSize = event->oldSize();
@@ -265,42 +233,37 @@ void BufferedWidget::resizeEvent(
 
   // Upper left corner of part of old buffer that needs to be copied into the
   // new, resized, buffer.
-  double xRecycledBuffer = 0.0; // Shut up compiler.
-  double yRecycledBuffer = 0.0; // Shut up compiler.
+  double xRecycledBuffer = 0.0;  // Shut up compiler.
+  double yRecycledBuffer = 0.0;  // Shut up compiler.
 
-  if(_alignment == TopLeft) {
+  if (_alignment == TopLeft) {
 
     // Anchor point is in the upper left corner and stays in that corner.
     assert(_anchor.x() == 0.0 && _anchor.y() == 0.0);
 
-    if(deltaWidth > 0) {
-      QRectF const deltaDirtyRightArea(oldSize.width(), 0.0,
-                   deltaWidth, newSize.height());
+    if (deltaWidth > 0) {
+      QRectF const deltaDirtyRightArea(oldSize.width(), 0.0, deltaWidth, newSize.height());
 
-      if(!_dirtyRightArea.isValid()) {
+      if (!_dirtyRightArea.isValid()) {
         _dirtyRightArea = deltaDirtyRightArea;
-      }
-      else {
+      } else {
         _dirtyRightArea |= deltaDirtyRightArea;
       }
     }
 
-    if(deltaHeight > 0) {
-      QRectF const deltaDirtyBottomArea(0.0, oldSize.height(),
-                   oldSize.width(), deltaHeight);
+    if (deltaHeight > 0) {
+      QRectF const deltaDirtyBottomArea(0.0, oldSize.height(), oldSize.width(), deltaHeight);
 
-      if(!_dirtyBottomArea.isValid()) {
+      if (!_dirtyBottomArea.isValid()) {
         _dirtyBottomArea = deltaDirtyBottomArea;
-      }
-      else {
+      } else {
         _dirtyBottomArea |= deltaDirtyBottomArea;
       }
     }
 
     xRecycledBuffer = 0.0;
     yRecycledBuffer = 0.0;
-  }
-  else if(_alignment == Center) {
+  } else if (_alignment == Center) {
     // Anchor point is in the center and changes.
     // We create a new pixmap and copy stuff from the original one. Then we
     // get rid of the old one.
@@ -318,7 +281,7 @@ void BufferedWidget::resizeEvent(
     assert(deltaWidthLeft + deltaWidthRight == deltaWidth);
     assert(deltaWidthLeft + deltaWidthRight == deltaWidth);
 
-    if(deltaWidth > 0) {
+    if (deltaWidth > 0) {
 
       //                    dw / 2      dw - dw / 2
       //   +-----+         +-----------------+
@@ -333,49 +296,45 @@ void BufferedWidget::resizeEvent(
       // Left.
       QRectF const deltaDirtyLeftArea(0.0, 0.0, deltaWidthLeft, newSize.height());
 
-      if(!_dirtyLeftArea.isValid()) {
+      if (!_dirtyLeftArea.isValid()) {
         _dirtyLeftArea = deltaDirtyLeftArea;
-      }
-      else {
+      } else {
         _dirtyLeftArea.translate(deltaWidthLeft, 0.0);
         _dirtyLeftArea |= deltaDirtyLeftArea;
       }
 
       // Right.
-      QRectF const deltaDirtyRightArea(deltaWidthLeft + oldSize.width(),
-                 0.0, deltaWidthRight, newSize.height());
+      QRectF const deltaDirtyRightArea(deltaWidthLeft + oldSize.width(), 0.0, deltaWidthRight,
+                                       newSize.height());
 
-      if(!_dirtyRightArea.isValid()) {
+      if (!_dirtyRightArea.isValid()) {
         _dirtyRightArea = deltaDirtyRightArea;
-      }
-      else {
+      } else {
         _dirtyRightArea.translate(-deltaWidthRight, 0.0);
         _dirtyRightArea |= deltaDirtyRightArea;
       }
     }
 
-    if(deltaHeight > 0) {
+    if (deltaHeight > 0) {
 
       // Top.
-      QRectF const deltaDirtyTopArea(std::max(deltaWidthLeft, 0.0), 0.0,
-         oldSize.width(), deltaHeightTop);
+      QRectF const deltaDirtyTopArea(std::max(deltaWidthLeft, 0.0), 0.0, oldSize.width(),
+                                     deltaHeightTop);
 
-      if(!_dirtyTopArea.isValid()) {
+      if (!_dirtyTopArea.isValid()) {
         _dirtyTopArea = deltaDirtyTopArea;
-      }
-      else {
+      } else {
         _dirtyTopArea.translate(0.0, deltaHeightTop);
         _dirtyTopArea |= deltaDirtyTopArea;
       }
 
       // Bottom.
-      QRectF const deltaDirtyBottomArea(std::max(deltaWidthLeft, 0.0),
-         deltaHeightTop + oldSize.height(), oldSize.width(), deltaHeightBottom);
+      QRectF const deltaDirtyBottomArea(std::max(deltaWidthLeft, 0.0), deltaHeightTop + oldSize.height(),
+                                        oldSize.width(), deltaHeightBottom);
 
-      if(!_dirtyBottomArea.isValid()) {
+      if (!_dirtyBottomArea.isValid()) {
         _dirtyBottomArea = deltaDirtyBottomArea;
-      }
-      else {
+      } else {
         _dirtyBottomArea.translate(0.0, -deltaHeightBottom);
         _dirtyBottomArea |= deltaDirtyBottomArea;
       }
@@ -395,7 +354,7 @@ void BufferedWidget::resizeEvent(
   // smaller size.
   QPixmap newBuffer(newSize);
 
-  if(!newBuffer.size().isNull()) {
+  if (!newBuffer.size().isNull()) {
     // Centralized anchor:
     // Take numerical dispersion into account. Resizing the window with small
     // steps (one pixel) will result in 0.5 pixel on both sides. In case this
@@ -407,30 +366,26 @@ void BufferedWidget::resizeEvent(
     fractionalPart = std::modf(_anchor.x(), &intPart);
 
     // xRecycledBuffer = qRound(fractionalPart) == 0
-    xRecycledBuffer = fractionalPart < qreal(0.5)
-      ? std::floor(xRecycledBuffer)
-      : std::ceil(xRecycledBuffer);
+    xRecycledBuffer =
+        fractionalPart < qreal(0.5) ? std::floor(xRecycledBuffer) : std::ceil(xRecycledBuffer);
 
     fractionalPart = std::modf(_anchor.y(), &intPart);
 
     // yRecycledBuffer = qRound(fractionalPart) == 0
-    yRecycledBuffer = fractionalPart < qreal(0.5)
-      ? std::floor(yRecycledBuffer)
-      : std::ceil(yRecycledBuffer);
+    yRecycledBuffer =
+        fractionalPart < qreal(0.5) ? std::floor(yRecycledBuffer) : std::ceil(yRecycledBuffer);
 
     QPainter painter(&newBuffer);
-    painter.drawPixmap(QPointF(xRecycledBuffer, yRecycledBuffer),
-         _buffer, QRectF(0.0, 0.0, oldSize.width(), oldSize.height()));
+    painter.drawPixmap(QPointF(xRecycledBuffer, yRecycledBuffer), _buffer,
+                       QRectF(0.0, 0.0, oldSize.width(), oldSize.height()));
   }
 
   _buffer = newBuffer;
 
-  if(!oldSize.isValid()) {
+  if (!oldSize.isValid()) {
     initializeWidget();
   }
 }
-
-
 
 // Only deals with buffer and dirty regions. Other admin should be
 // handled by the caller (eg offset).
@@ -444,15 +399,13 @@ void BufferedWidget::resizeEvent(
   \warning   .
   \sa        .
 */
-void BufferedWidget::moveContents(
-         int dx,
-         int dy)
+void BufferedWidget::moveContents(int dx, int dy)
 {
   // QPainter painter(&_buffer);
   QPixmap newBuffer(_buffer);
   QPainter painter(&newBuffer);
 
-  if(dx > 0) {
+  if (dx > 0) {
     // Blit current contents.
     // QPainter painter(&newBuffer);
     painter.drawPixmap(dx, 0, _buffer, 0, 0, width() - dx, height());
@@ -461,14 +414,12 @@ void BufferedWidget::moveContents(
     // Left.
     QRectF const deltaDirtyLeftArea(0, 0, dx, height());
 
-    if(!_dirtyLeftArea.isValid()) {
+    if (!_dirtyLeftArea.isValid()) {
       _dirtyLeftArea = deltaDirtyLeftArea;
-    }
-    else {
+    } else {
       _dirtyLeftArea |= deltaDirtyLeftArea;
     }
-  }
-  else if(dx < 0) {
+  } else if (dx < 0) {
     // Blit current contents.
     // QPainter painter(&newBuffer);
     painter.drawPixmap(0, 0, _buffer, -dx, 0, width() - -dx, height());
@@ -477,15 +428,14 @@ void BufferedWidget::moveContents(
     // Right.
     QRectF const deltaDirtyRightArea(width() - -dx, 0, -dx, height());
 
-    if(!_dirtyRightArea.isValid()) {
+    if (!_dirtyRightArea.isValid()) {
       _dirtyRightArea = deltaDirtyRightArea;
-    }
-    else {
+    } else {
       _dirtyRightArea |= deltaDirtyRightArea;
     }
   }
 
-  if(dy > 0) {
+  if (dy > 0) {
     // Blit current contents.
     // QPainter painter(&newBuffer);
     painter.drawPixmap(0, dy, _buffer, 0, 0, width(), height() - dy);
@@ -494,14 +444,12 @@ void BufferedWidget::moveContents(
     // Top
     QRectF const deltaDirtyTopArea(0, 0, width(), dy);
 
-    if(!_dirtyTopArea.isValid()) {
+    if (!_dirtyTopArea.isValid()) {
       _dirtyTopArea = deltaDirtyTopArea;
-    }
-    else {
+    } else {
       _dirtyTopArea |= deltaDirtyTopArea;
     }
-  }
-  else if(dy < 0) {
+  } else if (dy < 0) {
     // Blit current contents.
     // QPainter painter(&newBuffer);
     painter.drawPixmap(0, 0, _buffer, 0, -dy, width(), height() - -dy);
@@ -510,10 +458,9 @@ void BufferedWidget::moveContents(
     // Bottom.
     QRectF const deltaDirtyBottomArea(0, height() - -dy, width(), -dy);
 
-    if(!_dirtyBottomArea.isValid()) {
+    if (!_dirtyBottomArea.isValid()) {
       _dirtyBottomArea = deltaDirtyBottomArea;
-    }
-    else {
+    } else {
       _dirtyBottomArea |= deltaDirtyBottomArea;
     }
   }
@@ -523,8 +470,6 @@ void BufferedWidget::moveContents(
 
   assert(_buffer.size() == size());
 }
-
-
 
 //!
 /*!
@@ -536,29 +481,21 @@ void BufferedWidget::moveContents(
   \warning   .
   \sa        .
 */
-void BufferedWidget::moveBy(
-         double dx,
-         double dy)
+void BufferedWidget::moveBy(double dx, double dy)
 {
   // moveContents(dx, dy);
   moveContents(qRound(dx), 0);
   moveContents(0.0, qRound(dy));
 }
 
-
-
-void BufferedWidget::moveBy(
-         QPointF const& offset)
+void BufferedWidget::moveBy(QPointF const &offset)
 {
   moveBy(offset.x(), offset.y());
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -566,4 +503,4 @@ void BufferedWidget::moveBy(
 //------------------------------------------------------------------------------
 
 
-} // namespace ag
+}  // namespace ag

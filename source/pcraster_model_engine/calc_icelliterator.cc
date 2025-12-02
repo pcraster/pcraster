@@ -1,13 +1,10 @@
 #include "stddefx.h"
 #include "calc_icelliterator.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the ICellIterator class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -33,11 +30,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC ICELLITERATOR MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -47,8 +42,6 @@ public:
 calc::ICellIterator::ICellIterator()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -61,12 +54,9 @@ calc::ICellIterator::ICellIterator(ICellIterator const& rhs)
 */
 
 
-
 calc::ICellIterator::~ICellIterator()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -88,16 +78,11 @@ size_t calc::ICellIterator::lddDownstream() const
   return 0;
 }
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

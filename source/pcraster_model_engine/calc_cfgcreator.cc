@@ -20,75 +20,67 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 
-namespace calc {
+namespace calc
+{
 
 class CFGCreatorPrivate : public ASTVisitor
 {
 
 private:
-
   //! Assignment operator. NOT IMPLEMENTED.
-  CFGCreatorPrivate&           operator=           (const CFGCreatorPrivate&);
+  CFGCreatorPrivate &operator=(const CFGCreatorPrivate &);
 
   //! Copy constructor. NOT IMPLEMENTED.
-                   CFGCreatorPrivate               (const CFGCreatorPrivate&);
+  CFGCreatorPrivate(const CFGCreatorPrivate &);
 
-  CFGNode          *d_last{nullptr};
-  CFGNode          *d_first{nullptr};
-  ASTAss           *d_currentAss{nullptr};
+  CFGNode *d_last{nullptr};
+  CFGNode *d_first{nullptr};
+  ASTAss *d_currentAss{nullptr};
 
   std::stack<CFGNode *> d_blockEntrances;
 
-  void              add(ASTNode *an);
-  void              setBack(CFGNode *an);
+  void add(ASTNode *an);
+  void setBack(CFGNode *an);
 
 
-  void visitPar          (ASTPar    *p) override;
-  void visitNumber       (ASTNumber *n) override;
-  void visitStat         (ASTStat   *s) override;
+  void visitPar(ASTPar *p) override;
+  void visitNumber(ASTNumber *n) override;
+  void visitStat(ASTStat *s) override;
   void visitPointCodeBlock(PointCodeBlock *b) override;
-  void visitExpr         (BaseExpr   *e) override;
-  void visitAss          (ASTAss    *a) override;
+  void visitExpr(BaseExpr *e) override;
+  void visitAss(ASTAss *a) override;
 
-  void visitNonAssExpr(NonAssExpr   *e) override;
+  void visitNonAssExpr(NonAssExpr *e) override;
 
-  void visitJumpNode     (JumpNode  *j) override;
-  void visitBlockEntrance(BlockEntrance  *e) override;
+  void visitJumpNode(JumpNode *j) override;
+  void visitBlockEntrance(BlockEntrance *e) override;
 
 public:
-
   //----------------------------------------------------------------------------
   // CREATORS
   //----------------------------------------------------------------------------
 
-                   CFGCreatorPrivate               ();
+  CFGCreatorPrivate();
 
-  /* virtual */    ~CFGCreatorPrivate              () override;
+  /* virtual */ ~CFGCreatorPrivate() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  CFGNode* releaseFirst() ;
+  CFGNode *releaseFirst();
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-
-
 };
 
 
-} // namespace calc
-
-
-
+}  // namespace calc
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CFGCREATOR MEMBERS
@@ -98,41 +90,40 @@ public:
 // DEFINITION OF CFGCREATOR MEMBERS
 //------------------------------------------------------------------------------
 
-calc::CFGNode *calc::createCFG(ASTNode *n) {
-  std::vector<ASTNode *> const nodeVector(1,n);
+calc::CFGNode *calc::createCFG(ASTNode *n)
+{
+  std::vector<ASTNode *> const nodeVector(1, n);
   return createCFG(nodeVector);
 }
 
-calc::CFGNode *calc::createCFG(const std::vector<ASTNode *>& nodeVector)
+calc::CFGNode *calc::createCFG(const std::vector<ASTNode *> &nodeVector)
 {
   CFGCreatorPrivate c;
-  for(auto i : nodeVector)
+  for (auto i : nodeVector)
     if (i)
       i->accept(c);
   return c.releaseFirst();
 }
 
-calc::ScopedCFG::ScopedCFG(CFGNode *n):
- cfg(n)
+calc::ScopedCFG::ScopedCFG(CFGNode *n) : cfg(n)
 {
 }
 
-calc::ScopedCFG::ScopedCFG(ASTNode *n):
- cfg(createCFG(n))
-{}
+calc::ScopedCFG::ScopedCFG(ASTNode *n) : cfg(createCFG(n))
+{
+}
 
 calc::ScopedCFG::~ScopedCFG()
 {
   delete cfg;
-  cfg=nullptr;
+  cfg = nullptr;
 }
 
 //! ctor
 calc::CFGCreatorPrivate::CFGCreatorPrivate()
-  
+
 {
 }
-
 
 calc::CFGCreatorPrivate::~CFGCreatorPrivate()
 {
@@ -140,27 +131,28 @@ calc::CFGCreatorPrivate::~CFGCreatorPrivate()
 }
 
 //! release the start of CFG
-calc::CFGNode* calc::CFGCreatorPrivate::releaseFirst() {
-  CFGNode* first=d_first;
-  d_first=nullptr;
+calc::CFGNode *calc::CFGCreatorPrivate::releaseFirst()
+{
+  CFGNode *first = d_first;
+  d_first = nullptr;
   return first;
 }
 
 void calc::CFGCreatorPrivate::add(ASTNode *an)
 {
-  auto *n= new CFGNode(an);
+  auto *n = new CFGNode(an);
   if (d_last) {
     d_last->setForward(n);
     n->setPred(d_last);
   } else {
-    d_first=n;
+    d_first = n;
   }
-  d_last=n;
+  d_last = n;
 }
 
 void calc::CFGCreatorPrivate::setBack(CFGNode *b)
 {
-  PRECOND(d_last); // something to point back to
+  PRECOND(d_last);  // something to point back to
   d_last->setBack(b);
   // FTTB pred not set
 }
@@ -179,14 +171,15 @@ void calc::CFGCreatorPrivate::visitPointCodeBlock(PointCodeBlock *b)
 {
   add(b);
 }
-void calc::CFGCreatorPrivate::visitStat(ASTStat   *s)
+
+void calc::CFGCreatorPrivate::visitStat(ASTStat *s)
 {
   add(s);
   PRECOND(s->stat());
   s->stat()->accept(*this);
 }
 
-void calc::CFGCreatorPrivate::visitNonAssExpr(NonAssExpr   *e)
+void calc::CFGCreatorPrivate::visitNonAssExpr(NonAssExpr *e)
 {
   e->expr()->accept(*this);
   add(e);
@@ -194,25 +187,25 @@ void calc::CFGCreatorPrivate::visitNonAssExpr(NonAssExpr   *e)
 
 void calc::CFGCreatorPrivate::visitExpr(BaseExpr *e)
 {
-   ASTVisitor::visitExpr(e);
-   add(e);
+  ASTVisitor::visitExpr(e);
+  add(e);
 }
 
-void calc::CFGCreatorPrivate::visitAss (ASTAss    *a)
+void calc::CFGCreatorPrivate::visitAss(ASTAss *a)
 {
   // d_currentAss=a;
   a->rhs()->accept(*this);
   add(a);
 }
 
-void calc::CFGCreatorPrivate::visitJumpNode(JumpNode  *j)
+void calc::CFGCreatorPrivate::visitJumpNode(JumpNode *j)
 {
   add(j);
   setBack(d_blockEntrances.top());
   d_blockEntrances.pop();
 }
 
-void calc::CFGCreatorPrivate::visitBlockEntrance(BlockEntrance  *e)
+void calc::CFGCreatorPrivate::visitBlockEntrance(BlockEntrance *e)
 {
   add(e);
   d_blockEntrances.push(d_last);
@@ -221,7 +214,6 @@ void calc::CFGCreatorPrivate::visitBlockEntrance(BlockEntrance  *e)
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -234,7 +226,6 @@ void calc::CFGCreatorPrivate::visitBlockEntrance(BlockEntrance  *e)
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF CFGCREATOR MEMBERS
 //------------------------------------------------------------------------------
@@ -244,28 +235,28 @@ void calc::CFGCreatorPrivate::visitBlockEntrance(BlockEntrance  *e)
 //  {
 //    d_data=new CFGCreatorPrivate();
 //  }
-//  
-//  
-//  
+//
+//
+//
 //  /* NOT IMPLEMENTED
 //  //! Copy constructor.
 //  calc::CFGCreator::CFGCreator(CFGCreator const& rhs)
-//  
+//
 //    : Base(rhs)
-//  
+//
 //  {
 //  }
 //  */
-//  
-//  
-//  
+//
+//
+//
 //  calc::CFGCreator::~CFGCreator()
 //  {
 //    delete d_data;
 //  }
-//  
-//  
-//  
+//
+//
+//
 //  /* NOT IMPLEMENTED
 //  //! Assignment operator.
 //  calc::CFGCreator& calc::CFGCreator::operator=(CFGCreator const& rhs)
@@ -275,14 +266,14 @@ void calc::CFGCreatorPrivate::visitBlockEntrance(BlockEntrance  *e)
 //    return *this;
 //  }
 //  */
-//  
+//
 //  //! add AST fragment to CFG in creation
 //  void calc::CFGCreator::add(ASTNode *fragment)
 //  {
 //    fragment->accept(*d_data);
 //  }
-//  
-//  
+//
+//
 //  //! create the CFG with the add()'ed fragments
 //  /*!
 //   * This always the last call to this object, since
@@ -292,18 +283,14 @@ void calc::CFGCreatorPrivate::visitBlockEntrance(BlockEntrance  *e)
 //  {
 //    return d_data->releaseFirst();
 //  }
-//  
-//  
+//
+//
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

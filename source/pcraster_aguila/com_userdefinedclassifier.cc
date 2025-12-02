@@ -7,15 +7,14 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the UserDefinedClassifier class.
 */
 
 
-
-namespace com {
+namespace com
+{
 
 //------------------------------------------------------------------------------
 
@@ -36,74 +35,52 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC USERDEFINEDCLASSIFIER MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF USERDEFINEDCLASSIFIER MEMBERS
 //------------------------------------------------------------------------------
 
-template<typename T>
-UserDefinedClassifier<T>::UserDefinedClassifier()
+template <typename T> UserDefinedClassifier<T>::UserDefinedClassifier()
 {
 }
 
-
-
-template<typename T>
-UserDefinedClassifier<T>::~UserDefinedClassifier()
+template <typename T> UserDefinedClassifier<T>::~UserDefinedClassifier()
 {
 }
 
-
-
-template<typename T>
-void UserDefinedClassifier<T>::setBorders(
-         std::vector<T> const& borders)
+template <typename T> void UserDefinedClassifier<T>::setBorders(std::vector<T> const &borders)
 {
   d_borders = borders;
 }
 
 
-
-template<typename T>
-void UserDefinedClassifier<T>::classify(
-         std::vector<T> &borders,
-         T /* min */,
-         T /* max */,
-         size_t
+template <typename T>
+void UserDefinedClassifier<T>::classify(std::vector<T> &borders, T /* min */, T /* max */,
+                                        size_t
 #ifdef DEBUG_DEVELOP
-         numberOfClasses
+                                            numberOfClasses
 #endif
-         )
+)
 {
   assert(numberOfClasses == borders.size());
 
   borders = d_borders;
 }
 
-
-
-template<typename T>
-void UserDefinedClassifier<T>::autoClassify(
-         std::vector<T> &borders,
-         T /* min */,
-         T /* max */,
-         size_t /* numberOfClasses */)
+template <typename T>
+void UserDefinedClassifier<T>::autoClassify(std::vector<T> &borders, T /* min */, T /* max */,
+                                            size_t /* numberOfClasses */)
 {
   borders = d_borders;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -111,6 +88,4 @@ void UserDefinedClassifier<T>::autoClassify(
 //------------------------------------------------------------------------------
 
 
-
-} // namespace com
-
+}  // namespace com

@@ -27,24 +27,22 @@
 */
 
 
-
-namespace ag {
+namespace ag
+{
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CUMDISTRIBUTIONFUNCTIONVIEW MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF CUMDISTRIBUTIONFUNCTIONVIEW MEMBERS
 //------------------------------------------------------------------------------
 
-CumDistributionFunctionView::CumDistributionFunctionView(
-         DataObject* object, QWidget* parent, const char* name)
+CumDistributionFunctionView::CumDistributionFunctionView(DataObject *object, QWidget *parent,
+                                                         const char *name)
 
-  : PlotVisualisation(object, "Cumulative Distribution Function View",
-         parent, name)
+    : PlotVisualisation(object, "Cumulative Distribution Function View", parent, name)
 
 {
   // Supported data types.
@@ -62,46 +60,38 @@ CumDistributionFunctionView::CumDistributionFunctionView(
   this->setCursor(Qt::PointingHandCursor);
 }
 
-
-
 CumDistributionFunctionView::~CumDistributionFunctionView()
 {
 }
-
-
 
 void CumDistributionFunctionView::rescan()
 {
   visualisationEngine().rescan(dataObject());
 }
 
-
-
 void CumDistributionFunctionView::process()
 {
-  if(visualisationEngine().change() & VisEngine::OTHERATTRIB ||
-         visualisationEngine().change() & VisEngine::DRAWPROPS ||
-         visualisationEngine().change() & VisEngine::SELECTION ||
-         visualisationEngine().change() & VisEngine::TIME ||
-         visualisationEngine().change() & VisEngine::RASTER_CELL) {
+  if (visualisationEngine().change() & VisEngine::OTHERATTRIB ||
+      visualisationEngine().change() & VisEngine::DRAWPROPS ||
+      visualisationEngine().change() & VisEngine::SELECTION ||
+      visualisationEngine().change() & VisEngine::TIME ||
+      visualisationEngine().change() & VisEngine::RASTER_CELL) {
     clearPlot();
     createPlot();
-  }
-  else {
-    if(visualisationEngine().change() & VisEngine::QUANTILE) {
+  } else {
+    if (visualisationEngine().change() & VisEngine::QUANTILE) {
       assert(!(visualisationEngine().change() & VisEngine::VALUE_SELECTION));
 
-      dal::DataSpace const& space(dataObject().dataSpace());
+      dal::DataSpace const &space(dataObject().dataSpace());
 
-      if(space.hasCumProbabilities()) {
-        dal::DataSpaceAddress const& address(dataObject().dataSpaceAddress());
+      if (space.hasCumProbabilities()) {
+        dal::DataSpaceAddress const &address(dataObject().dataSpaceAddress());
         size_t const index = space.indexOf(dal::CumulativeProbabilities);
         double const quantile = address.coordinate<float>(index);
 
         setYMarker(quantile);
       }
-    }
-    else if(visualisationEngine().change() & VisEngine::VALUE_SELECTION) {
+    } else if (visualisationEngine().change() & VisEngine::VALUE_SELECTION) {
       assert(!(visualisationEngine().change() & VisEngine::QUANTILE));
       assert(dataObject().hasSelectedValue());
 
@@ -109,11 +99,10 @@ void CumDistributionFunctionView::process()
     }
   }
 
-  if(visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
-    if(!dataObject().backgroundColour().isValid()) {
+  if (visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+    if (!dataObject().backgroundColour().isValid()) {
       setPalette(QPalette());
-    }
-    else {
+    } else {
       QPalette palette;
       palette.setColor(backgroundRole(), dataObject().backgroundColour());
       setPalette(palette);
@@ -121,33 +110,27 @@ void CumDistributionFunctionView::process()
   }
 }
 
-
-
 void CumDistributionFunctionView::visualise()
 {
-  if(visualisationEngine().change() & VisEngine::OTHERATTRIB ||
-         visualisationEngine().change() & VisEngine::DRAWPROPS ||
-         visualisationEngine().change() & VisEngine::VALUE_SELECTION ||
-         visualisationEngine().change() & VisEngine::SELECTION ||
-         visualisationEngine().change() & VisEngine::RASTER_CELL ||
-         visualisationEngine().change() & VisEngine::TIME ||
-         visualisationEngine().change() & VisEngine::QUANTILE ||
-         visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+  if (visualisationEngine().change() & VisEngine::OTHERATTRIB ||
+      visualisationEngine().change() & VisEngine::DRAWPROPS ||
+      visualisationEngine().change() & VisEngine::VALUE_SELECTION ||
+      visualisationEngine().change() & VisEngine::SELECTION ||
+      visualisationEngine().change() & VisEngine::RASTER_CELL ||
+      visualisationEngine().change() & VisEngine::TIME ||
+      visualisationEngine().change() & VisEngine::QUANTILE ||
+      visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
     update();
   }
 
   visualisationEngine().finishedScanning(dataObject());
 }
 
-
-
-void CumDistributionFunctionView::addAttribute(
-         DataGuide const& dataGuide) {
+void CumDistributionFunctionView::addAttribute(DataGuide const &dataGuide)
+{
   testDataGuide(dataGuide);
   visualisationEngine().addAttribute(dataObject(), dataGuide);
 }
-
-
 
 void CumDistributionFunctionView::setXAxisTitle()
 {
@@ -155,24 +138,18 @@ void CumDistributionFunctionView::setXAxisTitle()
   m_axisX->setTitleText(QString("Value"));
 }
 
-
-
 void CumDistributionFunctionView::setYAxisTitle()
 {
   m_axisY->setTitleFont(QApplication::font());
 
-  if(onlyCumulativeProbabilitiesShown()) {
+  if (onlyCumulativeProbabilitiesShown()) {
     m_axisY->setTitleText(QString("Cumulative probability"));
-  }
-  else if(onlyExceedanceProbabilitiesShown()) {
+  } else if (onlyExceedanceProbabilitiesShown()) {
     m_axisY->setTitleText(QString("Exceedance probability"));
-  }
-  else {
+  } else {
     m_axisY->setTitleText(QString("Probability"));
   }
 }
-
-
 
 void CumDistributionFunctionView::setXAxisScale()
 {
@@ -182,35 +159,32 @@ void CumDistributionFunctionView::setXAxisScale()
   pcr::setMV(max);
   bool extremesInitialised = false;
 
-  if(!dataObject().hasSelectedValue()) {
-    for(DataGuide const& guide : visualisationEngine().dataGuides()) {
+  if (!dataObject().hasSelectedValue()) {
+    for (DataGuide const &guide : visualisationEngine().dataGuides()) {
       assert(guide.valueScale() == VS_SCALAR);
 
-      RangeDrawProps const& properties(
-         dataObject().properties().rangeDrawProperties(guide));
+      RangeDrawProps const &properties(dataObject().properties().rangeDrawProperties(guide));
 
-      if(properties.cutoffsAreValid()) {
-        if(!extremesInitialised) {
+      if (properties.cutoffsAreValid()) {
+        if (!extremesInitialised) {
           min = properties.minCutoff();
           max = properties.maxCutoff();
           extremesInitialised = true;
-        }
-        else {
+        } else {
           min = std::min(min, properties.minCutoff());
           max = std::max(max, properties.maxCutoff());
         }
       }
     }
-  }
-  else {
-    SpatialDataset* dataset = nullptr;
+  } else {
+    SpatialDataset *dataset = nullptr;
 
-    for(DataGuide const& guide : visualisationEngine().dataGuides()) {
+    for (DataGuide const &guide : visualisationEngine().dataGuides()) {
       assert(guide.type() == geo::STACK || guide.type() == geo::FEATURE);
       assert(guide.valueScale() == VS_SCALAR);
       dataset = nullptr;
 
-      switch(guide.type()) {
+      switch (guide.type()) {
         case geo::STACK: {
           dataset = &dataObject().rasterDataSources().data(guide);
           break;
@@ -228,13 +202,12 @@ void CumDistributionFunctionView::setXAxisScale()
       assert(dataset);
       assert(dataset->dataSpace().hasCumProbabilities());
 
-      if(!dataset->allMV()) {
-        if(!extremesInitialised) {
+      if (!dataset->allMV()) {
+        if (!extremesInitialised) {
           min = dataset->min<REAL4>();
           max = dataset->max<REAL4>();
           extremesInitialised = true;
-        }
-        else {
+        } else {
           min = std::min(min, double(dataset->min<REAL4>()));
           max = std::max(max, double(dataset->max<REAL4>()));
         }
@@ -242,7 +215,7 @@ void CumDistributionFunctionView::setXAxisScale()
     }
   }
 
-  if(!pcr::isMV(min) && !pcr::isMV(max)) {
+  if (!pcr::isMV(min) && !pcr::isMV(max)) {
     assert(min <= max);
 
     m_axisX->setRange(min, max);
@@ -250,29 +223,25 @@ void CumDistributionFunctionView::setXAxisScale()
   }
 }
 
-
-
 void CumDistributionFunctionView::setYAxisScale()
 {
   double min = 0.0;
   double max = 1.0;
 
-  if(dataObject().hasSelectedValue()) {
+  if (dataObject().hasSelectedValue()) {
     bool extremesInitialised = false;
 
-    for(DataGuide const& guide : visualisationEngine().dataGuides()) {
+    for (DataGuide const &guide : visualisationEngine().dataGuides()) {
       assert(guide.valueScale() == VS_SCALAR);
 
-      RangeDrawProps const& properties(
-         dataObject().properties().rangeDrawProperties(guide));
+      RangeDrawProps const &properties(dataObject().properties().rangeDrawProperties(guide));
 
-      if(properties.cutoffsAreValid()) {
-        if(!extremesInitialised) {
+      if (properties.cutoffsAreValid()) {
+        if (!extremesInitialised) {
           min = properties.minCutoff();
           max = properties.maxCutoff();
           extremesInitialised = true;
-        }
-        else {
+        } else {
           min = std::min(min, properties.minCutoff());
           max = std::max(max, properties.maxCutoff());
         }
@@ -284,15 +253,11 @@ void CumDistributionFunctionView::setYAxisScale()
   m_chart->addAxis(m_axisY, Qt::AlignLeft);
 }
 
-
-
 void CumDistributionFunctionView::configureXAxis()
 {
   setXAxisTitle();
   setXAxisScale();
 }
-
-
 
 void CumDistributionFunctionView::configureYAxis()
 {
@@ -300,23 +265,21 @@ void CumDistributionFunctionView::configureYAxis()
   setYAxisScale();
 }
 
-
-
 void CumDistributionFunctionView::drawPlots()
 {
-  DataObject& object(dataObject());
-  dal::DataSpace const& space(object.dataSpace());
-  dal::DataSpaceAddress const& address(dataObject().dataSpaceAddress());
+  DataObject &object(dataObject());
+  dal::DataSpace const &space(object.dataSpace());
+  dal::DataSpaceAddress const &address(dataObject().dataSpaceAddress());
 
-  SpatialDataset* dataset = nullptr;
+  SpatialDataset *dataset = nullptr;
 
-  for(DataGuide const& guide : visualisationEngine().dataGuides()) {
+  for (DataGuide const &guide : visualisationEngine().dataGuides()) {
     assert(guide.type() == geo::STACK || guide.type() == geo::FEATURE);
     assert(guide.valueScale() == VS_SCALAR);
 
     dataset = nullptr;
 
-    switch(guide.type()) {
+    switch (guide.type()) {
       case geo::STACK: {
         dataset = &object.rasterDataSources().data(guide);
         break;
@@ -334,41 +297,37 @@ void CumDistributionFunctionView::drawPlots()
     assert(dataset);
     assert(dataset->dataSpace().hasCumProbabilities());
 
-    if(!dataset->allMV()) {
+    if (!dataset->allMV()) {
       // Create table for data values at the quantile levels.
       dal::Table table;
       dataset->readCumulativeProbabilities(space, address, table);
 
-      dal::Array<REAL4> const& quantileCol(table.col<REAL4>(0));
-      dal::Array<REAL4> const& attrCol(table.col<REAL4>(1));
+      dal::Array<REAL4> const &quantileCol(table.col<REAL4>(0));
+      dal::Array<REAL4> const &attrCol(table.col<REAL4>(1));
       boost::scoped_array<double> const x(new double[table.nrRecs()]);
       boost::scoped_array<double> const y(new double[table.nrRecs()]);
 
-      RangeDrawProps const& properties(
-        object.properties().rangeDrawProperties(guide));
+      RangeDrawProps const &properties(object.properties().rangeDrawProperties(guide));
 
-      for(size_t i = 0; i < table.nrRecs(); ++i) {
+      for (size_t i = 0; i < table.nrRecs(); ++i) {
         y[i] = quantileCol[i];
 
-        if(properties.probabilityScale() ==
-               RangeDrawProps::ExceedanceProbabilities) {
+        if (properties.probabilityScale() == RangeDrawProps::ExceedanceProbabilities) {
           y[i] = 1.0 - y[i];
         }
 
-        if(pcr::isMV(attrCol[i])) {
+        if (pcr::isMV(attrCol[i])) {
           pcr::setMV(x[i]);
-        }
-        else {
+        } else {
           x[i] = attrCol[i];
         }
       }
 
       QPen pen;
 
-      if(object.isSelected(guide)) {
+      if (object.isSelected(guide)) {
         pen = QPen(object.properties().colour(guide), 2, Qt::SolidLine);
-      }
-      else {
+      } else {
         pen = QPen(object.properties().colour(guide), 1, Qt::SolidLine);
       }
 
@@ -376,16 +335,14 @@ void CumDistributionFunctionView::drawPlots()
     }
   }
 
-  if(object.hasSelectedValue(/* guide */)) {
+  if (object.hasSelectedValue(/* guide */)) {
     // A value is selected. Use the first guide for the properties of
     // the marker. Mark data values.
     setXMarker(object.selectedValue(/* guide */));
     enableMarker(xMarker());
     disableMarker(yMarker());
-  }
-  else {
-    size_t const indexOfCumProbabilities = space.indexOf(
-         dal::CumulativeProbabilities);
+  } else {
+    size_t const indexOfCumProbabilities = space.indexOf(dal::CumulativeProbabilities);
     assert(address.isValid(indexOfCumProbabilities));
     float const quantile = address.coordinate<float>(indexOfCumProbabilities);
 
@@ -395,15 +352,13 @@ void CumDistributionFunctionView::drawPlots()
   }
 }
 
-
-
 void CumDistributionFunctionView::createPlot()
 {
-  if(visualisationEngine().isEmpty()) {
+  if (visualisationEngine().isEmpty()) {
     return;
   }
 
-  if(!dataObject().dataSpace().hasCumProbabilities()) {
+  if (!dataObject().dataSpace().hasCumProbabilities()) {
     return;
   }
 
@@ -413,20 +368,14 @@ void CumDistributionFunctionView::createPlot()
   attachMarkers();
 }
 
-
-
-void CumDistributionFunctionView::appended(
-         QPointF const& point)
+void CumDistributionFunctionView::appended(QPointF const &point)
 {
   moved(point);
 }
 
-
-
-void CumDistributionFunctionView::moved(
-         QPointF const& point)
+void CumDistributionFunctionView::moved(QPointF const &point)
 {
-  if(markerEnabled(xMarker())) {
+  if (markerEnabled(xMarker())) {
     /// for(size_t i = 0; i < visualisationEngine().size(); ++i) {
     ///   DataGuide const& guide = visualisationEngine().guide(i);
     ///   // assert(guide.type() == geo::STACK);
@@ -436,13 +385,12 @@ void CumDistributionFunctionView::moved(
 
     dataObject().setSelectedValue(static_cast<REAL4>(point.x()), false);
     /// dataObject().notify();
-  }
-  else if(markerEnabled(yMarker())) {
+  } else if (markerEnabled(yMarker())) {
     // Snap to closest quantile.
-    dal::DataSpace const& space = dataObject().dataSpace();
-    if(space.hasCumProbabilities()) {
+    dal::DataSpace const &space = dataObject().dataSpace();
+    if (space.hasCumProbabilities()) {
       size_t const index = space.indexOf(dal::CumulativeProbabilities);
-      dal::Dimension const& dimension = space.dimension(index);
+      dal::Dimension const &dimension = space.dimension(index);
       dataObject().setQuantile(dimension.clamp<float>(static_cast<float>(point.y())), false);
     }
   }
@@ -450,15 +398,11 @@ void CumDistributionFunctionView::moved(
   dataObject().notify();
 }
 
-
-
 QSize CumDistributionFunctionView::minimumSizeHint() const
 {
   // Override QwtPlot one with the default.
   return QWidget::minimumSizeHint();
 }
-
-
 
 void CumDistributionFunctionView::toggleMarker()
 {
@@ -478,30 +422,29 @@ void CumDistributionFunctionView::toggleMarker()
   assert(!(markerEnabled(xMarker()) && markerEnabled(yMarker())));
 
   // Take the first guide.
-  DataGuide const& guide = visualisationEngine().guide(0);
+  DataGuide const &guide = visualisationEngine().guide(0);
 
-  if(markerEnabled(xMarker())) {
+  if (markerEnabled(xMarker())) {
     // xMarker iterates over the y-axis. Attribute values will be shown in
     // the map.
-    if(!intersectMarker(&x, &y, xMarker(), guide)) {
+    if (!intersectMarker(&x, &y, xMarker(), guide)) {
       y = 0.5;
     }
 
     // Snap to closest quantile.
-    dal::DataSpace const& space = dataObject().dataSpace();
+    dal::DataSpace const &space = dataObject().dataSpace();
     assert(space.hasCumProbabilities());
     size_t const index = space.indexOf(dal::CumulativeProbabilities);
-    dal::Dimension const& dimension = space.dimension(index);
+    dal::Dimension const &dimension = space.dimension(index);
     dataObject().setQuantile(dimension.clamp<float>(y), false);
 
     dataObject().unsetSelectedValue(false);
 
-    for(size_t i = 0; i < visualisationEngine().size(); ++i) {
-      DataGuide const& guide = visualisationEngine().guide(i);
+    for (size_t i = 0; i < visualisationEngine().size(); ++i) {
+      DataGuide const &guide = visualisationEngine().guide(i);
       dataObject().popClassifiers(guide, false);
     }
-  }
-  else if(markerEnabled(yMarker())) {
+  } else if (markerEnabled(yMarker())) {
     // double min, max;
 
     // extremes(&min, &max);
@@ -509,13 +452,13 @@ void CumDistributionFunctionView::toggleMarker()
     // yMarker iterates over the x-axis. Probabilities will be shown in the
     // map.
 
-    if(!intersectMarker(&x, &y, yMarker(), guide)) {
+    if (!intersectMarker(&x, &y, yMarker(), guide)) {
       // Marker does not intersect the curve of the first guide.
 
       x = m_axisX->min();
       double const range = m_axisX->max() - m_axisX->min();
 
-      if(range > 0.0) {
+      if (range > 0.0) {
         // Use the middle value.
         x += range / 2.0;
       }
@@ -523,8 +466,8 @@ void CumDistributionFunctionView::toggleMarker()
 
     dataObject().setSelectedValue(x, false);
 
-    for(size_t i = 0; i < visualisationEngine().size(); ++i) {
-      DataGuide const& guide = visualisationEngine().guide(i);
+    for (size_t i = 0; i < visualisationEngine().size(); ++i) {
+      DataGuide const &guide = visualisationEngine().guide(i);
       assert(guide.valueScale() == VS_SCALAR);
 
       com::Classifier classifier(0.0, 1.0);
@@ -537,16 +480,13 @@ void CumDistributionFunctionView::toggleMarker()
   dataObject().notify();
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace ag
+}  // namespace ag

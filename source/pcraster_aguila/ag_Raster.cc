@@ -12,20 +12,18 @@
 #include <cassert>
 #include <format>
 
-
 /*!
   \file
   This file contains the implementation of the Raster class.
 */
 
 
-
-namespace ag {
+namespace ag
+{
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC RASTER MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -40,26 +38,23 @@ namespace ag {
   \warning   .
   \sa        .
 */
-Raster::Raster(
-         std::string const& name,
-         dal::DataSpace const& dataSpace)
+Raster::Raster(std::string const &name, dal::DataSpace const &dataSpace)
 
-  : RasterDataset(name, dataSpace)
+    : RasterDataset(name, dataSpace)
 
 {
   std::unique_ptr<dal::Raster> raster(dataSource().open<dal::Raster>());
   assert(raster.get());
 
-  if(raster->properties().hasValue(DAL_CSF_VALUESCALE)) {
+  if (raster->properties().hasValue(DAL_CSF_VALUESCALE)) {
     d_valueScale = raster->properties().value<CSF_VS>(DAL_CSF_VALUESCALE);
-  }
-  else {
+  } else {
     d_valueScale = dal::typeIdToValueScale(raster->typeId());
   }
 
   dal::TypeId useTypeId;
 
-  switch(d_valueScale) {
+  switch (d_valueScale) {
     case VS_BOOLEAN:
     case VS_LDD: {
       useTypeId = dal::TI_UINT1;
@@ -91,20 +86,19 @@ Raster::Raster(
   }
 
   d_raster = raster.release();
-  d_dimensions = dal::RasterDimensions(d_raster->nrRows(), d_raster->nrCols(),
-         d_raster->cellSize(), d_raster->west(), d_raster->north());
+  d_dimensions = dal::RasterDimensions(d_raster->nrRows(), d_raster->nrCols(), d_raster->cellSize(),
+                                       d_raster->west(), d_raster->north());
 
   d_raster->setTypeId(useTypeId);
   d_raster->createCells();
 
   boost::any min;
   boost::any max;
-  auto* driver =
-         dynamic_cast<dal::RasterDriver*>(dataSource().reader());
+  auto *driver = dynamic_cast<dal::RasterDriver *>(dataSource().reader());
   assert(driver);
 
-  if(driver->extremes(min, max, d_raster->typeId(), dataSource().name(),
-         dataSource().enclosingDataSpace())) {
+  if (driver->extremes(min, max, d_raster->typeId(), dataSource().name(),
+                       dataSource().enclosingDataSpace())) {
     setExtremes(min, max);
   }
 
@@ -140,22 +134,16 @@ Raster::Raster(
   /// }
 }
 
-
-
 Raster::~Raster()
 {
   // delete d_dataSpaceAddressMapper;
   delete d_raster;
 }
 
-
-
-dal::RasterDimensions const& Raster::dimensions() const
+dal::RasterDimensions const &Raster::dimensions() const
 {
   return d_dimensions;
 }
-
-
 
 CSF_VS Raster::valueScale() const
 {
@@ -164,14 +152,10 @@ CSF_VS Raster::valueScale() const
   return d_valueScale;
 }
 
-
-
 dal::TypeId Raster::typeId() const
 {
   return d_raster->typeId();
 }
-
-
 
 // void Raster::setDataSpaceAddressMapper(
 //          dal::DataSpaceAddressMapper* mapper)
@@ -182,39 +166,33 @@ dal::TypeId Raster::typeId() const
 // }
 
 
-
-void Raster::read(
-         dal::DataSpace const& space,
-         dal::DataSpaceAddress const& address)
+void Raster::read(dal::DataSpace const &space, dal::DataSpaceAddress const &address)
 {
   assert(d_raster);
 
   dal::DataSpaceAddress const localAddress(this->localAddress(space, address));
   assert(dataSource().dataSpace().rank() == localAddress.size());
 
-  if(isRead(localAddress)) {
+  if (isRead(localAddress)) {
     setAddressRead(localAddress);
-  }
-  else {
+  } else {
     dal::DataSpaceAddress localAddressWithoutSpace(
-         dataSource().dataSpace().eraseCoordinates(localAddress, dal::Space));
+        dataSource().dataSpace().eraseCoordinates(localAddress, dal::Space));
 
-    if(!dataSource().enclosingDataSpace().contains(localAddressWithoutSpace)) {
+    if (!dataSource().enclosingDataSpace().contains(localAddressWithoutSpace)) {
       setAddressRead(dataSource().dataSpace().address());
       assert(!isRead());
       assert(!isRead(localAddress));
       assert(!isRead(addressRead()));
-    }
-    else {
-      if(!hasSelectedValue()) {
+    } else {
+      if (!hasSelectedValue()) {
         dataSource().read(*d_raster, localAddressWithoutSpace);
-      }
-      else {
+      } else {
         assert(d_raster->typeId() == dal::TI_REAL4);
         assert(dataSource().dataSpace().hasCumProbabilities());
 
         localAddressWithoutSpace.unsetCoordinate(
-              dataSource().dataSpace().indexOf(dal::CumulativeProbabilities));
+            dataSource().dataSpace().indexOf(dal::CumulativeProbabilities));
 
         dataSource().read(*d_raster, selectedValue(), localAddressWithoutSpace);
       }
@@ -224,8 +202,6 @@ void Raster::read(
     }
   }
 }
-
-
 
 //! Checks whether some address is read.
 /*!
@@ -240,10 +216,10 @@ bool Raster::isRead() const
 {
   bool result = false;
 
-  if(addressRead().size() == dataSource().dataSpace().size()) {
+  if (addressRead().size() == dataSource().dataSpace().size()) {
     dal::DataSpaceAddress const addressReadWithoutSpace(
-         dataSource().dataSpace().eraseCoordinates(addressRead(), dal::Space));
-    dal::DataSpace const& space(dataSource().enclosingDataSpace());
+        dataSource().dataSpace().eraseCoordinates(addressRead(), dal::Space));
+    dal::DataSpace const &space(dataSource().enclosingDataSpace());
 
     result = space.isValid(addressReadWithoutSpace);
   }
@@ -251,27 +227,24 @@ bool Raster::isRead() const
   return result;
 }
 
-
-
-bool Raster::isRead(
-         dal::DataSpaceAddress const& address) const
+bool Raster::isRead(dal::DataSpaceAddress const &address) const
 {
   bool result = false;
 
-  if(isRead()) {
+  if (isRead()) {
     dal::DataSpaceAddress addressWithoutSpace(
-         dataSource().dataSpace().eraseCoordinates(address, dal::Space));
+        dataSource().dataSpace().eraseCoordinates(address, dal::Space));
     dal::DataSpaceAddress const addressReadWithoutSpace(
-         dataSource().dataSpace().eraseCoordinates(addressRead(), dal::Space));
-    dal::DataSpace const& space(dataSource().enclosingDataSpace());
+        dataSource().dataSpace().eraseCoordinates(addressRead(), dal::Space));
+    dal::DataSpace const &space(dataSource().enclosingDataSpace());
 
-    if(space.hasScenarios()) {
+    if (space.hasScenarios()) {
       // <hack>
       // Discard scenario setting of address. Make it equal to the scenario
       // in the currently read address.
       size_t const index = space.indexOf(dal::Scenarios);
-      addressWithoutSpace.setCoordinate<std::string>(index,
-           addressReadWithoutSpace.coordinate<std::string>(index));
+      addressWithoutSpace.setCoordinate<std::string>(
+          index, addressReadWithoutSpace.coordinate<std::string>(index));
       // </hack>
     }
 
@@ -280,8 +253,6 @@ bool Raster::isRead(
 
   return result;
 }
-
-
 
 // //!
 // /*!
@@ -297,12 +268,10 @@ bool Raster::isRead(
 // }
 
 
-
 // bool Raster::hasExtremes() const
 // {
 //   return !d_min.empty() && !d_max.empty();
 // }
-
 
 
 /// dal::DataSource const& Raster::source() const
@@ -311,15 +280,12 @@ bool Raster::isRead(
 /// }
 
 
-
 bool Raster::hasLegend() const
 {
   assert(d_raster);
 
   return d_raster->properties().hasValue(DAL_LEGEND);
 }
-
-
 
 //!
 /*!
@@ -337,9 +303,8 @@ dal::Table Raster::legend() const
 
   dal::Table result;
 
-  if(hasLegend()) {
-    dal::Table rasterLegend = d_raster->properties().value<dal::Table>(
-        DAL_LEGEND);
+  if (hasLegend()) {
+    dal::Table rasterLegend = d_raster->properties().value<dal::Table>(DAL_LEGEND);
     assert(rasterLegend.nrCols() == 2);
     assert(rasterLegend.typeId(0) == dal::TI_INT4);
     assert(rasterLegend.typeId(1) == dal::TI_STRING);
@@ -351,13 +316,11 @@ dal::Table Raster::legend() const
     // Determine raster value extent.
     INT4 min = 0;
     INT4 max = 0;
-    assert(d_raster->typeId() == dal::TI_UINT1 ||
-      d_raster->typeId() == dal::TI_INT4);
-    if(d_raster->typeId() == dal::TI_UINT1) {
+    assert(d_raster->typeId() == dal::TI_UINT1 || d_raster->typeId() == dal::TI_INT4);
+    if (d_raster->typeId() == dal::TI_UINT1) {
       min = static_cast<INT4>(d_raster->min<UINT1>());
       max = static_cast<INT4>(d_raster->max<UINT1>());
-    }
-    else if(typeId() == dal::TI_INT4) {
+    } else if (typeId() == dal::TI_INT4) {
       min = d_raster->min<INT4>();
       max = d_raster->max<INT4>();
     }
@@ -366,8 +329,8 @@ dal::Table Raster::legend() const
     // of values that will be part of the legend. The legend read from the
     // raster may contain values that are not present in the raster. It may
     // also lack values that are present in the raster.
-    if(rasterLegend.nrRecs() > 0) {
-      dal::Array<INT4> const& values(rasterLegend.col<INT4>(0));
+    if (rasterLegend.nrRecs() > 0) {
+      dal::Array<INT4> const &values(rasterLegend.col<INT4>(0));
       min = std::min(min, values[0]);
       max = std::max(max, values[rasterLegend.nrRecs() - 1]);
     }
@@ -380,19 +343,19 @@ dal::Table Raster::legend() const
     result.resize((max - min) + 1);
     result.setTitle(rasterLegend.title());
 
-    dal::Array<INT4>& values(result.col<INT4>(0));
-    dal::Array<std::string>& labels(result.col<std::string>(1));
+    dal::Array<INT4> &values(result.col<INT4>(0));
+    dal::Array<std::string> &labels(result.col<std::string>(1));
 
     // Fill result legend with default labels.
     INT4 value = min;
-    for(size_t i = 0; i < result.nrRecs(); ++i) {
+    for (size_t i = 0; i < result.nrRecs(); ++i) {
       values[i] = value++;
       labels[i] = std::format("{}", value);
     }
 
     // Overwrite the default labels with the ones read from the raster.
     std::string label;
-    for(size_t i = 0; i < rasterLegend.nrRecs(); ++i) {
+    for (size_t i = 0; i < rasterLegend.nrRecs(); ++i) {
       value = rasterLegend.col<INT4>(0)[i];
       label = rasterLegend.col<std::string>(1)[i];
       assert(indexOf(values, value) < values.size());
@@ -403,15 +366,11 @@ dal::Table Raster::legend() const
   return result;
 }
 
-
-
-bool Raster::isMV(
-         size_t row,
-         size_t col) const
+bool Raster::isMV(size_t row, size_t col) const
 {
   bool result = true;
 
-  switch(typeId()) {
+  switch (typeId()) {
     case dal::TI_INT1: {
       result = pcr::isMV(cell<INT1>(row, col));
       break;
@@ -453,18 +412,13 @@ bool Raster::isMV(
   return result;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace ag
-
-
+}  // namespace ag

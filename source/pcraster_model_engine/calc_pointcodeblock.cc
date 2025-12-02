@@ -1,7 +1,7 @@
 #include "stddefx.h"
 #include "calc_pointcodeblock.h"
 #include "calc_cfgcreator.h"
-#include "calc_field.h" // only createDestCloneIfReadOnly
+#include "calc_field.h"  // only createDestCloneIfReadOnly
 #include "calc_astnodelist.h"
 #include "calc_astpar.h"
 #include "calc_usedefanalyzer.h"
@@ -20,8 +20,6 @@
 */
 
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC POINTCODEBLOCK MEMBERS
 //------------------------------------------------------------------------------
@@ -34,60 +32,50 @@
 /*! \par partOf the ASTNodeList in which the ctor range [begin,end)
  *              is replaced
  */
-calc::PointCodeBlock::PointCodeBlock(
-    ASTNodeList* partOf,
-    PointCodeIterator   begin,
-    PointCodeIterator   end,
-    const ParSet& pars,
-    size_t     nrOps):
-   ASTNode(**begin),
+calc::PointCodeBlock::PointCodeBlock(ASTNodeList *partOf, PointCodeIterator begin, PointCodeIterator end,
+                                     const ParSet &pars, size_t nrOps)
+    : ASTNode(**begin),
 #ifdef DEBUG_DEVELOP
-   d_pars(pars),
+      d_pars(pars),
 #endif
-   d_nrOps(nrOps)
+      d_nrOps(nrOps)
 {
 
-  auto *l=new ASTNodeList();
-  for(auto i=begin;i!=end; ++i)
-      l->transferPushBack(*i);
+  auto *l = new ASTNodeList();
+  for (auto i = begin; i != end; ++i)
+    l->transferPushBack(*i);
   d_pointCode = new Code(l);
 
   ScopedCFG const cfg(d_pointCode);
 
-  d_input  = inputSet(cfg.cfg);
+  d_input = inputSet(cfg.cfg);
   d_output = newLiveDefSet(cfg.cfg);
-  d_local  = setDifference(pars, setUnion(d_input, d_output));
+  d_local = setDifference(pars, setUnion(d_input, d_output));
 
 
-// UNIT TEST ONLY
-  d_size = std::distance(begin,end);
+  // UNIT TEST ONLY
+  d_size = std::distance(begin, end);
 
   std::ostringstream s;
   DEVELOP_PRECOND(*begin);
   ASTNodeList::const_iterator back(end);
   --back;
   DEVELOP_PRECOND(*back);
-  s << "BLOCK [" << (*begin)->shortPosText()
-                 <<      ","    << (*back)->shortPosText() << "]";
+  s << "BLOCK [" << (*begin)->shortPosText() << "," << (*back)->shortPosText() << "]";
 
   d_rangeText = s.str();
-// END UNIT TEST
+  // END UNIT TEST
 
-  partOf->replace(this,begin,end);
-
+  partOf->replace(this, begin, end);
 }
 
 //! Copy constructor.
-calc::PointCodeBlock::PointCodeBlock(PointCodeBlock const& rhs):
-    ASTNode(rhs),
-    d_pointCode(new Code(rhs.d_pointCode)),
+calc::PointCodeBlock::PointCodeBlock(PointCodeBlock const &rhs)
+    : ASTNode(rhs), d_pointCode(new Code(rhs.d_pointCode)),
 #ifdef DEBUG_DEVELOP
-    d_pars(rhs.d_pars),
+      d_pars(rhs.d_pars),
 #endif
-    d_input(rhs.d_input),
-    d_output(rhs.d_output),
-    d_local(rhs.d_local),
-    d_nrOps(rhs.d_nrOps)
+      d_input(rhs.d_input), d_output(rhs.d_output), d_local(rhs.d_local), d_nrOps(rhs.d_nrOps)
 
 {
 }
@@ -98,34 +86,34 @@ calc::PointCodeBlock::~PointCodeBlock()
 }
 
 //! Assignment operator.
-calc::PointCodeBlock& calc::PointCodeBlock::operator=(PointCodeBlock const& rhs)
+calc::PointCodeBlock &calc::PointCodeBlock::operator=(PointCodeBlock const &rhs)
 {
   if (this != &rhs) {
-    d_pointCode=new Code(rhs.d_pointCode);
+    d_pointCode = new Code(rhs.d_pointCode);
 #ifdef DEBUG_DEVELOP
-    d_pars     =rhs.d_pars;
+    d_pars = rhs.d_pars;
 #endif
-    d_input    =rhs.d_input;
-    d_output   =rhs.d_output;
-    d_local    =rhs.d_local;
-    d_nrOps    =rhs.d_nrOps;
+    d_input = rhs.d_input;
+    d_output = rhs.d_output;
+    d_local = rhs.d_local;
+    d_nrOps = rhs.d_nrOps;
   }
   return *this;
 }
 
 //! get value of d_input
-const calc::ParSet& calc::PointCodeBlock::input() const
+const calc::ParSet &calc::PointCodeBlock::input() const
 {
   return d_input;
 }
 
-calc::PointCodeBlock* calc::PointCodeBlock::createClone()const
+calc::PointCodeBlock *calc::PointCodeBlock::createClone() const
 {
   return new PointCodeBlock(*this);
 }
 
 //! get value of d_output
-const calc::ParSet& calc::PointCodeBlock::output() const
+const calc::ParSet &calc::PointCodeBlock::output() const
 {
   return d_output;
 }
@@ -137,19 +125,19 @@ calc::ParSet calc::PointCodeBlock::transfer() const
 }
 
 //! get value of d_local
-const calc::ParSet& calc::PointCodeBlock::local() const
+const calc::ParSet &calc::PointCodeBlock::local() const
 {
   return d_local;
 }
 
 //! set value of d_dllFunctionAddress
-void calc::PointCodeBlock::setDllFunctionAddress(const void* dllFunctionAddress)
+void calc::PointCodeBlock::setDllFunctionAddress(const void *dllFunctionAddress)
 {
-  d_dllFunctionAddress=dllFunctionAddress;
+  d_dllFunctionAddress = dllFunctionAddress;
 }
 
 //! get value of d_dllFunctionAddress
-const void* calc::PointCodeBlock::dllFunctionAddress() const
+const void *calc::PointCodeBlock::dllFunctionAddress() const
 {
   return d_dllFunctionAddress;
 }
@@ -165,52 +153,52 @@ std::string calc::PointCodeBlock::dllFunctionName() const
 /*!
  *  const d_pointCode is Casted away!
  */
-void calc::PointCodeBlock::genCode(std::ostream& s) const
+void calc::PointCodeBlock::genCode(std::ostream &s) const
 {
-  s << '\n' << "extern \"C\" void "
-    << dllFunctionName() << "(CellPtr* v,size_t n) {"
-    << '\n';
+  s << '\n' << "extern \"C\" void " << dllFunctionName() << "(CellPtr* v,size_t n) {" << '\n';
 
-  ParSet const vContents=transfer();
+  ParSet const vContents = transfer();
 
 #ifdef DEBUG
-  s << "/* " << std::endl
-    << *this;
+  s << "/* " << std::endl << *this;
 
   // index into array v
   //  enum { A=0,B=1,C=2, etc, };
   s << "enum {" << std::endl;
-  size_t index=0;
-  for(auto vContent : vContents) {
-   s << vContent->name() << "=" << index++ << "," << std::endl;
+  size_t index = 0;
+  for (auto vContent : vContents) {
+    s << vContent->name() << "=" << index++ << "," << std::endl;
   }
   s << "};" << std::endl;
 
   s << "*/ " << std::endl;
 #endif
 
-  generatePointCodeBody(s,d_pointCode,vContents);
+  generatePointCodeBody(s, d_pointCode, vContents);
 
   s << '\n' << "}" << '\n';
 }
 
-void calc::PointCodeBlock::accept(ASTVisitor& v)
+void calc::PointCodeBlock::accept(ASTVisitor &v)
 {
   v.visitPointCodeBlock(this);
 }
 
-namespace calc {
-  // scoped vector
-  class ParPCBVector: public std::vector<ParPCB *> {
-  public:
-    ~ParPCBVector() {
-      for(auto & i : *this)
-        delete i;
-    }
-  };
-}
+namespace calc
+{
+// scoped vector
+class ParPCBVector : public std::vector<ParPCB *>
+{
+public:
+  ~ParPCBVector()
+  {
+    for (auto &i : *this)
+      delete i;
+  }
+};
+}  // namespace calc
 
-void calc::PointCodeBlock::exec(RunTimeEnv& rte)
+void calc::PointCodeBlock::exec(RunTimeEnv &rte)
 {
   ParPCBVector vector;
 
@@ -218,10 +206,10 @@ void calc::PointCodeBlock::exec(RunTimeEnv& rte)
   ParSet const set(transfer());
 
 
-  for(auto p : set) {
+  for (auto p : set) {
     // add new, incr size
     vector.push_back(new ParPCB());
-    ParPCB& pcb(*(vector.back()));
+    ParPCB &pcb(*(vector.back()));
 
     // can be set to 0
     pcb.setInput(d_input.find(p));
@@ -229,15 +217,15 @@ void calc::PointCodeBlock::exec(RunTimeEnv& rte)
     pcb.setOutput(d_output.find(p));
 
     if (pcb.input()) {
-     // get input
-     // use stack as input mechanism, since it will automatic
-     // read input maps when needed (StackedValue)
-     rte.pushValue(pcb.input());
-     pcb.setField(rte.popField());
+      // get input
+      // use stack as input mechanism, since it will automatic
+      // read input maps when needed (StackedValue)
+      rte.pushValue(pcb.input());
+      pcb.setField(rte.popField());
 
-     // read/write ?
-     if (pcb.output())
-       pcb.setField(createDestCloneIfReadOnly(pcb.field()));
+      // read/write ?
+      if (pcb.output())
+        pcb.setField(createDestCloneIfReadOnly(pcb.field()));
     } else {
       // no input, must be output only
       PRECOND(pcb.output());
@@ -246,10 +234,10 @@ void calc::PointCodeBlock::exec(RunTimeEnv& rte)
     }
   }
 
-  execPCB(vector,d_dllFunctionAddress);
+  execPCB(vector, d_dllFunctionAddress);
 
   // reverse order due to stack assign
-  for(auto i=vector.rbegin(); i!=vector.rend(); ++i)
+  for (auto i = vector.rbegin(); i != vector.rend(); ++i)
     if ((*i)->output())
       rte.pushField((*i)->releaseField());
 
@@ -257,26 +245,25 @@ void calc::PointCodeBlock::exec(RunTimeEnv& rte)
   rte.assignStackTop(output().toSortedVector());
 }
 
-
 std::string calc::PointCodeBlock::rangeText() const
 {
   return d_rangeText;
 }
 
-void calc::PointCodeBlock::print(std::ostream& s) const
+void calc::PointCodeBlock::print(std::ostream &s) const
 {
   s << rangeText() << '\n';
 #ifdef DEBUG_DEVELOP
-  s << " d_pars"     << d_pars << std::endl;
-  s << " Update"     << setIntersection(d_input,d_output) << std::endl;
+  s << " d_pars" << d_pars << std::endl;
+  s << " Update" << setIntersection(d_input, d_output) << std::endl;
 #endif
-  s << " d_input"    << d_input    << '\n';
-  s << " d_output"   << d_output   << '\n';
-  s << " d_local"    << d_local    << '\n';
-  s << " d_nrOps "   << d_nrOps    << '\n';
+  s << " d_input" << d_input << '\n';
+  s << " d_output" << d_output << '\n';
+  s << " d_local" << d_local << '\n';
+  s << " d_nrOps " << d_nrOps << '\n';
 }
 
-calc::ASTNode* calc::PointCodeBlock::replacedCode() const
+calc::ASTNode *calc::PointCodeBlock::replacedCode() const
 {
   return d_pointCode;
 }
@@ -286,9 +273,7 @@ calc::ASTNode* calc::PointCodeBlock::replacedCode() const
 //------------------------------------------------------------------------------
 
 
-std::ostream& calc::operator<<(
-    std::ostream& s,
-    const calc::PointCodeBlock& p)
+std::ostream &calc::operator<<(std::ostream &s, const calc::PointCodeBlock &p)
 {
   p.print(s);
   return s;

@@ -8,7 +8,6 @@
 #include "calc_positiontext.h"
 #include <memory>
 
-
 /*!
   \file
   This file contains the implementation of the LexInputSource class.
@@ -19,12 +18,11 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF LEXINPUTSOURCE MEMBERS
 //------------------------------------------------------------------------------
 
-calc::LexInputSource::LexInputSource(const std::string& fileName)
+calc::LexInputSource::LexInputSource(const std::string &fileName)
 {
   d_fileName = std::make_shared<std::string>(fileName);
 }
@@ -33,21 +31,19 @@ calc::LexInputSource::LexInputSource()
 {
 }
 
-
 calc::LexInputSource::~LexInputSource()
 {
 }
 
-
 //! Install script given as option (-f)
 /*!
  */
-calc::LexInputSource *calc::createLexInputSourceFromFile(const com::PathName& pn)
+calc::LexInputSource *calc::createLexInputSourceFromFile(const com::PathName &pn)
 {
   MAP *m = nullptr;
-  if ( (m = Mopen(pn.toString().c_str(),M_READ)) != nullptr) {
+  if ((m = Mopen(pn.toString().c_str(), M_READ)) != nullptr) {
     Mclose(m);
-    throw com::Exception(quote(pn.toString())+" is a map, not a script file");
+    throw com::Exception(quote(pn.toString()) + " is a map, not a script file");
     // argscalc/test28
   }
   ResetMerrno();
@@ -55,7 +51,7 @@ calc::LexInputSource *calc::createLexInputSourceFromFile(const com::PathName& pn
   return new LexInputSourceTextScript(pn);
 }
 
-calc::PositionText* calc::LexInputSource::createPositionText(size_t lineNr, size_t charNr)const
+calc::PositionText *calc::LexInputSource::createPositionText(size_t lineNr, size_t charNr) const
 {
-  return new PositionText(d_fileName,lineNr,charNr);
+  return new PositionText(d_fileName, lineNr, charNr);
 }

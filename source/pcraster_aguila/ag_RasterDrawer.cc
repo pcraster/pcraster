@@ -18,18 +18,17 @@
   This file contains the implementation of the RasterDrawer class.
 */
 
-namespace {
+namespace
+{
 
-} // Anonymous namespace
+}  // Anonymous namespace
 
-
-
-namespace ag {
+namespace ag
+{
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC RASTERDRAWER MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -47,23 +46,16 @@ namespace ag {
   \warning   .
   \sa        .
 */
-RasterDrawer::RasterDrawer(
-         dal::SpaceDimensions const& spaceDimensions,
-         RasterDataset const* raster)
+RasterDrawer::RasterDrawer(dal::SpaceDimensions const &spaceDimensions, RasterDataset const *raster)
 
-  : MapDrawer(spaceDimensions, raster->dimensions()),
-    _raster(raster)
+    : MapDrawer(spaceDimensions, raster->dimensions()), _raster(raster)
 
 {
 }
-
-
 
 RasterDrawer::~RasterDrawer()
 {
 }
-
-
 
 // RasterDataset const& RasterDrawer::raster() const
 // {
@@ -71,17 +63,12 @@ RasterDrawer::~RasterDrawer()
 // }
 
 
-
-double RasterDrawer::cellSizeInPixels(
-         QTransform const& mapper) const
+double RasterDrawer::cellSizeInPixels(QTransform const &mapper) const
 {
   return mapper.m11() * _raster->dimensions().cellSize();
 }
 
-
-
-size_t RasterDrawer::nrCellsPerPixel(
-         QTransform const& mapper) const
+size_t RasterDrawer::nrCellsPerPixel(QTransform const &mapper) const
 {
   double const nrCellsPerPixel = 1.0 / cellSizeInPixels(mapper);
 
@@ -90,13 +77,8 @@ size_t RasterDrawer::nrCellsPerPixel(
   return std::max(size_t(1), static_cast<size_t>(std::floor(nrCellsPerPixel)));
 }
 
-
-
-void RasterDrawer::draw(
-         QPainter& painter,
-         QRectF const& dirtyMapAreaInPixels,
-         QTransform const& world_to_screen,
-         QTransform const& screen_to_world) const
+void RasterDrawer::draw(QPainter &painter, QRectF const &dirtyMapAreaInPixels,
+                        QTransform const &world_to_screen, QTransform const &screen_to_world) const
 {
   // painter.setPen(Qt::black);
   // painter.setBrush(Qt::blue);
@@ -110,9 +92,8 @@ void RasterDrawer::draw(
 
   // Convert dirtyMapAreaInPixels to dirtyMapAreaInWorldCoordinates.
   QRectF const dirtyMapAreaInWorldCoordinates(
-    screen_to_world.map( QPointF(dirtyMapAreaInPixels.left(), dirtyMapAreaInPixels.top()) ),
-    screen_to_world.map( QPointF(dirtyMapAreaInPixels.right(), dirtyMapAreaInPixels.bottom()) )
-  );
+      screen_to_world.map(QPointF(dirtyMapAreaInPixels.left(), dirtyMapAreaInPixels.top())),
+      screen_to_world.map(QPointF(dirtyMapAreaInPixels.right(), dirtyMapAreaInPixels.bottom())));
 
   // This rectangle is invalid in Qt's sense because of the y-coordinate
   // projection.
@@ -123,31 +104,29 @@ void RasterDrawer::draw(
   // coordinate of the raster is nrCols(), for example.
   QPointF northWestCellIndices;
   QPointF southEastCellIndices;
-  _raster->dimensions().indices(
-         dirtyMapAreaInWorldCoordinates.left(),
-         dirtyMapAreaInWorldCoordinates.top(),
-         northWestCellIndices.ry(), northWestCellIndices.rx());
-  _raster->dimensions().indices(
-         dirtyMapAreaInWorldCoordinates.right(),
-         dirtyMapAreaInWorldCoordinates.bottom(),
-         southEastCellIndices.ry(), southEastCellIndices.rx());
+  _raster->dimensions().indices(dirtyMapAreaInWorldCoordinates.left(),
+                                dirtyMapAreaInWorldCoordinates.top(), northWestCellIndices.ry(),
+                                northWestCellIndices.rx());
+  _raster->dimensions().indices(dirtyMapAreaInWorldCoordinates.right(),
+                                dirtyMapAreaInWorldCoordinates.bottom(), southEastCellIndices.ry(),
+                                southEastCellIndices.rx());
   // Add a cell to the dirtyMapAreaInCells to account for those drawers that
   // draw in the neighbouring cell.
   QRectF const dirtyMapAreaInCells(northWestCellIndices - QPointF(1.0, 1.0),
-         southEastCellIndices + QPointF(1.0, 1.0));
+                                   southEastCellIndices + QPointF(1.0, 1.0));
 
   assert(!dirtyMapAreaInCells.isEmpty());
 
   int const firstRow = std::max(std::floor(dirtyMapAreaInCells.top()), 0.0);
-  int const lastRow = std::min(std::floor(dirtyMapAreaInCells.bottom()),
-         _raster->dimensions().nrRows() - 1.0);
+  int const lastRow =
+      std::min(std::floor(dirtyMapAreaInCells.bottom()), _raster->dimensions().nrRows() - 1.0);
   int const firstCol = std::max(std::floor(dirtyMapAreaInCells.left()), 0.0);
-  int const lastCol = std::min(std::floor(dirtyMapAreaInCells.right()),
-         _raster->dimensions().nrCols() - 1.0);
+  int const lastCol =
+      std::min(std::floor(dirtyMapAreaInCells.right()), _raster->dimensions().nrCols() - 1.0);
 
   QRect const indices(QPoint(firstCol, firstRow), QPoint(lastCol, lastRow));
 
-  if(indices.isEmpty()) {
+  if (indices.isEmpty()) {
     return;
   }
 
@@ -158,8 +137,6 @@ void RasterDrawer::draw(
 
   draw(painter, indices, world_to_screen, screen_to_world);
 }
-
-
 
 // void RasterDrawer::draw2(
 //          QPainter& painter,
@@ -208,13 +185,9 @@ void RasterDrawer::draw(
 // }
 
 
-
-template<typename T>
-void RasterDrawer::drawCells(
-         QPainter& painter,
-         QRect const& indices,
-         QTransform const& world_to_screen,
-         QTransform const&  /*screen_to_world*/) const
+template <typename T>
+void RasterDrawer::drawCells(QPainter &painter, QRect const &indices, QTransform const &world_to_screen,
+                             QTransform const & /*screen_to_world*/) const
 {
   size_t const nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
   double leftScreen = NAN;
@@ -242,9 +215,9 @@ void RasterDrawer::drawCells(
   painter.setRenderHint(QPainter::Antialiasing, false);
   painter.setPen(Qt::NoPen);
 
-  for(size_t row = firstRow; row <= lastRow; row += nrCellsPerPixel) {
-    for(size_t col = firstCol; col <= lastCol; col += nrCellsPerPixel) {
-      if(!_raster->isMV(row, col)) {
+  for (size_t row = firstRow; row <= lastRow; row += nrCellsPerPixel) {
+    for (size_t col = firstCol; col <= lastCol; col += nrCellsPerPixel) {
+      if (!_raster->isMV(row, col)) {
         _raster->dimensions().coordinates(row, col, leftWorld, topWorld);
 
         QPointF p = QPointF(leftWorld, topWorld);
@@ -254,35 +227,30 @@ void RasterDrawer::drawCells(
         // Determine if the next cells should be drawn in the same colour.
         col += nrCellsPerPixel;
 
-        while(col <= lastCol && !_raster->isMV(row, col)) {
+        while (col <= lastCol && !_raster->isMV(row, col)) {
           col += nrCellsPerPixel;
         }
 
         col -= nrCellsPerPixel;
 
-        _raster->dimensions().coordinates(row + nrCellsPerPixel,
-              col + nrCellsPerPixel, rightWorld, bottomWorld);
+        _raster->dimensions().coordinates(row + nrCellsPerPixel, col + nrCellsPerPixel, rightWorld,
+                                          bottomWorld);
 
         p = QPointF(rightWorld, bottomWorld);
         rightScreen = world_to_screen.map(p).x();
         bottomScreen = world_to_screen.map(p).y();
 
         painter.fillRect(leftScreen, topScreen, (rightScreen - leftScreen) + 1,
-              (bottomScreen - topScreen) + 1, colour);
+                         (bottomScreen - topScreen) + 1, colour);
       }
     }
   }
 }
 
-
-
-void RasterDrawer::drawCells(
-         QPainter& painter,
-         QRect const& indices,
-         QTransform const& world_to_screen,
-         QTransform const& screen_to_world) const
+void RasterDrawer::drawCells(QPainter &painter, QRect const &indices, QTransform const &world_to_screen,
+                             QTransform const &screen_to_world) const
 {
-  switch(_raster->typeId()) {
+  switch (_raster->typeId()) {
     case dal::TI_INT1: {
       drawCells<INT1>(painter, indices, world_to_screen, screen_to_world);
       break;
@@ -322,17 +290,13 @@ void RasterDrawer::drawCells(
   }
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace ag
-
+}  // namespace ag

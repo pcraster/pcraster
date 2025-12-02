@@ -9,30 +9,26 @@
 #include <QWidget>
 #include "qt_Const.h"
 
-
-
-namespace qt {
+namespace qt
+{
 
 class DialogPrivate
 {
-  public:
+public:
+  QBoxLayout *top{nullptr};      // Toplevel layout.
+  QWidget *cw{nullptr};          // Central widget.
+  QPushButton *ok{nullptr};      // Ok button.
+  QPushButton *cancel{nullptr};  // Cancel button.
 
-    QBoxLayout *   top{nullptr};                // Toplevel layout.
-    QWidget *      cw{nullptr};                 // Central widget.
-    QPushButton *  ok{nullptr};                 // Ok button.
-    QPushButton *  cancel{nullptr};             // Cancel button.
+  DialogPrivate()
 
-    DialogPrivate()
-       
-    {
-    }
+  {
+  }
 
-    ~DialogPrivate()
-    {
-    }
+  ~DialogPrivate()
+  {
+  }
 };
-
-
 
 //------------------------------------------------------------------------------
 
@@ -41,24 +37,21 @@ class DialogPrivate
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 Dialog::Dialog(QWidget *p, bool m, Qt::WindowFlags f)
 
-  : QDialog(p, f) 
+    : QDialog(p, f)
 
 {
   setModal(m);
 
-  try
-  {
-    d_data         = new DialogPrivate();
-    d_data->ok     = new QPushButton(this);
+  try {
+    d_data = new DialogPrivate();
+    d_data->ok = new QPushButton(this);
     d_data->cancel = new QPushButton(this);
 
     d_data->ok->setText("Ok");
@@ -68,8 +61,7 @@ Dialog::Dialog(QWidget *p, bool m, Qt::WindowFlags f)
 
     QSize s1 = d_data->cancel->sizeHint();
     QSize const s2 = d_data->ok->sizeHint();
-    s1 = QSize(std::max(s1.width(), s2.width()),
-               std::max(s1.height(), s2.height()));
+    s1 = QSize(std::max(s1.width(), s2.width()), std::max(s1.height(), s2.height()));
     d_data->cancel->setFixedSize(s1);
     d_data->ok->setFixedSize(s1);
 
@@ -77,29 +69,21 @@ Dialog::Dialog(QWidget *p, bool m, Qt::WindowFlags f)
     connect(d_data->cancel, SIGNAL(clicked()), SLOT(reject()));
 
     resetLayout();
-  }
-  catch(...)
-  {
+  } catch (...) {
     clean();
     throw;
   }
 }
-
-
 
 Dialog::~Dialog()
 {
   clean();
 }
 
-
-
 void Dialog::clean()
 {
   delete d_data, d_data = nullptr;
 }
-
-
 
 void Dialog::resetLayout()
 {
@@ -109,7 +93,7 @@ void Dialog::resetLayout()
 
   d_data->top = new QVBoxLayout(this);
 
-  if(centralWidget())
+  if (centralWidget())
     d_data->top->addWidget(centralWidget(), 1);
   else
     d_data->top->addStretch(1);
@@ -126,8 +110,6 @@ void Dialog::resetLayout()
   d_data->top->activate();
 }
 
-
-
 void Dialog::setCentralWidget(QWidget *w)
 {
   assert(d_data);
@@ -138,8 +120,6 @@ void Dialog::setCentralWidget(QWidget *w)
   d_data->cw = w;
   resetLayout();
 }
-
-
 
 /*
 void Dialog::adjustSize()
@@ -166,13 +146,10 @@ void Dialog::adjustSize()
 */
 
 
-
 void Dialog::acceptSettings()
 {
   QDialog::accept();
 }
-
-
 
 QWidget *Dialog::centralWidget() const
 {
@@ -181,12 +158,9 @@ QWidget *Dialog::centralWidget() const
   return d_data->cw;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -194,9 +168,8 @@ QWidget *Dialog::centralWidget() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace qt
+}  // namespace qt

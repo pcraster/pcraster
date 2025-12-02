@@ -1,34 +1,28 @@
 #include "com_rcptr.h"
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
-template<class T>
+template <class T>
 com::RCPtr<T>::RCPtr(T *realPtr)
 
-  : d_pointee(realPtr)
+    : d_pointee(realPtr)
 
 {
   init();
 }
 
-
-
-template<class T>
-com::RCPtr<T> &com::RCPtr<T>::operator=(const RCPtr &rhs)
+template <class T> com::RCPtr<T> &com::RCPtr<T>::operator=(const RCPtr &rhs)
 {
-  if(d_pointee != rhs.d_pointee)
-  {
-    if(d_pointee) d_pointee->removeReference();
+  if (d_pointee != rhs.d_pointee) {
+    if (d_pointee)
+      d_pointee->removeReference();
     d_pointee = rhs.d_pointee;
     init();
   }
@@ -36,35 +30,28 @@ com::RCPtr<T> &com::RCPtr<T>::operator=(const RCPtr &rhs)
   return *this;
 }
 
-
-
-template<class T>
+template <class T>
 com::RCPtr<T>::RCPtr(const RCPtr &rhs)
 
-  : d_pointee(rhs.d_pointee)
+    : d_pointee(rhs.d_pointee)
 
 {
   init();
 }
 
-
-
-template<class T>
-com::RCPtr<T>::~RCPtr()
+template <class T> com::RCPtr<T>::~RCPtr()
 {
-  if(d_pointee) {
+  if (d_pointee) {
     d_pointee->removeReference();
   }
 }
 
-
-
-template<class T>
-void com::RCPtr<T>::init()
+template <class T> void com::RCPtr<T>::init()
 {
-  if(d_pointee == nullptr) return;
+  if (d_pointee == nullptr)
+    return;
 
-/*
+  /*
   if(!d_pointee->isShareable())
     d_pointee = new T(*d_pointee);
 */
@@ -72,12 +59,9 @@ void com::RCPtr<T>::init()
   d_pointee->addReference();
 }
 
-
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -85,9 +69,6 @@ void com::RCPtr<T>::init()
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

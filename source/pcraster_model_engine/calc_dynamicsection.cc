@@ -4,13 +4,10 @@
 #include "calc_blockentrance.h"
 #include "calc_jumpnode.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the DynamicSection class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -36,27 +33,19 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC DYNAMICSECTION MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF DYNAMICSECTION MEMBERS
 //------------------------------------------------------------------------------
 
-calc::DynamicSection::DynamicSection(
-      const Position*    posOfDynamicKeyword,
-      ASTNode*           transferredStatements):
-  BasicBlock(posOfDynamicKeyword,
-             new BlockEntrance(this),
-             transferredStatements,
-             new JumpNode(this))
+calc::DynamicSection::DynamicSection(const Position *posOfDynamicKeyword, ASTNode *transferredStatements)
+    : BasicBlock(posOfDynamicKeyword, new BlockEntrance(this), transferredStatements, new JumpNode(this))
 {
 }
-
 
 calc::DynamicSection::~DynamicSection()
 {
@@ -73,22 +62,21 @@ calc::DynamicSection& calc::DynamicSection::operator=(const DynamicSection& rhs)
 */
 
 //! Copy constructor.
-calc::DynamicSection::DynamicSection(const DynamicSection& rhs):
-  BasicBlock(rhs)
+calc::DynamicSection::DynamicSection(const DynamicSection &rhs) : BasicBlock(rhs)
 {
 }
 
-calc::DynamicSection* calc::DynamicSection::createClone() const
+calc::DynamicSection *calc::DynamicSection::createClone() const
 {
   return new DynamicSection(*this);
 }
 
-void calc::DynamicSection::callEnter(ASTVisitor& v)
+void calc::DynamicSection::callEnter(ASTVisitor &v)
 {
   v.enterDynamicSection(this);
 }
 
-void calc::DynamicSection::callJump(ASTVisitor& v)
+void calc::DynamicSection::callJump(ASTVisitor &v)
 {
   v.jumpOutDynamicSection(this);
 }
@@ -101,7 +89,6 @@ bool calc::DynamicSection::hasBackBranch() const
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

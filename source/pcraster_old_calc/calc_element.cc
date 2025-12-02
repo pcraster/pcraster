@@ -5,9 +5,6 @@
 #include "calc_position.h"
 #include "calc_positionnone.h"
 
-
-
-
 /*!
   \file
   This file contains the implementation of the Element class.
@@ -19,37 +16,35 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF ELEMENT MEMBERS
 //------------------------------------------------------------------------------
 
-calc::Element::Element():
-  
-  d_pos(new PositionNone())
+calc::Element::Element()
+    :
+
+      d_pos(new PositionNone())
 {
 }
-calc::Element::Element(IScript *script,const Position* pos):
-  d_script(script)
+
+calc::Element::Element(IScript *script, const Position *pos) : d_script(script)
 {
   if (pos)
-   d_pos=pos->createClone();
+    d_pos = pos->createClone();
   else
-   d_pos=new PositionNone();
+    d_pos = new PositionNone();
 }
 
-calc::Element::Element(const Element& e):
-  d_script(e.d_script),
-  d_pos(e.d_pos->createClone())
+calc::Element::Element(const Element &e) : d_script(e.d_script), d_pos(e.d_pos->createClone())
 {
 }
 
-calc::Element&  calc::Element::operator=(const Element& e)
+calc::Element &calc::Element::operator=(const Element &e)
 {
   if (&e != this) {
-    d_script=e.d_script;
+    d_script = e.d_script;
     delete d_pos;
-    d_pos=e.d_pos->createClone();
+    d_pos = e.d_pos->createClone();
   }
   return *this;
 }
@@ -59,24 +54,22 @@ calc::Element::~Element()
   delete d_pos;
 }
 
-calc::IScript& calc::Element::script()
+calc::IScript &calc::Element::script()
 {
-  if(!d_script)
+  if (!d_script)
     throw SyntaxErrorBug();
   return *d_script;
 }
 
-const calc::IScript& calc::Element::scriptConst() const
+const calc::IScript &calc::Element::scriptConst() const
 {
-  if(!d_script)
+  if (!d_script)
     throw SyntaxErrorBug();
   return *d_script;
 }
-
 
 //! as Pos::posError() with timestep info added
-void calc::Element::runtimeError(
-  const std::string& inMsg) const
+void calc::Element::runtimeError(const std::string &inMsg) const
 {
   size_t const t = scriptConst().currentTimeStep();
   std::ostringstream msg;
@@ -104,27 +97,21 @@ int calc::Element::positionPriority() const
   return position()->priority();
 }
 
-void calc::Element::posError(const std::string& msg) const
+void calc::Element::posError(const std::string &msg) const
 {
   d_pos->throwError(msg);
 }
 
-void calc::Element::posError(const std::ostringstream& msg) const
+void calc::Element::posError(const std::ostringstream &msg) const
 {
   posError(msg.str());
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

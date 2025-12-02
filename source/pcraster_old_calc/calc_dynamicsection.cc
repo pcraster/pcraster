@@ -6,7 +6,7 @@
 #include "calc_operationtimer.h"
 #include "calc_spatial.h"
 
-void calc::DynamicSection::print(calc::InfoScript& i)const
+void calc::DynamicSection::print(calc::InfoScript &i) const
 {
   i.stream() << "<P><B>" << "DYNAMIC" << "</B><BR>\n";
   InnerStatementBlock::print(i);
@@ -14,10 +14,10 @@ void calc::DynamicSection::print(calc::InfoScript& i)const
 
 void calc::DynamicSection::executeBlock()
 {
-  IScript& s(script());
+  IScript &s(script());
   do {
     s.nextTimeStep();
-/*
+    /*
  *   if (0) std::cout       <<
  *    "time (todo) " << s.currentTimeStep()   << "\t" <<
  *    "current bpc " << Spatial::currentBPC() << "\t" <<
@@ -37,7 +37,7 @@ void calc::DynamicSection::executeBlock()
     s.updateProgress(LoopPulse);
     executeStatements();
   } while (s.currentTimeStep() != s.nrTimeSteps());
-/*
+  /*
  * size_t skipBits=18;
  * writeCpuCycleCounterStats(skipBits);
  * calc::OperationTimer::print(skipBits);

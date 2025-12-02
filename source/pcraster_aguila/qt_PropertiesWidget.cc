@@ -7,12 +7,10 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the PropertiesWidget class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -20,42 +18,31 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF PROPERTIESWIDGET MEMBERS
 //------------------------------------------------------------------------------
 
-qt::PropertiesWidget::PropertiesWidget(QWidget* parent)
+qt::PropertiesWidget::PropertiesWidget(QWidget *parent)
 
-  : QWidget(parent)
+    : QWidget(parent)
 
 {
 }
-
-
 
 qt::PropertiesWidget::~PropertiesWidget()
 {
 }
-
-
 
 void qt::PropertiesWidget::apply()
 {
   // The default does nothing.
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

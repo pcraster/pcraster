@@ -9,7 +9,6 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
 /*
@@ -33,23 +32,18 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC BLOCKENTRANCE MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF BLOCKENTRANCE MEMBERS
 //------------------------------------------------------------------------------
 
-calc::BlockEntrance::BlockEntrance(BasicBlock* block):
-  d_block(block)
+calc::BlockEntrance::BlockEntrance(BasicBlock *block) : d_block(block)
 {
 }
-
-
 
 calc::BlockEntrance::~BlockEntrance()
 {
@@ -66,26 +60,24 @@ calc::BlockEntrance& calc::BlockEntrance::operator=(const BlockEntrance& rhs)
 
 */
 //! Copy constructor. NOT IMPLEMENTED.
-calc::BlockEntrance::BlockEntrance(const BlockEntrance& rhs):
-  ASTNode(rhs)
+calc::BlockEntrance::BlockEntrance(const BlockEntrance &rhs) : ASTNode(rhs)
 {
 }
 
-void calc::BlockEntrance::accept(ASTVisitor& v)
+void calc::BlockEntrance::accept(ASTVisitor &v)
 {
   v.visitBlockEntrance(this);
   d_block->callEnter(v);
 }
 
 //! get value of d_block
-calc::BasicBlock* calc::BlockEntrance::block() const
+calc::BasicBlock *calc::BlockEntrance::block() const
 {
   return d_block;
 }
 
-
 //! SHOULD NOT BE CALLED, since this still holds the old d_block, fixed in copy ctor of BasicBlock
-calc::BlockEntrance* calc::BlockEntrance::createClone() const
+calc::BlockEntrance *calc::BlockEntrance::createClone() const
 {
   PRECOND(false);
   return new BlockEntrance(nullptr);
@@ -96,10 +88,6 @@ calc::BlockEntrance* calc::BlockEntrance::createClone() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

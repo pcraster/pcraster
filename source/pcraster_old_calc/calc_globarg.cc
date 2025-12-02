@@ -7,7 +7,6 @@
 #include "calc_spatial.h"
 
 
-
 /*!
   \file
   This file contains the implementation of the GlobArg class.
@@ -28,35 +27,32 @@ extern template int calc::ObjCount<calc::ApiMap>::numObjects;
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF GLOBARG MEMBERS
 //------------------------------------------------------------------------------
 
-calc::GlobArg::GlobArg(
-    VS interfaceVs,
-    const FieldHandle& field,
-    const Compressor& compressor):
-        d_copy(field->vs())
+calc::GlobArg::GlobArg(VS interfaceVs, const FieldHandle &field, const Compressor &compressor)
+    : d_copy(field->vs())
 {
- CSF_CR const inCr = biggestCellRepr(field->vs());
- const void *data  = field->srcValue();
- if (field->isSpatial()) {
-   compressor.decompress(d_copy,data);
-   data = d_copy.decompressed();
- }
- switch(biggestCellRepr(interfaceVs)) {
-  case CR_REAL4:
-   d_apiMap = new ApiMapREAL8(compressor.rasterSpace(),data,field->isSpatial(),inCr);
-   break;
-  case CR_INT4:
-   d_apiMap = new  ApiMapINT4(compressor.rasterSpace(),data,field->isSpatial(),inCr);
-   break;
-  case CR_UINT1:
-   d_apiMap = new ApiMapUINT1(compressor.rasterSpace(),data,field->isSpatial(),inCr);
-   break;
-  default : POSTCOND(false); // NEVER
- }
+  CSF_CR const inCr = biggestCellRepr(field->vs());
+  const void *data = field->srcValue();
+  if (field->isSpatial()) {
+    compressor.decompress(d_copy, data);
+    data = d_copy.decompressed();
+  }
+  switch (biggestCellRepr(interfaceVs)) {
+    case CR_REAL4:
+      d_apiMap = new ApiMapREAL8(compressor.rasterSpace(), data, field->isSpatial(), inCr);
+      break;
+    case CR_INT4:
+      d_apiMap = new ApiMapINT4(compressor.rasterSpace(), data, field->isSpatial(), inCr);
+      break;
+    case CR_UINT1:
+      d_apiMap = new ApiMapUINT1(compressor.rasterSpace(), data, field->isSpatial(), inCr);
+      break;
+    default:
+      POSTCOND(false);  // NEVER
+  }
 }
 
 calc::GlobArg::~GlobArg()
@@ -64,7 +60,7 @@ calc::GlobArg::~GlobArg()
   delete d_apiMap;
 }
 
-void * calc::GlobArg::MAPinterface() const
+void *calc::GlobArg::MAPinterface() const
 {
   return d_apiMap->getCPointer();
 }
@@ -72,7 +68,6 @@ void * calc::GlobArg::MAPinterface() const
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

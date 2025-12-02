@@ -23,33 +23,30 @@ extern template calc::ApiMapC<MAP_REAL8>::DeleteInternal calc::ApiMapC<MAP_REAL8
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF GLOBARG MEMBERS
 //------------------------------------------------------------------------------
 
 
-calc::GlobArg::GlobArg(
-    VS interfaceVs,
-    const Field& field,
-    const SpatialPacking& sp):
-     d_unpackedSrc(sp,&field)
+calc::GlobArg::GlobArg(VS interfaceVs, const Field &field, const SpatialPacking &sp)
+    : d_unpackedSrc(sp, &field)
 {
- CSF_CR const inCr = biggestCellRepr(field.vs());
- const void *src  = d_unpackedSrc.src()->src();
- bool  const spatial    = field.isSpatial();
- switch(biggestCellRepr(interfaceVs)) {
-  case CR_REAL4:
-   d_apiMap = new ApiMapREAL8(sp.rasterDim(),src,spatial,inCr);
-   break;
-  case CR_INT4:
-   d_apiMap = new  ApiMapINT4(sp.rasterDim(),src,spatial,inCr);
-   break;
-  case CR_UINT1:
-   d_apiMap = new ApiMapUINT1(sp.rasterDim(),src,spatial,inCr);
-   break;
-  default : POSTCOND(false); // NEVER
- }
+  CSF_CR const inCr = biggestCellRepr(field.vs());
+  const void *src = d_unpackedSrc.src()->src();
+  bool const spatial = field.isSpatial();
+  switch (biggestCellRepr(interfaceVs)) {
+    case CR_REAL4:
+      d_apiMap = new ApiMapREAL8(sp.rasterDim(), src, spatial, inCr);
+      break;
+    case CR_INT4:
+      d_apiMap = new ApiMapINT4(sp.rasterDim(), src, spatial, inCr);
+      break;
+    case CR_UINT1:
+      d_apiMap = new ApiMapUINT1(sp.rasterDim(), src, spatial, inCr);
+      break;
+    default:
+      POSTCOND(false);  // NEVER
+  }
 }
 
 calc::GlobArg::~GlobArg()
@@ -57,7 +54,7 @@ calc::GlobArg::~GlobArg()
   delete d_apiMap;
 }
 
-void * calc::GlobArg::MAPinterface() const
+void *calc::GlobArg::MAPinterface() const
 {
   return d_apiMap->getCPointer();
 }
@@ -65,7 +62,6 @@ void * calc::GlobArg::MAPinterface() const
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

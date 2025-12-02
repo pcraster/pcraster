@@ -1,12 +1,9 @@
 #include "ag_VisObserver.h"
 
-
-
 /*!
   \file
    This file contains the implementation of the VisObserver class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -14,9 +11,8 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 //! Constructs a VisObserver object.
@@ -26,16 +22,12 @@ ag::VisObserver::VisObserver()
 {
 }
 
-
-
 //! Destructs a VisObserver object.
 /*!
 */
 ag::VisObserver::~VisObserver()
 {
 }
-
-
 
 //! Rescans the subject and determines whether changes relevant to this observer where made.
 /*!
@@ -49,8 +41,6 @@ ag::VisObserver::~VisObserver()
 void ag::VisObserver::rescan()
 {
 }
-
-
 
 //! Processes the changes detected in rescan().
 /*!
@@ -67,8 +57,6 @@ void ag::VisObserver::process()
 {
 }
 
-
-
 //! Visualises the current state of the subject.
 /*!
   \sa        rescan(), process()
@@ -79,18 +67,14 @@ void ag::VisObserver::visualise()
 {
 }
 
-
-
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -98,14 +82,11 @@ void ag::VisObserver::visualise()
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-

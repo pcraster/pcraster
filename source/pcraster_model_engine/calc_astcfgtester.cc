@@ -8,7 +8,6 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
 /*
@@ -32,11 +31,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC ASTCFGTESTER MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -48,15 +45,13 @@ calc::ASTCFGTester::ASTCFGTester(ASTNode *a)
   setAST(a);
 }
 
-
-
 calc::ASTCFGTester::~ASTCFGTester()
 {
 }
 
 calc::ASTNode *calc::ASTCFGTester::ast() const
 {
-    return d_ast.get();
+  return d_ast.get();
 }
 
 //! set new AST and build its CFG
@@ -79,7 +74,6 @@ void calc::ASTCFGTester::rebuildCFG()
   d_cfg.reset(createCFG(ast()));
 }
 
-
 /* NOT IMPLEMENTED
 //! Assignment operator.
 calc::ASTCFGTester& calc::ASTCFGTester::operator=(const ASTCFGTester& rhs)
@@ -98,7 +92,7 @@ calc::ASTCFGTester::ASTCFGTester(const ASTCFGTester& rhs):
 
 calc::CFGNode *calc::ASTCFGTester::cfg() const
 {
-    return d_cfg.get();
+  return d_cfg.get();
 }
 
 //------------------------------------------------------------------------------
@@ -106,10 +100,6 @@ calc::CFGNode *calc::ASTCFGTester::cfg() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

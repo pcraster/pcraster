@@ -19,7 +19,7 @@
 /*! the msg is a like Error was called, catch error nested and throw a StrErrorExcep
  * \todo what is the exact difference between libError() and throwLibError()?
  */
-void calc::libError(const std::string& msg)
+void calc::libError(const std::string &msg)
 {
   com::ClibError::libError(msg);
 }
@@ -36,12 +36,12 @@ std::string calc::getLibError()
   return com::ClibError::getLibError();
 }
 
-struct ClientHolder : public calc::LibraryClassNoQt
-{
-  ClientHolder():
-     calc::LibraryClassNoQt("PCRasterModelEngine")
-     {}
+struct ClientHolder : public calc::LibraryClassNoQt {
+  ClientHolder() : calc::LibraryClassNoQt("PCRasterModelEngine")
+  {
+  }
 };
+
 static std::unique_ptr<ClientHolder> s_client(nullptr);
 
 //! all things we want to get rid off
@@ -52,7 +52,7 @@ static std::unique_ptr<ClientHolder> s_client(nullptr);
 PCR_ME_EXPORT void calc::globalInit()
 {
   // /home/cees/development/projects/DevEnv/sources/Utils/dev_XercesClient.h
-  if (! s_client.get())
+  if (!s_client.get())
     s_client = std::make_unique<ClientHolder>();
 
   com::tune();
@@ -77,7 +77,8 @@ PCR_ME_EXPORT void calc::setRan(size_t seed)
 /**
 * needed for the Python extension
 */
-PCR_ME_EXPORT int calc::parseGlobalFlag(std::string const& option){
+PCR_ME_EXPORT int calc::parseGlobalFlag(std::string const &option)
+{
   return ParseGlobalFlag(("--" + option).c_str());
 }
 

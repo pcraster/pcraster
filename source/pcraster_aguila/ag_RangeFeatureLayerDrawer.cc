@@ -18,71 +18,54 @@
 */
 
 
-
-namespace ag {
+namespace ag
+{
 
 // Code that is private to this module.
-namespace detail {
+namespace detail
+{
 
-} // namespace detail
-
-
+}  // namespace detail
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC RANGEFEATURELAYERDRAWER MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF RANGEFEATURELAYERDRAWER MEMBERS
 //------------------------------------------------------------------------------
 
-RangeFeatureLayerDrawer::RangeFeatureLayerDrawer(
-         FeatureLayer const* layer,
-         dal::SpaceDimensions const& dimensions,
-         RangeDrawProps const& drawProperties)
+RangeFeatureLayerDrawer::RangeFeatureLayerDrawer(FeatureLayer const *layer,
+                                                 dal::SpaceDimensions const &dimensions,
+                                                 RangeDrawProps const &drawProperties)
 
-  : FeatureLayerDrawer(layer, dimensions),
-    _drawProperties(drawProperties)
+    : FeatureLayerDrawer(layer, dimensions), _drawProperties(drawProperties)
 
 {
 }
-
-
 
 RangeFeatureLayerDrawer::~RangeFeatureLayerDrawer()
 {
 }
 
-
-
-void RangeFeatureLayerDrawer::draw(
-         QPainter& painter,
-         long int featureId,
-         QPainterPath const& path) const
+void RangeFeatureLayerDrawer::draw(QPainter &painter, long int featureId, QPainterPath const &path) const
 {
   REAL4 value = NAN;
   layer().value<REAL4>(featureId, value);
 
-  painter.setBrush(pcr::isMV(value)
-         ? Qt::transparent
-         : _drawProperties.colour(value));
+  painter.setBrush(pcr::isMV(value) ? Qt::transparent : _drawProperties.colour(value));
 
   painter.drawPath(path);
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace ag
-
+}  // namespace ag

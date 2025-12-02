@@ -1,10 +1,8 @@
 #include "stddefx.h"
 #include "calc_usedefnode.h"
-#include "calc_statementblock.h"      // parentBlock()
+#include "calc_statementblock.h"  // parentBlock()
 
-calc::UseDefNode::UseDefNode(
-  calc::StatementBlock &inBlock):
-  d_inBlock(inBlock)
+calc::UseDefNode::UseDefNode(calc::StatementBlock &inBlock) : d_inBlock(inBlock)
 {
 }
 
@@ -39,9 +37,7 @@ bool calc::UseDefNode::nextInSameBlock() const
   return d_next && (d_inBlock == d_next->d_inBlock);
 }
 
-bool calc::UseDefNode::deleteValueAtEndOfBlock(
-    calc::FieldParameter *par,
-    bool forceBlockClean) 
+bool calc::UseDefNode::deleteValueAtEndOfBlock(calc::FieldParameter *par, bool forceBlockClean)
 {
   calc::StatementBlock *p = nullptr;
   calc::StatementBlock *delAfterBlock = &d_inBlock;

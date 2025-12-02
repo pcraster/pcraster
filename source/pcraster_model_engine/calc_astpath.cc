@@ -20,52 +20,54 @@
 #include "calc_jumpnode.h"
 #include "calc_code.h"
 
+namespace calc
+{
+struct ASTPathCaster {
+  ASTNode *d_node;
 
+  template <typename T> T *expect(const char *name)
+  {
+    T *t = dynamic_cast<T *>(d_node);
+    if (!t) {
+      const std::type_info &gotClass = typeid(*d_node);
+      std::ostringstream s;
+      s << "expecting " << name << " got another ASTNode subclass: " << std::string(gotClass.name());
 
-namespace calc {
-  struct ASTPathCaster {
-    ASTNode     *d_node;
-
-    template <typename T>
-      T *expect(const char *name) {
-        T *t=dynamic_cast<T *>(d_node);
-        if(!t) {
-          const std::type_info& gotClass = typeid (*d_node);
-          std::ostringstream s;
-          s << "expecting " << name
-            << " got another ASTNode subclass: "
-            << std::string(gotClass.name ());
-
-          throw com::Exception(s.str());
-        }
-        return t;
-      }
-#define EXPECT(X)  expect<X>(#X)
-
-    ASTNode *node() {
-      return d_node;
+      throw com::Exception(s.str());
     }
+    return t;
+  }
 
-    ASTPathCaster(ASTNode *n) {
-      d_node=n;
-    }
+#define EXPECT(X) expect<X>(#X)
 
-  void add(char c) {
+  ASTNode *node()
+  {
+    return d_node;
+  }
+
+  ASTPathCaster(ASTNode *n)
+  {
+    d_node = n;
+  }
+
+  void add(char c)
+  {
     // implies notes means shortcuts
-    switch(c) {
-      case '/': break;
+    switch (c) {
+      case '/':
+        break;
       case 'l':
         EXPECT(ASTNodeList);
         break;
       case 'a':
-        d_node=EXPECT(ASTStat)->stat();
+        d_node = EXPECT(ASTStat)->stat();
         EXPECT(ASTAss);
         break;
-      case '<': // lhs of ass
-        d_node=EXPECT(ASTAss)->par(0);
+      case '<':  // lhs of ass
+        d_node = EXPECT(ASTAss)->par(0);
         break;
-      case '>': // rhs of ass
-        d_node=EXPECT(ASTAss)->rhs();
+      case '>':  // rhs of ass
+        d_node = EXPECT(ASTAss)->rhs();
         break;
       case 'p':
         EXPECT(ASTPar);
@@ -79,7 +81,7 @@ namespace calc {
       case ',':
         //  ,   implies a prefix e
         // args: ASTNodeVector of expr
-        d_node=EXPECT(ASTExpr)->args();
+        d_node = EXPECT(ASTExpr)->args();
         break;
       case 'C':
         EXPECT(Code);
@@ -91,68 +93,64 @@ namespace calc {
         EXPECT(PointCodeBlock);
         break;
       case 'R':
-        d_node=EXPECT(PointCodeBlock)->replacedCode();
+        d_node = EXPECT(PointCodeBlock)->replacedCode();
         break;
-      case 'c':// condition of RepeatUntil
-        d_node=EXPECT(RepeatUntil)->condition();
-        d_node=EXPECT(NonAssExpr)->expr();
+      case 'c':  // condition of RepeatUntil
+        d_node = EXPECT(RepeatUntil)->condition();
+        d_node = EXPECT(NonAssExpr)->expr();
         break;
-      case 'b': // statements of the BasicBlock
+      case 'b':  // statements of the BasicBlock
         // b implies a prefix that is a subclass of BasicBlock
-        d_node=EXPECT(BasicBlock)->statements();
+        d_node = EXPECT(BasicBlock)->statements();
         break;
-      case '{': // BlockEntrance
+      case '{':  // BlockEntrance
         // { implies a prefix that is a subclass of BasicBlock
-        d_node=EXPECT(BasicBlock)->blockEntrance();
+        d_node = EXPECT(BasicBlock)->blockEntrance();
         EXPECT(BlockEntrance);
         break;
-      case '}': // JumpNode
-        d_node=EXPECT(BasicBlock)->jumpNode();
+      case '}':  // JumpNode
+        d_node = EXPECT(BasicBlock)->jumpNode();
         EXPECT(JumpNode);
         break;
-      default: // a number
+      default:  // a number
         //  0-9 implies a prefix l or expr argument
         if (!(c >= '0' && c <= '9'))
           throw com::Exception("Unknown path character");
-        size_t const pos= c-'0';
-        auto *sl=dynamic_cast<ASTNodeList *>(d_node);
+        size_t const pos = c - '0';
+        auto *sl = dynamic_cast<ASTNodeList *>(d_node);
         if (sl) {
-          auto i=sl->begin();
-          size_t n=0;
-          for( ; n!=pos && i!=sl->end(); ++i)
+          auto i = sl->begin();
+          size_t n = 0;
+          for (; n != pos && i != sl->end(); ++i)
             n++;
-          if (i==sl->end())
-           throw com::Exception("invalid index in ASTSTatList");
-          d_node=*i;
+          if (i == sl->end())
+            throw com::Exception("invalid index in ASTSTatList");
+          d_node = *i;
         } else {
-         if (pos >= EXPECT(ASTNodeVector)->size())
-           throw com::Exception("invalid index in ASTNodeVector");
-         d_node=EXPECT(ASTNodeVector)->at(pos);
+          if (pos >= EXPECT(ASTNodeVector)->size())
+            throw com::Exception("invalid index in ASTNodeVector");
+          d_node = EXPECT(ASTNodeVector)->at(pos);
         }
     }
   }
 };
 
-} // namespace calc
-
-
-
-
-
+}  // namespace calc
 
 /*!
  * \returns non-0 node found in root with pathStr
  * \throws  std::runtime_error if pathStr leads not to the correct node in root
  */
-calc::ASTNode *calc::path(ASTNode* root, const char *pathStr) {
+calc::ASTNode *calc::path(ASTNode *root, const char *pathStr)
+{
   PRECOND(root);
   ASTPathCaster current(root);
 
   const char *ptr = nullptr;
   try {
-    for(ptr=pathStr; *ptr; ++ptr)
-       current.add(*ptr);
-  } catch (com::Exception& e) {
+    for (ptr = pathStr; *ptr; ++ptr)
+      current.add(*ptr);
+  } catch (com::Exception &e) {
     std::ostringstream s;
     s << "Error in path: " << pathStr << " at point " << ptr;
     e.prepend(s.str());
@@ -161,7 +159,3 @@ calc::ASTNode *calc::path(ASTNode* root, const char *pathStr) {
   POSTCOND(current.node());
   return current.node();
 }
-
-
-
-

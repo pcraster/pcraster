@@ -8,13 +8,10 @@
 #include "ag_GeometryLegendBody.h"
 #include "ag_RangeLegendBody.h"
 
-
-
 /*!
   \file
    This file contains the implementation of the Legend class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -22,9 +19,8 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 //! Constructor.
@@ -33,20 +29,13 @@
   \param     guide Guide to legend data.
   \param     parent Parent widget.
 */
-ag::Legend::Legend(
-         DataObject const& object,
-         DataGuide const& guide,
-         ViewerType type,
-         QWidget* parent)
+ag::Legend::Legend(DataObject const &object, DataGuide const &guide, ViewerType type, QWidget *parent)
 
-  : QWidget(parent),
-    qt::EventFilterSubject(this)
+    : QWidget(parent), qt::EventFilterSubject(this)
 
 {
   assert(object.isValid(guide));
-  assert(guide.type() == geo::STACK ||
-         guide.type() == geo::FEATURE ||
-         guide.type() == geo::VECTOR ||
+  assert(guide.type() == geo::STACK || guide.type() == geo::FEATURE || guide.type() == geo::VECTOR ||
          guide.type() == geo::TIMESERIES);
 
   // setSelected(object.isSelected(guide));
@@ -57,11 +46,11 @@ ag::Legend::Legend(
   d_title->adjustSize();
   d_title->setToolTip(QString(object.description(guide).c_str()));
 
-  LegendBody* body = nullptr;
+  LegendBody *body = nullptr;
 
-  switch(guide.type()) {
+  switch (guide.type()) {
     case geo::STACK: {
-      switch(guide.valueScale()) {
+      switch (guide.valueScale()) {
         case VS_BOOLEAN: {
           body = new ClassLegendBody(object, guide, type, this);
           break;
@@ -95,7 +84,7 @@ ag::Legend::Legend(
       break;
     }
     case geo::FEATURE: {
-      switch(guide.valueScale()) {
+      switch (guide.valueScale()) {
         case VS_BOOLEAN: {
           body = new ClassLegendBody(object, guide, type, this);
           break;
@@ -150,16 +139,12 @@ ag::Legend::Legend(
   setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 }
 
-
-
 //! Destructor.
 /*!
 */
 ag::Legend::~Legend()
 {
 }
-
-
 
 //! Re-arranges all available legend elements (title, items).
 /*!
@@ -168,77 +153,64 @@ void ag::Legend::resetLayout()
 {
   delete layout();
 
-  QBoxLayout* layout = new QVBoxLayout(this);
+  QBoxLayout *layout = new QVBoxLayout(this);
 
-  if(d_title) {
+  if (d_title) {
     layout->addWidget(d_title);
   }
 
-  if(d_body) {
+  if (d_body) {
     layout->addWidget(d_body);
   }
 }
-
-
 
 //! Returns the title of the legend as a label.
 /*!
   \return    Title label.
 */
-QLabel const* ag::Legend::title() const
+QLabel const *ag::Legend::title() const
 {
   assert(d_title);
 
   return d_title;
 }
 
-
-
 //! Returns the body of the legend.
 /*!
   \return    Body.
 */
-QWidget const* ag::Legend::body() const
+QWidget const *ag::Legend::body() const
 {
   assert(d_body);
 
   return d_body;
 }
 
-
-
-void ag::Legend::redirectChildEventsTo(
-         QObject* filter)
+void ag::Legend::redirectChildEventsTo(QObject *filter)
 {
-  if(d_title) {
+  if (d_title) {
     d_title->installEventFilter(filter);
   }
 
-  if(d_body) {
+  if (d_body) {
     d_body->installEventFilter(filter);
   }
 }
 
-
-
-void ag::Legend::removeChildEventFilter(
-         QObject* filter)
+void ag::Legend::removeChildEventFilter(QObject *filter)
 {
-  if(d_title) {
+  if (d_title) {
     d_title->removeEventFilter(filter);
   }
 
-  if(d_body) {
+  if (d_body) {
     d_body->removeEventFilter(filter);
   }
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -246,17 +218,14 @@ void ag::Legend::removeChildEventFilter(
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF INLINE FUNCTIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

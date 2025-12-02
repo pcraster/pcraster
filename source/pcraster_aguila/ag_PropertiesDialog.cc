@@ -7,23 +7,20 @@
 // Module headers.
 #include "ag_PropertiesWidget.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the PropertiesDialog class.
 */
 
 
-
 //------------------------------------------------------------------------------
 
-namespace ag {
+namespace ag
+{
 
 class PropertiesDialogPrivate
 {
 public:
-
   PropertiesDialogPrivate()
   {
   }
@@ -31,49 +28,35 @@ public:
   ~PropertiesDialogPrivate()
   {
   }
-
 };
 
-} // namespace ag
-
-
+}  // namespace ag
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC PROPERTIESDIALOG MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF PROPERTIESDIALOG MEMBERS
 //------------------------------------------------------------------------------
 
-ag::PropertiesDialog::PropertiesDialog(PropertiesWidget* widget,
-                   QWidget* parent)
+ag::PropertiesDialog::PropertiesDialog(PropertiesWidget *widget, QWidget *parent)
 
-  : qt::PropertiesDialog(widget, parent, true),
-    d_data(new PropertiesDialogPrivate())
+    : qt::PropertiesDialog(widget, parent, true), d_data(new PropertiesDialogPrivate())
 
 {
 }
-
-
 
 ag::PropertiesDialog::~PropertiesDialog()
 {
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

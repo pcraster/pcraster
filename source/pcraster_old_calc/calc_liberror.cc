@@ -1,23 +1,23 @@
 #include "stddefx.h"
 #include "calc_liberror.h"
 #include "com_exception.h"
-#include "misc.h"   // Error
+#include "misc.h"  // Error
 
 static std::string libErrorStr;
-static bool errorHandlerCalled=false;
+static bool errorHandlerCalled = false;
 
 //! setup handler for Error of libmisc in main
 extern "C" void HandleLibError(const char *msg)
 {
   libErrorStr = msg;
-  errorHandlerCalled=true;
+  errorHandlerCalled = true;
 }
 
 //! throw a com::Exception as result of error handling nested errors
-void libError(const std::string& msg)
+void libError(const std::string &msg)
 {
   // now let old style Error function call HandleLibError
-  if(!errorHandlerCalled)
+  if (!errorHandlerCalled)
     Error(msg.c_str());
   else
     libErrorStr = msg + libErrorStr;

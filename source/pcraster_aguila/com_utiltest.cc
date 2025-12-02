@@ -2,7 +2,6 @@
 #include <boost/test/unit_test.hpp>
 #include "com_util.h"
 
-
 BOOST_AUTO_TEST_CASE(smallest_divisor)
 {
   using namespace com;
@@ -14,7 +13,6 @@ BOOST_AUTO_TEST_CASE(smallest_divisor)
   BOOST_CHECK(smallestDivisor(10, 6) == 10);
   BOOST_CHECK(smallestDivisor(10, 10) == 10);
 }
-
 
 BOOST_AUTO_TEST_CASE(largest_divisor)
 {

@@ -1,7 +1,7 @@
 #include "stddefx.h"
 #include "calc_p5stack.h"
 #include "calc_field.h"
-#include "calc_usedefanalyzer.h" // setLastUse
+#include "calc_usedefanalyzer.h"  // setLastUse
 
 #include <cmath>
 #include <memory>
@@ -12,13 +12,11 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC P5Stack MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -28,8 +26,6 @@
 calc::P5Stack::P5Stack()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -48,48 +44,36 @@ void calc::P5Stack::init()
   d_as->analyzeAndResolve();
 
   // redo setLastUse,  keep last use for some tests
-  setLastUse(d_as->cfgCode(),d_keepLive);
+  setLastUse(d_as->cfgCode(), d_keepLive);
 
-  d_e = std::make_unique<Executor>(
-      d_as->cfgCode(),
-                   d_as->rteSettings(),
-                   d_as->symbols());
+  d_e = std::make_unique<Executor>(d_as->cfgCode(), d_as->rteSettings(), d_as->symbols());
   d_e->execAllKeep();
 }
 
-
-calc::P5Stack::P5Stack(const std::string&  codeOrId):
-  d_keepLive(true)
+calc::P5Stack::P5Stack(const std::string &codeOrId) : d_keepLive(true)
 {
   d_as.reset(createFromIdOrStr(codeOrId));
   init();
 }
 
-calc::P5Stack::P5Stack(const std::string&  codeOrId,
-                       bool                keepLastUse):
-  d_keepLive(keepLastUse)
+calc::P5Stack::P5Stack(const std::string &codeOrId, bool keepLastUse) : d_keepLive(keepLastUse)
 {
   d_as.reset(createFromIdOrStr(codeOrId));
   init();
 }
 
-calc::P5Stack::P5Stack(const CompileTest&  code):
-  d_keepLive(true)
+calc::P5Stack::P5Stack(const CompileTest &code) : d_keepLive(true)
 {
   d_as.reset(createFromIdOrStr(code.d_code));
   d_as->d_rteSettings.setCompile(true);
   init();
 }
 
-
-
 calc::P5Stack::~P5Stack()
 {
   if (d_keepLive)
-   d_e->d_rte.deleteAllValues();
+    d_e->d_rte.deleteAllValues();
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -101,7 +85,7 @@ calc::P5Stack& calc::P5Stack::operator=(P5Stack const& rhs)
 }
 */
 
-bool calc::P5Stack::contains(const std::string& name) const
+bool calc::P5Stack::contains(const std::string &name) const
 {
   return d_e->runTimeEnv().dataTable().contains(name);
 }
@@ -111,11 +95,7 @@ calc::Field *calc::P5Stack::popResult() const
   return d_e->popResult();
 }
 
-bool calc::P5Stack::equal(
-      const Field* f,
-      double allValues,
-      VS vs,
-      bool spatial)
+bool calc::P5Stack::equal(const Field *f, double allValues, VS vs, bool spatial)
 {
   if (f->isSpatial() != spatial)
     return false;
@@ -125,29 +105,25 @@ bool calc::P5Stack::equal(
   double v = NAN;
   if (!spatial) {
     f->getCell(v, 0);
-    return v==allValues;
+    return v == allValues;
   }
   // else check spatial contents
   // 0 is MV
   if (f->getCell(v, 0))
     return false;
   PRECOND(f->nrValues() == 25);
-  for(size_t i=1; i < 25; ++i) {
+  for (size_t i = 1; i < 25; ++i) {
     if (!f->getCell(v, i))
       return false;
-    if (v!=allValues)
+    if (v != allValues)
       return false;
   }
   return true;
 }
 
-bool calc::P5Stack::equal(
-      const std::string& name,
-      double allValues,
-      VS vs,
-      bool spatial)
+bool calc::P5Stack::equal(const std::string &name, double allValues, VS vs, bool spatial)
 {
-  return equal(fieldCast(name),allValues,vs,spatial);
+  return equal(fieldCast(name), allValues, vs, spatial);
 }
 
 //! get field value by name from data table
@@ -155,26 +131,21 @@ bool calc::P5Stack::equal(
  * \post
  *   !v: dynamic_cast returned a valid pointer
  */
-const calc::Field* calc::P5Stack::fieldCast(const std::string& name) const
+const calc::Field *calc::P5Stack::fieldCast(const std::string &name) const
 {
-   PRECOND(contains(name));
-   const DataValue* dv(d_e->runTimeEnv().dataTable()[name]);
-   POSTCOND(dv);
-   const auto *f = dynamic_cast<const Field *>(dv);
-   POSTCOND(f);
-   return f;
+  PRECOND(contains(name));
+  const DataValue *dv(d_e->runTimeEnv().dataTable()[name]);
+  POSTCOND(dv);
+  const auto *f = dynamic_cast<const Field *>(dv);
+  POSTCOND(f);
+  return f;
 }
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

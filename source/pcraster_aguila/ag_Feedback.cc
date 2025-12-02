@@ -2,9 +2,8 @@
 
 #include <cassert>
 #ifdef DEBUG_DEVELOP
-  #include <iostream>
+#include <iostream>
 #endif
-
 
 
 /*!
@@ -13,21 +12,19 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
-namespace ag {
+namespace ag
+{
 
 class FeedbackPrivate
 {
 public:
-  GLint            d_sizeOfBuffer;
-  GLint            d_valuesStored{0};
-  GLfloat*         d_buffer;
+  GLint d_sizeOfBuffer;
+  GLint d_valuesStored{0};
+  GLfloat *d_buffer;
 
-  FeedbackPrivate(GLint size)
-    : d_sizeOfBuffer(size), 
-      d_buffer(new GLfloat[size])
+  FeedbackPrivate(GLint size) : d_sizeOfBuffer(size), d_buffer(new GLfloat[size])
   {
   }
 
@@ -35,17 +32,13 @@ public:
   {
     delete[] d_buffer;
   }
-
 };
 
-}
-
-
+}  // namespace ag
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -58,28 +51,22 @@ ag::Feedback::Feedback(GLint size)
   glFeedbackBuffer(size, GL_3D_COLOR, d_data->d_buffer);
 }
 
-
-
 ag::Feedback::~Feedback()
 {
   delete d_data;
 
   int m = 0;
   glGetIntegerv(GL_RENDER_MODE, &m);
-  if(m == GL_FEEDBACK) {
+  if (m == GL_FEEDBACK) {
     glRenderMode(GL_RENDER);
   }
 }
-
-
 
 void ag::Feedback::start() const
 {
   d_data->d_valuesStored = 0;
   glRenderMode(GL_FEEDBACK);
 }
-
-
 
 void ag::Feedback::stop() const
 {
@@ -88,34 +75,25 @@ void ag::Feedback::stop() const
   assert(d_data->d_valuesStored <= d_data->d_sizeOfBuffer);
 }
 
-
-
 GLint ag::Feedback::nrValuesStored() const
 {
   return d_data->d_valuesStored;
 }
 
-
-
-const GLfloat* ag::Feedback::buffer() const
+const GLfloat *ag::Feedback::buffer() const
 {
   return d_data->d_buffer;
 }
-
-
 
 ag::Feedback::const_iterator ag::Feedback::begin() const
 {
   return d_data->d_buffer;
 }
 
-
-
 ag::Feedback::const_iterator ag::Feedback::end() const
 {
   return d_data->d_buffer + d_data->d_valuesStored;
 }
-
 
 
 #ifdef DEBUG_DEVELOP
@@ -125,11 +103,11 @@ void ag::Feedback::describe() const
   int token = 0;
   int nrVertices = 0;
 
-  while(count) {
+  while (count) {
     token = static_cast<int>(d_data->d_buffer[d_data->d_valuesStored - count]);
     --count;
 
-    switch(token) {
+    switch (token) {
       case GL_POINT_TOKEN:
       case GL_LINE_TOKEN:
       case GL_LINE_RESET_TOKEN:
@@ -141,8 +119,7 @@ void ag::Feedback::describe() const
         break;
       case GL_POLYGON_TOKEN:
         // std::cout << "POLYGON" << std::endl;
-        nrVertices = static_cast<int>(
-                   d_data->d_buffer[d_data->d_valuesStored - count]);
+        nrVertices = static_cast<int>(d_data->d_buffer[d_data->d_valuesStored - count]);
         // std::cout << "nr vertices: " << nrVertices << std::endl;
         --count;
         count -= 7 * nrVertices;
@@ -156,11 +133,9 @@ void ag::Feedback::describe() const
 #endif
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -168,11 +143,9 @@ void ag::Feedback::describe() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -180,9 +153,6 @@ void ag::Feedback::describe() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

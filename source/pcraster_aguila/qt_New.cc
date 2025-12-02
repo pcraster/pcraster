@@ -1,9 +1,7 @@
 #include "qt_New.h"
 #include <stdexcept>
-#include <memory>        // bad_alloc -> should be in stdexcept (?)
+#include <memory>  // bad_alloc -> should be in stdexcept (?)
 #include <QMessageBox>
-
-
 
 /*!
   \warning For this function to work a QApplication object must be created
@@ -31,18 +29,16 @@
 */
 void qt::outOfMemoryHandler()
 {
-  switch(QMessageBox::critical(nullptr, "",
-               "Your computer is unable to satisfy\n"
-               "a request for memory. Close other\n"
-               "applications to free memory and\n"
-               "try again or exit.\n",
-               QMessageBox::Retry | QMessageBox::Default,
-               QMessageBox::Abort))
-  {
-    case QMessageBox::Retry: {    // Try again; maybe there's more memory now.
+  switch (QMessageBox::critical(nullptr, "",
+                                "Your computer is unable to satisfy\n"
+                                "a request for memory. Close other\n"
+                                "applications to free memory and\n"
+                                "try again or exit.\n",
+                                QMessageBox::Retry | QMessageBox::Default, QMessageBox::Abort)) {
+    case QMessageBox::Retry: {  // Try again; maybe there's more memory now.
       break;
     }
-    case QMessageBox::Abort: {    // We can't help anymore.
+    case QMessageBox::Abort: {  // We can't help anymore.
       std::set_new_handler(nullptr);
       break;
     }
@@ -51,5 +47,3 @@ void qt::outOfMemoryHandler()
     }
   }
 }
-
-

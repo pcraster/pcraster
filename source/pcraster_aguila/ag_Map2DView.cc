@@ -43,41 +43,31 @@
 */
 
 
+namespace
+{
 
-namespace {
-
-double worldUnitsToPixels(
-         double scale,
-         double zoom,
-         qreal amount)
+double worldUnitsToPixels(double scale, double zoom, qreal amount)
 {
   assert(scale != 0.0);
 
   return (zoom * amount) / scale;
 }
 
-
-
-double pixelsToWorldUnits(
-         double scale,
-         double zoom,
-         double amount)
+double pixelsToWorldUnits(double scale, double zoom, double amount)
 {
   assert(zoom != 0.0);
 
   return (scale * amount) / zoom;
 }
 
-} // Anonymous namespace
+}  // Anonymous namespace
 
-
-
-namespace ag {
+namespace ag
+{
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC MAP2DVIEW MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -85,11 +75,9 @@ namespace ag {
 //------------------------------------------------------------------------------
 
 //! ctor
-Map2DView::Map2DView(
-         DataObject* object,
-         QWidget* parent)
+Map2DView::Map2DView(DataObject *object, QWidget *parent)
 
-  : BufferedVisualisation(object, "Map View", BufferedWidget::Center, parent)
+    : BufferedVisualisation(object, "Map View", BufferedWidget::Center, parent)
 
 {
   // Supported data types.
@@ -123,39 +111,32 @@ Map2DView::Map2DView(
   startQueryMode();
 }
 
-
-
 //! dtor
 Map2DView::~Map2DView()
 {
 }
-
-
 
 void Map2DView::rescan()
 {
   visualisationEngine().rescan(dataObject());
 }
 
-
-
 void Map2DView::process()
 {
-  if(visualisationEngine().change() & VisEngine::MAP2DZOOM) {
+  if (visualisationEngine().change() & VisEngine::MAP2DZOOM) {
     setDirty();
   }
 
-  if(visualisationEngine().change() & VisEngine::MAP2DMOVE) {
-    QPointF const offset(worldUnitsToPixels(
-         dataObject().map2DOffset() - visualisationEngine().map2DOffset()));
+  if (visualisationEngine().change() & VisEngine::MAP2DMOVE) {
+    QPointF const offset(
+        worldUnitsToPixels(dataObject().map2DOffset() - visualisationEngine().map2DOffset()));
     moveBy(offset);
   }
 
-  if(visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
-    if(!dataObject().backgroundColour().isValid()) {
+  if (visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+    if (!dataObject().backgroundColour().isValid()) {
       setPalette(QPalette());
-    }
-    else {
+    } else {
       QPalette palette;
       palette.setColor(backgroundRole(), dataObject().backgroundColour());
       setPalette(palette);
@@ -164,48 +145,42 @@ void Map2DView::process()
     deleteScene(QRectF(0.0, 0.0, size().width(), size().height()));
   }
 
-  if(visualisationEngine().change() & VisEngine::OTHERATTRIB ||
-         visualisationEngine().change() & VisEngine::VISIBILITY ||
-         visualisationEngine().change() & VisEngine::DRAWPROPS ||
-         visualisationEngine().change() & VisEngine::MAP2DZOOM ||
-         visualisationEngine().change() & VisEngine::MAP2DSCALE ||
-         (visualisationEngine().change() & VisEngine::CURSOR &&
-          (visualisationEngine().change() & VisEngine::TIME ||
-           visualisationEngine().change() & VisEngine::QUANTILE)) ||
-         visualisationEngine().change() & VisEngine::VALUE_SELECTION ||
-         visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
-    createScene(visualisationEngine().dataGuides(),
-         QRectF(0.0, 0.0, size().width(), size().height()));
+  if (visualisationEngine().change() & VisEngine::OTHERATTRIB ||
+      visualisationEngine().change() & VisEngine::VISIBILITY ||
+      visualisationEngine().change() & VisEngine::DRAWPROPS ||
+      visualisationEngine().change() & VisEngine::MAP2DZOOM ||
+      visualisationEngine().change() & VisEngine::MAP2DSCALE ||
+      (visualisationEngine().change() & VisEngine::CURSOR &&
+       (visualisationEngine().change() & VisEngine::TIME ||
+        visualisationEngine().change() & VisEngine::QUANTILE)) ||
+      visualisationEngine().change() & VisEngine::VALUE_SELECTION ||
+      visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+    createScene(visualisationEngine().dataGuides(), QRectF(0.0, 0.0, size().width(), size().height()));
     setClean();
   }
 }
 
-
-
 void Map2DView::visualise()
 {
-  if(visualisationEngine().change() & VisEngine::OTHERATTRIB ||
-         visualisationEngine().change() & VisEngine::VISIBILITY ||
-         visualisationEngine().change() & VisEngine::DRAWPROPS ||
-         visualisationEngine().change() & VisEngine::MAP2DZOOM ||
-         visualisationEngine().change() & VisEngine::MAP2DSCALE ||
-         (visualisationEngine().change() & VisEngine::CURSOR &&
-          (visualisationEngine().change() & VisEngine::TIME ||
-           visualisationEngine().change() & VisEngine::QUANTILE)) ||
-         visualisationEngine().change() & VisEngine::RASTER_CELL ||
-         visualisationEngine().change() & VisEngine::VALUE_SELECTION ||
-         visualisationEngine().change() & VisEngine::MAP2DMOVE ||
-         visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+  if (visualisationEngine().change() & VisEngine::OTHERATTRIB ||
+      visualisationEngine().change() & VisEngine::VISIBILITY ||
+      visualisationEngine().change() & VisEngine::DRAWPROPS ||
+      visualisationEngine().change() & VisEngine::MAP2DZOOM ||
+      visualisationEngine().change() & VisEngine::MAP2DSCALE ||
+      (visualisationEngine().change() & VisEngine::CURSOR &&
+       (visualisationEngine().change() & VisEngine::TIME ||
+        visualisationEngine().change() & VisEngine::QUANTILE)) ||
+      visualisationEngine().change() & VisEngine::RASTER_CELL ||
+      visualisationEngine().change() & VisEngine::VALUE_SELECTION ||
+      visualisationEngine().change() & VisEngine::MAP2DMOVE ||
+      visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
     repaint();
   }
 
   visualisationEngine().finishedScanning(dataObject());
 }
 
-
-
-void Map2DView::paintEvent(
-         QPaintEvent* event)
+void Map2DView::paintEvent(QPaintEvent *event)
 {
   // Draw map and crosshair.
   BufferedWidget::paintEvent(event);
@@ -213,15 +188,11 @@ void Map2DView::paintEvent(
   drawZoomRectangle(zoomRectangle());
 }
 
-
-
 void Map2DView::startQueryMode()
 {
   setCursor(Qt::PointingHandCursor);
   _action = Query;
 }
-
-
 
 void Map2DView::startPanMode()
 {
@@ -229,58 +200,36 @@ void Map2DView::startPanMode()
   _action = Pan;
 }
 
-
-
 void Map2DView::startZoomAreaMode()
 {
   setCursor(Qt::CrossCursor);
   _action = ZoomByRectangle;
 }
 
-
-
 void Map2DView::startSelectMode()
 {
   setCursor(Qt::ArrowCursor);
 }
 
-
-
-double Map2DView::pixelsToWorldUnits(
-         double amount) const
+double Map2DView::pixelsToWorldUnits(double amount) const
 {
-  return ::pixelsToWorldUnits(dataObject().map2DScale(),
-         dataObject().map2DZoom(), amount);
+  return ::pixelsToWorldUnits(dataObject().map2DScale(), dataObject().map2DZoom(), amount);
 }
 
-
-
-QPointF Map2DView::pixelsToWorldUnits(
-         QPointF const& amount) const
+QPointF Map2DView::pixelsToWorldUnits(QPointF const &amount) const
 {
-  return {pixelsToWorldUnits(amount.x()),
-         pixelsToWorldUnits(amount.y())};
+  return {pixelsToWorldUnits(amount.x()), pixelsToWorldUnits(amount.y())};
 }
 
-
-
-double Map2DView::worldUnitsToPixels(
-         double amount) const
+double Map2DView::worldUnitsToPixels(double amount) const
 {
-  return ::worldUnitsToPixels(dataObject().map2DScale(),
-         dataObject().map2DZoom(), amount);
+  return ::worldUnitsToPixels(dataObject().map2DScale(), dataObject().map2DZoom(), amount);
 }
 
-
-
-QPointF Map2DView::worldUnitsToPixels(
-         QPointF const& amount) const
+QPointF Map2DView::worldUnitsToPixels(QPointF const &amount) const
 {
-  return {worldUnitsToPixels(amount.x()),
-         worldUnitsToPixels(amount.y())};
+  return {worldUnitsToPixels(amount.x()), worldUnitsToPixels(amount.y())};
 }
-
-
 
 //! Draws a crosshair on the map.
 /*!
@@ -292,19 +241,18 @@ QPointF Map2DView::worldUnitsToPixels(
 */
 void Map2DView::drawCrossHair()
 {
-  dal::DataSpace const& space(dataObject().dataSpace());
-  dal::DataSpaceAddress const& address(dataObject().dataSpaceAddress());
+  dal::DataSpace const &space(dataObject().dataSpace());
+  dal::DataSpaceAddress const &address(dataObject().dataSpaceAddress());
 
-  if(space.hasSpace()) {
+  if (space.hasSpace()) {
     size_t const index = space.indexOf(dal::Space);
 
-    if(address.isValid(index)) {
-      auto const& spatialCoordinates(
-         address.coordinate<dal::SpatialCoordinate>(index));
+    if (address.isValid(index)) {
+      auto const &spatialCoordinates(address.coordinate<dal::SpatialCoordinate>(index));
 
       QPointF pos;
 
-      if(map(spatialCoordinates.x(), spatialCoordinates.y(), pos)) {
+      if (map(spatialCoordinates.x(), spatialCoordinates.y(), pos)) {
         QPainter painter(this);
         painter.setPen(palette().color(QPalette::WindowText));
         painter.drawLine(pos.x(), 1.0, pos.x(), height());
@@ -314,8 +262,6 @@ void Map2DView::drawCrossHair()
   }
 }
 
-
-
 //! Draws a zoom rectangle on the map.
 /*!
   \warning   This function can only be called while in a paint event.
@@ -323,17 +269,14 @@ void Map2DView::drawCrossHair()
   A zoom rectangle is only drawn when the mouse has been dragged on the map,
   while in 'zoom area' mode.
 */
-void Map2DView::drawZoomRectangle(
-         QRect const& rectangle)
+void Map2DView::drawZoomRectangle(QRect const &rectangle)
 {
-  if(_action == ZoomByRectangle && _mapViewMouseTarget.moved()) {
+  if (_action == ZoomByRectangle && _mapViewMouseTarget.moved()) {
     QPainter painter(this);
     painter.setPen(palette().color(QPalette::WindowText));
     painter.drawRect(rectangle);
   }
 }
-
-
 
 //! Query the map at location \a pos.
 /*!
@@ -341,41 +284,33 @@ void Map2DView::drawZoomRectangle(
 
   This triggers an update of the data object.
 */
-void Map2DView::queryMap(
-         QPoint const& pos)
+void Map2DView::queryMap(QPoint const &pos)
 {
   double x = NAN;
   double y = NAN;
 
-  if(map(pos, &x, &y)) {
+  if (map(pos, &x, &y)) {
     dataObject().setXY(x, y, true);
-  }
-  else {
+  } else {
     dataObject().unsetCoordinates(dal::Space, true);
   }
 }
 
-
-
-void Map2DView::mousePressEvent(
-         QMouseEvent* event)
+void Map2DView::mousePressEvent(QMouseEvent *event)
 {
   _mapViewMouseTarget.press(event->pos());
 
-  if(event->modifiers() & Qt::ShiftModifier) {
-    if(event->button() == Qt::LeftButton) {
+  if (event->modifiers() & Qt::ShiftModifier) {
+    if (event->button() == Qt::LeftButton) {
       startZoomAreaMode();
     }
-  }
-  else if(event->modifiers() & Qt::ControlModifier) {
-    if(event->button() == Qt::LeftButton) {
+  } else if (event->modifiers() & Qt::ControlModifier) {
+    if (event->button() == Qt::LeftButton) {
       startQueryMode();
       queryMap(event->pos());
     }
-  }
-  else if(event->modifiers() & Qt::AltModifier) {
-  }
-  else {
+  } else if (event->modifiers() & Qt::AltModifier) {
+  } else {
     // No, it may be that we are going to Pan or ZoomByRectangle. In that case
     // we don't want the spatial cursor to change.
     // if(event->button() == Qt::LeftButton) {
@@ -386,40 +321,28 @@ void Map2DView::mousePressEvent(
   event->accept();
 }
 
-
-
 QRect Map2DView::zoomRectangle() const
 {
-  return {
-    // Upper left point.
-    std::min(_mapViewMouseTarget.pressPosition().x(),
-         _mapViewMouseTarget.movePosition().x()),
-    std::min(_mapViewMouseTarget.pressPosition().y(),
-         _mapViewMouseTarget.movePosition().y()),
-    // Width and height.
-    std::abs(_mapViewMouseTarget.movement().x()),
-          std::abs(_mapViewMouseTarget.movement().y())};
+  return {// Upper left point.
+          std::min(_mapViewMouseTarget.pressPosition().x(), _mapViewMouseTarget.movePosition().x()),
+          std::min(_mapViewMouseTarget.pressPosition().y(), _mapViewMouseTarget.movePosition().y()),
+          // Width and height.
+          std::abs(_mapViewMouseTarget.movement().x()), std::abs(_mapViewMouseTarget.movement().y())};
 }
 
-
-
-void Map2DView::mouseReleaseEvent(
-         QMouseEvent* event)
+void Map2DView::mouseReleaseEvent(QMouseEvent *event)
 {
-  if(event->modifiers() & Qt::ShiftModifier) {
-    if((event->button() == Qt::LeftButton)) {
+  if (event->modifiers() & Qt::ShiftModifier) {
+    if ((event->button() == Qt::LeftButton)) {
       // Reset the mouse target, otherwise the zoom rectangle will be shown.
       QRect const rectangle(zoomRectangle());
       _mapViewMouseTarget.initialize();
       zoomByRectangle(rectangle);
     }
-  }
-  else if(event->modifiers() & Qt::ControlModifier) {
-  }
-  else if(event->modifiers() & Qt::AltModifier) {
-  }
-  else {
-    if((event->button() == Qt::LeftButton) && _action == Query) {
+  } else if (event->modifiers() & Qt::ControlModifier) {
+  } else if (event->modifiers() & Qt::AltModifier) {
+  } else {
+    if ((event->button() == Qt::LeftButton) && _action == Query) {
       queryMap(event->pos());
     }
   }
@@ -428,21 +351,15 @@ void Map2DView::mouseReleaseEvent(
   event->accept();
 }
 
-
-
-void Map2DView::mouseDoubleClickEvent(
-         QMouseEvent* event)
+void Map2DView::mouseDoubleClickEvent(QMouseEvent *event)
 {
   assert(!_mapViewMouseTarget.moved());
 
-  if(event->modifiers() & Qt::ShiftModifier) {
-  }
-  else if(event->modifiers() & Qt::ControlModifier) {
-  }
-  else if(event->modifiers() & Qt::AltModifier) {
-  }
-  else {
-    if(event->button() == Qt::LeftButton) {
+  if (event->modifiers() & Qt::ShiftModifier) {
+  } else if (event->modifiers() & Qt::ControlModifier) {
+  } else if (event->modifiers() & Qt::AltModifier) {
+  } else {
+    if (event->button() == Qt::LeftButton) {
       // This makes the crosshair disappear.
       dataObject().unsetCoordinates(dal::Space, false);
 
@@ -450,8 +367,7 @@ void Map2DView::mouseDoubleClickEvent(
       double const dx = (width() / 2.0) - _mapViewMouseTarget.pressPosition().x();
       double const dy = (height() / 2.0) - _mapViewMouseTarget.pressPosition().y();
 
-      dataObject().map2DMoveBy(pixelsToWorldUnits(dx), pixelsToWorldUnits(dy),
-         false);
+      dataObject().map2DMoveBy(pixelsToWorldUnits(dx), pixelsToWorldUnits(dy), false);
       dataObject().map2DZoomBy(1.50, true);
     }
   }
@@ -459,40 +375,32 @@ void Map2DView::mouseDoubleClickEvent(
   event->accept();
 }
 
-
-
-void Map2DView::mouseMoveEvent(
-         QMouseEvent* event)
+void Map2DView::mouseMoveEvent(QMouseEvent *event)
 {
   _mapViewMouseTarget.move(event->pos());
 
   // Moving against the side of the screen generates move events while the
   // mouse coordinates don't change.
-  if(!_mapViewMouseTarget.moved()) {
+  if (!_mapViewMouseTarget.moved()) {
     return;
   }
 
-  if(event->modifiers() & Qt::ShiftModifier) {
-    if(event->buttons() & Qt::LeftButton) {
+  if (event->modifiers() & Qt::ShiftModifier) {
+    if (event->buttons() & Qt::LeftButton) {
       startZoomAreaMode();
       repaint();
     }
-  }
-  else if(event->modifiers() & Qt::ControlModifier) {
-    if(event->buttons() & Qt::LeftButton) {
+  } else if (event->modifiers() & Qt::ControlModifier) {
+    if (event->buttons() & Qt::LeftButton) {
       startQueryMode();
       queryMap(event->pos());
     }
-  }
-  else if(event->modifiers() & Qt::AltModifier) {
-  }
-  else {
-    if(event->buttons() & Qt::LeftButton) {
+  } else if (event->modifiers() & Qt::AltModifier) {
+  } else {
+    if (event->buttons() & Qt::LeftButton) {
       startPanMode();
-      dataObject().map2DMoveBy(
-            pixelsToWorldUnits(_mapViewMouseTarget.movement().x()),
-            pixelsToWorldUnits(_mapViewMouseTarget.movement().y()),
-            true);
+      dataObject().map2DMoveBy(pixelsToWorldUnits(_mapViewMouseTarget.movement().x()),
+                               pixelsToWorldUnits(_mapViewMouseTarget.movement().y()), true);
 
       // Done using mouse target object. Reset as if mouse was pressed at
       // current location.
@@ -504,21 +412,15 @@ void Map2DView::mouseMoveEvent(
   event->accept();
 }
 
-
-
-void Map2DView::wheelEvent(
-         QWheelEvent* event)
+void Map2DView::wheelEvent(QWheelEvent *event)
 {
-  if(event->modifiers() & Qt::ShiftModifier) {
-  }
-  else if(event->modifiers() & Qt::ControlModifier) {
-  }
-  else if(event->modifiers() & Qt::AltModifier) {
-  }
-  else {
+  if (event->modifiers() & Qt::ShiftModifier) {
+  } else if (event->modifiers() & Qt::ControlModifier) {
+  } else if (event->modifiers() & Qt::AltModifier) {
+  } else {
     int const nrDegrees = event->angleDelta().y() / 8;
     double const fraction = nrDegrees / 360.0;
-    if(event->angleDelta().y() != 0) {
+    if (event->angleDelta().y() != 0) {
       // Zoom in to current mouse position.
       dataObject().map2DZoomBy(1.0 + fraction, true);
     }
@@ -527,13 +429,10 @@ void Map2DView::wheelEvent(
   event->accept();
 }
 
-
-
-void Map2DView::keyPressEvent(
-         QKeyEvent* event)
+void Map2DView::keyPressEvent(QKeyEvent *event)
 {
-  if(event->modifiers() & Qt::ShiftModifier) {
-    switch(event->key()) {
+  if (event->modifiers() & Qt::ShiftModifier) {
+    switch (event->key()) {
       case Qt::Key_Plus: {
         // Zoom map in.
         dataObject().map2DZoomBy(1.10, true);
@@ -544,12 +443,11 @@ void Map2DView::keyPressEvent(
         break;
       }
     }
-  }
-  else if(event->modifiers() & Qt::ControlModifier) {
+  } else if (event->modifiers() & Qt::ControlModifier) {
 
-    switch(event->key()) {
+    switch (event->key()) {
 
-/*
+        /*
 #ifdef WIN32
       // yepyep
       // this sucks: one control sets state and key to control
@@ -580,13 +478,11 @@ void Map2DView::keyPressEvent(
         break;
       }
     }
-  }
-  else if(event->modifiers() & Qt::AltModifier) {
+  } else if (event->modifiers() & Qt::AltModifier) {
     event->ignore();
-  }
-  else {
+  } else {
 
-    switch(event->key()) {
+    switch (event->key()) {
 
       case Qt::Key_Plus: {
         // Zoom map in.
@@ -635,7 +531,7 @@ void Map2DView::keyPressEvent(
         break;
       }
 
-/*
+        /*
       case Qt::Key_Shift: {
         saveMode();
         startPanMode();
@@ -657,10 +553,7 @@ void Map2DView::keyPressEvent(
   }
 }
 
-
-
-void Map2DView::keyReleaseEvent(
-         QKeyEvent* event)
+void Map2DView::keyReleaseEvent(QKeyEvent *event)
 {
   // Handle Map2DView specific key releases here.
   // if(event->modifiers() & Qt::ShiftModifier) {
@@ -679,8 +572,6 @@ void Map2DView::keyReleaseEvent(
   event->ignore();
 }
 
-
-
 void Map2DView::resetMapView()
 {
   // Reset all transformations. First zoom, than translate!
@@ -689,8 +580,6 @@ void Map2DView::resetMapView()
   dataObject().map2DMoveBy(-dataObject().map2DOffset(), false);
   dataObject().notify();
 }
-
-
 
 //! Determines and sets the scale which results in the whole map to be shown.
 /*!
@@ -703,12 +592,11 @@ void Map2DView::zoomAll()
 {
   double scale = 0.0;
 
-  dal::SpaceDimensions const& dimensions(dataObject().envelope());
+  dal::SpaceDimensions const &dimensions(dataObject().envelope());
   double const longitudinalExtent = dimensions.longitudinalExtent();
   double const latitudinalExtent = dimensions.latitudinalExtent();
 
-  if(width() > 1 && height() > 1 &&
-         longitudinalExtent > 0.0 && latitudinalExtent > 0.0) {
+  if (width() > 1 && height() > 1 && longitudinalExtent > 0.0 && latitudinalExtent > 0.0) {
 
     // Determine the relation between the width and height of the view.
     double const relView = static_cast<double>(width()) / height();
@@ -717,51 +605,40 @@ void Map2DView::zoomAll()
     double const relClone = longitudinalExtent / latitudinalExtent;
 
     // Compare both relations and determine the scale.
-    scale = relView <= relClone ? longitudinalExtent / width()
-                                : latitudinalExtent / height();
+    scale = relView <= relClone ? longitudinalExtent / width() : latitudinalExtent / height();
   }
 
   dataObject().setMap2DScale(scale, false);
 }
 
-
-
-void Map2DView::zoomByRectangle(
-         QRect const& rectangle) const
+void Map2DView::zoomByRectangle(QRect const &rectangle) const
 {
-  if(rectangle.isEmpty()) {
+  if (rectangle.isEmpty()) {
     return;
   }
 
   // Center map around center zoom rectangle.
-  QPointF const movement(pixelsToWorldUnits(
-         QPointF(this->rect().center()) - rectangle.center()));
+  QPointF const movement(pixelsToWorldUnits(QPointF(this->rect().center()) - rectangle.center()));
   dataObject().map2DMoveBy(movement, false);
 
   // Zoom into the zoom rectangle.
-  double const scale = std::min(
-       ABS(static_cast<double>(width()) / rectangle.width()),
-       ABS(static_cast<double>(height()) / rectangle.height()));
+  double const scale = std::min(ABS(static_cast<double>(width()) / rectangle.width()),
+                                ABS(static_cast<double>(height()) / rectangle.height()));
   dataObject().map2DZoomBy(scale, false);
 
   dataObject().notify();
 }
 
-
-
-void Map2DView::deleteScene(
-         QRectF const& area)
+void Map2DView::deleteScene(QRectF const &area)
 {
   // if(buffer().size().isValid()) {
-  if(!buffer().isNull()) {
+  if (!buffer().isNull()) {
     QPainter p(&buffer());
     p.setPen(palette().color(QPalette::Window));
     p.setBrush(palette().color(QPalette::Window));
     p.drawRect(area);
   }
 }
-
-
 
 //!
 /*!
@@ -771,77 +648,70 @@ void Map2DView::deleteScene(
   \warning   .
   \sa        .
 */
-void Map2DView::createScene(
-         std::vector<DataGuide> const& dataGuides,
-         QRectF const& area)
+void Map2DView::createScene(std::vector<DataGuide> const &dataGuides, QRectF const &area)
 {
-  if(dal::comparable<double>(dataObject().map2DScale(), 0.0)) {
+  if (dal::comparable<double>(dataObject().map2DScale(), 0.0)) {
     zoomAll();
   }
 
-  std::vector<MapDrawer*> drawers;
+  std::vector<MapDrawer *> drawers;
 
-  for(const auto & dataGuide : dataGuides) {
-    if(dataObject().isEnabled(dataGuide)) {
-      const DataGuide& guide = dataGuide;
+  for (const auto &dataGuide : dataGuides) {
+    if (dataObject().isEnabled(dataGuide)) {
+      const DataGuide &guide = dataGuide;
       assert(dataObject().isValid(guide));
 
-      switch(guide.type()) {
+      switch (guide.type()) {
         case geo::STACK: {
-          Raster const* raster = &dataObject().rasterDataSources().data(guide);
+          Raster const *raster = &dataObject().rasterDataSources().data(guide);
 
-          switch(guide.valueScale()) {
+          switch (guide.valueScale()) {
             case VS_BOOLEAN: {
-              drawers.push_back(new BooleanRasterDrawer(raster,
-                   dataObject().envelope(),
-                   dataObject().properties().booleanDrawProperties(guide)));
+              drawers.push_back(
+                  new BooleanRasterDrawer(raster, dataObject().envelope(),
+                                          dataObject().properties().booleanDrawProperties(guide)));
 
               break;
             }
             case VS_NOMINAL: {
-              drawers.push_back(new NominalRasterDrawer(raster,
-                   dataObject().envelope(),
-                   dataObject().properties().nominalDrawProperties(guide)));
+              drawers.push_back(
+                  new NominalRasterDrawer(raster, dataObject().envelope(),
+                                          dataObject().properties().nominalDrawProperties(guide)));
 
               break;
             }
             case VS_ORDINAL: {
-              drawers.push_back(new OrdinalRasterDrawer(raster,
-                   dataObject().envelope(),
-                   dataObject().properties().ordinalDrawProperties(guide)));
+              drawers.push_back(
+                  new OrdinalRasterDrawer(raster, dataObject().envelope(),
+                                          dataObject().properties().ordinalDrawProperties(guide)));
 
               break;
             }
             case VS_SCALAR: {
-              RangeDrawProps const& props =
-                   dataObject().properties().rangeDrawProperties(guide);
+              RangeDrawProps const &props = dataObject().properties().rangeDrawProperties(guide);
 
-              if(dataObject().hasSelectedValue() &&
-                   dataObject().dataSpace(guide).hasCumProbabilities() &&
-                   props.probabilityScale() ==
-                        RangeDrawProps::ExceedanceProbabilities) {
-                drawers.push_back(new ExceedanceProbabilityRasterDrawer(
-                   raster, dataObject().envelope(), props));
-              }
-              else {
-                drawers.push_back(new ScalarRasterDrawer(raster,
-                    dataObject().envelope(), props));
+              if (dataObject().hasSelectedValue() &&
+                  dataObject().dataSpace(guide).hasCumProbabilities() &&
+                  props.probabilityScale() == RangeDrawProps::ExceedanceProbabilities) {
+                drawers.push_back(
+                    new ExceedanceProbabilityRasterDrawer(raster, dataObject().envelope(), props));
+              } else {
+                drawers.push_back(new ScalarRasterDrawer(raster, dataObject().envelope(), props));
               }
 
               break;
             }
             case VS_DIRECTION: {
-              drawers.push_back(new DirectionalRasterDrawer(raster,
-                   dataObject().envelope(),
-                   dataObject().properties().rangeDrawProperties(guide)));
+              drawers.push_back(
+                  new DirectionalRasterDrawer(raster, dataObject().envelope(),
+                                              dataObject().properties().rangeDrawProperties(guide)));
 
               break;
             }
             case VS_LDD: {
-              drawers.push_back(new LddRasterDrawer(raster,
-                   dataObject().envelope(),
-                   dataObject().properties().lddDrawProperties(guide),
-                   palette().color(QPalette::WindowText)));
+              drawers.push_back(new LddRasterDrawer(raster, dataObject().envelope(),
+                                                    dataObject().properties().lddDrawProperties(guide),
+                                                    palette().color(QPalette::WindowText)));
 
               break;
             }
@@ -854,32 +724,26 @@ void Map2DView::createScene(
           break;
         }
         case geo::FEATURE: {
-          FeatureLayer const* layer =
-              &dataObject().featureDataSources().data(guide);
+          FeatureLayer const *layer = &dataObject().featureDataSources().data(guide);
 
-          switch(guide.valueScale()) {
+          switch (guide.valueScale()) {
             /// FEATURE handle other vs's.
             case VS_SCALAR: {
-              RangeDrawProps const& props =
-                   dataObject().properties().rangeDrawProperties(guide);
+              RangeDrawProps const &props = dataObject().properties().rangeDrawProperties(guide);
 
-              if(dataObject().hasSelectedValue() &&
-                    dataObject().dataSpace(guide).hasCumProbabilities() &&
-                    props.probabilityScale() ==
-                         RangeDrawProps::ExceedanceProbabilities) {
-                drawers.push_back(new ExceedanceProbabilityFeatureLayerDrawer(
-                   layer, dataObject().envelope(), props));
-              }
-              else {
-                drawers.push_back(new RangeFeatureLayerDrawer(layer,
-                     dataObject().envelope(), props));
+              if (dataObject().hasSelectedValue() &&
+                  dataObject().dataSpace(guide).hasCumProbabilities() &&
+                  props.probabilityScale() == RangeDrawProps::ExceedanceProbabilities) {
+                drawers.push_back(
+                    new ExceedanceProbabilityFeatureLayerDrawer(layer, dataObject().envelope(), props));
+              } else {
+                drawers.push_back(new RangeFeatureLayerDrawer(layer, dataObject().envelope(), props));
               }
 
               break;
             }
             default: {
-              drawers.push_back(new FeatureLayerDrawer(layer,
-                   dataObject().envelope()));
+              drawers.push_back(new FeatureLayerDrawer(layer, dataObject().envelope()));
               break;
             }
           }
@@ -888,10 +752,9 @@ void Map2DView::createScene(
         }
         case geo::VECTOR: {
           assert(guide.valueScale() == VS_SCALAR);
-          drawers.push_back(new VectorDrawer(
-            &dataObject().vectorDataSources().data(guide),
-            dataObject().envelope(),
-            dataObject().properties().rangeDrawProperties(guide)));
+          drawers.push_back(new VectorDrawer(&dataObject().vectorDataSources().data(guide),
+                                             dataObject().envelope(),
+                                             dataObject().properties().rangeDrawProperties(guide)));
           break;
         }
         default: {
@@ -904,14 +767,14 @@ void Map2DView::createScene(
 
   deleteScene(area);
 
-  if(!buffer().isNull()) {
+  if (!buffer().isNull()) {
     QPainter painter(&buffer());
 
     // try {
-      for(auto & drawer : drawers) {
-        drawer->draw(painter, area, anchor(), dataObject().map2DZoom(),
-              dataObject().map2DOffset(), dataObject().map2DScale());
-      }
+    for (auto &drawer : drawers) {
+      drawer->draw(painter, area, anchor(), dataObject().map2DZoom(), dataObject().map2DOffset(),
+                   dataObject().map2DScale());
+    }
     // }
     // catch(com::OutOfRangeException& exception) {
     //   // KDJ: Since Qt4 this code seems not to be executed anymore. Because of
@@ -923,30 +786,23 @@ void Map2DView::createScene(
 
     painter.end();
 
-    for(auto & drawer : drawers) {
+    for (auto &drawer : drawers) {
       delete drawer;
     }
   }
 }
 
-
-
-void Map2DView::updateBuffer(
-         QRectF const& area)
+void Map2DView::updateBuffer(QRectF const &area)
 {
   dal::DataSpaceAddress const addressWithoutSpace(
-         dataObject().dataSpace().eraseCoordinates(
-              dataObject().dataSpaceAddress(), dal::Space));
+      dataObject().dataSpace().eraseCoordinates(dataObject().dataSpaceAddress(), dal::Space));
 
-  if(addressWithoutSpace.isValid()) {
+  if (addressWithoutSpace.isValid()) {
     createScene(visualisationEngine().dataGuides(), area);
-  }
-  else {
+  } else {
     deleteScene(area);
   }
 }
-
-
 
 //!
 /*!
@@ -960,39 +816,32 @@ void Map2DView::updateBuffer(
   This one is used by the code drawing the cross-hair. If the cross-hair is
   drawn OK, than there is no need to change this code.
 */
-bool Map2DView::map(
-         double x,
-         double y,
-         QPointF& pos) const
+bool Map2DView::map(double x, double y, QPointF &pos) const
 {
   double const scale = dataObject().map2DScale();
   double const zoom = dataObject().map2DZoom();
 
-  dal::SpaceDimensions const& dimensions(dataObject().envelope());
+  dal::SpaceDimensions const &dimensions(dataObject().envelope());
 
-  if(scale != 0.0 && zoom != 0.0) {
+  if (scale != 0.0 && zoom != 0.0) {
     pos.rx() =
-         // Amount of pixels the map is offset from the center.
-         worldUnitsToPixels(dataObject().map2DOffset().x()) +
-         anchor().x() - // Pixel coordinates of the center.
-         // Distance in pixels from center of map to x.
-         worldUnitsToPixels((0.5 * dimensions.longitudinalExtent()) -
-              (x - dimensions.west()));
+        // Amount of pixels the map is offset from the center.
+        worldUnitsToPixels(dataObject().map2DOffset().x()) +
+        anchor().x() -  // Pixel coordinates of the center.
+        // Distance in pixels from center of map to x.
+        worldUnitsToPixels((0.5 * dimensions.longitudinalExtent()) - (x - dimensions.west()));
     pos.ry() =
-         // Amount of pixels the map is offset from the center.
-         worldUnitsToPixels(dataObject().map2DOffset().y()) +
-         anchor().y() - // Pixel coordinate of the center.
-         // Distance in pixels from center of map to y.
-         worldUnitsToPixels((0.5 * dimensions.latitudinalExtent()) -
-              (dimensions.north() - y));
+        // Amount of pixels the map is offset from the center.
+        worldUnitsToPixels(dataObject().map2DOffset().y()) +
+        anchor().y() -  // Pixel coordinate of the center.
+        // Distance in pixels from center of map to y.
+        worldUnitsToPixels((0.5 * dimensions.latitudinalExtent()) - (dimensions.north() - y));
 
     return true;
   }
 
   return false;
 }
-
-
 
 //!
 /*!
@@ -1006,23 +855,18 @@ bool Map2DView::map(
   This one is used by the code for querying the map. If the values of the
   queried location are correct, than there is no reason to change this code.
 */
-bool Map2DView::map(
-         QPointF const& pos,
-         double* x,
-         double* y) const
+bool Map2DView::map(QPointF const &pos, double *x, double *y) const
 {
   double const scale = dataObject().map2DScale();
   double const zoom = dataObject().map2DZoom();
 
-  dal::SpaceDimensions const& dimensions(dataObject().envelope());
+  dal::SpaceDimensions const &dimensions(dataObject().envelope());
 
-  if(scale != 0.0 && zoom != 0.0) {
-    *x = pixelsToWorldUnits(pos.x() - anchor().x()) -
-         dataObject().map2DOffset().x() +
+  if (scale != 0.0 && zoom != 0.0) {
+    *x = pixelsToWorldUnits(pos.x() - anchor().x()) - dataObject().map2DOffset().x() +
          (0.5 * dimensions.longitudinalExtent());
 
-    *y = pixelsToWorldUnits(pos.y() - anchor().y()) -
-         dataObject().map2DOffset().y() +
+    *y = pixelsToWorldUnits(pos.y() - anchor().y()) - dataObject().map2DOffset().y() +
          (0.5 * dimensions.latitudinalExtent());
 
     // x is relative to the left of the raster. Add left of raster.
@@ -1036,27 +880,20 @@ bool Map2DView::map(
   return false;
 }
 
-
-
-void Map2DView::addAttribute(const DataGuide& dataGuide)
+void Map2DView::addAttribute(const DataGuide &dataGuide)
 {
   testDataGuide(dataGuide);
   visualisationEngine().addAttribute(dataObject(), dataGuide);
 }
-
-
 
 void Map2DView::clear()
 {
   visualisationEngine().clear();
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -1064,4 +901,4 @@ void Map2DView::clear()
 //------------------------------------------------------------------------------
 
 
-} // namespace
+}  // namespace ag

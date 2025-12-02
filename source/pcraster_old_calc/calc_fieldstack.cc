@@ -8,7 +8,7 @@ calc::FieldStack::FieldStack()
 
 calc::FieldStack::~FieldStack()
 {
-  FieldsPopped const popAll(*this,d_stack.size());
+  FieldsPopped const popAll(*this, d_stack.size());
   POSTCOND(d_stack.empty());
 }
 
@@ -23,7 +23,7 @@ calc::FieldHandle calc::FieldStack::popDest(VS newVs)
   PRECOND(!d_stack.empty());
   FieldHandle v = d_stack.top();
   d_stack.pop();
-  if (! v.isOnlyHandle())
+  if (!v.isOnlyHandle())
     v = v->copy();
   v->resetVs(newVs);
   return v;
@@ -38,13 +38,13 @@ calc::FieldHandle calc::FieldStack::popReadOnly()
   return v;
 }
 
-void calc::FieldStack::push(const FieldHandle& v)
+void calc::FieldStack::push(const FieldHandle &v)
 {
   d_stack.push(v);
 }
 
-calc::FieldsPopped::FieldsPopped(FieldStack& stack, size_t nr)
+calc::FieldsPopped::FieldsPopped(FieldStack &stack, size_t nr)
 {
-  for (size_t i =0; i < nr ; i++)
+  for (size_t i = 0; i < nr; i++)
     push_back(stack.popReadOnly());
 }

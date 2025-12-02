@@ -17,7 +17,6 @@
 
 #include <vector>
 
-
 /*!
   \file
   This file contains the implementation of the IoFieldStrategy class.
@@ -34,18 +33,18 @@
 //! ctor
 calc::IoFieldStrategy::IoFieldStrategy(APP_IO_STRATEGY strategyType)
 {
- typedef std::shared_ptr<dal::RasterDriver> S;
- switch(strategyType) {
-   case APP_IO_ESRIGRID:
+  typedef std::shared_ptr<dal::RasterDriver> S;
+  switch (strategyType) {
+    case APP_IO_ESRIGRID:
       POSTCOND(false);
       break;
-   case APP_IO_PCRASTER:
-      d_outDriver= S(new dal::CSFRasterDriver());
+    case APP_IO_PCRASTER:
+      d_outDriver = S(new dal::CSFRasterDriver());
       break;
-   case APP_IO_BANDMAP:
-      d_outDriver= S(new dal::GDALRasterDriver("EHdr"));
+    case APP_IO_BANDMAP:
+      d_outDriver = S(new dal::GDALRasterDriver("EHdr"));
       break;
- }
+  }
 }
 
 //! dtor
@@ -54,43 +53,37 @@ calc::IoFieldStrategy::~IoFieldStrategy()
 }
 
 //! Copy constructor.
-calc::IoFieldStrategy::IoFieldStrategy(const IoFieldStrategy& rhs):
-  d_outDriver(rhs.d_outDriver),
-  d_commonRS(rhs.d_commonRS),
-  d_cloneNameCommon(rhs.d_cloneNameCommon),
-  d_cloneNameCsf(rhs.d_cloneNameCsf),
-  d_rasterSpaceCsf(rhs.d_rasterSpaceCsf)
+calc::IoFieldStrategy::IoFieldStrategy(const IoFieldStrategy &rhs)
+    : d_outDriver(rhs.d_outDriver), d_commonRS(rhs.d_commonRS), d_cloneNameCommon(rhs.d_cloneNameCommon),
+      d_cloneNameCsf(rhs.d_cloneNameCsf), d_rasterSpaceCsf(rhs.d_rasterSpaceCsf)
 #ifdef DEBUG_DEVELOP
-  ,d_readFiles(rhs.d_readFiles)
+      ,
+      d_readFiles(rhs.d_readFiles)
 #endif
 {
 }
 
-void calc::IoFieldStrategy::setRasterSpace(const geo::RasterSpace& rs)
+void calc::IoFieldStrategy::setRasterSpace(const geo::RasterSpace &rs)
 {
-  d_commonRS=rs;
+  d_commonRS = rs;
   // not set by file checking:
   d_cloneNameCommon.clear();
 }
 
 //! compare different formats on their common features
-void calc::IoFieldStrategy::checkCommonCloneEqual(
-    const std::string& mapFileName,
-    const geo::RasterSpace& newMap)  const
+void calc::IoFieldStrategy::checkCommonCloneEqual(const std::string &mapFileName,
+                                                  const geo::RasterSpace &newMap) const
 {
-    if (d_commonRS.nrRows()   != newMap.nrRows() ||
-        d_commonRS.nrCols()   != newMap.nrCols() ||
-        d_commonRS.cellSize() != newMap.cellSize())
-         throwCloneDiffers(d_cloneNameCommon,mapFileName);
+  if (d_commonRS.nrRows() != newMap.nrRows() || d_commonRS.nrCols() != newMap.nrCols() ||
+      d_commonRS.cellSize() != newMap.cellSize())
+    throwCloneDiffers(d_cloneNameCommon, mapFileName);
 }
 
 //! throw com::Exception, if stuff differs
-void calc::IoFieldStrategy::throwCloneDiffers(
-    const std::string& map1,
-    const std::string& map2) const
+void calc::IoFieldStrategy::throwCloneDiffers(const std::string &map1, const std::string &map2) const
 {
-    throw com::Exception("location attributes of "+ quote(map1)+
-                " and "+quote(map2)+" are different");
+  throw com::Exception("location attributes of " + quote(map1) + " and " + quote(map2) +
+                       " are different");
 }
 
 //! Remove an output object to ensure proper re-creation.
@@ -102,16 +95,15 @@ void calc::IoFieldStrategy::throwCloneDiffers(
     \todo
       check for read-only-ness here?
  */
-void calc::IoFieldStrategy::removeOutputObject(const std::string& ) const
+void calc::IoFieldStrategy::removeOutputObject(const std::string &) const
 {
 }
 
-std::string calc::IoFieldStrategy::pathTimeStep1(
-    const RunDirectory& rd,
-    const std::string&  stackName) const
+std::string calc::IoFieldStrategy::pathTimeStep1(const RunDirectory &rd,
+                                                 const std::string &stackName) const
 {
   bool found = false;
-  return rd.inPath(found,makeStackItemName(stackName,1));
+  return rd.inPath(found, makeStackItemName(stackName, 1));
 }
 
 //! set and check against common clone
@@ -119,44 +111,39 @@ std::string calc::IoFieldStrategy::pathTimeStep1(
     is set as common clone, if no clone yet set.
     The same map is checked against a possible already set clone.
  */
-void calc::IoFieldStrategy::setAndCheckCommon(
-    const std::string& mapFileName,
-    const geo::RasterSpace& mapRs)
+void calc::IoFieldStrategy::setAndCheckCommon(const std::string &mapFileName,
+                                              const geo::RasterSpace &mapRs)
 {
-    if (!d_commonRS.valid()) { // not yet initialized
-        d_cloneNameCommon = mapFileName;
-        d_commonRS        = mapRs;
-    }
-    checkCommonCloneEqual(mapFileName,mapRs); // pcrcalc/test289
+  if (!d_commonRS.valid()) {  // not yet initialized
+    d_cloneNameCommon = mapFileName;
+    d_commonRS = mapRs;
+  }
+  checkCommonCloneEqual(mapFileName, mapRs);  // pcrcalc/test289
 }
 
 //! return raster space location attributes
-const geo::RasterSpace& calc::IoFieldStrategy::rasterSpace() const
+const geo::RasterSpace &calc::IoFieldStrategy::rasterSpace() const
 {
-    return d_commonRS;
+  return d_commonRS;
 }
 
 //! overwrite if one needs a format specific filename validator
-void calc::IoFieldStrategy::validateFileName(const std::string& ) const
+void calc::IoFieldStrategy::validateFileName(const std::string &) const
 {
 }
 
-calc::GridStat calc::IoFieldStrategy::writeFieldUnpacked(
-        const std::string& fileName,
-                const Field *f) const
+calc::GridStat calc::IoFieldStrategy::writeFieldUnpacked(const std::string &fileName,
+                                                         const Field *f) const
 {
-    GridMapOut m(fileName,*d_outDriver,rasterSpace(), f->vs());
-    if (f->isSpatial())
-      return m.writeSpatial(f->src());
-    return m.writeNonSpatial(f->src());
+  GridMapOut m(fileName, *d_outDriver, rasterSpace(), f->vs());
+  if (f->isSpatial())
+    return m.writeSpatial(f->src());
+  return m.writeNonSpatial(f->src());
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -164,9 +151,7 @@ calc::GridStat calc::IoFieldStrategy::writeFieldUnpacked(
 //------------------------------------------------------------------------------
 
 //! detect correct map and update/sync clone
-void calc::IoFieldStrategy::checkInputMap(
-    VS&   vs,
-    const std::string &fName)
+void calc::IoFieldStrategy::checkInputMap(VS &vs, const std::string &fName)
 {
 
   // test if is an existing file
@@ -178,10 +163,8 @@ void calc::IoFieldStrategy::checkInputMap(
   checkClone(fName);
 }
 
-std::string calc::IoFieldStrategy::inPathStack(
-    const RunDirectory& rd,
-    const std::string& stackName,
-    size_t /* nrTimeSteps */)
+std::string calc::IoFieldStrategy::inPathStack(const RunDirectory &rd, const std::string &stackName,
+                                               size_t /* nrTimeSteps */)
 {
   std::string const stackPrefix(com::PathName(stackName).baseName());
 
@@ -189,8 +172,8 @@ std::string calc::IoFieldStrategy::inPathStack(
   // must be existing because rd must be traversed to find where
   // the stack is located
 
-  com::PathName pn(pathTimeStep1(rd,stackName));
-  pn.up(); // strip baseName of first time step
+  com::PathName pn(pathTimeStep1(rd, stackName));
+  pn.up();  // strip baseName of first time step
   pn += stackPrefix;
   pn.makeNative();
 
@@ -201,23 +184,22 @@ std::string calc::IoFieldStrategy::inPathStack(
 //! check against clone, if not clone not yet set, set clone to mapFileName
 /*! precondition: \a mapFileName is known to be an existing csf map
  */
-void calc::IoFieldStrategy::checkClone(const std::string& mapFileName)
+void calc::IoFieldStrategy::checkClone(const std::string &mapFileName)
 {
-    GridMapIn          const map(mapFileName);
-    const geo::RasterSpace& mapRs(map.rasterSpace());
+  GridMapIn const map(mapFileName);
+  const geo::RasterSpace &mapRs(map.rasterSpace());
 
-    // check some
-    setAndCheckCommon(mapFileName,mapRs);
+  // check some
+  setAndCheckCommon(mapFileName, mapRs);
 
-    if (!d_rasterSpaceCsf.valid()) { // not yet initialized
-        d_cloneNameCsf = mapFileName;
-        d_rasterSpaceCsf = mapRs;
-    }
-    // check more specific
-    if (!(mapRs == d_rasterSpaceCsf))
-        throwCloneDiffers(d_cloneNameCsf,mapFileName);
+  if (!d_rasterSpaceCsf.valid()) {  // not yet initialized
+    d_cloneNameCsf = mapFileName;
+    d_rasterSpaceCsf = mapRs;
+  }
+  // check more specific
+  if (!(mapRs == d_rasterSpaceCsf))
+    throwCloneDiffers(d_cloneNameCsf, mapFileName);
 }
-
 
 //! return prefix-ItemNumber name
 //!
@@ -231,34 +213,32 @@ void calc::IoFieldStrategy::checkClone(const std::string& mapFileName)
              resulting native path for you. See also dal::pathFor which also
              checks whether the iname is a valid native name.
 */
-std::string calc::IoFieldStrategy::makeStackItemName(
-    const std::string& iname,
-    int   atTimeStep) const
+std::string calc::IoFieldStrategy::makeStackItemName(const std::string &iname, int atTimeStep) const
 {
-  std::filesystem::path const p =dal::timeStepPath83(std::filesystem::path(iname),atTimeStep);
+  std::filesystem::path const p = dal::timeStepPath83(std::filesystem::path(iname), atTimeStep);
   com::PathName pn(p.string());
   pn.makeNative();
   return pn.toString();
 }
 
 //! adjust min max for every map part of the map stack
-void calc::IoFieldStrategy::setStackInfo(const StackInfo& s) const
+void calc::IoFieldStrategy::setStackInfo(const StackInfo &s) const
 {
   if (!s.d_minMaxSet)
-    return;   // all mv!
-  for(size_t t=s.startInt(); t <= s.lastInt(); t++)
+    return;  // all mv!
+  for (size_t t = s.startInt(); t <= s.lastInt(); t++)
     if (s.reportTimeStep(t))
-     try {
-      // TODO no support for other formats!
-      geo::CSFMap m(makeStackItemName(s.stackName(),t), true);
-      m.setMinMax(s.d_min, s.d_max);
-     } catch (const com::Exception& ) {
+      try {
+        // TODO no support for other formats!
+        geo::CSFMap m(makeStackItemName(s.stackName(), t), true);
+        m.setMinMax(s.d_min, s.d_max);
+      } catch (const com::Exception &) {
         // ignore if file has disapeared or other disaster;
-     }
+      }
 }
 
 //! return data into \a dest
-void calc::IoFieldStrategy::readField(void *dest, const std::string& mapName,VS vs) const
+void calc::IoFieldStrategy::readField(void *dest, const std::string &mapName, VS vs) const
 {
 #ifdef DEBUG_DEVELOP
   // check that each item is only read once
@@ -270,13 +250,13 @@ void calc::IoFieldStrategy::readField(void *dest, const std::string& mapName,VS 
   //  - if areamap is read and same is used as model input
   //  - solved bug with lastUse UseDefAnalyzerTest::nestedLoops()
   if (d_readFiles.count(mapName)) {
-    const std::string& debugDevelopOnly(mapName);
-    if (debugDevelopOnly == "inp1b.map") // in known tests to fail
-     throw com::OpenFileError(mapName,"IoFieldStrategy::createField");
+    const std::string &debugDevelopOnly(mapName);
+    if (debugDevelopOnly == "inp1b.map")  // in known tests to fail
+      throw com::OpenFileError(mapName, "IoFieldStrategy::createField");
     // PRINT_VAR(debugDevelopOnly);
   }
   d_readFiles.insert(mapName);
 #endif
   GridMapIn m(mapName);
-  m.createSpatial(dest,vs);
+  m.createSpatial(dest, vs);
 }

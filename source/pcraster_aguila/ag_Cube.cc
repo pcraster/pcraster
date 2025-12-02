@@ -1,16 +1,13 @@
 #include "ag_Cube.h"
 #include <cassert>
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 //! Constructs a Cube object.
@@ -20,33 +17,28 @@
   The default sizes of a cube are 1.0, 1.0, 1.0. Call
   setSize(GLfloat, GLfloat, GLfloat) to change this.
 */
-ag::Cube::Cube(GLfloat x, GLfloat y, GLfloat z,
-                   GLfloat yaw, GLfloat pitch, GLfloat roll)
+ag::Cube::Cube(GLfloat x, GLfloat y, GLfloat z, GLfloat yaw, GLfloat pitch, GLfloat roll)
 
-  : SceneObject(x, y, z, yaw, pitch, roll)
-    
+    : SceneObject(x, y, z, yaw, pitch, roll)
+
 
 {
   setSize(1.0, 1.0, 1.0);
 }
-
-
 
 //! Destructs a Cube.
 /*!
 */
 ag::Cube::~Cube()
 {
-  if(d_list > 0) {
+  if (d_list > 0) {
     deleteList();
   }
 }
 
-
-
 void ag::Cube::renderObject()
 {
-  if(!valid()) {
+  if (!valid()) {
     deleteList();
     createList();
     setValid(true);
@@ -62,8 +54,6 @@ void ag::Cube::renderObject()
   setDirty(false);
 }
 
-
-
 //! Creates the display list for the cube.
 /*!
   \sa        deleteList()
@@ -72,16 +62,16 @@ void ag::Cube::renderObject()
 */
 void ag::Cube::createList()
 {
-  GLfloat red[4]      = { 1.0, 0.0, 0.0, 1.0 };
-  GLfloat green[4]    = { 0.0, 1.0, 0.0, 1.0 };
-  GLfloat blue[4]     = { 0.0, 0.0, 1.0, 1.0 };
-  GLfloat emission[4] = { 0.25, 0.25, 0.25, 1.0 };
+  GLfloat red[4] = {1.0, 0.0, 0.0, 1.0};
+  GLfloat green[4] = {0.0, 1.0, 0.0, 1.0};
+  GLfloat blue[4] = {0.0, 0.0, 1.0, 1.0};
+  GLfloat emission[4] = {0.25, 0.25, 0.25, 1.0};
 
-  GLfloat const x  = SceneObject::x() - (0.5 * width());
-  GLfloat const y  = SceneObject::y() - (0.5 * height());
-  GLfloat const z  = SceneObject::z() - (0.5 * depth());
+  GLfloat const x = SceneObject::x() - (0.5 * width());
+  GLfloat const y = SceneObject::y() - (0.5 * height());
+  GLfloat const z = SceneObject::z() - (0.5 * depth());
 
-  size_t const n   = 10;
+  size_t const n = 10;
   GLfloat const dx = width() / n;
   GLfloat const dy = height() / n;
   GLfloat const dz = depth() / n;
@@ -97,84 +87,82 @@ void ag::Cube::createList()
 
   glBegin(GL_QUADS);
 
-    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, blue);
+  glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, blue);
 
-    // Front panel.
-    glNormal3f(0, 0, 1);
-    for(size_t i = 0; i < n; ++i) {
-      for(size_t j = 0; j < n; ++j) {
-        glVertex3f(x      + (i * dx), y + dy + (j * dy), z + depth());
-        glVertex3f(x      + (i * dx), y      + (j * dy), z + depth());
-        glVertex3f(x + dx + (i * dx), y      + (j * dy), z + depth());
-        glVertex3f(x + dx + (i * dx), y + dy + (j * dy), z + depth());
-      }
+  // Front panel.
+  glNormal3f(0, 0, 1);
+  for (size_t i = 0; i < n; ++i) {
+    for (size_t j = 0; j < n; ++j) {
+      glVertex3f(x + (i * dx), y + dy + (j * dy), z + depth());
+      glVertex3f(x + (i * dx), y + (j * dy), z + depth());
+      glVertex3f(x + dx + (i * dx), y + (j * dy), z + depth());
+      glVertex3f(x + dx + (i * dx), y + dy + (j * dy), z + depth());
     }
+  }
 
-    // Back panel.
-    glNormal3f(0, 0, -1);
-    for(size_t i = 0; i < n; ++i) {
-      for(size_t j = 0; j < n; ++j) {
-        glVertex3f(x      + (i * dx), y + dy + (j * dy), z);
-        glVertex3f(x + dx + (i * dx), y + dy + (j * dy), z);
-        glVertex3f(x + dx + (i * dx), y      + (j * dy), z);
-        glVertex3f(x      + (i * dx), y      + (j * dy), z);
-      }
+  // Back panel.
+  glNormal3f(0, 0, -1);
+  for (size_t i = 0; i < n; ++i) {
+    for (size_t j = 0; j < n; ++j) {
+      glVertex3f(x + (i * dx), y + dy + (j * dy), z);
+      glVertex3f(x + dx + (i * dx), y + dy + (j * dy), z);
+      glVertex3f(x + dx + (i * dx), y + (j * dy), z);
+      glVertex3f(x + (i * dx), y + (j * dy), z);
     }
+  }
 
-    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, green);
+  glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, green);
 
-    // Left panel.
-    glNormal3f(-1, 0, 0);
-    for(size_t i = 0; i < n; ++i) {
-      for(size_t j = 0; j < n; ++j) {
-        glVertex3f(x, y      + (i * dy), z      + (j * dz));
-        glVertex3f(x, y      + (i * dy), z + dz + (j * dz));
-        glVertex3f(x, y + dy + (i * dy), z + dz + (j * dz));
-        glVertex3f(x, y + dy + (i * dy), z      + (j * dz));
-      }
+  // Left panel.
+  glNormal3f(-1, 0, 0);
+  for (size_t i = 0; i < n; ++i) {
+    for (size_t j = 0; j < n; ++j) {
+      glVertex3f(x, y + (i * dy), z + (j * dz));
+      glVertex3f(x, y + (i * dy), z + dz + (j * dz));
+      glVertex3f(x, y + dy + (i * dy), z + dz + (j * dz));
+      glVertex3f(x, y + dy + (i * dy), z + (j * dz));
     }
+  }
 
-    // Right panel.
-    glNormal3f(1, 0, 0);
-    for(size_t i = 0; i < n; ++i) {
-      for(size_t j = 0; j < n; ++j) {
-        glVertex3f(x + width(), y      + (i * dy), z      + (j * dz));
-        glVertex3f(x + width(), y + dy + (i * dy), z      + (j * dz));
-        glVertex3f(x + width(), y + dy + (i * dy), z + dz + (j * dz));
-        glVertex3f(x + width(), y      + (i * dy), z + dz + (j * dz));
-      }
+  // Right panel.
+  glNormal3f(1, 0, 0);
+  for (size_t i = 0; i < n; ++i) {
+    for (size_t j = 0; j < n; ++j) {
+      glVertex3f(x + width(), y + (i * dy), z + (j * dz));
+      glVertex3f(x + width(), y + dy + (i * dy), z + (j * dz));
+      glVertex3f(x + width(), y + dy + (i * dy), z + dz + (j * dz));
+      glVertex3f(x + width(), y + (i * dy), z + dz + (j * dz));
     }
+  }
 
-    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, red);
+  glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, red);
 
-    // Top panel.
-    glNormal3f(0, 1, 0);
-    for(size_t i = 0; i < n; ++i) {
-      for(size_t j = 0; j < n; ++j) {
-        glVertex3f(x      + (i * dx), y + height(), z      + (j * dz));
-        glVertex3f(x      + (i * dx), y + height(), z + dz + (j * dz));
-        glVertex3f(x + dx + (i * dx), y + height(), z + dz + (j * dz));
-        glVertex3f(x + dx + (i * dx), y + height(), z      + (j * dz));
-      }
+  // Top panel.
+  glNormal3f(0, 1, 0);
+  for (size_t i = 0; i < n; ++i) {
+    for (size_t j = 0; j < n; ++j) {
+      glVertex3f(x + (i * dx), y + height(), z + (j * dz));
+      glVertex3f(x + (i * dx), y + height(), z + dz + (j * dz));
+      glVertex3f(x + dx + (i * dx), y + height(), z + dz + (j * dz));
+      glVertex3f(x + dx + (i * dx), y + height(), z + (j * dz));
     }
+  }
 
-    // Bottom panel.
-    glNormal3f(0, -1, 0);
-    for(size_t i = 0; i < n; ++i) {
-      for(size_t j = 0; j < n; ++j) {
-        glVertex3f(x      + (i * dx), y, z      + (j * dz));
-        glVertex3f(x + dx + (i * dx), y, z      + (j * dz));
-        glVertex3f(x + dx + (i * dx), y, z + dz + (j * dz));
-        glVertex3f(x      + (i * dx), y, z + dz + (j * dz));
-      }
+  // Bottom panel.
+  glNormal3f(0, -1, 0);
+  for (size_t i = 0; i < n; ++i) {
+    for (size_t j = 0; j < n; ++j) {
+      glVertex3f(x + (i * dx), y, z + (j * dz));
+      glVertex3f(x + dx + (i * dx), y, z + (j * dz));
+      glVertex3f(x + dx + (i * dx), y, z + dz + (j * dz));
+      glVertex3f(x + (i * dx), y, z + dz + (j * dz));
     }
+  }
 
   glEnd();
 
   glEndList();
 }
-
-
 
 //! Deletes the display list of the cube.
 /*!
@@ -182,24 +170,20 @@ void ag::Cube::createList()
 */
 void ag::Cube::deleteList()
 {
-  if(d_list > 0) {
+  if (d_list > 0) {
     glDeleteLists(d_list, 1);
     d_list = 0;
   }
 }
 
-
-
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -207,15 +191,11 @@ void ag::Cube::deleteList()
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

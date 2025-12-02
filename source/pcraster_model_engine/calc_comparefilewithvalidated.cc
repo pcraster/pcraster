@@ -6,16 +6,14 @@
 
 namespace fs = std::filesystem;
 
-
-
 /*!
   \file
   This file contains the implementation of the CompareFileWithValidated class.
 */
 
 
-
-namespace calc {
+namespace calc
+{
 
 //------------------------------------------------------------------------------
 
@@ -36,11 +34,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC COMPAREFILEWITHVALIDATED MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -50,7 +46,6 @@ public:
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -67,18 +62,17 @@ public:
  *
  * \returns true if both files are existing and equal, false otherwise
  */
-bool compareFileWithValidated(std::string const& fileName)
+bool compareFileWithValidated(std::string const &fileName)
 {
-    fs::path const computed(fileName);
-    fs::path const validated=fs::path("validated")/fileName;
-    if(!com::filesExistsAndEqual(validated.string(),computed.string())) {
-      std::string const compareFileWithValidatedFailure=computed.string();
-      PRINT_VAR(compareFileWithValidatedFailure);
-      return false;
-    }
-    return true;
+  fs::path const computed(fileName);
+  fs::path const validated = fs::path("validated") / fileName;
+  if (!com::filesExistsAndEqual(validated.string(), computed.string())) {
+    std::string const compareFileWithValidatedFailure = computed.string();
+    PRINT_VAR(compareFileWithValidatedFailure);
+    return false;
+  }
+  return true;
 }
 
 
-} // namespace calc
-
+}  // namespace calc

@@ -1,7 +1,7 @@
 #include "stddefx.h"
 #include "calc_astscript.h"
 #include "com_exception.h"
-#include "appargs.h"  // appClone
+#include "appargs.h"            // appClone
 #include "calc_positionname.h"  // appClone
 #include "calc_code.h"
 #include "calc_symexception.h"
@@ -29,59 +29,58 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
-namespace calc {
-  namespace Private {
-    struct Check {
-     const ASTSymbolTable& d_syms;
-     Check(const ASTSymbolTable& syms):d_syms(syms) {}
+namespace calc
+{
+namespace Private
+{
+struct Check {
+  const ASTSymbolTable &d_syms;
 
-     Check(const Check& other) = delete;
-
-     Check& operator=(const Check& other) = delete;
-
-     void notANumber(ASTId *id,
-                     const std::string& name)
-     {
-         std::ostringstream os;
-         os << id->qName() <<" is not a whole positive number (in "<<
-               name << " definition)";
-         id->posError(os);
-     }
-
-     // check id being a number of an id known as constant
-     size_t operator()(
-         ASTId *id,
-         const std::string& name)
-     {
-       PRECOND(id);
-       const auto *n=dynamic_cast<const ASTNumber *>(id);
-       double value = NAN;
-       if(n) {
-         value=n->value();
-       } else {
-        PRECOND(d_syms.contains(id->name()));
-        const ASTSymbolInfo&  a(d_syms[id->name()]);
-        if(!a.isConstant()) // pcrcalc8b
-          notANumber(id,name);
-        value=a.constantValue();
-       }
-       if ( (!isIn(VS_N,id->returnDataType().vs())) || value < 0) {
-          // pcrcalc7a
-          notANumber(id,name);
-       }
-       return static_cast<size_t>(value);
-     }
-   };
+  Check(const ASTSymbolTable &syms) : d_syms(syms)
+  {
   }
-}
+
+  Check(const Check &other) = delete;
+
+  Check &operator=(const Check &other) = delete;
+
+  void notANumber(ASTId *id, const std::string &name)
+  {
+    std::ostringstream os;
+    os << id->qName() << " is not a whole positive number (in " << name << " definition)";
+    id->posError(os);
+  }
+
+  // check id being a number of an id known as constant
+  size_t operator()(ASTId *id, const std::string &name)
+  {
+    PRECOND(id);
+    const auto *n = dynamic_cast<const ASTNumber *>(id);
+    double value = NAN;
+    if (n) {
+      value = n->value();
+    } else {
+      PRECOND(d_syms.contains(id->name()));
+      const ASTSymbolInfo &a(d_syms[id->name()]);
+      if (!a.isConstant())  // pcrcalc8b
+        notANumber(id, name);
+      value = a.constantValue();
+    }
+    if ((!isIn(VS_N, id->returnDataType().vs())) || value < 0) {
+      // pcrcalc7a
+      notANumber(id, name);
+    }
+    return static_cast<size_t>(value);
+  }
+};
+}  // namespace Private
+}  // namespace calc
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC ASTSCRIPT MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -92,17 +91,15 @@ calc::ASTScript::ASTScript()
 
 {
   if (appClone)
-    setAreaMapFromString(appClone,"--clone");
+    setAreaMapFromString(appClone, "--clone");
 }
 
-void calc::ASTScript::setAreaMapFromString(
-  std::string const& value,
-  std::string const& positionText)
+void calc::ASTScript::setAreaMapFromString(std::string const &value, std::string const &positionText)
 {
-    delete d_areaMap;
-    d_areaMap= new ASTPar(value);
-    PositionName pn(positionText);
-    d_areaMap->setPosition(&pn);
+  delete d_areaMap;
+  d_areaMap = new ASTPar(value);
+  PositionName pn(positionText);
+  d_areaMap->setPosition(&pn);
 }
 
 calc::ASTScript::~ASTScript()
@@ -138,14 +135,16 @@ calc::ASTScript::ASTScript(const ASTScript& rhs):
 
 /*! \brief transfer code, code may contain initial and dynamic section
  */
-void calc::ASTScript::transferCode(ASTNode *code) {
+void calc::ASTScript::transferCode(ASTNode *code)
+{
   delete d_code;
-  d_code=new Code(code);
+  d_code = new Code(code);
 
   rebuildCFG();
 }
 
-void calc::ASTScript::rebuildCFG() {
+void calc::ASTScript::rebuildCFG()
+{
   // TODO not very efficient doing it twice
   delete d_cfgCode;
   d_cfgCode = createCFG(d_code);
@@ -159,7 +158,6 @@ void calc::ASTScript::rebuildCFG() {
   body.push_back(d_code);
 
   d_cfgBody = createCFG(body);
-
 }
 
 void calc::ASTScript::buildTypesFullClosure()
@@ -167,20 +165,19 @@ void calc::ASTScript::buildTypesFullClosure()
   BuildTypesVisitor btv(d_cfgBody);
   btv.init(d_symbols);
 
-  size_t nrChanges=btv.nrChanges();
+  size_t nrChanges = btv.nrChanges();
   do {
-   nrChanges=btv.nrChanges();
-   btv.visit();
-   // Let's be reasonable about this
-   PRECOND(btv.nrChanges() < 100000);
-  } while(nrChanges != btv.nrChanges());
+    nrChanges = btv.nrChanges();
+    btv.visit();
+    // Let's be reasonable about this
+    PRECOND(btv.nrChanges() < 100000);
+  } while (nrChanges != btv.nrChanges());
 
   // updated symbols
   d_symbols = btv.table();
 
-  d_containsDynamicSection=btv.containsDynamicSection();
-  d_hasStatementWithReportKeyword=btv.hasStatementWithReportKeyword();
-
+  d_containsDynamicSection = btv.containsDynamicSection();
+  d_hasStatementWithReportKeyword = btv.hasStatementWithReportKeyword();
 }
 
 /*
@@ -195,21 +192,21 @@ void calc::ASTScript::applyInterface()
 
   // 1) external binding -> bindings
   if (!d_rteSettings.externalBindingFile().isEmpty()) {
-   RunSettings const rs(d_rteSettings.externalBindingFile());
-   bt.overwrite(rs);
+    RunSettings const rs(d_rteSettings.externalBindingFile());
+    bt.overwrite(rs);
   }
 
   // 2) apply bindings
   // make set of syms defined in interface
   std::set<std::string> interfaceSyms;
-  for(auto & i : d_interface)
+  for (auto &i : d_interface)
     interfaceSyms.insert(i.name());
-  bt.applyToSymbols(d_symbols,interfaceSyms);
+  bt.applyToSymbols(d_symbols, interfaceSyms);
 
   // 3) apply interface
-  for(auto & i : d_interface) {
-    auto s= d_symbols.find(i.name());
-    if (s!=d_symbols.end())
+  for (auto &i : d_interface) {
+    auto s = d_symbols.find(i.name());
+    if (s != d_symbols.end())
       s->second.setInfo(i);
   }
 }
@@ -223,13 +220,12 @@ void calc::ASTScript::compile()
   if (!d_rteSettings.compile())
     return;
 
- std::vector<PointCodeBlock *> const l=
-   insertPointCodeBlocks(d_symbols,d_code,d_cfgCode);
- d_pointCodeBlockDll= new PointCodeBlockDll(l);
+  std::vector<PointCodeBlock *> const l = insertPointCodeBlocks(d_symbols, d_code, d_cfgCode);
+  d_pointCodeBlockDll = new PointCodeBlockDll(l);
 
- // AST is changed by insertPointCodeBlocks
- rebuildCFG();
- setLastUse(d_cfgCode);
+  // AST is changed by insertPointCodeBlocks
+  rebuildCFG();
+  setLastUse(d_cfgCode);
 }
 
 /*
@@ -250,30 +246,28 @@ void calc::ASTScript::compile()
  * }
  */
 
-void calc::ASTScript::setSettingsFromXML(pcrxml::Script const& script)
+void calc::ASTScript::setSettingsFromXML(pcrxml::Script const &script)
 {
-  std::string const areaMapRef =
-    d_rteSettings.setSettingsFromXML(script);
-  if (! areaMapRef.empty()) {
-    setAreaMapFromString(areaMapRef,"<xmlApi>");
+  std::string const areaMapRef = d_rteSettings.setSettingsFromXML(script);
+  if (!areaMapRef.empty()) {
+    setAreaMapFromString(areaMapRef, "<xmlApi>");
   }
 }
 
-void calc::ASTScript::callWithClashRewrite(
-    void (ASTScript::*f)() )
+void calc::ASTScript::callWithClashRewrite(void (ASTScript::*f)())
 {
- try {
-      try {
-          (this->*f)();
-      } catch( const DataTypeClash& ) {
-       // transform DataTypeClash into SymException
-       //  see for example pcrcalc372a
-       buildTypesFullClosure();
-       POSTCOND(false); // never here
-      }
- } catch (const SymException& s) {
-     d_symbols.throwSym(s);
- }
+  try {
+    try {
+      (this->*f)();
+    } catch (const DataTypeClash &) {
+      // transform DataTypeClash into SymException
+      //  see for example pcrcalc372a
+      buildTypesFullClosure();
+      POSTCOND(false);  // never here
+    }
+  } catch (const SymException &s) {
+    d_symbols.throwSym(s);
+  }
 }
 
 //! check and build up new symbol table without any context
@@ -295,11 +289,11 @@ void calc::ASTScript::analyzeNoContextUnChecked()
   setLastUse(d_cfgCode);
 
   // compute ioTypes
-  typedef std::map<std::string,IOType> CodeTypes;
-  CodeTypes const codeTypes=ioTypes(d_cfgCode);
-  for (auto & codeType : codeTypes) {
-    auto s=d_symbols.find(codeType.first);
-    PRECOND(s!=d_symbols.end());
+  typedef std::map<std::string, IOType> CodeTypes;
+  CodeTypes const codeTypes = ioTypes(d_cfgCode);
+  for (auto &codeType : codeTypes) {
+    auto s = d_symbols.find(codeType.first);
+    PRECOND(s != d_symbols.end());
     s->second.setIoType(codeType.second);
   }
 
@@ -310,24 +304,27 @@ void calc::ASTScript::analyzeNoContextUnChecked()
 
 
   if (d_rteSettings.useDiskStorage())
-   d_symbols.checkDifferentExternalNames();
+    d_symbols.checkDifferentExternalNames();
 }
 
-
-void calc::ASTScript::resolve() {
+void calc::ASTScript::resolve()
+{
   callWithClashRewrite(&ASTScript::resolveUnChecked);
 }
-void calc::ASTScript::analyzeNoContext() {
+
+void calc::ASTScript::analyzeNoContext()
+{
   callWithClashRewrite(&ASTScript::analyzeNoContextUnChecked);
 }
 
 /*! resolve inputs and recheck types of input with AST and symbol info
  */
-void calc::ASTScript::resolveUnChecked() {
+void calc::ASTScript::resolveUnChecked()
+{
 
   std::string areaMap;
   if (d_areaMap)
-    areaMap=d_areaMap->name();
+    areaMap = d_areaMap->name();
 
   // possible first time to see if it IS reported
   // NOTE never call setReport for the first time
@@ -352,106 +349,99 @@ void calc::ASTScript::resolveUnChecked() {
  */
 void calc::ASTScript::analyzeAndResolve()
 {
- analyzeNoContext();
- resolve();
+  analyzeNoContext();
+  resolve();
 }
-
 
 /*! update symbols for report info, what is written and what not
  */
 void calc::ASTScript::setReports()
 {
- Timer t = timer();
- if (!t.lastInt())
-     t.setLastInt(1);
+  Timer t = timer();
+  if (!t.lastInt())
+    t.setLastInt(1);
 
- d_reports.update(t);
+  d_reports.update(t);
 
- bool reportLastAssOfEverySymbol =
-    !d_containsDynamicSection &&
-     d_interface.empty() &&
-    !d_hasStatementWithReportKeyword;
- if (d_reportOnlyForXMLScriptOutput)
-   reportLastAssOfEverySymbol=true;
+  bool reportLastAssOfEverySymbol =
+      !d_containsDynamicSection && d_interface.empty() && !d_hasStatementWithReportKeyword;
+  if (d_reportOnlyForXMLScriptOutput)
+    reportLastAssOfEverySymbol = true;
 
- ReportVisitor rv(reportLastAssOfEverySymbol, d_reports,t);
- if (d_code)
+  ReportVisitor rv(reportLastAssOfEverySymbol, d_reports, t);
+  if (d_code)
     d_code->accept(rv);
 
- ReportPars const rps(rv.reportPars());
- for(auto & rp : rps) {
-   auto s= d_symbols.find(rp.first);
-   POSTCOND(s != d_symbols.end());
-   ReportPar const& rpp(rp.second);
-   s->second.setReport(rpp.d_par,rpp.d_report,rpp.d_inDynamic,
-                       d_reportOnlyForXMLScriptOutput);
- }
+  ReportPars const rps(rv.reportPars());
+  for (auto &rp : rps) {
+    auto s = d_symbols.find(rp.first);
+    POSTCOND(s != d_symbols.end());
+    ReportPar const &rpp(rp.second);
+    s->second.setReport(rpp.d_par, rpp.d_report, rpp.d_inDynamic, d_reportOnlyForXMLScriptOutput);
+  }
 }
 
 //! set value of d_reportOnlyForXMLScriptOutput
 void calc::ASTScript::setReportOnlyForXMLScriptOutput(bool reportOnlyForXMLScriptOutput)
 {
-  d_reportOnlyForXMLScriptOutput=reportOnlyForXMLScriptOutput;
+  d_reportOnlyForXMLScriptOutput = reportOnlyForXMLScriptOutput;
 }
 
-
 //! get value of cfgCode
-calc::CFGNode*  calc::ASTScript::cfgCode() const
+calc::CFGNode *calc::ASTScript::cfgCode() const
 {
   return d_cfgCode;
 }
 
 //! get value of cfgCode
-calc::ASTNode*  calc::ASTScript::astCode() const
+calc::ASTNode *calc::ASTScript::astCode() const
 {
   return d_code;
 }
 
-
 void calc::ASTScript::transferAreaMap(ASTId *areaMap)
 {
   delete d_areaMap;
-  d_areaMap=areaMap;
+  d_areaMap = areaMap;
 }
 
-void calc::ASTScript::transferTimerSection(ASTId* timerStartOrTss,
-                                           ASTId* timerEnd,
-                                           ASTId* timerStep)
+void calc::ASTScript::transferTimerSection(ASTId *timerStartOrTss, ASTId *timerEnd, ASTId *timerStep)
 {
-  PRECOND(!d_timerStartOrTss); // only called once
-  d_timerStartOrTss=timerStartOrTss;
-  d_timerEnd       =timerEnd;
-  d_timerStep      =timerStep;
+  PRECOND(!d_timerStartOrTss);  // only called once
+  d_timerStartOrTss = timerStartOrTss;
+  d_timerEnd = timerEnd;
+  d_timerStep = timerStep;
 }
 
 //! get value of rteSettings
-const calc::RunTimeEnvSettings& calc::ASTScript::rteSettings() const
+const calc::RunTimeEnvSettings &calc::ASTScript::rteSettings() const
 {
   return d_rteSettings;
 }
 
-void  calc::ASTScript::setRteSettings(RunTimeEnvSettings const& rteSettings)
+void calc::ASTScript::setRteSettings(RunTimeEnvSettings const &rteSettings)
 {
-  d_rteSettings=rteSettings;
+  d_rteSettings = rteSettings;
 }
 
 //! get value of bindings
-const calc::BindingTable& calc::ASTScript::bindings() const
+const calc::BindingTable &calc::ASTScript::bindings() const
 {
   return d_bindings;
 }
 
 //! get value of reports
-const calc::ReportTable& calc::ASTScript::reports() const
+const calc::ReportTable &calc::ASTScript::reports() const
 {
   return d_reports;
 }
 
 //! get const symbols
-const calc::ASTSymbolTable& calc::ASTScript::symbols() const
+const calc::ASTSymbolTable &calc::ASTScript::symbols() const
 {
   return d_symbols;
 }
+
 //
 //! get value of containsDynamicSection
 bool calc::ASTScript::containsDynamicSection() const
@@ -459,93 +449,91 @@ bool calc::ASTScript::containsDynamicSection() const
   return d_containsDynamicSection;
 }
 
-
 //! get modifiable symbols
-calc::ASTSymbolTable& calc::ASTScript::symbols()
+calc::ASTSymbolTable &calc::ASTScript::symbols()
 {
   return d_symbols;
 }
 
-void calc::ASTScript::transferOneBinding(ASTNode* bindingDefinition)
+void calc::ASTScript::transferOneBinding(ASTNode *bindingDefinition)
 {
-    d_bindings.transferPushBack(bindingDefinition);
+  d_bindings.transferPushBack(bindingDefinition);
 }
 
-void calc::ASTScript::addReportDefinition(Report const& reportDef)
+void calc::ASTScript::addReportDefinition(Report const &reportDef)
 {
-    d_reports.add(reportDef);
+  d_reports.add(reportDef);
 }
-void calc::ASTScript::addInterfaceDefinition(ASTDefinition const& astDef)
+
+void calc::ASTScript::addInterfaceDefinition(ASTDefinition const &astDef)
 {
-    d_interface.push_back(astDef);
+  d_interface.push_back(astDef);
 }
 
 //! set value of externalTimer
-void calc::ASTScript::setExternalTimer(Timer const& externalTimer)
+void calc::ASTScript::setExternalTimer(Timer const &externalTimer)
 {
   delete d_externalTimer;
-  d_externalTimer= new Timer(externalTimer);
+  d_externalTimer = new Timer(externalTimer);
 }
 
 calc::Timer calc::ASTScript::timer() const
 {
- Timer timer;
+  Timer timer;
 
- if (d_externalTimer)
+  if (d_externalTimer)
     return *d_externalTimer;
 
- if (!d_timerStartOrTss)
-   return timer; // no timer section, static model
+  if (!d_timerStartOrTss)
+    return timer;  // no timer section, static model
 
- // else analyze d_timerStartOrTss
+  // else analyze d_timerStartOrTss
 
- PRECOND(!timer.lastInt());
- if (!d_timerStartOrTss->isNumber()) {
-   const ASTSymbolInfo&  a(d_symbols[d_timerStartOrTss->name()]);
-   if (!a.isConstant()) { // it is a (file)-symbol
-     try {
-       TimeTable const tss(a.externalName(),VS_S,1);
-       timer.setStartInt(1);
-       timer.setLastInt(tss.nrTimeSteps());
-      } catch(const com::Exception& e) {
+  PRECOND(!timer.lastInt());
+  if (!d_timerStartOrTss->isNumber()) {
+    const ASTSymbolInfo &a(d_symbols[d_timerStartOrTss->name()]);
+    if (!a.isConstant()) {  // it is a (file)-symbol
+      try {
+        TimeTable const tss(a.externalName(), VS_S, 1);
+        timer.setStartInt(1);
+        timer.setLastInt(tss.nrTimeSteps());
+      } catch (const com::Exception &e) {
         // pcrcalc364
-        a.throwAtFirst(e); // happens to be first ?
+        a.throwAtFirst(e);  // happens to be first ?
       }
+    }
   }
- }
 
- // if not set by tss
- if (!timer.startInt()) {
+  // if not set by tss
+  if (!timer.startInt()) {
 
-   Private::Check c(d_symbols);
-   timer.setStartInt(c(d_timerStartOrTss,"start time"));
-   timer.setLastInt(c(d_timerEnd,"end time"));
-   size_t const step  = c(d_timerStep,"time step");
+    Private::Check c(d_symbols);
+    timer.setStartInt(c(d_timerStartOrTss, "start time"));
+    timer.setLastInt(c(d_timerEnd, "end time"));
+    size_t const step = c(d_timerStep, "time step");
 
 
-   if ( timer.startInt() == 0) { // pcrcalc6
-     d_timerStartOrTss->posError("start time must be > 0 ");
-   }
-   if (step != 1) { // pcrcalc7
-    std::ostringstream os;
-    os<<"current limitation: time step must be 1 (not "<<step<<")";
-    d_timerStep->posError(os);
-   }
-   if (timer.startInt() > timer.lastInt()) { // pcrcalc8
-    std::ostringstream os;
-    os<<"Start time ("<<timer.startInt()<<") is greater than end time ("
-      << timer.lastInt() <<")";
-    d_timerStartOrTss->posError(os);
-   }
- }
- return timer;
+    if (timer.startInt() == 0) {  // pcrcalc6
+      d_timerStartOrTss->posError("start time must be > 0 ");
+    }
+    if (step != 1) {  // pcrcalc7
+      std::ostringstream os;
+      os << "current limitation: time step must be 1 (not " << step << ")";
+      d_timerStep->posError(os);
+    }
+    if (timer.startInt() > timer.lastInt()) {  // pcrcalc8
+      std::ostringstream os;
+      os << "Start time (" << timer.startInt() << ") is greater than end time (" << timer.lastInt()
+         << ")";
+      d_timerStartOrTss->posError(os);
+    }
+  }
+  return timer;
 }
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -553,18 +541,11 @@ calc::Timer calc::ASTScript::timer() const
 //------------------------------------------------------------------------------
 
 
-
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

@@ -32,37 +32,37 @@
 
 
 #ifdef AGUILA_WITH_OPENGL
-  #include "ag_GLVisualisation.h"
-  #include "ag_Map3DWindow.h"
+#include "ag_GLVisualisation.h"
+#include "ag_Map3DWindow.h"
 #endif
 
 #include <format>
 
 //------------------------------------------------------------------------------
 
-namespace ag {
+namespace ag
+{
 
 class VisGroupPrivate
 {
 public:
-  static size_t    d_nrCreated;        // Number of objects created.
+  static size_t d_nrCreated;  // Number of objects created.
 
   qt::AppWindowProperties d_winProps;
 
-  DataObject       d_dataObject;     // Data object of the group.
-  std::vector<IVisualisation *> d_visualisations; // Observing visualisations.
+  DataObject d_dataObject;                         // Data object of the group.
+  std::vector<IVisualisation *> d_visualisations;  // Observing visualisations.
   std::vector<VisualisationWindow *> d_visualisationWindows;
   // AnimationControl* d_animationControl;
   // TODO shouldn't this be a static?
   VisGroupManager *d_manager{};
 
-  VisGroupPrivate(const qt::AppWindowProperties& props)
-    : d_winProps(props) // , d_animationControl(0)
+  VisGroupPrivate(const qt::AppWindowProperties &props) : d_winProps(props)  // , d_animationControl(0)
   {
     init();
   }
 
-/*
+  /*
   VisGroupPrivate(const qt::AppWindowProperties& props,
                    const pcrxml::DataObject& dataObject)
     : d_winProps(props), d_dataObject(dataObject), d_animationControl(0)
@@ -71,7 +71,7 @@ public:
   }
 */
 
-/*
+  /*
   VisGroupPrivate(const qt::AppWindowProperties& props, const ag::DataObject& o)
     : d_winProps(props), d_dataObject(o), d_animationControl(0)
   {
@@ -87,19 +87,15 @@ public:
   ~VisGroupPrivate()
   {
   }
-
 };
 
 size_t VisGroupPrivate::d_nrCreated = 0;
 
-}
-
-
+}  // namespace ag
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -109,11 +105,9 @@ size_t VisGroupPrivate::d_nrCreated = 0;
 /*!
   \brief     Default constructor.
 */
-ag::VisGroup::VisGroup(const qt::AppWindowProperties& props,
-                   VisGroupManager *m)
+ag::VisGroup::VisGroup(const qt::AppWindowProperties &props, VisGroupManager *m)
 
-  : QObject(nullptr),
-    d_data(new VisGroupPrivate(props))
+    : QObject(nullptr), d_data(new VisGroupPrivate(props))
 
 {
   assert(m);
@@ -128,8 +122,6 @@ ag::VisGroup::VisGroup(const qt::AppWindowProperties& props,
   // connect(this, SIGNAL(changed(ag::VisGroup*)),
   //                  m, SLOT(updateControlCenter()));
 }
-
-
 
 /*
 ag::VisGroup::VisGroup(const qt::AppWindowProperties& props,
@@ -179,7 +171,6 @@ ag::VisGroup::VisGroup(const qt::AppWindowProperties& props,
 */
 
 
-
 /*!
   \brief     Destructor.
 
@@ -202,17 +193,16 @@ ag::VisGroup::~VisGroup()
 
   bool closed = false;
 
-  while(d_data->d_dataObject.isObserved()) {
-    IVisualisation* visualisation =
-         dynamic_cast<IVisualisation*>(*(d_data->d_dataObject.begin()));
+  while (d_data->d_dataObject.isObserved()) {
+    IVisualisation *visualisation = dynamic_cast<IVisualisation *>(*(d_data->d_dataObject.begin()));
     assert(visualisation);
     closed = visualisation->close();
     assert(closed);
-    (void)closed; // Shut up compiler
+    (void)closed;  // Shut up compiler
     delete visualisation;
   }
 
-/*
+  /*
   std::vector<IVisualisation *>& visualisations = d_data->d_visualisations;
 
   while(!visualisations.empty()) {
@@ -223,36 +213,34 @@ ag::VisGroup::~VisGroup()
   assert(d_data->d_visualisations.empty());
 }
 
-
-
-void ag::VisGroup::connectVisSignals(VisualisationWindow* visualisation)
+void ag::VisGroup::connectVisSignals(VisualisationWindow *visualisation)
 {
   // Logic for new visualisations. Uses the VisGroupManager object.
-  connect(visualisation, SIGNAL(newMap2DWindow(ag::VisualisationWindow *)),
-         d_data->d_manager, SLOT(newMap2DWindow(ag::VisualisationWindow *)));
+  connect(visualisation, SIGNAL(newMap2DWindow(ag::VisualisationWindow *)), d_data->d_manager,
+          SLOT(newMap2DWindow(ag::VisualisationWindow *)));
 #ifdef AGUILA_WITH_OPENGL
-  connect(visualisation, SIGNAL(newMap3DWindow(ag::VisualisationWindow *)),
-         d_data->d_manager, SLOT(newMap3DWindow(ag::VisualisationWindow *)));
+  connect(visualisation, SIGNAL(newMap3DWindow(ag::VisualisationWindow *)), d_data->d_manager,
+          SLOT(newMap3DWindow(ag::VisualisationWindow *)));
 #endif
-  connect(visualisation, SIGNAL(newTimePlotWindow(ag::VisualisationWindow *)),
-         d_data->d_manager, SLOT(newTimePlotWindow(ag::VisualisationWindow *)));
+  connect(visualisation, SIGNAL(newTimePlotWindow(ag::VisualisationWindow *)), d_data->d_manager,
+          SLOT(newTimePlotWindow(ag::VisualisationWindow *)));
 
   connect(visualisation, SIGNAL(closeAll()), d_data->d_manager, SLOT(close()));
 
-/*
+  /*
   connect(visualisation, SIGNAL(showControlCenter()),
          d_data->d_manager, SLOT(showControlCenter()));
 */
 
   // Logic for adding visualisations to the group. Through manager.
-  connect(visualisation, SIGNAL(addMap2DWindow(ag::VisualisationWindow *)),
-         d_data->d_manager, SLOT(addMap2DWindow(ag::VisualisationWindow *)));
+  connect(visualisation, SIGNAL(addMap2DWindow(ag::VisualisationWindow *)), d_data->d_manager,
+          SLOT(addMap2DWindow(ag::VisualisationWindow *)));
 #ifdef AGUILA_WITH_OPENGL
-  connect(visualisation, SIGNAL(addMap3DWindow(ag::VisualisationWindow *)),
-         d_data->d_manager, SLOT(addMap3DWindow(ag::VisualisationWindow *)));
+  connect(visualisation, SIGNAL(addMap3DWindow(ag::VisualisationWindow *)), d_data->d_manager,
+          SLOT(addMap3DWindow(ag::VisualisationWindow *)));
 #endif
-  connect(visualisation, SIGNAL(addTimePlotWindow(ag::VisualisationWindow *)),
-         d_data->d_manager, SLOT(addTimePlotWindow(ag::VisualisationWindow *)));
+  connect(visualisation, SIGNAL(addTimePlotWindow(ag::VisualisationWindow *)), d_data->d_manager,
+          SLOT(addTimePlotWindow(ag::VisualisationWindow *)));
   /*
   connect(visualisation, SIGNAL(addDataPropertiesDialog(ag::DataObject&,
          const ag::DataGuide&)),
@@ -264,48 +252,37 @@ void ag::VisGroup::connectVisSignals(VisualisationWindow* visualisation)
   //        this, SLOT(showAnimationControl()));
   // connect(visualisation, SIGNAL(open(ag::VisualisationWindow *)),
   //        this, SLOT(open(ag::VisualisationWindow *)));
-  connect(visualisation, SIGNAL(closeGroup()),
-         this, SLOT(close()));
+  connect(visualisation, SIGNAL(closeGroup()), this, SLOT(close()));
 
-/*
+  /*
   connect(visualisation, SIGNAL(closed(ag::VisualisationWindow *)),
          this, SLOT(detach(ag::VisualisationWindow *)));
 */
 }
 
-
-
-ag::DataGuide ag::VisGroup::addData(
-         std::string const& name,
-         dal::DataSpace const& space)
+ag::DataGuide ag::VisGroup::addData(std::string const &name, dal::DataSpace const &space)
 {
   return d_data->d_dataObject.add(name, space);
 }
 
-
-
-ag::Map2DView* ag::VisGroup::addMap2DView(QWidget* parent)
+ag::Map2DView *ag::VisGroup::addMap2DView(QWidget *parent)
 {
-  auto* view = new Map2DView(&(d_data->d_dataObject), parent);
+  auto *view = new Map2DView(&(d_data->d_dataObject), parent);
 
   return view;
 }
 
-
-
-ag::Map2D* ag::VisGroup::addMap2D(QWidget* parent)
+ag::Map2D *ag::VisGroup::addMap2D(QWidget *parent)
 {
-  auto* map = new Map2D(&(d_data->d_dataObject), parent);
+  auto *map = new Map2D(&(d_data->d_dataObject), parent);
 
   return map;
 }
 
-
-
 /*!
   \brief     Adds a new Map View to the group.
 */
-ag::Map2DWindow* ag::VisGroup::addMap2DWindow()
+ag::Map2DWindow *ag::VisGroup::addMap2DWindow()
 {
   //  1. A visualisation is automagicaly deleted from memory if it is closed.
   //     Have a look at qt::AppWindow's constructor.
@@ -319,26 +296,21 @@ ag::Map2DWindow* ag::VisGroup::addMap2DWindow()
   return m;
 }
 
-
-
-ag::Map2DWindow* ag::VisGroup::addMap2DWindow(VisualisationWindow *v)
+ag::Map2DWindow *ag::VisGroup::addMap2DWindow(VisualisationWindow *v)
 {
   assert(v);
 
   auto *m = new Map2DWindow(d_data->d_winProps, &(d_data->d_dataObject));
   addVisualisation(m);
-  m->resize(v->size());                                                   // 10.
-  if(v->isVisible())
+  m->resize(v->size());  // 10.
+  if (v->isVisible())
     m->show();
   return m;
 }
 
-
-ag::MultiMap2DWindow* ag::VisGroup::addMultiMap2DWindow(
-         size_t nrRows, size_t nrCols)
+ag::MultiMap2DWindow *ag::VisGroup::addMultiMap2DWindow(size_t nrRows, size_t nrCols)
 {
-  auto* window = new MultiMap2DWindow(
-         d_data->d_winProps, &(d_data->d_dataObject), nrRows, nrCols);
+  auto *window = new MultiMap2DWindow(d_data->d_winProps, &(d_data->d_dataObject), nrRows, nrCols);
   addVisualisation(window);
   return window;
 }
@@ -348,7 +320,7 @@ ag::MultiMap2DWindow* ag::VisGroup::addMultiMap2DWindow(
 /*!
   \brief     Adds a new Drape View to the group.
 */
-ag::Map3DWindow* ag::VisGroup::addMap3DWindow()
+ag::Map3DWindow *ag::VisGroup::addMap3DWindow()
 {
   //  1. A visualisation is automagicaly deleted from memory if it is closed.
   //     Have a look at qt::AppWindow's constructor.
@@ -363,58 +335,47 @@ ag::Map3DWindow* ag::VisGroup::addMap3DWindow()
   return m;
 }
 
-
-
-ag::Map3DWindow* ag::VisGroup::addMap3DWindow(VisualisationWindow *v)
+ag::Map3DWindow *ag::VisGroup::addMap3DWindow(VisualisationWindow *v)
 {
   assert(v);
 
   auto *m = new Map3DWindow(d_data->d_winProps, &(d_data->d_dataObject));
   addVisualisation(m);
-  m->resize(v->size());                                                   // 10.
-  if(v->isVisible())
+  m->resize(v->size());  // 10.
+  if (v->isVisible())
     m->show();
   return m;
 }
 #endif
 
 
-ag::TimePlotWindow* ag::VisGroup::addTimePlotWindow()
+ag::TimePlotWindow *ag::VisGroup::addTimePlotWindow()
 {
-  auto* timePlot = new TimePlotWindow(d_data->d_winProps,
-                   &(d_data->d_dataObject));
+  auto *timePlot = new TimePlotWindow(d_data->d_winProps, &(d_data->d_dataObject));
   addVisualisation(timePlot);
   // timePlot->resize(600, 400);
   return timePlot;
 }
 
-
-
-ag::TimePlotWindow* ag::VisGroup::addTimePlotWindow(ag::VisualisationWindow *visualisation)
+ag::TimePlotWindow *ag::VisGroup::addTimePlotWindow(ag::VisualisationWindow *visualisation)
 {
   assert(visualisation);
 
-  auto* timePlot = new TimePlotWindow(d_data->d_winProps,
-                   &(d_data->d_dataObject));
+  auto *timePlot = new TimePlotWindow(d_data->d_winProps, &(d_data->d_dataObject));
   addVisualisation(timePlot);
   timePlot->resize(visualisation->size());
-  if(visualisation->isVisible()) {
+  if (visualisation->isVisible()) {
     timePlot->show();
   }
   return timePlot;
 }
 
-
-
-ag::CumDistributionFunctionWindow* ag::VisGroup::addProbabilityGraphWindow()
+ag::CumDistributionFunctionWindow *ag::VisGroup::addProbabilityGraphWindow()
 {
-  auto* window = new CumDistributionFunctionWindow(
-         d_data->d_winProps, &(d_data->d_dataObject));
+  auto *window = new CumDistributionFunctionWindow(d_data->d_winProps, &(d_data->d_dataObject));
   addVisualisation(window);
   return window;
 }
-
-
 
 // ag::DataPropertiesDialog* ag::VisGroup::addDataPropertiesDialog(
 //          const ag::DataGuide& dataGuide)
@@ -430,7 +391,6 @@ ag::CumDistributionFunctionWindow* ag::VisGroup::addProbabilityGraphWindow()
 // }
 
 
-
 //!
 /*!
   \param     .
@@ -440,23 +400,18 @@ ag::CumDistributionFunctionWindow* ag::VisGroup::addProbabilityGraphWindow()
   \sa        .
   \todo      Make sure the visualisation is removed from d_visualisationWindows when it is detached.
 */
-void ag::VisGroup::addVisualisation(VisualisationWindow* visualisation)
+void ag::VisGroup::addVisualisation(VisualisationWindow *visualisation)
 {
   connectVisSignals(visualisation);
   // d_data->d_visualisations.push_back(visualisation);
   // d_data->d_visualisationWindows.push_back(visualisation);
 }
 
-
-
 //! Show all visualisation windows in the group
 void ag::VisGroup::show()
 {
-  dev::forWhole(d_data->d_visualisationWindows,
-         std::mem_fn(&VisualisationWindow::show));
+  dev::forWhole(d_data->d_visualisationWindows, std::mem_fn(&VisualisationWindow::show));
 }
-
-
 
 /*!
   \brief     Detaches visualisation \a v from the group.
@@ -480,7 +435,6 @@ void ag::VisGroup::detach(ag::IVisualisation *visualisation)
   Q_EMIT changed(this);
 }
 */
-
 
 
 // /*!
@@ -549,8 +503,6 @@ void ag::VisGroup::detach(ag::IVisualisation *visualisation)
 // }
 
 
-
-
 /*!
   \brief     Closes the visualisation group.
   \sa        detach(IVisualisation *)
@@ -561,8 +513,6 @@ void ag::VisGroup::close()
 {
   d_data->d_manager->erase(this);
 }
-
-
 
 // void ag::VisGroup::createAnimationControl()
 // {
@@ -598,7 +548,6 @@ void ag::VisGroup::close()
 // }
 
 
-
 /*
 void ag::VisGroup::updateTime(size_t t)
 {
@@ -607,7 +556,6 @@ void ag::VisGroup::updateTime(size_t t)
   d_data->d_dataObject.setCursorPos(cpNew);
 }
 */
-
 
 
 /*
@@ -627,20 +575,15 @@ void ag::VisGroup::copy(IVisualisation *v)
 */
 
 
-
-ag::DataObject& ag::VisGroup::dataObject()
+ag::DataObject &ag::VisGroup::dataObject()
 {
   return d_data->d_dataObject;
 }
-
-
 
 size_t ag::VisGroup::nrVisualisations() const
 {
   return d_data->d_dataObject.nrObservers();
 }
-
-
 
 /*
 ag::VisGroup::vis_iterator ag::VisGroup::vis_begin()
@@ -699,14 +642,11 @@ ag::VisGroup::const_viswin_iterator ag::VisGroup::viswin_end() const
 */
 
 
-
-bool ag::VisGroup::contains(IVisualisation const* visualisation) const
+bool ag::VisGroup::contains(IVisualisation const *visualisation) const
 {
-  return std::find(d_data->d_dataObject.begin(), d_data->d_dataObject.end(),
-         visualisation) != d_data->d_dataObject.end();
+  return std::find(d_data->d_dataObject.begin(), d_data->d_dataObject.end(), visualisation) !=
+         d_data->d_dataObject.end();
 }
-
-
 
 /*
 void ag::VisGroup::close(ag::VisualisationWindow* visualisation)
@@ -720,7 +660,6 @@ void ag::VisGroup::close(ag::VisualisationWindow* visualisation)
 */
 
 
-
 void ag::VisGroup::reloadData()
 {
   // cout << "reload data" << endl;
@@ -732,10 +671,7 @@ void ag::VisGroup::reloadData()
         zijn
     }
   */
-
 }
-
-
 
 //!
 /*!
@@ -788,21 +724,15 @@ void ag::VisGroup::sync()
   dataObject().notify();
 }
 
-
-
-ag::AnimationControl* ag::VisGroup::addAnimationDialog()
+ag::AnimationControl *ag::VisGroup::addAnimationDialog()
 {
   return AnimationControl::instance(&(d_data->d_dataObject));
 }
 
-
-
-ag::CursorWindow* ag::VisGroup::addCursorWindow()
+ag::CursorWindow *ag::VisGroup::addCursorWindow()
 {
   return CursorWindow::instance(&(d_data->d_dataObject));
 }
-
-
 
 // namespace ag {
 //
@@ -820,11 +750,9 @@ ag::CursorWindow* ag::VisGroup::addCursorWindow()
 // } // namespace
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -832,11 +760,9 @@ ag::CursorWindow* ag::VisGroup::addCursorWindow()
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -844,9 +770,6 @@ ag::CursorWindow* ag::VisGroup::addCursorWindow()
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

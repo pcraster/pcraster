@@ -1,7 +1,7 @@
 #include "stddefx.h"
 #include "calc_iofieldstrategy.h"
 #include "com_exception.h"
-#include "api.h"        // BootTestApi
+#include "api.h"  // BootTestApi
 #include "calc_rundirectory.h"
 #include "calc_quote.h"
 #include "calc_fieldmapinputparameter.h"
@@ -25,18 +25,19 @@
  *
  * Caller must delete.
  */
-calc::IoFieldStrategy* calc::IoFieldStrategy::createOnGlobalOption()
+calc::IoFieldStrategy *calc::IoFieldStrategy::createOnGlobalOption()
 {
- switch(appIOstrategy) {
-   case APP_IO_ESRIGRID: return new IoEsriFieldStrategy();
-   case APP_IO_PCRASTER: return new IoCsfFieldStrategy();
-   case APP_IO_BANDMAP:  return new IoBandFieldStrategy();
- }
- PRECOND(false);
- return nullptr;
+  switch (appIOstrategy) {
+    case APP_IO_ESRIGRID:
+      return new IoEsriFieldStrategy();
+    case APP_IO_PCRASTER:
+      return new IoCsfFieldStrategy();
+    case APP_IO_BANDMAP:
+      return new IoBandFieldStrategy();
+  }
+  PRECOND(false);
+  return nullptr;
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF IOFIELDSTRATEGY MEMBERS
@@ -54,9 +55,9 @@ calc::IoFieldStrategy::~IoFieldStrategy()
 
 void calc::IoFieldStrategy::setupClone()
 {
-   setupFormatSpecificClone();
+  setupFormatSpecificClone();
 
-   BootTestApi(d_commonRS.cellSize(), d_commonRS.projection() == geo::YIncrT2B);
+  BootTestApi(d_commonRS.cellSize(), d_commonRS.projection() == geo::YIncrT2B);
 }
 
 void calc::IoFieldStrategy::setupFormatSpecificClone()
@@ -64,23 +65,19 @@ void calc::IoFieldStrategy::setupFormatSpecificClone()
 }
 
 //! compare different formats on their common features
-void calc::IoFieldStrategy::checkCommonCloneEqual(
-    const std::string& mapFileName,
-    const geo::RasterSpace& newMap)  const
+void calc::IoFieldStrategy::checkCommonCloneEqual(const std::string &mapFileName,
+                                                  const geo::RasterSpace &newMap) const
 {
-    if (d_commonRS.nrRows()   != newMap.nrRows() ||
-        d_commonRS.nrCols()   != newMap.nrCols() ||
-        d_commonRS.cellSize() != newMap.cellSize())
-         throwCloneDiffers(d_cloneNameCommon,mapFileName);
+  if (d_commonRS.nrRows() != newMap.nrRows() || d_commonRS.nrCols() != newMap.nrCols() ||
+      d_commonRS.cellSize() != newMap.cellSize())
+    throwCloneDiffers(d_cloneNameCommon, mapFileName);
 }
 
 //! throw com::Exception, if stuff differs
-void calc::IoFieldStrategy::throwCloneDiffers(
-    const std::string& map1,
-    const std::string& map2) const
+void calc::IoFieldStrategy::throwCloneDiffers(const std::string &map1, const std::string &map2) const
 {
-    throw com::Exception("location attributes of "+ quote(map1)+
-                " and "+quote(map2)+" are different");
+  throw com::Exception("location attributes of " + quote(map1) + " and " + quote(map2) +
+                       " are different");
 }
 
 //! Remove an output object to ensure proper re-creation.
@@ -92,21 +89,20 @@ void calc::IoFieldStrategy::throwCloneDiffers(
     \todo
       check for read-only-ness here?
  */
-void calc::IoFieldStrategy::removeOutputObject(const std::string& ) const
+void calc::IoFieldStrategy::removeOutputObject(const std::string &) const
 {
 }
 
-
 //!  inits and verify against the clone of the script
-calc::FieldMapInputParameter* calc::IoFieldStrategy::createFieldMapInputParameter(
-    const calc::ParsPar &par)
+calc::FieldMapInputParameter *
+calc::IoFieldStrategy::createFieldMapInputParameter(const calc::ParsPar &par)
 {
-    VS vs;
-    std::vector<std::string>n;
-    n.push_back(par.externalName());
-    IoFieldStrategy* s=checkInputMap(vs,n[0]);
-    s->checkClone(n[0]);
-    return new FieldMapInputParameter(par,false,vs,n,*s);
+  VS vs;
+  std::vector<std::string> n;
+  n.push_back(par.externalName());
+  IoFieldStrategy *s = checkInputMap(vs, n[0]);
+  s->checkClone(n[0]);
+  return new FieldMapInputParameter(par, false, vs, n, *s);
 }
 
 //! set and check against common clone
@@ -114,45 +110,45 @@ calc::FieldMapInputParameter* calc::IoFieldStrategy::createFieldMapInputParamete
     is set as common clone, if no clone yet set.
     The same map is checked against a possible already set clone.
  */
-void calc::IoFieldStrategy::setAndCheckCommon(
-    const std::string& mapFileName,
-    const geo::RasterSpace& mapRs)
+void calc::IoFieldStrategy::setAndCheckCommon(const std::string &mapFileName,
+                                              const geo::RasterSpace &mapRs)
 {
-    if (!d_commonRS.nrRows()) { // not yet initialized
-        d_cloneNameCommon = mapFileName;
-        d_commonRS        = mapRs;
-    }
-    checkCommonCloneEqual(mapFileName,mapRs); // pcrcalc/test289
+  if (!d_commonRS.nrRows()) {  // not yet initialized
+    d_cloneNameCommon = mapFileName;
+    d_commonRS = mapRs;
+  }
+  checkCommonCloneEqual(mapFileName, mapRs);  // pcrcalc/test289
 }
 
 //! overwrite if one needs a format specific filename validator
-void calc::IoFieldStrategy::validateFileName(const std::string& ) const
+void calc::IoFieldStrategy::validateFileName(const std::string &) const
 {
 }
 
-std::string calc::IoFieldStrategy::pathTimestep1(
-    const RunDirectory& rd,
-    const std::string&  stackName) const
+std::string calc::IoFieldStrategy::pathTimestep1(const RunDirectory &rd,
+                                                 const std::string &stackName) const
 {
   bool found = false;
-  return rd.inputFilePath(found,makeStackItemName(stackName,1));
+  return rd.inputFilePath(found, makeStackItemName(stackName, 1));
 }
 
 pcrxml::IoStrategy::EnumType calc::IoFieldStrategy::xmlType() const
 {
- switch(strategyType()) {
-   case APP_IO_ESRIGRID: return pcrxml::IoStrategy::EsriGrid;
-   case APP_IO_PCRASTER: return pcrxml::IoStrategy::PCRaster;
-   case APP_IO_BANDMAP:  return pcrxml::IoStrategy::Band;
- }
- PRECOND(false);
- return pcrxml::IoStrategy::PCRaster;
+  switch (strategyType()) {
+    case APP_IO_ESRIGRID:
+      return pcrxml::IoStrategy::EsriGrid;
+    case APP_IO_PCRASTER:
+      return pcrxml::IoStrategy::PCRaster;
+    case APP_IO_BANDMAP:
+      return pcrxml::IoStrategy::Band;
+  }
+  PRECOND(false);
+  return pcrxml::IoStrategy::PCRaster;
 }
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

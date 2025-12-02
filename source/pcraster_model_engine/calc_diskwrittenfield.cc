@@ -9,7 +9,6 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
 /*
@@ -33,30 +32,22 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC DISKWRITTENFIELD MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF DISKWRITTENFIELD MEMBERS
 //------------------------------------------------------------------------------
 
-namespace calc {
+namespace calc
+{
 
-DiskWrittenField::DiskWrittenField(
-                   const IOStrategy&  ios,
-                   const std::string& fileName,
-                   VS                 vs):
-  d_ios(ios),
-  d_fileName(fileName),
-  d_vs(vs)
+DiskWrittenField::DiskWrittenField(const IOStrategy &ios, const std::string &fileName, VS vs)
+    : d_ios(ios), d_fileName(fileName), d_vs(vs)
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -70,12 +61,9 @@ DiskWrittenField::DiskWrittenField(
 */
 
 
-
 DiskWrittenField::~DiskWrittenField()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -93,23 +81,19 @@ OVS DiskWrittenField::ovs() const
   return d_vs;
 }
 
-DataValue* DiskWrittenField::load()
+DataValue *DiskWrittenField::load()
 {
-  return d_ios.createReadSpatial(d_fileName,d_vs);
+  return d_ios.createReadSpatial(d_fileName, d_vs);
 }
 
 
-} // namespace calc
+}  // namespace calc
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

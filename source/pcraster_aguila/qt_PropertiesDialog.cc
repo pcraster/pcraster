@@ -11,24 +11,21 @@
 #include "qt_Const.h"
 #include "qt_PropertiesWidget.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the PropertiesDialog class.
 */
 
 
-
 //------------------------------------------------------------------------------
 
-namespace qt {
+namespace qt
+{
 
 class PropertiesDialogPrivate
 {
 public:
-
-  PropertiesWidget* d_widget{};
+  PropertiesWidget *d_widget{};
 
   PropertiesDialogPrivate()
   {
@@ -37,17 +34,13 @@ public:
   ~PropertiesDialogPrivate()
   {
   }
-
 };
 
-} // namespace qt
-
-
+}  // namespace qt
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC PROPERTIESDIALOG MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -62,11 +55,10 @@ public:
              this dialog ('this' is undefined yet). Just create \a widget with
              parent 0 and we'll reparent it to this dialog.
 */
-qt::PropertiesDialog::PropertiesDialog(PropertiesWidget* widget,
-                   QWidget* parent, bool modal, Qt::WindowFlags flags)
+qt::PropertiesDialog::PropertiesDialog(PropertiesWidget *widget, QWidget *parent, bool modal,
+                                       Qt::WindowFlags flags)
 
-  : QDialog(parent, flags),
-    d_data(new PropertiesDialogPrivate())
+    : QDialog(parent, flags), d_data(new PropertiesDialogPrivate())
 
 {
   assert(widget);
@@ -78,17 +70,13 @@ qt::PropertiesDialog::PropertiesDialog(PropertiesWidget* widget,
   createInterface();
 }
 
-
-
 qt::PropertiesDialog::~PropertiesDialog()
 {
 }
 
-
-
 void qt::PropertiesDialog::createInterface()
 {
-  QBoxLayout * box = nullptr;
+  QBoxLayout *box = nullptr;
   QBoxLayout *top = nullptr;
 
   top = new QVBoxLayout(this);
@@ -97,15 +85,15 @@ void qt::PropertiesDialog::createInterface()
   top->addWidget(d_data->d_widget);
 
   // Create and layout buttons.
-  QPushButton* ok = nullptr;
+  QPushButton *ok = nullptr;
   ok = new QPushButton("OK", this);
   ok->setFixedSize(qt::BUTTONWIDTH, qt::BUTTONHEIGHT);
 
-  QPushButton* cancel = nullptr;
+  QPushButton *cancel = nullptr;
   cancel = new QPushButton("Cancel", this);
   cancel->setFixedSize(qt::BUTTONWIDTH, qt::BUTTONHEIGHT);
 
-  QPushButton* apply = nullptr;
+  QPushButton *apply = nullptr;
   apply = new QPushButton("Apply", this);
   apply->setDefault(true);
   apply->setFixedSize(qt::BUTTONWIDTH, qt::BUTTONHEIGHT);
@@ -126,39 +114,27 @@ void qt::PropertiesDialog::createInterface()
   connect(apply, SIGNAL(clicked()), SLOT(apply()));
 }
 
-
-
 void qt::PropertiesDialog::accept()
 {
   d_data->d_widget->apply();
   done(1);
 }
 
-
-
 void qt::PropertiesDialog::reject()
 {
   done(0);
 }
-
-
 
 void qt::PropertiesDialog::apply()
 {
   d_data->d_widget->apply();
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

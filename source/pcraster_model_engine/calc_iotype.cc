@@ -1,13 +1,10 @@
 #include "stddefx.h"
 #include "calc_iotype.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the IOType class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -33,26 +30,20 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC IOTYPE MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF IOTYPE MEMBERS
 //------------------------------------------------------------------------------
 
-calc::IOType::IOType(const Input&  input, const Output& output):
-  d_input(input),
-  d_output(output)
+calc::IOType::IOType(const Input &input, const Output &output) : d_input(input), d_output(output)
 {
 }
 
-calc::IOType::IOType():
-  d_input(Input::None),
-  d_output(Output::Fixed)
+calc::IOType::IOType() : d_input(Input::None), d_output(Output::Fixed)
 {
 }
 
@@ -67,12 +58,9 @@ calc::IOType::IOType(IOType const& rhs)
 */
 
 
-
 calc::IOType::~IOType()
 {
 }
-
-
 
 /* DEFAULT
 //  Assignment operator.
@@ -85,15 +73,15 @@ calc::IOType& calc::IOType::operator=(IOType const& rhs)
 */
 
 //! set value of d_input
-void calc::IOType::setInput(const Input& input)
+void calc::IOType::setInput(const Input &input)
 {
-  d_input=input;
+  d_input = input;
 }
 
 //! set value of d_output
-void calc::IOType::setOutput(const Output& output)
+void calc::IOType::setOutput(const Output &output)
 {
-  d_output=output;
+  d_output = output;
 }
 
 //! get value of d_input
@@ -111,7 +99,6 @@ calc::IOType::Output calc::IOType::output() const
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

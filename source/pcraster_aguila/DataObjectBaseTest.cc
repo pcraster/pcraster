@@ -9,23 +9,16 @@
 
 
 static int argc = 1;
-static char const* argv[1] = { "/my/path/data_object_base_test" };
+static char const *argv[1] = {"/my/path/data_object_base_test"};
 
-struct Fixture:
-    private dev::GDalClient,
-    private dev::QtClient<QCoreApplication>,
-    private dal::Client
-{
+struct Fixture : private dev::GDalClient, private dev::QtClient<QCoreApplication>, private dal::Client {
 
-    Fixture()
-        : dev::GDalClient(),
-          dev::QtClient<QCoreApplication>(argc, const_cast<char**>(argv)),
-          dal::Client(argv[0], true)
-    {
-    }
-
+  Fixture()
+      : dev::GDalClient(), dev::QtClient<QCoreApplication>(argc, const_cast<char **>(argv)),
+        dal::Client(argv[0], true)
+  {
+  }
 };
-
 
 BOOST_GLOBAL_FIXTURE(Fixture);
 
@@ -35,8 +28,7 @@ BOOST_AUTO_TEST_CASE(test)
 
   std::string const name("dataset1/aap/scalar");
   dal::DataSpace space;
-  space.addDimension(dal::Dimension(dal::Time, size_t(10), size_t(20),
-         size_t(1)));
+  space.addDimension(dal::Dimension(dal::Time, size_t(10), size_t(20), size_t(1)));
 
   RasterDataSources dataSources;
   BOOST_CHECK_EQUAL(dataSources.size(), size_t(0));

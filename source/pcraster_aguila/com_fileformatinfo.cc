@@ -9,18 +9,15 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the FileFormatInfo class.
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC FILEFORMATINFO MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -43,9 +40,8 @@
 
   Make sure that the most default extension is the first in \a extensions.
 */
-com::FileFormatInfo::FileFormatInfo(const std::string& description,
-                   const std::string& extensions)
-  : d_description(description)
+com::FileFormatInfo::FileFormatInfo(const std::string &description, const std::string &extensions)
+    : d_description(description)
 {
   assert(!description.empty());
 
@@ -53,63 +49,49 @@ com::FileFormatInfo::FileFormatInfo(const std::string& description,
   assert(!extensions.empty());
 }
 
+com::FileFormatInfo::FileFormatInfo(std::string const &description,
+                                    std::vector<std::string> const &extensions)
 
-
-com::FileFormatInfo::FileFormatInfo(
-         std::string const& description,
-         std::vector<std::string> const& extensions)
-
-  : d_description(description), d_extensions(extensions)
+    : d_description(description), d_extensions(extensions)
 
 {
   assert(!d_description.empty());
   assert(!d_extensions.empty());
 }
 
-
-
 //! Destructor.
 com::FileFormatInfo::~FileFormatInfo()
 {
 }
 
-
-
-bool com::FileFormatInfo::equals(const FileFormatInfo& formatInfo) const
+bool com::FileFormatInfo::equals(const FileFormatInfo &formatInfo) const
 {
-  return d_description == formatInfo.d_description &&
-         d_extensions == formatInfo.d_extensions;
+  return d_description == formatInfo.d_description && d_extensions == formatInfo.d_extensions;
 }
-
-
 
 //! Returns the description.
 /*!
   \return    Description.
 */
-const std::string& com::FileFormatInfo::description() const
+const std::string &com::FileFormatInfo::description() const
 {
   return d_description;
 }
-
-
 
 //! Returns the first (= most default) default extension.
 /*!
   \return    Extension.
 */
-const std::string& com::FileFormatInfo::extension() const
+const std::string &com::FileFormatInfo::extension() const
 {
   return d_extensions[0];
 }
-
-
 
 //! Returns the default extensions.
 /*!
   \return    Extensions.
 */
-const std::vector<std::string>& com::FileFormatInfo::extensions() const
+const std::vector<std::string> &com::FileFormatInfo::extensions() const
 {
   return d_extensions;
 }
@@ -136,25 +118,19 @@ const std::vector<std::string>& com::FileFormatInfo::extensions() const
 // }
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
-bool com::operator==(const com::FileFormatInfo& lhs,
-                   const com::FileFormatInfo& rhs)
+bool com::operator==(const com::FileFormatInfo &lhs, const com::FileFormatInfo &rhs)
 {
   return lhs.equals(rhs);
 }
 
-
-
-bool com::operator!=(const com::FileFormatInfo& lhs,
-                   const com::FileFormatInfo& rhs)
+bool com::operator!=(const com::FileFormatInfo &lhs, const com::FileFormatInfo &rhs)
 {
   return !lhs.equals(rhs);
 }
-
 
 //! Encapsulated PostScript
 com::FileFormatInfo com::FileFormatInfo::eps()
@@ -180,6 +156,3 @@ com::FileFormatInfo com::FileFormatInfo::pcr()
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

@@ -2,13 +2,10 @@
 #include "calc_averagemap.h"
 #include "com_mvgeneric.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the AverageMap class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -34,11 +31,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC AVERAGEMAP MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -48,8 +43,6 @@ public:
 calc::AverageMap::AverageMap()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -62,12 +55,9 @@ calc::AverageMap::AverageMap(AverageMap const& rhs)
 */
 
 
-
 calc::AverageMap::~AverageMap()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -80,46 +70,39 @@ calc::AverageMap& calc::AverageMap::operator=(AverageMap const& rhs)
 */
 
 //! on base of ID Field type (UINT1/INT4)
-template<typename IDF>
-void calc::AverageMap::apply(
-    const IDF   *id,  size_t idLen,
-    const REAL4 *val, size_t valLen)
+template <typename IDF>
+void calc::AverageMap::apply(const IDF *id, size_t idLen, const REAL4 *val, size_t valLen)
 {
   // FTTB only one call allowed
   PRECOND(d_map.empty());
   if (idLen == 1) {
     // optimization, else clause can do this also
     //  but this eliminates the lookups in d_map
-    d_map.insert(std::make_pair(id[0],
-                 com::forEachNonMV(val,val+valLen,A())));
+    d_map.insert(std::make_pair(id[0], com::forEachNonMV(val, val + valLen, A())));
   } else
-    d_map =
-      com::iterateNonMV2(id,idLen, val,valLen,d_map);
+    d_map = com::iterateNonMV2(id, idLen, val, valLen, d_map);
 }
 
-template void calc::AverageMap::apply<UINT1>(
-    const UINT1   *id,  size_t idLen,
-    const REAL4 *val, size_t valLen);
-template void  calc::AverageMap::apply<INT4>(
-    const INT4    *id,  size_t idLen,
-    const REAL4 *val, size_t valLen);
+template void calc::AverageMap::apply<UINT1>(const UINT1 *id, size_t idLen, const REAL4 *val,
+                                             size_t valLen);
+template void calc::AverageMap::apply<INT4>(const INT4 *id, size_t idLen, const REAL4 *val,
+                                            size_t valLen);
 
 void calc::AverageMap::setResults(double *res, size_t nrVals) const
 {
-  pcr::setMV(res,nrVals);
-  d_map.setResults(res,nrVals);
+  pcr::setMV(res, nrVals);
+  d_map.setResults(res, nrVals);
 }
 
 void calc::AreaAverageMap::setResults(double *res, INT4 nrVals) const
 {
- for(const auto & i : *this) {
-   if(i.first > 0 && i.first <= nrVals)
-      res[i.first-1]=i.second.average(); // id 1 at col 0
- }
+  for (const auto &i : *this) {
+    if (i.first > 0 && i.first <= nrVals)
+      res[i.first - 1] = i.second.average();  // id 1 at col 0
+  }
 }
 
-const calc::AreaAverageMap&
- calc::AverageMap::areaAverageMap() const
+const calc::AreaAverageMap &calc::AverageMap::areaAverageMap() const
 {
   return d_map;
 }
@@ -129,10 +112,6 @@ const calc::AreaAverageMap&
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

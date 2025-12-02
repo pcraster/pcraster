@@ -9,8 +9,6 @@
 
 #include <memory>
 
-
-
 /*!
   \file
   This file contains the implementation of the ModelBuilder class.
@@ -22,14 +20,14 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF MODELBUILDER MEMBERS
 //------------------------------------------------------------------------------
 
-calc::ModelBuilder::ModelBuilder():
-  
-  d_positionName(new std::string("??"))
+calc::ModelBuilder::ModelBuilder()
+    :
+
+      d_positionName(new std::string("??"))
 {
   globalInit();
 }
@@ -41,44 +39,36 @@ calc::ModelBuilder::~ModelBuilder()
 }
 
 //! set name for \class calc::PositionName used to create symbols
-void calc::ModelBuilder::setPositionName(const std::string& name)
+void calc::ModelBuilder::setPositionName(const std::string &name)
 {
   d_positionName = std::make_shared<std::string>(name);
 }
 
-
 //! set model
-void calc::ModelBuilder::setModel(const std::string& model)
+void calc::ModelBuilder::setModel(const std::string &model)
 {
-  PRECOND(!d_script); // FTTB call only once
-  d_script=StringParser::createScript(model);
+  PRECOND(!d_script);  // FTTB call only once
+  d_script = StringParser::createScript(model);
   d_script->setRteSettings(d_rtes);
 }
 
-
-
-
-void calc::ModelBuilder::setClone(const std::string& clone)
+void calc::ModelBuilder::setClone(const std::string &clone)
 {
   SetClone(clone.c_str());
 }
-
 
 //! run the statements added
 void calc::ModelBuilder::execute()
 {
   d_script->analyzeAndResolve();
 
-  Executor e(d_script->cfgCode(),
-             d_script->rteSettings(),
-             d_script->symbols());
+  Executor e(d_script->cfgCode(), d_script->rteSettings(), d_script->symbols());
   e.execAll();
 }
 
-
-void calc::ModelBuilder::setGlobalOption(const std::string& option)
+void calc::ModelBuilder::setGlobalOption(const std::string &option)
 {
-  std::string const withDash = "--"+option;
+  std::string const withDash = "--" + option;
   PRECOND(ParseGlobalFlag(withDash.c_str()));
   ParseGlobalFlag(withDash.c_str());
 }
@@ -87,6 +77,7 @@ void calc::ModelBuilder::setMVCompression(bool enable)
 {
   d_rtes.setMVCompression(enable);
 }
+
 void calc::ModelBuilder::setCompile(bool enable)
 {
   d_rtes.setCompile(enable);
@@ -196,10 +187,6 @@ void calc::ModelBuilder::setCompile(bool enable)
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

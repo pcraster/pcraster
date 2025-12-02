@@ -77,13 +77,13 @@ double geomFittingRectangleStep = 16;
 static bool CompEps(double a, /* r- value to compare against b */
                     double b) /* r- value to compare against a */
 {
-    /* void geom::PointTest::testPerpOnCord()
+  /* void geom::PointTest::testPerpOnCord()
    * really streches this one
    * found this code on the NET
    */
-    double const d = std::max(1.0, std::max(fabs(a), fabs(b)));
-    return (fabs(a - b) / d) < EPS;
-    /*
+  double const d = std::max(1.0, std::max(fabs(a), fabs(b)));
+  return (fabs(a - b) / d) < EPS;
+  /*
   double eps;
   printf("%g  %g %g %g\n",a,b,d,fabs(a-b)/d);
   if (fabs(a) < EPS  || fabs(b) < EPS)
@@ -102,19 +102,19 @@ LINE *CalcLine(LINE *l,          /* write-only, line created */
                const POINT2D *a, /* first point on the line */
                const POINT2D *b) /* second point on the line */
 {
-    if (PointsEq(a, b)) {
-        PRECOND(!PointsEq(a, b));
-    }
-    if (a->x == b->x) {
-        l->parY = true;
-        l->xInt = Double(a->x);
-        l->slope = 0.0;
-    } else {
-        l->parY = false;
-        l->slope = Double(a->y - b->y) / Double(a->x - b->x);
-        l->yInt = Double(a->y) - (l->slope * Double(a->x));
-    }
-    return (l);
+  if (PointsEq(a, b)) {
+    PRECOND(!PointsEq(a, b));
+  }
+  if (a->x == b->x) {
+    l->parY = true;
+    l->xInt = Double(a->x);
+    l->slope = 0.0;
+  } else {
+    l->parY = false;
+    l->slope = Double(a->y - b->y) / Double(a->x - b->x);
+    l->yInt = Double(a->y) - (l->slope * Double(a->x));
+  }
+  return (l);
 }
 
 /* compute line perpendicular to line l going through point k
@@ -124,31 +124,31 @@ LINE *PerpLine(LINE *perp,       /* write-only. line created */
                const POINT2D *k, /* point element of perp */
                const LINE *l)    /* line perpendicular to perp  */
 {
-    if (l->parY) /* vertical */
+  if (l->parY) /* vertical */
+  {
+    /* perpendicular is horizontal */
+    perp->slope = 0;
+    perp->parY = false;
+    perp->yInt = k->y;
+  } else {
+    if (l->slope == 0) /* horizontal */
     {
-        /* perpendicular is horizontal */
-        perp->slope = 0;
-        perp->parY = false;
-        perp->yInt = k->y;
-    } else {
-        if (l->slope == 0) /* horizontal */
-        {
-            /* perpendicular is vertical */
-            perp->slope = 0; /* actually undefined */
-            perp->parY = true;
-            perp->xInt = k->x;
-        } else { /* not vertical or horizontal */
-            perp->slope = -1 / l->slope;
-            perp->parY = false;
-            perp->yInt = -(perp->slope * k->x) + k->y;
-            POSTCOND(CompEps(YgivenX(perp, (PTYPE)0), perp->yInt));
-        }
+      /* perpendicular is vertical */
+      perp->slope = 0; /* actually undefined */
+      perp->parY = true;
+      perp->xInt = k->x;
+    } else { /* not vertical or horizontal */
+      perp->slope = -1 / l->slope;
+      perp->parY = false;
+      perp->yInt = -(perp->slope * k->x) + k->y;
+      POSTCOND(CompEps(YgivenX(perp, (PTYPE)0), perp->yInt));
     }
-    /* we could relax the EPS for the CONDITION below
+  }
+  /* we could relax the EPS for the CONDITION below
     * for now disable, this made EPS bigger and bigger!
     * POSTCOND( PointOnLine(perp, k));
     */
-    return (perp);
+  return (perp);
 }
 
 /* compute intersection of 2 lines
@@ -161,26 +161,26 @@ POINT2D *IntersectLines(POINT2D *p,     /* write-only, point of intersection. Pr
                         const LINE *l1, /* line 1 */
                         const LINE *l2) /* line 2 */
 {
-    if (l1->parY && l2->parY)
-        return (nullptr);
+  if (l1->parY && l2->parY)
+    return (nullptr);
 
-    if (l1->parY) /* l2 not */
-    {
-        p->x = (PTYPE)l1->xInt;
-        p->y = (PTYPE)YgivenX(l2, p->x);
-        return (p);
-    }
-    if (l2->parY) /* l1 not */
-    {
-        p->x = (PTYPE)l2->xInt;
-        p->y = (PTYPE)YgivenX(l1, p->x);
-        return (p);
-    }
-    if (l1->slope == l2->slope)
-        return (nullptr);
-    p->x = (PTYPE)((l2->yInt - l1->yInt) / (l1->slope - l2->slope));
+  if (l1->parY) /* l2 not */
+  {
+    p->x = (PTYPE)l1->xInt;
+    p->y = (PTYPE)YgivenX(l2, p->x);
+    return (p);
+  }
+  if (l2->parY) /* l1 not */
+  {
+    p->x = (PTYPE)l2->xInt;
     p->y = (PTYPE)YgivenX(l1, p->x);
     return (p);
+  }
+  if (l1->slope == l2->slope)
+    return (nullptr);
+  p->x = (PTYPE)((l2->yInt - l1->yInt) / (l1->slope - l2->slope));
+  p->y = (PTYPE)YgivenX(l1, p->x);
+  return (p);
 }
 
 /* compute intersection on 2 cords
@@ -195,47 +195,47 @@ POINT2D *IntersectCords(POINT2D *i,          /* write-only, point of intersectio
                         const POINT2D *l2p1, /* first end of cord 2 */
                         const POINT2D *l2p2) /* second end of cord 2 */
 {
-    LINE l1;
-    LINE l2;
+  LINE l1;
+  LINE l2;
 
-    (void)CalcLine(&l1, l1p1, l1p2);
-    (void)CalcLine(&l2, l2p1, l2p2);
+  (void)CalcLine(&l1, l1p1, l1p2);
+  (void)CalcLine(&l2, l2p1, l2p2);
 
-    if (!IntersectLines(i, &l1, &l2))
-        return (nullptr);
-    /* else there is an intersection,
+  if (!IntersectLines(i, &l1, &l2))
+    return (nullptr);
+  /* else there is an intersection,
      *  So point i is on both lines,
      *  now test if that intersection falls on both cords:
      */
-    if (PointOnLineAlsoOnCord(i, l1p1, l1p2) && PointOnLineAlsoOnCord(i, l2p1, l2p2))
-        return (i);
-    return (nullptr);
+  if (PointOnLineAlsoOnCord(i, l1p1, l1p2) && PointOnLineAlsoOnCord(i, l2p1, l2p2))
+    return (i);
+  return (nullptr);
 }
 
 /* compute intersection on a cord and a line
  * returns argument i if cord and line intersect or
  * NULL if not
  */
-POINT2D *IntersectLineCord(POINT2D *i,    /* write-only, point of intersection. Previous
+POINT2D *IntersectLineCord(POINT2D *i,        /* write-only, point of intersection. Previous
                                            *  value is undefined if cords do not intersect
                                            */
-                           const LINE *l, /* line  */
+                           const LINE *l,     /* line  */
                            const POINT2D *c1, /* first end of cord */
                            const POINT2D *c2) /* second end of cord */
 {
-    LINE cordLine;
+  LINE cordLine;
 
-    (void)CalcLine(&cordLine, c1, c2);
+  (void)CalcLine(&cordLine, c1, c2);
 
-    if (!IntersectLines(i, l, &cordLine))
-        return (nullptr);
-    /* else there is an intersection,
+  if (!IntersectLines(i, l, &cordLine))
+    return (nullptr);
+  /* else there is an intersection,
      *  So point i is on both lines,
      *  now test if that intersection falls on the cord:
      */
-    if (PointOnLineAlsoOnCord(i, c1, c2))
-        return (i);
-    return (nullptr);
+  if (PointOnLineAlsoOnCord(i, c1, c2))
+    return (i);
+  return (nullptr);
 }
 
 /* test if a point of a line through a cord is on the cord
@@ -250,33 +250,33 @@ int PointOnLineAlsoOnCord(const POINT2D *p,  /* point that is on the line throug
                           const POINT2D *c1, /* first end of cord */
                           const POINT2D *c2) /* second end of cord  */
 {
-    PTYPE maxX = NAN;
-    PTYPE minX = NAN;
-    PTYPE maxY = NAN;
-    PTYPE minY = NAN;
-    IFDEBUG(LINE lineThroughCord);
+  PTYPE maxX = NAN;
+  PTYPE minX = NAN;
+  PTYPE maxY = NAN;
+  PTYPE minY = NAN;
+  IFDEBUG(LINE lineThroughCord);
 
-    PRECOND(PointOnLine(CalcLine(&lineThroughCord, c1, c2), p));
+  PRECOND(PointOnLine(CalcLine(&lineThroughCord, c1, c2), p));
 
-    /* maxX, minX, maxY, minY defines the
+  /* maxX, minX, maxY, minY defines the
        rectangle of the 2 points c1 and c2 */
-    maxX = std::max(c1->x, c2->x);
-    minX = std::min(c1->x, c2->x);
-    maxY = std::max(c1->y, c2->y);
-    minY = std::min(c1->y, c2->y);
+  maxX = std::max(c1->x, c2->x);
+  minX = std::min(c1->x, c2->x);
+  maxY = std::max(c1->y, c2->y);
+  minY = std::min(c1->y, c2->y);
 
-    /* see if it falls on the cord */
-    return ((minX <= p->x) && (p->x <= maxX) && (minY <= p->y) && (p->y <= maxY));
+  /* see if it falls on the cord */
+  return ((minX <= p->x) && (p->x <= maxX) && (minY <= p->y) && (p->y <= maxY));
 }
 
 /* compute perpendicular line going through point p and perpendicular to cord c1-c2
  * returns argument cut if the perpendicular line cuts the cord.
  * NULL otherwise.
  */
-POINT2D *PerpOnCord(POINT2D *cut, /* write-only. Cutting point of perp and *line through*
+POINT2D *PerpOnCord(POINT2D *cut,      /* write-only. Cutting point of perp and *line through*
                                    * cord c1-c2. Even if the function returns NULL!
                                    */
-                    LINE *perp,   /* write-only. perpendicular line on *line through*
+                    LINE *perp,        /* write-only. perpendicular line on *line through*
                                    * cord c1-c2 going through point p. Even if the function
                                    * returns NULL!
                                    */
@@ -284,31 +284,31 @@ POINT2D *PerpOnCord(POINT2D *cut, /* write-only. Cutting point of perp and *line
                     const POINT2D *c1, /* first end of cord */
                     const POINT2D *c2) /* second end of cord  */
 {
-    LINE lineThroughCord;
+  LINE lineThroughCord;
 
-    (void)CalcLine(&lineThroughCord, c1, c2);
-    (void)PerpLine(perp, p, &lineThroughCord);
-    (void)IntersectLines(cut, &lineThroughCord, perp);
+  (void)CalcLine(&lineThroughCord, c1, c2);
+  (void)PerpLine(perp, p, &lineThroughCord);
+  (void)IntersectLines(cut, &lineThroughCord, perp);
 
-    if (PointOnLineAlsoOnCord(cut, c1, c2))
-        return (cut);
-    return (nullptr);
+  if (PointOnLineAlsoOnCord(cut, c1, c2))
+    return (cut);
+  return (nullptr);
 }
 
 void Projected(POINT2D *projected, const POINT2D *p, const LINE *line)
 {
-    LINE perp;
-    (void)PerpLine(&perp, p, line);
-    // if they do not intersect then it was already on the line
-    if (!IntersectLines(projected, line, &perp))
-        *projected = *p;
+  LINE perp;
+  (void)PerpLine(&perp, p, line);
+  // if they do not intersect then it was already on the line
+  if (!IntersectLines(projected, line, &perp))
+    *projected = *p;
 }
 
 double DistPointLine(const POINT2D *p, const LINE *line)
 {
-    POINT2D projected;
-    Projected(&projected, p, line);
-    return Dist(&projected, p);
+  POINT2D projected;
+  Projected(&projected, p, line);
+  return Dist(&projected, p);
 }
 
 /* compute the middle point of 3 points on a line
@@ -327,36 +327,36 @@ int MiddleOnLine(const LINE *l,     /* line where all three points are part of *
                  const POINT2D *p2, /* point 2 */
                  const POINT2D *p3) /* point 3 */
 {
-    double d1 = NAN;
-    double d2 = NAN;
-    double d3 = NAN;
+  double d1 = NAN;
+  double d2 = NAN;
+  double d3 = NAN;
 
-    PRECOND(PointOnLine(l, p1));
-    PRECOND(PointOnLine(l, p2));
-    PRECOND(PointOnLine(l, p3));
+  PRECOND(PointOnLine(l, p1));
+  PRECOND(PointOnLine(l, p2));
+  PRECOND(PointOnLine(l, p3));
 
-    if (l->parY) {
-        /* test on Y-value */
-        d1 = p1->y;
-        d2 = p2->y;
-        d3 = p3->y;
-    } else {
-        /* test on X-value */
-        d1 = p1->x;
-        d2 = p2->x;
-        d3 = p3->x;
-    }
-    if ((d1 <= d2 && d2 <= d3) || (d1 >= d2 && d2 >= d3))
-        return (2);
+  if (l->parY) {
+    /* test on Y-value */
+    d1 = p1->y;
+    d2 = p2->y;
+    d3 = p3->y;
+  } else {
+    /* test on X-value */
+    d1 = p1->x;
+    d2 = p2->x;
+    d3 = p3->x;
+  }
+  if ((d1 <= d2 && d2 <= d3) || (d1 >= d2 && d2 >= d3))
+    return (2);
+  else {
+    if ((d1 <= d3 && d3 <= d2) || (d1 >= d3 && d3 >= d2))
+      return 3;
     else {
-        if ((d1 <= d3 && d3 <= d2) || (d1 >= d3 && d3 >= d2))
-            return 3;
-        else {
-            POSTCOND((d2 <= d1 && d1 <= d3) || (d2 >= d1 && d1 >= d3));
-            /* if COND fails, loss of pre.  */
-            return 1;
-        }
+      POSTCOND((d2 <= d1 && d1 <= d3) || (d2 >= d1 && d1 >= d3));
+      /* if COND fails, loss of pre.  */
+      return 1;
     }
+  }
 }
 
 /* compute X co-ordinate of point on line l given Y co-ordinate
@@ -369,12 +369,12 @@ int MiddleOnLine(const LINE *l,     /* line where all three points are part of *
 double XgivenY(const LINE *l, /* the line  */
                double y)      /* value of Y co-ordinate */
 {
-    PRECOND(l->parY || l->slope != 0); /* ! parX */
+  PRECOND(l->parY || l->slope != 0); /* ! parX */
 
-    if (l->parY)
-        return (l->xInt);
-    else
-        return ((y - l->yInt) / l->slope);
+  if (l->parY)
+    return (l->xInt);
+  else
+    return ((y - l->yInt) / l->slope);
 }
 
 /* compute Y co-ordinate of point on line l given X co-ordinate
@@ -387,9 +387,9 @@ double XgivenY(const LINE *l, /* the line  */
 double YgivenX(const LINE *l, /* the line  */
                double x)      /* value of X co-ordinate */
 {
-    PRECOND(!l->parY);
+  PRECOND(!l->parY);
 
-    return (l->yInt + (x * l->slope));
+  return (l->yInt + (x * l->slope));
 }
 
 /* test if a point p in on line l
@@ -402,11 +402,11 @@ double YgivenX(const LINE *l, /* the line  */
 int PointOnLine(const LINE *l,    /* line */
                 const POINT2D *p) /* point */
 {
-    if (l->parY)
-        return (l->xInt == p->x);
-    if (l->slope == 0)
-        return (l->yInt == p->y);
-    return (CompEps(YgivenX(l, p->x), p->y));
+  if (l->parY)
+    return (l->xInt == p->x);
+  if (l->slope == 0)
+    return (l->yInt == p->y);
+  return (CompEps(YgivenX(l, p->x), p->y));
 }
 
 /* test if a point p is in polygon pol
@@ -432,75 +432,75 @@ int PointInPolygon(const POINT2D *p,   /* point  */
                    const POINT2D *pol, /* polygon */
                    int nr)             /* number of points defining the polygon  */
 {
-    /* algorithm used is plumb-line-algorithm described
+  /* algorithm used is plumb-line-algorithm described
          * in Monmonier's Computer Assisted Cartography
          * Revision 1.2  and earlier was wrong for edges that were
          * parallel to the plumb-line
          */
-    int i = 0;
-    int nrInter = 0;
-    double atY = NAN;
-    PTYPE minX = NAN;
-    PTYPE maxX = NAN;
-    PTYPE minY = NAN;
-    PTYPE maxY = NAN;
-    LINE l;
+  int i = 0;
+  int nrInter = 0;
+  double atY = NAN;
+  PTYPE minX = NAN;
+  PTYPE maxX = NAN;
+  PTYPE minY = NAN;
+  PTYPE maxY = NAN;
+  LINE l;
 
-    PRECOND(nr > 2);
-    PRECOND(pol[0].x == pol[nr].x);
-    PRECOND(pol[0].y == pol[nr].y);
+  PRECOND(nr > 2);
+  PRECOND(pol[0].x == pol[nr].x);
+  PRECOND(pol[0].y == pol[nr].y);
 
-    for (i = 0; i < nr; i++) {
-        maxX = std::max(pol[i].x, pol[i + 1].x);
-        minX = std::min(pol[i].x, pol[i + 1].x);
-        maxY = std::max(pol[i].y, pol[i + 1].y);
-        minY = std::min(pol[i].y, pol[i + 1].y);
+  for (i = 0; i < nr; i++) {
+    maxX = std::max(pol[i].x, pol[i + 1].x);
+    minX = std::min(pol[i].x, pol[i + 1].x);
+    maxY = std::max(pol[i].y, pol[i + 1].y);
+    minY = std::min(pol[i].y, pol[i + 1].y);
 
-        if (p->x == pol[i].x) { /* do not test i+1 -> double counting otherwise */
-            if (p->y == pol[i].y)
-                return (ON_POLYGON); /* p == pol[i] */
-            if (pol[i + 1].x != pol[i].x) {
+    if (p->x == pol[i].x) { /* do not test i+1 -> double counting otherwise */
+      if (p->y == pol[i].y)
+        return (ON_POLYGON); /* p == pol[i] */
+      if (pol[i + 1].x != pol[i].x) {
 #ifdef NEVER
-                /* rev 1.2 and earlier */
-                if (p->y > pol[i].y)
-                    nrInter++;
+        /* rev 1.2 and earlier */
+        if (p->y > pol[i].y)
+          nrInter++;
 #endif
-            } else /* line : x = a */
-            {
-                if (minY < p->y && p->y < maxY)
-                    return (ON_POLYGON); /* p on cord pol[i],pol[i+1] */
-                else {
+      } else /* line : x = a */
+      {
+        if (minY < p->y && p->y < maxY)
+          return (ON_POLYGON); /* p on cord pol[i],pol[i+1] */
+        else {
 #ifdef NEVER
-                    /* rev 1.2 and earlier */
-                    /* DEAD WRONG:
+          /* rev 1.2 and earlier */
+          /* DEAD WRONG:
                        edge is parallel to plumb-line: NO INTERSECTION */
-                    if ((maxY < p->y) &&
-                        /* i-1 -> (i ? nr:i)-1   */
-                        IN_BETWEEN(pol[(i ? nr : i) - 1].x, p->x, pol[(i + 2) % nr].x))
-                        nrInter++;
+          if ((maxY < p->y) &&
+              /* i-1 -> (i ? nr:i)-1   */
+              IN_BETWEEN(pol[(i ? nr : i) - 1].x, p->x, pol[(i + 2) % nr].x))
+            nrInter++;
 #endif
-                }
-            }
-        } /* eoif (p->x == pol[i].x )) */
-        else if (minX < p->x && p->x < maxX) {
-            /* intersection is possible */
-            /* line: y = ax + b or y = a */
-            if (p->y == minY && minY == maxY)
-                return (ON_POLYGON); /* y = a, p on cord pol[i],pol[i+1] */
-            if (maxY < p->y)
-                nrInter++;
-            else {
-                if (minY < p->y) {
-                    atY = YgivenX(CalcLine(&l, &(pol[i]), &(pol[i + 1])), Double(p->x));
-                    if (atY < Double(p->y))
-                        nrInter++;
-                    if (atY == Double(p->y))
-                        return (ON_POLYGON); /* p on cord pol[i],pol[i+1] */
-                }
-            }
         }
-    } /* eofor */
-    return ((nrInter % 2) == 1);
+      }
+    } /* eoif (p->x == pol[i].x )) */
+    else if (minX < p->x && p->x < maxX) {
+      /* intersection is possible */
+      /* line: y = ax + b or y = a */
+      if (p->y == minY && minY == maxY)
+        return (ON_POLYGON); /* y = a, p on cord pol[i],pol[i+1] */
+      if (maxY < p->y)
+        nrInter++;
+      else {
+        if (minY < p->y) {
+          atY = YgivenX(CalcLine(&l, &(pol[i]), &(pol[i + 1])), Double(p->x));
+          if (atY < Double(p->y))
+            nrInter++;
+          if (atY == Double(p->y))
+            return (ON_POLYGON); /* p on cord pol[i],pol[i+1] */
+        }
+      }
+    }
+  } /* eofor */
+  return ((nrInter % 2) == 1);
 }
 
 /* compute the centroid of polygon pol
@@ -518,34 +518,34 @@ int CentroidOfPolygon(POINT2D *c,         /* write-only. the centroid  */
                       const POINT2D *pol, /* polygon */
                       int nr)             /* number of points defining the polygon  */
 {
-    int i = 0;
-    long double up = NAN;
-    long double low = NAN;
+  int i = 0;
+  long double up = NAN;
+  long double low = NAN;
 
-    PRECOND(nr > 2);
-    PRECOND(pol[0].x == pol[nr].x);
-    PRECOND(pol[0].y == pol[nr].y);
+  PRECOND(nr > 2);
+  PRECOND(pol[0].x == pol[nr].x);
+  PRECOND(pol[0].y == pol[nr].y);
 
-    up = 0;
-    low = 0;
-    for (i = 0; i < nr; i++) {
-        up += LDouble((pol[i + 1].x + pol[i].x) / 2) * LDouble(pol[i + 1].x - pol[i].x) *
-              LDouble((pol[i + 1].y + pol[i].y) / 2);
-        low += LDouble(pol[i + 1].x - pol[i].x) * LDouble((pol[i + 1].y + pol[i].y) / 2);
-    }
-    c->x = (PTYPE)(up / low);
+  up = 0;
+  low = 0;
+  for (i = 0; i < nr; i++) {
+    up += LDouble((pol[i + 1].x + pol[i].x) / 2) * LDouble(pol[i + 1].x - pol[i].x) *
+          LDouble((pol[i + 1].y + pol[i].y) / 2);
+    low += LDouble(pol[i + 1].x - pol[i].x) * LDouble((pol[i + 1].y + pol[i].y) / 2);
+  }
+  c->x = (PTYPE)(up / low);
 
-    up = 0;
-    low = 0;
-    for (i = 0; i < nr; i++) /* this loop is wrong when /Oe is enabled */
-    {
-        up += LDouble((pol[i + 1].y + pol[i].y) / 2) * LDouble(pol[i + 1].y - pol[i].y) *
-              LDouble((pol[i + 1].x + pol[i].x) / 2);
-        low += LDouble(pol[i + 1].y - pol[i].y) * LDouble((pol[i + 1].x + pol[i].x) / 2);
-    }
-    c->y = (PTYPE)(up / low);
+  up = 0;
+  low = 0;
+  for (i = 0; i < nr; i++) /* this loop is wrong when /Oe is enabled */
+  {
+    up += LDouble((pol[i + 1].y + pol[i].y) / 2) * LDouble(pol[i + 1].y - pol[i].y) *
+          LDouble((pol[i + 1].x + pol[i].x) / 2);
+    low += LDouble(pol[i + 1].y - pol[i].y) * LDouble((pol[i + 1].x + pol[i].x) / 2);
+  }
+  c->y = (PTYPE)(up / low);
 
-    return (PointInPolygon(c, pol, nr));
+  return (PointInPolygon(c, pol, nr));
 }
 
 /* compute the centre of the smallest fitting rectangle enclosing a polygon
@@ -560,68 +560,67 @@ int CentroidOfPolygon(POINT2D *c,         /* write-only. the centroid  */
  * 0 if no rectangle is found that has its centre in the polygon,
  * non-zero if such a rectangle is found.
  */
-int SmallestFittingRectangleCentre(
-    POINT2D *c,         /* write-only. the centre of the smallest rectangle that
+int SmallestFittingRectangleCentre(POINT2D *c, /* write-only. the centre of the smallest rectangle that
                          * surrounds polygon pol, lying in polygon pol.
                          * undefined if return value is 0.
                          */
-    const POINT2D *pol, /* the polygon */
-    int nr)             /* number of points in the polygon */
+                                   const POINT2D *pol, /* the polygon */
+                                   int nr)             /* number of points in the polygon */
 {
-    PTYPE minX = NAN;
-    PTYPE maxX = NAN;
-    PTYPE minY = NAN;
-    PTYPE maxY = NAN;
-    double angle = NAN;
-    double bestAngle = NAN;
-    double area = NAN;
-    double smallArea = NAN;
-    double const step = geomFittingRectangleStep;
-    int i = 0;
-    POINT2D *p = nullptr;
-    POINT2D nc; /* p is work-copy of polygon */
+  PTYPE minX = NAN;
+  PTYPE maxX = NAN;
+  PTYPE minY = NAN;
+  PTYPE maxY = NAN;
+  double angle = NAN;
+  double bestAngle = NAN;
+  double area = NAN;
+  double smallArea = NAN;
+  double const step = geomFittingRectangleStep;
+  int i = 0;
+  POINT2D *p = nullptr;
+  POINT2D nc; /* p is work-copy of polygon */
 
-    PRECOND(pol[0].x == pol[nr].x);
-    PRECOND(pol[0].y == pol[nr].y);
+  PRECOND(pol[0].x == pol[nr].x);
+  PRECOND(pol[0].y == pol[nr].y);
 
 
-    p = (POINT2D *)MemcpyChkMalloc(pol, (nr + 1) * sizeof(POINT2D));
+  p = (POINT2D *)MemcpyChkMalloc(pol, (nr + 1) * sizeof(POINT2D));
 
-    smallArea = 0.0;
-    angle = 0.0;
-    while (angle < std::numbers::pi / 2.0) {
-        minX = maxX = p[0].x;
-        minY = maxY = p[0].y;
-        for (i = 1; i < nr; i++) {
-            minX = std::min(minX, p[i].x);
-            maxX = std::max(maxX, p[i].x);
-            minY = std::min(minY, p[i].y);
-            maxY = std::max(maxY, p[i].y);
-        }
-
-        area = AreaRectangle(maxX, minX, maxY, minY);
-        if (smallArea == 0.0 || smallArea > area) {
-            nc.x = minX + ((maxX - minX) / 2);
-            nc.y = minY + ((maxY - minY) / 2);
-            if (PointInPolygon(&nc, p, nr)) {
-                smallArea = area;
-                (void)CopyPoint(c, &nc);
-                bestAngle = angle;
-            }
-        }
-
-        for (i = 0; i < nr + 1; i++)
-            (void)RotPoint(&(p[i]), std::numbers::pi / step);
-        angle += std::numbers::pi / step;
+  smallArea = 0.0;
+  angle = 0.0;
+  while (angle < std::numbers::pi / 2.0) {
+    minX = maxX = p[0].x;
+    minY = maxY = p[0].y;
+    for (i = 1; i < nr; i++) {
+      minX = std::min(minX, p[i].x);
+      maxX = std::max(maxX, p[i].x);
+      minY = std::min(minY, p[i].y);
+      maxY = std::max(maxY, p[i].y);
     }
-    Free(p);
 
-    if (smallArea == 0.0)
-        return false;
+    area = AreaRectangle(maxX, minX, maxY, minY);
+    if (smallArea == 0.0 || smallArea > area) {
+      nc.x = minX + ((maxX - minX) / 2);
+      nc.y = minY + ((maxY - minY) / 2);
+      if (PointInPolygon(&nc, p, nr)) {
+        smallArea = area;
+        (void)CopyPoint(c, &nc);
+        bestAngle = angle;
+      }
+    }
 
-    (void)RotPoint(c, -bestAngle);
-    POSTCOND(PointInPolygon(c, pol, nr));
-    return true;
+    for (i = 0; i < nr + 1; i++)
+      (void)RotPoint(&(p[i]), std::numbers::pi / step);
+    angle += std::numbers::pi / step;
+  }
+  Free(p);
+
+  if (smallArea == 0.0)
+    return false;
+
+  (void)RotPoint(c, -bestAngle);
+  POSTCOND(PointInPolygon(c, pol, nr));
+  return true;
 }
 
 /* compute area of rectangle. DOES NOT WORK!
@@ -629,8 +628,8 @@ int SmallestFittingRectangleCentre(
  */
 double AreaRectangle(double maxX, double minX, double maxY, double minY)
 {
-    PRECOND(false);
-    return ((maxX - minX) * (maxY - minY));
+  PRECOND(false);
+  return ((maxX - minX) * (maxY - minY));
 }
 
 /* compute area of polygon
@@ -639,20 +638,17 @@ double AreaRectangle(double maxX, double minX, double maxY, double minY)
 double AreaOfPolygon(const POINT2D *p, /* the polygon */
                      int nr)           /* number of points defining the polygon */
 {
-    int i = 0;
-    long double a = 0;
+  int i = 0;
+  long double a = 0;
 
-    PRECOND(p[0].x == p[nr].x);
-    PRECOND(p[0].y == p[nr].y);
+  PRECOND(p[0].x == p[nr].x);
+  PRECOND(p[0].y == p[nr].y);
 
-    for (i = 0; i < nr; i++)
-        a +=
-            (LDouble(p[i].x) * LDouble(p[i + 1].y)) - (LDouble(p[i].y) * LDouble(p[i + 1].x));
-    a /= -2;
-    return ((double)std::abs(a));
+  for (i = 0; i < nr; i++)
+    a += (LDouble(p[i].x) * LDouble(p[i + 1].y)) - (LDouble(p[i].y) * LDouble(p[i + 1].x));
+  a /= -2;
+  return ((double)std::abs(a));
 }
-
-
 
 /* clockwise angle of a point with the x-axis
  * returns the clockwise angle between 0 (included) and 2 *pi* (not included)
@@ -662,48 +658,48 @@ double AreaOfPolygon(const POINT2D *p, /* the polygon */
  */
 double CWAngle(const POINT2D *p) /* the point */
 {
-    double angle = NAN;
+  double angle = NAN;
 
-    /********************************************************/
-    /* Documentation note CWAngle                           */
-    /* What we want is a clockwise scale starting at 0 and  */
-    /* ending at 2 PI where 0 == 2 PI                       */
-    /* 2 PI is not used, only 0                             */
-    /* Range = [0, 2 PI>                                    */
-    /* We use the function atan2 for this purpose           */
-    /* this function is not defined for the angles 0, PI/2, */
-    /* PI and 3/2 PI                                        */
-    /* after that we have to transform the result to our    */
-    /* clockwise scale                                      */
-    /********************************************************/
-    /* atan2( 3.000000, 1.000000) = 1.249046                */
-    /* atan2( -3.000000, 1.000000) = -1.249046              */
-    /* atan2( -3.000000, -1.000000) = -1.892547             */
-    /* atan2( 3.000000, -1.000000) = 1.892547               */
-    /*                                                      */
-    /********************************************************/
+  /********************************************************/
+  /* Documentation note CWAngle                           */
+  /* What we want is a clockwise scale starting at 0 and  */
+  /* ending at 2 PI where 0 == 2 PI                       */
+  /* 2 PI is not used, only 0                             */
+  /* Range = [0, 2 PI>                                    */
+  /* We use the function atan2 for this purpose           */
+  /* this function is not defined for the angles 0, PI/2, */
+  /* PI and 3/2 PI                                        */
+  /* after that we have to transform the result to our    */
+  /* clockwise scale                                      */
+  /********************************************************/
+  /* atan2( 3.000000, 1.000000) = 1.249046                */
+  /* atan2( -3.000000, 1.000000) = -1.249046              */
+  /* atan2( -3.000000, -1.000000) = -1.892547             */
+  /* atan2( 3.000000, -1.000000) = 1.892547               */
+  /*                                                      */
+  /********************************************************/
 
-    if (p->x == 0 && p->y == 0)
-        return -1;
+  if (p->x == 0 && p->y == 0)
+    return -1;
 
-    if (p->x == 0) {
-        if (p->y > 0)
-            return (0);
-        return (std::numbers::pi);
-    }
-    if (p->y == 0) {
-        if (p->x > 0)
-            return (std::numbers::pi / 2);
-        return (std::numbers::pi + (std::numbers::pi / 2));
-    }
+  if (p->x == 0) {
+    if (p->y > 0)
+      return (0);
+    return (std::numbers::pi);
+  }
+  if (p->y == 0) {
+    if (p->x > 0)
+      return (std::numbers::pi / 2);
+    return (std::numbers::pi + (std::numbers::pi / 2));
+  }
 
-    angle = atan2(p->x, p->y);
-    if (angle < 0) /* to clock wise scale */
-        angle += M_2PI;
+  angle = atan2(p->x, p->y);
+  if (angle < 0) /* to clock wise scale */
+    angle += M_2PI;
 
-    POSTCOND(0.0 <= angle && angle < M_2PI);
+  POSTCOND(0.0 <= angle && angle < M_2PI);
 
-    return (angle);
+  return (angle);
 }
 
 /* distance between two points
@@ -711,7 +707,7 @@ double CWAngle(const POINT2D *p) /* the point */
  */
 double Dist(const POINT2D *p1, const POINT2D *p2)
 {
-    return (hypot((p1->x) - (p2->x), (p1->y) - (p2->y)));
+  return (hypot((p1->x) - (p2->x), (p1->y) - (p2->y)));
 }
 
 /* compare two points
@@ -721,7 +717,7 @@ double Dist(const POINT2D *p1, const POINT2D *p2)
 int PointsEq(const POINT2D *p1, /* point 1 */
              const POINT2D *p2) /* point 2 */
 {
-    return (p1->x == p2->x && p1->y == p2->y);
+  return (p1->x == p2->x && p1->y == p2->y);
 }
 
 /* compare two points in qsort fashion
@@ -738,10 +734,10 @@ int PointsEq(const POINT2D *p1, /* point 1 */
 int CmpPoints(const POINT2D *p1, /* point 1 */
               const POINT2D *p2) /* point 2 */
 {
-    int const xc = CmpDouble(&(p1->x), &(p2->x));
-    if (!xc)
-        return CmpDouble(&(p1->y), &(p2->y));
-    return xc;
+  int const xc = CmpDouble(&(p1->x), &(p2->x));
+  if (!xc)
+    return CmpDouble(&(p1->y), &(p2->y));
+  return xc;
 }
 
 /* multiply point by a constant
@@ -751,9 +747,9 @@ POINT2D *MultiplyPoint(POINT2D *p, /* read-write, point that is multiplied */
                        double f)   /* multiplication factor */
 {
 
-    p->x *= f;
-    p->y *= f;
-    return p;
+  p->x *= f;
+  p->y *= f;
+  return p;
 }
 
 /* multiply point by a constant given an origin
@@ -769,9 +765,9 @@ POINT2D *MulPoint_0(POINT2D *p,         /* write-only, result */
                     double d,           /* multiplication factor */
                     const POINT2D *org) /* origin of multiplication */
 {
-    (void)CopyPoint(p, src);
+  (void)CopyPoint(p, src);
 
-    return (AddPoint(MultiplyPoint(SubtrPoint(p, org), d), org));
+  return (AddPoint(MultiplyPoint(SubtrPoint(p, org), d), org));
 }
 
 /* add two points
@@ -780,9 +776,9 @@ POINT2D *MulPoint_0(POINT2D *p,         /* write-only, result */
 POINT2D *AddPoint(POINT2D *d,       /* read-write, point modified */
                   const POINT2D *s) /* other point */
 {
-    d->x += s->x;
-    d->y += s->y;
-    return (d);
+  d->x += s->x;
+  d->y += s->y;
+  return (d);
 }
 
 /* Subtract two points
@@ -791,9 +787,9 @@ POINT2D *AddPoint(POINT2D *d,       /* read-write, point modified */
 POINT2D *SubtrPoint(POINT2D *d,       /* read-write, point modified */
                     const POINT2D *s) /* other point */
 {
-    d->x -= s->x;
-    d->y -= s->y;
-    return (d);
+  d->x -= s->x;
+  d->y -= s->y;
+  return (d);
 }
 
 /* copy point
@@ -802,9 +798,9 @@ POINT2D *SubtrPoint(POINT2D *d,       /* read-write, point modified */
 POINT2D *CopyPoint(POINT2D *d,       /* destination point */
                    const POINT2D *s) /* source point */
 {
-    d->x = s->x;
-    d->y = s->y;
-    return (d);
+  d->x = s->x;
+  d->y = s->y;
+  return (d);
 }
 
 /* rotate a point
@@ -816,18 +812,18 @@ POINT2D *CopyPoint(POINT2D *d,       /* destination point */
 POINT2D *RotPoint(POINT2D *p, /* read-write, point to rotated */
                   double a)   /* angle in radians, counter clock wise */
 {
-    double c = NAN;
-    double s = NAN;
-    double x = NAN;
+  double c = NAN;
+  double s = NAN;
+  double x = NAN;
 
-    c = cos(a);
-    s = sin(a);
+  c = cos(a);
+  s = sin(a);
 
-    x = (PTYPE)(((p->x) * c) - ((p->y) * s));
-    p->y = (PTYPE)(((p->x) * s) + ((p->y) * c));
-    p->x = (PTYPE)x;
+  x = (PTYPE)(((p->x) * c) - ((p->y) * s));
+  p->y = (PTYPE)(((p->x) * s) + ((p->y) * c));
+  p->x = (PTYPE)x;
 
-    return (p);
+  return (p);
 }
 
 /* minimum X co-ordinate of polygon
@@ -836,12 +832,12 @@ POINT2D *RotPoint(POINT2D *p, /* read-write, point to rotated */
 double MinXPolygon(const POINT2D *p, /* the polygon */
                    int n)            /* number of points defining the polygon */
 {
-    int i = 0;
-    double m = p[0].x;
-    PRECOND(n > 0);
-    for (i = 1; i < n; i++)
-        m = std::min(p[i].x, m);
-    return m;
+  int i = 0;
+  double m = p[0].x;
+  PRECOND(n > 0);
+  for (i = 1; i < n; i++)
+    m = std::min(p[i].x, m);
+  return m;
 }
 
 /* minimum Y co-ordinate of polygon
@@ -850,12 +846,12 @@ double MinXPolygon(const POINT2D *p, /* the polygon */
 double MinYPolygon(const POINT2D *p, /* the polygon */
                    int n)            /* number of points defining the polygon */
 {
-    int i = 0;
-    double m = p[0].y;
-    PRECOND(n > 0);
-    for (i = 1; i < n; i++)
-        m = std::min(p[i].y, m);
-    return m;
+  int i = 0;
+  double m = p[0].y;
+  PRECOND(n > 0);
+  for (i = 1; i < n; i++)
+    m = std::min(p[i].y, m);
+  return m;
 }
 
 /* maximum X co-ordinate of polygon
@@ -864,12 +860,12 @@ double MinYPolygon(const POINT2D *p, /* the polygon */
 double MaxXPolygon(const POINT2D *p, /* the polygon */
                    int n)            /* number of points defining the polygon */
 {
-    int i = 0;
-    double m = p[0].x;
-    PRECOND(n > 0);
-    for (i = 1; i < n; i++)
-        m = std::max(p[i].x, m);
-    return m;
+  int i = 0;
+  double m = p[0].x;
+  PRECOND(n > 0);
+  for (i = 1; i < n; i++)
+    m = std::max(p[i].x, m);
+  return m;
 }
 
 /* maximum Y co-ordinate of polygon
@@ -878,12 +874,12 @@ double MaxXPolygon(const POINT2D *p, /* the polygon */
 double MaxYPolygon(const POINT2D *p, /* the polygon */
                    int n)            /* number of points defining the polygon */
 {
-    int i = 0;
-    double m = p[0].y;
-    PRECOND(n > 0);
-    for (i = 1; i < n; i++)
-        m = std::max(p[i].y, m);
-    return m;
+  int i = 0;
+  double m = p[0].y;
+  PRECOND(n > 0);
+  for (i = 1; i < n; i++)
+    m = std::max(p[i].y, m);
+  return m;
 }
 
 /* special case of intersection of 2 rectangles r1 and r2.
@@ -895,69 +891,67 @@ double MaxYPolygon(const POINT2D *p, /* the polygon */
  *
  * 4 if rectangles do intersect
  */
-int IntersectAllignedRectangles(
-    POINT2D *pol,      /* intersecting rectangle stored in polygon format */
-    const POINT2D *r1, /* rectangle 1 */
-    const POINT2D *r2) /* rectangle 2 */
+int IntersectAllignedRectangles(POINT2D *pol,      /* intersecting rectangle stored in polygon format */
+                                const POINT2D *r1, /* rectangle 1 */
+                                const POINT2D *r2) /* rectangle 2 */
 {
-    double const yMaxR1 = MaxYPolygon(r1, 4);
-    double const yMinR1 = MinYPolygon(r1, 4);
-    double const xMaxR1 = MaxXPolygon(r1, 4);
-    double const xMinR1 = MinXPolygon(r1, 4);
+  double const yMaxR1 = MaxYPolygon(r1, 4);
+  double const yMinR1 = MinYPolygon(r1, 4);
+  double const xMaxR1 = MaxXPolygon(r1, 4);
+  double const xMinR1 = MinXPolygon(r1, 4);
 
-    double const yMaxR2 = MaxYPolygon(r2, 4);
-    double const yMinR2 = MinYPolygon(r2, 4);
-    double const xMaxR2 = MaxXPolygon(r2, 4);
-    double const xMinR2 = MinXPolygon(r2, 4);
+  double const yMaxR2 = MaxYPolygon(r2, 4);
+  double const yMinR2 = MinYPolygon(r2, 4);
+  double const xMaxR2 = MaxXPolygon(r2, 4);
+  double const xMinR2 = MinXPolygon(r2, 4);
 
-    double const yMax = std::min(yMaxR1, yMaxR2);
-    double const yMin = std::max(yMinR1, yMinR2);
-    double const xMax = std::min(xMaxR1, xMaxR2);
-    double const xMin = std::max(xMinR1, xMinR2);
+  double const yMax = std::min(yMaxR1, yMaxR2);
+  double const yMin = std::max(yMinR1, yMinR2);
+  double const xMax = std::min(xMaxR1, xMaxR2);
+  double const xMin = std::max(xMinR1, xMinR2);
 
-    // bug/sf463 and sf485
-    // Test if rectangles R1 and R2 are adjacent.
-    // If so, do not create an intersection ploygon
-    // that represents the line between R1 and R2.
-    // Such a line/polygon may incorrectly get a very
-    // small area assigned due to floating point operations
-    static boost::math::fpc::close_at_tolerance<double> const tester(
-        boost::math::fpc::fpc_detail::fraction_tolerance<double>(1e-8),
-        boost::math::fpc::FPC_STRONG);
+  // bug/sf463 and sf485
+  // Test if rectangles R1 and R2 are adjacent.
+  // If so, do not create an intersection ploygon
+  // that represents the line between R1 and R2.
+  // Such a line/polygon may incorrectly get a very
+  // small area assigned due to floating point operations
+  static boost::math::fpc::close_at_tolerance<double> const tester(
+      boost::math::fpc::fpc_detail::fraction_tolerance<double>(1e-8), boost::math::fpc::FPC_STRONG);
 
-    if (tester(static_cast<double>(yMax), static_cast<double>(yMin)) ||
-        tester(static_cast<double>(xMax), static_cast<double>(xMin))) {
-        // Set a dummy value to satisfy POSTCOND
-        pol[0].x = xMin;
-        pol[0].y = yMin;
-        return 0;
-    }
+  if (tester(static_cast<double>(yMax), static_cast<double>(yMin)) ||
+      tester(static_cast<double>(xMax), static_cast<double>(xMin))) {
+    // Set a dummy value to satisfy POSTCOND
+    pol[0].x = xMin;
+    pol[0].y = yMin;
+    return 0;
+  }
 
-    /* centre of intersection must be in both rectangle
+  /* centre of intersection must be in both rectangle
      * test one to see if they intersect
      */
-    double const xCtr = (xMax + xMin) / 2;
-    double const yCtr = (yMax + yMin) / 2;
+  double const xCtr = (xMax + xMin) / 2;
+  double const yCtr = (yMax + yMin) / 2;
 
-    if ((yMinR1 <= yCtr && yCtr <= yMaxR1) && (xMinR1 <= xCtr && xCtr <= xMaxR1)) {
-        /* they intersect */
+  if ((yMinR1 <= yCtr && yCtr <= yMaxR1) && (xMinR1 <= xCtr && xCtr <= xMaxR1)) {
+    /* they intersect */
 
-        /* bottom left */
-        pol[0].x = xMin;
-        pol[0].y = yMin;
-        /* top left */
-        pol[1].x = xMin;
-        pol[1].y = yMax;
-        /* top right */
-        pol[2].x = xMax;
-        pol[2].y = yMax;
-        /* bottom right */
-        pol[3].x = xMax;
-        pol[3].y = yMin;
-        /* copy last point */
-        pol[4] = pol[0];
+    /* bottom left */
+    pol[0].x = xMin;
+    pol[0].y = yMin;
+    /* top left */
+    pol[1].x = xMin;
+    pol[1].y = yMax;
+    /* top right */
+    pol[2].x = xMax;
+    pol[2].y = yMax;
+    /* bottom right */
+    pol[3].x = xMax;
+    pol[3].y = yMin;
+    /* copy last point */
+    pol[4] = pol[0];
 
-        return 4;
-    }
-    return 0;
+    return 4;
+  }
+  return 0;
 }

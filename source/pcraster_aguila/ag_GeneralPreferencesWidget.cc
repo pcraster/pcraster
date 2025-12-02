@@ -9,47 +9,36 @@
 // Module headers.
 #include "ag_DataObject.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the GeneralPreferencesWidget class.
 */
 
 
-
-namespace ag {
+namespace ag
+{
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC GENERALPREFERENCESWIDGET MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF GENERALPREFERENCESWIDGET MEMBERS
 //------------------------------------------------------------------------------
 
-GeneralPreferencesWidget::GeneralPreferencesWidget(
-         DataObject* dataObject,
-         QWidget* parent)
+GeneralPreferencesWidget::GeneralPreferencesWidget(DataObject *dataObject, QWidget *parent)
 
-  : QWidget(parent),
-    d_dataObject(dataObject),
-    d_backgroundColour(dataObject->backgroundColour())
+    : QWidget(parent), d_dataObject(dataObject), d_backgroundColour(dataObject->backgroundColour())
 
 {
   d_ui.setupUi(this);
 
-  connect(d_ui.d_changeBackgroundColourButton, SIGNAL(clicked()),
-         this, SLOT(changeBackgroundColour()));
-  connect(d_ui.d_resetButton, SIGNAL(clicked()),
-         this, SLOT(resetBackgroundColour()));
+  connect(d_ui.d_changeBackgroundColourButton, SIGNAL(clicked()), this, SLOT(changeBackgroundColour()));
+  connect(d_ui.d_resetButton, SIGNAL(clicked()), this, SLOT(resetBackgroundColour()));
 
   updateInterface();
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -63,12 +52,9 @@ GeneralPreferencesWidget::GeneralPreferencesWidget(
 */
 
 
-
 GeneralPreferencesWidget::~GeneralPreferencesWidget()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -83,21 +69,16 @@ GeneralPreferencesWidget& GeneralPreferencesWidget::operator=(
 */
 
 
-
 void GeneralPreferencesWidget::updateInterface()
 {
-  if(!d_backgroundColour.isValid()) {
+  if (!d_backgroundColour.isValid()) {
     d_ui.d_changeBackgroundColourButton->setPalette(QPalette());
-  }
-  else {
+  } else {
     QPalette palette(d_ui.d_changeBackgroundColourButton->palette());
-    palette.setColor(d_ui.d_changeBackgroundColourButton->backgroundRole(),
-         d_backgroundColour);
+    palette.setColor(d_ui.d_changeBackgroundColourButton->backgroundRole(), d_backgroundColour);
     d_ui.d_changeBackgroundColourButton->setPalette(palette);
   }
 }
-
-
 
 void GeneralPreferencesWidget::changeBackgroundColour()
 {
@@ -105,15 +86,11 @@ void GeneralPreferencesWidget::changeBackgroundColour()
   updateInterface();
 }
 
-
-
 void GeneralPreferencesWidget::resetBackgroundColour()
 {
   d_backgroundColour = QColor();
   updateInterface();
 }
-
-
 
 void GeneralPreferencesWidget::apply()
 {
@@ -122,17 +99,13 @@ void GeneralPreferencesWidget::apply()
   d_dataObject->notify();
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace ag
-
+}  // namespace ag

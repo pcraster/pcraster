@@ -11,7 +11,9 @@
 #include "calc_operator.h"
 #define INCLUDED_CALC_OPERATOR
 #endif
-namespace calc {
-  class Position;
+namespace calc
+{
+class Position;
 }
+
 #include "documentation.dox"

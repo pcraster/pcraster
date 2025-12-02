@@ -22,12 +22,10 @@
 #include "calc_MemoryExchangeItem.h"
 #include "calc_MemoryExchangeItemField.h"
 
-
 /*!
   \file
   This file contains the implementation of the IOStrategy class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -53,40 +51,30 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC IOSTRATEGY MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF IOSTRATEGY MEMBERS
 //------------------------------------------------------------------------------
 
-namespace calc {
+namespace calc
+{
 
-IOStrategy::IOStrategy():
-  d_fs(new IoFieldStrategy(appIOstrategy)),
-  d_areaMap(new AreaMap())
-  
+IOStrategy::IOStrategy() : d_fs(new IoFieldStrategy(appIOstrategy)), d_areaMap(new AreaMap())
+
 {
 }
 
-
-
 //! Copy constructor.
-IOStrategy::IOStrategy(
-         IOStrategy const& rhs):
-  d_fs                   (new IoFieldStrategy(*(rhs.d_fs))),
-  d_areaMap              ( new AreaMap(*rhs.d_areaMap)),
-  d_spatialPacking       ( com::non0Clone(rhs.d_spatialPacking)),
-  d_runDirectory         ( rhs.d_runDirectory),
-  d_timer                ( rhs.d_timer),
-  d_memoryData           (rhs.d_memoryData),
-  d_debugMVAssignmentsMap(rhs.d_debugMVAssignmentsMap),
-  d_mvCompression        (rhs.d_mvCompression),
-  d_writeEachTimeStep    (rhs.d_writeEachTimeStep)
+IOStrategy::IOStrategy(IOStrategy const &rhs)
+    : d_fs(new IoFieldStrategy(*(rhs.d_fs))), d_areaMap(new AreaMap(*rhs.d_areaMap)),
+      d_spatialPacking(com::non0Clone(rhs.d_spatialPacking)), d_runDirectory(rhs.d_runDirectory),
+      d_timer(rhs.d_timer), d_memoryData(rhs.d_memoryData),
+      d_debugMVAssignmentsMap(rhs.d_debugMVAssignmentsMap), d_mvCompression(rhs.d_mvCompression),
+      d_writeEachTimeStep(rhs.d_writeEachTimeStep)
 {
 }
 
@@ -96,7 +84,6 @@ IOStrategy::~IOStrategy()
   delete d_areaMap;
   delete d_spatialPacking;
 }
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -109,17 +96,15 @@ IOStrategy& IOStrategy::operator=(
 }
 */
 
-void  IOStrategy::setXMLAreaMapScript(
-    pcrxml::AreaMapScript const& areaMapScript)
+void IOStrategy::setXMLAreaMapScript(pcrxml::AreaMapScript const &areaMapScript)
 {
-    delete d_areaMap;
-    d_areaMap = new AreaMap(areaMapScript);
+  delete d_areaMap;
+  d_areaMap = new AreaMap(areaMapScript);
 }
 
-void  IOStrategy::setXMLComputationMask(
-    pcrxml::ComputationMask const& c)
+void IOStrategy::setXMLComputationMask(pcrxml::ComputationMask const &c)
 {
-    d_areaMap->setComputationMask(c);
+  d_areaMap->setComputationMask(c);
 }
 
 /*
@@ -157,8 +142,7 @@ void  IOStrategy::setXMLComputationMask(
  *                          passed in by LinkIn call. During execution
  *                          this array is changed if the user wants allocation
  */
-void IOStrategy::setMemoryExchangeData(const ASTSymbolTable& symbols,
-                                       void  **dataTransferArray)
+void IOStrategy::setMemoryExchangeData(const ASTSymbolTable &symbols, void **dataTransferArray)
 {
   PRECOND(dataTransferArray);
 
@@ -171,30 +155,28 @@ void IOStrategy::setMemoryExchangeData(const ASTSymbolTable& symbols,
   //  this value is replaced by one of the sub classes.
 
   const size_t noExchange(ASTSymbolInfo::noMemoryExchangeId());
-  long maxIdInt=-1;
-  for(ASTSymbolTablePair const i : symbols) {
-    ASTSymbolInfo const& si(i.second);
+  long maxIdInt = -1;
+  for (ASTSymbolTablePair const i : symbols) {
+    ASTSymbolInfo const &si(i.second);
     size_t ids[2];
-    ids[0]=si.memoryInputId();
-    ids[1]=si.memoryOutputId();
-    if(ids[0] != noExchange || ids[1] != noExchange) {
-      for(unsigned long const id : ids) {
+    ids[0] = si.memoryInputId();
+    ids[1] = si.memoryOutputId();
+    if (ids[0] != noExchange || ids[1] != noExchange) {
+      for (unsigned long const id : ids) {
         // not both set
         PRECOND(ids[0] != noExchange || ids[1] != noExchange);
-        if(id != noExchange) {
-          maxIdInt = std::max<long>(maxIdInt,(size_t)id);
-          d_memoryData.insert(std::make_pair(si.name(),
-            std::make_shared<MemoryExchangeItem>(
-              si.name(),id)));
+        if (id != noExchange) {
+          maxIdInt = std::max<long>(maxIdInt, (size_t)id);
+          d_memoryData.insert(
+              std::make_pair(si.name(), std::make_shared<MemoryExchangeItem>(si.name(), id)));
         }
       }
     }
   }
 
-  if (maxIdInt != -1)
-  {
-    d_dataTransferArrayUser0 = std::vector<bool>(maxIdInt+1);
-    for(size_t i=0; i < d_dataTransferArrayUser0.size(); ++i)
+  if (maxIdInt != -1) {
+    d_dataTransferArrayUser0 = std::vector<bool>(maxIdInt + 1);
+    for (size_t i = 0; i < d_dataTransferArrayUser0.size(); ++i)
       d_dataTransferArrayUser0[i] = d_dataTransferArray[i] == nullptr;
   }
 }
@@ -210,24 +192,20 @@ void IOStrategy::setMemoryExchangeData(const ASTSymbolTable& symbols,
  *   if d_compression but areamap has all true values
  *   do not install spatialpacking
  */
-void  IOStrategy::resolve(
-    ASTSymbolTable&      symbols,
-    std::string const& areaMap,
-    Timer const& timer)
+void IOStrategy::resolve(ASTSymbolTable &symbols, std::string const &areaMap, Timer const &timer)
 {
-  d_timer=timer;
+  d_timer = timer;
 
   // check if debug map is specified that it is not used as a symbol also
-  if ( (!d_debugMVAssignmentsMap.empty()) && symbols.contains(d_debugMVAssignmentsMap))
-    throw com::FileError(d_debugMVAssignmentsMap,
-        "result map for -d can not be used in the script");
+  if ((!d_debugMVAssignmentsMap.empty()) && symbols.contains(d_debugMVAssignmentsMap))
+    throw com::FileError(d_debugMVAssignmentsMap, "result map for -d can not be used in the script");
 
-  bool const needExplicitClone=d_mvCompression || !d_debugMVAssignmentsMap.empty();
+  bool const needExplicitClone = d_mvCompression || !d_debugMVAssignmentsMap.empty();
   if (needExplicitClone) {
     // need explicit clone
     // if not there trick a AreaMap::throwIfNotSet by passing empty RS
     if (areaMap.empty())
-        d_areaMap->setRasterSpace(geo::RasterSpace());
+      d_areaMap->setRasterSpace(geo::RasterSpace());
   }
 
   initResolve();
@@ -238,136 +216,127 @@ void  IOStrategy::resolve(
   //  - Input tss and tables are always done by files. DataTable::insert not earlier
   // WARNING: this resolve calls back into this, thus symbols is NOT stable
   //          DO NOT replace this loop with a FOR_EACH construct.
-  for(auto & symbol : symbols)
+  for (auto &symbol : symbols)
     symbol.second.resolve(*this);
 
   // see if we have picked up a RasterSpace from resolved symbols (Files)
   //  --> e.g. implicit clone
-  d_areaMap->throwIfNotSet(); // pcrcalc4
+  d_areaMap->throwIfNotSet();  // pcrcalc4
 
   if (!d_spatialPacking)
-    d_spatialPacking=new AsIsPacking(rasterSpace());
+    d_spatialPacking = new AsIsPacking(rasterSpace());
   if (needExplicitClone) {
-     PRECOND(!areaMap.empty());
-     Field* f =createReadField(
-       symbols[areaMap].externalName(),
-       symbols[areaMap].dataType());
+    PRECOND(!areaMap.empty());
+    Field *f = createReadField(symbols[areaMap].externalName(), symbols[areaMap].dataType());
     d_areaMap->transferMask(f);
   }
   if (d_areaMap->hasCoordinateMask()) {
     d_areaMap->setMaskOnCoordinates();
   }
-  if (d_mvCompression || d_areaMap->hasCoordinateMask() ) {
+  if (d_mvCompression || d_areaMap->hasCoordinateMask()) {
     delete d_spatialPacking;
-    d_spatialPacking=new MaskPacking(rasterSpace(),d_areaMap->mask());
+    d_spatialPacking = new MaskPacking(rasterSpace(), d_areaMap->mask());
   }
 }
 
-void IOStrategy::debugMVAssignments(const Field* f) const
+void IOStrategy::debugMVAssignments(const Field *f) const
 {
   if (d_debugMVAssignmentsMap.empty())
     return;
 
   Field *mark = f->findMVinMask(d_areaMap->mask());
   if (mark) {
-    writeField(d_debugMVAssignmentsMap,mark);
+    writeField(d_debugMVAssignmentsMap, mark);
     deleteFromPcrme(mark);
-    throw com::Exception(
-         "-d catched MV creation, inspection map written to "
-         +d_debugMVAssignmentsMap);
+    throw com::Exception("-d catched MV creation, inspection map written to " + d_debugMVAssignmentsMap);
   }
 }
 
-void IOStrategy::setRasterSpace(const geo::RasterSpace& rs)
+void IOStrategy::setRasterSpace(const geo::RasterSpace &rs)
 {
   d_areaMap->setRasterSpace(rs);
   delete d_spatialPacking;
-  d_spatialPacking=new AsIsPacking(rs);
+  d_spatialPacking = new AsIsPacking(rs);
 }
 
-void  IOStrategy::initResolve()
+void IOStrategy::initResolve()
 {
   // parsing of file may recreate this
   // e.g. #! --esrigrid
   delete d_fs;
-  d_fs=new IoFieldStrategy(appIOstrategy);
+  d_fs = new IoFieldStrategy(appIOstrategy);
 
   d_fs->setRasterSpace(rasterSpace());
 }
 
-void IOStrategy::checkOutputFilePath(ASTSymbolInfo const& i)
+void IOStrategy::checkOutputFilePath(ASTSymbolInfo const &i)
 {
-  if (isIn(i.vs(),VS_FIELD) && memoryValue(i.name()))
-  { // Output field will be MemoryExchange'd no output file path
+  if (isIn(i.vs(), VS_FIELD) &&
+      memoryValue(i.name())) {  // Output field will be MemoryExchange'd no output file path
     return;
-  }
-  else
+  } else
     d_runDirectory.checkOutputFilePath(i.externalName());
 }
 
-std::string IOStrategy::outputFilePath(const std::string& fileName) const
+std::string IOStrategy::outputFilePath(const std::string &fileName) const
 {
   return d_runDirectory.outputFilePath(fileName);
 }
 
 //! \todo ONLY called for files not memory, correct place?
-calc::DataType IOStrategy::resolveInputSymbol(
-    std::string&           newExternalName,
-    const        DataType& dt)
+calc::DataType IOStrategy::resolveInputSymbol(std::string &newExternalName, const DataType &dt)
 {
   bool foundDummy = false;
-  newExternalName=d_runDirectory.inPath(foundDummy,newExternalName);
+  newExternalName = d_runDirectory.inPath(foundDummy, newExternalName);
 
   // calc::File file(fileName);
   // // will throw if not exists:
   // file.validateExisting();
 
-  bool const expectField=isIn(dt.vs(),VS_FIELD);
+  bool const expectField = isIn(dt.vs(), VS_FIELD);
   DataType newDt(dt.vs());
   try {
-     // updates vs
-     newDt=resolveInputField(newExternalName,dt);
-  } catch(const com::FileFormatError& ) {
-     if (expectField)
+    // updates vs
+    newDt = resolveInputField(newExternalName, dt);
+  } catch (const com::FileFormatError &) {
+    if (expectField)
       throw com::Exception("Expected map, got a different file");
     else
-      return newDt; // know nothing more
+      return newDt;  // know nothing more
   }
   // it is a map
-  if (expectField) // as expected
-     return newDt;
+  if (expectField)  // as expected
+    return newDt;
   // but expecting something else
   std::ostringstream os;
-  os << "Expected " << dt.vs() <<", got a map";
+  os << "Expected " << dt.vs() << ", got a map";
   throw com::Exception(os.str());
   return newDt;
 }
 
-Field* IOStrategy::createReadSpatial(const std::string& mapName,
-                                     VS vs) const
+Field *IOStrategy::createReadSpatial(const std::string &mapName, VS vs) const
 {
-  return createReadField(mapName,DataType(vs,ST_SPATIAL));
+  return createReadField(mapName, DataType(vs, ST_SPATIAL));
 }
 
 //! create a field and read contents of mapName into it
-Field* IOStrategy::createReadField(const std::string& mapName,
-                             const DataType& type)const
+Field *IOStrategy::createReadField(const std::string &mapName, const DataType &type) const
 {
-  switch(type.st()) {
+  switch (type.st()) {
     case ST_SPATIAL: {
-        UnpackedCreation u(*d_spatialPacking,type.vs());
-        readField(u.unpackedDest(),mapName,type);
-        return u.releasePacked();
+      UnpackedCreation u(*d_spatialPacking, type.vs());
+      readField(u.unpackedDest(), mapName, type);
+      return u.releasePacked();
     }
     case ST_NONSPATIAL: {
-        auto *ns = new NonSpatial(type.vs());
-        try {
-         readField(ns->dest(),mapName,type);
-        } catch(...) {
-          delete ns;
-          throw;
-        }
-        return ns;
+      auto *ns = new NonSpatial(type.vs());
+      try {
+        readField(ns->dest(), mapName, type);
+      } catch (...) {
+        delete ns;
+        throw;
+      }
+      return ns;
     }
     default:;
   }
@@ -392,89 +361,75 @@ void* IOStrategy::memoryValue(std::string const& name) const {
 /*! return 0 if not in d_memoryData
  *  throw com::Exception if in d_memoryData but 0 ptr.
  */
-MemoryExchangeItem* IOStrategy::memoryValue(std::string const& name) const {
+MemoryExchangeItem *IOStrategy::memoryValue(std::string const &name) const
+{
   auto i = d_memoryData.find(name);
-  if (i != d_memoryData.end())
-  {
-    PRECOND(i->second.get()); // always has a value
+  if (i != d_memoryData.end()) {
+    PRECOND(i->second.get());  // always has a value
     return i->second.get();
   }
   return nullptr;
 }
 
-void IOStrategy::transferMemoryExchangeItemIntoDataTransferArray(
-        MemoryExchangeItem* i)
+void IOStrategy::transferMemoryExchangeItemIntoDataTransferArray(MemoryExchangeItem *i)
 {
-    size_t const id(i->id());
-    if (!(id < d_dataTransferArrayUser0.size())) {
-     PRINT_VAR(id);
-     PRINT_VAR(d_dataTransferArrayUser0.size());
-     PRECOND(id < d_dataTransferArrayUser0.size());
-    }
+  size_t const id(i->id());
+  if (!(id < d_dataTransferArrayUser0.size())) {
+    PRINT_VAR(id);
+    PRINT_VAR(d_dataTransferArrayUser0.size());
+    PRECOND(id < d_dataTransferArrayUser0.size());
+  }
 
-    if (!d_dataTransferArrayUser0[id])
-    {  // user passed a valid buffer
-       PRECOND(d_dataTransferArray[id]);
-       i->beMemCpySrc(d_dataTransferArray[id]);
-    }
-    else {
-      // user is requesting us to allocate it
-      // do it and keep hanging it around in d_memoryData
+  if (!d_dataTransferArrayUser0[id]) {  // user passed a valid buffer
+    PRECOND(d_dataTransferArray[id]);
+    i->beMemCpySrc(d_dataTransferArray[id]);
+  } else {
+    // user is requesting us to allocate it
+    // do it and keep hanging it around in d_memoryData
 
-      // will clean up previous MemoryExchangeItem
-      d_memoryData[i->name()] =
-       std::shared_ptr<MemoryExchangeItem>(i);
+    // will clean up previous MemoryExchangeItem
+    d_memoryData[i->name()] = std::shared_ptr<MemoryExchangeItem>(i);
 
-      // change user's d_dataTransferArray
-      d_dataTransferArray[id] = i->rawValue();
-   }
+    // change user's d_dataTransferArray
+    d_dataTransferArray[id] = i->rawValue();
+  }
 }
 
-void  IOStrategy::readField(
-   void *dest,
-   const std::string& name,
-   const DataType& type) const
+void IOStrategy::readField(void *dest, const std::string &name, const DataType &type) const
 {
   MemoryExchangeItem *mem = memoryValue(name);
   if (!mem) {
     // file based
-    PRECOND(type.st()==ST_SPATIAL);
-    d_fs->readField(dest,name,type.vs());
+    PRECOND(type.st() == ST_SPATIAL);
+    d_fs->readField(dest, name, type.vs());
     return;
   }
 
   // memory exchange
   const void *src = d_dataTransferArray[mem->id()];
-  if (src)
-  {
-   size_t const n(type.st()==ST_SPATIAL ? rasterSpace().nrCells() : 1);
-   std::memcpy(dest, src, n*bytesPerCell(type.vs()));
+  if (src) {
+    size_t const n(type.st() == ST_SPATIAL ? rasterSpace().nrCells() : 1);
+    std::memcpy(dest, src, n * bytesPerCell(type.vs()));
   } else {
-   throw com::Exception("0-ptr data input buffer passed");
+    throw com::Exception("0-ptr data input buffer passed");
   }
 }
 
-GridStat IOStrategy::writeFieldUnpacked(
-    const std::string& name,
-    const Field *f)
+GridStat IOStrategy::writeFieldUnpacked(const std::string &name, const Field *f)
 {
-  MemoryExchangeItem* mem = memoryValue(name);
+  MemoryExchangeItem *mem = memoryValue(name);
 
   if (!mem)
-    return d_fs->writeFieldUnpacked(name,f);
-  else
-  { // write to memory
-    if (!d_dataTransferArrayUser0[mem->id()])
-    { // user supplied buffer
+    return d_fs->writeFieldUnpacked(name, f);
+  else {                                         // write to memory
+    if (!d_dataTransferArrayUser0[mem->id()]) {  // user supplied buffer
       PRECOND(d_dataTransferArray[mem->id()]);
       f->beMemCpySrc(d_dataTransferArray[mem->id()]);
     } else {
       // user is requesting us to allocate it
       PRECOND(mem->name() == name);
       std::shared_ptr<Field> const allocatedCopy(f->createClone());
-      auto *mei =
-       new MemoryExchangeItemField(name, mem->id(),
-                                allocatedCopy);
+      auto *mei = new MemoryExchangeItemField(name, mem->id(), allocatedCopy);
       d_memoryData[name] = std::shared_ptr<MemoryExchangeItem>(mei);
       // change user's d_dataTransferArray
       d_dataTransferArray[mei->id()] = (void *)(allocatedCopy->src());
@@ -483,63 +438,57 @@ GridStat IOStrategy::writeFieldUnpacked(
   }
 }
 
-DataType IOStrategy::resolveInputField(
-    const std::string& newExternalName,
-    const DataType&    dt)
+DataType IOStrategy::resolveInputField(const std::string &newExternalName, const DataType &dt)
 {
-  VS vs=dt.vs();
-  d_fs->checkInputMap(vs,newExternalName);
+  VS vs = dt.vs();
+  d_fs->checkInputMap(vs, newExternalName);
   // pick the found rasterSpace
   setRasterSpace(d_fs->rasterSpace());
-  return {vs,ST_SPATIAL};
+  return {vs, ST_SPATIAL};
 }
 
 /*
  * \todo Due to updating d_memoryData in writeFieldUnpacked the const'ness
  *       of this method is hacked away.
  */
-GridStat calc::IOStrategy::writeField(
-    const std::string& fileName,
-    const Field *f) const
+GridStat calc::IOStrategy::writeField(const std::string &fileName, const Field *f) const
 {
   auto *hack = (IOStrategy *)this;
   if (f->isSpatial()) {
     UnpackedSrc us(*d_spatialPacking, f);
-    PRECOND(us.src()->nrValues()==rasterSpace().nrCells());
-    return hack->writeFieldUnpacked(fileName,us.src());
+    PRECOND(us.src()->nrValues() == rasterSpace().nrCells());
+    return hack->writeFieldUnpacked(fileName, us.src());
   } else
-    return hack->writeFieldUnpacked(fileName,f);
+    return hack->writeFieldUnpacked(fileName, f);
 }
 
-Field* IOStrategy::createSpatial(VS vs) const
+Field *IOStrategy::createSpatial(VS vs) const
 {
   return d_spatialPacking->createSpatial(vs);
 }
 
 //! set value of d_runDirectory
-void IOStrategy::setRunDirectory(const com::PathName& runDirectoryPath)
+void IOStrategy::setRunDirectory(const com::PathName &runDirectoryPath)
 {
-  d_runDirectory= RunDirectory(runDirectoryPath);
+  d_runDirectory = RunDirectory(runDirectoryPath);
 }
 
 //! get value of d_runDirectory
-const RunDirectory& IOStrategy::runDirectory() const
+const RunDirectory &IOStrategy::runDirectory() const
 {
   return d_runDirectory;
 }
 
-
 //! get value of d_timer
-const Timer& IOStrategy::timer() const
+const Timer &IOStrategy::timer() const
 {
   return d_timer;
 }
 
-
 //! set value of d_writeEachTimeStep
 void calc::IOStrategy::setWriteEachTimeStep(bool writeEachTimeStep)
 {
-  d_writeEachTimeStep=writeEachTimeStep;
+  d_writeEachTimeStep = writeEachTimeStep;
 }
 
 //! get value of d_writeEachTimeStep
@@ -549,19 +498,19 @@ bool calc::IOStrategy::writeEachTimeStep() const
 }
 
 //! set value of d_debugMVAssignmentsMap
-void calc::IOStrategy::setDebugMVAssignmentsMap(const std::string& debugMVAssignmentsMap)
+void calc::IOStrategy::setDebugMVAssignmentsMap(const std::string &debugMVAssignmentsMap)
 {
-  d_debugMVAssignmentsMap=debugMVAssignmentsMap;
+  d_debugMVAssignmentsMap = debugMVAssignmentsMap;
 }
 
 //! set value of d_mvCompression
 void calc::IOStrategy::setMVCompression(bool mvCompression)
 {
-  d_mvCompression=mvCompression;
+  d_mvCompression = mvCompression;
 }
 
 //! get value of d_debugMVAssignmentsMap
-const std::string& calc::IOStrategy::debugMVAssignmentsMap() const
+const std::string &calc::IOStrategy::debugMVAssignmentsMap() const
 {
   return d_debugMVAssignmentsMap;
 }
@@ -573,12 +522,12 @@ bool calc::IOStrategy::mvCompression() const
 }
 
 //! get value of d_areaMap
-const AreaMap& IOStrategy::areaMap() const
+const AreaMap &IOStrategy::areaMap() const
 {
   return *d_areaMap;
 }
 
-const geo::RasterSpace& IOStrategy::rasterSpace() const
+const geo::RasterSpace &IOStrategy::rasterSpace() const
 {
   return d_areaMap->rasterSpace();
 }
@@ -586,53 +535,46 @@ const geo::RasterSpace& IOStrategy::rasterSpace() const
 /*
  * tricky get rid of, or return a default 1:1 for iFieldRDConversion
  */
-const SpatialPacking& IOStrategy::spatialPacking() const
+const SpatialPacking &IOStrategy::spatialPacking() const
 {
   PRECOND(d_spatialPacking);
   return *d_spatialPacking;
 }
 
-
 //! return 0 if can not be created yet due to lack of timer
-StackInput* IOStrategy::createStackInput(
-    const std::string& externalName,
-    const MapStackType& type)
+StackInput *IOStrategy::createStackInput(const std::string &externalName, const MapStackType &type)
 {
-  std::string const inPath=d_fs->inPathStack(runDirectory(),externalName,timer().lastInt());
+  std::string const inPath = d_fs->inPathStack(runDirectory(), externalName, timer().lastInt());
 
-  if (type.use() == MapStackType::Lookup) // no need for timer
-    return new StackInput(*this,inPath,type);
+  if (type.use() == MapStackType::Lookup)  // no need for timer
+    return new StackInput(*this, inPath, type);
 
-  if (timer().lastInt()==0)
+  if (timer().lastInt() == 0)
     return nullptr;
-  return new StackInput(*this,inPath,type);
+  return new StackInput(*this, inPath, type);
 }
 
-void IOStrategy::setStackInfo(const StackInfo& s) const
+void IOStrategy::setStackInfo(const StackInfo &s) const
 {
   d_fs->setStackInfo(s);
 }
 
-std::string IOStrategy::makeStackItemName(const std::string& iname,
-                                       int   atTimeStep) const
+std::string IOStrategy::makeStackItemName(const std::string &iname, int atTimeStep) const
 {
-  return d_fs->makeStackItemName(iname,atTimeStep);
+  return d_fs->makeStackItemName(iname, atTimeStep);
 }
 
-
-IoFieldStrategy& IOStrategy::ioFieldStrategy() {
+IoFieldStrategy &IOStrategy::ioFieldStrategy()
+{
   return *d_fs;
 }
 
 
-
-
-} // namespace calc
+}  // namespace calc
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

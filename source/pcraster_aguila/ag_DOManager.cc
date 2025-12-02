@@ -2,8 +2,6 @@
 #include <algorithm>
 #include "ag_DataObject.h"
 
-
-
 /*!
   \file
   brief
@@ -12,11 +10,9 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -27,19 +23,15 @@ ag::DOManager::DOManager()
 {
 }
 
-
-
 ag::DOManager::~DOManager()
 {
-  for(auto & d_dataObject : d_dataObjects) {
+  for (auto &d_dataObject : d_dataObjects) {
 #ifdef DEBUG_DEVELOP
     assert(d_dataObject->nrObservers() == 0);
 #endif
     delete d_dataObject;
   }
 }
-
-
 
 /*!
   \return    The newly created data object.
@@ -55,8 +47,6 @@ ag::DataObject *ag::DOManager::newDataObject()
   d_dataObjects.push_back(o);
   return o;
 }
-
-
 
 /*!
   \param     o Data object to delete.
@@ -74,8 +64,6 @@ void ag::DOManager::deleteDataObject(ag::DataObject *o)
   delete *it;
   d_dataObjects.erase(it);
 }
-
-
 
 /*!
   \param     o Data object to copy.
@@ -97,34 +85,25 @@ ag::DataObject *ag::DOManager::copyDataObject(
 */
 
 
-
 ag::DOManager::const_iterator ag::DOManager::begin() const
 {
   return d_dataObjects.begin();
 }
-
-
 
 ag::DOManager::iterator ag::DOManager::begin()
 {
   return d_dataObjects.begin();
 }
 
-
-
 ag::DOManager::const_iterator ag::DOManager::end() const
 {
   return d_dataObjects.end();
 }
 
-
-
 ag::DOManager::iterator ag::DOManager::end()
 {
   return d_dataObjects.end();
 }
-
-
 
 size_t ag::DOManager::nrDataObjects()
 {
@@ -132,19 +111,16 @@ size_t ag::DOManager::nrDataObjects()
 }
 
 
-
 #ifdef DEBUG_DEVELOP
 void ag::DOManager::checkIntegrity()
 {
   // Let's check if all data objects have observers. A data object without an
   // observer is a waste of space.
-  for(auto & d_dataObject : d_dataObjects)
-  {
+  for (auto &d_dataObject : d_dataObjects) {
     assert(d_dataObject->nrObservers() > 0);
   }
 }
 #endif
-
 
 
 //------------------------------------------------------------------------------
@@ -152,11 +128,9 @@ void ag::DOManager::checkIntegrity()
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -164,15 +138,11 @@ void ag::DOManager::checkIntegrity()
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

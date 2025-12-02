@@ -4,13 +4,10 @@
 #include "calc_astvisitor.h"
 #include "calc_report.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the ASTStat class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -36,11 +33,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC ASTSTAT MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -49,9 +44,9 @@ public:
 
 void calc::ASTStat::init()
 {
-  d_stat=nullptr;
-  d_reportParsed=false;
-  d_reportInSitu=nullptr;
+  d_stat = nullptr;
+  d_reportParsed = false;
+  d_reportInSitu = nullptr;
 }
 
 calc::ASTStat::ASTStat()
@@ -59,14 +54,10 @@ calc::ASTStat::ASTStat()
   init();
 }
 
-
-calc::ASTStat::ASTStat(ASTNode *stat):
-  ASTNode(*stat),
-  d_stat(stat)
+calc::ASTStat::ASTStat(ASTNode *stat) : ASTNode(*stat), d_stat(stat)
 {
   init();
 }
-
 
 calc::ASTStat::~ASTStat()
 {
@@ -75,15 +66,15 @@ calc::ASTStat::~ASTStat()
 }
 
 //! Assignment operator.
-calc::ASTStat& calc::ASTStat::operator=(const ASTStat& rhs)
+calc::ASTStat &calc::ASTStat::operator=(const ASTStat &rhs)
 {
   if (this != &rhs) {
-    d_reportParsed=rhs.d_reportParsed;
-    d_reportById  =rhs.d_reportById;
+    d_reportParsed = rhs.d_reportParsed;
+    d_reportById = rhs.d_reportById;
 
     delete d_reportInSitu;
     if (rhs.d_reportInSitu)
-     d_reportInSitu = rhs.d_reportInSitu->createClone();
+      d_reportInSitu = rhs.d_reportInSitu->createClone();
 
     delete d_stat;
     d_stat = rhs.d_stat->createClone();
@@ -92,38 +83,36 @@ calc::ASTStat& calc::ASTStat::operator=(const ASTStat& rhs)
 }
 
 //! Copy constructor.
-calc::ASTStat::ASTStat(const ASTStat& rhs):
-    ASTNode(rhs),
-    d_reportParsed(rhs.d_reportParsed),
-    d_reportById(rhs.d_reportById),
-    d_stat(rhs.d_stat->createClone())
+calc::ASTStat::ASTStat(const ASTStat &rhs)
+    : ASTNode(rhs), d_reportParsed(rhs.d_reportParsed), d_reportById(rhs.d_reportById),
+      d_stat(rhs.d_stat->createClone())
 {
-    if (rhs.d_reportInSitu)
-     d_reportInSitu = rhs.d_reportInSitu->createClone();
+  if (rhs.d_reportInSitu)
+    d_reportInSitu = rhs.d_reportInSitu->createClone();
 }
 
-void calc::ASTStat::accept(ASTVisitor& b)
+void calc::ASTStat::accept(ASTVisitor &b)
 {
   b.visitStat(this);
 }
 
-calc::ASTStat* calc::ASTStat::createClone() const
+calc::ASTStat *calc::ASTStat::createClone() const
 {
   return new ASTStat(*this);
 }
 
 //! set value of stat
-void calc::ASTStat::transferStat(ASTNode* stat)
+void calc::ASTStat::transferStat(ASTNode *stat)
 {
   delete d_stat;
-  d_stat=stat;
+  d_stat = stat;
   // if this is the 1st part
-  if (!d_reportInSitu) // no prefix
+  if (!d_reportInSitu)  // no prefix
     setPosition(stat->position());
 }
 
 //! get value of stat
-calc::ASTNode* calc::ASTStat::stat() const
+calc::ASTNode *calc::ASTStat::stat() const
 {
   return d_stat;
 }
@@ -131,21 +120,21 @@ calc::ASTNode* calc::ASTStat::stat() const
 //! set value of reportParsed
 void calc::ASTStat::setReportParsed(bool reportParsed)
 {
-  d_reportParsed=reportParsed;
+  d_reportParsed = reportParsed;
 }
 
 //! set value of reportById
-void calc::ASTStat::setReportById(const Id& reportById)
+void calc::ASTStat::setReportById(const Id &reportById)
 {
-  d_reportById=reportById;
+  d_reportById = reportById;
 }
 
 //! set value of reportInSitu
-void calc::ASTStat::transferReportInSitu(Report * reportInSitu)
+void calc::ASTStat::transferReportInSitu(Report *reportInSitu)
 {
   PRECOND(reportInSitu);
   delete d_reportInSitu;
-  d_reportInSitu=reportInSitu;
+  d_reportInSitu = reportInSitu;
   // this is first part of statement
   setPosition(d_reportInSitu->position());
 }
@@ -157,28 +146,22 @@ bool calc::ASTStat::reportParsed() const
 }
 
 //! get value of reportById
-const calc::Id& calc::ASTStat::reportById() const
+const calc::Id &calc::ASTStat::reportById() const
 {
   return d_reportById;
 }
 
 //! get value of reportInSitu
-calc::Report * calc::ASTStat::reportInSitu() const
+calc::Report *calc::ASTStat::reportInSitu() const
 {
   return d_reportInSitu;
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

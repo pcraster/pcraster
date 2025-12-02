@@ -4,15 +4,12 @@
 #include "ag_Map2D.h"
 #include "ag_VisEngine.h"
 
-
-
 /*!
   \file
   brief
 
   more elaborated
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -24,10 +21,9 @@
 // DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
-ag::Map2DWindow::Map2DWindow(const qt::AppWindowProperties& props,
-         ag::DataObject* dataObject)
+ag::Map2DWindow::Map2DWindow(const qt::AppWindowProperties &props, ag::DataObject *dataObject)
 
-  : MapWindow(props, "Map Window", dataObject)
+    : MapWindow(props, "Map Window", dataObject)
 
 {
   std::vector<com::FileFormatInfo> fileFormats;
@@ -41,13 +37,9 @@ ag::Map2DWindow::Map2DWindow(const qt::AppWindowProperties& props,
   createInterface();
 }
 
-
-
 ag::Map2DWindow::~Map2DWindow()
 {
 }
-
-
 
 /*!
  * \todo
@@ -64,7 +56,7 @@ void ag::Map2DWindow::createInterface()
 
   /// addMapActionGroup();
 
-/*
+  /*
   QAction* selectAction = new QAction("Start Select Mode", selectIcon,
          "&Select", QKeySequence(), ag, "start select mode");
   connect(selectAction,SIGNAL(triggered()), d_map,
@@ -79,33 +71,26 @@ void ag::Map2DWindow::createInterface()
   rescan();
 }
 
-
-
 void ag::Map2DWindow::rescan()
 {
   visualisationEngine().rescan(dataObject());
   MapWindow::rescan();
 }
 
-
-
-void ag::Map2DWindow::addAttribute(
-         ag::DataGuide const& guide)
+void ag::Map2DWindow::addAttribute(ag::DataGuide const &guide)
 {
   visualisationEngine().addAttribute(dataObject(), guide);
   d_map->addAttribute(guide);
 }
-
-
 
 std::string ag::Map2DWindow::windowName() const
 {
   std::string name = "No data loaded";
   std::vector<DataGuide> dataGuides = visualisationEngine().dataGuides();
 
-  if(!dataGuides.empty()) {
+  if (!dataGuides.empty()) {
     name = dataObject().description(dataGuides[0]);
-    for(size_t i = 1; i < dataGuides.size(); ++i) {
+    for (size_t i = 1; i < dataGuides.size(); ++i) {
       name += " + " + dataObject().description(dataGuides[i]);
     }
   }
@@ -113,27 +98,19 @@ std::string ag::Map2DWindow::windowName() const
   return name;
 }
 
-
-
 bool ag::Map2DWindow::dataVisualised() const
 {
   return visualisationEngine().dataGuides().size() > 0;
 }
 
-
-
-void ag::Map2DWindow::saveAsPNG(
-         std::filesystem::path const& path)
+void ag::Map2DWindow::saveAsPNG(std::filesystem::path const &path)
 {
   d_map->saveAsPNG(path);
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -141,11 +118,9 @@ void ag::Map2DWindow::saveAsPNG(
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -153,9 +128,6 @@ void ag::Map2DWindow::saveAsPNG(
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

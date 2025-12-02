@@ -9,14 +9,10 @@
 #include <QtCharts/QLineSeries>
 #include <QtGui/QMouseEvent>
 
-
-
-
 /*!
   \file
   This file contains the implementation of the PlotVisualisation class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -42,32 +38,26 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC PLOTVISUALISATION MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF PLOTVISUALISATION MEMBERS
 //------------------------------------------------------------------------------
 
-namespace ag {
+namespace ag
+{
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 using namespace QtCharts;
 #endif
 
-PlotVisualisation::PlotVisualisation(
-         DataObject* object,
-         std::string const& visualisationName,
-         QWidget* parent,
-         char const* /* name */)
+PlotVisualisation::PlotVisualisation(DataObject *object, std::string const &visualisationName,
+                                     QWidget *parent, char const * /* name */)
 
-  :
-    QChartView(parent),
-    IVisualisation(object, visualisationName)
+    : QChartView(parent), IVisualisation(object, visualisationName)
 
 {
   setFocusPolicy(Qt::WheelFocus);
@@ -94,29 +84,25 @@ PlotVisualisation::PlotVisualisation(
   _xMarkerId = 1;
   _yMarkerId = 2;
 
-// // // // //
-// // // // //   _picker = new QwtPlotPicker(canvas());
-// // // // //   connect(_picker, SIGNAL(selected(const QPointF&)),
-// // // // //           this, SLOT(selected(const QPointF&)));
-// // // // //   connect(_picker, SIGNAL(selected(const QRectF&)),
-// // // // //           this, SLOT(selected(const QRectF&)));
-// // // // //   connect(_picker, SIGNAL(selected(const QVector<QPointF>&)),
-// // // // //           this, SLOT(selected(const QVector<QPointF>&)));
-// // // // //   connect(_picker, SIGNAL(appended(const QPointF&)),
-// // // // //           this, SLOT(appended(const QPointF&)));
-// // // // //   connect(_picker, SIGNAL(moved(const QPointF&)),
-// // // // //           this, SLOT(moved(const QPointF&)));
+  // // // // //
+  // // // // //   _picker = new QwtPlotPicker(canvas());
+  // // // // //   connect(_picker, SIGNAL(selected(const QPointF&)),
+  // // // // //           this, SLOT(selected(const QPointF&)));
+  // // // // //   connect(_picker, SIGNAL(selected(const QRectF&)),
+  // // // // //           this, SLOT(selected(const QRectF&)));
+  // // // // //   connect(_picker, SIGNAL(selected(const QVector<QPointF>&)),
+  // // // // //           this, SLOT(selected(const QVector<QPointF>&)));
+  // // // // //   connect(_picker, SIGNAL(appended(const QPointF&)),
+  // // // // //           this, SLOT(appended(const QPointF&)));
+  // // // // //   connect(_picker, SIGNAL(moved(const QPointF&)),
+  // // // // //           this, SLOT(moved(const QPointF&)));
 
   update();
 }
 
-
-
 PlotVisualisation::~PlotVisualisation()
 {
 }
-
-
 
 bool PlotVisualisation::close()
 {
@@ -124,87 +110,66 @@ bool PlotVisualisation::close()
   return true;
 }
 
-
-
-void PlotVisualisation::enableMarker(
-         long int marker)
+void PlotVisualisation::enableMarker(long int marker)
 {
   assert(marker == _xMarkerId || marker == _yMarkerId);
 
-  if(marker == _xMarkerId) {
+  if (marker == _xMarkerId) {
     _xMarker->set_y_interval(m_axisY->min(), m_axisY->max());
     _xMarker->set_x_interval(m_axisX->min(), m_axisX->max());
     _xMarkerEnabled = true;
-  }
-  else if(marker == _yMarkerId) {
+  } else if (marker == _yMarkerId) {
     _xMarker->set_x_interval(m_axisX->min(), m_axisX->max());
     _xMarker->set_y_interval(0, 1);
     _yMarkerEnabled = true;
-
   }
 }
-
-
 
 void PlotVisualisation::disableMarker(long int marker)
 {
   assert(marker == _xMarkerId || marker == _yMarkerId);
 
-  if(marker == _xMarkerId) {
+  if (marker == _xMarkerId) {
     _xMarkerEnabled = false;
-  }
-  else if(marker == _yMarkerId) {
+  } else if (marker == _yMarkerId) {
     _yMarkerEnabled = false;
   }
 }
-
-
 
 bool PlotVisualisation::markerEnabled(long int marker) const
 {
   assert(marker == _xMarkerId || marker == _yMarkerId);
 
-  bool result = false; // Shut up compiler.
+  bool result = false;  // Shut up compiler.
 
-  if(marker == _xMarkerId) {
+  if (marker == _xMarkerId) {
     result = _xMarkerEnabled;
-  }
-  else if(marker == _yMarkerId) {
+  } else if (marker == _yMarkerId) {
     result = _yMarkerEnabled;
   }
 
   return result;
 }
 
-
-
 long int PlotVisualisation::xMarker() const
 {
   return _xMarkerId;
 }
-
-
 
 long int PlotVisualisation::yMarker() const
 {
   return _yMarkerId;
 }
 
-
-
 void PlotVisualisation::setXMarker(double value)
 {
   _xMarker->setXValue(value);
 }
 
-
-
 void PlotVisualisation::setYMarker(double value)
 {
   _xMarker->setYValue(value);
 }
-
-
 
 void PlotVisualisation::attachMarkers()
 {
@@ -212,28 +177,20 @@ void PlotVisualisation::attachMarkers()
   _xMarker->set_x_interval(m_axisX->min(), m_axisX->max());
 }
 
-
-
 void PlotVisualisation::detachMarkers()
 {
-// // // // // // // // // // //   _xMarker->detach();
-// // // // // // // // // // //   _yMarker->detach();
+  // // // // // // // // // // //   _xMarker->detach();
+  // // // // // // // // // // //   _yMarker->detach();
 }
 
-
-
-void PlotVisualisation::drawCurve(
-         DataGuide const& guide,
-         double* x,
-         double* y,
-         size_t nrValues,
-         QPen const& pen)
+void PlotVisualisation::drawCurve(DataGuide const &guide, double *x, double *y, size_t nrValues,
+                                  QPen const &pen)
 {
   // If missing values are present, a curve consists of several curve pieces.
   // Loop over values to find MV's.
-  double* xEnd = x + nrValues;
-  double* yEnd = y + nrValues;
-  double * xSubBegin = nullptr;
+  double *xEnd = x + nrValues;
+  double *yEnd = y + nrValues;
+  double *xSubBegin = nullptr;
   double *xSubEnd = nullptr;
   double *ySubBegin = nullptr;
   double *ySubEnd = nullptr;
@@ -242,25 +199,23 @@ void PlotVisualisation::drawCurve(
   xSubEnd = x;
   ySubEnd = y;
 
-  while(xSubEnd != xEnd && ySubEnd != yEnd) {
+  while (xSubEnd != xEnd && ySubEnd != yEnd) {
     // Set begin at first non-MV.
     xSubBegin = xSubEnd;
     ySubBegin = ySubEnd;
-    while(xSubBegin != xEnd && ySubBegin != yEnd &&
-         (pcr::isMV(*xSubBegin) || pcr::isMV(*ySubBegin))) {
+    while (xSubBegin != xEnd && ySubBegin != yEnd && (pcr::isMV(*xSubBegin) || pcr::isMV(*ySubBegin))) {
       ++xSubBegin;
       ++ySubBegin;
     }
 
-    if(xSubBegin == xEnd || ySubBegin == yEnd) {
+    if (xSubBegin == xEnd || ySubBegin == yEnd) {
       break;
     }
 
     // Set end at first MV.
     xSubEnd = xSubBegin + 1;
     ySubEnd = ySubBegin + 1;
-    while(xSubEnd != xEnd && ySubEnd != yEnd &&
-         !pcr::isMV(*xSubEnd) && !pcr::isMV(*ySubEnd)) {
+    while (xSubEnd != xEnd && ySubEnd != yEnd && !pcr::isMV(*xSubEnd) && !pcr::isMV(*ySubEnd)) {
       ++xSubEnd;
       ++ySubEnd;
     }
@@ -268,7 +223,7 @@ void PlotVisualisation::drawCurve(
     auto *series = new QLineSeries();
 
     // Plain inserting the values...
-    for(size_t i = 0; i < nrValues; ++i){
+    for (size_t i = 0; i < nrValues; ++i) {
       series->append(x[i], y[i]);
     }
 
@@ -279,8 +234,6 @@ void PlotVisualisation::drawCurve(
     series->attachAxis(m_axisX);
   }
 }
-
-
 
 //! Removes curves and markers from the plot.
 /*!
@@ -300,83 +253,52 @@ void PlotVisualisation::clearPlot()
   _curvesPerGuide.clear();
 }
 
-
-
 void PlotVisualisation::trackClickPoint()
 {
-// // // // // //   _picker->setStateMachine(new QwtPickerClickPointMachine);
+  // // // // // //   _picker->setStateMachine(new QwtPickerClickPointMachine);
 }
-
-
 
 void PlotVisualisation::trackDragPoint()
 {
-// // // // // //   _picker->setStateMachine(new QwtPickerDragPointMachine);
+  // // // // // //   _picker->setStateMachine(new QwtPickerDragPointMachine);
 }
-
-
 
 void PlotVisualisation::trackDragRect()
 {
-// // // // // //   _picker->setStateMachine(new QwtPickerDragRectMachine);
+  // // // // // //   _picker->setStateMachine(new QwtPickerDragRectMachine);
 }
 
-
-
-void PlotVisualisation::selected(
-         QPointF const& /* point */)
+void PlotVisualisation::selected(QPointF const & /* point */)
 {
 }
 
-
-
-void PlotVisualisation::selected(
-         QRectF const& /* rect */)
+void PlotVisualisation::selected(QRectF const & /* rect */)
 {
 }
 
-
-
-void PlotVisualisation::selected(
-         QVector<QPointF> const& /* array */)
+void PlotVisualisation::selected(QVector<QPointF> const & /* array */)
 {
 }
 
-
-
-void PlotVisualisation::appended(
-         QPointF const& /* point */)
+void PlotVisualisation::appended(QPointF const & /* point */)
 {
 }
 
-
-
-void PlotVisualisation::moved(
-         QPointF const& /* point */)
+void PlotVisualisation::moved(QPointF const & /* point */)
 {
 }
 
-
-
-bool PlotVisualisation::intersectMarker(
-         double* x,
-         double* y,
-         long int marker,
-         DataGuide const& guide) const
+bool PlotVisualisation::intersectMarker(double *x, double *y, long int marker,
+                                        DataGuide const &guide) const
 {
   QLineF markerLine;
 
-  if(marker == _xMarkerId) {
-    markerLine = QLineF(
-         QPointF(_xMarker->xValue(), _xMarker->xMin()),
-         QPointF(_xMarker->xValue(), _xMarker->xMax())
-    );
-  }
-  else if(marker == _yMarkerId) {
-    markerLine = QLineF(
-         QPointF(_xMarker->xMin(), _xMarker->yValue()),
-         QPointF(_xMarker->xMax(), _xMarker->yValue())
-    );
+  if (marker == _xMarkerId) {
+    markerLine = QLineF(QPointF(_xMarker->xValue(), _xMarker->xMin()),
+                        QPointF(_xMarker->xValue(), _xMarker->xMax()));
+  } else if (marker == _yMarkerId) {
+    markerLine = QLineF(QPointF(_xMarker->xMin(), _xMarker->yValue()),
+                        QPointF(_xMarker->xMax(), _xMarker->yValue()));
   }
 
   QPointF point1;
@@ -384,30 +306,29 @@ bool PlotVisualisation::intersectMarker(
   QPointF intersection;
   bool intersectionFound = false;
 
-  auto it =
-         _curvesPerGuide.find(guide);
+  auto it = _curvesPerGuide.find(guide);
 
-  if(it != _curvesPerGuide.end()) {
-    for(QLineSeries const* curve : (*it).second) {
+  if (it != _curvesPerGuide.end()) {
+    for (QLineSeries const *curve : (*it).second) {
       assert(curve);
       assert(curve->points().length() > 1);
 
       point2 = curve->at(0);
 
-      for(int j = 1; j < static_cast<int>(curve->points().length()); ++j) {
+      for (int j = 1; j < static_cast<int>(curve->points().length()); ++j) {
         point1 = point2;
         point2 = curve->at(j);
-        intersectionFound = (markerLine.intersects(QLineF(point1, point2),
-              &intersection) == QLineF::BoundedIntersection);
+        intersectionFound = (markerLine.intersects(QLineF(point1, point2), &intersection) ==
+                             QLineF::BoundedIntersection);
 
-        if(intersectionFound) {
+        if (intersectionFound) {
           *x = intersection.x();
           *y = intersection.y();
           break;
         }
       }
 
-      if(intersectionFound) {
+      if (intersectionFound) {
         break;
       }
     }
@@ -416,15 +337,11 @@ bool PlotVisualisation::intersectMarker(
   return intersectionFound;
 }
 
-
-
 QPixmap PlotVisualisation::pixmap()
 {
   QPixmap pixmap(QWidget::grab());
   return pixmap;
 }
-
-
 
 // #include <CGAL/Cartesian.h>
 // #include <CGAL/intersections.h>
@@ -493,18 +410,15 @@ QPixmap PlotVisualisation::pixmap()
 // }
 
 
-
 bool PlotVisualisation::onlyCumulativeProbabilitiesShown() const
 {
   bool result = true;
 
-  for(size_t i = 0; i < visualisationEngine().size(); ++i) {
-    DataGuide const& guide(visualisationEngine().guide(i));
-    RangeDrawProps const& properties(
-         dataObject().properties().rangeDrawProperties(guide));
+  for (size_t i = 0; i < visualisationEngine().size(); ++i) {
+    DataGuide const &guide(visualisationEngine().guide(i));
+    RangeDrawProps const &properties(dataObject().properties().rangeDrawProperties(guide));
 
-    if(properties.probabilityScale() !=
-         RangeDrawProps::CumulativeProbabilities) {
+    if (properties.probabilityScale() != RangeDrawProps::CumulativeProbabilities) {
       result = false;
       break;
     }
@@ -513,19 +427,15 @@ bool PlotVisualisation::onlyCumulativeProbabilitiesShown() const
   return result;
 }
 
-
-
 bool PlotVisualisation::onlyExceedanceProbabilitiesShown() const
 {
   bool result = true;
 
-  for(size_t i = 0; i < visualisationEngine().size(); ++i) {
-    DataGuide const& guide(visualisationEngine().guide(i));
-    RangeDrawProps const& properties(
-         dataObject().properties().rangeDrawProperties(guide));
+  for (size_t i = 0; i < visualisationEngine().size(); ++i) {
+    DataGuide const &guide(visualisationEngine().guide(i));
+    RangeDrawProps const &properties(dataObject().properties().rangeDrawProperties(guide));
 
-    if(properties.probabilityScale() !=
-         RangeDrawProps::ExceedanceProbabilities) {
+    if (properties.probabilityScale() != RangeDrawProps::ExceedanceProbabilities) {
       result = false;
       break;
     }
@@ -540,39 +450,35 @@ void PlotVisualisation::mousePressEvent(QMouseEvent *event)
   double xval = m_chart->mapToValue(event->pos()).x();
   double yval = m_chart->mapToValue(event->pos()).y();
 
-  if(markerEnabled(1) == true) {
+  if (markerEnabled(1) == true) {
     xval = std::max(xval, m_axisX->min());
     xval = std::min(xval, m_axisX->max());
 
     moved(QPointF(xval, 0));
-  }
-  else {
+  } else {
     yval = std::max(yval, 0.0);
     yval = std::min(yval, 1.0);
 
-    moved(QPointF(xval,yval));
+    moved(QPointF(xval, yval));
   }
 
   update();
 }
 
-
 // Drags the marker to the corresponding axis position
 void PlotVisualisation::mouseMoveEvent(QMouseEvent *event)
 {
-  if (event->buttons() & Qt::LeftButton){
+  if (event->buttons() & Qt::LeftButton) {
     mousePressEvent(event);
   }
 }
 
 
-
-} // namespace ag
+}  // namespace ag
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -580,15 +486,11 @@ void PlotVisualisation::mouseMoveEvent(QMouseEvent *event)
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-

@@ -9,6 +9,7 @@
 #include "calc_stackinfo.h"
 #include "calc_filewriter.h"
 #include <vector>
+
 /*
 #ifndef INCLUDED_CALC_BANDSTACKREADER
 #include "calc_bandstackreader.h"
@@ -23,11 +24,9 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC IOBANDFIELDSTRATEGY MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -47,13 +46,11 @@ calc::IoBandFieldStrategy::~IoBandFieldStrategy()
 //! return PCRaster strategy type
 APP_IO_STRATEGY calc::IoBandFieldStrategy::strategyType() const
 {
- return APP_IO_BANDMAP;
+  return APP_IO_BANDMAP;
 }
 
 //! detect correct BAND map
-calc::IoFieldStrategy* calc::IoBandFieldStrategy::checkInputMap(
-    VS&                vs,
-    const std::string& fName)
+calc::IoFieldStrategy *calc::IoBandFieldStrategy::checkInputMap(VS &vs, const std::string &fName)
 {
   // load value as band map
   BandMap const map(fName);
@@ -65,11 +62,11 @@ calc::IoFieldStrategy* calc::IoBandFieldStrategy::checkInputMap(
 /*!
    caller must delete
  */
-const calc::StackReader* calc::IoBandFieldStrategy::createStackReader(
-    const RunDirectory& /* rd */,
-    const std::string&  /* stackName */)
+const calc::StackReader *
+calc::IoBandFieldStrategy::createStackReader(const RunDirectory & /* rd */,
+                                             const std::string & /* stackName */)
 {
-  PRECOND(false); // not implemented
+  PRECOND(false);  // not implemented
   return nullptr;
 }
 
@@ -78,55 +75,52 @@ const calc::StackReader* calc::IoBandFieldStrategy::createStackReader(
  *  \note implemented just like Esri strategy even though we do not support fall
  *  back to PCRaster/csf format
  */
-void calc::IoBandFieldStrategy::checkClone(const std::string& mapFileName)
+void calc::IoBandFieldStrategy::checkClone(const std::string &mapFileName)
 {
-    geo::BandMap const map(mapFileName);
-    geo::RasterSpace const mapRs(map.rasterSpace());
+  geo::BandMap const map(mapFileName);
+  geo::RasterSpace const mapRs(map.rasterSpace());
 
-    setAndCheckCommon(mapFileName,mapRs);
+  setAndCheckCommon(mapFileName, mapRs);
 
-    if (!d_rasterSpaceBand.nrRows()) { // not yet initialized
-        d_cloneNameBand = mapFileName;
-        d_rasterSpaceBand = mapRs;
-    }
+  if (!d_rasterSpaceBand.nrRows()) {  // not yet initialized
+    d_cloneNameBand = mapFileName;
+    d_rasterSpaceBand = mapRs;
+  }
 
-    if (!(mapRs == d_rasterSpaceBand))
-        throwCloneDiffers(d_cloneNameBand,mapFileName);
+  if (!(mapRs == d_rasterSpaceBand))
+    throwCloneDiffers(d_cloneNameBand, mapFileName);
 }
 
 //! return a newly created BandMap
-calc::GridMap *calc::IoBandFieldStrategy::createMap(
-    const std::string& fileName, VS vs) const
+calc::GridMap *calc::IoBandFieldStrategy::createMap(const std::string &fileName, VS vs) const
 {
   return new BandMap(fileName, rasterSpace(), vs);
 }
 
 //! return prefix-ItemNumber name
-std::string calc::IoBandFieldStrategy::makeStackItemName(
-    const std::string& /* iname */,
-    int                /* atTimeStep */) const
+std::string calc::IoBandFieldStrategy::makeStackItemName(const std::string & /* iname */,
+                                                         int /* atTimeStep */) const
 {
   POSTCOND(false);
   return "";
 }
 
 //! adjust min max for every map part of the map stack
-void calc::IoBandFieldStrategy::setStackInfo(const StackInfo& /* s */ ) const
+void calc::IoBandFieldStrategy::setStackInfo(const StackInfo & /* s */) const
 {
   POSTCOND(false);
 }
 
 //! return new InputBandMap object
-calc::Spatial *calc::IoBandFieldStrategy::newInputMap(const std::string& mapName,VS vs,
-    const Compressor& c) const
+calc::Spatial *calc::IoBandFieldStrategy::newInputMap(const std::string &mapName, VS vs,
+                                                      const Compressor &c) const
 {
-  return new InputSpatial<BandMap>(mapName,vs,c);
+  return new InputSpatial<BandMap>(mapName, vs, c);
 }
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

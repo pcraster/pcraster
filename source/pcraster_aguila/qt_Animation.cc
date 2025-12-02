@@ -3,12 +3,9 @@
 #include <algorithm>
 #include <iostream>
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -20,15 +17,12 @@
 */
 qt::Animation::Animation()
 
-  : QObject(),
-     d_timer(new QTimer(this))
+    : QObject(), d_timer(new QTimer(this))
 
 {
   d_timer->setSingleShot(false);
   connect(d_timer, SIGNAL(timeout()), this, SLOT(timedOut()));
 }
-
-
 
 /*!
   \param   i Timer interval.
@@ -36,16 +30,12 @@ qt::Animation::Animation()
 */
 qt::Animation::Animation(size_t i)
 
-  : QObject(),
-     d_interval(i),
-     d_timer(new QTimer(this))
+    : QObject(), d_interval(i), d_timer(new QTimer(this))
 
 {
   d_timer->setSingleShot(false);
   connect(d_timer, SIGNAL(timeout()), this, SLOT(timedOut()));
 }
-
-
 
 /*!
   \param   f First timestep.
@@ -55,47 +45,34 @@ qt::Animation::Animation(size_t i)
 */
 qt::Animation::Animation(size_t f, size_t l, size_t i)
 
-  : QObject(),
-    d_first(f), d_last(l),d_stepInterval(1),
-     d_interval(i),
-     d_timer(new QTimer(this))
+    : QObject(), d_first(f), d_last(l), d_stepInterval(1), d_interval(i), d_timer(new QTimer(this))
 
 {
   d_timer->setSingleShot(false);
   connect(d_timer, SIGNAL(timeout()), this, SLOT(timedOut()));
 }
-
-
 
 qt::Animation::Animation(const Animation &animation)
 
-  : QObject(),
-    d_first(animation.d_first), d_last(animation.d_last),
-    d_stepInterval(animation.d_stepInterval),
-    d_current(animation.d_current),
-    d_stepToProcess(animation.d_stepToProcess),
-    d_steps(animation.d_steps),
-    d_interval(animation.d_interval),
-    d_loop(animation.d_loop), d_timer(new QTimer(this))
+    : QObject(), d_first(animation.d_first), d_last(animation.d_last),
+      d_stepInterval(animation.d_stepInterval), d_current(animation.d_current),
+      d_stepToProcess(animation.d_stepToProcess), d_steps(animation.d_steps),
+      d_interval(animation.d_interval), d_loop(animation.d_loop), d_timer(new QTimer(this))
 
 {
   d_timer->setSingleShot(false);
   connect(d_timer, SIGNAL(timeout()), this, SLOT(timedOut()));
 }
-
-
 
 qt::Animation::~Animation()
 {
 }
 
-
-
-qt::Animation& qt::Animation::operator=(const Animation &animation)
+qt::Animation &qt::Animation::operator=(const Animation &animation)
 {
   assert(!isRunning());
 
-  if(this != &animation) {
+  if (this != &animation) {
     d_first = animation.d_first;
     d_last = animation.d_last;
     d_stepInterval = animation.d_stepInterval;
@@ -111,8 +88,6 @@ qt::Animation& qt::Animation::operator=(const Animation &animation)
   return *this;
 }
 
-
-
 /*!
   \sa      stop(), pause()
 
@@ -126,14 +101,12 @@ qt::Animation& qt::Animation::operator=(const Animation &animation)
 */
 void qt::Animation::start()
 {
-  if(!isRunning()) {
+  if (!isRunning()) {
     d_stepToProcess = nextTimeStep();
-    d_timer->start(static_cast<int>(d_interval)); // Start the timer.
+    d_timer->start(static_cast<int>(d_interval));  // Start the timer.
     Q_EMIT started();
   }
 }
-
-
 
 /*!
   \sa      start(), pause()
@@ -142,13 +115,11 @@ void qt::Animation::start()
 */
 void qt::Animation::stop()
 {
-  if(isRunning()) {
+  if (isRunning()) {
     d_timer->stop();
     Q_EMIT stopped();
   }
 }
-
-
 
 /*!
   \sa      start(), stop()
@@ -158,13 +129,11 @@ void qt::Animation::stop()
 */
 void qt::Animation::pause()
 {
-  if(isRunning()) {
+  if (isRunning()) {
     d_timer->stop();
     Q_EMIT paused();
   }
 }
-
-
 
 /*!
   \param   f New first timestep.
@@ -175,8 +144,6 @@ void qt::Animation::setFirst(size_t f)
   d_first = f;
 }
 
-
-
 /*!
   \param   l New last timestep.
   \sa      setFirst(), setInterval()
@@ -186,15 +153,12 @@ void qt::Animation::setLast(size_t l)
   d_last = l;
 }
 
-
-
 void qt::Animation::setCurrent(size_t t)
 {
 #ifdef DEBUG
-  if(!d_steps.empty()) {
+  if (!d_steps.empty()) {
     assert(d_steps.find(t) != d_steps.end());
-  }
-  else {
+  } else {
     assert(t >= d_first || t <= d_last);
     assert((t - d_first) % d_stepInterval == 0);
   }
@@ -204,8 +168,6 @@ void qt::Animation::setCurrent(size_t t)
   // pause();
 }
 
-
-
 /*!
   \param   i New interval in msec.
   \sa      setFirst(), setLast()
@@ -214,16 +176,14 @@ void qt::Animation::setCurrent(size_t t)
 */
 void qt::Animation::setInterval(size_t i)
 {
-  if(d_interval != i) {
+  if (d_interval != i) {
     d_interval = i;
 
-    if(isRunning()) {
+    if (isRunning()) {
       d_timer->setInterval(static_cast<int>(i));
     }
   }
 }
-
-
 
 /*!
   \param   s Timestep to add.
@@ -240,30 +200,24 @@ void qt::Animation::addStep(size_t s)
   d_steps.insert(s);
 }
 
-
-
 //! Add timesteps.
 /*!
   \param     steps Timesteps to add.
   \sa        addStep(size_t)
 */
-void qt::Animation::addSteps(const std::set<size_t>& steps)
+void qt::Animation::addSteps(const std::set<size_t> &steps)
 {
   std::set_union(d_steps.begin(), d_steps.end(), steps.begin(), steps.end(),
-         std::inserter(d_steps, d_steps.begin()));
+                 std::inserter(d_steps, d_steps.begin()));
 }
 
-
-
-void qt::Animation::setSteps(const std::set<size_t>& steps)
+void qt::Animation::setSteps(const std::set<size_t> &steps)
 {
   // Crash for now. Might have to do something smart here.
   assert(!isRunning());
 
   d_steps = steps;
 }
-
-
 
 void qt::Animation::setRangeOfSteps(size_t first, size_t last, size_t stepInterval)
 {
@@ -276,8 +230,6 @@ void qt::Animation::setRangeOfSteps(size_t first, size_t last, size_t stepInterv
   d_stepInterval = stepInterval;
 }
 
-
-
 /*!
   \return  First timestep of the manager.
   \sa      lastStep()
@@ -287,13 +239,11 @@ void qt::Animation::setRangeOfSteps(size_t first, size_t last, size_t stepInterv
 */
 size_t qt::Animation::firstStep() const
 {
-  if(!d_steps.empty())
+  if (!d_steps.empty())
     return *(d_steps.begin());
   else
     return d_first;
 }
-
-
 
 /*!
   \return  Last timestep of the manager.
@@ -304,20 +254,16 @@ size_t qt::Animation::firstStep() const
 */
 size_t qt::Animation::lastStep() const
 {
-  if(!d_steps.empty())
+  if (!d_steps.empty())
     return *(--d_steps.end());
   else
     return d_last;
 }
 
-
-
 size_t qt::Animation::currentStep() const
 {
   return d_current;
 }
-
-
 
 /*!
   \return  The timer interval in msec.
@@ -326,8 +272,6 @@ size_t qt::Animation::interval() const
 {
   return d_interval;
 }
-
-
 
 /*!
   \return  Number of timesteps to process.
@@ -357,16 +301,13 @@ size_t qt::Animation::interval() const
 */
 size_t qt::Animation::nrSteps() const
 {
-  if(!d_steps.empty()) {
+  if (!d_steps.empty()) {
     return d_steps.size();
-  }
-  else {
+  } else {
     assert(d_last >= d_first);
     return 1 + ((d_last - d_first) / d_stepInterval);
   }
 }
-
-
 
 //! Returns the time span between the first and the last step.
 /*!
@@ -378,13 +319,11 @@ size_t qt::Animation::nrSteps() const
 */
 size_t qt::Animation::timeSpan() const
 {
-  if(!d_steps.empty())
+  if (!d_steps.empty())
     return *(--d_steps.end()) - *(d_steps.begin());
   else
     return d_last - d_first;
 }
-
-
 
 /*!
   \return  True if the animation is running right now.
@@ -393,8 +332,6 @@ bool qt::Animation::isRunning() const
 {
   return d_timer->isActive();
 }
-
-
 
 /*!
   This function gets called each time the timer times out. First it emits a
@@ -409,73 +346,62 @@ bool qt::Animation::isRunning() const
 */
 void qt::Animation::timedOut()
 {
-  Q_EMIT process(d_stepToProcess);       // Finished waiting for the current step.
+  Q_EMIT process(d_stepToProcess);  // Finished waiting for the current step.
 
   d_current = d_stepToProcess;
   d_stepToProcess = nextTimeStep();
 
-  if(d_stepToProcess == d_current) {
+  if (d_stepToProcess == d_current) {
     stop();
   }
 }
-
-
 
 void qt::Animation::setLoop(bool l)
 {
   d_loop = l;
 }
 
-
-
 bool qt::Animation::loop() const
 {
   return d_loop;
 }
 
-
-
 size_t qt::Animation::prevTimeStep() const
 {
   size_t t = 0;
 
-  if(!d_steps.empty()) {
+  if (!d_steps.empty()) {
 
     // Whe have a fixed set of steps.
     auto it = d_steps.find(d_current);
 
-    if(it != d_steps.begin()) {
+    if (it != d_steps.begin()) {
 
       // Another step to wait for.
       t = *(--it);
-    }
-    else {
+    } else {
 
-      if(d_loop) {
+      if (d_loop) {
         // Return to last step.
         t = *(--d_steps.end());
-      }
-      else {
+      } else {
         // Previous time step is the current time step.
         t = d_current;
       }
     }
-  }
-  else {
+  } else {
 
     // We have a range of steps.
-    if(d_current >= d_first + d_stepInterval) {
+    if (d_current >= d_first + d_stepInterval) {
 
       // Another step to wait for.
       t = d_current - d_stepInterval;
-    }
-    else {
+    } else {
 
-      if(d_loop) {
+      if (d_loop) {
         // Return to last step.
         t = d_last;
-      }
-      else {
+      } else {
         // Next time step is the current time step.
         t = d_current;
       }
@@ -484,51 +410,44 @@ size_t qt::Animation::prevTimeStep() const
 
   return t;
 }
-
-
 
 size_t qt::Animation::nextTimeStep() const
 {
   size_t t = 0;
 
-  if(!d_steps.empty()) {
+  if (!d_steps.empty()) {
 
     // We have a fixed set of steps.
     auto it = d_steps.find(d_current);
     assert(it != d_steps.end());
 
-    if(++it != d_steps.end()) {
+    if (++it != d_steps.end()) {
 
       // Another step to wait for.
       t = *it;
-    }
-    else {
+    } else {
 
-      if(d_loop) {
+      if (d_loop) {
         // Return to first step.
         t = *(d_steps.begin());
-      }
-      else {
+      } else {
         // Next time step is the current time step.
         t = d_current;
       }
     }
-  }
-  else {
+  } else {
 
     // We have a range of steps.
-    if(d_current + d_stepInterval <= d_last) {
+    if (d_current + d_stepInterval <= d_last) {
 
       // Another step to wait for.
       t = d_current + d_stepInterval;
-    }
-    else {
+    } else {
 
-      if(d_loop) {
+      if (d_loop) {
         // Return to first step.
         t = d_first;
-      }
-      else {
+      } else {
         // Next time step is the current time step.
         t = d_current;
       }
@@ -537,8 +456,6 @@ size_t qt::Animation::nextTimeStep() const
 
   return t;
 }
-
-
 
 //! Returns the existing time step equal or closest to \a step.
 /*!
@@ -554,16 +471,16 @@ size_t qt::Animation::closestStep(size_t step) const
 {
   step = std::clamp(step, firstStep(), lastStep());
 
-  if(d_steps.empty()) {
+  if (d_steps.empty()) {
     return step;
   }
 
-  if(d_steps.find(step) != d_steps.end()) {
+  if (d_steps.find(step) != d_steps.end()) {
     return step;
   }
 
   auto it = d_steps.begin();
-  while(*it < step) {
+  while (*it < step) {
     ++it;
   }
 
@@ -575,12 +492,9 @@ size_t qt::Animation::closestStep(size_t step) const
   return step - previous <= next - step ? previous : next;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -588,9 +502,6 @@ size_t qt::Animation::closestStep(size_t step) const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

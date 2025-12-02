@@ -6,12 +6,10 @@
 #include "mathx.h"
 #include "calc_modelbuilder.h"
 
-
 /*!
   \file
   This file contains the implementation of the ManualExampleTester class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -37,38 +35,34 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC MANUALEXAMPLETESTER MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF MANUALEXAMPLETESTER MEMBERS
 //------------------------------------------------------------------------------
 
-calc::ManualExampleTester::ManualExampleTester(const std::string& expr):
-   d_expr(expr),
-   d_clone("cloneNotSet_failureExpected.map")
+calc::ManualExampleTester::ManualExampleTester(const std::string &expr)
+    : d_expr(expr), d_clone("cloneNotSet_failureExpected.map")
 {
 }
 
-void calc::ManualExampleTester::addResult(const std::string& result)
+void calc::ManualExampleTester::addResult(const std::string &result)
 {
   d_result.push_back(result);
 }
 
-void calc::ManualExampleTester::addOption(const std::string& option)
+void calc::ManualExampleTester::addOption(const std::string &option)
 {
   d_option.push_back(option);
 }
 
-void calc::ManualExampleTester::setClone(const std::string& clone)
+void calc::ManualExampleTester::setClone(const std::string &clone)
 {
-  d_clone=clone;
+  d_clone = clone;
 }
-
 
 calc::ManualExampleTester::~ManualExampleTester()
 {
@@ -84,16 +78,16 @@ void calc::ManualExampleTester::test() const
   // simpel test for -M but needs areamap for each command :=(
   // mb.setMVCompression(true);
 
-  SetRan(1); // always the same seed
+  SetRan(1);  // always the same seed
 
   mb.setClone(d_clone);
 
-  for(const auto & i : d_option)
+  for (const auto &i : d_option)
     mb.setGlobalOption(i);
 
   std::string statement;
-  statement += com::join(d_result,",");
-  statement += "="+d_expr;
+  statement += com::join(d_result, ",");
+  statement += "=" + d_expr;
 
   // hack in old calc to skip tests new or changed functions
   if (statement.find("dynwave") != std::string::npos)
@@ -106,12 +100,12 @@ void calc::ManualExampleTester::test() const
     return;
 
 
-  mb.addStatement(statement,true);
+  mb.addStatement(statement, true);
 
   // remove results
   std::vector<geo::FileCreateTester> fct;
   fct.reserve(d_result.size());
-  for(const auto & i : d_result){
+  for (const auto &i : d_result) {
     fct.push_back(geo::FileCreateTester(i));
   }
 
@@ -119,16 +113,16 @@ void calc::ManualExampleTester::test() const
   mb.execute();
 
   // check results
-  for(size_t i=0; i<d_result.size(); ++i) {
+  for (size_t i = 0; i < d_result.size(); ++i) {
     com::PathName const now(d_result[i]);
     com::PathName validated(validatedDirectory());
-    validated+=now;
+    validated += now;
     validated.setExtension("map");
 
     try {
-      fct[i].equalTo(validated,true);
-    } catch (com::Exception& e) {
-      e.prepend("Expr: "+d_expr);
+      fct[i].equalTo(validated, true);
+    } catch (com::Exception &e) {
+      e.prepend("Expr: " + d_expr);
       throw e;
     }
   }
@@ -136,20 +130,14 @@ void calc::ManualExampleTester::test() const
 
 com::PathName calc::ManualExampleTester::validatedDirectory()
 {
-    return {"validated"};
+  return {"validated"};
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

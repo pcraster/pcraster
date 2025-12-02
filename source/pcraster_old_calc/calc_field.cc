@@ -3,13 +3,13 @@
 #include "calc_map2csf.h"
 #include <algorithm>
 
-namespace calc {
- template<> int ObjCount<Field>::numObjects(0);
- static ObjCounter<Field> fieldCounter("calc::Field");
-}
+namespace calc
+{
+template <> int ObjCount<Field>::numObjects(0);
+static ObjCounter<Field> fieldCounter("calc::Field");
+}  // namespace calc
 
-calc::Field::Field(VS vs):
-  d_vs(vs)
+calc::Field::Field(VS vs) : d_vs(vs)
 {
 }
 
@@ -17,7 +17,7 @@ calc::Field::~Field()
 {
 }
 
-VS calc::Field::vs()const
+VS calc::Field::vs() const
 {
   return d_vs;
 }
@@ -30,5 +30,5 @@ VS calc::Field::vs()const
 void calc::Field::resetVs(VS newVs)
 {
   PRECOND(biggestCellRepr(newVs) == biggestCellRepr(d_vs));
-  d_vs=newVs;
+  d_vs = newVs;
 }

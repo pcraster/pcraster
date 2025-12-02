@@ -5,13 +5,10 @@
 #include "lexgrammar.h"
 #include "calc_lexinput.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the ParserInput class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -37,60 +34,57 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC PARSERINPUT MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF PARSERINPUT MEMBERS
 //------------------------------------------------------------------------------
 
-calc::ParserInput::ParserInput(const com::PathName& scriptFile)
+calc::ParserInput::ParserInput(const com::PathName &scriptFile)
 {
- init();
- try {
-  d_lexInput    = new LexInput();
-  d_lexInput->installFileScript(scriptFile);
+  init();
+  try {
+    d_lexInput = new LexInput();
+    d_lexInput->installFileScript(scriptFile);
 
-  d_lexer       = new LexGrammar(*d_lexInput);
-  d_tokenBuffer = new ANTLRTokenBuffer(d_lexer);
- } catch(...) {
-   clean();
-   throw;
- }
+    d_lexer = new LexGrammar(*d_lexInput);
+    d_tokenBuffer = new ANTLRTokenBuffer(d_lexer);
+  } catch (...) {
+    clean();
+    throw;
+  }
 }
 
-calc::ParserInput::ParserInput(const std::string& script)
+calc::ParserInput::ParserInput(const std::string &script)
 {
- init();
- try {
-  d_lexInput    = new LexInput();
-  d_lexInput->installStringScript(script.c_str());
+  init();
+  try {
+    d_lexInput = new LexInput();
+    d_lexInput->installStringScript(script.c_str());
 
-  d_lexer       = new LexGrammar(*d_lexInput);
-  d_tokenBuffer = new ANTLRTokenBuffer(d_lexer);
- } catch(...) {
-   clean();
-   throw;
- }
+    d_lexer = new LexGrammar(*d_lexInput);
+    d_tokenBuffer = new ANTLRTokenBuffer(d_lexer);
+  } catch (...) {
+    clean();
+    throw;
+  }
 }
 
 //! initialize with existing lexInput
-calc::ParserInput::ParserInput(LexInput& lexInput)
+calc::ParserInput::ParserInput(LexInput &lexInput)
 {
- init();
- try {
-  d_lexer       = new LexGrammar(lexInput);
-  d_tokenBuffer = new ANTLRTokenBuffer(d_lexer);
- } catch(...) {
-   clean();
-   throw;
- }
+  init();
+  try {
+    d_lexer = new LexGrammar(lexInput);
+    d_tokenBuffer = new ANTLRTokenBuffer(d_lexer);
+  } catch (...) {
+    clean();
+    throw;
+  }
 }
-
 
 calc::ParserInput::~ParserInput()
 {
@@ -107,9 +101,9 @@ void calc::ParserInput::clean()
 
 void calc::ParserInput::init()
 {
-  d_tokenBuffer=nullptr;
-  d_lexer=nullptr;
-  d_lexInput=nullptr;
+  d_tokenBuffer = nullptr;
+  d_lexer = nullptr;
+  d_lexInput = nullptr;
 }
 
 ANTLRTokenBuffer *calc::ParserInput::tokenBuffer() const
@@ -122,10 +116,6 @@ ANTLRTokenBuffer *calc::ParserInput::tokenBuffer() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

@@ -4,13 +4,10 @@
 #include "calc_spatial.h"
 #include "calc_compressioninput.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the NullCompressor class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -20,33 +17,27 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF NULLCOMPRESSOR MEMBERS
 //------------------------------------------------------------------------------
 
-calc::NullCompressor::NullCompressor(const geo::RasterSpace& rs):
-  Compressor(rs)
+calc::NullCompressor::NullCompressor(const geo::RasterSpace &rs) : Compressor(rs)
 {
 }
-
-
 
 calc::NullCompressor::~NullCompressor()
 {
 }
 
-void calc::NullCompressor::decompress(
-    DecompressedData& d,
-    const void *decompressedData) const
+void calc::NullCompressor::decompress(DecompressedData &d, const void *decompressedData) const
 {
   d.setOriginalData(decompressedData);
 }
 
-calc::Spatial *calc::NullCompressor::createSpatial(CompressionInput& ci) const
+calc::Spatial *calc::NullCompressor::createSpatial(CompressionInput &ci) const
 {
   // decompressed is equal to compressed, just return the decompressed data
-  return new Spatial(ci.vs(),rasterSpace().nrCells(),ci.detachData());
+  return new Spatial(ci.vs(), rasterSpace().nrCells(), ci.detachData());
 }
 
 size_t calc::NullCompressor::toDecompressedIndex(size_t linIndexCompressed) const
@@ -64,10 +55,6 @@ size_t calc::NullCompressor::nrCellsCompressed() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

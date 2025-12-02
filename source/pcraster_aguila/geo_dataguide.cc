@@ -1,12 +1,9 @@
 #include "geo_dataguide.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the DataGuide class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -14,11 +11,9 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //! Default conststructor.
@@ -44,12 +39,10 @@
 */
 geo::DataGuide::DataGuide()
 
-  : d_index() 
+    : d_index()
 
 {
 }
-
-
 
 //! Constructor.
 /*!
@@ -58,21 +51,12 @@ geo::DataGuide::DataGuide()
   \param     type Data type.
   \param     valueScale Value scale.
 */
-geo::DataGuide::DataGuide(
-         size_t index,
-         const void* address,
-         DataType type,
-         CSF_VS valueScale)
+geo::DataGuide::DataGuide(size_t index, const void *address, DataType type, CSF_VS valueScale)
 
-  : d_index(new com::RCSize_t(index)),
-    d_address(address),
-    d_type(type),
-    d_valueScale(valueScale)
+    : d_index(new com::RCSize_t(index)), d_address(address), d_type(type), d_valueScale(valueScale)
 
 {
 }
-
-
 
 //! Destructor.
 /*!
@@ -82,21 +66,16 @@ geo::DataGuide::~DataGuide()
   // d_index is reference-counted and will be deleted automagically.
 }
 
-
-
 //! Sets the index to \a i.
 /*!
   \param     index New index.
   \warning   Be sure about what you are doing. Setting an index should only
              be done by code close to the actual collection of data.
 */
-void geo::DataGuide::setIndex(
-         size_t index)
+void geo::DataGuide::setIndex(size_t index)
 {
   d_index->setValue(index);
 }
-
-
 
 //! Returns the index.
 /*!
@@ -107,8 +86,6 @@ size_t geo::DataGuide::index() const
   return d_index->value();
 }
 
-
-
 //! Returns the address of the data.
 /*!
   \return    Address.
@@ -118,8 +95,6 @@ geo::DataGuide::Address geo::DataGuide::address() const
   return d_address;
 }
 
-
-
 //! Returns the data type.
 /*!
   \return    Data type.
@@ -128,8 +103,6 @@ geo::DataType geo::DataGuide::type() const
 {
   return d_type;
 }
-
-
 
 //! Returns the value scale.
 /*!
@@ -141,8 +114,6 @@ CSF_VS geo::DataGuide::valueScale() const
   return d_valueScale;
 }
 
-
-
 //! Returns true if the guide is related to range data.
 /*!
   \return    true or false.
@@ -153,22 +124,16 @@ bool geo::DataGuide::isRangeData() const
   return valueScale() == VS_SCALAR || valueScale() == VS_DIRECTION;
 }
 
-
-
 //! Returns if *this equals \a g.
 /*!
   \param     dataGuide Data guide to compare.
   \return    true if *this is equal to \a dataGuide.
 */
-bool geo::DataGuide::equals(
-         DataGuide const& dataGuide) const
+bool geo::DataGuide::equals(DataGuide const &dataGuide) const
 {
-  return d_index->value() == dataGuide.d_index->value() &&
-         d_address == dataGuide.d_address &&
+  return d_index->value() == dataGuide.d_index->value() && d_address == dataGuide.d_address &&
          d_type == dataGuide.d_type && d_valueScale == dataGuide.d_valueScale;
 }
-
-
 
 //! Returns if *this is a valid object.
 /*!
@@ -181,15 +146,12 @@ bool geo::DataGuide::equals(
 bool geo::DataGuide::isValid() const
 {
   return d_index && d_address && d_type != DT_INVALID;
-    /* && d_valueScale != VS_UNDEFINED; */
+  /* && d_valueScale != VS_UNDEFINED; */
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -202,12 +164,10 @@ bool geo::DataGuide::isValid() const
   \brief     Equality operator.
   \return    true if \a lhs equals \a rhs.
 */
-bool geo::operator==(const DataGuide& lhs, const DataGuide& rhs)
+bool geo::operator==(const DataGuide &lhs, const DataGuide &rhs)
 {
   return lhs.equals(rhs);
 }
-
-
 
 /*!
   \fn        bool geo::operator!=(const DataGuide& lhs, const DataGuide& rhs)
@@ -215,26 +175,19 @@ bool geo::operator==(const DataGuide& lhs, const DataGuide& rhs)
   \brief     Inequality operator.
   \return    true if \a lhs does not equal \a rhs.
 */
-bool geo::operator!=(const DataGuide& lhs, const DataGuide& rhs)
+bool geo::operator!=(const DataGuide &lhs, const DataGuide &rhs)
 {
   return !lhs.equals(rhs);
 }
 
-
-
-bool geo::operator<(
-         DataGuide const& lhs,
-         DataGuide const& rhs)
+bool geo::operator<(DataGuide const &lhs, DataGuide const &rhs)
 {
   return lhs.address() < rhs.address();
 }
 
-
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -242,9 +195,6 @@ bool geo::operator<(
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

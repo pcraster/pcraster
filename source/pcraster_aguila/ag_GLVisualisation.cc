@@ -16,12 +16,10 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the GLVisualisation class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -135,24 +133,19 @@ void *CustomContext::chooseMacVisual(GDHandle gdev)
 */
 
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC GLVISUALISATION MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF GLVISUALISATION MEMBERS
 //------------------------------------------------------------------------------
 
-ag::GLVisualisation::GLVisualisation(DataObject* object,
-         const std::string& visualisationName,
-         QWidget* parent)
+ag::GLVisualisation::GLVisualisation(DataObject *object, const std::string &visualisationName,
+                                     QWidget *parent)
 
-  : SceneView(parent),
-    IVisualisation(object, visualisationName)
+    : SceneView(parent), IVisualisation(object, visualisationName)
 
 {
   // Is opengl installed?
@@ -172,30 +165,20 @@ ag::GLVisualisation::GLVisualisation(DataObject* object,
   assert(isValid());
 }
 
-
-
 ag::GLVisualisation::~GLVisualisation()
 {
 }
-
-
 
 bool ag::GLVisualisation::close()
 {
   return SceneView::close();
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

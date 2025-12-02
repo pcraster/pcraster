@@ -1,7 +1,5 @@
 #include "qt_AnimationProgBar.h"
 
-
-
 /*!
   \file
   brief
@@ -10,49 +8,40 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 
-qt::AnimationProgBar::AnimationProgBar(QWidget* p)
+qt::AnimationProgBar::AnimationProgBar(QWidget *p)
 
-  : QProgressBar(p)
+    : QProgressBar(p)
 
 {
 }
-
-
 
 qt::AnimationProgBar::~AnimationProgBar()
 {
 }
 
-
-
-bool qt::AnimationProgBar::setIndicator(QString& label, int progress,
-                   int /* totalSteps */)
+bool qt::AnimationProgBar::setIndicator(QString &label, int progress, int /* totalSteps */)
 {
-  if(progress < 0) {
+  if (progress < 0) {
     d_label.setNum(d_firstStep);
-  }
-  else {
+  } else {
     d_label.setNum(d_firstStep + progress - 1);
   }
 
   bool status = false;
 
-  if(d_label == label) {
+  if (d_label == label) {
     status = false;
-  }
-  else {
+  } else {
     label = d_label;
     status = true;
   }
@@ -60,25 +49,19 @@ bool qt::AnimationProgBar::setIndicator(QString& label, int progress,
   return status;
 }
 
-
-
 void qt::AnimationProgBar::setFirstStep(size_t t)
 {
   d_firstStep = t;
 }
 
-
-
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -86,15 +69,11 @@ void qt::AnimationProgBar::setFirstStep(size_t t)
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

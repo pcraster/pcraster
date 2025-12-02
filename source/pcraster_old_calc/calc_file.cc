@@ -2,16 +2,16 @@
 #include "calc_file.h"
 #include "com_pathinfo.h"
 
-bool calc::File::d_testCaseTypeOnExistingName=false;
+bool calc::File::d_testCaseTypeOnExistingName = false;
 
 //! check if output name is valid
 /*! \exception com::OpenFileError with description of problem
  */
 void calc::File::validateOutputName() const
 {
-   com::PathInfo const pi(d_name);
-   pi.testValidName();
-   pi.testOpenForWriting();
+  com::PathInfo const pi(d_name);
+  pi.testValidName();
+  pi.testOpenForWriting();
 }
 
 //! check if name is valid, and the file exists
@@ -22,9 +22,9 @@ void calc::File::validateOutputName() const
  */
 void calc::File::validateExisting() const
 {
-   com::PathInfo const pi(d_name);
-   if (d_testCaseTypeOnExistingName)
-      pi.testCaseSensitiveName();
-   else
-      pi.testOpenForReading();
+  com::PathInfo const pi(d_name);
+  if (d_testCaseTypeOnExistingName)
+    pi.testCaseSensitiveName();
+  else
+    pi.testOpenForReading();
 }

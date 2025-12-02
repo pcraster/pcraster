@@ -6,11 +6,10 @@
 #include "calc_rundirectory.h"
 #include "calc_stackreader.h"
 
-
 // BOOST_AUTO_TEST_CASE(get_stack_reader_default)
 // {
 //   using namespace calc;
-// 
+//
 //  {
 //   IoCsfFieldStrategy s;
 //   RunDirectory rd;
@@ -22,7 +21,7 @@
 //   BOOST_CHECK(sr->stackName() == stackName);
 //   delete sr;
 //  }
-// 
+//
 //  {
 //   IoCsfFieldStrategy s;
 //   RunDirectory rd;
@@ -46,19 +45,19 @@ BOOST_AUTO_TEST_CASE(get_stack_reader_path)
   RunDirectory rd;
   com::PathName path("stackReader");
 
-  rd.setRunDirectory(path.toString(),"");
+  rd.setRunDirectory(path.toString(), "");
   path.makeAbsolute();
   std::string const stackName("tmp");
-  const StackReader *sr = s.createStackReader(rd,stackName);
+  const StackReader *sr = s.createStackReader(rd, stackName);
   std::string const item1("tmp00000.001");
-  com::PathName const result(path+item1);
-  BOOST_CHECK(s.makeStackItemName(stackName,1) == item1);
+  com::PathName const result(path + item1);
+  BOOST_CHECK(s.makeStackItemName(stackName, 1) == item1);
 //PRINT_VAR(sr->itemName(1))
 //PRINT_VAR(result.toString());
 #ifdef WIN32
-  bool onWin32=true;
-  BOOST_WARN( (onWin32 && sr->itemName(1) == result.toString()));
-  BOOST_CHECK( (onWin32 && sr->stackName() == (path+stackName)) );
+  bool onWin32 = true;
+  BOOST_WARN((onWin32 && sr->itemName(1) == result.toString()));
+  BOOST_CHECK((onWin32 && sr->stackName() == (path + stackName)));
 #endif
 
   delete sr;

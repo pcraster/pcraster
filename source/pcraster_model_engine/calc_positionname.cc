@@ -4,7 +4,6 @@
 
 #include <utility>
 
-
 /*!
   \file
   This file contains the implementation of the PositionName class.
@@ -16,31 +15,23 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF POSITIONNAME MEMBERS
 //------------------------------------------------------------------------------
 
-calc::PositionName::PositionName():
-  d_name(new std::string(""))
+calc::PositionName::PositionName() : d_name(new std::string(""))
 {
 }
 
-calc::PositionName::PositionName(
-    StringSharedPtr name):
-  d_name(std::move(name))
+calc::PositionName::PositionName(StringSharedPtr name) : d_name(std::move(name))
 {
 }
 
-calc::PositionName::PositionName(
-    const std::string& name):
-  d_name(new std::string(name))
+calc::PositionName::PositionName(const std::string &name) : d_name(new std::string(name))
 {
 }
 
-calc::PositionName::PositionName(const PositionName& pt):
- Position(pt),
- d_name(pt.d_name)
+calc::PositionName::PositionName(const PositionName &pt) : Position(pt), d_name(pt.d_name)
 {
 }
 
@@ -52,12 +43,12 @@ calc::PositionName::~PositionName()
 /*!
    \throws calc::PosException
  */
-void calc::PositionName::throwError(const std::string& msg) const
+void calc::PositionName::throwError(const std::string &msg) const
 {
-  throw PosException(*d_name,msg,false);
+  throw PosException(*d_name, msg, false);
 }
 
-calc::PositionName*  calc::PositionName::createClone() const
+calc::PositionName *calc::PositionName::createClone() const
 {
   return new PositionName(*this);
 }
@@ -74,16 +65,11 @@ std::string calc::PositionName::shortText() const
   return fullText();
 }
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

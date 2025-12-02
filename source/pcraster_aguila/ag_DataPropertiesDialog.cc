@@ -17,27 +17,24 @@
 #include "ag_GeneralDataPropertiesWidget.h"
 #include "ag_RangeDrawPropertiesWidget.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the DataPropertiesDialog class.
 */
 
 
-
 //------------------------------------------------------------------------------
 
-namespace ag {
+namespace ag
+{
 
 class DataPropertiesDialogPrivate
 {
 public:
+  DataGuide d_dataGuide;  // Guide to data to edit.
 
-  DataGuide        d_dataGuide;        // Guide to data to edit.
-
-  GeneralDataPropertiesWidget* d_generalProperties{nullptr};
-  DrawPropertiesWidget* d_drawProperties{nullptr};
+  GeneralDataPropertiesWidget *d_generalProperties{nullptr};
+  DrawPropertiesWidget *d_drawProperties{nullptr};
 
   DataPropertiesDialogPrivate()
 
@@ -47,29 +44,22 @@ public:
   ~DataPropertiesDialogPrivate()
   {
   }
-
 };
 
-} // namespace ag
-
-
+}  // namespace ag
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC DATAPROPERTIESEDITOR MEMBERS
 //------------------------------------------------------------------------------
 
-ag::DataPropertiesDialog* ag::DataPropertiesDialog::instance(
-         DataObject* object,
-         DataGuide const& guide)
+ag::DataPropertiesDialog *ag::DataPropertiesDialog::instance(DataObject *object, DataGuide const &guide)
 {
-  DataPropertiesDialog* dialog =
-         VisualisationDialog<DataGuide, DataPropertiesDialog>::instance(
-         object, guide);
+  DataPropertiesDialog *dialog =
+      VisualisationDialog<DataGuide, DataPropertiesDialog>::instance(object, guide);
 
-  if(dialog) {
+  if (dialog) {
     dialog->raise();
-  }
-  else {
+  } else {
     // Create and add instance.
     dialog = new DataPropertiesDialog(object, guide);
     addInstance(object, guide, dialog);
@@ -80,19 +70,14 @@ ag::DataPropertiesDialog* ag::DataPropertiesDialog::instance(
   return dialog;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF DATAPROPERTIESEDITOR MEMBERS
 //------------------------------------------------------------------------------
 
-ag::DataPropertiesDialog::DataPropertiesDialog(
-         DataObject* object,
-         DataGuide const& dataGuide)
+ag::DataPropertiesDialog::DataPropertiesDialog(DataObject *object, DataGuide const &dataGuide)
 
-  : VisualisationDialog<DataGuide, DataPropertiesDialog>(
-         object, "Data Properties Dialog"),
-    d_data(new DataPropertiesDialogPrivate())
+    : VisualisationDialog<DataGuide, DataPropertiesDialog>(object, "Data Properties Dialog"),
+      d_data(new DataPropertiesDialogPrivate())
 
 {
   assert(object->isValid(dataGuide));
@@ -102,13 +87,9 @@ ag::DataPropertiesDialog::DataPropertiesDialog(
   createInterface();
 }
 
-
-
 ag::DataPropertiesDialog::~DataPropertiesDialog()
 {
 }
-
-
 
 //!
 /*!
@@ -126,28 +107,24 @@ void ag::DataPropertiesDialog::createInterface()
   QBoxLayout *box = nullptr;
   QBoxLayout *top = nullptr;
 
-  auto* widget = new QWidget(this);
+  auto *widget = new QWidget(this);
   top = new QVBoxLayout(widget);
 
-  auto* tabWidget = new QTabWidget(widget);
+  auto *tabWidget = new QTabWidget(widget);
   top->addWidget(tabWidget);
 
-  d_data->d_generalProperties = new GeneralDataPropertiesWidget(
-                   dataObject(), d_data->d_dataGuide, tabWidget);
+  d_data->d_generalProperties =
+      new GeneralDataPropertiesWidget(dataObject(), d_data->d_dataGuide, tabWidget);
 
-  if(d_data->d_dataGuide.valueScale() == VS_BOOLEAN ||
-     d_data->d_dataGuide.valueScale() == VS_NOMINAL ||
-     d_data->d_dataGuide.valueScale() == VS_ORDINAL ||
-     d_data->d_dataGuide.valueScale() == VS_LDD) {
-    d_data->d_drawProperties = new ClassDrawPropertiesWidget(dataObject(),
-         d_data->d_dataGuide, tabWidget);
-  }
-  else if(d_data->d_dataGuide.valueScale() == VS_SCALAR ||
-          d_data->d_dataGuide.valueScale() == VS_DIRECTION) {
-    d_data->d_drawProperties = new RangeDrawPropertiesWidget(dataObject(),
-         d_data->d_dataGuide, tabWidget);
-  }
-  else {
+  if (d_data->d_dataGuide.valueScale() == VS_BOOLEAN || d_data->d_dataGuide.valueScale() == VS_NOMINAL ||
+      d_data->d_dataGuide.valueScale() == VS_ORDINAL || d_data->d_dataGuide.valueScale() == VS_LDD) {
+    d_data->d_drawProperties =
+        new ClassDrawPropertiesWidget(dataObject(), d_data->d_dataGuide, tabWidget);
+  } else if (d_data->d_dataGuide.valueScale() == VS_SCALAR ||
+             d_data->d_dataGuide.valueScale() == VS_DIRECTION) {
+    d_data->d_drawProperties =
+        new RangeDrawPropertiesWidget(dataObject(), d_data->d_dataGuide, tabWidget);
+  } else {
     assert(false);
   }
 
@@ -158,15 +135,15 @@ void ag::DataPropertiesDialog::createInterface()
   // Create and layout the buttons.
   //----------------------------------------------------------------------------
 
-  QPushButton* ok = nullptr;
+  QPushButton *ok = nullptr;
   ok = new QPushButton("OK", widget);
   ok->setFixedSize(qt::BUTTONWIDTH, qt::BUTTONHEIGHT);
 
-  QPushButton* cancel = nullptr;
+  QPushButton *cancel = nullptr;
   cancel = new QPushButton("Cancel", widget);
   cancel->setFixedSize(qt::BUTTONWIDTH, qt::BUTTONHEIGHT);
 
-  QPushButton* apply = nullptr;
+  QPushButton *apply = nullptr;
   apply = new QPushButton("Apply", widget);
   apply->setDefault(true);
   apply->setFixedSize(qt::BUTTONWIDTH, qt::BUTTONHEIGHT);
@@ -191,8 +168,6 @@ void ag::DataPropertiesDialog::createInterface()
   connect(apply, SIGNAL(clicked()), SLOT(apply()));
 }
 
-
-
 void ag::DataPropertiesDialog::rescan()
 {
   // VisualisationWindow::rescan();
@@ -200,22 +175,16 @@ void ag::DataPropertiesDialog::rescan()
   d_data->d_drawProperties->rescan();
 }
 
-
-
 void ag::DataPropertiesDialog::accept()
 {
   apply();
   done(0);
 }
 
-
-
 void ag::DataPropertiesDialog::reject()
 {
   done(0);
 }
-
-
 
 void ag::DataPropertiesDialog::apply()
 {
@@ -223,17 +192,11 @@ void ag::DataPropertiesDialog::apply()
   d_data->d_drawProperties->apply();
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

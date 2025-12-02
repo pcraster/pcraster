@@ -14,48 +14,40 @@
 #include "ag_PlotView.h"
 #include "ag_VisEngine.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the TimePlot class.
 */
 
 
-namespace ag {
+namespace ag
+{
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC TIMEPLOT MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF TIMEPLOT MEMBERS
 //------------------------------------------------------------------------------
 
-TimePlot::TimePlot(
-         DataObject* object,
-         QWidget* parent)
+TimePlot::TimePlot(DataObject *object, QWidget *parent)
 
-  : Visualisation<>(object, "Time plot", parent) 
+    : Visualisation<>(object, "Time plot", parent)
 
 {
   createInterface(object);
 }
 
-
-
 TimePlot::~TimePlot()
 {
 }
 
-
-
-void TimePlot::createInterface(DataObject* object)
+void TimePlot::createInterface(DataObject *object)
 {
   _splitter = new QSplitter(Qt::Horizontal, this);
-  auto* layout = new QVBoxLayout(this);
+  auto *layout = new QVBoxLayout(this);
   layout->addWidget(_splitter);
 
   _legendView = new LegendView(object, VT_Graph, _splitter);
@@ -72,37 +64,28 @@ void TimePlot::createInterface(DataObject* object)
   _splitter->setSizes(sizes);
 }
 
-
-
-void TimePlot::addAttribute(const DataGuide& dataGuide)
+void TimePlot::addAttribute(const DataGuide &dataGuide)
 {
   _plotView->addAttribute(dataGuide);
   _legendView->addAttribute(dataGuide);
 }
-
-
 
 QSize TimePlot::sizeHint() const
 {
   return {500, 300};
 }
 
-
-
-void TimePlot::saveAsPNG(
-         std::filesystem::path const& path) const
+void TimePlot::saveAsPNG(std::filesystem::path const &path) const
 {
   QPixmap const pixmap(_plotView->pixmap());
-  if(pixmap.isNull()) {
+  if (pixmap.isNull()) {
     throw com::FileError(path.string(), "Error while saving");
   }
 
-  if(!pixmap.save(QString(path.string().c_str()), "PNG")) {
+  if (!pixmap.save(QString(path.string().c_str()), "PNG")) {
     throw com::FileError(path.string(), "Error while saving");
   }
 }
-
-
 
 // void TimePlot::saveAsEPS(
 //          com::PathName const& filename) const
@@ -115,21 +98,17 @@ void TimePlot::saveAsPNG(
 // }
 
 
-
 void TimePlot::rescan()
 {
   visualisationEngine().rescan(dataObject());
 }
 
-
-
 void TimePlot::process()
 {
-  if(visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
-    if(!dataObject().backgroundColour().isValid()) {
+  if (visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+    if (!dataObject().backgroundColour().isValid()) {
       setPalette(QPalette());
-    }
-    else {
+    } else {
       QPalette palette;
       palette.setColor(backgroundRole(), dataObject().backgroundColour());
       setPalette(palette);
@@ -137,29 +116,23 @@ void TimePlot::process()
   }
 }
 
-
-
 void TimePlot::visualise()
 {
   // Done scanning, update stuff if needed.
-  if(visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+  if (visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
     _splitter->update();
   }
 
   visualisationEngine().finishedScanning(dataObject());
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace ag
-
+}  // namespace ag

@@ -8,7 +8,6 @@
 #include "calc_compressioninput.h"
 
 
-
 /*!
   \file
   This file contains the implementation of the GlobResult class.
@@ -29,42 +28,36 @@ extern template int calc::ObjCount<calc::ApiMap>::numObjects;
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF GLOBRESULT MEMBERS
 //------------------------------------------------------------------------------
 
-calc::GlobResult::GlobResult(
-    VS interfaceVs,
-    VS concreteVs,
-    const Compressor& c):
-         d_concreteVs(concreteVs),
-         d_compressor(c)
+calc::GlobResult::GlobResult(VS interfaceVs, VS concreteVs, const Compressor &c)
+    : d_concreteVs(concreteVs), d_compressor(c)
 {
- CSF_CR const inCr = biggestCellRepr(d_concreteVs);
+  CSF_CR const inCr = biggestCellRepr(d_concreteVs);
   // create the API_MAP with new allocated data
- switch(biggestCellRepr(interfaceVs)) {
-  case CR_REAL4:
-   d_apiMap = new ApiMapREAL8(d_compressor.rasterSpace(),inCr);
-   break;
-  case CR_INT4:
-   d_apiMap = new  ApiMapINT4(d_compressor.rasterSpace(),inCr);
-   break;
-  case CR_UINT1:
-   d_apiMap = new ApiMapUINT1(d_compressor.rasterSpace(),inCr);
-   break;
-  default : POSTCOND(false); // NEVER
- }
+  switch (biggestCellRepr(interfaceVs)) {
+    case CR_REAL4:
+      d_apiMap = new ApiMapREAL8(d_compressor.rasterSpace(), inCr);
+      break;
+    case CR_INT4:
+      d_apiMap = new ApiMapINT4(d_compressor.rasterSpace(), inCr);
+      break;
+    case CR_UINT1:
+      d_apiMap = new ApiMapUINT1(d_compressor.rasterSpace(), inCr);
+      break;
+    default:
+      POSTCOND(false);  // NEVER
+  }
 }
-
-
 
 calc::GlobResult::~GlobResult()
 {
   delete d_apiMap;
 }
 
-void * calc::GlobResult::MAPinterface() const
+void *calc::GlobResult::MAPinterface() const
 {
   return d_apiMap->getCPointer();
 }
@@ -78,7 +71,6 @@ calc::FieldHandle calc::GlobResult::createField() const
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

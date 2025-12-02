@@ -5,7 +5,6 @@
 
 #include <utility>
 
-
 /*!
   \file
   This file contains the implementation of the PositionName class.
@@ -17,20 +16,15 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF POSITIONNAME MEMBERS
 //------------------------------------------------------------------------------
 
-calc::PositionName::PositionName(
-    StringSharedPtr name):
-  d_name(std::move(name))
+calc::PositionName::PositionName(StringSharedPtr name) : d_name(std::move(name))
 {
 }
 
-calc::PositionName::PositionName(const PositionName& pt):
- Position(pt),
- d_name(pt.d_name)
+calc::PositionName::PositionName(const PositionName &pt) : Position(pt), d_name(pt.d_name)
 {
 }
 
@@ -42,17 +36,17 @@ calc::PositionName::~PositionName()
 /*!
    \throws calc::PosException
  */
-void calc::PositionName::throwError(const std::string& inMsg) const
+void calc::PositionName::throwError(const std::string &inMsg) const
 {
   // clean up and make sure it ends with a new line
   std::string msg(inMsg);
   com::removeFrontEndSpace(msg);
-  msg+='\n';
+  msg += '\n';
 
-  throw PosException(*d_name+": "+msg);
+  throw PosException(*d_name + ": " + msg);
 }
 
-calc::PositionName*  calc::PositionName::createClone() const
+calc::PositionName *calc::PositionName::createClone() const
 {
   return new PositionName(*this);
 }
@@ -63,16 +57,11 @@ std::string calc::PositionName::text() const
   return *d_name;
 }
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

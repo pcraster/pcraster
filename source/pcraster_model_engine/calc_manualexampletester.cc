@@ -13,7 +13,6 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
 /*
@@ -37,24 +36,20 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC MANUALEXAMPLETESTER MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF MANUALEXAMPLETESTER MEMBERS
 //------------------------------------------------------------------------------
 
-calc::ManualExampleTester::ManualExampleTester(
-  const std::string& script):
-   d_script(script)
+calc::ManualExampleTester::ManualExampleTester(const std::string &script) : d_script(script)
 {
 }
 
-void calc::ManualExampleTester::addResult(const std::string& result)
+void calc::ManualExampleTester::addResult(const std::string &result)
 {
   d_result.push_back(result);
 }
@@ -69,55 +64,49 @@ calc::ManualExampleTester::~ManualExampleTester()
  */
 void calc::ManualExampleTester::test() const
 {
- try {
+  try {
 
-  ModelBuilder mb;
-  mb.setModel(d_script);
+    ModelBuilder mb;
+    mb.setModel(d_script);
 
-  // first remove results ----------------------------------------------------------------
-  std::vector<geo::FileCreateTester> fct;
-  fct.reserve(d_result.size());
-  for(const auto & i : d_result){
-    fct.push_back(geo::FileCreateTester(i));
+    // first remove results ----------------------------------------------------------------
+    std::vector<geo::FileCreateTester> fct;
+    fct.reserve(d_result.size());
+    for (const auto &i : d_result) {
+      fct.push_back(geo::FileCreateTester(i));
+    }
+
+    // create results ----------------------------------------------------------------------
+    mb.execute();
+
+    // check results -------------------------------------------------------------------------
+
+    for (size_t i = 0; i < d_result.size(); ++i) {
+      com::PathName const now(d_result[i]);
+      com::PathName validated(validatedDirectory());
+      validated += now;
+      fct[i].equalTo(validated, true);
+    }
+  } catch (com::Exception &e) {
+    e.prepend("Expr: " + d_script);
+    throw e;
+  } catch (...) {
+    com::Exception e("Unknown exception");
+    e.prepend("Expr: " + d_script);
+    throw e;
   }
-
-  // create results ----------------------------------------------------------------------
-  mb.execute();
-
-  // check results -------------------------------------------------------------------------
-
-  for(size_t i=0; i<d_result.size(); ++i) {
-    com::PathName const now(d_result[i]);
-    com::PathName validated(validatedDirectory());
-    validated+=now;
-    fct[i].equalTo(validated,true);
-  }
- } catch (com::Exception& e) {
-   e.prepend("Expr: "+d_script);
-   throw e;
- } catch(...) {
-   com::Exception e("Unknown exception");
-   e.prepend("Expr: "+d_script);
-   throw e;
- }
 }
 
 com::PathName calc::ManualExampleTester::validatedDirectory()
 {
-    return {"validated"};
+  return {"validated"};
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

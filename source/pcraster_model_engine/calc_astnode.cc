@@ -11,7 +11,6 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
 /*
@@ -35,40 +34,34 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC ASTNODE MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF ASTNODE MEMBERS
 //------------------------------------------------------------------------------
 
-calc::ASTNode::ASTNode():
-  d_pos(new PositionName())
+calc::ASTNode::ASTNode() : d_pos(new PositionName())
 {
 }
 
-calc::ASTNode::ASTNode(const Position* pos):
-  d_pos(nullptr)
+calc::ASTNode::ASTNode(const Position *pos) : d_pos(nullptr)
 {
   setPosition(pos);
 }
 
-calc::ASTNode::ASTNode(const ASTNode& n):
-  d_pos(nullptr),
-  d_returnDataType(n.d_returnDataType)
+calc::ASTNode::ASTNode(const ASTNode &n) : d_pos(nullptr), d_returnDataType(n.d_returnDataType)
 {
   setPosition(n.d_pos);
 }
 
-calc::ASTNode&  calc::ASTNode::operator=(const ASTNode& n)
+calc::ASTNode &calc::ASTNode::operator=(const ASTNode &n)
 {
   if (&n != this) {
     setPosition(n.d_pos);
-    d_returnDataType=n.d_returnDataType;
+    d_returnDataType = n.d_returnDataType;
   }
   return *this;
 }
@@ -78,19 +71,17 @@ calc::ASTNode::~ASTNode()
   delete d_pos;
 }
 
-void calc::ASTNode::setPosition(const Position* p)
+void calc::ASTNode::setPosition(const Position *p)
 {
   delete d_pos;
   PRECOND(p);
-  d_pos=p->createClone();
+  d_pos = p->createClone();
 }
 
 //! as Pos::posError() with timestep info added
-void calc::ASTNode::runtimeError(
-  size_t   timeStep,
-  const std::string& msg) const
+void calc::ASTNode::runtimeError(size_t timeStep, const std::string &msg) const
 {
-  posError(runtimeErrorFmt(timeStep,msg));
+  posError(runtimeErrorFmt(timeStep, msg));
 }
 
 //! textual description of its position
@@ -105,12 +96,12 @@ const calc::Position *calc::ASTNode::position() const
   return d_pos;
 }
 
-void calc::ASTNode::posError(const std::string& msg) const
+void calc::ASTNode::posError(const std::string &msg) const
 {
   d_pos->throwError(msg);
 }
 
-void calc::ASTNode::posError(const std::ostringstream& msg) const
+void calc::ASTNode::posError(const std::ostringstream &msg) const
 {
   posError(msg.str());
 }
@@ -132,13 +123,13 @@ void calc::ASTNode::setNrReturns(size_t n)
   d_returnDataType.resize(n);
 }
 
-calc::DataType& calc::ASTNode::returnDataType(size_t i)
+calc::DataType &calc::ASTNode::returnDataType(size_t i)
 {
   PRECOND(i < d_returnDataType.size());
   return d_returnDataType[i];
 }
 
-const calc::DataType& calc::ASTNode::returnDataType(size_t i) const
+const calc::DataType &calc::ASTNode::returnDataType(size_t i) const
 {
   PRECOND(i < d_returnDataType.size());
   return d_returnDataType[i];
@@ -149,15 +140,12 @@ const calc::DataType& calc::ASTNode::returnDataType(size_t i) const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 //! return RUNTIME, time identification and msg
-std::string calc::runtimeErrorFmt(
-  size_t   timeStep,
-  const std::string& msg)
+std::string calc::runtimeErrorFmt(size_t timeStep, const std::string &msg)
 {
   std::ostringstream m;
   m << "\n" << "RUNTIME";

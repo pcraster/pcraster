@@ -13,144 +13,149 @@
 #include <iostream>
 #include <map>
 
-
 /*!
   \file
   This file contains the implementation of the MessagesTestDB class.
 */
 
 
-
 //------------------------------------------------------------------------------
 
-namespace calc {
+namespace calc
+{
 
 std::unique_ptr<MessagesTestDB> MessagesTestDB::d_instance;
 
-namespace detail {
-  struct AddError {
-    std::string reason;
-    std::string text;
-  };
+namespace detail
+{
+struct AddError {
+  std::string reason;
+  std::string text;
+};
 
-  class DBCol
+class DBCol
+{
+  const std::string d_name;
+
+public:
+  DBCol(const std::string &name) : d_name(name)
   {
-    const std::string d_name;
-   public:
-    DBCol(const std::string& name):
-       d_name(name) {}
-    const std::string& name() const {
-      return d_name;
-    }
+  }
 
-    std::string toString(const std::string& id,const QDomElement& e) const {
+  const std::string &name() const
+  {
+    return d_name;
+  }
+
+  std::string toString(const std::string &id, const QDomElement &e) const
+  {
 #ifdef WIN32
-      // Somehow Qt(?!) adds an additional CR in multiline elements
-      std::string s=std::string(pcrxml::textOnlyContents(e).toLatin1().replace("\r", ""));
+    // Somehow Qt(?!) adds an additional CR in multiline elements
+    std::string s = std::string(pcrxml::textOnlyContents(e).toLatin1().replace("\r", ""));
 #else
-      std::string s=std::string(pcrxml::textOnlyContents(e).toLatin1());
+    std::string s = std::string(pcrxml::textOnlyContents(e).toLatin1());
 #endif
-      com::removeFrontEndSpace(s);
-      if(s.empty()) {
-       detail::AddError ae;ae.reason="EMPTY id:"+id;
-       ae.text=s;
-       throw ae;
-      }
-      return s;
+    com::removeFrontEndSpace(s);
+    if (s.empty()) {
+      detail::AddError ae;
+      ae.reason = "EMPTY id:" + id;
+      ae.text = s;
+      throw ae;
     }
-  };
-}
+    return s;
+  }
+};
+}  // namespace detail
 
-class MessagesTestDBPrivate:
-  //                       id,test
-  public std::map<std::string,QDomElement>
+class MessagesTestDBPrivate :
+    //                       id,test
+    public std::map<std::string, QDomElement>
 {
   detail::DBCol d_dbMsg;
   detail::DBCol d_dbModel;
   detail::DBCol d_dbAst;
 
-  QDomElement   d_root;
+  QDomElement d_root;
 
 
   mutable std::ostringstream d_dump;
 
-  void writeDump(const std::string& id, const std::string& reason) const
+  void writeDump(const std::string &id, const std::string &reason) const
   {
-    d_dump << "id: " << id  << " " << reason << '\n';
+    d_dump << "id: " << id << " " << reason << '\n';
 
     // write into dumpmsg.txt
-    com::write(d_dump.str(),"dumpmsg.txt");
+    com::write(d_dump.str(), "dumpmsg.txt");
     d_dump.clear();
 
     std::cerr << "./dumpmsg.txt:1:1:" << reason << '\n';
   }
 
- // std::vector<QDomElement> c(pcrxml::childElements(e));
- // PRECOND(c.size()==1);
+  // std::vector<QDomElement> c(pcrxml::childElements(e));
+  // PRECOND(c.size()==1);
 
-  void addTest(const std::string& id,const QDomElement& e) {
-    PRECOND(e.tagName()=="test");
-    std::string const idS=attrStr(e,"id");
+  void addTest(const std::string &id, const QDomElement &e)
+  {
+    PRECOND(e.tagName() == "test");
+    std::string const idS = attrStr(e, "id");
     PRECOND(!idS.empty());
 
-    auto notYetPresent=find(id);
-    if(notYetPresent != end()) {
-       detail::AddError ae;
-       ae.reason="DUPLICATE";ae.text=id;
-       throw ae;
+    auto notYetPresent = find(id);
+    if (notYetPresent != end()) {
+      detail::AddError ae;
+      ae.reason = "DUPLICATE";
+      ae.text = id;
+      throw ae;
     }
-    insert(std::make_pair(id,e));
+    insert(std::make_pair(id, e));
   }
 
-  static void writeResFile(
-      const std::string& id,
-      const std::string& result) {
+  static void writeResFile(const std::string &id, const std::string &result)
+  {
     com::PathName pn(id);
     std::string contents(result);
     if (contents.size()) {
       // reading in trims last end-of-line needed
-      if (contents[contents.size()-1] != '\n')
-       contents+="\n";
+      if (contents[contents.size() - 1] != '\n')
+        contents += "\n";
     }
     pn.setExtension("res");
-    com::write(contents,pn);
+    com::write(contents, pn);
   }
 
 public:
-  void operator()(const QDomElement& e) {
+  void operator()(const QDomElement &e)
+  {
     if (e.tagName() != "test")
-      return; // skip makefile
-    std::string const id=attrStr(e,"id");
+      return;  // skip makefile
+    std::string const id = attrStr(e, "id");
     PRECOND(!id.empty());
 
 
     try {
-     std::vector<QDomElement> const c(pcrxml::childElements(e));
-     addTest(id, e);
-     // check non-emptyness now
-     for(auto & i : c) {
-      if (i.tagName() == QString(d_dbMsg.name().c_str())) {
-        std::string const result=d_dbMsg.toString(id,i);
-        if (i.hasAttribute("resFile"))
-          writeResFile(id,result);
+      std::vector<QDomElement> const c(pcrxml::childElements(e));
+      addTest(id, e);
+      // check non-emptyness now
+      for (auto &i : c) {
+        if (i.tagName() == QString(d_dbMsg.name().c_str())) {
+          std::string const result = d_dbMsg.toString(id, i);
+          if (i.hasAttribute("resFile"))
+            writeResFile(id, result);
+        }
+        if (i.tagName() == QString(d_dbModel.name().c_str()))
+          (void)d_dbModel.toString(id, i);
       }
-      if (i.tagName() == QString(d_dbModel.name().c_str()))
-        (void)d_dbModel.toString(id,i);
-     }
-    } catch (const detail::AddError& r) {
-       d_dump << "messagestest.xml: " << r.text << "\n";
-       writeDump(id,r.reason);
-      }
+    } catch (const detail::AddError &r) {
+      d_dump << "messagestest.xml: " << r.text << "\n";
+      writeDump(id, r.reason);
+    }
   }
 
-  MessagesTestDBPrivate():
-   d_dbMsg("msg"),
-   d_dbModel("model"),
-   d_dbAst("ast")
-  { // copy is made in testdir
+  MessagesTestDBPrivate() : d_dbMsg("msg"), d_dbModel("model"), d_dbAst("ast")
+  {  // copy is made in testdir
     pcrxml::Document const doc(com::PathName("messagestest.xml"));
-    d_root=doc.documentElement();
-    pcrxml::forEachChildElement(d_root,*this);
+    d_root = doc.documentElement();
+    pcrxml::forEachChildElement(d_root, *this);
   }
 
   ~MessagesTestDBPrivate()
@@ -158,117 +163,101 @@ public:
   }
 
   //! return sub element subElem of id, Null if not found
-  QDomElement findE(
-      const detail::DBCol& subElem,
-      const std::string& id) const
+  QDomElement findE(const detail::DBCol &subElem, const std::string &id) const
   {
-    auto i=find(id);
-    if (i!=end())
-      return pcrxml::firstMatchByTagName(i->second,
-      QString(subElem.name().c_str()));
+    auto i = find(id);
+    if (i != end())
+      return pcrxml::firstMatchByTagName(i->second, QString(subElem.name().c_str()));
     return {};
   }
 
   //! return sub element subElem of id, empty string if not found
-  std::string findS(
-      const detail::DBCol& subElem,
-      const std::string& id) const
+  std::string findS(const detail::DBCol &subElem, const std::string &id) const
   {
-    QDomElement const e(findE(subElem,id));
+    QDomElement const e(findE(subElem, id));
     if (e.isNull())
       return "";
-    return subElem.toString(id,e);
+    return subElem.toString(id, e);
   }
 
-  bool dumpDiff(
-      const std::string& id,
-      const std::string& expected,
-      const std::string& got) const
+  bool dumpDiff(const std::string &id, const std::string &expected, const std::string &got) const
   {
     // write a dump for easy editing
-    d_dump<< "messagestest.xml: " << expected   << "\n"
-          << "unittest        : " << got << "\n";
-    writeDump(id,"DIFFERENCE");
+    d_dump << "messagestest.xml: " << expected << "\n"
+           << "unittest        : " << got << "\n";
+    writeDump(id, "DIFFERENCE");
     return false;
   }
 
-  bool equals(
-      const std::string& id,
-      const std::string& resultOfUnitTest) const
+  bool equals(const std::string &id, const std::string &resultOfUnitTest) const
   {
-    std::string const msg = findS(d_dbMsg,id);
+    std::string const msg = findS(d_dbMsg, id);
     if (msg.empty()) {
-     d_dump<< "NOT PRESENT IN messagetest.xml\n"
-           << "unittest        : " << resultOfUnitTest << "\n";
-     writeDump(id,"ABSENCE");
-     return false;
+      d_dump << "NOT PRESENT IN messagetest.xml\n"
+             << "unittest        : " << resultOfUnitTest << "\n";
+      writeDump(id, "ABSENCE");
+      return false;
     }
 
-    QDomElement const e(findE(d_dbMsg,id));
+    QDomElement const e(findE(d_dbMsg, id));
     std::string cmpTo(resultOfUnitTest);
     if (e.hasAttribute("replace")) {
       // order matters, \ and / as last ones!
 
-      cmpTo=com::replaceCharByStr(cmpTo,'/',"X");
-      cmpTo=com::replaceCharByStr(cmpTo,'\\',"X");
+      cmpTo = com::replaceCharByStr(cmpTo, '/', "X");
+      cmpTo = com::replaceCharByStr(cmpTo, '\\', "X");
     }
 
     if (msg == cmpTo)
       return true;
-    return dumpDiff(id,msg,cmpTo);
+    return dumpDiff(id, msg, cmpTo);
   }
 
-  QDomElement xml(
-    const std::string& id) const
+  QDomElement xml(const std::string &id) const
   {
-    QDomElement const ast= findE(d_dbAst,id);
+    QDomElement const ast = findE(d_dbAst, id);
     if (ast.isNull()) {
-      d_dump<< "AST NOT PRESENT IN messagetest.xml \n";
-      writeDump(id,"ABSENCE");
+      d_dump << "AST NOT PRESENT IN messagetest.xml \n";
+      writeDump(id, "ABSENCE");
     }
     std::vector<QDomElement> c(pcrxml::childElements(ast));
     return c[0];
   }
-  std::string attrStr(
-     QDomElement const& e,
-     const char *name) const
+
+  std::string attrStr(QDomElement const &e, const char *name) const
   {
-    return std::string(e.attribute(name,"").toLatin1());
+    return std::string(e.attribute(name, "").toLatin1());
   }
 
-  std::string options(
-    const std::string& id) const
+  std::string options(const std::string &id) const
   {
-    QDomElement const e = findE(d_dbModel,id);
-    return attrStr(e,"options");
+    QDomElement const e = findE(d_dbModel, id);
+    return attrStr(e, "options");
   }
 
-  bool hasXML(
-    const std::string& id) const
+  bool hasXML(const std::string &id) const
   {
-    return !findE(d_dbAst,id).isNull();
+    return !findE(d_dbAst, id).isNull();
   }
-  std::string model(
-    const std::string& id) const
+
+  std::string model(const std::string &id) const
   {
-    std::string s = findS(d_dbModel,id);
+    std::string s = findS(d_dbModel, id);
     if (s.empty()) {
-     d_dump<< "NOT PRESENT IN messagetest.xml:\n"
-           << "element model\n";
-     writeDump(id,"ABSENCE");
-     return id;
+      d_dump << "NOT PRESENT IN messagetest.xml:\n"
+             << "element model\n";
+      writeDump(id, "ABSENCE");
+      return id;
     }
     return s;
   }
 };
 
-} // namespace calc
-
+}  // namespace calc
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC MESSAGESTESTDB MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -278,22 +267,21 @@ public:
 calc::MessagesTestDB::MessagesTestDB()
 {
   try {
-   d_data=new MessagesTestDBPrivate();
-  } catch (const com::Exception&  e) {
-    bool const badFormatOfXML=false;
+    d_data = new MessagesTestDBPrivate();
+  } catch (const com::Exception &e) {
+    bool const badFormatOfXML = false;
     std::cerr << e.messages();
     PRECOND(badFormatOfXML);
-    (void)badFormatOfXML; // Shut up compiler
+    (void)badFormatOfXML;  // Shut up compiler
   }
 }
 
-calc::MessagesTestDB* calc::MessagesTestDB::instance()
+calc::MessagesTestDB *calc::MessagesTestDB::instance()
 {
-   if (!d_instance.get())
-     d_instance.reset(new MessagesTestDB());
-   return d_instance.get();
+  if (!d_instance.get())
+    d_instance.reset(new MessagesTestDB());
+  return d_instance.get();
 }
-
 
 calc::MessagesTestDB::~MessagesTestDB()
 {
@@ -301,60 +289,52 @@ calc::MessagesTestDB::~MessagesTestDB()
 }
 
 //! check if \a e equals the msg element known for \a id
-bool calc::MessagesTestDB::equals(
-    const std::string& id,
-    const com::Exception& e,
-    const std::string& prefix) const
+bool calc::MessagesTestDB::equals(const std::string &id, const com::Exception &e,
+                                  const std::string &prefix) const
 {
   std::string cmpTo(e.messages());
   com::removeFrontEndSpace(cmpTo);
-  return d_data->equals(id,prefix+cmpTo);
+  return d_data->equals(id, prefix + cmpTo);
 }
 
 //! check if \a fileCreated is created and content equals contents of id.res
-bool calc::MessagesTestDB::equalsFile(
-    const std::string& id,
-    const std::string& fileCreated) const
+bool calc::MessagesTestDB::equalsFile(const std::string &id, const std::string &fileCreated) const
 {
   com::PathName res(id);
   res.setExtension("res");
-  if (com::filesExistsAndEqual(res.toString(),fileCreated))
+  if (com::filesExistsAndEqual(res.toString(), fileCreated))
     return true;
   std::string expect;
   std::string got;
-  com::read(expect,res);
-  com::read(got,fileCreated);
+  com::read(expect, res);
+  com::read(got, fileCreated);
 
   // TODO refactor differing on begin and end space
   com::removeFrontEndSpace(expect);
   com::removeFrontEndSpace(got);
   if (expect != got)
-    return d_data->dumpDiff(id,expect,got);
+    return d_data->dumpDiff(id, expect, got);
   return true;
 }
 
 //! return model for \a id
-std::string calc::MessagesTestDB::model(
-    const std::string& id) const
+std::string calc::MessagesTestDB::model(const std::string &id) const
 {
   return d_data->model(id);
 }
 
 //! return options for \a id, empty if non
-std::string calc::MessagesTestDB::options(
-    const std::string& id) const
+std::string calc::MessagesTestDB::options(const std::string &id) const
 {
   return d_data->options(id);
 }
 
-QDomElement calc::MessagesTestDB::xml(
-    const std::string& id) const
+QDomElement calc::MessagesTestDB::xml(const std::string &id) const
 {
   return d_data->xml(id);
 }
 
-bool calc::MessagesTestDB::hasXML(
-    const std::string& id) const
+bool calc::MessagesTestDB::hasXML(const std::string &id) const
 {
   return d_data->hasXML(id);
 }
@@ -364,10 +344,6 @@ bool calc::MessagesTestDB::hasXML(
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

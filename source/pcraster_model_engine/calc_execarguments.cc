@@ -11,7 +11,6 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
 /*
@@ -35,11 +34,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC EXECARGUMENTS MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -56,21 +53,15 @@ public:
  *   - ResultIsSrc  heeft srcDest()
  *   - "ANDERS"     heeft alle createResult()/createResults() in ctor?
  */
-calc::ExecArguments::ExecArguments(
-      const Operator& op,
-      RunTimeEnv *rte,
-      size_t nrActualInputs):
-      d_op(op),
-      d_rte(rte),
-      d_fields(nrActualInputs-op.firstFieldInput()),
-      d_result(op.nrResults(),nullptr),
-      d_resultIsField(d_fields.size()) // init past a valid field
+calc::ExecArguments::ExecArguments(const Operator &op, RunTimeEnv *rte, size_t nrActualInputs)
+    : d_op(op), d_rte(rte), d_fields(nrActualInputs - op.firstFieldInput()),
+      d_result(op.nrResults(), nullptr), d_resultIsField(d_fields.size())  // init past a valid field
 {
   // reverse  reversed stack arguments
-  for(size_t i=0;i<d_fields.size();++i)
-    d_fields[d_fields.size()-i-1]= d_rte->popField();
+  for (size_t i = 0; i < d_fields.size(); ++i)
+    d_fields[d_fields.size() - i - 1] = d_rte->popField();
   if (op.firstFieldInput())
-   d_firstNonFieldInput=rte->popDataValue();
+    d_firstNonFieldInput = rte->popDataValue();
 }
 
 calc::ExecArguments::~ExecArguments()
@@ -78,7 +69,7 @@ calc::ExecArguments::~ExecArguments()
 #ifdef DEBUG_DEVELOP
   // result should be pushed and cleared in normal cases
   if (!std::uncaught_exceptions())
-    for (auto & i : d_result)
+    for (auto &i : d_result)
       POSTCOND(!i);
 #endif
   clean();
@@ -100,16 +91,16 @@ calc::ExecArguments::ExecArguments(const ExecArguments& rhs):
 }
 */
 
-void  calc::ExecArguments::clean()
+void calc::ExecArguments::clean()
 {
-  for(size_t i=0; i < d_fields.size(); ++i)
+  for (size_t i = 0; i < d_fields.size(); ++i)
     if (i != d_resultIsField && !d_doNotDelete.count(d_fields[i])) {
       deleteFromPcrme(d_fields[i]);
       d_doNotDelete.insert(d_fields[i]);
     }
   d_fields.clear();
-  for (auto & i : d_result)
-       deleteFromPcrme(i);
+  for (auto &i : d_result)
+    deleteFromPcrme(i);
   deleteFromPcrme(d_firstNonFieldInput);
 }
 
@@ -117,7 +108,7 @@ void  calc::ExecArguments::clean()
 /*!
  *  taking the address is safe, reference to pointer
  */
-const calc::Field& calc::ExecArguments::operator[](size_t a) const
+const calc::Field &calc::ExecArguments::operator[](size_t a) const
 {
   PRECOND(a < d_fields.size());
   return *d_fields[a];
@@ -135,18 +126,18 @@ calc::DataType calc::ExecArguments::resultType(size_t r) const
 
   // first non field type are fixed
   //  get from operand description
-  for(size_t i=0; i < d_op.firstFieldInput(); ++i)
+  for (size_t i = 0; i < d_op.firstFieldInput(); ++i)
     at.push_back(d_op.argType(i));
 
   // actual types of fields
   //  get from popped stack items
-  for(auto d_field : d_fields)
+  for (auto d_field : d_fields)
     at.push_back(d_field->type());
 
-  return d_op.computeResultType(at,r);
+  return d_op.computeResultType(at, r);
 }
 
-calc::Field& calc::ExecArguments::createResult()
+calc::Field &calc::ExecArguments::createResult()
 {
   createResults();
   return *(d_result[0]);
@@ -154,15 +145,15 @@ calc::Field& calc::ExecArguments::createResult()
 
 void calc::ExecArguments::createResults()
 {
-  PRECOND(d_result.size()==d_op.nrResults());
-  for(size_t i=0; i<d_result.size(); ++i) {
-    PRECOND(!d_result[i]); // only call once
-    d_result[i]=d_rte->createResultField(resultType(i));
+  PRECOND(d_result.size() == d_op.nrResults());
+  for (size_t i = 0; i < d_result.size(); ++i) {
+    PRECOND(!d_result[i]);  // only call once
+    d_result[i] = d_rte->createResultField(resultType(i));
   }
 }
 
 //! create a new destination
-void* calc::ExecArguments::dest(size_t d)
+void *calc::ExecArguments::dest(size_t d)
 {
   PRECOND(d < d_result.size());
   if (!d_result[d])
@@ -175,27 +166,28 @@ void* calc::ExecArguments::dest(size_t d)
  *  \pre only one argument is used as read/write destination
  *       no createResult called
  */
-void* calc::ExecArguments::srcDest(size_t a) {
+void *calc::ExecArguments::srcDest(size_t a)
+{
 
   PRECOND(d_resultIsField >= d_fields.size());
   PRECOND(d_result.size() == 1);
-  PRECOND(d_result[0]     == nullptr);
+  PRECOND(d_result[0] == nullptr);
 
   // first get type, before removing a d_fields entry
   const DataType r(resultType(0));
 
-  Field *f  = createDestCloneIfReadOnly(d_fields[a]);
+  Field *f = createDestCloneIfReadOnly(d_fields[a]);
   if (f != d_fields[a])
     deleteFromPcrme(d_fields[a]);
-  d_fields[a]=f;
+  d_fields[a] = f;
 
-  d_result[0]=d_fields[a];
-  d_resultIsField=a;
+  d_result[0] = d_fields[a];
+  d_resultIsField = a;
   d_result[0]->resetVs(r.vs());
   return d_result[0]->dest();
 }
 
-const void* calc::ExecArguments::src(size_t a) const
+const void *calc::ExecArguments::src(size_t a) const
 {
   PRECOND(a < d_fields.size());
   PRECOND(d_fields[a]);
@@ -205,10 +197,10 @@ const void* calc::ExecArguments::src(size_t a) const
 //! push all results on stack, check on MV
 void calc::ExecArguments::pushResults()
 {
-  for(auto & i : d_result) {
-   pushResult(i);
-   d_doNotDelete.insert(i);
-   i=nullptr;
+  for (auto &i : d_result) {
+    pushResult(i);
+    d_doNotDelete.insert(i);
+    i = nullptr;
   }
 }
 
@@ -222,14 +214,14 @@ void calc::ExecArguments::pushResult(Field *result)
   d_rte->pushField(result);
 }
 
-calc::Field& calc::ExecArguments::result(size_t r) const
+calc::Field &calc::ExecArguments::result(size_t r) const
 {
   PRECOND(r < d_result.size());
   PRECOND(d_result[r]);
   return *d_result[r];
 }
 
-calc::DataValue* calc::ExecArguments::firstNonFieldInput() const
+calc::DataValue *calc::ExecArguments::firstNonFieldInput() const
 {
   return d_firstNonFieldInput;
 }
@@ -239,9 +231,6 @@ calc::DataValue* calc::ExecArguments::firstNonFieldInput() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-

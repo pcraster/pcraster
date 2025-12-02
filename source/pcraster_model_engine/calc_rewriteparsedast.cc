@@ -12,55 +12,60 @@
 */
 
 
+namespace calc
+{
+namespace detail
+{
 
-namespace calc {
- namespace detail {
+//------------------------------------------------------------------------------
 
-  //------------------------------------------------------------------------------
+struct ASTRewriter : public ASTVisitor {
+  ASTRewriter()
 
-  struct ASTRewriter: public ASTVisitor
   {
-    ASTRewriter()
-      
-    {}
-  private:
-    bool d_timeoutput{false};
-    bool d_inDynamicSection{false};
-    void visitExpr(BaseExpr *e) override
-    {
-     Operator const& op(e->op());
-     if (op.opCode()==OP_TIMEOUTPUT)
-       d_timeoutput=true;
-     if (op.isDynamicSectionOperation()) {
-        if (!d_inDynamicSection) {
-         // pcrcalc37
-         e->posError("function '"+e->name()+"' is only legal in the dynamic section");
-        }
+  }
+
+private:
+  bool d_timeoutput{false};
+  bool d_inDynamicSection{false};
+
+  void visitExpr(BaseExpr *e) override
+  {
+    Operator const &op(e->op());
+    if (op.opCode() == OP_TIMEOUTPUT)
+      d_timeoutput = true;
+    if (op.isDynamicSectionOperation()) {
+      if (!d_inDynamicSection) {
+        // pcrcalc37
+        e->posError("function '" + e->name() + "' is only legal in the dynamic section");
       }
-      e->args()->accept(*this);
     }
-    void  enterDynamicSection (DynamicSection *) override {
-      d_inDynamicSection=true;
-    }
-    void  jumpOutDynamicSection (DynamicSection *) override {
-      d_inDynamicSection=false;
-    }
+    e->args()->accept(*this);
+  }
 
-    void visitStat(ASTStat *s) override
-    {
-      d_timeoutput=false;
-      s->stat()->accept(*this);
-      if (d_timeoutput && !s->reportParsed())
-        s->setReportParsed(true);
-    }
-  };
- }
+  void enterDynamicSection(DynamicSection *) override
+  {
+    d_inDynamicSection = true;
+  }
 
+  void jumpOutDynamicSection(DynamicSection *) override
+  {
+    d_inDynamicSection = false;
+  }
+
+  void visitStat(ASTStat *s) override
+  {
+    d_timeoutput = false;
+    s->stat()->accept(*this);
+    if (d_timeoutput && !s->reportParsed())
+      s->setReportParsed(true);
+  }
+};
+}  // namespace detail
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -74,11 +79,11 @@ namespace calc {
  *
  *  tests in ParserTest::testCheckAndRewriteParsedAST();
  */
-void checkAndRewriteParsedAST(ASTNode *n) {
- detail::ASTRewriter rpa;
- n->accept(rpa);
+void checkAndRewriteParsedAST(ASTNode *n)
+{
+  detail::ASTRewriter rpa;
+  n->accept(rpa);
 }
 
 
-} // namespace calc
-
+}  // namespace calc

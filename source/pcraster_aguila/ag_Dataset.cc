@@ -8,15 +8,14 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the Dataset class.
 */
 
 
-
-namespace ag {
+namespace ag
+{
 
 //------------------------------------------------------------------------------
 
@@ -37,23 +36,18 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC DATASET MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF DATASET MEMBERS
 //------------------------------------------------------------------------------
 
-Dataset::Dataset(
-         std::string const& name,
-         dal::DataSpace const& space)
+Dataset::Dataset(std::string const &name, dal::DataSpace const &space)
 
-  : _name(name),
-    _source(name, space)
+    : _name(name), _source(name, space)
 
 {
   assert(!name.empty());
@@ -62,98 +56,75 @@ Dataset::Dataset(
   initialiseGlobalToLocalMapper(_source.dataSpace());
 }
 
-
-
 Dataset::~Dataset()
 {
   delete _localToWorldMapper;
   delete _globalToLocalMapper;
 }
 
-
-
 // void Dataset::setDataSpace(
 //          dal::DataSpace const& space)
 // {
 //   _space = space;
-// 
+//
 //   if(!_localToWorldMapper) {
 //     initialiseDataSpaceAddressMapper();
 //   }
 // }
 
 
-
-std::string const& Dataset::name() const
+std::string const &Dataset::name() const
 {
   return _name;
 }
 
-
-
-void Dataset::initialiseLocalToWorldMapper(
-         dal::DataSpace const& space)
+void Dataset::initialiseLocalToWorldMapper(dal::DataSpace const &space)
 {
   delete _localToWorldMapper;
   _localToWorldMapper = new dal::DataSpaceAddressMapper(space);
 }
 
-
-
-void Dataset::initialiseGlobalToLocalMapper(
-         dal::DataSpace const& space)
+void Dataset::initialiseGlobalToLocalMapper(dal::DataSpace const &space)
 {
   delete _globalToLocalMapper;
   _globalToLocalMapper = new dal::DataSpaceAddressMapper(space);
 }
 
-
-
-dal::DataSpace const& Dataset::dataSpace() const
+dal::DataSpace const &Dataset::dataSpace() const
 {
   return _source.dataSpace();
 }
 
-
-dal::DataSpaceAddressMapper const& Dataset::localToWorldMapper() const
+dal::DataSpaceAddressMapper const &Dataset::localToWorldMapper() const
 {
   assert(_localToWorldMapper);
 
   return *_localToWorldMapper;
 }
 
-
-
-dal::DataSpaceAddressMapper& Dataset::localToWorldMapper()
+dal::DataSpaceAddressMapper &Dataset::localToWorldMapper()
 {
   assert(_localToWorldMapper);
 
   return *_localToWorldMapper;
 }
 
-
-
-dal::DataSpaceAddressMapper const& Dataset::globalToLocalMapper() const
+dal::DataSpaceAddressMapper const &Dataset::globalToLocalMapper() const
 {
   assert(_globalToLocalMapper);
 
   return *_globalToLocalMapper;
 }
 
-
-
-dal::DataSpaceAddressMapper& Dataset::globalToLocalMapper()
+dal::DataSpaceAddressMapper &Dataset::globalToLocalMapper()
 {
   assert(_globalToLocalMapper);
 
   return *_globalToLocalMapper;
 }
 
-
-
-dal::DataSpaceAddress Dataset::localAddress(
-         dal::DataSpace const& space,
-         dal::DataSpaceAddress const& address) const
+dal::DataSpaceAddress Dataset::localAddress(dal::DataSpace const &space,
+                                            dal::DataSpaceAddress const &address) const
 {
   dal::DataSpaceAddress result(address);
 
@@ -166,43 +137,30 @@ dal::DataSpaceAddress Dataset::localAddress(
   return result;
 }
 
-
-
-dal::DataSource& Dataset::dataSource()
+dal::DataSource &Dataset::dataSource()
 {
   return _source;
 }
 
-
-
-dal::DataSource const& Dataset::dataSource() const
+dal::DataSource const &Dataset::dataSource() const
 {
   return _source;
 }
 
-
-
-bool Dataset::isRead(
-         dal::DataSpace const& space,
-         dal::DataSpaceAddress const& address) const
+bool Dataset::isRead(dal::DataSpace const &space, dal::DataSpaceAddress const &address) const
 {
   return isRead(localAddress(space, address));
 }
 
-
-
-void Dataset::setSelectedValue(
-         REAL4 value)
+void Dataset::setSelectedValue(REAL4 value)
 {
-  if(!hasSelectedValue() || !dal::comparable(selectedValue(), value)) {
+  if (!hasSelectedValue() || !dal::comparable(selectedValue(), value)) {
     _selectedValue = value;
 
     // Make sure new data is read by invalidating the current data.
     _addressRead = dataSource().dataSpace().address();
   }
 }
-
-
 
 REAL4 Dataset::selectedValue() const
 {
@@ -211,18 +169,14 @@ REAL4 Dataset::selectedValue() const
   return boost::any_cast<REAL4>(_selectedValue);
 }
 
-
-
 bool Dataset::hasSelectedValue() const
 {
   return !_selectedValue.empty();
 }
 
-
-
 void Dataset::unsetSelectedValue()
 {
-  if(hasSelectedValue()) {
+  if (hasSelectedValue()) {
     _selectedValue = boost::any();
 
     // Make sure new data is read by invalidating the current data.
@@ -230,39 +184,27 @@ void Dataset::unsetSelectedValue()
   }
 }
 
-
-
 /// boost::any const& Dataset::selectedValue() const
 /// {
 ///   return _selectedValue;
 /// }
 
 
-
-dal::DataSpaceAddress const& Dataset::addressRead() const
+dal::DataSpaceAddress const &Dataset::addressRead() const
 {
   return _addressRead;
 }
 
-
-
-void Dataset::setAddressRead(
-         dal::DataSpaceAddress const& address)
+void Dataset::setAddressRead(dal::DataSpaceAddress const &address)
 {
   _addressRead = address;
 }
 
-
-
-void Dataset::setExtremes(
-         boost::any const& min,
-         boost::any const& max)
+void Dataset::setExtremes(boost::any const &min, boost::any const &max)
 {
   _min = min;
   _max = max;
 }
-
-
 
 bool Dataset::allMV() const
 {
@@ -270,17 +212,13 @@ bool Dataset::allMV() const
   return _min.empty();
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace ag
-
+}  // namespace ag

@@ -10,22 +10,21 @@
 #include "ag_VisGroup.h"
 #include "ag_VisualisationWindow.h"
 
-
-
 //------------------------------------------------------------------------------
 
-namespace ag {
+namespace ag
+{
 
 class VisGroupManagerPrivate
 {
 public:
-
   qt::AppWindowProperties d_winProps;
   std::vector<ag::VisGroup *> d_groups;
+
   // ControlCenter *d_controlCenter;
 
-  VisGroupManagerPrivate(const qt::AppWindowProperties& props)
-    : d_winProps(props) // , d_controlCenter(0)
+  VisGroupManagerPrivate(const qt::AppWindowProperties &props)
+      : d_winProps(props)  // , d_controlCenter(0)
   {
   }
 
@@ -34,46 +33,39 @@ public:
   }
 };
 
-}
+}  // namespace ag
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
-ag::VisGroupManager::VisGroupManager(const qt::AppWindowProperties& props)
+ag::VisGroupManager::VisGroupManager(const qt::AppWindowProperties &props)
 
-  : QObject(nullptr),
-    // ag::Configurable(),
-    d_data(new VisGroupManagerPrivate(props))
+    : QObject(nullptr),
+      // ag::Configurable(),
+      d_data(new VisGroupManagerPrivate(props))
 
 {
 }
-
-
 
 ag::VisGroupManager::~VisGroupManager()
 {
   clean();
 }
 
-
-
 void ag::VisGroupManager::clean()
 {
-  std::vector<VisGroup *>& groups(d_data->d_groups);
+  std::vector<VisGroup *> &groups(d_data->d_groups);
 
-  while(!groups.empty()) {
+  while (!groups.empty()) {
     erase(*groups.begin());
   }
 }
-
-
 
 ag::VisGroup *ag::VisGroupManager::newGroup()
 {
@@ -82,8 +74,6 @@ ag::VisGroup *ag::VisGroupManager::newGroup()
   // updateControlCenter();
   return vg;
 }
-
-
 
 /*
 ag::VisGroup *ag::VisGroupManager::newGroup(const ag::DataObject &o)
@@ -106,26 +96,23 @@ ag::VisGroup* ag::VisGroupManager::newGroup(const pcrxml::VisualisationGroup& vg
 */
 
 
-
 void ag::VisGroupManager::add(VisGroup *g)
 {
-  std::vector<VisGroup *>& gs = d_data->d_groups;
+  std::vector<VisGroup *> &gs = d_data->d_groups;
   assert(!dev::hasElement(gs, g));
   gs.push_back(g);
 }
-
-
 
 void ag::VisGroupManager::erase(VisGroup *group)
 {
   // Erase the group from the manager. No objects which refer to the manager
   // will know about the group anymore.
-  std::vector<VisGroup *>& groups = d_data->d_groups;
+  std::vector<VisGroup *> &groups = d_data->d_groups;
   assert(dev::hasElement(groups, group));
   groups.erase(std::find(groups.begin(), groups.end(), group));
   assert(!dev::hasElement(groups, group));
 
-/*
+  /*
   if(controlCenterIsAlive()) {
     // Remove the group from the list view in the control center widget. As
     // a side effect, this will call ControlCenter::updateContents().
@@ -139,166 +126,130 @@ void ag::VisGroupManager::erase(VisGroup *group)
   // updateControlCenter();
 }
 
-
-
-ag::Map2DView* ag::VisGroupManager::addMap2DView(ag::VisGroup* group,
-         QWidget* parent)
+ag::Map2DView *ag::VisGroupManager::addMap2DView(ag::VisGroup *group, QWidget *parent)
 {
   assert(group);
-  Map2DView* view = group->addMap2DView(parent);
+  Map2DView *view = group->addMap2DView(parent);
   return view;
 }
 
-
-
-ag::Map2D* ag::VisGroupManager::addMap2D(ag::VisGroup* group, QWidget* parent)
+ag::Map2D *ag::VisGroupManager::addMap2D(ag::VisGroup *group, QWidget *parent)
 {
   assert(group);
-  Map2D* map = group->addMap2D(parent);
+  Map2D *map = group->addMap2D(parent);
   return map;
 }
 
-
-
-ag::Map2DWindow* ag::VisGroupManager::addMap2DWindow(
-         ag::VisGroup* group)
+ag::Map2DWindow *ag::VisGroupManager::addMap2DWindow(ag::VisGroup *group)
 {
   assert(group);
-  Map2DWindow* map = group->addMap2DWindow();
+  Map2DWindow *map = group->addMap2DWindow();
 
   return map;
 }
 
-
-
-ag::Map2DWindow* ag::VisGroupManager::addMap2DWindow(ag::VisualisationWindow* v)
+ag::Map2DWindow *ag::VisGroupManager::addMap2DWindow(ag::VisualisationWindow *v)
 {
   assert(v);
   VisGroup *g = findGroup(v);
   assert(g);
-  Map2DWindow* map = g->addMap2DWindow(v);
+  Map2DWindow *map = g->addMap2DWindow(v);
   return map;
 }
 
-
-
-ag::MultiMap2DWindow* ag::VisGroupManager::addMultiMap2DWindow(
-         ag::VisGroup* group, size_t nrRows, size_t nrCols)
+ag::MultiMap2DWindow *ag::VisGroupManager::addMultiMap2DWindow(ag::VisGroup *group, size_t nrRows,
+                                                               size_t nrCols)
 {
   assert(group);
-  MultiMap2DWindow* window = group->addMultiMap2DWindow(nrRows, nrCols);
+  MultiMap2DWindow *window = group->addMultiMap2DWindow(nrRows, nrCols);
   return window;
 }
 
 
 #ifdef AGUILA_WITH_OPENGL
-ag::Map3DWindow* ag::VisGroupManager::addMap3DWindow(ag::VisGroup* g)
+ag::Map3DWindow *ag::VisGroupManager::addMap3DWindow(ag::VisGroup *g)
 {
   assert(g);
-  Map3DWindow* map = g->addMap3DWindow();
+  Map3DWindow *map = g->addMap3DWindow();
 
   return map;
 }
 
-
-
-ag::Map3DWindow* ag::VisGroupManager::addMap3DWindow(ag::VisualisationWindow *v)
+ag::Map3DWindow *ag::VisGroupManager::addMap3DWindow(ag::VisualisationWindow *v)
 {
   assert(v);
   VisGroup *g = findGroup(v);
   assert(g);
-  Map3DWindow* map = g->addMap3DWindow(v);
+  Map3DWindow *map = g->addMap3DWindow(v);
   return map;
 }
 
-
-
-ag::Map3DWindow* ag::VisGroupManager::addMap3DWindow(ag::VisGroup *g,
-                   ag::VisualisationWindow *v)
+ag::Map3DWindow *ag::VisGroupManager::addMap3DWindow(ag::VisGroup *g, ag::VisualisationWindow *v)
 {
   assert(v && g);
-  Map3DWindow* map = g->addMap3DWindow(v);
+  Map3DWindow *map = g->addMap3DWindow(v);
   return map;
 }
 #endif
 
 
-ag::TimePlotWindow* ag::VisGroupManager::addTimePlotWindow(ag::VisGroup* visGroup)
+ag::TimePlotWindow *ag::VisGroupManager::addTimePlotWindow(ag::VisGroup *visGroup)
 {
   assert(visGroup);
-  TimePlotWindow* plot = visGroup->addTimePlotWindow();
+  TimePlotWindow *plot = visGroup->addTimePlotWindow();
   return plot;
 }
 
-
-
-ag::TimePlotWindow* ag::VisGroupManager::addTimePlotWindow(
-                   ag::VisualisationWindow* visualisation)
+ag::TimePlotWindow *ag::VisGroupManager::addTimePlotWindow(ag::VisualisationWindow *visualisation)
 {
   assert(visualisation);
   VisGroup *visGroup = findGroup(visualisation);
   assert(visGroup);
-  TimePlotWindow* plot = visGroup->addTimePlotWindow(visualisation);
+  TimePlotWindow *plot = visGroup->addTimePlotWindow(visualisation);
   return plot;
 }
 
-
-
-ag::TimePlotWindow* ag::VisGroupManager::addTimePlotWindow(ag::VisGroup* visGroup,
-                   ag::VisualisationWindow* visualisation)
+ag::TimePlotWindow *ag::VisGroupManager::addTimePlotWindow(ag::VisGroup *visGroup,
+                                                           ag::VisualisationWindow *visualisation)
 {
   assert(visGroup && visualisation);
-  TimePlotWindow* plot = visGroup->addTimePlotWindow(visualisation);
+  TimePlotWindow *plot = visGroup->addTimePlotWindow(visualisation);
   return plot;
 }
 
-
-
-ag::CumDistributionFunctionWindow*
-ag::VisGroupManager::addProbabilityGraphWindow(
-         VisGroup* group)
+ag::CumDistributionFunctionWindow *ag::VisGroupManager::addProbabilityGraphWindow(VisGroup *group)
 {
   assert(group);
-  CumDistributionFunctionWindow* window =
-         group->addProbabilityGraphWindow();
+  CumDistributionFunctionWindow *window = group->addProbabilityGraphWindow();
   return window;
 }
 
-
 void ag::VisGroupManager::newMap2DWindow(ag::VisualisationWindow *v)
 {
-  VisGroup* vg = newGroup();
+  VisGroup *vg = newGroup();
   (void)vg->addMap2DWindow(v);
 }
-
-
 
 void ag::VisGroupManager::newMap3DWindow(ag::VisualisationWindow *v)
 {
 #ifdef AGUILA_WITH_OPENGL
-  VisGroup* vg = newGroup();
+  VisGroup *vg = newGroup();
   (void)vg->addMap3DWindow(v);
   // updateControlCenter();
 #endif
 }
 
-
-
 void ag::VisGroupManager::newTimePlotWindow(ag::VisualisationWindow *visualisation)
 {
-  VisGroup* visGroup = newGroup();
+  VisGroup *visGroup = newGroup();
   (void)visGroup->addTimePlotWindow(visualisation);
 }
-
-
 
 void ag::VisGroupManager::close()
 {
   clean();
   qApp->quit();
 }
-
-
 
 /*
 void ag::VisGroupManager::showControlCenter()
@@ -318,8 +269,6 @@ void ag::VisGroupManager::showControlCenter()
 */
 
 
-
-
 // Returns true if the control center is alive and kicking.
 /*
   \return    true or false.
@@ -336,7 +285,6 @@ bool ag::VisGroupManager::controlCenterIsAlive() const
 */
 
 
-
 // ag::DataPropertiesDialog* ag::VisGroupManager::addDataPropertiesDialog(
 //                    ag::DataObject& dataObject,
 //                    const ag::DataGuide& dataGuide)
@@ -348,81 +296,59 @@ bool ag::VisGroupManager::controlCenterIsAlive() const
 // }
 
 
-
 ag::VisGroupManager::const_iterator ag::VisGroupManager::begin() const
 {
   return d_data->d_groups.begin();
 }
-
-
 
 ag::VisGroupManager::const_iterator ag::VisGroupManager::end() const
 {
   return d_data->d_groups.end();
 }
 
-
-
 ag::VisGroupManager::iterator ag::VisGroupManager::begin()
 {
   return d_data->d_groups.begin();
 }
-
-
 
 ag::VisGroupManager::iterator ag::VisGroupManager::end()
 {
   return d_data->d_groups.end();
 }
 
-
-
 ag::VisGroupManager::const_reverse_iterator ag::VisGroupManager::rbegin() const
 {
   return d_data->d_groups.rbegin();
 }
-
-
 
 ag::VisGroupManager::const_reverse_iterator ag::VisGroupManager::rend() const
 {
   return d_data->d_groups.rend();
 }
 
-
-
 ag::VisGroupManager::reverse_iterator ag::VisGroupManager::rbegin()
 {
   return d_data->d_groups.rbegin();
 }
-
-
 
 ag::VisGroupManager::reverse_iterator ag::VisGroupManager::rend()
 {
   return d_data->d_groups.rend();
 }
 
-
-
-bool ag::VisGroupManager::exists(const VisGroup* group) const
+bool ag::VisGroupManager::exists(const VisGroup *group) const
 {
-  return dev::hasElement(*this,group);
+  return dev::hasElement(*this, group);
 }
 
-
-
-ag::VisGroup* ag::VisGroupManager::findCompatibleGroup(
-         std::string const& name,
-         dal::DataSpace const& space)
+ag::VisGroup *ag::VisGroupManager::findCompatibleGroup(std::string const &name,
+                                                       dal::DataSpace const &space)
 {
-  VisGroup* group = nullptr;
+  VisGroup *group = nullptr;
 
   // Test group is reverse order.
-  for(auto it = d_data->d_groups.rbegin();
-                   it != d_data->d_groups.rend(); ++it)
-  {
-    if((*it)->dataObject().compatibleData(name, space)) {
+  for (auto it = d_data->d_groups.rbegin(); it != d_data->d_groups.rend(); ++it) {
+    if ((*it)->dataObject().compatibleData(name, space)) {
       group = *it;
       break;
     }
@@ -432,32 +358,27 @@ ag::VisGroup* ag::VisGroupManager::findCompatibleGroup(
   return group;
 }
 
-
-
 void ag::VisGroupManager::show()
 {
-/*
+  /*
   if(nrVisualisations() == 0) {
     showControlCenter();
   }
   else {
   */
-    for(auto & it : *this) {
-      it->show();
-    }
-    /*
+  for (auto &it : *this) {
+    it->show();
+  }
+  /*
   }
   */
 }
-
-
 
 // void ag::VisGroupManager::open(VisGroup *g)
 // {
 //   assert(g);
 //   g->open();
 // }
-
 
 
 /*
@@ -468,7 +389,6 @@ void ag::VisGroupManager::close(ag::VisGroup* g, ag::VisualisationWindow* v)
   // updateControlCenter();
 }
 */
-
 
 
 /*
@@ -488,24 +408,19 @@ void ag::VisGroupManager::copy(ag::VisGroup* g, ag::IVisualisation* v)
 */
 
 
-
 size_t ag::VisGroupManager::nrGroups() const
 {
   return d_data->d_groups.size();
 }
 
-
-
 size_t ag::VisGroupManager::nrVisualisations() const
 {
   size_t n = 0;
-  for(auto it : *this) {
+  for (auto it : *this) {
     n += it->nrVisualisations();
   }
   return n;
 }
-
-
 
 /*
 void ag::VisGroupManager::updateControlCenter()
@@ -517,12 +432,11 @@ void ag::VisGroupManager::updateControlCenter()
 */
 
 
-
 ag::VisGroup *ag::VisGroupManager::findGroup(IVisualisation *v)
 {
-  VisGroup* group = nullptr;
-  for(auto & groupIt : *this) {
-    if(groupIt->contains(v)) {
+  VisGroup *group = nullptr;
+  for (auto &groupIt : *this) {
+    if (groupIt->contains(v)) {
       group = groupIt;
       break;
     }
@@ -532,13 +446,11 @@ ag::VisGroup *ag::VisGroupManager::findGroup(IVisualisation *v)
   return group;
 }
 
-
-
-ag::VisGroup *ag::VisGroupManager::findGroup(ag::DataObject& dataObject)
+ag::VisGroup *ag::VisGroupManager::findGroup(ag::DataObject &dataObject)
 {
-  VisGroup* group = nullptr;
-  for(auto & groupIt : *this) {
-    if(&groupIt->dataObject() == &dataObject) {
+  VisGroup *group = nullptr;
+  for (auto &groupIt : *this) {
+    if (&groupIt->dataObject() == &dataObject) {
       group = groupIt;
       break;
     }
@@ -547,8 +459,6 @@ ag::VisGroup *ag::VisGroupManager::findGroup(ag::DataObject& dataObject)
   assert(group);
   return group;
 }
-
-
 
 //void ag::VisGroupManager::configure(const QDomElement& /* n */)
 // {
@@ -569,7 +479,6 @@ ag::VisGroup *ag::VisGroupManager::findGroup(ag::DataObject& dataObject)
 //   }
 // */
 // }
-
 
 
 //! save configuration to file \a fName
@@ -612,13 +521,11 @@ ag::VisGroup *ag::VisGroupManager::findGroup(ag::DataObject& dataObject)
 // }
 
 
-
 // void ag::VisGroupManager::loadSettings(const com::PathName& pn)
 // {
 //   ag::Configuration conf(pn);
 //   configure(conf.documentElement());
 // }
-
 
 
 // void ag::VisGroupManager::saveSettings(const com::PathName& pn) const
@@ -628,26 +535,23 @@ ag::VisGroup *ag::VisGroupManager::findGroup(ag::DataObject& dataObject)
 // }
 
 
-
 //! Syncs the settings of nested data objects.
 /*!
   \sa        DataObject::sync()
 */
 void ag::VisGroupManager::sync()
 {
-  for(auto & it : *this) {
+  for (auto &it : *this) {
     it->sync();
   }
 }
 
-
-
-ag::VisGroup* ag::VisGroupManager::group(IVisualisation const* visualisation)
+ag::VisGroup *ag::VisGroupManager::group(IVisualisation const *visualisation)
 {
-  VisGroup* group = nullptr;
+  VisGroup *group = nullptr;
 
-  for(auto & it : *this) {
-    if(it->contains(visualisation)) {
+  for (auto &it : *this) {
+    if (it->contains(visualisation)) {
       group = it;
       break;
     }
@@ -658,22 +562,16 @@ ag::VisGroup* ag::VisGroupManager::group(IVisualisation const* visualisation)
   return group;
 }
 
-
-
-ag::CursorWindow* ag::VisGroupManager::addCursorWindow(
-         VisGroup* group)
+ag::CursorWindow *ag::VisGroupManager::addCursorWindow(VisGroup *group)
 {
   assert(group);
 
   return group->addCursorWindow();
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -681,11 +579,9 @@ ag::CursorWindow* ag::VisGroupManager::addCursorWindow(
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -693,9 +589,6 @@ ag::CursorWindow* ag::VisGroupManager::addCursorWindow(
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

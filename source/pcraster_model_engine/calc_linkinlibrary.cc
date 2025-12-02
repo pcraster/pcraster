@@ -3,9 +3,9 @@
 #include "pcrlinkin.h"
 #include "com_dynamiclibrary.h"
 #ifdef WIN32
-  #include "com_win32.h"
-  #include <windows.h>
-  #include <excpt.h>
+#include "com_win32.h"
+#include <windows.h>
+#include <excpt.h>
 #endif
 #include "PCRasterXSD.h"
 #include "pcrxsd_dominput.h"
@@ -20,8 +20,8 @@
 */
 
 
-
-namespace calc {
+namespace calc
+{
 
 
 //------------------------------------------------------------------------------
@@ -37,72 +37,58 @@ class LinkInLibraryPrivate
   // can only be done in a context where
   // obects needs unwinding.
   // hence we always do in a wrapper
-  void throwExcep(DWORD e) const {
-   std::ostringstream errorStream;
-   errorStream << "ERROR System exception:\n "
-               << com::win32ExceptionString(e)
-               << std::endl;
-   throw com::Exception(errorStream.str());
+  void throwExcep(DWORD e) const
+  {
+    std::ostringstream errorStream;
+    errorStream << "ERROR System exception:\n " << com::win32ExceptionString(e) << std::endl;
+    throw com::Exception(errorStream.str());
   }
-#define LINKIN_CALL        __stdcall
-#define TRY_LINKIN_CALL    __try
-#define EXCEPT_LINKIN_CALL \
-   __except(EXCEPTION_EXECUTE_HANDLER) { \
-        throwExcep(GetExceptionCode());   \
+
+#define LINKIN_CALL __stdcall
+#define TRY_LINKIN_CALL __try
+#define EXCEPT_LINKIN_CALL                                                                              \
+  __except (EXCEPTION_EXECUTE_HANDLER)                                                                  \
+  {                                                                                                     \
+    throwExcep(GetExceptionCode());                                                                     \
   }
 #endif
 
-  typedef const char* (LINKIN_CALL *ExecuteFun)(const char *xml,
-                                    LinkInTransferArray linkInTransferArray);
+  typedef const char *(LINKIN_CALL *ExecuteFun)(const char *xml,
+                                                LinkInTransferArray linkInTransferArray);
 
-  typedef void (LINKIN_CALL *RunContextFun)(
-                                int    nrRows,
-                                int    nrCols,
-                                double cellSize,
-                                double xLowerLeftCorner,
-                                double yLowerLeftCorner,
-                                int    currentTimeStep);
+  typedef void(LINKIN_CALL *RunContextFun)(int nrRows, int nrCols, double cellSize,
+                                           double xLowerLeftCorner, double yLowerLeftCorner,
+                                           int currentTimeStep);
 
-  typedef const char* (LINKIN_CALL *CheckFun)(const char *xml);
+  typedef const char *(LINKIN_CALL *CheckFun)(const char *xml);
 
-  ExecuteFun                                    d_execute;
-  RunContextFun                                 d_runContext;
-  CheckFun                                      d_check;
+  ExecuteFun d_execute;
+  RunContextFun d_runContext;
+  CheckFun d_check;
 
-  std::string                                   d_name;
-  com::DynamicLibrary*                          d_dl{nullptr};
-  std::unique_ptr<pcrxml::LinkInLibraryManifest>  d_manifest;
+  std::string d_name;
+  com::DynamicLibrary *d_dl{nullptr};
+  std::unique_ptr<pcrxml::LinkInLibraryManifest> d_manifest;
 
-  void throwException(std::string const& msg)
+  void throwException(std::string const &msg)
   {
     std::ostringstream s;
     s << "'" << d_name << "': " << msg;
     throw com::Exception(s.str());
   }
 
-
-
   //! wrapper
-  void runContext(
-      int    nrRows,
-      int    nrCols,
-      double cellSize,
-      double xLowerLeftCorner,
-      double yLowerLeftCorner,
-      int    currentTimeStep) const
+  void runContext(int nrRows, int nrCols, double cellSize, double xLowerLeftCorner,
+                  double yLowerLeftCorner, int currentTimeStep) const
   {
-    TRY_LINKIN_CALL {
-    d_runContext(
-      nrRows,
-      nrCols,
-      cellSize,
-      xLowerLeftCorner,
-      yLowerLeftCorner,
-      currentTimeStep);
-    } EXCEPT_LINKIN_CALL
+    TRY_LINKIN_CALL
+    {
+      d_runContext(nrRows, nrCols, cellSize, xLowerLeftCorner, yLowerLeftCorner, currentTimeStep);
+    }
+    EXCEPT_LINKIN_CALL
   }
 
-  void runContext(pcrxml::RunContext const& rc) const
+  void runContext(pcrxml::RunContext const &rc) const
   {
     PRECOND(d_runContext);
 
@@ -110,51 +96,47 @@ class LinkInLibraryPrivate
     PRECOND(rc.areaMap().xLowerLeftCorner().present());
     PRECOND(rc.areaMap().yLowerLeftCorner().present());
     // PROBLEM MSC ICE's on fundamentalBaseCast to int
-    runContext(
-        pcrxsd::fundamentalBaseCast<size_t>((rc.areaMap().nrRows())),
-        pcrxsd::fundamentalBaseCast<size_t>((rc.areaMap().nrCols())),
-        rc.areaMap().cellSize().get(),
-        rc.areaMap().xLowerLeftCorner().get(),
-        rc.areaMap().yLowerLeftCorner().get(),
-        pcrxsd::fundamentalBaseCast<size_t>((rc.timer().current())));
+    runContext(pcrxsd::fundamentalBaseCast<size_t>((rc.areaMap().nrRows())),
+               pcrxsd::fundamentalBaseCast<size_t>((rc.areaMap().nrCols())),
+               rc.areaMap().cellSize().get(), rc.areaMap().xLowerLeftCorner().get(),
+               rc.areaMap().yLowerLeftCorner().get(),
+               pcrxsd::fundamentalBaseCast<size_t>((rc.timer().current())));
   }
 
 public:
-
-  LinkInLibraryPrivate(const std::string& name):
-    d_name(name)
+  LinkInLibraryPrivate(const std::string &name) : d_name(name)
   {
 
-     try {
-       d_dl= new com::DynamicLibrary(d_name);
-     } catch(com::DynamicLibraryException const& e) {
-       throwException(e.messages());
-     }
-     // ExecuteFun must be there
+    try {
+      d_dl = new com::DynamicLibrary(d_name);
+    } catch (com::DynamicLibraryException const &e) {
+      throwException(e.messages());
+    }
+    // ExecuteFun must be there
 #if defined(_WIN32) && !defined(_WIN64)
-     // for windows 32 bit only
-     d_execute = (ExecuteFun)d_dl->addressAndSetLibPath("_pcr_LinkInExecute@8");
-     d_check   = (CheckFun)d_dl->address("_pcr_LinkInCheck@4");
-     d_runContext = (RunContextFun)d_dl->address("_pcr_LinkInRunContext@36");
+    // for windows 32 bit only
+    d_execute = (ExecuteFun)d_dl->addressAndSetLibPath("_pcr_LinkInExecute@8");
+    d_check = (CheckFun)d_dl->address("_pcr_LinkInCheck@4");
+    d_runContext = (RunContextFun)d_dl->address("_pcr_LinkInRunContext@36");
 #else
-     // _WIN64 and linux
-     d_execute =    (ExecuteFun)d_dl->addressAndSetLibPath("pcr_LinkInExecute");
-     d_check   =    (CheckFun)d_dl->address("pcr_LinkInCheck");
-     d_runContext = (RunContextFun)d_dl->address("pcr_LinkInRunContext");
+    // _WIN64 and linux
+    d_execute = (ExecuteFun)d_dl->addressAndSetLibPath("pcr_LinkInExecute");
+    d_check = (CheckFun)d_dl->address("pcr_LinkInCheck");
+    d_runContext = (RunContextFun)d_dl->address("pcr_LinkInRunContext");
 #endif
-     if (!d_execute)
-       throwException("code library does not contain pcr_LinkInExecute");
+    if (!d_execute)
+      throwException("code library does not contain pcr_LinkInExecute");
 
-     std::filesystem::path xmlFile(d_dl->directory());
-     xmlFile /= (d_name+".xml");
-     pcrxsd::DOMInput d(pcrxsd::DOMInput::CompiledIn);
-     d.setValidate(true);
-     d.setFile(xmlFile.string());
-     try {
+    std::filesystem::path xmlFile(d_dl->directory());
+    xmlFile /= (d_name + ".xml");
+    pcrxsd::DOMInput d(pcrxsd::DOMInput::CompiledIn);
+    d.setValidate(true);
+    d.setFile(xmlFile.string());
+    try {
       d_manifest.reset(pcrxml::linkInLibraryManifest(*d.document()).release());
-     } catch(pcrxsd::Exception const& e) {
-       throwException(e.msg());
-     }
+    } catch (pcrxsd::Exception const &e) {
+      throwException(e.msg());
+    }
   }
 
   ~LinkInLibraryPrivate()
@@ -162,48 +144,48 @@ public:
     delete d_dl;
   }
 
-  pcrxml::LinkInLibraryManifest const& manifest() const
+  pcrxml::LinkInLibraryManifest const &manifest() const
   {
     PRECOND(d_manifest.get());
     return *(d_manifest.get());
   }
 
-
   //! wrapper
-  void execute(const char *xml,
-               void ** transferArray) const
+  void execute(const char *xml, void **transferArray) const
   {
-    TRY_LINKIN_CALL {
-     d_execute(xml,transferArray);
-    } EXCEPT_LINKIN_CALL
+    TRY_LINKIN_CALL
+    {
+      d_execute(xml, transferArray);
+    }
+    EXCEPT_LINKIN_CALL
   }
 
-  void execute(pcrxml::LinkInExecuteInput const& li,
-               void ** transferArray) const
+  void execute(pcrxml::LinkInExecuteInput const &li, void **transferArray) const
   {
     if (d_runContext)
       runContext(li.context());
     std::ostringstream s;
-    pcrxml::linkInExecuteInput(s,li,pcrxsd::namespaceInfoMap("PCRaster.xsd"));
-    execute(s.str().c_str(),transferArray);
+    pcrxml::linkInExecuteInput(s, li, pcrxsd::namespaceInfoMap("PCRaster.xsd"));
+    execute(s.str().c_str(), transferArray);
   }
 
   //! wrapper
-  const char* check(const char *xml) const
+  const char *check(const char *xml) const
   {
-    TRY_LINKIN_CALL {
-     return d_check(xml);
-    } EXCEPT_LINKIN_CALL
-    return "implementation error"; // should never come here
+    TRY_LINKIN_CALL
+    {
+      return d_check(xml);
+    }
+    EXCEPT_LINKIN_CALL
+    return "implementation error";  // should never come here
   }
 
-  pcrxml::LinkInCheckResult check(
-    pcrxml::LinkInCheckInput const& in) const
+  pcrxml::LinkInCheckResult check(pcrxml::LinkInCheckInput const &in) const
   {
     if (d_check) {
       std::ostringstream inS;
-      pcrxml::linkInCheckInput(inS,in,pcrxsd::namespaceInfoMap("PCRaster.xsd"));
-      const char *outCstr=check(inS.str().c_str());
+      pcrxml::linkInCheckInput(inS, in, pcrxsd::namespaceInfoMap("PCRaster.xsd"));
+      const char *outCstr = check(inS.str().c_str());
 
       std::istringstream outS(outCstr);
 #ifdef DEBUG_DEVELOP
@@ -219,27 +201,20 @@ public:
     out.argument(in.argument());
     return out;
   }
-
 };
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC LINKINLIBRARY MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF LINKINLIBRARY MEMBERS
 //------------------------------------------------------------------------------
 
-LinkInLibrary::LinkInLibrary(const std::string& name):
-  d_data(new LinkInLibraryPrivate(name))
+LinkInLibrary::LinkInLibrary(const std::string &name) : d_data(new LinkInLibraryPrivate(name))
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -253,13 +228,10 @@ LinkInLibrary::LinkInLibrary(
 */
 
 
-
 LinkInLibrary::~LinkInLibrary()
 {
   delete d_data;
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -274,20 +246,17 @@ LinkInLibrary& LinkInLibrary::operator=(
 */
 
 
-pcrxml::LinkInLibraryManifest const& LinkInLibrary::manifest() const
+pcrxml::LinkInLibraryManifest const &LinkInLibrary::manifest() const
 {
   return d_data->manifest();
 }
 
-void LinkInLibrary::execute(
-    pcrxml::LinkInExecuteInput const& li,
-    void ** transferArray) const
+void LinkInLibrary::execute(pcrxml::LinkInExecuteInput const &li, void **transferArray) const
 {
- d_data->execute(li,transferArray);
+  d_data->execute(li, transferArray);
 }
 
-pcrxml::LinkInCheckResult LinkInLibrary::check(
-    pcrxml::LinkInCheckInput const& in) const
+pcrxml::LinkInCheckResult LinkInLibrary::check(pcrxml::LinkInCheckInput const &in) const
 {
   return d_data->check(in);
 }
@@ -306,9 +275,8 @@ void LinkInLibrary::areaMap(geo::RasterSpace const& rs,
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace calc
+}  // namespace calc

@@ -15,7 +15,7 @@
 #endif
 
 #ifndef INCLUDED_CSTRING
-#include <cstring> // memset
+#include <cstring>  // memset
 #define INCLUDED_CSTRING
 #endif
 // PCRaster library headers.
@@ -25,7 +25,6 @@
 #include "calc_map2csf.h"
 #define INCLUDED_CALC_MAP2CSF
 #endif
-
 
 
 /*!
@@ -38,64 +37,60 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF ZIPMAP MEMBERS
 //------------------------------------------------------------------------------
 
 //! initialise with zipped data of \a f
-calc::ZipMap::ZipMap(const Spatial *f):
- Spatial(f->vs(),f->nrValues(), false)
+calc::ZipMap::ZipMap(const Spatial *f) : Spatial(f->vs(), f->nrValues(), false)
 {
 
- // shifting 3 bits adds 12.5 % to size, 10 % needed
- d_nrZlibCompressedData=valLen()+(valLen()>>3);
- DEVELOP_PRECOND(d_nrZlibCompressedData >= (valLen()*1.1));
- char *cBuf = new char[d_nrZlibCompressedData];
+  // shifting 3 bits adds 12.5 % to size, 10 % needed
+  d_nrZlibCompressedData = valLen() + (valLen() >> 3);
+  DEVELOP_PRECOND(d_nrZlibCompressedData >= (valLen() * 1.1));
+  char *cBuf = new char[d_nrZlibCompressedData];
 
- DEVELOP_PRECOND(sizeof(size_t) == sizeof(uLongf));
- compress2((Bytef *)cBuf,(uLongf *)&d_nrZlibCompressedData,
-           (const Bytef *)f->srcValue(),valLen(),1);
- d_zlibCompressedData = new char[d_nrZlibCompressedData];
- memcpy(d_zlibCompressedData,cBuf,d_nrZlibCompressedData);
- delete [] cBuf;
+  DEVELOP_PRECOND(sizeof(size_t) == sizeof(uLongf));
+  compress2((Bytef *)cBuf, (uLongf *)&d_nrZlibCompressedData, (const Bytef *)f->srcValue(), valLen(), 1);
+  d_zlibCompressedData = new char[d_nrZlibCompressedData];
+  memcpy(d_zlibCompressedData, cBuf, d_nrZlibCompressedData);
+  delete[] cBuf;
 }
 
 calc::ZipMap::~ZipMap()
 {
- delete [] d_zlibCompressedData;
- d_zlibCompressedData=0;
+  delete[] d_zlibCompressedData;
+  d_zlibCompressedData = 0;
 }
 
 void calc::ZipMap::loadExternal() const
 {
   allocate();
-  uLongf uncomprLen=valLen();
-  uncompress((Bytef *)valuePtr(),&uncomprLen,
-             (const Bytef *)d_zlibCompressedData,d_nrZlibCompressedData);
-  POSTCOND(uncomprLen==valLen());
-  delete [] d_zlibCompressedData;
-  d_zlibCompressedData=0;
+  uLongf uncomprLen = valLen();
+  uncompress((Bytef *)valuePtr(), &uncomprLen, (const Bytef *)d_zlibCompressedData,
+             d_nrZlibCompressedData);
+  POSTCOND(uncomprLen == valLen());
+  delete[] d_zlibCompressedData;
+  d_zlibCompressedData = 0;
 }
 
-calc::ZipMap::ZipMap(const ZipMap &c):
- Spatial(c.vs(),c.nrValues(),false)
+calc::ZipMap::ZipMap(const ZipMap &c) : Spatial(c.vs(), c.nrValues(), false)
 {
- d_nrZlibCompressedData = c.d_nrZlibCompressedData;
- d_zlibCompressedData = new char[d_nrZlibCompressedData];
- memcpy(d_zlibCompressedData,c.d_zlibCompressedData,d_nrZlibCompressedData);
+  d_nrZlibCompressedData = c.d_nrZlibCompressedData;
+  d_zlibCompressedData = new char[d_nrZlibCompressedData];
+  memcpy(d_zlibCompressedData, c.d_zlibCompressedData, d_nrZlibCompressedData);
 }
 
 calc::ZipMap *calc::ZipMap::copy() const
 {
- if(!d_zlibCompressedData) {
-   if (valuePtr()) {
-     // copy spatial into a zipped one
+  if (!d_zlibCompressedData) {
+    if (valuePtr()) {
+      // copy spatial into a zipped one
       return new ZipMap(this);
-   }
-   PRECOND(valuePtr() || d_zlibCompressedData);
- }
- return new ZipMap(*this);
+    }
+    PRECOND(valuePtr() || d_zlibCompressedData);
+  }
+  return new ZipMap(*this);
 }
 
 //------------------------------------------------------------------------------

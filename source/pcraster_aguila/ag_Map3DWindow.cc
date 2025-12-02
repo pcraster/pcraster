@@ -7,11 +7,10 @@
 #include "ag_Map3D.h"
 #include "ag_VisEngine.h"
 
-
-
 //------------------------------------------------------------------------------
 
-namespace ag {
+namespace ag
+{
 
 /*
 class ViewData
@@ -55,15 +54,13 @@ public:
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
-ag::Map3DWindow::Map3DWindow(const qt::AppWindowProperties& props,
-         DataObject* object)
+ag::Map3DWindow::Map3DWindow(const qt::AppWindowProperties &props, DataObject *object)
 
-  : MapWindow(props, "Drape View", object)
+    : MapWindow(props, "Drape View", object)
 
 {
   std::vector<com::FileFormatInfo> fileFormats;
@@ -73,13 +70,9 @@ ag::Map3DWindow::Map3DWindow(const qt::AppWindowProperties& props,
   createInterface();
 }
 
-
-
 ag::Map3DWindow::~Map3DWindow()
 {
 }
-
-
 
 void ag::Map3DWindow::createInterface()
 {
@@ -92,23 +85,17 @@ void ag::Map3DWindow::createInterface()
   setCentralWidget(d_map);
 }
 
-
-
 void ag::Map3DWindow::rescan()
 {
   visualisationEngine().rescan(dataObject());
   MapWindow::rescan();
 }
 
-
-
-void ag::Map3DWindow::addAttribute(const ag::DataGuide& dataGuide)
+void ag::Map3DWindow::addAttribute(const ag::DataGuide &dataGuide)
 {
   visualisationEngine().addAttribute(dataObject(), dataGuide);
   d_map->addAttribute(dataGuide);
 }
-
-
 
 //!
 /*!
@@ -118,32 +105,24 @@ void ag::Map3DWindow::addAttribute(const ag::DataGuide& dataGuide)
   \warning   .
   \sa        .
 */
-void ag::Map3DWindow::setHeight(
-         ag::DataGuide const& dataGuide)
+void ag::Map3DWindow::setHeight(ag::DataGuide const &dataGuide)
 {
   try {
     visualisationEngine().setHeight(dataGuide);
     d_map->setHeight(dataGuide);
-  }
-  catch(com::Exception& exception) {
+  } catch (com::Exception &exception) {
     auto const desc = dataObject().description(dataGuide);
-    std::string const message = std::vformat(
-         "Unable to set {0} as height data for {1} visualisation:",
-         std::make_format_args(desc, visualisationName()));
+    std::string const message = std::vformat("Unable to set {0} as height data for {1} visualisation:",
+                                             std::make_format_args(desc, visualisationName()));
     exception.prepend(message);
     throw;
   }
 }
 
-
-
-void ag::Map3DWindow::saveAsPNG(
-         std::filesystem::path const& path)
+void ag::Map3DWindow::saveAsPNG(std::filesystem::path const &path)
 {
   d_map->saveAsPNG(path);
 }
-
-
 
 /*
 void ag::Map3DWindow::saveAsEPS(const com::PathName& pathName)
@@ -177,33 +156,27 @@ void ag::Map3DWindow::saveAsEPS(const com::PathName& pathName)
 */
 
 
-
 void ag::Map3DWindow::showOpenGLInfo()
 {
   std::ostringstream stream;
-  stream
-    << "<table>"
-    << "<tr><th>Property</th><th>Value</th></tr>"
-    << "<tr><td>Depth of rendering context</td><td>"
-         << d_map->depthOfRenderingContext() << "</td>"
-    << "<tr><td>Double buffering</td><td>"
-         << (d_map->doubleBuffer() ? "yes" : "no") << "</td></tr>"
-    << "</table>";
+  stream << "<table>"
+         << "<tr><th>Property</th><th>Value</th></tr>"
+         << "<tr><td>Depth of rendering context</td><td>" << d_map->depthOfRenderingContext() << "</td>"
+         << "<tr><td>Double buffering</td><td>" << (d_map->doubleBuffer() ? "yes" : "no") << "</td></tr>"
+         << "</table>";
 
   showInfo(stream.str());
 }
-
-
 
 std::string ag::Map3DWindow::windowName() const
 {
   std::string name = "No data loaded";
 
-  if(visualisationEngine().heightDataGuide()) {
+  if (visualisationEngine().heightDataGuide()) {
     name = dataObject().name(*visualisationEngine().heightDataGuide());
     std::vector<DataGuide> const dataGuides = visualisationEngine().dataGuides();
 
-    for(auto & dataGuide : dataGuides) {
+    for (auto &dataGuide : dataGuides) {
       name += " + " + dataObject().name(dataGuide);
     }
   }
@@ -211,19 +184,14 @@ std::string ag::Map3DWindow::windowName() const
   return name;
 }
 
-
-
 bool ag::Map3DWindow::dataVisualised() const
 {
   return visualisationEngine().heightDataGuide() != nullptr;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -231,11 +199,9 @@ bool ag::Map3DWindow::dataVisualised() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -243,9 +209,6 @@ bool ag::Map3DWindow::dataVisualised() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

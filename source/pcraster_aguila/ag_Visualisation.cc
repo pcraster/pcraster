@@ -10,12 +10,11 @@
 // #include "ag_DataObject.h"
 // #define INCLUDED_AG_DATAOBJECT
 // #endif
-// 
+//
 // #ifndef INCLUDED_AG_VISENGINE
 // #include "ag_VisEngine.h"
 // #define INCLUDED_AG_VISENGINE
 // #endif
-
 
 
 /*!
@@ -24,49 +23,37 @@
 */
 
 
-
-namespace ag {
+namespace ag
+{
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC VISUALISATION MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF VISUALISATION MEMBERS
 //------------------------------------------------------------------------------
 
-template<class Widget>
-Visualisation<Widget>::Visualisation(
-         DataObject* object,
-         const std::string& visualisationName,
-         QWidget* parent,
-         Qt::WindowFlags flags)
+template <class Widget>
+Visualisation<Widget>::Visualisation(DataObject *object, const std::string &visualisationName,
+                                     QWidget *parent, Qt::WindowFlags flags)
 
-  : Widget(parent),
-    IVisualisation(object, visualisationName)
+    : Widget(parent), IVisualisation(object, visualisationName)
 
 {
   Widget::setWindowFlags(flags);
   Widget::setAttribute(Qt::WA_DeleteOnClose);
 }
 
-
-
-template<class Widget>
-Visualisation<Widget>::~Visualisation()
+template <class Widget> Visualisation<Widget>::~Visualisation()
 {
 }
 
-
-
-template<class Widget>
-bool Visualisation<Widget>::close()
+template <class Widget> bool Visualisation<Widget>::close()
 {
   return Widget::close();
 }
-
 
 
 // template<class Widget>
@@ -87,14 +74,13 @@ bool Visualisation<Widget>::close()
 //     }
 //   }
 // }
-// 
-// 
-// 
+//
+//
+//
 // template<class Widget>
 // void Visualisation<Widget>::visualise()
 // {
 // }
-
 
 
 //------------------------------------------------------------------------------
@@ -102,14 +88,12 @@ bool Visualisation<Widget>::close()
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 
-
 template class Visualisation<QWidget>;
 template class Visualisation<QTableWidget>;
 
-} // namespace
+}  // namespace ag

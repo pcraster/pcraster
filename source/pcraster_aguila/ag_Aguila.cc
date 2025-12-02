@@ -14,18 +14,18 @@
 #include <cstdlib>
 #include <fstream>
 
+namespace ag
+{
 
-namespace ag {
+namespace detail
+{
 
-namespace detail {
-
-std::string const DEVELOPERMESSAGE(
-         "Copyright (C) PCRaster owners\n"
-         "Department of Physical Geography\n"
-         "Faculty of Geosciences\n"
-         "Utrecht University\n"
-         "and PCRaster Environmental Software\n"
-         "The Netherlands");
+std::string const DEVELOPERMESSAGE("Copyright (C) PCRaster owners\n"
+                                   "Department of Physical Geography\n"
+                                   "Faculty of Geosciences\n"
+                                   "Utrecht University\n"
+                                   "and PCRaster Environmental Software\n"
+                                   "The Netherlands");
 }
 
 //------------------------------------------------------------------------------
@@ -36,7 +36,6 @@ std::string const DEVELOPERMESSAGE(
 // {
 //   qt::AppWindow::showError("Aguila", msg);
 // }
-
 
 
 //------------------------------------------------------------------------------
@@ -51,18 +50,12 @@ std::string const DEVELOPERMESSAGE(
   \param     role Role the application plays in the process.
 
 */
-Aguila::Aguila(
-         int& argc,
-         char** argv,
-         qt::ApplicationRole role)
+Aguila::Aguila(int &argc, char **argv, qt::ApplicationRole role)
 
-  : qt::GuiApp(argc, argv,
-         /* com::CommandLine("Aguila", __DATE__, argv[0]), com::GNU, */ role),
-    dev::GDalClient(),
-    dal::Client(dev::prefix(argv[0]), true),
-    d_xsdLib(new pcrxsd::Library()),
-    d_argc(argc),
-    d_argv(argv)
+    : qt::GuiApp(argc, argv,
+                 /* com::CommandLine("Aguila", __DATE__, argv[0]), com::GNU, */ role),
+      dev::GDalClient(), dal::Client(dev::prefix(argv[0]), true), d_xsdLib(new pcrxsd::Library()),
+      d_argc(argc), d_argv(argv)
 {
   assert(dev::GDalClient::isInitialized());
   assert(dal::Client::isInitialized());
@@ -78,18 +71,16 @@ Aguila::Aguila(
   dal::Client::dal().favourDrivers(drivers);
 
   applyGplLicense("PCRaster owners");
-  setVersion(AGUILA_MAJOR_VERSION, AGUILA_MINOR_VERSION, AGUILA_PATCH_VERSION, AGUILA_PRE_RELEASE_VERSION);
+  setVersion(AGUILA_MAJOR_VERSION, AGUILA_MINOR_VERSION, AGUILA_PATCH_VERSION,
+             AGUILA_PRE_RELEASE_VERSION);
   // setBuildStage(AG_BUILD_STAGE);
 
   qt::AppWindow::setApplicationRole(role);
   // QApplication::setWindowIcon(QIcon(QPixmap((char const **)pcr_16x16_xpm)));
 
-  init(qt::AppWindowProperties("Aguila", "", version(),
-         detail::DEVELOPERMESSAGE + "\n\n" + license(),
-         QPixmap(pcr_16x16_xpm)));
+  init(qt::AppWindowProperties("Aguila", "", version(), detail::DEVELOPERMESSAGE + "\n\n" + license(),
+                               QPixmap(pcr_16x16_xpm)));
 }
-
-
 
 //! Destructs an Aguila application object.
 /*!
@@ -100,10 +91,7 @@ Aguila::~Aguila()
   delete d_xsdLib;
 }
 
-
-
-void Aguila::init(
-         qt::AppWindowProperties const& awp)
+void Aguila::init(qt::AppWindowProperties const &awp)
 {
   // setParseCommandLine(false);
 
@@ -119,61 +107,55 @@ void Aguila::init(
   // SoQt::init(dummy);
 }
 
-
-
 void Aguila::setup()
 {
   AguilaProgramOptions const apo(d_argc, d_argv);
 
-  if(!apo.help().empty()) {
-      showInfo(apo.help());
-      std::exit(EXIT_SUCCESS);
+  if (!apo.help().empty()) {
+    showInfo(apo.help());
+    std::exit(EXIT_SUCCESS);
   }
-  if(apo.license()) {
-      showInfo(license());
-      std::exit(EXIT_SUCCESS);
+  if (apo.license()) {
+    showInfo(license());
+    std::exit(EXIT_SUCCESS);
   }
-  if(apo.version()) {
-      showInfo(version());
-      std::exit(EXIT_SUCCESS);
+  if (apo.version()) {
+    showInfo(version());
+    std::exit(EXIT_SUCCESS);
   }
 
   // createLockFile();
   // parseConfigurationFile();
 
-/// #ifdef DEBUG_DEVELOP
-///   // TEST
-///
-///   char arg1[5] = "test";
-///   char arg2[3] = "-x";
-/// #ifdef __linux__
-///   char arg3[14] = "/tmp/test.xml";
-/// #else
-///   char arg3[9] = "test.xml";
-/// #endif
-///   char *argv[3] = { arg1, arg2, arg3 };
-///
-///   std::ofstream f(arg3);
-///   pcrxml::aguila(f, apo.configuration(),
-///                  pcrxsd::namespaceInfoMap("Aguila.xsd"));
-///   f.close();
-///
-///   AguilaProgramOptions p(3, argv);
-///   viewer().createViews(p.configuration());
-/// #else
+  /// #ifdef DEBUG_DEVELOP
+  ///   // TEST
+  ///
+  ///   char arg1[5] = "test";
+  ///   char arg2[3] = "-x";
+  /// #ifdef __linux__
+  ///   char arg3[14] = "/tmp/test.xml";
+  /// #else
+  ///   char arg3[9] = "test.xml";
+  /// #endif
+  ///   char *argv[3] = { arg1, arg2, arg3 };
+  ///
+  ///   std::ofstream f(arg3);
+  ///   pcrxml::aguila(f, apo.configuration(),
+  ///                  pcrxsd::namespaceInfoMap("Aguila.xsd"));
+  ///   f.close();
+  ///
+  ///   AguilaProgramOptions p(3, argv);
+  ///   viewer().createViews(p.configuration());
+  /// #else
   viewer().createViews(apo.configuration());
-/// #endif
+  /// #endif
 }
 
-
-
-Viewer& Aguila::viewer()
+Viewer &Aguila::viewer()
 {
   assert(d_viewer);
   return *d_viewer;
 }
-
-
 
 // Aguila::Aguila()
 //   : qt::GuiApp(com::CommandLine("Aguila", __DATE__, "aguila"), com::GNU),
@@ -204,11 +186,9 @@ Viewer& Aguila::viewer()
 // }
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -216,11 +196,9 @@ Viewer& Aguila::viewer()
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -228,10 +206,8 @@ Viewer& Aguila::viewer()
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace ag
-
+}  // namespace ag

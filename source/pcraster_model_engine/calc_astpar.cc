@@ -9,14 +9,12 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC ASTPAR MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -27,76 +25,68 @@ calc::ASTPar::ASTPar()
 {
 }
 
-calc::ASTPar::ASTPar(const std::string& name):
-  ASTId(name)
+calc::ASTPar::ASTPar(const std::string &name) : ASTId(name)
 {
 }
 
-calc::ASTPar::ASTPar(const Id&          id):
-  ASTId(id)
+calc::ASTPar::ASTPar(const Id &id) : ASTId(id)
 {
 }
-
 
 calc::ASTPar::~ASTPar()
 {
 }
 
 //! Assignment operator.
-calc::ASTPar& calc::ASTPar::operator=(const ASTPar& rhs)
+calc::ASTPar &calc::ASTPar::operator=(const ASTPar &rhs)
 {
   if (this != &rhs) {
     setName(rhs.name());
     setPosition(rhs.position());
-    PRECOND(rhs.d_index.empty()); // TODO
+    PRECOND(rhs.d_index.empty());  // TODO
 
-    d_lastUse=rhs.d_lastUse;
+    d_lastUse = rhs.d_lastUse;
   }
   return *this;
 }
 
 //! Copy constructor.
-calc::ASTPar::ASTPar(const ASTPar& rhs):
-    ASTId(rhs),
-    d_lastUse(rhs.d_lastUse)
+calc::ASTPar::ASTPar(const ASTPar &rhs) : ASTId(rhs), d_lastUse(rhs.d_lastUse)
 {
-  PRECOND(rhs.d_index.empty()); // TODO
+  PRECOND(rhs.d_index.empty());  // TODO
 }
 
 //! throw SymException for this
 /*!
  * Note that a SymException thrown by ASTSymbolInfo is "preferred"
  */
-void  calc::ASTPar::symError(const std::string& msg) const
+void calc::ASTPar::symError(const std::string &msg) const
 {
- throw SymException(*position(),name(),msg);
+  throw SymException(*position(), name(), msg);
 }
 
-void calc::ASTPar::runtimeError(
-    size_t             timeStep,
-    const std::string& msg) const
+void calc::ASTPar::runtimeError(size_t timeStep, const std::string &msg) const
 {
-  symError(runtimeErrorFmt(timeStep,msg));
+  symError(runtimeErrorFmt(timeStep, msg));
 }
 
 //! add index
-void calc::ASTPar::pushBackIndex(const Id& i)
+void calc::ASTPar::pushBackIndex(const Id &i)
 {
   d_index.push_back(i);
 }
 
-
-void calc::ASTPar::accept(ASTVisitor& v)
+void calc::ASTPar::accept(ASTVisitor &v)
 {
   v.visitPar(this);
 }
 
-const calc::IdList& calc::ASTPar::index() const
+const calc::IdList &calc::ASTPar::index() const
 {
   return d_index;
 }
 
-calc::ASTPar* calc::ASTPar::createClone() const
+calc::ASTPar *calc::ASTPar::createClone() const
 {
   return new ASTPar(*this);
 }
@@ -105,24 +95,23 @@ calc::ASTPar* calc::ASTPar::createClone() const
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
-bool calc::operator<(const ASTPar& lhs, const ASTPar& rhs)
+bool calc::operator<(const ASTPar &lhs, const ASTPar &rhs)
 {
   if (lhs.name() == rhs.name()) {
     if (lhs.index().size() != rhs.index().size())
-     return lhs.index().size() < rhs.index().size();
-    for(size_t i=0;i!=rhs.index().size();++i)
-     if (lhs.index()[i] != rhs.index()[i])
-      return lhs.index()[i] < rhs.index()[i];
+      return lhs.index().size() < rhs.index().size();
+    for (size_t i = 0; i != rhs.index().size(); ++i)
+      if (lhs.index()[i] != rhs.index()[i])
+        return lhs.index()[i] < rhs.index()[i];
   }
   return lhs.name() < rhs.name();
 }
 
-
-bool calc::operator==(const ASTPar& lhs, const ASTPar& rhs)
+bool calc::operator==(const ASTPar &lhs, const ASTPar &rhs)
 {
   if (lhs.name() != rhs.name() || lhs.index() != rhs.index())
     return false;
-  for(size_t i=0;i!=rhs.index().size();++i)
+  for (size_t i = 0; i != rhs.index().size(); ++i)
     if (lhs.index()[i] != rhs.index()[i])
       return false;
   return true;
@@ -131,7 +120,7 @@ bool calc::operator==(const ASTPar& lhs, const ASTPar& rhs)
 //! set value of d_lastUse
 void calc::ASTPar::setLastUse(bool lastUse)
 {
-  d_lastUse=lastUse;
+  d_lastUse = lastUse;
 }
 
 //! get value of d_lastUse
@@ -143,6 +132,3 @@ bool calc::ASTPar::lastUse() const
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

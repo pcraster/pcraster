@@ -22,10 +22,10 @@
 #include "pcraster_model_engine_export.h"
 
 #ifdef WIN32
-# ifndef INCLUDED_COM_WIN32
-# include "com_win32.h"
-# define INCLUDED_COM_WIN32
-# endif
+#ifndef INCLUDED_COM_WIN32
+#include "com_win32.h"
+#define INCLUDED_COM_WIN32
+#endif
 #endif
 
 // Module headers.
@@ -47,7 +47,6 @@
 // PCRaster library headers.
 
 // Module headers.
-
 
 
 /*!
@@ -81,126 +80,120 @@ static char *errStr(0);
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 
-
 //! 0 if last call OF ANY CALLS LISTED BELOW was no error
-extern "C" PCR_ME_EXPORT const char  *pcrCalcErrorResult()
+extern "C" PCR_ME_EXPORT const char *pcrCalcErrorResult()
 {
- return errStr;
+  return errStr;
 }
 
 static void initErrorResult()
 {
- // clean up possible previous one
- if (!errStr)
-  delete [] errStr;
- errStr=0;
+  // clean up possible previous one
+  if (!errStr)
+    delete[] errStr;
+  errStr = 0;
 }
 
-static void evalErrorResult(const std::string& errorMsg)
+static void evalErrorResult(const std::string &errorMsg)
 {
-  size_t l=errorMsg.size();
+  size_t l = errorMsg.size();
   if (l) {
     // there is error
-    errStr = new char[l+1];
-    strcpy(errStr,errorMsg.c_str());
- }
+    errStr = new char[l + 1];
+    strcpy(errStr, errorMsg.c_str());
+  }
 }
 
-
-
-namespace calc {
+namespace calc
+{
 
 //! holds info after pcrArcViewScriptVerify() is called
 std::vector<ArcViewExtCheckData> arcViewExtCheckData;
 
 //! setup check list (only used in avpcr/src/dll/PCRStep1.pas)
-class ArcViewExtCheckDataClass: public DllCalc
+class ArcViewExtCheckDataClass : public DllCalc
 {
-  public:
-     ArcViewExtCheckDataClass(const char *scriptName)
-     {
-       appIOstrategy = APP_IO_ESRIGRID;
-       setScriptFile(scriptName);
-       arcViewExtCheckData.clear();
-     }
-  protected:
-     int execute()
-     {
-       parse();
-       arcViewExtCheckData.clear();
-       script().setArcViewExtCheckData(arcViewExtCheckData);
-       return arcViewExtCheckData.size();
-     }
+public:
+  ArcViewExtCheckDataClass(const char *scriptName)
+  {
+    appIOstrategy = APP_IO_ESRIGRID;
+    setScriptFile(scriptName);
+    arcViewExtCheckData.clear();
+  }
+
+protected:
+  int execute()
+  {
+    parse();
+    arcViewExtCheckData.clear();
+    script().setArcViewExtCheckData(arcViewExtCheckData);
+    return arcViewExtCheckData.size();
+  }
 };
 
-}
+}  // namespace calc
 
 //! return a name that must be checked on open in ArcView
 /*!
    \param name must point to buffer with minimum size of 2048
    \return the absolute path to a map or stack directory in name
  */
-extern "C" PCR_ME_EXPORT void pcrGetArcViewCheckDataItem(
-    int   itemNr,
-    int  *isStack,
-    char *name)
+extern "C" PCR_ME_EXPORT void pcrGetArcViewCheckDataItem(int itemNr, int *isStack, char *name)
 {
-  if (itemNr < 0 ||
-      static_cast<size_t>(itemNr) >= calc::arcViewExtCheckData.size())
+  if (itemNr < 0 || static_cast<size_t>(itemNr) >= calc::arcViewExtCheckData.size())
     return;
   *isStack = calc::arcViewExtCheckData[itemNr].d_isStack;
   if (calc::arcViewExtCheckData[itemNr].d_name.size() < 2048)
-   strcpy(name,calc::arcViewExtCheckData[itemNr].d_name.c_str());
+    strcpy(name, calc::arcViewExtCheckData[itemNr].d_name.c_str());
 }
-
 
 //! verify a script and set up Esri output grids
 /*!
     in case of error, pcrCalcErrorResult will return the message
    \returns -1 in case of error, nr of esri out grid names otherwise
  */
-extern "C" PCR_ME_EXPORT int pcrArcViewScriptVerify(
-  const char *scriptName)
+extern "C" PCR_ME_EXPORT int pcrArcViewScriptVerify(const char *scriptName)
 {
- initErrorResult();
- calc::ArcViewExtCheckDataClass sv(scriptName);
- int r = sv.run(-1);
- evalErrorResult(sv.errorMsg());
- return r;
+  initErrorResult();
+  calc::ArcViewExtCheckDataClass sv(scriptName);
+  int r = sv.run(-1);
+  evalErrorResult(sv.errorMsg());
+  return r;
 }
 
-namespace calc {
+namespace calc
+{
 //! run command from Esri's ArcView PCRaster extension
 /*! call pcrcalc in a command line fashion, without argv0
  */
 class ArcViewExtRun : public DllCalc
 {
-  private:
-     const char *d_cmdString;
-  public:
-     ArcViewExtRun(const char *cmdString):
-       d_cmdString(cmdString)
-     {
-     }
-  protected:
-     int execute()
-     {
-       com::AppArgs args("",d_cmdString);
-       if (!processArgs(args.argc(), args.argv()))
-         return 0;
-       // if reset by arguments, put back to this:
-       // appOutput=APP_NOOUT; does not happen in ArcViewExtRun
-       parse();
-       return executeScript();
-     }
+private:
+  const char *d_cmdString;
+
+public:
+  ArcViewExtRun(const char *cmdString) : d_cmdString(cmdString)
+  {
+  }
+
+protected:
+  int execute()
+  {
+    com::AppArgs args("", d_cmdString);
+    if (!processArgs(args.argc(), args.argv()))
+      return 0;
+    // if reset by arguments, put back to this:
+    // appOutput=APP_NOOUT; does not happen in ArcViewExtRun
+    parse();
+    return executeScript();
+  }
 };
-};
+};  // namespace calc
 
 //! run a calc command line (only used in avpcr/src/dll/PCRStep1.pas)
 /*!
@@ -219,12 +212,11 @@ class ArcViewExtRun : public DllCalc
    \returns exit code as defined by arguments
 
  */
-extern "C" PCR_ME_EXPORT int pcrCalcCmd(
-  const char *cmdString)
+extern "C" PCR_ME_EXPORT int pcrCalcCmd(const char *cmdString)
 {
- calc::ArcViewExtRun dc(cmdString);
- initErrorResult();
- int r = dc.run();
- evalErrorResult(dc.errorMsg());
- return r;
+  calc::ArcViewExtRun dc(cmdString);
+  initErrorResult();
+  int r = dc.run();
+  evalErrorResult(dc.errorMsg());
+  return r;
 }

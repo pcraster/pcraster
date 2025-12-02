@@ -8,39 +8,37 @@
 #include "calc_newxmldatasubtype.h"
 #include <string>
 
-
 //! ctor
-calc::FieldParameter::FieldParameter(
-    const calc::ParsPar& par,
-    bool constant, bool input, VS vs, ST st) :
-  calc::SubParameter(par,constant,input),
-  d_type(vs,st)
+calc::FieldParameter::FieldParameter(const calc::ParsPar &par, bool constant, bool input, VS vs, ST st)
+    : calc::SubParameter(par, constant, input), d_type(vs, st)
 {
 }
 
 //! delete the associated values
 void calc::FieldParameter::deleteValues()
 {
-  for(size_t i=0; i < nrElements(); i++)
-   try {
-    FieldHandle const v = value(i, true);
-   } catch(const calc::Field::NotInitialized&) {
-     // not initialized skip, no need to delete
-   }
+  for (size_t i = 0; i < nrElements(); i++)
+    try {
+      FieldHandle const v = value(i, true);
+    } catch (const calc::Field::NotInitialized &) {
+      // not initialized skip, no need to delete
+    }
 }
 
 //! vs of field
-VS calc::FieldParameter::vs() const {
+VS calc::FieldParameter::vs() const
+{
   return d_type.vs();
 }
 
 //! symbol type of field equals vs
-VS calc::FieldParameter::symbolType() const {
+VS calc::FieldParameter::symbolType() const
+{
   return vs();
 }
 
 //! return FieldType reference for restricting modification
-calc::FieldType& calc::FieldParameter::restrictType()
+calc::FieldType &calc::FieldParameter::restrictType()
 {
   return d_type;
 }
@@ -49,28 +47,26 @@ calc::FieldType& calc::FieldParameter::restrictType()
 /*  happens when reassigning a parameter more then once
  * \throws calc::FieldParameter::RestrictError if user made error
  */
-bool calc::FieldParameter::restrictUser(
-    const calc::FieldType& exprAssignedTo)
+bool calc::FieldParameter::restrictUser(const calc::FieldType &exprAssignedTo)
 {
   std::string msg;
   try {
     return d_type.restrictUser(exprAssignedTo.vs(), exprAssignedTo.spatial());
   }
   // this happens if parameter is multiple times assigned pcrcalc/test2
-  catch (const SyntaxVsClash& s) {
-    msg = quote(userName())+" is defined as "+s.d_oldVs+" type on "
-    +definitionPoint()+" and used here as "+s.d_newVs+" type";
-  }
-  catch (const SyntaxStClash& s) { // pcrcalc/test????
-    msg = quote(userName())+" is defined as "+s.d_oldSt+" value on "
-    +definitionPoint()+" and assigned here a "+s.d_newSt+" value";
+  catch (const SyntaxVsClash &s) {
+    msg = quote(userName()) + " is defined as " + s.d_oldVs + " type on " + definitionPoint() +
+          " and used here as " + s.d_newVs + " type";
+  } catch (const SyntaxStClash &s) {  // pcrcalc/test????
+    msg = quote(userName()) + " is defined as " + s.d_oldSt + " value on " + definitionPoint() +
+          " and assigned here a " + s.d_newSt + " value";
   }
   throw RestrictError(msg);
   // never reached
 }
 
 //! return FieldType
-const calc::FieldType& calc::FieldParameter::fieldType() const
+const calc::FieldType &calc::FieldParameter::fieldType() const
 {
   return d_type;
 }
@@ -87,20 +83,20 @@ void calc::FieldParameter::finalCheck()
 {
   if (isOutput()) {
 
-     // only worry on the correct type if written as output
-     if (nrInSet(vs()) > 1) {
+    // only worry on the correct type if written as output
+    if (nrInSet(vs()) > 1) {
       // pcrcalc test38[a]
-      posError("Use a conversion function to pick a data type for "+
-      quote(userName())+"\npossible data type is "+toString(vs()));
-     }
+      posError("Use a conversion function to pick a data type for " + quote(userName()) +
+               "\npossible data type is " + toString(vs()));
+    }
 
-     std::string const t("hacktest");
-     if (isInput() && scriptConst().outputFilePath(t) != t ) {
+    std::string const t("hacktest");
+    if (isInput() && scriptConst().outputFilePath(t) != t) {
       // is both input and output and -r is set
       // pcrcalc/test358
-      posError("with use of -r: "+quote(userName())+" cannot be both input and output");
-     }
-   }
+      posError("with use of -r: " + quote(userName()) + " cannot be both input and output");
+    }
+  }
   // if it apears in dynamic, e.g. there is at least one node
   // of the chain in the dynamic, then the last node points
   // to that node, if d_firstChainNodeInDynamic may be 0 if
@@ -127,7 +123,7 @@ void calc::FieldParameter::addToChain(calc::UseDefNode *l)
   else
     d_chainBegin = l;
   if (l->inDynamic() && (!d_firstChainNodeInDynamic))
-    d_firstChainNodeInDynamic=l;
+    d_firstChainNodeInDynamic = l;
   d_chainEnd = l;
 }
 
@@ -136,7 +132,7 @@ void calc::FieldParameter::addToChain(calc::UseDefNode *l)
    \todo
       do HTML out with XML/CSS and so on
  */
-void calc::FieldParameter::printSubSpecific(calc::InfoScript& is)const
+void calc::FieldParameter::printSubSpecific(calc::InfoScript &is) const
 {
   fieldType().print(is);
 }
@@ -154,21 +150,21 @@ double calc::FieldParameter::initialValue() const
  */
 void calc::FieldParameter::setDataSubType(pcrxml::Data *d) const
 {
-   VS const v=(nrInSet(vs())!=1) ? VS_UNKNOWN : vs();
-   bool const isSpatial=fieldType().spatial();
+  VS const v = (nrInSet(vs()) != 1) ? VS_UNKNOWN : vs();
+  bool const isSpatial = fieldType().spatial();
 
-   if (reportedInDynamic()) {
-     if (isSpatial)
-       d->stack      = newDataSubType<pcrxml::Stack>(v);
-     else
-       d->timeSeries = newDataSubType<pcrxml::TimeSeries>(v);
-   } else {
-     if (isSpatial)
-       d->map        = newDataSubType<pcrxml::Map>(v);
-     else {
-       d->nonSpatial = newDataSubType<pcrxml::NonSpatial>(v);
-       if (isConstantBinding())
-          d->nonSpatial->value = initialValue();
-     }
-   }
+  if (reportedInDynamic()) {
+    if (isSpatial)
+      d->stack = newDataSubType<pcrxml::Stack>(v);
+    else
+      d->timeSeries = newDataSubType<pcrxml::TimeSeries>(v);
+  } else {
+    if (isSpatial)
+      d->map = newDataSubType<pcrxml::Map>(v);
+    else {
+      d->nonSpatial = newDataSubType<pcrxml::NonSpatial>(v);
+      if (isConstantBinding())
+        d->nonSpatial->value = initialValue();
+    }
+  }
 }

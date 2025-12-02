@@ -1,7 +1,7 @@
 #include "stddefx.h"
 #include "calc_cellop.h"
 #ifdef DEBUG_DEVELOP
-  #include "com_csfcell.h"
+#include "com_csfcell.h"
 #endif
 #include "calc_runtimeenv.h"
 #include "calc_icelliterator.h"
@@ -15,20 +15,19 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
 
-namespace calc {
-CellFocus         builtIn__cellfocus;
+namespace calc
+{
+CellFocus builtIn__cellfocus;
 LddDownstreamCell builtIn__ldddownstreamcell;
 
-} // namespace calc
+}  // namespace calc
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CELLOP MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -38,8 +37,6 @@ LddDownstreamCell builtIn__ldddownstreamcell;
 calc::CellOp::CellOp()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -52,12 +49,9 @@ calc::CellOp::CellOp(CellOp const& rhs)
 */
 
 
-
 calc::CellOp::~CellOp()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -71,26 +65,26 @@ calc::CellOp& calc::CellOp::operator=(CellOp const& rhs)
 
 void calc::CellOp::getCell(RunTimeEnv *rte, size_t i) const
 {
-  Field *f=rte->popField();
+  Field *f = rte->popField();
   if (f->isSpatial()) {
     double value = NAN;
-    f->getCell(value,i);
+    f->getCell(value, i);
     // Executor::visitCellIterator ensures this
-    DEVELOP_PRECOND(f->getCell(value,i));
-    rte->pushField(new NonSpatial(f->vs(),value));
+    DEVELOP_PRECOND(f->getCell(value, i));
+    rte->pushField(new NonSpatial(f->vs(), value));
     delete f;
   } else
     rte->pushField(f);
 }
 
-void calc::CellFocus::exec(RunTimeEnv *rte, const Operator&, size_t) const
+void calc::CellFocus::exec(RunTimeEnv *rte, const Operator &, size_t) const
 {
-  getCell(rte,rte->cellIterator()->current());
+  getCell(rte, rte->cellIterator()->current());
 }
 
-void calc::LddDownstreamCell::exec(RunTimeEnv *rte, const Operator&, size_t) const
+void calc::LddDownstreamCell::exec(RunTimeEnv *rte, const Operator &, size_t) const
 {
-  getCell(rte,rte->cellIterator()->lddDownstream());
+  getCell(rte, rte->cellIterator()->lddDownstream());
 }
 
 //------------------------------------------------------------------------------
@@ -100,6 +94,3 @@ void calc::LddDownstreamCell::exec(RunTimeEnv *rte, const Operator&, size_t) con
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

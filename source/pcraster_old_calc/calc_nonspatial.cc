@@ -1,6 +1,6 @@
 #include "stddefx.h"
 #include "calc_nonspatial.h"
-#include "csf.h"       // IsMVcellRepr
+#include "csf.h"  // IsMVcellRepr
 #include "calc_map2csf.h"
 
 //! constructor
@@ -8,28 +8,34 @@
     is now needed for the skipped exection of an if branch,
     because the impls. will test on not-MV of a nonspatial
  */
-calc::NonSpatial::NonSpatial(VS vs, double value):
-  calc::Field(vs  )
+calc::NonSpatial::NonSpatial(VS vs, double value) : calc::Field(vs)
 {
   d_crVal = biggestCellRepr(vs);
-  switch(d_crVal) {
-   case CR_REAL4: d_vals = (REAL4)value; break;
-   case CR_INT4:  d_val4 = (INT4)value; break;
-   case CR_UINT1: d_val1 = (UINT1)value; break;
-   default : POSTCOND(false); // NEVER
+  switch (d_crVal) {
+    case CR_REAL4:
+      d_vals = (REAL4)value;
+      break;
+    case CR_INT4:
+      d_val4 = (INT4)value;
+      break;
+    case CR_UINT1:
+      d_val1 = (UINT1)value;
+      break;
+    default:
+      POSTCOND(false);  // NEVER
   }
   POSTCOND(!isMv());
 }
 
-void calc::NonSpatial::analyzeBoolean(bool& noneAreTrue,bool& noneAreFalse) const
+void calc::NonSpatial::analyzeBoolean(bool &noneAreTrue, bool &noneAreFalse) const
 {
   PRECOND(vs() == VS_B);
   PRECOND(d_crVal == CR_UINT1);
   noneAreTrue = noneAreFalse = true;
   if (isMv())
     return;
-  if ( ((int)getValue()) == 1 )
-    noneAreTrue  = false;
+  if (((int)getValue()) == 1)
+    noneAreTrue = false;
   else
     noneAreFalse = false;
 }
@@ -43,20 +49,27 @@ size_t calc::NonSpatial::nrValues() const
   return 1;
 }
 
-void calc::NonSpatial::setCell(const double& value, size_t /* i */)
+void calc::NonSpatial::setCell(const double &value, size_t /* i */)
 {
   if (IsMVcellRepr(CR_REAL8, &value)) {
     throw SetNonSpatialToMV();
   }
-  switch(d_crVal) {
-   case CR_REAL4: d_vals = (REAL4)value; break;
-   case CR_INT4:  d_val4 = (INT4)value; break;
-   case CR_UINT1: d_val1 = (UINT1)value; break;
-   default : POSTCOND(false); // NEVER
+  switch (d_crVal) {
+    case CR_REAL4:
+      d_vals = (REAL4)value;
+      break;
+    case CR_INT4:
+      d_val4 = (INT4)value;
+      break;
+    case CR_UINT1:
+      d_val1 = (UINT1)value;
+      break;
+    default:
+      POSTCOND(false);  // NEVER
   }
 }
 
-bool calc::NonSpatial::getCell(double& value, size_t /* i */) const
+bool calc::NonSpatial::getCell(double &value, size_t /* i */) const
 {
   value = getValue();
   return true;
@@ -66,61 +79,85 @@ calc::NonSpatial *calc::NonSpatial::copy() const
 {
   auto *n = new calc::NonSpatial(vs() /* ,true */);
   n->d_crVal = d_crVal;
-  switch(d_crVal) {
-    case CR_REAL4: n->d_vals = d_vals; break;
-    case CR_INT4:  n->d_val4 = d_val4; break;
-    case CR_UINT1: n->d_val1 = d_val1; break;
-    default : POSTCOND(false); // NEVER
+  switch (d_crVal) {
+    case CR_REAL4:
+      n->d_vals = d_vals;
+      break;
+    case CR_INT4:
+      n->d_val4 = d_val4;
+      break;
+    case CR_UINT1:
+      n->d_val1 = d_val1;
+      break;
+    default:
+      POSTCOND(false);  // NEVER
   }
   return n;
 }
 
 const void *calc::NonSpatial::srcValue() const
 {
-  PRECOND(!isMv()); // should have a value
-  switch(d_crVal) {
-    case CR_REAL4: return &d_vals;
-    case CR_INT4:  return &d_val4;
-    case CR_UINT1: return &d_val1;
-    default : POSTCOND(false); // NEVER
-              return &d_vals; 
+  PRECOND(!isMv());  // should have a value
+  switch (d_crVal) {
+    case CR_REAL4:
+      return &d_vals;
+    case CR_INT4:
+      return &d_val4;
+    case CR_UINT1:
+      return &d_val1;
+    default:
+      POSTCOND(false);  // NEVER
+      return &d_vals;
   }
 }
+
 void *calc::NonSpatial::destValue()
 {
-  switch(d_crVal) {
-    case CR_REAL4: return &d_vals;
-    case CR_INT4:  return &d_val4;
-    case CR_UINT1: return &d_val1;
-    default : POSTCOND(false); // NEVER
-              return &d_vals; 
+  switch (d_crVal) {
+    case CR_REAL4:
+      return &d_vals;
+    case CR_INT4:
+      return &d_val4;
+    case CR_UINT1:
+      return &d_val1;
+    default:
+      POSTCOND(false);  // NEVER
+      return &d_vals;
   }
 }
 
 const void *calc::NonSpatial::voidValue() const
 {
-  switch(d_crVal) {
-    case CR_REAL4: return &d_vals;
-    case CR_INT4:  return &d_val4;
-    case CR_UINT1: return &d_val1;
-    default : POSTCOND(false); // NEVER
-              return &d_vals; 
+  switch (d_crVal) {
+    case CR_REAL4:
+      return &d_vals;
+    case CR_INT4:
+      return &d_val4;
+    case CR_UINT1:
+      return &d_val1;
+    default:
+      POSTCOND(false);  // NEVER
+      return &d_vals;
   }
 }
 
-double calc::NonSpatial::getValue()const
+double calc::NonSpatial::getValue() const
 {
   PRECOND(!isMv());
-  switch(d_crVal) {
-    case CR_REAL4: return (double)d_vals;
-    case CR_INT4:  return (double)d_val4;
-    case CR_UINT1: return (double)d_val1;
-    default : POSTCOND(false); // NEVER
-               return (double)d_vals;
+  switch (d_crVal) {
+    case CR_REAL4:
+      return (double)d_vals;
+    case CR_INT4:
+      return (double)d_val4;
+    case CR_UINT1:
+      return (double)d_val1;
+    default:
+      POSTCOND(false);  // NEVER
+      return (double)d_vals;
   }
 }
 
-bool calc::NonSpatial::isMv()const
+bool calc::NonSpatial::isMv() const
 {
   return IsMVcellRepr(d_crVal, voidValue()) != 0;
 }

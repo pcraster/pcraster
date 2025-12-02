@@ -15,7 +15,7 @@
 #include "calc_lexinputsource.h"
 #include "calc_lexinputsourcestring.h"
 #include "calc_positiontext.h"
-#include <cstdio>    /* EOF */
+#include <cstdio> /* EOF */
 #include <sstream>
 
 /* headers of this app. modules called */
@@ -25,13 +25,13 @@ int calc::LexInput::getRawChar()
 {
   // if expanded code
   // then return expanded code
-  if(d_ptrExpOutBuf < d_expOutBuf.size())
-     return d_expOutBuf[d_ptrExpOutBuf++];
+  if (d_ptrExpOutBuf < d_expOutBuf.size())
+    return d_expOutBuf[d_ptrExpOutBuf++];
 
-  d_expOutBuf="";
-  d_ptrExpOutBuf=std::string::npos;
+  d_expOutBuf = "";
+  d_ptrExpOutBuf = std::string::npos;
 
-  if(d_extraCharRead != EOF) {
+  if (d_extraCharRead != EOF) {
     int const c = d_extraCharRead;
     d_extraCharRead = EOF;
     return c;
@@ -44,16 +44,14 @@ char calc::LexInput::getRawCharEOFcheck()
   int const c = getRawChar();
   // args/test2a
   if (c == EOF)
-    throw com::Exception("end-of-file in substitution "+quote("${"+d_expInBuf));
+    throw com::Exception("end-of-file in substitution " + quote("${" + d_expInBuf));
   return (char)c;
 }
 
-int calc::LexInput::getParameterNr(
-        const std::string& name,
-        bool nIsShellArg)
+int calc::LexInput::getParameterNr(const std::string &name, bool nIsShellArg)
 {
   int r = 0;
-  if (CnvrtInt(&r,name.c_str())) {
+  if (CnvrtInt(&r, name.c_str())) {
     if (r > 0 && r <= (int)d_shellArgs.size())
       return r;
     return -1;
@@ -63,34 +61,34 @@ int calc::LexInput::getParameterNr(
   return 0;
 }
 
-std::string calc::LexInput::getParameter(
-  const std::string& name,
-        bool bracePresent)
+std::string calc::LexInput::getParameter(const std::string &name, bool bracePresent)
 {
   // simply return "" in case of failure
-  int const r = getParameterNr(name,bracePresent);
-  switch(r) {
-   case -1: /* number out of range */
-     return "";
-   case  0: /* env. variable */
-     { char *n = getenv(name.c_str());
-       if (n)
-         return n;
-     }
-     return "";
-   default:
-    PRECOND(r > 0 && r <= (int)d_shellArgs.size());
-    // do not allow rec. subst. checked earlier
-    //  argscalc/test84
-    PRECOND(d_shellArgs[r-1][0] != '$');
-    return d_shellArgs[r-1];
+  int const r = getParameterNr(name, bracePresent);
+  switch (r) {
+    case -1: /* number out of range */
+      return "";
+    case 0: /* env. variable */
+    {
+      char *n = getenv(name.c_str());
+      if (n)
+        return n;
+    }
+      return "";
+    default:
+      PRECOND(r > 0 && r <= (int)d_shellArgs.size());
+      // do not allow rec. subst. checked earlier
+      //  argscalc/test84
+      PRECOND(d_shellArgs[r - 1][0] != '$');
+      return d_shellArgs[r - 1];
   }
 }
 
-calc::LexInput::LexInput():
-  
-  d_ptrExpOutBuf(std::string::npos)
-  
+calc::LexInput::LexInput()
+    :
+
+      d_ptrExpOutBuf(std::string::npos)
+
 {
 }
 
@@ -108,29 +106,29 @@ calc::LexInput::~LexInput()
 int calc::LexInput::getChar()
 {
   if (d_prevCallWasNewLine) {
-   d_prevCallWasNewLine=false;
-   d_tokenStart=1;
-   d_lineNr++;
+    d_prevCallWasNewLine = false;
+    d_tokenStart = 1;
+    d_lineNr++;
   }
-  int const c=getRawChar();
+  int const c = getRawChar();
   if (d_gettingInComment && c != '\n')
     return c;
-  switch(c) {
-   case '#' :
-      d_gettingInComment=true;
+  switch (c) {
+    case '#':
+      d_gettingInComment = true;
       break;
-   case '$' :
+    case '$':
       if (substitutionOn()) {
-         // install the substitution engine
-         parseShellParamUse();
-         // call again
-         return getChar();
+        // install the substitution engine
+        parseShellParamUse();
+        // call again
+        return getChar();
       }
       // otherwise return this char
       break;
-   case '\n':
-      d_gettingInComment=false;
-      d_prevCallWasNewLine=true;
+    case '\n':
+      d_gettingInComment = false;
+      d_prevCallWasNewLine = true;
   }
   return c;
 }
@@ -138,17 +136,15 @@ int calc::LexInput::getChar()
 //! print expanded code to stdout (-t option)
 /*!
  */
-void calc::LexInput::printExpandedCode(
-  std::ostream& outStream)
+void calc::LexInput::printExpandedCode(std::ostream &outStream)
 {
   int c = 0;
   do {
-   c =getChar();
-   if (c != EOF)
-     outStream.put((char)c);
+    c = getChar();
+    if (c != EOF)
+      outStream.put((char)c);
   } while (c != EOF);
 }
-
 
 //! install <I>script</I> given on the command line
 /*!
@@ -159,39 +155,36 @@ void calc::LexInput::printExpandedCode(
   \param substitution disabling substitution is needed for sealing $-constructs.
 */
 extern bool argDebugging;
-void calc::LexInput::installArgvScript(
-    int          argc,
-    const char **argv,
-    bool         substitution)
+
+void calc::LexInput::installArgvScript(int argc, const char **argv, bool substitution)
 {
-  d_substitution=substitution;
+  d_substitution = substitution;
 
   PRECOND(argc >= 1);
 
   std::string contents;
   for (int i = 0; i < argc; ++i) {
-   contents += argv[i];
-   contents += " ";  // seperator
-   if (contents.find(";;")!= std::string::npos) {
-     // from here on the rest are d_shellArgs:
-     installShellArgs(argc-i-1, argv+i+1);
-     // till here it is the expression
-     contents=com::replaceStrByStr(contents,";;",";");
-     break;
-   }
+    contents += argv[i];
+    contents += " ";  // seperator
+    if (contents.find(";;") != std::string::npos) {
+      // from here on the rest are d_shellArgs:
+      installShellArgs(argc - i - 1, argv + i + 1);
+      // till here it is the expression
+      contents = com::replaceStrByStr(contents, ";;", ";");
+      break;
+    }
   }
   delete d_from;
   d_from = new LexInputSourceString(contents);
 }
 
-void calc::LexInput::installStringScript(
-    const char *str)
+void calc::LexInput::installStringScript(const char *str)
 {
-  installArgvScript(1,&str,false);
+  installArgvScript(1, &str, false);
 }
 
 //! Install script given as option (-f)
-void calc::LexInput::installFileScript(const com::PathName& fileName)
+void calc::LexInput::installFileScript(const com::PathName &fileName)
 {
   delete d_from;
   d_from = createLexInputSourceFromFile(fileName);
@@ -204,15 +197,13 @@ void calc::LexInput::installFileScript(const com::PathName& fileName)
  * \todo
  *   do we want recursive substitution?  argscalc/test84
  */
-void calc::LexInput::installShellArgs(
-  int nrArgV,
-  const char **argV)
+void calc::LexInput::installShellArgs(int nrArgV, const char **argV)
 {
   d_shellArgs.clear();
   for (size_t i = 0; i < (size_t)nrArgV; i++) {
     d_shellArgs.push_back(argV[i]);
     if (d_shellArgs.back()[0] == '$') {
-      std::ostringstream msg; // argscalc/test84
+      std::ostringstream msg;  // argscalc/test84
       msg << "recursive substitution value: " << d_shellArgs[i] << " is illegal";
       throw com::Exception(msg.str());
     }
@@ -224,90 +215,92 @@ void calc::LexInput::installShellArgs(
  */
 void calc::LexInput::parseShellParamUse()
 {
-   // scan entire $-construct
-   // but do not include $ and { } if present
+  // scan entire $-construct
+  // but do not include $ and { } if present
 
-   d_expInBuf="";
-   // DO NOT SET  d_ptrExpOutBuf = 0;
-   // since we that enable feeding from d_expInBuf while
-   // filling d_expInBuf
-   d_ptrExpOutBuf = std::string::npos;
-   d_extraCharRead = EOF;
+  d_expInBuf = "";
+  // DO NOT SET  d_ptrExpOutBuf = 0;
+  // since we that enable feeding from d_expInBuf while
+  // filling d_expInBuf
+  d_ptrExpOutBuf = std::string::npos;
+  d_extraCharRead = EOF;
 
-   // symbol after $
-   char c = getRawCharEOFcheck();
-   if (c == '{') {
-       // start of {expr}
-       do {
-         c = getRawCharEOFcheck();
-         if (c == '}')
-           break;
-         d_expInBuf += c;
-       } while(true);
-   } else {
-       // start of number or id (env. var.)
-       do {
-           if (!IsAlphaNumericUnderscore(c))
-             break;
-           d_expInBuf += c;
-           c = getRawCharEOFcheck();
-       } while(true);
-       d_extraCharRead = c;
-   }
-   if (d_expInBuf.empty()) // args/test3
-      throw com::Exception("no parameter name after $-symbol");
+  // symbol after $
+  char c = getRawCharEOFcheck();
+  if (c == '{') {
+    // start of {expr}
+    do {
+      c = getRawCharEOFcheck();
+      if (c == '}')
+        break;
+      d_expInBuf += c;
+    } while (true);
+  } else {
+    // start of number or id (env. var.)
+    do {
+      if (!IsAlphaNumericUnderscore(c))
+        break;
+      d_expInBuf += c;
+      c = getRawCharEOFcheck();
+    } while (true);
+    d_extraCharRead = c;
+  }
+  if (d_expInBuf.empty())  // args/test3
+    throw com::Exception("no parameter name after $-symbol");
 
 
-   if (d_expInBuf.find_first_of(',') == std::string::npos) {
-     // have parsed single argument number or id
-     // single argument
-     PRECOND(d_expInBuf.find_first_of("{}$") == std::string::npos);
-     if (com::equalNoSpace(d_expInBuf,""))  // "${}" possible
-        throw com::Exception("no parameter name in ${name}-construct");
-     d_expOutBuf=getParameter(d_expInBuf, d_extraCharRead==EOF);
-     d_ptrExpOutBuf=0;
-     return; // DONE
-   }
+  if (d_expInBuf.find_first_of(',') == std::string::npos) {
+    // have parsed single argument number or id
+    // single argument
+    PRECOND(d_expInBuf.find_first_of("{}$") == std::string::npos);
+    if (com::equalNoSpace(d_expInBuf, ""))  // "${}" possible
+      throw com::Exception("no parameter name in ${name}-construct");
+    d_expOutBuf = getParameter(d_expInBuf, d_extraCharRead == EOF);
+    d_ptrExpOutBuf = 0;
+    return;  // DONE
+  }
 
-   // retain space in sake of constructs like
-   //  ${1,n, and , not $ }
-   // - in argument 0 and 1 we want space stripped
-   std::vector<std::string> args(com::split(d_expInBuf,','));
-   // - the wrapper arg # 3 may contain , chars
-   // jus tput them back in the wrapper arg
-   for(size_t i=4; i < args.size(); i++)
-     args[3] += ","+args[i];
+  // retain space in sake of constructs like
+  //  ${1,n, and , not $ }
+  // - in argument 0 and 1 we want space stripped
+  std::vector<std::string> args(com::split(d_expInBuf, ','));
+  // - the wrapper arg # 3 may contain , chars
+  // jus tput them back in the wrapper arg
+  for (size_t i = 4; i < args.size(); i++)
+    args[3] += "," + args[i];
 
-   // expansion with seperator and wrapper, since we have ','
-   // in the string
-   PRECOND(args.size() > 0);
-   com::removeAllSpace(args[0]);
-   if (args[0].empty())
-     throw com::Exception("Empty argument in substitution");
-   int const startPar = getParameterNr(args[0],true);
-   if (args.size() <= 1)
-     throw com::Exception("Empty argument in substitution");
-   com::removeAllSpace(args[1]);
-   if (args[1].empty())
-     throw com::Exception("Empty argument in substitution");
-   int const endPar = getParameterNr(args[1],true);
+  // expansion with seperator and wrapper, since we have ','
+  // in the string
+  PRECOND(args.size() > 0);
+  com::removeAllSpace(args[0]);
+  if (args[0].empty())
+    throw com::Exception("Empty argument in substitution");
+  int const startPar = getParameterNr(args[0], true);
+  if (args.size() <= 1)
+    throw com::Exception("Empty argument in substitution");
+  com::removeAllSpace(args[1]);
+  if (args[1].empty())
+    throw com::Exception("Empty argument in substitution");
+  int const endPar = getParameterNr(args[1], true);
 
-   d_ptrExpOutBuf=0;
-   if (startPar < 1 || endPar < 1 || startPar > endPar)
-     return; // finished, quitly ignore mess
+  d_ptrExpOutBuf = 0;
+  if (startPar < 1 || endPar < 1 || startPar > endPar)
+    return;  // finished, quitly ignore mess
 
-   std::string seperator(",");
-   if (args.size() > 2) seperator=args[2];
-   std::string wrapper("$");
-   if (args.size() > 3) wrapper=args[3];
-   for(int i=startPar-1; i <= endPar-1; i++) {
-    d_expOutBuf+=com::replaceCharByStr(wrapper,'$', d_shellArgs[i]);
-    if (i != endPar-1)
-      d_expOutBuf+=seperator;
-   }
+  std::string seperator(",");
+  if (args.size() > 2)
+    seperator = args[2];
+  std::string wrapper("$");
+  if (args.size() > 3)
+    wrapper = args[3];
+  for (int i = startPar - 1; i <= endPar - 1; i++) {
+    d_expOutBuf += com::replaceCharByStr(wrapper, '$', d_shellArgs[i]);
+    if (i != endPar - 1)
+      d_expOutBuf += seperator;
+  }
 }
 
-calc::Position  *calc::LexInput::createPosition() const
+calc::Position *calc::LexInput::createPosition() const
 {
-  return d_from->createPositionText(d_lineNr,d_tokenStart);
+  return d_from->createPositionText(d_lineNr, d_tokenStart);
 }

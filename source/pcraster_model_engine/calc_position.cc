@@ -1,13 +1,10 @@
 #include "stddefx.h"
 #include "calc_position.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the Position class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -33,11 +30,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC POSITION MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -45,7 +40,7 @@ public:
 //------------------------------------------------------------------------------
 
 calc::Position::Position()
-  
+
 {
 }
 
@@ -53,7 +48,7 @@ calc::Position::~Position()
 {
 }
 
-void calc::Position::throwError(const std::ostringstream& msg) const
+void calc::Position::throwError(const std::ostringstream &msg) const
 {
   throwError(msg.str());
 }
@@ -73,7 +68,7 @@ int calc::Position::priority() const
 
 void calc::Position::setPriority(int priority)
 {
-  d_priority=priority;
+  d_priority = priority;
 }
 
 //------------------------------------------------------------------------------
@@ -81,10 +76,6 @@ void calc::Position::setPriority(int priority)
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

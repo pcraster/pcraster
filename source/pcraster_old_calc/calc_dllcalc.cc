@@ -10,7 +10,6 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC DLLCALC MEMBERS
 //------------------------------------------------------------------------------
@@ -20,16 +19,15 @@
 //------------------------------------------------------------------------------
 
 //! ctor
-calc::DllCalc::DllCalc():
-  Calc(d_devNull,d_error)
+calc::DllCalc::DllCalc() : Calc(d_devNull, d_error)
 {
- appOutput=APP_NOOUT;
+  appOutput = APP_NOOUT;
 }
 
 //! return the error Msg set in execute(), empty string if no error
 std::string calc::DllCalc::errorMsg() const
 {
- return d_error.str();
+  return d_error.str();
 }
 
 //! dtor

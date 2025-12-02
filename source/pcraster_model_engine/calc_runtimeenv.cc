@@ -7,20 +7,19 @@
 #include "calc_runtimeenvsettings.h"
 #include "calc_fieldwriter.h"
 #include "calc_astpar.h"
-#include "calc_spatialpacking.h" // cast to IFieldRDConversion
+#include "calc_spatialpacking.h"  // cast to IFieldRDConversion
 #include "calc_nonspatial.h"
 #include "calc_spatial.h"
 #include "calc_stackedvalue.h"
 #include "calc_dvautoptr.h"
 #include "calc_xmlcontext.h"
-#include "calc_astsymboltable.h" // setMemoryExchangeData, cast from d_data.symbols
+#include "calc_astsymboltable.h"  // setMemoryExchangeData, cast from d_data.symbols
 #include "geo_rasterspace.h"
 
 /*!
   \file
   This file contains the implementation of the RunTimeEnv class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -46,11 +45,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC RUNTIMEENV MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -59,47 +56,44 @@ public:
 
 /*! \brief initialize the runtime environment
  */
-void calc::RunTimeEnv::init(const RunTimeEnvSettings& s)
+void calc::RunTimeEnv::init(const RunTimeEnvSettings &s)
 {
   d_stack.clean();
   d_data.clean();
 
-  d_ioStrategy       = new IOStrategy(s.ioStrategy());
+  d_ioStrategy = new IOStrategy(s.ioStrategy());
 
-  d_enableCache      =d_ioStrategy->mvCompression();
+  d_enableCache = d_ioStrategy->mvCompression();
 
-  DataTable::d_useDiskStorage   =s.useDiskStorage();
-  d_swapDir=nullptr;
+  DataTable::d_useDiskStorage = s.useDiskStorage();
+  d_swapDir = nullptr;
   if (DataTable::d_useDiskStorage) {
     // does not work, will invalidate cache
     // seee mark2 model
-    d_enableCache      =false;
+    d_enableCache = false;
     d_swapDir = new com::TempDirectory("pcrcalcSwap");
   }
 
-  d_syncEachTimeStep =d_ioStrategy->writeEachTimeStep();
-  d_profile          = s.profile();
+  d_syncEachTimeStep = d_ioStrategy->writeEachTimeStep();
+  d_profile = s.profile();
 
-  d_timer            =d_ioStrategy->timer();
+  d_timer = d_ioStrategy->timer();
 
-  d_cellIterator=nullptr;
+  d_cellIterator = nullptr;
 }
 
 //! elaborate ctor
-calc::RunTimeEnv::RunTimeEnv(
-    const RunTimeEnvSettings&  s)
+calc::RunTimeEnv::RunTimeEnv(const RunTimeEnvSettings &s)
 {
   init(s);
   checkConstraints(s);
 }
 
-
 /*! simplified ctor with decent defaults
  * \param   rs  fixed geo::RasterSpace,other are the defaults of RunTimeEnvSettings
  * \throws  if !rs.valid()
  */
-calc::RunTimeEnv::RunTimeEnv(
-    const geo::RasterSpace&  rs)
+calc::RunTimeEnv::RunTimeEnv(const geo::RasterSpace &rs)
 {
   RunTimeEnvSettings const s;
   init(s);
@@ -107,26 +101,24 @@ calc::RunTimeEnv::RunTimeEnv(
   checkConstraints(s);
 }
 
-
 calc::RunTimeEnv::~RunTimeEnv()
 {
   clean();
 }
 
 //! tests constraints for nrRow and nrCell limits
-void calc::RunTimeEnv::checkConstraints(
-   const RunTimeEnvSettings&  /*s*/) const
+void calc::RunTimeEnv::checkConstraints(const RunTimeEnvSettings & /*s*/) const
 {
   // The CSF rasterformat uses INT4 to store the number of rows or the number of columns
   // the maximum value should not exeed signed int32
   // bug/sf648
-  size_t const MAX_ROW_COL = 2147483647; // (2 ^ 31) - 1;
+  size_t const MAX_ROW_COL = 2147483647;  // (2 ^ 31) - 1;
 
-  if(d_ioStrategy->rasterSpace().nrRows() > MAX_ROW_COL){
+  if (d_ioStrategy->rasterSpace().nrRows() > MAX_ROW_COL) {
     throw com::Exception("pcrcalc does not support maps holding more than 2^31 - 1 rows");
   }
 
-  if(d_ioStrategy->rasterSpace().nrCols() > MAX_ROW_COL){
+  if (d_ioStrategy->rasterSpace().nrCols() > MAX_ROW_COL) {
     throw com::Exception("pcrcalc does not support maps holding more than 2^31 - 1 colums");
   }
 }
@@ -135,15 +127,15 @@ void calc::RunTimeEnv::checkConstraints(
 void calc::RunTimeEnv::deleteAllValues()
 {
   d_data.clean();
-  for(auto & i : d_cache)
-   delete i.second;
+  for (auto &i : d_cache)
+    delete i.second;
   d_cache.clear();
 }
 
 void calc::RunTimeEnv::clean()
 {
-  for(auto & d_writer : d_writers)
-   delete d_writer.second;
+  for (auto &d_writer : d_writers)
+    delete d_writer.second;
   d_writers.clear();
 
   deleteAllValues();
@@ -173,7 +165,6 @@ bool calc::RunTimeEnv::empty() const
   return d_data.allNoValue() && d_cache.empty();
 }
 
-
 /* NOT IMPLEMENTED
 //! Assignment operator.
 calc::RunTimeEnv& calc::RunTimeEnv::operator=(const RunTimeEnv& rhs)
@@ -193,30 +184,28 @@ calc::RunTimeEnv::RunTimeEnv(const RunTimeEnv& rhs):
 /*! create a field with space allocated for the values for immediate use
  *  to store the result of an operation execution (IOpImpl::exec)
  */
-calc::Field* calc::RunTimeEnv::createResultField(const DataType& d) const
+calc::Field *calc::RunTimeEnv::createResultField(const DataType &d) const
 {
   PRECOND(!d.stEither());
-  Field *f =d.stSpatial()
-            ? d_ioStrategy->createSpatial(d.vs())
-            : new NonSpatial(d.vs());
+  Field *f = d.stSpatial() ? d_ioStrategy->createSpatial(d.vs()) : new NonSpatial(d.vs());
   f->setReadOnlyReference(false);
   return f;
 }
 
 //! get value of rasterSpace
-const geo::RasterSpace& calc::RunTimeEnv::rasterSpace() const
+const geo::RasterSpace &calc::RunTimeEnv::rasterSpace() const
 {
   return d_ioStrategy->rasterSpace();
 }
 
 //! get value of spatialPacking
-const calc::SpatialPacking& calc::RunTimeEnv::spatialPacking() const
+const calc::SpatialPacking &calc::RunTimeEnv::spatialPacking() const
 {
   return d_ioStrategy->spatialPacking();
 }
 
 //! get IFieldRDConversion interface
-const calc::IFieldRDConversion& calc::RunTimeEnv::ifieldRDConversion() const
+const calc::IFieldRDConversion &calc::RunTimeEnv::ifieldRDConversion() const
 {
   return d_ioStrategy->spatialPacking();
 }
@@ -233,41 +222,40 @@ void calc::RunTimeEnv::start()
 {
 
   // remove old versions of the file to be written
-  for(auto & d_writer : d_writers)
+  for (auto &d_writer : d_writers)
     d_writer.second->remove();
 }
 
 //! finish all writers, remove possible swapDir
-void calc::RunTimeEnv::finish() {
+void calc::RunTimeEnv::finish()
+{
   Writers::const_iterator i;
-  for(i=d_writers.begin(); i != d_writers.end(); ++i)
+  for (i = d_writers.begin(); i != d_writers.end(); ++i)
     i->second->finish();
   delete d_swapDir;
-  d_swapDir=nullptr;
+  d_swapDir = nullptr;
 }
 
 //! check if value of \a name is already loaded if not, read it
 /*!
  * StackedValue::load() needs this
  */
-calc::DataValue* calc::RunTimeEnv::load(
-    std::string const&   name,
-    std::string const&   externalName,
-    bool                 lastUse)
+calc::DataValue *calc::RunTimeEnv::load(std::string const &name, std::string const &externalName,
+                                        bool lastUse)
 {
   DataTable::DTE e(d_data.dataLoad(name));
-  DataValue *dv =e.getOrReleaseValue(lastUse);
-  if (dv) // yes loaded
+  DataValue *dv = e.getOrReleaseValue(lastUse);
+  if (dv)  // yes loaded
     return dv;
 
   // not loaded, FTTB only possible in case of fields
-  PRECOND(isIn(e.symbol().vs(),VS_FIELD));
+  PRECOND(isIn(e.symbol().vs(), VS_FIELD));
   // not yet loaded, read it external
   Field *s(nullptr);
   try {
-   s=d_ioStrategy->createReadField(externalName, e.symbol().dataType());
-  } catch(const com::Exception& ex) {
-      e.symbol().throwAtFirst(ex);
+    s = d_ioStrategy->createReadField(externalName, e.symbol().dataType());
+  } catch (const com::Exception &ex) {
+    e.symbol().throwAtFirst(ex);
   }
   POSTCOND(s);
 
@@ -278,7 +266,7 @@ calc::DataValue* calc::RunTimeEnv::load(
     // store in d_data for later use,
     s->setReadOnlyReference(true);
     PRECOND(!e.dataValue());
-    e.dataValue()=s;
+    e.dataValue() = s;
   }
   return s;
 }
@@ -289,10 +277,10 @@ size_t calc::RunTimeEnv::stackSize() const
 }
 
 //! get value of \a p from d_data and push it on one of the stacks.
-void calc::RunTimeEnv::pushValue(const ASTPar* p)
+void calc::RunTimeEnv::pushValue(const ASTPar *p)
 {
   DataTable::DTE const e(d_data.dataLoad(p->name()));
-  d_stack.push(new StackedValue(*this,e.symbol(),p->lastUse()));
+  d_stack.push(new StackedValue(*this, e.symbol(), p->lastUse()));
 }
 
 //! push a DataValue, ownership depends
@@ -300,8 +288,7 @@ void calc::RunTimeEnv::pushValue(const ASTPar* p)
  * Not really const; ownership (e.g. transfer \a d to
  * RunTimeEnv) and readOnlyReference() is set by DataValue itself.
  */
-void calc::RunTimeEnv::pushDataValue(
-    const DataValue *d)
+void calc::RunTimeEnv::pushDataValue(const DataValue *d)
 {
   d_stack.push(const_cast<DataValue *>(d));
 }
@@ -320,7 +307,7 @@ void calc::RunTimeEnv::pushField(const Field *f)
  * words: use deleteFromPcrme to clean up the pointer returned.
  *
  */
-calc::DataValue* calc::RunTimeEnv::popDataValue()
+calc::DataValue *calc::RunTimeEnv::popDataValue()
 {
   return d_stack.pop();
 }
@@ -329,7 +316,7 @@ calc::DataValue* calc::RunTimeEnv::popDataValue()
 /*!
  *  simple cast wrapper around RunTimeEnv::popDataValue().
  */
-calc::Field* calc::RunTimeEnv::popField()
+calc::Field *calc::RunTimeEnv::popField()
 {
   auto *f = dynamic_cast<Field *>(popDataValue());
   POSTCOND(f);
@@ -342,32 +329,30 @@ bool calc::RunTimeEnv::stackedCondition()
   DVAutoPtr<Field> f(popField());
   bool noneAreTrue = false;
   bool noneAreFalse = false;
-  f->analyzeBoolean(noneAreTrue,noneAreFalse);
+  f->analyzeBoolean(noneAreTrue, noneAreFalse);
   return noneAreFalse;
 }
 
 //! update output tss with name \a tss, delete id and expr
-void calc::RunTimeEnv::assignOutTss(
-    const std::string& tss)
+void calc::RunTimeEnv::assignOutTss(const std::string &tss)
 {
   // reverse stack order
   DVAutoPtr<Field> expr(popField());
-  DVAutoPtr<Field> id  (popField());
+  DVAutoPtr<Field> id(popField());
 
-  d_writers[tss]->writeOutTss(id.get(),expr.get(),d_timer.currentInt());
+  d_writers[tss]->writeOutTss(id.get(), expr.get(), d_timer.currentInt());
 }
 
-void calc::RunTimeEnv::deleteCacheEntry(const void* fieldSrcValue)
+void calc::RunTimeEnv::deleteCacheEntry(const void *fieldSrcValue)
 {
-  auto pos=d_cache.find(fieldSrcValue);
+  auto pos = d_cache.find(fieldSrcValue);
   if (pos != d_cache.end()) {
     delete pos->second;
     d_cache.erase(pos);
   }
 }
 
-void calc::RunTimeEnv::deleteValue(
-    const std::string& parName)
+void calc::RunTimeEnv::deleteValue(const std::string &parName)
 {
   PRECOND(d_data.contains(parName));
   DataTable::DTE e(d_data.dataLoad(parName));
@@ -377,27 +362,23 @@ void calc::RunTimeEnv::deleteValue(
     deleteCacheEntry(f->src());
   }
   deleteAlways(e.dataValue());
-  e.dataValue()=nullptr;
+  e.dataValue() = nullptr;
 }
 
-
 //! find an ICachedObject by Field::src value
-const calc::ICachedObject* calc::RunTimeEnv::cachedObject(
-    const void*    fieldSrcValue)
+const calc::ICachedObject *calc::RunTimeEnv::cachedObject(const void *fieldSrcValue)
 {
-    auto pos=d_cache.find(fieldSrcValue);
-    if (pos != d_cache.end())
-      return pos->second;
-    return nullptr;
+  auto pos = d_cache.find(fieldSrcValue);
+  if (pos != d_cache.end())
+    return pos->second;
+  return nullptr;
 }
 
 //! update and transfer \a obj in cache if cached is enabled
-void calc::RunTimeEnv::transferIfCached(
-    const void*    fieldSrcValue,
-    const ICachedObject *obj)
+void calc::RunTimeEnv::transferIfCached(const void *fieldSrcValue, const ICachedObject *obj)
 {
   // multiple delete problem
-  auto pos=d_cache.find(fieldSrcValue);
+  auto pos = d_cache.find(fieldSrcValue);
   if (pos != d_cache.end()) {
     // a previous update may already toke place
     if (pos->second == obj)
@@ -406,11 +387,10 @@ void calc::RunTimeEnv::transferIfCached(
   // multiple delete problem
   deleteCacheEntry(fieldSrcValue);
   if (d_enableCache)
-   d_cache[fieldSrcValue] = obj;
+    d_cache[fieldSrcValue] = obj;
 }
 
-void calc::RunTimeEnv::transferMemoryExchangeItemIntoDataTransferArray(
-  MemoryExchangeItem* item)
+void calc::RunTimeEnv::transferMemoryExchangeItemIntoDataTransferArray(MemoryExchangeItem *item)
 {
   d_ioStrategy->transferMemoryExchangeItemIntoDataTransferArray(item);
 }
@@ -423,15 +403,14 @@ void calc::RunTimeEnv::transferMemoryExchangeItemIntoDataTransferArray(
  * \todo
  *   pcrcalc214c should be resolvable in BuildTypesVisitor
  */
-void calc::RunTimeEnv::assignStackTop(
-    const ASTPar *p)
+void calc::RunTimeEnv::assignStackTop(const ASTPar *p)
 {
 
   DataTable::DTE e(d_data.dataLoad(p->name()));
 
   // tss is done in assignOutTss
   // object assignment is rewritten in parser
-  PRECOND(isIn(e.symbol().vs(),VS_FIELD));
+  PRECOND(isIn(e.symbol().vs(), VS_FIELD));
 
 
   DVAutoPtr<Field> f(popField());
@@ -445,47 +424,45 @@ void calc::RunTimeEnv::assignStackTop(
   std::string const name(e.symbol().name());
   std::string writtenAsFile;
 
-// #error check if must be written
-// #test if tss can be written sparse (-1 and normal)
+  // #error check if must be written
+  // #test if tss can be written sparse (-1 and normal)
   // if reported at this point in code
   if (p == e.symbol().reportPar()) {
     PRECOND(d_writers.count(name));
-    writtenAsFile= d_writers[name]->write(f.get(),d_timer.currentInt());
+    writtenAsFile = d_writers[name]->write(f.get(), d_timer.currentInt());
   }
 
   if (p->lastUse()) {
-   // delete it!
-   deleteValue(p->name());
+    // delete it!
+    deleteValue(p->name());
   } else {
-   // set to the new value
+    // set to the new value
     if (d_swapDir && f->isSpatial()) {
       if (writtenAsFile.empty()) {
-        writtenAsFile=d_swapDir->memberPath(name).string();
-        ioStrategy().writeField(writtenAsFile,f.get());
+        writtenAsFile = d_swapDir->memberPath(name).string();
+        ioStrategy().writeField(writtenAsFile, f.get());
       }
-      e.resetValue(
-       new DiskWrittenField(ioStrategy(),writtenAsFile,e.symbol().vs()));
-   } else
-    e.resetValue(f.release());
+      e.resetValue(new DiskWrittenField(ioStrategy(), writtenAsFile, e.symbol().vs()));
+    } else
+      e.resetValue(f.release());
   }
 }
 
 //! assign the stacked results to these \a pars
-void calc::RunTimeEnv::assignStackTop(
-    const std::vector<ASTPar *>& pars)
+void calc::RunTimeEnv::assignStackTop(const std::vector<ASTPar *> &pars)
 {
-  for(auto par : pars)
+  for (auto par : pars)
     assignStackTop(par);
 }
 
 //! load symbol \a i in DataTable and setup a FieldWriter if needed
-void calc::RunTimeEnv::load(const ASTSymbolInfo& i)
+void calc::RunTimeEnv::load(const ASTSymbolInfo &i)
 {
-  bool const write =i.reportPosition()!= RPNone;
+  bool const write = i.reportPosition() != RPNone;
   bool outTss(false);
-  if (i.vs()==VS_TSS) {
+  if (i.vs() == VS_TSS) {
     if (i.memoryOutputId() == i.noMemoryExchangeId() && write)
-     outTss = true;
+      outTss = true;
   }
 
   if (!outTss)
@@ -494,29 +471,28 @@ void calc::RunTimeEnv::load(const ASTSymbolInfo& i)
   if (write) {
     i.checkOneOutputVs();
     try {
-        d_writers.insert(std::make_pair(i.name(),
-           d_ioStrategy->createFieldWriter(i)));
-    } catch(const com::Exception& e) {
-      i.throwSym(*(i.reportPar()->position()),e.messages());
+      d_writers.insert(std::make_pair(i.name(), d_ioStrategy->createFieldWriter(i)));
+    } catch (const com::Exception &e) {
+      i.throwSym(*(i.reportPar()->position()), e.messages());
     }
   }
 }
 
 void calc::RunTimeEnv::setMemoryExchangeData(void **data)
 {
- d_data.setMemoryExchangeInputData(data);
+  d_data.setMemoryExchangeInputData(data);
 
- // keep  data here:
- d_ioStrategy->setMemoryExchangeData(d_data.symbols(),data);
+  // keep  data here:
+  d_ioStrategy->setMemoryExchangeData(d_data.symbols(), data);
 }
 
-const calc::DataTable& calc::RunTimeEnv::dataTable() const
+const calc::DataTable &calc::RunTimeEnv::dataTable() const
 {
   return d_data;
 }
 
 //! get value of d_ioStrategy
-const calc::IOStrategy& calc::RunTimeEnv::ioStrategy() const
+const calc::IOStrategy &calc::RunTimeEnv::ioStrategy() const
 {
   return *d_ioStrategy;
 }
@@ -524,7 +500,7 @@ const calc::IOStrategy& calc::RunTimeEnv::ioStrategy() const
 //! set value of d_syncEachTimeStep
 void calc::RunTimeEnv::setSyncEachTimeStep(bool syncEachTimeStep)
 {
-  d_syncEachTimeStep=syncEachTimeStep;
+  d_syncEachTimeStep = syncEachTimeStep;
 }
 
 //! get value of d_syncEachTimeStep
@@ -533,63 +509,57 @@ bool calc::RunTimeEnv::syncEachTimeStep() const
   return d_syncEachTimeStep;
 }
 
-void calc::RunTimeEnv::debugMVAssignments(
-    const Field* f) const
+void calc::RunTimeEnv::debugMVAssignments(const Field *f) const
 {
   if (f->isSpatial())
     d_ioStrategy->debugMVAssignments(f);
 }
 
 //! set value of d_cellIterator
-void calc::RunTimeEnv::setCellIterator(ICellIterator* cellIterator)
+void calc::RunTimeEnv::setCellIterator(ICellIterator *cellIterator)
 {
-  d_cellIterator=cellIterator;
+  d_cellIterator = cellIterator;
 }
 
 //! get value of d_cellIterator
-calc::ICellIterator* calc::RunTimeEnv::cellIterator() const
+calc::ICellIterator *calc::RunTimeEnv::cellIterator() const
 {
   return d_cellIterator;
 }
 
 //! set value of d_timer
-void calc::RunTimeEnv::setTimer(const Timer& timer)
+void calc::RunTimeEnv::setTimer(const Timer &timer)
 {
-  d_timer=timer;
+  d_timer = timer;
 }
 
 //! get value of d_timer
-const calc::Timer& calc::RunTimeEnv::timer() const
+const calc::Timer &calc::RunTimeEnv::timer() const
 {
   return d_timer;
 }
-
 
 void calc::RunTimeEnv::incCurrentTimeStep()
 {
   d_timer.increment();
 }
+
 //! get value of ioStrategy, to modify
-calc::IOStrategy& calc::RunTimeEnv::ioStrategy()
+calc::IOStrategy &calc::RunTimeEnv::ioStrategy()
 {
   return *d_ioStrategy;
 }
 
-pcrxml::RunContext* calc::RunTimeEnv::createXMLContext() const
+pcrxml::RunContext *calc::RunTimeEnv::createXMLContext() const
 {
-  return createXMLRunContext(ioStrategy().areaMap(),timer());
+  return createXMLRunContext(ioStrategy().areaMap(), timer());
 }
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

@@ -2,12 +2,10 @@
 #include "calc_usersymbol.h"
 #include "calc_iscript.h"
 #include "calc_infoscript.h"
-#include "calc_vs.h" // toString()
+#include "calc_vs.h"  // toString()
 
 //! ctor
-calc::UserSymbol::UserSymbol(
- const BindedSymbol& parName):
- BindedSymbol(parName)
+calc::UserSymbol::UserSymbol(const BindedSymbol &parName) : BindedSymbol(parName)
 {
 }
 
@@ -28,38 +26,36 @@ void calc::UserSymbol::finalCheck()
 /*!
  * SymbolTable calls this one after insertion
  */
-void calc::UserSymbol::setSymbolSequenceNr(
-    int symbolSequenceNr)
+void calc::UserSymbol::setSymbolSequenceNr(int symbolSequenceNr)
 {
-    d_symbolSequenceNr=symbolSequenceNr;
+  d_symbolSequenceNr = symbolSequenceNr;
 }
 
-//! number to remember the definition order of symbols 
+//! number to remember the definition order of symbols
 int calc::UserSymbol::symbolSequenceNr() const
 {
-    return d_symbolSequenceNr;
+  return d_symbolSequenceNr;
 }
 
-calc::UserSymbol *calc::UserSymbol::copyContents(
- const calc::ParsPar& ) const
+calc::UserSymbol *calc::UserSymbol::copyContents(const calc::ParsPar &) const
 {
- return nullptr;
+  return nullptr;
 }
 
-void calc::UserSymbol::print(calc::InfoScript& i)const
+void calc::UserSymbol::print(calc::InfoScript &i) const
 {
- i.stream() << "<A NAME=\"" << name() << "\">" << name() << "<BR>";
- if (userName() != externalName()) {
-  i.stream() << "userName:" << userName();
-  i.stream() << " extName:" << externalName();
- }
- i.stream() << "vs:" << toString(symbolType()) << "<BR>";
- printSpecific(i);
+  i.stream() << "<A NAME=\"" << name() << "\">" << name() << "<BR>";
+  if (userName() != externalName()) {
+    i.stream() << "userName:" << userName();
+    i.stream() << " extName:" << externalName();
+  }
+  i.stream() << "vs:" << toString(symbolType()) << "<BR>";
+  printSpecific(i);
 }
 
-void calc::UserSymbol::printSpecific(calc::InfoScript& )const
+void calc::UserSymbol::printSpecific(calc::InfoScript &) const
 {
- POSTCOND(false);
+  POSTCOND(false);
 }
 
 //! create xml Data element for some parameters

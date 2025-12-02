@@ -2,7 +2,7 @@
 #include <cassert>
 
 #if defined(_WIN32)
-  #include <windows.h>
+#include <windows.h>
 #endif
 
 // #ifdef __APPLE__
@@ -17,7 +17,6 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
@@ -26,15 +25,12 @@
 /*!
   \sa        SceneObject(GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat)
 */
-ag::Camera::Camera(GLfloat x, GLfloat y, GLfloat z,
-                    GLfloat yaw, GLfloat pitch, GLfloat roll)
+ag::Camera::Camera(GLfloat x, GLfloat y, GLfloat z, GLfloat yaw, GLfloat pitch, GLfloat roll)
 
-  : SceneObject(x, y, z, yaw, pitch, roll)
+    : SceneObject(x, y, z, yaw, pitch, roll)
 
 {
 }
-
-
 
 //! Destructs a Camera object.
 /*!
@@ -43,15 +39,13 @@ ag::Camera::~Camera()
 {
 }
 
-
-
 //! Renders the camera.
 /*!
   \sa        apply()
 */
 void ag::Camera::renderObject()
 {
-  if(!valid()) {
+  if (!valid()) {
     deleteList();
     createList();
     setValid(true);
@@ -59,7 +53,7 @@ void ag::Camera::renderObject()
 
   assert(d_list > 0);
 
-/*
+  /*
   // Gimbal lock!
   glRotatef(-pitch() / com::DEG2RAD, 1.0, 0.0, 0.0);
   glRotatef(-yaw() / com::DEG2RAD, 0.0, 1.0, 0.0);
@@ -75,17 +69,15 @@ void ag::Camera::renderObject()
 
   glCallList(d_list);
   glPushMatrix();
-    glTranslatef(0.0, 0.0, 2.0 / 3.0 * depth());
-    glCallList(d_list + 1);
+  glTranslatef(0.0, 0.0, 2.0 / 3.0 * depth());
+  glCallList(d_list + 1);
   glPopMatrix();
   glPushMatrix();
-    glRotatef(180.0, 1.0, 0.0, 0.0);
-    glCallList(d_list + 2);
+  glRotatef(180.0, 1.0, 0.0, 0.0);
+  glCallList(d_list + 2);
   glPopMatrix();
   setDirty(false);
 }
-
-
 
 //! Applies the camera so you end up looking through it.
 /*!
@@ -104,8 +96,6 @@ void ag::Camera::apply()
 
   setDirty(false);
 }
-
-
 
 void ag::Camera::createList()
 {
@@ -166,11 +156,9 @@ void ag::Camera::createList()
   // glEndList();
 }
 
-
-
 void ag::Camera::deleteList()
 {
-  if(d_list > 0) {
+  if (d_list > 0) {
     glDeleteLists(d_list, 3);
     d_list = 0;
   }
@@ -180,12 +168,9 @@ void ag::Camera::deleteList()
   // }
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -193,11 +178,9 @@ void ag::Camera::deleteList()
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -205,9 +188,6 @@ void ag::Camera::deleteList()
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

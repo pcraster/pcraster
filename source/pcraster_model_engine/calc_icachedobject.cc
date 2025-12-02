@@ -1,13 +1,10 @@
 #include "stddefx.h"
 #include "calc_icachedobject.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the ICachedObject class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -33,11 +30,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC ICACHEDOBJECT MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -47,8 +42,6 @@ public:
 calc::ICachedObject::ICachedObject()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -61,12 +54,9 @@ calc::ICachedObject::ICachedObject(ICachedObject const& rhs)
 */
 
 
-
 calc::ICachedObject::~ICachedObject()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -79,16 +69,11 @@ calc::ICachedObject& calc::ICachedObject::operator=(ICachedObject const& rhs)
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

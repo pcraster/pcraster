@@ -2,7 +2,6 @@
 #include <boost/test/unit_test.hpp>
 #include "com_classifier.h"
 
-
 BOOST_AUTO_TEST_CASE(test)
 {
   using namespace com;

@@ -2,12 +2,10 @@
 #include "calc_stackinfo.h"
 #include "calc_report.h"
 
-
 /*!
   \file
   This file contains the implementation of the StackInfo class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -33,11 +31,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC STACKINFO MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -45,62 +41,56 @@ public:
 //------------------------------------------------------------------------------
 
 calc::StackInfo::StackInfo()
-    
+
 {
 }
-
-
 
 calc::StackInfo::~StackInfo()
 {
 }
 
 //! Assignment operator.
-calc::StackInfo& calc::StackInfo::operator=(const StackInfo& rhs)
+calc::StackInfo &calc::StackInfo::operator=(const StackInfo &rhs)
 {
   if (this != &rhs) {
-    d_report=rhs.d_report;
-    d_vs=rhs.d_vs;
-    d_stackName=rhs.d_stackName;
-    d_flushTssAtEachTimeStep=rhs.d_flushTssAtEachTimeStep;
+    d_report = rhs.d_report;
+    d_vs = rhs.d_vs;
+    d_stackName = rhs.d_stackName;
+    d_flushTssAtEachTimeStep = rhs.d_flushTssAtEachTimeStep;
   }
   return *this;
 }
 
 //! Copy constructor.
-calc::StackInfo::StackInfo(const StackInfo& rhs):
-  GridStat(rhs),
-  d_report(rhs.d_report),
-  d_vs(rhs.d_vs),
-  d_stackName(rhs.d_stackName),
-  d_flushTssAtEachTimeStep(rhs.d_flushTssAtEachTimeStep)
+calc::StackInfo::StackInfo(const StackInfo &rhs)
+    : GridStat(rhs), d_report(rhs.d_report), d_vs(rhs.d_vs), d_stackName(rhs.d_stackName),
+      d_flushTssAtEachTimeStep(rhs.d_flushTssAtEachTimeStep)
 {
 }
 
 //! set value of d_report
-void calc::StackInfo::setReport(const Report* report)
+void calc::StackInfo::setReport(const Report *report)
 {
-  d_report=report;
+  d_report = report;
 }
 
 //! set value of d_vs
 void calc::StackInfo::setVs(VS vs)
 {
-  d_vs=vs;
+  d_vs = vs;
 }
 
 //! set value of d_stackName
-void calc::StackInfo::setStackName(const std::string& stackName)
+void calc::StackInfo::setStackName(const std::string &stackName)
 {
-  d_stackName=stackName;
+  d_stackName = stackName;
 }
 
 //! set value of d_flushTssAtEachTimeStep
 void calc::StackInfo::setFlushTssAtEachTimeStep(bool flushTssAtEachTimeStep)
 {
-  d_flushTssAtEachTimeStep=flushTssAtEachTimeStep;
+  d_flushTssAtEachTimeStep = flushTssAtEachTimeStep;
 }
-
 
 //! get value of d_vs
 VS calc::StackInfo::vs() const
@@ -109,7 +99,7 @@ VS calc::StackInfo::vs() const
 }
 
 //! get value of d_stackName
-const std::string& calc::StackInfo::stackName() const
+const std::string &calc::StackInfo::stackName() const
 {
   return d_stackName;
 }
@@ -121,7 +111,7 @@ bool calc::StackInfo::flushTssAtEachTimeStep() const
 }
 
 //! get value of d_report
-const calc::Report* calc::StackInfo::report() const
+const calc::Report *calc::StackInfo::report() const
 {
   return d_report;
 }
@@ -133,11 +123,12 @@ bool calc::StackInfo::reportTimeStep(size_t timeStep) const
 
 size_t calc::StackInfo::lastInt() const
 {
-   return report()->lastInt();
+  return report()->lastInt();
 }
+
 size_t calc::StackInfo::startInt() const
 {
-   return report()->startInt();
+  return report()->startInt();
 }
 
 //------------------------------------------------------------------------------
@@ -145,10 +136,6 @@ size_t calc::StackInfo::startInt() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

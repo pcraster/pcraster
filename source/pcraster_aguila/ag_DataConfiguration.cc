@@ -21,31 +21,26 @@
 */
 
 
-namespace ag {
+namespace ag
+{
 
-template<typename T>
-struct DimensionMaker {
-  dal::Meaning            meaning;
+template <typename T> struct DimensionMaker {
+  dal::Meaning meaning;
   dal::DiscretisationType setType;
   dal::DiscretisationType rangeType;
 
-  dal::Dimension create(
-         typename pcrxsd::RangeSetTypeTrait<T>::RangeOrSet const& f) {
+  dal::Dimension create(typename pcrxsd::RangeSetTypeTrait<T>::RangeOrSet const &f)
+  {
 
-    if(f.set().present()) {
+    if (f.set().present()) {
       return dal::Dimension(meaning, pcrxsd::items<T>(f.set().get()));
-    }
-    else {
+    } else {
       assert(f.range().present());
-      return dal::Dimension(meaning,
-         T(f.range()->begin()),
-         T(f.range()->end()),
-         T(f.range()->increment()));
+      return dal::Dimension(meaning, T(f.range()->begin()), T(f.range()->end()),
+                            T(f.range()->increment()));
     }
   }
 };
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC DATACONFIGURATION MEMBERS
@@ -54,59 +49,56 @@ struct DimensionMaker {
 /*!
  * \todo should go into dal, but first must have definite XML Schema
  */
-dal::DataSpace DataConfiguration::dataSpace(
-         pcrxml::DataSpace const& xml)
+dal::DataSpace DataConfiguration::dataSpace(pcrxml::DataSpace const &xml)
 {
   dal::DataSpace space;
 
-  if(!xml.scenarios().empty()) {
+  if (!xml.scenarios().empty()) {
     std::set<std::string> set;
-    set.insert(xml.scenarios()[0].item().begin(),
-         xml.scenarios()[0].item().end());
+    set.insert(xml.scenarios()[0].item().begin(), xml.scenarios()[0].item().end());
     dal::Dimension dimension(dal::Scenarios, set);
 
-    for(size_t i = 1; i < xml.scenarios().size(); ++i) {
+    for (size_t i = 1; i < xml.scenarios().size(); ++i) {
       set.clear();
-      set.insert(xml.scenarios()[i].item().begin(),
-           xml.scenarios()[i].item().end());
+      set.insert(xml.scenarios()[i].item().begin(), xml.scenarios()[i].item().end());
       dimension |= dal::Dimension(dal::Scenarios, set);
     }
 
     space.addDimension(dimension);
   }
 
-  if(!xml.quantiles().empty()) {
+  if (!xml.quantiles().empty()) {
     DimensionMaker<float> m{};
-    m.meaning  = dal::CumulativeProbabilities;
-    m.setType  = dal::ExactDiscretisation;
-    m.rangeType= dal::RegularDiscretisation;
+    m.meaning = dal::CumulativeProbabilities;
+    m.setType = dal::ExactDiscretisation;
+    m.rangeType = dal::RegularDiscretisation;
 
     dal::Dimension dimension(m.create(xml.quantiles()[0]));
 
-    for(size_t i = 1; i < xml.quantiles().size(); ++i) {
+    for (size_t i = 1; i < xml.quantiles().size(); ++i) {
       dimension |= m.create(xml.quantiles()[i]);
     }
 
     space.addDimension(dimension);
   }
 
-// if(!xml.samples().empty()) {
-//   DimensionMaker m;
-//   m.meaning    = dal::Samples;
-//   m.setType    = dal::RegularDiscretisation; // ???? default
-//   m.rangeType  = dal::RegularDiscretisation;
-//    BLA BLA
-//   space.addDimension(dimension);
-// }
+  // if(!xml.samples().empty()) {
+  //   DimensionMaker m;
+  //   m.meaning    = dal::Samples;
+  //   m.setType    = dal::RegularDiscretisation; // ???? default
+  //   m.rangeType  = dal::RegularDiscretisation;
+  //    BLA BLA
+  //   space.addDimension(dimension);
+  // }
 
-  if(!xml.timesteps().empty()) {
+  if (!xml.timesteps().empty()) {
     DimensionMaker<size_t> m{};
-    m.meaning  = dal::Time;
-    m.setType  = dal::RegularDiscretisation;
-    m.rangeType= dal::RegularDiscretisation;
+    m.meaning = dal::Time;
+    m.setType = dal::RegularDiscretisation;
+    m.rangeType = dal::RegularDiscretisation;
 
     dal::Dimension dimension(m.create(xml.timesteps()[0]));
-    for(size_t i = 1; i < xml.timesteps().size(); ++i) {
+    for (size_t i = 1; i < xml.timesteps().size(); ++i) {
       dimension |= m.create(xml.timesteps()[i]);
     }
     space.addDimension(dimension);
@@ -115,23 +107,21 @@ dal::DataSpace DataConfiguration::dataSpace(
   return space;
 }
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF DATACONFIGURATION MEMBERS
 //------------------------------------------------------------------------------
 
 DataConfiguration::DataConfiguration(
-         /// dal::Dal& dal,
-         VisGroup* group,
-         pcrxml::VisualisationGroup const& xmlGroup)
+    /// dal::Dal& dal,
+    VisGroup *group,
+    pcrxml::VisualisationGroup const &xmlGroup)
 
-  : /// d_dal(dal),
-    d_group(group),
-    d_nrScenarios(0)
+    :  /// d_dal(dal),
+      d_group(group), d_nrScenarios(0)
 
 {
   // Search space is optional.
-  if(xmlGroup.searchSpace().present()) {
+  if (xmlGroup.searchSpace().present()) {
     d_searchSpace = dataSpace(xmlGroup.searchSpace().get());
   }
 
@@ -147,26 +137,25 @@ DataConfiguration::DataConfiguration(
 
   dal::DataSpace space;
 
-  for(const auto & configuration : xmlGroup.data()) {
-    const std::string& name = configuration.name();
-    space = configuration.dataSpace().present()
-        ? dataSpace(configuration.dataSpace().get())
-        : d_searchSpace;
+  for (const auto &configuration : xmlGroup.data()) {
+    const std::string &name = configuration.name();
+    space =
+        configuration.dataSpace().present() ? dataSpace(configuration.dataSpace().get()) : d_searchSpace;
 
     add(name, space, configuration);
   }
 
   // Loop over all views and get name / data space information.
-  for(const auto & view : xmlGroup.view()) {
-    XMLViewItems const& items(view);
+  for (const auto &view : xmlGroup.view()) {
+    XMLViewItems const &items(view);
 
-    for(const auto & item : items) {
+    for (const auto &item : items) {
 
       // If not yet added, add now
       // TODO KDJ name is not a good identifier for a data set, the name
       // TODO space combination is. This works for as long as no two datasets
       // TODO with the same name but different space are mentioned in xmlGroup.
-      if(!d_dataMap2.count(item)) {
+      if (!d_dataMap2.count(item)) {
         space = d_searchSpace;
         add(item, space, pcrxml::AguilaData(item));
       }
@@ -176,44 +165,36 @@ DataConfiguration::DataConfiguration(
   // Overall space.
   space = group->dataObject().dataSpace();
 
-  d_nrScenarios = space.hasScenarios()
-         ? space.dimension(space.indexOf(dal::Scenarios)).nrCoordinates()
-         : 1;
+  d_nrScenarios =
+      space.hasScenarios() ? space.dimension(space.indexOf(dal::Scenarios)).nrCoordinates() : 1;
 
   // Send properties and datemappers found to the data object.
-  for(auto & d : d_dataMap2) {
-    DataGuide const& guide(d.second.guide);
-    pcrxml::AguilaData const& configuration(d.second.configuration);
+  for (auto &d : d_dataMap2) {
+    DataGuide const &guide(d.second.guide);
+    pcrxml::AguilaData const &configuration(d.second.configuration);
 
-    if(configuration.drawProperties().present()) {
-      d_group->dataObject().setXML(
-         guide, configuration.drawProperties().get(), false);
+    if (configuration.drawProperties().present()) {
+      d_group->dataObject().setXML(guide, configuration.drawProperties().get(), false);
     }
 
     // Set date mapper if needed/present.
-    if(d_group->dataObject().dataSpace(guide).hasTime()) {
+    if (d_group->dataObject().dataSpace(guide).hasTime()) {
       // Data space stuff in data item takes precedence
-      if(guide.type() == geo::STACK) {
+      if (guide.type() == geo::STACK) {
         // TODO only supported for stacks at the moment.
-        if(configuration.dataSpace().present() &&
-              configuration.dataSpace()->timesteps().size() &&
-              configuration.dataSpace()->timesteps()[0].dateMapper().present()) {
-          d_group->dataObject().setDateMapper(guide,
-              configuration.dataSpace()->timesteps()[0].dateMapper().get(),
-                   false);
-        }
-        else if(xmlGroup.searchSpace().present() &&
-              xmlGroup.searchSpace()->timesteps().size() &&
-              xmlGroup.searchSpace()->timesteps()[0].dateMapper().present()) {
-          d_group->dataObject().setDateMapper(guide,
-              xmlGroup.searchSpace()->timesteps()[0].dateMapper().get(), false);
+        if (configuration.dataSpace().present() && configuration.dataSpace()->timesteps().size() &&
+            configuration.dataSpace()->timesteps()[0].dateMapper().present()) {
+          d_group->dataObject().setDateMapper(
+              guide, configuration.dataSpace()->timesteps()[0].dateMapper().get(), false);
+        } else if (xmlGroup.searchSpace().present() && xmlGroup.searchSpace()->timesteps().size() &&
+                   xmlGroup.searchSpace()->timesteps()[0].dateMapper().present()) {
+          d_group->dataObject().setDateMapper(
+              guide, xmlGroup.searchSpace()->timesteps()[0].dateMapper().get(), false);
         }
       }
     }
   }
 }
-
-
 
 // DataConfiguration::DataConfiguration(
 //     dal::Dal&     dal,
@@ -224,7 +205,6 @@ DataConfiguration::DataConfiguration(
 //      d_group(group)
 // {
 // }
-
 
 
 /* NOT IMPLEMENTED
@@ -239,12 +219,9 @@ DataConfiguration::DataConfiguration(
 */
 
 
-
 DataConfiguration::~DataConfiguration()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -259,45 +236,36 @@ DataConfiguration& DataConfiguration::operator=(
 */
 
 
-
-void DataConfiguration::add(
-         std::string const& name,
-         dal::DataSpace space,
-         pcrxml::AguilaData const& configuration)
+void DataConfiguration::add(std::string const &name, dal::DataSpace space,
+                            pcrxml::AguilaData const &configuration)
 {
   dal::DataSpaceQueryResult result;
-  std::tie(result, std::ignore) = dal::Client::dal().search(name,
-      space, dal::NarrowSpaceWhenNeeded, dal::SearchForAllItems);
+  std::tie(result, std::ignore) =
+      dal::Client::dal().search(name, space, dal::NarrowSpaceWhenNeeded, dal::SearchForAllItems);
 
-  if(!result) {
+  if (!result) {
     dal::throwCannotBeOpened(name, space);
   }
 
   space = result.space();
 
-  if(!space.hasScenarios()) {
+  if (!space.hasScenarios()) {
     add(name, space, result, configuration);
-  }
-  else {
+  } else {
     size_t const index = space.indexOf(dal::Scenarios);
-    dal::Dimension const& dimension(space.dimension(index));
+    dal::Dimension const &dimension(space.dimension(index));
     // d_nameMap.insert(std::make_pair(name, name));
     dal::DataSpace const narrowSpace;
 
-    for(size_t i = 0; i < dimension.nrCoordinates(); ++i) {
-      add(name, dal::dataSpaceWithNarrowedDimension(space, index, i),
-         result, configuration);
+    for (size_t i = 0; i < dimension.nrCoordinates(); ++i) {
+      add(name, dal::dataSpaceWithNarrowedDimension(space, index, i), result, configuration);
     }
   }
 }
 
-
-
-void DataConfiguration::add(
-         std::string const& name,
-         const dal::DataSpace& space,
-         dal::DataSpaceQueryResult const& result,
-         pcrxml::AguilaData const& configuration)
+void DataConfiguration::add(std::string const &name, const dal::DataSpace &space,
+                            dal::DataSpaceQueryResult const &result,
+                            pcrxml::AguilaData const &configuration)
 {
   // TODO Use result to help
   // - VisGroup::addData(name, space)     This only forwards to:
@@ -315,45 +283,38 @@ void DataConfiguration::add(
   // need more overloads of that one.
   assert(result);
 
-  if(result.datasetType() != dal::TABLE) {
+  if (result.datasetType() != dal::TABLE) {
     d_nameMap[name].insert(name);
-    d_dataMap2.insert(std::make_pair(name, DataItemInformation(
-       space, configuration, d_group->addData(name, space))));
-  }
-  else {
+    d_dataMap2.insert(
+        std::make_pair(name, DataItemInformation(space, configuration, d_group->addData(name, space))));
+  } else {
     std::vector<std::string> selection;
-    std::tie(std::ignore, selection) =
-         dal::splitNameAndSelection(name);
+    std::tie(std::ignore, selection) = dal::splitNameAndSelection(name);
 
-    if(!selection.empty()) {
+    if (!selection.empty()) {
       // Name IS selection.
       d_nameMap[name].insert(name);
-      d_dataMap2.insert(std::make_pair(name, DataItemInformation(
-         space, configuration, d_group->addData(name, space))));
-    }
-    else {
+      d_dataMap2.insert(std::make_pair(
+          name, DataItemInformation(space, configuration, d_group->addData(name, space))));
+    } else {
       // Name is not a selection, but an "alias" for all columns
       // Create for each colum, a selection specification:
       //   name{1,n}, name{1,n-1}, ...,name{1,2}
-      dal::Driver const* driver(dal::Client::dal().driverByDataset(name,
-         space));
+      dal::Driver const *driver(dal::Client::dal().driverByDataset(name, space));
       assert(driver);
-      std::unique_ptr<dal::Table const> const table(dynamic_cast<dal::Table const*>(
-         driver->open(name, result.space(), result.address())));
+      std::unique_ptr<dal::Table const> const table(
+          dynamic_cast<dal::Table const *>(driver->open(name, result.space(), result.address())));
       assert(table.get());
 
-      for(size_t i = table->nrCols(); i > 1; --i) {
-        std::string const colName = std::vformat("{0}{1, {1}}",
-           std::make_format_args(name, i));
+      for (size_t i = table->nrCols(); i > 1; --i) {
+        std::string const colName = std::vformat("{0}{1, {1}}", std::make_format_args(name, i));
         d_nameMap[name].insert(colName);
-        d_dataMap2.insert(std::make_pair(colName, DataItemInformation(
-           space, configuration, d_group->addData(colName, space))));
+        d_dataMap2.insert(std::make_pair(
+            colName, DataItemInformation(space, configuration, d_group->addData(colName, space))));
       }
     }
   }
 }
-
-
 
 // dal::DataSpace DataConfiguration::dataSpaceFor(
 //          std::string const& name) const
@@ -374,7 +335,6 @@ void DataConfiguration::add(
 // };
 
 
-
 // //! if not found return a pcrxml::DrawProperties() (empty)
 // pcrxml::DrawProperties DataConfiguration::drawProperties(
 //          std::string const& name) const
@@ -387,24 +347,22 @@ void DataConfiguration::add(
 // }
 
 
-
 // dal::DataSpace const& DataConfiguration::searchSpace() const
 // {
 //   return d_searchSpace;
 // }
 
 
-
-std::vector<std::vector<DataGuide> > DataConfiguration::guidesOfView2(
-         pcrxml::AguilaView const& view) const
+std::vector<std::vector<DataGuide>>
+DataConfiguration::guidesOfView2(pcrxml::AguilaView const &view) const
 {
   // For each scenario a bunch of guides.
-  std::vector<std::vector<DataGuide> > result(d_nrScenarios);
+  std::vector<std::vector<DataGuide>> result(d_nrScenarios);
 
   XMLViewItems const viewItems(view);
 
   // Loop over views items: names of data sets.
-  for(const auto & viewItem : viewItems) {
+  for (const auto &viewItem : viewItems) {
     // Data set names can be an alias for a set of data set names. First
     // translate the name to this set and collect the guides for each of them.
     assert(d_nameMap.find(viewItem) != d_nameMap.end());
@@ -412,7 +370,7 @@ std::vector<std::vector<DataGuide> > DataConfiguration::guidesOfView2(
     assert(!names.empty());
 
     [[maybe_unused]] std::pair<NameMap::const_iterator, NameMap::const_iterator> const nameRange(
-         d_nameMap.equal_range(viewItem));
+        d_nameMap.equal_range(viewItem));
     assert(nameRange.first != nameRange.second);
 
     // For this one name we now have the data set names it corresponds to.
@@ -420,25 +378,22 @@ std::vector<std::vector<DataGuide> > DataConfiguration::guidesOfView2(
     // names. A table name is unpacked to column selections, for example.
     // Aguila is an attribute visualizer and does not handle blobs of data
     // with more than one attributes.
-    for(const auto & name : names) {
+    for (const auto &name : names) {
       // This is the name to handle.
       // Get data item information.
-      std::pair<DataMap2::const_iterator, DataMap2::const_iterator> range(
-         d_dataMap2.equal_range(name));
+      std::pair<DataMap2::const_iterator, DataMap2::const_iterator> range(d_dataMap2.equal_range(name));
       assert(range.first != range.second);
 
-      if(std::distance(range.first, range.second) == 1) {
+      if (std::distance(range.first, range.second) == 1) {
         // No scenarios available in this data set. Add this one data set to
         // all collections of guides.
-        for(auto & i : result) {
+        for (auto &i : result) {
           i.push_back((*range.first).second.guide);
         }
-      }
-      else {
-        assert(static_cast<size_t>(std::distance(range.first, range.second)) ==
-              d_nrScenarios);
+      } else {
+        assert(static_cast<size_t>(std::distance(range.first, range.second)) == d_nrScenarios);
 
-        for(size_t i = 0; range.first != range.second; ++range.first, ++i) {
+        for (size_t i = 0; range.first != range.second; ++range.first, ++i) {
           result[i].push_back((*range.first).second.guide);
         }
       }
@@ -447,8 +402,6 @@ std::vector<std::vector<DataGuide> > DataConfiguration::guidesOfView2(
 
   return result;
 }
-
-
 
 // //! return the list of guides needed for \a view
 // std::vector<DataGuide> DataConfiguration::guidesOfView(
@@ -465,7 +418,6 @@ std::vector<std::vector<DataGuide> > DataConfiguration::guidesOfView2(
 // }
 
 
-
 // std::vector<DataGuide> DataConfiguration::tableGuides(
 //          std::string const& name) const
 // {
@@ -479,7 +431,6 @@ std::vector<std::vector<DataGuide> > DataConfiguration::guidesOfView2(
 //
 //   return dg;
 // }
-
 
 
 // std::vector<std::string> DataConfiguration::tableSelections(
@@ -522,11 +473,9 @@ std::vector<std::vector<DataGuide> > DataConfiguration::guidesOfView2(
 // }
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -534,6 +483,4 @@ std::vector<std::vector<DataGuide> > DataConfiguration::guidesOfView2(
 //------------------------------------------------------------------------------
 
 
-
-} // namespace ag
-
+}  // namespace ag

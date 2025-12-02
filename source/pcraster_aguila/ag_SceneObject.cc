@@ -1,15 +1,12 @@
 #include "ag_SceneObject.h"
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 //! Constructs a SceneObject object.
@@ -25,17 +22,14 @@
   0.0). Use setInitPosition(GLfloat, GLfloat, GLfloat) and
   setInitRotation(GLfloat, GLfloat, GLfloat) to change these defaults.
 */
-ag::SceneObject::SceneObject(GLfloat x, GLfloat y, GLfloat z,
-                   GLfloat yaw, GLfloat pitch, GLfloat roll)
+ag::SceneObject::SceneObject(GLfloat x, GLfloat y, GLfloat z, GLfloat yaw, GLfloat pitch, GLfloat roll)
 
-  : d_x(x), d_y(y), d_z(z),
-    
-    d_yaw(yaw), d_roll(roll), d_pitch(pitch) 
+    : d_x(x), d_y(y), d_z(z),
+
+      d_yaw(yaw), d_roll(roll), d_pitch(pitch)
 
 {
 }
-
-
 
 //! Destructs a SceneObject object.
 /*!
@@ -43,8 +37,6 @@ ag::SceneObject::SceneObject(GLfloat x, GLfloat y, GLfloat z,
 ag::SceneObject::~SceneObject()
 {
 }
-
-
 
 //! Renders the SceneObject object.
 /*!
@@ -58,11 +50,9 @@ ag::SceneObject::~SceneObject()
 void ag::SceneObject::render()
 {
   glPushMatrix();
-    renderObject();
+  renderObject();
   glPopMatrix();
 }
-
-
 
 //! Notifies the object that the object should be rendered.
 /*!
@@ -84,14 +74,10 @@ void ag::SceneObject::setDirty(bool s)
   d_dirty = s;
 }
 
-
-
 void ag::SceneObject::setValid(bool s)
 {
   d_valid = s;
 }
-
-
 
 //! Returns true if the object should be rendered.
 /*!
@@ -103,14 +89,10 @@ bool ag::SceneObject::dirty() const
   return d_dirty;
 }
 
-
-
 bool ag::SceneObject::valid() const
 {
   return d_valid;
 }
-
-
 
 //! Sets the initial position to \a x, \a y, \a z.
 /*!
@@ -129,8 +111,6 @@ void ag::SceneObject::setInitPosition(GLfloat x, GLfloat y, GLfloat z)
   d_zInit = z;
 }
 
-
-
 //! Sets the initial rotation to \a yaw, \a pitch, \a roll.
 /*!
   \param     yaw Yaw.
@@ -148,8 +128,6 @@ void ag::SceneObject::setInitRotation(GLfloat yaw, GLfloat pitch, GLfloat roll)
   d_rollInit = roll;
 }
 
-
-
 //! Resets the position and rotation.
 /*!
   \sa        resetPosition(), resetRotation()
@@ -159,8 +137,6 @@ void ag::SceneObject::reset()
   resetPosition();
   resetRotation();
 }
-
-
 
 //! Resets the rotation.
 /*!
@@ -174,8 +150,6 @@ void ag::SceneObject::resetRotation()
   setRotation(d_yawInit, d_pitchInit, d_rollInit);
 }
 
-
-
 //! Resets the position.
 /*!
   \sa        setInitPosition(GLfloat, GLfloat, GLfloat), resetRotation()
@@ -187,8 +161,6 @@ void ag::SceneObject::resetPosition()
   setPosition(d_xInit, d_yInit, d_zInit);
 }
 
-
-
 //! Moves the object to the new location \a x, \a y, \a z.
 /*!
   \param     x X-coordinate.
@@ -198,15 +170,13 @@ void ag::SceneObject::resetPosition()
 */
 void ag::SceneObject::setPosition(GLfloat x, GLfloat y, GLfloat z)
 {
-  if(d_x != x || d_y != y || d_z != z) {
+  if (d_x != x || d_y != y || d_z != z) {
     d_x = x;
     d_y = y;
     d_z = z;
     setDirty(true);
   }
 }
-
-
 
 //! Moves the object by \a x, \a y, \a z.
 /*!
@@ -217,15 +187,13 @@ void ag::SceneObject::setPosition(GLfloat x, GLfloat y, GLfloat z)
 */
 void ag::SceneObject::moveBy(GLfloat x, GLfloat y, GLfloat z)
 {
-  if(x != 0.0 || y != 0.0 || z != 0.0) {
+  if (x != 0.0 || y != 0.0 || z != 0.0) {
     d_x += x;
     d_y += y;
     d_z += z;
     setDirty(true);
   }
 }
-
-
 
 //! Sets the object rotation to \a yaw, \a pitch, \a roll.
 /*!
@@ -236,7 +204,7 @@ void ag::SceneObject::moveBy(GLfloat x, GLfloat y, GLfloat z)
 */
 void ag::SceneObject::setRotation(GLfloat yaw, GLfloat pitch, GLfloat roll)
 {
-  if(d_yaw != yaw || d_pitch != pitch || d_roll != roll) {
+  if (d_yaw != yaw || d_pitch != pitch || d_roll != roll) {
     d_yaw = yaw;
     d_pitch = pitch;
     d_roll = roll;
@@ -247,8 +215,6 @@ void ag::SceneObject::setRotation(GLfloat yaw, GLfloat pitch, GLfloat roll)
   }
 }
 
-
-
 //! Rotates the object by \a yaw, \a pitch, \a roll.
 /*!
   \param     yaw Change in yaw (radians).
@@ -258,7 +224,7 @@ void ag::SceneObject::setRotation(GLfloat yaw, GLfloat pitch, GLfloat roll)
 */
 void ag::SceneObject::rotateBy(GLfloat yaw, GLfloat pitch, GLfloat roll)
 {
-  if(yaw != 0.0 || pitch != 0.0 || roll != 0.0) {
+  if (yaw != 0.0 || pitch != 0.0 || roll != 0.0) {
     d_yaw += yaw;
     d_pitch += pitch;
     d_roll += roll;
@@ -268,8 +234,6 @@ void ag::SceneObject::rotateBy(GLfloat yaw, GLfloat pitch, GLfloat roll)
   }
 }
 
-
-
 //! Rotates the yaw by \a a.
 /*!
   \param     a Yaw (radians).
@@ -277,15 +241,13 @@ void ag::SceneObject::rotateBy(GLfloat yaw, GLfloat pitch, GLfloat roll)
 */
 void ag::SceneObject::yawBy(GLfloat a)
 {
-  if(a != 0.0) {
+  if (a != 0.0) {
     d_yaw += a;
     Quaternion const q(0.0, a, 0.0);
     d_quaternion.postMult(q);
     setDirty(true);
   }
 }
-
-
 
 //! Rotates the pitch by \a a.
 /*!
@@ -294,15 +256,13 @@ void ag::SceneObject::yawBy(GLfloat a)
 */
 void ag::SceneObject::pitchBy(GLfloat a)
 {
-  if(a != 0.0) {
+  if (a != 0.0) {
     d_pitch += a;
     Quaternion const q(a, 0.0, 0.0);
     d_quaternion.postMult(q);
     setDirty(true);
   }
 }
-
-
 
 //! Rotates the roll by \a.
 /*!
@@ -311,15 +271,13 @@ void ag::SceneObject::pitchBy(GLfloat a)
 */
 void ag::SceneObject::rollBy(GLfloat a)
 {
-  if(a != 0.0) {
+  if (a != 0.0) {
     d_roll += a;
     Quaternion const q(0.0, 0.0, a);
     d_quaternion.postMult(q);
     setDirty(true);
   }
 }
-
-
 
 //! Returns the x-coordinate of the position.
 /*!
@@ -331,8 +289,6 @@ GLfloat ag::SceneObject::x() const
   return d_x;
 }
 
-
-
 //! Returns the y-coordinate of the position.
 /*!
   \return    Y-coordinate.
@@ -343,8 +299,6 @@ GLfloat ag::SceneObject::y() const
   return d_y;
 }
 
-
-
 //! Returns the z-coordinate of the position.
 /*!
   \return    Z-coordinate.
@@ -354,8 +308,6 @@ GLfloat ag::SceneObject::z() const
 {
   return d_z;
 }
-
-
 
 /*
 GLfloat ag::SceneObject::xInit() const
@@ -379,7 +331,6 @@ GLfloat ag::SceneObject::zInit() const
 */
 
 
-
 //! Returns the yaw.
 /*!
   \return    Yaw.
@@ -389,8 +340,6 @@ GLfloat ag::SceneObject::yaw() const
 {
   return d_yaw;
 }
-
-
 
 //! Returns the pitch.
 /*!
@@ -402,8 +351,6 @@ GLfloat ag::SceneObject::pitch() const
   return d_pitch;
 }
 
-
-
 //! Returns the roll.
 /*!
   \return    Roll.
@@ -413,8 +360,6 @@ GLfloat ag::SceneObject::roll() const
 {
   return d_roll;
 }
-
-
 
 /*
 GLfloat ag::SceneObject::yawInit() const
@@ -438,7 +383,6 @@ GLfloat ag::SceneObject::rollInit() const
 */
 
 
-
 //! Writes the rotation matrix in \a m.
 /*!
   \param     m Array of 16 GLfloat's.
@@ -451,11 +395,9 @@ void ag::SceneObject::matrix(GLfloat m[16])
   d_quaternion.matrix(m);
 }
 
-
-
 void ag::SceneObject::setSize(GLfloat w, GLfloat d, GLfloat h)
 {
-  if(d_width != w || d_depth != d || d_height != h) {
+  if (d_width != w || d_depth != d || d_height != h) {
     d_width = w;
     d_depth = d;
     d_height = h;
@@ -464,35 +406,25 @@ void ag::SceneObject::setSize(GLfloat w, GLfloat d, GLfloat h)
   }
 }
 
-
-
 GLfloat ag::SceneObject::width() const
 {
   return d_width;
 }
-
-
 
 GLfloat ag::SceneObject::depth() const
 {
   return d_depth;
 }
 
-
-
 GLfloat ag::SceneObject::height() const
 {
   return d_height;
 }
 
-
-
-const ag::Quaternion& ag::SceneObject::quaternion() const
+const ag::Quaternion &ag::SceneObject::quaternion() const
 {
   return d_quaternion;
 }
-
-
 
 //! Returns the left coordinate.
 /*!
@@ -505,8 +437,6 @@ GLfloat ag::SceneObject::left() const
   return x() - (0.5 * width());
 }
 
-
-
 //! Returns the right coordinate.
 /*!
   \return    Right.
@@ -517,8 +447,6 @@ GLfloat ag::SceneObject::right() const
 {
   return x() + (0.5 * width());
 }
-
-
 
 //! Returns the front coordinate.
 /*!
@@ -531,8 +459,6 @@ GLfloat ag::SceneObject::front() const
   return z() + (0.5 * depth());
 }
 
-
-
 //! Returns the back coordinate.
 /*!
   \return    Back.
@@ -543,8 +469,6 @@ GLfloat ag::SceneObject::back() const
 {
   return z() - (0.5 * depth());
 }
-
-
 
 //! Returns the top coordinate.
 /*!
@@ -557,8 +481,6 @@ GLfloat ag::SceneObject::top() const
   return y() + (0.5 * height());
 }
 
-
-
 //! Returns the bottom coordinate.
 /*!
   \return    Bottom.
@@ -570,18 +492,14 @@ GLfloat ag::SceneObject::bottom() const
   return y() - (0.5 * height());
 }
 
-
-
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -589,17 +507,14 @@ GLfloat ag::SceneObject::bottom() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
 
 
 //! Renders the object.

@@ -25,41 +25,33 @@
 #include "ag_Viewer.h"
 #include "ag_VisEngine.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the LegendView class.
 */
 
 
-
-namespace ag {
+namespace ag
+{
 
 // Code that is private to this module.
-namespace detail {
+namespace detail
+{
 
-} // namespace detail
-
-
+}  // namespace detail
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC LEGENDVIEW MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF LEGENDVIEW MEMBERS
 //------------------------------------------------------------------------------
 
-LegendView::LegendView(
-         DataObject* object,
-         ViewerType type,
-         QWidget* parent)
+LegendView::LegendView(DataObject *object, ViewerType type, QWidget *parent)
 
-  : TableVisualisation(object, "Legend View", parent),
-    _viewerType(type)
+    : TableVisualisation(object, "Legend View", parent), _viewerType(type)
 
 {
   // Supported data types.
@@ -94,40 +86,30 @@ LegendView::LegendView(
   createActions();
 }
 
-
-
 LegendView::~LegendView()
 {
 }
 
-
-
 void LegendView::createActions()
 {
   _generalPropertiesAction = new QAction("Edit general properties...", this);
-  connect(_generalPropertiesAction, SIGNAL(triggered()), this,
-         SLOT(editGeneralProperties()));
+  connect(_generalPropertiesAction, SIGNAL(triggered()), this, SLOT(editGeneralProperties()));
 
   _drawPropertiesAction = new QAction("Edit draw properties...", this);
-  connect(_drawPropertiesAction, SIGNAL(triggered()), this,
-         SLOT(editDrawProperties()));
+  connect(_drawPropertiesAction, SIGNAL(triggered()), this, SLOT(editDrawProperties()));
 
   _saveGraphAction = new QAction("Save graph data as...", this);
-  connect(_saveGraphAction, SIGNAL(triggered()), this,
-         SLOT(saveGraphData()));
+  connect(_saveGraphAction, SIGNAL(triggered()), this, SLOT(saveGraphData()));
 
   _mapAction = new QAction("Show map...", this);
-  connect(_mapAction, SIGNAL(triggered()), this,
-         SLOT(showMap()));
+  connect(_mapAction, SIGNAL(triggered()), this, SLOT(showMap()));
 
   _timeSeriesAction = new QAction("Show time series...", this);
-  connect(_timeSeriesAction, SIGNAL(triggered()), this,
-         SLOT(showTimeSeries()));
+  connect(_timeSeriesAction, SIGNAL(triggered()), this, SLOT(showTimeSeries()));
 
-  _cumulativePropabilityPlotAction = new QAction(
-         "Show probability plot...", this);
+  _cumulativePropabilityPlotAction = new QAction("Show probability plot...", this);
   connect(_cumulativePropabilityPlotAction, SIGNAL(triggered()), this,
-         SLOT(showCumulativeProbabilityPlot()));
+          SLOT(showCumulativeProbabilityPlot()));
 
   // newAct = new QAction(tr("&New"), this);
   // newAct->setShortcut(tr("Ctrl+N"));
@@ -135,63 +117,54 @@ void LegendView::createActions()
   // connect(newAct, SIGNAL(triggered()), this, SLOT(newFile()));
 }
 
-
-
-Legend* LegendView::contextMenuLegend() const
+Legend *LegendView::contextMenuLegend() const
 {
   assert(_contextMenuIndex.isValid());
 
-  auto* legend = dynamic_cast<Legend*>(indexWidget(_contextMenuIndex));
+  auto *legend = dynamic_cast<Legend *>(indexWidget(_contextMenuIndex));
   assert(legend);
 
   return legend;
 }
 
-
-
 void LegendView::editGeneralProperties()
 {
   assert(!_contextMenuGuides.empty());
 
-  PropertiesWidget* widget = new GeneralDataPropertiesWidget(
-         dataObject(), _contextMenuGuides.front(), this);
-  auto* dialog = new PropertiesDialog(widget, this);
+  PropertiesWidget *widget =
+      new GeneralDataPropertiesWidget(dataObject(), _contextMenuGuides.front(), this);
+  auto *dialog = new PropertiesDialog(widget, this);
   dialog->setFixedSize(dialog->sizeHint());
   dialog->exec();
 }
-
-
 
 void LegendView::editDrawProperties()
 {
   assert(!_contextMenuGuides.empty());
 
-  if(_contextMenuGuides.front().type() == geo::VECTOR) {
+  if (_contextMenuGuides.front().type() == geo::VECTOR) {
     // Properties of vector drawer cannot be edited at the moment.
     return;
   }
 
-  PropertiesWidget* widget = nullptr;
+  PropertiesWidget *widget = nullptr;
 
-  if(_contextMenuGuides.front().valueScale() == VS_BOOLEAN ||
-     _contextMenuGuides.front().valueScale() == VS_NOMINAL ||
-     _contextMenuGuides.front().valueScale() == VS_ORDINAL ||
-     _contextMenuGuides.front().valueScale() == VS_LDD) {
+  if (_contextMenuGuides.front().valueScale() == VS_BOOLEAN ||
+      _contextMenuGuides.front().valueScale() == VS_NOMINAL ||
+      _contextMenuGuides.front().valueScale() == VS_ORDINAL ||
+      _contextMenuGuides.front().valueScale() == VS_LDD) {
     widget = new ClassDrawPropertiesWidget(dataObject(), _contextMenuGuides.front(), this);
-  }
-  else if(_contextMenuGuides.front().valueScale() == VS_SCALAR ||
-          _contextMenuGuides.front().valueScale() == VS_DIRECTION) {
+  } else if (_contextMenuGuides.front().valueScale() == VS_SCALAR ||
+             _contextMenuGuides.front().valueScale() == VS_DIRECTION) {
     widget = new RangeDrawPropertiesWidget(dataObject(), _contextMenuGuides.front(), this);
   }
 
-  if(widget) {
-    auto* dialog = new PropertiesDialog(widget, this);
+  if (widget) {
+    auto *dialog = new PropertiesDialog(widget, this);
     dialog->setFixedSize(dialog->sizeHint());
     dialog->exec();
   }
 }
-
-
 
 void LegendView::saveGraphData()
 {
@@ -199,32 +172,29 @@ void LegendView::saveGraphData()
 
   SaveDataAsDialog dialog(dal::Client::dal().writerFormats(dal::TABLE), this);
 
-  if(dialog.exec() == QDialog::Accepted) {
-    DataGuide const& guide = _contextMenuGuides.front();
-    dal::Table const* table = nullptr;
+  if (dialog.exec() == QDialog::Accepted) {
+    DataGuide const &guide = _contextMenuGuides.front();
+    dal::Table const *table = nullptr;
     boost::scoped_ptr<dal::Table> scopedTable;
 
     // We only handle time graph data at the moment.
     assert(dataObject().hasTimeSeries(guide));
     assert(!dataObject().hasCumProbabilities(guide));
 
-    if(guide.type() == geo::STACK) {
+    if (guide.type() == geo::STACK) {
       // This table is generated so we keep it in a scoped pointer.
       scopedTable.reset(new dal::Table());
       dataObject().rasterDataSources().data(guide).readTimeSeries(
-        dataObject().dataSpace(), dataObject().dataSpaceAddress(),
-        *scopedTable.get());
+          dataObject().dataSpace(), dataObject().dataSpaceAddress(), *scopedTable.get());
       table = scopedTable.get();
-    }
-    else if(guide.type() == geo::FEATURE) {
+    } else if (guide.type() == geo::FEATURE) {
       /// FEATURE
-    }
-    else if(guide.type() == geo::TIMESERIES) {
+    } else if (guide.type() == geo::TIMESERIES) {
       // This table is for use only.
       table = &dataObject().tableDataSources().data(guide).table();
     }
 
-    dal::Format const& format(dialog.selectedFormat());
+    dal::Format const &format(dialog.selectedFormat());
 
     try {
       assert(dal::Client::dal().driverByName(format.name()));
@@ -233,62 +203,48 @@ void LegendView::saveGraphData()
       size_t const index = space.indexOf(dal::Time);
       space.eraseDimension(index);
       address.eraseCoordinate(index);
-      dal::Driver* driver(dal::Client::dal().driverByName(format.name()));
+      dal::Driver *driver(dal::Client::dal().driverByName(format.name()));
       assert(driver);
-      dynamic_cast<dal::TableDriver const*>(driver)->write(
-         *table, space, address, dialog.name());
-    }
-    catch(dal::Exception const& exception) {
-      QMessageBox::critical(this, "Save graph data...",
-          QString(exception.message().c_str()), QMessageBox::Ok);
+      dynamic_cast<dal::TableDriver const *>(driver)->write(*table, space, address, dialog.name());
+    } catch (dal::Exception const &exception) {
+      QMessageBox::critical(this, "Save graph data...", QString(exception.message().c_str()),
+                            QMessageBox::Ok);
     }
   }
 }
-
-
 
 void LegendView::showMap()
 {
   assert(!_contextMenuGuides.empty());
 
-  Viewer* viewer = Viewer::instance();
-  viewer->createMapView(_contextMenuGuides,
-         viewer->group(this));
+  Viewer *viewer = Viewer::instance();
+  viewer->createMapView(_contextMenuGuides, viewer->group(this));
 }
-
-
 
 void LegendView::showTimeSeries()
 {
   assert(!_contextMenuGuides.empty());
 
-  Viewer* viewer = Viewer::instance();
-  viewer->createTimeGraphView(_contextMenuGuides,
-         viewer->group(this));
+  Viewer *viewer = Viewer::instance();
+  viewer->createTimeGraphView(_contextMenuGuides, viewer->group(this));
 }
-
-
 
 void LegendView::showCumulativeProbabilityPlot()
 {
   assert(!_contextMenuGuides.empty());
 
-  Viewer* viewer = Viewer::instance();
-  viewer->createProbabilityGraphView(_contextMenuGuides,
-         viewer->group(this));
+  Viewer *viewer = Viewer::instance();
+  viewer->createProbabilityGraphView(_contextMenuGuides, viewer->group(this));
 }
 
-
-
-LegendView::LegendTuples LegendView::legendTuples(
-         DataGuide const& guide)
+LegendView::LegendTuples LegendView::legendTuples(DataGuide const &guide)
 {
   LegendTuples result;
 
-  for(auto & _legendTuple : _legendTuples) {
-    std::vector<DataGuide> const& guides(std::get<0>(_legendTuple));
+  for (auto &_legendTuple : _legendTuples) {
+    std::vector<DataGuide> const &guides(std::get<0>(_legendTuple));
 
-    if(std::find(guides.begin(), guides.end(), guide) != guides.end()) {
+    if (std::find(guides.begin(), guides.end(), guide) != guides.end()) {
       result.push_back(_legendTuple);
     }
   }
@@ -298,16 +254,13 @@ LegendView::LegendTuples LegendView::legendTuples(
   return result;
 }
 
-
-
-std::vector<Legend*> LegendView::legends(
-         DataGuide const& guide)
+std::vector<Legend *> LegendView::legends(DataGuide const &guide)
 {
-  std::vector<Legend*> result;
+  std::vector<Legend *> result;
   LegendTuples tuples(legendTuples(guide));
 
-  for(auto & tuple : tuples) {
-    Legend* legend(std::get<1>(tuple));
+  for (auto &tuple : tuples) {
+    Legend *legend(std::get<1>(tuple));
     result.push_back(legend);
   }
 
@@ -316,17 +269,14 @@ std::vector<Legend*> LegendView::legends(
   return result;
 }
 
-
-
-std::vector<DataGuide> const& LegendView::dataGuides(
-       Legend const* legend) const
+std::vector<DataGuide> const &LegendView::dataGuides(Legend const *legend) const
 {
-  std::vector<DataGuide> const* result = nullptr;
+  std::vector<DataGuide> const *result = nullptr;
 
-  for(const auto & _legendTuple : _legendTuples) {
-    std::vector<DataGuide> const& guides(std::get<0>(_legendTuple));
+  for (const auto &_legendTuple : _legendTuples) {
+    std::vector<DataGuide> const &guides(std::get<0>(_legendTuple));
 
-    if(legend == std::get<1>(_legendTuple)) {
+    if (legend == std::get<1>(_legendTuple)) {
       result = &guides;
     }
   }
@@ -336,24 +286,19 @@ std::vector<DataGuide> const& LegendView::dataGuides(
   return *result;
 }
 
-
-
-std::vector<DataGuide> const& LegendView::dataGuides(
-         QModelIndex const& index) const
+std::vector<DataGuide> const &LegendView::dataGuides(QModelIndex const &index) const
 {
   assert(index.isValid());
 
-  std::vector<DataGuide> const* result = nullptr;
+  std::vector<DataGuide> const *result = nullptr;
 
   // Determine data guides connected to legend.
-  auto* legend = dynamic_cast<Legend*>(indexWidget(index));
+  auto *legend = dynamic_cast<Legend *>(indexWidget(index));
   assert(legend);
   result = &dataGuides(legend);
 
   return *result;
 }
-
-
 
 //!
 /*!
@@ -366,8 +311,7 @@ std::vector<DataGuide> const& LegendView::dataGuides(
   It is assumed here that when two data guides point to the same draw
   properties, they are merged and only a legend for the first guide is created.
 */
-void LegendView::recreateLegend(
-         std::vector<DataGuide> const& guides)
+void LegendView::recreateLegend(std::vector<DataGuide> const &guides)
 {
   // Clean up.
   _legends.clear();
@@ -376,17 +320,17 @@ void LegendView::recreateLegend(
   // Create legend.
 
   // (Draw property, index) tuple type.
-  typedef std::tuple<DrawProps*, size_t> DrawPropertiesLegendIndexTuple;
+  typedef std::tuple<DrawProps *, size_t> DrawPropertiesLegendIndexTuple;
 
   // Collection of tuples.
   std::vector<DrawPropertiesLegendIndexTuple> drawPropertiesLegendIndexTuples;
 
-  DrawProps* properties = nullptr;
-  Legend* legend = nullptr;
+  DrawProps *properties = nullptr;
+  Legend *legend = nullptr;
   int colWidth = 0;
 
-  for(int i = guides.size() - 1; i >= 0; --i) {
-    DataGuide const& guide(guides[i]);
+  for (int i = guides.size() - 1; i >= 0; --i) {
+    DataGuide const &guide(guides[i]);
 
     // Properties of current data item.
     properties = &dataObject().properties().drawProperties(guide);
@@ -401,27 +345,24 @@ void LegendView::recreateLegend(
     std::vector<size_t> legendIndices;
 
     // Loop over all (property, index) tuples.
-    for(auto & drawPropertiesLegendIndexTuple : drawPropertiesLegendIndexTuples) {
+    for (auto &drawPropertiesLegendIndexTuple : drawPropertiesLegendIndexTuples) {
       // Find tuple who's properties corresponds with properties of current
       // data item, if present.
-      if(std::get<0>(drawPropertiesLegendIndexTuple) == properties) {
-        legendIndices.push_back(std::get<1>(
-              drawPropertiesLegendIndexTuple));
+      if (std::get<0>(drawPropertiesLegendIndexTuple) == properties) {
+        legendIndices.push_back(std::get<1>(drawPropertiesLegendIndexTuple));
       }
     }
 
-    if(!legendIndices.empty()) {
+    if (!legendIndices.empty()) {
       // A legend for this guide has already been created using another guide.
-      for(unsigned long const legendIndice : legendIndices) {
-        std::vector<DataGuide>& guides(std::get<0>(
-              _legendTuples[legendIndice]));
+      for (unsigned long const legendIndice : legendIndices) {
+        std::vector<DataGuide> &guides(std::get<0>(_legendTuples[legendIndice]));
 
-        if(std::find(guides.begin(), guides.end(), guide) == guides.end()) {
+        if (std::find(guides.begin(), guides.end(), guide) == guides.end()) {
           guides.push_back(guide);
         }
       }
-    }
-    else {
+    } else {
       // Assume the first guide can represent all guides with the same
       // properties.
       legend = new Legend(dataObject(), guide, _viewerType);
@@ -437,7 +378,7 @@ void LegendView::recreateLegend(
       _legendTuples.push_back(tuple);
 
       drawPropertiesLegendIndexTuples.push_back(
-         DrawPropertiesLegendIndexTuple(properties, _legendTuples.size() -1));
+          DrawPropertiesLegendIndexTuple(properties, _legendTuples.size() - 1));
     }
 
     // Make sure the table knows which guide is in which row.
@@ -447,31 +388,23 @@ void LegendView::recreateLegend(
   setColumnWidth(0, colWidth);
 }
 
-
-
-void LegendView::addAttribute(
-         DataGuide const& guide)
+void LegendView::addAttribute(DataGuide const &guide)
 {
   testDataGuide(guide);
   visualisationEngine().addAttribute(dataObject(), guide);
 }
-
-
 
 void LegendView::rescan()
 {
   visualisationEngine().rescan(dataObject());
 }
 
-
-
 void LegendView::process()
 {
-  if(visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
-    if(!dataObject().backgroundColour().isValid()) {
+  if (visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+    if (!dataObject().backgroundColour().isValid()) {
       setPalette(QPalette());
-    }
-    else {
+    } else {
       QPalette palette;
       palette.setColor(backgroundRole(), dataObject().backgroundColour());
       setPalette(palette);
@@ -479,42 +412,36 @@ void LegendView::process()
   }
 }
 
-
-
 void LegendView::visualise()
 {
   // Done scanning, update stuff if needed.
-  if(    visualisationEngine().change() & VisEngine::OTHERATTRIB ||
-         visualisationEngine().change() & VisEngine::DRAWPROPS  ||
-         visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR // ||
-         // Results in too many recreation of legend when it is not needed.
-         // I guess we're only interested in flips of no value selected to
-         // value selected or the other way around. Not interested in selected
-         // value changes.
-         /* visualisationEngine().change() & VisEngine::VALUE_SELECTION */) {
+  if (visualisationEngine().change() & VisEngine::OTHERATTRIB ||
+      visualisationEngine().change() & VisEngine::DRAWPROPS ||
+      visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR  // ||
+      // Results in too many recreation of legend when it is not needed.
+      // I guess we're only interested in flips of no value selected to
+      // value selected or the other way around. Not interested in selected
+      // value changes.
+      /* visualisationEngine().change() & VisEngine::VALUE_SELECTION */) {
     recreateLegend(visualisationEngine().dataGuides());
   }
 
-  if(visualisationEngine().change() & VisEngine::SELECTION) {
+  if (visualisationEngine().change() & VisEngine::SELECTION) {
     updateSelection();
   }
 
   visualisationEngine().finishedScanning(dataObject());
 }
 
-
-
-void LegendView::handleRequestedCustomContextMenu(
-         QPoint const& pos)
+void LegendView::handleRequestedCustomContextMenu(QPoint const &pos)
 {
   // Determine the cell pos is pointing to.
   _contextMenuIndex = indexAt(pos);
 
   // The index is not valid when the user clicks outside of a legend.
-  if(!_contextMenuIndex.isValid()) {
+  if (!_contextMenuIndex.isValid()) {
     _contextMenuGuides.clear();
-  }
-  else {
+  } else {
     _contextMenuGuides = dataGuides(_contextMenuIndex);
     DataGuide const guide = _contextMenuGuides.front();
 
@@ -522,8 +449,8 @@ void LegendView::handleRequestedCustomContextMenu(
     menu.addAction(_generalPropertiesAction);
 
     // Filter out attributes for which there's no draw properties editor.
-    if(!(guide.type() == geo::FEATURE && guide.valueScale() == VS_UNDEFINED) &&
-       !(guide.type() == geo::VECTOR)) {
+    if (!(guide.type() == geo::FEATURE && guide.valueScale() == VS_UNDEFINED) &&
+        !(guide.type() == geo::VECTOR)) {
       menu.addAction(_drawPropertiesAction);
     }
 
@@ -532,21 +459,20 @@ void LegendView::handleRequestedCustomContextMenu(
     //   // _selectedMenuGuides = ...;
     // }
 
-    if(dataObject().hasSpace(guide)) {
+    if (dataObject().hasSpace(guide)) {
       menu.addAction(_mapAction);
     }
 
-    if(dataObject().hasTimeSeries(guide)) {
+    if (dataObject().hasTimeSeries(guide)) {
       menu.addAction(_timeSeriesAction);
     }
 
-    if(dataObject().hasCumProbabilities(guide)) {
+    if (dataObject().hasCumProbabilities(guide)) {
       menu.addAction(_cumulativePropabilityPlotAction);
     }
 
-    if(_viewerType == VT_Graph) {
-      if(_contextMenuGuides.size() == 1 &&
-         !dataObject().hasCumProbabilities(guide)) {
+    if (_viewerType == VT_Graph) {
+      if (_contextMenuGuides.size() == 1 && !dataObject().hasCumProbabilities(guide)) {
         menu.addAction(_saveGraphAction);
       }
     }
@@ -555,11 +481,7 @@ void LegendView::handleRequestedCustomContextMenu(
   }
 }
 
-
-
-void LegendView::handleDoubleClickedCell(
-         int row,
-         int col)
+void LegendView::handleDoubleClickedCell(int row, int col)
 {
   _contextMenuIndex = model()->index(row, col);
   assert(_contextMenuIndex.isValid());
@@ -569,17 +491,13 @@ void LegendView::handleDoubleClickedCell(
   editDrawProperties();
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace ag
-
+}  // namespace ag

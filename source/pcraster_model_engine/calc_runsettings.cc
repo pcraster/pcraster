@@ -4,7 +4,6 @@
 #include "calc_completeparser.h"
 #include "calc_positionname.h"
 
-
 /*!
   \file
   This file contains the implementation of the RunSettings class.
@@ -13,7 +12,6 @@
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC RUNSETTINGS MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -26,13 +24,13 @@ calc::RunSettings::RunSettings()
 }
 
 //! construct by parsing a series of bindings from an ascii file \a bindingFile
-calc::RunSettings::RunSettings(const com::PathName& bindingFile)
+calc::RunSettings::RunSettings(const com::PathName &bindingFile)
 {
-  CompleteParser<ASTNodeVector,com::PathName>  p(bindingFile);
+  CompleteParser<ASTNodeVector, com::PathName> p(bindingFile);
 
 
   ASTNodeVector l;
-  p.parse(&Parser::externalBindings,l);
+  p.parse(&Parser::externalBindings, l);
   addLastDefinition(l);
 }
 
@@ -40,7 +38,6 @@ calc::RunSettings::RunSettings(const com::PathName& bindingFile)
 calc::RunSettings::~RunSettings()
 {
 }
-
 
 /* //! add new settings from \a mrsElement, keeping old values in case of duplicates
  * void calc::RunSettings::addNewOnly(
@@ -117,7 +114,6 @@ void calc::RunSettings::erase(const RunSettings& parent)
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

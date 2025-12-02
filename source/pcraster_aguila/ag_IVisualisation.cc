@@ -9,23 +9,24 @@
 #include <stdexcept>
 #include <sstream>
 
-
 //------------------------------------------------------------------------------
 
-namespace ag {
-
-namespace detail {
-
-struct DataTypePrinter
+namespace ag
 {
-  std::string operator()(geo::DataType dataType) {
+
+namespace detail
+{
+
+struct DataTypePrinter {
+  std::string operator()(geo::DataType dataType)
+  {
     return geo::dataTypeToStr(dataType);
   }
 };
 
-struct ValueScalePrinter
-{
-  std::string operator()(CSF_VS valueScale) {
+struct ValueScalePrinter {
+  std::string operator()(CSF_VS valueScale)
+  {
     return dal::valueScaleToString(valueScale);
   }
 };
@@ -40,18 +41,16 @@ struct ValueScalePrinter
   \warning   An empty string is returned if \a begin == \a end.
   \todo      Test.
 */
-template<typename T, class Printer>
-std::string toString(
-         typename std::vector<T>::const_iterator begin,
-         typename std::vector<T>::const_iterator end,
-         Printer printer,
-         std::string const& separator)
+template <typename T, class Printer>
+std::string toString(typename std::vector<T>::const_iterator begin,
+                     typename std::vector<T>::const_iterator end, Printer printer,
+                     std::string const &separator)
 {
   std::ostringstream stream;
 
-  if(begin != end) {
+  if (begin != end) {
 
-    for(;begin != end - 1; ++begin) {
+    for (; begin != end - 1; ++begin) {
       stream << printer(*begin) << separator;
     }
 
@@ -61,17 +60,16 @@ std::string toString(
   return stream.str();
 }
 
-} // namespace detail
+}  // namespace detail
 
 class IVisualisationPrivate
 {
 public:
+  std::string d_visualisationName;
 
-  std::string      d_visualisationName;
+  DataObject *d_dataObject{nullptr};
 
-  DataObject*      d_dataObject{nullptr};
-
-  VisEngine        d_engine;
+  VisEngine d_engine;
 
   // dal::DataSpace   d_profileDataSpace;
 
@@ -98,9 +96,7 @@ public:
   }
 };
 
-}
-
-
+}  // namespace ag
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
@@ -112,8 +108,6 @@ size_t ag::IVisualisation::nrCreated()
 {
   return d_nrCreated;
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF CLASS MEMBERS
@@ -127,11 +121,9 @@ size_t ag::IVisualisation::nrCreated()
   \warning   .
   \sa        .
 */
-ag::IVisualisation::IVisualisation(ag::DataObject* object,
-         const std::string& visualisationName)
+ag::IVisualisation::IVisualisation(ag::DataObject *object, const std::string &visualisationName)
 
-  : VisObserver(),
-    d_data(new IVisualisationPrivate())
+    : VisObserver(), d_data(new IVisualisationPrivate())
 
 {
   assert(object);
@@ -143,8 +135,6 @@ ag::IVisualisation::IVisualisation(ag::DataObject* object,
   ++d_nrCreated;
 }
 
-
-
 ag::IVisualisation::~IVisualisation()
 {
   // First, enable others to respond to a destuct of this object.
@@ -152,8 +142,6 @@ ag::IVisualisation::~IVisualisation()
   d_data->d_dataObject->detach(this);
   delete d_data;
 }
-
-
 
 /*
 bool ag::IVisualisation::eventFilter(QObject* object, QEvent *event)
@@ -192,7 +180,6 @@ bool ag::IVisualisation::eventFilter(QObject* object, QEvent *event)
 */
 
 
-
 /*
 void ag::IVisualisation::closeEvent(QCloseEvent *e)
 {
@@ -203,33 +190,23 @@ void ag::IVisualisation::closeEvent(QCloseEvent *e)
 */
 
 
-
-void ag::IVisualisation::setSupportedDataTypes(
-                   const std::vector<geo::DataType>& dataTypes)
+void ag::IVisualisation::setSupportedDataTypes(const std::vector<geo::DataType> &dataTypes)
 {
   assert(!dataTypes.empty());
   d_data->d_supportedDataTypes = dataTypes;
 }
 
-
-
-void ag::IVisualisation::setSupportedValueScales(
-                   const std::vector<CSF_VS>& valueScales)
+void ag::IVisualisation::setSupportedValueScales(const std::vector<CSF_VS> &valueScales)
 {
   assert(!valueScales.empty());
   d_data->d_supportedValueScales = valueScales;
 }
 
-
-
-void ag::IVisualisation::setSaveAsFileFormats(
-                   const std::vector<com::FileFormatInfo>& fileFormats)
+void ag::IVisualisation::setSaveAsFileFormats(const std::vector<com::FileFormatInfo> &fileFormats)
 {
   assert(!fileFormats.empty());
   d_data->d_fileFormats = fileFormats;
 }
-
-
 
 /*
 void ag::IVisualisation::showAboutDataObject()
@@ -242,7 +219,6 @@ void ag::IVisualisation::showAboutDataObject()
 #endif
 }
 */
-
 
 
 /*!
@@ -268,7 +244,6 @@ void ag::IVisualisation::cursorChanged()
 */
 
 
-
 /*!
   \return    Current cursor.
 */
@@ -276,7 +251,6 @@ void ag::IVisualisation::cursorChanged()
 // {
 //   return d_cursor;
 // }
-
 
 
 /*
@@ -287,13 +261,10 @@ ag::IVisualisation *ag::IVisualisation::copy(ag::DataObject * o) const
 */
 
 
-
 ag::DataObject &ag::IVisualisation::dataObject() const
 {
   return *d_data->d_dataObject;
 }
-
-
 
 /*
 bool ag::IVisualisation::mousePressHandled(QObject * o,
@@ -328,14 +299,12 @@ bool ag::IVisualisation::mouseMoveHandled(QObject *  o ,
 */
 
 
-
 /*
 void ag::IVisualisation::toggleAnimation()
 {
   Q_EMIT animate(false);
 }
 */
-
 
 
 /*
@@ -357,14 +326,12 @@ void ag::IVisualisation::animationStopped()
 */
 
 
-
 /*
 void ag::IVisualisation::showAnimationDialog()
 {
   Q_EMIT animate(true);
 }
 */
-
 
 
 /*
@@ -384,52 +351,38 @@ void ag::IVisualisation::showDataPropertiesDialog(
 */
 
 
-
-void ag::IVisualisation::saveAsPNG(
-         std::filesystem::path const& /* path */)
+void ag::IVisualisation::saveAsPNG(std::filesystem::path const & /* path */)
 {
   // If we end up here, a subclass didn't call setSaveAsFileFormats() or did it
   // with the wrong arguments.
   assert(false);
 }
 
-
-
-void ag::IVisualisation::saveAsEPS(
-         std::filesystem::path const& /* path */)
+void ag::IVisualisation::saveAsEPS(std::filesystem::path const & /* path */)
 {
   // If we end up here, a subclass didn't call setSaveAsFileFormats() or did it
   // with the wrong arguments.
   assert(false);
 }
 
-
-
-void ag::IVisualisation::testDataGuide(
-         geo::DataGuide const& dataGuide) const
+void ag::IVisualisation::testDataGuide(geo::DataGuide const &dataGuide) const
 {
   testDataType(dataGuide.type());
   testValueScale(dataGuide.valueScale());
 }
 
-
-
-void ag::IVisualisation::testDataType(
-         geo::DataType dataType) const
+void ag::IVisualisation::testDataType(geo::DataType dataType) const
 {
-  if(!dev::hasElement(d_data->d_supportedDataTypes, dataType)) {
+  if (!dev::hasElement(d_data->d_supportedDataTypes, dataType)) {
     std::ostringstream stream1;
-    stream1 << "Data type " << geo::dataTypeToStr(dataType)
-                   << ": Not a valid data type for "
-                   << d_data->d_visualisationName
-                   << " visualisations";
+    stream1 << "Data type " << geo::dataTypeToStr(dataType) << ": Not a valid data type for "
+            << d_data->d_visualisationName << " visualisations";
     com::Exception exception(stream1.str());
 
     std::ostringstream stream2;
     stream2 << "Valid data types are: "
-                   << detail::toString<geo::DataType, detail::DataTypePrinter>(
-                   d_data->d_supportedDataTypes.begin(),
-                   d_data->d_supportedDataTypes.end(),
+            << detail::toString<geo::DataType, detail::DataTypePrinter>(
+                   d_data->d_supportedDataTypes.begin(), d_data->d_supportedDataTypes.end(),
                    detail::DataTypePrinter(), std::string(", "));
     exception.append(stream2.str());
 
@@ -437,22 +390,18 @@ void ag::IVisualisation::testDataType(
   }
 }
 
-void ag::IVisualisation::testValueScale(
-         CSF_VS valueScale) const
+void ag::IVisualisation::testValueScale(CSF_VS valueScale) const
 {
-  if(!dev::hasElement(d_data->d_supportedValueScales, valueScale)) {
+  if (!dev::hasElement(d_data->d_supportedValueScales, valueScale)) {
     std::ostringstream stream1;
-    stream1 << "Value scale " << dal::valueScaleToString(valueScale)
-                   << ": Not a valid value scale for "
-                   << d_data->d_visualisationName
-                   << " visualisations";
+    stream1 << "Value scale " << dal::valueScaleToString(valueScale) << ": Not a valid value scale for "
+            << d_data->d_visualisationName << " visualisations";
     com::Exception exception(stream1.str());
 
     std::ostringstream stream2;
     stream2 << "Valid value scales are: "
-                   << detail::toString<CSF_VS, detail::ValueScalePrinter>(
-                   d_data->d_supportedValueScales.begin(),
-                   d_data->d_supportedValueScales.end(),
+            << detail::toString<CSF_VS, detail::ValueScalePrinter>(
+                   d_data->d_supportedValueScales.begin(), d_data->d_supportedValueScales.end(),
                    detail::ValueScalePrinter(), std::string(", "));
     exception.append(stream2.str());
 
@@ -460,36 +409,28 @@ void ag::IVisualisation::testValueScale(
   }
 }
 
-
-const std::vector<com::FileFormatInfo>& ag::IVisualisation::fileFormats() const
+const std::vector<com::FileFormatInfo> &ag::IVisualisation::fileFormats() const
 {
   return d_data->d_fileFormats;
 }
 
-
-
-const std::string& ag::IVisualisation::visualisationName() const
+const std::string &ag::IVisualisation::visualisationName() const
 {
   return d_data->d_visualisationName;
 }
 
+namespace ag
+{
 
-
-namespace ag {
-
-VisEngine& IVisualisation::visualisationEngine()
+VisEngine &IVisualisation::visualisationEngine()
 {
   return d_data->d_engine;
 }
 
-
-
-VisEngine const& IVisualisation::visualisationEngine () const
+VisEngine const &IVisualisation::visualisationEngine() const
 {
   return d_data->d_engine;
 }
-
-
 
 //! Returns data space of data visualised.
 /*!
@@ -506,25 +447,19 @@ dal::DataSpace IVisualisation::visualisationDataSpace() const
   return dataObject().dataSpace(visualisationEngine().dataGuides());
 }
 
-
-
 dal::DataSpace IVisualisation::dataSpace() const
 {
   return dataObject().dataSpace();
 }
 
-
-
 //! Returns the currently set data space address.
 /*!
   \return    Data space address.
 */
-dal::DataSpaceAddress const& IVisualisation::dataSpaceAddress() const
+dal::DataSpaceAddress const &IVisualisation::dataSpaceAddress() const
 {
   return dataObject().dataSpaceAddress();
 }
-
-
 
 // void IVisualisation::setProfileDataSpace(
 //          dal::DataSpace const& space)
@@ -533,20 +468,16 @@ dal::DataSpaceAddress const& IVisualisation::dataSpaceAddress() const
 // }
 
 
-
 // dal::DataSpace const& IVisualisation::profileDataSpace() const
 // {
 //   return d_data->d_profileDataSpace;
 // }
 
-} // namespace ag
-
-
+}  // namespace ag
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -554,11 +485,9 @@ dal::DataSpaceAddress const& IVisualisation::dataSpaceAddress() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -566,9 +495,6 @@ dal::DataSpaceAddress const& IVisualisation::dataSpaceAddress() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

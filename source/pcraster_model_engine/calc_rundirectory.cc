@@ -14,12 +14,9 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC RUNDIRECTORY MEMBERS
 //------------------------------------------------------------------------------
-
-
 
 
 //------------------------------------------------------------------------------
@@ -31,10 +28,9 @@ calc::RunDirectory::RunDirectory()
 {
 }
 
-calc::RunDirectory::RunDirectory(
-    const com::PathName& rdPn)
+calc::RunDirectory::RunDirectory(const com::PathName &rdPn)
 {
-  setRunDirectory(rdPn,"");
+  setRunDirectory(rdPn, "");
 }
 
 //! dtor
@@ -52,56 +48,55 @@ calc::RunDirectory::~RunDirectory()
    \param externalBindingsFile file path set from pcrcalc -b option, empty
    if not set
  */
-void calc::RunDirectory::setRunDirectory(
-    const com::PathName& runDirectory,
-    const com::PathName& externalBindingsFile)
+void calc::RunDirectory::setRunDirectory(const com::PathName &runDirectory,
+                                         const com::PathName &externalBindingsFile)
 {
+  d_searchPaths.clear();
+
+  if (externalBindingsFile.isEmpty())
+    d_runSettings.clear();
+  else
+    d_runSettings = RunSettings(externalBindingsFile);
+
+  d_outputDirectory = runDirectory;
+  d_outputDirectory.makeNative();
+
+  if (d_outputDirectory.isEmpty())
+    return;  // output in current dir and no search paths
+  com::PathName sp(d_outputDirectory);
+
+  if (!com::PathInfo(sp).exists()) {
+    // last part is to be created sub-directory
+    sp.up();
+    if (sp.isEmpty())
+      return;  // we do have an output directory but no search paths
+  }
+
+  PRECOND(!sp.isEmpty());
+  // above sp.up() can make sp empty now
+  if (!com::PathInfo(sp).isDirectory()) {
+    // pcrcalc352
+    std::ostringstream stream;
+    stream << "-r: '" << sp << "' is not an existing directory";
+    throw PosException(stream.str());
+  }
+
+  sp.makeNative();
+  sp.makeAbsolute();
+  com::PathName const currentDir(com::currentWorkingDirectory());
+  while (currentDir != sp && !sp.isEmpty()) {
+    d_searchPaths.push_back(sp);
+    sp.up();
+  }
+  if (sp.isEmpty()) {
+    // current working dir is not a parent of d_runDirectory
+    // no search paths
     d_searchPaths.clear();
+  } else {
+    d_searchPaths.push_back(currentDir);
+  }
 
-    if (externalBindingsFile.isEmpty())
-      d_runSettings.clear();
-    else
-      d_runSettings= RunSettings(externalBindingsFile);
-
-    d_outputDirectory=runDirectory;
-    d_outputDirectory.makeNative();
-
-    if (d_outputDirectory.isEmpty())
-      return; // output in current dir and no search paths
-    com::PathName sp(d_outputDirectory);
-
-    if (!com::PathInfo(sp).exists()) {
-      // last part is to be created sub-directory
-      sp.up();
-      if (sp.isEmpty())
-       return; // we do have an output directory but no search paths
-    }
-
-    PRECOND(!sp.isEmpty());
-    // above sp.up() can make sp empty now
-    if (!com::PathInfo(sp).isDirectory()) {
-      // pcrcalc352
-      std::ostringstream stream;
-      stream << "-r: '" << sp << "' is not an existing directory";
-      throw PosException(stream.str());
-    }
-
-    sp.makeNative();
-    sp.makeAbsolute();
-    com::PathName const currentDir(com::currentWorkingDirectory());
-    while (currentDir != sp && !sp.isEmpty()) {
-      d_searchPaths.push_back(sp);
-      sp.up();
-    }
-    if (sp.isEmpty()) {
-       // current working dir is not a parent of d_runDirectory
-       // no search paths
-       d_searchPaths.clear();
-    } else {
-      d_searchPaths.push_back(currentDir);
-    }
-
-    collectRunSettings();
+  collectRunSettings();
 }
 
 //! make a list of modelsettings to use in the run
@@ -110,7 +105,7 @@ void calc::RunDirectory::setRunDirectory(
  */
 void calc::RunDirectory::collectRunSettings()
 {
-/*
+  /*
  *  std::vector<com::PathName> cwd;
  *  cwd.push_back(com::currentWorkingDirectory());
  *  const std::vector<com::PathName> &paths(
@@ -139,21 +134,20 @@ void calc::RunDirectory::collectRunSettings()
  * \throws
  *  PosException if it does
  */
-void calc::RunDirectory::checkOutputFilePath(
-    const std::string& fileName) const
+void calc::RunDirectory::checkOutputFilePath(const std::string &fileName) const
 {
-    PRECOND(!fileName.empty());
-    if (empty())
-      return;
+  PRECOND(!fileName.empty());
+  if (empty())
+    return;
 
-    com::PathName pn(fileName);
-    pn.makeNative();
-    if (pn.baseName() != fileName) {
-      std::ostringstream stream;
-      // pcrcalc355
-      stream << "-r: output '" << pn << "' has illegal directory part";
-      throw PosException(stream.str());
-    }
+  com::PathName pn(fileName);
+  pn.makeNative();
+  if (pn.baseName() != fileName) {
+    std::ostringstream stream;
+    // pcrcalc355
+    stream << "-r: output '" << pn << "' has illegal directory part";
+    throw PosException(stream.str());
+  }
 }
 
 //! return a path, including \a fileName, where \a fileName is found
@@ -164,42 +158,40 @@ void calc::RunDirectory::checkOutputFilePath(
    If not found in search paths, \a fileName is returned as is.
    \par found set if found yes/no
  */
-std::string calc::RunDirectory::inPath(
-    bool& found,
-    const std::string& fileName) const
+std::string calc::RunDirectory::inPath(bool &found, const std::string &fileName) const
 {
-    PRECOND(!fileName.empty());
-    com::PathName const fnPn(fileName);
-    for (const auto & d_searchPath : d_searchPaths) {
-      // sPn=fnPn if fnPn is absolute, that is OK.
-      com::PathName sPn(d_searchPath+fnPn);
-      com::PathInfo const sPi(sPn);
-      if (sPi.exists()) {
-        found=true;
-        sPn.makeNative();
-        return sPn.toString();
-      }
+  PRECOND(!fileName.empty());
+  com::PathName const fnPn(fileName);
+  for (const auto &d_searchPath : d_searchPaths) {
+    // sPn=fnPn if fnPn is absolute, that is OK.
+    com::PathName sPn(d_searchPath + fnPn);
+    com::PathInfo const sPi(sPn);
+    if (sPi.exists()) {
+      found = true;
+      sPn.makeNative();
+      return sPn.toString();
     }
-    found=false;
-    return fileName;
+  }
+  found = false;
+  return fileName;
 }
 
-std::string calc::RunDirectory::outputFilePath(const std::string& fileName) const
+std::string calc::RunDirectory::outputFilePath(const std::string &fileName) const
 {
-  if(!d_outputDirectory.isEmpty())
-    com::createDirectory(d_outputDirectory,false);
+  if (!d_outputDirectory.isEmpty())
+    com::createDirectory(d_outputDirectory, false);
 
   PRECOND(!fileName.empty());
   if (d_outputDirectory.isEmpty())
-      return fileName;
+    return fileName;
   com::PathName pn(fileName);
   pn.makeNative();
   if (pn.isAbsolute())
     return pn.toString();
-  return (d_outputDirectory+pn).toString();
+  return (d_outputDirectory + pn).toString();
 }
 
-const calc::ASTNodeVector& calc::RunDirectory::bindings() const
+const calc::ASTNodeVector &calc::RunDirectory::bindings() const
 {
   return d_runSettings;
 }
@@ -217,7 +209,6 @@ bool calc::RunDirectory::empty() const
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

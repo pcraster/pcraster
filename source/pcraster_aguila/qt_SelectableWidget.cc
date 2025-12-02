@@ -7,18 +7,15 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the SelectableWidget class.
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC SELECTABLEWIDGET MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -32,10 +29,9 @@
 
   Default the widget is unselected.
 */
-qt::SelectableWidget::SelectableWidget(QWidget* parent)
+qt::SelectableWidget::SelectableWidget(QWidget *parent)
 
-  : QFrame(parent),
-    d_buffer(1)
+    : QFrame(parent), d_buffer(1)
 
 {
   setLineWidth(d_buffer);
@@ -44,16 +40,12 @@ qt::SelectableWidget::SelectableWidget(QWidget* parent)
   setFrameStyle(QFrame::NoFrame);
 }
 
-
-
 //! Destructor.
 /*!
 */
 qt::SelectableWidget::~SelectableWidget()
 {
 }
-
-
 
 //! Sets the state of the widget to selected.
 /*!
@@ -64,7 +56,7 @@ qt::SelectableWidget::~SelectableWidget()
 */
 void qt::SelectableWidget::select()
 {
-  if(!isSelected()) {
+  if (!isSelected()) {
     Q_EMIT selected();
     setFrameStyle(QFrame::Panel | QFrame::Sunken);
     //PORT
@@ -72,8 +64,6 @@ void qt::SelectableWidget::select()
     repaint();
   }
 }
-
-
 
 //! Sets the state of the widget to unselected.
 /*!
@@ -84,7 +74,7 @@ void qt::SelectableWidget::select()
 */
 void qt::SelectableWidget::unSelect()
 {
-  if(isSelected()) {
+  if (isSelected()) {
     Q_EMIT unSelected();
     setFrameStyle(QFrame::NoFrame);
     //PORT
@@ -92,8 +82,6 @@ void qt::SelectableWidget::unSelect()
     repaint();
   }
 }
-
-
 
 //! Sets the selected mode to \a select.
 /*!
@@ -104,15 +92,12 @@ void qt::SelectableWidget::unSelect()
 */
 void qt::SelectableWidget::setSelected(bool select)
 {
-  if(select) {
+  if (select) {
     SelectableWidget::select();
-  }
-  else {
+  } else {
     unSelect();
   }
 }
-
-
 
 //! Returns true if the widget is selected.
 /*!
@@ -124,8 +109,6 @@ bool qt::SelectableWidget::isSelected() const
   return frameStyle() != QFrame::NoFrame;
 }
 
-
-
 //! Returns the buffer needed for visualizing the selection.
 /*!
   \return    buffer.
@@ -135,17 +118,11 @@ size_t qt::SelectableWidget::buffer() const
   return d_buffer;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

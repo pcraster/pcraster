@@ -1,19 +1,15 @@
 #include "ag_VisSubject.h"
 #include "ag_VisChangeManager.h"
 
-
-
 /*!
   \file
    This file contains the implementation of the VisSubject class.
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -28,8 +24,6 @@ ag::VisSubject::VisSubject()
   d_cm = new VisChangeManager(this);
 }
 
-
-
 //! Copy constructor.
 /*!
   \param     rhs Subject to copy.
@@ -37,12 +31,10 @@ ag::VisSubject::VisSubject()
              fresh one. The change manager is not considered part of the data
              of the subject.
 */
-ag::VisSubject::VisSubject(const VisSubject& /* rhs */)
+ag::VisSubject::VisSubject(const VisSubject & /* rhs */)
 {
   d_cm = new VisChangeManager(this);
 }
-
-
 
 //! Destructor.
 /*!
@@ -52,39 +44,31 @@ ag::VisSubject::~VisSubject()
   delete d_cm;
 }
 
-
-
 /*!
   \sa        ag::VisChangeManager::attach(VisObserver*),
              ag::VisChangeManager::detach(VisObserver*)
 */
-void ag::VisSubject::attach(VisObserver* o)
+void ag::VisSubject::attach(VisObserver *o)
 {
   d_cm->attach(o);
 }
-
-
 
 /*!
   \sa        ag::VisChangeManager::detach(VisObserver*),
              ag::VisChangeManager::attach(VisObserver*)
 */
-void ag::VisSubject::detach(VisObserver* o)
+void ag::VisSubject::detach(VisObserver *o)
 {
   d_cm->detach(o);
 }
 
-
-
 /*!
   \sa        ag::VisChangeManager::observedBy(VisObserver*)
 */
-bool ag::VisSubject::observedBy(VisObserver* o) const
+bool ag::VisSubject::observedBy(VisObserver *o) const
 {
   return d_cm->observedBy(o);
 }
-
-
 
 /*!
   \sa        ag::VisChangeManager::nrObservers()
@@ -94,14 +78,10 @@ size_t ag::VisSubject::nrObservers() const
   return d_cm->nrObservers();
 }
 
-
-
 bool ag::VisSubject::isObserved() const
 {
   return nrObservers() > 0;
 }
-
-
 
 /*!
   \sa        ag::VisChangeManager::notify()
@@ -114,26 +94,19 @@ void ag::VisSubject::notify()
   d_cm->notify();
 }
 
-
-
 ag::VisSubject::iterator ag::VisSubject::begin()
 {
   return d_cm->begin();
 }
-
-
 
 ag::VisSubject::iterator ag::VisSubject::end()
 {
   return d_cm->end();
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -141,11 +114,9 @@ ag::VisSubject::iterator ag::VisSubject::end()
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -153,9 +124,6 @@ ag::VisSubject::iterator ag::VisSubject::end()
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

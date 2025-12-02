@@ -23,12 +23,10 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the OperationTimer class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -41,45 +39,52 @@
 #include <stack>
 #define INCLUDED_STACK
 #endif
-namespace  calc {
+namespace calc
+{
 
 typedef std::map<std::string, Uint64> TotalTimes;
 typedef std::map<std::string, size_t> NrCounts;
 static TotalTimes totalTimes;
-static NrCounts   nrCounts;
+static NrCounts nrCounts;
 
-static bool      timerOn=false;
+static bool timerOn = false;
 
-class TimerStack : public std::stack<std::string> {
-     Uint64 d_topStart;
-   void addTop() {
-      Uint64 timeOnTop = cpuCycleCounter()-d_topStart;
-      PRECOND(totalTimes.count(top()));
-      totalTimes[top()] += timeOnTop;
-   }
-  public:
-   void start(const std::string& operationId) {
-      if (!empty())
-          addTop();
-      push(operationId);
-      d_topStart = cpuCycleCounter();
-    }
-   void stop() {
-      PRECOND(!empty());
+class TimerStack : public std::stack<std::string>
+{
+  Uint64 d_topStart;
+
+  void addTop()
+  {
+    Uint64 timeOnTop = cpuCycleCounter() - d_topStart;
+    PRECOND(totalTimes.count(top()));
+    totalTimes[top()] += timeOnTop;
+  }
+
+public:
+  void start(const std::string &operationId)
+  {
+    if (!empty())
       addTop();
-      pop();
-      d_topStart = cpuCycleCounter();
-    }
+    push(operationId);
+    d_topStart = cpuCycleCounter();
+  }
+
+  void stop()
+  {
+    PRECOND(!empty());
+    addTop();
+    pop();
+    d_topStart = cpuCycleCounter();
+  }
 };
 
 static TimerStack timerStack;
 
-};
+};  // namespace calc
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC OPERATIONTIMER MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -87,9 +92,9 @@ static TimerStack timerStack;
 //------------------------------------------------------------------------------
 
 //! ctor
-calc::OperationTimer::OperationTimer(const std::string& operationId, bool count)
+calc::OperationTimer::OperationTimer(const std::string &operationId, bool count)
 {
-  if ( !timerOn)
+  if (!timerOn)
     return;
   // init a new one
   if (totalTimes.count(operationId) == 0) {
@@ -111,40 +116,32 @@ calc::OperationTimer::~OperationTimer()
 
 void calc::OperationTimer::print(size_t skipBits)
 {
-  Uint64 total=0;
+  Uint64 total = 0;
   // strip some insignificant digits
-  for(TotalTimes::iterator p=totalTimes.begin();
-                           p!=totalTimes.end(); ++p) {
-    p->second >>= skipBits; // if 10 then strip 1024
+  for (TotalTimes::iterator p = totalTimes.begin(); p != totalTimes.end(); ++p) {
+    p->second >>= skipBits;  // if 10 then strip 1024
   }
 
-  for(TotalTimes::iterator p=totalTimes.begin();
-                           p!=totalTimes.end(); ++p) {
-    std::cout << p->second << "\t" << nrCounts[p->first]
-              << "\t" << p->first << "\n";
+  for (TotalTimes::iterator p = totalTimes.begin(); p != totalTimes.end(); ++p) {
+    std::cout << p->second << "\t" << nrCounts[p->first] << "\t" << p->first << "\n";
     total += p->second;
   }
-  if (total > (1<<31) )
-   std::cout << "Warning Total larger then 2^31 (" << (1<<31) << ")\n";
+  if (total > (1 << 31))
+    std::cout << "Warning Total larger then 2^31 (" << (1 << 31) << ")\n";
   std::cout << "Total" << "\t" << total << "\n";
-  std::cout << "2^31 = (" << (((size_t)1)<<31) << ")\n";
+  std::cout << "2^31 = (" << (((size_t)1) << 31) << ")\n";
 }
 
 void calc::OperationTimer::setTimerOn(bool on)
 {
-  timerOn=on;
+  timerOn = on;
 }
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

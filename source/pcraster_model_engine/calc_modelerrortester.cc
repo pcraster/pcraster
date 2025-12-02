@@ -5,13 +5,10 @@
 #include "calc_stringparser.h"
 #include "calc_messagestestdb.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the ModelErrorTester class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -37,34 +34,31 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC MODELERRORTESTER MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF MODELERRORTESTER MEMBERS
 //------------------------------------------------------------------------------
 
-calc::ModelErrorTester::ModelErrorTester(const char *id):
-  d_id(id)
+calc::ModelErrorTester::ModelErrorTester(const char *id) : d_id(id)
 {
 }
 
 void calc::ModelErrorTester::loadAndExec()
 {
-   catched=false;
-   msgEq=false;
-   try {
-     std::unique_ptr<ASTScript> const script(
-     StringParser::createScript(MessagesTestDB::instance()->model(d_id)));
-     exec(script.get());
-   } catch (const com::Exception& s) {
-    msgEq=MessagesTestDB::instance()->equals(d_id,s,"");
-    catched=true;
-   }
+  catched = false;
+  msgEq = false;
+  try {
+    std::unique_ptr<ASTScript> const script(
+        StringParser::createScript(MessagesTestDB::instance()->model(d_id)));
+    exec(script.get());
+  } catch (const com::Exception &s) {
+    msgEq = MessagesTestDB::instance()->equals(d_id, s, "");
+    catched = true;
+  }
 }
 
 calc::ModelErrorTester::ModelErrorTester()
@@ -74,7 +68,6 @@ calc::ModelErrorTester::ModelErrorTester()
 calc::ModelErrorTester::~ModelErrorTester()
 {
 }
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -101,7 +94,6 @@ void calc::ModelErrorTester::exec(ASTScript *)
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
@@ -112,10 +104,6 @@ void calc::ModelErrorTester::exec(ASTScript *)
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

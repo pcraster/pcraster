@@ -9,37 +9,33 @@
 #include "ag_MultiMap2D.h"
 #include "ag_VisEngine.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the MultiMap2DWindow class.
 */
 
 
-
 //------------------------------------------------------------------------------
 
-namespace ag {
+namespace ag
+{
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC MULTIMAP2DWINDOW MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF MULTIMAP2DWINDOW MEMBERS
 //------------------------------------------------------------------------------
 
-MultiMap2DWindow::MultiMap2DWindow(qt::AppWindowProperties const& props,
-         DataObject* object, size_t nrRows, size_t nrCols)
+MultiMap2DWindow::MultiMap2DWindow(qt::AppWindowProperties const &props, DataObject *object,
+                                   size_t nrRows, size_t nrCols)
 
-  : MapWindow(props, "2D Multi Map", object),
-    d_engines(nrRows * nrCols)
+    : MapWindow(props, "2D Multi Map", object), d_engines(nrRows * nrCols)
 
 {
-  for(auto & d_engine : d_engines) {
+  for (auto &d_engine : d_engines) {
     d_engine = new VisEngine();
   }
 
@@ -49,8 +45,6 @@ MultiMap2DWindow::MultiMap2DWindow(qt::AppWindowProperties const& props,
 
   createInterface(nrRows, nrCols);
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -63,15 +57,12 @@ MultiMap2DWindow::MultiMap2DWindow(MultiMap2DWindow const& rhs)
 */
 
 
-
 MultiMap2DWindow::~MultiMap2DWindow()
 {
-  for(auto & d_engine : d_engines) {
+  for (auto &d_engine : d_engines) {
     delete d_engine;
   }
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -82,7 +73,6 @@ MultiMap2DWindow& MultiMap2DWindow::operator=(MultiMap2DWindow const& rhs)
   return *this;
 }
 */
-
 
 
 void MultiMap2DWindow::createInterface(size_t nrRows, size_t nrCols)
@@ -98,11 +88,9 @@ void MultiMap2DWindow::createInterface(size_t nrRows, size_t nrCols)
   rescan();
 }
 
-
-
 void MultiMap2DWindow::rescan()
 {
-  for(auto & d_engine : d_engines) {
+  for (auto &d_engine : d_engines) {
     d_engine->rescan(dataObject());
   }
 
@@ -111,50 +99,43 @@ void MultiMap2DWindow::rescan()
   MapWindow::rescan();
 }
 
-
-
-void MultiMap2DWindow::addAttribute(DataGuide const& guide)
+void MultiMap2DWindow::addAttribute(DataGuide const &guide)
 {
   d_map->addAttribute(guide);
 
-  for(auto & d_engine : d_engines) {
+  for (auto &d_engine : d_engines) {
     d_engine->addAttribute(dataObject(), guide);
   }
 
   visualisationEngine().addAttribute(dataObject(), guide);
 }
 
-
-
-void MultiMap2DWindow::addAttribute(size_t row, size_t col,
-         DataGuide const& guide)
+void MultiMap2DWindow::addAttribute(size_t row, size_t col, DataGuide const &guide)
 {
   d_map->addAttribute(row, col, guide);
   d_engines[(row * d_map->nrCols()) + col]->addAttribute(dataObject(), guide);
   visualisationEngine().addAttribute(dataObject(), guide);
 }
 
-
-
 std::string MultiMap2DWindow::windowName() const
 {
   std::string name = "No data loaded";
 
-  if(!d_engines.empty()) {
+  if (!d_engines.empty()) {
     std::vector<DataGuide> dataGuides = d_engines[0]->dataGuides();
-    if(!dataGuides.empty()) {
+    if (!dataGuides.empty()) {
       name = dataObject().name(dataGuides[0]);
       dataGuides = d_engines[0]->dataGuides();
-      for(size_t i = 1; i < dataGuides.size(); ++i) {
+      for (size_t i = 1; i < dataGuides.size(); ++i) {
         name += " + " + dataObject().name(dataGuides[i]);
       }
 
-      for(size_t i = 1; i < d_engines.size(); ++i) {
+      for (size_t i = 1; i < d_engines.size(); ++i) {
         dataGuides = d_engines[i]->dataGuides();
-        if(!dataGuides.empty()) {
+        if (!dataGuides.empty()) {
           name += " | " + dataObject().name(dataGuides[0]);
           dataGuides = d_engines[i]->dataGuides();
-          for(size_t j = 1; j < dataGuides.size(); ++j) {
+          for (size_t j = 1; j < dataGuides.size(); ++j) {
             name += " + " + dataObject().name(dataGuides[j]);
           }
         }
@@ -177,22 +158,15 @@ std::string MultiMap2DWindow::windowName() const
   return name;
 }
 
-
-
 bool MultiMap2DWindow::dataVisualised() const
 {
   return visualisationEngine().dataGuides().size() > 0;
 }
 
-
-
-void MultiMap2DWindow::saveAsPNG(
-         std::filesystem::path const& path)
+void MultiMap2DWindow::saveAsPNG(std::filesystem::path const &path)
 {
   d_map->saveAsPNG(path);
 }
-
-
 
 // void MultiMap2DWindow::process()
 // {
@@ -209,11 +183,9 @@ void MultiMap2DWindow::saveAsPNG(
 // }
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -221,5 +193,4 @@ void MultiMap2DWindow::saveAsPNG(
 //------------------------------------------------------------------------------
 
 
-
-} // namespace ag
+}  // namespace ag

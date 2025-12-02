@@ -10,23 +10,23 @@
 #include <memory>
 #include <sstream>
 
-
 /*!
   \file
   This file contains the implementation of the RunDirectory class.
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC RUNDIRECTORY MEMBERS
 //------------------------------------------------------------------------------
 
-namespace calc {
+namespace calc
+{
 
-class RunDirectoryPrivate {
+class RunDirectoryPrivate
+{
 public:
-  RunSettings   d_runSettings;
+  RunSettings d_runSettings;
 
   //! if empty (default), output directory is current directory
   com::PathName d_outputDirectory;
@@ -37,34 +37,35 @@ public:
    */
   std::vector<com::PathName> d_searchPaths;
 
-  void initRunSettings(const com::PathName& externalBindingsFile) {
-   if (externalBindingsFile.isEmpty())
-    d_runSettings.clear();
-   else {
-    ModelBuilder mb;
-    d_runSettings= mb.parseExternalBindings(externalBindingsFile);
-   }
+  void initRunSettings(const com::PathName &externalBindingsFile)
+  {
+    if (externalBindingsFile.isEmpty())
+      d_runSettings.clear();
+    else {
+      ModelBuilder mb;
+      d_runSettings = mb.parseExternalBindings(externalBindingsFile);
+    }
   }
 
-  std::string inputFilePath(bool& found, const std::string& fileName) const
+  std::string inputFilePath(bool &found, const std::string &fileName) const
   {
     PRECOND(!fileName.empty());
     com::PathName const fnPn(fileName);
-    for (const auto & d_searchPath : d_searchPaths) {
+    for (const auto &d_searchPath : d_searchPaths) {
       // sPn=fnPn if fnPn is absolute, that is OK.
-      com::PathName sPn(d_searchPath+fnPn);
+      com::PathName sPn(d_searchPath + fnPn);
       com::PathInfo const sPi(sPn);
       if (sPi.exists()) {
-        found=true;
+        found = true;
         sPn.makeNative();
         return sPn.toString();
       }
     }
-    found=false;
+    found = false;
     return fileName;
   }
-  std::string outputFilePath(
-    const std::string& fileName) const
+
+  std::string outputFilePath(const std::string &fileName) const
   {
     PRECOND(!fileName.empty());
     if (d_outputDirectory.isEmpty())
@@ -78,56 +79,57 @@ public:
       throw com::Exception(stream.str());
     }
 
-    return (d_outputDirectory+pn).toString();
+    return (d_outputDirectory + pn).toString();
   }
+
   void setupForExecution() const
   {
-    if(!d_outputDirectory.isEmpty())
-     if (!com::PathInfo(d_outputDirectory).exists()) {
-      com::Directory(d_outputDirectory).create();
-     }
+    if (!d_outputDirectory.isEmpty())
+      if (!com::PathInfo(d_outputDirectory).exists()) {
+        com::Directory(d_outputDirectory).create();
+      }
   }
+
   void collectRunSettings()
   {
     std::vector<com::PathName> cwd;
     cwd.push_back(com::currentWorkingDirectory());
-    const std::vector<com::PathName> &paths(
-        d_searchPaths.size() ? d_searchPaths:cwd);
+    const std::vector<com::PathName> &paths(d_searchPaths.size() ? d_searchPaths : cwd);
 
-    for(const auto & path : paths)  {
-     com::PathName const b = path+"binding.ipcr";
-     try {
-      if (!com::PathInfo(b).isFile())
+    for (const auto &path : paths) {
+      com::PathName const b = path + "binding.ipcr";
+      try {
+        if (!com::PathInfo(b).isFile())
           continue;
-      // if existant, we assume it is xml
-      pcrxml::Document const doc(b);
-      QDomElement  const mrsElement=doc.firstMatchByTagName("ModelRunSettings");
-      if (mrsElement.isNull())
-        continue;
-      d_runSettings.addNewOnly(mrsElement);
-    } catch (const com::BadStreamFormat &msg) {
-      throw com::FileError(b, msg.messages());
+        // if existant, we assume it is xml
+        pcrxml::Document const doc(b);
+        QDomElement const mrsElement = doc.firstMatchByTagName("ModelRunSettings");
+        if (mrsElement.isNull())
+          continue;
+        d_runSettings.addNewOnly(mrsElement);
+      } catch (const com::BadStreamFormat &msg) {
+        throw com::FileError(b, msg.messages());
+      }
     }
-   }
   }
-  void setRunDirectory(const com::PathName& runDirectory,
-                       const com::PathName& externalBindingsFile)
+
+  void setRunDirectory(const com::PathName &runDirectory, const com::PathName &externalBindingsFile)
   {
     d_searchPaths.clear();
     initRunSettings(externalBindingsFile);
 
-    d_outputDirectory=runDirectory;
+    d_outputDirectory = runDirectory;
     d_outputDirectory.makeNative();
 
     if (d_outputDirectory.isEmpty())
-      return; // output in current dir and no search paths
+      return;  // output in current dir and no search paths
     com::PathName sp(d_outputDirectory);
 
     if (!com::PathInfo(sp).exists()) {
       // last part is to be created sub-directory
       sp.up();
       if (sp.isEmpty())
-       return; // we do have an output directory but no search paths
+        return;  // we do have an output directory but no search paths
     }
 
     PRECOND(!sp.isEmpty());
@@ -147,9 +149,9 @@ public:
       sp.up();
     }
     if (sp.isEmpty()) {
-       // current working dir is not a parent of d_runDirectory
-       // no search paths
-       d_searchPaths.clear();
+      // current working dir is not a parent of d_runDirectory
+      // no search paths
+      d_searchPaths.clear();
     } else {
       d_searchPaths.push_back(currentDir);
     }
@@ -158,7 +160,7 @@ public:
   }
 };
 
-}
+}  // namespace calc
 
 //------------------------------------------------------------------------------
 // DEFINITION OF RUNDIRECTORY MEMBERS
@@ -167,8 +169,7 @@ public:
 //! ctor
 /*!
 */
-calc::RunDirectory::RunDirectory():
-  d_data(new RunDirectoryPrivate())
+calc::RunDirectory::RunDirectory() : d_data(new RunDirectoryPrivate())
 {
 }
 
@@ -190,9 +191,8 @@ calc::RunDirectory::~RunDirectory()
    \todo
      make assertion test for validity of runDirectory arg
  */
-void calc::RunDirectory::setRunDirectory(
-    const com::PathName& runDirectory,
-    const com::PathName& externalBindingsFile)
+void calc::RunDirectory::setRunDirectory(const com::PathName &runDirectory,
+                                         const com::PathName &externalBindingsFile)
 {
   d_data->setRunDirectory(runDirectory, externalBindingsFile);
 }
@@ -224,8 +224,7 @@ void calc::RunDirectory::setupForExecution() const
    Note that the exception that fileName cannot contain a directory name part
    is an incompatability with running pcrcalc without -r.
  */
-std::string calc::RunDirectory::outputFilePath(
-    const std::string& fileName) const
+std::string calc::RunDirectory::outputFilePath(const std::string &fileName) const
 {
   return d_data->outputFilePath(fileName);
 }
@@ -238,14 +237,12 @@ std::string calc::RunDirectory::outputFilePath(
    If not found in search paths, \a fileName is returned as is.
    \par found set if found yes/no
  */
-std::string calc::RunDirectory::inputFilePath(
-    bool& found,
-    const std::string& fileName) const
+std::string calc::RunDirectory::inputFilePath(bool &found, const std::string &fileName) const
 {
-  return d_data->inputFilePath(found,fileName);
+  return d_data->inputFilePath(found, fileName);
 }
 
-const std::map<calc::ExtSym,calc::ExtSym>& calc::RunDirectory::bindings() const
+const std::map<calc::ExtSym, calc::ExtSym> &calc::RunDirectory::bindings() const
 {
   return d_data->d_runSettings.bindings();
 }
@@ -263,7 +260,6 @@ bool calc::RunDirectory::isDefault() const
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

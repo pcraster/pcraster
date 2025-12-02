@@ -11,12 +11,10 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the DimensionCoordinateEdit class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -42,25 +40,21 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC DIMENSIONCOORDINATEEDIT MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF DIMENSIONCOORDINATEEDIT MEMBERS
 //------------------------------------------------------------------------------
 
-namespace ag {
+namespace ag
+{
 
-DimensionCoordinateEdit::DimensionCoordinateEdit(
-         dal::Dimension const* dimension,
-         QWidget* parent)
+DimensionCoordinateEdit::DimensionCoordinateEdit(dal::Dimension const *dimension, QWidget *parent)
 
-  : QWidget(parent),
-    d_dimension(dimension)
+    : QWidget(parent), d_dimension(dimension)
 
 {
   assert(d_dimension);
@@ -69,34 +63,28 @@ DimensionCoordinateEdit::DimensionCoordinateEdit(
   createInterface();
 }
 
-
-
 DimensionCoordinateEdit::~DimensionCoordinateEdit()
 {
 }
-
-
 
 void DimensionCoordinateEdit::createInterface()
 {
   assert(!d_editWidget);
 
-  switch(d_dimension->discretisation()) {
+  switch (d_dimension->discretisation()) {
     case dal::ExactDiscretisation: {
-      auto* comboBox = new QComboBox(this);
+      auto *comboBox = new QComboBox(this);
 
-      for(size_t i = 0; i < d_dimension->nrCoordinates(); ++i) {
-        comboBox->addItem(
-              QString(dal::coordinateToString(*d_dimension, i).c_str()));
+      for (size_t i = 0; i < d_dimension->nrCoordinates(); ++i) {
+        comboBox->addItem(QString(dal::coordinateToString(*d_dimension, i).c_str()));
       }
 
-      connect(comboBox, SIGNAL(activated(int)),
-              this, SLOT(valueChanged(int)));
+      connect(comboBox, SIGNAL(activated(int)), this, SLOT(valueChanged(int)));
       d_editWidget = comboBox;
       break;
     }
     case dal::RegularDiscretisation: {
-      auto* slider = new QSlider(Qt::Horizontal, this);
+      auto *slider = new QSlider(Qt::Horizontal, this);
       slider->setMinimum(0);
       slider->setMaximum(d_dimension->nrCoordinates() - 1);
       slider->setPageStep(1);
@@ -112,16 +100,13 @@ void DimensionCoordinateEdit::createInterface()
     }
   }
 
-  auto* layout = new QHBoxLayout(this);
+  auto *layout = new QHBoxLayout(this);
   layout->addWidget(d_editWidget);
 
   assert(d_editWidget);
 }
 
-
-
-void DimensionCoordinateEdit::valueChanged(
-         int index)
+void DimensionCoordinateEdit::valueChanged(int index)
 {
   assert(index >= 0);
   assert(index < static_cast<int>(d_dimension->nrCoordinates()));
@@ -129,22 +114,19 @@ void DimensionCoordinateEdit::valueChanged(
   Q_EMIT coordinateSet(d_dimension, size_t(index));
 }
 
-
-
-void DimensionCoordinateEdit::setCoordinate(
-         size_t index)
+void DimensionCoordinateEdit::setCoordinate(size_t index)
 {
   assert(index < d_dimension->nrCoordinates());
 
-  switch(d_dimension->discretisation()) {
+  switch (d_dimension->discretisation()) {
     case dal::ExactDiscretisation: {
-      auto* comboBox = dynamic_cast<QComboBox*>(d_editWidget);
+      auto *comboBox = dynamic_cast<QComboBox *>(d_editWidget);
       assert(comboBox);
       comboBox->setCurrentIndex(int(index));
       break;
     }
     case dal::RegularDiscretisation: {
-      auto* slider = dynamic_cast<QSlider*>(d_editWidget);
+      auto *slider = dynamic_cast<QSlider *>(d_editWidget);
       assert(slider);
       slider->setValue(int(index));
       break;
@@ -156,11 +138,9 @@ void DimensionCoordinateEdit::setCoordinate(
   }
 }
 
-
-
 void DimensionCoordinateEdit::unsetCoordinate()
 {
-  switch(d_dimension->discretisation()) {
+  switch (d_dimension->discretisation()) {
     case dal::ExactDiscretisation: {
       // QComboBox* comboBox = dynamic_cast<QComboBox*>(d_editWidget);
       // assert(comboBox);
@@ -180,26 +160,19 @@ void DimensionCoordinateEdit::unsetCoordinate()
   }
 }
 
-
-
-dal::Dimension const* DimensionCoordinateEdit::dimension() const
+dal::Dimension const *DimensionCoordinateEdit::dimension() const
 {
   return d_dimension;
 }
 
 
-
-} // namespace ag
+}  // namespace ag
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

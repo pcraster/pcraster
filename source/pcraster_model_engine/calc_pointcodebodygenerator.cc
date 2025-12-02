@@ -14,93 +14,85 @@
 
 #include <algorithm>
 
-
 /*!
   \file
   This file contains the implementation of the PointCodeBodyGenerator class.
 */
 
 
-
 //------------------------------------------------------------------------------
 
-namespace calc {
+namespace calc
+{
 
 static char cellUnionField(VS s)
 {
-  DEVELOP_PRECOND(CRI_1==0);   /* UINT1 */
-  DEVELOP_PRECOND(CRI_4==1);   /* INT4 */
-  DEVELOP_PRECOND(CRI_f==2);   /* REAL4 */
-  const char *unionMembers="bif";
+  DEVELOP_PRECOND(CRI_1 == 0); /* UINT1 */
+  DEVELOP_PRECOND(CRI_4 == 1); /* INT4 */
+  DEVELOP_PRECOND(CRI_f == 2); /* REAL4 */
+  const char *unionMembers = "bif";
   return unionMembers[allFitCRIndex(s)];
 }
 
-static const char* crType(const ASTNode* n)
+static const char *crType(const ASTNode *n)
 {
-  VS const s=n->returnDataType().vs();
+  VS const s = n->returnDataType().vs();
 
-  DEVELOP_PRECOND(CRI_1==0);   /* UINT1 */
-  DEVELOP_PRECOND(CRI_4==1);   /* INT4 */
-  DEVELOP_PRECOND(CRI_f==2);   /* REAL4 */
-  const char *types[]= { "UINT1 ","INT4 ","REAL4 " };
+  DEVELOP_PRECOND(CRI_1 == 0); /* UINT1 */
+  DEVELOP_PRECOND(CRI_4 == 1); /* INT4 */
+  DEVELOP_PRECOND(CRI_f == 2); /* REAL4 */
+  const char *types[] = {"UINT1 ", "INT4 ", "REAL4 "};
   return types[allFitCRIndex(s)];
 }
 
-static std::string mvTest(const std::set<std::string>& names)
+static std::string mvTest(const std::set<std::string> &names)
 {
   std::vector<std::string> s;
-  for(const auto& a : names) {
+  for (const auto &a : names) {
     if (com::isDouble(a))
-      continue; // skip MV check on numbers
+      continue;  // skip MV check on numbers
     if (a.find("].f[0]") != std::string::npos)
-      continue; // skip MV check on non-spatials
+      continue;  // skip MV check on non-spatials
     if (a.find("_f<point::") == 0)
-      continue; // skip MV check on inliners
+      continue;  // skip MV check on inliners
     std::ostringstream str;
     str << "pcr::isMV(" << a << ")";
     s.push_back(str.str());
   }
   if (s.empty())
     return "0";
-  return com::join(s,"|");
+  return com::join(s, "|");
 }
 
-} // namespace calc
-
-
+}  // namespace calc
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC POINTCODEBODYGENERATOR MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF POINTCODEBODYGENERATOR MEMBERS
 //------------------------------------------------------------------------------
 
-calc::PointCodeBodyGenerator::PointCodeBodyGenerator(
-    CFGNode*      cfg,
-    const ParSet& vContents):
-     CFGVisitor(cfg)
+calc::PointCodeBodyGenerator::PointCodeBodyGenerator(CFGNode *cfg, const ParSet &vContents)
+    : CFGVisitor(cfg)
 {
-  size_t n=0;
-  for(auto p : vContents) {
+  size_t n = 0;
+  for (auto p : vContents) {
     std::ostringstream s;
     PRECOND(!p->returnDataType().stEither());
     s << "v[" << n << "]." << cellUnionField(p->returnDataType().vs());
     if (p->returnDataType().stSpatial())
-       s << "[i]";
+      s << "[i]";
     else
-       s << "[0]";
-    d_parNames.insert(std::make_pair(p->name(),s.str()));
+      s << "[0]";
+    d_parNames.insert(std::make_pair(p->name(), s.str()));
     n++;
   }
 
   d_loop << "for(size_t i=0; i<n; ++i ) { " << '\n';
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -124,12 +116,12 @@ calc::PointCodeBodyGenerator& calc::PointCodeBodyGenerator::operator=(PointCodeB
 }
 */
 
-void calc::PointCodeBodyGenerator::visitStat(ASTStat* )
+void calc::PointCodeBodyGenerator::visitStat(ASTStat *)
 {
 }
 
 //! define result temporary in stream and return name of temporary
-std::string calc::PointCodeBodyGenerator::tmpDef(const BaseExpr* e) const
+std::string calc::PointCodeBodyGenerator::tmpDef(const BaseExpr *e) const
 {
   std::ostringstream result;
   result << "tmp" << e;
@@ -137,18 +129,18 @@ std::string calc::PointCodeBodyGenerator::tmpDef(const BaseExpr* e) const
   return result.str();
 }
 
-void calc::PointCodeBodyGenerator::visitExpr(BaseExpr* e)
+void calc::PointCodeBodyGenerator::visitExpr(BaseExpr *e)
 {
   selectPart(e->returnDataType(0));
 
   reverseTop(e->nrArgs());
 
-  if(e->op().opCode()== OP_IFTHENELSE)
+  if (e->op().opCode() == OP_IFTHENELSE)
     doIfThenElse(e);
   else
     doExpr(e);
-
 }
+
 /*
      arg1 = top(0).value;
      arg2 = top(1).value;
@@ -163,54 +155,50 @@ void calc::PointCodeBodyGenerator::visitExpr(BaseExpr* e)
    ONDUIDELIJK IN CODE WAT WELLE STACK SITUATIE NODIG HEEFT
 */
 
-void calc::PointCodeBodyGenerator::visitAss(ASTAss*  a)
+void calc::PointCodeBodyGenerator::visitAss(ASTAss *a)
 {
-  PRECOND(a->nrPars()==1);
-  ASTPar *lhs= a->par(0);
+  PRECOND(a->nrPars() == 1);
+  ASTPar *lhs = a->par(0);
 
   selectPart(lhs->returnDataType());
 
-  if (d_parNames.count(lhs->name())==0) {
+  if (d_parNames.count(lhs->name()) == 0) {
     // first assignment to local
     if (d_args.back().expr()) {
       // must be assigned an inliner
-      (*d_curr) << "// forced inline assignment "
-                << a->shortPosText() << '\n';
-      std::string const name=tmpDef(d_args.back().expr());
-      assignment(name,"0");
-      d_parNames.insert(std::make_pair(lhs->name(),name));
+      (*d_curr) << "// forced inline assignment " << a->shortPosText() << '\n';
+      std::string const name = tmpDef(d_args.back().expr());
+      assignment(name, "0");
+      d_parNames.insert(std::make_pair(lhs->name(), name));
       pop();
     } else {
       // do not assign but remember that
       // this local is shadowed by pop() value
-      d_parNames.insert(std::make_pair(lhs->name(),pop()));
+      d_parNames.insert(std::make_pair(lhs->name(), pop()));
     }
   } else {
     // p = tmp0x74834738
     (*d_curr) << "// " << a->shortPosText() << '\n';
-    assignment(par(lhs),"0");
+    assignment(par(lhs), "0");
     pop();
   }
 }
 
-void calc::PointCodeBodyGenerator::assignment(
-    const std::string& result,
-    const std::string& domainCheck) const
+void calc::PointCodeBodyGenerator::assignment(const std::string &result,
+                                              const std::string &domainCheck) const
 {
-    (*d_curr) << "if( (" << mvTest(d_args.back().names()) << ")||"
-              << domainCheck << ")" << '\n'
-              << " pcr::setMV(" << result << ");" << '\n'
-              << "else" << '\n'
-              << " " << result << "= " << d_args.back().value() << ";" << '\n';
+  (*d_curr) << "if( (" << mvTest(d_args.back().names()) << ")||" << domainCheck << ")" << '\n'
+            << " pcr::setMV(" << result << ");" << '\n'
+            << "else" << '\n'
+            << " " << result << "= " << d_args.back().value() << ";" << '\n';
 }
 
-void calc::PointCodeBodyGenerator::doExpr(
-    BaseExpr* e)
+void calc::PointCodeBodyGenerator::doExpr(BaseExpr *e)
 {
-  std::string const dc(domainCheck(e->op().domainIll(),templateArg(e)));
+  std::string const dc(domainCheck(e->op().domainIll(), templateArg(e)));
 
   // replace args by inliner f
-  popArgsPushResult(f(e),e->nrArgs());
+  popArgsPushResult(f(e), e->nrArgs());
   d_args.back().setExpr(e);
 
   if (dc != "0" || e->returnDataType().stNonSpatial()) {
@@ -218,7 +206,7 @@ void calc::PointCodeBodyGenerator::doExpr(
     // do not want to inline due to nonspatial, print in d_ns
     (*d_curr) << "// " << e->shortPosText() << '\n';
     std::string const r(tmpDef(e));
-    assignment(r,dc);
+    assignment(r, dc);
 
     // replace the inliner by the result
     pop();
@@ -226,37 +214,36 @@ void calc::PointCodeBodyGenerator::doExpr(
   }
 }
 
-void calc::PointCodeBodyGenerator::doIfThenElse(
-    BaseExpr* e)
+void calc::PointCodeBodyGenerator::doIfThenElse(BaseExpr *e)
 {
-   // ifthenelse in calc_pointcodedllheader.h
-   (*d_curr) << "// " << e->shortPosText() << '\n';
-   std::string const r(tmpDef(e));
-   (*d_curr) << "_ifthenelse<"<< crType(e) << ">("
-       << r << ","
-       << arg(0) << "," << arg(1) << "," << arg(2) << ");" << '\n';
-   pop();
-   pop();
-   pop();
-   push(r);
+  // ifthenelse in calc_pointcodedllheader.h
+  (*d_curr) << "// " << e->shortPosText() << '\n';
+  std::string const r(tmpDef(e));
+  (*d_curr) << "_ifthenelse<" << crType(e) << ">(" << r << "," << arg(0) << "," << arg(1) << ","
+            << arg(2) << ");" << '\n';
+  pop();
+  pop();
+  pop();
+  push(r);
 }
 
 //! rhs side visit
-void calc::PointCodeBodyGenerator::visitPar(ASTPar*  p)
+void calc::PointCodeBodyGenerator::visitPar(ASTPar *p)
 {
   push(par(p));
 }
-void calc::PointCodeBodyGenerator::visitNumber(ASTNumber*  n)
+
+void calc::PointCodeBodyGenerator::visitNumber(ASTNumber *n)
 {
   std::ostringstream s;
-  s<< n->value();
+  s << n->value();
   push(s.str());
 }
 
-void calc::PointCodeBodyGenerator::print(std::ostream& s) const
+void calc::PointCodeBodyGenerator::print(std::ostream &s) const
 {
-  s << d_ns.str()      << '\n';
-  s << d_loop.str()    << '\n';
+  s << d_ns.str() << '\n';
+  s << d_loop.str() << '\n';
   s << "} // end loop" << '\n';
 }
 
@@ -271,62 +258,66 @@ std::string calc::PointCodeBodyGenerator::par(ASTPar *p)
   return d_parNames[p->name()];
 }
 
-
-std::string calc::PointCodeBodyGenerator::domainCheck(
-    DomainIll d,
-    const std::string& templateArg) const
+std::string calc::PointCodeBodyGenerator::domainCheck(DomainIll d, const std::string &templateArg) const
 {
   std::ostringstream s;
-  switch(d) {
-    case onlyDomainIll:  /*!< unary argument has domain check */
+  switch (d) {
+    case onlyDomainIll: /*!< unary argument has domain check */
       s << "_odi< " << templateArg << " >(" << arg(0) << ")";
       return s.str();
-   case rightDomainIll: /*!< right (2nd) argument has domain check */
-      s << "_rdi<  " << templateArg << " >(" << arg(1)<< ")";
+    case rightDomainIll: /*!< right (2nd) argument has domain check */
+      s << "_rdi<  " << templateArg << " >(" << arg(1) << ")";
       return s.str();
-   case combDomainIll:  /*!< combination of 1st and 2nd arg may be illegal, pow only */
+    case combDomainIll: /*!< combination of 1st and 2nd arg may be illegal, pow only */
       s << "_cdi<  " << templateArg << " >(" << arg(0) << "," << arg(1) << ")";
       return s.str();
-   case noDomainIll:
+    case noDomainIll:
       return "0";
   };
   PRECOND(false);
   return s.str();
 }
 
-std::string calc::PointCodeBodyGenerator::f(
-    const BaseExpr* e) const
+std::string calc::PointCodeBodyGenerator::f(const BaseExpr *e) const
 {
   std::ostringstream f;
   // _f< start at pos 0 is significat to filter in mvTest
   f << "_f<" << templateArg(e) << ">(";
-  switch(e->nrArgs()) {
-    case 1: f << arg(0); break;
-    case 2: f << arg(0) << "," << arg(1); break;
-    default: PRECOND(false);
+  switch (e->nrArgs()) {
+    case 1:
+      f << arg(0);
+      break;
+    case 2:
+      f << arg(0) << "," << arg(1);
+      break;
+    default:
+      PRECOND(false);
   }
   f << ")";
   return f.str();
 }
 
-std::string calc::PointCodeBodyGenerator::templateArg(
-    const BaseExpr* e) const
+std::string calc::PointCodeBodyGenerator::templateArg(const BaseExpr *e) const
 {
   std::string templateType;
-  switch(e->op().execType()) {
+  switch (e->op().execType()) {
     case EXEC_TYPE_POLY:
-    case EXEC_TYPE_DIFF_BIN: templateType=crType(e->arg(0)); break;
-    case EXEC_TYPE_DIFF_UN : /* Result,Input  */
-                        templateType=crType(e)+std::string(",")
-                                    +crType(e->arg(0));
-                        break;
-    case EXEC_TYPE_SAME_UN :
-    case EXEC_TYPE_SAME_BIN: templateType=crType(e); break;
-      default    : POSTCOND(false);
+    case EXEC_TYPE_DIFF_BIN:
+      templateType = crType(e->arg(0));
+      break;
+    case EXEC_TYPE_DIFF_UN: /* Result,Input  */
+      templateType = crType(e) + std::string(",") + crType(e->arg(0));
+      break;
+    case EXEC_TYPE_SAME_UN:
+    case EXEC_TYPE_SAME_BIN:
+      templateType = crType(e);
+      break;
+    default:
+      POSTCOND(false);
   }
 
   std::ostringstream t;
-  t << "point::"<< e->op().implName() << "<" << templateType << "> ";
+  t << "point::" << e->op().implName() << "<" << templateType << "> ";
   return t.str();
 }
 
@@ -340,100 +331,94 @@ std::string calc::PointCodeBodyGenerator::pop()
 //! reverse the top so arg() returns the correct one
 void calc::PointCodeBodyGenerator::reverseTop(size_t nrArgs)
 {
-  std::reverse(d_args.end()-nrArgs,d_args.end());
+  std::reverse(d_args.end() - nrArgs, d_args.end());
 }
 
-const std::string& calc::PointCodeBodyGenerator::arg(size_t argNr) const
+const std::string &calc::PointCodeBodyGenerator::arg(size_t argNr) const
 {
   PRECOND(d_args.size() > argNr);
   // pushed backwards
-  return (d_args.end()-argNr-1)->value();
+  return (d_args.end() - argNr - 1)->value();
 }
 
-void calc::PointCodeBodyGenerator::push(const std::string& argName)
+void calc::PointCodeBodyGenerator::push(const std::string &argName)
 {
   d_args.push_back(argName);
 }
 
-void calc::PointCodeBodyGenerator::popArgsPushResult(
-    const std::string& function,
-    size_t             nrArgs)
+void calc::PointCodeBodyGenerator::popArgsPushResult(const std::string &function, size_t nrArgs)
 {
 
-    PointCodeSI s(function);
-    std::set<std::string> names;
-    for(size_t i=0; i < nrArgs; ++i) {
-      names.insert(
-          d_args.back().names().begin(),
-          d_args.back().names().end());
-      pop();
-    }
-    // if args then names not empty
-    PRECOND((nrArgs==0) == names.empty());
-    s.setNames(names);
-    d_args.push_back(s);
+  PointCodeSI s(function);
+  std::set<std::string> names;
+  for (size_t i = 0; i < nrArgs; ++i) {
+    names.insert(d_args.back().names().begin(), d_args.back().names().end());
+    pop();
+  }
+  // if args then names not empty
+  PRECOND((nrArgs == 0) == names.empty());
+  s.setNames(names);
+  d_args.push_back(s);
 }
 
-void calc::PointCodeBodyGenerator::selectPart(const DataType& dt)
+void calc::PointCodeBodyGenerator::selectPart(const DataType &dt)
 {
   PRECOND(!dt.stEither());
-  std::ostringstream*  newCurr = nullptr;
+  std::ostringstream *newCurr = nullptr;
   if (dt.stSpatial())
-    newCurr= &d_loop;
+    newCurr = &d_loop;
   else
-    newCurr= &d_ns;
+    newCurr = &d_ns;
 
-  if (newCurr!=d_curr && !d_args.size()) {
+  if (newCurr != d_curr && !d_args.size()) {
     /*! generate code for current stack (sub-expr)
      * always a transfer from d_ns -> d_loop
      */
-   //  PRECOND(newCurr == &d_loop);
-   //  PRECOND(d_args.back().expr());
+    //  PRECOND(newCurr == &d_loop);
+    //  PRECOND(d_args.back().expr());
   }
 
-  d_curr=newCurr;
+  d_curr = newCurr;
   // (*d_curr) << "// " << dt << std::endl;
 }
 
 //! set value of d_expr
-void calc::PointCodeSI::setExpr(BaseExpr* expr)
+void calc::PointCodeSI::setExpr(BaseExpr *expr)
 {
-  d_expr=expr;
+  d_expr = expr;
 }
 
 //! get value of d_expr
-calc::BaseExpr* calc::PointCodeSI::expr() const
+calc::BaseExpr *calc::PointCodeSI::expr() const
 {
   return d_expr;
 }
 
-calc::PointCodeSI::PointCodeSI(
-    const std::string& name):
-  d_value(name)
+calc::PointCodeSI::PointCodeSI(const std::string &name) : d_value(name)
 {
   d_names.insert(name);
 }
 
 //! set value of d_names
-void calc::PointCodeSI::setNames(const std::set<std::string>& names)
+void calc::PointCodeSI::setNames(const std::set<std::string> &names)
 {
-  d_names=names;
+  d_names = names;
 }
 
 //! get value of d_names
-const std::set<std::string>& calc::PointCodeSI::names() const
+const std::set<std::string> &calc::PointCodeSI::names() const
 {
   return d_names;
 }
 
 //! set value of d_value
-void calc::PointCodeSI::setValue(const std::string& value)
+void calc::PointCodeSI::setValue(const std::string &value)
 {
-  d_value=value;
+  d_value = value;
 }
 
 //! get value of d_value
-const std::string& calc::PointCodeSI::value() const
+const std::string &calc::PointCodeSI::value() const
 {
   return d_value;
 }
@@ -443,19 +428,15 @@ const std::string& calc::PointCodeSI::value() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 
-void calc::generatePointCodeBody(
-      std::ostream& s,
-      ASTNode*      code,
-      const ParSet& vContents)
+void calc::generatePointCodeBody(std::ostream &s, ASTNode *code, const ParSet &vContents)
 {
   ScopedCFG const n(code);
-  PointCodeBodyGenerator pcbg(n.cfg,vContents);
+  PointCodeBodyGenerator pcbg(n.cfg, vContents);
   pcbg.visit();
   pcbg.print(s);
 }

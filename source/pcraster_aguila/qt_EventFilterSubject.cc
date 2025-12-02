@@ -9,18 +9,15 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the EventFilterSubject class.
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC EVENTFILTERSUBJECT MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -31,15 +28,13 @@
 /*!
   \param     filterSubject The actual, layered filter subject.
 */
-qt::EventFilterSubject::EventFilterSubject(QObject* filterSubject)
+qt::EventFilterSubject::EventFilterSubject(QObject *filterSubject)
 
-  : d_filterSubject(filterSubject) 
+    : d_filterSubject(filterSubject)
 
 {
   assert(d_filterSubject);
 }
-
-
 
 //! Destructor.
 /*!
@@ -51,8 +46,6 @@ qt::EventFilterSubject::~EventFilterSubject()
   removeEventFilter();
 }
 
-
-
 //! Installs an event filter for this subject.
 /*!
   \param     filter The event filter object.
@@ -62,7 +55,7 @@ qt::EventFilterSubject::~EventFilterSubject()
   This function calls redirectChildEventsTo(QObject*) with the same
   filter object.
 */
-void qt::EventFilterSubject::redirectEventsTo(QObject* filter)
+void qt::EventFilterSubject::redirectEventsTo(QObject *filter)
 {
   removeEventFilter();
 
@@ -73,8 +66,6 @@ void qt::EventFilterSubject::redirectEventsTo(QObject* filter)
   redirectChildEventsTo(d_filter);
 }
 
-
-
 //! Installs the event filter on the child subjects.
 /*!
   \param     filter The event filter object.
@@ -84,12 +75,9 @@ void qt::EventFilterSubject::redirectEventsTo(QObject* filter)
 
   The default does nothing.
 */
-void qt::EventFilterSubject::redirectChildEventsTo(
-                   QObject* /* filter */)
+void qt::EventFilterSubject::redirectChildEventsTo(QObject * /* filter */)
 {
 }
-
-
 
 //! Removes the event filter from the child subjects.
 /*!
@@ -99,57 +87,45 @@ void qt::EventFilterSubject::redirectChildEventsTo(
 
   The default does nothing.
 */
-void qt::EventFilterSubject::removeChildEventFilter(QObject* /* filter */)
+void qt::EventFilterSubject::removeChildEventFilter(QObject * /* filter */)
 {
 }
-
-
 
 //! Removes the event subject from the filter.
 /*!
 */
 void qt::EventFilterSubject::removeEventFilter()
 {
-  if(d_filter) {
+  if (d_filter) {
     d_filterSubject->removeEventFilter(d_filter);
     removeChildEventFilter(d_filter);
     d_filter = nullptr;
   }
 }
 
-
-
 //! Returns the layered filter subject.
 /*!
   \return    Filter subject.
 */
-QObject* qt::EventFilterSubject::eventFilterSubject() const
+QObject *qt::EventFilterSubject::eventFilterSubject() const
 {
   return d_filterSubject;
 }
-
-
 
 //! Returns the filter.
 /*!
   \return    Event filter or 0 if no filter is installed.
 */
-const QObject* qt::EventFilterSubject::eventFilter() const
+const QObject *qt::EventFilterSubject::eventFilter() const
 {
   return d_filter;
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

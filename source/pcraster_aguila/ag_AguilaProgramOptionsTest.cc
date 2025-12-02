@@ -4,7 +4,6 @@
 #include "com_exception.h"
 #include "ag_AguilaProgramOptions.h"
 
-
 BOOST_AUTO_TEST_CASE(view_plus_syntax_to_view_constructor)
 {
   using namespace ag;
@@ -30,7 +29,7 @@ BOOST_AUTO_TEST_CASE(view_plus_syntax_to_view_constructor)
     arguments.push_back("e");
     arguments.push_back("f");
 
-    std::vector<std::vector<std::string> > result;
+    std::vector<std::vector<std::string>> result;
     result = AguilaProgramOptions::viewPlusSyntaxToViewCtor(arguments);
 
     BOOST_CHECK(result.size() == 3);
@@ -59,7 +58,7 @@ BOOST_AUTO_TEST_CASE(view_plus_syntax_to_view_constructor)
     arguments.push_back("d+e");
     arguments.push_back("f");
 
-    std::vector<std::vector<std::string> > result;
+    std::vector<std::vector<std::string>> result;
     result = AguilaProgramOptions::viewPlusSyntaxToViewCtor(arguments);
 
     BOOST_CHECK(result.size() == 3);
@@ -79,7 +78,7 @@ BOOST_AUTO_TEST_CASE(view_plus_syntax_to_view_constructor)
     std::vector<std::string> arguments;
     arguments.push_back("volcano/volcano0.090+volcano/lava0000.090");
 
-    std::vector<std::vector<std::string> > result;
+    std::vector<std::vector<std::string>> result;
     result = AguilaProgramOptions::viewPlusSyntaxToViewCtor(arguments);
 
     BOOST_CHECK(result.size() == 1);
@@ -87,7 +86,6 @@ BOOST_AUTO_TEST_CASE(view_plus_syntax_to_view_constructor)
     BOOST_CHECK(result[0][0] == "volcano/volcano0.090+volcano/lava0000.090");
   }
 }
-
 
 BOOST_AUTO_TEST_CASE(boost_options)
 {
@@ -123,12 +121,12 @@ BOOST_AUTO_TEST_CASE(boost_options_to_xml)
     char c1[7] = "aguila";
     char c2[10] = "--mapView";
     char c3[13] = "volcano0.090";
-    char *argv[]= { c1, c2, c3 };
+    char *argv[] = {c1, c2, c3};
 
     AguilaProgramOptions apo(3, argv);
 
     // should create 1 map view element:
-    BOOST_CHECK(apo.configuration().visualisationGroup().view().size()==1);
+    BOOST_CHECK(apo.configuration().visualisationGroup().view().size() == 1);
     BOOST_CHECK(apo.configuration().visualisationGroup().view()[0].map().present());
   }
 
@@ -136,17 +134,16 @@ BOOST_AUTO_TEST_CASE(boost_options_to_xml)
     char c1[7] = "aguila";
     char c2[12] = "--drapeView";
     char c3[13] = "volcano0.090";
-    char *argv[]= { c1, c2, c3 };
+    char *argv[] = {c1, c2, c3};
 
     AguilaProgramOptions apo(3, argv);
 
     // should create 1 map view element:
-    BOOST_CHECK(apo.configuration().visualisationGroup().view().size()==1);
+    BOOST_CHECK(apo.configuration().visualisationGroup().view().size() == 1);
     BOOST_CHECK(apo.configuration().visualisationGroup().view()[0].drape().present());
     // choice is mutally exclusive
     BOOST_CHECK(!apo.configuration().visualisationGroup().view()[0].map().present());
   }
-
 }
 #endif
 
@@ -157,25 +154,24 @@ BOOST_AUTO_TEST_CASE(stackname_fix)
   {
     char c1[7] = "aguila";
     char c2[17] = "volcano0.001+090";
-    char *argv[]= { c1, c2 };
+    char *argv[] = {c1, c2};
 
     AguilaProgramOptions const apo(2, argv);
-    BOOST_CHECK(apo.configuration().visualisationGroup().view().size()==1);
+    BOOST_CHECK(apo.configuration().visualisationGroup().view().size() == 1);
     BOOST_CHECK(apo.configuration().visualisationGroup().searchSpace().present());
 
-    pcrxml::DataSpace const& s(
-        apo.configuration().visualisationGroup().searchSpace().get());
-    BOOST_CHECK(s.timesteps().size()==1);
+    pcrxml::DataSpace const &s(apo.configuration().visualisationGroup().searchSpace().get());
+    BOOST_CHECK(s.timesteps().size() == 1);
     BOOST_CHECK(s.timesteps()[0].range().present());
-    BOOST_CHECK(s.timesteps()[0].range()->begin()==1);
-    BOOST_CHECK(s.timesteps()[0].range()->end()==90);
-    BOOST_CHECK(s.timesteps()[0].range()->increment()==1);
+    BOOST_CHECK(s.timesteps()[0].range()->begin() == 1);
+    BOOST_CHECK(s.timesteps()[0].range()->end() == 90);
+    BOOST_CHECK(s.timesteps()[0].range()->increment() == 1);
   }
 
   {
     char c1[7] = "aguila";
     char c2[8] = "dem.map";
-    char *argv[]= { c1, c2 };
+    char *argv[] = {c1, c2};
 
     AguilaProgramOptions const apo(2, argv);
     BOOST_CHECK(!apo.configuration().visualisationGroup().searchSpace().present());
@@ -184,55 +180,51 @@ BOOST_AUTO_TEST_CASE(stackname_fix)
   {
     char c1[7] = "aguila";
     char c2[13] = "volcano0.090";
-    char *argv[]= { c1, c2 };
+    char *argv[] = {c1, c2};
 
     AguilaProgramOptions const apo(2, argv);
-    BOOST_CHECK(apo.configuration().visualisationGroup().view().size()==1);
+    BOOST_CHECK(apo.configuration().visualisationGroup().view().size() == 1);
     BOOST_CHECK(apo.configuration().visualisationGroup().searchSpace().present());
 
-    pcrxml::DataSpace const& s(
-        apo.configuration().visualisationGroup().searchSpace().get());
-    BOOST_CHECK(s.timesteps().size()==1);
+    pcrxml::DataSpace const &s(apo.configuration().visualisationGroup().searchSpace().get());
+    BOOST_CHECK(s.timesteps().size() == 1);
     BOOST_CHECK(s.timesteps()[0].range().present());
-    BOOST_CHECK(s.timesteps()[0].range()->begin()==90);
-    BOOST_CHECK(s.timesteps()[0].range()->end()==90);
-    BOOST_CHECK(s.timesteps()[0].range()->increment()==1);
+    BOOST_CHECK(s.timesteps()[0].range()->begin() == 90);
+    BOOST_CHECK(s.timesteps()[0].range()->end() == 90);
+    BOOST_CHECK(s.timesteps()[0].range()->increment() == 1);
   }
 }
-
 
 BOOST_AUTO_TEST_CASE(drape_syntax)
 {
   using namespace ag;
 
   {
-    char c1[7]  = "aguila";
+    char c1[7] = "aguila";
     char c2[2] = "a";
-    char c3[2]  = "+";
+    char c3[2] = "+";
     char c4[2] = "b";
 
-    char *argv[]= { c1, c2, c3, c4 };
+    char *argv[] = {c1, c2, c3, c4};
 
     AguilaProgramOptions const apo(4, argv);
-    BOOST_CHECK_EQUAL(
-         apo.configuration().visualisationGroup().view().size(), size_t(1));
+    BOOST_CHECK_EQUAL(apo.configuration().visualisationGroup().view().size(), size_t(1));
   }
 
   {
-    char c1[7]  = "aguila";
+    char c1[7] = "aguila";
     char c2[10] = "--mapView";
     char c3[2] = "a";
-    char c4[2]  = "+";
+    char c4[2] = "+";
     char c5[2] = "b";
 
-    char *argv[]= { c1, c2, c3, c4, c5 };
+    char *argv[] = {c1, c2, c3, c4, c5};
 
     AguilaProgramOptions const apo(5, argv);
-    BOOST_CHECK_EQUAL(
-         apo.configuration().visualisationGroup().view().size(), size_t(1));
+    BOOST_CHECK_EQUAL(apo.configuration().visualisationGroup().view().size(), size_t(1));
   }
 
-/*
+  /*
   {
     char *argv[]= {
       "aguila",
@@ -264,9 +256,7 @@ BOOST_AUTO_TEST_CASE(drape_syntax)
 
   // aguila a/b+b
   // aguila a/b+a/b
-
 }
-
 
 BOOST_AUTO_TEST_CASE(multiple_views)
 {

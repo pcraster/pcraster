@@ -2,13 +2,10 @@
 #include "calc_gridstat.h"
 #include "com_math.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the GridStat class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -34,11 +31,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC GRIDSTAT MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -46,11 +41,9 @@ public:
 //------------------------------------------------------------------------------
 
 calc::GridStat::GridStat()
-  
+
 {
 }
-
-
 
 calc::GridStat::~GridStat()
 {
@@ -72,19 +65,18 @@ calc::GridStat::GridStat(const GridStat& rhs):
 }
 */
 
-void calc::GridStat::merge(const GridStat& s)
+void calc::GridStat::merge(const GridStat &s)
 {
   if (!s.d_minMaxSet)
     return;
 
   if (!d_minMaxSet) {
-    d_minMaxSet=true;
-    d_min=s.d_min;
-    d_max=s.d_max;
-  }
-  else {
-    com::minimize(d_min,s.d_min);
-    com::maximize(d_max,s.d_max);
+    d_minMaxSet = true;
+    d_min = s.d_min;
+    d_max = s.d_max;
+  } else {
+    com::minimize(d_min, s.d_min);
+    com::maximize(d_max, s.d_max);
   }
 }
 
@@ -93,10 +85,6 @@ void calc::GridStat::merge(const GridStat& s)
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

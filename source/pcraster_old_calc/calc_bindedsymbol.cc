@@ -5,16 +5,15 @@
 #include "calc_iscript.h"
 
 //! looks in binding table if binding is avail
-calc::BindedSymbol::BindedSymbol(const calc::Symbol& parName):
-  Symbol(parName)
+calc::BindedSymbol::BindedSymbol(const calc::Symbol &parName) : Symbol(parName)
 {
   const Symbol *b = scriptConst().findBinding(name());
   if (b)
-     setBinded(*b);
+    setBinded(*b);
   else {
-     d_externalBinding = parName;
-     d_userName        = name();
-     d_externalName    = name();
+    d_externalBinding = parName;
+    d_userName = name();
+    d_externalName = name();
   }
 }
 
@@ -22,18 +21,15 @@ calc::BindedSymbol::BindedSymbol(const calc::Symbol& parName):
 /*!
  *  used in calc::ParsIndexName::addMe()
  */
-calc::BindedSymbol::BindedSymbol(
-  const Symbol& parName,
-  const Symbol& bindedTo):
-    Symbol(parName)
+calc::BindedSymbol::BindedSymbol(const Symbol &parName, const Symbol &bindedTo) : Symbol(parName)
 {
   setBinded(bindedTo);
 }
 
-void calc::BindedSymbol::setBinded(const Symbol& bindedTo)
+void calc::BindedSymbol::setBinded(const Symbol &bindedTo)
 {
   d_externalBinding = bindedTo;
-  d_externalName    = bindedTo.name();
+  d_externalName = bindedTo.name();
   setBindingInUserName();
 }
 
@@ -55,7 +51,7 @@ void calc::BindedSymbol::setInputFilePath()
   // d_externalBinding = d_externalName;
   d_externalName = scriptConst().inputFilePath(d_externalName);
   if (d_externalName != name())
-     setBindingInUserName();
+    setBindingInUserName();
 }
 
 //! the name used to look for externally
@@ -65,7 +61,7 @@ void calc::BindedSymbol::setInputFilePath()
  *  \sa
  *      d_externalBinding
  */
-const std::string& calc::BindedSymbol::externalName() const
+const std::string &calc::BindedSymbol::externalName() const
 {
   return d_externalName;
 }
@@ -75,22 +71,22 @@ const std::string& calc::BindedSymbol::externalName() const
  *  if the symbol has a binding, then it returns
  *    name() + "(binding=" + externalName() + ")"
  */
-const std::string& calc::BindedSymbol::userName() const
+const std::string &calc::BindedSymbol::userName() const
 {
   return d_userName;
 }
 
 //! throw posError() formatted as userName()+": "+excep.messages()
-void  calc::BindedSymbol::symError(const com::Exception& excep) const
+void calc::BindedSymbol::symError(const com::Exception &excep) const
 {
- posError(userName()+": "+excep.messages());
+  posError(userName() + ": " + excep.messages());
 }
 
-void  calc::BindedSymbol::setName(pcrxml::Data *d)const
+void calc::BindedSymbol::setName(pcrxml::Data *d) const
 {
-   d->name = name();
-   if (name() != d_externalBinding.name())
-     d->externalFileName = d_externalBinding.name();
+  d->name = name();
+  if (name() != d_externalBinding.name())
+    d->externalFileName = d_externalBinding.name();
 }
 
 /*!
@@ -99,7 +95,7 @@ void  calc::BindedSymbol::setName(pcrxml::Data *d)const
  *   is preferred, for example input file not found always on binding
  *   see also test372a; describe message from the operand not the operators!
  */
-void  calc::BindedSymbol::posError(const std::string& msg) const
+void calc::BindedSymbol::posError(const std::string &msg) const
 {
   if (d_externalBinding.positionPriority() > positionPriority())
     d_externalBinding.posError(msg);
@@ -107,7 +103,7 @@ void  calc::BindedSymbol::posError(const std::string& msg) const
     Element::posError(msg);
 }
 
-void  calc::BindedSymbol::posError(const std::ostringstream& msg) const
+void calc::BindedSymbol::posError(const std::ostringstream &msg) const
 {
   posError(msg.str());
 }

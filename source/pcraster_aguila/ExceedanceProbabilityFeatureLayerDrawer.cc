@@ -12,24 +12,22 @@
 
 #include <cmath>
 
-
 /*!
   \file
   This file contains the implementation of the ExceedanceProbabilityFeatureLayerDrawer class.
 */
 
-namespace {
+namespace
+{
 
-} // Anonymous namespace
+}  // Anonymous namespace
 
-
-
-namespace ag {
+namespace ag
+{
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC EXCEEDANCEPROBABILITYFEATURELAYERDRAWER MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -37,50 +35,36 @@ namespace ag {
 //------------------------------------------------------------------------------
 
 ExceedanceProbabilityFeatureLayerDrawer::ExceedanceProbabilityFeatureLayerDrawer(
-         FeatureLayer const* layer,
-         dal::SpaceDimensions const& dimensions,
-         RangeDrawProps const& drawProperties)
+    FeatureLayer const *layer, dal::SpaceDimensions const &dimensions,
+    RangeDrawProps const &drawProperties)
 
-  : FeatureLayerDrawer(layer, dimensions),
-    _drawProperties(drawProperties)
+    : FeatureLayerDrawer(layer, dimensions), _drawProperties(drawProperties)
 
 {
 }
-
-
 
 ExceedanceProbabilityFeatureLayerDrawer::~ExceedanceProbabilityFeatureLayerDrawer()
 {
 }
 
-
-
-void ExceedanceProbabilityFeatureLayerDrawer::draw(
-         QPainter& painter,
-         long int featureId,
-         QPainterPath const& path) const
+void ExceedanceProbabilityFeatureLayerDrawer::draw(QPainter &painter, long int featureId,
+                                                   QPainterPath const &path) const
 {
   REAL4 value = NAN;
   layer().value<REAL4>(featureId, value);
 
-  painter.setBrush(pcr::isMV(value)
-         ? Qt::transparent
-         : _drawProperties.colour(REAL4(1.0) - value));
+  painter.setBrush(pcr::isMV(value) ? Qt::transparent : _drawProperties.colour(REAL4(1.0) - value));
 
   painter.drawPath(path);
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace ag
-
+}  // namespace ag

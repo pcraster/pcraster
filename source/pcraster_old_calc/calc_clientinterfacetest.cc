@@ -43,23 +43,20 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLIENTINTERFACE MEMBERS
 //------------------------------------------------------------------------------
 
 //! suite
-boost::unit_test::test_suite*calc::ClientInterfaceTest::suite()
+boost::unit_test::test_suite *calc::ClientInterfaceTest::suite()
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
+  boost::unit_test::test_suite *suite = BOOST_TEST_SUITE(__FILE__);
   std::shared_ptr<ClientInterfaceTest> instance(new ClientInterfaceTest());
 
   suite->add(BOOST_CLASS_TEST_CASE(&ClientInterfaceTest::testCapi, instance));
 
   return suite;
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF CLIENTINTERFACE MEMBERS
@@ -70,8 +67,6 @@ calc::ClientInterfaceTest::ClientInterfaceTest()
 {
 }
 
-
-
 //! setUp
 void calc::ClientInterfaceTest::setUp()
 {
@@ -81,47 +76,50 @@ void calc::ClientInterfaceTest::setUp()
 void calc::ClientInterfaceTest::tearDown()
 {
 }
+
 // piece to copy into user docs
 #include "pcrcalc.h"
-static void foo() {
 
-    PcrScript *s=pcr_createScript("c:\\tmp\\case.xml");
-    if (!s) {
-      printf("PANIC allocation of a few bytes failed");
-      abort();
-    }
-    if (pcr_ScriptError(s)) {
-      /* typical error: case.xml is not existant */
-      printf("ERROR: %s\n",pcr_ScriptErrorMessage(s));
-      exit(1);
-    }
+static void foo()
+{
 
-    pcr_ScriptExecute(s);
-    if (pcr_ScriptError(s)) {
-      /* typical errors:
+  PcrScript *s = pcr_createScript("c:\\tmp\\case.xml");
+  if (!s) {
+    printf("PANIC allocation of a few bytes failed");
+    abort();
+  }
+  if (pcr_ScriptError(s)) {
+    /* typical error: case.xml is not existant */
+    printf("ERROR: %s\n", pcr_ScriptErrorMessage(s));
+    exit(1);
+  }
+
+  pcr_ScriptExecute(s);
+  if (pcr_ScriptError(s)) {
+    /* typical errors:
        * - case.xml is malformed
        * - some inputs are not found
        * - resource error: memory/disk full
        */
-      printf("ERROR: %s\n",pcr_ScriptErrorMessage(s));
-      exit(1);
-    }
+    printf("ERROR: %s\n", pcr_ScriptErrorMessage(s));
+    exit(1);
+  }
 
-    pcr_destroyScript(s);
-    if (pcr_ScriptError(s)) {
-      /* very unlikely, program corruption
+  pcr_destroyScript(s);
+  if (pcr_ScriptError(s)) {
+    /* very unlikely, program corruption
        */
-      printf("ERROR: %s\n",pcr_ScriptErrorMessage(s));
-      exit(1);
-    }
+    printf("ERROR: %s\n", pcr_ScriptErrorMessage(s));
+    exit(1);
+  }
 }
 
 //! test the C-Api
 void calc::ClientInterfaceTest::testCapi()
 {
 
-  { // NULL pointer to pcr_createScript
-    PcrScript *s=pcr_createScript(0);
+  {  // NULL pointer to pcr_createScript
+    PcrScript *s = pcr_createScript(0);
     BOOST_CHECK(s);
     BOOST_CHECK(pcr_ScriptError(s));
     std::string msg(pcr_ScriptErrorMessage(s));
@@ -129,9 +127,9 @@ void calc::ClientInterfaceTest::testCapi()
     pcr_destroyScript(s);
   }
 
-  { // file not found
-    const char *f="failureExpectedNotExistant";
-    PcrScript *s=pcr_createScript(f);
+  {  // file not found
+    const char *f = "failureExpectedNotExistant";
+    PcrScript *s = pcr_createScript(f);
     BOOST_CHECK(s);
     BOOST_CHECK(pcr_ScriptError(s));
     std::string msg(pcr_ScriptErrorMessage(s));
@@ -139,9 +137,9 @@ void calc::ClientInterfaceTest::testCapi()
     pcr_destroyScript(s);
   }
 
-  { // some input not found
-    com::write("piet.map = not_existant.map * 2;","pcrscripttest.mod");
-    PcrScript *s=pcr_createScript("pcrscripttest.mod");
+  {  // some input not found
+    com::write("piet.map = not_existant.map * 2;", "pcrscripttest.mod");
+    PcrScript *s = pcr_createScript("pcrscripttest.mod");
     BOOST_CHECK(s);
     pcr_ScriptExecute(s);
     BOOST_CHECK(pcr_ScriptError(s));
@@ -150,9 +148,9 @@ void calc::ClientInterfaceTest::testCapi()
     pcr_destroyScript(s);
   }
 
-  { // execute
-    com::write("piet.map = inp1s.map * 2;","pcrscripttest.mod");
-    PcrScript *s=pcr_createScript("pcrscripttest.mod");
+  {  // execute
+    com::write("piet.map = inp1s.map * 2;", "pcrscripttest.mod");
+    PcrScript *s = pcr_createScript("pcrscripttest.mod");
     BOOST_CHECK(s);
     pcr_ScriptExecute(s);
     BOOST_CHECK(!pcr_ScriptError(s));
@@ -160,11 +158,12 @@ void calc::ClientInterfaceTest::testCapi()
     BOOST_CHECK(com::pathExists("piet.map"));
   }
 
-  { // execute again
-    com::write("piet2.map = inp1s.map * 3;","pcrscripttest.mod");
-    PcrScript *s=pcr_createScript("pcrscripttest.mod");
+  {  // execute again
+    com::write("piet2.map = inp1s.map * 3;", "pcrscripttest.mod");
+    PcrScript *s = pcr_createScript("pcrscripttest.mod");
     BOOST_CHECK(s);
-    if (!s) foo(); // supress not used message
+    if (!s)
+      foo();  // supress not used message
     pcr_ScriptExecute(s);
     BOOST_CHECK(!pcr_ScriptError(s));
     pcr_destroyScript(s);

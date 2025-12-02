@@ -22,7 +22,6 @@
 #include "ag_VisEngine.h"
 
 
-
 // Icons.
 #include "icons/begin.xpm"
 #include "icons/end.xpm"
@@ -31,65 +30,55 @@
 #include "icons/rewind.xpm"
 #include "icons/pause.xpm"
 
-
-
 /*!
   \file
   This file contains the implementation of the AnimationDialog class.
 */
 
 
-
 //------------------------------------------------------------------------------
 
-namespace ag {
+namespace ag
+{
 
 class AnimationControlPrivate
 {
 public:
+  QPushButton *d_start{nullptr};
+  QPushButton *d_pause{nullptr};
+  QPushButton *d_begin{nullptr};
+  QPushButton *d_backwards{nullptr};
+  QPushButton *d_forewards{nullptr};
+  QPushButton *d_end{nullptr};
+  QCheckBox *d_loop{nullptr};
+  QLineEdit *d_stepEdit{nullptr};
+  QIntValidator *d_stepValidator{nullptr};
+  QSpinBox *d_interval{nullptr};
 
-  QPushButton*     d_start{nullptr};
-  QPushButton*     d_pause{nullptr};
-  QPushButton*     d_begin{nullptr};
-  QPushButton*     d_backwards{nullptr};
-  QPushButton*     d_forewards{nullptr};
-  QPushButton*     d_end{nullptr};
-  QCheckBox*       d_loop{nullptr};
-  QLineEdit*       d_stepEdit{nullptr};
-  QIntValidator*   d_stepValidator{nullptr};
-  QSpinBox*        d_interval{nullptr};
+  qt::AnimationProgBar *d_progressBar{nullptr};
+  VisEngine d_engine;
 
-  qt::AnimationProgBar* d_progressBar{nullptr};
-  VisEngine        d_engine;
-
-  AnimationControlPrivate()
-    :
-      d_engine()
+  AnimationControlPrivate() : d_engine()
   {
   }
 
   ~AnimationControlPrivate()
   {
   }
-
 };
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC ANIMATIONDIALOG MEMBERS
 //------------------------------------------------------------------------------
 
-AnimationControl* AnimationControl::instance(DataObject* object)
+AnimationControl *AnimationControl::instance(DataObject *object)
 {
-  AnimationControl* dialog =
-         VisualisationDialog<DataObject*, AnimationControl>::instance(
-         object, object);
+  AnimationControl *dialog =
+      VisualisationDialog<DataObject *, AnimationControl>::instance(object, object);
 
-  if(dialog) {
+  if (dialog) {
     dialog->raise();
-  }
-  else {
+  } else {
     // Create and add instance.
     dialog = new AnimationControl(object);
     addInstance(object, object, dialog);
@@ -100,33 +89,25 @@ AnimationControl* AnimationControl::instance(DataObject* object)
   return dialog;
 }
 
-
-
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF ANIMATIONDIALOG MEMBERS
 //------------------------------------------------------------------------------
 
-AnimationControl::AnimationControl(DataObject* object)
+AnimationControl::AnimationControl(DataObject *object)
 
-  : VisualisationDialog<DataObject*, AnimationControl>(
-         object, "Animation Dialog"), // , 0, false, Qt::WindowStaysOnTopHint),
-    d_data(new AnimationControlPrivate())
+    : VisualisationDialog<DataObject *, AnimationControl>(
+          object, "Animation Dialog"),  // , 0, false, Qt::WindowStaysOnTopHint),
+      d_data(new AnimationControlPrivate())
 
 {
   createInterface();
   configureInterface();
 }
 
-
-
 AnimationControl::~AnimationControl()
 {
   delete d_data;
 }
-
-
 
 void AnimationControl::createInterface()
 {
@@ -135,7 +116,7 @@ void AnimationControl::createInterface()
   QBoxLayout *top = nullptr;
   QGroupBox *gb = nullptr;
 
-  auto* widget = new QWidget(this);
+  auto *widget = new QWidget(this);
   top = new QVBoxLayout(widget);
 
   //----------------------------------------------------------------------------
@@ -203,8 +184,7 @@ void AnimationControl::createInterface()
   hbox->addWidget(d_data->d_end);
   hbox->addStretch(1);
 
-  connect(&dataObject().animationManager(),
-         SIGNAL(stopped()), SLOT(updateInterface()));
+  connect(&dataObject().animationManager(), SIGNAL(stopped()), SLOT(updateInterface()));
 
   //----------------------------------------------------------------------------
   d_data->d_loop = new QCheckBox("Loop animation", widget);
@@ -212,14 +192,12 @@ void AnimationControl::createInterface()
   d_data->d_loop->setToolTip("Select looping if you want continous animation");
   top->addWidget(d_data->d_loop);
 
-  QLabel* label = nullptr;
+  QLabel *label = nullptr;
 
   d_data->d_stepEdit = new QLineEdit(widget);
   d_data->d_stepEdit->setToolTip("Select time step to show");
-  connect(d_data->d_stepEdit, SIGNAL(returnPressed()),
-         this, SLOT(timeStepChanged()));
-  connect(d_data->d_stepEdit, SIGNAL(editingFinished()),
-         this, SLOT(timeStepChanged()));
+  connect(d_data->d_stepEdit, SIGNAL(returnPressed()), this, SLOT(timeStepChanged()));
+  connect(d_data->d_stepEdit, SIGNAL(editingFinished()), this, SLOT(timeStepChanged()));
   d_data->d_stepValidator = new QIntValidator(d_data->d_stepEdit);
   d_data->d_stepEdit->setValidator(d_data->d_stepValidator);
 
@@ -238,8 +216,7 @@ void AnimationControl::createInterface()
   d_data->d_interval->setSingleStep(100);
 
   d_data->d_interval->setSuffix("ms");
-  connect(d_data->d_interval, SIGNAL(valueChanged(int)),
-         this, SLOT(intervalChanged(int)));
+  connect(d_data->d_interval, SIGNAL(valueChanged(int)), this, SLOT(intervalChanged(int)));
   d_data->d_interval->setToolTip("Decrease interval for faster animation");
   label = new QLabel("Animation interval:", widget);
 
@@ -251,7 +228,7 @@ void AnimationControl::createInterface()
   hbox->addWidget(d_data->d_interval);
   // hbox->addStretch(1);
 
-  auto* close = new QPushButton("Close", widget);
+  auto *close = new QPushButton("Close", widget);
   close->setFixedSize(qt::BUTTONWIDTH, qt::BUTTONHEIGHT);
   connect(close, SIGNAL(clicked()), SLOT(close()));
 
@@ -264,31 +241,26 @@ void AnimationControl::createInterface()
 
   top->addStretch(1);
 
-  QBoxLayout* box = new QVBoxLayout(this);
+  QBoxLayout *box = new QVBoxLayout(this);
   box->setContentsMargins(0, 0, 0, 0);
   box->addWidget(widget);
 
   setMaximumSize(sizeHint());
 }
 
-
-
 void AnimationControl::configureInterface()
 {
   d_data->d_loop->setChecked(dataObject().animationManager().loop());
-  d_data->d_interval->setValue(static_cast<int>(
-         dataObject().animationManager().interval()));
+  d_data->d_interval->setValue(static_cast<int>(dataObject().animationManager().interval()));
 }
-
-
 
 void AnimationControl::updateInterface()
 {
-  qt::Animation const& animation = dataObject().animationManager();
+  qt::Animation const &animation = dataObject().animationManager();
 
   d_data->d_progressBar->setFirstStep(animation.firstStep());
 
-  if(animation.isRunning()) {
+  if (animation.isRunning()) {
     d_data->d_start->setEnabled(false);
     d_data->d_pause->setEnabled(true);
 
@@ -298,25 +270,22 @@ void AnimationControl::updateInterface()
     d_data->d_end->setEnabled(false);
 
     d_data->d_stepEdit->setReadOnly(true);
-  }
-  else {
+  } else {
     d_data->d_pause->setEnabled(false);
 
-    if(animation.currentStep() > animation.firstStep()) {
+    if (animation.currentStep() > animation.firstStep()) {
       d_data->d_begin->setEnabled(true);
       d_data->d_backwards->setEnabled(true);
-    }
-    else {
+    } else {
       d_data->d_begin->setEnabled(false);
       d_data->d_backwards->setEnabled(false);
     }
 
-    if(animation.currentStep() < animation.lastStep()) {
+    if (animation.currentStep() < animation.lastStep()) {
       d_data->d_start->setEnabled(true);
       d_data->d_forewards->setEnabled(true);
       d_data->d_end->setEnabled(true);
-    }
-    else {
+    } else {
       d_data->d_start->setEnabled(false);
       d_data->d_forewards->setEnabled(false);
       d_data->d_end->setEnabled(false);
@@ -326,20 +295,16 @@ void AnimationControl::updateInterface()
   }
 
 
-  int const progress = static_cast<int>(animation.currentStep() -
-         animation.firstStep() + 1);
+  int const progress = static_cast<int>(animation.currentStep() - animation.firstStep() + 1);
   int const total = static_cast<int>(animation.timeSpan() + 1);
 
   d_data->d_progressBar->setMaximum(total);
   d_data->d_progressBar->setValue(progress);
 
   assert(d_data->d_stepValidator);
-  d_data->d_stepValidator->setRange(animation.firstStep(),
-         animation.lastStep());
+  d_data->d_stepValidator->setRange(animation.firstStep(), animation.lastStep());
   d_data->d_stepEdit->setText(QString::number(animation.currentStep()));
 }
-
-
 
 void AnimationControl::start()
 {
@@ -347,15 +312,11 @@ void AnimationControl::start()
   updateInterface();
 }
 
-
-
 void AnimationControl::pause()
 {
   dataObject().animationManager().pause();
   updateInterface();
 }
-
-
 
 void AnimationControl::rescan()
 {
@@ -364,59 +325,43 @@ void AnimationControl::rescan()
   d_data->d_engine.rescan(dataObject());
 }
 
-
-
 void AnimationControl::process()
 {
 }
 
-
-
 void AnimationControl::visualise()
 {
-  if(d_data->d_engine.timeChanged()) {
+  if (d_data->d_engine.timeChanged()) {
     updateInterface();
   }
 
   d_data->d_engine.finishedScanning(dataObject());
 }
 
-
-
 void AnimationControl::toBegin()
 {
   dataObject().setTimeStep(dataObject().animationManager().firstStep());
 }
-
-
 
 void AnimationControl::toEnd()
 {
   dataObject().setTimeStep(dataObject().animationManager().lastStep());
 }
 
-
-
 void AnimationControl::backwards()
 {
   dataObject().setTimeStep(dataObject().animationManager().prevTimeStep());
 }
-
-
 
 void AnimationControl::forewards()
 {
   dataObject().setTimeStep(dataObject().animationManager().nextTimeStep());
 }
 
-
-
 void AnimationControl::loop(bool setting)
 {
   dataObject().animationManager().setLoop(setting);
 }
-
-
 
 void AnimationControl::intervalChanged(int interval)
 {
@@ -424,8 +369,6 @@ void AnimationControl::intervalChanged(int interval)
 
   dataObject().animationManager().setInterval(static_cast<size_t>(interval));
 }
-
-
 
 void AnimationControl::timeStepChanged()
 {
@@ -435,13 +378,11 @@ void AnimationControl::timeStepChanged()
   assert(dataObject().firstTimeStep() >= 0);
   assert(dataObject().lastTimeStep() >= 0);
 
-  if(!d_data->d_stepEdit->hasAcceptableInput()) {
+  if (!d_data->d_stepEdit->hasAcceptableInput()) {
     d_data->d_stepEdit->setText(QString::number(
-         dal::timeStep<size_t>(
-         dataObject().dataSpace(), dataObject().dataSpaceAddress())));
-  }
-  else {
-    qt::Animation const& animation = dataObject().animationManager();
+        dal::timeStep<size_t>(dataObject().dataSpace(), dataObject().dataSpaceAddress())));
+  } else {
+    qt::Animation const &animation = dataObject().animationManager();
     bool ok(false);
     size_t timeStep = d_data->d_stepEdit->text().toUInt(&ok);
     assert(ok);
@@ -449,23 +390,19 @@ void AnimationControl::timeStepChanged()
     assert(timeStep <= animation.lastStep());
     timeStep = animation.closestStep(timeStep);
 
-    if(animation.currentStep() != timeStep) {
+    if (animation.currentStep() != timeStep) {
       dataObject().setTimeStep(timeStep);
     }
   }
 }
 
-} // namespace ag
+}  // namespace ag
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

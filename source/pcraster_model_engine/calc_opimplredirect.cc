@@ -1,13 +1,10 @@
 #include "stddefx.h"
 #include "calc_opimplredirect.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the OpImplRedirect class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -33,11 +30,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC OPIMPLREDIRECT MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -45,16 +40,13 @@ public:
 //------------------------------------------------------------------------------
 
 calc::OpImplRedirect::OpImplRedirect()
-   
+
 {
 }
 
-calc::OpImplRedirect::OpImplRedirect(const IOpImpl *redirect):
-    d_redirect(redirect)
+calc::OpImplRedirect::OpImplRedirect(const IOpImpl *redirect) : d_redirect(redirect)
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -67,12 +59,9 @@ calc::OpImplRedirect::OpImplRedirect(OpImplRedirect const& rhs)
 */
 
 
-
 calc::OpImplRedirect::~OpImplRedirect()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -86,21 +75,16 @@ calc::OpImplRedirect& calc::OpImplRedirect::operator=(OpImplRedirect const& rhs)
 
 
 //! get value of d_redirect
-const calc::IOpImpl* calc::OpImplRedirect::redirect() const
+const calc::IOpImpl *calc::OpImplRedirect::redirect() const
 {
   return d_redirect;
 }
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

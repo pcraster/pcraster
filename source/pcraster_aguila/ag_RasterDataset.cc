@@ -7,56 +7,46 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the RasterDataset class.
 */
 
-namespace {
+namespace
+{
 
-} // Anonymous namespace
+}  // Anonymous namespace
 
-
-
-namespace ag {
+namespace ag
+{
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC RASTERDATASET MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF RASTERDATASET MEMBERS
 //------------------------------------------------------------------------------
 
-RasterDataset::RasterDataset(
-         std::string const& name,
-         dal::DataSpace const& space)
+RasterDataset::RasterDataset(std::string const &name, dal::DataSpace const &space)
 
-  : SpatialDataset(name, space)
+    : SpatialDataset(name, space)
 
 {
 }
-
-
 
 RasterDataset::~RasterDataset()
 {
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace ag
-
+}  // namespace ag

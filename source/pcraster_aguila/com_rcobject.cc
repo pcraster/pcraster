@@ -1,12 +1,9 @@
 #include "com_rcobject.h"
 #include <iostream>
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -17,42 +14,30 @@ com::RCObject::RCObject()
 {
 }
 
-
-
 com::RCObject::RCObject(const RCObject &)
 {
 }
-
-
 
 com::RCObject &com::RCObject::operator=(const RCObject &)
 {
   return *this;
 }
 
-
-
 com::RCObject::~RCObject()
 {
 }
-
-
 
 void com::RCObject::addReference()
 {
   ++d_refCount;
 }
 
-
-
 void com::RCObject::removeReference()
 {
-  if(--d_refCount == 0) {
+  if (--d_refCount == 0) {
     delete this;
   }
 }
-
-
 
 /*
 void RCObject::markUnshareable()
@@ -60,7 +45,6 @@ void RCObject::markUnshareable()
   d_shareable = false;
 }
 */
-
 
 
 /*
@@ -71,18 +55,14 @@ bool RCObject::isShareable() const
 */
 
 
-
 bool com::RCObject::isShared() const
 {
   return d_refCount > 1;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -90,9 +70,6 @@ bool com::RCObject::isShared() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

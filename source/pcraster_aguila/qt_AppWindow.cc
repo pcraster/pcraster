@@ -8,34 +8,26 @@
 #include <QMessageBox>
 #include "qt_AppWindowProperties.h"
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
 
-namespace qt {
+namespace qt
+{
 
 ApplicationRole AppWindow::d_role = StandAlone;
 
-
-
-void AppWindow::setApplicationRole(
-         ApplicationRole role)
+void AppWindow::setApplicationRole(ApplicationRole role)
 {
   d_role = role;
 }
-
-
 
 ApplicationRole AppWindow::applicationRole()
 {
   return d_role;
 }
 
-} // namespace qt
-
-
+}  // namespace qt
 
 //! Shows an informative message.
 /*!
@@ -44,12 +36,10 @@ ApplicationRole AppWindow::applicationRole()
 
   Use this function if the message is not related to a certain parent widget.
 */
-void qt::AppWindow::showInfo(const std::string& app, const std::string& msg)
+void qt::AppWindow::showInfo(const std::string &app, const std::string &msg)
 {
   showInfo(nullptr, app, msg);
 }
-
-
 
 //! Shows a warning message.
 /*!
@@ -58,12 +48,10 @@ void qt::AppWindow::showInfo(const std::string& app, const std::string& msg)
 
   Use this function if the message is not related to a certain parent widget.
 */
-void qt::AppWindow::showWarning(const std::string& caption, const std::string& msg)
+void qt::AppWindow::showWarning(const std::string &caption, const std::string &msg)
 {
   showWarning(nullptr, caption, msg);
 }
-
-
 
 //! Shows an error message.
 /*!
@@ -72,12 +60,10 @@ void qt::AppWindow::showWarning(const std::string& caption, const std::string& m
 
   Use this function if the message is not related to a certain parent widget.
 */
-void qt::AppWindow::showError(const std::string& caption, const std::string& msg)
+void qt::AppWindow::showError(const std::string &caption, const std::string &msg)
 {
   showError(nullptr, caption, msg);
 }
-
-
 
 //! Shows an informative message.
 /*!
@@ -85,15 +71,12 @@ void qt::AppWindow::showError(const std::string& caption, const std::string& msg
   \param     caption Caption
   \param     msg Message.
 */
-void qt::AppWindow::showInfo(QWidget* p, const std::string& caption,
-                             const std::string& msg)
+void qt::AppWindow::showInfo(QWidget *p, const std::string &caption, const std::string &msg)
 {
   QApplication::setOverrideCursor(Qt::ArrowCursor);
   QMessageBox::information(p, caption.c_str(), msg.c_str());
   QApplication::restoreOverrideCursor();
 }
-
-
 
 //! Shows a warning message.
 /*!
@@ -101,15 +84,12 @@ void qt::AppWindow::showInfo(QWidget* p, const std::string& caption,
   \param     caption Caption
   \param     msg Message.
 */
-void qt::AppWindow::showWarning(QWidget* p, const std::string& caption,
-                             const std::string& msg)
+void qt::AppWindow::showWarning(QWidget *p, const std::string &caption, const std::string &msg)
 {
   QApplication::setOverrideCursor(Qt::ArrowCursor);
   QMessageBox::warning(p, caption.c_str(), msg.c_str());
   QApplication::restoreOverrideCursor();
 }
-
-
 
 //! Issue warning message and ask if Ok or to Cancel
 /*!
@@ -135,26 +115,21 @@ void qt::AppWindow::showWarning(QWidget* p, const std::string& caption,
     }
   \endcode
 */
-bool qt::AppWindow::confirmOkWarning(QWidget* p, const std::string& caption,
-                             const std::string& explainConsequence)
+bool qt::AppWindow::confirmOkWarning(QWidget *p, const std::string &caption,
+                                     const std::string &explainConsequence)
 {
   QApplication::setOverrideCursor(Qt::ArrowCursor);
 #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
-  int const b = QMessageBox::warning(p, caption.c_str(), explainConsequence.c_str(),
-                           QMessageBox::Ok,
-                           QMessageBox::Cancel);
+  int const b = QMessageBox::warning(p, caption.c_str(), explainConsequence.c_str(), QMessageBox::Ok,
+                                     QMessageBox::Cancel);
 #else
-  int b = QMessageBox::warning(p, caption.c_str(), explainConsequence.c_str(),
-                           QMessageBox::Ok,
-                           QMessageBox::Cancel | QMessageBox::Escape
-                                               | QMessageBox::Default);
+  int b = QMessageBox::warning(p, caption.c_str(), explainConsequence.c_str(), QMessageBox::Ok,
+                               QMessageBox::Cancel | QMessageBox::Escape | QMessageBox::Default);
 #endif
 
   QApplication::restoreOverrideCursor();
   return b == QMessageBox::Ok;
 }
-
-
 
 //! Shows an error message.
 /*!
@@ -162,15 +137,12 @@ bool qt::AppWindow::confirmOkWarning(QWidget* p, const std::string& caption,
   \param     caption Caption
   \param     msg Message.
 */
-void qt::AppWindow::showError(QWidget* p, const std::string& caption,
-                             const std::string& msg)
+void qt::AppWindow::showError(QWidget *p, const std::string &caption, const std::string &msg)
 {
   QApplication::setOverrideCursor(Qt::ArrowCursor);
   QMessageBox::critical(p, caption.c_str(), msg.c_str());
   QApplication::restoreOverrideCursor();
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF CLASS MEMBERS
@@ -191,13 +163,11 @@ void qt::AppWindow::showError(QWidget* p, const std::string& caption,
   the combination of the name of the application window and the name of the
   window (eg: 'Timeplot - scen01').
 */
-qt::AppWindow::AppWindow(const std::string& appName,
-                   const std::string& winName, const std::string& version,
-                   const QPixmap& icon, QWidget* parent,
-                   Qt::WindowFlags flags)
+qt::AppWindow::AppWindow(const std::string &appName, const std::string &winName,
+                         const std::string &version, const QPixmap &icon, QWidget *parent,
+                         Qt::WindowFlags flags)
 
-  : QMainWindow(parent, flags),
-    d_winProps(appName, winName, version, icon)
+    : QMainWindow(parent, flags), d_winProps(appName, winName, version, icon)
 
 {
   setAppName(appName);
@@ -206,19 +176,14 @@ qt::AppWindow::AppWindow(const std::string& appName,
   // setWindowIcon(icon);
 }
 
-
-
 //! Constructs an application window.
 /*!
   \param   properties Application window properties.
   \param   parent Parent widget.
 */
-qt::AppWindow::AppWindow(const AppWindowProperties& properties,
-                   QWidget* parent,
-                   Qt::WindowFlags flags)
+qt::AppWindow::AppWindow(const AppWindowProperties &properties, QWidget *parent, Qt::WindowFlags flags)
 
-  : QMainWindow(parent, flags),
-    d_winProps(properties)
+    : QMainWindow(parent, flags), d_winProps(properties)
 
 {
   setAppName(properties.appName());
@@ -226,8 +191,6 @@ qt::AppWindow::AppWindow(const AppWindowProperties& properties,
   setVersion(properties.version());
   // setWindowIcon(properties.icon());
 }
-
-
 
 //! Constructs an application window.
 /*!
@@ -237,13 +200,10 @@ qt::AppWindow::AppWindow(const AppWindowProperties& properties,
 
   \a winName overrules the window name in \a properties.
 */
-qt::AppWindow::AppWindow(const AppWindowProperties& properties,
-                   const std::string& winName,
-                   QWidget* parent,
-                   Qt::WindowFlags flags)
+qt::AppWindow::AppWindow(const AppWindowProperties &properties, const std::string &winName,
+                         QWidget *parent, Qt::WindowFlags flags)
 
-  : QMainWindow(parent, flags),
-    d_winProps(properties)
+    : QMainWindow(parent, flags), d_winProps(properties)
 
 {
   setAppName(properties.appName());
@@ -252,8 +212,6 @@ qt::AppWindow::AppWindow(const AppWindowProperties& properties,
   // setWindowIcon(properties.icon());
 }
 
-
-
 //! Destructs an application window.
 /*!
 */
@@ -261,16 +219,12 @@ qt::AppWindow::~AppWindow()
 {
 }
 
-
-
 //! process closeEvent in a default way (???)
-void qt::AppWindow::closeEvent(QCloseEvent* e)
+void qt::AppWindow::closeEvent(QCloseEvent *e)
 {
   Q_EMIT closed(this);
   e->accept();
 }
-
-
 
 //! Quits the app. The default calls QApplication->quit().
 /*!
@@ -280,43 +234,39 @@ void qt::AppWindow::quit()
   qApp->quit();
 }
 
-
-
 //! Sets application window's name.
 /*!
   \param   n Name of the application window.
 */
-void qt::AppWindow::setAppName(const std::string& n)
+void qt::AppWindow::setAppName(const std::string &n)
 {
   d_winProps.setAppName(n);
 
   std::string c;
-  if(!appName().empty()) {
+  if (!appName().empty()) {
     c += appName();
   }
-  if(!winName().empty()) {
+  if (!winName().empty()) {
     c += " - ";
     c += winName();
   }
   setWindowTitle(c.c_str());
   setWindowIconText(c.c_str());
 }
-
-
 
 //! Sets window's name.
 /*!
   \param   n Name of the window.
 */
-void qt::AppWindow::setWinName(const std::string& n)
+void qt::AppWindow::setWinName(const std::string &n)
 {
   d_winProps.setWinName(n);
 
   std::string c;
-  if(!appName().empty()) {
+  if (!appName().empty()) {
     c += appName();
   }
-  if(!winName().empty()) {
+  if (!winName().empty()) {
     c += " - ";
     c += winName();
   }
@@ -324,18 +274,14 @@ void qt::AppWindow::setWinName(const std::string& n)
   setWindowIconText(c.c_str());
 }
 
-
-
 //! Sets window's version.
 /*!
   \param   version Version of application window.
 */
-void qt::AppWindow::setVersion(const std::string& version)
+void qt::AppWindow::setVersion(const std::string &version)
 {
   d_winProps.setVersion(version);
 }
-
-
 
 //! Shows an about box.
 /*!
@@ -355,29 +301,24 @@ void qt::AppWindow::showAbout()
 #ifdef DEBUG_DEVELOP
          << "PCRTEAM VERSION, INTERNAL USE ONLY!\n"
 #endif
-  ;
+      ;
 
-  if(!about().empty()) {
+  if (!about().empty()) {
     stream << '\n' << about();
   }
 
-  QMessageBox::about(this, QString(("About " + appName()).c_str()),
-                   stream.str().c_str());
+  QMessageBox::about(this, QString(("About " + appName()).c_str()), stream.str().c_str());
 }
-
-
 
 //! Shows a warning message.
 /*!
   \param     m Warning message to show.
   \sa        showWarning(const std::string& , int&), showError(), showInfo()
 */
-void qt::AppWindow::showWarning(const std::string& m) const
+void qt::AppWindow::showWarning(const std::string &m) const
 {
-  showWarning(const_cast<AppWindow*>(this), appName().c_str(), m.c_str());
+  showWarning(const_cast<AppWindow *>(this), appName().c_str(), m.c_str());
 }
-
-
 
 //! Issue warning message and ask if Ok or to Cancel
 /*!
@@ -385,12 +326,10 @@ void qt::AppWindow::showWarning(const std::string& m) const
     qt::AppWindow::confirmOkWarning(QWidget* p, const std::string& app,
                   const std::string& msg), see there for further documentation.
  */
-bool qt::AppWindow::confirmOkWarning(const std::string& m)
+bool qt::AppWindow::confirmOkWarning(const std::string &m)
 {
   return confirmOkWarning(this, appName().c_str(), m.c_str());
 }
-
-
 
 //! Shows an error message.
 /*!
@@ -398,12 +337,10 @@ bool qt::AppWindow::confirmOkWarning(const std::string& m)
   \sa        showWarning(const std::string&),
              showWarning(const std::string&, int&), showInfo()
 */
-void qt::AppWindow::showError(const std::string& m) const
+void qt::AppWindow::showError(const std::string &m) const
 {
-  showError(const_cast<AppWindow*>(this), appName().c_str(), m.c_str());
+  showError(const_cast<AppWindow *>(this), appName().c_str(), m.c_str());
 }
-
-
 
 //! Shows an information message.
 /*!
@@ -411,84 +348,69 @@ void qt::AppWindow::showError(const std::string& m) const
   \sa        showWarning(const std::string&),
              showWarning(const std::string&, int&), showError()
 */
-void qt::AppWindow::showInfo(const std::string& m) const
+void qt::AppWindow::showInfo(const std::string &m) const
 {
-  showInfo(const_cast<AppWindow*>(this), appName().c_str(), m.c_str());
+  showInfo(const_cast<AppWindow *>(this), appName().c_str(), m.c_str());
 }
-
-
 
 //! Returns the application window's name.
 /*!
   \return    The name of the application window.
   \sa        winName(), version()
 */
-const std::string& qt::AppWindow::appName() const
+const std::string &qt::AppWindow::appName() const
 {
   return d_winProps.appName();
 }
-
-
 
 //! Returns the application window's version.
 /*!
   \return    The version of the application window.
   \sa        appName(), winName()
 */
-const std::string& qt::AppWindow::version() const
+const std::string &qt::AppWindow::version() const
 {
   return d_winProps.version();
 }
-
-
 
 //! Returns the application about text.
 /*!
   \return    The about text of the application window.
   \sa        appName(), winName(), version()
 */
-const std::string& qt::AppWindow::about() const
+const std::string &qt::AppWindow::about() const
 {
   return d_winProps.about();
 }
-
-
 
 //! Sets the about message to \a m.
 /*!
   \param     m About message.
   \sa        showAbout()
 */
-void qt::AppWindow::setAbout(const std::string& m)
+void qt::AppWindow::setAbout(const std::string &m)
 {
   d_winProps.setAbout(m);
 }
-
-
 
 //! Returns the windows' name.
 /*!
   \return    The name of the window.
   \sa        appName(), version()
 */
-const std::string& qt::AppWindow::winName() const
+const std::string &qt::AppWindow::winName() const
 {
   return d_winProps.winName();
 }
 
-
-
-const qt::AppWindowProperties& qt::AppWindow::windowProperties() const
+const qt::AppWindowProperties &qt::AppWindow::windowProperties() const
 {
   return d_winProps;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -496,8 +418,6 @@ const qt::AppWindowProperties& qt::AppWindow::windowProperties() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-

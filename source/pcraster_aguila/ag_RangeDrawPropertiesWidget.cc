@@ -21,86 +21,70 @@
 #include "ag_DataObject.h"
 #include "ag_DataProperties.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the RangeDrawPropertiesWidget class.
 */
 
 
-
 //------------------------------------------------------------------------------
 
-namespace ag {
+namespace ag
+{
 
 class RangeDrawPropertiesWidgetPrivate
 {
 
 public:
-
-  QCheckBox*       _exactBorders{nullptr};
-  QCheckBox*       _exceedanceProbabilities{};
-  QSpinBox*        _nrClasses{};
-  QLineEdit*       _maxCutoff{};
-  QPushButton*     _resetMaxCutoff{};
-  QLineEdit*       _minCutoff{};
-  QPushButton*     _resetMinCutoff{};
-  QComboBox*       _classAlg{};
-  QLineEdit*       _confidenceLevel{nullptr};
-  QComboBox*       _drawerType{};
+  QCheckBox *_exactBorders{nullptr};
+  QCheckBox *_exceedanceProbabilities{};
+  QSpinBox *_nrClasses{};
+  QLineEdit *_maxCutoff{};
+  QPushButton *_resetMaxCutoff{};
+  QLineEdit *_minCutoff{};
+  QPushButton *_resetMinCutoff{};
+  QComboBox *_classAlg{};
+  QLineEdit *_confidenceLevel{nullptr};
+  QComboBox *_drawerType{};
 
   RangeDrawPropertiesWidgetPrivate()
-     
+
   {
   }
 
   ~RangeDrawPropertiesWidgetPrivate()
   {
   }
-
 };
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC RANGEDRAWPROPERTIESWIDGET MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF RANGEDRAWPROPERTIESWIDGET MEMBERS
 //------------------------------------------------------------------------------
 
-RangeDrawPropertiesWidget::RangeDrawPropertiesWidget(
-         DataObject& object, const DataGuide& guide,
-         QWidget* parent)
+RangeDrawPropertiesWidget::RangeDrawPropertiesWidget(DataObject &object, const DataGuide &guide,
+                                                     QWidget *parent)
 
-  : DrawPropertiesWidget(object, guide, parent),
-    _data(new RangeDrawPropertiesWidgetPrivate)
+    : DrawPropertiesWidget(object, guide, parent), _data(new RangeDrawPropertiesWidgetPrivate)
 
 {
-  assert(dataGuide().type() == geo::STACK ||
-         dataGuide().type() == geo::FEATURE ||
+  assert(dataGuide().type() == geo::STACK || dataGuide().type() == geo::FEATURE ||
          dataGuide().type() == geo::TIMESERIES);
-  assert(dataGuide().valueScale() == VS_SCALAR ||
-         dataGuide().valueScale() == VS_DIRECTION);
+  assert(dataGuide().valueScale() == VS_SCALAR || dataGuide().valueScale() == VS_DIRECTION);
 
   _probabilitiesLoaded =
-         dataObject().dataSpace(dataGuide()).hasCumProbabilities() &&
-         dataObject().hasSelectedValue();
+      dataObject().dataSpace(dataGuide()).hasCumProbabilities() && dataObject().hasSelectedValue();
 
   createInterface();
 }
 
-
-
 RangeDrawPropertiesWidget::~RangeDrawPropertiesWidget()
 {
 }
-
-
 
 void RangeDrawPropertiesWidget::createInterface()
 {
@@ -108,21 +92,17 @@ void RangeDrawPropertiesWidget::createInterface()
   createRangeDrawPropertiesInterface();
 }
 
-
-
 void RangeDrawPropertiesWidget::createRangeDrawPropertiesInterface()
 {
-  RangeDrawProps const& drawProperties =
-         dataObject().properties().rangeDrawProperties(dataGuide());
+  RangeDrawProps const &drawProperties = dataObject().properties().rangeDrawProperties(dataGuide());
 
-  QBoxLayout* box = nullptr;
+  QBoxLayout *box = nullptr;
 
   _data->_exactBorders = new QCheckBox("Exact legend borders");
-  _data->_exactBorders->setChecked(drawProperties.mode() ==
-         com::Classifier::EXACT);
+  _data->_exactBorders->setChecked(drawProperties.mode() == com::Classifier::EXACT);
   _data->_exactBorders->setEnabled(dataGuide().valueScale() == VS_SCALAR);
   _data->_exactBorders->setToolTip(
-         "Select if you want to use the exact legend border values, instead of the rounded ones");
+      "Select if you want to use the exact legend border values, instead of the rounded ones");
 
   box = new QHBoxLayout();
   box->setSpacing(0);
@@ -132,8 +112,7 @@ void RangeDrawPropertiesWidget::createRangeDrawPropertiesInterface()
 
   _data->_nrClasses = new QSpinBox();
   _data->_nrClasses->setRange(1, 250);
-  _data->_nrClasses->setValue(static_cast<size_t>(
-         drawProperties.nrClasses()));
+  _data->_nrClasses->setValue(static_cast<size_t>(drawProperties.nrClasses()));
 
   box = new QHBoxLayout();
   box->setSpacing(0);
@@ -143,19 +122,18 @@ void RangeDrawPropertiesWidget::createRangeDrawPropertiesInterface()
   box->addWidget(_data->_nrClasses);
   groupBoxLayout()->addLayout(box);
 
-  auto* doubleValidator = new QDoubleValidator(groupBox());
+  auto *doubleValidator = new QDoubleValidator(groupBox());
 
   _data->_maxCutoff = new QLineEdit();
   _data->_maxCutoff->setValidator(doubleValidator);
-  if(drawProperties.cutoffsAreValid()) {
+  if (drawProperties.cutoffsAreValid()) {
     _data->_maxCutoff->setText(QString::number(drawProperties.maxCutoff()));
   }
   _data->_maxCutoff->setEnabled(dataGuide().valueScale() == VS_SCALAR);
   _data->_resetMaxCutoff = new QPushButton();
   _data->_resetMaxCutoff->setText("Reset");
   _data->_resetMaxCutoff->setEnabled(dataGuide().valueScale() == VS_SCALAR);
-  connect(_data->_resetMaxCutoff, SIGNAL(clicked()), this,
-       SLOT(resetMaxCutoff()));
+  connect(_data->_resetMaxCutoff, SIGNAL(clicked()), this, SLOT(resetMaxCutoff()));
 
   box = new QHBoxLayout();
   box->setSpacing(0);
@@ -170,15 +148,14 @@ void RangeDrawPropertiesWidget::createRangeDrawPropertiesInterface()
 
   _data->_minCutoff = new QLineEdit();
   _data->_minCutoff->setValidator(doubleValidator);
-  if(drawProperties.cutoffsAreValid()) {
+  if (drawProperties.cutoffsAreValid()) {
     _data->_minCutoff->setText(QString::number(drawProperties.minCutoff()));
   }
   _data->_minCutoff->setEnabled(dataGuide().valueScale() == VS_SCALAR);
   _data->_resetMinCutoff = new QPushButton();
   _data->_resetMinCutoff->setText("Reset");
   _data->_resetMinCutoff->setEnabled(dataGuide().valueScale() == VS_SCALAR);
-  connect(_data->_resetMinCutoff, SIGNAL(clicked()), this,
-       SLOT(resetMinCutoff()));
+  connect(_data->_resetMinCutoff, SIGNAL(clicked()), this, SLOT(resetMinCutoff()));
 
   box = new QHBoxLayout();
   box->setSpacing(0);
@@ -191,24 +168,23 @@ void RangeDrawPropertiesWidget::createRangeDrawPropertiesInterface()
   box->addWidget(_data->_resetMinCutoff);
   groupBoxLayout()->addLayout(box);
 
-  auto* label = new QLabel("Colour assignment:");
+  auto *label = new QLabel("Colour assignment:");
   _data->_classAlg = new QComboBox();
   _data->_classAlg->insertItem(com::Classifier::LIN, "Linear");
   _data->_classAlg->insertItem(com::Classifier::LOG, "True logarithmic");
   _data->_classAlg->insertItem(com::Classifier::TLOG, "Shifted logarithmic");
 
-  if(probabilitiesLoaded()) {
+  if (probabilitiesLoaded()) {
     // For the current data object quantiles are drawn.
 
     // Enable the selection of the user defined classifier which can be
     // configured by entering a confidence level.
-    _data->_classAlg->insertItem(com::Classifier::USERDEFINED,
-         "Confidence interval");
+    _data->_classAlg->insertItem(com::Classifier::USERDEFINED, "Confidence interval");
   }
 
   _data->_classAlg->setCurrentIndex(drawProperties.algorithm());
   connect(_data->_classAlg, SIGNAL(activated(int)), this,
-         SLOT(handleClassificationAlgorithmSelection(int)));
+          SLOT(handleClassificationAlgorithmSelection(int)));
 
   box = new QHBoxLayout();
   box->setSpacing(0);
@@ -220,8 +196,7 @@ void RangeDrawPropertiesWidget::createRangeDrawPropertiesInterface()
 
   _data->_confidenceLevel = new QLineEdit();
   _data->_confidenceLevel->setEnabled(false);
-  _data->_confidenceLevel->setValidator(new QDoubleValidator(
-       0.0, 1.0, 3, groupBox()));
+  _data->_confidenceLevel->setValidator(new QDoubleValidator(0.0, 1.0, 3, groupBox()));
   _data->_confidenceLevel->setText("0.95");
 
   box = new QHBoxLayout();
@@ -234,14 +209,12 @@ void RangeDrawPropertiesWidget::createRangeDrawPropertiesInterface()
   handleClassificationAlgorithmSelection(_data->_classAlg->currentIndex());
 
   _data->_exceedanceProbabilities = new QCheckBox("Exceedance probabilities");
-  _data->_exceedanceProbabilities->setChecked(
-         drawProperties.probabilityScale() !=
-              RangeDrawProps::CumulativeProbabilities);
-  _data->_exceedanceProbabilities->setEnabled(
-         dataObject().dataSpace(dataGuide()).hasCumProbabilities());
-         // probabilitiesLoaded());
+  _data->_exceedanceProbabilities->setChecked(drawProperties.probabilityScale() !=
+                                              RangeDrawProps::CumulativeProbabilities);
+  _data->_exceedanceProbabilities->setEnabled(dataObject().dataSpace(dataGuide()).hasCumProbabilities());
+  // probabilitiesLoaded());
   _data->_exceedanceProbabilities->setToolTip(
-         "Select if you want to see exceedance probabilities instead of cumulative probabilities");
+      "Select if you want to see exceedance probabilities instead of cumulative probabilities");
   box = new QHBoxLayout();
   box->setSpacing(0);
   box->addWidget(_data->_exceedanceProbabilities);
@@ -266,157 +239,117 @@ void RangeDrawPropertiesWidget::createRangeDrawPropertiesInterface()
   setEnabled(drawProperties.cutoffsAreValid());
 }
 
-
-
 size_t RangeDrawPropertiesWidget::nrClasses() const
 {
   return static_cast<size_t>(_data->_nrClasses->value());
 }
-
-
 
 void RangeDrawPropertiesWidget::setNrClasses(size_t nrClasses)
 {
   _data->_nrClasses->setValue(static_cast<int>(nrClasses));
 }
 
-
-
 void RangeDrawPropertiesWidget::setMaxCutoff(double cutoff)
 {
   // if(dataGuide().type() == geo::STACK &&
   //        dataGuide().valueScale() == VS_SCALAR) {
   // if(dataGuide().valueScale() == VS_SCALAR) {
-    _data->_maxCutoff->setText(QString::number(cutoff));
+  _data->_maxCutoff->setText(QString::number(cutoff));
   // }
 }
-
-
 
 void RangeDrawPropertiesWidget::setMinCutoff(double cutoff)
 {
   // if(dataGuide().valueScale() == VS_SCALAR) {
   // if(dataGuide().type() == geo::STACK &&
   //        dataGuide().valueScale() == VS_SCALAR) {
-    _data->_minCutoff->setText(QString::number(cutoff));
+  _data->_minCutoff->setText(QString::number(cutoff));
   // }
 }
-
-
 
 double RangeDrawPropertiesWidget::maxCutoff() const
 {
   // if(dataGuide().type() == geo::STACK &&
   //        dataGuide().valueScale() == VS_SCALAR) {
-  if(dataGuide().valueScale() == VS_SCALAR) {
+  if (dataGuide().valueScale() == VS_SCALAR) {
     return _data->_maxCutoff->text().toDouble();
-  }
-  else {
+  } else {
     return dataObject().properties().rangeDrawProperties(dataGuide()).maxCutoff();
   }
 }
-
-
 
 double RangeDrawPropertiesWidget::minCutoff() const
 {
   // if(dataGuide().type() == geo::STACK &&
   //        dataGuide().valueScale() == VS_SCALAR) {
-  if(dataGuide().valueScale() == VS_SCALAR) {
+  if (dataGuide().valueScale() == VS_SCALAR) {
     return _data->_minCutoff->text().toDouble();
-  }
-  else {
+  } else {
     return dataObject().properties().rangeDrawProperties(dataGuide()).minCutoff();
   }
 }
 
-
-
 void RangeDrawPropertiesWidget::resetMaxCutoff()
 {
-  RangeDrawProps const& properties =
-         dataObject().properties().rangeDrawProperties(dataGuide());
+  RangeDrawProps const &properties = dataObject().properties().rangeDrawProperties(dataGuide());
   setMaxCutoff(properties.max());
 }
 
-
-
 void RangeDrawPropertiesWidget::resetMinCutoff()
 {
-  RangeDrawProps const& properties =
-         dataObject().properties().rangeDrawProperties(dataGuide());
+  RangeDrawProps const &properties = dataObject().properties().rangeDrawProperties(dataGuide());
   setMinCutoff(properties.min());
 }
 
-
-
 RangeDrawProps::Mode RangeDrawPropertiesWidget::classificationMode() const
 {
-  if(dataGuide().valueScale() == VS_SCALAR) {
-    return _data->_exactBorders->isChecked()
-         ? com::Classifier::EXACT
-         : com::Classifier::AUTO;
-  }
-  else {
+  if (dataGuide().valueScale() == VS_SCALAR) {
+    return _data->_exactBorders->isChecked() ? com::Classifier::EXACT : com::Classifier::AUTO;
+  } else {
     return dataObject().properties().rangeDrawProperties(dataGuide()).mode();
   }
 }
 
-
-
 RangeDrawProps::ProbabilityScale RangeDrawPropertiesWidget::probabilityScale() const
 {
-  if(dataGuide().valueScale() == VS_SCALAR) {
-    return _data->_exceedanceProbabilities->isChecked()
-         ? RangeDrawProps::ExceedanceProbabilities
-         : RangeDrawProps::CumulativeProbabilities;
-  }
-  else {
+  if (dataGuide().valueScale() == VS_SCALAR) {
+    return _data->_exceedanceProbabilities->isChecked() ? RangeDrawProps::ExceedanceProbabilities
+                                                        : RangeDrawProps::CumulativeProbabilities;
+  } else {
     return dataObject().properties().rangeDrawProperties(dataGuide()).probabilityScale();
   }
 }
 
-
-
 RangeDrawProps::Algorithm RangeDrawPropertiesWidget::classificationAlgorithm() const
 {
-  return static_cast<RangeDrawProps::Algorithm>(
-         _data->_classAlg->currentIndex());
+  return static_cast<RangeDrawProps::Algorithm>(_data->_classAlg->currentIndex());
 }
-
-
 
 DrawerType RangeDrawPropertiesWidget::drawerType() const
 {
   // if(dataGuide().type() == geo::STACK &&
   //        dataGuide().valueScale() == VS_SCALAR) {
-  if(dataGuide().valueScale() == VS_SCALAR) {
+  if (dataGuide().valueScale() == VS_SCALAR) {
     return static_cast<DrawerType>(_data->_drawerType->currentIndex());
-  }
-  else {
+  } else {
     return dataObject().properties().rangeDrawProperties(dataGuide()).drawerType();
   }
 }
-
-
 
 void RangeDrawPropertiesWidget::rescan()
 {
   DrawPropertiesWidget::rescan();
 }
 
-
-
 void RangeDrawPropertiesWidget::apply()
 {
   DrawPropertiesWidget::apply();
 
-  RangeDrawProps const& properties =
-           dataObject().properties().rangeDrawProperties(dataGuide());
+  RangeDrawProps const &properties = dataObject().properties().rangeDrawProperties(dataGuide());
 
-  if(properties.cutoffsAreValid()) {
-    if(classificationAlgorithm() != com::Classifier::USERDEFINED) {
-      if(_classifierPushed) {
+  if (properties.cutoffsAreValid()) {
+    if (classificationAlgorithm() != com::Classifier::USERDEFINED) {
+      if (_classifierPushed) {
         // A user defined classifier has been pushed. Remove it to get at the
         // original classifier again.
         dataObject().popClassifiers(dataGuide(), false);
@@ -424,46 +357,40 @@ void RangeDrawPropertiesWidget::apply()
 
         // Revert dialog settings to before the push of the user defined
         // classifier.
-        RangeDrawProps const& properties(
-              dataObject().properties().rangeDrawProperties(dataGuide()));
+        RangeDrawProps const &properties(dataObject().properties().rangeDrawProperties(dataGuide()));
         setNrClasses(properties.nrClasses());
         setMaxCutoff(properties.maxCutoff());
         setMinCutoff(properties.minCutoff());
       }
 
-      dataObject().setClassificationMode(dataGuide(), classificationMode(),
-         false);
+      dataObject().setClassificationMode(dataGuide(), classificationMode(), false);
       dataObject().setNrClasses(dataGuide(), nrClasses(), false);
 
-      if(maxCutoff() < minCutoff()) {
-        qt::AppWindow::showInfo("Aguila",
-              "Max cutoff is smaller than min cutoff.\n" \
-              "Resetting both cutoffs.");
+      if (maxCutoff() < minCutoff()) {
+        qt::AppWindow::showInfo("Aguila", "Max cutoff is smaller than min cutoff.\n"
+                                          "Resetting both cutoffs.");
         resetMaxCutoff();
         resetMinCutoff();
       }
 
-      if(classificationAlgorithm() == com::Classifier::LOG &&
-              dal::smallerOrComparable(minCutoff(), 0.0)) {
-        qt::AppWindow::showInfo("Aguila",
-              "For the logarithmic classification algorithm\n" \
-              "the minimum cutoff value must be larger than 0.\n" \
-              "Switching to the shifted logarithmic algorithm.");
+      if (classificationAlgorithm() == com::Classifier::LOG &&
+          dal::smallerOrComparable(minCutoff(), 0.0)) {
+        qt::AppWindow::showInfo("Aguila", "For the logarithmic classification algorithm\n"
+                                          "the minimum cutoff value must be larger than 0.\n"
+                                          "Switching to the shifted logarithmic algorithm.");
         _data->_classAlg->setCurrentIndex(com::Classifier::TLOG);
       }
 
       // Set algorithm and cutoffs in one go. Because the function will
       // classify(), both the algorithm and the cutoffs need to be in sync.
-      dataObject().setClassificationProperties(dataGuide(),
-         classificationAlgorithm(), minCutoff(), maxCutoff(), false);
+      dataObject().setClassificationProperties(dataGuide(), classificationAlgorithm(), minCutoff(),
+                                               maxCutoff(), false);
 
       assert(!_classifierPushed);
-    }
-    else {
+    } else {
       // Configure classifier based on the confidence interval given.
       com::Classifier classifier(0.0, 1.0);
-      com::UserDefinedClassifier<REAL8>* userDefinedClassifier =
-         classifier.installUserDefined();
+      com::UserDefinedClassifier<REAL8> *userDefinedClassifier = classifier.installUserDefined();
       std::vector<double> borders;
       double const alpha = 1.0 - confidenceLevel();
       assert(dal::greaterOrComparable(alpha, 0.0));
@@ -478,18 +405,16 @@ void RangeDrawPropertiesWidget::apply()
       // not to get lost. Push the classifier and keep track of the fact
       // that it can be popped again to get at the original classifier.
 
-      if(_classifierPushed) {
+      if (_classifierPushed) {
         // Already pushed, replace it.
         dataObject().replaceClassifier(dataGuide(), classifier, false);
-      }
-      else {
+      } else {
         // Not yet pushed, add it.
         dataObject().pushClassifier(dataGuide(), classifier, false);
         _classifierPushed = true;
       }
 
-      dataObject().setClassificationAlgorithm(dataGuide(),
-         classificationAlgorithm(), false);
+      dataObject().setClassificationAlgorithm(dataGuide(), classificationAlgorithm(), false);
 
       assert(_classifierPushed);
     }
@@ -505,48 +430,35 @@ void RangeDrawPropertiesWidget::apply()
   }
 }
 
-
-
-void RangeDrawPropertiesWidget::handleClassificationAlgorithmSelection(
-         int index)
+void RangeDrawPropertiesWidget::handleClassificationAlgorithmSelection(int index)
 {
-  _data->_exactBorders->setEnabled(
-         static_cast<com::Classifier::Algorithm>(index) !=
-         com::Classifier::USERDEFINED);
-  _data->_nrClasses->setEnabled(
-         static_cast<com::Classifier::Algorithm>(index) !=
-         com::Classifier::USERDEFINED);
-  _data->_maxCutoff->setEnabled(
-         static_cast<com::Classifier::Algorithm>(index) !=
-         com::Classifier::USERDEFINED);
-  _data->_resetMaxCutoff->setEnabled(
-         static_cast<com::Classifier::Algorithm>(index) !=
-         com::Classifier::USERDEFINED);
-  _data->_minCutoff->setEnabled(
-         static_cast<com::Classifier::Algorithm>(index) !=
-         com::Classifier::USERDEFINED);
-  _data->_resetMinCutoff->setEnabled(
-         static_cast<com::Classifier::Algorithm>(index) !=
-         com::Classifier::USERDEFINED);
+  _data->_exactBorders->setEnabled(static_cast<com::Classifier::Algorithm>(index) !=
+                                   com::Classifier::USERDEFINED);
+  _data->_nrClasses->setEnabled(static_cast<com::Classifier::Algorithm>(index) !=
+                                com::Classifier::USERDEFINED);
+  _data->_maxCutoff->setEnabled(static_cast<com::Classifier::Algorithm>(index) !=
+                                com::Classifier::USERDEFINED);
+  _data->_resetMaxCutoff->setEnabled(static_cast<com::Classifier::Algorithm>(index) !=
+                                     com::Classifier::USERDEFINED);
+  _data->_minCutoff->setEnabled(static_cast<com::Classifier::Algorithm>(index) !=
+                                com::Classifier::USERDEFINED);
+  _data->_resetMinCutoff->setEnabled(static_cast<com::Classifier::Algorithm>(index) !=
+                                     com::Classifier::USERDEFINED);
   _data->_confidenceLevel->setEnabled(probabilitiesLoaded() &&
-         static_cast<com::Classifier::Algorithm>(index) ==
-         com::Classifier::USERDEFINED);
+                                      static_cast<com::Classifier::Algorithm>(index) ==
+                                          com::Classifier::USERDEFINED);
 }
-
-
 
 bool RangeDrawPropertiesWidget::probabilitiesLoaded() const
 {
   return _probabilitiesLoaded;
 }
 
-
-
 double RangeDrawPropertiesWidget::confidenceLevel()
 {
   assert(_data->_confidenceLevel);
 
-  if(!_data->_confidenceLevel->hasAcceptableInput()) {
+  if (!_data->_confidenceLevel->hasAcceptableInput()) {
     // Side effect.
     _data->_confidenceLevel->setText("0.95");
     assert(_data->_confidenceLevel->hasAcceptableInput());
@@ -555,17 +467,13 @@ double RangeDrawPropertiesWidget::confidenceLevel()
   return _data->_confidenceLevel->text().toDouble();
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace ag
-
+}  // namespace ag

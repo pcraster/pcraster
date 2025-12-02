@@ -30,21 +30,22 @@
 #include <iterator>
 #include <set>
 #include <sstream>
+
 /*!
   \file
   This file contains the implementation of the DataObject class.
 */
 
 
-namespace ag {
+namespace ag
+{
 
 //------------------------------------------------------------------------------
 
 class DataObjectPrivate
 {
 public:
-
-  bool             d_notifyNeeded{false};
+  bool d_notifyNeeded{false};
 
   TableDataSources d_tableDataSources;
 
@@ -54,52 +55,45 @@ public:
 
   VectorDataSources _vectorDataSources;
 
-  dal::DataSpace   d_dataSpace;
+  dal::DataSpace d_dataSpace;
 
   dal::DataSpaceAddress d_dataSpaceAddress;
 
-  double           d_map2DZoom{1.0};
-  double           d_map2DScale{0.0};
+  double d_map2DZoom{1.0};
+  double d_map2DScale{0.0};
 
-  QPointF          _map2DOffset;
+  QPointF _map2DOffset;
 
-  size_t           d_quadLength{1};
-  double           d_map3DScale{1.0};
+  size_t d_quadLength{1};
+  double d_map3DScale{1.0};
 
-  DataProperties   d_properties;
+  DataProperties d_properties;
 
-  qt::Animation    d_animManager;
+  qt::Animation d_animManager;
 
   dal::DataSpaceAddressMapper d_globalToWorldMapper;
 
   //! If valid, the default background colour of a visualisation.
-  QColor           d_backgroundColor;
+  QColor d_backgroundColor;
 
-  boost::any       _selectedValue;
+  boost::any _selectedValue;
 
-  DataObjectPrivate()
-    :
-      d_animManager(300)
+  DataObjectPrivate() : d_animManager(300)
   {
   }
 
-  DataObjectPrivate(const DataObjectPrivate& other) = delete;
+  DataObjectPrivate(const DataObjectPrivate &other) = delete;
 
-  DataObjectPrivate& operator=(const DataObjectPrivate& other) = delete;
-
+  DataObjectPrivate &operator=(const DataObjectPrivate &other) = delete;
 
   ~DataObjectPrivate()
   {
   }
-
 };
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC DATAOBJECT MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -108,68 +102,51 @@ public:
 
 DataObject::DataObject()
 
-  : QObject(), VisSubject(),
-    d_data(new DataObjectPrivate())
+    : QObject(), VisSubject(), d_data(new DataObjectPrivate())
 
 {
-  connect(&d_data->d_animManager, SIGNAL(process(size_t)),
-         this, SLOT(setTimeStep(size_t)));
+  connect(&d_data->d_animManager, SIGNAL(process(size_t)), this, SLOT(setTimeStep(size_t)));
 }
-
-
 
 DataObject::~DataObject()
 {
   delete d_data;
 
-  for(auto & i : d_palettesFromXML) {
+  for (auto &i : d_palettesFromXML) {
     delete i;
   }
 }
 
-
-
 int DataObject::firstTimeStep() const
 {
-  return d_data->d_animManager.nrSteps()
-         ? static_cast<int>(d_data->d_animManager.firstStep())
-         : -1;
+  return d_data->d_animManager.nrSteps() ? static_cast<int>(d_data->d_animManager.firstStep()) : -1;
 }
-
-
 
 int DataObject::lastTimeStep() const
 {
-  return d_data->d_animManager.nrSteps()
-         ? static_cast<int>(d_data->d_animManager.lastStep())
-         : -1;
+  return d_data->d_animManager.nrSteps() ? static_cast<int>(d_data->d_animManager.lastStep()) : -1;
 }
-
-
 
 size_t DataObject::timeSpan() const
 {
   return d_data->d_animManager.timeSpan();
 }
 
-
-
 void DataObject::read()
 {
-  std::vector<std::string> const& scenarios(dal::scenarios(dataSpace()));
+  std::vector<std::string> const &scenarios(dal::scenarios(dataSpace()));
 
-  if(scenarios.empty()) {
+  if (scenarios.empty()) {
     tableDataSources().read(dataSpace(), dataSpaceAddress());
     rasterDataSources().read(dataSpace(), dataSpaceAddress());
     featureDataSources().read(dataSpace(), dataSpaceAddress());
     vectorDataSources().read(dataSpace(), dataSpaceAddress());
-  }
-  else {
+  } else {
     size_t const index = dataSpace().indexOf(dal::Scenarios);
     dal::DataSpaceAddress address(dataSpaceAddress());
 
     // Loop over all scenarios.
-    for(const auto & scenario : scenarios) {
+    for (const auto &scenario : scenarios) {
       address.setCoordinate<std::string>(index, scenario);
 
       tableDataSources().read(dataSpace(), address);
@@ -180,15 +157,11 @@ void DataObject::read()
   }
 }
 
-
-
-void DataObject::setQuantile(
-         float quantile,
-         bool notify)
+void DataObject::setQuantile(float quantile, bool notify)
 {
-  dal::DataSpace const& space(d_data->d_dataSpace);
+  dal::DataSpace const &space(d_data->d_dataSpace);
 
-  if(space.hasCumProbabilities()) {
+  if (space.hasCumProbabilities()) {
     size_t const index = space.indexOf(dal::CumulativeProbabilities);
     dal::DataSpaceAddress address(d_data->d_dataSpaceAddress);
     address.setCoordinate<float>(index, quantile);
@@ -196,14 +169,11 @@ void DataObject::setQuantile(
   }
 }
 
-
-
-void DataObject::setTimeStep(
-         size_t time)
+void DataObject::setTimeStep(size_t time)
 {
-  dal::DataSpace const& space(d_data->d_dataSpace);
+  dal::DataSpace const &space(d_data->d_dataSpace);
 
-  if(space.hasTime()) {
+  if (space.hasTime()) {
     size_t const index = space.indexOf(dal::Time);
     dal::DataSpaceAddress address(d_data->d_dataSpaceAddress);
     address.setCoordinate<size_t>(index, time);
@@ -211,142 +181,110 @@ void DataObject::setTimeStep(
   }
 }
 
-
-
-void DataObject::setXY(
-         double x,
-         double y,
-         bool notify)
+void DataObject::setXY(double x, double y, bool notify)
 {
   dal::SpaceDimensions const envelope(this->envelope());
 
-  if(envelope.contains(x, y)) {
+  if (envelope.contains(x, y)) {
     // Coordinates fall within the area for which we have data.
     dal::SpatialCoordinate const spatialAddress(x, y);
-    dal::DataSpace const& space(d_data->d_dataSpace);
+    dal::DataSpace const &space(d_data->d_dataSpace);
     size_t index = space.indexOf(dal::Space);
     dal::DataSpaceAddress address(d_data->d_dataSpaceAddress);
 
     address.setCoordinate<dal::SpatialCoordinate>(index, spatialAddress);
 
-    if(space.hasRaster() && space.hasFeatures()) {
+    if (space.hasRaster() && space.hasFeatures()) {
       // Make sure the spatial addresses in raster and feature space are
       // equal.
       ++index;
       assert(space.dimension(index).meaning() == dal::Space);
-      assert(space.dimension(index).discretisation() ==
-         dal::BorderedDiscretisation);
+      assert(space.dimension(index).discretisation() == dal::BorderedDiscretisation);
       address.setCoordinate<dal::SpatialCoordinate>(index, spatialAddress);
     }
 
     setDataSpaceAddress(address, notify);
-  }
-  else {
+  } else {
     unsetCoordinates(dal::Space, notify);
   }
 }
 
-
-
-void DataObject::unsetCoordinates(
-         dal::Meaning meaning,
-         bool notify)
+void DataObject::unsetCoordinates(dal::Meaning meaning, bool notify)
 {
-  dal::DataSpaceAddress const address(
-         dataSpace().unsetCoordinates(dataSpaceAddress(), meaning));
+  dal::DataSpaceAddress const address(dataSpace().unsetCoordinates(dataSpaceAddress(), meaning));
 
   setDataSpaceAddress(address, notify);
 }
 
-
-
-void DataObject::setDataSpaceAddress(
-         dal::DataSpaceAddress const& address,
-         bool notify)
+void DataObject::setDataSpaceAddress(dal::DataSpaceAddress const &address, bool notify)
 {
-  dal::DataSpace const& space = d_data->d_dataSpace;
-  dal::DataSpaceAddress const& currentAddress = d_data->d_dataSpaceAddress;
+  dal::DataSpace const &space = d_data->d_dataSpace;
+  dal::DataSpaceAddress const &currentAddress = d_data->d_dataSpaceAddress;
 
   bool addressChanged = false;
   bool timeChanged = false;
 
   size_t const indexOfTime = space.indexOf(dal::Time);
 
-  if(!space.equal(currentAddress, address)) {
+  if (!space.equal(currentAddress, address)) {
     addressChanged = true;
 
-    if(indexOfTime < space.rank()) {
-      if(currentAddress.coordinate<size_t>(indexOfTime) !=
-         address.coordinate<size_t>(indexOfTime)) {
+    if (indexOfTime < space.rank()) {
+      if (currentAddress.coordinate<size_t>(indexOfTime) != address.coordinate<size_t>(indexOfTime)) {
         timeChanged = true;
       }
     }
   }
 
   // Now set current status. Not sooner!
-  if(addressChanged) {
+  if (addressChanged) {
     d_data->d_dataSpaceAddress = address;
   }
 
-  if(timeChanged) {
-    d_data->d_animManager.setCurrent(
-         d_data->d_dataSpaceAddress.coordinate<size_t>(indexOfTime));
+  if (timeChanged) {
+    d_data->d_animManager.setCurrent(d_data->d_dataSpaceAddress.coordinate<size_t>(indexOfTime));
   }
 
-  if(addressChanged) {
+  if (addressChanged) {
     setNotifyNeeded(true);
   }
 
-  if(notify) {
+  if (notify) {
     this->notify();
   }
 }
 
-
-
-void DataObject::setMap2DZoom(
-         double zoom,
-         bool notify)
+void DataObject::setMap2DZoom(double zoom, bool notify)
 {
   // Limit zoom level to 1/1000 which is already crazy small.
   zoom = std::max(zoom, 0.001);
 
-  if(d_data->d_map2DZoom != zoom) {
+  if (d_data->d_map2DZoom != zoom) {
     d_data->d_map2DZoom = zoom;
     setNotifyNeeded(true);
   }
 
-  if(notify) {
+  if (notify) {
     this->notify();
   }
 }
 
-
-
-void DataObject::map2DZoomBy(
-         double factor,
-         bool notify)
+void DataObject::map2DZoomBy(double factor, bool notify)
 {
   setMap2DZoom(d_data->d_map2DZoom * factor, notify);
 }
 
-
-
-void DataObject::setMap2DScale(
-         double scale,
-         bool notify)
+void DataObject::setMap2DScale(double scale, bool notify)
 {
-  if(!dal::comparable(d_data->d_map2DScale, scale)) {
+  if (!dal::comparable(d_data->d_map2DScale, scale)) {
     d_data->d_map2DScale = scale;
     setNotifyNeeded(true);
   }
 
-  if(notify) {
+  if (notify) {
     this->notify();
   }
 }
-
-
 
 //!
 /*!
@@ -358,79 +296,59 @@ void DataObject::setMap2DScale(
   \warning   .
   \sa        .
 */
-void DataObject::map2DMoveBy(
-         double dx,
-         double dy,
-         bool notify)
+void DataObject::map2DMoveBy(double dx, double dy, bool notify)
 {
   map2DMoveBy(QPointF(dx, dy), notify);
 }
 
-
-
-void DataObject::map2DMoveBy(
-         QPointF const& offset,
-         bool notify)
+void DataObject::map2DMoveBy(QPointF const &offset, bool notify)
 {
-  if(!dal::comparable(offset.x(), 0.0) || !dal::comparable(offset.y(), 0.0)) {
+  if (!dal::comparable(offset.x(), 0.0) || !dal::comparable(offset.y(), 0.0)) {
     d_data->_map2DOffset += offset;
     setNotifyNeeded(true);
   }
 
-  if(notify) {
+  if (notify) {
     this->notify();
   }
 }
 
-
-
-void DataObject::setQuadLength(
-         size_t quadLength,
-         bool notify)
+void DataObject::setQuadLength(size_t quadLength, bool notify)
 {
-  if(d_data->d_quadLength != quadLength) {
+  if (d_data->d_quadLength != quadLength) {
     d_data->d_quadLength = quadLength;
     setNotifyNeeded(true);
   }
 
-  if(notify) {
+  if (notify) {
     this->notify();
   }
 }
 
-
-
-void DataObject::setMap3DScale(
-         double scale,
-         bool notify)
+void DataObject::setMap3DScale(double scale, bool notify)
 {
-  if(!dal::comparable(d_data->d_map3DScale, scale)) {
+  if (!dal::comparable(d_data->d_map3DScale, scale)) {
     d_data->d_map3DScale = scale;
     setNotifyNeeded(true);
   }
 
-  if(notify) {
+  if (notify) {
     this->notify();
   }
 }
 
-
-
-dal::DataSpace const& DataObject::dataSpace() const
+dal::DataSpace const &DataObject::dataSpace() const
 {
   return d_data->d_dataSpace;
 }
 
-
-
-dal::DataSpace DataObject::dataSpace(
-         DataGuide const& guide) const
+dal::DataSpace DataObject::dataSpace(DataGuide const &guide) const
 {
   assert(isValid(guide));
 
   dal::DataSpace result;
 
-  switch(guide.type()) {
+  switch (guide.type()) {
     case geo::STACK: {
       result = rasterDataSources().data(guide).dataSpace();
       break;
@@ -456,70 +374,52 @@ dal::DataSpace DataObject::dataSpace(
   return result;
 }
 
-
-
-dal::DataSpace DataObject::dataSpace(
-         std::vector<DataGuide> const& guides) const
+dal::DataSpace DataObject::dataSpace(std::vector<DataGuide> const &guides) const
 {
   dal::DataSpace result;
 
-  for(const auto & guide : guides) {
+  for (const auto &guide : guides) {
     result |= dataSpace(guide);
   }
 
   return result;
 }
 
-
-
-dal::DataSpaceAddress const& DataObject::dataSpaceAddress() const
+dal::DataSpaceAddress const &DataObject::dataSpaceAddress() const
 {
   return d_data->d_dataSpaceAddress;
 }
-
-
 
 double DataObject::map2DZoom() const
 {
   return d_data->d_map2DZoom;
 }
 
-
-
 double DataObject::map2DScale() const
 {
   return d_data->d_map2DScale;
 }
 
-
-
-QPointF const& DataObject::map2DOffset() const
+QPointF const &DataObject::map2DOffset() const
 {
   return d_data->_map2DOffset;
 }
-
-
 
 size_t DataObject::quadLength() const
 {
   return d_data->d_quadLength;
 }
 
-
-
 double DataObject::map3DScale() const
 {
   return d_data->d_map3DScale;
 }
 
-
-
-bool DataObject::isValid(
-         DataGuide const& guide) const
+bool DataObject::isValid(DataGuide const &guide) const
 {
   bool result = false;
 
-  switch(guide.type()) {
+  switch (guide.type()) {
     case geo::TIMESERIES: {
       result = tableDataSources().isValid(guide);
       break;
@@ -544,32 +444,25 @@ bool DataObject::isValid(
   return result;
 }
 
-
-
 //! Returns the name of data source \a guide.
 /*!
   \param     guide Data source to return the name for.
   \return    name
   \sa        DataObjectBase::name(DataGuide const&).
 */
-std::string DataObject::name(
-         DataGuide const& guide) const
+std::string DataObject::name(DataGuide const &guide) const
 {
   std::string name;
 
-  if(guide.type() == geo::TIMESERIES) {
+  if (guide.type() == geo::TIMESERIES) {
     name = tableDataSources().name(guide);
-  }
-  else if(guide.type() == geo::STACK) {
+  } else if (guide.type() == geo::STACK) {
     name = rasterDataSources().name(guide);
-  }
-  else if(guide.type() == geo::FEATURE) {
+  } else if (guide.type() == geo::FEATURE) {
     name = featureDataSources().name(guide);
-  }
-  else if(guide.type() == geo::VECTOR) {
+  } else if (guide.type() == geo::VECTOR) {
     name = vectorDataSources().name(guide);
-  }
-  else {
+  } else {
     assert(false);
   }
 
@@ -578,39 +471,32 @@ std::string DataObject::name(
   return name;
 }
 
-
-
-std::string DataObject::description(
-         DataGuide const& guide) const
+std::string DataObject::description(DataGuide const &guide) const
 {
   std::string result;
   dal::DataSpace space;
 
-  if(guide.type() == geo::TIMESERIES) {
-    Table const& table = tableDataSources().data(guide);
+  if (guide.type() == geo::TIMESERIES) {
+    Table const &table = tableDataSources().data(guide);
     space = table.dataSpace();
     result = table.name();
-  }
-  else if(guide.type() == geo::STACK) {
-    Raster const& raster = rasterDataSources().data(guide);
+  } else if (guide.type() == geo::STACK) {
+    Raster const &raster = rasterDataSources().data(guide);
     space = raster.dataSpace();
     result = raster.name();
-  }
-  else if(guide.type() == geo::FEATURE) {
-    FeatureLayer const& layer = featureDataSources().data(guide);
+  } else if (guide.type() == geo::FEATURE) {
+    FeatureLayer const &layer = featureDataSources().data(guide);
     space = layer.dataSpace();
     result = layer.name();
-  }
-  else if(guide.type() == geo::VECTOR) {
-    Vector const& vector = vectorDataSources().data(guide);
+  } else if (guide.type() == geo::VECTOR) {
+    Vector const &vector = vectorDataSources().data(guide);
     space = vector.dataSpace();
     result = vector.name();
-  }
-  else {
+  } else {
     assert(false);
   }
 
-  if(space.hasScenarios()) {
+  if (space.hasScenarios()) {
     size_t const index = space.indexOf(dal::Scenarios);
     assert(space.dimension(index).nrValues() == 1);
     std::string const scenario = space.dimension(index).value<std::string>(0);
@@ -622,8 +508,6 @@ std::string DataObject::description(
   return result;
 }
 
-
-
 //! Returns the title of the data source as set in the draw properties of \a guide.
 /*!
   \param     guide Data source to return the title for.
@@ -634,28 +518,24 @@ std::string DataObject::description(
   title is overridden by a legend or similar. This logic is implemented in the
   DataProperties class.
 */
-std::string DataObject::title(
-         DataGuide const& guide) const
+std::string DataObject::title(DataGuide const &guide) const
 {
   return properties().drawProperties(guide).title();
 }
 
-
-
-std::string DataObject::label(
-         DataGuide const& guide) const
+std::string DataObject::label(DataGuide const &guide) const
 {
   std::string result;
 
-  switch(guide.type()) {
+  switch (guide.type()) {
     case geo::STACK: {
-      switch(guide.valueScale()) {
+      switch (guide.valueScale()) {
         case VS_BOOLEAN: {
-        case VS_LDD:
-          UINT1 value = 0;
-          this->value<UINT1>(value, guide);
-          result = properties().label<UINT1>(guide, value);
-          break;
+          case VS_LDD:
+            UINT1 value = 0;
+            this->value<UINT1>(value, guide);
+            result = properties().label<UINT1>(guide, value);
+            break;
         }
         case VS_NOMINAL:
         case VS_ORDINAL: {
@@ -680,10 +560,10 @@ std::string DataObject::label(
       break;
     }
     case geo::FEATURE: {
-      FeatureLayer const& layer(featureDataSources().data(guide));
+      FeatureLayer const &layer(featureDataSources().data(guide));
 
-      if(layer.hasAttribute()) {
-        switch(guide.valueScale()) {
+      if (layer.hasAttribute()) {
+        switch (guide.valueScale()) {
           case VS_BOOLEAN: {
             UINT1 value = 0;
             this->value<UINT1>(value, guide);
@@ -735,89 +615,60 @@ std::string DataObject::label(
   return result;
 }
 
-
-
-TableDataSources& DataObject::tableDataSources()
+TableDataSources &DataObject::tableDataSources()
 {
   return d_data->d_tableDataSources;
 }
 
-
-
-
-TableDataSources const& DataObject::tableDataSources() const
+TableDataSources const &DataObject::tableDataSources() const
 {
   return d_data->d_tableDataSources;
 }
 
-
-
-
-RasterDataSources& DataObject::rasterDataSources()
+RasterDataSources &DataObject::rasterDataSources()
 {
   return d_data->d_rasterDataSources;
 }
 
-
-
-RasterDataSources const& DataObject::rasterDataSources() const
+RasterDataSources const &DataObject::rasterDataSources() const
 {
   return d_data->d_rasterDataSources;
 }
 
-
-
-FeatureDataSources& DataObject::featureDataSources()
+FeatureDataSources &DataObject::featureDataSources()
 {
   return d_data->d_featureDataSources;
 }
 
-
-
-FeatureDataSources const& DataObject::featureDataSources() const
+FeatureDataSources const &DataObject::featureDataSources() const
 {
   return d_data->d_featureDataSources;
 }
 
-
-
-VectorDataSources& DataObject::vectorDataSources()
+VectorDataSources &DataObject::vectorDataSources()
 {
   return d_data->_vectorDataSources;
 }
 
-
-
-VectorDataSources const& DataObject::vectorDataSources() const
+VectorDataSources const &DataObject::vectorDataSources() const
 {
   return d_data->_vectorDataSources;
 }
 
-
-
-
-
-
-template<>
-bool DataObject::compatibleData<dal::Raster>(
-         dal::Raster const& /* raster */,
-         dal::DataSpace const& /* space */)
+template <>
+bool DataObject::compatibleData<dal::Raster>(dal::Raster const & /* raster */,
+                                             dal::DataSpace const & /* space */)
 {
   return true;
   // return compatibleRasterData(raster);
 }
 
-
-
-template<>
-bool DataObject::compatibleData<dal::Table>(
-         dal::Table const& /* table */,
-         dal::DataSpace const& /* space */)
+template <>
+bool DataObject::compatibleData<dal::Table>(dal::Table const & /* table */,
+                                            dal::DataSpace const & /* space */)
 {
   return true;
 }
-
-
 
 //! Returns true if data in \a fileName is compatible with data in data object.
 /*!
@@ -830,17 +681,14 @@ bool DataObject::compatibleData<dal::Table>(
              information without storing the values in memory yet?
              Seems a bit inefficient though.
 */
-bool DataObject::compatibleData(
-         std::string const& name,
-         dal::DataSpace const& space)
+bool DataObject::compatibleData(std::string const &name, dal::DataSpace const &space)
 {
   {
     dal::DataSpaceQueryResult result;
-    std::tie(result, std::ignore) = dal::Client::dal().search(name,
-         dal::RASTER, space, dal::NarrowSpaceWhenNeeded,
-         dal::HaltOnFirstItemFound);
+    std::tie(result, std::ignore) = dal::Client::dal().search(
+        name, dal::RASTER, space, dal::NarrowSpaceWhenNeeded, dal::HaltOnFirstItemFound);
 
-    if(result) {
+    if (result) {
       return true;
 
       /// FEATURE what about this function at all. Is compatibility an issue?
@@ -857,19 +705,16 @@ bool DataObject::compatibleData(
 
   {
     dal::DataSpaceQueryResult result;
-    std::tie(result, std::ignore) = dal::Client::dal().search(name,
-         dal::TABLE, space, dal::NarrowSpaceWhenNeeded,
-         dal::HaltOnFirstItemFound);
+    std::tie(result, std::ignore) = dal::Client::dal().search(
+        name, dal::TABLE, space, dal::NarrowSpaceWhenNeeded, dal::HaltOnFirstItemFound);
 
-    if(result) {
+    if (result) {
       return true;
     }
   }
 
   return false;
 }
-
-
 
 //!
 /*!
@@ -882,14 +727,12 @@ bool DataObject::compatibleData(
              Will speed up things somewhat. See Viewer::displayTimePlot which
              will benefit from this.
 */
-DataGuide DataObject::add(
-         std::string const& name,
-         dal::DataSpace const& space)
+DataGuide DataObject::add(std::string const &name, dal::DataSpace const &space)
 {
   dal::DatasetType const type = dal::Client::dal().datasetType(name, space);
   DataGuide guide;
 
-  switch(type) {
+  switch (type) {
     case dal::RASTER: {
       guide = addStack(name, space);
       break;
@@ -926,15 +769,14 @@ DataGuide DataObject::add(
   // dimension. For now we reset the address. This is a bit rude, because
   // current cursor information is lost.
 
-  dal::DataSpaceAddress& address(d_data->d_dataSpaceAddress);
+  dal::DataSpaceAddress &address(d_data->d_dataSpaceAddress);
 
-  if(d_data->d_dataSpace.size() != address.size()) {
+  if (d_data->d_dataSpace.size() != address.size()) {
     address = d_data->d_dataSpace.address();
     // Mmm, assigns a scenario coordinate too. We need some way to deal with
     // scenarios. The address should mean the same address for each scenario.
     address = d_data->d_dataSpace.initialiseInvalidCoordinates(address);
-  }
-  else if(!d_data->d_dataSpace.isValid(address)) {
+  } else if (!d_data->d_dataSpace.isValid(address)) {
     address = d_data->d_dataSpace.initialiseInvalidCoordinates(address);
   }
 
@@ -958,8 +800,6 @@ DataGuide DataObject::add(
 
   return guide;
 }
-
-
 
 /*
 DataGuide DataObject::add(std::string const& name)
@@ -991,27 +831,24 @@ DataGuide DataObject::add(std::string const& name)
 */
 
 
-
 /*!
   \brief     Adds stack with name \a pn to data object and returns a DataGuide
              object for it.
   \param     pn Name of the stack to add.
   \return    DataGuide for stack \a pn.
 */
-DataGuide DataObject::addStack(
-         std::string const& name,
-         dal::DataSpace const& space)
+DataGuide DataObject::addStack(std::string const &name, dal::DataSpace const &space)
 {
   DataGuide const guide = rasterDataSources().add(name, space);
 
-  Raster const& raster(rasterDataSources().data(guide));
+  Raster const &raster(rasterDataSources().data(guide));
 
   // FEATURE make sure the new space is compatible with the existing.
   // FEATURE see check below in this function
   // FEATURE see compatibleData and friends
   d_data->d_dataSpace |= raster.dataSpace();
 
-  switch(guide.valueScale()) {
+  switch (guide.valueScale()) {
     case VS_BOOLEAN: {
       d_data->d_properties.addBooleanStackProperties(*this, guide);
       break;
@@ -1074,23 +911,18 @@ DataGuide DataObject::addStack(
   return guide;
 }
 
-
-
-DataGuide DataObject::addFeatureLayer(
-         std::string const& name,
-         dal::DataSpace const& space)
+DataGuide DataObject::addFeatureLayer(std::string const &name, dal::DataSpace const &space)
 {
   DataGuide const guide = featureDataSources().add(name, space);
 
-  FeatureLayer const& layer(featureDataSources().data(guide));
+  FeatureLayer const &layer(featureDataSources().data(guide));
 
   d_data->d_dataSpace |= layer.dataSpace();
 
-  if(!layer.hasAttribute()) {
+  if (!layer.hasAttribute()) {
     d_data->d_properties.addGeometryDataProperties(*this, guide);
-  }
-  else {
-    switch(guide.valueScale()) {
+  } else {
+    switch (guide.valueScale()) {
       case VS_BOOLEAN: {
         d_data->d_properties.addBooleanFeatureProperties(*this, guide);
         break;
@@ -1119,11 +951,7 @@ DataGuide DataObject::addFeatureLayer(
   return guide;
 }
 
-
-
-DataGuide DataObject::addTimeSeries(
-         std::string const& name,
-         dal::DataSpace const& space)
+DataGuide DataObject::addTimeSeries(std::string const &name, dal::DataSpace const &space)
 {
   DataGuide const guide = tableDataSources().add(name, space);
 
@@ -1135,15 +963,11 @@ DataGuide DataObject::addTimeSeries(
   return guide;
 }
 
-
-
-DataGuide DataObject::addVector(
-         std::string const& name,
-         dal::DataSpace const& space)
+DataGuide DataObject::addVector(std::string const &name, dal::DataSpace const &space)
 {
   DataGuide const guide = vectorDataSources().add(name, space);
 
-  Vector const& vector(vectorDataSources().data(guide));
+  Vector const &vector(vectorDataSources().data(guide));
 
   d_data->d_dataSpace |= vector.dataSpace();
   d_data->d_properties.addVectorProperties(*this, guide);
@@ -1153,11 +977,9 @@ DataGuide DataObject::addVector(
   return guide;
 }
 
-
-
 void DataObject::clear()
 {
-  if(nrDataSets()) {
+  if (nrDataSets()) {
     tableDataSources().clear();
     rasterDataSources().clear();
     featureDataSources().clear();
@@ -1166,8 +988,6 @@ void DataObject::clear()
     notify();
   }
 }
-
-
 
 //!
 /*!
@@ -1179,22 +999,17 @@ void DataObject::clear()
   \todo      Update data space, some dimension(s) might be removed now. Update
              configuration of animation manager.
 */
-void DataObject::remove(
-         DataGuide const& guide)
+void DataObject::remove(DataGuide const &guide)
 {
-  if(guide.type() == geo::TIMESERIES) {
+  if (guide.type() == geo::TIMESERIES) {
     tableDataSources().remove(guide);
-  }
-  else if(guide.type() == geo::STACK) {
+  } else if (guide.type() == geo::STACK) {
     rasterDataSources().remove(guide);
-  }
-  else if(guide.type() == geo::FEATURE) {
+  } else if (guide.type() == geo::FEATURE) {
     featureDataSources().remove(guide);
-  }
-  else if(guide.type() == geo::VECTOR) {
+  } else if (guide.type() == geo::VECTOR) {
     vectorDataSources().remove(guide);
-  }
-  else {
+  } else {
     assert(false);
   }
 
@@ -1205,34 +1020,25 @@ void DataObject::remove(
   d_data->d_properties.remove(guide);
 }
 
-
-
-const DataGuide& DataObject::dataGuide(
-         geo::DataGuide const& guide) const
+const DataGuide &DataObject::dataGuide(geo::DataGuide const &guide) const
 {
-  const DataGuide* result = nullptr;
+  const DataGuide *result = nullptr;
 
-  if(guide.type() == geo::TIMESERIES) {
+  if (guide.type() == geo::TIMESERIES) {
     result = &tableDataSources().dataGuide(guide);
-  }
-  else if(guide.type() == geo::STACK) {
+  } else if (guide.type() == geo::STACK) {
     result = &rasterDataSources().dataGuide(guide);
-  }
-  else if(guide.type() == geo::FEATURE) {
+  } else if (guide.type() == geo::FEATURE) {
     result = &featureDataSources().dataGuide(guide);
-  }
-  else if(guide.type() == geo::VECTOR) {
+  } else if (guide.type() == geo::VECTOR) {
     result = &vectorDataSources().dataGuide(guide);
-  }
-  else {
+  } else {
     assert(false);
   }
 
   assert(result);
   return *result;
 }
-
-
 
 size_t DataObject::nrDataSets() const
 {
@@ -1243,8 +1049,6 @@ size_t DataObject::nrDataSets() const
 
   return nr;
 }
-
-
 
 size_t DataObject::nrSpatialDataSets() const
 {
@@ -1257,30 +1061,21 @@ size_t DataObject::nrSpatialDataSets() const
   return nr;
 }
 
-
-
 std::vector<DataGuide> DataObject::dataGuides() const
 {
   std::vector<DataGuide> guides;
-  guides.insert(guides.end(), tableDataSources().guides_begin(),
-         tableDataSources().guides_end());
-  guides.insert(guides.end(), rasterDataSources().guides_begin(),
-         rasterDataSources().guides_end());
-  guides.insert(guides.end(), featureDataSources().guides_begin(),
-         featureDataSources().guides_end());
-  guides.insert(guides.end(), vectorDataSources().guides_begin(),
-         vectorDataSources().guides_end());
+  guides.insert(guides.end(), tableDataSources().guides_begin(), tableDataSources().guides_end());
+  guides.insert(guides.end(), rasterDataSources().guides_begin(), rasterDataSources().guides_end());
+  guides.insert(guides.end(), featureDataSources().guides_begin(), featureDataSources().guides_end());
+  guides.insert(guides.end(), vectorDataSources().guides_begin(), vectorDataSources().guides_end());
   return guides;
 }
 
-
-
-Dataset& DataObject::dataset(
-         DataGuide const& guide)
+Dataset &DataObject::dataset(DataGuide const &guide)
 {
-  Dataset* result = nullptr;
+  Dataset *result = nullptr;
 
-  switch(guide.type()) {
+  switch (guide.type()) {
     case geo::STACK: {
       result = &rasterDataSources().data(guide);
       break;
@@ -1303,8 +1098,6 @@ Dataset& DataObject::dataset(
   return *result;
 }
 
-
-
 //! Sets the enabled status of the dataset referenced by \a guide.
 /*!
   \param     guide Guide of dataset to {en,dis}able.
@@ -1312,13 +1105,11 @@ Dataset& DataObject::dataset(
 
   When the enabled status of the dataset changes, notify() is called.
 */
-void DataObject::setEnabled(
-         DataGuide const& guide,
-         bool enabled)
+void DataObject::setEnabled(DataGuide const &guide, bool enabled)
 {
   assert(isValid(guide));
 
-  if(d_data->d_properties.isEnabled(guide) != enabled) {
+  if (d_data->d_properties.isEnabled(guide) != enabled) {
     d_data->d_properties.setEnabled(guide, enabled);
     setNotifyNeeded(true);
   }
@@ -1326,122 +1117,94 @@ void DataObject::setEnabled(
   notify();
 }
 
-
-
-void DataObject::setSelected(
-         bool selected,
-         bool notify)
+void DataObject::setSelected(bool selected, bool notify)
 {
   bool changed = false;
 
   // Loop over all data guides.
-  for(auto it = d_data->d_properties.begin();
-                   it != d_data->d_properties.end(); ++it) {
+  for (auto it = d_data->d_properties.begin(); it != d_data->d_properties.end(); ++it) {
 
     assert(isValid(*it));
 
-    if(d_data->d_properties.isSelected(*it) != selected) {
+    if (d_data->d_properties.isSelected(*it) != selected) {
 
       d_data->d_properties.setSelected(*it, selected);
       changed = true;
     }
   }
 
-  if(changed) {
+  if (changed) {
     setNotifyNeeded(true);
   }
 
-  if(notify) {
+  if (notify) {
     this->notify();
   }
 }
 
-
-
-void DataObject::setSelected(
-         DataGuide const& guide,
-         bool selected,
-         bool notify)
+void DataObject::setSelected(DataGuide const &guide, bool selected, bool notify)
 {
   assert(isValid(guide));
 
-  if(d_data->d_properties.isSelected(guide) != selected) {
+  if (d_data->d_properties.isSelected(guide) != selected) {
     d_data->d_properties.setSelected(guide, selected);
     setNotifyNeeded(true);
   }
 
-  if(notify) {
+  if (notify) {
     this->notify();
   }
 }
 
-
-
-void DataObject::setSelected(
-         std::vector<DataGuide> const& guides,
-         bool selected)
+void DataObject::setSelected(std::vector<DataGuide> const &guides, bool selected)
 {
   bool changed = false;
 
-  for(const auto & guide : guides) {
+  for (const auto &guide : guides) {
 
     assert(isValid(guide));
 
-    if(d_data->d_properties.isSelected(guide) != selected) {
+    if (d_data->d_properties.isSelected(guide) != selected) {
       d_data->d_properties.setSelected(guide, selected);
       changed = true;
     }
   }
 
-  if(changed) {
+  if (changed) {
     setNotifyNeeded(true);
   }
 
   notify();
 }
 
-
-void DataObject::setPalette(
-         DataGuide const& guide,
-         com::RawPalette const* palette,
-         bool notify)
+void DataObject::setPalette(DataGuide const &guide, com::RawPalette const *palette, bool notify)
 {
   assert(palette);
 
-  if(properties().palette(guide) != palette) {
+  if (properties().palette(guide) != palette) {
     properties().setPalette(guide, palette);
     setNotifyNeeded(true);
   }
 
-  if(notify) {
-   this->notify();
+  if (notify) {
+    this->notify();
   }
 }
 
-
-double DataObject::maxCutoff(
-         DataGuide const& guide) const
+double DataObject::maxCutoff(DataGuide const &guide) const
 {
   return this->properties().rangeDrawProperties(guide).maxCutoff();
 }
 
-
-
-double DataObject::minCutoff(
-         DataGuide const& guide) const
+double DataObject::minCutoff(DataGuide const &guide) const
 {
   return this->properties().rangeDrawProperties(guide).minCutoff();
 }
 
-
-
-size_t DataObject::nrClasses(
-         DataGuide const& guide) const
+size_t DataObject::nrClasses(DataGuide const &guide) const
 {
   return this->properties().rangeDrawProperties(guide).nrClasses();
 }
-
-
 
 //! set draw properties from XML
 /*!
@@ -1451,297 +1214,233 @@ size_t DataObject::nrClasses(
  * \todo pallette
  * \todo confidenceLevel (of colourAssignment)
  */
-void DataObject::setXML(
-         DataGuide const& guide,
-         pcrxml::DrawProperties const& dp,
-         bool notify)
+void DataObject::setXML(DataGuide const &guide, pcrxml::DrawProperties const &dp, bool notify)
 {
-   if (dp.legendBorderValuesType().present()) {
-     pcrxml::LegendBorderValuesType const &l(dp.legendBorderValuesType().get());
-     if (l.rounded().present())
-      setClassificationMode(guide, com::Classifier::AUTO,false);
-     if (l.exact().present())
-      setClassificationMode(guide, com::Classifier::EXACT,false);
-   }
-
-   if (dp.minimumCutOff().present() && dp.maximumCutOff().present())
-     setCutoffs(guide, dp.minimumCutOff().get(), dp.maximumCutOff().get(),false);
-   if (dp.minimumCutOff().present())
-     setMinCutoff(guide, dp.minimumCutOff().get(), false);
-   if (dp.maximumCutOff().present())
-     setMaxCutoff(guide, dp.maximumCutOff().get(), false);
-
-   if (dp.numberOfColours().present())
-     setNrClasses(guide, dp.numberOfColours().get(), false);
-   if (dp.colourAssignment().present()) {
-     pcrxml::ColourAssignment const &ca(dp.colourAssignment().get());
-     if (ca.linear().present())
-       setClassificationAlgorithm(guide,com::Classifier::LIN,false);
-     if (ca.trueLogarithmic().present())
-       setClassificationAlgorithm(guide,com::Classifier::LOG,false);
-     if (ca.shiftedLogarithmic().present())
-       setClassificationAlgorithm(guide,com::Classifier::TLOG,false);
-     if (ca.confidenceLevel().present()) {
-      // NOT YET configurable from here
-     }
-   }
-   if (dp.drawMode().present()) {
-     pcrxml::DrawMode const &dm(dp.drawMode().get());
-     if (dm.fill())
-      setDrawerType(guide, COLOURFILL,false);
-     if (dm.contour())
-      setDrawerType(guide, CONTOUR,false);
-   }
-
-   if(dp.palette().present()) {
-     std::unique_ptr<com::RawPalette> palette(new com::RawPalette());
-     palette->setMaximum(255);
-     pcrxml::Palette const &xp(dp.palette().get());
-     for(const auto & i : xp.rgb()) {
-       palette->insert(palette->end(), com::RgbTuple(
-         i.r(),
-         i.g(),
-         i.b()));
-     }
-
-     d_palettesFromXML.push_back(palette.release());
-     setPalette(guide, d_palettesFromXML.back(), false);
-   }
-
-   if(notify) {
-     this->notify();
-   }
-}
-
-
-
-void DataObject::setDateMapper(
-         DataGuide const& guide,
-         pcrxml::DateMapper const& dm,
-         bool notify)
-{
-  // FEATURE what about the feature data? and vector
-  dal::DataSpace const& space(rasterDataSources().data(guide).dataSpace());
-  assert(space.hasTime());
-  size_t const id = space.indexOf(dal::Time);
-
-  std::unique_ptr<dal::TimeStepCoordinateMapper> newMapper(
-         new dal::TimeStepCoordinateMapper(dm.index(),
-         pcrxsd::toPosixTime(dm.timeOfIndex()),
-         pcrxsd::toPosixTimeDuration(dm.duration())));
-  auto const* currentMapper =
-         dynamic_cast<dal::TimeStepCoordinateMapper const*>(
-         localToWorldMapper(guide).mapper(id));
-
-  if(!currentMapper || *newMapper != *currentMapper) {
-    localToWorldMapper(guide).setMapper(id, newMapper.release());
-    setNotifyNeeded(true);
+  if (dp.legendBorderValuesType().present()) {
+    pcrxml::LegendBorderValuesType const &l(dp.legendBorderValuesType().get());
+    if (l.rounded().present())
+      setClassificationMode(guide, com::Classifier::AUTO, false);
+    if (l.exact().present())
+      setClassificationMode(guide, com::Classifier::EXACT, false);
   }
 
-  if(notify) {
+  if (dp.minimumCutOff().present() && dp.maximumCutOff().present())
+    setCutoffs(guide, dp.minimumCutOff().get(), dp.maximumCutOff().get(), false);
+  if (dp.minimumCutOff().present())
+    setMinCutoff(guide, dp.minimumCutOff().get(), false);
+  if (dp.maximumCutOff().present())
+    setMaxCutoff(guide, dp.maximumCutOff().get(), false);
+
+  if (dp.numberOfColours().present())
+    setNrClasses(guide, dp.numberOfColours().get(), false);
+  if (dp.colourAssignment().present()) {
+    pcrxml::ColourAssignment const &ca(dp.colourAssignment().get());
+    if (ca.linear().present())
+      setClassificationAlgorithm(guide, com::Classifier::LIN, false);
+    if (ca.trueLogarithmic().present())
+      setClassificationAlgorithm(guide, com::Classifier::LOG, false);
+    if (ca.shiftedLogarithmic().present())
+      setClassificationAlgorithm(guide, com::Classifier::TLOG, false);
+    if (ca.confidenceLevel().present()) {
+      // NOT YET configurable from here
+    }
+  }
+  if (dp.drawMode().present()) {
+    pcrxml::DrawMode const &dm(dp.drawMode().get());
+    if (dm.fill())
+      setDrawerType(guide, COLOURFILL, false);
+    if (dm.contour())
+      setDrawerType(guide, CONTOUR, false);
+  }
+
+  if (dp.palette().present()) {
+    std::unique_ptr<com::RawPalette> palette(new com::RawPalette());
+    palette->setMaximum(255);
+    pcrxml::Palette const &xp(dp.palette().get());
+    for (const auto &i : xp.rgb()) {
+      palette->insert(palette->end(), com::RgbTuple(i.r(), i.g(), i.b()));
+    }
+
+    d_palettesFromXML.push_back(palette.release());
+    setPalette(guide, d_palettesFromXML.back(), false);
+  }
+
+  if (notify) {
     this->notify();
   }
 }
 
-
-
-void DataObject::setNrClasses(
-         DataGuide const& guide,
-         size_t nrClasses,
-         bool notify)
+void DataObject::setDateMapper(DataGuide const &guide, pcrxml::DateMapper const &dm, bool notify)
 {
-  RangeDrawProps& properties = this->properties().rangeDrawProperties(guide);
+  // FEATURE what about the feature data? and vector
+  dal::DataSpace const &space(rasterDataSources().data(guide).dataSpace());
+  assert(space.hasTime());
+  size_t const id = space.indexOf(dal::Time);
 
-  if(properties.nrClassesRequested() != nrClasses) {
+  std::unique_ptr<dal::TimeStepCoordinateMapper> newMapper(new dal::TimeStepCoordinateMapper(
+      dm.index(), pcrxsd::toPosixTime(dm.timeOfIndex()), pcrxsd::toPosixTimeDuration(dm.duration())));
+  auto const *currentMapper =
+      dynamic_cast<dal::TimeStepCoordinateMapper const *>(localToWorldMapper(guide).mapper(id));
+
+  if (!currentMapper || *newMapper != *currentMapper) {
+    localToWorldMapper(guide).setMapper(id, newMapper.release());
+    setNotifyNeeded(true);
+  }
+
+  if (notify) {
+    this->notify();
+  }
+}
+
+void DataObject::setNrClasses(DataGuide const &guide, size_t nrClasses, bool notify)
+{
+  RangeDrawProps &properties = this->properties().rangeDrawProperties(guide);
+
+  if (properties.nrClassesRequested() != nrClasses) {
     properties.setNrClasses(nrClasses);
     properties.classify();
     setNotifyNeeded(true);
   }
 
-  if(notify) {
+  if (notify) {
     this->notify();
   }
 }
 
-
-void DataObject::setMaxCutoff(
-         DataGuide const& guide,
-         double maxCutoff,
-         bool notify)
+void DataObject::setMaxCutoff(DataGuide const &guide, double maxCutoff, bool notify)
 {
-  RangeDrawProps& properties = this->properties().rangeDrawProperties(guide);
+  RangeDrawProps &properties = this->properties().rangeDrawProperties(guide);
 
-  if(properties.maxCutoff() != maxCutoff) {
+  if (properties.maxCutoff() != maxCutoff) {
     properties.setMaxCutoff(maxCutoff);
     properties.classify();
     setNotifyNeeded(true);
   }
 
-  if(notify) {
+  if (notify) {
     this->notify();
   }
 }
 
-
-
-
-void DataObject::setMinCutoff(
-         DataGuide const& guide,
-         double minCutoff,
-         bool notify)
+void DataObject::setMinCutoff(DataGuide const &guide, double minCutoff, bool notify)
 {
-  RangeDrawProps& properties = this->properties().rangeDrawProperties(guide);
+  RangeDrawProps &properties = this->properties().rangeDrawProperties(guide);
 
-  if(properties.minCutoff() != minCutoff) {
+  if (properties.minCutoff() != minCutoff) {
     properties.setMinCutoff(minCutoff);
     properties.classify();
     setNotifyNeeded(true);
   }
 
-  if(notify) {
+  if (notify) {
     this->notify();
   }
 }
 
-
-
-void DataObject::setCutoffs(
-         DataGuide const& guide,
-         double minCutoff,
-         double maxCutoff,
-         bool notify)
+void DataObject::setCutoffs(DataGuide const &guide, double minCutoff, double maxCutoff, bool notify)
 {
-  RangeDrawProps& properties = this->properties().rangeDrawProperties(guide);
+  RangeDrawProps &properties = this->properties().rangeDrawProperties(guide);
 
-  if(!dal::comparable(properties.minCutoff(), minCutoff) ||
-     !dal::comparable(properties.maxCutoff(), maxCutoff)) {
+  if (!dal::comparable(properties.minCutoff(), minCutoff) ||
+      !dal::comparable(properties.maxCutoff(), maxCutoff)) {
     properties.setCutoffs(minCutoff, maxCutoff);
     properties.classify();
     setNotifyNeeded(true);
   }
 
-  if(notify) {
+  if (notify) {
     this->notify();
   }
 }
 
-
-
-void DataObject::setClassificationMode(
-         DataGuide const& guide,
-         com::Classifier::Mode mode,
-         bool notify)
+void DataObject::setClassificationMode(DataGuide const &guide, com::Classifier::Mode mode, bool notify)
 {
-  RangeDrawProps& properties = this->properties().rangeDrawProperties(guide);
+  RangeDrawProps &properties = this->properties().rangeDrawProperties(guide);
 
-  if(properties.mode() != mode) {
+  if (properties.mode() != mode) {
     properties.setMode(mode);
     properties.classify();
     setNotifyNeeded(true);
   }
 
-  if(notify) {
+  if (notify) {
     this->notify();
   }
 }
 
-
-
-void DataObject::setProbabilityScale(
-         DataGuide const& guide,
-         RangeDrawProps::ProbabilityScale scale,
-         bool notify)
+void DataObject::setProbabilityScale(DataGuide const &guide, RangeDrawProps::ProbabilityScale scale,
+                                     bool notify)
 {
-  RangeDrawProps& properties = this->properties().rangeDrawProperties(guide);
+  RangeDrawProps &properties = this->properties().rangeDrawProperties(guide);
 
-  if(properties.probabilityScale() != scale) {
+  if (properties.probabilityScale() != scale) {
     properties.setProbabilityScale(scale);
     setNotifyNeeded(true);
   }
 
-  if(notify) {
+  if (notify) {
     this->notify();
   }
 }
 
-
-
-void DataObject::setClassificationAlgorithm(
-         DataGuide const& guide,
-         RangeDrawProps::Algorithm algorithm,
-         bool notify)
+void DataObject::setClassificationAlgorithm(DataGuide const &guide, RangeDrawProps::Algorithm algorithm,
+                                            bool notify)
 {
-  RangeDrawProps& properties =
-         this->properties().rangeDrawProperties(guide);
+  RangeDrawProps &properties = this->properties().rangeDrawProperties(guide);
 
-  if(properties.algorithm() != algorithm) {
+  if (properties.algorithm() != algorithm) {
     properties.setAlgorithm(algorithm);
     properties.classify();
     setNotifyNeeded(true);
   }
 
-  if(notify) {
+  if (notify) {
     this->notify();
   }
 }
 
-
-
-void DataObject::setClassificationProperties(
-         DataGuide const& guide,
-         RangeDrawProps::Algorithm algorithm,
-         double minCutoff,
-         double maxCutoff,
-         bool notify)
+void DataObject::setClassificationProperties(DataGuide const &guide, RangeDrawProps::Algorithm algorithm,
+                                             double minCutoff, double maxCutoff, bool notify)
 {
   bool classifyNeeded = false;
-  RangeDrawProps& properties = this->properties().rangeDrawProperties(guide);
+  RangeDrawProps &properties = this->properties().rangeDrawProperties(guide);
 
-  if(properties.algorithm() != algorithm) {
+  if (properties.algorithm() != algorithm) {
     properties.setAlgorithm(algorithm);
     classifyNeeded = true;
   }
 
-  if(!dal::comparable(properties.minCutoff(), minCutoff) ||
-     !dal::comparable(properties.maxCutoff(), maxCutoff)) {
+  if (!dal::comparable(properties.minCutoff(), minCutoff) ||
+      !dal::comparable(properties.maxCutoff(), maxCutoff)) {
     properties.setCutoffs(minCutoff, maxCutoff);
     classifyNeeded = true;
   }
 
-  if(classifyNeeded) {
+  if (classifyNeeded) {
     properties.classify();
     setNotifyNeeded(true);
   }
 
-  if(notify) {
+  if (notify) {
     this->notify();
   }
 }
 
-
-
-void DataObject::setDrawerType(
-         DataGuide const& guide,
-         DrawerType type,
-         bool notify)
+void DataObject::setDrawerType(DataGuide const &guide, DrawerType type, bool notify)
 {
-  RangeDrawProps& properties = this->properties().rangeDrawProperties(guide);
+  RangeDrawProps &properties = this->properties().rangeDrawProperties(guide);
 
-  if(properties.drawerType() != type) {
+  if (properties.drawerType() != type) {
     properties.setDrawerType(type);
     setNotifyNeeded(true);
   }
 
-  if(notify) {
+  if (notify) {
     this->notify();
   }
 }
 
-
-
-void DataObject::mergeDataProperties(
-         DataGuide const& guide1,
-         DataGuide const& guide2)
+void DataObject::mergeDataProperties(DataGuide const &guide1, DataGuide const &guide2)
 {
   d_data->d_properties.mergeDataProperties(guide1, guide2);
 
@@ -1750,64 +1449,45 @@ void DataObject::mergeDataProperties(
   setNotifyNeeded(true);
 }
 
-
-
-DataProperties& DataObject::properties()
+DataProperties &DataObject::properties()
 {
   return d_data->d_properties;
 }
 
-
-
-const DataProperties& DataObject::properties() const
+const DataProperties &DataObject::properties() const
 {
   return d_data->d_properties;
 }
 
-
-
-bool DataObject::isAvailable(
-         DataGuide const& guide) const
+bool DataObject::isAvailable(DataGuide const &guide) const
 {
   std::vector<DataGuide> guides = this->dataGuides();
   return std::find(guides.begin(), guides.end(), guide) != guides.end();
 }
 
-
-
-bool DataObject::isEnabled(
-         DataGuide const& guide) const
+bool DataObject::isEnabled(DataGuide const &guide) const
 {
   assert(isValid(guide));
 
   return d_data->d_properties.isEnabled(guide);
 }
 
-
-
-bool DataObject::isSelected(
-         DataGuide const& guide) const
+bool DataObject::isSelected(DataGuide const &guide) const
 {
   assert(isValid(guide));
 
   return d_data->d_properties.isSelected(guide);
 }
 
-
-
 bool DataObject::hasSelectedData() const
 {
   return d_data->d_properties.hasSelectedData();
 }
 
-
-
 std::vector<DataGuide> DataObject::selectedData() const
 {
   return d_data->d_properties.selectedData();
 }
-
-
 
 REAL4 DataObject::selectedValue() const
 {
@@ -1816,28 +1496,22 @@ REAL4 DataObject::selectedValue() const
   return boost::any_cast<REAL4>(d_data->_selectedValue);
 }
 
-
-
 bool DataObject::hasSelectedValue() const
 {
   return !d_data->_selectedValue.empty();
 }
 
-
-
-void DataObject::setSelectedValue(
-         REAL4 value,
-         bool notify)
+void DataObject::setSelectedValue(REAL4 value, bool notify)
 {
-  if(!hasSelectedValue() || !dal::comparable(selectedValue(), value)) {
+  if (!hasSelectedValue() || !dal::comparable(selectedValue(), value)) {
     d_data->_selectedValue = value;
 
     std::vector<DataGuide> const guides(dataGuides());
 
-    for(DataGuide const& guide : guides) {
-      Dataset& dataset(this->dataset(guide));
+    for (DataGuide const &guide : guides) {
+      Dataset &dataset(this->dataset(guide));
 
-      if(dataset.dataSpace().hasCumProbabilities()) {
+      if (dataset.dataSpace().hasCumProbabilities()) {
         dataset.setSelectedValue(value);
       }
     }
@@ -1845,25 +1519,22 @@ void DataObject::setSelectedValue(
     setNotifyNeeded(true);
   }
 
-  if(notify) {
+  if (notify) {
     this->notify();
   }
 }
 
-
-
-void DataObject::unsetSelectedValue(
-         bool notify)
+void DataObject::unsetSelectedValue(bool notify)
 {
-  if(hasSelectedValue()) {
+  if (hasSelectedValue()) {
     d_data->_selectedValue = boost::any();
 
     std::vector<DataGuide> const guides(dataGuides());
 
-    for(DataGuide const& guide : guides) {
-      Dataset& dataset(this->dataset(guide));
+    for (DataGuide const &guide : guides) {
+      Dataset &dataset(this->dataset(guide));
 
-      if(dataset.dataSpace().hasCumProbabilities()) {
+      if (dataset.dataSpace().hasCumProbabilities()) {
         dataset.unsetSelectedValue();
       }
     }
@@ -1871,12 +1542,10 @@ void DataObject::unsetSelectedValue(
     setNotifyNeeded(true);
   }
 
-  if(notify) {
+  if (notify) {
     this->notify();
   }
 }
-
-
 
 // bool DataObject::hasSelectedValue(
 //          DataGuide const& guide) const
@@ -1894,7 +1563,6 @@ void DataObject::unsetSelectedValue(
 //
 //   return result;
 // }
-
 
 
 // void DataObject::unsetSelectedValue(
@@ -1918,11 +1586,8 @@ void DataObject::unsetSelectedValue(
 // }
 
 
-
-void DataObject::replaceClassifier(
-         DataGuide const& guide,
-         com::Classifier const& classifier,
-         bool notify)
+void DataObject::replaceClassifier(DataGuide const &guide, com::Classifier const &classifier,
+                                   bool notify)
 {
   assert(guide.type() == geo::STACK || guide.type() == geo::FEATURE);
   assert(guide.valueScale() == VS_SCALAR);
@@ -1930,17 +1595,12 @@ void DataObject::replaceClassifier(
   properties().replaceClassifier(guide, classifier);
   setNotifyNeeded(true);
 
-  if(notify) {
+  if (notify) {
     this->notify();
   }
 }
 
-
-
-void DataObject::pushClassifier(
-         DataGuide const& guide,
-         com::Classifier const& classifier,
-         bool notify)
+void DataObject::pushClassifier(DataGuide const &guide, com::Classifier const &classifier, bool notify)
 {
   assert(guide.type() == geo::STACK || guide.type() == geo::FEATURE);
   assert(guide.valueScale() == VS_SCALAR);
@@ -1948,16 +1608,12 @@ void DataObject::pushClassifier(
   properties().pushClassifier(guide, classifier);
   setNotifyNeeded(true);
 
-  if(notify) {
+  if (notify) {
     this->notify();
   }
 }
 
-
-
-void DataObject::popClassifier(
-         DataGuide const& guide,
-         bool notify)
+void DataObject::popClassifier(DataGuide const &guide, bool notify)
 {
   assert(guide.type() == geo::STACK || guide.type() == geo::FEATURE);
   assert(guide.valueScale() == VS_SCALAR);
@@ -1965,16 +1621,12 @@ void DataObject::popClassifier(
   properties().popClassifier(guide);
   setNotifyNeeded(true);
 
-  if(notify) {
+  if (notify) {
     this->notify();
   }
 }
 
-
-
-void DataObject::popClassifiers(
-         DataGuide const& guide,
-         bool notify)
+void DataObject::popClassifiers(DataGuide const &guide, bool notify)
 {
   assert(guide.type() == geo::STACK || guide.type() == geo::FEATURE);
   assert(guide.valueScale() == VS_SCALAR);
@@ -1982,23 +1634,19 @@ void DataObject::popClassifiers(
   properties().popClassifiers(guide);
   setNotifyNeeded(true);
 
-  if(notify) {
+  if (notify) {
     this->notify();
   }
 }
 
-
-
-qt::Animation& DataObject::animationManager() const
+qt::Animation &DataObject::animationManager() const
 {
   return d_data->d_animManager;
 }
 
-
-
 void DataObject::notify()
 {
-  if(notifyNeeded()) {
+  if (notifyNeeded()) {
     reconfigureDataSpaceAndMappers();
     reconfigureAnimationManager();
     read();
@@ -2006,8 +1654,6 @@ void DataObject::notify()
     postNotify();
   }
 }
-
-
 
 //!
 /*!
@@ -2025,20 +1671,15 @@ void DataObject::postNotify()
   setNotifyNeeded(false);
 }
 
-
-
 //! Sets whether a notify is needed to update the observers.
 /*!
   \param     needed What's it gonna be boy? True or false.
   \sa        notifyNeeded()
 */
-void DataObject::setNotifyNeeded(
-         bool needed)
+void DataObject::setNotifyNeeded(bool needed)
 {
   d_data->d_notifyNeeded = needed;
 }
-
-
 
 //! Returns whether a notify is needed to update the observers.
 /*!
@@ -2050,33 +1691,28 @@ bool DataObject::notifyNeeded() const
   return d_data->d_notifyNeeded;
 }
 
-
 void DataObject::reconfigureAnimationManager()
 {
-  dal::DataSpace const& space(d_data->d_dataSpace);
-  dal::DataSpaceAddress const& address(d_data->d_dataSpaceAddress);
+  dal::DataSpace const &space(d_data->d_dataSpace);
+  dal::DataSpaceAddress const &address(d_data->d_dataSpaceAddress);
 
-  if(space.hasTime()) {
+  if (space.hasTime()) {
     size_t const index = space.indexOf(dal::Time);
-    if(address.isValid(index)) {
-      d_data->d_animManager.setRangeOfSteps(
-             space.dimension(index).value<size_t>(0),
-             space.dimension(index).value<size_t>(1),
-             space.dimension(index).value<size_t>(2));
+    if (address.isValid(index)) {
+      d_data->d_animManager.setRangeOfSteps(space.dimension(index).value<size_t>(0),
+                                            space.dimension(index).value<size_t>(1),
+                                            space.dimension(index).value<size_t>(2));
       d_data->d_animManager.setCurrent(address.coordinate<size_t>(index));
     }
   }
 }
 
-
-
-bool DataObject::hasSpace(
-         DataGuide const& guide) const
+bool DataObject::hasSpace(DataGuide const &guide) const
 {
   bool result = false;
-  dal::DataSpace const& space = d_data->d_dataSpace;
+  dal::DataSpace const &space = d_data->d_dataSpace;
 
-  if(space.hasSpace()) {
+  if (space.hasSpace()) {
     // At least some datasets have space. Let's check this one has.
     result = guide.type() == geo::STACK || guide.type() == geo::FEATURE;
   }
@@ -2084,29 +1720,23 @@ bool DataObject::hasSpace(
   return result;
 }
 
-
-
-bool DataObject::hasTimeSeries(
-         DataGuide const& guide) const
+bool DataObject::hasTimeSeries(DataGuide const &guide) const
 {
-  dal::DataSpace const& space = d_data->d_dataSpace;
+  dal::DataSpace const &space = d_data->d_dataSpace;
 
-  if(space.hasTime()) {
+  if (space.hasTime()) {
     // At least some datasets have time. Let's check this one has.
-    if(guide.valueScale() == VS_SCALAR) {
-      if(guide.type() == geo::STACK) {
-        Raster const& raster = rasterDataSources().data(guide);
-        return raster.dataSpace().hasTime(); // Dynamic stack.
-      }
-      else if(guide.type() == geo::FEATURE) {
-        FeatureLayer const& layer = featureDataSources().data(guide);
+    if (guide.valueScale() == VS_SCALAR) {
+      if (guide.type() == geo::STACK) {
+        Raster const &raster = rasterDataSources().data(guide);
+        return raster.dataSpace().hasTime();  // Dynamic stack.
+      } else if (guide.type() == geo::FEATURE) {
+        FeatureLayer const &layer = featureDataSources().data(guide);
         return layer.dataSpace().hasTime();
-      }
-      else if(guide.type() == geo::VECTOR) {
-        Vector const& vector = vectorDataSources().data(guide);
+      } else if (guide.type() == geo::VECTOR) {
+        Vector const &vector = vectorDataSources().data(guide);
         return vector.dataSpace().hasTime();
-      }
-      else if(guide.type() == geo::TIMESERIES) {
+      } else if (guide.type() == geo::TIMESERIES) {
         return true;
       }
     }
@@ -2115,21 +1745,17 @@ bool DataObject::hasTimeSeries(
   return false;
 }
 
-
-
-bool DataObject::hasCumProbabilities(
-         DataGuide const& guide) const
+bool DataObject::hasCumProbabilities(DataGuide const &guide) const
 {
-  dal::DataSpace const& space = d_data->d_dataSpace;
+  dal::DataSpace const &space = d_data->d_dataSpace;
 
-  if(space.hasCumProbabilities()) {
-    if(guide.valueScale() == VS_SCALAR) {
-      if(guide.type() == geo::STACK) {
-        Raster const& raster = rasterDataSources().data(guide);
-        return raster.dataSpace().hasCumProbabilities(); // Quantiles.
-      }
-      else if(guide.type() == geo::FEATURE) {
-        FeatureLayer const& layer = featureDataSources().data(guide);
+  if (space.hasCumProbabilities()) {
+    if (guide.valueScale() == VS_SCALAR) {
+      if (guide.type() == geo::STACK) {
+        Raster const &raster = rasterDataSources().data(guide);
+        return raster.dataSpace().hasCumProbabilities();  // Quantiles.
+      } else if (guide.type() == geo::FEATURE) {
+        FeatureLayer const &layer = featureDataSources().data(guide);
         return layer.dataSpace().hasCumProbabilities();
       }
     }
@@ -2138,14 +1764,10 @@ bool DataObject::hasCumProbabilities(
   return false;
 }
 
-
-
-dal::DataSpaceAddressMapper const& DataObject::globalToWorldMapper() const
+dal::DataSpaceAddressMapper const &DataObject::globalToWorldMapper() const
 {
   return d_data->d_globalToWorldMapper;
 }
-
-
 
 //! Returns the mapper which maps local coordinates to real world coordinates for data set \a guide.
 /*!
@@ -2155,12 +1777,11 @@ dal::DataSpaceAddressMapper const& DataObject::globalToWorldMapper() const
   \warning   .
   \sa        .
 */
-dal::DataSpaceAddressMapper& DataObject::localToWorldMapper(
-         DataGuide const& guide) const
+dal::DataSpaceAddressMapper &DataObject::localToWorldMapper(DataGuide const &guide) const
 {
-  dal::DataSpaceAddressMapper* result = nullptr;
+  dal::DataSpaceAddressMapper *result = nullptr;
 
-  switch(guide.type()) {
+  switch (guide.type()) {
     case geo::STACK: {
       result = &d_data->d_rasterDataSources.data(guide).localToWorldMapper();
       break;
@@ -2187,14 +1808,11 @@ dal::DataSpaceAddressMapper& DataObject::localToWorldMapper(
   return *result;
 }
 
-
-
-dal::DataSpaceAddressMapper& DataObject::globalToLocalMapper(
-         DataGuide const& guide) const
+dal::DataSpaceAddressMapper &DataObject::globalToLocalMapper(DataGuide const &guide) const
 {
-  dal::DataSpaceAddressMapper* result = nullptr;
+  dal::DataSpaceAddressMapper *result = nullptr;
 
-  switch(guide.type()) {
+  switch (guide.type()) {
     case geo::STACK: {
       result = &d_data->d_rasterDataSources.data(guide).globalToLocalMapper();
       break;
@@ -2221,8 +1839,6 @@ dal::DataSpaceAddressMapper& DataObject::globalToLocalMapper(
   return *result;
 }
 
-
-
 //! Collects step mappings for each dimension and for each data set.
 /*!
   \param     timeMappings Collection for storing the dimension and time step
@@ -2233,9 +1849,8 @@ dal::DataSpaceAddressMapper& DataObject::globalToLocalMapper(
              mapping information.
   \return    The collections passed in are updated.
 */
-void DataObject::localStepMappings(
-         std::vector<dal::DimensionTimeStepMapping>& timeMappings,
-         std::vector<dal::DimensionSpaceStepMapping>& spaceMappings)
+void DataObject::localStepMappings(std::vector<dal::DimensionTimeStepMapping> &timeMappings,
+                                   std::vector<dal::DimensionSpaceStepMapping> &spaceMappings)
 {
   assert(timeMappings.empty());
   assert(spaceMappings.empty());
@@ -2243,47 +1858,42 @@ void DataObject::localStepMappings(
   std::vector<DataGuide> const guides(dataGuides());
 
   // Loop over all dimensions of the central data space.
-  for(size_t i = 0; i < dataSpace().rank(); ++i) {
-    dal::Dimension const& mainDimension(dataSpace().dimension(i));
+  for (size_t i = 0; i < dataSpace().rank(); ++i) {
+    dal::Dimension const &mainDimension(dataSpace().dimension(i));
 
     // Loop over all data guides.
-    for(auto & guide : guides) {
+    for (auto &guide : guides) {
 
       // Analyse data set data space.
-      dal::DataSpace const& space(dataSpace(guide));
+      dal::DataSpace const &space(dataSpace(guide));
 
       size_t const dimensionId = space.indexOf(mainDimension);
 
-      if(dimensionId != space.rank()) {
-        dal::Dimension const& subDimension(space.dimension(dimensionId));
+      if (dimensionId != space.rank()) {
+        dal::Dimension const &subDimension(space.dimension(dimensionId));
 
         // Data set data space has the dimension.
-        if(mainDimension.meaning() == dal::Time) {
-          auto const* mapper =
-              dynamic_cast<dal::TimeStepMapper const*>(
-                   localToWorldMapper(guide).mapper(dimensionId));
+        if (mainDimension.meaning() == dal::Time) {
+          auto const *mapper =
+              dynamic_cast<dal::TimeStepMapper const *>(localToWorldMapper(guide).mapper(dimensionId));
 
-          if(mapper) {
+          if (mapper) {
             // Possibly zero!
-            timeMappings.push_back(dal::DimensionTimeStepMapping(
-              space.dimension(dimensionId), mapper));
+            timeMappings.push_back(dal::DimensionTimeStepMapping(space.dimension(dimensionId), mapper));
           }
-        }
-        else if(subDimension.meaning() == dal::Space) {
-          switch(subDimension.discretisation()) {
+        } else if (subDimension.meaning() == dal::Space) {
+          switch (subDimension.discretisation()) {
             case dal::RegularDiscretisation: {
               assert(mainDimension.meaning() == dal::Space);
-              assert(mainDimension.discretisation() ==
-                   dal::RegularDiscretisation);
+              assert(mainDimension.discretisation() == dal::RegularDiscretisation);
 
-              auto const* mapper =
-                   dynamic_cast<dal::SpaceStepMapper const*>(
-                   localToWorldMapper(guide).mapper(dimensionId));
+              auto const *mapper = dynamic_cast<dal::SpaceStepMapper const *>(
+                  localToWorldMapper(guide).mapper(dimensionId));
 
-              if(mapper) {
+              if (mapper) {
                 // Possibly zero!
-                spaceMappings.push_back(dal::DimensionSpaceStepMapping(
-                   space.dimension(dimensionId), mapper));
+                spaceMappings.push_back(
+                    dal::DimensionSpaceStepMapping(space.dimension(dimensionId), mapper));
               }
 
               break;
@@ -2303,12 +1913,10 @@ void DataObject::localStepMappings(
   }
 }
 
-
-
-  // Use mapping information collected to determine the mappers to map
-  // addresses in the global (data object) data space to addresses in the
-  // local (data set) data space.
-  // global (data object) <-> local (data set)
+// Use mapping information collected to determine the mappers to map
+// addresses in the global (data object) data space to addresses in the
+// local (data set) data space.
+// global (data object) <-> local (data set)
 //! Determines mappers for mapping global to local coordinates.
 /*!
   \param     timeMappings Collection containing the dimension and time step
@@ -2331,32 +1939,28 @@ void DataObject::localStepMappings(
 
 
 */
-void  DataObject::globalStepMappings(
-         std::vector<dal::DimensionTimeStepMapping> const& timeMappings,
-         std::vector<dal::DimensionSpaceStepMapping> const& spaceMappings,
-         std::vector<dal::StepMapper>& timeStepMappers,
-         std::vector<dal::StepMapper>& spaceStepMappers,
-         dal::TimeStepMapper& timeStepMapper,
-         dal::SpaceStepMapper& spaceStepMapper)
+void DataObject::globalStepMappings(std::vector<dal::DimensionTimeStepMapping> const &timeMappings,
+                                    std::vector<dal::DimensionSpaceStepMapping> const &spaceMappings,
+                                    std::vector<dal::StepMapper> &timeStepMappers,
+                                    std::vector<dal::StepMapper> &spaceStepMappers,
+                                    dal::TimeStepMapper &timeStepMapper,
+                                    dal::SpaceStepMapper &spaceStepMapper)
 {
-  for(size_t i = 0; i < dataSpace().rank(); ++i) {
-    if(dataSpace().dimension(i).meaning() == dal::Time) {
-      if(!timeMappings.empty()) {
+  for (size_t i = 0; i < dataSpace().rank(); ++i) {
+    if (dataSpace().dimension(i).meaning() == dal::Time) {
+      if (!timeMappings.empty()) {
         dal::Dimension dimension;
-        timeStepMap(timeMappings, &dimension, &timeStepMapper,
-              &timeStepMappers);
+        timeStepMap(timeMappings, &dimension, &timeStepMapper, &timeStepMappers);
         assert(dimension.meaning() == dal::Time);
         d_data->d_dataSpace.dimension(i) = dimension;
         // assert(dimension == dataSpace().dimension(i));
       }
-    }
-    else if(dataSpace().dimension(i).meaning() == dal::Space) {
-      switch(dataSpace().dimension(i).discretisation()) {
+    } else if (dataSpace().dimension(i).meaning() == dal::Space) {
+      switch (dataSpace().dimension(i).discretisation()) {
         case dal::RegularDiscretisation: {
-          if(!spaceMappings.empty()) {
+          if (!spaceMappings.empty()) {
             dal::Dimension dimension;
-            spaceStepMap(spaceMappings, &dimension, &spaceStepMapper,
-                &spaceStepMappers);
+            spaceStepMap(spaceMappings, &dimension, &spaceStepMapper, &spaceStepMappers);
             assert(dimension.meaning() == dal::Space);
             d_data->d_dataSpace.dimension(i) = dimension;
             // assert(dimension == dataSpace().dimension(i));
@@ -2377,58 +1981,50 @@ void  DataObject::globalStepMappings(
   }
 }
 
-
-
-void DataObject::setGlobalToWorldMappers(
-         std::vector<dal::StepMapper> const& timeStepMappers,
-         std::vector<dal::StepMapper> const& spaceStepMappers)
+void DataObject::setGlobalToWorldMappers(std::vector<dal::StepMapper> const &timeStepMappers,
+                                         std::vector<dal::StepMapper> const &spaceStepMappers)
 {
   std::vector<DataGuide> const guides(dataGuides());
 
   // For each individual data set, set a mapper to map addresses in the
   // global (data object) data space to addresses in the local (data set)
   // data space.
-  size_t t = 0;    // index of current item in timeStepMappers collection.
-  size_t s = 0;    // index of current item in spaceStepMappers collection.
+  size_t t = 0;  // index of current item in timeStepMappers collection.
+  size_t s = 0;  // index of current item in spaceStepMappers collection.
 
   // Loop over the dimensions of the central data space.
-  for(size_t i = 0; i < dataSpace().rank(); ++i) {
-    dal::Dimension const& mainDimension(dataSpace().dimension(i));
+  for (size_t i = 0; i < dataSpace().rank(); ++i) {
+    dal::Dimension const &mainDimension(dataSpace().dimension(i));
 
-    for(auto & guide : guides) {
-      dal::DataSpace const& space(dataSpace(guide));
+    for (auto &guide : guides) {
+      dal::DataSpace const &space(dataSpace(guide));
       size_t const dimensionId = space.indexOf(mainDimension);
 
-      if(dimensionId != space.rank()) {
-        dal::Dimension const& subDimension(space.dimension(dimensionId));
+      if (dimensionId != space.rank()) {
+        dal::Dimension const &subDimension(space.dimension(dimensionId));
 
         // Data set data space has the dimension.
-        if(mainDimension.meaning() == dal::Time) {
-          auto const* mapper =
-              dynamic_cast<dal::TimeStepMapper const*>(
-                   localToWorldMapper(guide).mapper(dimensionId));
+        if (mainDimension.meaning() == dal::Time) {
+          auto const *mapper =
+              dynamic_cast<dal::TimeStepMapper const *>(localToWorldMapper(guide).mapper(dimensionId));
 
-          if(mapper) {
-            globalToLocalMapper(guide).setMapper(dimensionId,
-              new dal::StepCoordinateMapper(timeStepMappers[t++],
-                   dal::UsePrevious));
+          if (mapper) {
+            globalToLocalMapper(guide).setMapper(
+                dimensionId, new dal::StepCoordinateMapper(timeStepMappers[t++], dal::UsePrevious));
           }
-        }
-        else if(subDimension.meaning() == dal::Space) {
-          switch(subDimension.discretisation()) {
+        } else if (subDimension.meaning() == dal::Space) {
+          switch (subDimension.discretisation()) {
             case dal::RegularDiscretisation: {
               assert(mainDimension.meaning() == dal::Space);
-              assert(mainDimension.discretisation() ==
-                   dal::RegularDiscretisation);
+              assert(mainDimension.discretisation() == dal::RegularDiscretisation);
 
-              auto const* mapper =
-                   dynamic_cast<dal::SpaceStepMapper const*>(
-                        localToWorldMapper(guide).mapper(dimensionId));
+              auto const *mapper = dynamic_cast<dal::SpaceStepMapper const *>(
+                  localToWorldMapper(guide).mapper(dimensionId));
 
-              if(mapper) {
-                globalToLocalMapper(guide).setMapper(dimensionId,
-                  new dal::StepCoordinateMapper(spaceStepMappers[s++],
-                        dal::SetToMissingValue));
+              if (mapper) {
+                globalToLocalMapper(guide).setMapper(
+                    dimensionId,
+                    new dal::StepCoordinateMapper(spaceStepMappers[s++], dal::SetToMissingValue));
               }
 
               break;
@@ -2448,28 +2044,25 @@ void DataObject::setGlobalToWorldMappers(
   }
 }
 
-
-
-void DataObject::setGlobalToWorldMapper(
-         dal::TimeStepMapper const& timeStepMapper,
-         dal::SpaceStepMapper const& spaceStepMapper)
+void DataObject::setGlobalToWorldMapper(dal::TimeStepMapper const &timeStepMapper,
+                                        dal::SpaceStepMapper const &spaceStepMapper)
 {
   // Configure global to world mapper.
-  dal::DataSpaceAddressMapper& mapper(d_data->d_globalToWorldMapper);
-  dal::DataSpace const& space(d_data->d_dataSpace);
+  dal::DataSpaceAddressMapper &mapper(d_data->d_globalToWorldMapper);
+  dal::DataSpace const &space(d_data->d_dataSpace);
 
   mapper.setDataSpace(space);
 
-  if(space.hasTime() && timeStepMapper.isValid()) {
+  if (space.hasTime() && timeStepMapper.isValid()) {
     size_t const id = space.indexOf(dal::Time);
 
     // Time dimension.
-    if(space.dimension(id).discretisation() == dal::RegularDiscretisation) {
+    if (space.dimension(id).discretisation() == dal::RegularDiscretisation) {
       mapper.setMapper(id, new dal::TimeStepCoordinateMapper(timeStepMapper));
     }
   }
 
-  if(space.hasRaster()) {
+  if (space.hasRaster()) {
     size_t const id = space.indexOf(dal::Space);
 
     // Space dimension.
@@ -2477,8 +2070,6 @@ void DataObject::setGlobalToWorldMapper(
     mapper.setMapper(id, new dal::SpaceStepCoordinateMapper(spaceStepMapper));
   }
 }
-
-
 
 void DataObject::reconfigureDataSpaceAndMappers()
 {
@@ -2497,48 +2088,38 @@ void DataObject::reconfigureDataSpaceAndMappers()
   std::vector<dal::StepMapper> spaceStepMappers;
   dal::TimeStepMapper timeStepMapper;
   dal::SpaceStepMapper spaceStepMapper;
-  globalStepMappings(
-         timeMappings, spaceMappings,
-         timeStepMappers, spaceStepMappers,
-         timeStepMapper, spaceStepMapper);
+  globalStepMappings(timeMappings, spaceMappings, timeStepMappers, spaceStepMappers, timeStepMapper,
+                     spaceStepMapper);
 
   setGlobalToWorldMappers(timeStepMappers, spaceStepMappers);
   setGlobalToWorldMapper(timeStepMapper, spaceStepMapper);
 }
 
-
-
-void DataObject::setBackgroundColour(
-         QColor const& color,
-         bool notify)
+void DataObject::setBackgroundColour(QColor const &color, bool notify)
 {
-  if(d_data->d_backgroundColor != color) {
+  if (d_data->d_backgroundColor != color) {
     d_data->d_backgroundColor = color;
     setNotifyNeeded(true);
   }
 
-  if(notify) {
+  if (notify) {
     this->notify();
   }
 }
 
-
-
-QColor const& DataObject::backgroundColour() const
+QColor const &DataObject::backgroundColour() const
 {
   return d_data->d_backgroundColor;
 }
-
-
 
 //! Returns the properties of the rasters.
 /*!
   \return    Raster properties.
   \warning   The data space must contain raster properties.
 */
-dal::RasterDimensions const& DataObject::rasterDimensions() const
+dal::RasterDimensions const &DataObject::rasterDimensions() const
 {
-  dal::DataSpace const& space(d_data->d_dataSpace);
+  dal::DataSpace const &space(d_data->d_dataSpace);
 
   assert(space.hasRaster());
 
@@ -2547,32 +2128,27 @@ dal::RasterDimensions const& DataObject::rasterDimensions() const
   return space.dimension(index).value<dal::RasterDimensions>(0);
 }
 
-
-
 //! Returns the properties of the feature layers.
 /*!
   \return    Feature properties.
   \warning   The data space must contain feature layer properties.
 */
-dal::SpaceDimensions const& DataObject::featureDimensions() const
+dal::SpaceDimensions const &DataObject::featureDimensions() const
 {
-  dal::DataSpace const& space(d_data->d_dataSpace);
+  dal::DataSpace const &space(d_data->d_dataSpace);
 
   assert(space.hasFeatures());
 
   size_t index = space.indexOf(dal::Space);
 
-  if(space.hasRaster()) {
+  if (space.hasRaster()) {
     ++index;
     assert(space.dimension(index).meaning() == dal::Space);
-    assert(space.dimension(index).discretisation() ==
-         dal::BorderedDiscretisation);
+    assert(space.dimension(index).discretisation() == dal::BorderedDiscretisation);
   }
 
   return space.dimension(index).value<dal::SpaceDimensions>(0);
 }
-
-
 
 //! Returns the envelope around all raster and feature data sets.
 /*!
@@ -2582,64 +2158,53 @@ dal::SpaceDimensions const& DataObject::featureDimensions() const
 dal::SpaceDimensions DataObject::envelope() const
 {
   dal::SpaceDimensions result;
-  dal::DataSpace const& space(d_data->d_dataSpace);
+  dal::DataSpace const &space(d_data->d_dataSpace);
   assert(space.hasSpace());
 
-  if(space.hasRaster() && space.hasFeatures()) {
+  if (space.hasRaster() && space.hasFeatures()) {
     result = rasterDimensions() | featureDimensions();
-  }
-  else if(space.hasRaster()) {
+  } else if (space.hasRaster()) {
     result = rasterDimensions();
-  }
-  else {
+  } else {
     result = featureDimensions();
   }
 
   return result;
 }
 
-
-
 //! Returns the spatial address of the cursor.
 /*!
   \return    Spatial address.
   \warning   The data space must contain spatial properties.
 */
-dal::SpatialCoordinate const& DataObject::spatialAddress() const
+dal::SpatialCoordinate const &DataObject::spatialAddress() const
 {
-  dal::DataSpace const& space(d_data->d_dataSpace);
+  dal::DataSpace const &space(d_data->d_dataSpace);
   assert(space.hasSpace());
 
   size_t index = space.indexOf(dal::Space);
-  auto const& result(
-         d_data->d_dataSpaceAddress.coordinate<dal::SpatialCoordinate>(index));
+  auto const &result(d_data->d_dataSpaceAddress.coordinate<dal::SpatialCoordinate>(index));
 
 #ifdef DEBUG_DEVELOP
   // Sanity checks.
-  if(space.hasRaster() && space.hasFeatures()) {
+  if (space.hasRaster() && space.hasFeatures()) {
     ++index;
     assert(space.dimension(index).meaning() == dal::Space);
-    assert(space.dimension(index).discretisation() ==
-         dal::BorderedDiscretisation);
-    assert(result ==
-         d_data->d_dataSpaceAddress.coordinate<dal::SpatialCoordinate>(index));
+    assert(space.dimension(index).discretisation() == dal::BorderedDiscretisation);
+    assert(result == d_data->d_dataSpaceAddress.coordinate<dal::SpatialCoordinate>(index));
   }
 #endif
 
   return result;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace ag
-
+}  // namespace ag

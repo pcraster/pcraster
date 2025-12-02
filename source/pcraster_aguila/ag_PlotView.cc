@@ -29,27 +29,25 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC PLOTVIEW MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF PLOTVIEW MEMBERS
 //------------------------------------------------------------------------------
 
-namespace ag {
+namespace ag
+{
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 using namespace QtCharts;
 #endif
 
-PlotView::PlotView(DataObject* object,
-         QWidget* parent, const char* name)
+PlotView::PlotView(DataObject *object, QWidget *parent, const char *name)
 
-  : PlotVisualisation(object, "Time Series View", parent, name)
+    : PlotVisualisation(object, "Time Series View", parent, name)
 
 {
   // Supported data types.
@@ -78,20 +76,14 @@ PlotView::PlotView(DataObject* object,
   this->setCursor(Qt::PointingHandCursor);
 }
 
-
-
 PlotView::~PlotView()
 {
 }
-
-
 
 void PlotView::rescan()
 {
   visualisationEngine().rescan(dataObject());
 }
-
-
 
 bool PlotView::recreatePlotRequired() const
 {
@@ -103,29 +95,24 @@ bool PlotView::recreatePlotRequired() const
          visualisationEngine().change() & VisEngine::QUANTILE;
 }
 
-
-
 bool PlotView::replotRequired() const
 {
-  return recreatePlotRequired() ||
-         visualisationEngine().change() & VisEngine::TIME ||
+  return recreatePlotRequired() || visualisationEngine().change() & VisEngine::TIME ||
          visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR;
 }
 
-
-
 void PlotView::process()
 {
-  if(recreatePlotRequired()) {
+  if (recreatePlotRequired()) {
     clearPlot();
     createPlot();
   }
 
-  if(visualisationEngine().change() & VisEngine::TIME) {
-    dal::DataSpace const& space(dataObject().dataSpace());
+  if (visualisationEngine().change() & VisEngine::TIME) {
+    dal::DataSpace const &space(dataObject().dataSpace());
 
-    if(space.hasTime()) {
-      dal::DataSpaceAddress const& address(dataObject().dataSpaceAddress());
+    if (space.hasTime()) {
+      dal::DataSpaceAddress const &address(dataObject().dataSpaceAddress());
       size_t const index = space.indexOf(dal::Time);
       double const timeStep = address.coordinate<size_t>(index);
 
@@ -133,11 +120,10 @@ void PlotView::process()
     }
   }
 
-  if(visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
-    if(!dataObject().backgroundColour().isValid()) {
+  if (visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+    if (!dataObject().backgroundColour().isValid()) {
       setPalette(QPalette());
-    }
-    else {
+    } else {
       QPalette palette;
       palette.setColor(backgroundRole(), dataObject().backgroundColour());
       setPalette(palette);
@@ -145,21 +131,16 @@ void PlotView::process()
   }
 }
 
-
-
 void PlotView::visualise()
 {
-  if(replotRequired()) {
+  if (replotRequired()) {
     update();
   }
 
   visualisationEngine().finishedScanning(dataObject());
 }
 
-
-
-void PlotView::addAttribute(
-         DataGuide const& dataGuide)
+void PlotView::addAttribute(DataGuide const &dataGuide)
 {
   assert(dataObject().dataSpace(dataGuide).hasTime());
 
@@ -167,44 +148,35 @@ void PlotView::addAttribute(
   visualisationEngine().addAttribute(dataObject(), dataGuide);
 }
 
-
-
 void PlotView::setXAxisTitle()
 {
   m_axisX->setTitleFont(QApplication::font());
   m_axisX->setTitleText(QString("Time step"));
 }
 
-
-
 void PlotView::setYAxisTitle()
 {
   m_axisY->setTitleFont(QApplication::font());
 
-  if(!dataObject().hasSelectedValue()) {
+  if (!dataObject().hasSelectedValue()) {
     m_axisY->setTitleText(QString("Value"));
-  }
-  else {
-    if(onlyCumulativeProbabilitiesShown()) {
+  } else {
+    if (onlyCumulativeProbabilitiesShown()) {
       m_axisY->setTitleText(QString("Cumulative probability"));
-    }
-    else if(onlyExceedanceProbabilitiesShown()) {
+    } else if (onlyExceedanceProbabilitiesShown()) {
       m_axisY->setTitleText(QString("Exceedance probability"));
-    }
-    else {
+    } else {
       m_axisY->setTitleText(QString("Probability"));
     }
   }
 }
 
-
-
 void PlotView::setXAxisScale()
 {
-  dal::DataSpace const& space(dataObject().dataSpace());
+  dal::DataSpace const &space(dataObject().dataSpace());
   assert(space.hasTime());
   size_t const indexOfTime = space.indexOf(dal::Time);
-  dal::Dimension const& dimension(space.dimension(indexOfTime));
+  dal::Dimension const &dimension(space.dimension(indexOfTime));
   size_t const first = dimension.value<size_t>(0);
   size_t const last = dimension.value<size_t>(1);
   assert(last >= first);
@@ -217,10 +189,9 @@ void PlotView::setXAxisScale()
   m_axisX->setTickAnchor(first);
   m_axisX->setRange(first, last);
 
-  if(nr_timesteps < 11) {
+  if (nr_timesteps < 11) {
     m_axisX->setTickInterval(1);
-  }
-  else {
+  } else {
     auto [quotient, remainder] = std::div(nr_timesteps - 1, 4);
     m_axisX->setTickInterval(quotient);
   }
@@ -228,8 +199,6 @@ void PlotView::setXAxisScale()
   m_axisX->setLabelFormat("%g");
   m_chart->addAxis(m_axisX, Qt::AlignBottom);
 }
-
-
 
 void PlotView::setYAxisScale()
 {
@@ -239,19 +208,17 @@ void PlotView::setYAxisScale()
   // bool classificationAlgorithmsAreEqual = true;
   // RangeDrawProps::Algorithm classificationAlgorithm = INVALID_ALGORITHM;
 
-  for(DataGuide const& guide : visualisationEngine().dataGuides()) {
+  for (DataGuide const &guide : visualisationEngine().dataGuides()) {
     assert(guide.valueScale() == VS_SCALAR);
 
-    RangeDrawProps const& properties(
-         dataObject().properties().rangeDrawProperties(guide));
+    RangeDrawProps const &properties(dataObject().properties().rangeDrawProperties(guide));
 
-    if(properties.cutoffsAreValid()) {
-      if(!extremesInitialised) {
+    if (properties.cutoffsAreValid()) {
+      if (!extremesInitialised) {
         min = properties.minCutoff();
         max = properties.maxCutoff();
         extremesInitialised = true;
-      }
-      else {
+      } else {
         min = std::min(min, properties.minCutoff());
         max = std::max(max, properties.maxCutoff());
       }
@@ -293,15 +260,11 @@ void PlotView::setYAxisScale()
   m_chart->addAxis(m_axisY, Qt::AlignLeft);
 }
 
-
-
 void PlotView::configureXAxis()
 {
   setXAxisTitle();
   setXAxisScale();
 }
-
-
 
 void PlotView::configureYAxis()
 {
@@ -309,26 +272,23 @@ void PlotView::configureYAxis()
   setYAxisScale();
 }
 
-
-
 void PlotView::drawPlots()
 {
   boost::scoped_ptr<dal::Table> scopedTable;
-  dal::Table const* table = nullptr; // Shut up compiler.
-  size_t timeColIndex = 0; // Shut up compiler.
-  size_t attrColIndex = 0; // Shut up compiler.
+  dal::Table const *table = nullptr;  // Shut up compiler.
+  size_t timeColIndex = 0;            // Shut up compiler.
+  size_t attrColIndex = 0;            // Shut up compiler.
 
-  for(DataGuide const& guide : visualisationEngine().dataGuides()) {
+  for (DataGuide const &guide : visualisationEngine().dataGuides()) {
     assert(guide.valueScale() == VS_SCALAR);
 
     // Set table, timeColIndex and attrColIndex.
-    switch(guide.type()) {
+    switch (guide.type()) {
       case geo::STACK: {
         // This table is generated so we keep it in a scoped pointer.
         scopedTable.reset(new dal::Table());
         dataObject().rasterDataSources().data(guide).readTimeSeries(
-              dataObject().dataSpace(), dataObject().dataSpaceAddress(),
-              *scopedTable.get());
+            dataObject().dataSpace(), dataObject().dataSpaceAddress(), *scopedTable.get());
         table = scopedTable.get();
         timeColIndex = 0;
         attrColIndex = 1;
@@ -338,8 +298,7 @@ void PlotView::drawPlots()
         // This table is generated so we keep it in a scoped pointer.
         scopedTable.reset(new dal::Table());
         dataObject().featureDataSources().data(guide).readTimeSeries(
-              dataObject().dataSpace(), dataObject().dataSpaceAddress(),
-              *scopedTable.get());
+            dataObject().dataSpace(), dataObject().dataSpaceAddress(), *scopedTable.get());
         table = scopedTable.get();
         timeColIndex = 0;
         attrColIndex = 1;
@@ -349,8 +308,7 @@ void PlotView::drawPlots()
         // This table is generated so we keep it in a scoped pointer.
         scopedTable.reset(new dal::Table());
         dataObject().vectorDataSources().data(guide).readTimeSeries(
-              dataObject().dataSpace(), dataObject().dataSpaceAddress(),
-              *scopedTable.get());
+            dataObject().dataSpace(), dataObject().dataSpaceAddress(), *scopedTable.get());
         table = scopedTable.get();
         timeColIndex = 0;
         attrColIndex = 1;
@@ -358,13 +316,13 @@ void PlotView::drawPlots()
       }
       case geo::TIMESERIES: {
         // This table is for use only.
-        Table const& table1 = dataObject().tableDataSources().data(guide);
+        Table const &table1 = dataObject().tableDataSources().data(guide);
         table = &table1.table();
         timeColIndex = table1.timeCol();
         attrColIndex = table1.attrCol();
         break;
       }
-      default : {
+      default: {
         assert(false);
         break;
       }
@@ -376,44 +334,40 @@ void PlotView::drawPlots()
 
     // Convert table values to double arrays, since that is what
     // drawCurve expects.
-    dal::Array<UINT4> const& timeCol(table->col<UINT4>(timeColIndex));
-    dal::Array<REAL4> const& attrCol(table->col<REAL4>(attrColIndex));
+    dal::Array<UINT4> const &timeCol(table->col<UINT4>(timeColIndex));
+    dal::Array<REAL4> const &attrCol(table->col<REAL4>(attrColIndex));
     boost::scoped_array<double> const x(new double[table->nrRecs()]);
     boost::scoped_array<double> const y(new double[table->nrRecs()]);
 
-    for(size_t i = 0; i < table->nrRecs(); ++i) {
+    for (size_t i = 0; i < table->nrRecs(); ++i) {
       x[i] = timeCol[i];
 
-      if(pcr::isMV(attrCol[i])) {
+      if (pcr::isMV(attrCol[i])) {
         pcr::setMV(y[i]);
-      }
-      else {
+      } else {
         y[i] = attrCol[i];
       }
     }
 
-    if(dataObject().dataSpace(guide).hasCumProbabilities()) {
-      RangeDrawProps const& properties(
-         dataObject().properties().rangeDrawProperties(guide));
+    if (dataObject().dataSpace(guide).hasCumProbabilities()) {
+      RangeDrawProps const &properties(dataObject().properties().rangeDrawProperties(guide));
 
-      if(dataObject().hasSelectedValue() && properties.probabilityScale() ==
-              RangeDrawProps::ExceedanceProbabilities) {
+      if (dataObject().hasSelectedValue() &&
+          properties.probabilityScale() == RangeDrawProps::ExceedanceProbabilities) {
         // Exceedance probabilities are 1 - cumulative probabilities.
-        for(size_t i = 0; i < table->nrRecs(); ++i) {
-          if(!pcr::isMV(y[i])) {
+        for (size_t i = 0; i < table->nrRecs(); ++i) {
+          if (!pcr::isMV(y[i])) {
             y[i] = 1.0 - y[i];
           }
         }
       }
     }
 
-    QPen const pen(dataObject().properties().colour(guide),
-         dataObject().isSelected(guide) ? 2 : 1, Qt::SolidLine);
+    QPen const pen(dataObject().properties().colour(guide), dataObject().isSelected(guide) ? 2 : 1,
+                   Qt::SolidLine);
     drawCurve(guide, x.get(), y.get(), table->nrRecs(), pen);
   }
 }
-
-
 
 //!
 /*!
@@ -427,11 +381,11 @@ void PlotView::drawPlots()
 */
 void PlotView::createPlot()
 {
-  if(visualisationEngine().isEmpty()) {
+  if (visualisationEngine().isEmpty()) {
     return;
   }
 
-  if(!dataObject().dataSpace().hasTime()) {
+  if (!dataObject().dataSpace().hasTime()) {
     return;
   }
 
@@ -440,8 +394,6 @@ void PlotView::createPlot()
   drawPlots();
   attachMarkers();
 }
-
-
 
 // void PlotView::selected(QPointF const& /* point */)
 // {
@@ -453,8 +405,7 @@ void PlotView::createPlot()
 // }
 
 
-
-void PlotView::appended(QPointF const& point)
+void PlotView::appended(QPointF const &point)
 {
   /*
   // Determine whether an active marker is nearby. If so, select marker.
@@ -466,40 +417,33 @@ void PlotView::appended(QPointF const& point)
   moved(point);
 }
 
-
-
-void PlotView::moved(QPointF const& point)
+void PlotView::moved(QPointF const &point)
 {
-  if(markerEnabled(xMarker())) {
+  if (markerEnabled(xMarker())) {
     // Stop the animation if it is running. It is anoying to keep it running.
     // The user wants to select a certain date.
     dataObject().animationManager().stop();
 
     // Snap to closest time step.
-    dal::DataSpace const& space = dataObject().dataSpace();
-    if(space.hasTime()) {
+    dal::DataSpace const &space = dataObject().dataSpace();
+    if (space.hasTime()) {
       size_t const index = space.indexOf(dal::Time);
-      dal::Dimension const& dimension = space.dimension(index);
+      dal::Dimension const &dimension = space.dimension(index);
 
       // Prevent negative x-coordinates.
       dataObject().setTimeStep(dimension.clamp<size_t>(
-         static_cast<size_t>(
-              std::max<int>(0, dal::round<double, int>(point.x())))));
+          static_cast<size_t>(std::max<int>(0, dal::round<double, int>(point.x())))));
     }
   }
 }
 
-} // namespage ag
+}  // namespace ag
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

@@ -2,7 +2,6 @@
 #include <boost/test/unit_test.hpp>
 #include "com_vector.h"
 
-
 BOOST_AUTO_TEST_CASE(size)
 {
   using namespace com;
@@ -10,7 +9,6 @@ BOOST_AUTO_TEST_CASE(size)
   Vector<double> const v(5);
   BOOST_CHECK(v.size() == 5);
 }
-
 
 BOOST_AUTO_TEST_CASE(set_element)
 {
@@ -21,7 +19,6 @@ BOOST_AUTO_TEST_CASE(set_element)
   BOOST_CHECK(v.element(1) == 12345.6789);
 }
 
-
 BOOST_AUTO_TEST_CASE(scale)
 {
   using namespace com;
@@ -31,7 +28,6 @@ BOOST_AUTO_TEST_CASE(scale)
   v.scale(2.0);
   BOOST_CHECK(v.element(1) == 2.469);
 }
-
 
 BOOST_AUTO_TEST_CASE(add)
 {
@@ -54,7 +50,6 @@ BOOST_AUTO_TEST_CASE(add)
   BOOST_CHECK(v1.element(3) == -1);
 }
 
-
 BOOST_AUTO_TEST_CASE(magnitude)
 {
   using namespace com;
@@ -67,7 +62,6 @@ BOOST_AUTO_TEST_CASE(magnitude)
   v.setElement(1, 5.0);
   BOOST_CHECK(v.magnitude() == 5.0);
 }
-
 
 BOOST_AUTO_TEST_CASE(dot)
 {
@@ -90,7 +84,6 @@ BOOST_AUTO_TEST_CASE(dot)
 
   BOOST_CHECK(Vector<int>::dot(v1, v2) == 130);
 }
-
 
 BOOST_AUTO_TEST_CASE(cross)
 {

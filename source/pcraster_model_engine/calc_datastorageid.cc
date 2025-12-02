@@ -1,13 +1,10 @@
 #include "stddefx.h"
 #include "calc_datastorageid.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the DataStorageId class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -33,23 +30,18 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC DATASTORAGEID MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF DATASTORAGEID MEMBERS
 //------------------------------------------------------------------------------
 
-calc::DataStorageId::DataStorageId(const std::string& id):
-  d_id(id)
+calc::DataStorageId::DataStorageId(const std::string &id) : d_id(id)
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -62,12 +54,9 @@ calc::DataStorageId::DataStorageId(DataStorageId const& rhs)
 */
 
 
-
 calc::DataStorageId::~DataStorageId()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -80,13 +69,13 @@ calc::DataStorageId& calc::DataStorageId::operator=(DataStorageId const& rhs)
 */
 
 //! set value of d_id
-void calc::DataStorageId::setId(const std::string& id)
+void calc::DataStorageId::setId(const std::string &id)
 {
-  d_id=id;
+  d_id = id;
 }
 
 //! get value of d_id
-const std::string& calc::DataStorageId::id() const
+const std::string &calc::DataStorageId::id() const
 {
   return d_id;
 }
@@ -96,16 +85,11 @@ calc::OVS calc::DataStorageId::ovs() const
   return VS_STRING;
 }
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

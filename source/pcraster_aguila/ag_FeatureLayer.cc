@@ -8,57 +8,50 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the FeatureLayer class.
 */
 
 
-
-namespace ag {
+namespace ag
+{
 
 // Code that is private to this module.
-namespace detail {
+namespace detail
+{
 
-} // namespace detail
-
-
+}  // namespace detail
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC FEATURELAYER MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FEATURELAYER MEMBERS
 //------------------------------------------------------------------------------
 
-FeatureLayer::FeatureLayer(
-         std::string const& name,
-         dal::DataSpace const& space)
+FeatureLayer::FeatureLayer(std::string const &name, dal::DataSpace const &space)
 
-  : SpatialDataset(name, space)
+    : SpatialDataset(name, space)
 
 {
-  std::unique_ptr<dal::FeatureLayer> layer(
-         dataSource().open<dal::FeatureLayer>());
+  std::unique_ptr<dal::FeatureLayer> layer(dataSource().open<dal::FeatureLayer>());
   assert(layer.get());
 
   assert(!layer->properties().hasValue(DAL_CSF_VALUESCALE));
 
-  if(!layer->hasAttribute()) {
+  if (!layer->hasAttribute()) {
     // No attribute values only geometry.
     // Value scale is undefined, not relevant.
     d_valueScale = VS_UNDEFINED;
-  }
-  else {
+  } else {
     d_valueScale = dal::typeIdToValueScale(layer->typeId());
 
     dal::TypeId useTypeId;
 
-    switch(d_valueScale) {
+    switch (d_valueScale) {
       case VS_BOOLEAN: {
         useTypeId = dal::TI_UINT1;
         break;
@@ -81,15 +74,14 @@ FeatureLayer::FeatureLayer(
 
     layer->setTypeId(useTypeId);
 
-    auto* driver =
-           dynamic_cast<dal::FeatureDriver*>(dataSource().reader());
+    auto *driver = dynamic_cast<dal::FeatureDriver *>(dataSource().reader());
     assert(driver);
 
     boost::any min;
     boost::any max;
 
-    if(driver->extremes(min, max, layer->typeId(), dataSource().name(),
-           dataSource().enclosingDataSpace())) {
+    if (driver->extremes(min, max, layer->typeId(), dataSource().name(),
+                         dataSource().enclosingDataSpace())) {
       setExtremes(min, max);
     }
 
@@ -130,50 +122,41 @@ FeatureLayer::FeatureLayer(
   assert(d_layer);
 }
 
-
-
 FeatureLayer::~FeatureLayer()
 {
   assert(d_layer);
   delete d_layer;
 }
 
-
-
-void FeatureLayer::read(
-         dal::DataSpace const& space,
-         dal::DataSpaceAddress const& address)
+void FeatureLayer::read(dal::DataSpace const &space, dal::DataSpaceAddress const &address)
 {
   assert(d_layer);
 
   dal::DataSpaceAddress const localAddress(this->localAddress(space, address));
   assert(dataSource().dataSpace().rank() == localAddress.size());
 
-  if(isRead(localAddress)) {
+  if (isRead(localAddress)) {
     setAddressRead(localAddress);
-  }
-  else {
+  } else {
     dal::DataSpaceAddress localAddressWithoutSpace(
-         dataSource().dataSpace().eraseCoordinates(localAddress, dal::Space));
+        dataSource().dataSpace().eraseCoordinates(localAddress, dal::Space));
 
-    if(!dataSource().enclosingDataSpace().contains(localAddressWithoutSpace)) {
+    if (!dataSource().enclosingDataSpace().contains(localAddressWithoutSpace)) {
       setAddressRead(dataSource().dataSpace().address());
       assert(!isRead());
       assert(!isRead(localAddress));
       assert(!isRead(addressRead()));
-    }
-    else {
+    } else {
       // dataSource().read(*d_layer, localAddressWithoutSpace);
 
-      if(!hasSelectedValue()) {
+      if (!hasSelectedValue()) {
         dataSource().read(*d_layer, localAddressWithoutSpace);
-      }
-      else if(d_layer->hasAttribute()) {
+      } else if (d_layer->hasAttribute()) {
         assert(d_layer->typeId() == dal::TI_REAL4);
         assert(dataSource().dataSpace().hasCumProbabilities());
 
         localAddressWithoutSpace.unsetCoordinate(
-              dataSource().dataSpace().indexOf(dal::CumulativeProbabilities));
+            dataSource().dataSpace().indexOf(dal::CumulativeProbabilities));
 
         dataSource().read(*d_layer, selectedValue(), localAddressWithoutSpace);
       }
@@ -184,16 +167,14 @@ void FeatureLayer::read(
   }
 }
 
-
-
 bool FeatureLayer::isRead() const
 {
   bool result = false;
 
-  if(addressRead().size() == dataSource().dataSpace().size()) {
+  if (addressRead().size() == dataSource().dataSpace().size()) {
     dal::DataSpaceAddress const addressReadWithoutSpace(
-         dataSource().dataSpace().eraseCoordinates(addressRead(), dal::Space));
-    dal::DataSpace const& space(dataSource().enclosingDataSpace());
+        dataSource().dataSpace().eraseCoordinates(addressRead(), dal::Space));
+    dal::DataSpace const &space(dataSource().enclosingDataSpace());
 
     result = space.isValid(addressReadWithoutSpace);
   }
@@ -201,27 +182,24 @@ bool FeatureLayer::isRead() const
   return result;
 }
 
-
-
-bool FeatureLayer::isRead(
-         dal::DataSpaceAddress const& address) const
+bool FeatureLayer::isRead(dal::DataSpaceAddress const &address) const
 {
   bool result = false;
 
-  if(isRead()) {
+  if (isRead()) {
     dal::DataSpaceAddress addressWithoutSpace(
-         dataSource().dataSpace().eraseCoordinates(address, dal::Space));
+        dataSource().dataSpace().eraseCoordinates(address, dal::Space));
     dal::DataSpaceAddress const addressReadWithoutSpace(
-         dataSource().dataSpace().eraseCoordinates(addressRead(), dal::Space));
-    dal::DataSpace const& space(dataSource().enclosingDataSpace());
+        dataSource().dataSpace().eraseCoordinates(addressRead(), dal::Space));
+    dal::DataSpace const &space(dataSource().enclosingDataSpace());
 
-    if(space.hasScenarios()) {
+    if (space.hasScenarios()) {
       // <hack>
       // Discard scenario setting of address. Make it equal to the scenario
       // in the currently read address.
       size_t const index = space.indexOf(dal::Scenarios);
-      addressWithoutSpace.setCoordinate<std::string>(index,
-         addressReadWithoutSpace.coordinate<std::string>(index));
+      addressWithoutSpace.setCoordinate<std::string>(
+          index, addressReadWithoutSpace.coordinate<std::string>(index));
       // </hack>
     }
 
@@ -230,8 +208,6 @@ bool FeatureLayer::isRead(
 
   return result;
 }
-
-
 
 //! Return the value scale of the attribute values, or VS_UNDEFINED if the layer only contains geometry.
 /*!
@@ -248,16 +224,12 @@ CSF_VS FeatureLayer::valueScale() const
   return d_valueScale;
 }
 
-
-
 bool FeatureLayer::isEmpty() const
 {
   assert(d_layer);
 
   return d_layer->nrGeometries() == 0;
 }
-
-
 
 size_t FeatureLayer::size() const
 {
@@ -266,35 +238,27 @@ size_t FeatureLayer::size() const
   return d_layer->nrGeometries();
 }
 
-
-
-dal::SpaceDimensions const& FeatureLayer::dimensions() const
+dal::SpaceDimensions const &FeatureLayer::dimensions() const
 {
   return d_layer->dimensions();
 }
 
-
-
-OGRGeometry const& FeatureLayer::geometry(
-         long int featureId) const
+OGRGeometry const &FeatureLayer::geometry(long int featureId) const
 {
   return d_layer->geometry(featureId);
 }
-
-
 
 /// FeatureLayer::const_iterator FeatureLayer::begin() const
 /// {
 ///   return d_layer->begin();
 /// }
-/// 
-/// 
-/// 
+///
+///
+///
 /// FeatureLayer::const_iterator FeatureLayer::end() const
 /// {
 ///   return d_layer->end();
 /// }
-
 
 
 bool FeatureLayer::hasAttribute() const
@@ -302,17 +266,13 @@ bool FeatureLayer::hasAttribute() const
   return d_layer->hasAttribute();
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace ag
-
+}  // namespace ag

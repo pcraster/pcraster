@@ -11,22 +11,19 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
 
-namespace calc {
-namespace detail {
- } // namespace detail
-} // namespace calc
-
-
-
+namespace calc
+{
+namespace detail
+{
+}  // namespace detail
+}  // namespace calc
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC AREAOPERATIONS MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -37,41 +34,33 @@ calc::AreaOperations::AreaOperations()
 {
 }
 
-
 calc::AreaOperations::~AreaOperations()
 {
 }
 
-template<typename IDF>
-void calc::AreaOperations::apply(
-                    REAL4 *val,
-              const IDF   *id,
-                    size_t len)
+template <typename IDF> void calc::AreaOperations::apply(REAL4 *val, const IDF *id, size_t len)
 {
   AverageMap am;
-  am.apply(id,len,val,len);
+  am.apply(id, len, val, len);
 
-  d_map=am.areaAverageMap();
+  d_map = am.areaAverageMap();
 
-  for(size_t i=0; i < len; ++i) {
+  for (size_t i = 0; i < len; ++i) {
     if (pcr::isMV(id[i]) || !d_map.count(id[i]))
       pcr::setMV(val[i]);
     else {
-     assert(d_map.count(id[i]));
-     val[i] = (REAL4)statistic(id[i]);
+      assert(d_map.count(id[i]));
+      val[i] = (REAL4)statistic(id[i]);
     }
   }
 }
 
-template void calc::AreaOperations::apply<UINT1>(
-     REAL4 *val, const UINT1    *id,  size_t idLen);
-template void  calc::AreaOperations::apply<INT4>(
-     REAL4 *val, const INT4    *id,  size_t idLen);
+template void calc::AreaOperations::apply<UINT1>(REAL4 *val, const UINT1 *id, size_t idLen);
+template void calc::AreaOperations::apply<INT4>(REAL4 *val, const INT4 *id, size_t idLen);
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

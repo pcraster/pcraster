@@ -9,7 +9,6 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
 /*
@@ -33,29 +32,22 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC GLOBAL MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF GLOBAL MEMBERS
 //------------------------------------------------------------------------------
 
-calc::Global::Global(F f):
-  OpImplRedirect(),
-  d_f(f)
+calc::Global::Global(F f) : OpImplRedirect(), d_f(f)
 {
 }
 
-calc::Global::Global(const IOpImpl* redirect):
-  OpImplRedirect(redirect),
-  d_f(nullptr)
+calc::Global::Global(const IOpImpl *redirect) : OpImplRedirect(redirect), d_f(nullptr)
 {
 }
-
 
 calc::Global::~Global()
 {
@@ -76,29 +68,25 @@ calc::Global::Global(const Global& rhs):
 {
 }
 */
-void calc::Global::exec(RunTimeEnv* rte,const Operator& op,size_t nrArgs) const
+void calc::Global::exec(RunTimeEnv *rte, const Operator &op, size_t nrArgs) const
 {
   if (redirect()) {
-    redirect()->exec(rte,op,nrArgs);
+    redirect()->exec(rte, op, nrArgs);
     return;
   }
 
-  GlobArgs a(op,rte,nrArgs);
-  int const error=d_f(a.dest(),a.src());
+  GlobArgs a(op, rte, nrArgs);
+  int const error = d_f(a.dest(), a.src());
   if (error)
     throwDomainErrorFromCalcLib();
   a.pushResults();
 }
 
-calc::MRF::MRF(F f):
-  OpImplRedirect(),
-  d_f(f)
+calc::MRF::MRF(F f) : OpImplRedirect(), d_f(f)
 {
 }
 
-calc::MRF::MRF(const IOpImpl* redirect):
-  OpImplRedirect(redirect),
-  d_f(nullptr)
+calc::MRF::MRF(const IOpImpl *redirect) : OpImplRedirect(redirect), d_f(nullptr)
 {
 }
 
@@ -125,13 +113,13 @@ calc::MRF::MRF(const MRF& rhs):
 #include "calc_runtimeenv.h"
 #include "calc_operator.h"
 
-void calc::MRF::exec(RunTimeEnv* rte,const Operator& op,size_t nrArgs) const
+void calc::MRF::exec(RunTimeEnv *rte, const Operator &op, size_t nrArgs) const
 {
   if (redirect())
-    redirect()->exec(rte,op,nrArgs);
+    redirect()->exec(rte, op, nrArgs);
   else {
-    GlobArgs a(op,rte,nrArgs);
-    int const error=d_f(a.dest(0),a.dest(1),a.src());
+    GlobArgs a(op, rte, nrArgs);
+    int const error = d_f(a.dest(0), a.dest(1), a.src());
     if (error)
       throwDomainErrorFromCalcLib();
     a.pushResults();
@@ -143,12 +131,9 @@ void calc::MRF::exec(RunTimeEnv* rte,const Operator& op,size_t nrArgs) const
   rte->pushField(r0);
 }
 
-
-calc::OneOfMRF::OneOfMRF(const MRF *mrf):
-  d_mrf(mrf)
+calc::OneOfMRF::OneOfMRF(const MRF *mrf) : d_mrf(mrf)
 {
 }
-
 
 calc::OneOfMRF::~OneOfMRF()
 {
@@ -173,13 +158,13 @@ calc::OneOfMRF::OneOfMRF(const OneOfMRF& rhs):
 #include "calc_operator.h"
 #define INCLUDED_CALC_OPERATOR
 #endif
-void calc::OneOfMRF::exec(RunTimeEnv* rte,const Operator& op,size_t nrArgs) const
+void calc::OneOfMRF::exec(RunTimeEnv *rte, const Operator &op, size_t nrArgs) const
 {
   PRECOND(d_mrf);
   // get the Operator of the mrf from op
-  d_mrf->exec(rte, oneOf2Mrf(op.opCode()),nrArgs);
+  d_mrf->exec(rte, oneOf2Mrf(op.opCode()), nrArgs);
 
-  setMRFResult(rte,oneOfMrfIsStackTop(op.opCode()) ? 0: 1);
+  setMRFResult(rte, oneOfMrfIsStackTop(op.opCode()) ? 0 : 1);
 }
 
 //------------------------------------------------------------------------------
@@ -187,10 +172,6 @@ void calc::OneOfMRF::exec(RunTimeEnv* rte,const Operator& op,size_t nrArgs) cons
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

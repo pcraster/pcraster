@@ -7,61 +7,47 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the Map class.
 */
 
 
-
-namespace ag {
+namespace ag
+{
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC MAP MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF MAP MEMBERS
 //------------------------------------------------------------------------------
 
-Map::Map(
-         DataObject* object,
-         std::string const& visualisationName,
-         QWidget* parent)
+Map::Map(DataObject *object, std::string const &visualisationName, QWidget *parent)
 
-  : Visualisation<>(object, visualisationName, parent)
+    : Visualisation<>(object, visualisationName, parent)
 
 {
 }
-
-
 
 Map::~Map()
 {
 }
-
-
 
 QSize Map::sizeHint() const
 {
   return {500, 300};
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace ag
-
-
+}  // namespace ag

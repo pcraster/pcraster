@@ -7,22 +7,17 @@
 #include "calc_pointcodedllheader.h"
 #include "calc_globallibdefs.h"
 
+struct Fixture {
 
+  Fixture()
+  {
+    calc::globalInit();
+  }
 
-struct Fixture
-{
-
-    Fixture()
-    {
-        calc::globalInit();
-    }
-
-
-    ~Fixture()
-    {
-        calc::globalEnd();
-    }
-
+  ~Fixture()
+  {
+    calc::globalEnd();
+  }
 };
 
 using namespace calc;
@@ -31,59 +26,59 @@ BOOST_FIXTURE_TEST_SUITE(pointcodeblockdll, Fixture)
 
 BOOST_AUTO_TEST_CASE(testReportDefault)
 {
- // _ifthenelse(A &result, const UINT1& arg0, const A& arg1,const A& arg2)
- {
-   REAL4 r=-999;
-   _ifthenelse<>(r,MV_UINT1,(REAL4)1.0,(REAL4)2.0);
-   BOOST_CHECK(pcr::isMV(r));
- }
- {
-   REAL4 r=-999;
-   _ifthenelse<>(r,0,(REAL4)1.0,(REAL4)2.0);
-   BOOST_CHECK(r==2);
- }
- {
-   REAL4 r=-999;
-   REAL4 arg2 = NAN;
-   pcr::setMV(arg2);
-   _ifthenelse<>(r,0,(REAL4)1.0,arg2);
-   BOOST_CHECK(pcr::isMV(r));
- }
- {
-   REAL4 r=-999;
-   _ifthenelse<>(r,1,(REAL4)1.0,(REAL4)2.0);
-   BOOST_CHECK(r==1);
- }
- {
-   REAL4 r=-999;
-   REAL4 arg1 = NAN;
-   pcr::setMV(arg1);
-   _ifthenelse<>(r,1,arg1,(REAL4)2);
-   BOOST_CHECK(pcr::isMV(r));
- }
+  // _ifthenelse(A &result, const UINT1& arg0, const A& arg1,const A& arg2)
+  {
+    REAL4 r = -999;
+    _ifthenelse<>(r, MV_UINT1, (REAL4)1.0, (REAL4)2.0);
+    BOOST_CHECK(pcr::isMV(r));
+  }
+  {
+    REAL4 r = -999;
+    _ifthenelse<>(r, 0, (REAL4)1.0, (REAL4)2.0);
+    BOOST_CHECK(r == 2);
+  }
+  {
+    REAL4 r = -999;
+    REAL4 arg2 = NAN;
+    pcr::setMV(arg2);
+    _ifthenelse<>(r, 0, (REAL4)1.0, arg2);
+    BOOST_CHECK(pcr::isMV(r));
+  }
+  {
+    REAL4 r = -999;
+    _ifthenelse<>(r, 1, (REAL4)1.0, (REAL4)2.0);
+    BOOST_CHECK(r == 1);
+  }
+  {
+    REAL4 r = -999;
+    REAL4 arg1 = NAN;
+    pcr::setMV(arg1);
+    _ifthenelse<>(r, 1, arg1, (REAL4)2);
+    BOOST_CHECK(pcr::isMV(r));
+  }
 }
 
 BOOST_AUTO_TEST_CASE(test_f)
 {
- {
-   // SameUn
-   BOOST_CHECK(_f<point::sqrt<REAL4 > >(4.0) == 2.0);
- }
- {
-   // SameBin
-   BOOST_CHECK(_f<point::badd<REAL4> >(4.0,4.0) == 8.0);
- }
+  {
+    // SameUn
+    BOOST_CHECK(_f<point::sqrt<REAL4>>(4.0) == 2.0);
+  }
+  {
+    // SameBin
+    BOOST_CHECK(_f<point::badd<REAL4>>(4.0, 4.0) == 8.0);
+  }
 
- {  // DiffUn
-   bool const t1(_f<point::nodirection<UINT1,REAL4 > >(-1) == 1);
-   BOOST_CHECK(t1);
-   bool const t2(_f<point::nodirection<UINT1,REAL4 > >( 1) == 0);
-   BOOST_CHECK(t2);
- }
- {  // DiffBin
-   BOOST_CHECK(_f<point::eq<REAL4 > >(-1,-1) == 1);
-   BOOST_CHECK(_f<point::ne<REAL4 > >(-1,-1) == 0);
- }
+  {  // DiffUn
+    bool const t1(_f<point::nodirection<UINT1, REAL4>>(-1) == 1);
+    BOOST_CHECK(t1);
+    bool const t2(_f<point::nodirection<UINT1, REAL4>>(1) == 0);
+    BOOST_CHECK(t2);
+  }
+  {  // DiffBin
+    BOOST_CHECK(_f<point::eq<REAL4>>(-1, -1) == 1);
+    BOOST_CHECK(_f<point::ne<REAL4>>(-1, -1) == 0);
+  }
 }
 
 BOOST_AUTO_TEST_CASE(testCompile)
@@ -91,30 +86,28 @@ BOOST_AUTO_TEST_CASE(testCompile)
   using namespace calc;
 
   struct P5StackC : public P5Stack {
-    P5StackC(const char *code):
-      P5Stack(CompileTest(code))
+    P5StackC(const char *code) : P5Stack(CompileTest(code))
     {
     }
   };
 
 #ifdef WIN32
-   bool addWin32DllCompile=false;
-   BOOST_WARN(addWin32DllCompile);
+  bool addWin32DllCompile = false;
+  BOOST_WARN(addWin32DllCompile);
 #else
 
   {
-   geo::FileCreateTester const fct("tmp.res");
-   P5StackC("tmp = inp1s.map*0+5-inp5s.map+1*1; report tmp.res=tmp");
-   BOOST_CHECK(fct.equalTo("inp1s.map",false));
+    geo::FileCreateTester const fct("tmp.res");
+    P5StackC("tmp = inp1s.map*0+5-inp5s.map+1*1; report tmp.res=tmp");
+    BOOST_CHECK(fct.equalTo("inp1s.map", false));
   }
   {
-   geo::FileCreateTester const fct("tmp.res");
-   P5StackC(
-       "tmp = 5-inp5s.map + 0;"\
-       "tmp = 1*if(inp1s.map gt 4,inp1s.map*0,tmp+1*1);"\
-       "tmp = tmp * 1 + 0;"\
-       "report tmp.res=tmp");
-   BOOST_CHECK(fct.equalTo("inp1s.map",false));
+    geo::FileCreateTester const fct("tmp.res");
+    P5StackC("tmp = 5-inp5s.map + 0;"
+             "tmp = 1*if(inp1s.map gt 4,inp1s.map*0,tmp+1*1);"
+             "tmp = tmp * 1 + 0;"
+             "report tmp.res=tmp");
+    BOOST_CHECK(fct.equalTo("inp1s.map", false));
   }
 #endif
   /*! 1) test stack order

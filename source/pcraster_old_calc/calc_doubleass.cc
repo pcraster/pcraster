@@ -8,19 +8,20 @@
 #include "calc_operationtimer.h"
 
 static const struct {
-    MAJOR_CODE dassOpImplementor;
-    int        index; /* 0 means stack top, first arg of func
+  MAJOR_CODE dassOpImplementor;
+  int index; /* 0 means stack top, first arg of func
                        * 1 below that, 2nd arg of func
            */
- } doubleTable[] = {
-#include  "double.inc"
-    { OP_NOP, -1 }};
+} doubleTable[] = {
 
-#ifdef  DEBUG_DEVELOP
+#include "double.inc"
+    {OP_NOP, -1}};
+
+#ifdef DEBUG_DEVELOP
 static void doubleTableSanityCheck()
 {
   size_t i = 0;
-  for (i = 0; i < ARRAY_SIZE(doubleTable)-1; i++)
+  for (i = 0; i < ARRAY_SIZE(doubleTable) - 1; i++)
     if (doubleTable[i].index == 0)
       PRECOND(nrInSet(calc::major2op(doubleTable[i].dassOpImplementor).vs()) == 1);
 }
@@ -29,110 +30,94 @@ static void doubleTableSanityCheck()
 
 MAJOR_CODE calc::dassImplementor(MAJOR_CODE op)
 {
-    PRECOND(calc::major2op(op).exec() == EXEC_DOUBLE);
-    PRECOND(calc::major2op(op).execId() < (int)ARRAY_SIZE(doubleTable)-1);
-    return doubleTable[calc::major2op(op).execId()].dassOpImplementor;
+  PRECOND(calc::major2op(op).exec() == EXEC_DOUBLE);
+  PRECOND(calc::major2op(op).execId() < (int)ARRAY_SIZE(doubleTable) - 1);
+  return doubleTable[calc::major2op(op).execId()].dassOpImplementor;
 }
 
 int calc::stackPosition(MAJOR_CODE op)
 {
-    PRECOND(calc::major2op(op).exec() == EXEC_DOUBLE);
-    PRECOND(calc::major2op(op).execId() < (int)ARRAY_SIZE(doubleTable)-1);
-    return doubleTable[calc::major2op(op).execId()].index;
+  PRECOND(calc::major2op(op).exec() == EXEC_DOUBLE);
+  PRECOND(calc::major2op(op).execId() < (int)ARRAY_SIZE(doubleTable) - 1);
+  return doubleTable[calc::major2op(op).execId()].index;
 }
 
 MAJOR_CODE calc::otherDouble(MAJOR_CODE op)
 {
   MAJOR_CODE const pairs[][2] = {
 #include "dassop.inc"
-         { OP_NOP, OP_NOP }}; /* dummy entry */
-        size_t i = 0;
+      {OP_NOP, OP_NOP}}; /* dummy entry */
+  size_t i = 0;
 
-  for (i = 0; i < ARRAY_SIZE(pairs)-1; i++)
-   if (op == pairs[i][0])
-     break;
+  for (i = 0; i < ARRAY_SIZE(pairs) - 1; i++)
+    if (op == pairs[i][0])
+      break;
 
-   /* if not found then pairs[i][j] == OP_NOP, the dummy entry */
+  /* if not found then pairs[i][j] == OP_NOP, the dummy entry */
   return pairs[i][1];
 }
 
-namespace calc {
-
-static void CheckDoubleAss(
-  const Element&  posFunc,
-  const Operator& f0,
-  const Operator& f1)
+namespace calc
 {
-  if (f0.opCode() != calc::otherDouble(f1.opCode()) ) { /* pcrcalc/test11[bc] */
-    posFunc.posError("Functions "+quote(f0.name())+" and "+quote(f1.name())
-        +" can not be combined");
+
+static void CheckDoubleAss(const Element &posFunc, const Operator &f0, const Operator &f1)
+{
+  if (f0.opCode() != calc::otherDouble(f1.opCode())) { /* pcrcalc/test11[bc] */
+    posFunc.posError("Functions " + quote(f0.name()) + " and " + quote(f1.name()) +
+                     " can not be combined");
   }
 }
 
-static bool  NeedSwap(
-  const Element&     posFunc,
-  const Operator& f0,
-  const Operator& f1)
+static bool NeedSwap(const Element &posFunc, const Operator &f0, const Operator &f1)
 {
-  CheckDoubleAss(posFunc,f0,f1);
-  PRECOND( f0.exec() == EXEC_DOUBLE && f1.exec()==EXEC_DOUBLE);
+  CheckDoubleAss(posFunc, f0, f1);
+  PRECOND(f0.exec() == EXEC_DOUBLE && f1.exec() == EXEC_DOUBLE);
 
-  PRECOND(f0.execId() < (int)ARRAY_SIZE(doubleTable)-1);
-  PRECOND(f1.execId() < (int)ARRAY_SIZE(doubleTable)-1);
+  PRECOND(f0.execId() < (int)ARRAY_SIZE(doubleTable) - 1);
+  PRECOND(f1.execId() < (int)ARRAY_SIZE(doubleTable) - 1);
   bool const swap = doubleTable[f0.execId()].index > doubleTable[f1.execId()].index;
   return swap;
 }
 
 /* this is a user error, only one id on left side
  */
-void wrongDoubleAssignment(
-  const Element& left0,
-  const Operator& func0,
-  const Operator& func1)
+void wrongDoubleAssignment(const Element &left0, const Operator &func0, const Operator &func1)
 
 {
-  CheckDoubleAss(left0,func0,func1);
+  CheckDoubleAss(left0, func0, func1);
   /* functions are ok but we miss a left argument pcrcalc/test101
    * current grammar does not pick this wrong syntax
    */
-  left0.posError("Combination of functions "+quote(func0.name())+" and "+quote(func1.name())+
-                          "requires two arguments left of '='-symbol");
+  left0.posError("Combination of functions " + quote(func0.name()) + " and " + quote(func1.name()) +
+                 "requires two arguments left of '='-symbol");
 }
 
-}
+}  // namespace calc
 
 // calc::DoubleAssignment(inclIn,leftPars[0],w,
 //  leftPars[0],leftPars[1],sym0,op0,op1,args));
-calc::DoubleAssignment::DoubleAssignment(
-    StatementBlock *b,
-    const Element& pos,
-    const WriteInfo& w,
-    const UsePar& p0,
-    const UsePar& p1,
-    const Element&     posFunc,
-    const Operator& f0,
-    const Operator& f1,
-          FieldExprArgs& args):
-  Statement(pos),
-  d_swapped(NeedSwap(posFunc,f0,f1)),
-  d_op0(d_swapped ? f1 : f0),
-  d_op1(d_swapped ? f0 : f1)
+calc::DoubleAssignment::DoubleAssignment(StatementBlock *b, const Element &pos, const WriteInfo &w,
+                                         const UsePar &p0, const UsePar &p1, const Element &posFunc,
+                                         const Operator &f0, const Operator &f1, FieldExprArgs &args)
+    : Statement(pos), d_swapped(NeedSwap(posFunc, f0, f1)), d_op0(d_swapped ? f1 : f0),
+      d_op1(d_swapped ? f0 : f1)
 {
   try {
-   d_left[0]=nullptr; d_left[1]=nullptr;
-   d_right   = new calc::BranchExprImpl(posFunc,d_op1,args);
-   d_left[0] = new calc::FieldLeft(b,w,d_swapped ? p1:p0, d_op0.vs());
-   d_left[1] = new calc::FieldLeft(b,w,d_swapped ? p0:p1,d_right->vs());
-   buildTypes();
+    d_left[0] = nullptr;
+    d_left[1] = nullptr;
+    d_right = new calc::BranchExprImpl(posFunc, d_op1, args);
+    d_left[0] = new calc::FieldLeft(b, w, d_swapped ? p1 : p0, d_op0.vs());
+    d_left[1] = new calc::FieldLeft(b, w, d_swapped ? p0 : p1, d_right->vs());
+    buildTypes();
   } catch (...) {
-   cleanUp();
-   throw;
+    cleanUp();
+    throw;
   }
 }
 
 calc::DoubleAssignment::~DoubleAssignment()
 {
- cleanUp();
+  cleanUp();
 }
 
 void calc::DoubleAssignment::cleanUp()
@@ -144,7 +129,7 @@ void calc::DoubleAssignment::cleanUp()
 
 bool calc::DoubleAssignment::buildTypes()
 {
-#ifdef  DEBUG_DEVELOP
+#ifdef DEBUG_DEVELOP
   // all current doubles have 1 arguments that is always
   //  (VS_S or VS_LLD (lddcreate),spatial)
   PRECOND(nrInSet(d_op0.vs()) == 1);
@@ -156,11 +141,11 @@ bool calc::DoubleAssignment::buildTypes()
   //   d_left->restrictUser(d_right)
   //  construct, the other can we can check by a fixed FieldType.
   d_right->buildTypesRecursive(d_left[1]->vs());
-  bool spatialPromotion=false;
+  bool spatialPromotion = false;
   if (d_left[1]->restrictUser(d_right))
-    spatialPromotion=true;
-  if (d_left[0]->restrictUser(calc::FieldType(d_op0.vs(),ST_SPATIAL)))
-    spatialPromotion=true;
+    spatialPromotion = true;
+  if (d_left[0]->restrictUser(calc::FieldType(d_op0.vs(), ST_SPATIAL)))
+    spatialPromotion = true;
   return spatialPromotion;
 }
 
@@ -179,14 +164,14 @@ void calc::DoubleAssignment::run()
   resultVs[0] = d_left[0]->vs();
   resultVs[1] = d_left[1]->vs();
 
-  const calc::Operator& op = calc::major2op(dassImplementor(d_op1.opCode()));
-  OPERATION_TIMER(op.name(),true);
-  d_right->executeDoubleAss(op,stack,resultVs);
+  const calc::Operator &op = calc::major2op(dassImplementor(d_op1.opCode()));
+  OPERATION_TIMER(op.name(), true);
+  d_right->executeDoubleAss(op, stack, resultVs);
   d_left[1]->assign(stack.popDest(d_left[1]->vs()));
   d_left[0]->assign(stack.popDest(d_left[0]->vs()));
 }
 
-void calc::DoubleAssignment::print(calc::InfoScript& i)const
+void calc::DoubleAssignment::print(calc::InfoScript &i) const
 {
   d_left[0]->print(i);
   i.stream() << " , ";

@@ -13,47 +13,48 @@
   This file contains the implementation of the BindingTable class.
 */
 
-namespace calc {
+namespace calc
+{
 
 typedef std::set<std::string> StringSet;
 
-class BindingToSymbol: public ASTVisitor {
+class BindingToSymbol : public ASTVisitor
+{
 
 private:
-
   //! Assignment operator. NOT IMPLEMENTED.
-  BindingToSymbol&           operator=           (const BindingToSymbol&);
+  BindingToSymbol &operator=(const BindingToSymbol &);
 
   //! Copy constructor. NOT IMPLEMENTED.
-                   BindingToSymbol               (const BindingToSymbol&);
+  BindingToSymbol(const BindingToSymbol &);
 
   //! table that is updated
-  ASTSymbolTable&                          d_symbols;
-  const StringSet&                         d_interfaceSyms;
+  ASTSymbolTable &d_symbols;
+  const StringSet &d_interfaceSyms;
 
   typedef std::map<std::string, const ASTAss *> Defined;
   //! maps name to "left=right" syntax construct in ASTAss node
-  Defined                                  d_defined;
+  Defined d_defined;
 
-  ASTAss*                                  d_currentAss{};
+  ASTAss *d_currentAss{};
 
-  void visitPar          (ASTPar    *p) override;
-  void visitNumber       (ASTNumber *n) override;
-  void visitAss          (ASTAss    *a) override;
+  void visitPar(ASTPar *p) override;
+  void visitNumber(ASTNumber *n) override;
+  void visitAss(ASTAss *a) override;
 
 public:
-
   //----------------------------------------------------------------------------
   // CREATORS
   //----------------------------------------------------------------------------
 
-  BindingToSymbol(ASTSymbolTable& symbols,const StringSet& interfaceSyms):
-    d_symbols(symbols),
-    d_interfaceSyms(interfaceSyms)
-    {}
+  BindingToSymbol(ASTSymbolTable &symbols, const StringSet &interfaceSyms)
+      : d_symbols(symbols), d_interfaceSyms(interfaceSyms)
+  {
+  }
 
-   ~BindingToSymbol() override
-    {}
+  ~BindingToSymbol() override
+  {
+  }
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -64,10 +65,11 @@ public:
   //----------------------------------------------------------------------------
 };
 
-void BindingToSymbol::visitAss(ASTAss *a) {
+void BindingToSymbol::visitAss(ASTAss *a)
+{
   const ASTPar *par(a->par());
 
-  auto i= d_defined.find(par->name());
+  auto i = d_defined.find(par->name());
   if (i != d_defined.end()) {
     // pcrcalc43[ab]
     std::ostringstream msg;
@@ -84,19 +86,18 @@ void BindingToSymbol::visitAss(ASTAss *a) {
     // visitPar or visitNumber:
     a->rhs()->accept(*this);
   }
-  d_defined.insert(std::make_pair(par->name(),a));
-
+  d_defined.insert(std::make_pair(par->name(), a));
 }
 
-void BindingToSymbol::visitPar(ASTPar    *rhs)
+void BindingToSymbol::visitPar(ASTPar *rhs)
 {
-  auto i= d_defined.find(rhs->name());
+  auto i = d_defined.find(rhs->name());
   if (i != d_defined.end()) {
     // bindings use each other: overwrite rhs
     d_currentAss->transferRhs(i->second->rhs()->createClone());
     d_currentAss->rhs()->accept(*this);
   } else {
-    ASTSymbolInfo& s(d_symbols[d_currentAss->par()]);
+    ASTSymbolInfo &s(d_symbols[d_currentAss->par()]);
     s.setExternalNameByBinding(rhs->name());
   }
 }
@@ -106,12 +107,11 @@ void BindingToSymbol::visitNumber(ASTNumber *n)
   d_symbols[d_currentAss->par()].setConstantByBinding(n);
 }
 
-} // eo namespace
+}  // namespace calc
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC BINDINGTABLE MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -126,8 +126,7 @@ calc::BindingTable::~BindingTable()
 {
 }
 
-calc::EffectiveBindings::EffectiveBindings(BindingTable const& bt):
-  BindingTable(bt)
+calc::EffectiveBindings::EffectiveBindings(BindingTable const &bt) : BindingTable(bt)
 {
 }
 
@@ -145,25 +144,23 @@ calc::EffectiveBindings::EffectiveBindings(BindingTable const& bt):
  *         t is modified such that a new buildTypesFullClosure call will generate
  *         an error.
  */
-void calc::EffectiveBindings::applyToSymbols(
-    ASTSymbolTable& t,
-    const std::set<std::string>& interfaceSyms)
+void calc::EffectiveBindings::applyToSymbols(ASTSymbolTable &t,
+                                             const std::set<std::string> &interfaceSyms)
 {
-  BindingToSymbol bt(t,interfaceSyms);
+  BindingToSymbol bt(t, interfaceSyms);
   accept(bt);
 }
 
 //! e is the list of external bindings, that overwrite existing bindings
-void calc::EffectiveBindings::overwrite(
- const ASTNodeVector& e)
+void calc::EffectiveBindings::overwrite(const ASTNodeVector &e)
 {
- ASTNodeVector l;
- for(auto i : *this)
-   l.transferPushBack(i->createClone());
- for(auto i : e)
-   l.transferPushBack(i->createClone());
- clear();
- addLastDefinition(l);
+  ASTNodeVector l;
+  for (auto i : *this)
+    l.transferPushBack(i->createClone());
+  for (auto i : e)
+    l.transferPushBack(i->createClone());
+  clear();
+  addLastDefinition(l);
 }
 
 //! copy the last definitions occuring in \a l
@@ -174,25 +171,24 @@ void calc::EffectiveBindings::overwrite(
  *  addLastDefinition is in support of the external bindings
  *  file definitions, (see RunSettings ctor)
  */
-void calc::BindingTable::addLastDefinition(
-    const ASTNodeVector &l)
+void calc::BindingTable::addLastDefinition(const ASTNodeVector &l)
 {
   // do keep order of occurences
 
   std::set<std::string> names;
   std::vector<ASTAss *> add;
-  size_t i=l.size();
-  while(i) {
+  size_t i = l.size();
+  while (i) {
     --i;
-    auto *a= dynamic_cast<ASTAss *>(l[i]);
+    auto *a = dynamic_cast<ASTAss *>(l[i]);
     std::string const name(a->par()->name());
     if (!names.count(name)) {
       add.push_back(new ASTAss(*a));
       names.insert(name);
     }
   }
-  i=add.size();
-  while(i) {
+  i = add.size();
+  while (i) {
     --i;
     transferPushBack(add[i]);
   }
@@ -201,7 +197,6 @@ void calc::BindingTable::addLastDefinition(
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

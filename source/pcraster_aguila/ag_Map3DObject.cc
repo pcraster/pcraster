@@ -9,55 +9,45 @@
 #include <cmath>
 #include <vector>
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
 
-namespace ag {
-template<class T>
+namespace ag
+{
+template <class T>
 // void quadInfo(T const* cells, dal::RasterDimensions const& dim,
-void quadInfo(Raster const& raster,
-         size_t row, size_t col, size_t length,
-         GLfloat* zul, GLfloat* zur, GLfloat* zlr, GLfloat* zll)
+void quadInfo(Raster const &raster, size_t row, size_t col, size_t length, GLfloat *zul, GLfloat *zur,
+              GLfloat *zlr, GLfloat *zll)
 {
   *zul = dal::average<Raster, T>(raster, row - length, col - length, length + 1);
-  *zur = dal::average<Raster, T>(raster, row - length, col         , length + 1);
-  *zlr = dal::average<Raster, T>(raster, row         , col         , length + 1);
-  *zll = dal::average<Raster, T>(raster, row         , col - length, length + 1);
+  *zur = dal::average<Raster, T>(raster, row - length, col, length + 1);
+  *zlr = dal::average<Raster, T>(raster, row, col, length + 1);
+  *zll = dal::average<Raster, T>(raster, row, col - length, length + 1);
 }
 
-
-
-template<class T>
-void triangleStripInfo(T const* cells, dal::RasterDimensions const& dim,
-         size_t row, size_t col,
-         size_t length,
-         GLfloat* currentHeight, GLfloat* frontHeight, GLfloat* rightHeight)
+template <class T>
+void triangleStripInfo(T const *cells, dal::RasterDimensions const &dim, size_t row, size_t col,
+                       size_t length, GLfloat *currentHeight, GLfloat *frontHeight, GLfloat *rightHeight)
 {
   *currentHeight = cells[dim.index(row, col)];
-  *frontHeight   = cells[dim.index(row + length, col)];
-  *rightHeight   = cells[dim.index(row, col + length)];
+  *frontHeight = cells[dim.index(row + length, col)];
+  *rightHeight = cells[dim.index(row, col + length)];
 }
-
-
 
 // Instantiate the template functions using explicit instantiation declarations.
 // template void quadInfo<float>(float const*, dal::RasterDimensions const&,
-template void quadInfo<float>(Raster const&,
-         size_t, size_t, size_t,
-         GLfloat*, GLfloat*, GLfloat*, GLfloat*);
+template void quadInfo<float>(Raster const &, size_t, size_t, size_t, GLfloat *, GLfloat *, GLfloat *,
+                              GLfloat *);
 // template void quadInfo<double>(double const*, dal::RasterDimensions const&,
-template void quadInfo<double>(Raster const&,
-         size_t, size_t, size_t,
-         GLfloat*, GLfloat*, GLfloat*, GLfloat*);
-template void triangleStripInfo<float>(float const*, dal::RasterDimensions const&,
-         size_t, size_t, size_t, GLfloat*, GLfloat*, GLfloat*);
-template void triangleStripInfo<double>(double const*, dal::RasterDimensions const&,
-         size_t, size_t, size_t, GLfloat*, GLfloat*, GLfloat*);
+template void quadInfo<double>(Raster const &, size_t, size_t, size_t, GLfloat *, GLfloat *, GLfloat *,
+                               GLfloat *);
+template void triangleStripInfo<float>(float const *, dal::RasterDimensions const &, size_t, size_t,
+                                       size_t, GLfloat *, GLfloat *, GLfloat *);
+template void triangleStripInfo<double>(double const *, dal::RasterDimensions const &, size_t, size_t,
+                                        size_t, GLfloat *, GLfloat *, GLfloat *);
 
-} // namespace ag
+}  // namespace ag
 
 //------------------------------------------------------------------------------
 // DEFINITION OF CLASS MEMBERS
@@ -70,16 +60,13 @@ template void triangleStripInfo<double>(double const*, dal::RasterDimensions con
 
   The default quad length is 1 and default no fishnet will be shown.
 */
-ag::Map3DObject::Map3DObject(GLfloat x, GLfloat y, GLfloat z,
-                   GLfloat yaw, GLfloat pitch, GLfloat roll)
+ag::Map3DObject::Map3DObject(GLfloat x, GLfloat y, GLfloat z, GLfloat yaw, GLfloat pitch, GLfloat roll)
 
-  : ag::SceneObject(x, y, z, yaw, pitch, roll)
+    : ag::SceneObject(x, y, z, yaw, pitch, roll)
 
 
 {
 }
-
-
 
 //! Destructs a Map3DObject object.
 /*!
@@ -89,11 +76,9 @@ ag::Map3DObject::~Map3DObject()
   deleteScene();
 }
 
-
-
 void ag::Map3DObject::renderObject()
 {
-  if(d_list > 0) {
+  if (d_list > 0) {
     GLfloat m[16];
     matrix(m);
     glMultMatrixf(m);
@@ -103,12 +88,12 @@ void ag::Map3DObject::renderObject()
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     // Offset the scene polygons, otherwise the outline will be stiched.
-//    glEnable(GL_POLYGON_OFFSET_FILL);
-//    glPolygonOffset(1.0, 1.0);
+    //    glEnable(GL_POLYGON_OFFSET_FILL);
+    //    glPolygonOffset(1.0, 1.0);
     glCallList(d_list);
-//    glDisable(GL_POLYGON_OFFSET_FILL);
+    //    glDisable(GL_POLYGON_OFFSET_FILL);
 
-/*
+    /*
     if(d_showFishnet) {
       // The fishnet will be shown with lights off.
       GLboolean light;
@@ -126,15 +111,12 @@ void ag::Map3DObject::renderObject()
       }
     }
 */
-
   }
   setDirty(false);
 }
 
-
-
-void ag::Map3DObject::createScene(const ag::DataObject& o,
-         const ag::DataGuide& h, const std::vector<DataGuide>& dataGuides)
+void ag::Map3DObject::createScene(const ag::DataObject &o, const ag::DataGuide &h,
+                                  const std::vector<DataGuide> &dataGuides)
 {
 #ifdef DEBUG_DEVELOP
   assert(d_scale > 0.0);
@@ -148,25 +130,22 @@ void ag::Map3DObject::createScene(const ag::DataObject& o,
   setValid(true);
 }
 
-
-
-void ag::Map3DObject::createHeightScene(const ag::DataObject& o,
-                   const ag::DataGuide& h)
+void ag::Map3DObject::createHeightScene(const ag::DataObject &o, const ag::DataGuide &h)
 {
   assert(o.isValid(h));
 
-  Raster const& heightRaster(o.rasterDataSources().data(h));
+  Raster const &heightRaster(o.rasterDataSources().data(h));
 
   // Check if there're enough cells in the raster.
-  if(!(heightRaster.dimensions().nrCols() >= (2 * d_quadLength) + 1 &&
-       heightRaster.dimensions().nrRows() >= (2 * d_quadLength) + 1)) {
+  if (!(heightRaster.dimensions().nrCols() >= (2 * d_quadLength) + 1 &&
+        heightRaster.dimensions().nrRows() >= (2 * d_quadLength) + 1)) {
     return;
   }
 
   // Check if the min and max are defined (if there're values in the raster).
   REAL4 minHeight = NAN;
-  REAL4 maxHeight = NAN;       // Extreme heights.
-  if(!heightRaster.min(minHeight) || !heightRaster.max(maxHeight)) {
+  REAL4 maxHeight = NAN;  // Extreme heights.
+  if (!heightRaster.min(minHeight) || !heightRaster.max(maxHeight)) {
     // All MV's.
     return;
   }
@@ -174,35 +153,36 @@ void ag::Map3DObject::createHeightScene(const ag::DataObject& o,
   GLfloat cLeft = NAN;
   GLfloat cRight = NAN;
   GLfloat cFront = NAN;
-  GLfloat cBack = NAN; // Triangle coordinates.
+  GLfloat cBack = NAN;  // Triangle coordinates.
   GLfloat zCurrent = NAN;
   GLfloat zFront = NAN;
-  GLfloat zRight = NAN;    // Heights of corners of triangles.
+  GLfloat zRight = NAN;  // Heights of corners of triangles.
   GLfloat nx = NAN;
   GLfloat ny = NAN;
-  GLfloat nz = NAN;                  // Normal vector of quad.
+  GLfloat nz = NAN;  // Normal vector of quad.
   GLfloat dx = NAN;
   GLfloat dy = NAN;
   GLfloat dz = NAN;
-  GLfloat scale = d_scale;             // Scale for height values.
+  GLfloat scale = d_scale;  // Scale for height values.
 
   dx = d_quadLength * heightRaster.dimensions().cellSize();
   dy = minHeight + (0.5 * (maxHeight - minHeight));
   dz = d_quadLength * heightRaster.dimensions().cellSize();
 
-  setSize(heightRaster.dimensions().longitudinalExtent(), heightRaster.dimensions().latitudinalExtent(), maxHeight - minHeight);
+  setSize(heightRaster.dimensions().longitudinalExtent(), heightRaster.dimensions().latitudinalExtent(),
+          maxHeight - minHeight);
 
   // Calculate default scale.
-  if(height()) {
+  if (height()) {
     scale *= ((width() + depth()) / 8) / height();
   }
   dy *= scale;
   setSize(width(), depth(), height() * scale);
 
-  static GLfloat mat_diffuse[]   = { 0.75f, 0.75f, 0.75f, 1.0f };
-  static GLfloat mat_specular[]  = { 0.5f, 0.5f, 0.5f, 1.0f };
-  static GLfloat mat_shininess[] = { 25.0f };
-  static GLfloat mat_emission[]  = { 0.1f, 0.1f, 0.1f, 1.0f };
+  static GLfloat mat_diffuse[] = {0.75f, 0.75f, 0.75f, 1.0f};
+  static GLfloat mat_specular[] = {0.5f, 0.5f, 0.5f, 1.0f};
+  static GLfloat mat_shininess[] = {25.0f};
+  static GLfloat mat_emission[] = {0.1f, 0.1f, 0.1f, 1.0f};
 
   //----------------------------------------------------------------------------
 
@@ -217,41 +197,39 @@ void ag::Map3DObject::createHeightScene(const ag::DataObject& o,
   glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mat_shininess);
   glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, mat_emission);
 
-  cBack = (-0.5 * heightRaster.dimensions().latitudinalExtent()) + (0.5 * (d_quadLength + 1) * heightRaster.dimensions().cellSize());
+  cBack = (-0.5 * heightRaster.dimensions().latitudinalExtent()) +
+          (0.5 * (d_quadLength + 1) * heightRaster.dimensions().cellSize());
 
-  for(size_t row = 0; row < (heightRaster.dimensions().nrRows() - d_quadLength);
-         row += d_quadLength) {
+  for (size_t row = 0; row < (heightRaster.dimensions().nrRows() - d_quadLength); row += d_quadLength) {
 
     glBegin(GL_TRIANGLE_STRIP);
-    cLeft  = (-0.5 * heightRaster.dimensions().longitudinalExtent()) +
-         (0.5 * (d_quadLength + 1) * heightRaster.dimensions().cellSize());
+    cLeft = (-0.5 * heightRaster.dimensions().longitudinalExtent()) +
+            (0.5 * (d_quadLength + 1) * heightRaster.dimensions().cellSize());
     cFront = cBack + dz;
 
-    for(size_t col = 0; col < (heightRaster.dimensions().nrCols() - d_quadLength);
+    for (size_t col = 0; col < (heightRaster.dimensions().nrCols() - d_quadLength);
          col += d_quadLength) {
 
       cRight = cLeft + dx;
 
-      triangleStripInfo<REAL4>(heightRaster.cells<REAL4>(),
-         heightRaster.dimensions(), row, col, d_quadLength,
-         &zCurrent, &zFront, &zRight);
+      triangleStripInfo<REAL4>(heightRaster.cells<REAL4>(), heightRaster.dimensions(), row, col,
+                               d_quadLength, &zCurrent, &zFront, &zRight);
 
-      if(pcr::isMV(zCurrent) || pcr::isMV(zFront) || pcr::isMV(zRight)) {
+      if (pcr::isMV(zCurrent) || pcr::isMV(zFront) || pcr::isMV(zRight)) {
         glEnd();
         glBegin(GL_TRIANGLE_STRIP);
-      }
-      else {
+      } else {
 
         zCurrent = (zCurrent * scale) - dy;
-        zFront   = (zFront * scale) - dy;
-        zRight   = (zRight * scale) - dy;
+        zFront = (zFront * scale) - dy;
+        zRight = (zRight * scale) - dy;
 
-        geo::normal<GLfloat>(cLeft, cBack, zCurrent, cLeft, cFront, zFront,
-                   cRight, cBack, zRight, &nx, &ny, &nz);
+        geo::normal<GLfloat>(cLeft, cBack, zCurrent, cLeft, cFront, zFront, cRight, cBack, zRight, &nx,
+                             &ny, &nz);
         glNormal3d(-nx, -nz, -ny);
 
-        glVertex3d(cLeft,  zCurrent, cBack);
-        glVertex3d(cLeft,  zFront,  cFront);
+        glVertex3d(cLeft, zCurrent, cBack);
+        glVertex3d(cLeft, zFront, cFront);
       }
 
       cLeft = cRight;
@@ -263,7 +241,7 @@ void ag::Map3DObject::createHeightScene(const ag::DataObject& o,
 
   glEndList();
 
-/*
+  /*
   GLfloat cLeft, cRight, cFront, cBack;          // Quad coordinates.
   GLfloat zul, zur, zlr, zll;          // Heights of corners of quad.
   GLfloat nx, ny, nz;                  // Normal vector of quad.
@@ -352,134 +330,115 @@ void ag::Map3DObject::createHeightScene(const ag::DataObject& o,
 */
 }
 
-
-
-void ag::Map3DObject::createDrapeScene(const ag::DataObject& dataObject,
-         const ag::DataGuide& h, const std::vector<DataGuide>& dataGuides)
+void ag::Map3DObject::createDrapeScene(const ag::DataObject &dataObject, const ag::DataGuide &h,
+                                       const std::vector<DataGuide> &dataGuides)
 {
   assert(dataObject.isValid(h));
 
-  Raster const& heightRaster(dataObject.rasterDataSources().data(h));
+  Raster const &heightRaster(dataObject.rasterDataSources().data(h));
 
   // Check if there're enough cells in the raster.
-  if(!(heightRaster.dimensions().nrCols() >= (2 * d_quadLength) + 1 &&
-       heightRaster.dimensions().nrRows() >= (2 * d_quadLength) + 1)) {
+  if (!(heightRaster.dimensions().nrCols() >= (2 * d_quadLength) + 1 &&
+        heightRaster.dimensions().nrRows() >= (2 * d_quadLength) + 1)) {
     return;
   }
 
   // Check if the min and max are defined (if there're values in the raster).
   REAL4 minHeight = NAN;
-  REAL4 maxHeight = NAN;       // Extreme heights.
-  if(!heightRaster.min(minHeight) || !heightRaster.max(maxHeight)) // All MV's.
+  REAL4 maxHeight = NAN;                                             // Extreme heights.
+  if (!heightRaster.min(minHeight) || !heightRaster.max(maxHeight))  // All MV's.
     return;
 
   // Create the quad drawers.
   std::vector<QuadDrawer *> drawers;
   std::vector<QuadDrawer *>::const_iterator draw_it;
   std::vector<QuadDrawer *>::reverse_iterator rdraw_it;
-  for(const auto & dataGuide : dataGuides) {
+  for (const auto &dataGuide : dataGuides) {
 
-    if(dataObject.isEnabled(dataGuide)) {
+    if (dataObject.isEnabled(dataGuide)) {
 
-      const ag::DataGuide& guide = dataGuide;
+      const ag::DataGuide &guide = dataGuide;
       assert(dataObject.isValid(guide));
       assert(guide.type() == geo::STACK);
 
-      Raster const& raster(dataObject.rasterDataSources().data(guide));
+      Raster const &raster(dataObject.rasterDataSources().data(guide));
 
-      if(guide.valueScale() == VS_BOOLEAN) {
+      if (guide.valueScale() == VS_BOOLEAN) {
         // UINT1 min, max;
         // if(stack.min(&min) && stack.max(&max)) {
-          const BooleanDrawProps& props =
-                   dataObject.properties().booleanDrawProperties(guide);
-          auto* drawer = new BooleanQuadDrawer(raster, props,
-                   d_quadLength);
-          drawers.push_back(drawer);
+        const BooleanDrawProps &props = dataObject.properties().booleanDrawProperties(guide);
+        auto *drawer = new BooleanQuadDrawer(raster, props, d_quadLength);
+        drawers.push_back(drawer);
         // }
-      }
-      else if(guide.valueScale() == VS_NOMINAL) {
+      } else if (guide.valueScale() == VS_NOMINAL) {
         // INT4 min, max;
         // if(stack.min(&min) && stack.max(&max)) {
-          const NominalDrawProps& props =
-                   dataObject.properties().nominalDrawProperties(guide);
-          auto* drawer = new NominalQuadDrawer(raster, props,
-                   d_quadLength);
-          drawers.push_back(drawer);
+        const NominalDrawProps &props = dataObject.properties().nominalDrawProperties(guide);
+        auto *drawer = new NominalQuadDrawer(raster, props, d_quadLength);
+        drawers.push_back(drawer);
         // }
-      }
-      else if(guide.valueScale() == VS_ORDINAL) {
+      } else if (guide.valueScale() == VS_ORDINAL) {
         // INT4 min, max;
         // if(stack.min(&min) && stack.max(&max)) {
-          const OrdinalDrawProps& props =
-                   dataObject.properties().ordinalDrawProperties(guide);
-          auto* drawer = new OrdinalQuadDrawer(raster, props,
-                   d_quadLength);
-          drawers.push_back(drawer);
+        const OrdinalDrawProps &props = dataObject.properties().ordinalDrawProperties(guide);
+        auto *drawer = new OrdinalQuadDrawer(raster, props, d_quadLength);
+        drawers.push_back(drawer);
         // }
-      }
-      else if(guide.valueScale() == VS_SCALAR) {
+      } else if (guide.valueScale() == VS_SCALAR) {
         // REAL4 min, max;
         // if(stack.min(&min) && stack.max(&max)) {
-          const RangeDrawProps& props =
-                   dataObject.properties().rangeDrawProperties(guide);
-          auto* drawer =
-                   new ScalarQuadDrawer(raster, props, d_quadLength);
-          drawers.push_back(drawer);
+        const RangeDrawProps &props = dataObject.properties().rangeDrawProperties(guide);
+        auto *drawer = new ScalarQuadDrawer(raster, props, d_quadLength);
+        drawers.push_back(drawer);
         // }
-      }
-      else if(guide.valueScale() == VS_DIRECTION) {
+      } else if (guide.valueScale() == VS_DIRECTION) {
         // geo::DirectType min, max;
         // if(stack.min(&min) && stack.max(&max)) {
-          const RangeDrawProps& props =
-                   dataObject.properties().rangeDrawProperties(guide);
-          auto* drawer =
-                   new DirectionalQuadDrawer(raster, props, d_quadLength);
-          drawers.push_back(drawer);
+        const RangeDrawProps &props = dataObject.properties().rangeDrawProperties(guide);
+        auto *drawer = new DirectionalQuadDrawer(raster, props, d_quadLength);
+        drawers.push_back(drawer);
         // }
-      }
-      else if(guide.valueScale() == VS_LDD) {
+      } else if (guide.valueScale() == VS_LDD) {
         // UINT1 min, max;
         // if(stack.min(&min) && stack.max(&max)) {
-          const LddDrawProps& props =
-                   dataObject.properties().lddDrawProperties(guide);
-          auto* drawer = new LddQuadDrawer(raster, props,
-                   d_quadLength);
-          drawers.push_back(drawer);
+        const LddDrawProps &props = dataObject.properties().lddDrawProperties(guide);
+        auto *drawer = new LddQuadDrawer(raster, props, d_quadLength);
+        drawers.push_back(drawer);
         // }
       }
     }
   }
 
-  if(drawers.empty()) {
+  if (drawers.empty()) {
     // No attributes or all attributes disabled.
     createHeightScene(dataObject, h);
-  }
-  else {
+  } else {
 
     GLfloat cLeft = NAN;
     GLfloat cRight = NAN;
     GLfloat cFront = NAN;
-    GLfloat cBack = NAN;          // Quad coordinates.
+    GLfloat cBack = NAN;  // Quad coordinates.
     GLfloat zul = NAN;
     GLfloat zur = NAN;
     GLfloat zlr = NAN;
-    GLfloat zll = NAN;          // Heights of corners of quad.
+    GLfloat zll = NAN;  // Heights of corners of quad.
     GLfloat nx = NAN;
     GLfloat ny = NAN;
-    GLfloat nz = NAN;                  // Normal vector of quad.
+    GLfloat nz = NAN;  // Normal vector of quad.
     GLfloat dx = NAN;
     GLfloat dy = NAN;
     GLfloat dz = NAN;
-    GLfloat scale = d_scale;             // Scale for height values.
+    GLfloat scale = d_scale;  // Scale for height values.
 
     dx = d_quadLength * heightRaster.dimensions().cellSize();
     dy = minHeight + (0.5 * (maxHeight - minHeight));
     dz = d_quadLength * heightRaster.dimensions().cellSize();
 
-    setSize(heightRaster.dimensions().longitudinalExtent(), heightRaster.dimensions().latitudinalExtent(), maxHeight - minHeight);
+    setSize(heightRaster.dimensions().longitudinalExtent(),
+            heightRaster.dimensions().latitudinalExtent(), maxHeight - minHeight);
 
     // Calculate default scale.
-    if(height()) {
+    if (height()) {
       scale *= ((width() + depth()) / 8) / height();
     }
     dy *= scale;
@@ -490,14 +449,14 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject& dataObject,
     size_t firstCol = 0;
     size_t lastCol = 0;
     firstRow = d_quadLength + 1;
-    lastRow  = heightRaster.dimensions().nrRows() - (d_quadLength + 1);
+    lastRow = heightRaster.dimensions().nrRows() - (d_quadLength + 1);
     firstCol = d_quadLength + 1;
-    lastCol  = heightRaster.dimensions().nrCols() - (d_quadLength + 1);
+    lastCol = heightRaster.dimensions().nrCols() - (d_quadLength + 1);
 
-    static GLfloat mat_diffuse[]   = { 0.75f, 0.75f, 0.75f, 1.0f };
-    static GLfloat mat_specular[]  = { 0.5f, 0.5f, 0.5f, 1.0f };
-    static GLfloat mat_shininess[] = { 25.0f };
-    static GLfloat mat_emission[]  = { 0.1f, 0.1f, 0.1f, 1.0f };
+    static GLfloat mat_diffuse[] = {0.75f, 0.75f, 0.75f, 1.0f};
+    static GLfloat mat_specular[] = {0.5f, 0.5f, 0.5f, 1.0f};
+    static GLfloat mat_shininess[] = {25.0f};
+    static GLfloat mat_emission[] = {0.1f, 0.1f, 0.1f, 1.0f};
 
     //--------------------------------------------------------------------------
 
@@ -508,32 +467,26 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject& dataObject,
 
     // Draw the quads.
     cBack = (-0.5 * heightRaster.dimensions().latitudinalExtent()) +
-                     (0.5 * (d_quadLength + 1) * heightRaster.dimensions().cellSize());
+            (0.5 * (d_quadLength + 1) * heightRaster.dimensions().cellSize());
 
-    for(size_t r = firstRow; r <= lastRow; r += d_quadLength)
-    {
-      cLeft  = (-0.5 * heightRaster.dimensions().longitudinalExtent()) +
-                     (0.5 * (d_quadLength + 1) * heightRaster.dimensions().cellSize());
+    for (size_t r = firstRow; r <= lastRow; r += d_quadLength) {
+      cLeft = (-0.5 * heightRaster.dimensions().longitudinalExtent()) +
+              (0.5 * (d_quadLength + 1) * heightRaster.dimensions().cellSize());
       cFront = cBack + dz;
 
-      for(size_t c = firstCol; c <= lastCol; c += d_quadLength)
-      {
+      for (size_t c = firstCol; c <= lastCol; c += d_quadLength) {
         cRight = cLeft + dx;
         // quadInfo<REAL4>(heightRaster.cells<REAL4>(),
         //              heightRaster.rasterSpace(),
-        quadInfo<REAL4>(heightRaster,
-                     r, c, d_quadLength,
-                     &zul, &zur, &zlr, &zll);
-        if(!pcr::isMV(zul) && !pcr::isMV(zur) && !pcr::isMV(zlr) &&
-                     !pcr::isMV(zll))
-        {
+        quadInfo<REAL4>(heightRaster, r, c, d_quadLength, &zul, &zur, &zlr, &zll);
+        if (!pcr::isMV(zul) && !pcr::isMV(zur) && !pcr::isMV(zlr) && !pcr::isMV(zll)) {
           zul *= scale;
           zur *= scale;
           zlr *= scale;
           zll *= scale;
 
-          geo::normal<GLfloat>(cLeft, cBack, zul - dy, cLeft, cFront, zll - dy,
-                     cRight, cFront, zlr - dy, &nx, &ny, &nz);
+          geo::normal<GLfloat>(cLeft, cBack, zul - dy, cLeft, cFront, zll - dy, cRight, cFront, zlr - dy,
+                               &nx, &ny, &nz);
 
           glNormal3d(-nx, -nz, -ny);
 
@@ -543,9 +496,8 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject& dataObject,
           // ldd which doesnt fill the quad). This results in less drawn quads
           // and prevends the situation that only the first filled quad is
           // visible.
-          for(rdraw_it = drawers.rbegin(); rdraw_it != drawers.rend();
-                     ++rdraw_it) {
-            if((*rdraw_it)->willFill(r, c)) {
+          for (rdraw_it = drawers.rbegin(); rdraw_it != drawers.rend(); ++rdraw_it) {
+            if ((*rdraw_it)->willFill(r, c)) {
               ++rdraw_it;
               break;
             }
@@ -564,16 +516,20 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject& dataObject,
           // Conversion from reverse to normal iterator shifts the logical
           // position of the iterator.
           draw_it = (++rdraw_it).base();
-          while(draw_it != drawers.end()) {
+          while (draw_it != drawers.end()) {
             (*draw_it)->draw(r, c);
             ++draw_it;
           }
 
           glBegin(GL_QUADS);
-            glTexCoord2f(0.0, 0.0); glVertex3f(cLeft,  zll - dy, cFront); // ll
-            glTexCoord2f(1.0, 0.0); glVertex3f(cRight, zlr - dy, cFront); // lr
-            glTexCoord2f(1.0, 1.0); glVertex3f(cRight, zur - dy, cBack);  // ur
-            glTexCoord2f(0.0, 1.0); glVertex3f(cLeft,  zul - dy, cBack);  // ul
+          glTexCoord2f(0.0, 0.0);
+          glVertex3f(cLeft, zll - dy, cFront);  // ll
+          glTexCoord2f(1.0, 0.0);
+          glVertex3f(cRight, zlr - dy, cFront);  // lr
+          glTexCoord2f(1.0, 1.0);
+          glVertex3f(cRight, zur - dy, cBack);  // ur
+          glTexCoord2f(0.0, 1.0);
+          glVertex3f(cLeft, zul - dy, cBack);  // ul
           glEnd();
         }
         cLeft = cRight;
@@ -584,42 +540,33 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject& dataObject,
     glEndList();
 
     // yepyep: Totally unguarded!
-    for(draw_it = drawers.begin(); draw_it != drawers.end(); ++draw_it) {
+    for (draw_it = drawers.begin(); draw_it != drawers.end(); ++draw_it) {
       delete *draw_it;
     }
   }
 }
 
-
-
 void ag::Map3DObject::deleteScene()
 {
-  if(d_list > 0) {
+  if (d_list > 0) {
     glDeleteLists(d_list, 1);
     d_list = 0;
     setSize(0.0, 0.0, 0.0);
   }
 }
 
-
-
 bool ag::Map3DObject::showFishnet() const
 {
   return d_showFishnet;
 }
 
-
-
 void ag::Map3DObject::setShowFishnet(bool s)
 {
-  if(s != d_showFishnet)
-  {
+  if (s != d_showFishnet) {
     d_showFishnet = s;
     setDirty(true);
   }
 }
-
-
 
 //! Returns the current scale.
 /*!
@@ -630,8 +577,6 @@ GLfloat ag::Map3DObject::scale() const
 {
   return d_scale;
 }
-
-
 
 //! Sets the scale of the height values to \a s.
 /*!
@@ -649,30 +594,24 @@ void ag::Map3DObject::setScale(GLfloat s)
 {
   s = std::min<GLfloat>(s, 10.0f);
   s = std::max<GLfloat>(s, 0.1f);
-  if(d_scale != s) {
+  if (d_scale != s) {
     d_scale = s;
     setValid(false);
   }
 }
 
-
-
 void ag::Map3DObject::setQuadLength(size_t l)
 {
-  if(d_quadLength != l) {
+  if (d_quadLength != l) {
     d_quadLength = l;
     setValid(false);
   }
 }
 
-
-
 size_t ag::Map3DObject::quadLength() const
 {
   return d_quadLength;
 }
-
-
 
 void ag::Map3DObject::reset()
 {
@@ -680,12 +619,9 @@ void ag::Map3DObject::reset()
   setScale(1.0);
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -693,11 +629,9 @@ void ag::Map3DObject::reset()
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -705,9 +639,6 @@ void ag::Map3DObject::reset()
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

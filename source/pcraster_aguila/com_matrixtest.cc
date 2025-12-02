@@ -2,7 +2,6 @@
 #include <boost/test/unit_test.hpp>
 #include "com_matrix.h"
 
-
 BOOST_AUTO_TEST_CASE(equality)
 {
   using namespace com;
@@ -28,7 +27,6 @@ BOOST_AUTO_TEST_CASE(equality)
   // Check for equality.
   BOOST_CHECK(m1 == m2);
 }
-
 
 BOOST_AUTO_TEST_CASE(inequality)
 {
@@ -56,7 +54,6 @@ BOOST_AUTO_TEST_CASE(inequality)
   BOOST_CHECK(m1 != m2);
 }
 
-
 BOOST_AUTO_TEST_CASE(identity)
 {
   using namespace com;
@@ -77,12 +74,11 @@ BOOST_AUTO_TEST_CASE(identity)
   BOOST_CHECK(m.element(2, 3) == 0.0);
 }
 
-
 BOOST_AUTO_TEST_CASE(invert)
 {
   using namespace com;
 
-// yepyep: weird stuff 1 != 1 ...
+  // yepyep: weird stuff 1 != 1 ...
   // Create a 3x4 matrix.
   Matrix<double> m(3, 3);
 
@@ -110,7 +106,7 @@ BOOST_AUTO_TEST_CASE(invert)
   BOOST_CHECK(product.element(2, 1) < 1e-10);
   BOOST_CHECK(product.element(3, 1) < 1e-10);
   BOOST_CHECK(product.element(1, 2) < 1e-10);
-  BOOST_CHECK(product.element(2, 2) - 1.0  < 1e-10);
+  BOOST_CHECK(product.element(2, 2) - 1.0 < 1e-10);
   BOOST_CHECK(product.element(3, 2) < 1e-10);
   BOOST_CHECK(product.element(1, 3) < 1e-10);
   BOOST_CHECK(product.element(2, 3) < 1e-10);
@@ -119,7 +115,6 @@ BOOST_AUTO_TEST_CASE(invert)
   // BOOST_CHECK(m * inverse == inverse * m);
   // BOOST_CHECK(m * inverse == identity);
 }
-
 
 BOOST_AUTO_TEST_CASE(transpose)
 {

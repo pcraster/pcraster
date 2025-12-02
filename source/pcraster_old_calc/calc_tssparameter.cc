@@ -8,11 +8,8 @@ VS calc::TssParameter::symbolType() const
   return VS_TSS;
 }
 
-calc::TssParameter::TssParameter(
-    const calc::ParsPar& par,
-    bool constant,
-    bool input):
-  calc::SubParameter(par,constant,input)
+calc::TssParameter::TssParameter(const calc::ParsPar &par, bool constant, bool input)
+    : calc::SubParameter(par, constant, input)
 {
 }
 

@@ -15,12 +15,10 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the Tester9 class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -46,11 +44,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC TESTER9 MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -60,8 +56,6 @@ public:
 calc::CalcLibDemoObjectLink::CalcLibDemoObjectLink()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -74,12 +68,9 @@ calc::CalcLibDemoObjectLink::CalcLibDemoObjectLink(Tester9 const& rhs)
 */
 
 
-
 calc::CalcLibDemoObjectLink::~CalcLibDemoObjectLink()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -92,16 +83,11 @@ calc::CalcLibDemoObjectLink& calc::CalcLibDemoObjectLink::operator=(Tester9 cons
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

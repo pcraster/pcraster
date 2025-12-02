@@ -17,46 +17,40 @@
 
 #include <format>
 
-
 /*!
   \file
   This file contains the implementation of the Map3D class.
 */
 
 
-
-namespace ag {
+namespace ag
+{
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC MAP3D MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF MAP3D MEMBERS
 //------------------------------------------------------------------------------
 
-Map3D::Map3D(DataObject* object, QWidget* parent)
+Map3D::Map3D(DataObject *object, QWidget *parent)
 
-  : Map(object, "3D Map", parent)
+    : Map(object, "3D Map", parent)
 
 {
   createInterface(object);
 }
 
-
-
 Map3D::~Map3D()
 {
 }
 
-
-
-void Map3D::createInterface(DataObject* object)
+void Map3D::createInterface(DataObject *object)
 {
   d_splitter = new QSplitter(Qt::Horizontal, this);
-  auto* layout = new QVBoxLayout(this);
+  auto *layout = new QVBoxLayout(this);
   layout->addWidget(d_splitter);
 
   d_legendView = new LegendView(object, VT_Map, d_splitter);
@@ -73,74 +67,57 @@ void Map3D::createInterface(DataObject* object)
   d_splitter->setSizes(sizes);
 }
 
-
-
-void Map3D::addAttribute(const DataGuide& dataGuide)
+void Map3D::addAttribute(const DataGuide &dataGuide)
 {
   d_mapView->addAttribute(dataGuide);
   d_legendView->addAttribute(dataGuide);
 }
 
-
-
-void Map3D::setHeight(const DataGuide& dataGuide)
+void Map3D::setHeight(const DataGuide &dataGuide)
 {
   d_mapView->setHeight(dataGuide);
 }
-
-
 
 int Map3D::depthOfRenderingContext() const
 {
   return d_mapView->depthOfRenderingContext();
 }
 
-
-
 bool Map3D::doubleBuffer() const
 {
   return d_mapView->doubleBuffer();
 }
 
-
-
-void Map3D::saveAsPNG(
-         std::filesystem::path const& path) const
+void Map3D::saveAsPNG(std::filesystem::path const &path) const
 {
-  if(QPixmap::defaultDepth() != d_mapView->depthOfRenderingContext()) {
-    std::string const msg = std::format(
-         "Error while saving\n"
-         "Please make sure that the depth of the desktop equals the depth\n"
-         "of the OpenGL rendering context. Currently the depth of the\n"
-         "desktop is {0} bits while the depth of the OpenGL rendering context is {1} bits.",
-              QPixmap::defaultDepth(),
-              d_mapView->depthOfRenderingContext());
+  if (QPixmap::defaultDepth() != d_mapView->depthOfRenderingContext()) {
+    std::string const msg =
+        std::format("Error while saving\n"
+                    "Please make sure that the depth of the desktop equals the depth\n"
+                    "of the OpenGL rendering context. Currently the depth of the\n"
+                    "desktop is {0} bits while the depth of the OpenGL rendering context is {1} bits.",
+                    QPixmap::defaultDepth(), d_mapView->depthOfRenderingContext());
     throw com::FileError(path.string().c_str(), msg);
   }
 
   // Retrieve drawing.
   auto map = d_mapView->grabFramebuffer();
-  if(map.isNull() || (!map.save(QString(path.string().c_str()), "PNG"))) {
+  if (map.isNull() || (!map.save(QString(path.string().c_str()), "PNG"))) {
     throw com::FileError(path.string(), "Error while saving");
   }
 }
-
-
 
 void Map3D::rescan()
 {
   visualisationEngine().rescan(dataObject());
 }
 
-
-
 void Map3D::process()
 {
-  if(visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
-    if(!dataObject().backgroundColour().isValid()) {
+  if (visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+    if (!dataObject().backgroundColour().isValid()) {
       setPalette(QPalette());
-    }
-    else {
+    } else {
       QPalette palette;
       palette.setColor(backgroundRole(), dataObject().backgroundColour());
       setPalette(palette);
@@ -148,29 +125,23 @@ void Map3D::process()
   }
 }
 
-
-
 void Map3D::visualise()
 {
   // Done scanning, update stuff if needed.
-  if(visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+  if (visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
     d_splitter->update();
   }
 
   visualisationEngine().finishedScanning(dataObject());
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace ag
-
+}  // namespace ag

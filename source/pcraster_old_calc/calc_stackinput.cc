@@ -2,68 +2,61 @@
 #include "calc_stackinput.h"
 #include "calc_stackreader.h"
 #include "calc_fieldstack.h"
-#include "calc_spatial.h" // FieldHandle of this type
+#include "calc_spatial.h"  // FieldHandle of this type
 #include "calc_infoscript.h"
 #include "calc_iscript.h"
 #include "com_exception.h"
 
-calc::StackInput::StackInput(
-    const Element&       pos,
-    const BindedSymbol& stackName,
-    bool  sparse):
-  FieldExpr(pos),
-  d_itemToLoad(scriptConst().nrTimeSteps()+1),
-  d_type(VS_FIELD,ST_SPATIAL)
+calc::StackInput::StackInput(const Element &pos, const BindedSymbol &stackName, bool sparse)
+    : FieldExpr(pos), d_itemToLoad(scriptConst().nrTimeSteps() + 1), d_type(VS_FIELD, ST_SPATIAL)
 {
   try {
-   d_reader = script().createStackReader(stackName.externalName());
+    d_reader = script().createStackReader(stackName.externalName());
 
-   // check if for each timestep a map is there with identical VS
-   // and if they ALL have the same format supported by d_reader; esrigrid/test26
-   VS vs = VS_FIELD;
-   d_itemToLoad[0]=0; // dummy for fall back to previous
-   size_t firstExisting=0;
-   for(size_t i=1; i < d_itemToLoad.size(); i++) {
+    // check if for each timestep a map is there with identical VS
+    // and if they ALL have the same format supported by d_reader; esrigrid/test26
+    VS vs = VS_FIELD;
+    d_itemToLoad[0] = 0;  // dummy for fall back to previous
+    size_t firstExisting = 0;
+    for (size_t i = 1; i < d_itemToLoad.size(); i++) {
       if (sparse && !d_reader->itemExists(i)) {
         // fall back to previous
-        d_itemToLoad[i]=d_itemToLoad[i-1];
-        continue; // do not check non existing item
+        d_itemToLoad[i] = d_itemToLoad[i - 1];
+        continue;  // do not check non existing item
       } else {
-        d_itemToLoad[i]=i;
+        d_itemToLoad[i] = i;
       }
 
-     // item i exist, at this point in code
-     if (!firstExisting)
-      firstExisting=i;
+      // item i exist, at this point in code
+      if (!firstExisting)
+        firstExisting = i;
 
-     try {
-      VS const newVs = d_reader->checkItem(i,vs);
-      if (!isIn(newVs,vs)) { // pcrcalc/test250(ac)
-       throw com::Exception(
-        " does not have the same data type as first element ("+toString(vs)+")");
-      }
-      vs = newVs;
-     } catch ( com::Exception& msg ) {
-       // rewrote construction of posError param. win32/release
-       //  gives strange error
-       std::string s(d_reader->itemName(i));
-       s+=": ";
-       s+=msg.messages();
+      try {
+        VS const newVs = d_reader->checkItem(i, vs);
+        if (!isIn(newVs, vs)) {  // pcrcalc/test250(ac)
+          throw com::Exception(" does not have the same data type as first element (" + toString(vs) +
+                               ")");
+        }
+        vs = newVs;
+      } catch (com::Exception &msg) {
+        // rewrote construction of posError param. win32/release
+        //  gives strange error
+        std::string s(d_reader->itemName(i));
+        s += ": ";
+        s += msg.messages();
         // pcrcalc/test344(a)
-        stackName.posError(" on checking map-stack "+stackName.qName()
-            +"\n  element "+s);
-     }
-   } // eofor
-   // at least 1 element needed
-   if (!firstExisting) {
-        // pcrcalc/test376
-        stackName.posError(" on checking map-stack "+stackName.qName()
-            +"\n not a single map found");
-   }
-   // if 1st element is missing read first existing one
-   for(size_t i=1; i < firstExisting; i++)
-     d_itemToLoad[i]=firstExisting;
-   restrictType().restrictSystem(vs,spatial());
+        stackName.posError(" on checking map-stack " + stackName.qName() + "\n  element " + s);
+      }
+    }  // eofor
+    // at least 1 element needed
+    if (!firstExisting) {
+      // pcrcalc/test376
+      stackName.posError(" on checking map-stack " + stackName.qName() + "\n not a single map found");
+    }
+    // if 1st element is missing read first existing one
+    for (size_t i = 1; i < firstExisting; i++)
+      d_itemToLoad[i] = firstExisting;
+    restrictType().restrictSystem(vs, spatial());
   } catch (...) {
     delete d_reader;
     throw;
@@ -78,10 +71,10 @@ calc::StackInput::~StackInput()
 void calc::StackInput::buildTypesRecursive(VS resultVsSet)
 {
   POSTCOND(resultVsSet != VS_UNKNOWN);
-  (void) resultVsSet; // shut up compiler
+  (void)resultVsSet;  // shut up compiler
 }
 
-calc::FieldType& calc::StackInput::restrictType()
+calc::FieldType &calc::StackInput::restrictType()
 {
   return d_type;
 }
@@ -94,7 +87,7 @@ void calc::StackInput::skipExecution()
 {
 }
 
-const calc::FieldType& calc::StackInput::fieldType() const
+const calc::FieldType &calc::StackInput::fieldType() const
 {
   return d_type;
 }
@@ -104,21 +97,20 @@ const calc::FieldType& calc::StackInput::fieldType() const
  *   optimize by caching map if known to be used again, and return a copy
  *   except in last use case.
  */
-void calc::StackInput::execute(FieldStack& stack)
+void calc::StackInput::execute(FieldStack &stack)
 {
   try {
-   PRECOND(scriptConst().currentTimeStep() < d_itemToLoad.size());
-   size_t const itemToRead=d_itemToLoad[scriptConst().currentTimeStep()];
-   stack.push(FieldHandle(
-    d_reader->read(itemToRead, vs(),scriptConst().compressor())));
-  } catch(const com::FileError& e) {
+    PRECOND(scriptConst().currentTimeStep() < d_itemToLoad.size());
+    size_t const itemToRead = d_itemToLoad[scriptConst().currentTimeStep()];
+    stack.push(FieldHandle(d_reader->read(itemToRead, vs(), scriptConst().compressor())));
+  } catch (const com::FileError &e) {
     runtimeError(e.messages());
   }
 }
 
 void calc::StackInput::print(InfoScript &si) const
 {
-   si.stream() << "timeinput( ";
-// si.parTag(stackName.name());
-   si.stream() << " ) ";
+  si.stream() << "timeinput( ";
+  // si.parTag(stackName.name());
+  si.stream() << " ) ";
 }

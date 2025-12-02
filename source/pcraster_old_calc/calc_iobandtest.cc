@@ -46,7 +46,7 @@
 #endif
 // Module headers.
 #ifndef INCLUDED_APPARGS
-#include "appargs.h" // APP_IO_STRATEGY
+#include "appargs.h"  // APP_IO_STRATEGY
 #define INCLUDED_APPARGS
 #endif
 
@@ -63,15 +63,14 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC IOBAND MEMBERS
 //------------------------------------------------------------------------------
 
 //! suite
-boost::unit_test::test_suite*calc::IoBandTest::suite()
+boost::unit_test::test_suite *calc::IoBandTest::suite()
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
+  boost::unit_test::test_suite *suite = BOOST_TEST_SUITE(__FILE__);
   std::shared_ptr<IoBandTest> instance(new IoBandTest());
 
   suite->add(BOOST_CLASS_TEST_CASE(&IoBandTest::test1, instance));
@@ -84,10 +83,9 @@ boost::unit_test::test_suite*calc::IoBandTest::suite()
 
 static void execBand(PcrScript *s)
 {
- appIOstrategy=APP_IO_BANDMAP;
- pcr_ScriptExecute(s);
+  appIOstrategy = APP_IO_BANDMAP;
+  pcr_ScriptExecute(s);
 }
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF IOBAND MEMBERS
@@ -103,21 +101,19 @@ calc::IoBandTest::IoBandTest()
 //! setUp
 void calc::IoBandTest::setUp()
 {
- appIOstrategy=APP_IO_BANDMAP;
- { // create a  4*5 UINT1 map as clone
-   com::write("NROWS 4\nNCOLS 5\nXDIM 0.5\nYDIM 0.5",
-   com::PathName("clone.hdr"));
-   UINT1 buf[NR_CELLS];
-   std::generate_n(buf,NR_CELLS,com::SeqInc<UINT1>());
-   com::write(buf,NR_CELLS,com::PathName("clone.bil"));
- }
- { // create a  4*5 REAL4 map as data
-   com::write("NROWS 4\nNCOLS 5\nXDIM 0.5\nYDIM 0.5\nNBITS 32",
-   com::PathName("v1_32b.hdr"));
-   REAL4 buf[NR_CELLS];
-   std::generate_n(buf,NR_CELLS,com::SeqInc<REAL4>());
-   com::write(buf,NR_CELLS,com::PathName("v1_32b.bil"));
- }
+  appIOstrategy = APP_IO_BANDMAP;
+  {  // create a  4*5 UINT1 map as clone
+    com::write("NROWS 4\nNCOLS 5\nXDIM 0.5\nYDIM 0.5", com::PathName("clone.hdr"));
+    UINT1 buf[NR_CELLS];
+    std::generate_n(buf, NR_CELLS, com::SeqInc<UINT1>());
+    com::write(buf, NR_CELLS, com::PathName("clone.bil"));
+  }
+  {  // create a  4*5 REAL4 map as data
+    com::write("NROWS 4\nNCOLS 5\nXDIM 0.5\nYDIM 0.5\nNBITS 32", com::PathName("v1_32b.hdr"));
+    REAL4 buf[NR_CELLS];
+    std::generate_n(buf, NR_CELLS, com::SeqInc<REAL4>());
+    com::write(buf, NR_CELLS, com::PathName("v1_32b.bil"));
+  }
 }
 
 //! tearDown
@@ -125,17 +121,15 @@ void calc::IoBandTest::tearDown()
 {
 }
 
-
-
 void calc::IoBandTest::test1()
 {
-  { // execute correctly
-    com::write("dummy = boolean(clone); report piet = uniqueid(1);","script.mod");
-    PcrScript *s=pcr_createScript("script.mod");
+  {  // execute correctly
+    com::write("dummy = boolean(clone); report piet = uniqueid(1);", "script.mod");
+    PcrScript *s = pcr_createScript("script.mod");
     BOOST_CHECK(s);
-    appIOstrategy=APP_IO_BANDMAP;
+    appIOstrategy = APP_IO_BANDMAP;
     execBand(s);
-    if(pcr_ScriptError(s)) {
+    if (pcr_ScriptError(s)) {
       std::cerr << "HECK " << pcr_ScriptErrorMessage(s) << "\n";
     }
     BOOST_CHECK(!pcr_ScriptError(s));
@@ -152,31 +146,32 @@ void calc::IoBandTest::test1()
     BOOST_CHECK(rm.cellRepr() == CR_REAL4);
     REAL4 buf[NR_CELLS];
     rm.getCellsAsREAL4(buf);
-    BOOST_CHECK(buf[0]==1);
-    BOOST_CHECK(buf[19]==20);
+    BOOST_CHECK(buf[0] == 1);
+    BOOST_CHECK(buf[19] == 20);
   }
 }
 
 void calc::IoBandTest::test2()
-{ // dunno output type
-    com::write("dummy = boolean(clone); report piet = 1;","script.mod");
-    PcrScript *s=pcr_createScript("script.mod");
-    BOOST_CHECK(s);
-    execBand(s);
-    BOOST_CHECK(pcr_ScriptError(s));
-    BOOST_CHECK(pcr_ScriptErrorMessage(s).find("conversion") != std::string::npos);
-    pcr_destroyScript(s);
+{  // dunno output type
+  com::write("dummy = boolean(clone); report piet = 1;", "script.mod");
+  PcrScript *s = pcr_createScript("script.mod");
+  BOOST_CHECK(s);
+  execBand(s);
+  BOOST_CHECK(pcr_ScriptError(s));
+  BOOST_CHECK(pcr_ScriptErrorMessage(s).find("conversion") != std::string::npos);
+  pcr_destroyScript(s);
 }
 
 void calc::IoBandTest::test3()
 {
-  { // execute correctly, reading UINT1 as REAL4
-    com::write("report piet = clone*1+0.5;","script.mod");
-    PcrScript *s=pcr_createScript("script.mod");
+  {  // execute correctly, reading UINT1 as REAL4
+    com::write("report piet = clone*1+0.5;", "script.mod");
+    PcrScript *s = pcr_createScript("script.mod");
     BOOST_CHECK(s);
     execBand(s);
     BOOST_CHECK(pcr_ScriptError(s));
-    const char *msg="left operand of operator '*': type is one of (nominal,ordinal,boolean), legal type is scalar";
+    const char *msg =
+        "left operand of operator '*': type is one of (nominal,ordinal,boolean), legal type is scalar";
     BOOST_CHECK(pcr_ScriptErrorMessage(s).find(msg) != std::string::npos);
     pcr_destroyScript(s);
 
@@ -195,9 +190,9 @@ void calc::IoBandTest::test3()
 
 void calc::IoBandTest::testTypeChecking()
 {
-  { // execute correctly, reading UINT1 as REAL4
-    com::write("report piet = areatotal(spatial(3),v1_32b)","script.mod");
-    PcrScript *s=pcr_createScript("script.mod");
+  {  // execute correctly, reading UINT1 as REAL4
+    com::write("report piet = areatotal(spatial(3),v1_32b)", "script.mod");
+    PcrScript *s = pcr_createScript("script.mod");
     BOOST_CHECK(s);
     execBand(s);
     BOOST_CHECK(pcr_ScriptError(s));
@@ -206,6 +201,6 @@ void calc::IoBandTest::testTypeChecking()
   }
 }
 
-  // DO remove extensions?
-  //  in stuff like piet.map = dadasdsadasdas, in bandmap mode
-  // Whoops in current interface not possible to set clone
+// DO remove extensions?
+//  in stuff like piet.map = dadasdsadasdas, in bandmap mode
+// Whoops in current interface not possible to set clone

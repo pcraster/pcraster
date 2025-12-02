@@ -4,16 +4,14 @@
 
 #include <cassert>
 
-int main(int argc,
-         char **argv)
+int main(int argc, char **argv)
 {
   int status = 1;
 
   try {
     ag::Aguila app(argc, argv);
     status = app.run();
-  }
-  catch(...) {
+  } catch (...) {
     assert(false);
   }
 

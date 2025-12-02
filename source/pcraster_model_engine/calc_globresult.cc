@@ -24,35 +24,30 @@ extern template calc::ApiMapC<MAP_REAL8>::DeleteInternal calc::ApiMapC<MAP_REAL8
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF GLOBRESULT MEMBERS
 //------------------------------------------------------------------------------
 
-calc::GlobResult::GlobResult(
-    VS interfaceVs,
-    VS concreteVs,
-    const SpatialPacking& c):
-         d_up(c,concreteVs)
+calc::GlobResult::GlobResult(VS interfaceVs, VS concreteVs, const SpatialPacking &c)
+    : d_up(c, concreteVs)
 {
- Field *r=d_up.unpacked();
- CSF_CR const inCr = biggestCellRepr(concreteVs);
+  Field *r = d_up.unpacked();
+  CSF_CR const inCr = biggestCellRepr(concreteVs);
   // create the API_MAP with new allocated data
- switch(biggestCellRepr(interfaceVs)) {
-  case CR_REAL4:
-   d_apiMap = new ApiMapREAL8(c.rasterDim(),r->dest(),inCr);
-   break;
-  case CR_INT4:
-   d_apiMap = new  ApiMapINT4(c.rasterDim(),r->dest(),inCr);
-   break;
-  case CR_UINT1:
-   d_apiMap = new ApiMapUINT1(c.rasterDim(),r->dest(),inCr);
-   break;
-  default : POSTCOND(false); // NEVER
- }
+  switch (biggestCellRepr(interfaceVs)) {
+    case CR_REAL4:
+      d_apiMap = new ApiMapREAL8(c.rasterDim(), r->dest(), inCr);
+      break;
+    case CR_INT4:
+      d_apiMap = new ApiMapINT4(c.rasterDim(), r->dest(), inCr);
+      break;
+    case CR_UINT1:
+      d_apiMap = new ApiMapUINT1(c.rasterDim(), r->dest(), inCr);
+      break;
+    default:
+      POSTCOND(false);  // NEVER
+  }
 }
-
-
 
 calc::GlobResult::~GlobResult()
 {
@@ -64,7 +59,7 @@ void *calc::GlobResult::MAPinterface() const
   return d_apiMap->getCPointer();
 }
 
-calc::Field* calc::GlobResult::createField()
+calc::Field *calc::GlobResult::createField()
 {
   return d_up.releasePacked();
 }
@@ -72,7 +67,6 @@ calc::Field* calc::GlobResult::createField()
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

@@ -1,21 +1,20 @@
 #include "stddefx.h"
 #include "calc_spatial.h"
-#include "calc_map2csf.h" // bytesPerCell
-#include "com_csfcell.h"  // getCell
+#include "calc_map2csf.h"  // bytesPerCell
+#include "com_csfcell.h"   // getCell
 #include "discr_rasterdata.h"
 
 
-
-size_t calc::Spatial::d_maxBPC=0;
-size_t calc::Spatial::d_currentBPC=0;
+size_t calc::Spatial::d_maxBPC = 0;
+size_t calc::Spatial::d_currentBPC = 0;
 #ifdef DEBUG_DEVELOP
 std::set<size_t> calc::Spatial::d_sizes;
 #endif
 
 void calc::Spatial::resetBPC()
 {
-  d_maxBPC=0;
-  d_currentBPC=0;
+  d_maxBPC = 0;
+  d_currentBPC = 0;
 #ifdef DEBUG_DEVELOP
   d_sizes.clear();
 #endif
@@ -24,7 +23,7 @@ void calc::Spatial::resetBPC()
 void calc::Spatial::countBPC(VS vs) const
 {
   d_currentBPC += bytesPerCell(vs);
-  d_maxBPC      = std::max(d_maxBPC, d_currentBPC);
+  d_maxBPC = std::max(d_maxBPC, d_currentBPC);
 #ifdef DEBUG_DEVELOP
   d_sizes.insert(d_nrValues);
 #endif
@@ -42,81 +41,63 @@ size_t calc::Spatial::currentBPC()
   return d_currentBPC;
 }
 
-
 //! ctor with allocation by default
-calc::Spatial::Spatial(VS vs, CRIndex cri, size_t nrValues):
-  Field(vs,cri), d_nrValues(nrValues),d_val(nullptr)
+calc::Spatial::Spatial(VS vs, CRIndex cri, size_t nrValues)
+    : Field(vs, cri), d_nrValues(nrValues), d_val(nullptr)
 {
   allocate();
 }
 
 //! copy ctor
-calc::Spatial::Spatial(const Spatial& rhs):
-  Field(rhs.vs(),rhs.cri()),d_nrValues(rhs.nrValues()),d_val(nullptr)
+calc::Spatial::Spatial(const Spatial &rhs)
+    : Field(rhs.vs(), rhs.cri()), d_nrValues(rhs.nrValues()), d_val(nullptr)
 {
   allocate();
   beMemCpyDest(rhs.src());
 }
 
+namespace calc
+{
 
+Spatial::Spatial(VS vs, discr::RasterData<UINT1> const &data)
 
-namespace calc {
-
-Spatial::Spatial(
-         VS vs,
-         discr::RasterData<UINT1> const& data)
-
-  : Field(vs, crIndex<UINT1>()),
-    d_nrValues(data.raster()->nrCells()),
-    d_val(nullptr)
+    : Field(vs, crIndex<UINT1>()), d_nrValues(data.raster()->nrCells()), d_val(nullptr)
 
 {
   allocate();
   beMemCpyDest(data.cells());
 }
 
+Spatial::Spatial(VS vs, discr::RasterData<INT4> const &data)
 
-
-Spatial::Spatial(
-         VS vs,
-         discr::RasterData<INT4> const& data)
-
-  : Field(vs, crIndex<INT4>()),
-    d_nrValues(data.raster()->nrCells()),
-    d_val(nullptr)
+    : Field(vs, crIndex<INT4>()), d_nrValues(data.raster()->nrCells()), d_val(nullptr)
 
 {
   allocate();
   beMemCpyDest(data.cells());
 }
 
+Spatial::Spatial(VS vs, discr::RasterData<REAL4> const &data)
 
-
-Spatial::Spatial(
-         VS vs,
-         discr::RasterData<REAL4> const& data)
-
-  : Field(vs, crIndex<REAL4>()),
-    d_nrValues(data.raster()->nrCells()),
-    d_val(nullptr)
+    : Field(vs, crIndex<REAL4>()), d_nrValues(data.raster()->nrCells()), d_val(nullptr)
 
 {
   allocate();
   beMemCpyDest(data.cells());
 }
 
-} // namespace calc
-
-
+}  // namespace calc
 
 void calc::Spatial::allocate()
 {
-  PRECOND(allFitCRIndex(vs())==cri());
-  switch(bytesPerCell(vs())) {
-   case 1: d_val1 = new UINT1[nrValues()];
-           break;
-   case 4: d_val4 = new  INT4[nrValues()];
-           break;
+  PRECOND(allFitCRIndex(vs()) == cri());
+  switch (bytesPerCell(vs())) {
+    case 1:
+      d_val1 = new UINT1[nrValues()];
+      break;
+    case 4:
+      d_val4 = new INT4[nrValues()];
+      break;
   }
   countBPC(vs());
 }
@@ -127,12 +108,15 @@ calc::Spatial::~Spatial()
   if (!d_val)
     return;
   d_currentBPC -= bytesPerCell(vs());
-  switch(bytesPerCell(vs())) {
-   case 1: delete [] d_val1; break;
-   case 4: delete [] d_val4; break;
+  switch (bytesPerCell(vs())) {
+    case 1:
+      delete[] d_val1;
+      break;
+    case 4:
+      delete[] d_val4;
+      break;
   }
 }
-
 
 //! return value as read only, initialized value
 const void *calc::Spatial::src() const
@@ -148,25 +132,26 @@ void *calc::Spatial::dest()
   return d_val;
 }
 
-bool calc::Spatial::getCell(double& value, size_t i) const
+bool calc::Spatial::getCell(double &value, size_t i) const
 {
- /* this now is a work around for bug 147 */
-   bool isNotMV = false;
-   switch(cri()) {
+  /* this now is a work around for bug 147 */
+  bool isNotMV = false;
+  switch (cri()) {
     case CRI_1:
       isNotMV = !pcr::isMV(d_val1[i]);
-      com::CastCell<double,UINT1>()(value,d_val1[i]);
+      com::CastCell<double, UINT1>()(value, d_val1[i]);
       break;
     case CRI_4:
       isNotMV = !pcr::isMV(d_val4[i]);
-      com::CastCell<double,INT4>()(value,d_val4[i]);
+      com::CastCell<double, INT4>()(value, d_val4[i]);
       break;
     case CRI_f:
       isNotMV = !pcr::isMV(d_vals[i]);
-      com::CastCell<double,REAL4>()(value,d_vals[i]);
+      com::CastCell<double, REAL4>()(value, d_vals[i]);
       break;
-    default: PRECOND(false);
-      isNotMV=true;
+    default:
+      PRECOND(false);
+      isNotMV = true;
   }
   return isNotMV;
   // return !pcr::isMV(value);
@@ -185,24 +170,24 @@ bool calc::Spatial::getCell(double& value, size_t i) const
  *   s.dest_1()[4]=5;
  * \param value  can be missing value
  */
-void calc::Spatial::setCell(const double& value, size_t i)
+void calc::Spatial::setCell(const double &value, size_t i)
 {
-   switch(biggestCellRepr(vs())) {
+  switch (biggestCellRepr(vs())) {
     case CR_UINT1:
-      com::CastCell<UINT1,double>()(d_val1[i],value);
+      com::CastCell<UINT1, double>()(d_val1[i], value);
       break;
     case CR_INT4:
-      com::CastCell<INT4, double>()(d_val4[i],value);
+      com::CastCell<INT4, double>()(d_val4[i], value);
       break;
     case CR_REAL4:
-      com::CastCell<REAL4,double>()(d_vals[i],value);
+      com::CastCell<REAL4, double>()(d_vals[i], value);
       break;
-    default: PRECOND(false);
+    default:
+      PRECOND(false);
   }
 }
 
-
-calc::Spatial* calc::Spatial::createClone() const
+calc::Spatial *calc::Spatial::createClone() const
 {
   return new Spatial(*this);
 }
@@ -214,7 +199,7 @@ size_t calc::Spatial::nrValues() const
 }
 
 //! false, this is never a nonspatial mv
-bool calc::Spatial::isMV()const
+bool calc::Spatial::isMV() const
 {
   return false;
 }
@@ -225,43 +210,40 @@ bool calc::Spatial::isSpatial() const
   return true;
 }
 
-
 //! check if no cells are true and no cells are false
-void calc::Spatial::analyzeBoolean(
-    bool& noneAreTrue,
-    bool& noneAreFalse) const
+void calc::Spatial::analyzeBoolean(bool &noneAreTrue, bool &noneAreFalse) const
 {
   PRECOND(vs() == VS_B);
   PRECOND(biggestCellRepr(vs()) == CR_UINT1);
   noneAreTrue = noneAreFalse = true;
-  for (size_t i=0; i < nrValues(); i++) {
-   if (d_val1[i] == 1)
-    noneAreTrue  = false;
-   if (d_val1[i] == 0)
-    noneAreFalse = false;
+  for (size_t i = 0; i < nrValues(); i++) {
+    if (d_val1[i] == 1)
+      noneAreTrue = false;
+    if (d_val1[i] == 0)
+      noneAreFalse = false;
   }
 }
 
-namespace calc {
-class MaskChecker {
-  bool      d_newMVsFound{false};
+namespace calc
+{
+class MaskChecker
+{
+  bool d_newMVsFound{false};
   //! used once in zero detect searching
-  bool      d_allZero{true};
-  size_t    d_n;
+  bool d_allZero{true};
+  size_t d_n;
 
-  template<class CR> Spatial* createDebugMap(
-    const std::vector<bool>& mask,
-    const CR *val)
+  template <class CR> Spatial *createDebugMap(const std::vector<bool> &mask, const CR *val)
   {
-    auto *debugMap = new Spatial(VS_N,CRI_4,d_n);
-    INT4    *dest     = debugMap->dest_4();
+    auto *debugMap = new Spatial(VS_N, CRI_4, d_n);
+    INT4 *dest = debugMap->dest_4();
 
-    for(size_t i=0; i < d_n; ++i) {
-     dest[i]=mask[i];
-     if (mask[i] == 1) {
-       if (pcr::isMV(val[i])) {
-         d_newMVsFound =true;
-         dest[i] = 2;
+    for (size_t i = 0; i < d_n; ++i) {
+      dest[i] = mask[i];
+      if (mask[i] == 1) {
+        if (pcr::isMV(val[i])) {
+          d_newMVsFound = true;
+          dest[i] = 2;
         }
       }
     }
@@ -269,25 +251,22 @@ class MaskChecker {
   }
 
 public:
-  MaskChecker(
-    size_t n):
-    d_n(n)
-    {}
+  MaskChecker(size_t n) : d_n(n)
+  {
+  }
 
   /*! check for MV in mask, if so return allocated spatial
    */
-  template<class CR> Spatial* check(
-    const std::vector<bool>& mask,
-    const CR *val)
+  template <class CR> Spatial *check(const std::vector<bool> &mask, const CR *val)
   {
-   /* double  prevIdenticalValue;
+    /* double  prevIdenticalValue;
     * bool    allIdentical=true;
     * pcr::setMV(prevIdenticalValue);
     */
-    for(size_t i=0; i < d_n; i++)
+    for (size_t i = 0; i < d_n; i++)
       if (mask[i] == 1) {
-        if (pcr::isMV(val[i]) )
-         return createDebugMap(mask,val);
+        if (pcr::isMV(val[i]))
+          return createDebugMap(mask, val);
         /* else {
          *   double v;
          *   me->getCell(v,i);
@@ -306,11 +285,17 @@ public:
     return nullptr;
   }
 
-  bool newMVsFound() const { return d_newMVsFound; }
-  bool allZero() const { return d_allZero; }
-};
-}
+  bool newMVsFound() const
+  {
+    return d_newMVsFound;
+  }
 
+  bool allZero() const
+  {
+    return d_allZero;
+  }
+};
+}  // namespace calc
 
 //! check if I have MV's on cells where the areaMask is 1 (true)
 /*! if any such MV's  are found then the script's areaMask
@@ -320,18 +305,21 @@ public:
  *  \returns
  *    0 is no MV's inside mask, a new created VS_N Spatial object if it does
  */
-calc::Spatial* calc::Spatial::findMVinMask(
-   const std::vector<bool>& areaMask) const
+calc::Spatial *calc::Spatial::findMVinMask(const std::vector<bool> &areaMask) const
 {
-  CRIndex const cr=allFitCRIndex(vs());
+  CRIndex const cr = allFitCRIndex(vs());
 
   MaskChecker c(nrValues());
   // check for MV created if we are assigning a spatial
-  switch(cr) {
-   case CRI_1 : return c.check(areaMask, src_1());
-   case CRI_4 : return c.check(areaMask, src_4());
-   case CRI_f : return c.check(areaMask, src_f());
-   default: PRECOND(false);
-            return nullptr;
+  switch (cr) {
+    case CRI_1:
+      return c.check(areaMask, src_1());
+    case CRI_4:
+      return c.check(areaMask, src_4());
+    case CRI_f:
+      return c.check(areaMask, src_f());
+    default:
+      PRECOND(false);
+      return nullptr;
   }
 }

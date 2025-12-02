@@ -4,16 +4,15 @@
 #include "PCRasterXSD.h"
 #include "calc_areamap.h"
 
-
 BOOST_AUTO_TEST_CASE(testInit)
 {
   using namespace calc;
 
-  geo::RasterSpace const in(3,10,5);
+  geo::RasterSpace const in(3, 10, 5);
 
   AreaMap const amIn(in);
 
-  std::unique_ptr<pcrxml::CheckContext> const cc(amIn.createXMLContext ());
+  std::unique_ptr<pcrxml::CheckContext> const cc(amIn.createXMLContext());
 
   AreaMap const amOut1(amIn.rasterSpace());
 

@@ -10,12 +10,10 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the RasterDataSources class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -41,11 +39,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC RASTERDATASOURCES MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -54,22 +50,17 @@ public:
 
 ag::RasterDataSources::RasterDataSources()
 
-  : DataObjectBase<Raster>(geo::STACK)
+    : DataObjectBase<Raster>(geo::STACK)
 
 {
 }
-
-
 
 ag::RasterDataSources::~RasterDataSources()
 {
 }
 
-
-
-ag::DataInfo<ag::Raster> ag::RasterDataSources::openData(
-         std::string const& name,
-         dal::DataSpace const& space) const
+ag::DataInfo<ag::Raster> ag::RasterDataSources::openData(std::string const &name,
+                                                         dal::DataSpace const &space) const
 {
   std::unique_ptr<Raster> raster(new Raster(name, space));
   assert(raster.get());
@@ -92,24 +83,17 @@ ag::DataInfo<ag::Raster> ag::RasterDataSources::openData(
   }
   */
 
-  DataInfo<Raster> const info(raster.get(), raster->valueScale(),
-         raster->dataSpace());
+  DataInfo<Raster> const info(raster.get(), raster->valueScale(), raster->dataSpace());
   raster.release();
 
   return info;
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

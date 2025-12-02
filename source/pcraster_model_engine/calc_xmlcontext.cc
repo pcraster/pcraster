@@ -4,15 +4,14 @@
 #include "calc_areamap.h"
 #include "calc_timer.h"
 
-
 /*!
   \file
   This file contains the implementation of the XMLContext class.
 */
 
 
-
-namespace calc {
+namespace calc
+{
 
 //------------------------------------------------------------------------------
 
@@ -33,7 +32,6 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC XMLCONTEXT MEMBERS
 //------------------------------------------------------------------------------
@@ -52,7 +50,7 @@ public:
 
 // pcrxml::CheckContext* createXMLCheckContext(AreaMap const& areaMap, Timer const& timer);
 
-pcrxml::RunContext*  createXMLRunContext  (AreaMap const& areaMap, Timer const& timer)
+pcrxml::RunContext *createXMLRunContext(AreaMap const &areaMap, Timer const &timer)
 {
   std::unique_ptr<pcrxml::CheckContext> cc(areaMap.createXMLContext());
   PRECOND(cc->areaMap().present());
@@ -61,7 +59,7 @@ pcrxml::RunContext*  createXMLRunContext  (AreaMap const& areaMap, Timer const& 
   t.start(timer.startInt());
   t.end(timer.lastInt());
 
-  auto* rc(new pcrxml::RunContext(cc->areaMap().get(),t));
+  auto *rc(new pcrxml::RunContext(cc->areaMap().get(), t));
 
   if (cc->computationMask().present())
     rc->computationMask(cc->computationMask().get());
@@ -70,5 +68,4 @@ pcrxml::RunContext*  createXMLRunContext  (AreaMap const& areaMap, Timer const& 
 }
 
 
-} // namespace calc
-
+}  // namespace calc

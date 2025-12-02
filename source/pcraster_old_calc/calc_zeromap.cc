@@ -2,8 +2,7 @@
 #include "calc_zeromap.h"
 #include "calc_map2csf.h"
 
-#include <cstring> // memset
-
+#include <cstring>  // memset
 
 /*!
   \file
@@ -15,13 +14,11 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF ZEROMAP MEMBERS
 //------------------------------------------------------------------------------
 
-calc::ZeroMap::ZeroMap(const Spatial *f):
- Spatial(f->vs(),f->nrValues(), false)
+calc::ZeroMap::ZeroMap(const Spatial *f) : Spatial(f->vs(), f->nrValues(), false)
 {
 }
 
@@ -34,34 +31,34 @@ void calc::ZeroMap::loadExternal() const
   if (valuePtr())
     return;
   allocate();
-  std::memset(valuePtr(),0,valLen());
+  std::memset(valuePtr(), 0, valLen());
 }
 
 calc::Spatial *calc::ZeroMap::copy() const
 {
- if (valuePtr())
-   return Spatial::copy();
+  if (valuePtr())
+    return Spatial::copy();
 
- // call ZeroMap(const Spatial *f) ctor
- return new ZeroMap(this);
+  // call ZeroMap(const Spatial *f) ctor
+  return new ZeroMap(this);
 }
 
-void calc::ZeroMap::analyzeBoolean(bool& noneAreTrue,bool& noneAreFalse) const
+void calc::ZeroMap::analyzeBoolean(bool &noneAreTrue, bool &noneAreFalse) const
 {
- if (valuePtr()) {
-  Spatial::analyzeBoolean(noneAreTrue,noneAreFalse);
- } else {
-  noneAreTrue = true;
-  noneAreFalse = false;
- }
+  if (valuePtr()) {
+    Spatial::analyzeBoolean(noneAreTrue, noneAreFalse);
+  } else {
+    noneAreTrue = true;
+    noneAreFalse = false;
+  }
 }
 
-bool calc::ZeroMap::getCell(double& value, size_t i) const
+bool calc::ZeroMap::getCell(double &value, size_t i) const
 {
- if (valuePtr())
-   return Spatial::getCell(value,i);
- value = 0;
- return true;
+  if (valuePtr())
+    return Spatial::getCell(value, i);
+  value = 0;
+  return true;
 }
 
 //------------------------------------------------------------------------------

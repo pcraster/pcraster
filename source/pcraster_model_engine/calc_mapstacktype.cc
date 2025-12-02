@@ -11,7 +11,6 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
 /*
@@ -35,25 +34,22 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC MAPSTACKTYPE MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF MAPSTACKTYPE MEMBERS
 //------------------------------------------------------------------------------
 
-namespace calc {
+namespace calc
+{
 
 MapStackType::MapStackType()
 
 {
 }
-
-
 
 /* DEFAULT
 //! Copy constructor.
@@ -67,12 +63,9 @@ MapStackType::MapStackType(
 */
 
 
-
 MapStackType::~MapStackType()
 {
 }
-
-
 
 /*  DEFAULT
 //! Assignment operator.
@@ -88,19 +81,21 @@ MapStackType& MapStackType::operator=(
 //! set value of d_highestTimestepAvailable
 void MapStackType::setHighestTimestepAvailable(size_t highestTimestepAvailable)
 {
-  d_highestTimestepAvailable=highestTimestepAvailable;
+  d_highestTimestepAvailable = highestTimestepAvailable;
 }
 
 //! update for use
-void MapStackType::update(const MapStackType& u)
+void MapStackType::update(const MapStackType &u)
 {
-  switch(u.use()) {
-   case Unknown: return;
-   case Modulo:
-               setHighestTimestepAvailable(u.highestTimestepAvailable());
-               [[fallthrough]];
-   default:    setUse(u.use());
- }
+  switch (u.use()) {
+    case Unknown:
+      return;
+    case Modulo:
+      setHighestTimestepAvailable(u.highestTimestepAvailable());
+      [[fallthrough]];
+    default:
+      setUse(u.use());
+  }
 }
 
 //! get value of d_highestTimestepAvailable
@@ -115,13 +110,12 @@ size_t MapStackType::highestTimestepAvailable() const
 void MapStackType::setUse(Use use)
 {
   if (d_use == Unknown || d_use == use)
-    d_use=use;
+    d_use = use;
   else {
     auto const f1 = operationName(d_use);
     auto const f2 = operationName(use);
-    throw MapStackClash(std::vformat(
-     "can not apply both {0} and {1} to same mapstack",
-          std::make_format_args(f1, f2)));
+    throw MapStackClash(
+        std::vformat("can not apply both {0} and {1} to same mapstack", std::make_format_args(f1, f2)));
   }
 }
 
@@ -133,8 +127,9 @@ MapStackType::Use MapStackType::use() const
 
 std::string MapStackType::operationName(Use u)
 {
-  switch(u) {
-    case Unknown: break;
+  switch (u) {
+    case Unknown:
+      break;
     case Full:
       return "timeinput";
     case Sparse:
@@ -149,17 +144,13 @@ std::string MapStackType::operationName(Use u)
 }
 
 
-} // namespace calc
+}  // namespace calc
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

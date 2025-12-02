@@ -2,16 +2,14 @@
 #include "calc_vspatial.h"
 #include "pcrtypes.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the VSpatial class.
 */
 
 
-
-namespace calc {
+namespace calc
+{
 
 //------------------------------------------------------------------------------
 
@@ -32,30 +30,23 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC VSPATIAL MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF VSPATIAL MEMBERS
 //------------------------------------------------------------------------------
 
-template<typename OutType,
-         typename InType >
- VSpatial<OutType,InType>::VSpatial(InType const* data):
-   d_data(data)
- {}
+template <typename OutType, typename InType>
+VSpatial<OutType, InType>::VSpatial(InType const *data) : d_data(data)
+{
+}
 
-template<typename OutType,
-         typename InType >
- VSpatial<OutType,InType>::~VSpatial()
- {}
-
-
-
+template <typename OutType, typename InType> VSpatial<OutType, InType>::~VSpatial()
+{
+}
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -67,7 +58,6 @@ VSpatial::VSpatial(
 {
 }
 */
-
 
 
 /* NOT IMPLEMENTED
@@ -82,17 +72,16 @@ VSpatial& VSpatial::operator=(
 }
 */
 
-template<typename OutType,
-         typename InType >
-bool VSpatial<OutType,InType>::isMV(size_t i) const {
-   return pcr::isMV(d_data[i]);
+template <typename OutType, typename InType> bool VSpatial<OutType, InType>::isMV(size_t i) const
+{
+  return pcr::isMV(d_data[i]);
 }
 
-template<typename OutType,
-         typename InType >
-OutType VSpatial<OutType,InType>::operator[](size_t i)const  {
-   DEVELOP_PRECOND(!pcr::isMV(d_data[i]));
-   return d_data[i];
+template <typename OutType, typename InType>
+OutType VSpatial<OutType, InType>::operator[](size_t i) const
+{
+  DEVELOP_PRECOND(!pcr::isMV(d_data[i]));
+  return d_data[i];
 }
 
 //------------------------------------------------------------------------------
@@ -100,15 +89,13 @@ OutType VSpatial<OutType,InType>::operator[](size_t i)const  {
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-template class VSpatial<INT4,UINT1>;
-template class VSpatial<INT4,INT4>;
-template class VSpatial<double,UINT1>;
-template class VSpatial<double,INT4>;
-template class VSpatial<double,REAL4>;
+template class VSpatial<INT4, UINT1>;
+template class VSpatial<INT4, INT4>;
+template class VSpatial<double, UINT1>;
+template class VSpatial<double, INT4>;
+template class VSpatial<double, REAL4>;
 
-} // namespace calc
-
+}  // namespace calc

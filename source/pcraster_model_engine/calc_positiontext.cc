@@ -16,23 +16,17 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF POSITIONTEXT MEMBERS
 //------------------------------------------------------------------------------
 
-calc::PositionText::PositionText(
-    StringSharedPtr fileName,
-    int lineNr,int charNr):
-  d_fileName(std::move(fileName)),d_lineNr(lineNr),d_charNr(charNr)
+calc::PositionText::PositionText(StringSharedPtr fileName, int lineNr, int charNr)
+    : d_fileName(std::move(fileName)), d_lineNr(lineNr), d_charNr(charNr)
 {
 }
 
-calc::PositionText::PositionText(const PositionText& pt):
- Position(pt),
- d_fileName(pt.d_fileName),
- d_lineNr(pt.d_lineNr),
- d_charNr(pt.d_charNr)
+calc::PositionText::PositionText(const PositionText &pt)
+    : Position(pt), d_fileName(pt.d_fileName), d_lineNr(pt.d_lineNr), d_charNr(pt.d_charNr)
 {
 }
 
@@ -44,7 +38,7 @@ calc::PositionText::~PositionText()
 /*!
    \throws calc::PosException
  */
-void calc::PositionText::throwError(const std::string& msg) const
+void calc::PositionText::throwError(const std::string &msg) const
 {
 #ifdef DEBUG_DEVELOP
   /* only automic initizialization does this
@@ -54,10 +48,10 @@ void calc::PositionText::throwError(const std::string& msg) const
    */
   POSTCOND(d_lineNr > 0 && d_charNr > 0);
 #endif
-  throw PosException(fullText(),msg,true);
+  throw PosException(fullText(), msg, true);
 }
 
-calc::PositionText*  calc::PositionText::createClone() const
+calc::PositionText *calc::PositionText::createClone() const
 {
   return new PositionText(*this);
 }
@@ -74,11 +68,7 @@ std::string calc::PositionText::shortText() const
 std::string calc::PositionText::fullText() const
 {
   std::ostringstream s;
-  s  << *d_fileName
-     << ":"
-     << d_lineNr
-     << ":"
-     << d_charNr;
+  s << *d_fileName << ":" << d_lineNr << ":" << d_charNr;
   return s.str();
 }
 
@@ -87,10 +77,6 @@ std::string calc::PositionText::fullText() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

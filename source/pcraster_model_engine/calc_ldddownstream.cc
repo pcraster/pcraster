@@ -30,12 +30,10 @@
 #endif
 
 
-
 /*!
   \file
   This file contains the implementation of the LddDownstream class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -61,11 +59,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC LDDDOWNSTREAM MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -78,24 +74,24 @@ public:
  *   using reverse_iterator's instead of iterator's? If so, uncomment
  *   reverse operations and swap iterator type for up and down.
  */
-calc::LddDownstream::LddDownstream(
-                       const UINT1 *lddField,
-                       const IFieldRDConversion& conv):
-  d_diagonal(conv.nrFieldCells())
+calc::LddDownstream::LddDownstream(const UINT1 *lddField, const IFieldRDConversion &conv)
+    : d_diagonal(conv.nrFieldCells())
 {
-  size_t fieldLen=conv.nrFieldCells();
+  size_t fieldLen = conv.nrFieldCells();
 
   d_edge.reserve(fieldLen);
   d_mv.reserve(fieldLen);
 
   struct Check {
-    boost::dynamic_bitset<>  d_added;
-    Check(size_t n):
-      d_added(n)
+    boost::dynamic_bitset<> d_added;
+
+    Check(size_t n) : d_added(n)
     {
     }
-    void add(size_t i) {
-      PRECOND(i<d_added.size());
+
+    void add(size_t i)
+    {
+      PRECOND(i < d_added.size());
       /* in current setup, starting from
        * pit this can not happen for an Ldd,
        * it means that a cells point to
@@ -106,49 +102,52 @@ calc::LddDownstream::LddDownstream(
        */
       DEVELOP_PRECOND(!d_added[i]);
       if (d_added[i])
-         throw Unsound();
+        throw Unsound();
       d_added.set(i);
     }
-    void finish() const {
+
+    void finish() const
+    {
       if (d_added.count() != d_added.size())
-         throw Unsound();
+        throw Unsound();
     }
   } check(fieldLen);
 
-  for(size_t p=0; p<fieldLen; ++p) {
-    switch(lddField[p]) {
-     case MV_UINT1: d_mv.push_back(p);
-                    check.add(p);
-                    break;
-     case LDD_PIT:
-      d_pit.push_back(p);
-      /* evaluate from the pit upstream, in breadth first order
+  for (size_t p = 0; p < fieldLen; ++p) {
+    switch (lddField[p]) {
+      case MV_UINT1:
+        d_mv.push_back(p);
+        check.add(p);
+        break;
+      case LDD_PIT:
+        d_pit.push_back(p);
+        /* evaluate from the pit upstream, in breadth first order
        * only breadth first is the correct ordering for both 
        * downstream and upstream
        */
-      // targets of downstream edge
-      std::stack<geo::LinearLoc> targets;
-      targets.push(p);
-      while(!targets.empty()) {
-        FieldId        targetF=targets.top();
-        geo::LinearLoc targetR=conv.toRasterId(targetF);
-        targets.pop();
-        for(geo::NB::Code nb=0; nb<8; ++nb) {
-         geo::LinearLoc sourceR=conv.rasterDim().target<geo::NB>(targetR,nb);
-         if (sourceR!=conv.invalidId()) {
-          // valid neighbour
-          FieldId sourceF = conv.toFieldId(sourceR);
-          if (lddField[sourceF] != MV_UINT1 &&
-              targetR==conv.rasterDim().target<geo::LDD>(sourceR,lddField[sourceF])) {
-              // neighbour sourceF flows to targetF
-              d_diagonal[d_edge.size()]= lddField[sourceF] % 2;
-              addEdge(sourceF,targetF);
-              targets.push(sourceF);
-           }
-         }
+        // targets of downstream edge
+        std::stack<geo::LinearLoc> targets;
+        targets.push(p);
+        while (!targets.empty()) {
+          FieldId targetF = targets.top();
+          geo::LinearLoc targetR = conv.toRasterId(targetF);
+          targets.pop();
+          for (geo::NB::Code nb = 0; nb < 8; ++nb) {
+            geo::LinearLoc sourceR = conv.rasterDim().target<geo::NB>(targetR, nb);
+            if (sourceR != conv.invalidId()) {
+              // valid neighbour
+              FieldId sourceF = conv.toFieldId(sourceR);
+              if (lddField[sourceF] != MV_UINT1 &&
+                  targetR == conv.rasterDim().target<geo::LDD>(sourceR, lddField[sourceF])) {
+                // neighbour sourceF flows to targetF
+                d_diagonal[d_edge.size()] = lddField[sourceF] % 2;
+                addEdge(sourceF, targetF);
+                targets.push(sourceF);
+              }
+            }
+          }
+          check.add(targetF);
         }
-        check.add(targetF);
-      }
     }
   }
   check.finish();
@@ -157,19 +156,19 @@ calc::LddDownstream::LddDownstream(
   d_diagonal.resize(d_diagonal.size());
   d_mv.resize(d_mv.size());
 
-/*
+  /*
  * std::reverse(      d_edge.begin(),      d_edge.end());
  * std::reverse(d_diagonal.begin(),d_diagonal.end());
  */
 }
 
-void calc::LddDownstream::addEdge(FieldId sV, FieldId tV) {
+void calc::LddDownstream::addEdge(FieldId sV, FieldId tV)
+{
   VertexEdges ve;
-  ve.d_sourceVertex=sV;
-  ve.d_targetVertex=tV;
+  ve.d_sourceVertex = sV;
+  ve.d_targetVertex = tV;
   d_edge.push_back(ve);
 }
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -182,12 +181,9 @@ calc::LddDownstream::LddDownstream(LddDownstream const& rhs)
 */
 
 
-
 calc::LddDownstream::~LddDownstream()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -200,16 +196,11 @@ calc::LddDownstream& calc::LddDownstream::operator=(LddDownstream const& rhs)
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

@@ -2,18 +2,16 @@
 #include "calc_tssinputparameter.h"
 #include "calc_timetable.h"
 
-calc::TssInputParameter::TssInputParameter(
-    const calc::ParsPar& par,
-    bool constant,
-       const std::vector<calc::TimeTable *>& val) :
-  calc::TssParameter(par,constant,true), d_vals(val)
+calc::TssInputParameter::TssInputParameter(const calc::ParsPar &par, bool constant,
+                                           const std::vector<calc::TimeTable *> &val)
+    : calc::TssParameter(par, constant, true), d_vals(val)
 {
   POSTCOND(d_vals.size() == nrElements());
 }
 
 calc::TssInputParameter::~TssInputParameter()
 {
-  for(auto & d_val : d_vals)
+  for (auto &d_val : d_vals)
     delete d_val;
 }
 

@@ -12,7 +12,6 @@
 
 #include <format>
 
-
 /*!
   \file
   brief
@@ -21,62 +20,56 @@
 */
 
 
-
-namespace ag {
+namespace ag
+{
 
 //------------------------------------------------------------------------------
 
 class VisEnginePrivate
 {
 public:
-
-  std::vector<DataGuide> _dataGuides;   // Data guides of vis.
-  DataProperties   _properties;
-  bool             _folowCursor{true};
-  dal::DataSpace   _dataSpace;
+  std::vector<DataGuide> _dataGuides;  // Data guides of vis.
+  DataProperties _properties;
+  bool _folowCursor{true};
+  dal::DataSpace _dataSpace;
   dal::DataSpaceAddress _dataSpaceAddress;
 
-  double           _map2DZoom{-1e32};
-  double           _map2DScale{-1e32};
-  QPointF          _map2DOffset;
-  size_t           _quadLength{0};
-  double           _map3DScale{-1e32};
+  double _map2DZoom{-1e32};
+  double _map2DScale{-1e32};
+  QPointF _map2DOffset;
+  size_t _quadLength{0};
+  double _map3DScale{-1e32};
 
-  MapAction        _mapAction{NR_MAP_ACTIONS};
+  MapAction _mapAction{NR_MAP_ACTIONS};
 
-  DataGuide const* _height{nullptr};
+  DataGuide const *_height{nullptr};
 
-  boost::any       _selectedValue;
+  boost::any _selectedValue;
   /// std::map<DataGuide, boost::any> _selectedValues;
 
-  QColor           _backgroundColour;
+  QColor _backgroundColour;
 
-  unsigned int     _change{0};
+  unsigned int _change{0};
 
   VisEnginePrivate()
-    :
-      _map2DOffset(),
+      : _map2DOffset(),
 
-      _selectedValue()
+        _selectedValue()
 
   {
   }
 
   ~VisEnginePrivate()
   {
-    if(_height) {
+    if (_height) {
       delete _height;
     }
   }
-
 };
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -88,19 +81,15 @@ public:
 */
 VisEngine::VisEngine()
 
-  : _data(new VisEnginePrivate())
+    : _data(new VisEnginePrivate())
 
 {
 }
-
-
 
 VisEngine::~VisEngine()
 {
   delete _data;
 }
-
-
 
 /*
 VisEngine& VisEngine::operator=(const VisEngine& aEngine)
@@ -119,18 +108,14 @@ VisEngine& VisEngine::operator=(const VisEngine& aEngine)
 */
 
 
-
 /*!
   \param     s If true, the visualisation will respond to cursor changes.
   \sa        folowCursor()
 */
-void VisEngine::setFolowCursor(
-         bool s)
+void VisEngine::setFolowCursor(bool s)
 {
   _data->_folowCursor = s;
 }
-
-
 
 /*!
   \return    True if the visualisation responds to cursor changes.
@@ -141,14 +126,10 @@ bool VisEngine::folowCursor()
   return _data->_folowCursor;
 }
 
-
-
 unsigned int VisEngine::change() const
 {
   return _data->_change;
 }
-
-
 
 //!
 /*!
@@ -161,12 +142,11 @@ unsigned int VisEngine::change() const
              disposal.
   \sa        .
 */
-void VisEngine::rescan(
-         DataObject const& object)
+void VisEngine::rescan(DataObject const &object)
 {
   // See whether data has been removed.
-  for(size_t i = 0; i < _data->_dataGuides.size(); ++i) {
-    if(!object.isAvailable(_data->_dataGuides[i])) {
+  for (size_t i = 0; i < _data->_dataGuides.size(); ++i) {
+    if (!object.isAvailable(_data->_dataGuides[i])) {
 
       // Remove our references to this data guide.
       _data->_properties.remove(_data->_dataGuides[i]);
@@ -179,7 +159,7 @@ void VisEngine::rescan(
     }
   }
 
-  if(object.dataSpace() != _data->_dataSpace) {
+  if (object.dataSpace() != _data->_dataSpace) {
     // The whole data configuration changed, our address is not valid anymore.
     // TODO Make this more efficient by explicitly checking whether the
     // TODO coordinates of the address realy changed.
@@ -187,33 +167,26 @@ void VisEngine::rescan(
     _data->_change |= QUANTILE;
     _data->_change |= TIME;
     _data->_change |= RASTER_CELL;
-  }
-  else if(_data->_dataSpaceAddress.size() != object.dataSpace().size() ||
-         !object.dataSpace().equal(object.dataSpaceAddress(),
-         _data->_dataSpaceAddress)) {
+  } else if (_data->_dataSpaceAddress.size() != object.dataSpace().size() ||
+             !object.dataSpace().equal(object.dataSpaceAddress(), _data->_dataSpaceAddress)) {
     _data->_change |= CURSOR;
 
-    if(object.dataSpace().hasCumProbabilities() !=
-         _data->_dataSpace.hasCumProbabilities()) {
+    if (object.dataSpace().hasCumProbabilities() != _data->_dataSpace.hasCumProbabilities()) {
       _data->_change |= QUANTILE;
-    }
-    else if(object.dataSpace().hasCumProbabilities()) {
-      size_t const index = object.dataSpace().indexOf(
-         dal::CumulativeProbabilities);
-      if(!dal::comparable<float>(
-         object.dataSpaceAddress().coordinate<float>(index),
-         _data->_dataSpaceAddress.coordinate<float>(index))) {
+    } else if (object.dataSpace().hasCumProbabilities()) {
+      size_t const index = object.dataSpace().indexOf(dal::CumulativeProbabilities);
+      if (!dal::comparable<float>(object.dataSpaceAddress().coordinate<float>(index),
+                                  _data->_dataSpaceAddress.coordinate<float>(index))) {
         _data->_change |= QUANTILE;
       }
     }
 
-    if(object.dataSpace().hasTime() != _data->_dataSpace.hasTime()) {
+    if (object.dataSpace().hasTime() != _data->_dataSpace.hasTime()) {
       _data->_change |= TIME;
-    }
-    else if(object.dataSpace().hasTime()) {
+    } else if (object.dataSpace().hasTime()) {
       size_t const index = object.dataSpace().indexOf(dal::Time);
-      if(object.dataSpaceAddress().coordinate<size_t>(index) !=
-            _data->_dataSpaceAddress.coordinate<size_t>(index)) {
+      if (object.dataSpaceAddress().coordinate<size_t>(index) !=
+          _data->_dataSpaceAddress.coordinate<size_t>(index)) {
         _data->_change |= TIME;
       }
     }
@@ -222,55 +195,52 @@ void VisEngine::rescan(
     ///   _data->_change |= RASTER_CELL;
     /// }
     /// else if(...) {
-    if(object.dataSpace().hasSpace()) {
+    if (object.dataSpace().hasSpace()) {
       size_t const index = object.dataSpace().indexOf(dal::Space);
 
-      if(object.dataSpaceAddress().isValid(index) !=
-         _data->_dataSpaceAddress.isValid(index)) {
+      if (object.dataSpaceAddress().isValid(index) != _data->_dataSpaceAddress.isValid(index)) {
         _data->_change |= RASTER_CELL;
-      }
-      else if(object.dataSpaceAddress().isValid(index) &&
-         object.dataSpaceAddress().coordinate<dal::SpatialCoordinate>(index) !=
-         _data->_dataSpaceAddress.coordinate<dal::SpatialCoordinate>(index)) {
+      } else if (object.dataSpaceAddress().isValid(index) &&
+                 object.dataSpaceAddress().coordinate<dal::SpatialCoordinate>(index) !=
+                     _data->_dataSpaceAddress.coordinate<dal::SpatialCoordinate>(index)) {
         _data->_change |= RASTER_CELL;
       }
     }
   }
 
 #ifdef DEBUG_DEVELOP
-  if(_data->_change & TIME || _data->_change & QUANTILE ||
-         _data->_change &  RASTER_CELL) {
+  if (_data->_change & TIME || _data->_change & QUANTILE || _data->_change & RASTER_CELL) {
     assert(_data->_change & CURSOR);
   }
 #endif
 
-  if(_data->_map2DZoom != object.map2DZoom()) {
+  if (_data->_map2DZoom != object.map2DZoom()) {
     _data->_change |= MAP2DZOOM;
   }
 
-  if(_data->_map2DScale != object.map2DScale()) {
+  if (_data->_map2DScale != object.map2DScale()) {
     _data->_change |= MAP2DSCALE;
   }
 
-  if(_data->_map2DOffset != object.map2DOffset()) {
+  if (_data->_map2DOffset != object.map2DOffset()) {
     _data->_change |= MAP2DMOVE;
   }
 
-  if(_data->_height) {
+  if (_data->_height) {
     // Check if the stack we use as height is still available.
-    if(!object.rasterDataSources().isValid(*_data->_height)) {
+    if (!object.rasterDataSources().isValid(*_data->_height)) {
       delete _data->_height;
       _data->_height = nullptr;
       _data->_change |= OTHERHEIGHT;
     }
   }
 
-  if(_data->_quadLength != object.quadLength()) {
+  if (_data->_quadLength != object.quadLength()) {
     _data->_quadLength = object.quadLength();
     _data->_change |= QUADLENGTH;
   }
 
-  if(_data->_map3DScale != object.map3DScale()) {
+  if (_data->_map3DScale != object.map3DScale()) {
     _data->_map3DScale = object.map3DScale();
     _data->_change |= MAP3DSCALE;
   }
@@ -281,15 +251,15 @@ void VisEngine::rescan(
   /// }
 
   // Loop over the properties.
-  for(auto & _propertie : _data->_properties) {
+  for (auto &_propertie : _data->_properties) {
 
     // Let's see if data is selected or unselected since the last time.
-    if(_data->_properties.isSelected(_propertie) != object.isSelected(_propertie)) {
+    if (_data->_properties.isSelected(_propertie) != object.isSelected(_propertie)) {
       // _data->_properties.setSelected(*it, object.isSelected(*it));
       _data->_change |= SELECTION;
     }
 
-    if(_data->_properties.isEnabled(_propertie) != object.isEnabled(_propertie)) {
+    if (_data->_properties.isEnabled(_propertie) != object.isEnabled(_propertie)) {
       // _data->_properties.setEnabled(*it, object.isEnabled(*it));
       _data->_change |= VISIBILITY;
     }
@@ -305,19 +275,17 @@ void VisEngine::rescan(
   ///   }
   /// }
 
-  for(auto it = begin(); it != end(); ++it) {
-    if(properties().palette(*it) != object.properties().palette(*it)) {
+  for (auto it = begin(); it != end(); ++it) {
+    if (properties().palette(*it) != object.properties().palette(*it)) {
       properties().setPalette(*it, object.properties().palette(*it));
       _data->_change |= DRAWPROPS;
     }
 
-    if((*it).isRangeData()) {
-      RangeDrawProps const& newDrawProperties =
-         object.properties().rangeDrawProperties(*it);
-      RangeDrawProps const& oldDrawProperties =
-         _data->_properties.rangeDrawProperties(*it);
+    if ((*it).isRangeData()) {
+      RangeDrawProps const &newDrawProperties = object.properties().rangeDrawProperties(*it);
+      RangeDrawProps const &oldDrawProperties = _data->_properties.rangeDrawProperties(*it);
 
-      if(oldDrawProperties != newDrawProperties) {
+      if (oldDrawProperties != newDrawProperties) {
         _data->_properties.copy(*it, object.properties());
         assert(oldDrawProperties == newDrawProperties);
         _data->_change |= DRAWPROPS;
@@ -325,30 +293,25 @@ void VisEngine::rescan(
     }
   }
 
-  if(object.hasSelectedValue()) {
-    if(_data->_selectedValue.empty() ||
-         !dal::comparable(object.selectedValue(),
-              boost::any_cast<REAL4>(_data->_selectedValue))) {
+  if (object.hasSelectedValue()) {
+    if (_data->_selectedValue.empty() ||
+        !dal::comparable(object.selectedValue(), boost::any_cast<REAL4>(_data->_selectedValue))) {
       _data->_selectedValue = object.selectedValue();
       _data->_change |= VALUE_SELECTION;
     }
-  }
-  else {
-    if(!_data->_selectedValue.empty()) {
+  } else {
+    if (!_data->_selectedValue.empty()) {
       _data->_selectedValue = boost::any();
       _data->_change |= VALUE_SELECTION;
     }
   }
 
-  if(_data->_backgroundColour != object.backgroundColour()) {
+  if (_data->_backgroundColour != object.backgroundColour()) {
     _data->_change |= BACKGROUND_COLOUR;
   }
 }
 
-
-
-void VisEngine::finishedScanning(
-         DataObject const& object)
+void VisEngine::finishedScanning(DataObject const &object)
 {
   _data->_dataSpace = object.dataSpace();
   assert(_data->_dataSpace == object.dataSpace());
@@ -361,8 +324,7 @@ void VisEngine::finishedScanning(
   _data->_backgroundColour = object.backgroundColour();
   _data->_change = 0;
 
-  for(auto it = _data->_properties.begin();
-                   it != _data->_properties.end(); ++it) {
+  for (auto it = _data->_properties.begin(); it != _data->_properties.end(); ++it) {
     _data->_properties.setSelected(*it, object.isSelected(*it));
     _data->_properties.setEnabled(*it, object.isEnabled(*it));
     /// _data->_properties.rangeDrawProperties(*it).setAlgorithm(
@@ -370,13 +332,10 @@ void VisEngine::finishedScanning(
   }
 }
 
-
-
 // const CursorPos& VisEngine::cursorPos() const
 // {
 //   return _data->_cursorPos;
 // }
-
 
 
 //! Adds a data guide for data which is visualized.
@@ -385,8 +344,7 @@ void VisEngine::finishedScanning(
   \warning   Make sure you call this function for every piece of data which is
              visualized.
 */
-void VisEngine::addDataGuide(
-         DataGuide const& aDataGuide)
+void VisEngine::addDataGuide(DataGuide const &aDataGuide)
 {
   _data->_dataGuides.push_back(aDataGuide);
   // KDJ: It is possible that the same data is visualised more than once.
@@ -395,36 +353,26 @@ void VisEngine::addDataGuide(
   /// _data->_selectedValues[aDataGuide] = boost::any();
 }
 
-
-
-void VisEngine::addDataProperties(
-         DataObject const& dataObject,
-         DataGuide const& dataGuide)
+void VisEngine::addDataProperties(DataObject const &dataObject, DataGuide const &dataGuide)
 {
   _data->_properties.copy(dataGuide, dataObject.properties());
 }
-
-
 
 //! Adds attribute pointed to by \a guide to the list of attributes.
 /*!
   \param     dataObject Data object with the data.
   \param     g Guide to stack.
 */
-void VisEngine::addAttribute(
-         DataObject const& object,
-         DataGuide const& guide)
+void VisEngine::addAttribute(DataObject const &object, DataGuide const &guide)
 {
   addDataGuide(guide);
   addDataProperties(object, guide);
   _data->_change |= OTHERATTRIB;
 }
 
-
-
 void VisEngine::clear()
 {
-  for(size_t i = 0; i < _data->_dataGuides.size(); ++i) {
+  for (size_t i = 0; i < _data->_dataGuides.size(); ++i) {
 
     // Remove our references to this data guide.
     _data->_properties.remove(_data->_dataGuides[i]);
@@ -439,63 +387,45 @@ void VisEngine::clear()
   /// _data->_selectedValues.clear();
 }
 
-
-
 VisEngine::const_dataguide_iterator VisEngine::begin() const
 {
   return _data->_dataGuides.begin();
 }
-
-
 
 VisEngine::const_reverse_dataguide_iterator VisEngine::rbegin() const
 {
   return _data->_dataGuides.rbegin();
 }
 
-
-
 VisEngine::const_dataguide_iterator VisEngine::end() const
 {
   return _data->_dataGuides.end();
 }
-
-
 
 VisEngine::const_reverse_dataguide_iterator VisEngine::rend() const
 {
   return _data->_dataGuides.rend();
 }
 
-
-
-const std::vector<DataGuide>& VisEngine::dataGuides() const
+const std::vector<DataGuide> &VisEngine::dataGuides() const
 {
   return _data->_dataGuides;
 }
 
-
-
-DataProperties& VisEngine::properties()
+DataProperties &VisEngine::properties()
 {
   return _data->_properties;
 }
-
-
 
 bool VisEngine::cursorChanged() const
 {
   return _data->_change & CURSOR;
 }
 
-
-
 bool VisEngine::timeChanged() const
 {
   return _data->_change & TIME;
 }
-
-
 
 //! Sets the height stack to the stack pointed to by \a guide.
 /*!
@@ -504,33 +434,27 @@ bool VisEngine::timeChanged() const
   The height stack is the stack which is used for height values. All attributes
   are draped on top of the height stack.
 */
-void VisEngine::setHeight(
-         DataGuide const& guide)
+void VisEngine::setHeight(DataGuide const &guide)
 {
-  if(guide.valueScale() != VS_SCALAR) {
-    std::string const message = std::format(
-         "Value scale {0}: Not a valid value scale for height data.\n"
-         "Valid value scale is: {1}.",
-         dal::valueScaleToString(guide.valueScale()),
-         dal::valueScaleToString(VS_SCALAR));
+  if (guide.valueScale() != VS_SCALAR) {
+    std::string const message =
+        std::format("Value scale {0}: Not a valid value scale for height data.\n"
+                    "Valid value scale is: {1}.",
+                    dal::valueScaleToString(guide.valueScale()), dal::valueScaleToString(VS_SCALAR));
     throw com::Exception(message);
   }
 
-  if(_data->_height) {
+  if (_data->_height) {
     delete _data->_height;
   }
   _data->_height = new DataGuide(guide);
   _data->_change |= OTHERHEIGHT;
 }
 
-
-
-DataGuide const* VisEngine::heightDataGuide() const
+DataGuide const *VisEngine::heightDataGuide() const
 {
   return _data->_height;
 }
-
-
 
 /*
 bool VisEngine::hasSelectedData() const
@@ -564,7 +488,6 @@ std::vector<DataGuide> VisEngine::selectedData() const
 */
 
 
-
 //! Updates the guide of sub-classes.
 /*!
   \param     aDataGuide Data guide which has changed.
@@ -578,86 +501,85 @@ void VisEngine::updateGuide(const DataGuide& aDataGuide)
 */
 
 
-
 // #ifdef DEBUG_DEVELOP
 std::string VisEngine::changeToString() const
 {
   std::string result;
 
-  if(_data->_change & CURSOR) {
-    if(!result.empty()) {
+  if (_data->_change & CURSOR) {
+    if (!result.empty()) {
       result += "|";
     }
     result += "cursor";
   }
-  if(_data->_change & QUANTILE) {
-    if(!result.empty()) {
+  if (_data->_change & QUANTILE) {
+    if (!result.empty()) {
       result += "|";
     }
     result += "quantile";
   }
-  if(_data->_change & TIME) {
-    if(!result.empty()) {
+  if (_data->_change & TIME) {
+    if (!result.empty()) {
       result += "|";
     }
     result += "time";
   }
-  if(_data->_change & SELECTION) {
-    if(!result.empty()) {
+  if (_data->_change & SELECTION) {
+    if (!result.empty()) {
       result += "|";
     }
     result += "selection";
   }
-  if(_data->_change & VISIBILITY) {
-    if(!result.empty()) {
+  if (_data->_change & VISIBILITY) {
+    if (!result.empty()) {
       result += "|";
     }
     result += "visibility";
   }
-  if(_data->_change & OTHERATTRIB) {
-    if(!result.empty()) {
+  if (_data->_change & OTHERATTRIB) {
+    if (!result.empty()) {
       result += "|";
     }
     result += "otherattrib";
   }
-  if(_data->_change & DRAWPROPS) {
-    if(!result.empty()) {
+  if (_data->_change & DRAWPROPS) {
+    if (!result.empty()) {
       result += "|";
     }
     result += "drawprops";
   }
-  if(_data->_change & MAP2DZOOM) {
-    if(!result.empty()) {
+  if (_data->_change & MAP2DZOOM) {
+    if (!result.empty()) {
       result += "|";
     }
     result += "map2dzoom";
   }
-  if(_data->_change & MAP2DSCALE) {
-    if(!result.empty()) {
+  if (_data->_change & MAP2DSCALE) {
+    if (!result.empty()) {
       result += "|";
     }
     result += "map2dscale";
   }
-  if(_data->_change & MAP2DMOVE) {
-    if(!result.empty()) {
+  if (_data->_change & MAP2DMOVE) {
+    if (!result.empty()) {
       result += "|";
     }
     result += "map2dmove";
   }
-  if(_data->_change & QUADLENGTH) {
-    if(!result.empty()) {
+  if (_data->_change & QUADLENGTH) {
+    if (!result.empty()) {
       result += "|";
     }
     result += "quadlength";
   }
-  if(_data->_change & MAP3DSCALE) {
-    if(!result.empty()) {
+  if (_data->_change & MAP3DSCALE) {
+    if (!result.empty()) {
       result += "|";
     }
     result += "map3dscale";
   }
-  if(_data->_change & OTHERHEIGHT) {
-    if(!result.empty()) {
+  if (_data->_change & OTHERHEIGHT) {
+    if (!result.empty()) {
       result += "|";
     }
     result += "otherheight";
@@ -668,8 +590,8 @@ std::string VisEngine::changeToString() const
   ///   }
   ///   result += "map_action";
   /// }
-  if(_data->_change & VALUE_SELECTION) {
-    if(!result.empty()) {
+  if (_data->_change & VALUE_SELECTION) {
+    if (!result.empty()) {
       result += "|";
     }
     result += "value_selection";
@@ -683,8 +605,8 @@ std::string VisEngine::changeToString() const
 
   return result;
 }
-// #endif
 
+// #endif
 
 
 size_t VisEngine::size() const
@@ -692,69 +614,50 @@ size_t VisEngine::size() const
   return _data->_dataGuides.size();
 }
 
-
-
 bool VisEngine::isEmpty() const
 {
   return _data->_dataGuides.empty();
 }
 
-
-
-DataGuide const& VisEngine::guide(size_t index) const
+DataGuide const &VisEngine::guide(size_t index) const
 {
   assert(index <= _data->_dataGuides.size());
   return _data->_dataGuides[index];
 }
 
-
-
-dal::DataSpace const& VisEngine::dataSpace() const
+dal::DataSpace const &VisEngine::dataSpace() const
 {
   return _data->_dataSpace;
 }
 
-
-
-dal::DataSpaceAddress const& VisEngine::dataSpaceAddress() const
+dal::DataSpaceAddress const &VisEngine::dataSpaceAddress() const
 {
   return _data->_dataSpaceAddress;
 }
-
-
 
 double VisEngine::map2DZoom() const
 {
   return _data->_map2DZoom;
 }
 
-
-
 double VisEngine::map2DScale() const
 {
   return _data->_map2DScale;
 }
-
-
 
 QPointF VisEngine::map2DOffset() const
 {
   return _data->_map2DOffset;
 }
 
-
-
-QColor const& VisEngine::backgroundColour() const
+QColor const &VisEngine::backgroundColour() const
 {
   return _data->_backgroundColour;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -762,11 +665,9 @@ QColor const& VisEngine::backgroundColour() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -774,9 +675,8 @@ QColor const& VisEngine::backgroundColour() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace ag
+}  // namespace ag

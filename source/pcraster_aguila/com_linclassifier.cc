@@ -7,34 +7,26 @@
 #include <cmath>
 #include <vector>
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
-template<class T>
+template <class T>
 com_LinClassifier<T>::com_LinClassifier()
 
-  : com::ClassifierImp<T>()
+    : com::ClassifierImp<T>()
 
 {
 }
 
-
-
-template<class T>
-com_LinClassifier<T>::~com_LinClassifier()
+template <class T> com_LinClassifier<T>::~com_LinClassifier()
 {
 }
-
-
 
 /*!
   The algorithm devides the range \a min - \a max in \a n equaly sized classes
@@ -48,31 +40,26 @@ com_LinClassifier<T>::~com_LinClassifier()
   b[n - 1] = max;                    // Set last class border to max.
   \endcode
 */
-template<class T>
-void com_LinClassifier<T>::classify(std::vector<T> &b, T min, T max, size_t n)
+template <class T> void com_LinClassifier<T>::classify(std::vector<T> &b, T min, T max, size_t n)
 {
   assert(min < max);
 
   n += 1;
   b.resize(n);
-  T width = (max - min) / (n - 1);     // Calculate class width.
-  for(size_t i = 0; i < n - 1; i++) {
-    b[i] = min + (i * width);            // Calculate most class borders.
+  T width = (max - min) / (n - 1);  // Calculate class width.
+  for (size_t i = 0; i < n - 1; i++) {
+    b[i] = min + (i * width);  // Calculate most class borders.
   }
-  b[n - 1] = max;                      // Set last class border to max.
+  b[n - 1] = max;  // Set last class border to max.
 }
 
-
-
-template<class T>
-void com_LinClassifier<T>::autoClassify(std::vector<T> &b, T min, T max,
-                                        size_t n)
+template <class T> void com_LinClassifier<T>::autoClassify(std::vector<T> &b, T min, T max, size_t n)
 {
   assert(min < max);
 
   REAL8 delta = NAN;
-  REAL8 dec = NAN;       // Max power of ten which fits into the interval [min, max].
-  REAL8 width = NAN;     // Class width.
+  REAL8 dec = NAN;    // Max power of ten which fits into the interval [min, max].
+  REAL8 width = NAN;  // Class width.
   REAL8 nmin = NAN;
   REAL8 nmax = NAN;
   size_t nn = 0;
@@ -80,31 +67,28 @@ void com_LinClassifier<T>::autoClassify(std::vector<T> &b, T min, T max,
   n += 1;
 
   delta = max - min;
-  dec   = std::pow(10.0, std::floor(std::log10(delta)));
+  dec = std::pow(10.0, std::floor(std::log10(delta)));
 
   // Calculate class width such that:
   // - Number of intervals will not exceed the max number as specified.
   // - Class width fits {1, 2, 5}*10^n with a natural number n.
-  width  = com_Util::ceil125(delta * 0.999999 / dec / n) * dec;
+  width = com_Util::ceil125(delta * 0.999999 / dec / n) * dec;
 
   // Adjust min and max such that both are integer multiples of the step size.
-  nmin  = width * std::floor((min + com::minEps * width) / width);
-  nmax  = width * std::ceil ((max - com::minEps * width) / width);
+  nmin = width * std::floor((min + com::minEps * width) / width);
+  nmax = width * std::ceil((max - com::minEps * width) / width);
 
   nn = dal::round<REAL8, size_t>((nmax - nmin) / width) + 1;
   b.resize(nn);
 
-  for(size_t i = 0; i < nn - 1; i++)
+  for (size_t i = 0; i < nn - 1; i++)
     b[i] = nmin + (i * width);
   b[nn - 1] = nmax;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -112,9 +96,6 @@ void com_LinClassifier<T>::autoClassify(std::vector<T> &b, T min, T max,
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

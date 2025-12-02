@@ -13,8 +13,9 @@
 
 //------------------------------------------------------------------------------
 
-namespace calc {
- Operations globalOperations;
+namespace calc
+{
+Operations globalOperations;
 }
 
 //! find an operator by its name
@@ -30,37 +31,40 @@ namespace calc {
  *  \endcode
  * \returns 0 if not found
  */
-PCR_ME_EXPORT const calc::Operator* calc::opName2op(const std::string& opName, size_t nrArgs)
+PCR_ME_EXPORT const calc::Operator *calc::opName2op(const std::string &opName, size_t nrArgs)
 {
-  const Operator* op(globalOperations[opName]);
+  const Operator *op(globalOperations[opName]);
   if (!op)
-     return nullptr;
+    return nullptr;
 
   // discern for binary or unary + and -
-  switch(op->opCode()) {
+  switch (op->opCode()) {
     case OP_UADD:
-    case OP_BADD: if (nrArgs==2)
-                      return globalOperations[OP_BADD];
-                  return globalOperations[OP_UADD];
+    case OP_BADD:
+      if (nrArgs == 2)
+        return globalOperations[OP_BADD];
+      return globalOperations[OP_UADD];
     case OP_UMIN:
-    case OP_BMIN: if (nrArgs==2)
-                      return globalOperations[OP_BMIN];
-                  return globalOperations[OP_UMIN];
-    default: return op;
+    case OP_BMIN:
+      if (nrArgs == 2)
+        return globalOperations[OP_BMIN];
+      return globalOperations[OP_UMIN];
+    default:
+      return op;
   }
 }
 
-size_t calc::nrInternalOpCodes() {
+size_t calc::nrInternalOpCodes()
+{
   return globalOperations.size();
 }
-
 
 MAJOR_CODE calc::otherOneOfMRF(MAJOR_CODE op)
 {
   return globalOperations.otherOneOfMRF(op);
 }
 
-const calc::Operator& calc::oneOf2Mrf(MAJOR_CODE op)
+const calc::Operator &calc::oneOf2Mrf(MAJOR_CODE op)
 {
   return *major2op(globalOperations.oneOf2Mrf(op));
 }
@@ -71,14 +75,13 @@ bool calc::oneOfMrfIsStackTop(MAJOR_CODE oneOfMRF)
   return globalOperations.oneOfMrfIsStackTop(oneOfMRF);
 }
 
-PCR_ME_EXPORT const calc::Operator* calc::major2op(MAJOR_CODE major)
+PCR_ME_EXPORT const calc::Operator *calc::major2op(MAJOR_CODE major)
 {
   return globalOperations[major];
 }
 
-
 //! add;s ObjectLink's present in dll to globally known Operator's
-PCR_ME_EXPORT void calc::loadCalcLib(const std::string& dllName)
+PCR_ME_EXPORT void calc::loadCalcLib(const std::string &dllName)
 {
   globalOperations.loadLib(dllName);
 }

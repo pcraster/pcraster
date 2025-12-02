@@ -1,8 +1,6 @@
 #include "dal_MathUtils.h"
 #include "com_colour.h"
 
-
-
 /*!
   \sa      com_Colour(int red, int green, int blue)
 
@@ -10,11 +8,9 @@
 */
 com_Colour::com_Colour()
 
-   
+
 {
 }
-
-
 
 /*!
   \param   red The red colour value.
@@ -27,12 +23,10 @@ com_Colour::com_Colour()
 */
 com_Colour::com_Colour(int red, int green, int blue)
 
-  : d_red(red), d_green(green), d_blue(blue)
+    : d_red(red), d_green(green), d_blue(blue)
 
 {
 }
-
-
 
 /*!
   \param   factor The scalefactor.
@@ -46,12 +40,10 @@ com_Colour::com_Colour(int red, int green, int blue)
 */
 void com_Colour::scale(double factor)
 {
-  d_red   = dal::round<double, int>(d_red   * factor);
+  d_red = dal::round<double, int>(d_red * factor);
   d_green = dal::round<double, int>(d_green * factor);
-  d_blue  = dal::round<double, int>(d_blue  * factor);
+  d_blue = dal::round<double, int>(d_blue * factor);
 }
-
-
 
 /*!
   \return  The red colour value.
@@ -62,8 +54,6 @@ int com_Colour::getRed() const
   return d_red;
 }
 
-
-
 /*!
   \return  The green colour value.
   \sa      getRed(), getBlue()
@@ -73,8 +63,6 @@ int com_Colour::getGreen() const
   return d_green;
 }
 
-
-
 /*!
   \return  The blue colour value.
   \sa      getRed(), getGreen()
@@ -83,4 +71,3 @@ int com_Colour::getBlue() const
 {
   return d_blue;
 }
-

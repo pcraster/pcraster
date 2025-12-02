@@ -7,18 +7,15 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the BitVector class.
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC BITVECTOR MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -33,25 +30,21 @@
 */
 com::BitVector::BitVector(size_t size)
 
-  : d_size(size), d_bits(new int[1 + d_size / BITSPERWORD])
+    : d_size(size), d_bits(new int[1 + d_size / BITSPERWORD])
 
 {
-  for(size_t i = 0; i < d_size; ++i) {
+  for (size_t i = 0; i < d_size; ++i) {
     clear(i);
   }
 }
-
-
 
 //! Destructor.
 /*!
 */
 com::BitVector::~BitVector()
 {
-  delete [] d_bits;
+  delete[] d_bits;
 }
-
-
 
 //! Sets a bit on.
 /*!
@@ -68,8 +61,6 @@ void com::BitVector::set(size_t index)
   d_bits[index >> SHIFT] |= (1 << (index & MASK));
 }
 
-
-
 //! Sets a bit off.
 /*!
   \param     index Index of bit to turn off.
@@ -84,8 +75,6 @@ void com::BitVector::clear(size_t index)
 
   d_bits[index >> SHIFT] &= ~(1 << (index & MASK));
 }
-
-
 
 //! Tests if a bit is turned on.
 /*!
@@ -102,8 +91,6 @@ bool com::BitVector::operator[](size_t index) const
   return (d_bits[index >> SHIFT] & (1 << (index & MASK))) != 0;
 }
 
-
-
 //! Returns the size of the vector.
 /*!
   \return    Size.
@@ -113,17 +100,11 @@ size_t com::BitVector::size() const
   return d_size;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

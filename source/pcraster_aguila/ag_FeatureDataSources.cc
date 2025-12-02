@@ -7,27 +7,24 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the FeatureDataSources class.
 */
 
 
-
-namespace ag {
+namespace ag
+{
 
 // Code that is private to this module.
-namespace detail {
+namespace detail
+{
 
-} // namespace detail
-
-
+}  // namespace detail
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC FEATUREDATASOURCES MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -36,44 +33,34 @@ namespace detail {
 
 FeatureDataSources::FeatureDataSources()
 
-  : DataObjectBase<FeatureLayer>(geo::FEATURE)
+    : DataObjectBase<FeatureLayer>(geo::FEATURE)
 
 {
 }
-
-
 
 FeatureDataSources::~FeatureDataSources()
 {
 }
 
-
-
-DataInfo<FeatureLayer> FeatureDataSources::openData(
-         std::string const& name,
-         dal::DataSpace const& space) const
+DataInfo<FeatureLayer> FeatureDataSources::openData(std::string const &name,
+                                                    dal::DataSpace const &space) const
 {
   std::unique_ptr<FeatureLayer> layer(new FeatureLayer(name, space));
   assert(layer.get());
 
-  DataInfo<FeatureLayer> const info(layer.get(), layer->valueScale(),
-         layer->dataSpace());
+  DataInfo<FeatureLayer> const info(layer.get(), layer->valueScale(), layer->dataSpace());
   layer.release();
 
   return info;
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace ag
-
+}  // namespace ag

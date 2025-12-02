@@ -4,12 +4,10 @@
 
 #include <sstream>
 
-
 /*!
   \file
   This file contains the implementation of the DataTypeClash class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -35,11 +33,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC DATATYPECLASH MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -49,8 +45,6 @@ public:
 calc::DataTypeClash::DataTypeClash()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -63,12 +57,9 @@ calc::DataTypeClash::DataTypeClash(DataTypeClash const& rhs)
 */
 
 
-
 calc::DataTypeClash::~DataTypeClash()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -83,22 +74,19 @@ calc::DataTypeClash& calc::DataTypeClash::operator=(DataTypeClash const& rhs)
 calc::TableClash::TableClash(size_t hasSize, size_t mustHaveSize)
 {
   std::ostringstream msg;
-   msg << "used as table with " << hasSize <<
-     " columns, but has "<< mustHaveSize <<" columns";
-  d_message=msg.str();
+  msg << "used as table with " << hasSize << " columns, but has " << mustHaveSize << " columns";
+  d_message = msg.str();
 }
 
-calc::TableClash::TableClash(size_t offendingColNr,
-                             const  VSClash& c)
+calc::TableClash::TableClash(size_t offendingColNr, const VSClash &c)
 {
   std::ostringstream msg;
-   msg << "column '"<<offendingColNr
-       << "' used as " << c.mustBeOneOf() <<
-     " type, but has "<<  c.isOneOf()    <<" type";
-  d_message=msg.str();
+  msg << "column '" << offendingColNr << "' used as " << c.mustBeOneOf() << " type, but has "
+      << c.isOneOf() << " type";
+  d_message = msg.str();
 }
 
-const std::string& calc::TableClash::message() const
+const std::string &calc::TableClash::message() const
 {
   return d_message;
 }
@@ -110,12 +98,11 @@ void calc::TableClash::checkNrOfColumns(size_t hasSize, size_t mustHaveSize)
     throw TableClash(hasSize, mustHaveSize);
 }
 
-calc::MapStackClash::MapStackClash(const std::string& message):
-  d_message(message)
+calc::MapStackClash::MapStackClash(const std::string &message) : d_message(message)
 {
 }
 
-const std::string& calc::MapStackClash::message() const
+const std::string &calc::MapStackClash::message() const
 {
   return d_message;
 }
@@ -125,10 +112,6 @@ const std::string& calc::MapStackClash::message() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

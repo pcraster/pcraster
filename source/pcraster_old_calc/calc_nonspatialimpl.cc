@@ -5,17 +5,17 @@
 //! used for initialization of computed parameter
 /*! will recieve value on assignment
  */
-calc::NonSpatialImpl::NonSpatialImpl(const calc::FieldParameter& p,size_t index):
- calc::FieldValue(p,index)
+calc::NonSpatialImpl::NonSpatialImpl(const calc::FieldParameter &p, size_t index)
+    : calc::FieldValue(p, index)
 {
 }
 
 //! used for initialization of input parameter
-calc::NonSpatialImpl::NonSpatialImpl(const calc::FieldParameter& p,size_t index, calc::NonSpatial *value):
- calc::FieldValue(p,index,value)
+calc::NonSpatialImpl::NonSpatialImpl(const calc::FieldParameter &p, size_t index,
+                                     calc::NonSpatial *value)
+    : calc::FieldValue(p, index, value)
 {
 }
-
 
 void calc::NonSpatialImpl::write()
 {

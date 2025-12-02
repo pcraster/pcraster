@@ -21,14 +21,14 @@
 */
 
 
-
 //#define TRACE_LOG(x)  x
 #define TRACE_LOG(x)
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC EXECUTOR MEMBERS
 //------------------------------------------------------------------------------
-namespace calc {
+namespace calc
+{
 static ProgressCallBack defaultProgressCallBack;
 }
 
@@ -46,24 +46,18 @@ static ProgressCallBack defaultProgressCallBack;
  * created RunTimeEnv using the symbol set \a symbols that are loaded.
  * No data (possible output) is yet overwritten.
  */
-calc::Executor::Executor(
-    CFGNode* cfg,
-    const RunTimeEnvSettings& s,
-    const ASTSymbolTable& table):
-  CFGVisitor(cfg),
-  d_rte(s),
-  d_timeoutput(nullptr),
-  d_progressInfo(new ProgressInfo())
+calc::Executor::Executor(CFGNode *cfg, const RunTimeEnvSettings &s, const ASTSymbolTable &table)
+    : CFGVisitor(cfg), d_rte(s), d_timeoutput(nullptr), d_progressInfo(new ProgressInfo())
 {
-  d_progressCallBack=&defaultProgressCallBack;
-  d_progressInfo->nrTimeSteps=d_rte.timer().lastInt();
+  d_progressCallBack = &defaultProgressCallBack;
+  d_progressInfo->nrTimeSteps = d_rte.timer().lastInt();
   // start with 0 the initial
-  d_progressInfo->inTimeStep =0;
-  d_progressInfo->inStatementLineNr=0;
+  d_progressInfo->inTimeStep = 0;
+  d_progressInfo->inStatementLineNr = 0;
 
   // will load data table
-  for(const auto & i : table)
-      d_rte.load(i.second);
+  for (const auto &i : table)
+    d_rte.load(i.second);
 }
 
 calc::Executor::~Executor()
@@ -78,14 +72,14 @@ calc::Executor::~Executor()
 }
 
 //! set value of d_progressCallBack
-void calc::Executor::setProgressCallBack(ProgressCallBack* progressCallBack)
+void calc::Executor::setProgressCallBack(ProgressCallBack *progressCallBack)
 {
   PRECOND(progressCallBack);
-  d_progressCallBack=progressCallBack;
+  d_progressCallBack = progressCallBack;
 }
 
 //! get value of d_progressCallBack
-calc::ProgressCallBack* calc::Executor::progressCallBack() const
+calc::ProgressCallBack *calc::Executor::progressCallBack() const
 {
   return d_progressCallBack;
 }
@@ -96,30 +90,31 @@ void calc::Executor::execAll()
   execAllKeep();
   DEVELOP_PRECOND(d_rte.empty());
 }
-void calc::Executor::wrapVisitWithCatch(Visit  v)
+
+void calc::Executor::wrapVisitWithCatch(Visit v)
 {
   try {
     try {
       (this->*v)();
-    } catch(...) {
+    } catch (...) {
       d_rte.cleanOnException();
       throw;
     }
-  } catch(const calc::PosException& ) {
+  } catch (const calc::PosException &) {
     throw;
-  } catch(const com::Exception& e) {
+  } catch (const com::Exception &e) {
     // if we have a current node, we can position
     // the error to that node
-    ASTNode *n=current();
+    ASTNode *n = current();
     if (n)
-      n->runtimeError(d_rte.timer().currentInt(),e.messages());
-    else // else rethrow
+      n->runtimeError(d_rte.timer().currentInt(), e.messages());
+    else  // else rethrow
       throw;
-  } catch(const std::exception& e) {
-    ASTNode *n=current();
+  } catch (const std::exception &e) {
+    ASTNode *n = current();
     if (n)
-      n->runtimeError(d_rte.timer().currentInt(),e.what());
-    else // else rethrow
+      n->runtimeError(d_rte.timer().currentInt(), e.what());
+    else  // else rethrow
       throw;
   }
 }
@@ -146,9 +141,10 @@ bool calc::Executor::execInitialSection()
   // do setStep until
   //  1: enterDynamicSection is executed or
   //  2: jumpOutCode is executed
-  while (d_rte.timer().currentInt()==0 // 1
-        && !d_allCodeExecuted          // 2
-        ) setStep();
+  while (d_rte.timer().currentInt() == 0  // 1
+         && !d_allCodeExecuted            // 2
+  )
+    setStep();
 
   return d_allCodeExecuted;
 }
@@ -162,16 +158,16 @@ bool calc::Executor::execInitialSection()
  */
 bool calc::Executor::execDynamicSectionOnce()
 {
-  size_t const t=d_rte.timer().currentInt();
+  size_t const t = d_rte.timer().currentInt();
   // call to execInitial done
-  PRECOND(d_rte.timer().currentInt()!=0 || d_allCodeExecuted);
+  PRECOND(d_rte.timer().currentInt() != 0 || d_allCodeExecuted);
   // do setStep until
   //  1: enterDynamicSection is executed again
   //  2: jumpOutCode is executed
-  while (t==d_rte.timer().currentInt() // 1
-         && !d_allCodeExecuted      // 2
-         )  {
-         setStep();
+  while (t == d_rte.timer().currentInt()  // 1
+         && !d_allCodeExecuted            // 2
+  ) {
+    setStep();
   }
   return d_allCodeExecuted;
 }
@@ -184,7 +180,7 @@ void calc::Executor::startStepWise()
 {
   d_rte.start();
   reset();
-  d_allCodeExecuted=false;
+  d_allCodeExecuted = false;
 }
 
 //! finalize step wise visitation
@@ -199,20 +195,20 @@ void calc::Executor::finishStepWise()
 //! execute a single node
 void calc::Executor::setStep()
 {
-   wrapVisitWithCatch(&CFGVisitor::visitCurrent);
-   advance();
+  wrapVisitWithCatch(&CFGVisitor::visitCurrent);
+  advance();
 }
 
 /*! pop result field assuming an BaseExpr is visited
     and a result is left on the stack
     for testing only
  */
-calc::Field* calc::Executor::popResult()
+calc::Field *calc::Executor::popResult()
 {
   return d_rte.popField();
 }
 
-calc::RunTimeEnv& calc::Executor::runTimeEnv()
+calc::RunTimeEnv &calc::Executor::runTimeEnv()
 {
   return d_rte;
 }
@@ -220,7 +216,7 @@ calc::RunTimeEnv& calc::Executor::runTimeEnv()
 //! visit only as rvalue in expression
 void calc::Executor::visitPar(ASTPar *p)
 {
-   d_rte.pushValue(p);
+  d_rte.pushValue(p);
 }
 
 void calc::Executor::visitNumber(ASTNumber *n)
@@ -228,90 +224,86 @@ void calc::Executor::visitNumber(ASTNumber *n)
   d_rte.pushField(n->createNonSpatial());
 }
 
-void calc::Executor::execOp(BaseExpr    *o)
+void calc::Executor::execOp(BaseExpr *o)
 {
-    o->exec(&d_rte);
+  o->exec(&d_rte);
 }
 
-void calc::Executor::visitExpr(BaseExpr   *e)
+void calc::Executor::visitExpr(BaseExpr *e)
 {
-  TRACE_LOG(std::cout << "executing " << e->name()
-            << " at " << e->shortPosText() << std::endl);
+  TRACE_LOG(std::cout << "executing " << e->name() << " at " << e->shortPosText() << std::endl);
   /*
    * alternative is om timeoutput
    * hier een no-op te maken en RunTimeEnv::assignStackTop
    * 2 velden te laten poppen en timeoutput onderdeel van
    * FieldWriter te maken, IS BETER wat we later ook willen
    */
-  if (e->op().opCode()==OP_TIMEOUTPUT) {
-     d_timeoutput=e;
+  if (e->op().opCode() == OP_TIMEOUTPUT) {
+    d_timeoutput = e;
   } else
-     execOp(e);
+    execOp(e);
 }
 
-void calc::Executor::visitAss (ASTAss    *a)
+void calc::Executor::visitAss(ASTAss *a)
 {
   if (!d_timeoutput)
-   d_rte.assignStackTop(a->pars());
+    d_rte.assignStackTop(a->pars());
   else {
-   // delay to reach  a->pars holding the tss
-   PRECOND(a->pars().size()==1);
-   d_rte.assignOutTss(a->par()->name());
-   d_timeoutput=nullptr;
+    // delay to reach  a->pars holding the tss
+    PRECOND(a->pars().size() == 1);
+    d_rte.assignOutTss(a->par()->name());
+    d_timeoutput = nullptr;
   }
 }
 
-void calc::Executor::visitStat (ASTStat   *)
+void calc::Executor::visitStat(ASTStat *)
 {
-  d_timeoutput=nullptr;
+  d_timeoutput = nullptr;
 }
 
-void calc::Executor::visitPointCodeBlock(PointCodeBlock* pcb)
+void calc::Executor::visitPointCodeBlock(PointCodeBlock *pcb)
 {
   pcb->exec(d_rte);
 }
 
 //! start of dynamic: increment timestep
-void calc::Executor::enterDynamicSection(DynamicSection* )
+void calc::Executor::enterDynamicSection(DynamicSection *)
 {
   // at start of DynamicSection
   d_rte.incCurrentTimeStep();
-  d_progressInfo->inTimeStep =d_rte.timer().currentInt();
+  d_progressInfo->inTimeStep = d_rte.timer().currentInt();
   d_progressCallBack->update(*d_progressInfo);
-
 }
 
-void calc::Executor::jumpOutDynamicSection(DynamicSection*)
+void calc::Executor::jumpOutDynamicSection(DynamicSection *)
 {
   // at end of DynamicSection
   if (d_rte.timer().currentInt() < d_rte.timer().lastInt())
     setTakeBackBranch(true);
   else {
-    d_allCodeExecuted=true;
+    d_allCodeExecuted = true;
   }
 
   // incr and even set past at end
   d_progressInfo->inTimeStep = d_rte.timer().currentInt() + 1;
-  if (std::cmp_greater(d_progressInfo->inTimeStep, d_rte.timer().lastInt())){
+  if (std::cmp_greater(d_progressInfo->inTimeStep, d_rte.timer().lastInt())) {
     d_progressCallBack->update(*d_progressInfo);
   }
 }
-
 
 void calc::Executor::jumpOutCode(Code *)
 {
   // never take back branch, this encloses all code
 
-  d_allCodeExecuted=true;
+  d_allCodeExecuted = true;
 }
 
-
-void calc::Executor::enterRepeatUntil(RepeatUntil * )
+void calc::Executor::enterRepeatUntil(RepeatUntil *)
 {
   // at start of RepeatUntil
 }
 
-void calc::Executor::jumpOutRepeatUntil(RepeatUntil*)
+void calc::Executor::jumpOutRepeatUntil(RepeatUntil *)
 {
   // repeat {   } until (thisIsTrue)
   if (!d_rte.stackedCondition()) {
@@ -321,7 +313,7 @@ void calc::Executor::jumpOutRepeatUntil(RepeatUntil*)
 }
 
 //! assume the JumpOut... is called first
-void calc::Executor::visitJumpNode(JumpNode* j)
+void calc::Executor::visitJumpNode(JumpNode *j)
 {
   if (!takeBackBranch())
     j->deleteForwards(d_rte);
@@ -330,7 +322,6 @@ void calc::Executor::visitJumpNode(JumpNode* j)
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

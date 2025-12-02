@@ -7,18 +7,15 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the DataGuide class.
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC DATAGUIDE MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -33,12 +30,11 @@
 */
 ag::DataGuide::DataGuide()
 
-  : geo::DataGuide()
-    // d_selected(false), d_visible(true)
+    : geo::DataGuide()
+// d_selected(false), d_visible(true)
 
 {
 }
-
 
 
 //! Constructor.
@@ -47,19 +43,13 @@ ag::DataGuide::DataGuide()
 
   The data guide will be un selected and visible.
 */
-ag::DataGuide::DataGuide(
-         size_t index,
-         Address address,
-         geo::DataType type,
-         CSF_VS valueScale)
+ag::DataGuide::DataGuide(size_t index, Address address, geo::DataType type, CSF_VS valueScale)
 
-  : geo::DataGuide(index, address, type, valueScale)
-    // d_selected(false), d_visible(true)
+    : geo::DataGuide(index, address, type, valueScale)
+// d_selected(false), d_visible(true)
 
 {
 }
-
-
 
 //! Destructor.
 /*!
@@ -67,8 +57,6 @@ ag::DataGuide::DataGuide(
 ag::DataGuide::~DataGuide()
 {
 }
-
-
 
 //! Selects the data guide.
 /*!
@@ -82,7 +70,6 @@ void ag::DataGuide::select()
 */
 
 
-
 //! Un selects the data guide.
 /*!
   \sa        select(), setSelected(bool), isSelected()
@@ -93,7 +80,6 @@ void ag::DataGuide::unSelect()
   d_selected = false;
 }
 */
-
 
 
 //! Sets the selection mode to \a select.
@@ -109,7 +95,6 @@ void ag::DataGuide::setSelected(bool select)
 */
 
 
-
 //! Sets the visibility to \a visible.
 /*!
   \param     visible Visibility.
@@ -121,7 +106,6 @@ void ag::DataGuide::setVisible(bool visible)
   d_visible = visible;
 }
 */
-
 
 
 //! Returns true if this data guide is selected.
@@ -137,7 +121,6 @@ bool ag::DataGuide::isSelected() const
 */
 
 
-
 //! Returns the visibility.
 /*!
   \return    true or false.
@@ -151,23 +134,19 @@ bool ag::DataGuide::isVisible() const
 */
 
 
-
 //! Returns if *this equals \a aDataGuide.
 /*!
   \param     aDataGuide Data guide to compare.
   \return    true if *this is equal to \a aDataGuide.
 */
-bool ag::DataGuide::equals(const DataGuide& aDataGuide) const
+bool ag::DataGuide::equals(const DataGuide &aDataGuide) const
 {
-  return static_cast<const geo::DataGuide&>(*this) ==
-         static_cast<const geo::DataGuide&>(aDataGuide);
-/*
+  return static_cast<const geo::DataGuide &>(*this) == static_cast<const geo::DataGuide &>(aDataGuide);
+  /*
          d_selected == aDataGuide.d_selected &&
          d_visible == aDataGuide.d_visible;
 */
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
@@ -179,12 +158,10 @@ bool ag::DataGuide::equals(const DataGuide& aDataGuide) const
   \brief     Equality operator.
   \return    true if \a lhs equals \a rhs.
 */
-bool ag::operator==(const DataGuide& lhs, const DataGuide& rhs)
+bool ag::operator==(const DataGuide &lhs, const DataGuide &rhs)
 {
   return lhs.equals(rhs);
 }
-
-
 
 /*!
   \fn        bool ag::operator!=(const DataGuide& lhs, const DataGuide& rhs)
@@ -192,16 +169,11 @@ bool ag::operator==(const DataGuide& lhs, const DataGuide& rhs)
   \brief     Inequality operator.
   \return    true if \a lhs does not equal \a rhs.
 */
-bool ag::operator!=(const DataGuide& lhs, const DataGuide& rhs)
+bool ag::operator!=(const DataGuide &lhs, const DataGuide &rhs)
 {
   return !lhs.equals(rhs);
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

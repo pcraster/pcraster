@@ -2,7 +2,6 @@
 #include <boost/test/unit_test.hpp>
 #include "com_fileformatinfo.h"
 
-
 BOOST_AUTO_TEST_CASE(constructor)
 {
   using namespace com;
@@ -18,17 +17,17 @@ BOOST_AUTO_TEST_CASE(constructor)
   extensions.push_back(std::string("mtf"));
   BOOST_CHECK(myFileInfo.extensions() == extensions);
 
-//  BOOST_CHECK(myFileInfo.matchesExtension("frm"));
-//
-//  BOOST_CHECK(!myFileInfo.matchesExtension("  frm  "));
-//  BOOST_CHECK(!myFileInfo.matchesExtension("xxx"));
-//  BOOST_CHECK(!myFileInfo.matchesExtension(""));
-//  BOOST_CHECK(!myFileInfo.matchesExtension("   "));
-//
-//  // case sensitive platform depend
-//#ifdef WIN32
-//  BOOST_CHECK( myFileInfo.matchesExtension("FRM"));
-//#else
-//  BOOST_CHECK(!myFileInfo.matchesExtension("FRM"));
-//#endif
+  //  BOOST_CHECK(myFileInfo.matchesExtension("frm"));
+  //
+  //  BOOST_CHECK(!myFileInfo.matchesExtension("  frm  "));
+  //  BOOST_CHECK(!myFileInfo.matchesExtension("xxx"));
+  //  BOOST_CHECK(!myFileInfo.matchesExtension(""));
+  //  BOOST_CHECK(!myFileInfo.matchesExtension("   "));
+  //
+  //  // case sensitive platform depend
+  //#ifdef WIN32
+  //  BOOST_CHECK( myFileInfo.matchesExtension("FRM"));
+  //#else
+  //  BOOST_CHECK(!myFileInfo.matchesExtension("FRM"));
+  //#endif
 }

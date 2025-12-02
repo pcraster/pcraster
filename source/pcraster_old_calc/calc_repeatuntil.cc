@@ -4,17 +4,14 @@
 #include "calc_fieldstack.h"
 #include "calc_infoscript.h"
 
-
-calc::RepeatUntil::RepeatUntil(
-    const Element& pos,
-    StatementBlock *parentBlock):
-    InnerStatementBlock(pos,parentBlock)
+calc::RepeatUntil::RepeatUntil(const Element &pos, StatementBlock *parentBlock)
+    : InnerStatementBlock(pos, parentBlock)
 {
 }
 
 calc::RepeatUntil::~RepeatUntil()
 {
-    delete d_condition;
+  delete d_condition;
 }
 
 // extern int repeatCondition;
@@ -28,12 +25,13 @@ void calc::RepeatUntil::executeBlock()
   bool condition = false;
   do {
     executeStatements();
- //   repeatCondition++;
-     condition = executeCondition();
-  //  repeatCondition--;
-  }  while (!condition);
+    //   repeatCondition++;
+    condition = executeCondition();
+    //  repeatCondition--;
+  } while (!condition);
   // UNTIL condition is not false anywhere
 }
+
 bool calc::RepeatUntil::executeCondition()
 {
   FieldStack stack;
@@ -42,7 +40,7 @@ bool calc::RepeatUntil::executeCondition()
   FieldHandle fh = stack.popReadOnly();
   bool noneAreTrue = false;
   bool noneAreFalse = false;
-  fh->analyzeBoolean(noneAreTrue,noneAreFalse);
+  fh->analyzeBoolean(noneAreTrue, noneAreFalse);
   return noneAreFalse;
 }
 
@@ -58,12 +56,12 @@ void calc::RepeatUntil::prepareExecution()
 
 bool calc::RepeatUntil::buildTypes()
 {
-  bool const promotionOccured=StatementBlock::buildTypes();
+  bool const promotionOccured = StatementBlock::buildTypes();
   d_condition->buildTypesRecursive(VS_B);
   return promotionOccured;
 }
 
-void calc::RepeatUntil::print(InfoScript& i)const
+void calc::RepeatUntil::print(InfoScript &i) const
 {
   i.stream() << "<UL><LI><B>" << "REPEATUNTIL" << "</B> ";
   i.stream() << " <BR>\n";
@@ -72,8 +70,8 @@ void calc::RepeatUntil::print(InfoScript& i)const
 }
 
 //! this will delete condition
-void calc::RepeatUntil::addCondition(FieldExpr* condition)
+void calc::RepeatUntil::addCondition(FieldExpr *condition)
 {
-  PRECOND(!d_condition); // only calle once
-  d_condition=condition;
+  PRECOND(!d_condition);  // only calle once
+  d_condition = condition;
 }

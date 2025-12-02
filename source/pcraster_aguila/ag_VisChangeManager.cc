@@ -5,13 +5,10 @@
 #include "ag_VisObserver.h"
 #include "ag_VisSubject.h"
 
-
-
 /*!
   \file
    This file contains the implementation of the VisChangeManager class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -19,25 +16,22 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 //! Constructor.
 /*!
   \param     s Subject.
 */
-ag::VisChangeManager::VisChangeManager(VisSubject* s)
+ag::VisChangeManager::VisChangeManager(VisSubject *s)
 
-  : d_subject(s)
+    : d_subject(s)
 
 {
   // Maybe the subject isn't needed at all and can be deleted.
   assert(d_subject);
 }
-
-
 
 //! Destructor.
 /*!
@@ -45,8 +39,6 @@ ag::VisChangeManager::VisChangeManager(VisSubject* s)
 ag::VisChangeManager::~VisChangeManager()
 {
 }
-
-
 
 //! Adds \a o to the list of observers for this.
 /*!
@@ -57,8 +49,6 @@ void ag::VisChangeManager::attach(VisObserver *o)
 {
   d_observers.push_back(o);
 }
-
-
 
 //! Removes \a o from the list of observers for this.
 /*!
@@ -78,8 +68,6 @@ void ag::VisChangeManager::detach(VisObserver *o)
   d_observers.erase(it);
 }
 
-
-
 //! Returns true if \a o observes the subject.
 /*!
   \param     o The observer to search.
@@ -91,8 +79,6 @@ bool ag::VisChangeManager::observedBy(VisObserver *o) const
   return it != end() ? true : false;
 }
 
-
-
 //! Returns the number of observers.
 /*!
   \return    Number of observers.
@@ -101,8 +87,6 @@ size_t ag::VisChangeManager::nrObservers() const
 {
   return d_observers.size();
 }
-
-
 
 //! Notifies all observers that the subject has changed its state.
 /*!
@@ -118,46 +102,34 @@ void ag::VisChangeManager::notify()
   dev::forWhole(d_observers, std::mem_fn(&VisObserver::visualise));
 }
 
-
-
 ag::VisChangeManager::iterator ag::VisChangeManager::begin()
 {
   return d_observers.begin();
 }
-
-
 
 ag::VisChangeManager::iterator ag::VisChangeManager::end()
 {
   return d_observers.end();
 }
 
-
-
 ag::VisChangeManager::const_iterator ag::VisChangeManager::begin() const
 {
   return d_observers.begin();
 }
-
-
 
 ag::VisChangeManager::const_iterator ag::VisChangeManager::end() const
 {
   return d_observers.end();
 }
 
-
-
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -165,15 +137,11 @@ ag::VisChangeManager::const_iterator ag::VisChangeManager::end() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

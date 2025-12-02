@@ -55,15 +55,14 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC IOBANDFIELDSTRATEGY MEMBERS
 //------------------------------------------------------------------------------
 
 //! suite
-boost::unit_test::test_suite*calc::IoBandFieldStrategyTest::suite()
+boost::unit_test::test_suite *calc::IoBandFieldStrategyTest::suite()
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
+  boost::unit_test::test_suite *suite = BOOST_TEST_SUITE(__FILE__);
   std::shared_ptr<IoBandFieldStrategyTest> instance(new IoBandFieldStrategyTest());
 
   suite->add(BOOST_CLASS_TEST_CASE(&IoBandFieldStrategyTest::testCheckInputMap, instance));
@@ -74,35 +73,30 @@ boost::unit_test::test_suite*calc::IoBandFieldStrategyTest::suite()
   return suite;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF IOBANDFIELDSTRATEGY MEMBERS
 //------------------------------------------------------------------------------
 
 //! ctor
-calc::IoBandFieldStrategyTest::IoBandFieldStrategyTest(){
+calc::IoBandFieldStrategyTest::IoBandFieldStrategyTest()
+{
 }
-
-
 
 //! setUp
 void calc::IoBandFieldStrategyTest::setUp()
 {
- { // create a  4*5 UINT1 map as clone
-   com::write("NROWS 4\nNCOLS 5\nXDIM 0.5\nYDIM 0.5",
-   com::PathName("clone.hdr"));
-   UINT1 buf[20];
-   std::generate_n(buf,20,com::SeqInc<UINT1>());
-   com::write(buf,20,com::PathName("clone.bil"));
- }
- { // create a minimal 5*4 different loc. attr.
-   com::write("NROWS 5\nNCOLS 4\n",
-   com::PathName("diffLocAttr.hdr"));
-   UINT1 buf[20];
-   std::generate_n(buf,20,com::SeqInc<UINT1>());
-   com::write(buf,20,com::PathName("diffLocAttr.bil"));
- }
+  {  // create a  4*5 UINT1 map as clone
+    com::write("NROWS 4\nNCOLS 5\nXDIM 0.5\nYDIM 0.5", com::PathName("clone.hdr"));
+    UINT1 buf[20];
+    std::generate_n(buf, 20, com::SeqInc<UINT1>());
+    com::write(buf, 20, com::PathName("clone.bil"));
+  }
+  {  // create a minimal 5*4 different loc. attr.
+    com::write("NROWS 5\nNCOLS 4\n", com::PathName("diffLocAttr.hdr"));
+    UINT1 buf[20];
+    std::generate_n(buf, 20, com::SeqInc<UINT1>());
+    com::write(buf, 20, com::PathName("diffLocAttr.bil"));
+  }
 }
 
 //! tearDown
@@ -113,27 +107,27 @@ void calc::IoBandFieldStrategyTest::tearDown()
 void calc::IoBandFieldStrategyTest::testCheckClone()
 {
   IoBandFieldStrategy s;
-  bool succes=true;
+  bool succes = true;
   try {
-   // nothing to test against
-   s.checkClone("clone");
+    // nothing to test against
+    s.checkClone("clone");
   } catch (...) {
-   succes=false;
+    succes = false;
   }
   try {
-   // the same is equal
-   s.checkClone("clone");
+    // the same is equal
+    s.checkClone("clone");
   } catch (...) {
-   succes=false;
+    succes = false;
   }
   BOOST_CHECK(succes);
 
-  bool failure=false;
+  bool failure = false;
   try {
-   // different
-   s.checkClone("diffLocAttr");
+    // different
+    s.checkClone("diffLocAttr");
   } catch (...) {
-   failure=true;
+    failure = true;
   }
   BOOST_CHECK(failure);
 }
@@ -143,30 +137,30 @@ void calc::IoBandFieldStrategyTest::testCheckInputMap()
   VS vs;
   IoBandFieldStrategy s;
   IoFieldStrategy *r(0);
-  bool succes=true;
+  bool succes = true;
   try {
-   r = s.checkInputMap(vs,"clone");
+    r = s.checkInputMap(vs, "clone");
   } catch (...) {
-   succes=false;
+    succes = false;
   }
   BOOST_CHECK(succes);
-  BOOST_CHECK(vs==VS_BNO);
+  BOOST_CHECK(vs == VS_BNO);
   BOOST_CHECK(&s == r);
 
   try {
-   r = s.checkInputMap(vs,"diffLocAttr");
+    r = s.checkInputMap(vs, "diffLocAttr");
   } catch (...) {
-   succes=false;
+    succes = false;
   }
   BOOST_CHECK(succes);
-  BOOST_CHECK(vs==VS_BNO);
+  BOOST_CHECK(vs == VS_BNO);
   BOOST_CHECK(&s == r);
 
-  bool failure=false;
+  bool failure = false;
   try {
-    s.checkInputMap(vs,"failureExpectedBILNotExistant");
+    s.checkInputMap(vs, "failureExpectedBILNotExistant");
   } catch (...) {
-   failure=true;
+    failure = true;
   }
   BOOST_CHECK(failure);
 }
@@ -177,68 +171,67 @@ void calc::IoBandFieldStrategyTest::testCreateMap()
   s.checkClone("clone");
   geo::BandMap clone("clone");
 
- {
-  UINT1 v=3;
-  GridMap *gm=s.createMap("uint1Bool",VS_B);
-  gm->writeNonSpatial(&v);
-  delete gm;
+  {
+    UINT1 v = 3;
+    GridMap *gm = s.createMap("uint1Bool", VS_B);
+    gm->writeNonSpatial(&v);
+    delete gm;
 
-  geo::BandMap bm("uint1Bool");
-  BOOST_CHECK(bm.nrCells() == 20);
-  BOOST_CHECK(bm.rasterSpace() == clone.rasterSpace());
-  BOOST_CHECK(bm.cellRepr() == CR_UINT1);
-  UINT1 cells[20];
-  bm.getCellsRaw(cells);
-  BOOST_CHECK(cells[0] == 3);
-  BOOST_CHECK(cells[17] == 3);
- }
+    geo::BandMap bm("uint1Bool");
+    BOOST_CHECK(bm.nrCells() == 20);
+    BOOST_CHECK(bm.rasterSpace() == clone.rasterSpace());
+    BOOST_CHECK(bm.cellRepr() == CR_UINT1);
+    UINT1 cells[20];
+    bm.getCellsRaw(cells);
+    BOOST_CHECK(cells[0] == 3);
+    BOOST_CHECK(cells[17] == 3);
+  }
 
- {
-  INT4 v=3;
-  GridMap *gm=s.createMap("int4",VS_N);
-  gm->writeNonSpatial(&v);
-  delete gm;
+  {
+    INT4 v = 3;
+    GridMap *gm = s.createMap("int4", VS_N);
+    gm->writeNonSpatial(&v);
+    delete gm;
 
-  geo::BandMap bm("int4");
-  BOOST_CHECK(bm.nrCells() == 20);
-  BOOST_CHECK(bm.rasterSpace() == clone.rasterSpace());
-  BOOST_CHECK(bm.cellRepr() == CR_INT2);
-  INT4 cells[20];
-  bm.getCellsAsINT4(cells);
-  BOOST_CHECK(cells[0] == 3);
-  BOOST_CHECK(cells[17] == 3);
- }
+    geo::BandMap bm("int4");
+    BOOST_CHECK(bm.nrCells() == 20);
+    BOOST_CHECK(bm.rasterSpace() == clone.rasterSpace());
+    BOOST_CHECK(bm.cellRepr() == CR_INT2);
+    INT4 cells[20];
+    bm.getCellsAsINT4(cells);
+    BOOST_CHECK(cells[0] == 3);
+    BOOST_CHECK(cells[17] == 3);
+  }
 
- {
-  REAL4 v=3;
-  GridMap *gm=s.createMap("real4",VS_S);
-  gm->writeNonSpatial(&v);
-  delete gm;
+  {
+    REAL4 v = 3;
+    GridMap *gm = s.createMap("real4", VS_S);
+    gm->writeNonSpatial(&v);
+    delete gm;
 
-  geo::BandMap bm("real4");
-  BOOST_CHECK(bm.nrCells() == 20);
-  BOOST_CHECK(bm.rasterSpace() == clone.rasterSpace());
-  BOOST_CHECK(bm.cellRepr() == CR_REAL4);
-  REAL4 cells[20];
-  bm.getCellsAsREAL4(cells);
-  BOOST_CHECK(cells[0] == 3);
-  BOOST_CHECK(cells[17] == 3);
- }
+    geo::BandMap bm("real4");
+    BOOST_CHECK(bm.nrCells() == 20);
+    BOOST_CHECK(bm.rasterSpace() == clone.rasterSpace());
+    BOOST_CHECK(bm.cellRepr() == CR_REAL4);
+    REAL4 cells[20];
+    bm.getCellsAsREAL4(cells);
+    BOOST_CHECK(cells[0] == 3);
+    BOOST_CHECK(cells[17] == 3);
+  }
 
- { // assume the largest
-  REAL4 v=3;
-  GridMap *gm=s.createMap("real4",VS_FIELD);
-  gm->writeNonSpatial(&v);
-  delete gm;
+  {  // assume the largest
+    REAL4 v = 3;
+    GridMap *gm = s.createMap("real4", VS_FIELD);
+    gm->writeNonSpatial(&v);
+    delete gm;
 
-  geo::BandMap bm("real4");
-  BOOST_CHECK(bm.nrCells() == 20);
-  BOOST_CHECK(bm.rasterSpace() == clone.rasterSpace());
-  BOOST_CHECK(bm.cellRepr() == CR_REAL4);
-  REAL4 cells[20];
-  bm.getCellsAsREAL4(cells);
-  BOOST_CHECK(cells[0]  == 3);
-  BOOST_CHECK(cells[17] == 3);
- }
-
+    geo::BandMap bm("real4");
+    BOOST_CHECK(bm.nrCells() == 20);
+    BOOST_CHECK(bm.rasterSpace() == clone.rasterSpace());
+    BOOST_CHECK(bm.cellRepr() == CR_REAL4);
+    REAL4 cells[20];
+    bm.getCellsAsREAL4(cells);
+    BOOST_CHECK(cells[0] == 3);
+    BOOST_CHECK(cells[17] == 3);
+  }
 }

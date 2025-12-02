@@ -15,71 +15,70 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
-namespace calc {
-
-namespace dimensionParser {
-
-struct Symbol
+namespace calc
 {
+
+namespace dimensionParser
+{
+
+struct Symbol {
   DimensionParser *d_dp;
-  Symbol(DimensionParser* dp)
-    : d_dp(dp)
-  { }
+
+  Symbol(DimensionParser *dp) : d_dp(dp)
+  {
+  }
 
   /*!
    * \todo
    *   create Exception type that rememver first, as pointer
    *   to offending position in case of error
    */
-  template<typename IteratorType>
-  void operator()(IteratorType first, IteratorType last) const {
-    if (std::string(first,last)=="X")
+  template <typename IteratorType> void operator()(IteratorType first, IteratorType last) const
+  {
+    if (std::string(first, last) == "X")
       throw com::Exception("XXXXXXXXX");
-    d_dp->add(std::string(first,last));
+    d_dp->add(std::string(first, last));
   }
 };
 
-struct Power
-{
+struct Power {
   DimensionParser *d_dp;
-  Power(DimensionParser* dp):
-    d_dp(dp)
-  { }
-  template<typename IteratorType>
-  void operator()(IteratorType first, IteratorType last) const {
-    d_dp->set(com::strToInt(std::string(first,last)));
+
+  Power(DimensionParser *dp) : d_dp(dp)
+  {
+  }
+
+  template <typename IteratorType> void operator()(IteratorType first, IteratorType last) const
+  {
+    d_dp->set(com::strToInt(std::string(first, last)));
   }
 };
 
 
-} // namespace dimensionParser
-} // namespace calc
-
-
+}  // namespace dimensionParser
+}  // namespace calc
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC DIMENSIONPARSER MEMBERS
 //------------------------------------------------------------------------------
 
-void calc::DimensionParser::throwUnknown(const std::string& unknown)
+void calc::DimensionParser::throwUnknown(const std::string &unknown)
 {
-    std::ostringstream s;
-    s << "'" << unknown << "'" << +" is not a recognized unit dimension";
-    throw com::Exception(s.str());
+  std::ostringstream s;
+  s << "'" << unknown << "'" << +" is not a recognized unit dimension";
+  throw com::Exception(s.str());
 }
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF DIMENSIONPARSER MEMBERS
 //------------------------------------------------------------------------------
 
-calc::DimensionParser::DimensionParser(const std::string& str)
+calc::DimensionParser::DimensionParser(const std::string &str)
 {
   com::PureAlphabeticNameGrammar const symbol;
-  com::NumberGrammar             const number;
+  com::NumberGrammar const number;
 
   std::string line(str);
 
@@ -87,20 +86,14 @@ calc::DimensionParser::DimensionParser(const std::string& str)
   IteratorType const begin(line.begin(), line.end(), "");
   IteratorType const end;
 
-  boost::spirit::parse_info<IteratorType> const info =
-         boost::spirit::parse<IteratorType>(begin, end,
-     *(symbol[dimensionParser::Symbol(this)]      >>
-       *(boost::spirit::space_p) >>
-       !boost::spirit::ch_p(',') >>
-       *(boost::spirit::space_p) >>
-       !(number[dimensionParser::Power(this)])    >> *(boost::spirit::space_p)
-      )
-  );
+  boost::spirit::parse_info<IteratorType> const info = boost::spirit::parse<IteratorType>(
+      begin, end,
+      *(symbol[dimensionParser::Symbol(this)] >> *(boost::spirit::space_p) >>
+        !boost::spirit::ch_p(',') >> *(boost::spirit::space_p) >>
+        !(number[dimensionParser::Power(this)]) >> *(boost::spirit::space_p)));
   if (!info.full)
-    throwUnknown(std::string(1,*(info.stop)));
+    throwUnknown(std::string(1, *(info.stop)));
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -113,12 +106,9 @@ calc::DimensionParser::DimensionParser(DimensionParser const& rhs)
 */
 
 
-
 calc::DimensionParser::~DimensionParser()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -131,7 +121,7 @@ calc::DimensionParser& calc::DimensionParser::operator=(DimensionParser const& r
 */
 
 //! add a symbol
-void calc::DimensionParser::add(const std::string& symbol)
+void calc::DimensionParser::add(const std::string &symbol)
 {
   d_symbols.push_back(SymbolPower(symbol));
 }
@@ -140,25 +130,19 @@ void calc::DimensionParser::add(const std::string& symbol)
 void calc::DimensionParser::set(int power)
 {
   PRECOND(!d_symbols.empty());
-  d_symbols.back().d_power=power;
+  d_symbols.back().d_power = power;
 }
 
-const std::vector<calc::DimensionParser::SymbolPower>&
-calc::DimensionParser::symbols() const
+const std::vector<calc::DimensionParser::SymbolPower> &calc::DimensionParser::symbols() const
 {
   return d_symbols;
 }
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

@@ -8,8 +8,6 @@
 #include "ag_Map2DView.h"
 #include "ag_VisEngine.h"
 
-
-
 /*!
   \file
   brief
@@ -18,7 +16,8 @@
 */
 
 
-namespace ag {
+namespace ag
+{
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
@@ -39,26 +38,22 @@ namespace ag {
 
   Default mode is query mode.
 */
-Map2D::Map2D(DataObject* object, QWidget* parent)
+Map2D::Map2D(DataObject *object, QWidget *parent)
 
-  : Map(object, "2D Map", parent)
+    : Map(object, "2D Map", parent)
 
 {
   createInterface();
 }
 
-
-
 Map2D::~Map2D()
 {
 }
 
-
-
 void Map2D::createInterface()
 {
   d_splitter = new QSplitter(Qt::Horizontal, this);
-  auto* layout = new QVBoxLayout(this);
+  auto *layout = new QVBoxLayout(this);
   layout->addWidget(d_splitter);
 
   d_legendView = new LegendView(&dataObject(), VT_Map, d_splitter);
@@ -74,8 +69,6 @@ void Map2D::createInterface()
   sizes.append(500);
   d_splitter->setSizes(sizes);
 }
-
-
 
 /*
 void Map2D::showEvent(QShowEvent* event)
@@ -96,14 +89,11 @@ void Map2D::showEvent(QShowEvent* event)
 */
 
 
-
-void Map2D::addAttribute(const DataGuide& dataGuide)
+void Map2D::addAttribute(const DataGuide &dataGuide)
 {
   d_mapView->addAttribute(dataGuide);
   d_legendView->addAttribute(dataGuide);
 }
-
-
 
 /*
 void Map2D::clear()
@@ -117,79 +107,60 @@ void Map2D::clear()
 */
 
 
-
-const LegendView* Map2D::legendView() const
+const LegendView *Map2D::legendView() const
 {
   return d_legendView;
 }
 
-
-
-void Map2D::saveAsPNG(
-         std::filesystem::path const& path) const
+void Map2D::saveAsPNG(std::filesystem::path const &path) const
 {
-  QPixmap const& buffer(static_cast<Map2DView const*>(d_mapView)->buffer());
+  QPixmap const &buffer(static_cast<Map2DView const *>(d_mapView)->buffer());
 
-  if(buffer.isNull()) {
+  if (buffer.isNull()) {
     throw com::FileError(path.string(), "Error while saving");
   }
 
-  if(!buffer.save(QString(path.string().c_str()), "PNG")) {
+  if (!buffer.save(QString(path.string().c_str()), "PNG")) {
     throw com::FileError(path.string(), "Error while saving");
   }
 }
-
-
 
 void Map2D::startQueryMode()
 {
   d_mapView->startQueryMode();
 }
 
-
-
 void Map2D::startPanMode()
 {
   d_mapView->startPanMode();
 }
-
-
 
 void Map2D::startZoomAreaMode()
 {
   d_mapView->startZoomAreaMode();
 }
 
-
-
 void Map2D::startSelectMode()
 {
   d_mapView->startSelectMode();
 }
-
-
 
 void Map2D::resetMapView()
 {
   d_mapView->resetMapView();
 }
 
-
-
 void Map2D::rescan()
 {
   visualisationEngine().rescan(dataObject());
 }
 
-
-
 void Map2D::process()
 {
-  if(visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
-    if(!dataObject().backgroundColour().isValid()) {
+  if (visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+    if (!dataObject().backgroundColour().isValid()) {
       setPalette(QPalette());
-    }
-    else {
+    } else {
       QPalette palette;
       palette.setColor(backgroundRole(), dataObject().backgroundColour());
       setPalette(palette);
@@ -197,24 +168,19 @@ void Map2D::process()
   }
 }
 
-
-
 void Map2D::visualise()
 {
   // Done scanning, update stuff if needed.
-  if(visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+  if (visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
     d_splitter->update();
   }
 
   visualisationEngine().finishedScanning(dataObject());
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -222,11 +188,9 @@ void Map2D::visualise()
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -234,9 +198,8 @@ void Map2D::visualise()
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace ag
+}  // namespace ag

@@ -2,7 +2,7 @@
 #include "calc_ioesrifieldstrategy.h"
 #include "com_pathinfo.h"
 #include "com_pathname.h"
-#include "com_file.h"        // remove
+#include "com_file.h"       // remove
 #include "com_directory.h"  // createDirectory
 #include "com_strlib.h"
 #include "pcrgenxml_directorystackinfo.h"
@@ -26,27 +26,24 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC IOESRIFIELDSTRATEGY MEMBERS
 //------------------------------------------------------------------------------
-namespace calc {
-  typedef StackReaderT<EsriMap> EsriStackReader;
+namespace calc
+{
+typedef StackReaderT<EsriMap> EsriStackReader;
 
-  template <>
-  VS EsriStackReader::checkItem(size_t t, [[maybe_unused]] VS expectVsSet) const
-  {
-    PRECOND(expectVsSet != VS_UNKNOWN);
-    EsriMap const map(itemName(t));
+template <> VS EsriStackReader::checkItem(size_t t, [[maybe_unused]] VS expectVsSet) const
+{
+  PRECOND(expectVsSet != VS_UNKNOWN);
+  EsriMap const map(itemName(t));
 
-    checkClone(t);
+  checkClone(t);
 
-    return map.vs();
-  }
-
+  return map.vs();
 }
 
-
+}  // namespace calc
 
 //------------------------------------------------------------------------------
 // DEFINITION OF IOESRIFIELDSTRATEGY MEMBERS
@@ -56,49 +53,46 @@ namespace calc {
 /*!
  *  use the CSf strategy as fall back
  */
-calc::IoEsriFieldStrategy::IoEsriFieldStrategy():
- d_esriGrid(new EsriGridIO()),
- d_fallBack(new IoCsfFieldStrategy())
+calc::IoEsriFieldStrategy::IoEsriFieldStrategy()
+    : d_esriGrid(new EsriGridIO()), d_fallBack(new IoCsfFieldStrategy())
 {
 }
 
 //! dtor
 calc::IoEsriFieldStrategy::~IoEsriFieldStrategy()
 {
- delete d_esriGrid;
- delete d_fallBack;
+  delete d_esriGrid;
+  delete d_fallBack;
 }
 
 //! return strategy type
 APP_IO_STRATEGY calc::IoEsriFieldStrategy::strategyType() const
 {
- return APP_IO_ESRIGRID;
+  return APP_IO_ESRIGRID;
 }
 
 //! try read an Esri Grid file, if fails check for a csf map
-calc::IoFieldStrategy* calc::IoEsriFieldStrategy::checkInputMap(
-    VS                &vs,
-    const std::string &fName)
+calc::IoFieldStrategy *calc::IoEsriFieldStrategy::checkInputMap(VS &vs, const std::string &fName)
 {
   try {
-   EsriMap const grid(fName);
-   // always prefer an esri grid prj file
-   if (grid.prjFile().size())
-       d_prjFile=grid.prjFile();
-   vs = grid.vs();
-   return this;
-  } catch ( NotAnEsriGrid& ) {
-   // try next format
-   d_fallBack->checkInputMap(vs, fName);
-   d_fallBack->checkClone(fName);
-   if (d_prjFile.empty()) {
-     com::PathName prj(fName);
-     prj.setExtension("prj");
-     if (com::exists(prj))
-       d_prjFile=prj.toString();
-   }
-   setAndCheckCommon(fName,d_fallBack->rasterSpace());
-   return d_fallBack;
+    EsriMap const grid(fName);
+    // always prefer an esri grid prj file
+    if (grid.prjFile().size())
+      d_prjFile = grid.prjFile();
+    vs = grid.vs();
+    return this;
+  } catch (NotAnEsriGrid &) {
+    // try next format
+    d_fallBack->checkInputMap(vs, fName);
+    d_fallBack->checkClone(fName);
+    if (d_prjFile.empty()) {
+      com::PathName prj(fName);
+      prj.setExtension("prj");
+      if (com::exists(prj))
+        d_prjFile = prj.toString();
+    }
+    setAndCheckCommon(fName, d_fallBack->rasterSpace());
+    return d_fallBack;
   }
 }
 
@@ -107,16 +101,15 @@ calc::IoFieldStrategy* calc::IoEsriFieldStrategy::checkInputMap(
     CSF reader otherwise.
     Callee must delete
  */
-const calc::StackReader* calc::IoEsriFieldStrategy::createStackReader(
-    const RunDirectory& rd,
-    const std::string& stackName)
+const calc::StackReader *calc::IoEsriFieldStrategy::createStackReader(const RunDirectory &rd,
+                                                                      const std::string &stackName)
 {
-  std::string const item1(pathTimestep1(rd,stackName));
+  std::string const item1(pathTimestep1(rd, stackName));
   if (EsriMap::exists(item1)) {
-     // 1st item is a subdir
-     com::PathName pn(item1);
-     pn.up(); // strip subdir
-     return new EsriStackReader(this, pn.toString());
+    // 1st item is a subdir
+    com::PathName pn(item1);
+    pn.up();  // strip subdir
+    return new EsriStackReader(this, pn.toString());
   }
   // this is tricky, is clone for ESRI correctly set?, see esrigrid/test27
   return d_fallBack->createStackReader(rd, stackName);
@@ -125,32 +118,25 @@ const calc::StackReader* calc::IoEsriFieldStrategy::createStackReader(
 //! check against clone, if not clone not yet set, set clone to mapFileName
 /*! precondition: \a mapFileName is known to be an existing Esri grid
  */
-void calc::IoEsriFieldStrategy::checkClone(const std::string& mapFileName)
+void calc::IoEsriFieldStrategy::checkClone(const std::string &mapFileName)
 {
-    calc::EsriMap const map(mapFileName);
-    geo::RasterSpace const mapRs(
-        map.nrRows(),
-        map.nrCols(),
-        map.cellSize(),
-        0,0, geo::YIncrT2B,0);
+  calc::EsriMap const map(mapFileName);
+  geo::RasterSpace const mapRs(map.nrRows(), map.nrCols(), map.cellSize(), 0, 0, geo::YIncrT2B, 0);
 
-    setAndCheckCommon(mapFileName,mapRs);
+  setAndCheckCommon(mapFileName, mapRs);
 
-    if (!d_rasterSpaceEsri.nrRows()) { // not yet initialized
-        d_cloneNameEsri   = mapFileName;
-        d_rasterSpaceEsri = mapRs;
-        map.bbox(d_bbox);
-    }
+  if (!d_rasterSpaceEsri.nrRows()) {  // not yet initialized
+    d_cloneNameEsri = mapFileName;
+    d_rasterSpaceEsri = mapRs;
+    map.bbox(d_bbox);
+  }
 
-    double  bboxMap[4];
-    map.bbox(bboxMap);
+  double bboxMap[4];
+  map.bbox(bboxMap);
 
-    if (mapRs.cellSize() != rasterSpace().cellSize()
-        ||  d_bbox[0] != bboxMap[0]
-        ||  d_bbox[1] != bboxMap[1]
-        ||  d_bbox[2] != bboxMap[2]
-        ||  d_bbox[3] != bboxMap[3])
-             throwCloneDiffers(d_cloneNameEsri,mapFileName);
+  if (mapRs.cellSize() != rasterSpace().cellSize() || d_bbox[0] != bboxMap[0] ||
+      d_bbox[1] != bboxMap[1] || d_bbox[2] != bboxMap[2] || d_bbox[3] != bboxMap[3])
+    throwCloneDiffers(d_cloneNameEsri, mapFileName);
 }
 
 //! set up the stuff needed for an Esri Grid clone
@@ -159,47 +145,44 @@ void calc::IoEsriFieldStrategy::checkClone(const std::string& mapFileName)
  */
 void calc::IoEsriFieldStrategy::setupFormatSpecificClone()
 {
-   if (!d_rasterSpaceEsri.nrRows()) {
-      // Esri output wanted, but no Esri clone detected
-      //  ESRI grid always cartesian yb2t
-      PRECOND(rasterSpace().nrRows());
-      // but garantueed to have a clone (see Script::setupClone())
-      // copy one from d_fallBack
-      d_rasterSpaceEsri = rasterSpace();
-      d_bbox[0] = d_rasterSpaceEsri.left();
-      d_bbox[1] = std::min(d_rasterSpaceEsri.bottom(), d_rasterSpaceEsri.top());
-      d_bbox[2] = d_rasterSpaceEsri.right();
-      d_bbox[3] = std::max(d_rasterSpaceEsri.bottom(), d_rasterSpaceEsri.top());
-   }
+  if (!d_rasterSpaceEsri.nrRows()) {
+    // Esri output wanted, but no Esri clone detected
+    //  ESRI grid always cartesian yb2t
+    PRECOND(rasterSpace().nrRows());
+    // but garantueed to have a clone (see Script::setupClone())
+    // copy one from d_fallBack
+    d_rasterSpaceEsri = rasterSpace();
+    d_bbox[0] = d_rasterSpaceEsri.left();
+    d_bbox[1] = std::min(d_rasterSpaceEsri.bottom(), d_rasterSpaceEsri.top());
+    d_bbox[2] = d_rasterSpaceEsri.right();
+    d_bbox[3] = std::max(d_rasterSpaceEsri.bottom(), d_rasterSpaceEsri.top());
+  }
 }
 
 //! return an allocated and created calc::EsriMap
-calc::GridMap *calc::IoEsriFieldStrategy::createMap(
-    const std::string& fileName, VS vs) const
+calc::GridMap *calc::IoEsriFieldStrategy::createMap(const std::string &fileName, VS vs) const
 {
   com::PathName pn(fileName);
   pn.makeAbsolute();
   // esri-grid needs fileName to be-non-existent
   removeOutputObject(pn.toString());
-  auto *m = new EsriMap(pn.toString(),
-                     rasterSpace().nrRows(), rasterSpace().nrCols(),
-                     rasterSpace().cellSize(), d_bbox, vs);
+  auto *m = new EsriMap(pn.toString(), rasterSpace().nrRows(), rasterSpace().nrCols(),
+                        rasterSpace().cellSize(), d_bbox, vs);
   if (d_prjFile.size())
-   m->setPrjFile(d_prjFile);
+    m->setPrjFile(d_prjFile);
   return m;
 }
-
 
 /*!
     Checks if it is an esrigrid dir, or map stack and tries
     to remove the contents.
     \exception com::Exception if the name can not be overwritten or deleted
 */
-void calc::IoEsriFieldStrategy::removeOutputObject(const std::string& objName) const
+void calc::IoEsriFieldStrategy::removeOutputObject(const std::string &objName) const
 {
   com::PathInfo const path(objName);
   if (!path.exists())
-    return; // nothing to clean
+    return;  // nothing to clean
   if (!path.isDirectory()) {
     // remove file
     remove(path.pathName());
@@ -210,7 +193,7 @@ void calc::IoEsriFieldStrategy::removeOutputObject(const std::string& objName) c
 
   // can be a single esrigrid
   if (calc::EsriMap::remove(objName))
-     return;
+    return;
 
   // other directory check that
 
@@ -220,55 +203,54 @@ void calc::IoEsriFieldStrategy::removeOutputObject(const std::string& objName) c
   fs::path const stack(path.pathName().path());
   fs::directory_iterator const end_iter;
   for (fs::directory_iterator f(stack); f != end_iter && isAStack; ++f) {
-     // expect only pcr_esri, info and numeric
-     // file names
-     if (!com::compareNoCase(f->path().filename().string(),"pcr_esri"))
-       continue;
-     if (!com::compareNoCase(f->path().filename().string(),"info")) {
-       infoDir=*f;
-       continue;
-     }
-     try {
-       (void)com::strToSize_t(f->path().filename().string());
-       isAStack = calc::EsriMap::exists(f->path().string());
-     } catch (std::range_error&) {
+    // expect only pcr_esri, info and numeric
+    // file names
+    if (!com::compareNoCase(f->path().filename().string(), "pcr_esri"))
+      continue;
+    if (!com::compareNoCase(f->path().filename().string(), "info")) {
+      infoDir = *f;
+      continue;
+    }
+    try {
+      (void)com::strToSize_t(f->path().filename().string());
+      isAStack = calc::EsriMap::exists(f->path().string());
+    } catch (std::range_error &) {
       // a non numeric file name
-       isAStack=false;
-     }
+      isAStack = false;
+    }
   }
 
-  if (! isAStack) // esrigrid/test17
-    throw com::Exception("Can not overwrite "+objName);
+  if (!isAStack)  // esrigrid/test17
+    throw com::Exception("Can not overwrite " + objName);
 
   // now it is either a stack or an empty directory
   // both is fine and can be deleted
 
   for (fs::directory_iterator f(stack); f != end_iter; ++f) {
-     if (com::compareNoCase(f->path().filename().string(),"info")) { // skip info
+    if (com::compareNoCase(f->path().filename().string(), "info")) {  // skip info
       removeOutputObject(f->path().string());
-     }
+    }
   }
 
   // info directory as last one, remove grid  depends on it
   if (!infoDir.empty()) {
-   for (fs::directory_iterator f(infoDir); f != end_iter; ++f)
-     removeOutputObject(f->path().string());
-   com::remove(infoDir.string());
+    for (fs::directory_iterator f(infoDir); f != end_iter; ++f)
+      removeOutputObject(f->path().string());
+    com::remove(infoDir.string());
   }
 
   com::remove(path.pathName());
 }
 
 //! create directory if not yet existent
-static void createDir(
-  const com::PathName& fName)
+static void createDir(const com::PathName &fName)
 {
   try {
-    com::PathInfo  const p(fName);
-    if (p.isFile()) // esrigrid/test23
+    com::PathInfo const p(fName);
+    if (p.isFile())  // esrigrid/test23
       com::remove(fName);
     com::createDirectory(fName);
-  } catch (const com::OpenFileError& e) {
+  } catch (const com::OpenFileError &e) {
     throw std::runtime_error(e.messages());
   }
 }
@@ -278,8 +260,8 @@ static void createDir(
    Esri strategy has a directory named stackName
    with each grid named as 08d number.
  */
-std::string calc::IoEsriFieldStrategy::makeStackItemName(
-    const std::string& stackName, int   atTimeStep) const
+std::string calc::IoEsriFieldStrategy::makeStackItemName(const std::string &stackName,
+                                                         int atTimeStep) const
 {
   // directory name of stack
   com::PathName fName(stackName);
@@ -302,14 +284,14 @@ std::string calc::IoEsriFieldStrategy::makeStackItemName(
        assure that float read correct in Delphi , or . issue
        punt of komma dus!
  */
-void calc::IoEsriFieldStrategy::setStackInfo(const StackInfo& s) const
+void calc::IoEsriFieldStrategy::setStackInfo(const StackInfo &s) const
 {
   pcrxml::DirectoryStackInfo dsi;
   dsi.allMissingValue = !s.d_minMaxSet;
-  dsi.stackEnd        =  s.d_nrTimeSteps;
-  dsi.minimumValue    =  s.d_minMaxSet ? s.d_min : 0;
-  dsi.maximumValue    =  s.d_minMaxSet ? s.d_max : 0;
-  dsi.dataTypeDTD     = pcrxml::csfVs2DataType(vs2CsfVs(s.d_vs));
+  dsi.stackEnd = s.d_nrTimeSteps;
+  dsi.minimumValue = s.d_minMaxSet ? s.d_min : 0;
+  dsi.maximumValue = s.d_minMaxSet ? s.d_max : 0;
+  dsi.dataTypeDTD = pcrxml::csfVs2DataType(vs2CsfVs(s.d_vs));
 
   com::PathName fName(s.d_stackName);
   createDir(fName);
@@ -321,32 +303,27 @@ void calc::IoEsriFieldStrategy::setStackInfo(const StackInfo& s) const
     written as a single grid, not a tss or stack, happens
     only in initial section
  */
-void calc::IoEsriFieldStrategy::validateFileName(
-    const std::string& fileName) const
+void calc::IoEsriFieldStrategy::validateFileName(const std::string &fileName) const
 {
-   size_t const len=fileName.size();
-// MODELBUILDER FF uit eigenlijk baseName alleen te lang
-   if (len >= 14) // esrigrid/test5a
-    throw  com::Exception("ESRI grid name too long, max. is 13 characters");
-// MODELBUIDER
-   if (fileName.find('.')  < len) // esrigrid/test5
-     throw  com::Exception("ESRI grid name can not contain a .-symbol");
+  size_t const len = fileName.size();
+  // MODELBUILDER FF uit eigenlijk baseName alleen te lang
+  if (len >= 14)  // esrigrid/test5a
+    throw com::Exception("ESRI grid name too long, max. is 13 characters");
+  // MODELBUIDER
+  if (fileName.find('.') < len)  // esrigrid/test5
+    throw com::Exception("ESRI grid name can not contain a .-symbol");
 }
 
 //! return new InputEsriMap object
-calc::Spatial *calc::IoEsriFieldStrategy::newInputMap(
-    const std::string& mapName,VS vs,
-    const Compressor& c) const
+calc::Spatial *calc::IoEsriFieldStrategy::newInputMap(const std::string &mapName, VS vs,
+                                                      const Compressor &c) const
 {
-  return new InputSpatial<EsriMap>(mapName,vs,c);
+  return new InputSpatial<EsriMap>(mapName, vs, c);
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -357,7 +334,7 @@ calc::Spatial *calc::IoEsriFieldStrategy::newInputMap(
 
 #include "pcrxml_document.h"
 
-#include <cstring> // strcpy
+#include <cstring>  // strcpy
 
 //! read contents of an pcr_esri file
 /*!
@@ -377,37 +354,34 @@ calc::Spatial *calc::IoEsriFieldStrategy::newInputMap(
              not yet detailed.
  */
 extern bool esriArcView3Only;
-extern "C" PCR_DLL_FUNC(int) pcrReadEsriDirectoryStackInfo(
-  const char *dirName,
-  int        *allMissingValue,
-  double     *minimumValue,
-  double     *maximumValue,
-  int        *stackEnd,
-  char       *dataType)
+
+extern "C" PCR_DLL_FUNC(int)
+    pcrReadEsriDirectoryStackInfo(const char *dirName, int *allMissingValue, double *minimumValue,
+                                  double *maximumValue, int *stackEnd, char *dataType)
 {
- esriArcView3Only=true;
+  esriArcView3Only = true;
   try {
     com::PathName pn(dirName);
-    pn+="pcr_esri";
+    pn += "pcr_esri";
     pcrxml::Document const dc(pn);
     pcrxml::DirectoryStackInfo const d(dc.documentElement());
 
-    *allMissingValue=0; // FALSE;
+    *allMissingValue = 0;  // FALSE;
     if (d.allMissingValue.present())
-      *allMissingValue=d.allMissingValue();
-    if (! *allMissingValue) {
-     *minimumValue=d.minimumValue();
-     *maximumValue=d.maximumValue();
+      *allMissingValue = d.allMissingValue();
+    if (!*allMissingValue) {
+      *minimumValue = d.minimumValue();
+      *maximumValue = d.maximumValue();
     } else
-     *minimumValue= *maximumValue=0; // for sanity
+      *minimumValue = *maximumValue = 0;  // for sanity
     if (d.stackEnd.present())
-      *stackEnd=d.stackEnd();
+      *stackEnd = d.stackEnd();
     else
-      *stackEnd=0;
+      *stackEnd = 0;
     PRECOND(d.dataTypeDTD.attrValueStr().size() <= 15);
-    strcpy(dataType,d.dataTypeDTD.attrValueStr().c_str());
+    strcpy(dataType, d.dataTypeDTD.attrValueStr().c_str());
   } catch (...) {
-     return 1;
+    return 1;
   }
   return 0;
 }

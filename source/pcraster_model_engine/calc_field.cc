@@ -5,39 +5,39 @@
 #include <cmath>
 #include <cstring>
 
-calc::Field::Field(const Field& rhs):
-  DataValue(rhs),
-  d_vs(rhs.d_vs),
-  d_cri(rhs.d_cri)
+calc::Field::Field(const Field &rhs) : DataValue(rhs), d_vs(rhs.d_vs), d_cri(rhs.d_cri)
 {
 }
 
-calc::Field::Field(VS vs, CRIndex cri):
-  d_vs(vs),
-  d_cri(cri)
+calc::Field::Field(VS vs, CRIndex cri) : d_vs(vs), d_cri(cri)
 {
-   if (d_cri == CRI_X)
-    d_cri=allFitCRIndex(d_vs);
+  if (d_cri == CRI_X)
+    d_cri = allFitCRIndex(d_vs);
 }
 
 calc::Field::~Field()
 {
 }
 
-calc::Field* calc::Field::load()
+calc::Field *calc::Field::load()
 {
   return this;
 }
 
-UINT1 *calc::Field::dest_1 () {
+UINT1 *calc::Field::dest_1()
+{
   PRECOND(cri() == CRI_1);
   return static_cast<UINT1 *>(dest());
 }
-REAL4 *calc::Field::dest_f () {
+
+REAL4 *calc::Field::dest_f()
+{
   PRECOND(cri() == CRI_f);
   return static_cast<REAL4 *>(dest());
 }
-INT4  *calc::Field::dest_4 () {
+
+INT4 *calc::Field::dest_4()
+{
   PRECOND(cri() == CRI_4);
   return static_cast<INT4 *>(dest());
 }
@@ -45,55 +45,60 @@ INT4  *calc::Field::dest_4 () {
 //! fill Field value from \a src using std::memcpy
 void calc::Field::beMemCpyDest(const void *src)
 {
-  std::memcpy(dest(),src,nrValues()*size(cri()));
+  std::memcpy(dest(), src, nrValues() * size(cri()));
 }
 
 //! copy Field value to \a dest using std::memcpy
 void calc::Field::beMemCpySrc(void *dest) const
 {
-  std::memcpy(dest,src(),nrValues()*size(cri()));
+  std::memcpy(dest, src(), nrValues() * size(cri()));
 }
 
-const UINT1 *calc::Field::src_1 () const {
+const UINT1 *calc::Field::src_1() const
+{
   PRECOND(cri() == CRI_1);
   return static_cast<const UINT1 *>(src());
 }
-const REAL4 *calc::Field::src_f () const {
+
+const REAL4 *calc::Field::src_f() const
+{
   PRECOND(cri() == CRI_f);
   return static_cast<const REAL4 *>(src());
 }
-const INT4  *calc::Field::src_4 () const {
+
+const INT4 *calc::Field::src_4() const
+{
   PRECOND(cri() == CRI_4);
   return static_cast<const INT4 *>(src());
 }
 
-
-VS calc::Field::vs()const
+VS calc::Field::vs() const
 {
   return d_vs;
 }
 
-calc::OVS calc::Field:: ovs() const
+calc::OVS calc::Field::ovs() const
 {
   return vs();
 }
 
-CSF_CR calc::Field::cr()const
+CSF_CR calc::Field::cr() const
 {
   return calc::cr(d_cri);
 }
-calc::CRIndex calc::Field::cri()const
+
+calc::CRIndex calc::Field::cri() const
 {
   return d_cri;
 }
 
 calc::DataType calc::Field::type() const
 {
-  return {vs(),isSpatial()};
+  return {vs(), isSpatial()};
 }
 
 //! see only implementation: Spatial::findMVinMask
-calc::Field* calc::Field::findMVinMask(const std::vector<bool>& /* areaMask */) const
+calc::Field *calc::Field::findMVinMask(const std::vector<bool> & /* areaMask */) const
 {
   return nullptr;
 }
@@ -112,11 +117,11 @@ void calc::Field::resetVs(VS newVs)
     // can not change to type of Spatial::d_val array
     PRECOND(allFitCRIndex(newVs) == allFitCRIndex(d_vs));
   } else
-     getCell(v,0);
-  d_vs=newVs;
-  d_cri=allFitCRIndex(newVs);
+    getCell(v, 0);
+  d_vs = newVs;
+  d_cri = allFitCRIndex(newVs);
   if (!isSpatial())
-      setCell(v,0);
+    setCell(v, 0);
 }
 
 //! return a Field that can be written
@@ -125,10 +130,10 @@ void calc::Field::resetVs(VS newVs)
  * if \a v is a readOnlyReference then  a clone is returned
  * with readOnlyReference set to false
  */
-calc::Field* calc::createDestCloneIfReadOnly(Field *v)
+calc::Field *calc::createDestCloneIfReadOnly(Field *v)
 {
   if (v->readOnlyReference()) {
-    Field *f=v->createClone();
+    Field *f = v->createClone();
     f->setReadOnlyReference(false);
     return f;
   }
@@ -136,16 +141,16 @@ calc::Field* calc::createDestCloneIfReadOnly(Field *v)
 }
 
 //! a non-efficient print for test-fields for debugging purposes only
-std::ostream &operator<<(std::ostream& s, const calc::Field& f)
+std::ostream &operator<<(std::ostream &s, const calc::Field &f)
 {
   s << "type(" << f.type() << ")";
   s << "nrValues(" << f.nrValues() << ")\n";
   s << "data(";
-  for(size_t i=0; i < f.nrValues(); ++i) {
+  for (size_t i = 0; i < f.nrValues(); ++i) {
     double v = NAN;
     if (i)
       s << ",";
-    if (f.getCell(v,i))
+    if (f.getCell(v, i))
       s << v;
     else
       s << "mv";

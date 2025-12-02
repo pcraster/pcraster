@@ -6,21 +6,19 @@
 #include "calc_iscript.h"
 #include "appargs.h"
 
-#define FORGOT_ASS  "Can not write spatial output using outputfile"
+#define FORGOT_ASS "Can not write spatial output using outputfile"
 
-calc::StdoutStatement::StdoutStatement(
-  calc::FieldExpr *right)
-  : calc::Statement(*right),d_expr(right)
+calc::StdoutStatement::StdoutStatement(calc::FieldExpr *right) : calc::Statement(*right), d_expr(right)
 {
-// #define FORGOT_ASS  "Assignment forgotten (expected <id> = <expr>, read <expr>)"
-// NO LONGER  if (right->IsTimeoutput()) // pcrcalc/test37b
-// NO LONGER    posError(FORGOT_ASS) generates syntax error now-> fileoutput
+  // #define FORGOT_ASS  "Assignment forgotten (expected <id> = <expr>, read <expr>)"
+  // NO LONGER  if (right->IsTimeoutput()) // pcrcalc/test37b
+  // NO LONGER    posError(FORGOT_ASS) generates syntax error now-> fileoutput
   buildTypes();
 }
 
 bool calc::StdoutStatement::buildTypes()
 {
-  if (d_expr->spatial()) // pcrcalc/test20
+  if (d_expr->spatial())  // pcrcalc/test20
     posError(FORGOT_ASS);
   return false;
 }
@@ -40,12 +38,12 @@ void calc::StdoutStatement::run()
   POSTCOND(f);
 
   double val = f->getValue();
-  if (d_expr->vs() == VS_D) // pcrcalc/test7[67]
-        val = AppOutputDirection(val);
+  if (d_expr->vs() == VS_D)  // pcrcalc/test7[67]
+    val = AppOutputDirection(val);
   script().processFileOutputValue(val);
 }
 
-void calc::StdoutStatement::print(calc::InfoScript& i)const
+void calc::StdoutStatement::print(calc::InfoScript &i) const
 {
   d_expr->print(i);
 }

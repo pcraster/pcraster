@@ -7,19 +7,18 @@
 #include <format>
 #include <string>
 
-
 /*!
   \file
   This file contains the implementation of the RangeDrawProps class.
 */
 
 
-namespace ag {
+namespace ag
+{
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -31,20 +30,17 @@ namespace ag {
   \param     c Classifier.
   \param     p Palette.
 */
-RangeDrawProps::RangeDrawProps(
-         std::string const& title,
-         com::RawPalette const* p,
-         com::Classifier* rawValueClassifier,
-         com::Classifier* displayValueClassifier)
+RangeDrawProps::RangeDrawProps(std::string const &title, com::RawPalette const *p,
+                               com::Classifier *rawValueClassifier,
+                               com::Classifier *displayValueClassifier)
 
-  : DrawProps(title, p)
+    : DrawProps(title, p)
 
 {
   assert(rawValueClassifier);
 
-  if(displayValueClassifier) {
-    assert(rawValueClassifier->nrClasses() ==
-         displayValueClassifier->nrClasses());
+  if (displayValueClassifier) {
+    assert(rawValueClassifier->nrClasses() == displayValueClassifier->nrClasses());
   }
 
   pushClassifier(rawValueClassifier, displayValueClassifier);
@@ -54,24 +50,16 @@ RangeDrawProps::RangeDrawProps(
   assignLabels();
 }
 
+RangeDrawProps::RangeDrawProps(RangeDrawProps const &properties)
 
-
-RangeDrawProps::RangeDrawProps(
-         RangeDrawProps const& properties)
-
-  : DrawProps(properties),
-    _classifiers(properties._classifiers),
-    // _rawValueClassifier(properties._rawValueClassifier),
-    // _displayValueClassifier(properties._displayValueClassifier),
-    _drawerType(properties._drawerType),
-    _minColour(properties._minColour),
-    _maxColour(properties._maxColour),
-    _probabilityScale(properties._probabilityScale)
+    : DrawProps(properties), _classifiers(properties._classifiers),
+      // _rawValueClassifier(properties._rawValueClassifier),
+      // _displayValueClassifier(properties._displayValueClassifier),
+      _drawerType(properties._drawerType), _minColour(properties._minColour),
+      _maxColour(properties._maxColour), _probabilityScale(properties._probabilityScale)
 
 {
 }
-
-
 
 //! Destructor.
 /*!
@@ -84,8 +72,6 @@ RangeDrawProps::~RangeDrawProps()
 {
 }
 
-
-
 //! Assignment operator.
 /*!
   \param     .
@@ -94,11 +80,10 @@ RangeDrawProps::~RangeDrawProps()
   \warning   .
   \sa        .
 */
-RangeDrawProps& RangeDrawProps::operator=(
-         RangeDrawProps const& rhs)
+RangeDrawProps &RangeDrawProps::operator=(RangeDrawProps const &rhs)
 {
-  if(this != &rhs) {
-    static_cast<DrawProps&>(*this) = rhs;
+  if (this != &rhs) {
+    static_cast<DrawProps &>(*this) = rhs;
     _classifiers = rhs._classifiers;
     // _rawValueClassifier = rhs._rawValueClassifier;
     // _displayValueClassifier = rhs._displayValueClassifier;
@@ -113,45 +98,40 @@ RangeDrawProps& RangeDrawProps::operator=(
   return *this;
 }
 
-
-
-bool RangeDrawProps::equals(
-         RangeDrawProps const& rhs) const
+bool RangeDrawProps::equals(RangeDrawProps const &rhs) const
 {
-  if(static_cast<DrawProps const&>(*this) != rhs ||
-         _drawerType != rhs._drawerType) {
+  if (static_cast<DrawProps const &>(*this) != rhs || _drawerType != rhs._drawerType) {
     return false;
   }
 
-  if(_minColour != rhs._minColour || _maxColour != rhs._maxColour) {
+  if (_minColour != rhs._minColour || _maxColour != rhs._maxColour) {
     return false;
   }
 
-  if(_probabilityScale != rhs._probabilityScale) {
+  if (_probabilityScale != rhs._probabilityScale) {
     return false;
   }
 
-  if(_classifiers.size() != rhs._classifiers.size()) {
+  if (_classifiers.size() != rhs._classifiers.size()) {
     return false;
   }
 
-  for(size_t i = 0; i < _classifiers.size(); ++i) {
-    ClassifierTuple const& lhsTuple = _classifiers[i];
-    ClassifierTuple const& rhsTuple = rhs._classifiers[i];
+  for (size_t i = 0; i < _classifiers.size(); ++i) {
+    ClassifierTuple const &lhsTuple = _classifiers[i];
+    ClassifierTuple const &rhsTuple = rhs._classifiers[i];
 
-    com::Classifier const* lhsClassifier = nullptr;
-    com::Classifier const* rhsClassifier = nullptr;
+    com::Classifier const *lhsClassifier = nullptr;
+    com::Classifier const *rhsClassifier = nullptr;
 
     lhsClassifier = std::get<0>(lhsTuple);
     rhsClassifier = std::get<0>(rhsTuple);
 
-    if((lhsClassifier && !rhsClassifier) ||
-       (!lhsClassifier && rhsClassifier)) {
+    if ((lhsClassifier && !rhsClassifier) || (!lhsClassifier && rhsClassifier)) {
       return false;
     }
 
-    if(lhsClassifier && rhsClassifier) {
-      if(*lhsClassifier != *rhsClassifier) {
+    if (lhsClassifier && rhsClassifier) {
+      if (*lhsClassifier != *rhsClassifier) {
         return false;
       }
     }
@@ -159,13 +139,12 @@ bool RangeDrawProps::equals(
     lhsClassifier = std::get<1>(lhsTuple);
     rhsClassifier = std::get<1>(rhsTuple);
 
-    if((lhsClassifier && !rhsClassifier) ||
-       (!lhsClassifier && rhsClassifier)) {
+    if ((lhsClassifier && !rhsClassifier) || (!lhsClassifier && rhsClassifier)) {
       return false;
     }
 
-    if(lhsClassifier && rhsClassifier) {
-      if(*lhsClassifier != *rhsClassifier) {
+    if (lhsClassifier && rhsClassifier) {
+      if (*lhsClassifier != *rhsClassifier) {
         return false;
       }
     }
@@ -173,7 +152,7 @@ bool RangeDrawProps::equals(
 
   return true;
 
-/*
+  /*
   if(_displayValueClassifier) {
     if(!rhs._displayValueClassifier) {
       return false;
@@ -196,131 +175,109 @@ bool RangeDrawProps::equals(
   */
 }
 
-
-
-void RangeDrawProps::setDisplayValueClassifier(com::Classifier* classifier)
+void RangeDrawProps::setDisplayValueClassifier(com::Classifier *classifier)
 {
   assert(classifier);
-  ClassifierTuple& tuple(_classifiers.back());
+  ClassifierTuple &tuple(_classifiers.back());
   assert(!std::get<1>(tuple));
   std::get<1>(tuple) = classifier;
   assert(std::get<1>(tuple) == classifier);
   // _displayValueClassifier = classifier;
 }
 
-
-
 void RangeDrawProps::unsetDisplayValueClassifier()
 {
-  ClassifierTuple& tuple(_classifiers.back());
+  ClassifierTuple &tuple(_classifiers.back());
   // Assumes the caller deletes the classifier.
   std::get<1>(tuple) = nullptr;
   assert(!std::get<1>(tuple));
   // _displayValueClassifier = 0;
 }
 
-
-
 void RangeDrawProps::setNrClasses(size_t nrClasses)
 {
-  com::Classifier* raw(rawValueClassifier());
+  com::Classifier *raw(rawValueClassifier());
 
   raw->setNrClasses(nrClasses);
 
-  com::Classifier* display(displayValueClassifier());
+  com::Classifier *display(displayValueClassifier());
 
-  if(display) {
+  if (display) {
     display->setNrClasses(nrClasses);
   }
 }
 
-
-
 void RangeDrawProps::setMaxCutoff(double maxCutoff)
 {
-  com::Classifier* raw(rawValueClassifier());
+  com::Classifier *raw(rawValueClassifier());
 
   raw->setMaxCutoff(maxCutoff);
 
-  com::Classifier* display(displayValueClassifier());
+  com::Classifier *display(displayValueClassifier());
 
-  if(display) {
+  if (display) {
     display->setMaxCutoff(maxCutoff);
   }
 }
 
-
-
 void RangeDrawProps::setMinCutoff(double cutoff)
 {
-  com::Classifier* raw(rawValueClassifier());
+  com::Classifier *raw(rawValueClassifier());
 
   raw->setMinCutoff(cutoff);
 
-  com::Classifier* display(displayValueClassifier());
+  com::Classifier *display(displayValueClassifier());
 
-  if(display) {
+  if (display) {
     display->setMinCutoff(cutoff);
   }
 }
 
-
-
-void RangeDrawProps::setCutoffs(
-         double minCutoff,
-         double maxCutoff)
+void RangeDrawProps::setCutoffs(double minCutoff, double maxCutoff)
 {
-  com::Classifier* raw(rawValueClassifier());
+  com::Classifier *raw(rawValueClassifier());
 
   raw->setCutoffs(minCutoff, maxCutoff);
 
-  com::Classifier* display(displayValueClassifier());
+  com::Classifier *display(displayValueClassifier());
 
-  if(display) {
+  if (display) {
     display->setCutoffs(minCutoff, maxCutoff);
   }
 }
 
-
-
 void RangeDrawProps::resetMaxCutoff()
 {
-  com::Classifier* raw(rawValueClassifier());
-  com::Classifier* display(displayValueClassifier());
+  com::Classifier *raw(rawValueClassifier());
+  com::Classifier *display(displayValueClassifier());
   raw->resetMaxCutoff();
 
-  if(display) {
+  if (display) {
     display->resetMaxCutoff();
   }
 }
 
-
-
 void RangeDrawProps::resetMinCutoff()
 {
-  com::Classifier* raw(rawValueClassifier());
-  com::Classifier* display(displayValueClassifier());
+  com::Classifier *raw(rawValueClassifier());
+  com::Classifier *display(displayValueClassifier());
   raw->resetMinCutoff();
 
-  if(display) {
+  if (display) {
     display->resetMinCutoff();
   }
 }
 
-
-
 void RangeDrawProps::resetCutoffs()
 {
-  com::Classifier* raw(rawValueClassifier());
-  com::Classifier* display(displayValueClassifier());
+  com::Classifier *raw(rawValueClassifier());
+  com::Classifier *display(displayValueClassifier());
   raw->resetCutoffs();
 
-  if(display) {
+  if (display) {
     display->resetCutoffs();
   }
 }
-
-
 
 void RangeDrawProps::setMode(Mode mode)
 {
@@ -329,24 +286,19 @@ void RangeDrawProps::setMode(Mode mode)
   //   _displayValueClassifier->setMode(mode);
   // }
 
-  com::Classifier* raw(rawValueClassifier());
-  com::Classifier* display(displayValueClassifier());
+  com::Classifier *raw(rawValueClassifier());
+  com::Classifier *display(displayValueClassifier());
   raw->setMode(mode);
 
-  if(display) {
+  if (display) {
     display->setMode(mode);
   }
 }
 
-
-
-void RangeDrawProps::setProbabilityScale(
-         ProbabilityScale scale)
+void RangeDrawProps::setProbabilityScale(ProbabilityScale scale)
 {
   _probabilityScale = scale;
 }
-
-
 
 void RangeDrawProps::setAlgorithm(Algorithm algorithm)
 {
@@ -356,16 +308,14 @@ void RangeDrawProps::setAlgorithm(Algorithm algorithm)
   // }
 
 
-  com::Classifier* raw(rawValueClassifier());
-  com::Classifier* display(displayValueClassifier());
+  com::Classifier *raw(rawValueClassifier());
+  com::Classifier *display(displayValueClassifier());
   raw->installAlgorithm(algorithm);
 
-  if(display) {
+  if (display) {
     display->installAlgorithm(algorithm);
   }
 }
-
-
 
 RangeDrawProps::Mode RangeDrawProps::mode() const
 {
@@ -374,64 +324,50 @@ RangeDrawProps::Mode RangeDrawProps::mode() const
   return rawValueClassifier()->mode();
 }
 
-
-
 RangeDrawProps::ProbabilityScale RangeDrawProps::probabilityScale() const
 {
   return _probabilityScale;
 }
 
-
-
 bool RangeDrawProps::cutoffsAreValid() const
 {
-  com::Classifier const* raw(rawValueClassifier());
-  com::Classifier const* display(displayValueClassifier());
+  com::Classifier const *raw(rawValueClassifier());
+  com::Classifier const *display(displayValueClassifier());
 
   return display ? display->cutoffsAreValid() : raw->cutoffsAreValid();
 }
 
-
-
 double RangeDrawProps::min() const
 {
-  com::Classifier const* raw(rawValueClassifier());
-  com::Classifier const* display(displayValueClassifier());
+  com::Classifier const *raw(rawValueClassifier());
+  com::Classifier const *display(displayValueClassifier());
 
   return display ? display->min() : raw->min();
 }
 
-
-
 double RangeDrawProps::max() const
 {
-  com::Classifier const* raw(rawValueClassifier());
-  com::Classifier const* display(displayValueClassifier());
+  com::Classifier const *raw(rawValueClassifier());
+  com::Classifier const *display(displayValueClassifier());
 
   return display ? display->max() : raw->max();
 }
 
-
-
 double RangeDrawProps::minCutoff() const
 {
-  com::Classifier const* raw(rawValueClassifier());
-  com::Classifier const* display(displayValueClassifier());
+  com::Classifier const *raw(rawValueClassifier());
+  com::Classifier const *display(displayValueClassifier());
 
   return display ? display->minCutoff() : raw->minCutoff();
 }
 
-
-
 double RangeDrawProps::maxCutoff() const
 {
-  com::Classifier const* raw(rawValueClassifier());
-  com::Classifier const* display(displayValueClassifier());
+  com::Classifier const *raw(rawValueClassifier());
+  com::Classifier const *display(displayValueClassifier());
 
   return display ? display->maxCutoff() : raw->maxCutoff();
 }
-
-
 
 RangeDrawProps::Algorithm RangeDrawProps::algorithm() const
 {
@@ -440,15 +376,13 @@ RangeDrawProps::Algorithm RangeDrawProps::algorithm() const
   return rawValueClassifier()->algorithm();
 }
 
-
-
 void RangeDrawProps::classify()
 {
-  com::Classifier* raw(rawValueClassifier());
-  com::Classifier* display(displayValueClassifier());
+  com::Classifier *raw(rawValueClassifier());
+  com::Classifier *display(displayValueClassifier());
   raw->classify();
 
-  if(display) {
+  if (display) {
     display->classify();
     assert(display->nrClasses() == raw->nrClasses());
   }
@@ -460,16 +394,13 @@ void RangeDrawProps::classify()
   assignLabels();
 }
 
-
-
 void RangeDrawProps::reMapColours()
 {
-  if(rawValueClassifier()->nrClasses() == 0) {
+  if (rawValueClassifier()->nrClasses() == 0) {
     assert(!palette()->empty());
     _minColour = qt::RgbTupleToQColor(*(palette()->begin()), palette()->max());
     _maxColour = _minColour;
-  }
-  else {
+  } else {
     _colours = mapEqualInterval(*palette(), rawValueClassifier()->nrClasses());
     assert(!_colours.empty());
     _minColour = _colours.front();
@@ -477,47 +408,38 @@ void RangeDrawProps::reMapColours()
   }
 }
 
-
-
 void RangeDrawProps::assignLabels()
 {
-  if(nrClasses() > 0) {
+  if (nrClasses() > 0) {
 
     _labels.resize(nrClasses() + 1);
 
-    com::Classifier* raw(rawValueClassifier());
-    com::Classifier* display(displayValueClassifier());
+    com::Classifier *raw(rawValueClassifier());
+    com::Classifier *display(displayValueClassifier());
 
-    if(display) {
+    if (display) {
 
-      for(size_t i = 0; i <= nrClasses(); ++i) {
+      for (size_t i = 0; i <= nrClasses(); ++i) {
         _labels[i] = std::to_string(display->classBorder(i));
       }
-    }
-    else {
+    } else {
 
-      for(size_t i = 0; i <= nrClasses(); ++i) {
+      for (size_t i = 0; i <= nrClasses(); ++i) {
         _labels[i] = std::to_string(raw->classBorder(i));
       }
     }
   }
 }
 
-
-
-const std::vector<double>& RangeDrawProps::rawClassBorders() const
+const std::vector<double> &RangeDrawProps::rawClassBorders() const
 {
   return rawValueClassifier()->borders();
 }
-
-
 
 size_t RangeDrawProps::rawClassIndex(double value) const
 {
   return rawValueClassifier()->classIndex(value);
 }
-
-
 
 //! Returns a collection of classborders converted by the display value classifier if set.
 /*!
@@ -529,14 +451,12 @@ std::vector<double> RangeDrawProps::classBorders() const
 {
   std::vector<double> borders = rawClassBorders();
 
-  for(double & border : borders) {
+  for (double &border : borders) {
     border = rawToDisplay(border);
   }
 
   return borders;
 }
-
-
 
 //! Converts raw value to display value.
 /*!
@@ -547,114 +467,88 @@ std::vector<double> RangeDrawProps::classBorders() const
 */
 double RangeDrawProps::rawToDisplay(double value) const
 {
-  com::Classifier const* raw(rawValueClassifier());
-  com::Classifier const* display(displayValueClassifier());
+  com::Classifier const *raw(rawValueClassifier());
+  com::Classifier const *display(displayValueClassifier());
 
-  if(display) {
-    com::RangeMap<double, double> mapper(
-         raw->min(), raw->max(), display->min(), display->max());
+  if (display) {
+    com::RangeMap<double, double> mapper(raw->min(), raw->max(), display->min(), display->max());
     value = mapper.map(value);
   }
 
   return value;
 }
 
-
-
 void RangeDrawProps::setDrawerType(DrawerType type)
 {
   _drawerType = type;
 }
-
-
 
 DrawerType RangeDrawProps::drawerType() const
 {
   return _drawerType;
 }
 
-
-
 size_t RangeDrawProps::nrClassesRequested() const
 {
   return rawValueClassifier()->nrClassesRequested();
 }
 
-
-
-void RangeDrawProps::merge(RangeDrawProps const& properties)
+void RangeDrawProps::merge(RangeDrawProps const &properties)
 {
   rawValueClassifier()->merge(*properties.rawValueClassifier());
 
-  com::Classifier* lhsDisplay(displayValueClassifier());
-  com::Classifier const* rhsDisplay(properties.displayValueClassifier());
+  com::Classifier *lhsDisplay(displayValueClassifier());
+  com::Classifier const *rhsDisplay(properties.displayValueClassifier());
 
-  if(lhsDisplay && rhsDisplay) {
+  if (lhsDisplay && rhsDisplay) {
     lhsDisplay->merge(*rhsDisplay);
   }
 }
 
-
-
-std::string RangeDrawProps::label(
-         REAL4 const& value) const
+std::string RangeDrawProps::label(REAL4 const &value) const
 {
   std::string result = "mv";
 
-  if(!pcr::isMV(value)) {
+  if (!pcr::isMV(value)) {
     result = std::format("{}", rawToDisplay(value));
   }
 
   return result;
 }
 
-
-
-com::Classifier* RangeDrawProps::displayValueClassifier()
+com::Classifier *RangeDrawProps::displayValueClassifier()
 {
   assert(!_classifiers.empty());
 
   return std::get<1>(_classifiers.back());
 }
 
-
-
-const com::Classifier* RangeDrawProps::displayValueClassifier() const
+const com::Classifier *RangeDrawProps::displayValueClassifier() const
 {
   assert(!_classifiers.empty());
 
   return std::get<1>(_classifiers.back());
 }
 
-
-
-com::Classifier* RangeDrawProps::rawValueClassifier()
+com::Classifier *RangeDrawProps::rawValueClassifier()
 {
   assert(!_classifiers.empty());
 
   return std::get<0>(_classifiers.back());
 }
 
-
-
-const com::Classifier* RangeDrawProps::rawValueClassifier() const
+const com::Classifier *RangeDrawProps::rawValueClassifier() const
 {
   assert(!_classifiers.empty());
 
   return std::get<0>(_classifiers.back());
 }
 
-
-
-void RangeDrawProps::pushClassifier(
-         com::Classifier* rawValueClassifier,
-         com::Classifier* displayValueClassifier)
+void RangeDrawProps::pushClassifier(com::Classifier *rawValueClassifier,
+                                    com::Classifier *displayValueClassifier)
 {
-  _classifiers.push_back(ClassifierTuple(
-         rawValueClassifier, displayValueClassifier));
+  _classifiers.push_back(ClassifierTuple(rawValueClassifier, displayValueClassifier));
 }
-
-
 
 RangeDrawProps::ClassifierTuple RangeDrawProps::popClassifier()
 {
@@ -667,76 +561,56 @@ RangeDrawProps::ClassifierTuple RangeDrawProps::popClassifier()
   return tuple;
 }
 
-
-
-RangeDrawProps::ClassifierTuples const& RangeDrawProps::classifiers() const
+RangeDrawProps::ClassifierTuples const &RangeDrawProps::classifiers() const
 {
   return _classifiers;
 }
 
-
-
-RangeDrawProps::ClassifierTuples& RangeDrawProps::classifiers()
+RangeDrawProps::ClassifierTuples &RangeDrawProps::classifiers()
 {
   return _classifiers;
 }
 
-
-
-QColor const& RangeDrawProps::minColour() const
+QColor const &RangeDrawProps::minColour() const
 {
   return _minColour;
 }
 
-
-
-QColor const& RangeDrawProps::maxColour() const
+QColor const &RangeDrawProps::maxColour() const
 {
   return _maxColour;
 }
 
-
-
-QColor const& RangeDrawProps::colour(
-         double value) const
+QColor const &RangeDrawProps::colour(double value) const
 {
   assert(!pcr::isMV(value));
 
-  if(value < minCutoff()) {
+  if (value < minCutoff()) {
     return minColour();
-  }
-  else if(value > maxCutoff()) {
+  } else if (value > maxCutoff()) {
     return maxColour();
-  }
-  else {
+  } else {
     return colourByIndex(rawClassIndex(value));
   }
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
-bool operator==(RangeDrawProps const& lhs, RangeDrawProps const& rhs)
+bool operator==(RangeDrawProps const &lhs, RangeDrawProps const &rhs)
 {
   return lhs.equals(rhs);
 }
 
-
-
-bool operator!=(RangeDrawProps const& lhs, RangeDrawProps const& rhs)
+bool operator!=(RangeDrawProps const &lhs, RangeDrawProps const &rhs)
 {
   return !lhs.equals(rhs);
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -744,15 +618,13 @@ bool operator!=(RangeDrawProps const& lhs, RangeDrawProps const& rhs)
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF INLINE FUNCTIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace ag
+}  // namespace ag

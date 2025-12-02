@@ -9,20 +9,18 @@
 */
 
 
-
-namespace calc {
+namespace calc
+{
 
 // Code that is private to this module.
-namespace detail {
+namespace detail
+{
 
-} // namespace detail
-
-
+}  // namespace detail
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC MEMORYEXCHANGEITEMFIELD MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -33,21 +31,17 @@ MemoryExchangeItemField::MemoryExchangeItemField()
 {
 }
 
-MemoryExchangeItemField::MemoryExchangeItemField(
-  std::string const& name,
-  size_t memoryId,
-  std::shared_ptr<Field> value):
-    MemoryExchangeItem(name,memoryId),
-    d_value(std::move(value))
+MemoryExchangeItemField::MemoryExchangeItemField(std::string const &name, size_t memoryId,
+                                                 std::shared_ptr<Field> value)
+    : MemoryExchangeItem(name, memoryId), d_value(std::move(value))
 {
 }
-
 
 MemoryExchangeItemField::~MemoryExchangeItemField()
 {
 }
 
-void* MemoryExchangeItemField::rawValue() const
+void *MemoryExchangeItemField::rawValue() const
 {
   return (void *)d_value->src();
 }
@@ -55,19 +49,16 @@ void* MemoryExchangeItemField::rawValue() const
 //! copy Field buffer into into dest.
 void MemoryExchangeItemField::beMemCpySrc(void *dest) const
 {
- d_value->beMemCpySrc(dest);
+  d_value->beMemCpySrc(dest);
 }
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace calc
-
+}  // namespace calc

@@ -7,10 +7,9 @@ calc::IScript::~IScript()
 }
 
 //! ctor
-calc::IScript::IScript() 
+calc::IScript::IScript()
 {
 }
-
 
 void calc::IScript::nextTimeStep()
 {
@@ -18,7 +17,9 @@ void calc::IScript::nextTimeStep()
 }
 
 bool calc::IScript::isDynamicModel() const
-{ return d_timerSlice != 0; }
+{
+  return d_timerSlice != 0;
+}
 
 size_t calc::IScript::currentTimeStep() const
 {
@@ -30,11 +31,10 @@ size_t calc::IScript::nrTimeSteps() const
   return d_timerEnd;
 }
 
-
 //! only calc::IndexTable does call this one
 /*! it cheats on const-ness
  */
-void calc::IScript::cmpToClone(const std::string& mapFileName) const
+void calc::IScript::cmpToClone(const std::string &mapFileName) const
 {
   auto *nc = const_cast<calc::IScript *>(this);
   nc->checkClone(mapFileName);

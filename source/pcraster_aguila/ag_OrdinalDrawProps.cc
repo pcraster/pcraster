@@ -4,19 +4,15 @@
 #include "com_classclassifier.h"
 #include "ag_ColourSelector.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the OrdinalDrawProps class.
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -28,33 +24,27 @@
   \param     p Palette.
   \param     c Class info object.
 */
-ag::OrdinalDrawProps::OrdinalDrawProps(const std::string& title,
-         const com::RawPalette* p, const com_ClassClassifier<INT4>* c)
+ag::OrdinalDrawProps::OrdinalDrawProps(const std::string &title, const com::RawPalette *p,
+                                       const com_ClassClassifier<INT4> *c)
 
-  : ClassDrawProps(title, p),
-    _classifier(c)
+    : ClassDrawProps(title, p), _classifier(c)
 
 {
   assert(c);
 
   reMapColours();
   _nrClasses = _classifier->nrClasses();
-  for(size_t i = 0; i < _classifier->nrClasses(); ++i) {
+  for (size_t i = 0; i < _classifier->nrClasses(); ++i) {
     _labels.push_back(_classifier->descr(i));
   }
 }
 
+ag::OrdinalDrawProps::OrdinalDrawProps(const OrdinalDrawProps &properties)
 
-
-ag::OrdinalDrawProps::OrdinalDrawProps(const OrdinalDrawProps& properties)
-
-  : ClassDrawProps(properties),
-    _classifier(properties._classifier)
+    : ClassDrawProps(properties), _classifier(properties._classifier)
 
 {
 }
-
-
 
 //! Destructor.
 /*!
@@ -64,34 +54,26 @@ ag::OrdinalDrawProps::~OrdinalDrawProps()
 {
 }
 
-
-
 void ag::OrdinalDrawProps::reMapColours()
 {
   _colours = mapEqualInterval(*palette(), _classifier->nrClasses());
 }
 
-
-
 //! Returns the class info object.
 /*!
   \return    Class info object.
 */
-const com_ClassClassifier<INT4>& ag::OrdinalDrawProps::classifier()
-                   const
+const com_ClassClassifier<INT4> &ag::OrdinalDrawProps::classifier() const
 {
   assert(_classifier);
   return *_classifier;
 }
 
-
-
-std::string ag::OrdinalDrawProps::label(
-         INT4 const& value) const
+std::string ag::OrdinalDrawProps::label(INT4 const &value) const
 {
   std::string result = "mv";
 
-  if(!pcr::isMV(value)) {
+  if (!pcr::isMV(value)) {
     size_t const index = classifier().index(value);
     result = classifier().descr(index);
   }
@@ -99,12 +81,9 @@ std::string ag::OrdinalDrawProps::label(
   return result;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -112,11 +91,9 @@ std::string ag::OrdinalDrawProps::label(
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -124,9 +101,6 @@ std::string ag::OrdinalDrawProps::label(
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

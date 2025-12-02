@@ -8,8 +8,6 @@
 #include "com_colour.h"
 #include "com_fileformatinfo.h"
 
-
-
 /*!
   This function converts a com_Colour object to a QColor object and returns the
   result.
@@ -18,8 +16,6 @@ QColor qt::toQColor(const com_Colour &colour)
 {
   return {colour.getRed(), colour.getGreen(), colour.getBlue()};
 }
-
-
 
 /*!
   \param   w1 Widget to center to.
@@ -30,29 +26,26 @@ QColor qt::toQColor(const com_Colour &colour)
 */
 void qt::center(const QWidget &w1, QWidget &w2)
 {
-  if(!w1.isWindow() || !w2.isWindow()) return;
+  if (!w1.isWindow() || !w2.isWindow())
+    return;
 
   // Get size and position of the frames of both widgets.
   QRect const g1 = w1.geometry();
   QRect const g2 = w2.geometry();
 
-  if(g1.isValid() && g2.isValid())
-  {
-    int const x = std::max<int>(w1.x(), w1.x() + ((g1.width()  - g2.width())  / 2));
+  if (g1.isValid() && g2.isValid()) {
+    int const x = std::max<int>(w1.x(), w1.x() + ((g1.width() - g2.width()) / 2));
     int const y = std::max<int>(w1.y(), w1.y() + ((g1.height() - g2.height()) / 2));
     w2.setGeometry(x, y, w2.width(), w2.height());
   }
 }
-
-
 
 //! Shows an open file dialog tailored at \a fileFormat.
 /*!
   \sa        getOpenFileName(const std::vector<com::FileFormatInfo>&,
              QWidget*, const char*)
 */
-std::string qt::getOpenFileName(const com::FileFormatInfo& fileFormat,
-                    QWidget* parent, const char* name)
+std::string qt::getOpenFileName(const com::FileFormatInfo &fileFormat, QWidget *parent, const char *name)
 {
   std::vector<com::FileFormatInfo> fileFormats;
   fileFormats.push_back(fileFormat);
@@ -60,28 +53,20 @@ std::string qt::getOpenFileName(const com::FileFormatInfo& fileFormat,
   return getOpenFileName(fileFormats, parent, name /* , caption */);
 }
 
-
-
-std::string qt::getOpenFileName(
-         dal::Formats const& formats,
-         QWidget* parent,
-         char const* name)
+std::string qt::getOpenFileName(dal::Formats const &formats, QWidget *parent, char const *name)
 {
   std::vector<com::FileFormatInfo> fileFormats;
 
-  for(size_t i = 0; i < formats.size(); ++i) {
-    dal::Format const& format(formats[i]);
+  for (size_t i = 0; i < formats.size(); ++i) {
+    dal::Format const &format(formats[i]);
 
-    if(format.isFileBased()) {
-      fileFormats.push_back(com::FileFormatInfo(
-         format.description(), format.extensions()));
+    if (format.isFileBased()) {
+      fileFormats.push_back(com::FileFormatInfo(format.description(), format.extensions()));
     }
   }
 
   return getOpenFileName(fileFormats, parent, name);
 }
-
-
 
 //! Shows an open file dialog tailored at \a fileFormats.
 /*!
@@ -95,19 +80,18 @@ std::string qt::getOpenFileName(
   The file format information in \a fileFormats is used to create filters.
   The last filter added is the "All files (*)" filter.
 */
-std::string qt::getOpenFileName(
-                   const std::vector<com::FileFormatInfo>& fileFormats,
-                   QWidget* parent, const char* /* name */)
+std::string qt::getOpenFileName(const std::vector<com::FileFormatInfo> &fileFormats, QWidget *parent,
+                                const char * /* name */)
 {
   // File filter.
   std::string filter;
 
   // For all file formats.
-  for(const auto & fileFormat : fileFormats) {
+  for (const auto &fileFormat : fileFormats) {
 
-    std::vector<std::string> const& extensions = fileFormat.extensions();
+    std::vector<std::string> const &extensions = fileFormat.extensions();
 
-    if(!extensions.empty()) {
+    if (!extensions.empty()) {
       // Use description.
       assert(!fileFormat.description().empty());
       filter += fileFormat.description() + " (";
@@ -115,13 +99,12 @@ std::string qt::getOpenFileName(
       // Add extension(s).
       assert(!extensions.empty());
 
-      for(auto ext_it = extensions.begin();
-                     ext_it != extensions.end(); ++ext_it) {
+      for (auto ext_it = extensions.begin(); ext_it != extensions.end(); ++ext_it) {
 
         filter += "*." + *ext_it;
 
         // Add space BETWEEN the extension filters.
-        if(*ext_it != extensions.back()) {
+        if (*ext_it != extensions.back()) {
           filter += " ";
         }
       }
@@ -136,10 +119,7 @@ std::string qt::getOpenFileName(
   // Add 'all files' to filter.
   filter += ("All files (*)");
 
-  QString const fn = QFileDialog::getOpenFileName(parent, QString(), QString(),
-                   QString(filter.c_str()));
+  QString const fn = QFileDialog::getOpenFileName(parent, QString(), QString(), QString(filter.c_str()));
 
   return fn.isEmpty() ? std::string() : std::string(fn.toUtf8().constData());
 }
-
-

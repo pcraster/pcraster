@@ -9,19 +9,18 @@ calc::RunTimeStack::RunTimeStack()
 calc::RunTimeStack::~RunTimeStack()
 {
 #ifdef DEBUG_DEVELOP
-   // in normal cases the stack should be empty
-   // but not always when an exception is unwinded
-   if (!std::uncaught_exceptions())
-   {
-      POSTCOND(d_stack.empty());
-   }
+  // in normal cases the stack should be empty
+  // but not always when an exception is unwinded
+  if (!std::uncaught_exceptions()) {
+    POSTCOND(d_stack.empty());
+  }
 #endif
-   clean();
+  clean();
 }
 
 void calc::RunTimeStack::clean()
 {
-  while(!d_stack.empty()) {
+  while (!d_stack.empty()) {
     // OK
     deleteFromPcrme(d_stack.top());
     d_stack.pop();
@@ -47,7 +46,7 @@ void calc::RunTimeStack::clean()
  *   LEAK mark2 user model crashed on deleting the second, the 
  *   DataTable possible holds references, this is a MESS!
  */
-calc::DataValue* calc::RunTimeStack::pop()
+calc::DataValue *calc::RunTimeStack::pop()
 {
   PRECOND(!d_stack.empty());
   DataValue *possibleProxy = d_stack.top();
@@ -55,21 +54,21 @@ calc::DataValue* calc::RunTimeStack::pop()
   d_stack.pop();
   DataValue *dv = possibleProxy->load();
   if (possibleProxy != dv) {
-      // possibleProxy is only a proxy class
-      // not the DataValue itself
-      delete possibleProxy;
+    // possibleProxy is only a proxy class
+    // not the DataValue itself
+    delete possibleProxy;
   }
   // again: StackedValue->DiskWrittenField->Field
-  possibleProxy=dv;
+  possibleProxy = dv;
   dv = possibleProxy->load();
   if (possibleProxy != dv) {
-      ;// LEAK delete possibleProxy;
+    ;  // LEAK delete possibleProxy;
   }
 
   return dv;
 }
 
-void calc::RunTimeStack::push(DataValue* v)
+void calc::RunTimeStack::push(DataValue *v)
 {
   d_stack.push(v);
 }

@@ -10,7 +10,6 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
 /*
@@ -34,11 +33,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC BASEEXPR MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -50,19 +47,14 @@ public:
  *   in the user preffered syntax (or,|| etc).
  * \param op the operator
  */
-calc::BaseExpr::BaseExpr(
-  const std::string& opNameAsParsed):
-  ASTId(opNameAsParsed),
-  d_args(new ASTNodeVector())
+calc::BaseExpr::BaseExpr(const std::string &opNameAsParsed)
+    : ASTId(opNameAsParsed), d_args(new ASTNodeVector())
 {
   setNrReturns(0);
 }
 
-calc::BaseExpr::BaseExpr(
-  const Position *pos,
-  const std::string& opName):
-  ASTId(Id(opName,pos)),
-  d_args(new ASTNodeVector())
+calc::BaseExpr::BaseExpr(const Position *pos, const std::string &opName)
+    : ASTId(Id(opName, pos)), d_args(new ASTNodeVector())
 {
   setNrReturns(0);
 }
@@ -83,16 +75,13 @@ calc::BaseExpr& calc::BaseExpr::operator=(const BaseExpr& rhs)
 */
 
 //! Copy constructor. used in createClone()
-calc::BaseExpr::BaseExpr(const BaseExpr& rhs):
-  ASTId(rhs),
-  d_args(rhs.d_args->createClone())
+calc::BaseExpr::BaseExpr(const BaseExpr &rhs) : ASTId(rhs), d_args(rhs.d_args->createClone())
 {
 }
 
-
-void calc::BaseExpr::accept(ASTVisitor& v)
+void calc::BaseExpr::accept(ASTVisitor &v)
 {
-   v.visitExpr(this);
+  v.visitExpr(this);
 }
 
 size_t calc::BaseExpr::nrArgs() const
@@ -100,27 +89,28 @@ size_t calc::BaseExpr::nrArgs() const
   return d_args->size();
 }
 
-calc::ASTNode* calc::BaseExpr::arg(size_t i) const
+calc::ASTNode *calc::BaseExpr::arg(size_t i) const
 {
   return d_args->at(i);
 }
 
-calc::ASTNodeVector* calc::BaseExpr::args() const
+calc::ASTNodeVector *calc::BaseExpr::args() const
 {
   return d_args;
 }
 
 //! add argument to end of argument list
-void calc::BaseExpr::transferArg(ASTNode *arg) {
+void calc::BaseExpr::transferArg(ASTNode *arg)
+{
   d_args->transferPushBack(arg);
 }
 
 std::vector<calc::DataType> calc::BaseExpr::dataTypeArgs() const
 {
- std::vector<DataType> da;
- for(size_t i=0;i<nrArgs(); ++i)
-   da.push_back(arg(i)->returnDataType());
- return da;
+  std::vector<DataType> da;
+  for (size_t i = 0; i < nrArgs(); ++i)
+    da.push_back(arg(i)->returnDataType());
+  return da;
 }
 
 //! transfer all nodes of \a args to  argument list for this function
@@ -139,7 +129,6 @@ void calc::BaseExpr::transferFunctionArgs(ASTNodeVector *al)
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------

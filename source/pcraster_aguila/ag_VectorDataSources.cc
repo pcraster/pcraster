@@ -7,24 +7,22 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the VectorDataSources class.
 */
 
-namespace {
+namespace
+{
 
-} // Anonymous namespace
+}  // Anonymous namespace
 
-
-
-namespace ag {
+namespace ag
+{
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC VECTORDATASOURCES MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -33,22 +31,16 @@ namespace ag {
 
 VectorDataSources::VectorDataSources()
 
-  : DataObjectBase<Vector>(geo::VECTOR)
+    : DataObjectBase<Vector>(geo::VECTOR)
 
 {
 }
-
-
 
 VectorDataSources::~VectorDataSources()
 {
 }
 
-
-
-DataInfo<Vector> VectorDataSources::openData(
-         std::string const& name,
-         dal::DataSpace const& space) const
+DataInfo<Vector> VectorDataSources::openData(std::string const &name, dal::DataSpace const &space) const
 {
   std::unique_ptr<Vector> vector(new Vector(name, space));
   assert(vector.get());
@@ -59,17 +51,13 @@ DataInfo<Vector> VectorDataSources::openData(
   return info;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace ag
-
+}  // namespace ag

@@ -3,12 +3,10 @@
 #include "com_csfcell.h"
 #include "calc_vfield.h"
 
-
 /*!
   \file
   This file contains the implementation of the RasterGraph class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -34,23 +32,18 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC RASTERGRAPH MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF RASTERGRAPH MEMBERS
 //------------------------------------------------------------------------------
 
-calc::RasterGraph::RasterGraph(size_t nrVertices):
-   d_nrVertices(nrVertices)
+calc::RasterGraph::RasterGraph(size_t nrVertices) : d_nrVertices(nrVertices)
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -63,12 +56,9 @@ calc::RasterGraph::RasterGraph(RasterGraph const& rhs)
 */
 
 
-
 calc::RasterGraph::~RasterGraph()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -91,11 +81,11 @@ size_t calc::RasterGraph::nrVertices() const
  * as a result \a mvField will only bits set for "new" MV's
  * not already known in d_mv
  */
-void calc::RasterGraph::unsetMVField(BitField& mvField) const
+void calc::RasterGraph::unsetMVField(BitField &mvField) const
 {
-  PRECOND(mvField.size()==nrVertices());
-  for(unsigned long const i : d_mv)
-    mvField[i]=false;
+  PRECOND(mvField.size() == nrVertices());
+  for (unsigned long const i : d_mv)
+    mvField[i] = false;
 }
 
 /*!
@@ -103,12 +93,11 @@ void calc::RasterGraph::unsetMVField(BitField& mvField) const
  * \todo
  *   if d_mv is runLength (as in MaskPacking) this can go much faster
  */
-template<typename D,typename S>
-void calc::RasterGraph::initField(D *f, const S& value) const
+template <typename D, typename S> void calc::RasterGraph::initField(D *f, const S &value) const
 {
-  for(size_t i=0;i<d_nrVertices; ++i)
-    f[i]=(D)value;
-  for(unsigned long const i : d_mv)
+  for (size_t i = 0; i < d_nrVertices; ++i)
+    f[i] = (D)value;
+  for (unsigned long const i : d_mv)
     pcr::setMV(f[i]);
 }
 
@@ -117,12 +106,11 @@ void calc::RasterGraph::initField(D *f, const S& value) const
  * The templates instances created are those needed, allowing float <-> double
  * conversions but no others with loss of significance
  */
-template<typename D, typename S>
-void calc::RasterGraph::copyField(D *dest, const S* src) const
+template <typename D, typename S> void calc::RasterGraph::copyField(D *dest, const S *src) const
 {
-  for(size_t i=0;i<d_nrVertices; ++i)
-    dest[i]=(D)src[i];
-  for(unsigned long const i : d_mv)
+  for (size_t i = 0; i < d_nrVertices; ++i)
+    dest[i] = (D)src[i];
+  for (unsigned long const i : d_mv)
     pcr::setMV(dest[i]);
 }
 
@@ -130,48 +118,42 @@ void calc::RasterGraph::copyField(D *dest, const S* src) const
  * \brief initialize \a dest to \a src value's inside graph and to MV outside
  * The templates instance created are those needed.
  */
-template<typename D, typename S>
-void calc::RasterGraph::copyField(D *dest, const VField<S>& src) const
+template <typename D, typename S> void calc::RasterGraph::copyField(D *dest, const VField<S> &src) const
 {
   if (src.spatial())
-    copyField(dest,&(src[0]));
+    copyField(dest, &(src[0]));
   else
-    initField(dest,  src[0] );
+    initField(dest, src[0]);
 }
 
-namespace calc {
-template void RasterGraph::initField<>(float *f, const float& value) const;
-template void RasterGraph::initField<>(float *f, const double& value) const;
-template void RasterGraph::initField<>(INT4  *f, const INT4& value) const;
-template void RasterGraph::initField<>(UINT1 *f, const UINT1& value) const;
+namespace calc
+{
+template void RasterGraph::initField<>(float *f, const float &value) const;
+template void RasterGraph::initField<>(float *f, const double &value) const;
+template void RasterGraph::initField<>(INT4 *f, const INT4 &value) const;
+template void RasterGraph::initField<>(UINT1 *f, const UINT1 &value) const;
 template void RasterGraph::copyField<>(float *d, const float *s) const;
-template void RasterGraph::copyField<>(float *d, const double*s) const;
-template void RasterGraph::copyField<>(double *d, const float*s) const;
-template void RasterGraph::copyField<>(INT4  *d, const INT4  *s) const;
+template void RasterGraph::copyField<>(float *d, const double *s) const;
+template void RasterGraph::copyField<>(double *d, const float *s) const;
+template void RasterGraph::copyField<>(INT4 *d, const INT4 *s) const;
 template void RasterGraph::copyField<>(UINT1 *d, const UINT1 *s) const;
-template void RasterGraph::copyField<>(float *d, const VField<float>&s) const;
-template void RasterGraph::copyField<>(double *d, const VField<float>&s) const;
-template void RasterGraph::copyField<>(INT4  *d, const VField<INT4 >&s) const;
-template void RasterGraph::copyField<>(UINT1 *d, const VField<UINT1>&s) const;
-}
+template void RasterGraph::copyField<>(float *d, const VField<float> &s) const;
+template void RasterGraph::copyField<>(double *d, const VField<float> &s) const;
+template void RasterGraph::copyField<>(INT4 *d, const VField<INT4> &s) const;
+template void RasterGraph::copyField<>(UINT1 *d, const VField<UINT1> &s) const;
+}  // namespace calc
 
-const calc::IFieldRDConversion&
-  calc::RasterGraph::iFieldRDConversion() const
+const calc::IFieldRDConversion &calc::RasterGraph::iFieldRDConversion() const
 {
   PRECOND(d_frc);
   return *d_frc;
 }
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

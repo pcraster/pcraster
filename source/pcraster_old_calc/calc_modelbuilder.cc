@@ -26,13 +26,11 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF MODELBUILDER MEMBERS
 //------------------------------------------------------------------------------
 
-calc::ModelBuilder::ModelBuilder():
-  d_positionName(new std::string("??"))
+calc::ModelBuilder::ModelBuilder() : d_positionName(new std::string("??"))
 {
   globalInit();
 }
@@ -43,7 +41,7 @@ calc::ModelBuilder::~ModelBuilder()
 }
 
 //! set name for \class calc::PositionName used to create symbols
-void calc::ModelBuilder::setPositionName(const std::string& name)
+void calc::ModelBuilder::setPositionName(const std::string &name)
 {
   d_positionName = std::make_shared<std::string>(name);
 }
@@ -52,6 +50,7 @@ void calc::ModelBuilder::setMVCompression(bool enable)
 {
   d_script.setMVCompression(enable);
 }
+
 void calc::ModelBuilder::set0Compression(bool enable)
 {
   d_script.set0Compression(enable);
@@ -63,7 +62,7 @@ void calc::ModelBuilder::set0Compression(bool enable)
  * should generate syntax error, not assertion failed:
  * mb.addStatement("report ModelBuildertestMS.res = ModelBuildertestMS4 + 1");
  */
-void calc::ModelBuilder::addStatement(const std::string& statement, bool write)
+void calc::ModelBuilder::addStatement(const std::string &statement, bool write)
 {
   ParserInput const pi(statement);
   Parser parser(pi.tokenBuffer());
@@ -71,9 +70,9 @@ void calc::ModelBuilder::addStatement(const std::string& statement, bool write)
 
   if (write)
     d_script.setReportFound();
-  WriteInfo const wi(&d_script,write,nullptr,false);
+  WriteInfo const wi(&d_script, write, nullptr, false);
   int retsignal = 0;
-  parser.assignment(&retsignal, &d_script,wi);
+  parser.assignment(&retsignal, &d_script, wi);
 }
 
 void calc::ModelBuilder::addStatement(Statement *stat)
@@ -82,23 +81,19 @@ void calc::ModelBuilder::addStatement(Statement *stat)
 }
 
 //! add a statement of type \a par = \a expr
-void calc::ModelBuilder::addFieldAssignment(
-    const std::string& par,
-    FieldExpr*         expr,
-    bool write)
+void calc::ModelBuilder::addFieldAssignment(const std::string &par, FieldExpr *expr, bool write)
 {
   if (write)
     d_script.setReportFound();
-  WriteInfo const wi(&d_script,write,nullptr,false);
+  WriteInfo const wi(&d_script, write, nullptr, false);
 
-  addStatement(
-     new Assignment(&d_script, wi,usePar(par) ,expr));
+  addStatement(new Assignment(&d_script, wi, usePar(par), expr));
 }
 
 //! add an expression that yields a field
 /*!
  */
-calc::FieldExpr* calc::ModelBuilder::addFieldExpr(const std::string& expr)
+calc::FieldExpr *calc::ModelBuilder::addFieldExpr(const std::string &expr)
 {
   ParserInput const pi(expr);
   Parser parser(pi.tokenBuffer());
@@ -110,7 +105,7 @@ calc::FieldExpr* calc::ModelBuilder::addFieldExpr(const std::string& expr)
 }
 
 //! add a series of bindings from an ascii file \a bindingFile
-calc::RunSettings calc::ModelBuilder::parseExternalBindings(const com::PathName& bindingFile)
+calc::RunSettings calc::ModelBuilder::parseExternalBindings(const com::PathName &bindingFile)
 {
   ParserInput const pi(bindingFile);
   Parser parser(pi.tokenBuffer());
@@ -123,11 +118,8 @@ calc::RunSettings calc::ModelBuilder::parseExternalBindings(const com::PathName&
   return m;
 }
 
-
 //! add a binding
-void calc::ModelBuilder::addBinding(
-    const std::string& left,
-    const std::string& right)
+void calc::ModelBuilder::addBinding(const std::string &left, const std::string &right)
 {
   d_script.addBinding(symbol(left), symbol(right));
 }
@@ -137,14 +129,13 @@ void calc::ModelBuilder::addBinding(
  */
 void calc::ModelBuilder::evaluateBindings()
 {
-      d_script.evaluateBindings();
+  d_script.evaluateBindings();
 }
 
-void calc::ModelBuilder::setClone(const std::string& clone)
+void calc::ModelBuilder::setClone(const std::string &clone)
 {
   SetClone(clone.c_str());
 }
-
 
 //! run the statements added
 void calc::ModelBuilder::execute()
@@ -153,43 +144,36 @@ void calc::ModelBuilder::execute()
   d_script.run();
 }
 
-void  calc::ModelBuilder::addLookupTable(
-  const std::string& name,
-  LookupTable       *table)
+void calc::ModelBuilder::addLookupTable(const std::string &name, LookupTable *table)
 {
   std::vector<LookupTable *> val(1);
-  val[0]=table;
-  d_script.addSymbol(new LookupTableParameter(usePar(name),val));
+  val[0] = table;
+  d_script.addSymbol(new LookupTableParameter(usePar(name), val));
 }
 
-calc::UsePar calc::ModelBuilder::usePar(const std::string& par)
+calc::UsePar calc::ModelBuilder::usePar(const std::string &par)
 {
-  return UsePar(&d_script,symbol(par));
+  return UsePar(&d_script, symbol(par));
 }
 
-calc::Symbol calc::ModelBuilder::symbol(const std::string& name)
+calc::Symbol calc::ModelBuilder::symbol(const std::string &name)
 {
   PositionName pn(d_positionName);
-  return Symbol(&d_script,name,&pn);
+  return Symbol(&d_script, name, &pn);
 }
 
-void calc::ModelBuilder::setGlobalOption(const std::string& option)
+void calc::ModelBuilder::setGlobalOption(const std::string &option)
 {
-  std::string const withDash = "--"+option;
+  std::string const withDash = "--" + option;
   PRECOND(ParseGlobalFlag(withDash.c_str()));
   ParseGlobalFlag(withDash.c_str());
 }
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

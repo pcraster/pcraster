@@ -5,13 +5,10 @@
 #include "calc_iostrategy.h"
 #include "calc_astsymboltable.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the XMLReflection class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -37,27 +34,23 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC XMLREFLECTION MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF XMLREFLECTION MEMBERS
 //------------------------------------------------------------------------------
 
-calc::XMLReflection::XMLReflection(
-   ASTScript const& script):
-  d_script(new pcrxml::Script())
+calc::XMLReflection::XMLReflection(ASTScript const &script) : d_script(new pcrxml::Script())
 {
   // add all definition's of symbols that can be described
-  ASTSymbolTable const& syms(script.symbols());
-  for (const auto & sym : syms) {
+  ASTSymbolTable const &syms(script.symbols());
+  for (const auto &sym : syms) {
     std::unique_ptr<pcrxml::Definition> const d(sym.second.createDefinition());
     if (d.get())
-     d_script->definition().push_back(*d);
+      d_script->definition().push_back(*d);
   }
 }
 
@@ -89,7 +82,7 @@ calc::XMLReflection& calc::XMLReflection::operator=(XMLReflection const& rhs)
 std::string calc::XMLReflection::toString() const
 {
   std::ostringstream s;
-  pcrxml::script(s,*d_script,pcrxsd::namespaceInfoMap("PCRaster.xsd"));
+  pcrxml::script(s, *d_script, pcrxsd::namespaceInfoMap("PCRaster.xsd"));
   return s.str();
 }
 
@@ -112,10 +105,6 @@ std::string calc::XMLReflection::toString() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

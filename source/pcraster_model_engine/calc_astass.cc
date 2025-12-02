@@ -10,7 +10,6 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
 
@@ -19,19 +18,17 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF ASTASS MEMBERS
 //------------------------------------------------------------------------------
 
 calc::ASTAss::ASTAss()
-   
+
 {
 }
 
 //! ctor with full deepClone
-calc::ASTAss::ASTAss(const ASTPar&  par,
-                     const ASTNode* rhs)
+calc::ASTAss::ASTAss(const ASTPar &par, const ASTNode *rhs)
 {
   addPar(par);
   setRhs(rhs);
@@ -46,40 +43,38 @@ void calc::ASTAss::clean()
 {
   com::clearClone(d_pars);
   delete d_rhs;
-  d_rhs=nullptr;
+  d_rhs = nullptr;
 }
 
 //! Assignment operator.
-calc::ASTAss& calc::ASTAss::operator=(const ASTAss& rhs)
+calc::ASTAss &calc::ASTAss::operator=(const ASTAss &rhs)
 {
   if (this != &rhs) {
     clean();
     setRhs(rhs.rhs());
-    com::copyClone(rhs.d_pars,d_pars);
+    com::copyClone(rhs.d_pars, d_pars);
   }
   return *this;
 }
 
 //! Copy constructor.
-calc::ASTAss::ASTAss(const ASTAss& rhs):
-  ASTNode(rhs),
-  d_rhs(rhs.rhs()->createClone())
+calc::ASTAss::ASTAss(const ASTAss &rhs) : ASTNode(rhs), d_rhs(rhs.rhs()->createClone())
 {
-  com::copyClone(rhs.d_pars,d_pars);
+  com::copyClone(rhs.d_pars, d_pars);
 }
 
-void calc::ASTAss::accept(ASTVisitor& v)
+void calc::ASTAss::accept(ASTVisitor &v)
 {
   v.visitAss(this);
 }
 
-const std::vector<calc::ASTPar *>& calc::ASTAss::pars() const
+const std::vector<calc::ASTPar *> &calc::ASTAss::pars() const
 {
   return d_pars;
 }
 
 //! return parameter \a parIndex
-calc::ASTPar* calc::ASTAss::par(size_t parIndex) const
+calc::ASTPar *calc::ASTAss::par(size_t parIndex) const
 {
   PRECOND(parIndex < d_pars.size());
   return d_pars[parIndex];
@@ -91,7 +86,7 @@ size_t calc::ASTAss::nrPars() const
   return d_pars.size();
 }
 
-calc::ASTNode * calc::ASTAss::rhs() const
+calc::ASTNode *calc::ASTAss::rhs() const
 {
   return d_rhs;
 }
@@ -100,10 +95,10 @@ calc::ASTNode * calc::ASTAss::rhs() const
 /*!
  * if d_pars empty on forehand then set position
  */
-void calc::ASTAss::addPar(const ASTPar& p)
+void calc::ASTAss::addPar(const ASTPar &p)
 {
   if (d_pars.empty())
-    setPosition(p.position()); // assignment starts with 1st par
+    setPosition(p.position());  // assignment starts with 1st par
   d_pars.push_back(p.createClone());
 }
 
@@ -111,39 +106,35 @@ void calc::ASTAss::addPar(const ASTPar& p)
  * \brief only needed to parse the relic m1,m2 = fid1,fid2(....)
  * see calcparser.g (/relic)
  */
-void calc::ASTAss::swap01() {
-  PRECOND(d_pars.size()==2);
-  std::swap(d_pars[0],d_pars[1]);
+void calc::ASTAss::swap01()
+{
+  PRECOND(d_pars.size() == 2);
+  std::swap(d_pars[0], d_pars[1]);
 }
 
 //! transfer rhs
-void calc::ASTAss::transferRhs(ASTNode* rhs)
+void calc::ASTAss::transferRhs(ASTNode *rhs)
 {
   if (d_rhs)
-      delete d_rhs;
-  d_rhs=rhs;
+    delete d_rhs;
+  d_rhs = rhs;
 }
 
-void calc::ASTAss::setRhs(const ASTNode* rhs)
+void calc::ASTAss::setRhs(const ASTNode *rhs)
 {
   transferRhs(rhs->createClone());
 }
 
-calc::ASTAss* calc::ASTAss::createClone() const
+calc::ASTAss *calc::ASTAss::createClone() const
 {
   return new ASTAss(*this);
 }
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

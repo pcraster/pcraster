@@ -1,18 +1,14 @@
 #include "ag_ClassDrawProps.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the ClassDrawProps class.
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -23,25 +19,19 @@
 /*!
   \param     p Palette.
 */
-ag::ClassDrawProps::ClassDrawProps(
-         std::string const& title,
-         com::RawPalette const* p)
+ag::ClassDrawProps::ClassDrawProps(std::string const &title, com::RawPalette const *p)
 
-  : DrawProps(title, p)
+    : DrawProps(title, p)
 
 {
 }
 
+ag::ClassDrawProps::ClassDrawProps(const ClassDrawProps &properties)
 
-
-ag::ClassDrawProps::ClassDrawProps(const ClassDrawProps& properties)
-
-  : DrawProps(properties)
+    : DrawProps(properties)
 
 {
 }
-
-
 
 //! Destructor.
 /*!
@@ -51,12 +41,9 @@ ag::ClassDrawProps::~ClassDrawProps()
 {
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -64,11 +51,9 @@ ag::ClassDrawProps::~ClassDrawProps()
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -76,9 +61,6 @@ ag::ClassDrawProps::~ClassDrawProps()
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

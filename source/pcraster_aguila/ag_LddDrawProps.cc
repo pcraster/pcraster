@@ -18,13 +18,10 @@
 #include "ldd8.xbm"
 #include "ldd9.xbm"
 
-
-
 /*!
   \file
   This file contains the implementation of the LddDrawProps class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -36,31 +33,31 @@
 // template class CountedObject<ag::LddDrawPropsPrivate>;
 // }
 
-namespace ag {
+namespace ag
+{
 
 
-class LddDrawPropsPrivate // : public com::CountedObject<LddDrawPropsPrivate>
+class LddDrawPropsPrivate  // : public com::CountedObject<LddDrawPropsPrivate>
 {
 public:
-
-  static size_t    _nrCreated;
+  static size_t _nrCreated;
 
   //! Default label.
   static const std::string _label;
 
-  static GLuint    _textures[2304];   // Array with texture names.
+  static GLuint _textures[2304];  // Array with texture names.
 
   static const unsigned char *_lddTextures[9];
   static const unsigned char *_gddTextures[8];
 
   //! Class info object.
-  const com_ClassClassifier<UINT1>* _classifier{};
+  const com_ClassClassifier<UINT1> *_classifier{};
 
   LddDrawPropsPrivate()
   {
     ++_nrCreated;
 
-    if(_nrCreated == 1) {
+    if (_nrCreated == 1) {
 
       std::fill(&_textures[0], _textures + 2304, 0);
 
@@ -96,7 +93,7 @@ public:
     // with name 0 (we probably have some of them in the array).
     // yepyep: dumps: maybe because opengl is already gone and has already
     // yepyep: deleted the textures? Opengl removes the textures autom.
-/*
+    /*
     if(nrObjectsCreated() == 1) {
       glDeleteTextures(..., _textures);
     }
@@ -110,18 +107,15 @@ public:
   {
     return (256 * --ldd) + gdd;
   }
-
 };
 
 size_t ag::LddDrawPropsPrivate::_nrCreated = 0;
 const std::string ag::LddDrawPropsPrivate::_label = "flow direction";
 GLuint ag::LddDrawPropsPrivate::_textures[2304];
-const unsigned char* ag::LddDrawPropsPrivate::_lddTextures[9];
-const unsigned char* ag::LddDrawPropsPrivate::_gddTextures[8];
+const unsigned char *ag::LddDrawPropsPrivate::_lddTextures[9];
+const unsigned char *ag::LddDrawPropsPrivate::_gddTextures[8];
 
-}
-
-
+}  // namespace ag
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
@@ -132,12 +126,10 @@ const unsigned char* ag::LddDrawPropsPrivate::_gddTextures[8];
   \return    Label.
   \sa        label(size_t)
 */
-const std::string& ag::LddDrawProps::label()
+const std::string &ag::LddDrawProps::label()
 {
   return LddDrawPropsPrivate::_label;
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF CLASS MEMBERS
@@ -148,11 +140,10 @@ const std::string& ag::LddDrawProps::label()
   \param     p Palette.
   \param     c Class info object.
 */
-ag::LddDrawProps::LddDrawProps(const std::string& title,
-         const com::RawPalette* p, const com_ClassClassifier<UINT1>* c)
+ag::LddDrawProps::LddDrawProps(const std::string &title, const com::RawPalette *p,
+                               const com_ClassClassifier<UINT1> *c)
 
-  : ClassDrawProps(title, p),
-    _data(new LddDrawPropsPrivate())
+    : ClassDrawProps(title, p), _data(new LddDrawPropsPrivate())
 
 {
   assert(c);
@@ -163,23 +154,18 @@ ag::LddDrawProps::LddDrawProps(const std::string& title,
   // From the base class. Messy. Should be passed into a function (constructor).
   reMapColours();
   _nrClasses = _data->_classifier->nrClasses();
-  for(size_t i = 0; i < _data->_classifier->nrClasses(); ++i) {
+  for (size_t i = 0; i < _data->_classifier->nrClasses(); ++i) {
     _labels.push_back(_data->_classifier->descr(i));
   }
 }
 
+ag::LddDrawProps::LddDrawProps(const LddDrawProps &properties)
 
-
-ag::LddDrawProps::LddDrawProps(const LddDrawProps& properties)
-
-  : ClassDrawProps(properties),
-    _data(new LddDrawPropsPrivate())
+    : ClassDrawProps(properties), _data(new LddDrawPropsPrivate())
 
 {
   _data->_classifier = properties._data->_classifier;
 }
-
-
 
 //! Destructor.
 /*!
@@ -190,26 +176,20 @@ ag::LddDrawProps::~LddDrawProps()
   delete _data;
 }
 
-
-
 void ag::LddDrawProps::reMapColours()
 {
   _colours = mapSequential(*palette(), _data->_classifier->nrClasses());
 }
 
-
-
 //! Returns the class info object.
 /*!
   \return    Class info object.
 */
-const com_ClassClassifier<UINT1>& ag::LddDrawProps::classifier() const
+const com_ClassClassifier<UINT1> &ag::LddDrawProps::classifier() const
 {
   assert(_data->_classifier);
   return *(_data->_classifier);
 }
-
-
 
 GLuint ag::LddDrawProps::texture(unsigned char gdd, UINT1 ldd) const
 {
@@ -218,28 +198,28 @@ GLuint ag::LddDrawProps::texture(unsigned char gdd, UINT1 ldd) const
   size_t const uniqueId = _data->id(gdd, ldd);
   assert(uniqueId < 2304);
 
-  if(_data->_textures[uniqueId] == 0) {
+  if (_data->_textures[uniqueId] == 0) {
 
     // Create new texture.
     static unsigned char texture[512];
 
     // Set ldd texture.
     // Loop over rows in bitmap.
-    for(size_t j = 0; j < 64; ++j) {
+    for (size_t j = 0; j < 64; ++j) {
       // Loop over bytes in row.
-      for(size_t k = 0; k < 8; ++k) {
+      for (size_t k = 0; k < 8; ++k) {
         texture[(j * 8) + k] = _data->_lddTextures[ldd - 1][(j * 8) + k];
       }
     }
 
     // Add gdd texture.
     // Loop over gdd directions.
-    for(size_t i = 0; i < 8; ++i) {
-      if(gdd & (1 << i)) {
+    for (size_t i = 0; i < 8; ++i) {
+      if (gdd & (1 << i)) {
         // Loop over rows in bitmap.
-        for(size_t j = 0; j < 64; ++j) {
+        for (size_t j = 0; j < 64; ++j) {
           // Loop over bytes in row.
-          for(size_t k = 0; k < 8; ++k) {
+          for (size_t k = 0; k < 8; ++k) {
             // 'or' the current with an existing one for the target direction.
             texture[(j * 8) + k] |= _data->_gddTextures[i][(j * 8) + k];
           }
@@ -261,8 +241,7 @@ GLuint ag::LddDrawProps::texture(unsigned char gdd, UINT1 ldd) const
 #ifdef AGUILA_WITH_OPENGL
     glGenTextures(1, &_data->_textures[uniqueId]);
     glBindTexture(GL_TEXTURE_2D, _data->_textures[uniqueId]);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 64, 64, 0,
-                   GL_RGBA, GL_UNSIGNED_BYTE, image.bits());
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 64, 64, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.bits());
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_BLEND);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -273,14 +252,11 @@ GLuint ag::LddDrawProps::texture(unsigned char gdd, UINT1 ldd) const
   return _data->_textures[uniqueId];
 }
 
-
-
-std::string ag::LddDrawProps::label(
-         UINT1 const& value) const
+std::string ag::LddDrawProps::label(UINT1 const &value) const
 {
   std::string result = "mv";
 
-  if(!pcr::isMV(value)) {
+  if (!pcr::isMV(value)) {
     size_t const index = classifier().index(value);
     result = classifier().descr(index);
   }
@@ -288,12 +264,9 @@ std::string ag::LddDrawProps::label(
   return result;
 }
 
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -301,11 +274,9 @@ std::string ag::LddDrawProps::label(
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF ENUMERATIONS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -313,9 +284,6 @@ std::string ag::LddDrawProps::label(
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
 //------------------------------------------------------------------------------
-
-

@@ -8,25 +8,22 @@
 #include "calc_iscript.h"
 #include <functional>
 
-calc::StatementBlock::StatementBlock(
-  const Element&         p,
-       StatementBlock   *parentBlock):
-  Statement(p),
-  d_parentBlock(parentBlock)
+calc::StatementBlock::StatementBlock(const Element &p, StatementBlock *parentBlock)
+    : Statement(p), d_parentBlock(parentBlock)
 {
 }
 
-void calc::StatementBlock::printBlock(InfoScript& i)const
+void calc::StatementBlock::printBlock(InfoScript &i) const
 {
   for (auto d_stat : d_stats) {
     d_stat->print(i);
     i.stream() << "<BR>";
   }
-  bool first=true;
+  bool first = true;
   for (auto it : d_valueDelete) {
     if (first)
       i.stream() << "<U>CLEAN UP</U><BR>";
-    first=false;
+    first = false;
     it->print(i);
     i.stream() << "<BR>";
   }
@@ -36,47 +33,41 @@ void calc::StatementBlock::printBlock(InfoScript& i)const
 void calc::StatementBlock::deleteAtExit(FieldParameter *par)
 {
 #ifdef DEBUG_DEVELOP
-  for (auto
-     it=d_valueDelete.begin(); it != d_valueDelete.end(); it++)
+  for (auto it = d_valueDelete.begin(); it != d_valueDelete.end(); it++)
     PRECOND((*it) != par);
 
 #endif
   d_valueDelete.push_front(par);
 }
 
-
 calc::StatementBlock::~StatementBlock()
 {
-  for (auto & d_stat : d_stats)
+  for (auto &d_stat : d_stats)
     delete d_stat;
 }
 
-calc::StatementBlock* calc::StatementBlock::parentBlock()
+calc::StatementBlock *calc::StatementBlock::parentBlock()
 {
   return d_parentBlock;
 }
 
-const calc::StatementBlock* calc::StatementBlock::parentBlock() const
+const calc::StatementBlock *calc::StatementBlock::parentBlock() const
 {
   return d_parentBlock;
 }
 
 //! calc::Script and calc::Foreach implement others redirect
-void calc::StatementBlock::addSymbol(
-  class calc::UserSymbol *sym)
+void calc::StatementBlock::addSymbol(class calc::UserSymbol *sym)
 {
   PRECOND(parentBlock());
   parentBlock()->addSymbol(sym);
 }
 
-class calc::UserSymbol *
-  calc::StatementBlock::findSymbol(
-    const Symbol *sym,
-    VS typeExpected,
-    bool mustExist) const
+class calc::UserSymbol *calc::StatementBlock::findSymbol(const Symbol *sym, VS typeExpected,
+                                                         bool mustExist) const
 {
   PRECOND(parentBlock());
-  return parentBlock()->findSymbol(sym,typeExpected,mustExist);
+  return parentBlock()->findSymbol(sym, typeExpected, mustExist);
 }
 
 /*!
@@ -86,32 +77,39 @@ class calc::UserSymbol *
  */
 void calc::StatementBlock::addStatement(Statement *s)
 {
-    d_stats.push_back(s);
+  d_stats.push_back(s);
 }
 
+namespace calc
+{
+struct PromotionOccured {
+  bool onceTrue{false};
 
-namespace calc {
-  struct PromotionOccured {
-    bool onceTrue{false};
-    PromotionOccured() {}
-    void operator()(Statement *s) {
-      if (s->buildTypes())
-       onceTrue=true;
-    }
-    operator bool() {
-      return onceTrue;
-    }
-  };
-}
+  PromotionOccured()
+  {
+  }
+
+  void operator()(Statement *s)
+  {
+    if (s->buildTypes())
+      onceTrue = true;
+  }
+
+  operator bool()
+  {
+    return onceTrue;
+  }
+};
+}  // namespace calc
 
 bool calc::StatementBlock::buildTypes()
 {
-  return com::forWhole(d_stats,PromotionOccured());
+  return com::forWhole(d_stats, PromotionOccured());
 }
 
 void calc::StatementBlock::executeStatements()
 {
-  com::forWhole(d_stats,std::mem_fn(&Statement::start));
+  com::forWhole(d_stats, std::mem_fn(&Statement::start));
 }
 
 void calc::StatementBlock::prepareExecution()
@@ -125,9 +123,7 @@ void calc::StatementBlock::run()
   com::forWhole(d_valueDelete, std::mem_fn(&FieldParameter::deleteValues));
 }
 
-bool calc::operator==(
-  const StatementBlock &b1,
-  const StatementBlock &b2)
+bool calc::operator==(const StatementBlock &b1, const StatementBlock &b2)
 {
   return &b1 == &b2;
 }

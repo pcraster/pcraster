@@ -12,7 +12,6 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
 /*
@@ -36,11 +35,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLIENTINTERFACE MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -53,15 +50,10 @@ calc::ClientInterface::ClientInterface()
 }
 
 //! ctor, no action such as parsing the scriptName is yet done
-calc::ClientInterface::ClientInterface(
-                   const std::string& scriptFileOrContents,
-                   bool               asFile):
-  d_scriptFileOrContents(scriptFileOrContents),
-  d_asFile(asFile)
+calc::ClientInterface::ClientInterface(const std::string &scriptFileOrContents, bool asFile)
+    : d_scriptFileOrContents(scriptFileOrContents), d_asFile(asFile)
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Copy constructor.
@@ -72,7 +64,6 @@ calc::ClientInterface::ClientInterface(ClientInterface const& rhs)
 {
 }
 */
-
 
 
 calc::ClientInterface::~ClientInterface()
@@ -87,7 +78,6 @@ void calc::ClientInterface::clean()
   delete d_executor;
   d_executor = nullptr;
 }
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -104,16 +94,15 @@ void calc::ClientInterface::load()
 {
   if (d_script)
     return;
-  d_script= createScriptAndAnalyzeNoContext();
+  d_script = createScriptAndAnalyzeNoContext();
 }
 
-
 //! return xml document for the script's reflection as a string
-const char* calc::ClientInterface::pcr_ScriptXMLReflection()
+const char *calc::ClientInterface::pcr_ScriptXMLReflection()
 {
   load();
   XMLReflection const xmlReflection(*d_script);
-  d_xmlReflectionBuffer=xmlReflection.toString();
+  d_xmlReflectionBuffer = xmlReflection.toString();
   return d_xmlReflectionBuffer.c_str();
 }
 
@@ -125,20 +114,14 @@ void calc::ClientInterface::pcr_ScriptExecute()
   if (d_script->symbols().containsMemoryExchangeSymbols())
     throw com::Exception("pcr_ScriptExecute can not execute a script with memoryExchange elements");
 
-  Executor ex(
-      d_script->cfgCode(),
-      d_script->rteSettings(),
-      d_script->symbols());
+  Executor ex(d_script->cfgCode(), d_script->rteSettings(), d_script->symbols());
   ex.execAll();
 }
 
-
-
 //! doing the work for pcr_ScriptExecuteInitialStepMemory
-int calc::ClientInterface::pcr_ScriptExecuteInitialStepMemory(
-    void **data)
+int calc::ClientInterface::pcr_ScriptExecuteInitialStepMemory(void **data)
 {
-  PRECOND(data);// FTTB 0 may mean no fill/in and out
+  PRECOND(data);  // FTTB 0 may mean no fill/in and out
   load();
 
   // resolve possible lookuptables and so on
@@ -147,22 +130,21 @@ int calc::ClientInterface::pcr_ScriptExecuteInitialStepMemory(
   if (d_executor)
     throw com::Exception("pcr_ScriptExecuteInitialStepMemory called twice");
 
-  d_executor = new Executor(d_script->cfgCode(),
-                            d_script->rteSettings(),
-                            d_script->symbols());
+  d_executor = new Executor(d_script->cfgCode(), d_script->rteSettings(), d_script->symbols());
 
   d_executor->runTimeEnv().setMemoryExchangeData(data);
 
   d_executor->startStepWise();
   if (d_executor->execInitialSection())
-     return 0;
+    return 0;
   return 1;
 }
 
 int calc::ClientInterface::pcr_ScriptExecuteNextTimeStepMemory(void **data)
 {
   if (!d_executor)
-    throw com::Exception("pcr_ScriptExecuteNextTimeStepMemory called with no prior call to pcr_ScriptExecuteInitialStepMemory");
+    throw com::Exception("pcr_ScriptExecuteNextTimeStepMemory called with no prior call to "
+                         "pcr_ScriptExecuteInitialStepMemory");
 
   d_executor->runTimeEnv().setMemoryExchangeData(data);
 
@@ -174,8 +156,8 @@ int calc::ClientInterface::pcr_ScriptExecuteNextTimeStepMemory(void **data)
 void calc::ClientInterface::pcr_ScriptReleaseAllAllocatedMemory()
 {
   assert(false);
-  if (d_executor) // TODO need this?
-  { // nothing executed, nothing to do
+  if (d_executor)  // TODO need this?
+  {                // nothing executed, nothing to do
     // for all allocated memory elements: release
   }
 }
@@ -187,9 +169,8 @@ int calc::ClientInterface::pcr_ScriptExecuteFinish()
   return 0;
 }
 
-
 //! only for internal verification of PCRasterModelEngine.dll
-calc::ASTScript const& calc::ClientInterface::pcr_internalScript() const
+calc::ASTScript const &calc::ClientInterface::pcr_internalScript() const
 {
   PRECOND(d_script);
   return *d_script;
@@ -200,10 +181,6 @@ calc::ASTScript const& calc::ClientInterface::pcr_internalScript() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

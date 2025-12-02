@@ -3,8 +3,6 @@
 #include "calc_parserinput.h"
 #include "calc_script.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the ModelParser class.
@@ -15,14 +13,11 @@
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF MODELPARSER MEMBERS
 //------------------------------------------------------------------------------
 
-calc::ModelParser::ModelParser(ParserInput& pi,
-                               Script& theScript):
-   Parser(pi.tokenBuffer())
+calc::ModelParser::ModelParser(ParserInput &pi, Script &theScript) : Parser(pi.tokenBuffer())
 {
   initialize(theScript);
 
@@ -35,16 +30,11 @@ calc::ModelParser::~ModelParser()
 {
 }
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

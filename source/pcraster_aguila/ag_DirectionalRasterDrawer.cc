@@ -16,51 +16,41 @@
   This file contains the implementation of the DirectionalRasterDrawer class.
 */
 
-namespace {
+namespace
+{
 
-} // Anonymous namespace
+}  // Anonymous namespace
 
-
-
-namespace ag {
+namespace ag
+{
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC DIRECTIONALRASTERDRAWER MEMBERS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF DIRECTIONALRASTERDRAWER MEMBERS
 //------------------------------------------------------------------------------
 
-DirectionalRasterDrawer::DirectionalRasterDrawer(
-         Raster const* raster,
-         dal::SpaceDimensions const& dimensions,
-         RangeDrawProps const& properties)
+DirectionalRasterDrawer::DirectionalRasterDrawer(Raster const *raster,
+                                                 dal::SpaceDimensions const &dimensions,
+                                                 RangeDrawProps const &properties)
 
-  : RasterDrawer(dimensions, raster),
-    _raster(raster),
-    _properties(properties)
+    : RasterDrawer(dimensions, raster), _raster(raster), _properties(properties)
 
 {
 }
-
-
 
 DirectionalRasterDrawer::~DirectionalRasterDrawer()
 {
 }
 
-
-
-void DirectionalRasterDrawer::draw(
-         QPainter& painter,
-         QRect const& indices,
-         QTransform const& world_to_screen,
-         QTransform const&  /*screen_to_world*/) const
+void DirectionalRasterDrawer::draw(QPainter &painter, QRect const &indices,
+                                   QTransform const &world_to_screen,
+                                   QTransform const & /*screen_to_world*/) const
 {
-  if(!_raster->isRead() || _raster->allMV() || _properties.nrClasses() == 0) {
+  if (!_raster->isRead() || _raster->allMV() || _properties.nrClasses() == 0) {
     return;
   }
 
@@ -74,10 +64,9 @@ void DirectionalRasterDrawer::draw(
   double rightWorld = NAN;
   double bottomWorld = NAN;
 
-  dal::Matrix matrix(_raster->dimensions().nrRows(),
-         _raster->dimensions().nrCols(), dal::TypeTraits<REAL4>::typeId);
-  matrix.transfer(const_cast<REAL4*>(_raster->cells<REAL4>()),
-         dal::Matrix::DoNotTakeOwnerShip);
+  dal::Matrix matrix(_raster->dimensions().nrRows(), _raster->dimensions().nrCols(),
+                     dal::TypeTraits<REAL4>::typeId);
+  matrix.transfer(const_cast<REAL4 *>(_raster->cells<REAL4>()), dal::Matrix::DoNotTakeOwnerShip);
 
   auto firstRow = static_cast<size_t>(indices.top());
   auto lastRow = static_cast<size_t>(indices.bottom());
@@ -90,15 +79,14 @@ void DirectionalRasterDrawer::draw(
   painter.setRenderHint(QPainter::Antialiasing, false);
   painter.setPen(Qt::NoPen);
 
-  for(size_t row = firstRow; row <= lastRow; row += nrCellsPerPixel) {
-    for(size_t col = firstCol; col <= lastCol; col += nrCellsPerPixel) {
-      if(!pcr::isMV(matrix.cell<REAL4>(row, col))) {
+  for (size_t row = firstRow; row <= lastRow; row += nrCellsPerPixel) {
+    for (size_t col = firstCol; col <= lastCol; col += nrCellsPerPixel) {
+      if (!pcr::isMV(matrix.cell<REAL4>(row, col))) {
         value = matrix.cell<REAL4>(row, col);
 
-        if(dal::comparable(value, REAL4(-1.0))) {
+        if (dal::comparable(value, REAL4(-1.0))) {
           colour = QColor(255, 0, 0);
-        }
-        else {
+        } else {
           colour = _properties.colour(value);
         }
 
@@ -108,42 +96,38 @@ void DirectionalRasterDrawer::draw(
         leftScreen = world_to_screen.map(p).x();
         topScreen = world_to_screen.map(p).y();
 
-        if(!dal::comparable(value, REAL4(-1.0))) {
+        if (!dal::comparable(value, REAL4(-1.0))) {
           col += nrCellsPerPixel;
 
-          while(col <= lastCol && !pcr::isMV(matrix.cell<REAL4>(row, col)) &&
-                _properties.colour(matrix.cell<REAL4>(row, col)) == colour) {
+          while (col <= lastCol && !pcr::isMV(matrix.cell<REAL4>(row, col)) &&
+                 _properties.colour(matrix.cell<REAL4>(row, col)) == colour) {
             col += nrCellsPerPixel;
           }
 
           col -= nrCellsPerPixel;
         }
 
-        _raster->dimensions().coordinates(row + nrCellsPerPixel,
-              col + nrCellsPerPixel, rightWorld, bottomWorld);
+        _raster->dimensions().coordinates(row + nrCellsPerPixel, col + nrCellsPerPixel, rightWorld,
+                                          bottomWorld);
 
         p = QPointF(rightWorld, bottomWorld);
         rightScreen = world_to_screen.map(p).x();
         bottomScreen = world_to_screen.map(p).y();
 
         painter.fillRect(leftScreen, topScreen, rightScreen - leftScreen + 1,
-                 bottomScreen - topScreen + 1, colour);
+                         bottomScreen - topScreen + 1, colour);
       }
     }
   }
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace ag
-
+}  // namespace ag

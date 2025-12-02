@@ -4,11 +4,8 @@
 
 #include <iostream>
 
-
-
-
-
-namespace ag {
+namespace ag
+{
 
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -16,9 +13,7 @@ using namespace QtCharts;
 #endif
 
 
-LineMarker::LineMarker(QChart *chart):
-    QGraphicsItem(chart),
-    m_chart(chart)
+LineMarker::LineMarker(QChart *chart) : QGraphicsItem(chart), m_chart(chart)
 {
   m_ymin = -1;
   m_ymax = -1;
@@ -27,9 +22,7 @@ LineMarker::LineMarker(QChart *chart):
   // Point p1 is 'attached' to the axis
   p1 = QPointF(m_xmin, m_ymin);
   p2 = QPointF(m_xmax, m_ymax);
-
 }
-
 
 QRectF LineMarker::boundingRect() const
 {
@@ -41,8 +34,8 @@ QRectF LineMarker::boundingRect() const
   return rect;
 }
 
-
-void LineMarker::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*option*/, QWidget * /*widget*/)
+void LineMarker::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*option*/,
+                       QWidget * /*widget*/)
 {
   painter->setPen(QPen(Qt::gray, 2));
 
@@ -52,72 +45,70 @@ void LineMarker::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*opt
   linePath.lineTo(m_chart->mapToPosition(p2));
 
   painter->drawPath(linePath);
-
 }
 
-
-void LineMarker::set_x_interval(double xmin, double xmax){
+void LineMarker::set_x_interval(double xmin, double xmax)
+{
   m_xmin = xmin;
   m_xmax = xmax;
 }
 
-
-void LineMarker::set_y_interval(double ymin, double ymax){
+void LineMarker::set_y_interval(double ymin, double ymax)
+{
   m_ymin = ymin;
   m_ymax = ymax;
 }
 
-
-void LineMarker::setXValue(double value){
+void LineMarker::setXValue(double value)
+{
   p1 = QPointF(value, m_ymin);
   p2 = QPointF(value, m_ymax);
   m_xval = value;
   updateGeometry();
 }
 
-
-void LineMarker::setYValue(double value){
+void LineMarker::setYValue(double value)
+{
   p1 = QPointF(m_xmin, value);
   p2 = QPointF(m_xmax, value);
   m_yval = value;
   updateGeometry();
 }
 
-
 void LineMarker::updateGeometry()
 {
   prepareGeometryChange();
 }
 
-
-double LineMarker::xMin(){
+double LineMarker::xMin()
+{
   return m_xmin;
 }
 
-
-double LineMarker::xMax(){
+double LineMarker::xMax()
+{
   return m_xmax;
 }
 
-
-double LineMarker::yMin(){
+double LineMarker::yMin()
+{
   return m_ymin;
 }
 
-
-double LineMarker::yMax(){
+double LineMarker::yMax()
+{
   return m_ymax;
 }
 
-
-double LineMarker::xValue(){
+double LineMarker::xValue()
+{
   return m_xval;
 }
 
-
-double LineMarker::yValue(){
+double LineMarker::yValue()
+{
   return m_yval;
 }
 
 
-} // namespace ag
+}  // namespace ag

@@ -56,8 +56,9 @@ public:
     bool const t = std::equal(d_resultCells, d_resultCells + d_nrCells, expectedResult);
     if (!t) {
       std::cout << "result ";
-      for (size_t i = 0; i < d_nrCells; i++)
+      for (size_t i = 0; i < d_nrCells; i++) {
         std::cout << (int)d_resultCells[i];
+      }
       std::cout << "\n";
     }
     return t;
@@ -72,8 +73,9 @@ public:
     bool const t = std::equal(d_resultCells, d_resultCells + d_nrCells, expectedResult);
     if (!t) {
       std::cout << "result ";
-      for (size_t i = 0; i < d_nrCells; i++)
+      for (size_t i = 0; i < d_nrCells; i++) {
         std::cout << (int)d_resultCells[i];
+      }
       std::cout << "\n";
     }
     return t;
@@ -93,8 +95,9 @@ public:
   {
     // non spatial is copied!
     d_tresholdValue[0] = t;
-    if (d_treshold)
+    if (d_treshold) {
       DeleteInternalMAP_REAL8(d_treshold);
+    }
     d_treshold = InitMapREAL8(d_nrRows, d_nrCols, d_tresholdValue, false, CR_REAL4);
   }
 };

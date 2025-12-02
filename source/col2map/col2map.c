@@ -70,8 +70,9 @@ static int CmpVal(const DATA *e1, /* pointer to DATA record 1 */
                   const DATA *e2) /* pointer to DATA record 2 */
 {
   double diff = e1->val - e2->val;
-  if (diff < 0)
+  if (diff < 0) {
     return -1;
+  }
   return (diff > 0);
 }
 
@@ -105,19 +106,23 @@ static int CalcDirection(REAL8 *val, /* write only */
   size_t i = 0;
   size_t n = 0; /* number not -1 */
 
-  if (valList == NULL)
+  if (valList == NULL) {
     return 1;
+  }
 
-  for (i = 0; i < nrRecs; i++)
-    if (recs[i][POS_V] != -1)
+  for (i = 0; i < nrRecs; i++) {
+    if (recs[i][POS_V] != -1) {
       valList[n++] = recs[i][POS_V];
+    }
+  }
 
-  if (n == 0)
+  if (n == 0) {
     *val = -1;
-  else {
+  } else {
     *val = DirectionalMean(valList, n);
-    if (n != nrRecs)
+    if (n != nrRecs) {
       nrCountConflict++;
+    }
   }
   Free(valList);
   return 0;
@@ -133,8 +138,9 @@ static int CmpCountVal(const REAL8 **e1, /* pointer to record 1 */
                        const REAL8 **e2) /* pointer to record 2 */
 {
   int n = ((*e1)[POS_COUNT] - (*e2)[POS_COUNT]);
-  if (!n)
+  if (!n) {
     n = ((*e1)[POS_V] - (*e2)[POS_V]);
+  }
   return n;
 }
 
@@ -154,8 +160,9 @@ static int CalcSortTable(REAL8 **recs, size_t nrRecs, size_t idNotUsed)
   size_t i = 0;
   SEARCH_TABLE *table = STnew(MIN(40, nrRecs), sizeof(DATA), (RETURN_ID)ReturnId, (INIT_REC)InitFastList,
                               (QSORT_CMP)CmpVal);
-  if (table == NULL)
+  if (table == NULL) {
     return 1;
+  }
 
   /* Scan records for values and occurrences */
   for (i = 0; i < nrRecs; i++) {
@@ -165,11 +172,12 @@ static int CalcSortTable(REAL8 **recs, size_t nrRecs, size_t idNotUsed)
     new = STfind(table, &key);
     if (new == NULL || new->index == -1) /* new or fastlist */
     {
-      if (new == NULL)
+      if (new == NULL) {
         if ((new = STinsert(table, &key)) == NULL) {
           STfree(table);
           return 1;
         }
+      }
       new->index = i;
       new->val = key.val;
       recs[i][POS_COUNT] = 0; /* init the one used */
@@ -195,15 +203,17 @@ static int CalcMajority(REAL8 *val, /* write only */
                         REAL8 **recs, size_t nrRecs)
 {
   PRECOND(nrRecs > 1);
-  if (CalcSortTable(recs, nrRecs, (size_t)0))
+  if (CalcSortTable(recs, nrRecs, (size_t)0)) {
     return 1;
+  }
   /* now the majority with highest value
      * has ended up in the last one
      */
   POSTCOND(recs[nrRecs - 1][POS_COUNT] > 0);
   *val = recs[nrRecs - 1][POS_V];
-  if (recs[nrRecs - 1][POS_COUNT] == recs[nrRecs - 2][POS_COUNT])
+  if (recs[nrRecs - 1][POS_COUNT] == recs[nrRecs - 2][POS_COUNT]) {
     nrCountConflict++;
+  }
   return 0;
 }
 
@@ -215,15 +225,17 @@ static int CalcMinority(REAL8 *val, /* write only */
                         REAL8 **recs, size_t nrRecs)
 {
   PRECOND(nrRecs > 1);
-  if (CalcSortTable(recs, nrRecs, nrRecs + 1))
+  if (CalcSortTable(recs, nrRecs, nrRecs + 1)) {
     return 1;
+  }
   /* now the minority with lowest value
      * has ended up in the first one
      */
   POSTCOND(recs[0][POS_COUNT] > 0);
   *val = recs[0][POS_V];
-  if (recs[0][POS_COUNT] == recs[1][POS_COUNT])
+  if (recs[0][POS_COUNT] == recs[1][POS_COUNT]) {
     nrCountConflict++;
+  }
   return 0;
 }
 
@@ -271,8 +283,9 @@ static int CalcMin(REAL8 *val, /* write only */
   *val = recs[0][POS_V];
   for (i = 1; i < nrRecs; i++) {
     PRECOND(recs[0][POS_ID] == recs[i][POS_ID]);
-    if (*val > recs[i][POS_V])
+    if (*val > recs[i][POS_V]) {
       *val = recs[i][POS_V];
+    }
   }
   return 0;
 }
@@ -288,8 +301,9 @@ static int CalcMax(REAL8 *val, /* write only */
   *val = recs[0][POS_V];
   for (i = 1; i < nrRecs; i++) {
     PRECOND(recs[0][POS_ID] == recs[i][POS_ID]);
-    if (*val < recs[i][POS_V])
+    if (*val < recs[i][POS_V]) {
       *val = recs[i][POS_V];
+    }
   }
   return 0;
 }
@@ -375,10 +389,12 @@ int Col2Map(MAP *out,              /* output file */
 
   // if (LimitedVersionCheck((int)nrRows, (int)nrCols, -1, -1, (int)nrRecordsRead, -1))
   //     goto error1;
-  if ((recList = (double **)CHK_MALLOC_TYPE(double *, nrRecords)) == NULL)
+  if ((recList = (double **)CHK_MALLOC_TYPE(double *, nrRecords)) == NULL) {
     goto error1;
-  for (ri = 0; ri < nrRecords; ri++)
+  }
+  for (ri = 0; ri < nrRecords; ri++) {
     recList[ri] = orgRecList[ri];
+  }
 
   AppVerbose("nr. of records read: %u\n", nrRecordsRead);
   AppVerbose("nr. of records with mv value: %u\n", nrMVvalueColumn);
@@ -391,19 +407,22 @@ int Col2Map(MAP *out,              /* output file */
 
   /* skip over records outside map */
   ri = 0;
-  while (ri < nrRecords && recList[ri][POS_ID] == ID_NOT_IN_MAP)
+  while (ri < nrRecords && recList[ri][POS_ID] == ID_NOT_IN_MAP) {
     ri++;
+  }
   AppVerbose("nr. of records outside map: %u\n", ri);
 
-  if ((buf = (REAL8 *)Rmalloc(out, nrCols)) == NULL)
+  if ((buf = (REAL8 *)Rmalloc(out, nrCols)) == NULL) {
     goto error2;
+  }
 
   for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       double l = (r * nrCols) + c;
       size_t n = 0;
-      while ((ri + n) < nrRecords && recList[ri + n][POS_ID] == l)
+      while ((ri + n) < nrRecords && recList[ri + n][POS_ID] == l) {
         n++;
+      }
       switch (n) {
         case 0:
           SET_MV_REAL8(buf + c);
@@ -413,8 +432,9 @@ int Col2Map(MAP *out,              /* output file */
           buf[c] = recList[ri][POS_V];
           break;
         default:
-          if (calcMultPixel(buf + c, recList + ri, n))
+          if (calcMultPixel(buf + c, recList + ri, n)) {
             goto error2;
+          }
           nrMultPixels += n - 1;
       }
       ri += n;
@@ -439,8 +459,9 @@ int Col2Map(MAP *out,              /* output file */
     default:
       conflictType = NULL;
   }
-  if (conflictType != NULL)
+  if (conflictType != NULL) {
     AppVerbose("nr. of cells with %s conflict: %u\n", conflictType, nrCountConflict);
+  }
 
   AppFreeColumnData(orgRecList, nrRecords);
 

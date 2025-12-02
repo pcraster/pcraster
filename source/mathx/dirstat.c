@@ -45,8 +45,9 @@ void DirectionalMoments(double *mean,          /* write-only, mean */
   R = sqrt(tC * tC + tS * tS);
   meanIn = atan2(tS / R, tC / R);
 
-  for (i = 0, p = samples; i < n; p++, i++)
+  for (i = 0, p = samples; i < n; p++, i++) {
     tD += cos(*p - meanIn);
+  }
 
   D = 1 - tD / n;
 

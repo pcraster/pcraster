@@ -29,16 +29,17 @@ static void findExtremes(
 
   for(size_t i=0; i < size; ++i) {
     if (!pcr::isMV(data[i])) {
-      if (allMV)
+      if (allMV) {
         minT=maxT=data[i];
+      }
       allMV=false;
       minT = std::min<T>(minT,data[i]);
       maxT = std::max<T>(maxT,data[i]);
     }
   }
-  if (allMV)
+  if (allMV) {
     min=max=boost::any();
-  else {
+  } else {
     min=minT;
     max=maxT;
   }

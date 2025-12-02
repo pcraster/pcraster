@@ -46,8 +46,9 @@ KEY_FUNC FindKeyFunc(int key,                   /* key, pressed by user */
 
   /* search for function according to key */
   for (i = 0; i < nrKeys; i++) {
-    if (key == keyFuncs[i].key)
+    if (key == keyFuncs[i].key) {
       return keyFuncs[i].function;
+    }
   }
 
   /* No function belongs to key that was pressed */

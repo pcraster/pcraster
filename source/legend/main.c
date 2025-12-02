@@ -72,13 +72,17 @@ static int WriteLegendFile(const char *outputFileName, CSF_LEGEND *legend, int n
 {
   int i = 0;
   FILE *f = fopen(outputFileName, "w");
-  if (f == NULL)
+  if (f == NULL) {
     return RetError(1, "Can't create '%s'", outputFileName);
-  if (fprintf(f, "-0 %s\n", legend[0].descr) < 0)
+  }
+  if (fprintf(f, "-0 %s\n", legend[0].descr) < 0) {
     goto failure;
-  for (i = 1; i < nrLegend; i++)
-    if (fprintf(f, "%d %s\n", (int)legend[i].nr, legend[i].descr) < 0)
+  }
+  for (i = 1; i < nrLegend; i++) {
+    if (fprintf(f, "%d %s\n", (int)legend[i].nr, legend[i].descr) < 0) {
       goto failure;
+    }
+  }
   fclose(f);
   return 0;
 
@@ -97,9 +101,11 @@ static int SortLegend(CSF_LEGEND *l, int n)
   int i = 0;
   PRECOND(n >= 0);
   qsort(l + 1, (size_t)n - 1, sizeof(CSF_LEGEND), (QSORT_CMP)CmpLeg);
-  for (i = 2; i < n; i++)
-    if (l[i].nr == l[i - 1].nr)
+  for (i = 2; i < n; i++) {
+    if (l[i].nr == l[i - 1].nr) {
       return RetErrorNested(1, "More than one entry with value '%d'", l[i].nr);
+    }
+  }
   return 0;
 }
 
@@ -120,13 +126,15 @@ static CSF_LEGEND *NewBlankLegend(int *nrLegend, INT4 minVal, INT4 maxVal)
 {
   int i = 0;
   CSF_LEGEND *legend = NULL;
-  if (minVal != MV_INT4)
+  if (minVal != MV_INT4) {
     *nrLegend = maxVal - minVal + 2; /* 1 for name, 1 for interval */
-  else
+  } else {
     *nrLegend = 1;
+  }
   legend = NewLegend((size_t)*nrLegend);
-  if (legend == NULL)
+  if (legend == NULL) {
     return NULL;
+  }
   PRECOND(*nrLegend >= 1);
   for (i = 1; i < *nrLegend; i++) {
     Blank0Descr(legend + i);
@@ -147,8 +155,9 @@ static CSF_LEGEND *ReadMapLegends(int *nrOut, char **mapNames, int nrMapNames,
   INT4 mapsMin = MV_INT4;
   INT4 mapsMax = MV_INT4;
 
-  if (resultLegend == NULL)
+  if (resultLegend == NULL) {
     goto failure;
+  }
 
   /*
      *  if (userMinVal > userMaxVal)
@@ -166,25 +175,31 @@ static CSF_LEGEND *ReadMapLegends(int *nrOut, char **mapNames, int nrMapNames,
     size_t r = 0;
     CSF_LEGEND *new = NULL;
     CSF_LEGEND *mapL = NULL;
-    if ((map = OpenClassMap(mapNames[i], M_READ)) == NULL)
+    if ((map = OpenClassMap(mapNames[i], M_READ)) == NULL) {
       goto failure;
+    }
 
     RgetMinVal(map, &m);
-    if (m != MV_INT4 && (mapsMin == MV_INT4 || m < mapsMin))
+    if (m != MV_INT4 && (mapsMin == MV_INT4 || m < mapsMin)) {
       mapsMin = m;
-    if (userMinVal != MV_INT4 && (mapsMin == MV_INT4 || userMinVal < mapsMin))
+    }
+    if (userMinVal != MV_INT4 && (mapsMin == MV_INT4 || userMinVal < mapsMin)) {
       mapsMin = userMinVal;
+    }
     RgetMaxVal(map, &m);
-    if (m != MV_INT4 && (mapsMax == MV_INT4 || m > mapsMax))
+    if (m != MV_INT4 && (mapsMax == MV_INT4 || m > mapsMax)) {
       mapsMax = m;
-    if (userMaxVal != MV_INT4 && (mapsMax == MV_INT4 || userMaxVal > mapsMax))
+    }
+    if (userMaxVal != MV_INT4 && (mapsMax == MV_INT4 || userMaxVal > mapsMax)) {
       mapsMax = userMaxVal;
+    }
 
     nrL = MgetNrLegendEntries(map);
     if (nrL != 0) {
       mapL = NewLegend(nrL);
-      if (mapL == NULL)
+      if (mapL == NULL) {
         goto failure;
+      }
       if (!MgetLegend(map, mapL)) {
         Error("while reading legend of `%s`", mapNames[i]);
         Free(mapL);
@@ -219,14 +234,16 @@ static CSF_LEGEND *ReadMapLegends(int *nrOut, char **mapNames, int nrMapNames,
     nrResultLegend = nrNew;
     if (nrL != 0) { /* add  new ones */
       PRECOND(mapL != NULL);
-      if (resultLegend[0].descr[0] == '\0')
+      if (resultLegend[0].descr[0] == '\0') {
         strcpy(resultLegend[0].descr, mapL[0].descr);
+      }
       for (r = 1; r < nrL; r++) {
         PRECOND(mapL[r].nr >= mapsMin);
         PRECOND(mapL[r].nr <= mapsMax);
         PRECOND(resultLegend[mapL[r].nr - mapsMin + 1].nr == mapL[r].nr);
-        if (resultLegend[mapL[r].nr - mapsMin + 1].descr[0] == '\0')
+        if (resultLegend[mapL[r].nr - mapsMin + 1].descr[0] == '\0') {
           strcpy(resultLegend[mapL[r].nr - mapsMin + 1].descr, mapL[r].descr);
+        }
       }
       Free(mapL);
     }
@@ -237,8 +254,9 @@ static CSF_LEGEND *ReadMapLegends(int *nrOut, char **mapNames, int nrMapNames,
   return resultLegend;
 failure:
   Free(resultLegend);
-  if (map != NULL)
+  if (map != NULL) {
     Mclose(map);
+  }
   return NULL;
 }
 
@@ -276,8 +294,9 @@ static CSF_LEGEND *ReadLegendFile(int *nrOut, const char *inputFileName, CSF_VS 
       goto failure;
     }
     (void)LeftRightTabTrim(buf);
-    if (EmptyString(buf))
+    if (EmptyString(buf)) {
       continue; /* skip empty line */
+    }
     nrPtr = strchr(buf, ' ');
     if (nrPtr == NULL) {
       descr = buf + strlen(buf); /* empty string */
@@ -298,8 +317,9 @@ static CSF_LEGEND *ReadLegendFile(int *nrOut, const char *inputFileName, CSF_VS 
     /* allocate next one
          */
     legend = ChkRealloc(legend, sizeof(CSF_LEGEND) * (nrLegend + 1));
-    if (legend == NULL)
+    if (legend == NULL) {
       goto failure;
+    }
     Blank0Descr(legend + nrLegend); /* blank the new one */
 
     /* should be on the first one */
@@ -321,15 +341,17 @@ static CSF_LEGEND *ReadLegendFile(int *nrOut, const char *inputFileName, CSF_VS 
       if (nrLegend == 0) {
         nrLegend++;
         legend = ChkRealloc(legend, sizeof(CSF_LEGEND) * (nrLegend + 1));
-        if (legend == NULL)
+        if (legend == NULL) {
           goto failure;
+        }
       }
       Blank0Descr(legend + nrLegend); /* blank the new one */
     }
 
     /* check nr on being valid value */
-    if (AppCheckVal(nrPtr, vs, cr))
+    if (AppCheckVal(nrPtr, vs, cr)) {
       goto failure;
+    }
     (void)CnvrtINT4(&nr, nrPtr);
 
     (void)memset(legend[nrLegend].descr, '\0', (size_t)CSF_LEGEND_DESCR_SIZE);
@@ -348,8 +370,9 @@ static CSF_LEGEND *ReadLegendFile(int *nrOut, const char *inputFileName, CSF_VS 
     goto failure;
   }
 
-  if (SortLegend(legend, nrLegend))
+  if (SortLegend(legend, nrLegend)) {
     goto failure;
+  }
 
   fclose(f);
   *nrOut = nrLegend;
@@ -383,16 +406,18 @@ int main(int argc,     /* number of arguments */
   /* Initialize the arguments */
 
   /* install application */
-  if (InstallArgs(argc, argv, "(w*f*c)l#h#", "legend"))
+  if (InstallArgs(argc, argv, "(w*f*c)l#h#", "legend")) {
     goto failure;
+  }
 
   /* get all local options and arguments */
   while ((c = GetOpt()) != 0) {
     switch (c) {
       case 'f':
         inputFileName = OptArg;
-        if (AppInputTest(inputFileName))
+        if (AppInputTest(inputFileName)) {
           goto failure;
+        }
         break;
       case 'w':
         outputFileName = OptArg;
@@ -414,25 +439,29 @@ int main(int argc,     /* number of arguments */
      */
   appLarge = true;
 
-  if (copy) /* low high */
+  if (copy) { /* low high */
     minVal = maxVal = MV_INT4;
+  }
 
   if (minVal != MV_INT4 && maxVal != MV_INT4 && minVal > maxVal) {
     Error("high value ('%d') is smaller than low value ('%d') ", maxVal, minVal);
     goto failure;
   }
-  if ((argv = ArgArguments(&argc)) == NULL)
+  if ((argv = ArgArguments(&argc)) == NULL) {
     goto failure;
+  }
 
-  if (AppArgCountCheck(argc, 2, -1, USAGE))
+  if (AppArgCountCheck(argc, 2, -1, USAGE)) {
     goto failure;
+  }
 
   nrMaps = argc - 1;
 
   /* get info from first map */
   in = OpenClassMap(argv[1], M_READ);
-  if (in == NULL)
+  if (in == NULL) {
     goto failure;
+  }
   valueScale = RgetValueScale(in);
   cellRepr = RgetCellRepr(in);
   /* check additional maps */
@@ -465,15 +494,17 @@ int main(int argc,     /* number of arguments */
     }
   } else {
     theLegend = ReadMapLegends(&nrTheLegend, argv + 1, copy ? 1 : nrMaps, minVal, maxVal);
-    if (theLegend == NULL)
+    if (theLegend == NULL) {
       goto failure;
+    }
   }
 
 
   POSTCOND(nrTheLegend > 0);
   if (outputFileName != NULL) {
-    if (WriteLegendFile(outputFileName, theLegend, nrTheLegend))
+    if (WriteLegendFile(outputFileName, theLegend, nrTheLegend)) {
       goto failure;
+    }
     goto done;
   }
 
@@ -500,8 +531,9 @@ int main(int argc,     /* number of arguments */
   PRECOND(theLegend[0].nr == 0);
   for (i = copy ? 1 : 0; i < nrMaps; i++) {
     MAP *m = OpenClassMap(argv[i + 1], M_READ_WRITE);
-    if (m == NULL)
+    if (m == NULL) {
       goto failure;
+    }
     if (!MputLegend(m, theLegend, (size_t)nrTheLegend)) {
       Error("writing to map '%s' failed", argv[i + 1]);
       goto failure;
@@ -516,8 +548,9 @@ done:
   return 0; /* Never reached */
 
 failure:
-  if (in != NULL)
+  if (in != NULL) {
     Mclose(in);
+  }
   AppEnd();
   exit(1);
   return 1;

@@ -52,10 +52,11 @@ static int PrintHeader(const char **mapNames, int nrMapNames, INT4 l, /* low val
   werase(headWin);
   PRECOND(nrMapNames > 0);
   Curr_wprintw(headWin, "legend of map: %s  range: ", mapNames[0]);
-  if (l == MV_INT4)
+  if (l == MV_INT4) {
     Curr_wprintw(headWin, "all missing values\n");
-  else
+  } else {
     Curr_wprintw(headWin, "%d to %d\n", l, h);
+  }
   if (nrMapNames > 1) {
     Curr_wprintw(headWin, "also update of maps:%n", &p);
     for (i = 1; i < nrMapNames; i++) {
@@ -78,8 +79,9 @@ static void WriteItems(const CSF_LEGEND *leg, int nrLeg, int numLen)
 {
   int i = 0;
   sprintf(legItems[0], "%-*s : %s", numLen, "NAME", leg[0].descr);
-  for (i = 1; i < nrLeg; i++)
+  for (i = 1; i < nrLeg; i++) {
     sprintf(legItems[i], "%-*d : %s", numLen, leg[i].nr, leg[i].descr);
+  }
 }
 
 static int PrintLegend(int startY, CSF_LEGEND *leg, int nrLeg)
@@ -95,9 +97,9 @@ static int PrintLegend(int startY, CSF_LEGEND *leg, int nrLeg)
   char lastEditStr[CSF_LEGEND_DESCR_SIZE];
   int lastEdit = -1; /* no edits */
 
-  if (nrLeg == 1)
+  if (nrLeg == 1) {
     numLen = 3;
-  else {
+  } else {
     sprintf(buf, "%d", leg[1].nr);
     numLen = MAX(numLen, (int)strlen(buf));
     sprintf(buf, "%d", leg[nrLeg - 1].nr);
@@ -105,18 +107,21 @@ static int PrintLegend(int startY, CSF_LEGEND *leg, int nrLeg)
   }
 
   boxCols = CSF_LEGEND_DESCR_SIZE + numLen + 3 + 1; /* 3 for " : " */
-  if (legItems != NULL)
+  if (legItems != NULL) {
     Free2d((void **)legItems, (size_t)nrLeg);
+  }
   legItems = (char **)Malloc2d((size_t)nrLeg, (size_t)boxCols, sizeof(char));
-  if (legItems == NULL)
+  if (legItems == NULL) {
     return 0;
+  }
   WriteItems(leg, nrLeg, numLen);
   legBox =
       CurrInitRadioSelectBox(startY, colXStart, LINES - startY - 4, boxCols, (const char **)legItems,
                              nrLeg, otherKeys, ARRAY_SIZE(otherKeys), otherMsg);
   prefLen = numLen + 3; /* prefix len */
-  if (legBox == NULL)
+  if (legBox == NULL) {
     return 0;
+  }
   i = 0;
   while (i == 0) {
     if (CurrRadioSelectItem(&i, legBox)) {
@@ -127,11 +132,12 @@ static int PrintLegend(int startY, CSF_LEGEND *leg, int nrLeg)
         lastEdit = i;
         strcpy(lastEditStr, orig);
         WriteItems(leg, nrLeg, numLen);
-        if (CurrNewItemsInBox(legBox, (const char **)legItems, nrLeg) == NULL)
+        if (CurrNewItemsInBox(legBox, (const char **)legItems, nrLeg) == NULL) {
           return 0;
+        }
         CurrRadioIncSelectedItem(legBox);
       }
-    } else
+    } else {
       switch (i) { /* it's an otherKey */
         case 'q':
           if (lastEdit != -1) {
@@ -142,20 +148,23 @@ static int PrintLegend(int startY, CSF_LEGEND *leg, int nrLeg)
               case 'n':
                 return 2;
             }
-          } else
+          } else {
             return 2;
+          }
           break;
         case 'u':
           if (lastEdit != -1) {
             strcpy(leg[lastEdit].descr, lastEditStr);
             WriteItems(leg, nrLeg, numLen);
-            if (CurrNewItemsInBox(legBox, (const char **)legItems, nrLeg) == NULL)
+            if (CurrNewItemsInBox(legBox, (const char **)legItems, nrLeg) == NULL) {
               return 0;
+            }
           }
           break;
         default:
           PRECOND(false);
       }
+    }
     i = 0;
   }
   POSTCOND(false);
@@ -179,8 +188,9 @@ extern int Menu(CSF_LEGEND *leg, int nrLeg, const char **mapNames, int nrMapName
 
   c = PrintLegend(headerLines, leg, nrLeg);
 
-  if (legItems != NULL)
+  if (legItems != NULL) {
     Free2d((void **)legItems, (size_t)nrLeg);
+  }
 
   /* Uninitialize the screen, reset graphic mode etc. */
   CurrEndCurses();

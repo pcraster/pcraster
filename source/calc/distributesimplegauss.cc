@@ -83,10 +83,12 @@ extern "C" int DistributeSimpleGauss(MAP_REAL8 *m_out, MAP_REAL8 *m_tmp, const M
     if (input.get(inputVal, *c) && range.get(rangeVal, *c) && eps.get(epsVal, *c)) {
       /* init to 0 */
       out.put(0, *c);
-      if (rangeVal <= 0)
+      if (rangeVal <= 0) {
         return RetError(1, "distributesimplegauss: Domain error on parameters");
-    } else /* some of the input maps are MV */
+      }
+    } else { /* some of the input maps are MV */
       out.putMV(*c);
+    }
   }
 
   for (geo::CellLocVisitor c(out); c.valid(); ++c) {
@@ -112,7 +114,7 @@ extern "C" int DistributeSimpleGauss(MAP_REAL8 *m_out, MAP_REAL8 *m_tmp, const M
       auto cStart = static_cast<size_t>(MAX(((int)c.col()) - maxDistCells, 0));
       size_t const rStop = std::min(nrRows, c.row() + maxDistCells);
       size_t const cStop = std::min(nrCols, c.col() + maxDistCells);
-      for (size_t rDest = rStart; rDest < rStop; rDest++)
+      for (size_t rDest = rStart; rDest < rStop; rDest++) {
         for (size_t cDest = cStart; cDest < cStop; cDest++) {
           tmp.putMV(rDest, cDest);
           REAL8 outVal = NAN;  // TODO implement fieldapi::Common::isMV(int,int)
@@ -121,16 +123,18 @@ extern "C" int DistributeSimpleGauss(MAP_REAL8 *m_out, MAP_REAL8 *m_tmp, const M
 
             /* compute distSqr */
             REAL8 const dist = sqr((double)c.row() - rDest) + sqr((double)c.col() - cDest);
-            if (dist > maxDist)
+            if (dist > maxDist) {
               continue; /* do not compute */
+            }
             /* else compute distSqr */
             outVal = exp(-sqrt(dist) / rangeVal);
             tmp.put(outVal, rDest, cDest);
             sum += outVal;
           }
         }
+      }
 
-      for (size_t rDest = rStart; rDest < rStop; rDest++)
+      for (size_t rDest = rStart; rDest < rStop; rDest++) {
         for (size_t cDest = cStart; cDest < cStop; cDest++) {
           REAL8 tmpVal = NAN;
           REAL8 outVal = NAN;
@@ -142,6 +146,7 @@ extern "C" int DistributeSimpleGauss(MAP_REAL8 *m_out, MAP_REAL8 *m_tmp, const M
             out.put(outVal, rDest, cDest);
           }
         }
+      }
     }
   }
   return 0; /* successful terminated */

@@ -79,8 +79,9 @@ void mldd::Accuflux::downstreamEdge(const Edge &e)
   DEVELOP_PRECOND(!pcr::isMV(d_newState[t]));
   double const w = d_w[e];
 
-  if (w != WeightMap::mvMark() && !pcr::isMV(d_newState[s]))
+  if (w != WeightMap::mvMark() && !pcr::isMV(d_newState[s])) {
     d_newState[t] += (w * d_newState[s]);
+  }
 }
 
 //------------------------------------------------------------------------------

@@ -122,12 +122,13 @@ void SetRan(unsigned int seed) /* value >= 0. If 0 then seed is taken from
 
   setRanCalled = true;
 
-  if (seed == 0)
+  if (seed == 0) {
     /* MilliSecSeed or ReadFromFile
      */
     i = MilliSecSeed();
-  else
+  } else {
     i = seed;
+  }
   a = ((i << 16) >> 16);
   b = i >> 16;
   start_random_number((int)a, (int)b);
@@ -368,10 +369,12 @@ static double c, cd, cm;
  */
 static unsigned int collapse(int anyint, unsigned int size)
 {
-  if (anyint < 0)
+  if (anyint < 0) {
     anyint = -(anyint / 2);
-  while ((unsigned int)anyint >= size)
+  }
+  while ((unsigned int)anyint >= size) {
     anyint /= 2;
+  }
   return (anyint);
 }
 
@@ -402,8 +405,9 @@ static void start_random_number(int seed_a, int seed_b)
   sd = collapse(seed_b, PM1 * Q);
   kk = 1 + sd / PM1;
   ll = sd % Q;
-  if (ii == 1 && jj == 1 && kk == 1)
+  if (ii == 1 && jj == 1 && kk == 1) {
     ii = 2;
+  }
 
   ni = STATE_SIZE - 1;
   nj = STATE_SIZE / 3;
@@ -423,8 +427,9 @@ static void start_random_number(int seed_a, int seed_b)
       jj = kk;
       kk = mm;
       ll = (53 * ll + 1) % Q;
-      if (((ll * mm) % 64) >= 32)
+      if (((ll * mm) % 64) >= 32) {
         s += bit;
+      }
       bit += bit;
     }
     u[elt] = s;
@@ -441,31 +446,36 @@ static double next_random_number(void)
 {
   double uni = NAN;
 
-  if (u[ni] < u[nj])
+  if (u[ni] < u[nj]) {
     uni = u[ni] + (1.0 - u[nj]);
-  else
+  } else {
     uni = u[ni] - u[nj];
+  }
   u[ni] = uni;
 
-  if (ni > 0)
+  if (ni > 0) {
     ni -= 1;
-  else
+  } else {
     ni = STATE_SIZE - 1;
+  }
 
-  if (nj > 0)
+  if (nj > 0) {
     nj -= 1;
-  else
+  } else {
     nj = STATE_SIZE - 1;
+  }
 
-  if (c < cd)
+  if (c < cd) {
     c = c + (cm - cd);
-  else
+  } else {
     c = c - cd;
+  }
 
-  if (uni < c)
+  if (uni < c) {
     return (uni + (1.0 - c));
-  else
+  } else {
     return (uni - c);
+  }
 }
 
 #ifdef NEVER_DEF_THIS

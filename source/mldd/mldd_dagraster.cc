@@ -156,16 +156,18 @@ size_t mldd::DagRaster::nrVertices() const
       std::bind2nd(std::not_equal_to<int>(),0));
    */
   size_t count = 0;
-  for (geo::LinearLoc i = 0; i < d_outflowNB.nrCells(); i++)
+  for (geo::LinearLoc i = 0; i < d_outflowNB.nrCells(); i++) {
     count += isVertex(i);
+  }
   return count;
 }
 
 size_t mldd::DagRaster::nrEdges() const
 {
   size_t count = 0;
-  for (geo::LinearLoc i = 0; i < d_outflowNB.nrCells(); i++)
+  for (geo::LinearLoc i = 0; i < d_outflowNB.nrCells(); i++) {
     count += NRBITSET_TYPE(d_outflowNB[i], EightBits);
+  }
   return count;
 }
 
@@ -193,8 +195,9 @@ mldd::Vertex mldd::DagRaster::beginVertex() const
 {
   // first cell
   geo::CellLoc b = d_rd.convert(0);
-  if (isVertex(0))
+  if (isVertex(0)) {
     return b;
+  }
   // if first cell is not a vertex, proceed from first
   return nextVertex(b);
 }
@@ -219,11 +222,13 @@ mldd::OutEdgeIterator mldd::DagRaster::endOutEdge(const Vertex &c) const
 
 void mldd::DagRaster::downstreamVisitor(DownstreamVisitor &dv) const
 {
-  for (auto i : d_rto)
+  for (auto i : d_rto) {
     dv.initVertex(i);
+  }
   for (auto i = d_rto.rbegin(); i != d_rto.rend(); ++i) {
-    for (OutEdgeIterator e = beginOutEdge(*i); e.any(); ++e)
+    for (OutEdgeIterator e = beginOutEdge(*i); e.any(); ++e) {
       dv.downstreamEdge(*e);
+    }
     dv.finishVertex(*i);
   }
 }

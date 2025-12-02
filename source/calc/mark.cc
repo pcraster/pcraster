@@ -111,10 +111,11 @@ static int MarkWhileSum(MAP_UINT1 *m_resultMap, const MAP_REAL8 *m_order, const 
   for (geo::CellLocVisitor c(result); c.valid(); ++c) {
     REAL8 orderVal = NAN;
     REAL8 amountVal = NAN;
-    if (order.get(orderVal, *c) && amount.get(amountVal, *c))
+    if (order.get(orderVal, *c) && amount.get(amountVal, *c)) {
       points.push_back(MarkPoint(*c, orderVal, amountVal));
-    else
+    } else {
       result.putMV(*c);
+    }
   }
 
   std::sort(points.begin(), points.end(), CmpSortKey());

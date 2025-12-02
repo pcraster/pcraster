@@ -65,8 +65,9 @@ BOOST_AUTO_TEST_CASE(test1)
 
   // remainder assume avtutor dataset for Spatial Analyst existing
   std::filesystem::path const avtutor("c:/esri/av_gis30/avtutor/spatial");
-  if (!std::filesystem::exists(avtutor))
+  if (!std::filesystem::exists(avtutor)) {
     return;
+  }
 
   // TODO NEXT move test from pcrgeo bil to here, make sure .stx is written
   // Test if we can open with QGIS?

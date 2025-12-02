@@ -73,8 +73,9 @@ public:
 
   void finishVertex(const Vertex &vC)
   {
-    if (pcr::isMV(d_data.d_dem[vC]))
+    if (pcr::isMV(d_data.d_dem[vC])) {
       return;
+    }
     size_t const v = linear(vC);
     if (!d_data.d_fixedHead[v]) {
       d_data.d_dem[v] += (d_inflow[v] - d_outflow[v]) / d_data.d_area[v];
@@ -86,8 +87,9 @@ public:
   void downstreamEdge(const Edge &e)
   {
     REAL4 const drop = d_data.drop(e);
-    if (drop < 0)
+    if (drop < 0) {
       return;
+    }
     DEVELOP_PRECOND(d_edgeNr < d_data.d_fixedEdgeFlowTerm.size());
     REAL4 const edgeFlow = drop * d_data.d_fixedEdgeFlowTerm[d_edgeNr++];
     d_outflow[e.source()] += edgeFlow;
@@ -168,8 +170,9 @@ void mldd::Diffuse::setResultMV(const size_t v)
 void mldd::Diffuse::initSet(size_t v)
 {
   d_totalOutflow[v] = 0;
-  if (com::oneIsMV(d_oldState[v], d_area[v], d_fixedHead[v]))
+  if (com::oneIsMV(d_oldState[v], d_area[v], d_fixedHead[v])) {
     setResultMV(v);
+  }
 }
 
 void mldd::Diffuse::initFlowTerm(const Edge &e)
@@ -193,10 +196,12 @@ void mldd::Diffuse::initFlowTerm(const Edge &e)
 
 void mldd::Diffuse::checkDem(size_t v)
 {
-  if (d_dem[v] == std::numeric_limits<REAL4>::infinity())
+  if (d_dem[v] == std::numeric_limits<REAL4>::infinity()) {
     d_infinity++;  // throw std::range_error("dem has reached infinity");
-  if (d_dem[v] == -std::numeric_limits<REAL4>::infinity())
+  }
+  if (d_dem[v] == -std::numeric_limits<REAL4>::infinity()) {
     d_minInfinity++;  // throw std::range_error("dem has reached infinity");
+  }
 }
 
 //! \todo rhs-expr is constant in iterations

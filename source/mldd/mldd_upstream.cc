@@ -77,8 +77,9 @@ void mldd::Upstream::downstreamEdge(const Edge &e)
   linear(s, t, e);
   DEVELOP_PRECOND(!pcr::isMV(d_result[t]));
   double const w = d_w[e];
-  if (w != WeightMap::mvMark() && !pcr::isMV(d_in[s]))
+  if (w != WeightMap::mvMark() && !pcr::isMV(d_in[s])) {
     d_result[t] += (w * d_in[s]);
+  }
 }
 
 //------------------------------------------------------------------------------

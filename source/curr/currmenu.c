@@ -67,8 +67,9 @@ static bool CurrentVis(const CURR_SELECT_BOX *b) /* read-write radio select box 
 static void PageUp(CURR_SELECT_BOX *b) /* read-write radio select box */
 {
   b->firstItemVis = MAX(0, b->firstItemVis - b->nrRulesVis);
-  if (!CurrentVis(b))
+  if (!CurrentVis(b)) {
     b->currPosition = b->firstItemVis + (b->nrRulesVis - 1);
+  }
 }
 
 /* Scrolls one page down if possible.
@@ -77,8 +78,9 @@ static void PageUp(CURR_SELECT_BOX *b) /* read-write radio select box */
 static void PageDown(CURR_SELECT_BOX *b) /* read-write radio select box */
 {
   b->firstItemVis = MIN(b->nrItems - b->nrRulesVis, b->firstItemVis + b->nrRulesVis);
-  if (!CurrentVis(b))
+  if (!CurrentVis(b)) {
     b->currPosition = b->firstItemVis;
+  }
 }
 
 /* Scrolls one line up if possible
@@ -91,8 +93,9 @@ static void LineUp(CURR_SELECT_BOX *b) /* read-write select box */
     /*
          if (b->firstItemVis > b->currPosition)
          */
-    if (!CurrentVis(b))
+    if (!CurrentVis(b)) {
       b->firstItemVis = MAX(0, b->currPosition - b->nrRulesVis + 1);
+    }
   }
 }
 
@@ -103,8 +106,9 @@ static void LineDown(CURR_SELECT_BOX *b) /* read-write select box */
 {
   if (b->currPosition < (b->nrItems - 1)) {
     b->currPosition++;
-    if (!CurrentVis(b))
+    if (!CurrentVis(b)) {
       b->firstItemVis = MIN(b->nrItems - b->nrRulesVis, b->currPosition);
+    }
   }
 }
 
@@ -143,18 +147,21 @@ CURR_SELECT_BOX *CurrNewItemsInBox(CURR_RADIO_SELECT_BOX *b, /* read-write radio
   PRECOND(b != NULL);
 
   if (b->items != NULL) {
-    for (i = 0; i < b->nrItems; i++)
+    for (i = 0; i < b->nrItems; i++) {
       Free(b->items[i]);
+    }
     Free(b->items);
   }
 
   b->nrItems = nrItems;
-  if ((b->items = ChkMalloc(sizeof(char *) * nrItems)) == NULL)
+  if ((b->items = ChkMalloc(sizeof(char *) * nrItems)) == NULL) {
     return NULL;
+  }
   for (i = 0; i < b->nrItems; i++) {
     b->items[i] = StrcpyChkMalloc(items[i]);
-    if (b->items[i] == NULL)
+    if (b->items[i] == NULL) {
       return NULL;
+    }
   }
   return b;
 }
@@ -179,8 +186,9 @@ static CURR_SELECT_BOX *CurrInitSelectBox(int beginY,         /* start y-coordin
   PRECOND(0 <= beginY && beginY + nrRulesVis <= LINES);
   PRECOND(0 <= beginX && beginX + nrColsVis <= COLS);
 
-  if ((b = ChkMalloc(sizeof(CURR_SELECT_BOX))) == NULL)
+  if ((b = ChkMalloc(sizeof(CURR_SELECT_BOX))) == NULL) {
     return NULL;
+  }
 
   /* fill box with parameters of window */
   b->posY = beginY; /* start y_position of window */
@@ -197,10 +205,11 @@ static CURR_SELECT_BOX *CurrInitSelectBox(int beginY,         /* start y-coordin
 
   /* put keys in box */
   b->nrKeys = nrKeys;
-  if (b->nrKeys == 0)
+  if (b->nrKeys == 0) {
     b->otherKeys = NULL;
-  else if ((b->otherKeys = MemcpyChkMalloc(otherKeys, sizeof(int) * nrKeys)) == NULL)
+  } else if ((b->otherKeys = MemcpyChkMalloc(otherKeys, sizeof(int) * nrKeys)) == NULL) {
     return NULL;
+  }
 
   /* put items in box */
   if (CurrNewItemsInBox(b, items, nrItems) == NULL) {
@@ -318,8 +327,9 @@ static void PrintSelectRules(const bool *highlighted,  /* array for highlighted 
      */
   for (i = b->firstItemVis; i < b->nrRulesVis + b->firstItemVis; i++) {
     /* highlight items that were selected (bold) */
-    if (highlighted != NULL && highlighted[i]) /* CW ? i */
+    if (highlighted != NULL && highlighted[i]) { /* CW ? i */
       wattrset(b->window, A_BOLD);
+    }
 
     /* reverse item at position of cursor */
     if (b->currPosition == i) {
@@ -354,8 +364,9 @@ static void PrintSelectMsgBox(const char *otherMsg)
 
   Curr_wprintw(msgBox, " ACTIONS: keyboard-keys=action\n");
   Curr_wprintw(msgBox, " Enter=Select; ArrowDown,j=LineDown ArrowUp,k=LineUp;\n");
-  if (otherMsg != NULL)
+  if (otherMsg != NULL) {
     Curr_wprintw(msgBox, " %s\n", otherMsg);
+  }
   wrefresh(msgBox);
 }
 
@@ -385,8 +396,9 @@ static bool CurrSelectItem(int *itemOrKey,     /* write-only selected item or ke
 
   while ((c = getch())) {
     int i = 0;
-    if (CurrIsEnterKey(c))
+    if (CurrIsEnterKey(c)) {
       break; /* enter key used->quit */
+    }
     for (i = 0; i < b->nrKeys; i++) {
       if (b->otherKeys[i] == c) {
         *itemOrKey = c; /* key = c */
@@ -395,9 +407,10 @@ static bool CurrSelectItem(int *itemOrKey,     /* write-only selected item or ke
     }
 
     f = FindKeyFunc(c, keys, ARRAY_SIZE(keys));
-    if (f != NULL)
+    if (f != NULL) {
       f(b); /* perform scrolling */
-            /* otherwise key not mapped loop again */
+    }
+    /* otherwise key not mapped loop again */
 #ifdef NEVER
     if (f == NULL) {
       *itemOrKey = c; /* key = c */
@@ -430,8 +443,9 @@ bool CurrRadioSelectItem(int *itemOrKey,           /* write-only selected item o
 void CurrRadioIncSelectedItem(CURR_RADIO_SELECT_BOX *b) /* read-write radio select box */
 {
   LineDown(b);
-  if (b->nrRulesVis > 1 && b->firstItemVis == b->currPosition && b->firstItemVis > 0)
+  if (b->nrRulesVis > 1 && b->firstItemVis == b->currPosition && b->firstItemVis > 0) {
     b->firstItemVis--;
+  }
 }
 
 /* HighLights a selected item.
@@ -452,8 +466,9 @@ int CurrMultiSelectItem(int itemOrKey,               /* write-only selected item
                         CURR_MULTI_SELECT_BOX *mBox) /* read-write multi select box */
 {
   /* EXAMPLES * .  so examples/currmulti.tr */
-  while (CurrSelectItem(&itemOrKey, mBox->highlighted, mBox->box))
+  while (CurrSelectItem(&itemOrKey, mBox->highlighted, mBox->box)) {
     HighLight(mBox);
+  }
   return itemOrKey;
 }
 
@@ -579,8 +594,9 @@ static void DelChar(char *s, /* read-write string to modify */
   PRECOND(0 <= col && col < len);
 
   if (s[col] != '\0') {
-    for (i = col; i < len - 1; i++)
+    for (i = col; i < len - 1; i++) {
       *(s + i) = *(s + i + 1);
+    }
   }
 }
 
@@ -596,8 +612,9 @@ static void InsertChar(char *s, /* read-write string to modify */
   PRECOND(0 <= col && col < len);
 
   /* perform shift of characters on right of cursor */
-  for (i = len - 1; col < i; i--)
+  for (i = len - 1; col < i; i--) {
     s[i] = s[i - 1];
+  }
 
   /* last character is end of string */
   s[len - 1] = '\0';
@@ -609,16 +626,18 @@ static void MakeEmpty(char *s, /* read-write string */
                       int len) /* length of string */
 {
   int i = 0;
-  for (i = 0; i < len; i++)
+  for (i = 0; i < len; i++) {
     s[i] = '\0';
+  }
 }
 
 static void PadString(char *s, size_t len)
 {
   size_t i = strlen(s);
   PRECOND(i <= len);
-  for (; i < len; i++)
+  for (; i < len; i++) {
     s[i] = ' ';
+  }
   s[i] = '\0';
 }
 
@@ -667,8 +686,9 @@ int CurrGetRadioSelection(const char **values, /* array of possible values
   size_t len = strlen(values[0]);
   WINDOW *inputWin = NULL;
 
-  for (i = 1; i < nrValues; i++)
+  for (i = 1; i < nrValues; i++) {
     len = MAX((size_t)len, strlen(values[i]));
+  }
   inputWin = newwin(1, len + 1, y, x); /* one more to put cursor */
   PRECOND(len != 0);                   /* can not modify an empty string */
 
@@ -682,8 +702,9 @@ int CurrGetRadioSelection(const char **values, /* array of possible values
   i = 0;
   c = 'q'; /* init round */
   while (1) {
-    if (CurrIsEnterKey(c))
+    if (CurrIsEnterKey(c)) {
       break;
+    }
     switch (c) {
       case KEY_LEFT:
         i = (i) ? i - 1 : nrValues - 1;
@@ -749,11 +770,13 @@ bool CurrGetString(char *input, /* read-write string to get */
 
   /* Get data from user until return or enter key pressed */
   c = getch();
-  if (IsPrint(c))
+  if (IsPrint(c)) {
     MakeEmpty(s, len);
+  }
   while (1) {
-    if (CurrIsEnterKey(c))
+    if (CurrIsEnterKey(c)) {
       break;
+    }
     switch (c) {
       case KEY_BACKSPACE:
         if (0 < col) {
@@ -762,16 +785,19 @@ bool CurrGetString(char *input, /* read-write string to get */
         }
         break;
       case KEY_LEFT:
-        if (0 < col)
+        if (0 < col) {
           col--;
+        }
         break;
       case KEY_RIGHT:
-        if (col < (len - 1))
+        if (col < (len - 1)) {
           col++;
+        }
         break;
       case KEY_DC:
-        if (0 <= col && col < len)
+        if (0 <= col && col < len) {
           DelChar(s, len, col);
+        }
         break;
       case CURR_KEY_ESC:
         return FALSE;
@@ -780,8 +806,9 @@ bool CurrGetString(char *input, /* read-write string to get */
           InsertChar(s, len, col);
           s[col] = c;
           col++;
-        } else
+        } else {
           beep();
+        }
         break;
     }
     POSTCOND(strlen(s) <= (size_t)len);
@@ -859,10 +886,11 @@ int CurrPromptYesNo(const char *q,      /* question */
 
   while (i == 0) {
     Curr_wprintw(msgBox, " ACTIONS: keyboard-keys=action\n");
-    if (escMsg != NULL)
+    if (escMsg != NULL) {
       Curr_wprintw(msgBox, " y=Yes; n=No; Esc=%s\n", escMsg);
-    else
+    } else {
       Curr_wprintw(msgBox, " y=yes; n=no;\n");
+    }
     Curr_wprintw(msgBox, " %s : ", q);
     wrefresh(msgBox);
 

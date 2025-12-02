@@ -22,8 +22,9 @@ BOOST_AUTO_TEST_CASE(realistic_ldd)
 
     size_t count = 0;
     for (DownStreamVisitor v(f, geo::CellLoc(1, 0)); v.valid(); ++v) {
-      for (geo::UpstreamNeighbourVisitor u(*v); u.valid(); ++u)
+      for (geo::UpstreamNeighbourVisitor u(*v); u.valid(); ++u) {
         BOOST_CHECK(mask.value(u.nb()) == 1);
+      }
 
       count++;
       UINT1 m = 0;
@@ -146,8 +147,9 @@ BOOST_AUTO_TEST_CASE(pit_only)
     size_t count = 0;
     for (DownStreamVisitor v(f, geo::CellLoc(1, 1)); v.valid(); ++v) {
       count++;
-      for (geo::UpstreamNeighbourVisitor u(*v); u.valid(); ++u)
+      for (geo::UpstreamNeighbourVisitor u(*v); u.valid(); ++u) {
         shouldNotReach = false;
+      }
     }
     BOOST_CHECK(shouldNotReach);
     BOOST_CHECK(count == 1);

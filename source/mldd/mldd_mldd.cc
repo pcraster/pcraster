@@ -93,8 +93,9 @@ void mldd::Mldd::addOneLdd(const UINT1 *ldd) const
 {
   for (size_t i = 0; i < d_rs.nrCells(); ++i) {
     UINT1 const cVal = ldd[i];
-    if (cVal != MV_UINT1 && cVal != LDD_PIT)
+    if (cVal != MV_UINT1 && cVal != LDD_PIT) {
       d_dag->addFlowNB(d_rs.convert(i), cVal);
+    }
   }
 }
 
@@ -116,8 +117,9 @@ void mldd::Mldd::setStream(const std::vector<const UINT1 *> &ldd)
   // order is not relevant for DagRaster code
   // since the ldd value itself is encoded within
   // a particular index
-  for (auto i : ldd)
+  for (auto i : ldd) {
     addOneLdd(i);
+  }
 
   try {
     d_dag->updateOrder();
@@ -198,10 +200,12 @@ void mldd::Mldd::getStream(const std::vector<UINT1 *> &result) const
     pcr::setMV(out, d_rs.nrCells());
     geo::NB::Code const nb = geo::LDD::toNB(lddCodes[r]);
     for (size_t c = 0; c < d_rs.nrCells(); c++) {
-      if (d_dag->hasOutflowDir(c, nb))
+      if (d_dag->hasOutflowDir(c, nb)) {
         out[c] = lddCodes[r];
-      if (d_dag->isPit(c))
+      }
+      if (d_dag->isPit(c)) {
         out[c] = 5;
+      }
     }
   }
 }

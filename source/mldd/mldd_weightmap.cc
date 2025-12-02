@@ -77,26 +77,30 @@ double mldd::WeightMap::get(const Edge &e) const
   geo::CellLoc const d(e.target());  // downstream
 
   // weighted slope
-  if (d_dr.nrOutflowNB(s) == 1)
+  if (d_dr.nrOutflowNB(s) == 1) {
     return 1;  // no weight only one outflow
+  }
 
   double const dist[2] = {1, std::numbers::sqrt2};
   bool diagonal = d.row() != s.row() || d.col() != s.col();
-  if (d_dem.mv(d) || d_dem.mv(s))
+  if (d_dem.mv(d) || d_dem.mv(s)) {
     return mvMark();  // mv prohibit calculation
+  }
   double const slopeS = (std::max<double>(d_dem[s] - d_dem[d], 0)) / dist[diagonal];
   double sumS(0);
   for (OutEdgeIterator oe = d_dr.beginOutEdge(s); oe.any(); ++oe) {
     geo::CellLoc const d = (*oe).target();  // downstream
-    if (d_dem.mv(s))
+    if (d_dem.mv(s)) {
       continue;
+    }
     diagonal = d.row() != s.row() || d.col() != s.col();
     sumS += (d_dem[s] - d_dem[d]) / dist[diagonal];
   }
 
   // if flat, divide equally
-  if (sumS == 0)
+  if (sumS == 0) {
     return 1.0 / d_dr.nrOutflowNB(s);
+  }
 
   // as fraction of total slope
   return slopeS / sumS;
@@ -112,8 +116,9 @@ void mldd::WeightMap::fillDirMap(geo::NB::Code dir, REAL4 *map) const
       geo::CellLoc const d(rd.target<geo::NB>(s, dir));
 
       double const v = get(Edge(s, d));
-      if (v != mvMark())
+      if (v != mvMark()) {
         map[i] = v;
+      }
     }
   }
 }

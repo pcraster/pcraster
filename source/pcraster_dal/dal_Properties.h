@@ -198,8 +198,9 @@ inline T const & Properties::value(
          std::string const& name,
          T const& defaultValue) const
 {
-  if (hasValue(name))
+  if (hasValue(name)) {
     return value<T>(name);
+  }
   return defaultValue;
 }
 

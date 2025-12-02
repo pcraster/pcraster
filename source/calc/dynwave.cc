@@ -15,17 +15,20 @@
 static double AactToLevel(double Aact, double Bw, double yc, double z, double FW)
 {
   double const Acmax = (Bw + z * yc) * yc;
-  if (Aact > Acmax)
+  if (Aact > Acmax) {
     return yc + (Aact - Acmax) / FW;
-  if (z > 0)
+  }
+  if (z > 0) {
     return (-Bw + std::sqrt(com::pow2(Bw) + 4 * z * Aact)) / (2 * z);  // abc-formula
+  }
   return Aact / Bw;
 }
 
 static double LevelToAact(double y, double Bw, double yc, double z, double FW)
 {
-  if (y < yc)
+  if (y < yc) {
     return (Bw + z * y) * y;
+  }
   return (Bw + z * yc) * yc + (y - yc) * FW;
 }
 
@@ -53,8 +56,9 @@ static double LevelToPStream(double y, double Bw, double z)
 
 inline static double sqrtSf(double Sf)
 {
-  if (Sf >= 0)
+  if (Sf >= 0) {
     return std::sqrt(Sf);
+  }
   return -std::sqrt(-Sf);
 }
 
@@ -76,8 +80,9 @@ static double QDynManning(double Roughness, double Aact, double Sf, double R)
 static double QStructure(double resultH, double structureA, double structureB,
                          double structureCrestLevel)
 {
-  if (resultH > structureCrestLevel)
+  if (resultH > structureCrestLevel) {
     return structureA * std::pow(resultH - structureCrestLevel, structureB);
+  }
   return 0;
 }
 
@@ -175,8 +180,9 @@ extern "C" int DynamicWave(MAP_REAL8 *m_resultQ,    // scalar, new Q      [  , m
       fieldapi::ScalarDomainCheck(nrTimeSlicesInterface, "NrTimeSlices", com::GreaterThan<double>(0)));
 
   int const nsCheck = fieldapi::checkScalarDomains(nsDomains, geo::CellLoc(0, 0));
-  if (nsCheck != -1)  // pcrcalc/test350
+  if (nsCheck != -1) {  // pcrcalc/test350
     return RetError(1, nsDomains[nsCheck].msg().c_str());
+  }
 
   ReadOnlyUint1_ref(structures, m_structures);
   inputs.push_back(&structures);
@@ -200,8 +206,9 @@ extern "C" int DynamicWave(MAP_REAL8 *m_resultQ,    // scalar, new Q      [  , m
   for (geo::CellLocVisitor cl(ldd); cl.valid(); ++cl) {
     geo::CellLoc const c(*cl);
     UINT1 cVal = 0;
-    if ((ldd.get(cVal, c)) && cVal == LDD_PIT)  // found a catchment outlet */
+    if ((ldd.get(cVal, c)) && cVal == LDD_PIT) {  // found a catchment outlet */
       catchmentOutlets.push_back(c);
+    }
     if (fieldapi::nonMV(inputs, c)) {
       resultQ.put(0, c);
       resultH.copy(Hin, c);
@@ -214,43 +221,47 @@ extern "C" int DynamicWave(MAP_REAL8 *m_resultQ,    // scalar, new Q      [  , m
 
   double const iterationTime = timeStepInSeconds / nrTimeSlices;  //[sec]
 
-  for (size_t slice = 0; slice < nrTimeSlices; slice++)
-    for (auto &catchmentOutlet : catchmentOutlets)
+  for (size_t slice = 0; slice < nrTimeSlices; slice++) {
+    for (auto &catchmentOutlet : catchmentOutlets) {
       // WPA 2.1
       for (calc::DownStreamVisitor v(ldd, catchmentOutlet); v.valid(); ++v) {
         geo::CellLoc const c = *v;  // current cell
-        if (resultQ.isMV(c))        // marked as MV if some inputs is MV
+        if (resultQ.isMV(c)) {      // marked as MV if some inputs is MV
           break;
+        }
 
         if (slice == 0) {  // check once
 
           int const check = fieldapi::checkScalarDomains(domains, c);
-          if (check != -1)
+          if (check != -1) {
             return RetError(1, domains[check].msg().c_str());  // pcrcalc/test349
-          if (!(FW[c] >= (Bw[c] + yc[c] * z[c])))
+          }
+          if (!(FW[c] >= (Bw[c] + yc[c] * z[c]))) {
             return RetError(1,  // pcrcalc/test351
                             "FloodplainWidth not wider than bankfull channel width");
+          }
         }
 
         geo::LDD::Code const cL = ldd[c];  // ldd value of c
 
         double QtimeStep = NAN;  // Q  m3/sec
         // WPA 2.3 is  cell a structure or channel segment
-        if (structures[c] == 1)
+        if (structures[c] == 1) {
           QtimeStep = iterationTime *
                       QStructure(resultH[c], structureA[c], structureB[c], structureCrestLevel[c]);
-        else {
+        } else {
           if (cL == LDD_PIT) {
             QtimeStep = 0;  // no downstream cell
           } else {          // has downstream cell
             // WPA 2.2
             geo::CellLoc const ds = geo::LDD::target(c, cL);
-            if (resultQ.isMV(ds))  // marked as MV if some inputs is MV
+            if (resultQ.isMV(ds)) {  // marked as MV if some inputs is MV
               break;
+            }
 
-            if (resultH[c] <= 0)
+            if (resultH[c] <= 0) {
               QtimeStep = 0;
-            else {
+            } else {
               double const levToAact = LevelToAactStream(resultH[c], Bw[c], z[c]);
               double const levToP = LevelToPStream(resultH[c], Bw[c], z[c]);
               double const Sf =
@@ -273,10 +284,11 @@ extern "C" int DynamicWave(MAP_REAL8 *m_resultQ,    // scalar, new Q      [  , m
           dsVolume = L[ds] * LevelToAact(resultH[ds], Bw[ds], yc[ds], z[ds], FW[ds]);
         }
 
-        if (QtimeStep > 0)
+        if (QtimeStep > 0) {
           QtimeStep = std::min(QtimeStep, cVolume);
-        else
+        } else {
           QtimeStep = std::max(QtimeStep, -dsVolume);
+        }
 
         cVolume -= QtimeStep;
 
@@ -290,6 +302,8 @@ extern "C" int DynamicWave(MAP_REAL8 *m_resultQ,    // scalar, new Q      [  , m
           resultH.put(AactToLevel(dsVolume / L[ds], Bw[ds], yc[ds], z[ds], FW[ds]), ds);
         }
       }
+    }
+  }
 
   return 0;
 }

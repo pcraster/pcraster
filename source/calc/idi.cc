@@ -17,8 +17,9 @@ static double interpolateNoSort(const std::vector<geo::IdiPoint<Point>> &points,
   size_t const nrPoints = points.size();
   geo::ComputeValue<Point> cv(c, idp);
   for (size_t i = 0; i < nrPoints; i++) {
-    if (points[i].isThisLocation(c))  // on exact location
+    if (points[i].isThisLocation(c)) {  // on exact location
       return points[i].value();
+    }
     cv.add(points[i]);
   }
   return cv.value();
@@ -49,8 +50,9 @@ extern "C" int Idi(MAP_REAL8 *m_resultMap,    /* write-only output map  */
 
   for (geo::CellLocVisitor c(mask); c.valid(); ++c) {
     REAL8 inpVal = NAN;
-    if (input.get(inpVal, *c))
+    if (input.get(inpVal, *c)) {
       points.push_back(geo::IdiPoint<geo::CellLoc>(*c, inpVal));
+    }
   }
   size_t const nrPoints = points.size();
 
@@ -76,10 +78,11 @@ extern "C" int Idi(MAP_REAL8 *m_resultMap,    /* write-only output map  */
         UINT1 maskVal = 0;
         REAL8 idpVal = NAN;
         if (mask.get(maskVal, *c) && idp.get(idpVal, *c) &&
-            maskVal /* == 1 garantueed by boolean type */)
+            maskVal /* == 1 garantueed by boolean type */) {
           result.put(interpolateNoSort(points, idpVal, *c), *c);
-        else
+        } else {
           result.putMV(*c);
+        }
       }
       return 0;
     }
@@ -95,17 +98,20 @@ extern "C" int Idi(MAP_REAL8 *m_resultMap,    /* write-only output map  */
         radius.get(radVal, *c) && maskVal /* == 1 garantueed by boolean type */
         && f_maxNr >= 0) {
       auto maxNr = static_cast<size_t>(f_maxNr);
-      if (maxNr)
+      if (maxNr) {
         maxNr = std::min(maxNr, nrPoints);
-      else
+      } else {
         maxNr = nrPoints;
+      }
       double v = NAN;
-      if (geo::idi(v, points, idpVal, maxNr, radVal / Side(), *c))
+      if (geo::idi(v, points, idpVal, maxNr, radVal / Side(), *c)) {
         result.put(v, *c);
-      else
+      } else {
         result.putMV(*c);
-    } else
+      }
+    } else {
       result.putMV(*c);
+    }
   }
   return 0;
 }

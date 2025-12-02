@@ -48,8 +48,9 @@ calc::DownStreamVisitor::~DownStreamVisitor()
 //! advance to next cell in down stream order
 void calc::DownStreamVisitor::next()
 {
-  if (!valid())
+  if (!valid()) {
     return;
+  }
   while (!front().allUpstreamNeighboursVisited()) {
     geo::DownStreamVisitorCell &f(front());
     int rowNB = 0;
@@ -61,8 +62,9 @@ void calc::DownStreamVisitor::next()
     // next time look for next
     f.next(isUpstreamNB);
     // add isUpstreamNB
-    if (isUpstreamNB)
+    if (isUpstreamNB) {
       d_inProcess.push(geo::DownStreamVisitorCell(geo::CellLoc(rowNB, colNB)));
+    }
   }
 }
 

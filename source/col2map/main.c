@@ -68,9 +68,10 @@ int main(int argc, char *argv[])
   int parseVal = 0;
   int sepChar = ',';
 
-  if (InstallArgs(argc, argv, "x#y#v#m*(BLNOSDV)(atHM)(hl)s*", "col2map"))
+  if (InstallArgs(argc, argv, "x#y#v#m*(BLNOSDV)(atHM)(hl)s*", "col2map")) {
     goto failure;
-  while ((c = GetOpt()) != 0)
+  }
+  while ((c = GetOpt()) != 0) {
     switch (c) {
       case 'x':
         parseVal = (*((const int *)OptArg)) - 1;
@@ -126,25 +127,31 @@ int main(int argc, char *argv[])
         break;
 #include "case_vs.h"
     }
+  }
 
   argv = ArgArguments(&argc);
-  if (argv == NULL)
+  if (argv == NULL) {
     goto failure;
-  if (AppArgCountCheck(argc, 3, 3, USAGE))
+  }
+  if (AppArgCountCheck(argc, 3, 3, USAGE)) {
     goto failure;
-  if (AppInputTest(argv[1]))
+  }
+  if (AppInputTest(argv[1])) {
     goto failure;
+  }
 
   /* open the clone map */
   clone = AppOpenClone(&cloneFileName, NULL);
-  if (clone == NULL)
+  if (clone == NULL) {
     goto failure;
+  }
 
   if (valueScale == VS_UNDEFINED) {
     valueScale = RgetValueScale(clone);
     cellRepr = RgetCellRepr(clone);
-  } else
+  } else {
     cellRepr = AppDefaultCellRepr(valueScale);
+  }
 
   if (!RvalueScale2(valueScale)) {
     Error("clone map '%s' has an illegal value scale", cloneFileName);
@@ -169,8 +176,9 @@ int main(int argc, char *argv[])
     switch (compCell) {
       case AVERAGE:
         conflict = (vs != VS_SCALAR && vs != VS_DIRECTION);
-        if (vs == VS_DIRECTION)
+        if (vs == VS_DIRECTION) {
           compCell = DIR_AVERAGE;
+        }
         break;
       case LOWEST:
       case HIGHEST:
@@ -213,8 +221,9 @@ int main(int argc, char *argv[])
   return 0;
 
 failure2:
-  if (clone == NULL)
+  if (clone == NULL) {
     Mclose(clone);
+  }
 failure:
   AppEnd();
   exit(1);

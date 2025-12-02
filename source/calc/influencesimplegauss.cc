@@ -85,10 +85,12 @@ extern "C" int InfluenceSimpleGauss(MAP_REAL8 *m_out, const MAP_REAL8 *m_input, 
     if (input.get(inputVal, *c) && range.get(rangeVal, *c) && eps.get(epsVal, *c)) {
       /* init to 0 */
       out.put(0, *c);
-      if (rangeVal <= 0)
+      if (rangeVal <= 0) {
         return RetError(1, "influencesimplegauss: Domain error on parameters");
-    } else /* some of the input maps are MV */
+      }
+    } else { /* some of the input maps are MV */
       out.putMV(*c);
+    }
   }
 
   for (geo::CellLocVisitor c(out); c.valid(); ++c) {
@@ -110,7 +112,7 @@ extern "C" int InfluenceSimpleGauss(MAP_REAL8 *m_out, const MAP_REAL8 *m_input, 
       auto cStart = static_cast<size_t>(MAX(((int)c.col()) - maxDistCells, 0));
       size_t const rStop = std::min(nrRows, c.row() + maxDistCells);
       size_t const cStop = std::min(nrCols, c.col() + maxDistCells);
-      for (size_t rDest = rStart; rDest < rStop; rDest++)
+      for (size_t rDest = rStart; rDest < rStop; rDest++) {
         for (size_t cDest = cStart; cDest < cStop; cDest++) {
           REAL8 outVal = NAN;
           if (out.get(outVal, rDest, cDest)) {
@@ -119,14 +121,16 @@ extern "C" int InfluenceSimpleGauss(MAP_REAL8 *m_out, const MAP_REAL8 *m_input, 
             /* compute distSqr */
             REAL8 add = NAN;
             REAL8 const dist = sqr((double)c.row() - rDest) + sqr((double)c.col() - cDest);
-            if (dist > maxDist)
+            if (dist > maxDist) {
               continue; /* do not compute */
+            }
             /* else compute distSqr */
             add = inputVal * exp(-sqrt(dist) / rangeVal);
             outVal += add;
             out.put(outVal, rDest, cDest);
           }
         }
+      }
     }
   }
   return 0; /* successful terminated */

@@ -94,8 +94,9 @@ template<typename T> static boost::any getExtremeImpl(
 {
   boost::any max;
   T        value;
-  if(get(map, &value))
+  if(get(map, &value)) {
         max = value;
+  }
   return max;
 }
 
@@ -606,8 +607,9 @@ boost::any dal::CSFMap::min() const
 void*   dal::CSFMap::malloc(size_t nrCells) const
 {
   void *m = Rmalloc(d_map,nrCells);
-  if (!m)
+  if (!m) {
     throw std::bad_alloc();
+  }
   return m;
 }
 

@@ -73,7 +73,7 @@ namespace mldd {
 
 } // namespace mldd
 
-#if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 namespace boost {
 
   struct mldd_graph_traversal_category :

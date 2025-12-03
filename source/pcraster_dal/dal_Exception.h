@@ -28,7 +28,7 @@ namespace dal {
 namespace dal {
 
 
-#if defined(_MSC_VER)
+#ifdef _MSC_VER
 #    pragma warning(push)
 #    pragma warning(disable : 4275 4251)
 //   4275: An exported class was derived from a class that wasn't exported.
@@ -71,7 +71,7 @@ public:
 
 };
 
-#if defined(_MSC_VER)
+#ifdef _MSC_VER
 #    pragma warning(pop)
 #endif
 

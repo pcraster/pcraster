@@ -274,7 +274,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
   }
   float input[25];
   std::fill(input, input + 25, 4.5F);
-#if !defined(WIN32)
+#ifndef WIN32
   {  // X) Let API allocate memory
     PcrScript *s = pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_7.xml");
     BOOST_CHECK(!pcr_ScriptError(s));
@@ -469,7 +469,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
   //   }
 }
 
-#if !defined(WIN32)
+#ifndef WIN32
 BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
 {
   using namespace calc;

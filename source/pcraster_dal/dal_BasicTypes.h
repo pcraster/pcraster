@@ -9,7 +9,7 @@
 #define INCLUDED_BOOST_TYPE_TRAITS
 #endif
 
-#if defined(_MSC_VER)
+#ifdef _MSC_VER
   #if _MSC_VER
     #pragma warning(disable: 4244)
   #endif
@@ -18,7 +18,7 @@
 #include <boost/spirit/include/classic.hpp>
 #define INCLUDED_BOOST_SPIRIT_INCLUDE_CLASSIC
 #endif
-#if defined(_MSC_VER)
+#ifdef _MSC_VER
   #if _MSC_VER
     #pragma warning(default: 4244)
   #endif

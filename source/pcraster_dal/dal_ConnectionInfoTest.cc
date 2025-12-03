@@ -11,7 +11,7 @@ BOOST_AUTO_TEST_CASE(test_)
 
   std::string user;
 
-#if defined(WIN32)
+#ifdef WIN32
   BOOST_REQUIRE(dev::environmentVariableSet("USERNAME"));
   user = dev::environmentVariable("USERNAME");
 #else

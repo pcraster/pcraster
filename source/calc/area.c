@@ -692,14 +692,14 @@ int AddToTssRowREAL8(REAL8 *data,           /* write values, starts at col 1 of 
 {
   SEARCH_TABLE *table = NULL;
   size_t i = 0;
-#if defined(DEBUG)
+#ifdef DEBUG
   int nrRows = 0, nrCols = 0;
 #endif
 
   /* Initialize settings */
   id->SetGetTest(GET_MV_TEST, id);
   expr->SetGetTest(GET_MV_TEST, expr);
-#if defined(DEBUG)
+#ifdef DEBUG
   nrRows = id->NrRows(id);
   nrCols = id->NrCols(id);
 #endif
@@ -740,14 +740,14 @@ int AddToTssRowINT4(REAL8 *data,          /* write values, starts at col 1 of TI
 {
   SEARCH_TABLE *table = NULL;
   size_t i = 0;
-#if defined(DEBUG)
+#ifdef DEBUG
   int nrRows = 0, nrCols = 0;
 #endif
 
   /* Initialize settings */
   id->SetGetTest(GET_MV_TEST, id);
   expr->SetGetTest(GET_MV_TEST, expr);
-#if defined(DEBUG)
+#ifdef DEBUG
   nrRows = id->NrRows(id);
   nrCols = id->NrCols(id);
 #endif

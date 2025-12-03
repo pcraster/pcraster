@@ -200,7 +200,7 @@ BOOST_AUTO_TEST_CASE(split_for)
 
   // "//bla"
   pn = PathName(d_slash + d_slash + "bla");
-#if defined(__APPLE__)
+#ifdef __APPLE__
   directory = "//";
 #elif defined(WIN32)
   directory = "\\\\bla";

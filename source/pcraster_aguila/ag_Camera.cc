@@ -1,7 +1,7 @@
 #include "ag_Camera.h"
 #include <cassert>
 
-#if defined(_WIN32)
+#ifdef _WIN32
 #include <windows.h>
 #endif
 

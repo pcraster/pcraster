@@ -273,7 +273,7 @@ std::vector<std::string> com::split(const std::string &aString, char aCharacter)
  */
 int com::compareNoCase(const std::string &s, const std::string &s2)
 {
-#if defined(GCC)
+#ifdef GCC
   return strcasecmp(s.c_str(), s2.c_str());
 #elif defined(BORLANDC)
   return stricmp(s.c_str(), s2.c_str());

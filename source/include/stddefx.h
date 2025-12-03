@@ -74,7 +74,7 @@
 
 
 #ifdef __linux__
-#if defined(__x86_64__)
+#ifdef __x86_64__
 #define PLATFORM_TXT "linux/x86_64"
 #elif defined(__aarch64__)
 #define PLATFORM_TXT "linux/aarch64"

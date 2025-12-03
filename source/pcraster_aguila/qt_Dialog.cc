@@ -93,10 +93,11 @@ void Dialog::resetLayout()
 
   d_data->top = new QVBoxLayout(this);
 
-  if (centralWidget())
+  if (centralWidget()) {
     d_data->top->addWidget(centralWidget(), 1);
-  else
+  } else {
     d_data->top->addStretch(1);
+  }
 
   auto *hbox = new QHBoxLayout();
   d_data->top->addLayout(hbox);

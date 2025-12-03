@@ -105,8 +105,9 @@ void calc::Spatial::allocate()
 //! dtor
 calc::Spatial::~Spatial()
 {
-  if (!d_val)
+  if (!d_val) {
     return;
+  }
   d_currentBPC -= bytesPerCell(vs());
   switch (bytesPerCell(vs())) {
     case 1:
@@ -217,10 +218,12 @@ void calc::Spatial::analyzeBoolean(bool &noneAreTrue, bool &noneAreFalse) const
   PRECOND(biggestCellRepr(vs()) == CR_UINT1);
   noneAreTrue = noneAreFalse = true;
   for (size_t i = 0; i < nrValues(); i++) {
-    if (d_val1[i] == 1)
+    if (d_val1[i] == 1) {
       noneAreTrue = false;
-    if (d_val1[i] == 0)
+    }
+    if (d_val1[i] == 0) {
       noneAreFalse = false;
+    }
   }
 }
 
@@ -263,10 +266,11 @@ public:
     * bool    allIdentical=true;
     * pcr::setMV(prevIdenticalValue);
     */
-    for (size_t i = 0; i < d_n; i++)
+    for (size_t i = 0; i < d_n; i++) {
       if (mask[i] == 1) {
-        if (pcr::isMV(val[i]))
+        if (pcr::isMV(val[i])) {
           return createDebugMap(mask, val);
+        }
         /* else {
          *   double v;
          *   me->getCell(v,i);
@@ -280,6 +284,7 @@ public:
          * }
          */
       }
+    }
     // if (!d_allZero && allIdentical)
     //  std::cout << "ident " << prevIdenticalValue << " " << me << " " << sizeof(CR) << "\n";
     return nullptr;

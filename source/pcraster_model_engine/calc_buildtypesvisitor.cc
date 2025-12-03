@@ -284,9 +284,10 @@ public:
             PRECOND(e->nrArgs() == 2);
             auto *n = dynamic_cast<ASTNumber *>(e->arg(1));
             // typecheck already forces n to be ordinal integer
-            if (!n || n->value() < 1)
+            if (!n || n->value() < 1) {
               e->arg(1)->posError("highestTimestepAvailable argument of "
                                   "timeinputmodulo must be an integer > 0");
+            }
             mst.setHighestTimestepAvailable(static_cast<size_t>(n->value()));
             break;
           }
@@ -362,8 +363,9 @@ void calc::BuildTypesVisitor::init(const ASTSymbolTable &table)
 void calc::BuildTypesVisitor::checkOnTimeinput(BaseExpr *o)
 {
   // proceed only when first arg is VS_MAPSTACK
-  if (!o->nrArgs() || o->op().argType(0).vs() != VS_MAPSTACK)
+  if (!o->nrArgs() || o->op().argType(0).vs() != VS_MAPSTACK) {
     return;
+  }
 
   DataType eResult = o->op().computeResultType(o->dataTypeArgs(), 0);
 
@@ -435,18 +437,20 @@ void calc::BuildTypesVisitor::visitExpr(BaseExpr *o)
 
   const Operator &op(o->op());
 
-  if (op.opCode() == OP_TIMEOUTPUT && o->nrArgs() >= 2)
+  if (op.opCode() == OP_TIMEOUTPUT && o->nrArgs() >= 2) {
     d_outputTssVs = o->arg(1)->returnDataType().vs();
+  }
 
   // TEST CORRECT NR OF ARGUMENTS
   // pcrcalc/test25[23]
   //pcrcalc/test14
   std::string const msg(op.checkNrInputs(o->nrArgs()));
   if (!msg.empty()) {
-    if (o->nrArgs())
+    if (o->nrArgs()) {
       o->arg(0)->posError(msg);
-    else  // pcrcalc/test252a
+    } else {  // pcrcalc/test252a
       o->posError(msg);
+    }
   }
 
   // CHECK IF ARGUMENTS ARE VALID FOR OPERATION
@@ -474,8 +478,9 @@ void calc::BuildTypesVisitor::visitExpr(BaseExpr *o)
     // if allowed by the op-arg then it
     // is a combination error
     DataType const dt(op.argType(i));
-    if (intersect(v.isOneOf(), dt.vs()) != VS_UNKNOWN)
+    if (intersect(v.isOneOf(), dt.vs()) != VS_UNKNOWN) {
       o->arg(i)->posError(argCombError(op, v, i));
+    }
     // todo
     // if the argument is use ASTPar then like test pcrcalc501
     o->posError(argVSError(op, v, i));
@@ -564,8 +569,9 @@ void calc::BuildTypesVisitor::visitAss(ASTAss *a)
   }
 
 
-  for (size_t p = 0; p < a->nrPars(); ++p)
+  for (size_t p = 0; p < a->nrPars(); ++p) {
     singleAss(a->par(p), a->rhs()->returnDataType(p));
+  }
 
   // FTTB no multiple return
   if (a->rhs()->nrReturns() == 1 && a->rhs()->returnDataType(0).vs() != VS_OBJECT) {
@@ -578,8 +584,9 @@ void calc::BuildTypesVisitor::visitAss(ASTAss *a)
 
 void calc::BuildTypesVisitor::visitStat(ASTStat *s)
 {
-  if (s->reportParsed())
+  if (s->reportParsed()) {
     d_hasStatementWithReportKeyword = true;
+  }
 }
 
 void calc::BuildTypesVisitor::visitPar(ASTPar *p)

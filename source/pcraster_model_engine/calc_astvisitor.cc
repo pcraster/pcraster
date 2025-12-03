@@ -77,8 +77,9 @@ void calc::ASTVisitor::visitNumber(ASTNumber *)
 
 void calc::ASTVisitor::visitAss(ASTAss *a)
 {
-  for (size_t i = 0; i < a->nrPars(); ++i)
+  for (size_t i = 0; i < a->nrPars(); ++i) {
     a->par(i)->accept(*this);
+  }
   a->rhs()->accept(*this);
 }
 

@@ -96,14 +96,16 @@ void calc::FieldType::restrictSystem(VS vsNewPossible, bool spatialByArgs)
 {
 #ifdef DEBUG
   POSTCOND(vs() != VS_UNKNOWN);
-  if (spatialByArgs)
+  if (spatialByArgs) {
     POSTCOND(d_stType != ST_NONSPATIAL);
-  else
+  } else {
     POSTCOND(d_stType != ST_SPATIAL);
+  }
 #endif
   setVs(intersect(vs(), vsNewPossible));
-  if (!d_spatial)  // promote or keep
+  if (!d_spatial) {  // promote or keep
     d_spatial = spatialByArgs;
+  }
 }
 
 //! return true is spatial promotion occured
@@ -111,13 +113,15 @@ void calc::FieldType::restrictSystem(VS vsNewPossible, bool spatialByArgs)
 bool calc::FieldType::restrictUser(VS vsNewPossible, bool spatialByAssignment)
 {
   VS const newVs = intersect(vs(), vsNewPossible);
-  if (newVs == VS_UNKNOWN)
+  if (newVs == VS_UNKNOWN) {
     throw calc::SyntaxVsClash(toString(vs()), toString(vsNewPossible));
+  }
   setVs(newVs);
   POSTCOND(vs() != VS_UNKNOWN);
 
-  if (d_stType == ST_NONSPATIAL && spatialByAssignment)
+  if (d_stType == ST_NONSPATIAL && spatialByAssignment) {
     throw calc::SyntaxStClash("nonspatial", "spatial");
+  }
   // NOTE assigning nonspatial to spatial is solved run-time
   bool promotion = false;
   if (!d_spatial) {  // promote or keep
@@ -131,13 +135,15 @@ void calc::FieldType::restrictArg(const calc::Operator &o, int argNr, int offset
 {
   /* narrow possible types by restriction on the operand */
   VS const newVs = intersect(vs(), o.argVs(argNr));
-  if (newVs == VS_UNKNOWN)
+  if (newVs == VS_UNKNOWN) {
     argVsError(o, o.argVs(argNr), vs(), argNr, offsetArg);
+  }
   setVs(newVs);
 
   /* check spatial type pcrcalc/test{258,346} */
-  if ((o.argSt(argNr) == ST_NONSPATIAL && d_spatial) || (o.argSt(argNr) == ST_SPATIAL && !d_spatial))
+  if ((o.argSt(argNr) == ST_NONSPATIAL && d_spatial) || (o.argSt(argNr) == ST_SPATIAL && !d_spatial)) {
     argStError(o, argNr, offsetArg);
+  }
 }
 
 bool calc::FieldType::spatialDerived() const

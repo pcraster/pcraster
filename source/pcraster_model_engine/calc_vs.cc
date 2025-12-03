@@ -13,20 +13,26 @@
  */
 VS biggestVs(VS setOfVs) /* set of value scales */
 {
-  if (isIn(VS_S, setOfVs)) /* Scalar before direction, dir is special */
+  if (isIn(VS_S, setOfVs)) { /* Scalar before direction, dir is special */
     return VS_S;
-  if (isIn(VS_D, setOfVs))
+  }
+  if (isIn(VS_D, setOfVs)) {
     return VS_D;
+  }
   /* actually no diff between VS_O and VS_N */
-  if (isIn(VS_O, setOfVs))
+  if (isIn(VS_O, setOfVs)) {
     return VS_O;
-  if (isIn(VS_N, setOfVs))
+  }
+  if (isIn(VS_N, setOfVs)) {
     return VS_N;
+  }
   /* boolean before ldd, ldd is special */
-  if (isIn(VS_B, setOfVs))
+  if (isIn(VS_B, setOfVs)) {
     return VS_B;
-  if (isIn(VS_L, setOfVs))
+  }
+  if (isIn(VS_L, setOfVs)) {
     return VS_L;
+  }
   POSTCOND(false);  // NEVER
   return VS_UNKNOWN;
 }
@@ -68,25 +74,28 @@ std::ostream &operator<<(std::ostream &msg, VS setOfVs)
   size_t thisSet[ARRAY_SIZE(names)];
   size_t i = 0;
   size_t thisSetNr = 0;
-  for (i = 0; i < nrVs; i++)
+  for (i = 0; i < nrVs; i++) {
     if (isIn(names[i].vs, setOfVs)) {
       thisSet[thisSetNr] = i;
       thisSetNr++;
     }
+  }
 
   if (!thisSetNr) {
     msg << "unknown!";
     return msg;
   }
 
-  if (thisSetNr > 1)
+  if (thisSetNr > 1) {
     msg << "one of (";
+  }
   for (i = 0; i < thisSetNr - 1; i++) {
     msg << names[thisSet[i]].name << ",";
   }
   msg << names[thisSet[i]].name;
-  if (thisSetNr > 1) /* terminate set */
+  if (thisSetNr > 1) { /* terminate set */
     msg << ")";
+  }
   return msg;
 }
 
@@ -146,11 +155,13 @@ PCR_ME_EXPORT VS vsOfNumber(double value)
     if (value == ((double)i)) {
       /* if the value is not equal to 0 or 1
         then it's not a boolean */
-      if (value != 0 && value != 1)
+      if (value != 0 && value != 1) {
         set &= ~VS_B; /* mask VS_B out of set */
+      }
       /* same sort of check for ldd */
-      if (value < 1 || value > 9)
+      if (value < 1 || value > 9) {
         set &= ~VS_L; /* idem */
+      }
     } else {
       /* it's a real: mask classifieds out */
       set &= ~(VS_N | VS_O | VS_B | VS_L);

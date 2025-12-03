@@ -17,12 +17,13 @@ calc::FieldParameter::FieldParameter(const calc::ParsPar &par, bool constant, bo
 //! delete the associated values
 void calc::FieldParameter::deleteValues()
 {
-  for (size_t i = 0; i < nrElements(); i++)
+  for (size_t i = 0; i < nrElements(); i++) {
     try {
       FieldHandle const v = value(i, true);
     } catch (const calc::Field::NotInitialized &) {
       // not initialized skip, no need to delete
     }
+  }
 }
 
 //! vs of field
@@ -118,12 +119,14 @@ const calc::UseDefNode *calc::FieldParameter::firstDef() const
 //! add \a l to use/def chain
 void calc::FieldParameter::addToChain(calc::UseDefNode *l)
 {
-  if (d_chainEnd)
+  if (d_chainEnd) {
     d_chainEnd->addNextUseDef(l);
-  else
+  } else {
     d_chainBegin = l;
-  if (l->inDynamic() && (!d_firstChainNodeInDynamic))
+  }
+  if (l->inDynamic() && (!d_firstChainNodeInDynamic)) {
     d_firstChainNodeInDynamic = l;
+  }
   d_chainEnd = l;
 }
 
@@ -154,17 +157,19 @@ void calc::FieldParameter::setDataSubType(pcrxml::Data *d) const
   bool const isSpatial = fieldType().spatial();
 
   if (reportedInDynamic()) {
-    if (isSpatial)
+    if (isSpatial) {
       d->stack = newDataSubType<pcrxml::Stack>(v);
-    else
+    } else {
       d->timeSeries = newDataSubType<pcrxml::TimeSeries>(v);
+    }
   } else {
-    if (isSpatial)
+    if (isSpatial) {
       d->map = newDataSubType<pcrxml::Map>(v);
-    else {
+    } else {
       d->nonSpatial = newDataSubType<pcrxml::NonSpatial>(v);
-      if (isConstantBinding())
+      if (isConstantBinding()) {
         d->nonSpatial->value = initialValue();
+      }
     }
   }
 }

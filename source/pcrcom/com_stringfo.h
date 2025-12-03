@@ -43,8 +43,9 @@ public:
     \param     value Value to add to string.
   */
   void operator()(const std::string& value) {
-    if (!d_str.empty())
+    if (!d_str.empty()) {
      d_str += d_delim;
+    }
     d_str += value;
   }
 

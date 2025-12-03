@@ -18,8 +18,9 @@ calc::StdoutStatement::StdoutStatement(calc::FieldExpr *right) : calc::Statement
 
 bool calc::StdoutStatement::buildTypes()
 {
-  if (d_expr->spatial())  // pcrcalc/test20
+  if (d_expr->spatial()) {  // pcrcalc/test20
     posError(FORGOT_ASS);
+  }
   return false;
 }
 
@@ -38,8 +39,9 @@ void calc::StdoutStatement::run()
   POSTCOND(f);
 
   double val = f->getValue();
-  if (d_expr->vs() == VS_D)  // pcrcalc/test7[67]
+  if (d_expr->vs() == VS_D) {  // pcrcalc/test7[67]
     val = AppOutputDirection(val);
+  }
   script().processFileOutputValue(val);
 }
 

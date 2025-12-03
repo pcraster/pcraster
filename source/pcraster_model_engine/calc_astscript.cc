@@ -64,8 +64,9 @@ struct Check {
     } else {
       PRECOND(d_syms.contains(id->name()));
       const ASTSymbolInfo &a(d_syms[id->name()]);
-      if (!a.isConstant())  // pcrcalc8b
+      if (!a.isConstant()) {  // pcrcalc8b
         notANumber(id, name);
+      }
       value = a.constantValue();
     }
     if ((!isIn(VS_N, id->returnDataType().vs())) || value < 0) {
@@ -90,8 +91,9 @@ struct Check {
 calc::ASTScript::ASTScript()
 
 {
-  if (appClone)
+  if (appClone) {
     setAreaMapFromString(appClone, "--clone");
+  }
 }
 
 void calc::ASTScript::setAreaMapFromString(std::string const &value, std::string const &positionText)
@@ -199,15 +201,17 @@ void calc::ASTScript::applyInterface()
   // 2) apply bindings
   // make set of syms defined in interface
   std::set<std::string> interfaceSyms;
-  for (auto &i : d_interface)
+  for (auto &i : d_interface) {
     interfaceSyms.insert(i.name());
+  }
   bt.applyToSymbols(d_symbols, interfaceSyms);
 
   // 3) apply interface
   for (auto &i : d_interface) {
     auto s = d_symbols.find(i.name());
-    if (s != d_symbols.end())
+    if (s != d_symbols.end()) {
       s->second.setInfo(i);
+    }
   }
 }
 
@@ -217,8 +221,9 @@ void calc::ASTScript::applyInterface()
  */
 void calc::ASTScript::compile()
 {
-  if (!d_rteSettings.compile())
+  if (!d_rteSettings.compile()) {
     return;
+  }
 
   std::vector<PointCodeBlock *> const l = insertPointCodeBlocks(d_symbols, d_code, d_cfgCode);
   d_pointCodeBlockDll = new PointCodeBlockDll(l);
@@ -303,8 +308,9 @@ void calc::ASTScript::analyzeNoContextUnChecked()
   buildTypesFullClosure();
 
 
-  if (d_rteSettings.useDiskStorage())
+  if (d_rteSettings.useDiskStorage()) {
     d_symbols.checkDifferentExternalNames();
+  }
 }
 
 void calc::ASTScript::resolve()
@@ -323,8 +329,9 @@ void calc::ASTScript::resolveUnChecked()
 {
 
   std::string areaMap;
-  if (d_areaMap)
+  if (d_areaMap) {
     areaMap = d_areaMap->name();
+  }
 
   // possible first time to see if it IS reported
   // NOTE never call setReport for the first time
@@ -340,8 +347,9 @@ void calc::ASTScript::resolveUnChecked()
   // that might came up from a read timeseries in resolve()
   setReports();
 
-  if (containsDynamicSection() && !t.dynamic())
+  if (containsDynamicSection() && !t.dynamic()) {
     d_code->posError("There is a dynamic section but no timer section");
+  }
 }
 
 /* \brief analyzeNoContext() followed by resolve()
@@ -358,19 +366,22 @@ void calc::ASTScript::analyzeAndResolve()
 void calc::ASTScript::setReports()
 {
   Timer t = timer();
-  if (!t.lastInt())
+  if (!t.lastInt()) {
     t.setLastInt(1);
+  }
 
   d_reports.update(t);
 
   bool reportLastAssOfEverySymbol =
       !d_containsDynamicSection && d_interface.empty() && !d_hasStatementWithReportKeyword;
-  if (d_reportOnlyForXMLScriptOutput)
+  if (d_reportOnlyForXMLScriptOutput) {
     reportLastAssOfEverySymbol = true;
+  }
 
   ReportVisitor rv(reportLastAssOfEverySymbol, d_reports, t);
-  if (d_code)
+  if (d_code) {
     d_code->accept(rv);
+  }
 
   ReportPars const rps(rv.reportPars());
   for (auto &rp : rps) {
@@ -481,11 +492,13 @@ calc::Timer calc::ASTScript::timer() const
 {
   Timer timer;
 
-  if (d_externalTimer)
+  if (d_externalTimer) {
     return *d_externalTimer;
+  }
 
-  if (!d_timerStartOrTss)
+  if (!d_timerStartOrTss) {
     return timer;  // no timer section, static model
+  }
 
   // else analyze d_timerStartOrTss
 

@@ -11,12 +11,15 @@
  */
 CSF_CR calc::biggestCellRepr(VS vsSet) /* set of value scales */
 {
-  if (isIn(VS_SD, vsSet))
+  if (isIn(VS_SD, vsSet)) {
     return CR_REAL4;
-  if (isIn(VS_NO, vsSet))
+  }
+  if (isIn(VS_NO, vsSet)) {
     return CR_INT4;
-  if (isIn(VS_BL, vsSet))
+  }
+  if (isIn(VS_BL, vsSet)) {
     return CR_UINT1;
+  }
   POSTCOND(false);  // NEVER
   return CR_REAL4;
 }
@@ -26,8 +29,9 @@ CSF_CR calc::biggestCellRepr(VS vsSet) /* set of value scales */
  */
 size_t calc::bytesPerCell(VS vs)
 {
-  if (biggestCellRepr(vs) == CR_UINT1)
+  if (biggestCellRepr(vs) == CR_UINT1) {
     return 1;
+  }
   return 4;
 }
 

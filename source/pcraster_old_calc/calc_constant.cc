@@ -27,8 +27,9 @@ calc::Constant::Constant(const Symbol &castFunctionName, VS castDestination, con
         << toString(castDestination) + "' value";
     posError(msg);
   }
-  if (castDestination == VS_D)  // pcrcalc/test71
+  if (castDestination == VS_D) {  // pcrcalc/test71
     d_value = AppInputDirection(d_value);
+  }
 }
 
 calc::FieldType &calc::Constant::restrictType()
@@ -43,8 +44,9 @@ void calc::Constant::buildTypes()
 
 void calc::Constant::buildTypesRecursive(VS resultVsSet)
 {
-  if (isSubset(resultVsSet, vs()))  // expr is polymorphic
+  if (isSubset(resultVsSet, vs())) {  // expr is polymorphic
     d_type.restrictSystem(resultVsSet, false);
+  }
 }
 
 void calc::Constant::prepareExecution()

@@ -37,40 +37,48 @@ void Do_pred(INT4 *val, size_t n)
 {
   size_t i = 0;
 
-  for (i = 0; i < n; i++)
-    if (val[i] != MV_INT4 && val[i] > INT4_MIN)
+  for (i = 0; i < n; i++) {
+    if (val[i] != MV_INT4 && val[i] > INT4_MIN) {
       val[i]--;
+    }
+  }
 }
 
 void Do_succ(INT4 *val, size_t n)
 {
   size_t i = 0;
 
-  for (i = 0; i < n; i++)
-    if (val[i] != MV_INT4 && val[i] < INT4_MAX)
+  for (i = 0; i < n; i++) {
+    if (val[i] != MV_INT4 && val[i] < INT4_MAX) {
       val[i]++;
+    }
+  }
 }
 
 void Do_not(UINT1 *val, size_t n)
 {
   size_t i = 0;
 
-  for (i = 0; i < n; i++)
-    if (val[i] != MV_UINT1)
+  for (i = 0; i < n; i++) {
+    if (val[i] != MV_UINT1) {
       val[i] = (UINT1)(!(val[i]));
+    }
+  }
 }
 
 void Do_sqrt(REAL4 *val, size_t n)
 {
   size_t i = 0;
 
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(val + i)) {
-      if (val[i] >= (REAL4)0.0)
+      if (val[i] >= (REAL4)0.0) {
         val[i] = (REAL4)sqrt(val[i]);
-      else
+      } else {
         SET_MV_REAL4(val + i);
+      }
     }
+  }
 }
 
 /*  trigonometric and other mathematical functions :
@@ -108,13 +116,15 @@ void Do_acos(REAL4 *val, size_t n)
 {
   size_t i = 0;
 
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(val + i)) {
-      if (fabs(val[i]) > (REAL4)1.0)
+      if (fabs(val[i]) > (REAL4)1.0) {
         SET_MV_REAL4(val + i);
-      else
+      } else {
         val[i] = (REAL4)acos(val[i]);
+      }
     }
+  }
 }
 
 void Do_asin(REAL4 *val, size_t n)
@@ -122,16 +132,17 @@ void Do_asin(REAL4 *val, size_t n)
   size_t i = 0;
   double t = NAN;
 
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(val + i)) {
       t = val[i];
-      if (fabs(t) > 1.0)
+      if (fabs(t) > 1.0) {
         SET_MV_REAL4(val + i);
-      else {
+      } else {
         t = asin(t);
         val[i] = (REAL4)ScaleRad(t);
       }
     }
+  }
 }
 
 void Do_atan(REAL4 *val, size_t n)
@@ -139,11 +150,12 @@ void Do_atan(REAL4 *val, size_t n)
   size_t i = 0;
   double t = NAN;
 
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(val + i)) {
       t = atan(val[i]);
       val[i] = (REAL4)ScaleRad(t);
     }
+  }
 }
 
 void Do_tan_d(REAL4 *val, size_t n)
@@ -152,48 +164,56 @@ void Do_tan_d(REAL4 *val, size_t n)
   REAL4 tan_mv1 = (REAL4)(M_PI * 0.5);
   REAL4 tan_mv2 = (REAL4)(M_PI * 1.5);
 
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(val + i)) {
-      if ((val[i] == -1) || tan_mv1 == val[i] || tan_mv2 == val[i])
+      if ((val[i] == -1) || tan_mv1 == val[i] || tan_mv2 == val[i]) {
         SET_MV_REAL4(val + i);
-      else
+      } else {
         val[i] = (REAL4)tan(val[i]);
+      }
     }
+  }
 }
 
 void Do_sin_d(REAL4 *val, size_t n)
 {
   size_t i = 0;
 
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(val + i)) {
-      if (val[i] != (REAL4)-1)
+      if (val[i] != (REAL4)-1) {
         val[i] = (REAL4)sin(val[i]);
-      else
+      } else {
         SET_MV_REAL4(val + i);
+      }
     }
+  }
 }
 
 void Do_cos_d(REAL4 *val, size_t n)
 {
   size_t i = 0;
 
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(val + i)) {
-      if (val[i] != (REAL4)-1)
+      if (val[i] != (REAL4)-1) {
         val[i] = (REAL4)cos(val[i]);
-      else
+      } else {
         SET_MV_REAL4(val + i);
+      }
     }
+  }
 }
 
 int Do_s_2_d(REAL4 *v, size_t n)
 {
   size_t i = 0;
   double (*f)(double x) = (appDirection == APP_RADIANS) ? ScaleRad : Deg2Rad;
-  for (i = 0; i < n; i++)
-    if ((!IS_MV_REAL4(v + i)))
+  for (i = 0; i < n; i++) {
+    if ((!IS_MV_REAL4(v + i))) {
       v[i] = (REAL4)f(v[i]);
+    }
+  }
   return 0;
 }
 
@@ -219,26 +239,30 @@ void Do_ln(REAL4 *val, size_t n)
 {
   size_t i = 0;
 
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(val + i)) {
-      if (val[i] > (REAL4)0.0)
+      if (val[i] > (REAL4)0.0) {
         val[i] = (REAL4)log(val[i]);
-      else
+      } else {
         SET_MV_REAL4(val + i);
+      }
     }
+  }
 }
 
 void Do_log10(REAL4 *val, size_t n)
 {
   size_t i = 0;
 
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(val + i)) {
-      if (val[i] > (REAL4)0.0)
+      if (val[i] > (REAL4)0.0) {
         val[i] = (REAL4)log10(val[i]);
-      else
+      } else {
         SET_MV_REAL4(val + i);
+      }
     }
+  }
 }
 
 /* up to 34 is ok, 35 => infinite
@@ -247,7 +271,7 @@ void Do_fac(REAL4 *val, size_t n)
 {
   size_t i = 0;
 
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(val + i)) {
       float v = floor(val[i]);
       if (v > (REAL4)0.0 && v <= (REAL4)34.0 && v == val[i]) {
@@ -258,9 +282,11 @@ void Do_fac(REAL4 *val, size_t n)
           n += 1;
         }
         val[i] = r;
-      } else
+      } else {
         SET_MV_REAL4(val + i);
+      }
     }
+  }
 }
 
 #define REAL4_UN_FUNC(funcName, funcOp)                                                                 \

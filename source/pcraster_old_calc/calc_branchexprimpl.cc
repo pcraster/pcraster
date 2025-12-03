@@ -140,12 +140,15 @@ class OpTimer
 
   static int getTimer(const calc::Operator &o)
   {
-    if (o.name() == "*")
+    if (o.name() == "*") {
       return 1;
-    if (o.name() == "+")
+    }
+    if (o.name() == "+") {
       return 2;
-    if (o.name() == "/")
+    }
+    if (o.name() == "/") {
       return 3;
+    }
     /*
   if (eo.inSet(o.name().c_str()))
       return 4;
@@ -190,8 +193,9 @@ static size_t nrCells(const calc::FieldHandle &o1, const calc::FieldHandle &o2)
 
 static void checkMv(const calc::Operator &op, const calc::FieldHandle &v)
 {
-  if (v->isMv())
+  if (v->isMv()) {
     throw std::runtime_error("Domain error on function/operator " + op.name());
+  }
 }
 
 /* return the proper value scale conversion based
@@ -323,10 +327,11 @@ void calc::BranchExprImpl::executeOperation(const calc::Operator &implOp, calc::
 
       FieldHandle const top = stack.popReadOnly();
       FieldHandle const under = stack.popReadOnly();
-      if (resultPos)
+      if (resultPos) {
         stack.push(top);  // result on top
-      else
+      } else {
         stack.push(under);
+      }
     } break;
     case EXEC_SAME_UN:
       execSameUn(implOp, stack);
@@ -442,7 +447,7 @@ void calc::BranchExprImpl::execDiffUn(const calc::Operator &op, calc::FieldStack
 
   FieldHandle res = createResultField();
   FieldsPopped inp(stack, 1);
-  if (!inp[0]->isSpatial())
+  if (!inp[0]->isSpatial()) {
     switch (op.opCode()) {
         // these 2 always have spatial result, no matter if their
         // argument is spatial or not.
@@ -453,6 +458,7 @@ void calc::BranchExprImpl::execDiffUn(const calc::Operator &op, calc::FieldStack
         f = (DO_DIFF_UN)Do_normal_1;
       default:;
     }
+  }
   // note that one or both can be nonspatial
   f(res->destValue(), inp[0]->srcValue(), nrCells(inp[0], res));
   checkMv(op, res);
@@ -534,8 +540,9 @@ typedef enum FIELD_ARG {
 
 static FIELD_ARG fieldArg(bool leftSpatial, bool rightSpatial)
 {
-  if (leftSpatial)
+  if (leftSpatial) {
     return rightSpatial ? SS : SN;
+  }
   return rightSpatial ? NS : NN;
 }
 
@@ -585,8 +592,9 @@ void calc::BranchExprImpl::execDiffBin(const calc::Operator &op, calc::FieldStac
 void calc::BranchExprImpl::execSameBin(const calc::Operator &op, calc::FieldStack &stack,
                                        bool leftSpatial, bool rightSpatial, bool argsAlreadyOnStack)
 {
-  if (!argsAlreadyOnStack)
+  if (!argsAlreadyOnStack) {
     executeArgs(stack);
+  }
   PRECOND(op.exec() == EXEC_SAME_BIN);
   /* 0 = SS, NN
    * 1 = NS
@@ -799,9 +807,10 @@ void calc::BranchExprImpl::execGlob(const Operator &implOp, FieldStack &stack)
   GlobResult const result(implOp.vs(), vs(), compressor());
   GlobArgs args(implOp, compressor(), stack);
 
-  if (f(result.MAPinterface(), args.mapVals()))
+  if (f(result.MAPinterface(), args.mapVals())) {
     FieldExpr::runtimeError(  // pcrcalc/test348
         std::string("Domain error on function/operator " + op().name() + ":\n" + getLibError()));
+  }
 
   stack.push(result.createField());
 }

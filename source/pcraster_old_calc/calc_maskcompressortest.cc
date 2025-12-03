@@ -107,8 +107,9 @@ BOOST_AUTO_TEST_CASE(script)
     for (size_t c = 0; c < rs.nrCols(); c++) {
       mask[r][c] = (r < c) ? MV_UINT1 : (r < rs.nrCols());
       pcr::setMV(result[r][c]);
-      if (mask[r][c] == 1)
+      if (mask[r][c] == 1) {
         result[r][c] = count++;
+      }
     }
   }
   std::fill_n(area[0], rs.nrCells(), count - 1);
@@ -162,13 +163,15 @@ BOOST_AUTO_TEST_CASE(_0_option)
   UINT1 **mask = com::new2d<UINT1>(rs.nrRows(), rs.nrCols());
   REAL4 **result = com::new2d<REAL4>(rs.nrRows(), rs.nrCols());
 
-  for (size_t r = 0; r < rs.nrRows(); r++)
+  for (size_t r = 0; r < rs.nrRows(); r++) {
     for (size_t c = 0; c < rs.nrCols(); c++) {
       mask[r][c] = (r < c) ? MV_UINT1 : (r < rs.nrCols());
       pcr::setMV(result[r][c]);
-      if (mask[r][c] == 1)
+      if (mask[r][c] == 1) {
         result[r][c] = 1;
+      }
     }
+  }
 
   {
     geo::CSFMap mFile(std::string("zeroComprMask.map"), rs, VS_BOOLEAN);

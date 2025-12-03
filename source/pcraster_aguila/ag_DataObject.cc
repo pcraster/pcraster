@@ -1218,39 +1218,50 @@ void DataObject::setXML(DataGuide const &guide, pcrxml::DrawProperties const &dp
 {
   if (dp.legendBorderValuesType().present()) {
     pcrxml::LegendBorderValuesType const &l(dp.legendBorderValuesType().get());
-    if (l.rounded().present())
+    if (l.rounded().present()) {
       setClassificationMode(guide, com::Classifier::AUTO, false);
-    if (l.exact().present())
+    }
+    if (l.exact().present()) {
       setClassificationMode(guide, com::Classifier::EXACT, false);
+    }
   }
 
-  if (dp.minimumCutOff().present() && dp.maximumCutOff().present())
+  if (dp.minimumCutOff().present() && dp.maximumCutOff().present()) {
     setCutoffs(guide, dp.minimumCutOff().get(), dp.maximumCutOff().get(), false);
-  if (dp.minimumCutOff().present())
+  }
+  if (dp.minimumCutOff().present()) {
     setMinCutoff(guide, dp.minimumCutOff().get(), false);
-  if (dp.maximumCutOff().present())
+  }
+  if (dp.maximumCutOff().present()) {
     setMaxCutoff(guide, dp.maximumCutOff().get(), false);
+  }
 
-  if (dp.numberOfColours().present())
+  if (dp.numberOfColours().present()) {
     setNrClasses(guide, dp.numberOfColours().get(), false);
+  }
   if (dp.colourAssignment().present()) {
     pcrxml::ColourAssignment const &ca(dp.colourAssignment().get());
-    if (ca.linear().present())
+    if (ca.linear().present()) {
       setClassificationAlgorithm(guide, com::Classifier::LIN, false);
-    if (ca.trueLogarithmic().present())
+    }
+    if (ca.trueLogarithmic().present()) {
       setClassificationAlgorithm(guide, com::Classifier::LOG, false);
-    if (ca.shiftedLogarithmic().present())
+    }
+    if (ca.shiftedLogarithmic().present()) {
       setClassificationAlgorithm(guide, com::Classifier::TLOG, false);
+    }
     if (ca.confidenceLevel().present()) {
       // NOT YET configurable from here
     }
   }
   if (dp.drawMode().present()) {
     pcrxml::DrawMode const &dm(dp.drawMode().get());
-    if (dm.fill())
+    if (dm.fill()) {
       setDrawerType(guide, COLOURFILL, false);
-    if (dm.contour())
+    }
+    if (dm.contour()) {
       setDrawerType(guide, CONTOUR, false);
+    }
   }
 
   if (dp.palette().present()) {

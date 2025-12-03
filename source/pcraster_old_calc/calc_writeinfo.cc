@@ -22,8 +22,9 @@ bool calc::WriteInfo::isWritten() const
 
 const calc::Report *calc::WriteInfo::report() const
 {
-  if (d_report != nullptr)
+  if (d_report != nullptr) {
     return d_report;
+  }
   return d_script->reportDefault();
 }
 

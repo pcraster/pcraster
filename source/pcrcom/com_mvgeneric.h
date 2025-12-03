@@ -53,8 +53,9 @@ UnaryProc forEachNonMV(
          UnaryProc     op)
 {
   while(begin != end) {
-    if(!pcr::isMV(*begin))
+    if(!pcr::isMV(*begin)) {
       op(*begin);
+    }
     ++begin;
   }
   return op;
@@ -154,8 +155,9 @@ template<
          BinaryProc     op)
      {
        for(size_t i=0; i < n; ++i) {
-         if (!(pcr::isMV(ar1[i])|pcr::isMV(ar2[i])))
+         if (!(pcr::isMV(ar1[i])|pcr::isMV(ar2[i]))) {
            op(ar1[i],ar2[i]);
+         }
        }
        return op;
      }
@@ -184,8 +186,9 @@ template<typename T1,
   // equal length or one of them "non-spatial"
   PRECOND(len1 == len2 || len1 == 1 || len2 == 1);
 
-  if (len1 == len2)
+  if (len1 == len2) {
     return forEachNonMV(v1,v2,len1,op);
+  }
 
   if (len1 == 1) {
     NonSpatialContainer<T1> const nsc1(*v1);
@@ -218,8 +221,9 @@ template<typename T1,
   // equal length or only v2 "non-spatial"
   PRECOND(len1 == len2 || (len1 > 1 && len2 == 1));
 
-  if (len1 == len2)
+  if (len1 == len2) {
     return forEachNonMV(v1,v2,len1,op);
+  }
 
   POSTCOND(len2 == 1);
   NonSpatialContainer<T2> const nsc2(*v2);

@@ -168,8 +168,9 @@ template<class T>
 inline bool IRaster<T>::cell(T& value, size_t r, size_t c) const
 {
   DEVELOP_PRECOND(!isOutside(r,c));
-  if (isMV(r,c))
+  if (isMV(r,c)) {
     return false;
+  }
   value=cell(r,c);
   return true;
 }
@@ -184,8 +185,9 @@ inline bool IRaster<T>::cell(T& value, size_t r, size_t c) const
 template<class T>
 inline bool IRaster<T>::cell(T& value, int r, int c) const
 {
-  if(isOutside(r, c))
+  if(isOutside(r, c)) {
     return false;
+  }
   return cell(value,static_cast<size_t>(r),
                     static_cast<size_t>(c));
 }

@@ -39,15 +39,17 @@ namespace com {
 template<class Container>
   void copyClone(const Container& src,Container& dest)
   {
-    for(auto i=src.begin(); i!=src.end(); ++i)
+    for(auto i=src.begin(); i!=src.end(); ++i) {
       dest.push_back((*i)->createClone());
+    }
   }
 
 template<class Container>
   void deleteCloneContainer(const Container& src)
   {
-    for(auto i=src.begin(); i!=src.end(); ++i)
+    for(auto i=src.begin(); i!=src.end(); ++i) {
       delete *i;
+    }
   }
 
 template<class Container>
@@ -60,8 +62,9 @@ template<class Container>
 //! return src->createClone() or 0 if src is 0
 template<class O>
  O *non0Clone(const O* src) {
-   if (!src)
+   if (!src) {
      return nullptr;
+   }
    return src->createClone();
  }
 
@@ -75,8 +78,9 @@ template<class O>
 //! return <b>new O(*src)</b> or 0 if src is 0 (not a clone thing)
 template<class O>
  O *non0CopyCtor(const O* src) {
-   if (!src)
+   if (!src) {
      return nullptr;
+   }
    return new O(*src);
  }
 } // namespace com

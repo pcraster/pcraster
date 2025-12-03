@@ -66,8 +66,9 @@ public:
       StatTable::InputMap in;
       in.d_name = pcrxsd::toString(i.fieldRef());
       in.d_field = new ASTPar(pcrxsd::toString(i.fieldRef()));
-      if (i.intervalRef())
+      if (i.intervalRef()) {
         in.d_intervals = new ASTPar(pcrxsd::toString(i.intervalRef()));
+      }
       maps.push_back(in);
     }
     if (maps.size() == 1) {
@@ -129,8 +130,9 @@ public:
   void updateUsedSymbols(pcrxml::Definition const &d)
   {
     auto si = d_table.find(d.name());
-    if (si == d_table.end())
+    if (si == d_table.end()) {
       return;  // not found
+    }
 
     ASTSymbolInfo &i(si->second);
     i.setDefinition(d);
@@ -240,8 +242,9 @@ ASTScript *XMLScriptClientInterface::createScriptAndAnalyzeNoContext()
   if (d_xml->timer()) {
     Timer t;
     t.setStartInt(d_xml->timer()->integer().start());
-    if (d_xml->timer()->integer().end().present())
+    if (d_xml->timer()->integer().end().present()) {
       t.setLastInt(d_xml->timer()->integer().end().get());
+    }
     script->setExternalTimer(t);
   }
 

@@ -32,8 +32,9 @@ private:
   void visitExpr(BaseExpr *e) override
   {
     Operator const &op(e->op());
-    if (op.opCode() == OP_TIMEOUTPUT)
+    if (op.opCode() == OP_TIMEOUTPUT) {
       d_timeoutput = true;
+    }
     if (op.isDynamicSectionOperation()) {
       if (!d_inDynamicSection) {
         // pcrcalc37
@@ -57,8 +58,9 @@ private:
   {
     d_timeoutput = false;
     s->stat()->accept(*this);
-    if (d_timeoutput && !s->reportParsed())
+    if (d_timeoutput && !s->reportParsed()) {
       s->setReportParsed(true);
+    }
   }
 };
 }  // namespace detail

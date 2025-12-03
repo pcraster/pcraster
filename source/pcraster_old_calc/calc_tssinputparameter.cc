@@ -11,8 +11,9 @@ calc::TssInputParameter::TssInputParameter(const calc::ParsPar &par, bool consta
 
 calc::TssInputParameter::~TssInputParameter()
 {
-  for (auto &d_val : d_vals)
+  for (auto &d_val : d_vals) {
     delete d_val;
+  }
 }
 
 calc::TimeTable *calc::TssInputParameter::value(size_t i)

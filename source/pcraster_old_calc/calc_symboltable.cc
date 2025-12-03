@@ -22,10 +22,11 @@ calc::SymbolTable::~SymbolTable()
   std::vector<calc::UserSymbol *> indexCont;
   for (auto &p : d_table) {
     calc::UserSymbol *u = p.second;
-    if (!isIn(u->symbolType(), VS_INDEX_CONTAINER))
+    if (!isIn(u->symbolType(), VS_INDEX_CONTAINER)) {
       delete u;
-    else
+    } else {
       indexCont.push_back(u);
+    }
   }
   com::forWhole(indexCont, com::Delete<UserSymbol>());
 }
@@ -44,8 +45,9 @@ void calc::SymbolTable::print(calc::InfoScript &i) const
 calc::UserSymbol *calc::SymbolTable::find(const std::string &name) const
 {
   auto p = d_table.find(name);
-  if (p != d_table.end())
+  if (p != d_table.end()) {
     return p->second;
+  }
   return nullptr;
 }
 
@@ -53,10 +55,12 @@ calc::UserSymbol *calc::SymbolTable::find(const class calc::Symbol *sym, VS type
                                           bool mustExist) const
 {
   calc::UserSymbol *u = find(sym->name());
-  if ((!u) && d_parentBlock)
+  if ((!u) && d_parentBlock) {
     u = d_parentBlock->findSymbol(sym, typesExpected, mustExist);
-  if ((!u) && mustExist)
+  }
+  if ((!u) && mustExist) {
     sym->posError(sym->qName() + " not defined");
+  }
   if (u) {
     if (!isIn(u->symbolType(), typesExpected)) {
       // pcrcalc/test265  GPF'ed bcc55/release mode if posError with +'ed
@@ -108,14 +112,16 @@ void calc::SymbolTable::goInScope()
   // std::vector<UserSymbol *> d_t;
   // com::forWhole(d_t,std::mem_fun(&UserSymbol::goInScope));
 
-  for (auto &p : d_table)
+  for (auto &p : d_table) {
     p.second->goInScope();
+  }
 }
 
 void calc::SymbolTable::finalCheck()
 {
-  for (auto &p : d_table)
+  for (auto &p : d_table) {
     p.second->finalCheck();
+  }
 }
 
 calc::SubParameter *calc::SymbolTable::findParameter(const calc::ParsPar &par, VS expectedVs,
@@ -155,14 +161,16 @@ void calc::SymbolTable::createXmlData(std::vector<pcrxml::Data *> &addHere) cons
 {
   //  in order of definition
   std::vector<const UserSymbol *> inDefOrder;
-  for (const auto &p : d_table)
+  for (const auto &p : d_table) {
     inDefOrder.push_back(p.second);
+  }
   //  std::sort(inDefOrder.begin(),inDefOrder.end(),lessThan);
 
   for (auto &i : inDefOrder) {
     pcrxml::Data *d = i->createXmlData();
-    if (d)
+    if (d) {
       addHere.push_back(d);
+    }
   }
 }
 
@@ -180,13 +188,15 @@ void calc::SymbolTable::setArcViewExtCheckData(std::vector<ArcViewExtCheckData> 
     switch (i->ioType()) {
       case pcrxml::IoType::Output:
       case pcrxml::IoType::Both: {
-        if (!(i->stack || i->map))
+        if (!(i->stack || i->map)) {
           break;  // only stacks or maps can be in foreign (ArcView) format
+        }
         com::PathName pn;
-        if (i->externalFileName.present())
+        if (i->externalFileName.present()) {
           pn = i->externalFileName();
-        else
+        } else {
           pn = i->name();
+        }
         pn.makeAbsolute();
         r.push_back(ArcViewExtCheckData(i->stack != nullptr, pn.toString()));
       }

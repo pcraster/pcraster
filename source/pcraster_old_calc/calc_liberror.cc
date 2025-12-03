@@ -17,10 +17,11 @@ extern "C" void HandleLibError(const char *msg)
 void libError(const std::string &msg)
 {
   // now let old style Error function call HandleLibError
-  if (!errorHandlerCalled)
+  if (!errorHandlerCalled) {
     Error(msg.c_str());
-  else
+  } else {
     libErrorStr = msg + libErrorStr;
+  }
 
   throwLibError();
 }

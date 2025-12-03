@@ -12,6 +12,7 @@ const calc::ArrayDefinition *calc::IndexContainer::partOf() const
 
 void calc::IndexContainer::addActiveToSet(Set &setToBeAddedTo) const
 {
-  if (isOn())
+  if (isOn()) {
     addToSet(setToBeAddedTo);
+  }
 }

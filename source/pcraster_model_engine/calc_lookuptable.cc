@@ -63,8 +63,9 @@ public:
   {
 
     d_values.clear();
-    if (!memoryArray)
+    if (!memoryArray) {
       return;
+    }
 
     std::vector<size_t> dimensionSize;
 
@@ -77,16 +78,18 @@ public:
     }
 
     // current limitation
-    if (dimensionSize.size() != 1)
+    if (dimensionSize.size() != 1) {
       throw std::range_error("Only 1 dimension supported");
+    }
 
     // copy the values
     // FTTB only 1-dimension
     dimensions++;
     auto const *values((ArrayValueDataType const *)dimensions);
     d_values.reserve(dimensionSize[0]);
-    for (size_t i = 0; i < dimensionSize[0]; ++i)
+    for (size_t i = 0; i < dimensionSize[0]; ++i) {
       d_values.push_back(values[i]);
+    }
   }
 
   /*!
@@ -96,11 +99,13 @@ public:
   bool find(double &result, const std::vector<float> &prefixKey) const override
   {
     PRECOND(!d_values.empty());  // catched in LookupTable::load()
-    if (prefixKey.size() != 1)
+    if (prefixKey.size() != 1) {
       throw std::range_error("Only 1 dimension supported");
+    }
     // INDEX is always 1-based currently, outside that MV return
-    if (prefixKey[0] < 1 || prefixKey[0] > d_values.size())
+    if (prefixKey[0] < 1 || prefixKey[0] > d_values.size()) {
       return false;
+    }
     size_t const i(prefixKey[0] - 1);
     result = d_values[i];
     return true;
@@ -119,13 +124,15 @@ LOOK_UP_TABLE *calc::LookupTable::createOldStyle(const std::string &fileName)
 {
   LOOK_UP_TABLE *t(nullptr);
   FILE *f = fopen(fileName.c_str(), "r");
-  if (!f)
+  if (!f) {
     libError("Can't open lookup table " + quote(fileName));
+  }
 
   try {
     std::vector<CSF_VS> csfVs(d_vs.size());
-    for (size_t i = 0; i < d_vs.size(); i++)
+    for (size_t i = 0; i < d_vs.size(); i++) {
       csfVs[i] = vs2CsfVs(biggestVs(d_vs[i]));
+    }
     // discern between last (back) and rest of columns
     t = ReadLookupTable(f, &(csfVs[0]), csfVs.size() - 1, csfVs.back());
     if (!t) {
@@ -153,12 +160,14 @@ calc::LookupTable::LookupTable()
 calc::LookupTable::LookupTable(const ASTSymbolInfo &i) : d_vs(i.dataType().resultType())
 {
   std::vector<VS> vs(i.dataType().tableColTypes());
-  if (vs.empty())
+  if (vs.empty()) {
     vs.push_back(VS_S);
-  if (i.lookupTable())
+  }
+  if (i.lookupTable()) {
     setXMLRecords(*(i.lookupTable()), vs);
-  else
+  } else {
     setRecords(i.externalName(), vs);
+  }
   // TODO check sizes / rectangle
 }
 
@@ -250,8 +259,9 @@ calc::DataValue *calc::LookupTable::load()
 {
   // now we need! it
   if (d_memoryInputTableCreator) {
-    if (d_memoryInputTableCreator->empty())
+    if (d_memoryInputTableCreator->empty()) {
       throw std::range_error("0-ptr data buffer passed");
+    }
   }
   return this;
 }
@@ -281,8 +291,9 @@ calc::LookupTable::const_iterator calc::LookupTable::find(const Key &prefixKey) 
  */
 bool calc::LookupTable::find(double &result, const Key &prefixKey) const
 {
-  if (d_memoryInputTableCreator)
+  if (d_memoryInputTableCreator) {
     return d_memoryInputTableCreator->find(result, prefixKey);
+  }
 
   PRECOND(prefixKey.size() == nrCols() - 1);
 
@@ -315,8 +326,9 @@ bool calc::LookupTable::interpolate(
   PRECOND(prefixKey.size() == 1);  // FTTB
 
   auto i = d_prefixMap->find(prefixKey[0]);
-  if (i == d_prefixMap->end())
+  if (i == d_prefixMap->end()) {
     return false;
+  }
   return interpolate(result, i->second.first, i->second.second, keyValue, keyCol, resultCol);
 
   /*
@@ -345,23 +357,26 @@ bool calc::LookupTable::interpolate(double &result, const_iterator begin, const_
                                     double keyValue, size_t keyCol, size_t resultCol) const
 {
 #ifdef DEBUG_DEVELOP
-  for (auto i = begin; i != (end - 1); ++i)
+  for (auto i = begin; i != (end - 1); ++i) {
     DEVELOP_PRECOND(i->col(keyCol) < (i + 1)->col(keyCol));
+  }
 #endif
   DEVELOP_PRECOND(end <= d_records.end());
 
   // first element that has a value >= keyValue
   auto gt = std::lower_bound(begin, end, keyValue, RelationRecordColLess(keyCol));
-  if (gt == end)
+  if (gt == end) {
     return false;
+  }
   // is keyValue equal to gt ?
   if (gt->col(keyCol).valid(keyValue)) {
     result = gt->col(resultCol).centre();
     return true;
   }
   // then > gt
-  if (gt == begin)
+  if (gt == begin) {
     return false;  // before begin
+  }
 
   // thus value between (gt-1) and gt
   auto lt = gt - 1;
@@ -381,19 +396,22 @@ bool calc::LookupTable::interpolate(double &result, const_iterator begin, const_
 void calc::LookupTable::setPrefixStableSort([[maybe_unused]] size_t prefixLen)
 {
   // already constructed
-  if (d_prefixMap)
+  if (d_prefixMap) {
     return;
+  }
 
 #ifdef DEBUG_DEVELOP
   // current limitations
   PRECOND(prefixLen == 1);
-  for (auto i = d_records.begin(); i != d_records.end(); ++i)
+  for (auto i = d_records.begin(); i != d_records.end(); ++i) {
     DEVELOP_PRECOND(i->col(0).equalTo());
+  }
 #endif
 
   d_prefixMap = new detail::LookupTablePrefixMap();
-  if (d_records.empty())
+  if (d_records.empty()) {
     return;  // done
+  }
   std::stable_sort(d_records.begin(), d_records.end(), RelationRecordColLess(0));
 
 
@@ -407,8 +425,9 @@ void calc::LookupTable::setPrefixStableSort([[maybe_unused]] size_t prefixLen)
     }
     k = begin->col(0).centre();
   }
-  if (begin != d_records.end())
+  if (begin != d_records.end()) {
     d_prefixMap->insert(std::make_pair(k, std::make_pair(begin, d_records.end())));
+  }
 }
 
 calc::OVS calc::LookupTable::ovs() const

@@ -78,8 +78,9 @@ void calc::DataTypeChanger::incr(size_t nrNewChanges)
 //! update the DataType, register changes
 void calc::DataTypeChanger::update(DataType &toUpdate, const DataType &from)
 {
-  if (toUpdate != from)
+  if (toUpdate != from) {
     d_nrChanges++;
+  }
   toUpdate = from;
 }
 

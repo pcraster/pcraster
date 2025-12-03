@@ -502,8 +502,9 @@ template<class T, size_t n>
 size_t Point<T, n>::indexDirection(Point const& centre) const
 {
   size_t d(0);
-  for(size_t i = 0; i < n; ++i)
+  for(size_t i = 0; i < n; ++i) {
     d |= (d_coords[i] < centre[i])<<i;
+  }
   return d;
 }
 

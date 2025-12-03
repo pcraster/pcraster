@@ -50,8 +50,9 @@ public:
 
   void resetLayout()
   {
-    if (layout())
+    if (layout()) {
       delete layout();
+    }
 
     auto *vbox = new QVBoxLayout(this);
     vbox->addStretch(1);
@@ -75,13 +76,15 @@ public:
       h = std::max<int>(h, (*it)->sizeHint().height());
     }
 
-    for (it = d_pb.begin(); it != d_pb.end(); it++)
+    for (it = d_pb.begin(); it != d_pb.end(); it++) {
       (*it)->setMinimumSize(w, h);
+    }
 
     h += d_pb.size() * h;
 
-    if (!d_pb.empty())
+    if (!d_pb.empty()) {
       h += (d_pb.size() - 1) * layout()->spacing();
+    }
 
     int left = 0;
     int top = 0;

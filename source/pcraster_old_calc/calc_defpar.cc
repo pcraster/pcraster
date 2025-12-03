@@ -8,8 +8,9 @@ calc::DefPar::DefPar(const ConstructPar &p) : ParsPar(p)
 {
   std::vector<const ArrayDefinition *> v(d_index.size());
 
-  for (size_t i = 0; i < d_index.size(); i++)
+  for (size_t i = 0; i < d_index.size(); i++) {
     v[i] = dynamic_cast<const ArrayDefinition *>(d_block->findSymbol(&d_index[i], VS_ARRAY, true));
+  }
   d_descriptor = ArrayDefVector(v);
 }
 

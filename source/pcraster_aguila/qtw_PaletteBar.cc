@@ -39,8 +39,9 @@ qtw::PaletteBar::PaletteBar(const com::RawPalette *pal, QWidget *p)
 
   // Convert the rgb values from the palette to QColors.
   com::RawPalette::const_iterator it;
-  for (it = d_palette->begin(); it != d_palette->end(); it++)
+  for (it = d_palette->begin(); it != d_palette->end(); it++) {
     d_colours.push_back(qt::RgbTupleToQColor(*it, d_palette->max()));
+  }
 }
 
 qtw::PaletteBar::~PaletteBar()
@@ -58,8 +59,9 @@ void qtw::PaletteBar::setPalette(const com::RawPalette *p)
 
   // Convert the rgb values from the palette to QColors.
   com::RawPalette::const_iterator it;
-  for (it = d_palette->begin(); it != d_palette->end(); it++)
+  for (it = d_palette->begin(); it != d_palette->end(); it++) {
     d_colours.push_back(qt::RgbTupleToQColor(*it, d_palette->max()));
+  }
 }
 
 void qtw::PaletteBar::paintEvent(QPaintEvent *)

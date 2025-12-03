@@ -42,8 +42,9 @@ calc::PointCodeBlock::PointCodeBlock(ASTNodeList *partOf, PointCodeIterator begi
 {
 
   auto *l = new ASTNodeList();
-  for (auto i = begin; i != end; ++i)
+  for (auto i = begin; i != end; ++i) {
     l->transferPushBack(*i);
+  }
   d_pointCode = new Code(l);
 
   ScopedCFG const cfg(d_pointCode);
@@ -192,8 +193,9 @@ class ParPCBVector : public std::vector<ParPCB *>
 public:
   ~ParPCBVector()
   {
-    for (auto &i : *this)
+    for (auto &i : *this) {
       delete i;
+    }
   }
 };
 }  // namespace calc
@@ -224,8 +226,9 @@ void calc::PointCodeBlock::exec(RunTimeEnv &rte)
       pcb.setField(rte.popField());
 
       // read/write ?
-      if (pcb.output())
+      if (pcb.output()) {
         pcb.setField(createDestCloneIfReadOnly(pcb.field()));
+      }
     } else {
       // no input, must be output only
       PRECOND(pcb.output());
@@ -237,9 +240,11 @@ void calc::PointCodeBlock::exec(RunTimeEnv &rte)
   execPCB(vector, d_dllFunctionAddress);
 
   // reverse order due to stack assign
-  for (auto i = vector.rbegin(); i != vector.rend(); ++i)
-    if ((*i)->output())
+  for (auto i = vector.rbegin(); i != vector.rend(); ++i) {
+    if ((*i)->output()) {
       rte.pushField((*i)->releaseField());
+    }
+  }
 
   // assign outputs from stack
   rte.assignStackTop(output().toSortedVector());

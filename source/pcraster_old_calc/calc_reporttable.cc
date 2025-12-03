@@ -24,8 +24,9 @@ calc::ReportTable::ReportTable()
 calc::ReportTable::~ReportTable()
 {
   delete d_reportDefault;
-  for (auto &i : d_table)
+  for (auto &i : d_table) {
     delete i.second;
+  }
 }
 
 //! add a report, error if already defined
@@ -43,8 +44,9 @@ void calc::ReportTable::insert(const ReportDefinition *r)
           << fd->second->definitionPoint();
       r->posError(msg);
     }
-    if (r->name() == "reportdefault")
+    if (r->name() == "reportdefault") {
       d_reportDefault->setDefinition(r);
+    }
   } catch (...) {
     delete r;
     throw;
@@ -53,12 +55,14 @@ void calc::ReportTable::insert(const ReportDefinition *r)
 
 const calc::Report *calc::ReportTable::find(const calc::Symbol &u) const
 {
-  if (u.name() == "reportdefault")
+  if (u.name() == "reportdefault") {
     return reportDefault();
+  }
 
   auto p = d_table.find(u.name());
-  if (p == d_table.end())  // pcrcalc/test237
+  if (p == d_table.end()) {  // pcrcalc/test237
     u.posError(u.qName() + " is not a report name");
+  }
   return p->second;
 }
 

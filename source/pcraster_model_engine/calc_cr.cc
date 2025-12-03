@@ -24,12 +24,15 @@ size_t calc::size(const CRIndex &cri)
  */
 calc::CRIndex calc::allFitCRIndex(VS vsSet) /* set of value scales */
 {
-  if (isIn(VS_SD, vsSet))
+  if (isIn(VS_SD, vsSet)) {
     return CRI_f;
-  if (isIn(VS_NO, vsSet))
+  }
+  if (isIn(VS_NO, vsSet)) {
     return CRI_4;
-  if (isIn(VS_BL, vsSet))
+  }
+  if (isIn(VS_BL, vsSet)) {
     return CRI_1;
+  }
   POSTCOND(false);  // NEVER
   return CRI_X;
 }

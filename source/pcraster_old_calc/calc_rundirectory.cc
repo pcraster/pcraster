@@ -39,9 +39,9 @@ public:
 
   void initRunSettings(const com::PathName &externalBindingsFile)
   {
-    if (externalBindingsFile.isEmpty())
+    if (externalBindingsFile.isEmpty()) {
       d_runSettings.clear();
-    else {
+    } else {
       ModelBuilder mb;
       d_runSettings = mb.parseExternalBindings(externalBindingsFile);
     }
@@ -68,8 +68,9 @@ public:
   std::string outputFilePath(const std::string &fileName) const
   {
     PRECOND(!fileName.empty());
-    if (d_outputDirectory.isEmpty())
+    if (d_outputDirectory.isEmpty()) {
       return fileName;
+    }
     com::PathName pn(fileName);
     pn.makeNative();
     if (pn.baseName() != fileName) {
@@ -84,10 +85,11 @@ public:
 
   void setupForExecution() const
   {
-    if (!d_outputDirectory.isEmpty())
+    if (!d_outputDirectory.isEmpty()) {
       if (!com::PathInfo(d_outputDirectory).exists()) {
         com::Directory(d_outputDirectory).create();
       }
+    }
   }
 
   void collectRunSettings()
@@ -99,13 +101,15 @@ public:
     for (const auto &path : paths) {
       com::PathName const b = path + "binding.ipcr";
       try {
-        if (!com::PathInfo(b).isFile())
+        if (!com::PathInfo(b).isFile()) {
           continue;
+        }
         // if existant, we assume it is xml
         pcrxml::Document const doc(b);
         QDomElement const mrsElement = doc.firstMatchByTagName("ModelRunSettings");
-        if (mrsElement.isNull())
+        if (mrsElement.isNull()) {
           continue;
+        }
         d_runSettings.addNewOnly(mrsElement);
       } catch (const com::BadStreamFormat &msg) {
         throw com::FileError(b, msg.messages());
@@ -121,15 +125,17 @@ public:
     d_outputDirectory = runDirectory;
     d_outputDirectory.makeNative();
 
-    if (d_outputDirectory.isEmpty())
+    if (d_outputDirectory.isEmpty()) {
       return;  // output in current dir and no search paths
+    }
     com::PathName sp(d_outputDirectory);
 
     if (!com::PathInfo(sp).exists()) {
       // last part is to be created sub-directory
       sp.up();
-      if (sp.isEmpty())
+      if (sp.isEmpty()) {
         return;  // we do have an output directory but no search paths
+      }
     }
 
     PRECOND(!sp.isEmpty());

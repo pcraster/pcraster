@@ -79,8 +79,9 @@ void calc::AverageMap::apply(const IDF *id, size_t idLen, const REAL4 *val, size
     // optimization, else clause can do this also
     //  but this eliminates the lookups in d_map
     d_map.insert(std::make_pair(id[0], com::forEachNonMV(val, val + valLen, A())));
-  } else
+  } else {
     d_map = com::iterateNonMV2(id, idLen, val, valLen, d_map);
+  }
 }
 
 template void calc::AverageMap::apply<UINT1>(const UINT1 *id, size_t idLen, const REAL4 *val,
@@ -97,8 +98,9 @@ void calc::AverageMap::setResults(double *res, size_t nrVals) const
 void calc::AreaAverageMap::setResults(double *res, INT4 nrVals) const
 {
   for (const auto &i : *this) {
-    if (i.first > 0 && i.first <= nrVals)
+    if (i.first > 0 && i.first <= nrVals) {
       res[i.first - 1] = i.second.average();  // id 1 at col 0
+    }
   }
 }
 

@@ -41,8 +41,9 @@ int calc::LexInputSourceTextScript::getChar()
   if (d_script.get(c)) {
     // calc::ParserTest::testNonAsciiScript()
     // 36:ERROR: not printable: FFFFFFF1(hex)
-    if (c < 0)
+    if (c < 0) {
       return ' ';
+    }
     return c;
   }
   return EOF;

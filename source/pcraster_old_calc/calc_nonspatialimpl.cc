@@ -20,8 +20,9 @@ calc::NonSpatialImpl::NonSpatialImpl(const calc::FieldParameter &p, size_t index
 void calc::NonSpatialImpl::write()
 {
   PRECOND(value());
-  if (d_fw.writeCurrentTimeStep())
+  if (d_fw.writeCurrentTimeStep()) {
     d_fw.writeNonSpatialToMap(value()->srcValue());
+  }
 }
 
 calc::NonSpatialImpl::~NonSpatialImpl()

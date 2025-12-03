@@ -564,8 +564,9 @@ template<class T>
 inline T& SimpleRaster<T>::cell(size_t r, size_t c)
 {
 #ifdef DEBUG_DEVELOP
-  if (!(r < nrRows() && c < nrCols()))
+  if (!(r < nrRows() && c < nrCols())) {
     PRECOND(r < nrRows() && c < nrCols());
+  }
 #endif
 
   return d_values[((r * nrCols())) + c];
@@ -720,10 +721,11 @@ bool SimpleRaster<T>::equals(const SimpleRaster<T>& aRaster) const
 template<class T>
 inline void SimpleRaster<T>::fill(const T&v)
 {
-  if (v==0)
+  if (v==0) {
    std::memset(static_cast<void*>(d_values),0,nrCells()*sizeof(T));
-  else
+  } else {
    std::fill(d_values, d_values + nrCells(), static_cast<T>(v));
+  }
 }
 
 //! set all values to \a v
@@ -799,9 +801,9 @@ inline SimpleRaster<T>& SimpleRaster<T>::divide(const T& value)
 {
   PRECOND(!pcr::isMV(value));
 
-  if(value == T(0))
+  if(value == T(0)) {
     fillMV();
-  else {
+  } else {
     for(size_t i = 0; i < nrCells(); ++i) {
       if(!pcr::isMV(d_values[i])) {
         d_values[i] /= value;

@@ -68,8 +68,9 @@ void calc::ModelBuilder::addStatement(const std::string &statement, bool write)
   Parser parser(pi.tokenBuffer());
   parser.initialize(d_script);
 
-  if (write)
+  if (write) {
     d_script.setReportFound();
+  }
   WriteInfo const wi(&d_script, write, nullptr, false);
   int retsignal = 0;
   parser.assignment(&retsignal, &d_script, wi);
@@ -83,8 +84,9 @@ void calc::ModelBuilder::addStatement(Statement *stat)
 //! add a statement of type \a par = \a expr
 void calc::ModelBuilder::addFieldAssignment(const std::string &par, FieldExpr *expr, bool write)
 {
-  if (write)
+  if (write) {
     d_script.setReportFound();
+  }
   WriteInfo const wi(&d_script, write, nullptr, false);
 
   addStatement(new Assignment(&d_script, wi, usePar(par), expr));

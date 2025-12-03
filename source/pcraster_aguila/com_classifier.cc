@@ -171,8 +171,9 @@ com::Classifier::Classifier(REAL8 min, REAL8 max)
     d_min = min;
     d_max = max;
 
-    if (d_min > d_max)
+    if (d_min > d_max) {
       std::swap(d_min, d_max);
+    }
 
     d_minCutoff = d_min;
     d_maxCutoff = d_max;
@@ -330,14 +331,15 @@ void com::Classifier::classify(size_t n)
 */
 void com::Classifier::installAlgorithm(Algorithm a)
 {
-  if (a == LIN)
+  if (a == LIN) {
     (void)installLin();
-  else if (a == LOG)
+  } else if (a == LOG) {
     (void)installLog();
-  else if (a == TLOG)
+  } else if (a == TLOG) {
     (void)installTLog();
-  else if (a == USERDEFINED)
+  } else if (a == USERDEFINED) {
     (void)installUserDefined();
+  }
 }
 
 /*!
@@ -548,8 +550,9 @@ void com::Classifier::setExtremes(REAL8 min, REAL8 max)
   d_min = min;
   d_max = max;
 
-  if (d_min > d_max)
+  if (d_min > d_max) {
     std::swap(d_min, d_max);
+  }
 }
 
 /*!
@@ -565,8 +568,9 @@ void com::Classifier::setCutoffs(REAL8 min, REAL8 max)
   d_minCutoff = min;
   d_maxCutoff = max;
 
-  if (d_minCutoff > d_maxCutoff)
+  if (d_minCutoff > d_maxCutoff) {
     std::swap(d_minCutoff, d_maxCutoff);
+  }
 }
 
 /*!
@@ -608,10 +612,11 @@ size_t com::Classifier::classIndex(REAL8 v) const
 #endif
 
   auto it = std::upper_bound(begin() + 1, end(), v);
-  if (it != end())
+  if (it != end()) {
     return it - (begin() + 1);
-  else
+  } else {
     return nrClasses() - 1;
+  }
 }
 
 /*!

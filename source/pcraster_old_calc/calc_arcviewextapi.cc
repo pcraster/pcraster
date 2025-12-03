@@ -53,8 +53,9 @@ extern bool esriArcView3Only;
 extern "C" PCR_DLL_FUNC(const char *) pcrCalcErrorResult()
 {
   esriArcView3Only = true;
-  if (errStr.empty())
+  if (errStr.empty()) {
     return nullptr;
+  }
   return errStr.c_str();
 }
 
@@ -106,11 +107,13 @@ protected:
 extern "C" PCR_DLL_FUNC(void) pcrGetArcViewCheckDataItem(int itemNr, int *isStack, char *name)
 {
   esriArcView3Only = true;
-  if (itemNr < 0 || static_cast<size_t>(itemNr) >= calc::arcViewExtCheckData.size())
+  if (itemNr < 0 || static_cast<size_t>(itemNr) >= calc::arcViewExtCheckData.size()) {
     return;
+  }
   *isStack = calc::arcViewExtCheckData[itemNr].d_isStack;
-  if (calc::arcViewExtCheckData[itemNr].d_name.size() < 2048)
+  if (calc::arcViewExtCheckData[itemNr].d_name.size() < 2048) {
     strcpy(name, calc::arcViewExtCheckData[itemNr].d_name.c_str());
+  }
 }
 
 //! verify a script and set up Esri output grids
@@ -147,8 +150,9 @@ protected:
   int execute() override
   {
     com::AppArgs const args("ArcView", d_cmdString);
-    if (!processArgs(args.argc(), args.argv()))
+    if (!processArgs(args.argc(), args.argv())) {
       return 0;
+    }
     // if reset by arguments, put back to this:
     // appOutput=APP_NOOUT; does not happen in ArcViewExtRun
     parse();

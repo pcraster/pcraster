@@ -73,8 +73,9 @@ calc::ASTStat &calc::ASTStat::operator=(const ASTStat &rhs)
     d_reportById = rhs.d_reportById;
 
     delete d_reportInSitu;
-    if (rhs.d_reportInSitu)
+    if (rhs.d_reportInSitu) {
       d_reportInSitu = rhs.d_reportInSitu->createClone();
+    }
 
     delete d_stat;
     d_stat = rhs.d_stat->createClone();
@@ -87,8 +88,9 @@ calc::ASTStat::ASTStat(const ASTStat &rhs)
     : ASTNode(rhs), d_reportParsed(rhs.d_reportParsed), d_reportById(rhs.d_reportById),
       d_stat(rhs.d_stat->createClone())
 {
-  if (rhs.d_reportInSitu)
+  if (rhs.d_reportInSitu) {
     d_reportInSitu = rhs.d_reportInSitu->createClone();
+  }
 }
 
 void calc::ASTStat::accept(ASTVisitor &b)
@@ -107,8 +109,9 @@ void calc::ASTStat::transferStat(ASTNode *stat)
   delete d_stat;
   d_stat = stat;
   // if this is the 1st part
-  if (!d_reportInSitu)  // no prefix
+  if (!d_reportInSitu) {  // no prefix
     setPosition(stat->position());
+  }
 }
 
 //! get value of stat

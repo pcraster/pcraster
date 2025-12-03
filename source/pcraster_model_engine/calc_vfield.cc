@@ -114,10 +114,13 @@ template <typename T> void calc::VField<T>::init(const Field &f)
 template <typename T> void calc::VField<T>::updateMVField(BitField &mvField) const
 {
   PRECOND(mvField.size() == size());
-  if (d_spatial)
-    for (size_t i = 0; i < d_size; ++i)
-      if (pcr::isMV(d_value[i]))
+  if (d_spatial) {
+    for (size_t i = 0; i < d_size; ++i) {
+      if (pcr::isMV(d_value[i])) {
         mvField[i] = true;
+      }
+    }
+  }
 }
 
 /* NOT IMPLEMENTED

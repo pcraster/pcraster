@@ -268,30 +268,39 @@ std::string calc::RunTimeEnvSettings::setSettingsFromXML(pcrxml::Script const &s
       appUnitTrue = e.trueCellUnits().get();
     }
     if (e.cellCoordinate().present()) {
-      if (e.cellCoordinate().get() == pcrxml::CellCoordinate::Centre)
+      if (e.cellCoordinate().get() == pcrxml::CellCoordinate::Centre) {
         appCoord = APP_C;
-      if (e.cellCoordinate().get() == pcrxml::CellCoordinate::LowerRight)
+      }
+      if (e.cellCoordinate().get() == pcrxml::CellCoordinate::LowerRight) {
         appCoord = APP_LR;
-      if (e.cellCoordinate().get() == pcrxml::CellCoordinate::UpperLeft)
+      }
+      if (e.cellCoordinate().get() == pcrxml::CellCoordinate::UpperLeft) {
         appCoord = APP_UL;
+      }
     }
     if (e.directionalValueUnit().present()) {
-      if (e.directionalValueUnit().get() == pcrxml::DirectionalValueUnit::Radians)
+      if (e.directionalValueUnit().get() == pcrxml::DirectionalValueUnit::Radians) {
         appDirection = APP_RADIANS;
-      if (e.directionalValueUnit().get() == pcrxml::DirectionalValueUnit::Degrees)
+      }
+      if (e.directionalValueUnit().get() == pcrxml::DirectionalValueUnit::Degrees) {
         appDirection = APP_DEGREES;
+      }
     }
     if (e.lddCreateDemMethod().present()) {
-      if (e.lddCreateDemMethod().get() == pcrxml::LddCreateDemMethod::Cut)
+      if (e.lddCreateDemMethod().get() == pcrxml::LddCreateDemMethod::Cut) {
         appLddDemModifier = APP_LDDDEMCUT;
-      if (e.lddCreateDemMethod().get() == pcrxml::LddCreateDemMethod::Fill)
+      }
+      if (e.lddCreateDemMethod().get() == pcrxml::LddCreateDemMethod::Fill) {
         appLddDemModifier = APP_LDDDEMFILL;
+      }
     }
     if (e.dynamicWaveRoughness().present()) {
-      if (e.dynamicWaveRoughness().get() == pcrxml::DynamicWaveRoughness::Chezy)
+      if (e.dynamicWaveRoughness().get() == pcrxml::DynamicWaveRoughness::Chezy) {
         appDynamicWaveRoughness = APP_DWR_CHEZY;
-      if (e.dynamicWaveRoughness().get() == pcrxml::DynamicWaveRoughness::Manning)
+      }
+      if (e.dynamicWaveRoughness().get() == pcrxml::DynamicWaveRoughness::Manning) {
         appDynamicWaveRoughness = APP_DWR_MANNING;
+      }
     }
     if (e.runDirectory().present()) {
       setRunDirectory(e.runDirectory().get());
@@ -313,11 +322,13 @@ std::string calc::RunTimeEnvSettings::setSettingsFromXML(pcrxml::Script const &s
   if (s.areaMap()) {
     if (s.areaMap()->fieldReference()) {
       areaMapReference = s.areaMap()->fieldReference().get().ref();
-    } else
+    } else {
       d_ioStrategy->setXMLAreaMapScript(s.areaMap().get());
+    }
   }
-  if (s.computationMask())
+  if (s.computationMask()) {
     d_ioStrategy->setXMLComputationMask(s.computationMask().get());
+  }
 
   return areaMapReference;
 }

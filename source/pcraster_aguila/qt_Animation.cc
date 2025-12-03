@@ -239,10 +239,11 @@ void qt::Animation::setRangeOfSteps(size_t first, size_t last, size_t stepInterv
 */
 size_t qt::Animation::firstStep() const
 {
-  if (!d_steps.empty())
+  if (!d_steps.empty()) {
     return *(d_steps.begin());
-  else
+  } else {
     return d_first;
+  }
 }
 
 /*!
@@ -254,10 +255,11 @@ size_t qt::Animation::firstStep() const
 */
 size_t qt::Animation::lastStep() const
 {
-  if (!d_steps.empty())
+  if (!d_steps.empty()) {
     return *(--d_steps.end());
-  else
+  } else {
     return d_last;
+  }
 }
 
 size_t qt::Animation::currentStep() const
@@ -319,10 +321,11 @@ size_t qt::Animation::nrSteps() const
 */
 size_t qt::Animation::timeSpan() const
 {
-  if (!d_steps.empty())
+  if (!d_steps.empty()) {
     return *(--d_steps.end()) - *(d_steps.begin());
-  else
+  } else {
     return d_last - d_first;
+  }
 }
 
 /*!

@@ -57,8 +57,9 @@ template <typename F> static void execLookupLookup(ExecArguments &a, F f)
       pcr::setMV(res);  // if goto is exec'ed then ok value
       for (size_t k = 0; k < nrKeys; k++) {
         double keyVal = NAN;
-        if (!a[k].getCell(keyVal, i))
+        if (!a[k].getCell(keyVal, i)) {
           goto store;
+        }
         keyValues[k] = (RelationRecord::Float)keyVal;
       }
       f(tab, res, keyValues);

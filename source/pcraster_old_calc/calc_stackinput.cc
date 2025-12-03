@@ -28,8 +28,9 @@ calc::StackInput::StackInput(const Element &pos, const BindedSymbol &stackName, 
       }
 
       // item i exist, at this point in code
-      if (!firstExisting)
+      if (!firstExisting) {
         firstExisting = i;
+      }
 
       try {
         VS const newVs = d_reader->checkItem(i, vs);
@@ -54,8 +55,9 @@ calc::StackInput::StackInput(const Element &pos, const BindedSymbol &stackName, 
       stackName.posError(" on checking map-stack " + stackName.qName() + "\n not a single map found");
     }
     // if 1st element is missing read first existing one
-    for (size_t i = 1; i < firstExisting; i++)
+    for (size_t i = 1; i < firstExisting; i++) {
       d_itemToLoad[i] = firstExisting;
+    }
     restrictType().restrictSystem(vs, spatial());
   } catch (...) {
     delete d_reader;

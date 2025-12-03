@@ -744,10 +744,12 @@ VisGroup *Viewer::displayMap2D(dal::DataSpace const &searchSpace, std::vector<st
 
 VisGroup *Viewer::displayMap2D(QueryResults const &results, VisGroup *group, bool sync)
 {
-  if (results.empty())
+  if (results.empty()) {
     return group;
-  if (!group)
+  }
+  if (!group) {
     group = groupFor(results);
+  }
   assert(group);
 
   // Create windows.
@@ -926,10 +928,12 @@ VisGroup *Viewer::displayMap3D(dal::DataSpace const &searchSpace, std::vector<st
 
 VisGroup *Viewer::displayMap3D(QueryResults const &results, VisGroup *group, bool sync)
 {
-  if (results.empty())
+  if (results.empty()) {
     return group;
-  if (!group)
+  }
+  if (!group) {
     group = groupFor(results);
+  }
 
   std::string const &firstName = results[0].name;
   dal::DataSpace const &firstSpace = results[0].space();

@@ -69,8 +69,9 @@ void calc::IoFieldStrategy::checkCommonCloneEqual(const std::string &mapFileName
                                                   const geo::RasterSpace &newMap) const
 {
   if (d_commonRS.nrRows() != newMap.nrRows() || d_commonRS.nrCols() != newMap.nrCols() ||
-      d_commonRS.cellSize() != newMap.cellSize())
+      d_commonRS.cellSize() != newMap.cellSize()) {
     throwCloneDiffers(d_cloneNameCommon, mapFileName);
+  }
 }
 
 //! throw com::Exception, if stuff differs

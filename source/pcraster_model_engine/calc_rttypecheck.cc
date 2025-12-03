@@ -123,8 +123,9 @@ public:
             Field *f = asField(d_args[i]);
             f->resetVs(e.arg(i)->returnDataType().vs());
             d_rte.pushField(f);
-          } else
+          } else {
             d_rte.pushDataValue(d_args[i]);
+          }
       }
       d_args[i] = nullptr;
     }
@@ -133,8 +134,9 @@ public:
   void clean()
   {
     // delete what we own, if still around here
-    for (auto &d_arg : d_args)
+    for (auto &d_arg : d_args) {
       deleteFromPcrme(d_arg);
+    }
     d_args.clear();
   }
 
@@ -152,8 +154,9 @@ public:
     ASTPar p(tmpPar(i));
     Field *f = asField(fDv);
     p.returnDataType() = f->type();
-    if (f->isSpatial() && f->nrValues() != d_rte.rasterSpace().nrCells())
+    if (f->isSpatial() && f->nrValues() != d_rte.rasterSpace().nrCells()) {
       p.symError("Number of cells is different than clone or previous argument");
+    }
     return new ASTPar(p);
   }
 

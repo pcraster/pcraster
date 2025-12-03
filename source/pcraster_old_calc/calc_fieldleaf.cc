@@ -39,8 +39,9 @@ void calc::FieldLeaf::buildTypes()
 
 void calc::FieldLeaf::buildTypesRecursive(VS resultVsSet)
 {
-  if (isSubset(resultVsSet, vs()))  // expr is polymorphic
+  if (isSubset(resultVsSet, vs())) {  // expr is polymorphic
     restrictType().restrictSystem(resultVsSet, spatial());
+  }
 }
 
 void calc::FieldLeaf::prepareExecution()
@@ -67,23 +68,26 @@ void calc::FieldLeaf::analyseUseDef()
   /* if next is not a use, then I may be
    * deleted, if not bail out
    */
-  if (!nextIsNotUse())
+  if (!nextIsNotUse()) {
     return;
+  }
   // So the next is not a use:
   // on the (possible) next there is no need
   // for the current value: the next is a
   // (re-)definition or there is no next
   if (!d_par->isArray()) {
     if (nextInSameBlock()  // there is a next definition
-        || (!deleteValueAtEndOfBlock(d_par, false)))
+        || (!deleteValueAtEndOfBlock(d_par, false))) {
       d_overWriteVal = true;
+    }
   } else {
     const calc::UseDefNode *next = nextUseDef();
     if ((!next) ||                   // there is no next
         (next == d_par->firstDef())  // of the next is the first def
     ) {
-      if (!deleteValueAtEndOfBlock(d_par, true))
+      if (!deleteValueAtEndOfBlock(d_par, true)) {
         d_overWriteVal = true;
+      }
       return;
     }
     // there is a next, and is a def
@@ -91,8 +95,9 @@ void calc::FieldLeaf::analyseUseDef()
     const auto *nextDef = dynamic_cast<const calc::FieldLeft *>(next);
     const auto *indexNextDef = dynamic_cast<const calc::IndexSelectedVector *>(nextDef->indexSelected());
     const auto *index = dynamic_cast<const calc::IndexSelectedVector *>(d_index.get());
-    if (index->equal(indexNextDef))
+    if (index->equal(indexNextDef)) {
       d_overWriteVal = true;
+    }
   }
 }
 
@@ -128,10 +133,12 @@ const calc::FieldType &calc::FieldLeaf::fieldType() const
 
 void calc::FieldLeaf::print(calc::InfoScript &i) const
 {
-  if (d_overWriteVal)
+  if (d_overWriteVal) {
     i.stream() << "<I>";
+  }
   i.parTag(d_par->name());
   i.stream() << d_index->variableName();
-  if (d_overWriteVal)
+  if (d_overWriteVal) {
     i.stream() << "</I>";
+  }
 }

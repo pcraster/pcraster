@@ -102,8 +102,9 @@ public:
   }
 
   valueT average(valueT returnWhenEmpty) const {
-    if (!this->nr())
+    if (!this->nr()) {
       return returnWhenEmpty;
+    }
     return average();
   }
 
@@ -125,9 +126,9 @@ class AverageMinMax : public Average<valueT,sumT> {
     valueT d_min{}, d_max{};
 public:
    void operator()(valueT value) {
-     if (!this->nr()) // first one
+     if (!this->nr()) { // first one
        d_min=d_max=value;
-     else {
+     } else {
        d_min=std::min(d_min,value);
        d_max=std::max(d_max,value);
      }
@@ -292,8 +293,9 @@ public:
   */
   operator ValueType  () const
   {
-    if (d_nr < 2)
+    if (d_nr < 2) {
       return ValueType();
+    }
     return static_cast<ValueType>(
          (d_nr * d_sumOfSquaredValues - d_sumOfValues * d_sumOfValues) /
          (d_nr * (d_nr - 1)));
@@ -370,7 +372,9 @@ class AverageSdMinMax: public AverageMinMax<valueT,sumT> {
   valueT sd() const {
     if (!this->nr() ||
         this->minimum()==this->maximum() // avoid numeric instabs close to 0
-       ) return 0;
+    ) {
+      return 0;
+    }
     return d_sd;
   }
 };
@@ -389,12 +393,14 @@ template <class Iter>
  Iter percentile(Iter begin, Iter end, double p)
  {
    size_t n=std::distance(begin,end);
-   if (com::lim(p,0.0,1.0)!=p||!n)
+   if (com::lim(p,0.0,1.0)!=p||!n) {
      return end;
+   }
    n=static_cast<size_t>(p*n);
    // p==1 might trigger this
-   if (begin+n==end)
+   if (begin+n==end) {
      n--; // last (max) element, not past-the-end
+   }
    std::nth_element(begin,begin+n,end);
    return begin+n;
  }
@@ -408,12 +414,14 @@ template <class Iter, class BinaryPredicate>
  Iter percentile(Iter begin, Iter end, double p, BinaryPredicate op)
  {
    size_t n=std::distance(begin,end);
-   if (com::lim(p,0.0,1.0)!=p||!n)
+   if (com::lim(p,0.0,1.0)!=p||!n) {
      return end;
+   }
    n=static_cast<size_t>(p*n);
    // p==1 might trigger this
-   if (begin+n==end)
+   if (begin+n==end) {
      n--; // last (max) element, not past-the-end
+   }
    std::nth_element(begin,begin+n,end,op);
    return begin+n;
  }

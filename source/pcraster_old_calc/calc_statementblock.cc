@@ -21,8 +21,9 @@ void calc::StatementBlock::printBlock(InfoScript &i) const
   }
   bool first = true;
   for (auto it : d_valueDelete) {
-    if (first)
+    if (first) {
       i.stream() << "<U>CLEAN UP</U><BR>";
+    }
     first = false;
     it->print(i);
     i.stream() << "<BR>";
@@ -33,8 +34,9 @@ void calc::StatementBlock::printBlock(InfoScript &i) const
 void calc::StatementBlock::deleteAtExit(FieldParameter *par)
 {
 #ifdef DEBUG_DEVELOP
-  for (auto it = d_valueDelete.begin(); it != d_valueDelete.end(); it++)
+  for (auto it = d_valueDelete.begin(); it != d_valueDelete.end(); it++) {
     PRECOND((*it) != par);
+  }
 
 #endif
   d_valueDelete.push_front(par);
@@ -42,8 +44,9 @@ void calc::StatementBlock::deleteAtExit(FieldParameter *par)
 
 calc::StatementBlock::~StatementBlock()
 {
-  for (auto &d_stat : d_stats)
+  for (auto &d_stat : d_stats) {
     delete d_stat;
+  }
 }
 
 calc::StatementBlock *calc::StatementBlock::parentBlock()
@@ -91,8 +94,9 @@ struct PromotionOccured {
 
   void operator()(Statement *s)
   {
-    if (s->buildTypes())
+    if (s->buildTypes()) {
       onceTrue = true;
+    }
   }
 
   operator bool()

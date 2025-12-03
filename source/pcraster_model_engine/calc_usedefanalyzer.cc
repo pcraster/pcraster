@@ -50,11 +50,13 @@ struct RecordFirst {
 
   void update(P e, bool inDynamic)
   {
-    if (ever == d_end)
+    if (ever == d_end) {
       ever = e;
+    }
     P &u(inDynamic ? dynamic : initial);
-    if (u == d_end)
+    if (u == d_end) {
       u = e;
+    }
   }
 };
 
@@ -77,8 +79,9 @@ public:
   {
     auto e = begin();
     while (e != end()) {
-      if (e->reference() && e->par() != dummy)
+      if (e->reference() && e->par() != dummy) {
         break;
+      }
       ++e;
     }
     return e;
@@ -90,8 +93,9 @@ public:
       // remove the enter and do not add the jump
       DEVELOP_PRECOND(e.block() == back().block());
       pop_back();
-    } else
+    } else {
       push_back(e);
+    }
   }
 
   reverse_iterator jumpOfEnter(reverse_iterator e) const
@@ -138,7 +142,7 @@ public:
   //! return the first Use or 0 if a Def preceeds the first Use
   ASTPar *firstUse(const ASTPar *dummy) const
   {
-    for (auto e = beginRealRef(dummy); e != end(); ++e)
+    for (auto e = beginRealRef(dummy); e != end(); ++e) {
       switch (e->type()) {
         case UDEvent::Use:
           return e->par();
@@ -146,6 +150,7 @@ public:
           return nullptr;
         default:;
       }
+    }
     POSTCOND(false);  // should have found a Use or Def
     return nullptr;
   }
@@ -160,21 +165,27 @@ public:
   ASTPar *newLiveDef(const ASTPar *dummy) const
   {
     auto def = beginRealRef(dummy);
-    for (; def != end(); ++def)
-      if (def->def())
+    for (; def != end(); ++def) {
+      if (def->def()) {
         break;
-    if (def != end())
-      for (auto e = rbegin(); e != rend(); ++e)
-        if (e->reference())
+      }
+    }
+    if (def != end()) {
+      for (auto e = rbegin(); e != rend(); ++e) {
+        if (e->reference()) {
           return (e->par()->lastUse()) ? nullptr : def->par();
+        }
+      }
+    }
     return nullptr;
   }
 
   void print() const
   {
     std::cerr << "----------" << '\n';
-    for (auto e : *this)
+    for (auto e : *this) {
       e.print();
+    }
     std::cerr << "----------" << '\n';
   }
 
@@ -205,8 +216,9 @@ public:
           if (!e->keepLive()) {
             // but not marked as lastUse in
             // e-1 (=last node within the basicBlock this Jump belongs to)?
-            if ((e - 1)->keepLive())
+            if ((e - 1)->keepLive()) {
               e->block()->addDeleteOnForward(name);
+            }
           }
         case UDEvent::Enter: /* nothing */;
       }  // eoswitch
@@ -219,7 +231,7 @@ public:
     RecordFirst def(end());
 
     bool inDynamicSection(false);
-    for (auto e = begin(); e != end(); ++e)
+    for (auto e = begin(); e != end(); ++e) {
       switch (e->type()) {
         case UDEvent::Use:
           use.update(e, inDynamicSection);
@@ -228,14 +240,17 @@ public:
           def.update(e, inDynamicSection);
           break;
         case UDEvent::Jump:
-          if (e->block() == dynamicSectionPtr)
+          if (e->block() == dynamicSectionPtr) {
             inDynamicSection = false;
+          }
           break;
         case UDEvent::Enter:
-          if (e->block() == dynamicSectionPtr)
+          if (e->block() == dynamicSectionPtr) {
             inDynamicSection = true;
+          }
           break;
       }
+    }
 
     IOType t;
 
@@ -244,18 +259,20 @@ public:
     t.setInput(pcrxml::ModelInputType::None);
     if (use.ever < def.ever) {
       // need input value
-      if (use.dynamic == end() || def.dynamic != end())
+      if (use.dynamic == end() || def.dynamic != end()) {
         t.setInput(pcrxml::ModelInputType::Initial);
-      else
+      } else {
         t.setInput(pcrxml::ModelInputType::Dynamic);
+      }
     }
     t.setOutput(pcrxml::ModelOutputType::Fixed);
     if (def.ever != end()) {
       // some definitions will change output
-      if (def.dynamic != end())
+      if (def.dynamic != end()) {
         t.setOutput(pcrxml::ModelOutputType::Dynamic);
-      else
+      } else {
         t.setOutput(pcrxml::ModelOutputType::Initial);
+      }
     }
     return t;
   }
@@ -326,8 +343,9 @@ public:
       PRECOND(d_stack.size());
       ASTPar *p = d_stack.top();
       d_stack.pop();
-      if (p)
+      if (p) {
         add(UDEvent(UDEvent::Use, p));
+      }
     }
   }
 
@@ -337,8 +355,9 @@ public:
 
     // if we already have an EventChain
     // then no need to add prologue
-    if (count(e.name()))
+    if (count(e.name())) {
       return;
+    }
 
     /*
       there is always an enclosing block.
@@ -356,11 +375,12 @@ public:
       // insert dummy above Enter'ing the most outer block
       // that has a loop back
       auto i = prologue.begin();
-      for (; i != prologue.end(); ++i)
+      for (; i != prologue.end(); ++i) {
         if (i->block()->hasBackBranch()) {
           prologue.insert(i, UDEvent(UDEvent::Def, &d_dummy));
           break;
         }
+      }
     }
     insert(std::make_pair(e.name(), prologue));
   }
@@ -379,14 +399,16 @@ public:
       case UDEvent::Enter:
         d_currentBlockNesting.add(e);
         // every par already recorded will enter a block
-        for (auto &i : *this)
+        for (auto &i : *this) {
           i.second.add(e);
+        }
         break;
       case UDEvent::Jump:
         d_currentBlockNesting.add(e);
         // every par already recorded will jump out of a block
-        for (auto &i : *this)
+        for (auto &i : *this) {
           i.second.add(e);
+        }
     }
   }
 
@@ -394,16 +416,18 @@ public:
   {
     for (auto &i : *this) {
       TRACE_LOG(std::cerr << "liveAnalysis for " << i->first << std::endl);
-      if (keepLiveAtEnd)
+      if (keepLiveAtEnd) {
         i.second.add(UDEvent(UDEvent::Use, &d_dummy));
+      }
       i.second.setKeepLive();
     }
   }
 
   void setLastUse() const
   {
-    for (const auto &i : *this)
+    for (const auto &i : *this) {
       i.second.setLastUse(i.first);
+    }
   }
 
   ParSet inputSet() const
@@ -411,8 +435,9 @@ public:
     ParSet s;
     for (const auto &i : *this) {
       ASTPar *p = i.second.firstUse(&d_dummy);
-      if (p)
+      if (p) {
         s.insert(p);
+      }
     }
     return s;
   }
@@ -422,8 +447,9 @@ public:
     ParSet s;
     for (const auto &i : *this) {
       ASTPar *p = i.second.newLiveDef(&d_dummy);
-      if (p)
+      if (p) {
         s.insert(p);
+      }
     }
     return s;
   }
@@ -523,8 +549,9 @@ void calc::UseDefAnalyzer::visitNonAssExpr(NonAssExpr *)
 void calc::UseDefAnalyzer::doExpr(BaseExpr *e)
 {
   d_rec->pop(e->nrArgs());
-  for (size_t i = 0; i < e->nrReturns(); ++i)
+  for (size_t i = 0; i < e->nrReturns(); ++i) {
     d_rec->push(nullptr);
+  }
 }
 
 void calc::UseDefAnalyzer::visitExpr(BaseExpr *e)
@@ -537,17 +564,20 @@ void calc::UseDefAnalyzer::visitAss(ASTAss *a)
   d_rec->pop(a->nrPars());
 
   // left hand side visit
-  for (size_t i = 0; i < a->nrPars(); ++i)
+  for (size_t i = 0; i < a->nrPars(); ++i) {
     d_rec->add(UDEvent(UDEvent::Def, a->par(i)));
+  }
 }
 
 void calc::UseDefAnalyzer::visitPointCodeBlock(PointCodeBlock *b)
 {
 
-  for (auto i : b->input())
+  for (auto i : b->input()) {
     d_rec->add(UDEvent(UDEvent::Use, i));
-  for (auto i : b->output())
+  }
+  for (auto i : b->output()) {
     d_rec->add(UDEvent(UDEvent::Def, i));
+  }
 }
 
 void calc::UseDefAnalyzer::visitJumpNode(JumpNode *j)

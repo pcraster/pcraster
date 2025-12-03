@@ -81,8 +81,9 @@ template <class T> void com_LinClassifier<T>::autoClassify(std::vector<T> &b, T 
   nn = dal::round<REAL8, size_t>((nmax - nmin) / width) + 1;
   b.resize(nn);
 
-  for (size_t i = 0; i < nn - 1; i++)
+  for (size_t i = 0; i < nn - 1; i++) {
     b[i] = nmin + (i * width);
+  }
   b[nn - 1] = nmax;
 }
 

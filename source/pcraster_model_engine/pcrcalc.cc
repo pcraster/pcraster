@@ -51,15 +51,17 @@ private:
 
   void clean()
   {
-    if (d_ci)
+    if (d_ci) {
       delete d_ci;
+    }
     d_ci = nullptr;
   }
 
   void cleanOnError()
   {
-    if (!errorMessage().empty())
+    if (!errorMessage().empty()) {
       clean();
+    }
   }
 
   //! Assignment operator. NOT IMPLEMENTED.
@@ -117,13 +119,15 @@ Pcrcalc::Pcrcalc(PcrcalcCreate const &pc) : d_ci(nullptr)
 
   TRY_ALL
   {
-    if (!pc.d_fileOrStr)
+    if (!pc.d_fileOrStr) {
       throw com::Exception("call to pcr_createScriptFrom...() with 0 ptr argument");
+    }
 
-    if (pc.d_scriptXML)
+    if (pc.d_scriptXML) {
       d_ci = new calc::XMLScriptClientInterface(pc.d_fileOrStr, pc.d_asFile);
-    else
+    } else {
       d_ci = new calc::TextScriptClientInterface(pc.d_fileOrStr, pc.d_asFile);
+    }
   }
   CATCH_ALL_EXCEPTIONS(d_errorStream);
   cleanOnError();
@@ -157,8 +161,9 @@ Pcrcalc& calc::Pcrcalc::operator=(Pcrcalc const& rhs)
 
 const char *Pcrcalc::pcr_ScriptXMLReflection()
 {
-  if (!d_ci)
+  if (!d_ci) {
     return nullptr;
+  }
   TRY_ALL
   {
     const char *result = d_ci->pcr_ScriptXMLReflection();
@@ -186,8 +191,9 @@ void Pcrcalc::pcr_ScriptExecute()
 
 int Pcrcalc::pcr_ScriptExecuteInitialStepMemory(DataTransferArray d)
 {
-  if (!d_ci)
+  if (!d_ci) {
     return -1;
+  }
   TRY_ALL
   {
     return d_ci->pcr_ScriptExecuteInitialStepMemory(d);
@@ -199,8 +205,9 @@ int Pcrcalc::pcr_ScriptExecuteInitialStepMemory(DataTransferArray d)
 
 int Pcrcalc::pcr_ScriptExecuteNextTimeStepMemory(DataTransferArray d)
 {
-  if (!d_ci)
+  if (!d_ci) {
     return -1;
+  }
   TRY_ALL
   {
     return d_ci->pcr_ScriptExecuteNextTimeStepMemory(d);
@@ -212,8 +219,9 @@ int Pcrcalc::pcr_ScriptExecuteNextTimeStepMemory(DataTransferArray d)
 
 int Pcrcalc::pcr_ScriptReleaseAllAllocatedMemory()
 {
-  if (!d_ci)
+  if (!d_ci) {
     return -1;
+  }
   TRY_ALL
   {
     d_ci->pcr_ScriptReleaseAllAllocatedMemory();
@@ -226,8 +234,9 @@ int Pcrcalc::pcr_ScriptReleaseAllAllocatedMemory()
 
 int Pcrcalc::pcr_ScriptExecuteFinish()
 {
-  if (!d_ci)
+  if (!d_ci) {
     return -1;
+  }
   TRY_ALL
   {
     return d_ci->pcr_ScriptExecuteFinish();
@@ -289,30 +298,34 @@ extern "C" PCR_ME_EXPORT PcrScript *pcr_createScriptFromTextString(const char *s
 
 extern "C" PCR_ME_EXPORT const char *pcr_ScriptXMLReflection(PcrScript *script)
 {
-  if (!script)
+  if (!script) {
     return nullptr;  // BAD!
+  }
   return script->pcr_ScriptXMLReflection();
 }
 
 extern "C" PCR_ME_EXPORT void pcr_ScriptExecute(Pcrcalc *script)
 {
-  if (script)
+  if (script) {
     script->pcr_ScriptExecute();
+  }
 }
 
 extern "C" PCR_ME_EXPORT int pcr_ScriptExecuteInitialStepMemory(PcrScript *script,
                                                                 DataTransferArray dataTransferArray)
 {
-  if (!script)
+  if (!script) {
     return -1;  // BAD!
+  }
   return script->pcr_ScriptExecuteInitialStepMemory(dataTransferArray);
 }
 
 extern "C" PCR_ME_EXPORT int pcr_ScriptExecuteNextTimeStepMemory(PcrScript *script,
                                                                  DataTransferArray dataTransferArray)
 {
-  if (!script)
+  if (!script) {
     return -1;  // BAD!
+  }
   return script->pcr_ScriptExecuteNextTimeStepMemory(dataTransferArray);
 }
 
@@ -328,22 +341,25 @@ extern "C" PCR_DLL_FUNC(int) pcr_ScriptReleaseAllAllocatedMemory(
 
 extern "C" PCR_ME_EXPORT int pcr_ScriptExecuteFinish(PcrScript *script)
 {
-  if (!script)
+  if (!script) {
     return -1;  // BAD!
+  }
   return script->pcr_ScriptExecuteFinish();
 }
 
 extern "C" PCR_ME_EXPORT int pcr_ScriptError(Pcrcalc *script)
 {
-  if (!script)
+  if (!script) {
     return -1;  // BAD!
+  }
   return script->errorMessage().size();
 }
 
 extern "C" PCR_ME_EXPORT const char *pcr_ScriptErrorMessage(Pcrcalc *script)
 {
-  if (!script)
+  if (!script) {
     return "Error: called pcr_ScriptErrorMessage with 0 ptr";
+  }
   return script->errorMessage().c_str();
 }
 

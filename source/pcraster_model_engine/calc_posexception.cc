@@ -21,10 +21,11 @@ calc::PosException::PosException(const std::string &pos, const std::string &mess
     : d_message(message), d_position(pos)
 {
   std::ostringstream str;
-  if (positionFirst)
+  if (positionFirst) {
     str << pos << ":ERROR: ";
-  else
+  } else {
     str << "ERROR: " << pos << ": ";
+  }
   finish(str);
 }
 

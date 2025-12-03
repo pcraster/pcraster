@@ -38,8 +38,9 @@ class OperatorCreator
   const pcrxml::LinkInFunctionManifest *findFunction(std::string const &name) const
   {
     for (const auto &i : d_manifest.function()) {
-      if (name == i.name())
+      if (name == i.name()) {
         return &i;
+      }
     }
     return nullptr;
   }
@@ -47,8 +48,9 @@ class OperatorCreator
   const pcrxml::LinkInClassManifest *findClass(std::string const &name) const
   {
     for (const auto &i : d_manifest.class_()) {
-      if (name == i.name())
+      if (name == i.name()) {
         return &i;
+      }
     }
     return nullptr;
   }
@@ -57,8 +59,9 @@ class OperatorCreator
                                               std::string const &name) const
   {
     for (const auto &i : c->method()) {
-      if (name == i.name())
+      if (name == i.name()) {
         return &i;
+      }
     }
     return nullptr;
   }
@@ -79,8 +82,9 @@ public:
   Operator *createConstructor(std::string const &name) const
   {
     const pcrxml::LinkInClassManifest *c = findClass(name);
-    if (!c)
+    if (!c) {
       return nullptr;
+    }
     return new Operator(name,
                         std::vector<DataType>(),  // empty result
                         xml2DataType(c->constructor().argument()));
@@ -93,19 +97,22 @@ public:
     std::vector<DataType> const argument;  // input types
 
     const pcrxml::LinkInFunctionManifest *f = findFunction(name);
-    if (!f)
+    if (!f) {
       return nullptr;
+    }
     return new Operator(name, xml2DataType(f->result()), xml2DataType(f->argument()));
   }
 
   Operator *createMethod(std::string const &className, std::string const &methodName) const
   {
     const pcrxml::LinkInClassManifest *c = findClass(className);
-    if (!c)
+    if (!c) {
       return nullptr;
+    }
     const pcrxml::LinkInClassMethod *m = findMethod(c, methodName);
-    if (!m)
+    if (!m) {
       return nullptr;
+    }
     return new Operator(className + "::" + methodName, xml2DataType(m->result()),
                         xml2DataType(m->argument()));
   }
@@ -177,21 +184,24 @@ const Operator &LinkInExpr::op() const
  */
 void LinkInExpr::loadLibrary(const LinkInLibrary *library)
 {
-  if (d_library)
+  if (d_library) {
     return;
+  }
 
   d_library = library;
   OperatorCreator const oc(d_library->manifest());
 
   if (isConstructor()) {
     d_op = std::shared_ptr<Operator>(oc.createConstructor(d_className));
-    if (!d_op.get())
+    if (!d_op.get()) {
       d_nameAfter.symError("unknown class");
+    }
   }
   if (isFunction()) {
     d_op = std::shared_ptr<Operator>(oc.createFunction(d_functionName));
-    if (!d_op.get())
+    if (!d_op.get()) {
       d_nameAfter.symError("unknown function");
+    }
   }
   if (isMethod()) {
     d_op = std::shared_ptr<Operator>(oc.createMethod(d_className, d_methodName));
@@ -215,8 +225,9 @@ void LinkInExpr::exec(RunTimeEnv *rte) const
     li.result().push_back(toXMLFieldTypeOfValue(args.result(i).type()));
     transferArray.push_back(args.dest(i));
   }
-  if (!d_stringArgument.empty())
+  if (!d_stringArgument.empty()) {
     li.stringArgument(pcrxml::SpaceTrimmedToken(d_stringArgument));
+  }
   for (size_t i = 0; i < nrArgs(); ++i) {
     li.argument().push_back(toXMLFieldTypeOfValue(args[i].type()));
     transferArray.push_back((void *)args.src(i));
@@ -238,16 +249,20 @@ void LinkInExpr::check()
   // empty context FTTB
   pcrxml::LinkInCheckInput in(pcrxml::CheckContext(), callPoint());
 
-  for (size_t i = 0; i < d_op->nrResults(); ++i)
+  for (size_t i = 0; i < d_op->nrResults(); ++i) {
     in.result().push_back(toXMLFieldType(d_op->resultType(i)));
-  if (!d_stringArgument.empty())
+  }
+  if (!d_stringArgument.empty()) {
     in.stringArgument(pcrxml::SpaceTrimmedToken(d_stringArgument));
-  for (size_t i = 0; i < nrArgs(); ++i)
+  }
+  for (size_t i = 0; i < nrArgs(); ++i) {
     in.argument().push_back(toXMLFieldType(d_op->argType(i)));
+  }
 
   pcrxml::LinkInCheckResult r(d_library->check(in));
-  if (r.error())
+  if (r.error()) {
     posError(r.error().get());
+  }
 
   // reset operator to returned types
   std::vector<DataType> const result = xml2DataType(r.result());

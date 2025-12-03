@@ -65,10 +65,11 @@ void calc::PointCodeBlockReplacer::visitExpr(BaseExpr *o)
 {
   ASTVisitor::visitExpr(o);
 
-  if (!o->op().pointOperator())
+  if (!o->op().pointOperator()) {
     info().d_allPoint = false;
-  else
+  } else {
     d_nrPointsOpsInExpr++;
+  }
 }
 
 void calc::PointCodeBlockReplacer::visitPar(ASTPar *p)
@@ -83,8 +84,9 @@ void calc::PointCodeBlockReplacer::visitAss(ASTAss *a)
   for (size_t i = 0; i < a->nrPars(); ++i) {
     ASTPar *p = a->par(i);
     // FTTB skip reported stuff
-    if (d_symbols.count(p->name()) && d_symbols[p->name()].reportPar() == p)
+    if (d_symbols.count(p->name()) && d_symbols[p->name()].reportPar() == p) {
       info().d_allPoint = false;
+    }
   }
 
   // collect these two in expr traversal
@@ -128,9 +130,9 @@ void calc::PointCodeBlockReplacer::visitNodeList(ASTNodeList *l)
 
     (*i)->accept(*this);
 
-    if (info().d_allPoint)
+    if (info().d_allPoint) {
       ++pbEnd;
-    else {
+    } else {
       // possible end of PointBlock
       addBlock(l, pbBegin, pbEnd);
       // possible next block:

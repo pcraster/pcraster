@@ -33,10 +33,11 @@ static int doTimeoutput(double *val, const Field *id, const Field *expr, size_t 
   int result = 0;
   if (expr->cri() == CRI_f) {
     AverageMap am;
-    if (id->cri() == CRI_1)
+    if (id->cri() == CRI_1) {
       am.apply(id->src_1(), id->nrValues(), expr->src_f(), expr->nrValues());
-    else
+    } else {
       am.apply(id->src_4(), id->nrValues(), expr->src_f(), expr->nrValues());
+    }
     am.setResults(val, nrCols);
   } else {
     // timeoutputting class data the old "inefficient" way
@@ -62,14 +63,16 @@ static size_t maxId(const Field *id)
     case CRI_1: {
       const UINT1 *m = com::csfCellMax(id->src_1(), id->src_1() + id->nrValues());
       maxIndex = m - id->src_1();
-      if (maxIndex != id->nrValues())
+      if (maxIndex != id->nrValues()) {
         nrCols = id->src_1()[maxIndex];
+      }
     } break;
     case CRI_4: {
       const INT4 *m = com::csfCellMax(id->src_4(), id->src_4() + id->nrValues());
       maxIndex = m - id->src_4();
-      if (maxIndex != id->nrValues())
+      if (maxIndex != id->nrValues()) {
         nrCols = id->src_4()[maxIndex];
+      }
     } break;
     default:
       PRECOND(false);
@@ -105,10 +108,11 @@ public:
 
     T *dest = (T *)(d_buffer + sizeof(Header));
     for (size_t i = 0; i < data.size(); ++i) {
-      if (pcr::isMV(data[i]))
+      if (pcr::isMV(data[i])) {
         pcr::setMV(dest[i]);
-      else
+      } else {
         dest[i] = (T)(data[i]);
+      }
     }
   }
 
@@ -147,8 +151,9 @@ size_t calc::FileTimeoutput::initNrRowsCached() const
     // then write at last timeStep, to support current tcl-interface
     return nrt;
   }
-  if (d_stackInfo.flushTssAtEachTimeStep())
+  if (d_stackInfo.flushTssAtEachTimeStep()) {
     return 1;
+  }
   return std::min<size_t>(nrt, maxCacheSize);
 }
 
@@ -186,14 +191,16 @@ void calc::FileTimeoutput::finish()
   // if data left, write it otherwise not
   // the if prevent the case that we only
   // write a header and no data
-  if (d_step.size())
+  if (d_step.size()) {
     flushToFile();
+  }
 }
 
 bool calc::FileTimeoutput::reportTimeStep(size_t t) const
 {
-  if (appHeader == APP_NOHEADER)  // obey report clause
+  if (appHeader == APP_NOHEADER) {  // obey report clause
     return d_stackInfo.reportTimeStep(t);
+  }
   return true;
 }
 
@@ -204,15 +211,17 @@ bool calc::FileTimeoutput::reportTimeStep(size_t t) const
 double *calc::FileTimeoutput::setRow(size_t currentTimeStep)
 {
   /* pcrcalc/test13[cd] */
-  if (!reportTimeStep(currentTimeStep))
+  if (!reportTimeStep(currentTimeStep)) {
     return nullptr;
+  }
   if (d_step.size() && currentTimeStep == d_step.back()) {
     // pcrcalc/test317 writing a value twice in loop!
     return d_value[d_step.size() - 1];
   }
 
-  if (d_step.size() == d_nrRowsCached)
+  if (d_step.size() == d_nrRowsCached) {
     flushToFile();
+  }
 
   POSTCOND(d_step.size() < d_nrRowsCached);
   d_step.push_back(currentTimeStep);
@@ -234,14 +243,16 @@ void calc::FileTimeoutput::openFile(std::ofstream &ofs)
   if (appHeader == APP_DEFHEADER) {
     // print header
     CSF_VS const vs = vs2CsfVs(d_stackInfo.vs());
-    if (vs == VS_UNDEFINED)
+    if (vs == VS_UNDEFINED) {
       ofs << "summary\n";
-    else
+    } else {
       ofs << "timeseries " << toString(d_stackInfo.vs()) << "\n";
+    }
     ofs << d_nrCols + 1 << "\n"
         << "timestep\n";
-    for (size_t c = 0; c < d_nrCols; c++)
+    for (size_t c = 0; c < d_nrCols; c++) {
       ofs << c + 1 << "\n";
+    }
   }
 }
 
@@ -275,15 +286,17 @@ void calc::FileTimeoutput::printLine(size_t t, double *v, std::ofstream &f)
   f << std::setw(8) << t;
 
   // print columns of row on line of file
-  for (size_t c = 0; c < d_nrCols; c++)
-    if (!v || IS_MV_REAL8(v + c))
+  for (size_t c = 0; c < d_nrCols; c++) {
+    if (!v || IS_MV_REAL8(v + c)) {
       f << mvFmt;
-    else {
+    } else {
       double d = v[c];
-      if (d_stackInfo.vs() == VS_D)
+      if (d_stackInfo.vs() == VS_D) {
         d = AppOutputDirection(d);
+      }
       f << " " << std::setw(valFmt) << d;
     }
+  }
   f << '\n';
   if (!f.good()) {
     d_fileErrorOccured = true;
@@ -306,8 +319,9 @@ void calc::FileTimeoutput::flushToFile()
   for (size_t i = 0; i < d_step.size(); ++i) {
     if (appHeader != APP_NOHEADER) {
       // write intervening TODO last end is not written
-      for (size_t j = d_lastStepToFile + 1; j < d_step[i]; ++j)
+      for (size_t j = d_lastStepToFile + 1; j < d_step[i]; ++j) {
         printLine(j, nullptr, f);
+      }
     }
     printLine(d_step[i], d_value[i], f);
     d_lastStepToFile = d_step[i];
@@ -318,8 +332,9 @@ void calc::FileTimeoutput::flushToFile()
 void calc::FileTimeoutput::nonspatial(const Field *f, size_t currentTimeStep)
 {
   double *v = setRow(currentTimeStep);
-  if (v)
+  if (v) {
     f->getCell(*v, 0);
+  }
 }
 
 void calc::FileTimeoutput::timeoutput(const Field *id, const Field *expr, size_t currentTimeStep)
@@ -327,8 +342,9 @@ void calc::FileTimeoutput::timeoutput(const Field *id, const Field *expr, size_t
   // val[0] will hold for id 1, val[2] for id 2, etc.
   double *val = setRow(currentTimeStep);
 
-  if (!val)  // do not write this time step
+  if (!val) {  // do not write this time step
     return;
+  }
 
   int const result = detail::doTimeoutput(val, id, expr, d_nrCols);
 

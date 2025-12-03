@@ -87,8 +87,9 @@ template <class Map>
          for(i= eraseThese.begin(); i!=eraseThese.end(); ++i) {
              typename Map::iterator rF;
              rF = eraseFrom.find(i->first);
-             if (rF != eraseFrom.end() && i->second == rF->second)
-                 eraseFrom.erase(i->first);
+             if (rF != eraseFrom.end() && i->second == rF->second) {
+               eraseFrom.erase(i->first);
+             }
          }
  }
 
@@ -105,8 +106,9 @@ class FindValue {
      d_defValue(defValue) {}
    T find(const Map& m, const K& key) {
      auto i=m.find(key);
-     if (i == m.end())
+     if (i == m.end()) {
        return d_defValue;
+     }
      return i->second;
    }
  };
@@ -175,8 +177,9 @@ template<class T>
 inline void        sort2               (T &x1,
                                         T &x2)
 {
-  if(x2 < x1)
+  if(x2 < x1) {
     std::swap(x1,x2);
+  }
 }
 
 

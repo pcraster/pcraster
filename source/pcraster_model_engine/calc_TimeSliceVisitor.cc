@@ -29,8 +29,9 @@ TimeSliceVisitor::TimeSliceVisitor(LddGraph const &lg, VField<INT4> const &nrTim
 {
   PRECOND(!timestepInSecs.isSpatial());
   d_timestepInSecs = timestepInSecs.src_f()[0];
-  if (d_timestepInSecs <= 0)
+  if (d_timestepInSecs <= 0) {
     throw DomainError("timestepInSecs must be > 0");
+  }
 }
 
 TimeSliceVisitor::~TimeSliceVisitor()
@@ -48,14 +49,16 @@ void TimeSliceVisitor::visitPerCachmentSlice()
     csi.nrTimeSlices = 1;  // keep 1 on no pit (unsound ldd)
     if (!graph().invalid(fieldId)) {
       csi.nrTimeSlices = d_nrTimeSlicesField[fieldId];
-      if (csi.nrTimeSlices == MV_INT4 || csi.nrTimeSlices < 1)
+      if (csi.nrTimeSlices == MV_INT4 || csi.nrTimeSlices < 1) {
         csi.nrTimeSlices = 1;  // supress domain error
+      }
     }
     csi.sliceInSecs = d_timestepInSecs / (double)csi.nrTimeSlices;
     initPerCatchmentSlice(csi);
 
-    for (auto i = c->downBegin(); i != c->downEnd(); ++i)
+    for (auto i = c->downBegin(); i != c->downEnd(); ++i) {
       finishVertexBeforeAllSlices(i->up());
+    }
     finishVertexBeforeAllSlices(c->d_pitId);
 
 

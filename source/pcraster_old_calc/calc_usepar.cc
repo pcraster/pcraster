@@ -14,8 +14,9 @@ void calc::UsePar::init()
         dynamic_cast<const IndexParameter *>(d_block->findSymbol(&d_index[i], VS_INDEX, true));
     POSTCOND(d_selector[i]);
 
-    if (!d_selector[i]->isOn())  // pcrcalc/test305
+    if (!d_selector[i]->isOn()) {  // pcrcalc/test305
       d_index[i].posError("Index is switched off");
+    }
     v[i] = d_selector[i]->partOf();
   }
   d_descriptor = ArrayDefVector(v);
@@ -43,7 +44,8 @@ const calc::ArrayDefVector &calc::UsePar::descriptor() const
 //! factor an index selected vector, caller should delete
 calc::IndexSelected *calc::UsePar::createSelector() const
 {
-  if (!isArray())
+  if (!isArray()) {
     return new calc::IndexSelectedSingle();
+  }
   return new calc::IndexSelectedVector(d_selector);
 }

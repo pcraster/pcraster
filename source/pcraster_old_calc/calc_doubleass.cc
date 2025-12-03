@@ -21,9 +21,11 @@ static const struct {
 static void doubleTableSanityCheck()
 {
   size_t i = 0;
-  for (i = 0; i < ARRAY_SIZE(doubleTable) - 1; i++)
-    if (doubleTable[i].index == 0)
+  for (i = 0; i < ARRAY_SIZE(doubleTable) - 1; i++) {
+    if (doubleTable[i].index == 0) {
       PRECOND(nrInSet(calc::major2op(doubleTable[i].dassOpImplementor).vs()) == 1);
+    }
+  }
 }
 #endif
 
@@ -49,9 +51,11 @@ MAJOR_CODE calc::otherDouble(MAJOR_CODE op)
       {OP_NOP, OP_NOP}}; /* dummy entry */
   size_t i = 0;
 
-  for (i = 0; i < ARRAY_SIZE(pairs) - 1; i++)
-    if (op == pairs[i][0])
+  for (i = 0; i < ARRAY_SIZE(pairs) - 1; i++) {
+    if (op == pairs[i][0]) {
       break;
+    }
+  }
 
   /* if not found then pairs[i][j] == OP_NOP, the dummy entry */
   return pairs[i][1];
@@ -142,10 +146,12 @@ bool calc::DoubleAssignment::buildTypes()
   //  construct, the other can we can check by a fixed FieldType.
   d_right->buildTypesRecursive(d_left[1]->vs());
   bool spatialPromotion = false;
-  if (d_left[1]->restrictUser(d_right))
+  if (d_left[1]->restrictUser(d_right)) {
     spatialPromotion = true;
-  if (d_left[0]->restrictUser(calc::FieldType(d_op0.vs(), ST_SPATIAL)))
+  }
+  if (d_left[0]->restrictUser(calc::FieldType(d_op0.vs(), ST_SPATIAL))) {
     spatialPromotion = true;
+  }
   return spatialPromotion;
 }
 

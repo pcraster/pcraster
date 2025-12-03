@@ -69,18 +69,21 @@ calc::StackInput::StackInput(IOStrategy &fios, const std::string &stackName, con
       } break;
       case MapStackType::Sparse:
         // fall back to previous
-        if (!exists(i))
+        if (!exists(i)) {
           d_itemToLoad[i] = d_itemToLoad[i - 1];
+        }
         break;
       default:;
     }
-    if (d_itemToLoad[i] != i)
+    if (d_itemToLoad[i] != i) {
       continue;  // do not check non existing item
+    }
 
     // item i expected exist, at this point in code
     // but may cause a file not found message
-    if (!firstExisting)
+    if (!firstExisting) {
       firstExisting = i;
+    }
 
     checkMap(i);
 
@@ -92,8 +95,9 @@ calc::StackInput::StackInput(IOStrategy &fios, const std::string &stackName, con
   }
   // if firstExisting is not the d_fios.timer().startInt() one
   //  set first ones to firstExisting
-  for (size_t i = d_fios.timer().startInt(); i < firstExisting; ++i)
+  for (size_t i = d_fios.timer().startInt(); i < firstExisting; ++i) {
     d_itemToLoad[i] = firstExisting;
+  }
 }
 
 calc::StackInput::~StackInput()
@@ -135,8 +139,9 @@ calc::OVS calc::StackInput::ovs() const
  */
 calc::Field *calc::StackInput::read(size_t t)
 {
-  if (!t)
+  if (!t) {
     throw DomainError("timeinput outside dynamic section");
+  }
   /* TODO now checked in resolve, but other runtime engines might need this
   if (rowIndex >= stack->nrSteps())
      throw DomainError("map-stack too short");
@@ -155,8 +160,9 @@ calc::Field *calc::StackInput::read(size_t t)
 //! read values for mapstack item \a t in buffer
 calc::Field *calc::StackInput::readLookup(int t)
 {
-  if (t < 0)
+  if (t < 0) {
     throw DomainError("index must be > 0");
+  }
   checkMap(t);
   return readField(t);
 }

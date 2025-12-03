@@ -158,8 +158,9 @@ public:
     if (d_toObjName.find(e.tagName()) != d_toObjName.end()) {
       // replace element name by value of obj-name
       const char *on("obj-name");
-      if (!e.hasAttribute(on))
+      if (!e.hasAttribute(on)) {
         throw com::Exception("unexpected format");
+      }
       e.setTagName(e.attribute(on));
       e.removeAttribute(on);
     }
@@ -180,8 +181,9 @@ public:
 static std::vector<QDomElement> findTagGetSiblings(const QDomElement &tree, const QString &tag)
 {
   QDomElement const parent(pcrxml::firstMatchByTagName(tree, tag));
-  if (parent.isNull())
+  if (parent.isNull()) {
     return {};  // empty vector
+  }
   return pcrxml::childElements(parent);
 }
 
@@ -193,8 +195,9 @@ static std::vector<QDomElement> findTagGetSiblings(const QDomElement &tree, cons
 static QDomElement findTagGet1stSibling(const QDomElement &tree, const QString &tag)
 {
   std::vector<QDomElement> l(findTagGetSiblings(tree, tag));
-  if (l.empty())
+  if (l.empty()) {
     return {};
+  }
   return l[0];
 }
 
@@ -248,8 +251,9 @@ void calc::WlDelftHabitat::parseParameter(const QDomElement &de)
   XML_TRACE_LOG(std::cout << p.d_name << " id:" << identifier);
   if (!bestand.isNull()) {
     std::string const fileName(subValue(bestand));
-    if (fileName.empty())
+    if (fileName.empty()) {
       throw com::BadStreamFormat("BESTAND has empty value attribute");
+    }
     addBinding(p.d_name, subValue(bestand));
     XML_TRACE_LOG(std::cout << " binding:" << subValue(bestand));
   }
@@ -314,8 +318,9 @@ void calc::WlDelftHabitat::parseXml()
       bool parse(WlDelftHabitat *w, const QDomElement &de)
       {
         std::vector<QDomElement> const cmds(findTagGetSiblings(de, d_elementName));
-        for (auto &cmd : cmds)
+        for (auto &cmd : cmds) {
           (w->*d_parse)(cmd);
+        }
         return !cmds.empty();
       }
     };
@@ -329,11 +334,13 @@ void calc::WlDelftHabitat::parseXml()
     evaluateBindings();
 
     bool cmdsFound = false;
-    for (size_t i = 1; i < ARRAY_SIZE(parseCommands); ++i)
+    for (size_t i = 1; i < ARRAY_SIZE(parseCommands); ++i) {
       cmdsFound |= parseCommands[i].parse(this, de);
+    }
 
-    if (!cmdsFound)
+    if (!cmdsFound) {
       throw com::BadStreamFormat("no command element (like Model) found");
+    }
   } catch (const com::BadStreamFormat &bsf) {
     throw com::FileFormatError(d_xmlFile, bsf.messages());
   }
@@ -422,7 +429,7 @@ static void parseTable(LookupTable::Records &lr, const QDomElement &containedIn,
                        const std::string &resultName)
 {
   std::vector<QDomElement> const recs(nonEmptyContainer(containedIn, containerName));
-  for (auto &rec : recs)
+  for (auto &rec : recs) {
     try {
       lr.push_back(parseRecord(rec, keyName, resultName));
     } catch (com::BadIntervalFormat &e) {
@@ -431,6 +438,7 @@ static void parseTable(LookupTable::Records &lr, const QDomElement &containedIn,
       e.prepend(msg.str());
       throw;
     }
+  }
 }
 
 static void parseIntervals(std::vector<const com::IntervalF *> &iv, const QDomElement &containedIn,
@@ -438,7 +446,7 @@ static void parseIntervals(std::vector<const com::IntervalF *> &iv, const QDomEl
 {
   // get all records
   std::vector<QDomElement> const recs(nonEmptyContainer(containedIn, containerName));
-  for (auto &rec : recs)
+  for (auto &rec : recs) {
     try {
       iv.push_back(com::createIntervalFromLookupTableKey<float>(valueOfSubMatch(rec, "VARIABELE")));
     } catch (com::BadIntervalFormat &e) {
@@ -447,6 +455,7 @@ static void parseIntervals(std::vector<const com::IntervalF *> &iv, const QDomEl
       e.prepend(msg.str());
       throw;
     }
+  }
 }
 
 static LookupTable *fillTable(LookupTable *tab, const LookupTable::Records &records,
@@ -549,13 +558,15 @@ void calc::WlDelftHabitat::parseEcotoop(const QDomElement &ecotoop)
 
   // ECOTOOPVARIA[0],..,ECOTOOPVARIA[n]
   std::vector<QDomElement> const inputData(findTagGetSiblings(ecotoop, "ECOTOOPVARIA"));
-  if (inputData.size() != lr[0].nrKeys())
+  if (inputData.size() != lr[0].nrKeys()) {
     throw com::BadStreamFormat("number of ECOTOOPVARIA and WAARDEN elements not identical");
+  }
 
   std::vector<std::string> arg;
   arg.reserve(inputData.size());
-  for (auto &v : inputData)
+  for (auto &v : inputData) {
     arg.push_back(parameter(v).d_name);
+  }
   expr += com::join(arg, ",") + ")";
 
   addAssignment(output, expr);
@@ -609,8 +620,9 @@ void calc::WlDelftHabitat::parseStatistics(const QDomElement &de)
     IntervalParser(const QDomElement &de, const char *name)
     {
       QDomElement const e = pcrxml::firstMatchByTagName(de, name);
-      if (!e.isNull())
+      if (!e.isNull()) {
         parseIntervals(d_iv, de, name);
+      }
     }
 
     ~IntervalParser()
@@ -626,13 +638,15 @@ void calc::WlDelftHabitat::parseStatistics(const QDomElement &de)
 
   {  // Optional
     IntervalParser const ip(de, "OnderwerpKlassen");
-    if (ip.parsed())
+    if (ip.parsed()) {
       s->setSubjectIntervals(ip.d_iv);
+    }
   }
   {  // Optional
     IntervalParser const ip(de, "IndelingsKlassen");
-    if (ip.parsed())
+    if (ip.parsed()) {
       s->setCrossIntervals(ip.d_iv);
+    }
   }
 
   XML_TRACE_LOG(std::cout << "End Statistics\n");

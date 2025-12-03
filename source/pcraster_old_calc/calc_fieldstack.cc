@@ -23,8 +23,9 @@ calc::FieldHandle calc::FieldStack::popDest(VS newVs)
   PRECOND(!d_stack.empty());
   FieldHandle v = d_stack.top();
   d_stack.pop();
-  if (!v.isOnlyHandle())
+  if (!v.isOnlyHandle()) {
     v = v->copy();
+  }
   v->resetVs(newVs);
   return v;
 }
@@ -45,6 +46,7 @@ void calc::FieldStack::push(const FieldHandle &v)
 
 calc::FieldsPopped::FieldsPopped(FieldStack &stack, size_t nr)
 {
-  for (size_t i = 0; i < nr; i++)
+  for (size_t i = 0; i < nr; i++) {
     push_back(stack.popReadOnly());
+  }
 }

@@ -127,15 +127,17 @@ void calc::RunTimeEnv::checkConstraints(const RunTimeEnvSettings & /*s*/) const
 void calc::RunTimeEnv::deleteAllValues()
 {
   d_data.clean();
-  for (auto &i : d_cache)
+  for (auto &i : d_cache) {
     delete i.second;
+  }
   d_cache.clear();
 }
 
 void calc::RunTimeEnv::clean()
 {
-  for (auto &d_writer : d_writers)
+  for (auto &d_writer : d_writers) {
     delete d_writer.second;
+  }
   d_writers.clear();
 
   deleteAllValues();
@@ -222,16 +224,18 @@ void calc::RunTimeEnv::start()
 {
 
   // remove old versions of the file to be written
-  for (auto &d_writer : d_writers)
+  for (auto &d_writer : d_writers) {
     d_writer.second->remove();
+  }
 }
 
 //! finish all writers, remove possible swapDir
 void calc::RunTimeEnv::finish()
 {
   Writers::const_iterator i;
-  for (i = d_writers.begin(); i != d_writers.end(); ++i)
+  for (i = d_writers.begin(); i != d_writers.end(); ++i) {
     i->second->finish();
+  }
   delete d_swapDir;
   d_swapDir = nullptr;
 }
@@ -245,8 +249,9 @@ calc::DataValue *calc::RunTimeEnv::load(std::string const &name, std::string con
 {
   DataTable::DTE e(d_data.dataLoad(name));
   DataValue *dv = e.getOrReleaseValue(lastUse);
-  if (dv)  // yes loaded
+  if (dv) {  // yes loaded
     return dv;
+  }
 
   // not loaded, FTTB only possible in case of fields
   PRECOND(isIn(e.symbol().vs(), VS_FIELD));
@@ -260,8 +265,9 @@ calc::DataValue *calc::RunTimeEnv::load(std::string const &name, std::string con
   POSTCOND(s);
 
   // DISK/MEMORY SWITCH
-  if (DataTable::d_useDiskStorage)
+  if (DataTable::d_useDiskStorage) {
     return s;
+  }
   if (!lastUse) {
     // store in d_data for later use,
     s->setReadOnlyReference(true);
@@ -369,8 +375,9 @@ void calc::RunTimeEnv::deleteValue(const std::string &parName)
 const calc::ICachedObject *calc::RunTimeEnv::cachedObject(const void *fieldSrcValue)
 {
   auto pos = d_cache.find(fieldSrcValue);
-  if (pos != d_cache.end())
+  if (pos != d_cache.end()) {
     return pos->second;
+  }
   return nullptr;
 }
 
@@ -381,13 +388,15 @@ void calc::RunTimeEnv::transferIfCached(const void *fieldSrcValue, const ICached
   auto pos = d_cache.find(fieldSrcValue);
   if (pos != d_cache.end()) {
     // a previous update may already toke place
-    if (pos->second == obj)
+    if (pos->second == obj) {
       return;
+    }
   }
   // multiple delete problem
   deleteCacheEntry(fieldSrcValue);
-  if (d_enableCache)
+  if (d_enableCache) {
     d_cache[fieldSrcValue] = obj;
+  }
 }
 
 void calc::RunTimeEnv::transferMemoryExchangeItemIntoDataTransferArray(MemoryExchangeItem *item)
@@ -443,16 +452,18 @@ void calc::RunTimeEnv::assignStackTop(const ASTPar *p)
         ioStrategy().writeField(writtenAsFile, f.get());
       }
       e.resetValue(new DiskWrittenField(ioStrategy(), writtenAsFile, e.symbol().vs()));
-    } else
+    } else {
       e.resetValue(f.release());
+    }
   }
 }
 
 //! assign the stacked results to these \a pars
 void calc::RunTimeEnv::assignStackTop(const std::vector<ASTPar *> &pars)
 {
-  for (auto par : pars)
+  for (auto par : pars) {
     assignStackTop(par);
+  }
 }
 
 //! load symbol \a i in DataTable and setup a FieldWriter if needed
@@ -461,12 +472,14 @@ void calc::RunTimeEnv::load(const ASTSymbolInfo &i)
   bool const write = i.reportPosition() != RPNone;
   bool outTss(false);
   if (i.vs() == VS_TSS) {
-    if (i.memoryOutputId() == i.noMemoryExchangeId() && write)
+    if (i.memoryOutputId() == i.noMemoryExchangeId() && write) {
       outTss = true;
+    }
   }
 
-  if (!outTss)
+  if (!outTss) {
     d_data.insert(i, d_timer.lastInt(), *d_ioStrategy);
+  }
 
   if (write) {
     i.checkOneOutputVs();
@@ -511,8 +524,9 @@ bool calc::RunTimeEnv::syncEachTimeStep() const
 
 void calc::RunTimeEnv::debugMVAssignments(const Field *f) const
 {
-  if (f->isSpatial())
+  if (f->isSpatial()) {
     d_ioStrategy->debugMVAssignments(f);
+  }
 }
 
 //! set value of d_cellIterator

@@ -103,8 +103,9 @@ calc::DataTable::DTE calc::DataTable::dataLoad(const std::string &name)
  */
 void calc::DataTable::insert(const ASTSymbolInfo &i, size_t nrTimeStepsExpected, const IOStrategy &ios)
 {
-  if (d_table.count(i.name()))
+  if (d_table.count(i.name())) {
     return;
+  }
 
   std::unique_ptr<DataValue> dv;
   try {
@@ -117,8 +118,9 @@ void calc::DataTable::insert(const ASTSymbolInfo &i, size_t nrTimeStepsExpected,
         }
       } break;
       case VS_TSS:
-        if (i.memoryOutputId() == i.noMemoryExchangeId())
+        if (i.memoryOutputId() == i.noMemoryExchangeId()) {
           dv = std::make_unique<TimeTable>(i, nrTimeStepsExpected);
+        }
         break;
       case VS_MAPSTACK:
         dv = std::make_unique<StackInput>(*(i.stackInput()));
@@ -129,19 +131,21 @@ void calc::DataTable::insert(const ASTSymbolInfo &i, size_t nrTimeStepsExpected,
         return;
       default:  // assume field/map/constant
         PRECOND(isIn(i.ovs(), VS_FIELD));
-        if (i.isConstant())
+        if (i.isConstant()) {
           dv = std::make_unique<NonSpatial>(i.ovs(), i.constantValue());
-        else {
+        } else {
           if (i.memoryInputId() != i.noMemoryExchangeId()) {
-            if (i.ioType().input() == pcrxml::ModelInputType::Dynamic)
+            if (i.ioType().input() == pcrxml::ModelInputType::Dynamic) {
               dv = std::make_unique<DynamicMemoryInput>(i.memoryInputId(), i.dataType(), *this, ios);
+            }
           }
           // else
           //  Entry::d_dv is 0, StackedValue does reading
         }
     }
-    if (dv.get())
+    if (dv.get()) {
       dv->setReadOnlyReference(true);
+    }
     d_table.insert(std::make_pair(i.name(), Entry(i, dv.release())));
 
   } catch (const com::Exception &e) {
@@ -181,8 +185,9 @@ void *calc::DataTable::memoryExchangeInputBuffer(size_t memoryIndex) const
 void calc::DataTable::print(std::ostream &s) const
 {
   auto i = d_table.begin();
-  for (; i != d_table.end(); ++i)
+  for (; i != d_table.end(); ++i) {
     s << "symbol: " << i->second << " dataValue: " << i->second.d_dv << '\n';
+  }
 }
 
 //! do all assignable data items hold no value?
@@ -215,8 +220,9 @@ bool calc::DataTable::allNoValue() const
  */
 calc::DataValue *calc::DataTable::DTE::getOrReleaseValue(bool lastUse)
 {
-  if (!dataValue())
+  if (!dataValue()) {
     return nullptr;  // not yet loaded
+  }
 
   DataValue *dv(dataValue());
   if (lastUse) {
@@ -270,8 +276,9 @@ void calc::DataTable::DTE::resetValue(DataValue *value)
 std::map<std::string, calc::ASTSymbolInfo> calc::DataTable::symbols() const
 {
   std::map<std::string, calc::ASTSymbolInfo> s;
-  for (const auto &i : d_table)
+  for (const auto &i : d_table) {
     s.insert(std::make_pair(i.first, i.second));
+  }
   return s;
 }
 

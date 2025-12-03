@@ -55,8 +55,9 @@ void calc::ModelLinkMethodExpr::buildTypes()
     // pcrcalc/test326
     d_methodName.posError(d_methodName.qName() + " " + s.what());
   }
-  if (d_sig.d_result.size() != 1)  // pcrcalc/test331
+  if (d_sig.d_result.size() != 1) {  // pcrcalc/test331
     posError("Expecting only one return value");
+  }
 
   d_fieldType.restrictUser(d_sig.d_result[0].vs, d_sig.d_result[0].st);
 
@@ -70,8 +71,9 @@ void calc::ModelLinkMethodExpr::buildTypes()
 void calc::ModelLinkMethodExpr::buildTypesRecursive([[maybe_unused]] VS resultVsSet)
 {
   PRECOND(resultVsSet != VS_UNKNOWN);
-  for (auto d_arg : d_args)
+  for (auto d_arg : d_args) {
     d_arg->buildTypesRecursive(vs());
+  }
   buildTypes();
 }
 
@@ -113,8 +115,9 @@ void calc::ModelLinkMethodExpr::execute(FieldStack &stack)
   //! wrap inputs args into signature
   d_sig.d_result[0].value = result.MAPinterface();
   PRECOND(d_args.size() == d_sig.d_input.size());
-  for (size_t i = 0; i < d_args.size(); i++)
+  for (size_t i = 0; i < d_args.size(); i++) {
     d_sig.d_input[i].value = args.MAP_ptr(i);
+  }
 
   d_par->methodExecute(d_methodName.name(), d_sig);
 

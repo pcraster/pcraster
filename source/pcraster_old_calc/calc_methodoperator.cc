@@ -14,8 +14,9 @@ calc::MethodOperator::MethodOperator(const std::string &name, const ModelLinkMet
                       EXEC_EXTERN,  // DONT_CARE
                       0,            // DONT_CARE
                       CG_PLAIN);    // DONT_CARE
-  for (const auto &i : s.d_input)
+  for (const auto &i : s.d_input) {
     d_op->pushBackArg(i.vs, i.st);
+  }
 }
 
 calc::MethodOperator::~MethodOperator()

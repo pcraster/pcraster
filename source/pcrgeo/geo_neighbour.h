@@ -182,8 +182,9 @@ class DownStreamVisitorCell : public CellLoc {
   }
   //! set next to visit and mark current if needed
   void next(bool markCurrentAsUpstreamNB) {
-    if (markCurrentAsUpstreamNB)
+    if (markCurrentAsUpstreamNB) {
       d_upstreamNeighbourDirs |= 1 << d_nextNeighbourToVisit;
+    }
     // skip pit value 5
     d_nextNeighbourToVisit += (d_nextNeighbourToVisit==4)? 2 : 1;
   }

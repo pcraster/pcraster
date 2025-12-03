@@ -19,8 +19,9 @@ calc::TssOutputParameter::TssOutputParameter(const calc::ParsPar &par, const cal
 
 calc::TssOutputParameter::~TssOutputParameter()
 {
-  for (auto &i : d_value)
+  for (auto &i : d_value) {
     delete i;
+  }
 }
 
 //! returns the field value scale of tss result
@@ -48,10 +49,13 @@ static int GetMaxId(const MAP_INT4 *id)
   INT4 max = -1; /* -1 is save, we need a positive id */
 
   id->SetGetTest(GET_MV_TEST, id);
-  for (r = 0; r < nrRows; r++)
-    for (c = 0; c < nrCols; c++)
-      if (id->Get(&val, r, c, id))
+  for (r = 0; r < nrRows; r++) {
+    for (c = 0; c < nrCols; c++) {
+      if (id->Get(&val, r, c, id)) {
         max = std::max(max, val);
+      }
+    }
+  }
   return max;
 }
 
@@ -62,25 +66,30 @@ void calc::TssOutputParameter::AddTotss(size_t index, const void **args, bool is
   if (scriptConst().currentTimeStep() == 1) {  // initializing, first timestep
     PRECOND(nrInSet(d_vs) == 1);
     int const max = GetMaxId(idMap);
-    if (max > 0 && (!d_value[index] /* prevent multiple alloc: see pcrcalc/test317 */))
+    if (max > 0 && (!d_value[index] /* prevent multiple alloc: see pcrcalc/test317 */)) {
       d_value[index] = new calc::TssOutputValue(calc::FileWriter(*this, index, d_vs), max, d_vs);
+    }
     /* CW if max <= 0
     * maybe message/warning: idMap contained only MV's at first timestep
     */
   }
 
-  if (!d_value[index])
+  if (!d_value[index]) {
     return;  // no tss was created, during the first timestep
+  }
 
   size_t nrVals = 0;
   double *val = d_value[index]->getValueBuffer(nrVals);
-  if (!val)  // do not write this time step
+  if (!val) {  // do not write this time step
     return;
+  }
   int result = 0;
-  if (isClassTss)  // VS_BNO
+  if (isClassTss) {  // VS_BNO
     result = AddToTssRowINT4(val, nrVals, idMap, (const MAP_INT4 *)args[1]);
-  else
+  } else {
     result = AddToTssRowREAL8(val, nrVals, idMap, (const MAP_REAL8 *)args[1]);
-  if (result)
+  }
+  if (result) {
     throw std::runtime_error("Failed to add data to timeseries");
+  }
 }

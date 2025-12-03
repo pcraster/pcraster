@@ -193,8 +193,9 @@ inline REAL8 geo::VoxelStack::top() const
 {
   REAL8 b = d_bottom;
 
-  for(const auto & it : *this)
+  for(const auto & it : *this) {
     b += it.thickness();
+  }
 
   return b;
 }

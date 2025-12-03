@@ -52,8 +52,9 @@ public:
 void calc::ParsReportMoment::check()
 {
   if (start <= end || end <= 0  // end is 0,single point, or endtime (-1)
-  )
+  ) {
     return;  // OK
+  }
 
   const size_t buf_size = 128;
   char buf[buf_size];
@@ -112,28 +113,35 @@ void calc::Report::update(const Timer &timer)
   d_reportAt[0] = false;
 
   for (auto m : d_list) {
-    if (m.start > endTime)  // single or range outside 1..endTime
-      continue;             // do not add
-    if (m.start == -1)      // keyword "endtime"
+    if (m.start > endTime) {  // single or range outside 1..endTime
+      continue;               // do not add
+    }
+    if (m.start == -1) {  // keyword "endtime"
       m.start = endTime;
-    if (m.end == -1)  // keyword "endtime"
+    }
+    if (m.end == -1) {  // keyword "endtime"
       m.end = endTime;
-    if (m.end > endTime)  // forget other timesteps pcrcalc/test234c
+    }
+    if (m.end > endTime) {  // forget other timesteps pcrcalc/test234c
       m.end = endTime;
+    }
 
     if (m.end == 0) {
-      if (m.start >= (int)timer.startInt())  // single
+      if (m.start >= (int)timer.startInt()) {  // single
         d_reportAt[m.start] = true;
+      }
     } else {  // range
-      if (m.step == 0)
+      if (m.step == 0) {
         m.step = 1;
+      }
       PRECOND(m.start <= m.end && m.step >= 1);
-      for (size_t i = m.start; i <= (size_t)m.end; i += m.step)
+      for (size_t i = m.start; i <= (size_t)m.end; i += m.step) {
         if (i >= timer.startInt()) {
           // see AdjustStackMinMax
           // and test pcrcalc/234a
           d_reportAt[i] = true;
         }
+      }
     }
   }
 }
@@ -142,8 +150,9 @@ void calc::Report::update(const Timer &timer)
 void calc::Report::print() const
 {
   std::string s;
-  for (bool const i : d_reportAt)
+  for (bool const i : d_reportAt) {
     s += i ? '1' : '0';
+  }
   PRINT_VAR(s);
 }
 #endif

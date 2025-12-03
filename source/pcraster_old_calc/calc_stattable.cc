@@ -199,9 +199,10 @@ private:
   void printLineCommon(double area, std::ostream &out) const
   {
     out << "\t" << area * nr();
-    if (nr())
+    if (nr()) {
       out << "\t" << sum() << "\t" << minimum() << "\t" << maximum() << "\t" << average() << "\t" << sd()
           << "\t" << d_med;
+    }
     out << "\n";
   }
 };
@@ -259,8 +260,9 @@ static void crossPercentiles(M &m, typename P::V::iterator begin, typename P::V:
 */
     }
     // if intervals are distinct we can ignore the part just used
-    if (m.distinct())
+    if (m.distinct()) {
       begin += i->second.nr();
+    }
   }
 }
 
@@ -311,13 +313,15 @@ bool calc::StatTable::buildTypes()
     // Reverse if needed
     bool doSwap = false;
     if (d_subject.cr() == CR_REAL4) {
-      if (d_cross.cr() != CR_REAL4)
+      if (d_cross.cr() != CR_REAL4) {
         doSwap = true;  // r1,r2
-      else if ((!d_subject.hasIntervals()) && d_cross.hasIntervals())
+      } else if ((!d_subject.hasIntervals()) && d_cross.hasIntervals()) {
         doSwap = true;  //r3
+      }
     }
-    if (doSwap)
+    if (doSwap) {
       d_cross.swap(d_subject);
+    }
   }
   return false;
 }
@@ -325,8 +329,9 @@ bool calc::StatTable::buildTypes()
 void calc::StatTable::prepareExecution()
 {
   // in stacked order!
-  if (d_cross.defined())
+  if (d_cross.defined()) {
     d_cross->prepareExecution();
+  }
 
   d_subject->prepareExecution();
 }
@@ -352,8 +357,9 @@ void calc::StatTable::run()
   calc::FieldStack stack;
 
   // put cross below on stack
-  if (d_cross.defined())
+  if (d_cross.defined()) {
     d_cross->execute(stack);
+  }
   d_subject->execute(stack);
 
   // select on subject type
@@ -393,9 +399,9 @@ template <typename T> void calc::StatTable::classSubject(FieldStack &stack) cons
   FieldHandle d(stack.popReadOnly());
   const T *s = (const T *)d->srcValue();
 
-  if (!d_cross.defined())
+  if (!d_cross.defined()) {
     classTable(s, s + d->nrValues());
-  else {
+  } else {
     switch (biggestCellRepr(d_cross->vs())) {
       case CR_INT4:
         classCrossTable<T, INT4>(s, stack);
@@ -404,9 +410,9 @@ template <typename T> void calc::StatTable::classSubject(FieldStack &stack) cons
         classCrossTable<T, UINT1>(s, stack);
         break;
       case CR_REAL4:
-        if (!d_cross.hasIntervals())
+        if (!d_cross.hasIntervals()) {
           classScalarTable(s, stack);
-        else {
+        } else {
           if (com::noOverlap(d_cross.d_intervals)) {
             typedef typename com::IntervalMap<detail::ScalarStats, float> IM;
             classIntervalTable<IM>(s, stack);
@@ -432,8 +438,9 @@ template <typename T> void calc::StatTable::classTable(const T *begin, const T *
   std::ofstream out;
   open(out);
   out << d_subject.d_name << "\t" << "opp" << "\n";
-  for (auto &i : m)
+  for (auto &i : m) {
     out << i.first << "\t" << area(i.second) << "\n";
+  }
 }
 
 template <typename SubjectType, typename CrossType>
@@ -445,9 +452,11 @@ void calc::StatTable::classCrossTable(const SubjectType *subject, FieldStack &st
 
   FieldHandle d(stack.popReadOnly());
   const auto *cross = (const CrossType *)d->srcValue();
-  for (size_t i = 0; i < d->nrValues(); ++i)
-    if (!pcr::isMV(subject[i]) && !pcr::isMV(cross[i]))
+  for (size_t i = 0; i < d->nrValues(); ++i) {
+    if (!pcr::isMV(subject[i]) && !pcr::isMV(cross[i])) {
       m(subject[i], cross[i]);
+    }
+  }
 
   std::ofstream out;
   open(out);
@@ -460,24 +469,27 @@ void calc::StatTable::classCrossTable(const SubjectType *subject, FieldStack &st
   S const col = m.colClasses();
   S const row = m.rowClasses();
 
-  for (int const c : col)
+  for (int const c : col) {
     out << "\t" << c;
+  }
   out << "\n";
 
   for (int const r : row) {
     out << r;
-    for (int const c : col)
+    for (int const c : col) {
       out << "\t" << area(m.getCount(r, c));
+    }
     out << "\n";
   }
 }
 
 void calc::StatTable::crossHeader(std::ostream &out) const
 {
-  if (d_cross.defined())
+  if (d_cross.defined()) {
     out << "\t" << d_cross.d_name << "\n";
-  else
+  } else {
     out << "\t" << d_subject.d_name << "\n";
+  }
 }
 
 void calc::StatTable::scalarCrossHeader(std::ostream &out, int nrRowDescriptors) const
@@ -486,10 +498,12 @@ void calc::StatTable::scalarCrossHeader(std::ostream &out, int nrRowDescriptors)
   out << d_subject.d_name;
   // print with intervening space
   //  do not allow empty between tab seperators
-  if (nrRowDescriptors)
+  if (nrRowDescriptors) {
     out << "\t";
-  for (int i = 1; i < nrRowDescriptors; ++i)
+  }
+  for (int i = 1; i < nrRowDescriptors; ++i) {
     out << " \t";
+  }
   out << "opp" << "\t" << "som" << "\t" << "min" << "\t" << "max" << "\t" << "gem" << "\t" << "sd"
       << "\t" << "med" << "\n";
 }
@@ -516,11 +530,12 @@ template <typename CountMap> void calc::StatTable::addCrossClasses(CountMap &m) 
 {
   const Intervals &s(d_subject.d_intervals);
   const Intervals &c(d_cross.d_intervals);
-  if (c.empty())
-    for (auto i : s)
+  if (c.empty()) {
+    for (auto i : s) {
       m.addClass(static_cast<int>(i->min()));
-  else
-    for (auto si : s)
+    }
+  } else {
+    for (auto si : s) {
       for (auto ci : c) {
         const com::IntervalF &siv(*si);
         PRECOND(siv.min() == siv.max());
@@ -528,6 +543,8 @@ template <typename CountMap> void calc::StatTable::addCrossClasses(CountMap &m) 
         PRECOND(civ.min() == civ.max());
         m.addClass(static_cast<int>(siv.min()), static_cast<int>(civ.min()));
       }
+    }
+  }
 }
 
 //! d_cross is REAL4 and has intervals a.k.a. type KG
@@ -547,11 +564,12 @@ void calc::StatTable::classIntervalTable(const SubjectType *subject, FieldStack 
   M m(d_cross.d_intervals);
   addSubjectClasses(m);
 
-  for (size_t i = 0; i < d->nrValues(); i++)
+  for (size_t i = 0; i < d->nrValues(); i++) {
     if (!pcr::isMV(subject[i]) && !pcr::isMV(cross[i])) {
       m.visit(subject[i], cross[i]);
       r.push_back(CP(subject[i], cross[i]));
     }
+  }
 
   // sort on subject for percentile computation
   std::sort(r.begin(), r.end(), std::mem_fn(&CP::subjectILess));
@@ -596,9 +614,9 @@ void calc::StatTable::scalarScalarTable(const REAL4 *subject, FieldStack &stack,
   const REAL4 *cross = nullptr;
   std::unique_ptr<FieldHandle> d;
 
-  if (!d_cross.defined())
+  if (!d_cross.defined()) {
     cross = subject;
-  else {
+  } else {
     d = std::make_unique<FieldHandle>(stack.popReadOnly());
     cross = (const REAL4 *)(*d)->srcValue();
   }
@@ -614,10 +632,12 @@ void calc::StatTable::scalarScalarTable(const REAL4 *subject, FieldStack &stack,
   std::ofstream out;
   open(out);
   scalarCrossHeader(out);
-  for (auto i = m.begin(); i != m.end(); ++i)
+  for (auto i = m.begin(); i != m.end(); ++i) {
     i->second.printLine(*(i->first), area(1), out);
-  if (m.outside().nr())
+  }
+  if (m.outside().nr()) {
     m.outside().printLine("anders", area(1), out);
+  }
 }
 
 //! type GG
@@ -640,14 +660,16 @@ void calc::StatTable::GGTable(const REAL4 *subject, FieldStack &stack) const
   M m;
   m.insertIntervals(d_subject.d_intervals);
   POSTCOND(m.size() == d_subject.d_intervals.size());
-  for (auto &i : m)
+  for (auto &i : m) {
     i.second.insertIntervals(d_cross.d_intervals);
+  }
 
-  for (size_t i = 0; i < d->nrValues(); i++)
+  for (size_t i = 0; i < d->nrValues(); i++) {
     if (!pcr::isMV(subject[i]) && !pcr::isMV(cross[i])) {
       m.visit2(subject[i], cross[i]);
       r.push_back(CP(subject[i], cross[i]));
     }
+  }
 
   // what is outside is not in any interval
   auto endOutside = m.partitionOutside(r.begin(), r.end(), detail::GGPolicy::partitionValueFirst);
@@ -713,11 +735,12 @@ void calc::StatTable::classScalarTable(const SubjectType *subject, FieldStack &s
   M m;
   addSubjectClasses(m);
 
-  for (size_t i = 0; i < d->nrValues(); i++)
+  for (size_t i = 0; i < d->nrValues(); i++) {
     if (!pcr::isMV(subject[i]) && !pcr::isMV(cross[i])) {
       m[subject[i]](cross[i]);
       r.push_back(CP(subject[i], cross[i]));
     }
+  }
 
   // sort on subject for percentile computation
   std::sort(r.begin(), r.end(), std::mem_fn(&CP::subjectILess));
@@ -726,16 +749,18 @@ void calc::StatTable::classScalarTable(const SubjectType *subject, FieldStack &s
   auto start = r.begin();
   for (auto i = m.begin(); i != m.end(); ++i) {
     auto end = start + i->second.nr();
-    if (start != end)
+    if (start != end) {
       m[i->first].d_med = median(start, end);
+    }
     start = end;
   }
 
   std::ofstream out;
   open(out);
   scalarCrossHeader(out);
-  for (auto &i : m)
+  for (auto &i : m) {
     i.second.printLine(i.first, area(1), out);
+  }
 }
 
 void calc::StatTable::scalarTable(const REAL4 *begin, const REAL4 *end) const
@@ -746,8 +771,9 @@ void calc::StatTable::scalarTable(const REAL4 *begin, const REAL4 *end) const
   open(out);
   out << "\t" << d_subject.d_name << "\n";
   out << "opp\t" << area(s.nr()) << "\n";
-  if (!s.nr())  // empty, skip
+  if (!s.nr()) {  // empty, skip
     return;
+  }
   out << "som" << "\t" << s.sum() << "\n";
   out << "min" << "\t" << s.minimum() << "\n";
   out << "max" << "\t" << s.maximum() << "\n";
@@ -766,13 +792,16 @@ void calc::StatTable::scalarTable(const REAL4 *beginS, const REAL4 *endS, const 
   open(out);
   out << "\t" << d_subject.d_name << "\t" << d_cross.d_name << "\n";
   out << "opp\t" << area(s.nr()) << "\t" << area(c.nr()) << "\n";
-  if (!s.nr() && !c.nr())  // empty, skip
+  if (!s.nr() && !c.nr()) {  // empty, skip
     return;
+  }
   // just put 0 if one of two is empty
-  if (!s.nr())
+  if (!s.nr()) {
     s(0);  // init with 0
-  if (!c.nr())
+  }
+  if (!c.nr()) {
     c(0);  // init with 0
+  }
 
   out << "som" << "\t" << s.sum() << "\t" << c.sum() << "\n";
   out << "min" << "\t" << s.minimum() << "\t" << c.minimum() << "\n";
@@ -879,8 +908,9 @@ const com::PathName &calc::StatTable::resultTable() const
 void calc::StatTable::print(calc::InfoScript &i) const
 {
   d_subject->print(i);
-  if (d_cross.defined())
+  if (d_cross.defined()) {
     d_cross->print(i);
+  }
 }
 
 //------------------------------------------------------------------------------

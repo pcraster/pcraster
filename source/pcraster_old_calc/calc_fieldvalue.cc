@@ -30,8 +30,9 @@ const calc::Field *calc::FieldValue::value() const
  */
 calc::FieldHandle calc::FieldValue::value(bool isLastUse)
 {
-  if (!d_val)
+  if (!d_val) {
     throw calc::Field::NotInitialized();
+  }
   FieldHandle const f = *d_val;
   if (isLastUse) {
     delete d_val;
@@ -44,6 +45,7 @@ void calc::FieldValue::assign(const FieldHandle &f, const Position *assignPoint)
 {
   delete d_val;
   d_val = new FieldHandle(f);
-  if (d_par.writeHere(assignPoint))
+  if (d_par.writeHere(assignPoint)) {
     write();
+  }
 }

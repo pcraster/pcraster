@@ -7,8 +7,9 @@
 
 static void cleanUpArray(const std::vector<calc::ParsIndex *> &index)
 {
-  for (auto i : index)
+  for (auto i : index) {
     delete i;
+  }
 }
 
 //! ind is deleted on return
@@ -17,8 +18,9 @@ calc::ArrayDefinition::ArrayDefinition(const calc::Symbol &name,
     : calc::UserSymbol(name), calc::IndexContainer(this)
 {
   try {
-    for (auto i : index)
+    for (auto i : index) {
       script().addSymbol(i->addMe(this));
+    }
   } catch (...) {
     cleanUpArray(index);
     throw;

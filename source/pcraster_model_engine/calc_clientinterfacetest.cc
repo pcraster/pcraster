@@ -26,9 +26,11 @@ namespace detail
 static bool validateBil(std::string const &name)
 {
   static const char *exts[3] = {".bil", ".hdr", ".stx"};
-  for (auto &ext : exts)
-    if (!compareFileWithValidated(name + ext))
+  for (auto &ext : exts) {
+    if (!compareFileWithValidated(name + ext)) {
       return false;
+    }
+  }
   return true;
 }
 
@@ -185,8 +187,9 @@ BOOST_AUTO_TEST_CASE(testCapi)
     geo::FileCreateTester const fct("tmp2.res");
     PcrScript *s = pcr_createScriptFromTextFile("pcrscripttest.mod");
     BOOST_CHECK(s);
-    if (!s)
+    if (!s) {
       foo();  // supress not used message of foo: the sample code
+    }
     pcr_ScriptExecute(s);
     BOOST_CHECK(!pcr_ScriptError(s));
     pcr_destroyScript(s);
@@ -581,8 +584,9 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
 
     BOOST_CHECK(data[MemOutputInitial]);
     auto *allocatedMemOutputInitial = (float *)data[MemOutputInitial];
-    if (allocatedMemOutputInitial)
+    if (allocatedMemOutputInitial) {
       BOOST_CHECK_EQUAL(allocatedMemOutputInitial[0], 5.0F);
+    }
 
     BOOST_CHECK(!data[MemOutputDynamic]);
     pcr_ScriptExecuteNextTimeStepMemory(s, data);

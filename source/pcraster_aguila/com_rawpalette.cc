@@ -221,8 +221,9 @@ com::RawPalette::RawPalette(const UINT2 *p, size_t n, UINT2 max)
 
 {
   const UINT2 *t = p;
-  for (auto it = begin(); it != end(); it++, t += 3)
+  for (auto it = begin(); it != end(); it++, t += 3) {
     (*it).setRgb(*t, *(t + 1), *(t + 2));
+  }
 }
 
 /*!
@@ -239,8 +240,9 @@ com::RawPalette::RawPalette(const UINT2 p[][3], size_t n, UINT2 max)
 
 {
   const UINT2(*t)[3] = p;  // Array of pointers to an array of rgb tuples.
-  for (auto it = begin(); it != end(); it++, t++)
+  for (auto it = begin(); it != end(); it++, t++) {
     (*it).setRgb(**t, *(*t + 1), *(*t + 2));
+  }
 }
 
 com::RawPalette::~RawPalette()
@@ -375,19 +377,19 @@ bool com::operator!=(RawPalette const &lhs, RawPalette const &rhs)
 */
 const com::RawPalette *com::defaultPalette(CSF_VS vs)
 {
-  if (vs == VS_BOOLEAN)
+  if (vs == VS_BOOLEAN) {
     return RawPalette::booleanPalette();
-  else if (vs == VS_NOMINAL)
+  } else if (vs == VS_NOMINAL) {
     return RawPalette::nominalPalette();
-  else if (vs == VS_ORDINAL)
+  } else if (vs == VS_ORDINAL) {
     return RawPalette::ordinalPalette();
-  else if (vs == VS_SCALAR)
+  } else if (vs == VS_SCALAR) {
     return RawPalette::scalarPalette();
-  else if (vs == VS_DIRECTION)
+  } else if (vs == VS_DIRECTION) {
     return RawPalette::directionalPalette();
-  else if (vs == VS_LDD)
+  } else if (vs == VS_LDD) {
     return RawPalette::nominalPalette();
-  else {
+  } else {
     assert(false);
     return nullptr;  // Never reached.
   }

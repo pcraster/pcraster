@@ -14,8 +14,9 @@
 calc::ASTPar *calc::ParSet::find(ASTPar *key) const
 {
   auto pos = Base::find(key);
-  if (pos != end())
+  if (pos != end()) {
     return *pos;
+  }
   return nullptr;
 }
 
@@ -57,15 +58,17 @@ calc::ParSet calc::setIntersection(const ParSet &e1, const ParSet &e2)
 bool calc::operator==(const calc::ParSet &e1, const std::set<std::string> &e2)
 {
   std::set<std::string> namePars;
-  for (auto i : e1)
+  for (auto i : e1) {
     namePars.insert(i->name());
+  }
   return namePars == e2;
 }
 
 bool calc::operator==(const calc::ParSet &e1, const calc::ParSet &e2)
 {
-  if (e1.size() != e2.size())
+  if (e1.size() != e2.size()) {
     return false;
+  }
   ASTParPtrEqName const c;
   return std::equal(e1.begin(), e1.end(), e2.begin(), c);
 }
@@ -78,8 +81,9 @@ bool calc::operator!=(const calc::ParSet &e1, const calc::ParSet &e2)
 std::ostream &calc::operator<<(std::ostream &s, const calc::ParSet &p)
 {
   s << "(";
-  for (auto i : p)
+  for (auto i : p) {
     s << i->name() << ",";
+  }
   s << ")";
   return s;
 }

@@ -75,8 +75,9 @@ void calc::IoFieldStrategy::checkCommonCloneEqual(const std::string &mapFileName
                                                   const geo::RasterSpace &newMap) const
 {
   if (d_commonRS.nrRows() != newMap.nrRows() || d_commonRS.nrCols() != newMap.nrCols() ||
-      d_commonRS.cellSize() != newMap.cellSize())
+      d_commonRS.cellSize() != newMap.cellSize()) {
     throwCloneDiffers(d_cloneNameCommon, mapFileName);
+  }
 }
 
 //! throw com::Exception, if stuff differs
@@ -136,8 +137,9 @@ calc::GridStat calc::IoFieldStrategy::writeFieldUnpacked(const std::string &file
                                                          const Field *f) const
 {
   GridMapOut m(fileName, *d_outDriver, rasterSpace(), f->vs());
-  if (f->isSpatial())
+  if (f->isSpatial()) {
     return m.writeSpatial(f->src());
+  }
   return m.writeNonSpatial(f->src());
 }
 
@@ -197,8 +199,9 @@ void calc::IoFieldStrategy::checkClone(const std::string &mapFileName)
     d_rasterSpaceCsf = mapRs;
   }
   // check more specific
-  if (!(mapRs == d_rasterSpaceCsf))
+  if (!(mapRs == d_rasterSpaceCsf)) {
     throwCloneDiffers(d_cloneNameCsf, mapFileName);
+  }
 }
 
 //! return prefix-ItemNumber name
@@ -224,10 +227,11 @@ std::string calc::IoFieldStrategy::makeStackItemName(const std::string &iname, i
 //! adjust min max for every map part of the map stack
 void calc::IoFieldStrategy::setStackInfo(const StackInfo &s) const
 {
-  if (!s.d_minMaxSet)
+  if (!s.d_minMaxSet) {
     return;  // all mv!
-  for (size_t t = s.startInt(); t <= s.lastInt(); t++)
-    if (s.reportTimeStep(t))
+  }
+  for (size_t t = s.startInt(); t <= s.lastInt(); t++) {
+    if (s.reportTimeStep(t)) {
       try {
         // TODO no support for other formats!
         geo::CSFMap m(makeStackItemName(s.stackName(), t), true);
@@ -235,6 +239,8 @@ void calc::IoFieldStrategy::setStackInfo(const StackInfo &s) const
       } catch (const com::Exception &) {
         // ignore if file has disapeared or other disaster;
       }
+    }
+  }
 }
 
 //! return data into \a dest
@@ -251,8 +257,9 @@ void calc::IoFieldStrategy::readField(void *dest, const std::string &mapName, VS
   //  - solved bug with lastUse UseDefAnalyzerTest::nestedLoops()
   if (d_readFiles.count(mapName)) {
     const std::string &debugDevelopOnly(mapName);
-    if (debugDevelopOnly == "inp1b.map")  // in known tests to fail
+    if (debugDevelopOnly == "inp1b.map") {  // in known tests to fail
       throw com::OpenFileError(mapName, "IoFieldStrategy::createField");
+    }
     // PRINT_VAR(debugDevelopOnly);
   }
   d_readFiles.insert(mapName);

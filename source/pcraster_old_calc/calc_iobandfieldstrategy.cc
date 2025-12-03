@@ -87,8 +87,9 @@ void calc::IoBandFieldStrategy::checkClone(const std::string &mapFileName)
     d_rasterSpaceBand = mapRs;
   }
 
-  if (!(mapRs == d_rasterSpaceBand))
+  if (!(mapRs == d_rasterSpaceBand)) {
     throwCloneDiffers(d_cloneNameBand, mapFileName);
+  }
 }
 
 //! return a newly created BandMap

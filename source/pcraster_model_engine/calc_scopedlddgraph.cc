@@ -45,8 +45,9 @@ public:
 calc::ScopedLddGraph::ScopedLddGraph(RunTimeEnv *rte, const Field &ldd) : d_lg(rte, &ldd)
 {
   POSTCOND(ldd.vs() == VS_L);
-  if (!d_lg.object())
+  if (!d_lg.object()) {
     d_lg.setObject(new LddGraph(ldd.src_1(), rte->ifieldRDConversion()));
+  }
 }
 
 /* NOT IMPLEMENTED
@@ -95,8 +96,9 @@ void calc::ScopedLddGraph::setMVInput(BitField &mvAtInput)
 //! return the current graph
 const calc::LddGraph &calc::ScopedLddGraph::current() const
 {
-  if (d_modifiedLg)
+  if (d_modifiedLg) {
     return *d_modifiedLg;
+  }
   return *(d_lg.object());
 }
 

@@ -52,8 +52,9 @@ static std::unique_ptr<ClientHolder> s_client(nullptr);
 PCR_ME_EXPORT void calc::globalInit()
 {
   // /home/cees/development/projects/DevEnv/sources/Utils/dev_XercesClient.h
-  if (!s_client.get())
+  if (!s_client.get()) {
     s_client = std::make_unique<ClientHolder>();
+  }
 
   com::tune();
 

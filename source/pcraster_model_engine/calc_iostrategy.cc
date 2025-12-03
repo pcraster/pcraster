@@ -176,8 +176,9 @@ void IOStrategy::setMemoryExchangeData(const ASTSymbolTable &symbols, void **dat
 
   if (maxIdInt != -1) {
     d_dataTransferArrayUser0 = std::vector<bool>(maxIdInt + 1);
-    for (size_t i = 0; i < d_dataTransferArrayUser0.size(); ++i)
+    for (size_t i = 0; i < d_dataTransferArrayUser0.size(); ++i) {
       d_dataTransferArrayUser0[i] = d_dataTransferArray[i] == nullptr;
+    }
   }
 }
 
@@ -197,15 +198,17 @@ void IOStrategy::resolve(ASTSymbolTable &symbols, std::string const &areaMap, Ti
   d_timer = timer;
 
   // check if debug map is specified that it is not used as a symbol also
-  if ((!d_debugMVAssignmentsMap.empty()) && symbols.contains(d_debugMVAssignmentsMap))
+  if ((!d_debugMVAssignmentsMap.empty()) && symbols.contains(d_debugMVAssignmentsMap)) {
     throw com::FileError(d_debugMVAssignmentsMap, "result map for -d can not be used in the script");
+  }
 
   bool const needExplicitClone = d_mvCompression || !d_debugMVAssignmentsMap.empty();
   if (needExplicitClone) {
     // need explicit clone
     // if not there trick a AreaMap::throwIfNotSet by passing empty RS
-    if (areaMap.empty())
+    if (areaMap.empty()) {
       d_areaMap->setRasterSpace(geo::RasterSpace());
+    }
   }
 
   initResolve();
@@ -216,15 +219,17 @@ void IOStrategy::resolve(ASTSymbolTable &symbols, std::string const &areaMap, Ti
   //  - Input tss and tables are always done by files. DataTable::insert not earlier
   // WARNING: this resolve calls back into this, thus symbols is NOT stable
   //          DO NOT replace this loop with a FOR_EACH construct.
-  for (auto &symbol : symbols)
+  for (auto &symbol : symbols) {
     symbol.second.resolve(*this);
+  }
 
   // see if we have picked up a RasterSpace from resolved symbols (Files)
   //  --> e.g. implicit clone
   d_areaMap->throwIfNotSet();  // pcrcalc4
 
-  if (!d_spatialPacking)
+  if (!d_spatialPacking) {
     d_spatialPacking = new AsIsPacking(rasterSpace());
+  }
   if (needExplicitClone) {
     PRECOND(!areaMap.empty());
     Field *f = createReadField(symbols[areaMap].externalName(), symbols[areaMap].dataType());
@@ -241,8 +246,9 @@ void IOStrategy::resolve(ASTSymbolTable &symbols, std::string const &areaMap, Ti
 
 void IOStrategy::debugMVAssignments(const Field *f) const
 {
-  if (d_debugMVAssignmentsMap.empty())
+  if (d_debugMVAssignmentsMap.empty()) {
     return;
+  }
 
   Field *mark = f->findMVinMask(d_areaMap->mask());
   if (mark) {
@@ -274,8 +280,9 @@ void IOStrategy::checkOutputFilePath(ASTSymbolInfo const &i)
   if (isIn(i.vs(), VS_FIELD) &&
       memoryValue(i.name())) {  // Output field will be MemoryExchange'd no output file path
     return;
-  } else
+  } else {
     d_runDirectory.checkOutputFilePath(i.externalName());
+  }
 }
 
 std::string IOStrategy::outputFilePath(const std::string &fileName) const
@@ -299,14 +306,16 @@ calc::DataType IOStrategy::resolveInputSymbol(std::string &newExternalName, cons
     // updates vs
     newDt = resolveInputField(newExternalName, dt);
   } catch (const com::FileFormatError &) {
-    if (expectField)
+    if (expectField) {
       throw com::Exception("Expected map, got a different file");
-    else
+    } else {
       return newDt;  // know nothing more
+    }
   }
   // it is a map
-  if (expectField)  // as expected
+  if (expectField) {  // as expected
     return newDt;
+  }
   // but expecting something else
   std::ostringstream os;
   os << "Expected " << dt.vs() << ", got a map";
@@ -419,9 +428,9 @@ GridStat IOStrategy::writeFieldUnpacked(const std::string &name, const Field *f)
 {
   MemoryExchangeItem *mem = memoryValue(name);
 
-  if (!mem)
+  if (!mem) {
     return d_fs->writeFieldUnpacked(name, f);
-  else {                                         // write to memory
+  } else {                                       // write to memory
     if (!d_dataTransferArrayUser0[mem->id()]) {  // user supplied buffer
       PRECOND(d_dataTransferArray[mem->id()]);
       f->beMemCpySrc(d_dataTransferArray[mem->id()]);
@@ -458,8 +467,9 @@ GridStat calc::IOStrategy::writeField(const std::string &fileName, const Field *
     UnpackedSrc us(*d_spatialPacking, f);
     PRECOND(us.src()->nrValues() == rasterSpace().nrCells());
     return hack->writeFieldUnpacked(fileName, us.src());
-  } else
+  } else {
     return hack->writeFieldUnpacked(fileName, f);
+  }
 }
 
 Field *IOStrategy::createSpatial(VS vs) const
@@ -546,11 +556,13 @@ StackInput *IOStrategy::createStackInput(const std::string &externalName, const 
 {
   std::string const inPath = d_fs->inPathStack(runDirectory(), externalName, timer().lastInt());
 
-  if (type.use() == MapStackType::Lookup)  // no need for timer
+  if (type.use() == MapStackType::Lookup) {  // no need for timer
     return new StackInput(*this, inPath, type);
+  }
 
-  if (timer().lastInt() == 0)
+  if (timer().lastInt() == 0) {
     return nullptr;
+  }
   return new StackInput(*this, inPath, type);
 }
 

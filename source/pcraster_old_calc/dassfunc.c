@@ -122,11 +122,13 @@ int Do_lddcreate_impl(void *l, void *d, const void **ins)
   MAP_INT4 *t = CreateSpatialINT4(CR_INT4, ldd->nrRows, ldd->nrCols);
   int r = 0;
 
-  if (t == NULL)
+  if (t == NULL) {
     return 1;
+  }
   r = Lddm(ldd, (const MAP_REAL8 *)ins[0]);
-  if (r)
+  if (r) {
     goto end;
+  }
 #ifdef NEVER
   printf("PIT REMOVER DISABLED\n");
 #error ARE YOU SURE?

@@ -17,8 +17,9 @@ calc::FieldNewParameter::FieldNewParameter(const calc::ParsPar &par, bool consta
 //! dtor
 calc::FieldNewParameter::~FieldNewParameter()
 {
-  for (auto &i : d_value)
+  for (auto &i : d_value) {
     delete i;
+  }
 }
 
 //! throw com::Exception if name validation fails
@@ -40,10 +41,11 @@ void calc::FieldNewParameter::goInScope()
     if (fieldType().spatial()) {
       d_value[i] = new SpatialImpl(*this, i);
     } else {
-      if (reportedInDynamic())
+      if (reportedInDynamic()) {
         d_value[i] = new NonSpatialTssImpl(*this, i);
-      else
+      } else {
         d_value[i] = new NonSpatialImpl(*this, i);
+      }
     }
   }
 }

@@ -10,8 +10,9 @@ calc::MixedExpr::MixedExpr(const calc::Element &pos, const calc::Operator &op, c
 void calc::MixedExpr::buildTypesRecursive(VS)
 {
   Args &fa = fieldArgs();
-  for (size_t i = 0; i < nrFieldArgs(); i++)
+  for (size_t i = 0; i < nrFieldArgs(); i++) {
     fa[i]->buildTypesRecursive(vs());
+  }
   buildTypes();
 }
 
@@ -29,9 +30,11 @@ void calc::MixedExpr::buildTypes()
 {
   bool isSpatial = false;
   Args &fa = fieldArgs();
-  for (size_t i = 0; i < nrFieldArgs(); i++)
-    if (fa[i]->spatial())
+  for (size_t i = 0; i < nrFieldArgs(); i++) {
+    if (fa[i]->spatial()) {
       isSpatial = true;
+    }
+  }
   restrictFieldArgs(1);
 
   d_type.restrictSystem(d_type.vs(), isSpatial);

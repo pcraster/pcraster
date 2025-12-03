@@ -49,8 +49,9 @@ calc::XMLReflection::XMLReflection(ASTScript const &script) : d_script(new pcrxm
   ASTSymbolTable const &syms(script.symbols());
   for (const auto &sym : syms) {
     std::unique_ptr<pcrxml::Definition> const d(sym.second.createDefinition());
-    if (d.get())
+    if (d.get()) {
       d_script->definition().push_back(*d);
+    }
   }
 }
 

@@ -61,8 +61,9 @@ pcrxml::RunContext *createXMLRunContext(AreaMap const &areaMap, Timer const &tim
 
   auto *rc(new pcrxml::RunContext(cc->areaMap().get(), t));
 
-  if (cc->computationMask().present())
+  if (cc->computationMask().present()) {
     rc->computationMask(cc->computationMask().get());
+  }
 
   return rc;
 }

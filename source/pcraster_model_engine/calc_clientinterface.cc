@@ -92,8 +92,9 @@ calc::ClientInterface& calc::ClientInterface::operator=(ClientInterface const& r
 //! load if not yet loaded
 void calc::ClientInterface::load()
 {
-  if (d_script)
+  if (d_script) {
     return;
+  }
   d_script = createScriptAndAnalyzeNoContext();
 }
 
@@ -111,8 +112,9 @@ void calc::ClientInterface::pcr_ScriptExecute()
   load();
   d_script->resolve();
 
-  if (d_script->symbols().containsMemoryExchangeSymbols())
+  if (d_script->symbols().containsMemoryExchangeSymbols()) {
     throw com::Exception("pcr_ScriptExecute can not execute a script with memoryExchange elements");
+  }
 
   Executor ex(d_script->cfgCode(), d_script->rteSettings(), d_script->symbols());
   ex.execAll();
@@ -127,29 +129,33 @@ int calc::ClientInterface::pcr_ScriptExecuteInitialStepMemory(void **data)
   // resolve possible lookuptables and so on
   d_script->resolve();
 
-  if (d_executor)
+  if (d_executor) {
     throw com::Exception("pcr_ScriptExecuteInitialStepMemory called twice");
+  }
 
   d_executor = new Executor(d_script->cfgCode(), d_script->rteSettings(), d_script->symbols());
 
   d_executor->runTimeEnv().setMemoryExchangeData(data);
 
   d_executor->startStepWise();
-  if (d_executor->execInitialSection())
+  if (d_executor->execInitialSection()) {
     return 0;
+  }
   return 1;
 }
 
 int calc::ClientInterface::pcr_ScriptExecuteNextTimeStepMemory(void **data)
 {
-  if (!d_executor)
+  if (!d_executor) {
     throw com::Exception("pcr_ScriptExecuteNextTimeStepMemory called with no prior call to "
                          "pcr_ScriptExecuteInitialStepMemory");
+  }
 
   d_executor->runTimeEnv().setMemoryExchangeData(data);
 
-  if (d_executor->execDynamicSectionOnce())
+  if (d_executor->execDynamicSectionOnce()) {
     return 0;
+  }
   return 1;
 }
 

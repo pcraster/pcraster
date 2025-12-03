@@ -209,8 +209,9 @@ void calc::Script::addBinding(const Symbol &left, const Symbol &right, VS vs)
 void calc::Script::evaluateBindings()
 {
   std::vector<UserSymbol *> const newPars(d_bindingTable.moveConstantToParameters(this));
-  for (auto &newPar : newPars)
+  for (auto &newPar : newPars) {
     addSymbol(newPar);
+  }
 }
 
 //! add symbol to symbol table of whole script
@@ -297,15 +298,17 @@ void calc::Script::buildScript()
 
   // Now call it again, ONLY to fix for
   // non-spatial -> spatial promotion
-  while (buildTypes())
+  while (buildTypes()) {
     /* just do buildTypes 'till solved */;  // pcrcalc/test60
+  }
 
   prepareExecution();
 
   d_symTab->finalCheck();
 
-  if (d_stats.size() == 0)
+  if (d_stats.size() == 0) {
     throw com::Exception("Empty model script, nothing to execute");
+  }
 
   setupClone();
 
@@ -314,8 +317,9 @@ void calc::Script::buildScript()
     pcrxml::Script s;
     s.ioStrategy = ioFieldStrategy().xmlType();
     s.scriptType = isDynamicModel() ? pcrxml::ScriptType::Dynamic : pcrxml::ScriptType::Static;
-    if (!d_scriptFileName.isEmpty())  // cmd line otherwise
+    if (!d_scriptFileName.isEmpty()) {  // cmd line otherwise
       s.scriptFileName = d_scriptFileName.toString();
+    }
     if (isDynamicModel()) {
       /*
        * s.integerTimer        = new pcrxml::IntegerTimer();
@@ -385,15 +389,17 @@ bool calc::Script::allIsWritten() const
 {
   // in a dynamic model only write if there
   //  is an explicit report
-  if (isDynamicModel())
+  if (isDynamicModel()) {
     return false;
+  }
   // otherwise if none is specified with a report
   // we do write all
 
-  if (ioFieldStrategy().strategyType() == APP_IO_BANDMAP)
+  if (ioFieldStrategy().strategyType() == APP_IO_BANDMAP) {
     return false;  // clientinterface/test13
-  else
+  } else {
     return !d_aReportFound;
+  }
 }
 
 void calc::Script::print(calc::InfoScript &i) const
@@ -404,8 +410,9 @@ void calc::Script::print(calc::InfoScript &i) const
 //! print html file iff user gave -H flag
 void calc::Script::htmlPrint() const
 {
-  if (d_htmlFile.isEmpty())
+  if (d_htmlFile.isEmpty()) {
     return;
+  }
 
   calc::InfoScript si(d_htmlFile.toString());
   print(si);
@@ -460,9 +467,10 @@ void calc::Script::setupClone()
 
   if (needClone || rasterSpace().nrRows() == 0)  // no clone booted
   {
-    if (!d_areaMap) {  // we do not have an areamap, look for --clone
-      if (!appClone)   // Except 1
+    if (!d_areaMap) {   // we do not have an areamap, look for --clone
+      if (!appClone) {  // Except 1
         throw com::Exception("no clone or area map specified");
+      }
       // pcrcalc/test82
       setAreaMap(generatedSymbol("--clone", appClone));
     }
@@ -564,16 +572,19 @@ void calc::Script::updateProgress(ProgressPulse p, int step)
 {
   PRECOND(d_progressCallBack);
 
-  if (p > d_progressCallBack->callAtPulse())
+  if (p > d_progressCallBack->callAtPulse()) {
     return;
+  }
 
   ProgressInfo pi{};
-  if (step < 0)
+  if (step < 0) {
     step = currentTimeStep();
+  }
   pi.inTimeStep = step;
   pi.nrTimeSteps = isDynamicModel() ? nrTimeSteps() : 0;
-  if (d_progressCallBack->update(pi))
+  if (d_progressCallBack->update(pi)) {
     throw calc::QuitForProgressCallBack();
+  }
 }
 
 void calc::Script::processFileOutputValue(double val)
@@ -598,11 +609,13 @@ void calc::Script::processFileOutputValue(double val)
   */
 bool calc::Script::updateExitVal(double val)
 {
-  if (d_exitValueType == ALWAYS_0)
+  if (d_exitValueType == ALWAYS_0) {
     return false;
+  }
   d_exitVal = static_cast<int>(val);
-  if (d_exitValueType == EXIT_ON_0)
+  if (d_exitValueType == EXIT_ON_0) {
     return d_exitVal == 0;
+  }
   return false;
 }
 

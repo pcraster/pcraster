@@ -33,12 +33,13 @@ BOOST_AUTO_TEST_CASE(testAll)
   std::vector<ManualExampleTester> et;
 #include "cpptest.cc"
   std::vector<std::string> failMsgs;
-  for (auto &i : et)
+  for (auto &i : et) {
     try {
       i.test();
     } catch (const com::Exception &e) {
       failMsgs.push_back(e.messages());
     }
+  }
 
   size_t const nrFailuresAllowed = 0;
 

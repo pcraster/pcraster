@@ -65,8 +65,9 @@ const std::string &calc::ASTDefinition::name() const
 void calc::ASTDefinition::add(const Id &key, const Id &value)
 {
   auto i = d_items.find(key);
-  if (i != d_items.end())
+  if (i != d_items.end()) {
     key.symError("redefinition of item");
+  }
 
   std::set<std::string> keys;
   // mutual exclusive definitionroles
@@ -89,8 +90,9 @@ void calc::ASTDefinition::add(const Id &key, const Id &value)
   keys.insert("description");
 
   // known key?
-  if (!keys.count(key.name()))
+  if (!keys.count(key.name())) {
     key.symError("unknown item");
+  }
 
   if (key.name() == "unit") {
     try {
@@ -106,16 +108,18 @@ void calc::ASTDefinition::add(const Id &key, const Id &value)
 //! get value of d_definitionRole
 calc::DefinitionRole calc::ASTDefinition::definitionRole() const
 {
-  if (d_definitionRole.empty())
+  if (d_definitionRole.empty()) {
     return NotSpecified;
+  }
   return (DefinitionRole)d_definitionRole[0];
 }
 
 calc::Dimension calc::ASTDefinition::unit() const
 {
   auto i = d_items.find(TmpId("unit"));
-  if (i != d_items.end())
+  if (i != d_items.end()) {
     return Dimension(i->second());
+  }
   return {};
 }
 
@@ -123,8 +127,9 @@ calc::Dimension calc::ASTDefinition::unit() const
 std::string calc::ASTDefinition::description() const
 {
   auto i = d_items.find(TmpId("description"));
-  if (i != d_items.end())
+  if (i != d_items.end()) {
     return i->second();
+  }
   return "";
 }
 

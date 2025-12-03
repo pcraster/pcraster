@@ -22,8 +22,9 @@ class TestLookupCtor : public LookupTable
 public:
   TestLookupCtor(const char *contents, std::vector<VS> vs = std::vector<VS>())
   {
-    if (vs.empty())
+    if (vs.empty()) {
       vs = std::vector<VS>(2, VS_S);
+    }
     std::string const name("LookupTableTest.tbl");
     com::write(contents, name);
     setRecords(name, vs);
@@ -33,8 +34,9 @@ public:
 static LookupTable::Key makeKey(float v1, float v2 = -1024)
 {
   LookupTable::Key k(1, v1);
-  if (v2 != -1024)
+  if (v2 != -1024) {
     k.push_back(v2);
+  }
   return k;
 }
 }  // namespace calc
@@ -696,8 +698,9 @@ BOOST_AUTO_TEST_CASE(testInterpolateMWF)
 
     // check stable sort
     BOOST_CHECK(ts.d_records.size() == stableSorted.d_records.size());
-    for (size_t i = 0; i < ts.d_records.size(); ++i)
+    for (size_t i = 0; i < ts.d_records.size(); ++i) {
       BOOST_CHECK(ts.d_records[i] == stableSorted.d_records[i]);
+    }
 
     // some find tests
     ts.d_keyCol = 2;

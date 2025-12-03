@@ -32,8 +32,9 @@ calc::MaskCompressor::MaskCompressor(const geo::RasterSpace &rs, const unsigned 
   size_t compressedSize(0);
   for (size_t i = 0; i < rs.nrCells(); i++) {
     d_mask[i] = mask[i] == 1;
-    if (d_mask[i])
+    if (d_mask[i]) {
       d_compressedToDecompressed[compressedSize++] = i;
+    }
   }
   d_compressedToDecompressed.resize(compressedSize);
 }
@@ -61,28 +62,32 @@ void calc::MaskCompressor::decompress(DecompressedData &d, const void *compresse
 
   ValueBuffer const copy = createValueBuffer(cr, d_mask.size());
   size_t compressedIndex = 0;
-  for (size_t i = 0; i < d_mask.size(); i++)
+  for (size_t i = 0; i < d_mask.size(); i++) {
     switch (cr) {
       case CR_UINT1: {
-        if (d_mask[i])
+        if (d_mask[i]) {
           copy.d_UINT1[i] = compressed.d_UINT1[compressedIndex++];
-        else
+        } else {
           pcr::setMV(copy.d_UINT1[i]);
+        }
       } break;
       case CR_INT4: {
-        if (d_mask[i])
+        if (d_mask[i]) {
           copy.d_INT4[i] = compressed.d_INT4[compressedIndex++];
-        else
+        } else {
           pcr::setMV(copy.d_INT4[i]);
+        }
       } break;
       case CR_REAL4: {
-        if (d_mask[i])
+        if (d_mask[i]) {
           copy.d_REAL4[i] = compressed.d_REAL4[compressedIndex++];
-        else
+        } else {
           pcr::setMV(copy.d_REAL4[i]);
+        }
       } break;
       default:;
     }
+  }
   d.setDecompressedCopy(copy.d_UINT1);
 }
 
@@ -97,8 +102,8 @@ calc::Spatial *calc::MaskCompressor::createSpatial(CompressionInput &ci) const
   size_t const size = CELLSIZE(cr);
   DEVELOP_PRECOND(size == 1 || size == 4);
   size_t compressedIndex = 0;
-  for (size_t i = 0; i < d_mask.size(); i++)
-    if (d_mask[i])
+  for (size_t i = 0; i < d_mask.size(); i++) {
+    if (d_mask[i]) {
       switch (size) {
         case 1:
           compressed.d_UINT1[compressedIndex++] = decompressed.d_UINT1[i];
@@ -107,6 +112,8 @@ calc::Spatial *calc::MaskCompressor::createSpatial(CompressionInput &ci) const
           compressed.d_INT4[compressedIndex++] = decompressed.d_INT4[i];
           break;
       }
+    }
+  }
   DEVELOP_PRECOND(compressedIndex == nrCellsCompressed());
   return new Spatial(ci.vs(), nrCellsCompressed(), detach(compressed));
 }

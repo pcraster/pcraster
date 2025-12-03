@@ -67,8 +67,9 @@ calc::GenerateNonSpatial::~GenerateNonSpatial()
 
 UINT1 calc::GenerateSpatial::maskAt(size_t pos) const
 {
-  if (d_nrMask == 1)
+  if (d_nrMask == 1) {
     return *d_mask;
+  }
   return d_mask[pos];
 }
 
@@ -82,10 +83,11 @@ void calc::GenerateSpatial::xcoordinate(REAL4 *res) const
   CoordinateTranslator const ct(d_rasterSpace, d_spatialpacking);
   size_t const n = d_spatialpacking.nrFieldCells();
   for (size_t i = 0; i < n; i++) {
-    if (maskTrue(i))
+    if (maskTrue(i)) {
       res[i] = (REAL4)ct.getX(i);
-    else
+    } else {
       pcr::setMV(res[i]);
+    }
   }
 }
 
@@ -94,31 +96,36 @@ void calc::GenerateSpatial::ycoordinate(REAL4 *res) const
   CoordinateTranslator const ct(d_rasterSpace, d_spatialpacking);
   size_t const n = d_spatialpacking.nrFieldCells();
   for (size_t i = 0; i < n; i++) {
-    if (maskTrue(i))
+    if (maskTrue(i)) {
       res[i] = (REAL4)ct.getY(i);
-    else
+    } else {
       pcr::setMV(res[i]);
+    }
   }
 }
 
 void calc::GenerateSpatial::uniform(REAL4 *res) const
 {
   size_t const n = d_spatialpacking.nrFieldCells();
-  for (size_t i = 0; i < n; i++)
-    if (maskTrue(i))
+  for (size_t i = 0; i < n; i++) {
+    if (maskTrue(i)) {
       res[i] = (REAL4)Ran();
-    else
+    } else {
       pcr::setMV(res[i]);
+    }
+  }
 }
 
 void calc::GenerateSpatial::normal(REAL4 *res) const
 {
   size_t const n = d_spatialpacking.nrFieldCells();
-  for (size_t i = 0; i < n; i++)
-    if (maskTrue(i))
+  for (size_t i = 0; i < n; i++) {
+    if (maskTrue(i)) {
       res[i] = (REAL4)GasDev();
-    else
+    } else {
       pcr::setMV(res[i]);
+    }
+  }
 }
 
 void calc::GenerateSpatial::uniqueid(REAL4 *res) const
@@ -126,15 +133,17 @@ void calc::GenerateSpatial::uniqueid(REAL4 *res) const
   size_t const n = d_spatialpacking.nrFieldCells();
   if (d_nrMask == 1) {
     if (d_mask[0] == 1) {
-      for (size_t i = 0; i < n; i++)
+      for (size_t i = 0; i < n; i++) {
         res[i] = (REAL4)(i + 1);
+      }
     } else {
-      for (size_t i = 0; i < n; i++)
+      for (size_t i = 0; i < n; i++) {
         res[i] = 0;
+      }
     }
   } else {
     size_t id = 1;
-    for (size_t i = 0; i < n; i++)
+    for (size_t i = 0; i < n; i++) {
       switch (d_mask[i]) {
         case 0:
           res[i] = 0;
@@ -145,6 +154,7 @@ void calc::GenerateSpatial::uniqueid(REAL4 *res) const
         default:
           pcr::setMV(res[i]);
       }
+    }
   }
 }
 

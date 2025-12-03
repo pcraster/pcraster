@@ -46,9 +46,9 @@ template <typename IDF> void calc::AreaOperations::apply(REAL4 *val, const IDF *
   d_map = am.areaAverageMap();
 
   for (size_t i = 0; i < len; ++i) {
-    if (pcr::isMV(id[i]) || !d_map.count(id[i]))
+    if (pcr::isMV(id[i]) || !d_map.count(id[i])) {
       pcr::setMV(val[i]);
-    else {
+    } else {
       assert(d_map.count(id[i]));
       val[i] = (REAL4)statistic(id[i]);
     }

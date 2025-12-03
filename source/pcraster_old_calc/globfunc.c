@@ -257,8 +257,9 @@ int Do_order(void *out, const void **ins)
   MAP_INT4 *t = CreateSpatialINT4(CR_INT4, o->nrRows, o->nrCols);
   int r = 0;
 
-  if (t == NULL)
+  if (t == NULL) {
     return 1;
+  }
   r = Order(o, (const MAP_REAL8 *)ins[0], t);
   DeleteMAP_INT4(t);
   return r;

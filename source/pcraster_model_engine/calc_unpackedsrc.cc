@@ -53,8 +53,9 @@ calc::UnpackedSrc::UnpackedSrc(const SpatialPacking &sp, const Field *packed)
 
 calc::UnpackedSrc::~UnpackedSrc()
 {
-  if (d_packed != d_unpacked)
+  if (d_packed != d_unpacked) {
     delete d_unpacked;
+  }
 }
 
 /* NOT IMPLEMENTED
@@ -76,8 +77,9 @@ calc::UnpackedSrc::UnpackedSrc(const UnpackedSrc& rhs):
 //! return field as a (use-only) source
 const calc::Field *calc::UnpackedSrc::src()
 {
-  if (!d_unpacked)
+  if (!d_unpacked) {
     d_unpacked = d_packed->isSpatial() ? d_sp.unpack(d_packed) : d_packed;
+  }
   return d_unpacked;
 }
 

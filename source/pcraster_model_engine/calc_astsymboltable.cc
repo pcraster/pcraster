@@ -64,8 +64,9 @@ calc::ASTSymbolTable::~ASTSymbolTable()
  */
 calc::ASTSymbolInfo &calc::ASTSymbolTable::operator[](const ASTPar *p)
 {
-  if (!(contains(p->name())))
+  if (!(contains(p->name()))) {
     Base::insert(std::make_pair(p->name(), ASTSymbolInfo(p->returnDataType(), p)));
+  }
   PRECOND(contains(p->name()));
   return Base::operator[](p->name());
 }
@@ -98,8 +99,9 @@ bool calc::ASTSymbolTable::contains(const ASTPar *p) const
 void calc::ASTSymbolTable::throwSym(const SymException &s) const
 {
   auto f = find(s.symbolName());
-  if (f == end())  // not in table
+  if (f == end()) {  // not in table
     s.throwPos(s.symbolName());
+  }
   f->second.throwSym(s);
 }
 
@@ -138,8 +140,9 @@ bool calc::ASTSymbolTable::containsMemoryExchangeSymbols() const
   const calc::ASTSymbolTable &this_(*this);
   for (ASTSymbolTablePair const i : this_) {
     ASTSymbolInfo const &si(i.second);
-    if (si.memoryInputId() != noExchange || si.memoryOutputId() != noExchange)
+    if (si.memoryInputId() != noExchange || si.memoryOutputId() != noExchange) {
       return true;
+    }
   }
   return false;
 }
@@ -151,9 +154,9 @@ bool calc::ASTSymbolTable::containsMemoryExchangeSymbols() const
 calc::LinkInLibrary const *calc::ASTSymbolTable::linkInLibrary(std::string const &name)
 {
   auto i = d_linkInLibraries.find(name);
-  if (i != d_linkInLibraries.end())
+  if (i != d_linkInLibraries.end()) {
     return i->second.get();
-  else {
+  } else {
     try {
       d_linkInLibraries.insert(std::make_pair(name, std::make_shared<LinkInLibrary>(name)));
     } catch (com::Exception const &e) {

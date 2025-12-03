@@ -105,8 +105,9 @@ calc::Field *calc::RunTimeEngine::releasePopField()
 
   // value must
   // be kept around, for later use
-  if (f->readOnlyReference())
+  if (f->readOnlyReference()) {
     f = f->createClone();
+  }
   f->setReadOnlyReference(false);
   f->setPcrmeManaged(false);
   return f;

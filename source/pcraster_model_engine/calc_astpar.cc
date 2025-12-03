@@ -98,22 +98,28 @@ calc::ASTPar *calc::ASTPar::createClone() const
 bool calc::operator<(const ASTPar &lhs, const ASTPar &rhs)
 {
   if (lhs.name() == rhs.name()) {
-    if (lhs.index().size() != rhs.index().size())
+    if (lhs.index().size() != rhs.index().size()) {
       return lhs.index().size() < rhs.index().size();
-    for (size_t i = 0; i != rhs.index().size(); ++i)
-      if (lhs.index()[i] != rhs.index()[i])
+    }
+    for (size_t i = 0; i != rhs.index().size(); ++i) {
+      if (lhs.index()[i] != rhs.index()[i]) {
         return lhs.index()[i] < rhs.index()[i];
+      }
+    }
   }
   return lhs.name() < rhs.name();
 }
 
 bool calc::operator==(const ASTPar &lhs, const ASTPar &rhs)
 {
-  if (lhs.name() != rhs.name() || lhs.index() != rhs.index())
+  if (lhs.name() != rhs.name() || lhs.index() != rhs.index()) {
     return false;
-  for (size_t i = 0; i != rhs.index().size(); ++i)
-    if (lhs.index()[i] != rhs.index()[i])
+  }
+  for (size_t i = 0; i != rhs.index().size(); ++i) {
+    if (lhs.index()[i] != rhs.index()[i]) {
       return false;
+    }
+  }
   return true;
 }
 

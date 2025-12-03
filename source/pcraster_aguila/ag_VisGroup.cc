@@ -303,8 +303,9 @@ ag::Map2DWindow *ag::VisGroup::addMap2DWindow(VisualisationWindow *v)
   auto *m = new Map2DWindow(d_data->d_winProps, &(d_data->d_dataObject));
   addVisualisation(m);
   m->resize(v->size());  // 10.
-  if (v->isVisible())
+  if (v->isVisible()) {
     m->show();
+  }
   return m;
 }
 
@@ -342,8 +343,9 @@ ag::Map3DWindow *ag::VisGroup::addMap3DWindow(VisualisationWindow *v)
   auto *m = new Map3DWindow(d_data->d_winProps, &(d_data->d_dataObject));
   addVisualisation(m);
   m->resize(v->size());  // 10.
-  if (v->isVisible())
+  if (v->isVisible()) {
     m->show();
+  }
   return m;
 }
 #endif

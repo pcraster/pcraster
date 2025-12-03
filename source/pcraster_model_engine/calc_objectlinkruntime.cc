@@ -42,18 +42,21 @@ void calc::execObjectLinkMethod(const Operator &op, RunTimeEnv *rte, size_t nrFi
       // both results and input
 
       // results
-      for (size_t i = 0; i < op.nrResults(); ++i)
+      for (size_t i = 0; i < op.nrResults(); ++i) {
         data.push_back(rte->createResultField(op.resultType(i)));
+      }
 
       // input
-      for (size_t i = 0; i < nrFieldArgs; ++i)
+      for (size_t i = 0; i < nrFieldArgs; ++i) {
         data.push_back(rte->popField());
+      }
       // reverse input part
       std::reverse(data.begin() + op.nrResults(), data.end());
 
       ObjectLink *o(nullptr);
-      if (rte->stackSize())
+      if (rte->stackSize()) {
         o = dynamic_cast<ObjectLink *>(rte->popDataValue());
+      }
       if (!o) {
         throw com::Exception(
             std::format("Method '{0}' called while no ObjectLink present", op.implName()));
@@ -68,12 +71,14 @@ void calc::execObjectLinkMethod(const Operator &op, RunTimeEnv *rte, size_t nrFi
         data[in] = nullptr;
       }
       // delete inputs
-      for (; in < op.nrResults() + nrFieldArgs; ++in)
+      for (; in < op.nrResults() + nrFieldArgs; ++in) {
         deleteFromPcrme(data[in]);
+      }
 
     } catch (...) {
-      for (auto &i : data)
+      for (auto &i : data) {
         deleteFromPcrme(i);
+      }
       throw;
     }
   } catch (const std::out_of_range &) {

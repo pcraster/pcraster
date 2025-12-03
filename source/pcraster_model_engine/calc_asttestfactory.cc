@@ -94,12 +94,15 @@ calc::ASTExpr *calc::ASTTestFactory::createExpr(const std::string &opName)
   }
   const Operator *op(opName2op(opN, nrDefaultArgs));
   if (!op) {
-    if (opName == "ifthenelse")
+    if (opName == "ifthenelse") {
       op = major2op(OP_IFTHENELSE);
-    if (opName == "ifthen")
+    }
+    if (opName == "ifthen") {
       op = major2op(OP_IFTHEN);
-    if (!op)
+    }
+    if (!op) {
       throw com::BadStreamFormat("createExpr illegal op: " + opName);
+    }
   }
   auto *e = new ASTExpr(opN, *op);
   return e;
@@ -168,8 +171,9 @@ calc::ASTNode *calc::ASTTestFactory::createCode(const QDomElement &e)
     case 'l': {
       auto *l = new ASTNodeVector();
       std::vector<QDomElement> const c(pcrxml::childElements(e));
-      for (auto &i : c)
+      for (auto &i : c) {
         l->transferPushBack(createCode(i));
+      }
       n = l;
     } break;
     case 'e': {
@@ -179,15 +183,17 @@ calc::ASTNode *calc::ASTTestFactory::createCode(const QDomElement &e)
       com::removeAllSpace(a);
       std::vector<std::string> const args(com::split(a, ','));
       for (auto &arg : args) {
-        if (com::isDouble(arg))
+        if (com::isDouble(arg)) {
           expr->transferArg(createNumber(arg));
-        else
+        } else {
           expr->transferArg(createPar(arg));
+        }
       }
       // rest of arguments as elements
       std::vector<QDomElement> const c(pcrxml::childElements(e));
-      for (auto &i : c)
+      for (auto &i : c) {
         expr->transferArg(createCode(i));
+      }
       n = expr;
       break;
     }
@@ -233,8 +239,9 @@ calc::ASTScript *calc::ASTTestFactory::createFromIdOrStr(const std::string &code
 
   Options ops;  // will reset global options
   std::string const options = db().options(codeOrId);
-  if (!options.empty())
+  if (!options.empty()) {
     ops.processOptionString(options);
+  }
 
   std::unique_ptr<ASTScript> as;
 
@@ -243,9 +250,9 @@ calc::ASTScript *calc::ASTTestFactory::createFromIdOrStr(const std::string &code
   } else {
     // absence of "=" symbol means a single expr or an id
     // FTBB since ASTScript can not be a single expression
-    if (codeOrId.find("pcrcalc") == 0)
+    if (codeOrId.find("pcrcalc") == 0) {
       as.reset(StringParser::createScript(modelFromId(codeOrId)));
-    else {
+    } else {
       as = std::make_unique<ASTScript>();
       ASTNode *n = StringParser::createExpr(codeOrId);
       as->transferCode(new NonAssExpr(n));

@@ -52,8 +52,9 @@ calc::ModelLinkMethodStatement::~ModelLinkMethodStatement()
 void calc::ModelLinkMethodStatement::cleanUp()
 {
   calc::cleanUp(d_args);
-  for (auto &i : d_left)
+  for (auto &i : d_left) {
     delete i;
+  }
 }
 
 bool calc::ModelLinkMethodStatement::buildTypes()
@@ -88,8 +89,9 @@ void calc::ModelLinkMethodStatement::prepareExecution()
   MethodOperator const mop(d_par->modelTypeName(), d_sig);
   FieldArgs a(d_methodName, mop(), d_args);
   a.prepareExecution();
-  for (auto &i : d_left)
+  for (auto &i : d_left) {
     i->prepareExecution();
+  }
 }
 
 void calc::ModelLinkMethodStatement::run()
@@ -104,8 +106,9 @@ void calc::ModelLinkMethodStatement::run()
 
   //! wrap inputs args into signature
   PRECOND(d_args.size() == d_sig.d_input.size());
-  for (size_t i = 0; i < d_args.size(); i++)
+  for (size_t i = 0; i < d_args.size(); i++) {
     d_sig.d_input[i].value = args.MAP_ptr(i);
+  }
 
   //! create the results
   typedef std::shared_ptr<GlobResult> SGlobResult;
@@ -121,6 +124,7 @@ void calc::ModelLinkMethodStatement::run()
   // CW for the time being like, this
   // but the nonspatial->spatial cast of Assignment must
   // be considered, if we wish to return nonspatials
-  for (size_t i = 0; i < d_sig.d_result.size(); i++)
+  for (size_t i = 0; i < d_sig.d_result.size(); i++) {
     d_left[i]->assign(result[i]->createField());
+  }
 }

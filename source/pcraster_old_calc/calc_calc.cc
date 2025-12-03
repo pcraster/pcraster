@@ -96,8 +96,9 @@ bool calc::Calc::processArgs(int argc, char **argv)
      */
 
   appAllOptionsMostLeft = true;
-  if (InstallArgs(argc, argv, "cd*1m0eEr*s#tTf*F*X*K*b*p", "pcrcalc"))
+  if (InstallArgs(argc, argv, "cd*1m0eEr*s#tTf*F*X*K*b*p", "pcrcalc")) {
     throwLibError();
+  }
 
   typedef enum SCRIPT_TYPE {
     SCRIPT_CMD_LINE,
@@ -115,7 +116,7 @@ bool calc::Calc::processArgs(int argc, char **argv)
   com::PathName externalBindingFile;
 
   int c = 0;
-  while ((c = GetOpt()) != 0)
+  while ((c = GetOpt()) != 0) {
     switch (c) {
       case 'c':
         File::d_testCaseTypeOnExistingName = true;
@@ -149,8 +150,9 @@ bool calc::Calc::processArgs(int argc, char **argv)
         break;
       case 's': {
         int const seed = *(const int *)OptArg;
-        if (seed <= 0)  // args/test26
+        if (seed <= 0) {  // args/test26
           throw com::Exception("-s seed must be > 0 (not " + quote(seed) + ")");
+        }
         SetRan((unsigned int)seed);
       } break;
       case 't':
@@ -190,6 +192,7 @@ bool calc::Calc::processArgs(int argc, char **argv)
         d_printProfileInfo = true;
         break;
     }
+  }
 
   if (d_esriGridKillHack) {
     script().removeOutputObject(std::string(scriptName));
@@ -201,20 +204,22 @@ bool calc::Calc::processArgs(int argc, char **argv)
   argv = ArgArguments(&argc);
   switch (scriptType) {
     case SCRIPT_SHELL_FILE:
-      if (argc == 1) /* no arguments specified after -F in #! line */
+      if (argc == 1) { /* no arguments specified after -F in #! line */
         throw com::Exception("-F found in '#!' line but no succeeding options\n"
                              "use -f instead in '#!' line");  // args/test23
-      scriptName = argv[1];                                   /* this is the script */
+      }
+      scriptName = argv[1]; /* this is the script */
       d_lexInput.installFileScript(scriptName);
       /* FALLTHROUGH */
     case SCRIPT_SCRIPT_FILE:
       d_lexInput.installShellArgs(argc - shellArgsStart, (const char **)argv + shellArgsStart);
       break;
     case SCRIPT_CMD_LINE:
-      if (argc <= 1)
+      if (argc <= 1) {
         throw com::Exception("No expression or script specified");  // args/test27
-      else
+      } else {
         d_lexInput.installArgvScript(argc - 1, (const char **)(argv + 1));
+      }
   }
   return true;
 }

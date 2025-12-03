@@ -31,8 +31,9 @@ public:
   MAJOR_CODE findFunc(const std::string &name)
   {
     auto pos = d_funcs.find(name);
-    if (pos != d_funcs.end())
+    if (pos != d_funcs.end()) {
       return pos->second;
+    }
     return OP_NOP;
   }
 
@@ -61,10 +62,12 @@ size_t nrInternalOpCodes()
 static MAJOR_CODE FindFunc(const char *name, bool loadExtLibs)
 {
   MAJOR_CODE const r = parsArgTable.findFunc(name);
-  if (r != OP_NOP)
+  if (r != OP_NOP) {
     return r;
-  if (!loadExtLibs)
+  }
+  if (!loadExtLibs) {
     return OP_NOP;
+  }
 
   // otherwise not a standard function
   // may look for an external function
@@ -73,8 +76,9 @@ static MAJOR_CODE FindFunc(const char *name, bool loadExtLibs)
   }
 
   const calc::Operator *extOp = ExternalSymbols::instance()->find(name);
-  if (extOp)
+  if (extOp) {
     return extOp->opCode();
+  }
   return OP_NOP;
 }
 
@@ -138,10 +142,11 @@ static size_t GetMinor(MAJOR_CODE op)
 const calc::Operator &calc::major2op(MAJOR_CODE major)
 {
   auto maj = (size_t)major;
-  if (maj < nrInternalOpCodes())
+  if (maj < nrInternalOpCodes()) {
     return parsArgTable.op(major);
-  else
+  } else {
     return ExternalSymbols::instance()->op(GetMinor(major));
+  }
 }
 
 //! lookup an operator by function name
@@ -151,8 +156,9 @@ const calc::Operator &calc::funcName2op(const std::string &funcName)
 {
   const MAJOR_CODE m = FindFunc(funcName.c_str(), true);
 
-  if (m != OP_NOP)
+  if (m != OP_NOP) {
     return major2op(m);
+  }
   return major2op(OP_NOP);
 }
 

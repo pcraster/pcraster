@@ -29,10 +29,11 @@ calc::Element::Element()
 
 calc::Element::Element(IScript *script, const Position *pos) : d_script(script)
 {
-  if (pos)
+  if (pos) {
     d_pos = pos->createClone();
-  else
+  } else {
     d_pos = new PositionNone();
+  }
 }
 
 calc::Element::Element(const Element &e) : d_script(e.d_script), d_pos(e.d_pos->createClone())
@@ -56,15 +57,17 @@ calc::Element::~Element()
 
 calc::IScript &calc::Element::script()
 {
-  if (!d_script)
+  if (!d_script) {
     throw SyntaxErrorBug();
+  }
   return *d_script;
 }
 
 const calc::IScript &calc::Element::scriptConst() const
 {
-  if (!d_script)
+  if (!d_script) {
     throw SyntaxErrorBug();
+  }
   return *d_script;
 }
 
@@ -74,8 +77,9 @@ void calc::Element::runtimeError(const std::string &inMsg) const
   size_t const t = scriptConst().currentTimeStep();
   std::ostringstream msg;
   msg << "\nRUNTIME";
-  if (t >= 1)
+  if (t >= 1) {
     msg << " (at timestep " << t << ")";
+  }
   msg << " " << inMsg;
   posError(msg);
 }

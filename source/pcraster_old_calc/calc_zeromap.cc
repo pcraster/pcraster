@@ -28,16 +28,18 @@ calc::ZeroMap::~ZeroMap()
 
 void calc::ZeroMap::loadExternal() const
 {
-  if (valuePtr())
+  if (valuePtr()) {
     return;
+  }
   allocate();
   std::memset(valuePtr(), 0, valLen());
 }
 
 calc::Spatial *calc::ZeroMap::copy() const
 {
-  if (valuePtr())
+  if (valuePtr()) {
     return Spatial::copy();
+  }
 
   // call ZeroMap(const Spatial *f) ctor
   return new ZeroMap(this);
@@ -55,8 +57,9 @@ void calc::ZeroMap::analyzeBoolean(bool &noneAreTrue, bool &noneAreFalse) const
 
 bool calc::ZeroMap::getCell(double &value, size_t i) const
 {
-  if (valuePtr())
+  if (valuePtr()) {
     return Spatial::getCell(value, i);
+  }
   value = 0;
   return true;
 }

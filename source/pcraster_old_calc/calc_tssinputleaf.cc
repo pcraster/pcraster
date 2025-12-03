@@ -29,21 +29,24 @@ void calc::TssInputLeaf::print(calc::InfoScript &i) const
  */
 calc::TssInputLeaf::TssInputLeaf(UsePar &par, VS vsOfResult) : Symbol(par), d_index(par.createSelector())
 {
-  if (par.isArray())
+  if (par.isArray()) {
     posError("Array of tss not yet implemented");
+  }
 
   // first cast to more generic
   auto *p = dynamic_cast<TssParameter *>(script().findRightParameter(par, VS_TSS));
   d_par = dynamic_cast<TssInputParameter *>(p);
-  if (d_par)  // found
+  if (d_par) {  // found
     return;
-  if (p)  // it is a tss but not an input! pcrcalc/test44
+  }
+  if (p) {  // it is a tss but not an input! pcrcalc/test44
     posError(p->userName() +
              "\n is already defined as an timeoutput"
              " on " +
              p->definitionPoint() +
              "\n"
              "can not mix timeinput and timeoutput\n");
+  }
   // load value
   par.setInputFilePath();
   std::vector<TimeTable *> tss(1);

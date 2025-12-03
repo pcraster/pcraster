@@ -10,8 +10,9 @@
 calc::ArrayDefVector calc::IndexSelectedVector::arrayDefVector() const
 {
   std::vector<const calc::ArrayDefinition *> vector;
-  for (size_t i = 0; i < size(); i++)
+  for (size_t i = 0; i < size(); i++) {
     vector.push_back(d_vector[i]->partOf());
+  }
   return calc::ArrayDefVector(vector);
 }
 
@@ -26,11 +27,13 @@ calc::IndexSelectedVector::~IndexSelectedVector()
 
 int calc::IndexSelectedVector::select() const
 {
-  if (!size())
+  if (!size()) {
     return 0;
+  }
   std::vector<size_t> ind(size());
-  for (size_t i = 0; i < d_vector.size(); i++)
+  for (size_t i = 0; i < d_vector.size(); i++) {
     ind[i] = d_vector[i]->index();
+  }
   return arrayDefVector().toLinear(ind);
 }
 
@@ -39,8 +42,9 @@ std::string calc::IndexSelectedVector::selectedName() const
 {
   std::string str = "";
   std::vector<size_t> const ind(size());
-  for (auto i : d_vector)
+  for (auto i : d_vector) {
     str += "[" + i->indexParameterConstant()->name() + "]";
+  }
   return str;
 }
 
@@ -49,8 +53,9 @@ std::string calc::IndexSelectedVector::variableName() const
 {
   std::string str = "";
   std::vector<size_t> const ind(size());
-  for (auto i : d_vector)
+  for (auto i : d_vector) {
     str += "[" + i->name() + "]";
+  }
   return str;
 }
 
@@ -69,8 +74,9 @@ bool calc::IndexSelectedVector::equal(const calc::IndexSelectedVector *index2) c
 {
   PRECOND(size() == index2->size());
   for (size_t i = 0; i < d_vector.size(); i++) {
-    if (d_vector[i] != (*index2)[i])
+    if (d_vector[i] != (*index2)[i]) {
       return false;
+    }
   }
   return true;
 }

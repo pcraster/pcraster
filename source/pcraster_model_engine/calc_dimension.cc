@@ -52,8 +52,9 @@ calc::Dimension::Dimension(const std::string &str) : std::vector<double>(NumBase
     if (it != id2base.end()) {
       PRECOND(it->second < static_cast<int>(size()));
       at(it->second) = dp.symbols()[i].d_power;
-    } else
+    } else {
       dp.throwUnknown(dp.symbols()[i].d_symbol);
+    }
   }
 }
 
@@ -72,8 +73,9 @@ calc::Dimension &calc::Dimension::operator=(Dimension const &rhs)
 {
   PRECOND(rhs.size() == NumBaseQuanties);
   if (this != &rhs) {
-    for (size_t i = 0; i != size(); ++i)
+    for (size_t i = 0; i != size(); ++i) {
       at(i) = rhs[i];
+    }
   }
   return *this;
 }
@@ -81,9 +83,11 @@ calc::Dimension &calc::Dimension::operator=(Dimension const &rhs)
 //! is this dimensionless? in other words all are 0
 bool calc::Dimension::none() const
 {
-  for (double const i : *this)
-    if (i != 0)
+  for (double const i : *this) {
+    if (i != 0) {
       return false;
+    }
+  }
   return true;
 }
 

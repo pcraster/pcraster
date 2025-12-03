@@ -18,8 +18,9 @@ namespace com {
   {
     auto **ptrVal = new CellType *[nrRows];
     ptrVal[0] = linear;
-    for (size_t i = 1; i < nrRows; i++)
+    for (size_t i = 1; i < nrRows; i++) {
       ptrVal[i] = ptrVal[i-1]+nrCols;
+    }
 
     return ptrVal;
   }
@@ -56,8 +57,9 @@ namespace com {
    size_t nrCols,
    CellType *linear)
   {
-    if (!linear)
+    if (!linear) {
       linear = new CellType[nrRows*nrCols];
+    }
     return new2dFromLinear(linear, nrRows, nrCols);
   }
 
@@ -65,8 +67,9 @@ namespace com {
    CellType **data,
    bool deleteLinear=true)
   {
-    if (deleteLinear)
-     delete [] data[0];
+    if (deleteLinear) {
+      delete [] data[0];
+    }
    delete [] data;
   }
 

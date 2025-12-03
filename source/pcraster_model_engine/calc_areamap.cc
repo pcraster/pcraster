@@ -65,14 +65,17 @@ AreaMap::AreaMap(pcrxml::AreaMapScript const &am)
   size_t const nrCols(d_areaMap->nrCols().get());
 
   double cellSize = 1;
-  if (d_areaMap->cellSize())
+  if (d_areaMap->cellSize()) {
     cellSize = d_areaMap->cellSize().get();
+  }
   double xLowerLeftCorner = 0;
-  if (d_areaMap->xLowerLeftCorner())
+  if (d_areaMap->xLowerLeftCorner()) {
     xLowerLeftCorner = d_areaMap->xLowerLeftCorner().get();
+  }
   double yLowerLeftCorner = 0;
-  if (d_areaMap->yLowerLeftCorner())
+  if (d_areaMap->yLowerLeftCorner()) {
     yLowerLeftCorner = d_areaMap->yLowerLeftCorner().get();
+  }
   geo::RasterSpace const rs(nrRows, nrCols, cellSize, xLowerLeftCorner,
                             yLowerLeftCorner + (cellSize * nrRows));
   setRasterSpace(rs);
@@ -83,8 +86,9 @@ AreaMap::AreaMap(AreaMap const &rhs)
 {
   d_rs = rhs.d_rs;
   d_mask = rhs.d_mask;
-  if (rhs.d_areaMap)
+  if (rhs.d_areaMap) {
     d_areaMap = new pcrxml::AreaMapScript(*rhs.d_areaMap);
+  }
 }
 
 AreaMap::~AreaMap()
@@ -101,20 +105,24 @@ AreaMap &AreaMap::operator=(AreaMap const &rhs)
   if (this != &rhs) {
     d_rs = rhs.d_rs;
     d_mask = rhs.d_mask;
-    if (rhs.d_areaMap)
+    if (rhs.d_areaMap) {
       d_areaMap = new pcrxml::AreaMapScript(*rhs.d_areaMap);
-    if (rhs.d_computationMask)
+    }
+    if (rhs.d_computationMask) {
       d_computationMask = new pcrxml::ComputationMask(*rhs.d_computationMask);
+    }
   }
   return *this;
 }
 
 void AreaMap::syncMask()
 {
-  if (d_rs.nrCells() != d_mask.size())
+  if (d_rs.nrCells() != d_mask.size()) {
     d_mask = Mask(d_rs.nrCells(), true);
-  if (hasCoordinateMask())
+  }
+  if (hasCoordinateMask()) {
     setMaskOnCoordinates();
+  }
 }
 
 //! is a valid areamap set?
@@ -144,8 +152,9 @@ void AreaMap::setMaskOnCoordinates()
     double x = NAN;
     double y = NAN;
     d_rs.coordinates(x, y, l);
-    if (d_mask[l])
+    if (d_mask[l]) {
       d_mask[l] = m.xMinimum() <= x && x <= m.xMaximum() && m.yMinimum() <= y && y <= m.yMaximum();
+    }
   }
 }
 
@@ -171,8 +180,9 @@ void AreaMap::transferMask(const Field *f)
     // computeAtNonZeroValues
     for (size_t i = 0; i < d_rs.nrCells(); ++i) {
       double v = NAN;
-      if (f->getCell(v, i))
+      if (f->getCell(v, i)) {
         d_mask[i] = v != 0;
+      }
     }
   }
   d_setComputationMaskCallAllowed = false;
@@ -199,8 +209,9 @@ const AreaMap::Mask &AreaMap::mask() const
 
 void AreaMap::throwIfNotSet() const
 {
-  if (!isSet())
+  if (!isSet()) {
     throw PosException("no clone or area map specified");
+  }
 }
 
 /*!
@@ -212,8 +223,9 @@ pcrxml::CheckContext *AreaMap::createXMLContext() const
 {
   auto *cc = new pcrxml::CheckContext();
 
-  if (!isSet())
+  if (!isSet()) {
     return cc;
+  }
 
   std::unique_ptr<pcrxml::AreaMap> ams(new pcrxml::AreaMap(d_rs.nrRows(), d_rs.nrCols()));
   cc->areaMap(std::move(ams));
@@ -223,8 +235,9 @@ pcrxml::CheckContext *AreaMap::createXMLContext() const
   cc->areaMap()->xLowerLeftCorner(d_rs.west());
   cc->areaMap()->yLowerLeftCorner(d_rs.south());
 
-  if (hasCoordinateMask())
+  if (hasCoordinateMask()) {
     cc->computationMask(*d_computationMask);
+  }
 
   return cc;
 }

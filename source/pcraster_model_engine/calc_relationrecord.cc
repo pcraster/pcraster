@@ -156,9 +156,11 @@ calc::RelationRecord::~RelationRecord()
 bool calc::RelationRecord::match(const Key &key) const
 {
   DEVELOP_PRECOND(key.size() <= size());
-  for (size_t i = 0; i < key.size(); i++)
-    if (!col(i).valid(key[i]))
+  for (size_t i = 0; i < key.size(); i++) {
+    if (!col(i).valid(key[i])) {
       return false;
+    }
+  }
   return true;
 }
 
@@ -172,19 +174,23 @@ int calc::RelationRecord::compare(Float key, size_t c) const
 {
   DEVELOP_PRECOND(c <= size());
   if (!col(c).valid(key)) {
-    if (col(c).operator<(key))
+    if (col(c).operator<(key)) {
       return -1;
-    if (col(c).operator>(key))
+    }
+    if (col(c).operator>(key)) {
       return 1;
+    }
   }
   return 0;
 }
 
 bool calc::RelationRecord::operator==(const RelationRecord &rhs) const
 {
-  for (size_t i = 0; i < size(); ++i)
-    if (col(i) != rhs.col(i))
+  for (size_t i = 0; i < size(); ++i) {
+    if (col(i) != rhs.col(i)) {
       return false;
+    }
+  }
   return true;
 }
 
@@ -194,8 +200,9 @@ bool calc::RelationRecord::operator==(const RelationRecord &rhs) const
 
 std::ostream &calc::operator<<(std::ostream &stream, const RelationRecord &r)
 {
-  for (size_t i = 0; i < r.size(); ++i)
+  for (size_t i = 0; i < r.size(); ++i) {
     stream << i << ":(" << *(r[i]) << "),";
+  }
   return stream;
 }
 

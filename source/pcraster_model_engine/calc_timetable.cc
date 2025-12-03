@@ -12,13 +12,15 @@ void calc::TimeTable::init(const std::string &fileName, VS resultFieldVs, size_t
   d_tss = nullptr;
   try {
     d_tss = ReadTimeInputTable(fileName.c_str(), 0, 0, vs2CsfVs(resultFieldVs));
-    if (!d_tss)
+    if (!d_tss) {
       libError("");
+    }
 
     // pcrcalc226
-    if (d_tss->nrSteps < (int)nrTimeStepsExpected)
+    if (d_tss->nrSteps < (int)nrTimeStepsExpected) {
       throw com::Exception("Timeseries " + quote(fileName) + " contains only " + quote(d_tss->nrSteps) +
                            " entries (" + quote(nrTimeStepsExpected) + " required)");
+    }
   } catch (...) {
     clean();
     throw;
@@ -53,8 +55,9 @@ const TIME_TABLE *calc::TimeTable::tss() const
 //! delete the TIME_TABLE struct
 void calc::TimeTable::clean()
 {
-  if (d_tss)
+  if (d_tss) {
     FreeTimeTable(d_tss);
+  }
   d_tss = nullptr;
 }
 

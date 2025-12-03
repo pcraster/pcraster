@@ -102,8 +102,9 @@ void calc::IoCsfFieldStrategy::checkClone(const std::string &mapFileName)
     d_rasterSpaceCsf = mapRs;
   }
 
-  if (!(mapRs == d_rasterSpaceCsf))
+  if (!(mapRs == d_rasterSpaceCsf)) {
     throwCloneDiffers(d_cloneNameCsf, mapFileName);
+  }
 }
 
 //! return a newly created CsfMap
@@ -121,17 +122,20 @@ std::string calc::IoCsfFieldStrategy::makeStackItemName(const std::string &iname
 //! adjust min max for every map part of the map stack
 void calc::IoCsfFieldStrategy::setStackInfo(const StackInfo &s) const
 {
-  if (!s.d_minMaxSet)
+  if (!s.d_minMaxSet) {
     return;  // all mv!
+  }
   // otherwise adjust min and max
-  for (size_t t = 1; t <= s.d_nrTimeSteps; t++)
-    if (s.d_fileWriter->writeThisTimeStep(t))
+  for (size_t t = 1; t <= s.d_nrTimeSteps; t++) {
+    if (s.d_fileWriter->writeThisTimeStep(t)) {
       try {
         geo::CSFMap m(s.d_fileWriter->mapFileName(t), true);
         m.setMinMax(s.d_min, s.d_max);
       } catch (const com::OpenFileError & /* e */) {
         // ignore if file has disapeared
       }
+    }
+  }
 }
 
 //! return new InputCsfMap object

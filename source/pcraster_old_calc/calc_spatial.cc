@@ -17,8 +17,9 @@ size_t calc::Spatial::d_currentBPC = 0;
 calc::Spatial::Spatial(VS vs, size_t nrValues, bool doAllocation)
     : Field(vs), d_val(nullptr), d_nrValues(nrValues)
 {
-  if (doAllocation)
+  if (doAllocation) {
     allocate();
+  }
 }
 
 //! ctor that will own the value buffer
@@ -47,8 +48,9 @@ void calc::Spatial::allocate() const
 //! dtor
 calc::Spatial::~Spatial()
 {
-  if (!d_val)  // e.g. ZeroMap may have 0 as d_val
+  if (!d_val) {  // e.g. ZeroMap may have 0 as d_val
     return;
+  }
   // 'de-'count allocated
   d_currentBPC -= bytesPerCell(vs());
   switch (bytesPerCell(vs())) {
@@ -79,8 +81,9 @@ size_t calc::Spatial::nrValues() const
 
 void calc::Spatial::makeDataAvailable() const
 {
-  if (!d_val)
+  if (!d_val) {
     loadExternal();
+  }
 }
 
 //! check if no cells are true and no cells are false
@@ -91,10 +94,12 @@ void calc::Spatial::analyzeBoolean(bool &noneAreTrue, bool &noneAreFalse) const
   PRECOND(biggestCellRepr(vs()) == CR_UINT1);
   noneAreTrue = noneAreFalse = true;
   for (size_t i = 0; i < d_nrValues; i++) {
-    if (d_val1[i] == 1)
+    if (d_val1[i] == 1) {
       noneAreTrue = false;
-    if (d_val1[i] == 0)
+    }
+    if (d_val1[i] == 0) {
       noneAreFalse = false;
+    }
   }
 }
 
@@ -115,7 +120,7 @@ public:
   {
     const CR *val = static_cast<const CR *>(me->srcValue());
     size_t const n = me->nrValues();
-    for (size_t i = 0; i < n; i++)
+    for (size_t i = 0; i < n; i++) {
       if (mask[i] == 1) {
         // the allZero check is done only in the mask
         // that is why -0 implies -m
@@ -124,10 +129,12 @@ public:
           mask[i] = 2;
         } else {
           const CR0 *v0 = (const CR0 *)(val + i);
-          if ((*v0) != 0)
+          if ((*v0) != 0) {
             d_allZero = false;
+          }
         }
       }
+    }
   }
 
   bool newMVsFound() const
@@ -181,8 +188,9 @@ bool calc::Spatial::checkDebug(const calc::IScript &s, bool &allZero, size_t &bp
   if (newMVsFound && s.debugMvAssignments()) {
     // wroteOnce: prevent crash writing when more than once
     static bool wroteOnce(false);
-    if (wroteOnce)
+    if (wroteOnce) {
       return true;
+    }
     DecompressedData dd(VS_L);  // UINT1
     s.compressor().decompress(dd, mask);
     std::unique_ptr<GridMap> debugMap(s.createMap(s.debugMapName(), VS_N));

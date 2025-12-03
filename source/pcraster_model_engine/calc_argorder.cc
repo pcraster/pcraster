@@ -45,23 +45,26 @@ std::vector<ArgOrderIdInfo> ArgOrderAndAddArea::initArgs(std::vector<ArgOrderIdI
   // here we check if there is something to assign
   std::vector<ArgOrderIdInfo> assignables;
   for (const auto &arg : args) {
-    if (arg.areaLimit() >= 1)
+    if (arg.areaLimit() >= 1) {
       assignables.push_back(arg);
+    }
   }
 
-  if (!assignables.empty())
+  if (!assignables.empty()) {
     return assignables;
+  }
 
   // else, none are assignable
   // make result all 0 or MV
   for (CellIndex c = 0; c < len; ++c) {
     result[c] = 0;
     // check if some are MV
-    for (const auto &arg : args)
+    for (const auto &arg : args) {
       if (pcr::isMV(arg.chance()[c])) {
         pcr::setMV(result[c]);
         break;
       }
+    }
   }
 
   return assignables;
@@ -91,13 +94,15 @@ void ArgOrderAndAddArea::argOrderAreaLimited(std::vector<ArgOrderIdInfo> &args, 
   //  - non-MV cells are stored in cellsToSort
   //  ! only initialize when we have args
   //    ad 1) would fail miserably otherwise
-  if (!args.empty())
+  if (!args.empty()) {
     for (CellIndex c = 0; c < len; ++c) {
       // check if some are MV
       auto argIter = args.begin();
-      for (; argIter != args.end(); ++argIter)
-        if (pcr::isMV(argIter->chance()[c]))
+      for (; argIter != args.end(); ++argIter) {
+        if (pcr::isMV(argIter->chance()[c])) {
           break;
+        }
+      }
 
       if (argIter == args.end()) {  // ad 1)
         cellsToSort.push_back(c);
@@ -106,6 +111,7 @@ void ArgOrderAndAddArea::argOrderAreaLimited(std::vector<ArgOrderIdInfo> &args, 
         pcr::setMV(result[c]);
       }
     }
+  }
 
   auto findStart = cellsToSort.begin();
 
@@ -113,7 +119,7 @@ void ArgOrderAndAddArea::argOrderAreaLimited(std::vector<ArgOrderIdInfo> &args, 
     REAL4 maxValue = -std::numeric_limits<REAL4>::max();
     auto maxArg = args.end();
     auto maxCell = cellsToSort.end();
-    for (auto argIter = args.begin(); argIter != args.end(); ++argIter)
+    for (auto argIter = args.begin(); argIter != args.end(); ++argIter) {
       for (auto cellIter = findStart; cellIter != cellsToSort.end(); ++cellIter) {
         // MV's already skipped at initialisation
         if (argIter->chance()[*cellIter] > maxValue) {
@@ -122,6 +128,7 @@ void ArgOrderAndAddArea::argOrderAreaLimited(std::vector<ArgOrderIdInfo> &args, 
           maxCell = cellIter;
         }
       }
+    }
 
     // always something assignable
     PRECOND(maxArg != args.end());
@@ -137,13 +144,15 @@ void ArgOrderAndAddArea::argOrderAreaLimited(std::vector<ArgOrderIdInfo> &args, 
     if (maxArg->areaLimit() <= maxArg->areaAssigned()) {
       args.erase(maxArg);
       // all areas exhausted, we are done
-      if (args.empty())
+      if (args.empty()) {
         break;  // out of while loop
+      }
     }
   }
   // if all areas exhausted then we assign the remainder 0
-  for (; findStart != cellsToSort.end(); ++findStart)
+  for (; findStart != cellsToSort.end(); ++findStart) {
     result[*findStart] = 0;
+  }
 }
 
 void ArgOrderAndAddArea::argOrder(std::vector<ArgOrderIdInfo> const &args, INT4 *result, size_t len)
@@ -165,8 +174,9 @@ void ArgOrderAndAddArea::argOrder(std::vector<ArgOrderIdInfo> const &args, INT4 
       }
     }
 
-    if (maxIter != args.end())
+    if (maxIter != args.end()) {
       result[c] = maxIter->id();
+    }
   }
 }
 
@@ -176,8 +186,9 @@ void ArgOrderAndAddArea::argOrderAddAreaLimited(std::vector<ArgOrderIdInfo> cons
   std::vector<ArgOrderIdInfo> argVector = initArgs(argsIn, result, len);
   typedef std::map<UINT4, ArgOrderIdInfo> ArgMap;
   ArgMap args;
-  for (auto &i : argVector)
+  for (auto &i : argVector) {
     args.insert(std::make_pair(i.id(), i));
+  }
 
   if (args.empty()) {
     // done, result set in initArgs
@@ -195,13 +206,15 @@ void ArgOrderAndAddArea::argOrderAddAreaLimited(std::vector<ArgOrderIdInfo> cons
   //  - non-MV cells are stored in cellsToSort
   //  ! only initialize when we have args
   //    ad 1) would fail miserably otherwise
-  if (!args.empty())
+  if (!args.empty()) {
     for (CellIndex c = 0; c < len; ++c) {
       // check if some are MV
       auto argIter = argVector.begin();
-      for (; argIter != argVector.end(); ++argIter)
-        if (pcr::isMV(argIter->chance()[c]))
+      for (; argIter != argVector.end(); ++argIter) {
+        if (pcr::isMV(argIter->chance()[c])) {
           break;
+        }
+      }
 
       if (argIter == argVector.end() && currentId[c] != MV_INT4) {  // ad 1)
         cellsToSort.push_back(c);
@@ -211,6 +224,7 @@ void ArgOrderAndAddArea::argOrderAddAreaLimited(std::vector<ArgOrderIdInfo> cons
         pcr::setMV(result[c]);
       }
     }
+  }
 
 
   size_t cellsTakenPrev = 1;

@@ -62,8 +62,9 @@ viewPlusSyntaxToStringSet(std::vector<std::string> const &viewValues)
   std::vector<pcrxml::StringSet> s;
   for (auto &v : r) {
     s.push_back(pcrxml::StringSet());
-    for (auto &i : v)
+    for (auto &i : v) {
       s.back().item().push_back(i);
+    }
   }
   return s;
 }
@@ -277,10 +278,12 @@ struct DataSpaceFromXML : public pcrxml::DataSpace {
         }
         pcrxml::OneBasedIntegerRangeOrSet obirs(SetRangeParser<size_t>::rangeOrSet(i));
         timesteps().push_back(pcrxml::Timesteps());
-        if (obirs.range().present())
+        if (obirs.range().present()) {
           timesteps().back().range(obirs.range().get());
-        if (obirs.set().present())
+        }
+        if (obirs.set().present()) {
           timesteps().back().set(obirs.set().get());
+        }
         // ALSO MERGE
       }
       elementCount += timesteps().size();
@@ -422,8 +425,9 @@ AguilaProgramOptions::~AguilaProgramOptions()
 //! view has multiple subview's
 bool AguilaProgramOptions::hasMultiView() const
 {
-  if (!d_configuration->multiView().present())
+  if (!d_configuration->multiView().present()) {
     return false;
+  }
   return pcrxsd::fundamentalBaseCast<size_t>(d_configuration->multiView()->nrRows()) == 1 ||
          pcrxsd::fundamentalBaseCast<size_t>(d_configuration->multiView()->nrCols()) == 1;
 }

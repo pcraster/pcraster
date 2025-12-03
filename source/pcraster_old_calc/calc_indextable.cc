@@ -110,13 +110,15 @@ const calc::IndexTable::Value &calc::IndexTable::find(const std::string &parExtN
   const calc::ArrayDefVector::Index &ind(d_array.element(i));
   std::vector<std::string> key;
   key.push_back(parExtName);
-  for (auto j : ind)
+  for (auto j : ind) {
     key.push_back(j->externalName());
+  }
   auto p = d_table.find(key);
   if (p == d_table.end()) {
     std::string keyStr(parExtName);
-    for (auto j : ind)
+    for (auto j : ind) {
       keyStr += "[" + j->externalName() + "]";
+    }
     throw com::Exception("No value found for " + keyStr);  //pcrcalc/test280
   }
   return p->second;
@@ -154,8 +156,9 @@ VS calc::IndexTable::fieldMapValues(const calc::BindedSymbol &par, std::vector<s
     std::string fileName(val.d_value);
     try {
       double valD = NAN;
-      if (CnvrtDouble(&valD, fileName.c_str()))  // bummer, its a number
-        throw com::Exception(" is not a map");   // pcrcalc/test306
+      if (CnvrtDouble(&valD, fileName.c_str())) {  // bummer, its a number
+        throw com::Exception(" is not a map");     // pcrcalc/test306
+      }
       fileName = scriptConst().inputFilePath(fileName);
       VS const newVs = expectedFileType(fileName, VS_FIELD);  // pcrcalc/test307
       if (!isIn(newVs, mapVs)) {

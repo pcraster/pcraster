@@ -43,10 +43,11 @@ calc::LookupTableLeaf::LookupTableLeaf(const UsePar &pIn, VS vs, const std::vect
     std::vector<LookupTable *> tab(1);
     try {
       expectedFileType(par.externalName(), VS_TABLE);
-      if (linear)
+      if (linear) {
         tab[0] = new LookupLinear(vs);
-      else
+      } else {
         tab[0] = new LookupTable(vs);
+      }
       tab[0]->setRecords(par.externalName(), readKeys);
     } catch (const com::Exception &msg) {
       // pcrcalc/test10[ab]

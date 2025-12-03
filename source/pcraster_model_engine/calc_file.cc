@@ -23,8 +23,9 @@ void calc::File::validateOutputName() const
 void calc::File::validateExisting() const
 {
   com::PathInfo const pi(d_name);
-  if (d_testCaseTypeOnExistingName)
+  if (d_testCaseTypeOnExistingName) {
     pi.testCaseSensitiveName();
-  else
+  } else {
     pi.testOpenForReading();
+  }
 }

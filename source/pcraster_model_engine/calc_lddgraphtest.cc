@@ -24,8 +24,9 @@ BOOST_AUTO_TEST_CASE(testSimple)
   geo::RasterDim const rd_mp(2, 3);
   bool const maskInit[6] = {false, false, false, true, true, true};
   std::vector<bool> mask(6);
-  for (size_t i = 0; i < 6; ++i)
+  for (size_t i = 0; i < 6; ++i) {
     mask[i] = maskInit[i];
+  }
   AsIsPacking aip(rd_aip);
   MaskPacking mp(rd_mp, mask);
   IFieldRDConversion *conv[2] = {&aip, &mp};
@@ -63,8 +64,9 @@ BOOST_AUTO_TEST_CASE(testUpstream)
   BOOST_CHECK(ld.d_catchments.size() == 1);
 
   resultC[ld.d_catchments[0].d_pitId] = 0;
-  for (auto i = ld.upBegin(); i != ld.upEnd(); ++i)
+  for (auto i = ld.upBegin(); i != ld.upEnd(); ++i) {
     resultC[i->up()] = resultC[i->down()] + 1;
+  }
   BOOST_CHECK(std::equal(resultC, resultC + 8, resultR));
 }
 
@@ -86,8 +88,9 @@ BOOST_AUTO_TEST_CASE(testDownstreamIterator)
   BOOST_CHECK(ld.d_catchments.size() == 1);
 
   resultC[ld.d_catchments[0].d_pitId] = 0;
-  for (auto i = ld.downBegin(); i != ld.downEnd(); ++i)
+  for (auto i = ld.downBegin(); i != ld.downEnd(); ++i) {
     resultC[i->down()] += resultC[i->up()] + 1;
+  }
   BOOST_CHECK(std::equal(resultC, resultC + 8, resultR));
 }
 

@@ -103,10 +103,11 @@ void com::ClibError::reset()
 void com::ClibError::libError(const std::string& msg)
 {
   // now let old style Error function call HandleLibError
-  if(!d_errorHandlerCalled)
+  if(!d_errorHandlerCalled) {
     Error(msg.c_str());
-  else
+  } else {
     d_libErrorStr = msg + d_libErrorStr;
+  }
 
   throwLibError();
 }

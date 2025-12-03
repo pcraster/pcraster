@@ -135,14 +135,16 @@ void calc::execPCB(std::vector<ParPCB *> &data, const void *dllFunctionAddress)
   auto func = (DllFunction)dllFunctionAddress;
 
   size_t nrValues = 1;
-  for (auto &i : data)
+  for (auto &i : data) {
     nrValues = std::max<>(nrValues, i->field()->nrValues());
+  }
 
   std::vector<CellPtr> cp(data.size());
 
   // set up buffers, use src() equals dest() for output
-  for (size_t c = 0; c < cp.size(); ++c)
+  for (size_t c = 0; c < cp.size(); ++c) {
     cp[c].v = (void *)(data[c]->field()->src());
+  }
 
   func(&cp[0], nrValues);
 }

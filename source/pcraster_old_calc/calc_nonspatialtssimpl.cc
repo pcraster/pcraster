@@ -12,13 +12,15 @@ void calc::NonSpatialTssImpl::write()
 {
   size_t dummy = 0;
   double *val = d_tss.getValueBuffer(dummy);
-  if (!val)  // do not write this time step
+  if (!val) {  // do not write this time step
     return;
+  }
   POSTCOND(dummy == 1);
   const auto *ns_val = dynamic_cast<const calc::NonSpatial *>(value());
   POSTCOND(ns_val);
-  if (ns_val->isMv())
+  if (ns_val->isMv()) {
     SET_MV_REAL8(val);
-  else
+  } else {
     *val = ns_val->getValue();
+  }
 }

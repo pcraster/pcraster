@@ -67,8 +67,9 @@ calc::GridStat::GridStat(const GridStat& rhs):
 
 void calc::GridStat::merge(const GridStat &s)
 {
-  if (!s.d_minMaxSet)
+  if (!s.d_minMaxSet) {
     return;
+  }
 
   if (!d_minMaxSet) {
     d_minMaxSet = true;

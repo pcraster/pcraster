@@ -181,8 +181,9 @@ template <typename T> void calc::MaskPacking::decompress(T *dest, const T *src) 
     if (i % 2 /*==odd*/ != d_evenIsValueRL) {
       memcpy(dest, src, n * sizeof(T));
       src += n;
-    } else
+    } else {
       pcr::setMV(dest, n);
+    }
     dest += n;
   }
 }

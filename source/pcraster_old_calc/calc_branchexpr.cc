@@ -20,11 +20,13 @@ size_t calc::BranchExpr::nrArgs() const
 
 void calc::BranchExpr::buildTypesRecursive(VS resultVsSet)
 {
-  if (isSubset(resultVsSet, vs()))  // expr is polymorphic
+  if (isSubset(resultVsSet, vs())) {  // expr is polymorphic
     d_type.restrictSystem(resultVsSet, spatial());
+  }
   Args &args = fieldArgs();
-  for (size_t i = 0; i < nrArgs(); i++)
+  for (size_t i = 0; i < nrArgs(); i++) {
     args[i]->buildTypesRecursive(vs());
+  }
   buildTypes();
 }
 
@@ -41,9 +43,11 @@ void calc::BranchExpr::defaultBuildType(VS &newVs, bool &isSpatial)
   if (d_type.spatialDerived()) {
     // spatial type is spatial if one of the operands
     // is spatial
-    for (size_t i = 0; i < nrArgs(); i++)
-      if (args[i]->spatial())
+    for (size_t i = 0; i < nrArgs(); i++) {
+      if (args[i]->spatial()) {
         isSpatial = true;
+      }
+    }
   }
 }
 
@@ -60,8 +64,9 @@ void calc::BranchExpr::skipExecution()
 void calc::BranchExpr::buildTypes()
 {
   // xml if op has attr special set to true
-  if ((int)(op().opCode()) < OP_SIMPLE_RULE)
+  if ((int)(op().opCode()) < OP_SIMPLE_RULE) {
     special();
+  }
 
   restrictFieldArgs(0);
 
@@ -77,8 +82,9 @@ void calc::BranchExpr::buildTypes()
       argsExt[i].st = args[i]->spatial() ? ST_SPATIAL : ST_NONSPATIAL;
     }
     externalBuildType(newVs, isSpatial, op().opCode(), argsExt.get(), nrArgs());
-  } else
+  } else {
     defaultBuildType(newVs, isSpatial);
+  }
 
   d_type.restrictSystem(newVs, isSpatial);
 
@@ -99,10 +105,13 @@ void calc::BranchExpr::buildTypes()
     Args newArgs(nrArgs());
     size_t pos = 0;
     bool const order[2] = {false, true};  // first non-spatial then spatials
-    for (bool const o : order)
-      for (size_t i = 0; i < nrArgs(); i++)
-        if (args[i]->spatial() == o)
+    for (bool const o : order) {
+      for (size_t i = 0; i < nrArgs(); i++) {
+        if (args[i]->spatial() == o) {
           newArgs[pos++] = args[i];
+        }
+      }
+    }
     POSTCOND(pos == nrArgs());
     args = newArgs;
   }
@@ -173,11 +182,13 @@ void calc::BranchExpr::special()
       for (size_t i = startArg; i < nrArgs(); i++) {
         VS const oldVs = newVs;
         newVs = intersect(newVs, args[i]->vs());
-        if (newVs == VS_UNKNOWN)
+        if (newVs == VS_UNKNOWN) {
           argCombError(i, oldVs);
+        }
       }
-      for (size_t i = startArg; i < nrArgs(); i++)
+      for (size_t i = startArg; i < nrArgs(); i++) {
         args[i]->restrictType().restrictSystem(newVs, args[i]->spatial());
+      }
       break;
     default:
       POSTCOND(false);
@@ -192,8 +203,9 @@ void calc::BranchExpr::print(calc::InfoScript &si) const
     si.stream() << "(";
     for (size_t i = 0; i < nrArgs(); i++) {
       args[i]->print(si);
-      if (i < nrArgs() - 1)
+      if (i < nrArgs() - 1) {
         si.stream() << ",";
+      }
     }
     si.stream() << ")";
   } else {

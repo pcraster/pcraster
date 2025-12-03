@@ -37,13 +37,16 @@ struct CmpNode {
   bool equal() const
   {
     PRECOND(validASTNode());
-    if (d_id)
+    if (d_id) {
       return d_id->name() == d_name;
+    }
     std::string name;
-    if (d_ass)
+    if (d_ass) {
       name = "ass-" + d_ass->par()->name();
-    if (d_stat)
+    }
+    if (d_stat) {
       name = "stat-start";  // +d_stat->par()->name();
+    }
     return name == d_name;
   }
 };

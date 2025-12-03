@@ -28,8 +28,9 @@ calc::LexInputSourceString::~LexInputSourceString()
 
 int calc::LexInputSourceString::getChar()
 {
-  if (d_ptr >= d_contents.size())
+  if (d_ptr >= d_contents.size()) {
     return (EOF);
+  }
   return d_contents[d_ptr++];
 }
 

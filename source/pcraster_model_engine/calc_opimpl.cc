@@ -42,8 +42,9 @@ ArgOrderWithIdAddAreaLimited builtIn_argorderwithidaddarealimited;
 
 template <class V, class I> static void initOp(V &fArray, const I *f)
 {
-  if (f)
+  if (f) {
     fArray[f->cri()] = f;
+  }
 }
 
 struct BinArg {
@@ -124,8 +125,9 @@ void calc::SameBin::exec(RunTimeEnv *rte, const Operator &op, size_t DEBUG_ARG(n
       size_t left = B::Left;
       size_t right = B::Right;
       // optimize a redundant field copy
-      if (op.commutative() && a[left].readOnlyReference())
+      if (op.commutative() && a[left].readOnlyReference()) {
         std::swap(left, right);
+      }
       d_fieldOp[i]->ss(a.srcDest(left), a[right].src(), b.n);
       break;
     }
@@ -201,10 +203,11 @@ void calc::IfThenElse::exec(RunTimeEnv *rte, const Operator &op, size_t DEBUG_AR
     POSTCOND(d_fieldOp[i]);
     switch (b.t) {
       case B::SS_NN:
-        if (a[1].isSpatial())
+        if (a[1].isSpatial()) {
           d_fieldOp[i]->ss(a.dest(), a[0].src_1(), a[1].src(), a[2].src(), n);
-        else
+        } else {
           d_fieldOp[i]->nn(a.dest(), a[0].src_1(), a[1].src(), a[2].src(), n);
+        }
         break;
       case B::SN:
         d_fieldOp[i]->sn(a.dest(), a[0].src_1(), a[1].src(), a[2].src(), n);
@@ -225,8 +228,9 @@ void calc::IfThenElse::exec(RunTimeEnv *rte, const Operator &op, size_t DEBUG_AR
     (void)a.srcDest(resultBranch);
     bool const cast = !a.result().isSpatial() && a[otherBranch].isSpatial();
     a.pushResults();
-    if (cast)
+    if (cast) {
       major2op(OP_SPATIAL)->exec(rte, 1);
+    }
   }
 }
 
@@ -289,8 +293,9 @@ void calc::SpatialImpl::exec(RunTimeEnv *rte, const Operator &op, size_t nrArgs)
   Field *in = rte->popField();
   bool const nop = in->isSpatial();
   rte->pushField(in);
-  if (!nop)
+  if (!nop) {
     DiffUn::exec(rte, op, nrArgs);
+  }
 }
 
 #include "calc_generatefield.h"
@@ -460,8 +465,9 @@ void calc::Trig::exec(RunTimeEnv *rte, const Operator &op, size_t nrArgs) const
   if (in->vs() != VS_D) {  // VS_S or VS_SD
     rte->pushField(in);
     major2op(OP_C_S_2_D)->exec(rte, 1);
-  } else
+  } else {
     rte->pushField(in);
+  }
 
   PRECOND(nrArgs == 1);
   ExecArguments a(op, rte, nrArgs);

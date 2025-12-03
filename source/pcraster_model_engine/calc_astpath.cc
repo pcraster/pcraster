@@ -114,21 +114,25 @@ struct ASTPathCaster {
         break;
       default:  // a number
         //  0-9 implies a prefix l or expr argument
-        if (!(c >= '0' && c <= '9'))
+        if (!(c >= '0' && c <= '9')) {
           throw com::Exception("Unknown path character");
+        }
         size_t const pos = c - '0';
         auto *sl = dynamic_cast<ASTNodeList *>(d_node);
         if (sl) {
           auto i = sl->begin();
           size_t n = 0;
-          for (; n != pos && i != sl->end(); ++i)
+          for (; n != pos && i != sl->end(); ++i) {
             n++;
-          if (i == sl->end())
+          }
+          if (i == sl->end()) {
             throw com::Exception("invalid index in ASTSTatList");
+          }
           d_node = *i;
         } else {
-          if (pos >= EXPECT(ASTNodeVector)->size())
+          if (pos >= EXPECT(ASTNodeVector)->size()) {
             throw com::Exception("invalid index in ASTNodeVector");
+          }
           d_node = EXPECT(ASTNodeVector)->at(pos);
         }
     }
@@ -148,8 +152,9 @@ calc::ASTNode *calc::path(ASTNode *root, const char *pathStr)
 
   const char *ptr = nullptr;
   try {
-    for (ptr = pathStr; *ptr; ++ptr)
+    for (ptr = pathStr; *ptr; ++ptr) {
       current.add(*ptr);
+    }
   } catch (com::Exception &e) {
     std::ostringstream s;
     s << "Error in path: " << pathStr << " at point " << ptr;

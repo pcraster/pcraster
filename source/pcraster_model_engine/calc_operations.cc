@@ -52,10 +52,12 @@ calc::Operations::~Operations()
 
 void calc::Operations::clean()
 {
-  for (auto &i : d_nameOp)
+  for (auto &i : d_nameOp) {
     delete i.second;
-  for (auto &d_lib : d_libs)
+  }
+  for (auto &d_lib : d_libs) {
     delete d_lib.second;
+  }
 }
 
 /* NOT IMPLEMENTED
@@ -106,8 +108,9 @@ void calc::Operations::add(MAJOR_CODE mrf, MAJOR_CODE oneOf1, MAJOR_CODE oneOf2)
 MAJOR_CODE calc::Operations::otherOneOfMRF(MAJOR_CODE oneOfMRF) const
 {
   auto i = d_mrfRelations.find(oneOfMRF);
-  if (i == d_mrfRelations.end())
+  if (i == d_mrfRelations.end()) {
     return OP_NOP;
+  }
   return i->second.d_otherOneOfMRF;
 }
 
@@ -232,8 +235,9 @@ void calc::Operations::init()
 const calc::Operator *calc::Operations::operator[](const std::string &name) const
 {
   auto i = d_nameOp.find(name);
-  if (i == d_nameOp.end())
+  if (i == d_nameOp.end()) {
     return nullptr;
+  }
   return i->second;
 }
 
@@ -246,8 +250,9 @@ const calc::Operator *calc::Operations::operator[](const std::string &name) cons
 const calc::Operator *calc::Operations::operator[](const MAJOR_CODE major) const
 {
   auto i = d_codeOp.find(major);
-  if (i == d_codeOp.end())
+  if (i == d_codeOp.end()) {
     return nullptr;
+  }
   return i->second;
 }
 
@@ -255,8 +260,9 @@ const calc::Operator *calc::Operations::operator[](const MAJOR_CODE major) const
 MAJOR_CODE calc::Operations::function(const std::string &name) const
 {
   auto i = d_funcs.find(name);
-  if (i != d_funcs.end())
+  if (i != d_funcs.end()) {
     return i->second;
+  }
   return OP_NOP;
 }
 
@@ -294,8 +300,9 @@ void calc::Operations::load(const CalcLib::GetMeta &gm)
   for (const auto &i : m) {
     // ctor
     std::string methodName(className);
-    if (!i.first.empty())  // not ctor
+    if (!i.first.empty()) {  // not ctor
       methodName += "::" + i.first;
+    }
     d_nameOp.insert(std::make_pair(methodName, new Operator(methodName, i.first, i.second.d_result,
                                                             i.second.d_input, olm.objectLinkFactory())));
   }

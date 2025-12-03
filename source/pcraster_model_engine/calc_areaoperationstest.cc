@@ -75,8 +75,9 @@ BOOST_AUTO_TEST_CASE(testAreaOrder)
 
   areaOrderOperation(result, expr, areaClass, 9);
 
-  for (size_t i = 0; i < 7; ++i)
+  for (size_t i = 0; i < 7; ++i) {
     BOOST_CHECK(expectedV[i] == result[i]);
+  }
   BOOST_CHECK(pcr::isMV(result[7]));
   BOOST_CHECK(pcr::isMV(result[8]));
 }

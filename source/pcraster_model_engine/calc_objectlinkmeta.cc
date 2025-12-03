@@ -77,8 +77,9 @@ calc::ObjectLinkMeta &calc::ObjectLinkMeta::operator=(ObjectLinkMeta const &rhs)
 
 void calc::ObjectLinkMeta::add(const std::string &methodName)
 {
-  if (!d_methods.count(methodName))
+  if (!d_methods.count(methodName)) {
     d_methods.insert(std::make_pair(methodName, ObjectLinkMethod(methodName)));
+  }
 }
 
 void calc::ObjectLinkMeta::pushBack(const std::string &methodName, bool result, PCR_VS vs, PCR_ST st)
@@ -87,10 +88,11 @@ void calc::ObjectLinkMeta::pushBack(const std::string &methodName, bool result, 
   auto pos = d_methods.find(methodName);
   POSTCOND(pos != d_methods.end());
   OP_ARGS const a = {vs, st};
-  if (result)
+  if (result) {
     pos->second.d_result.push_back(a);
-  else
+  } else {
     pos->second.d_input.push_back(a);
+  }
 }
 
 //! get value of d_className

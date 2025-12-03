@@ -345,9 +345,10 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject &dataObject, const a
 
   // Check if the min and max are defined (if there're values in the raster).
   REAL4 minHeight = NAN;
-  REAL4 maxHeight = NAN;                                             // Extreme heights.
-  if (!heightRaster.min(minHeight) || !heightRaster.max(maxHeight))  // All MV's.
+  REAL4 maxHeight = NAN;                                               // Extreme heights.
+  if (!heightRaster.min(minHeight) || !heightRaster.max(maxHeight)) {  // All MV's.
     return;
+  }
 
   // Create the quad drawers.
   std::vector<QuadDrawer *> drawers;

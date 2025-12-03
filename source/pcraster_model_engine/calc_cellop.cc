@@ -73,8 +73,9 @@ void calc::CellOp::getCell(RunTimeEnv *rte, size_t i) const
     DEVELOP_PRECOND(f->getCell(value, i));
     rte->pushField(new NonSpatial(f->vs(), value));
     delete f;
-  } else
+  } else {
     rte->pushField(f);
+  }
 }
 
 void calc::CellFocus::exec(RunTimeEnv *rte, const Operator &, size_t) const

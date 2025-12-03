@@ -33,8 +33,9 @@ const calc::Symbol *calc::BindingTable::find(const std::string &name) const
 {
   calc::Symbol const s(nullptr, name, nullptr);
   auto p = d_table.find(s);
-  if (p != d_table.end())
+  if (p != d_table.end()) {
     return &(p->second.d_value);
+  }
   return nullptr;
 }
 
@@ -60,8 +61,9 @@ std::vector<calc::UserSymbol *> calc::BindingTable::moveConstantToParameters(Sta
       newPars.push_back(new FieldNrParameter(UsePar(block, i.first), r.d_value.toNumber(), r.d_vs));
     }
   }
-  for (auto &newPar : newPars)
+  for (auto &newPar : newPars) {
     d_table.erase(*newPar);
+  }
   return newPars;
 }
 
@@ -69,14 +71,15 @@ void calc::BindingTable::add(const Symbol &left, const Symbol &right, VS vs)
 {
   //! if right is a binding we want to copy it's contents
   const Symbol *rightV = find(right.name());
-  if (!rightV)
+  if (!rightV) {
     rightV = &right;
+  }
 
   std::pair<Table::iterator, bool> const p =
       d_table.insert(std::make_pair(left, Right(InScript, *rightV, vs)));
   auto fd = p.first;
   // first definition if duplicate, or new one if not
-  if (!p.second)  // duplicate: this is old one
+  if (!p.second) {  // duplicate: this is old one
     if (fd->second.d_definitionLevel == InScript) {
       // pcrcalc/test43[ab]
       std::ostringstream msg;
@@ -84,6 +87,7 @@ void calc::BindingTable::add(const Symbol &left, const Symbol &right, VS vs)
           << fd->first.definitionPoint();
       left.posError(msg);
     }
+  }
 }
 
 calc::BindingTable::Right::Right(DefinitionLevel definitionLevel, const Symbol &value, VS vs)

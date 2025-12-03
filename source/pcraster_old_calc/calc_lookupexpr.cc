@@ -15,8 +15,9 @@ calc::LookupTableLeaf *calc::LookupExpr::init(const calc::UsePar &tab)
 {
   Args &fa = fieldArgs();
   std::vector<VS> readKeys(nrFieldArgs());
-  for (size_t i = 0; i < nrFieldArgs(); i++)
+  for (size_t i = 0; i < nrFieldArgs(); i++) {
     readKeys[i] = fa[i]->vs();
+  }
   return new LookupTableLeaf(tab, vs(), readKeys, op().opCode() == OP_LOOKUPLINEAR);
 }
 
@@ -118,8 +119,9 @@ void calc::LookupExpr::execute(FieldStack &resStack)
         double res = NAN;
         pcr::setMV(res);  // if goto is exec'ed then ok value
         for (size_t k = 0; k < keep.size(); k++) {
-          if (!fields[keep[k]]->getCell(keyValues[k], i))
+          if (!fields[keep[k]]->getCell(keyValues[k], i)) {
             goto store1;  // MV in input, MV in output
+          }
         }
         ftab.find(res, keyValues);
       store1:
@@ -131,8 +133,9 @@ void calc::LookupExpr::execute(FieldStack &resStack)
         double res = NAN;
         pcr::setMV(res);  // if goto is exec'ed then ok value
         for (size_t k = 0; k < nrKeys; k++) {
-          if (!fields[k]->getCell(keyValues[k], i))
+          if (!fields[k]->getCell(keyValues[k], i)) {
             goto store;  // MV in input, MV in output
+          }
         }
         tab->find(res, keyValues);
       store:

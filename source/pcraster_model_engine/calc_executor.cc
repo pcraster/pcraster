@@ -56,16 +56,18 @@ calc::Executor::Executor(CFGNode *cfg, const RunTimeEnvSettings &s, const ASTSym
   d_progressInfo->inStatementLineNr = 0;
 
   // will load data table
-  for (const auto &i : table)
+  for (const auto &i : table) {
     d_rte.load(i.second);
+  }
 }
 
 calc::Executor::~Executor()
 {
 #ifdef DEBUG_DEVELOP
   if (!std::uncaught_exceptions()) {
-    if (!d_rte.empty())
+    if (!d_rte.empty()) {
       DEVELOP_PRECOND(d_rte.empty());
+    }
   }
 #endif
   delete d_progressInfo;
@@ -106,16 +108,18 @@ void calc::Executor::wrapVisitWithCatch(Visit v)
     // if we have a current node, we can position
     // the error to that node
     ASTNode *n = current();
-    if (n)
+    if (n) {
       n->runtimeError(d_rte.timer().currentInt(), e.messages());
-    else  // else rethrow
+    } else {  // else rethrow
       throw;
+    }
   } catch (const std::exception &e) {
     ASTNode *n = current();
-    if (n)
+    if (n) {
       n->runtimeError(d_rte.timer().currentInt(), e.what());
-    else  // else rethrow
+    } else {  // else rethrow
       throw;
+    }
   }
 }
 
@@ -143,8 +147,9 @@ bool calc::Executor::execInitialSection()
   //  2: jumpOutCode is executed
   while (d_rte.timer().currentInt() == 0  // 1
          && !d_allCodeExecuted            // 2
-  )
+  ) {
     setStep();
+  }
 
   return d_allCodeExecuted;
 }
@@ -240,15 +245,16 @@ void calc::Executor::visitExpr(BaseExpr *e)
    */
   if (e->op().opCode() == OP_TIMEOUTPUT) {
     d_timeoutput = e;
-  } else
+  } else {
     execOp(e);
+  }
 }
 
 void calc::Executor::visitAss(ASTAss *a)
 {
-  if (!d_timeoutput)
+  if (!d_timeoutput) {
     d_rte.assignStackTop(a->pars());
-  else {
+  } else {
     // delay to reach  a->pars holding the tss
     PRECOND(a->pars().size() == 1);
     d_rte.assignOutTss(a->par()->name());
@@ -278,9 +284,9 @@ void calc::Executor::enterDynamicSection(DynamicSection *)
 void calc::Executor::jumpOutDynamicSection(DynamicSection *)
 {
   // at end of DynamicSection
-  if (d_rte.timer().currentInt() < d_rte.timer().lastInt())
+  if (d_rte.timer().currentInt() < d_rte.timer().lastInt()) {
     setTakeBackBranch(true);
-  else {
+  } else {
     d_allCodeExecuted = true;
   }
 
@@ -315,8 +321,9 @@ void calc::Executor::jumpOutRepeatUntil(RepeatUntil *)
 //! assume the JumpOut... is called first
 void calc::Executor::visitJumpNode(JumpNode *j)
 {
-  if (!takeBackBranch())
+  if (!takeBackBranch()) {
     j->deleteForwards(d_rte);
+  }
 }
 
 //------------------------------------------------------------------------------

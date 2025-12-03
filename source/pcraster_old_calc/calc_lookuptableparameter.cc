@@ -20,8 +20,9 @@ calc::LookupTableParameter::LookupTableParameter(const calc::ParsPar &par,
 
 calc::LookupTableParameter::~LookupTableParameter()
 {
-  for (auto &d_val : d_vals)
+  for (auto &d_val : d_vals) {
     delete d_val;
+  }
 }
 
 class calc::LookupTable *calc::LookupTableParameter::value(size_t i)
@@ -38,8 +39,9 @@ VS calc::LookupTableParameter::symbolType() const
 void calc::LookupTableParameter::loadValuesFromIndexTable(VS result, const std::vector<VS> &readKeys)
 {
   // already loaded
-  if (d_vals.size() > 0)
+  if (d_vals.size() > 0) {
     return;
+  }
   PRECOND(d_table);
   size_t const n = nrElements();
   std::vector<const IndexTable::Value *> tableNames;

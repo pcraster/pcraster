@@ -11,8 +11,9 @@ calc::Field::Field(const Field &rhs) : DataValue(rhs), d_vs(rhs.d_vs), d_cri(rhs
 
 calc::Field::Field(VS vs, CRIndex cri) : d_vs(vs), d_cri(cri)
 {
-  if (d_cri == CRI_X)
+  if (d_cri == CRI_X) {
     d_cri = allFitCRIndex(d_vs);
+  }
 }
 
 calc::Field::~Field()
@@ -116,12 +117,14 @@ void calc::Field::resetVs(VS newVs)
   if (isSpatial()) {
     // can not change to type of Spatial::d_val array
     PRECOND(allFitCRIndex(newVs) == allFitCRIndex(d_vs));
-  } else
+  } else {
     getCell(v, 0);
+  }
   d_vs = newVs;
   d_cri = allFitCRIndex(newVs);
-  if (!isSpatial())
+  if (!isSpatial()) {
     setCell(v, 0);
+  }
 }
 
 //! return a Field that can be written
@@ -148,12 +151,14 @@ std::ostream &operator<<(std::ostream &s, const calc::Field &f)
   s << "data(";
   for (size_t i = 0; i < f.nrValues(); ++i) {
     double v = NAN;
-    if (i)
+    if (i) {
       s << ",";
-    if (f.getCell(v, i))
+    }
+    if (f.getCell(v, i)) {
       s << v;
-    else
+    } else {
       s << "mv";
+    }
   }
   s << ")\n";
   return s;

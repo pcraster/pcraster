@@ -66,8 +66,9 @@ void calc::ModelLinkInit::run()
 
   calc::GlobArgs args(mop(), scriptConst().compressor(), stack);
 
-  for (size_t i = 0; i < d_args.size(); i++)
+  for (size_t i = 0; i < d_args.size(); i++) {
     d_sig.d_input[i].value = args.MAP_ptr(i);
+  }
 
   d_par->initExecute(d_sig);
 }

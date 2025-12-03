@@ -19,8 +19,9 @@ calc::FieldLeft::FieldLeft(StatementBlock *b, const WriteInfo &write, const UseP
       d_par = new FieldNewParameter(field, false, false, VS_FIELD, ST_DERIVED);
       script().addSymbol(d_par);
     } else {
-      if (p->isConstantBinding())  // pcrcalc/test0
+      if (p->isConstantBinding()) {  // pcrcalc/test0
         posError("Assigning value to constant binding: " + quote(p->userName()));
+      }
       d_par = dynamic_cast<FieldNewParameter *>(p);
       POSTCOND(d_par);
     }
@@ -60,10 +61,11 @@ void calc::FieldLeft::assign(FieldHandle f)
     }
   }
 
-  if (allZero && scriptConst().zeroCompression())
+  if (allZero && scriptConst().zeroCompression()) {
     d_par->assign(FieldHandle(new ZeroMap(s)), d_index->select(), this->position());
-  else
+  } else {
     d_par->assign(f, d_index->select(), this->position());
+  }
 }
 
 const calc::FieldType &calc::FieldLeft::fieldType()

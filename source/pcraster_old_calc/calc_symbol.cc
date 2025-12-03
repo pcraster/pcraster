@@ -50,8 +50,9 @@ void calc::Symbol::setName(const std::string &newName)
  */
 const std::string &calc::Symbol::name() const
 {
-  if (d_name.empty())
+  if (d_name.empty()) {
     throw SyntaxErrorBug();
+  }
   DEVELOP_PRECOND(!d_name.empty());
   return d_name;
 }

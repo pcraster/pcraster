@@ -20,14 +20,16 @@ calc::FieldNrParameter::FieldNrParameter(const ParsPar &par, double value, VS vs
 
 calc::FieldNrParameter::~FieldNrParameter()
 {
-  for (auto &d_val : d_vals)
+  for (auto &d_val : d_vals) {
     delete d_val;
+  }
 }
 
 void calc::FieldNrParameter::goInScope()
 {
-  for (size_t i = 0; i < d_initVals.size(); i++)
+  for (size_t i = 0; i < d_initVals.size(); i++) {
     d_vals[i] = new NonSpatialImpl(*this, i, new NonSpatial(vs(), d_initVals[i]));
+  }
 }
 
 calc::FieldHandle calc::FieldNrParameter::value(size_t index, bool lastUse)

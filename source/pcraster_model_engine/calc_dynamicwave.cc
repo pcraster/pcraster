@@ -148,14 +148,16 @@ void DWVisitor::visitEdge(size_t up, size_t down)
 {
   // _potential = g(...) FTTB integrated in dwFlux()
 
-  if (d_constantState[up] != 1)
+  if (d_constantState[up] != 1) {
     d_state[up] += d_inflow[up] / d_csi.nrTimeSlices;
+  }
 
   d_fluxTS[up] = std::min<double>(d_state[up], std::max(0.0, dwFlux(up, down)) * d_csi.sliceInSecs);
   DEVELOP_PRECOND(d_fluxTS[up] >= 0);
 
-  if (d_constantState[up] != 1)
+  if (d_constantState[up] != 1) {
     d_state[up] -= d_fluxTS[up];
+  }
   DEVELOP_PRECOND(d_state[up] >= 0);
   d_flux[up] += d_fluxTS[up];
 
@@ -166,8 +168,9 @@ void DWVisitor::visitEdge(size_t up, size_t down)
 void DWVisitor::finishVertex(size_t v)
 {
   // d_fluxTS is now the sum of upstream fluxes
-  if (d_constantState[v] != 1)
+  if (d_constantState[v] != 1) {
     d_state[v] += d_fluxTS[v];
+  }
 }
 
 double tableLookup(const LookupTable &tab, INT4 profileVal, float fromVal,
@@ -209,8 +212,9 @@ inline static double sqrtSf(double sF)
 {
   // FTTB holds if no negative fluxes, sF always >= 0
   DEVELOP_PRECOND(sF >= 0);
-  if (sF >= 0)
+  if (sF >= 0) {
     return std::sqrt(sF);
+  }
   return -std::sqrt(-sF);
 }
 
@@ -331,14 +335,16 @@ void calc::DynamicWave::exec(RunTimeEnv *rte, const Operator &op, size_t nrActua
 
   PRECOND(!a[argTimestepInSecs].isSpatial());
   float const timestepInSecs = a[argTimestepInSecs].src_f()[0];
-  if (timestepInSecs <= 0)
+  if (timestepInSecs <= 0) {
     throw DomainError("timestepInSecs must be > 0");
+  }
 
 
   // check for nonspatial case
   PRECOND(!a[argNrTimeSlices].isSpatial());
-  if (a[argNrTimeSlices].src_4()[0] <= 0)
+  if (a[argNrTimeSlices].src_4()[0] <= 0) {
     throw DomainError("nrTimeSlices must be > 0");
+  }
 
   // initialize newStateV with oldState
   std::vector<double> newStateV(fLen);
@@ -351,8 +357,9 @@ void calc::DynamicWave::exec(RunTimeEnv *rte, const Operator &op, size_t nrActua
   // m3/channellength/sec  -> m3/Timestep
   std::vector<float> inflowM3perTimestep(fLen);
   lg.current().copyField<float, float>(&(inflowM3perTimestep[0]), inflow);
-  for (size_t i = 0; i < fLen; ++i)
+  for (size_t i = 0; i < fLen; ++i) {
     inflowM3perTimestep[i] *= timestepInSecs * segmentLength[i];
+  }
 
   DWVisitor dwv(&(newStateV[0]), &(fluxV[0]), *tab, profileId, lg.current(), &(inflowM3perTimestep[0]),
                 bottomLevel, roughness, segmentLength, nrTimeSlices, a[argTimestepInSecs],
@@ -367,8 +374,9 @@ void calc::DynamicWave::exec(RunTimeEnv *rte, const Operator &op, size_t nrActua
   lg.current().copyField<float, double>(newState.dest_f(), &(newStateV[0]));
 
   // m3/timestep -> m3/sec
-  for (size_t i = 0; i < fLen; ++i)
+  for (size_t i = 0; i < fLen; ++i) {
     fluxV[i] /= timestepInSecs;
+  }
   lg.current().copyField<float, double>(flux.dest_f(), &(fluxV[0]));
 
   a.pushResults();
@@ -392,9 +400,9 @@ void calc::LookupState::exec(RunTimeEnv *rte, const Operator &op, size_t nrActua
   PRECOND(result.cri() == CRI_f);
   float *r = result.dest_f();
   for (size_t i = 0; i < fLen; ++i) {
-    if (com::oneIsMV(profileId[i], bottomLevel[i]) | com::oneIsMV(segmentLength[i], potential[i]))
+    if (com::oneIsMV(profileId[i], bottomLevel[i]) | com::oneIsMV(segmentLength[i], potential[i])) {
       pcr::setMV(r[i]);
-    else {
+    } else {
       float const h = potential[i] - bottomLevel[i];
       double const a = tableLookup(*tab, profileId[i], h, DynamicWaveTable::H, DynamicWaveTable::A);
       r[i] = (float)(a * segmentLength[i]);
@@ -422,9 +430,9 @@ void calc::LookupPotential::exec(RunTimeEnv *rte, const Operator &op, size_t nrA
   PRECOND(result.cri() == CRI_f);
   float *r = result.dest_f();
   for (size_t i = 0; i < fLen; ++i) {
-    if (com::oneIsMV(profileId[i], bottomLevel[i]) | com::oneIsMV(segmentLength[i], state[i]))
+    if (com::oneIsMV(profileId[i], bottomLevel[i]) | com::oneIsMV(segmentLength[i], state[i])) {
       pcr::setMV(r[i]);
-    else {
+    } else {
       // identical to dwPotential
       float const a = state[i] / segmentLength[i];  // m2
       double const h =
@@ -569,8 +577,9 @@ void calc::Kinematic::exec(RunTimeEnv *rte, const Operator &op, size_t nrArgs) c
     {
       const VField<float> Qold(arg[1], qNew.nrValues());
       // initialize QNew from Qold
-      for (size_t i = 0; i < qNew.nrValues(); ++i)
+      for (size_t i = 0; i < qNew.nrValues(); ++i) {
         d_Qnew[i] = Qold[i];
+      }
     }
   };
 
@@ -691,8 +700,9 @@ void calc::KinematicWave::exec(RunTimeEnv *rte, const Operator &op, size_t nrArg
 
     void finishVertex(size_t v) override
     {
-      if (!pcr::isMV(d_flux[v]))
+      if (!pcr::isMV(d_flux[v])) {
         d_flux[v] /= d_nrTimeSlices[d_pitIdOfCurrentCatchment];
+      }
     }
 
     DivideFluxByNrTimeSlices(Field &flux, VField<INT4> const &nrTimeSlices, LddGraph const &lg)
@@ -748,8 +758,9 @@ static double iterateToQnew(double Qin,  /* summed Q new in for all sub-catchmen
   POSTCOND(sizeof(REAL) >= 8);
 
   // if no input then output = 0
-  if ((Qin + Qold + q) == 0)  // +q CW NEW!
+  if ((Qin + Qold + q) == 0) {  // +q CW NEW!
     return (0);
+  }
 
   // common terms
   ab_pQ = alpha * beta * std::pow(((Qold + Qin) / 2), beta - 1);

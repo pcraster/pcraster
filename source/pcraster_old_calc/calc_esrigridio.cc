@@ -151,8 +151,9 @@ calc::EsriGridIO::EsriGridIO()
 #else
       d_dll = new com::DynamicLibrary("avgridio");
 #endif
-      if (!d_dll)
+      if (!d_dll) {
         throw com::Exception("No correct version of Spatial Analyst or ArcGrid found");
+      }
     }
     if (!d_dll->wasAlreadyLoaded()) {
       IntVoidPtr gridIOSetup = (IntVoidPtr)d_dll->loadFunction("GridIOSetup");
@@ -292,16 +293,18 @@ void calc::EsriGridIO::gridDelete(const std::string &gridName)
   // end of patch
   typedef int (*T_GridDelete)(const char *);
   STATIC_GRIDIO_FPTR(GridDelete);
-  if ((*funcPtr)(gridName.c_str()) < 0)
+  if ((*funcPtr)(gridName.c_str()) < 0) {
     throwError("Esri GridDelete failed on " + gridName);
+  }
 }
 
 void calc::EsriGridIO::bndCellRead(const std::string &grdnam, double *box)
 {
   typedef int (*T_BndCellRead)(const char *name, double *box);
   STATIC_GRIDIO_FPTR(BndCellRead);
-  if ((*funcPtr)(grdnam.c_str(), box) < 0)
+  if ((*funcPtr)(grdnam.c_str(), box) < 0) {
     throwError("Esri BndCellRead failed");
+  }
 }
 
 //! see implementation, has major problems!
@@ -352,8 +355,9 @@ void calc::EsriGridIO::cellLyrBlockSize(int channel, int *bxcells, int *bycells)
 {
   typedef int (*T_CellLyrBlockSize)(int channel, int *bxcells, int *bycells);
   STATIC_GRIDIO_FPTR(CellLyrBlockSize);
-  if ((*funcPtr)(channel, bxcells, bycells) < 0)
+  if ((*funcPtr)(channel, bxcells, bycells) < 0) {
     throwError("esrigrid CellLyrBlockSize");
+  }
 }
 
 //! return channel id
@@ -364,8 +368,9 @@ int calc::EsriGridIO::cellLayerOpen(const std::string &grdnam, int rdwrflag, int
                                  double *cellsize);
   STATIC_GRIDIO_FPTR(CellLayerOpen);
   int const chanId = (*funcPtr)(grdnam.c_str(), rdwrflag, iomode, celltype, cellsize);
-  if (chanId < 0)
+  if (chanId < 0) {
     throwError("esrigrid CellLayerOpen");
+  }
   return chanId;
 }
 
@@ -374,8 +379,9 @@ void calc::EsriGridIO::cellLyrClose(int chanId)
   PRECOND(chanId >= 0);
   typedef int (*T_CellLyrClose)(int channel);
   STATIC_GRIDIO_FPTR(CellLyrClose);
-  if ((*funcPtr)(chanId) < 0)
+  if ((*funcPtr)(chanId) < 0) {
     throwError("esrigrid CellLayerClose");
+  }
 }
 
 void calc::EsriGridIO::cellLyrCloseNoVat(int chanId)
@@ -383,32 +389,36 @@ void calc::EsriGridIO::cellLyrCloseNoVat(int chanId)
   PRECOND(chanId >= 0);
   typedef int (*T_CellLyrCloseNoVat)(int channel);
   STATIC_GRIDIO_FPTR(CellLyrCloseNoVat);
-  if ((*funcPtr)(chanId) < 0)
+  if ((*funcPtr)(chanId) < 0) {
     throwError("esrigrid CellLayerCloseNoVat");
+  }
 }
 
 void calc::EsriGridIO::getWindowBandFloat(int chanId, int startrow, int nrRows, float **ptrVal)
 {
   typedef int (*T_GetWindowBandFloat)(int d_chanId, int startrow, int nrRows, float **ptrVal);
   STATIC_GRIDIO_FPTR(GetWindowBandFloat);
-  if ((*funcPtr)(chanId, startrow, nrRows, ptrVal) < 0)
+  if ((*funcPtr)(chanId, startrow, nrRows, ptrVal) < 0) {
     throwError("esrigrid GetWindowBandFloat");
+  }
 }
 
 void calc::EsriGridIO::getWindowBandInt(int chanId, int startrow, int nrRows, int **ptrVal)
 {
   typedef int (*T_GetWindowBandInt)(int d_chanId, int startrow, int nrRows, int **ptrVal);
   STATIC_GRIDIO_FPTR(GetWindowBandInt);
-  if ((*funcPtr)(chanId, startrow, nrRows, ptrVal) < 0)
+  if ((*funcPtr)(chanId, startrow, nrRows, ptrVal) < 0) {
     throwError("esrigrid GetWindowBandInt");
+  }
 }
 
 void calc::EsriGridIO::putWindowBand(int channel, int startrow, int nrows, const void *const *bandbuf)
 {
   typedef int (*T_PutWindowBand)(int channel, int startrow, int nrows, CELLTYPE **bandbuf);
   STATIC_GRIDIO_FPTR(PutWindowBand);
-  if ((*funcPtr)(channel, startrow, nrows, (CELLTYPE **)bandbuf) < 0)
+  if ((*funcPtr)(channel, startrow, nrows, (CELLTYPE **)bandbuf) < 0) {
     throwError("esrigrid PutWindowBand");
+  }
 }
 
 void calc::EsriGridIO::getMissingFloat(float *mvVal)
@@ -436,8 +446,9 @@ void calc::EsriGridIO::privateWindowBox(int chan_id, double box[4])
 {
   typedef int (*T_PrivateWindowBox)(int chan_id, double box[4]);
   STATIC_GRIDIO_FPTR(PrivateWindowBox);
-  if ((*funcPtr)(chan_id, box) < 0)
+  if ((*funcPtr)(chan_id, box) < 0) {
     throwError("esrigrid PrivateWindowBox");
+  }
 }
 
 void calc::EsriGridIO::privateAccessWindowSet(int chan_id, const double bndBox[4], double cellSize,
@@ -446,17 +457,20 @@ void calc::EsriGridIO::privateAccessWindowSet(int chan_id, const double bndBox[4
   typedef int (*T_PrivateAccessWindowSet)(int chan_id, const double bndBox[4], double cellSize,
                                           double adjBndBox[4]);
   STATIC_GRIDIO_FPTR(PrivateAccessWindowSet);
-  if ((*funcPtr)(chan_id, bndBox, cellSize, adjBndBox) < 0)
+  if ((*funcPtr)(chan_id, bndBox, cellSize, adjBndBox) < 0) {
     throwError("esrigrid PrivateAccessWindowSet 1");
+  }
 
   int c = privateWindowRows(chan_id);
-  if (c <= 0)
+  if (c <= 0) {
     throwError("esrigrid PrivateAccessWindowSet 2");
+  }
   nrResRows = static_cast<size_t>(c);
 
   c = privateWindowCols(chan_id);
-  if (c <= 0)
+  if (c <= 0) {
     throwError("esrigrid PrivateAccessWindowSet 3");
+  }
   nrResCols = static_cast<size_t>(c);
 }
 
@@ -468,8 +482,9 @@ int calc::EsriGridIO::cellLayerCreate(const std::string &name, int rdwrflag, int
   STATIC_GRIDIO_FPTR(CellLayerCreate);
 
   int const chan_id = (*funcPtr)(name.c_str(), rdwrflag, iomode, celltype, cellsize, box);
-  if (chan_id < 0)
+  if (chan_id < 0) {
     throwError("esrigrid CellLayerCreate " + name);
+  }
   return chan_id;
 }
 
@@ -482,8 +497,9 @@ void calc::EsriGridIO::StaGetMinmaxDbl(const std::string &fileName, double *min,
   typedef int (*T_StaGetMinmaxDbl)(const char *name, double *min, double *max);
   STATIC_GRIDIO_FPTR(StaGetMinmaxDbl);
 
-  if ((*funcPtr)(fileName.c_str(), min, max) < 0)
+  if ((*funcPtr)(fileName.c_str(), min, max) < 0) {
     throwError("esrigrid StaGetMinmaxDbl");
+  }
 }
 
 void calc::EsriGridIO::putWindowCellFloat(int channel, size_t col, size_t row, double fcell)
@@ -493,8 +509,9 @@ void calc::EsriGridIO::putWindowCellFloat(int channel, size_t col, size_t row, d
   // but it is:
   typedef int (*T_PutWindowCellFloat)(int channel, int col, int row, float fcell);
   STATIC_GRIDIO_FPTR(PutWindowCellFloat);
-  if ((*funcPtr)(channel, static_cast<int>(col), static_cast<int>(row), static_cast<float>(fcell)) < 0)
+  if ((*funcPtr)(channel, static_cast<int>(col), static_cast<int>(row), static_cast<float>(fcell)) < 0) {
     throwError("esrigrid PutWindowCellFloat");
+  }
 }
 
 void calc::EsriGridIO::putWindowCellInt(int channel, size_t col, size_t row, int icell)
@@ -502,8 +519,9 @@ void calc::EsriGridIO::putWindowCellInt(int channel, size_t col, size_t row, int
   typedef int (*T_PutWindowCellInt)(int channel, int col, int row, int icell);
   STATIC_GRIDIO_FPTR(PutWindowCellInt);
 
-  if ((*funcPtr)(channel, static_cast<int>(col), static_cast<int>(row), icell) < 0)
+  if ((*funcPtr)(channel, static_cast<int>(col), static_cast<int>(row), icell) < 0) {
     throwError("esrigrid PutWindowCellInt");
+  }
 }
 
 void calc::EsriGridIO::privateAccessWindowClear(int channel)
@@ -511,14 +529,16 @@ void calc::EsriGridIO::privateAccessWindowClear(int channel)
   typedef int (*T_PrivateAccessWindowClear)(int channel);
   STATIC_GRIDIO_FPTR(PrivateAccessWindowClear);
 
-  if ((*funcPtr)(channel) < 0)
+  if ((*funcPtr)(channel) < 0) {
     throwError("esrigrid privateAccessWindowClear");
+  }
 }
 
 void calc::EsriGridIO::cellLyrSta(int channel, double *dmin, double *dmax, double *dmean, double *dstdv)
 {
   typedef int (*T_CellLyrSta)(int channel, double *dmin, double *dmax, double *dmean, double *dstdv);
   STATIC_GRIDIO_FPTR(CellLyrSta);
-  if ((*funcPtr)(channel, dmin, dmax, dmean, dstdv) < 0)
+  if ((*funcPtr)(channel, dmin, dmax, dmean, dstdv) < 0) {
     throwError("esrigrid cellLayerSta");
+  }
 }

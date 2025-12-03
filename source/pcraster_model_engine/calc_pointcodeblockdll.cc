@@ -48,8 +48,9 @@ public:
 
 calc::PointCodeBlockDll::PointCodeBlockDll(const Blocks &l)
 {
-  if (l.empty())
+  if (l.empty()) {
     return;
+  }
   generateSource(l);
   compile();
   // com::remove("dlltest.cc");
@@ -69,8 +70,9 @@ calc::PointCodeBlockDll::PointCodeBlockDll(PointCodeBlockDll const& rhs)
 
 calc::PointCodeBlockDll::~PointCodeBlockDll()
 {
-  if (d_dll)
+  if (d_dll) {
     unload();
+  }
 }
 
 /* NOT IMPLEMENTED
@@ -86,8 +88,9 @@ calc::PointCodeBlockDll& calc::PointCodeBlockDll::operator=(PointCodeBlockDll co
 void calc::PointCodeBlockDll::load(const Blocks &l)
 {
   d_dll = new com::DynamicLibrary("dlltest");
-  for (auto i : l)
+  for (auto i : l) {
     i->setDllFunctionAddress(d_dll->loadFunction(i->dllFunctionName()));
+  }
 }
 
 void calc::PointCodeBlockDll::unload()
@@ -104,8 +107,9 @@ void calc::PointCodeBlockDll::generateSource(const Blocks &l) const
     << "#include \"calc_pointcodedllheader.h\"" << '\n'
     << "#define INCLUDED_CALC_POINTCODEDLLHEADER" << '\n'
     << "#endif" << '\n';
-  for (auto i : l)
+  for (auto i : l) {
     i->genCode(s);
+  }
 }
 
 void calc::PointCodeBlockDll::compile() const

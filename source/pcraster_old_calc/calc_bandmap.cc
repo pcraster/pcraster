@@ -13,10 +13,11 @@ calc::BandMap::BandMap(const std::string &fileName) : GridMap(fileName), d_map(f
 {
   geo::BandMap const mapFile(fileName);
   // zoals afgesproken dd 18 sept 2002
-  if (mapFile.cellRepr() == CR_REAL4)
+  if (mapFile.cellRepr() == CR_REAL4) {
     d_vs = VS_S; /* vergeet VS_D */
-  else
+  } else {
     d_vs = VS_BNO; /* vergeet VS_L */
+  }
   d_nrRows = d_map.nrRows();
   d_nrCols = d_map.nrCols();
 }

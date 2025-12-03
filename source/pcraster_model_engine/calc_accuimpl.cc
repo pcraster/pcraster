@@ -78,10 +78,12 @@ public:
   float operator()(float interimState, size_t pos) const override
   {
     float const threshold = d_par[pos];
-    if (threshold < 0)
+    if (threshold < 0) {
       throw DomainError("threshold < 0");
-    if (interimState <= threshold)
+    }
+    if (interimState <= threshold) {
       return 0;
+    }
     return interimState - threshold;
   }
 };
@@ -98,8 +100,9 @@ public:
   float operator()(float interimState, size_t pos) const override
   {
     float const fraction = d_par[pos];
-    if (0 > fraction || fraction > 1)
+    if (0 > fraction || fraction > 1) {
       throw DomainError("fraction not in [0,1] range");
+    }
     return interimState * fraction;
   }
 };
@@ -116,10 +119,12 @@ public:
   float operator()(float interimState, size_t pos) const override
   {
     float const trigger = d_par[pos];
-    if (trigger < 0)
+    if (trigger < 0) {
       throw DomainError("trigger < 0");
-    if (trigger <= interimState)
+    }
+    if (trigger <= interimState) {
       return interimState;
+    }
     return 0;
   }
 };

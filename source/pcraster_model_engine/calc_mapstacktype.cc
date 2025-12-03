@@ -109,9 +109,9 @@ size_t MapStackType::highestTimestepAvailable() const
  */
 void MapStackType::setUse(Use use)
 {
-  if (d_use == Unknown || d_use == use)
+  if (d_use == Unknown || d_use == use) {
     d_use = use;
-  else {
+  } else {
     auto const f1 = operationName(d_use);
     auto const f2 = operationName(use);
     throw MapStackClash(

@@ -62,8 +62,9 @@ void calc::RunSettings::addNewOnly(const QDomElement &mrsElement)
 
   // insert does nothing if already there
   // that is exactly what we want in this order of paths
-  for (auto &i : mrs.binding)
+  for (auto &i : mrs.binding) {
     d_bindings.insert(std::make_pair(i->parameter(), i->value()));
+  }
 }
 
 //! create an xml elements from its contents

@@ -84,8 +84,9 @@ size_t calc::RasterGraph::nrVertices() const
 void calc::RasterGraph::unsetMVField(BitField &mvField) const
 {
   PRECOND(mvField.size() == nrVertices());
-  for (unsigned long const i : d_mv)
+  for (unsigned long const i : d_mv) {
     mvField[i] = false;
+  }
 }
 
 /*!
@@ -95,10 +96,12 @@ void calc::RasterGraph::unsetMVField(BitField &mvField) const
  */
 template <typename D, typename S> void calc::RasterGraph::initField(D *f, const S &value) const
 {
-  for (size_t i = 0; i < d_nrVertices; ++i)
+  for (size_t i = 0; i < d_nrVertices; ++i) {
     f[i] = (D)value;
-  for (unsigned long const i : d_mv)
+  }
+  for (unsigned long const i : d_mv) {
     pcr::setMV(f[i]);
+  }
 }
 
 /*!
@@ -108,10 +111,12 @@ template <typename D, typename S> void calc::RasterGraph::initField(D *f, const 
  */
 template <typename D, typename S> void calc::RasterGraph::copyField(D *dest, const S *src) const
 {
-  for (size_t i = 0; i < d_nrVertices; ++i)
+  for (size_t i = 0; i < d_nrVertices; ++i) {
     dest[i] = (D)src[i];
-  for (unsigned long const i : d_mv)
+  }
+  for (unsigned long const i : d_mv) {
     pcr::setMV(dest[i]);
+  }
 }
 
 /*
@@ -120,10 +125,11 @@ template <typename D, typename S> void calc::RasterGraph::copyField(D *dest, con
  */
 template <typename D, typename S> void calc::RasterGraph::copyField(D *dest, const VField<S> &src) const
 {
-  if (src.spatial())
+  if (src.spatial()) {
     copyField(dest, &(src[0]));
-  else
+  } else {
     initField(dest, src[0]);
+  }
 }
 
 namespace calc

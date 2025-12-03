@@ -32,12 +32,14 @@ void calc::NonSpatial::analyzeBoolean(bool &noneAreTrue, bool &noneAreFalse) con
   PRECOND(vs() == VS_B);
   PRECOND(d_crVal == CR_UINT1);
   noneAreTrue = noneAreFalse = true;
-  if (isMv())
+  if (isMv()) {
     return;
-  if (((int)getValue()) == 1)
+  }
+  if (((int)getValue()) == 1) {
     noneAreTrue = false;
-  else
+  } else {
     noneAreFalse = false;
+  }
 }
 
 calc::NonSpatial::~NonSpatial()

@@ -103,8 +103,9 @@ void calc::ExternalSymbols::addFunction(const PCR_EXTERNAL_FUNCTION_SYNOPSIS &fd
                                 CG_PLAIN),       // or special of new type ?
                        fd.resultTypes, fd.algorithm));
 
-  for (int i = 0; i < std::abs(fd.nrArgs); i++)
+  for (int i = 0; i < std::abs(fd.nrArgs); i++) {
     d_table.back().pushBackArg(fd.argTypes[i].vs, fd.argTypes[i].st);
+  }
 }
 
 void calc::ExternalSymbols::addModelLink(const PCR_EXTERNAL_MODELLINK_SYNOPSIS &synopsis)
@@ -155,8 +156,9 @@ struct linkNameIs {
 const calc::Operator *calc::ExternalSymbols::find(const std::string &name) const
 {
   auto i = std::find_if(d_table.begin(), d_table.end(), name_is(name));
-  if (i != d_table.end())
+  if (i != d_table.end()) {
     return &(*i);
+  }
   return nullptr;
 }
 

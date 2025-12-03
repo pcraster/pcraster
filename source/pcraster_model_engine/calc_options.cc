@@ -47,8 +47,9 @@ void calc::Options::printUsage()
 {
 
 #ifdef DEBUG_DEVELOP
-  if (appOutput != APP_NOOUT)
+  if (appOutput != APP_NOOUT) {
     fprintf(stderr, "PCRTEAM VERSION, INTERNAL USE ONLY! (%s)\n", PLATFORM_TXT);
+  }
 #endif
 
   fprintf(stderr, "pcrcalc %s (%s)\n", PCRASTER_VERSION, PLATFORM_TXT);
@@ -128,11 +129,12 @@ void calc::Options::processArgs(int argc, char **argv)
      */
 
   appAllOptionsMostLeft = true;
-  if (InstallArgs(argc, argv, "Ccd*1mleEr*s#tTf*F*X*K*b*p", "pcrcalc"))
+  if (InstallArgs(argc, argv, "Ccd*1mleEr*s#tTf*F*X*K*b*p", "pcrcalc")) {
     throwLibError();
+  }
 
   int c = 0;
-  while ((c = GetOpt()) != 0)
+  while ((c = GetOpt()) != 0) {
     switch (c) {
       // RunTimeEnvSettings:
       case 'm':
@@ -215,6 +217,7 @@ void calc::Options::processArgs(int argc, char **argv)
         d_scriptType = SCRIPT_SHELL_FILE;
         break;
     }
+  }
 }
 
 void calc::Options::processCmdLineOptions(int argc, char **argv)
@@ -224,10 +227,11 @@ void calc::Options::processCmdLineOptions(int argc, char **argv)
 
   if (d_scriptType == SCRIPT_SHELL_FILE) {
     // determine scriptFile
-    if (d_argc == 1)  // no arguments specified after -F in #! line
+    if (d_argc == 1) {  // no arguments specified after -F in #! line
       throw com::Exception("-F found in '#!' line but no succeeding options\n"
                            "use -f instead in '#!' line");  // args/test23
-    setScriptFile(d_argv[1]);                               // this is the script
+    }
+    setScriptFile(d_argv[1]);  // this is the script
   }
 }
 
@@ -253,10 +257,11 @@ calc::LexInput *calc::Options::createLexInput() const
       l->installShellArgs(d_argc - shellArgsStart, (const char **)d_argv + shellArgsStart);
       break;
     case SCRIPT_CMD_LINE:
-      if (d_argc <= 1)
+      if (d_argc <= 1) {
         throw com::Exception("No expression or script specified");  // args/test27
-      else
+      } else {
         l->installArgvScript(d_argc - 1, (const char **)(d_argv + 1));
+      }
       break;
     case SCRIPT_ESRI_GRID_KILL:
       throw com::Exception("-K disabled");

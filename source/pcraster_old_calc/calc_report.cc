@@ -19,8 +19,9 @@ calc::Report::~Report()
 void calc::ParsReportMoment::check()
 {
   if (start <= end || end <= 0  // end is 0,single point, or endtime (-1)
-  )
+  ) {
     return;  // OK
+  }
 
   const size_t buf_size = 128;
   char buf[buf_size];
@@ -51,25 +52,31 @@ calc::ReportDefinition::ReportDefinition(const calc::Symbol &s,
 
   for (auto m : list) {
     int i = 0;
-    if (m.start > endTime)  // single or range outside 1..endTime
-      continue;             // do not add
-    if (m.start == -1)      // keyword "endtime"
+    if (m.start > endTime) {  // single or range outside 1..endTime
+      continue;               // do not add
+    }
+    if (m.start == -1) {  // keyword "endtime"
       m.start = endTime;
-    if (m.end == -1)  // keyword "endtime"
+    }
+    if (m.end == -1) {  // keyword "endtime"
       m.end = endTime;
-    if (m.end > endTime)  // forget other timesteps pcrcalc/test234c
+    }
+    if (m.end > endTime) {  // forget other timesteps pcrcalc/test234c
       m.end = endTime;
+    }
 
-    if (m.end == 0)  // single
+    if (m.end == 0) {  // single
       d_reportAt[m.start] = true;
-    else {  // range
-      if (m.step == 0)
+    } else {  // range
+      if (m.step == 0) {
         m.step = 1;
+      }
       PRECOND(m.start <= m.end && m.step >= 1);
       for (i = m.start; i <= m.end; i += m.step) {
-        if (i == 0)  // see AdjustStackMinMax
-                     // and test pcrcalc/234a
+        if (i == 0) {  // see AdjustStackMinMax
+                       // and test pcrcalc/234a
           continue;
+        }
         d_reportAt[i] = true;
       }
     }
@@ -97,8 +104,9 @@ void calc::ReportDefault::setDefinition(const ReportDefinition *definition)
 bool calc::ReportDefault::reportTimestep(size_t t) const
 {
   // pcrcalc/test234d: t >= 1: definition is only for dynamic
-  if (d_definition && t >= 1)
+  if (d_definition && t >= 1) {
     return d_definition->reportTimestep(t);
+  }
   // otherwise report at each timestep
   return true;
 }

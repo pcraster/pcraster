@@ -32,11 +32,13 @@ calc::EsriMap::EsriMap(const std::string &fileName) : calc::GridMap(fileName, 0,
  * for (size_t i=0; i < 5; i++)
  *   d_box[i]=0;
  */
-  if (!exists(fileName))
+  if (!exists(fileName)) {
     throw NotAnEsriGrid();
+  }
 
-  if (com::exists(prjFilePath()))
+  if (com::exists(prjFilePath())) {
     d_prjFile = prjFilePath().toString();
+  }
 
   calc::EsriGridIO::bndCellRead(fileName, d_box);
   double min = NAN;
@@ -50,14 +52,16 @@ calc::EsriMap::EsriMap(const std::string &fileName) : calc::GridMap(fileName, 0,
   int cellType = 0;
 
   d_chanId = calc::EsriGridIO::cellLayerOpen(fileName, READONLY, ROWIO, &cellType, &d_cellSize);
-  if (cellType == CELLFLOAT)
+  if (cellType == CELLFLOAT) {
     d_vs = VS_S;
-  else {
+  } else {
     d_vs = VS_NO;
-    if (min >= 0 && max <= 1)
+    if (min >= 0 && max <= 1) {
       d_vs = unionSet(d_vs, VS_B);
-    if (min >= 1 && max <= 9)
+    }
+    if (min >= 1 && max <= 9) {
       d_vs = unionSet(d_vs, VS_L);
+    }
   }
 
   // EsriGridIO::privateWindowBox(d_chanId, d_box);
@@ -111,8 +115,9 @@ calc::EsriMap::EsriMap(const std::string &fileName, size_t nrRows, size_t nrCols
 calc::EsriMap::~EsriMap()
 {
   close();
-  if (d_prjFile.size())
+  if (d_prjFile.size()) {
     com::copy(d_prjFile, prjFilePath());
+  }
 }
 
 void calc::EsriMap::close() const
@@ -247,14 +252,16 @@ void calc::EsriMap::writeData(const void *allValues)
         float mvVal = NAN;
         calc::EsriGridIO::getMissingFloat(&mvVal);
         size_t const n = nrCells();
-        for (size_t i = 0; i < n; i++)
-          if (pcr::isMV(inVal[i]))
+        for (size_t i = 0; i < n; i++) {
+          if (pcr::isMV(inVal[i])) {
             outVal[i] = mvVal;
-          else {
+          } else {
             outVal[i] = inVal[i];
-            if (vs() == VS_D)
+            if (vs() == VS_D) {
               outVal[i] = static_cast<float>(AppOutputDirection(outVal[i]));
+            }
           }
+        }
         calc::EsriGridIO::putWindowBand(d_chanId, 0, nrRows(), (const void *const *)outVal2d);
       } catch (...) {
         com::delete2d<float>(outVal2d);
@@ -268,8 +275,9 @@ void calc::EsriMap::writeData(const void *allValues)
       INT4 *outVal = outVal2d[0];
       for (size_t i = 0; i < nrCells(); i++) {
         outVal[i] = inVal[i];
-        if (pcr::isMV(inVal[i]))
+        if (pcr::isMV(inVal[i])) {
           outVal[i] = MISSINGINT;
+        }
       }
       try {
         calc::EsriGridIO::putWindowBand(d_chanId, 0, nrRows(), (const void *const *)outVal2d);
@@ -285,10 +293,11 @@ void calc::EsriMap::writeData(const void *allValues)
         const auto *inVal = static_cast<const UINT1 *>(allValues);
         INT4 *outVal = outVal2d[0];
         for (size_t i = 0; i < nrCells(); i++) {
-          if (pcr::isMV(inVal[i]))
+          if (pcr::isMV(inVal[i])) {
             outVal[i] = MISSINGINT;
-          else
+          } else {
             outVal[i] = inVal[i];
+          }
         }
         calc::EsriGridIO::putWindowBand(d_chanId, 0, nrRows(), (const void *const *)outVal2d);
       } catch (...) {

@@ -42,8 +42,9 @@ bool calc::FieldExpr::isEndNode() const
 calc::FieldHandle calc::FieldExpr::createResultField() const
 {
   VS const v = biggestVs(vs());
-  if (spatial())
+  if (spatial()) {
     return new Spatial(v, compressor().nrCellsCompressed(), true);
+  }
   return new NonSpatial(v);
 }
 

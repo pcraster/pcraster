@@ -80,12 +80,14 @@ template<typename T>
       d_MV(MV),d_min(MV),d_max(MV) {}
 
     void add(const T*v, size_t n) {
-      for (size_t i=0; i< n; ++i)
+      for (size_t i=0; i< n; ++i) {
         if (v[i] != d_MV) {
-          if (d_min==d_MV)
+          if (d_min==d_MV) {
             d_min=d_max=v[i];
+          }
           d_min = std::min(d_min,v[i]);
           d_max = std::max(d_max,v[i]);
+        }
       }
     }
     T min() const {
@@ -120,10 +122,12 @@ const T* csfCellMax(const T* begin, const T* end) {
   const T* max=end;
   for(const T* i=begin; i!=end; ++i) {
     if (!pcr::isMV(*i)) {
-      if (max==end)
+      if (max==end) {
         max=i; // init
-      if (*i > *max)
+      }
+      if (*i > *max) {
         max=i;
+      }
     }
   }
   return max;
@@ -135,10 +139,11 @@ const T* csfCellMax(const T* begin, const T* end) {
 template<typename DestType, typename SrcType>
  struct CastCell {
     void operator()(DestType& dest, const SrcType& src) {
-      if (pcr::isMV(src))
+      if (pcr::isMV(src)) {
         pcr::setMV(dest);
-      else
+      } else {
         dest=static_cast<DestType>(src);
+      }
     }
  };
 
@@ -187,10 +192,12 @@ void copyCells2Boolean(UINT1 *dest, const INT4  *src, size_t n);
 template<typename T>
  bool lessMV(T const& e1, T const& e2)
 {
-  if (pcr::isMV(e1))
+  if (pcr::isMV(e1)) {
     return false;
-  if (pcr::isMV(e2))
+  }
+  if (pcr::isMV(e2)) {
     return true;
+  }
   return e1 < e2;
 }
 

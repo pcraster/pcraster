@@ -13,8 +13,9 @@ BOOST_AUTO_TEST_CASE(install_string_script)
   argv[0] = s.c_str();
   li.installArgvScript(1, argv, false);
   int c = 0;
-  while ((c = li.getChar()) != EOF)
+  while ((c = li.getChar()) != EOF) {
     r += (char)c;
+  }
   // need for an additonal newline
   BOOST_CHECK(r == (s + '\n'));
 
@@ -23,6 +24,7 @@ BOOST_AUTO_TEST_CASE(install_string_script)
   std::string contents("pietpaal");
   contents.replace(contents.begin(), contents.end(), contents.size(), 0);
   BOOST_CHECK(contents.size() == 8);
-  for (char const content : contents)
+  for (char const content : contents) {
     BOOST_CHECK(content == 0);
+  }
 }

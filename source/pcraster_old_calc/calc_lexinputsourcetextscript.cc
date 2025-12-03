@@ -38,8 +38,9 @@ int calc::LexInputSourceTextScript::getChar()
 {
   char c = 0;
   if (d_script.get(c)) {
-    if (c >= 0)  // hack
+    if (c >= 0) {  // hack
       return c;
+    }
     return ' ';
   }
   return EOF;

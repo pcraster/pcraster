@@ -112,11 +112,13 @@ bool calc::DataValue::pcrmeManaged() const
  */
 void calc::deleteFromPcrme(const DataValue *dv)
 {
-  if (!dv)
+  if (!dv) {
     return;
+  }
   if (dv->pcrmeManaged()) {
-    if (!dv->readOnlyReference())
+    if (!dv->readOnlyReference()) {
       delete dv;
+    }
   } else {
     // outside pcrme readOnlyReference is always false
     // so it can be deleted.

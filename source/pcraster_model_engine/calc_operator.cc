@@ -57,10 +57,12 @@ calc::Operator::Operator(const std::string &fullyQualifiedName, const std::strin
       d_execType(EXEC_TYPE_EXTERN), d_impl(nullptr), d_objectLinkFactory(objectLinkFactory),
       d_commutative(false)
 {
-  for (auto i : result)
+  for (auto i : result) {
     pushBackResult(i.vs, i.st);
-  for (auto i : input)
+  }
+  for (auto i : input) {
     pushBackInput(i.vs, i.st, false);
+  }
 }
 
 //! ctor for LinkInLibrary operators
@@ -161,8 +163,9 @@ const std::string &calc::Operator::implName() const
 std::string calc::Operator::syntax() const
 {
   // if then (else) apear as a function to the user
-  if (d_syntax == SYNTAX_FUNC || d_major == OP_IFTHEN || d_major == OP_IFTHENELSE)
+  if (d_syntax == SYNTAX_FUNC || d_major == OP_IFTHEN || d_major == OP_IFTHENELSE) {
     return "function";
+  }
   // MRF FTTB -> todo_runTimeMsgAccuMRF
   POSTCOND(d_syntax == SYNTAX_OP || d_syntax == SYNTAX_MRF);
   return "operator";
@@ -172,8 +175,9 @@ size_t calc::Operator::firstFieldInput() const
 {
   size_t firstFieldInput(0);
   for (const auto &d_input : d_inputs) {
-    if (isIn(d_input.vs(), VS_FIELD))
+    if (isIn(d_input.vs(), VS_FIELD)) {
       break;
+    }
     firstFieldInput++;
   }
   return firstFieldInput;
@@ -213,17 +217,22 @@ calc::DataType calc::Operator::computeResultType(const ArgTypes &args, size_t r)
     // derive spatial
 
     // Rule 1: is spatial if ONE OF the args is spatial
-    for (size_t i = firstFieldInput(); i < args.size(); ++i)
-      if (args[i].stSpatial())
+    for (size_t i = firstFieldInput(); i < args.size(); ++i) {
+      if (args[i].stSpatial()) {
         ft = DataType(ft.vs(), ST_SPATIAL);
+      }
+    }
     if (ft.stEither()) {  // not set in Rule 1
       bool allNonSpatial = true;
       // Rule 2: non spatial if ALL the args are nonspatial
-      for (size_t i = firstFieldInput(); i < args.size(); ++i)
-        if (!args[i].stNonSpatial())
+      for (size_t i = firstFieldInput(); i < args.size(); ++i) {
+        if (!args[i].stNonSpatial()) {
           allNonSpatial = false;
-      if (allNonSpatial)
+        }
+      }
+      if (allNonSpatial) {
         ft = DataType(ft.vs(), ST_NONSPATIAL);
+      }
     }
     // still no yet known if no spatial arg and some args are unknown
   }
@@ -232,8 +241,9 @@ calc::DataType calc::Operator::computeResultType(const ArgTypes &args, size_t r)
 
 size_t calc::Operator::actualInput(size_t argNr) const
 {
-  if (argNr < d_inputs.size())
+  if (argNr < d_inputs.size()) {
     return argNr;
+  }
 
   PRECOND(d_inputTailRepeat);
 
@@ -290,9 +300,11 @@ size_t calc::Operator::polyEqualityInputBegin() const
  */
 int calc::Operator::firstPolyInput() const
 {
-  for (size_t i = firstFieldInput(); i < d_inputs.size(); i++)
-    if (nrInSet(d_inputs[i].vs()) > 1)
+  for (size_t i = firstFieldInput(); i < d_inputs.size(); i++) {
+    if (nrInSet(d_inputs[i].vs()) > 1) {
       return i;
+    }
+  }
   POSTCOND(false);  // CW NEVER
   return 0;
 }
@@ -330,10 +342,11 @@ std::string calc::Operator::strInput(int nr) const
         break;
       case 2:
         PRECOND(nr == 0 || nr == 1);
-        if (nr == 0)
+        if (nr == 0) {
           msg << "left operand";
-        else
+        } else {
           msg << "right operand";
+        }
         break;
       default:
         POSTCOND(false);  // CW NEVER
@@ -361,12 +374,14 @@ std::string calc::Operator::checkNrInputs(size_t actualNrInputs) const
       msg = "not enough arguments specified";
       break;
     case -1:
-      if (d_inputTailRepeat)
+      if (d_inputTailRepeat) {
         break;
+      }
       msg = "too many arguments specified";  //pcrcalc/test14
   }
-  if (msg.empty())
+  if (msg.empty()) {
     return msg;
+  }
   // pcrcalc/test25[23]
   return syntax() + " '" + name() + "' " + msg;
 }
@@ -391,15 +406,16 @@ bool calc::Operator::isDynamicSectionOperation() const
 void calc::Operator::exec(class RunTimeEnv *rte, size_t nrActualInputs) const
 {
   try {
-    if (d_impl)
+    if (d_impl) {
       d_impl->exec(rte, *this, nrActualInputs);
-    else {
+    } else {
       PRECOND(d_objectLinkFactory);
       if (nrResults() > 0 && resultType(0).vs() == VS_OBJECT) {
         // ctor
         createObjectLink(*this, d_objectLinkFactory, "", rte, nrActualInputs);
-      } else
+      } else {
         execObjectLinkMethod(*this, rte, nrActualInputs);
+      }
     }
   } catch (PosException &) {
     throw;

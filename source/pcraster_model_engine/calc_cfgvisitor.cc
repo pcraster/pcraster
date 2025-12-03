@@ -114,8 +114,9 @@ bool calc::CFGVisitor::takeBackBranch() const
  */
 calc::ASTNode *calc::CFGVisitor::current() const
 {
-  if (d_current)
+  if (d_current) {
     return d_current->node();
+  }
   return nullptr;
 }
 

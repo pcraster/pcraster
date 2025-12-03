@@ -53,23 +53,26 @@ void calc::RunDirectory::setRunDirectory(const com::PathName &runDirectory,
 {
   d_searchPaths.clear();
 
-  if (externalBindingsFile.isEmpty())
+  if (externalBindingsFile.isEmpty()) {
     d_runSettings.clear();
-  else
+  } else {
     d_runSettings = RunSettings(externalBindingsFile);
+  }
 
   d_outputDirectory = runDirectory;
   d_outputDirectory.makeNative();
 
-  if (d_outputDirectory.isEmpty())
+  if (d_outputDirectory.isEmpty()) {
     return;  // output in current dir and no search paths
+  }
   com::PathName sp(d_outputDirectory);
 
   if (!com::PathInfo(sp).exists()) {
     // last part is to be created sub-directory
     sp.up();
-    if (sp.isEmpty())
+    if (sp.isEmpty()) {
       return;  // we do have an output directory but no search paths
+    }
   }
 
   PRECOND(!sp.isEmpty());
@@ -137,8 +140,9 @@ void calc::RunDirectory::collectRunSettings()
 void calc::RunDirectory::checkOutputFilePath(const std::string &fileName) const
 {
   PRECOND(!fileName.empty());
-  if (empty())
+  if (empty()) {
     return;
+  }
 
   com::PathName pn(fileName);
   pn.makeNative();
@@ -178,16 +182,19 @@ std::string calc::RunDirectory::inPath(bool &found, const std::string &fileName)
 
 std::string calc::RunDirectory::outputFilePath(const std::string &fileName) const
 {
-  if (!d_outputDirectory.isEmpty())
+  if (!d_outputDirectory.isEmpty()) {
     com::createDirectory(d_outputDirectory, false);
+  }
 
   PRECOND(!fileName.empty());
-  if (d_outputDirectory.isEmpty())
+  if (d_outputDirectory.isEmpty()) {
     return fileName;
+  }
   com::PathName pn(fileName);
   pn.makeNative();
-  if (pn.isAbsolute())
+  if (pn.isAbsolute()) {
     return pn.toString();
+  }
   return (d_outputDirectory + pn).toString();
 }
 

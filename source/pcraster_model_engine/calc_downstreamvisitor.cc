@@ -56,15 +56,17 @@ void calc::DownstreamVisitor::visitCatchment(LddGraph::Catchment const &c)
     finishVertex(d->up());
     visitEdge(d->up(), d->down());
   }
-  if (!d_graph.invalid(c.d_pitId))
+  if (!d_graph.invalid(c.d_pitId)) {
     finishVertex(c.d_pitId);
+  }
 
   d = c.downBegin();
   for (; d != end; ++d) {
     finishVertex2(d->up());
   }
-  if (!d_graph.invalid(c.d_pitId))
+  if (!d_graph.invalid(c.d_pitId)) {
     finishVertex2(c.d_pitId);
+  }
 }
 
 //! visit entire in downstream order

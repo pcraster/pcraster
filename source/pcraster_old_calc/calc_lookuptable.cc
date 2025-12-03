@@ -14,13 +14,15 @@ LOOK_UP_TABLE *calc::LookupTable::createOldStyle(const std::string &fileName)
 {
   LOOK_UP_TABLE *t(nullptr);
   FILE *f = fopen(fileName.c_str(), "r");
-  if (!f)
+  if (!f) {
     libError("Can't open lookup table " + quote(fileName));
+  }
 
   try {
     std::vector<CSF_VS> keyTypes(d_keyVs.size());
-    for (size_t i = 0; i < d_keyVs.size(); i++)
+    for (size_t i = 0; i < d_keyVs.size(); i++) {
       keyTypes[i] = vs2CsfVs(biggestVs(d_keyVs[i]));
+    }
 
     t = ReadLookupTable(f, &(keyTypes[0]), keyTypes.size(), vs2CsfVs(d_vs));
     if (!t) {
@@ -47,14 +49,17 @@ calc::LookupTable::LookupTable(const LookupTable &t, const std::vector<bool> &re
     : d_vs(t.d_vs)
 {
   std::vector<size_t> keep;
-  for (size_t k = 0; k < t.d_keyVs.size(); ++k)
+  for (size_t k = 0; k < t.d_keyVs.size(); ++k) {
     if (!remove[k]) {
       d_keyVs.push_back(t.d_keyVs[k]);
       keep.push_back(k);
     }
-  for (const auto &d_record : t.d_records)
-    if (d_record.match(remove, filterKeys))
+  }
+  for (const auto &d_record : t.d_records) {
+    if (d_record.match(remove, filterKeys)) {
       d_records.push_back(LookupRecord(d_record, keep));
+    }
+  }
 }
 
 //! parse records from ASCII file
@@ -68,8 +73,9 @@ void calc::LookupTable::setRecords(const std::string &fileName, const std::vecto
 
   try {
     d_records.reserve(table->nrRecords);
-    for (size_t r = 0; r < table->nrRecords; r++)
+    for (size_t r = 0; r < table->nrRecords; r++) {
       d_records.push_back(LookupRecord(table->records[r], table->nrKeys));
+    }
   } catch (...) {
     FreeLookupTable(table);
     throw;
@@ -193,9 +199,11 @@ calc::LookupRecord::~LookupRecord()
 bool calc::LookupRecord::match(const std::vector<bool> &mustMatch, const std::vector<double> &key) const
 {
   DEVELOP_PRECOND(d_key.size() == key.size());
-  for (size_t i = 0; i < d_key.size(); i++)
-    if (mustMatch[i] && !d_key[i]->valid(key[i]))
+  for (size_t i = 0; i < d_key.size(); i++) {
+    if (mustMatch[i] && !d_key[i]->valid(key[i])) {
       return false;
+    }
+  }
   return true;
 }
 
@@ -203,9 +211,11 @@ bool calc::LookupRecord::match(const std::vector<bool> &mustMatch, const std::ve
 bool calc::LookupRecord::match(const std::vector<double> &key) const
 {
   DEVELOP_PRECOND(d_key.size() == key.size());
-  for (size_t i = 0; i < d_key.size(); i++)
-    if (!d_key[i]->valid(key[i]))
+  for (size_t i = 0; i < d_key.size(); i++) {
+    if (!d_key[i]->valid(key[i])) {
       return false;
+    }
+  }
   return true;
 }
 
@@ -219,10 +229,12 @@ int calc::LookupRecord::compare(const std::vector<double> &key) const
   DEVELOP_PRECOND(d_key.size() == key.size());
   for (size_t i = 0; i < d_key.size(); i++) {
     if (!d_key[i]->valid(key[i])) {
-      if (d_key[i]->operator<(key[i]))
+      if (d_key[i]->operator<(key[i])) {
         return -1;
-      if (d_key[i]->operator>(key[i]))
+      }
+      if (d_key[i]->operator>(key[i])) {
         return 1;
+      }
     }
   }
   return 0;

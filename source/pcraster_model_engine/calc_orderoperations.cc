@@ -61,10 +61,11 @@ public:
     assert(!pcr::isMV(exprVal()[e2]));
     assert(!pcr::isMV(classVal()[e1]));
     assert(!pcr::isMV(classVal()[e2]));
-    if (classVal()[e1] == classVal()[e2])
+    if (classVal()[e1] == classVal()[e2]) {
       return exprVal()[e1] < exprVal()[e2];
-    else
+    } else {
       return classVal()[e1] < classVal()[e2];
+    }
   }
 };
 }  // namespace detail
@@ -87,11 +88,13 @@ void calc::orderOperation(REAL4 *res, IVSpatial<double> const &val, size_t len)
   order.reserve(len);
 
   // add non-MV indeces to order
-  for (size_t i = 0; i < len; ++i)
-    if (val.isMV(i))
+  for (size_t i = 0; i < len; ++i) {
+    if (val.isMV(i)) {
       pcr::setMV(res[i]);
-    else
+    } else {
       order.push_back(i);
+    }
+  }
 
   // order on val, index in order is the order nr
   detail::OrderSortFO const sort(val);
@@ -112,11 +115,13 @@ void calc::areaOrderOperation(REAL4 *res, IVSpatial<double> const &expr,
   order.reserve(len);
 
   // add non-MV indeces to order
-  for (size_t i = 0; i < len; ++i)
-    if (expr.isMV(i) || areaClass.isMV(i))
+  for (size_t i = 0; i < len; ++i) {
+    if (expr.isMV(i) || areaClass.isMV(i)) {
       pcr::setMV(res[i]);
-    else
+    } else {
       order.push_back(i);
+    }
+  }
 
   // order on val, index in order is the order nr
   detail::AreaOrderSortFO const sort(expr, areaClass);

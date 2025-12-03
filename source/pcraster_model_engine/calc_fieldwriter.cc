@@ -60,10 +60,11 @@ public:
     d_stackInfo.setStackName(outputFilePath());
     PRECOND(s.report());
     d_stackInfo.setReport(s.report());
-    if (tss)
+    if (tss) {
       d_stackInfo.setVs(s.dataType().resultType());
-    else
+    } else {
       d_stackInfo.setVs(s.vs());
+    }
   }
 
   ~DynamicWriter() override
@@ -72,8 +73,9 @@ public:
 
   std::string write(const Field *f, size_t timeStep) override
   {
-    if (d_stackInfo.reportTimeStep(timeStep))
+    if (d_stackInfo.reportTimeStep(timeStep)) {
       return writeStep(f, timeStep);
+    }
     return "";
   }
 
@@ -125,16 +127,19 @@ public:
   //! tss is created the first time id contains values > 0
   void writeOutTss(const Field *id, const Field *expr, size_t timeStep) override
   {
-    if (!d_tss)
+    if (!d_tss) {
       d_tss = createFileTimeoutput(d_stackInfo, id);
-    if (d_tss)
+    }
+    if (d_tss) {
       d_tss->timeoutput(id, expr, timeStep);
+    }
   }
 
   void finish() override
   {
-    if (d_tss)
+    if (d_tss) {
       d_tss->finish();
+    }
   }
 };
 
@@ -269,8 +274,9 @@ calc::FieldWriter *calc::IOStrategy::createFieldWriter(const ASTSymbolInfo &s)
     return new TimeoutputWriter(s, *this);
   }
   // otherwise possible Field MemoryWriter
-  if (s.memoryOutputId() != s.noMemoryExchangeId())
+  if (s.memoryOutputId() != s.noMemoryExchangeId()) {
     return new MemoryWriter(s, *this);
+  }
 
 
   PRECOND(!s.dataType().stEither());
@@ -279,10 +285,11 @@ calc::FieldWriter *calc::IOStrategy::createFieldWriter(const ASTSymbolInfo &s)
     return new StaticWriter(s, *this);
   } else {
     PRECOND(s.reportPosition() == RPDynamic);
-    if (spatial)
+    if (spatial) {
       return new StackWriter(s, *this);
-    else  // ns->tss
+    } else {  // ns->tss
       return new NSTssWriter(s, *this);
+    }
   }
 }
 

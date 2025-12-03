@@ -116,10 +116,12 @@ inline ValueType   lim                 (const ValueType &x,
 {
   DEVELOP_PRECOND(low <= high);
 
-  if(x < low)
+  if(x < low) {
     return low;
-  if(x > high)
+  }
+  if(x > high) {
     return high;
+  }
   return x;
 }
 
@@ -129,8 +131,9 @@ inline ValueType   limUnordered        (const ValueType &x,
                                         const ValueType &x1,
                                         const ValueType &x2)
 {
-  if (x1 > x2)
+  if (x1 > x2) {
     return lim(x,x2,x1);
+  }
   return lim(x,x1,x2);
 }
 
@@ -148,12 +151,13 @@ inline ValueType   absolute(const ValueType &value)
 template<class T>
 inline int         sign                (const T &x)
 {
-  if(x > static_cast<T>(0))
+  if(x > static_cast<T>(0)) {
     return 1;
-  else if(x < static_cast<T>(0))
+  } else if(x < static_cast<T>(0)) {
     return -1;
-  else
+  } else {
     return 0;
+  }
 }
 
 //! is value an integer, e.g. does it  not have a fractional part

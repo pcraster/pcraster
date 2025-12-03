@@ -25,8 +25,9 @@ calc::SpatialImpl::SpatialImpl(const FieldParameter &p, size_t index, Spatial *v
 
 void calc::SpatialImpl::write()
 {
-  if (d_fw.writeCurrentTimeStep())
+  if (d_fw.writeCurrentTimeStep()) {
     d_fw.writeMap(d_min, d_max, value()->srcValue());
+  }
 }
 
 calc::SpatialImpl::~SpatialImpl()

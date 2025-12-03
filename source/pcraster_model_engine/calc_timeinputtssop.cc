@@ -88,11 +88,13 @@ void calc::TimeinputTssOp::exec(RunTimeEnv *rte, const Operator &op, size_t nrAr
 
   Field &r(a.createResult());
 
-  if (!rte->timer().currentInt())
+  if (!rte->timer().currentInt()) {
     throw DomainError("called outside dynamic section");
+  }
   int const rowIndex = rte->timer().currentInt() - 1;
-  if (rowIndex >= tss->nrSteps)
+  if (rowIndex >= tss->nrSteps) {
     throw DomainError("timeseries too short");
+  }
 
   try {
 
@@ -102,12 +104,14 @@ void calc::TimeinputTssOp::exec(RunTimeEnv *rte, const Operator &op, size_t nrAr
       id.getCell(v, 0);
       int const colNr = static_cast<int>(v);
       // no such column pcrcalc232
-      if (colNr <= 0 || colNr >= tss->nrCols)
+      if (colNr <= 0 || colNr >= tss->nrCols) {
         throw DomainError("No match");
+      }
 
       REAL8 *vPtr = tss->vals[rowIndex] + colNr;
-      if (IS_MV_REAL8(vPtr))  // pcrcalc37e
+      if (IS_MV_REAL8(vPtr)) {  // pcrcalc37e
         throw DomainError("Read mv for non-spatial");
+      }
       PRECOND(!r.isSpatial());
       r.setCell(*vPtr, 0);
 

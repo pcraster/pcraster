@@ -71,8 +71,9 @@ calc::UnpackedCreation::UnpackedCreation(const UnpackedCreation& rhs):
 calc::Field *calc::UnpackedCreation::releasePacked()
 {
   Field *packed = d_sp.pack(d_unpacked);
-  if (d_unpacked != packed)
+  if (d_unpacked != packed) {
     delete d_unpacked;  // delete temporary
+  }
   d_unpacked = nullptr;
   return packed;
 }

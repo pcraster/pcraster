@@ -71,8 +71,9 @@ calc::P5Stack::P5Stack(const CompileTest &code) : d_keepLive(true)
 
 calc::P5Stack::~P5Stack()
 {
-  if (d_keepLive)
+  if (d_keepLive) {
     d_e->d_rte.deleteAllValues();
+  }
 }
 
 /* NOT IMPLEMENTED
@@ -97,10 +98,12 @@ calc::Field *calc::P5Stack::popResult() const
 
 bool calc::P5Stack::equal(const Field *f, double allValues, VS vs, bool spatial)
 {
-  if (f->isSpatial() != spatial)
+  if (f->isSpatial() != spatial) {
     return false;
-  if (f->vs() != vs)
+  }
+  if (f->vs() != vs) {
     return false;
+  }
 
   double v = NAN;
   if (!spatial) {
@@ -109,14 +112,17 @@ bool calc::P5Stack::equal(const Field *f, double allValues, VS vs, bool spatial)
   }
   // else check spatial contents
   // 0 is MV
-  if (f->getCell(v, 0))
+  if (f->getCell(v, 0)) {
     return false;
+  }
   PRECOND(f->nrValues() == 25);
   for (size_t i = 1; i < 25; ++i) {
-    if (!f->getCell(v, i))
+    if (!f->getCell(v, i)) {
       return false;
-    if (v != allValues)
+    }
+    if (v != allValues) {
       return false;
+    }
   }
   return true;
 }

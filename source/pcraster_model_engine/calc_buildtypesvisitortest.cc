@@ -71,8 +71,9 @@ struct Fixture : public calc::LibraryClassNoQt {
   {
     delete d_inputTable;
     d_inputTable = nullptr;
-    for (auto &d_tt_par : d_tt_pars)
+    for (auto &d_tt_par : d_tt_pars) {
       delete d_tt_par;
+    }
     d_tt_pars.clear();
   }
 

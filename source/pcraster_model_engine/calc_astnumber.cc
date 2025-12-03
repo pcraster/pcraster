@@ -62,8 +62,9 @@ calc::ASTNumber::ASTNumber(const Id &castFunctionName, VS castDestination, const
         << toString(castDestination) + "' value";
     castFunctionName.posError(msg);
   }
-  if (castDestination == VS_D)  // pcrcalc/test71
+  if (castDestination == VS_D) {  // pcrcalc/test71
     d_value = AppInputDirection(d_value);
+  }
 }
 
 calc::ASTNumber::~ASTNumber()

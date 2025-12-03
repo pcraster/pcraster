@@ -74,11 +74,13 @@ public:
   int update(const ProgressInfo &pi) override
   {
     // no progress when --nothing or static model
-    if (appOutput == APP_NOOUT || !pi.nrTimeSteps)
+    if (appOutput == APP_NOOUT || !pi.nrTimeSteps) {
       return 0;
+    }
 
-    if (pi.inTimeStep == 1)
+    if (pi.inTimeStep == 1) {
       std::cerr << "\n";  // first clear line for progress
+    }
 
     if (pi.inTimeStep > pi.nrTimeSteps) {
       // finished
@@ -150,8 +152,9 @@ int calc::CmdLineCalc::execute()
 
   Executor executor(script->cfgCode(), script->rteSettings(), script->symbols());
 
-  if (d_options.testScriptRunableOnly())
+  if (d_options.testScriptRunableOnly()) {
     return 0;
+  }
 
   executor.setProgressCallBack(&cmdLineProgressCallBack);
   executor.execAll();

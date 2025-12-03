@@ -149,8 +149,9 @@ std::string calc::runtimeErrorFmt(size_t timeStep, const std::string &msg)
 {
   std::ostringstream m;
   m << "\n" << "RUNTIME";
-  if (timeStep >= 1)
+  if (timeStep >= 1) {
     m << " (at timestep " << timeStep << ")";
+  }
   m << " " << msg;
   return m.str();
 }

@@ -162,8 +162,9 @@ template <class T> std::vector<T> com_ClassClassifier<T>::classNumbers() const
 {
   std::vector<T> c(nrClasses());
 
-  for (size_t i = 0; i < nrClasses(); i++)
+  for (size_t i = 0; i < nrClasses(); i++) {
     c[i] = d_classes[i].value();
+  }
 
   return c;
 }

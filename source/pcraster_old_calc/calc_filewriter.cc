@@ -71,8 +71,9 @@ void calc::FileWriter::removeTssFile() const
 std::string calc::FileWriter::mapFileName(size_t t) const
 {
   t = t ? t : currentTimeStep();
-  if (d_par.writeInfo()->inDynamic())
+  if (d_par.writeInfo()->inDynamic()) {
     return d_par.scriptConst().ioFieldStrategy().makeStackItemName(baseName(), t);
+  }
   return baseName();
 }
 
@@ -116,8 +117,9 @@ void calc::FileWriter::writeNonSpatialToMap(const void *dataValue) const
 */
 void calc::FileWriter::adjustMinMax(const double &min, const double &max) const
 {
-  if (!reportedInDynamic())
+  if (!reportedInDynamic()) {
     return;
+  }
 
   StackInfo s;
   s.d_min = s.d_max = 0;

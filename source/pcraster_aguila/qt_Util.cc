@@ -26,8 +26,9 @@ QColor qt::toQColor(const com_Colour &colour)
 */
 void qt::center(const QWidget &w1, QWidget &w2)
 {
-  if (!w1.isWindow() || !w2.isWindow())
+  if (!w1.isWindow() || !w2.isWindow()) {
     return;
+  }
 
   // Get size and position of the frames of both widgets.
   QRect const g1 = w1.geometry();

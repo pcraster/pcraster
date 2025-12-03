@@ -46,9 +46,11 @@ namespace intervalMap {
         IntervalMapT &m,
         const std::vector<const com::Interval<
                  typename IntervalMapT::IT> * >& v) {
-      for(size_t i=0; i< v.size(); ++i)
-        if (!m.insertInterval(*v[i]))
+      for(size_t i=0; i< v.size(); ++i) {
+        if (!m.insertInterval(*v[i])) {
           return false;
+        }
+      }
       return true;
     }
 }
@@ -81,14 +83,16 @@ private:
   size_t d_nrVisits{0};
 
   void clean() {
-    for(auto i=this->begin();i!=this->end();++i)
-     delete i->first;
+    for(auto i=this->begin();i!=this->end();++i) {
+      delete i->first;
+    }
   }
 
   void copy(const IntervalMap<T>& rhs) {
     d_nrVisits=rhs.d_nrVisits;
-    for(const_iterator i=rhs.begin();i!=rhs.end();++i)
+    for(const_iterator i=rhs.begin();i!=rhs.end();++i) {
       insert(std::make_pair(i->first->createClone(),i->second));
+    }
   }
   struct NotInInterval
   {
@@ -150,8 +154,9 @@ private:
     IV *c=i.createClone();
     std::pair<iterator,bool> const p=
      this->insert(std::make_pair(c,T()));
-    if (!p.second)
-      delete c;
+     if (!p.second) {
+       delete c;
+     }
     return p.second;
   }
   //! insert a series of intervals at once
@@ -169,8 +174,9 @@ private:
   T& findValue(IT k) {
     EqualTo<IT> key(k);
     auto p = this->find(&key);
-    if (p==this->end())
+    if (p==this->end()) {
       return d_outside;
+    }
     // std::cout << "found at " << *(p->first) << "\n";
     DEVELOP_POSTCOND(p->first->valid(k));
     return p->second;
@@ -209,8 +215,9 @@ private:
   const T& findValue(IT k) const {
     EqualTo<IT> key(k);
     const_iterator p = find(&key);
-    if (p==this->end())
+    if (p==this->end()) {
       return d_outside;
+    }
     DEVELOP_POSTCOND(p->first->valid(k));
     return p->second;
   }
@@ -243,8 +250,9 @@ private:
   }
 
   void print(std::ostream& s) const {
-    for(const_iterator i=this->begin();i!=this->end();++i)
+    for(const_iterator i=this->begin();i!=this->end();++i) {
       s << *(i->first) << " " << i->second << "\n";
+    }
   }
 };
 
@@ -273,13 +281,15 @@ private:
   size_t d_nrVisits{0};
 
   void clean() {
-    for(auto i=this->begin();i!=this->end();++i)
-     delete i->first;
+    for(auto i=this->begin();i!=this->end();++i) {
+      delete i->first;
+    }
   }
   void copy(const IntervalMultiMap<T>& rhs) {
     d_nrVisits=rhs.d_nrVisits;
-    for(const_iterator i=rhs.begin();i!=rhs.end();++i)
-     push_back(std::make_pair(i->first->createClone(),i->second));
+    for(const_iterator i=rhs.begin();i!=rhs.end();++i) {
+      push_back(std::make_pair(i->first->createClone(),i->second));
+    }
   }
 
   struct NotInInterval
@@ -291,9 +301,11 @@ private:
       typedef IT argument_type;
       typedef bool result_type;
       bool operator()(IT v) const {
-       for(auto i=d_m->begin();i!=d_m->end();++i)
-          if (i->first->valid(v))
+        for(auto i=d_m->begin();i!=d_m->end();++i) {
+          if (i->first->valid(v)) {
             return false;
+          }
+        }
        return true;
       }
   };
@@ -360,8 +372,9 @@ private:
             i->second(v);
           }
         }
-      if (!intervalFound)
-        d_outside(v);
+        if (!intervalFound) {
+          d_outside(v);
+        }
   }
 
   //! T is a function object, call visit() for all T's maching \a v
@@ -376,8 +389,9 @@ private:
             i->second.visit(v);
           }
         }
-      if (!intervalFound)
-        d_outside.visit(v);
+        if (!intervalFound) {
+          d_outside.visit(v);
+        }
   }
 
   //! key/value are identical
@@ -430,8 +444,9 @@ private:
     return d_nrVisits;
   }
   void print(std::ostream& s) const {
-    for(const_iterator i=this->begin();i!=this->end();++i)
+    for(const_iterator i=this->begin();i!=this->end();++i) {
       s << *(i->first) << " " << i->second << "\n";
+    }
   }
 };
 

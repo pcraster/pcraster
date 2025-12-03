@@ -99,9 +99,11 @@ calc::CFGNode *calc::createCFG(ASTNode *n)
 calc::CFGNode *calc::createCFG(const std::vector<ASTNode *> &nodeVector)
 {
   CFGCreatorPrivate c;
-  for (auto i : nodeVector)
-    if (i)
+  for (auto i : nodeVector) {
+    if (i) {
       i->accept(c);
+    }
+  }
   return c.releaseFirst();
 }
 

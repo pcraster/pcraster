@@ -84,8 +84,9 @@ void calc::SubParameter::setReportPoint(const Position *writtenHere, const Write
     // first encounter of assigning to this parameter
     d_writeInfo = new calc::WriteInfo(w);
   }
-  if (!w.isWritten())
+  if (!w.isWritten()) {
     return;
+  }
   validateOutputFileName();
   // since we write the LAST assignment
   // set d_writeInfo to this last one
@@ -150,8 +151,9 @@ const calc::WriteInfo *calc::SubParameter::writeInfo() const
 */
 pcrxml::Data *calc::SubParameter::createXmlData() const
 {
-  if (nrInSet(symbolType()) != 1)
+  if (nrInSet(symbolType()) != 1) {
     return nullptr;
+  }
   auto *d = new pcrxml::Data();
   setDataSubType(d);
   setName(d);
@@ -159,13 +161,14 @@ pcrxml::Data *calc::SubParameter::createXmlData() const
   if (isInput()) {
     d->ioType = pcrxml::IoType::Input;
   } else {
-    if (isOutput())
+    if (isOutput()) {
       d->ioType = pcrxml::IoType::Output;
-    else {
-      if (isConstantBinding())
+    } else {
+      if (isConstantBinding()) {
         d->ioType = pcrxml::IoType::Constant;
-      else
+      } else {
         d->ioType = pcrxml::IoType::None;
+      }
     }
   }
   return d;

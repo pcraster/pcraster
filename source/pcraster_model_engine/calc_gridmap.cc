@@ -35,8 +35,9 @@ calc::GridMap::~GridMap()
 
 calc::GridMap::GridMap(std::string const &fileName) : d_fileName(fileName)
 {
-  if (!rasterDal)
+  if (!rasterDal) {
     rasterDal = new dal::RasterDal(true);
+  }
 }
 
 calc::GridMapOut::GridMapOut(std::string const &fileName, dal::RasterDriver const &driver,
@@ -155,8 +156,9 @@ calc::GridMapIn::GridMapIn(std::string const &fileName) : GridMap(fileName)
   std::shared_ptr<dal::Raster> raster;
   dal::RasterDriver *driver = nullptr;
   std::tie(raster, driver) = rasterDal->open(fileName);
-  if (!raster)  // TODO not  a recognized map instead of a PCRasterMap
+  if (!raster) {  // TODO not  a recognized map instead of a PCRasterMap
     throw geo::NotA_PCRasterMap(fileName);
+  }
 
   const dal::Properties &p(raster->properties());
 
@@ -164,17 +166,18 @@ calc::GridMapIn::GridMapIn(std::string const &fileName) : GridMap(fileName)
   CSF_PT const prj = p.value<CSF_PT>(DAL_CSF_PROJECTION, PT_YINCT2B);
   CSF_VS const vs = p.value<CSF_VS>(DAL_CSF_VALUESCALE, VS_NOTDETERMINED);
 
-  if (vs != VS_NOTDETERMINED)
+  if (vs != VS_NOTDETERMINED) {
     d_vs = csfVs2vs(vs);
-  else {
+  } else {
     // as in old calc_bandmap.cc
-    if (dal::isInteger(raster->typeId()))
+    if (dal::isInteger(raster->typeId())) {
       d_vs = VS_BNO;  // forget VS_L fttb
-    else {
-      if (dal::isFloatingPoint(raster->typeId()))
+    } else {
+      if (dal::isFloatingPoint(raster->typeId())) {
         d_vs = VS_S;  // forget VS_D fttb
-      else
+      } else {
         throw geo::NotA_PCRasterMap(fileName + "(not_a_numeric_raster)");
+      }
     }
   }
   d_rs = geo::RasterSpace(raster->nrRows(), raster->nrCols(), raster->cellSize(), raster->west(),

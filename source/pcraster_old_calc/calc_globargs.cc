@@ -13,8 +13,9 @@ calc::GlobArgs::GlobArgs(const Operator &op, const Compressor &compressor, Field
 {
 #ifdef DEBUG_DEVELOP
   // test/pcrcalc224c
-  if (!nrActualArgs)
+  if (!nrActualArgs) {
     POSTCOND(op.nrArgs() >= 0);  // not a var arg def
+  }
 #endif
   d_vals = new void *[d_nrArgs];
   for (size_t i = 0; i < d_nrArgs; i++) {
@@ -31,7 +32,8 @@ const void **calc::GlobArgs::mapVals()
 
 calc::GlobArgs::~GlobArgs()
 {
-  for (size_t i = 0; i < d_nrArgs; i++)
+  for (size_t i = 0; i < d_nrArgs; i++) {
     delete d_args[i];
+  }
   delete[] d_vals;
 }

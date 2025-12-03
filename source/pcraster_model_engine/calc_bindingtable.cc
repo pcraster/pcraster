@@ -77,8 +77,9 @@ void BindingToSymbol::visitAss(ASTAss *a)
         << i->second->par()->shortPosText();
     par->posError(msg);
   }
-  if (d_interfaceSyms.count(par->name()))
+  if (d_interfaceSyms.count(par->name())) {
     par->symError("binding is obsolete when using an interface section");
+  }
 
   // evaluate iff binding is used in d_symbols
   if (d_symbols.contains(par)) {
@@ -155,10 +156,12 @@ void calc::EffectiveBindings::applyToSymbols(ASTSymbolTable &t,
 void calc::EffectiveBindings::overwrite(const ASTNodeVector &e)
 {
   ASTNodeVector l;
-  for (auto i : *this)
+  for (auto i : *this) {
     l.transferPushBack(i->createClone());
-  for (auto i : e)
+  }
+  for (auto i : e) {
     l.transferPushBack(i->createClone());
+  }
   clear();
   addLastDefinition(l);
 }

@@ -77,8 +77,9 @@ calc::IoFieldStrategy *calc::IoEsriFieldStrategy::checkInputMap(VS &vs, const st
   try {
     EsriMap const grid(fName);
     // always prefer an esri grid prj file
-    if (grid.prjFile().size())
+    if (grid.prjFile().size()) {
       d_prjFile = grid.prjFile();
+    }
     vs = grid.vs();
     return this;
   } catch (NotAnEsriGrid &) {
@@ -88,8 +89,9 @@ calc::IoFieldStrategy *calc::IoEsriFieldStrategy::checkInputMap(VS &vs, const st
     if (d_prjFile.empty()) {
       com::PathName prj(fName);
       prj.setExtension("prj");
-      if (com::exists(prj))
+      if (com::exists(prj)) {
         d_prjFile = prj.toString();
+      }
     }
     setAndCheckCommon(fName, d_fallBack->rasterSpace());
     return d_fallBack;
@@ -135,8 +137,9 @@ void calc::IoEsriFieldStrategy::checkClone(const std::string &mapFileName)
   map.bbox(bboxMap);
 
   if (mapRs.cellSize() != rasterSpace().cellSize() || d_bbox[0] != bboxMap[0] ||
-      d_bbox[1] != bboxMap[1] || d_bbox[2] != bboxMap[2] || d_bbox[3] != bboxMap[3])
+      d_bbox[1] != bboxMap[1] || d_bbox[2] != bboxMap[2] || d_bbox[3] != bboxMap[3]) {
     throwCloneDiffers(d_cloneNameEsri, mapFileName);
+  }
 }
 
 //! set up the stuff needed for an Esri Grid clone
@@ -168,8 +171,9 @@ calc::GridMap *calc::IoEsriFieldStrategy::createMap(const std::string &fileName,
   removeOutputObject(pn.toString());
   auto *m = new EsriMap(pn.toString(), rasterSpace().nrRows(), rasterSpace().nrCols(),
                         rasterSpace().cellSize(), d_bbox, vs);
-  if (d_prjFile.size())
+  if (d_prjFile.size()) {
     m->setPrjFile(d_prjFile);
+  }
   return m;
 }
 
@@ -181,8 +185,9 @@ calc::GridMap *calc::IoEsriFieldStrategy::createMap(const std::string &fileName,
 void calc::IoEsriFieldStrategy::removeOutputObject(const std::string &objName) const
 {
   com::PathInfo const path(objName);
-  if (!path.exists())
+  if (!path.exists()) {
     return;  // nothing to clean
+  }
   if (!path.isDirectory()) {
     // remove file
     remove(path.pathName());
@@ -192,8 +197,9 @@ void calc::IoEsriFieldStrategy::removeOutputObject(const std::string &objName) c
   // it is a directory
 
   // can be a single esrigrid
-  if (calc::EsriMap::remove(objName))
+  if (calc::EsriMap::remove(objName)) {
     return;
+  }
 
   // other directory check that
 
@@ -205,8 +211,9 @@ void calc::IoEsriFieldStrategy::removeOutputObject(const std::string &objName) c
   for (fs::directory_iterator f(stack); f != end_iter && isAStack; ++f) {
     // expect only pcr_esri, info and numeric
     // file names
-    if (!com::compareNoCase(f->path().filename().string(), "pcr_esri"))
+    if (!com::compareNoCase(f->path().filename().string(), "pcr_esri")) {
       continue;
+    }
     if (!com::compareNoCase(f->path().filename().string(), "info")) {
       infoDir = *f;
       continue;
@@ -220,8 +227,9 @@ void calc::IoEsriFieldStrategy::removeOutputObject(const std::string &objName) c
     }
   }
 
-  if (!isAStack)  // esrigrid/test17
+  if (!isAStack) {  // esrigrid/test17
     throw com::Exception("Can not overwrite " + objName);
+  }
 
   // now it is either a stack or an empty directory
   // both is fine and can be deleted
@@ -234,8 +242,9 @@ void calc::IoEsriFieldStrategy::removeOutputObject(const std::string &objName) c
 
   // info directory as last one, remove grid  depends on it
   if (!infoDir.empty()) {
-    for (fs::directory_iterator f(infoDir); f != end_iter; ++f)
+    for (fs::directory_iterator f(infoDir); f != end_iter; ++f) {
       removeOutputObject(f->path().string());
+    }
     com::remove(infoDir.string());
   }
 
@@ -247,8 +256,9 @@ static void createDir(const com::PathName &fName)
 {
   try {
     com::PathInfo const p(fName);
-    if (p.isFile())  // esrigrid/test23
+    if (p.isFile()) {  // esrigrid/test23
       com::remove(fName);
+    }
     com::createDirectory(fName);
   } catch (const com::OpenFileError &e) {
     throw std::runtime_error(e.messages());
@@ -307,11 +317,13 @@ void calc::IoEsriFieldStrategy::validateFileName(const std::string &fileName) co
 {
   size_t const len = fileName.size();
   // MODELBUILDER FF uit eigenlijk baseName alleen te lang
-  if (len >= 14)  // esrigrid/test5a
+  if (len >= 14) {  // esrigrid/test5a
     throw com::Exception("ESRI grid name too long, max. is 13 characters");
+  }
   // MODELBUIDER
-  if (fileName.find('.') < len)  // esrigrid/test5
+  if (fileName.find('.') < len) {  // esrigrid/test5
     throw com::Exception("ESRI grid name can not contain a .-symbol");
+  }
 }
 
 //! return new InputEsriMap object
@@ -367,17 +379,20 @@ extern "C" PCR_DLL_FUNC(int)
     pcrxml::DirectoryStackInfo const d(dc.documentElement());
 
     *allMissingValue = 0;  // FALSE;
-    if (d.allMissingValue.present())
+    if (d.allMissingValue.present()) {
       *allMissingValue = d.allMissingValue();
+    }
     if (!*allMissingValue) {
       *minimumValue = d.minimumValue();
       *maximumValue = d.maximumValue();
-    } else
+    } else {
       *minimumValue = *maximumValue = 0;  // for sanity
-    if (d.stackEnd.present())
+    }
+    if (d.stackEnd.present()) {
       *stackEnd = d.stackEnd();
-    else
+    } else {
       *stackEnd = 0;
+    }
     PRECOND(d.dataTypeDTD.attrValueStr().size() <= 15);
     strcpy(dataType, d.dataTypeDTD.attrValueStr().c_str());
   } catch (...) {

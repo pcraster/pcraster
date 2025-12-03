@@ -51,18 +51,24 @@ public:
 static VS xml2VS(pcrxml::DataType const &d)
 {
   VS vs = VS_UNKNOWN;
-  if (d.boolean().present())
+  if (d.boolean().present()) {
     vs = unionSet(vs, VS_B);
-  if (d.nominal().present())
+  }
+  if (d.nominal().present()) {
     vs = unionSet(vs, VS_N);
-  if (d.ordinal().present())
+  }
+  if (d.ordinal().present()) {
     vs = unionSet(vs, VS_O);
-  if (d.scalar().present())
+  }
+  if (d.scalar().present()) {
     vs = unionSet(vs, VS_S);
-  if (d.directional().present())
+  }
+  if (d.directional().present()) {
     vs = unionSet(vs, VS_D);
-  if (d.ldd().present())
+  }
+  if (d.ldd().present()) {
     vs = unionSet(vs, VS_L);
+  }
 
   return vs;
 }
@@ -85,10 +91,12 @@ DataType xml2DataType(pcrxml::FieldValueOrType const &f)
 
   VS vs = VS_ANYTHING;
   ST st = ST_ALL;
-  if (f.dataType().present())
+  if (f.dataType().present()) {
     vs = xml2VS(f.dataType().get());
-  if (f.spatialType().present())
+  }
+  if (f.spatialType().present()) {
     st = xml2ST(f.spatialType().get());
+  }
 
   return {vs, st};
 }
@@ -102,12 +110,15 @@ template <typename T> static T toXML(DataType const &dt)
 {
   T x;
 
-  if (isIn(VS_B, dt.vs()))
+  if (isIn(VS_B, dt.vs())) {
     x.boolean(pcrxml::Boolean());
-  if (isIn(VS_N, dt.vs()))
+  }
+  if (isIn(VS_N, dt.vs())) {
     x.nominal(pcrxml::Nominal());
-  if (isIn(VS_O, dt.vs()))
+  }
+  if (isIn(VS_O, dt.vs())) {
     x.ordinal(pcrxml::Ordinal());
+  }
   if (isIn(VS_S, dt.vs())) {
     x.scalar(pcrxml::Scalar());
     Dimension const &d(dt.unit());
@@ -124,10 +135,12 @@ template <typename T> static T toXML(DataType const &dt)
     SET_DIM(Currency, currency);
 #undef SET_DIM
   }
-  if (isIn(VS_D, dt.vs()))
+  if (isIn(VS_D, dt.vs())) {
     x.directional(pcrxml::Directional());
-  if (isIn(VS_L, dt.vs()))
+  }
+  if (isIn(VS_L, dt.vs())) {
     x.ldd(pcrxml::Ldd());
+  }
 
   return x;
 }

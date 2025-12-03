@@ -37,8 +37,9 @@ struct Symbol {
    */
   template <typename IteratorType> void operator()(IteratorType first, IteratorType last) const
   {
-    if (std::string(first, last) == "X")
+    if (std::string(first, last) == "X") {
       throw com::Exception("XXXXXXXXX");
+    }
     d_dp->add(std::string(first, last));
   }
 };
@@ -91,8 +92,9 @@ calc::DimensionParser::DimensionParser(const std::string &str)
       *(symbol[dimensionParser::Symbol(this)] >> *(boost::spirit::space_p) >>
         !boost::spirit::ch_p(',') >> *(boost::spirit::space_p) >>
         !(number[dimensionParser::Power(this)]) >> *(boost::spirit::space_p)));
-  if (!info.full)
+  if (!info.full) {
     throwUnknown(std::string(1, *(info.stop)));
+  }
 }
 
 /* NOT IMPLEMENTED

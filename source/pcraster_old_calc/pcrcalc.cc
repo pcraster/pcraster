@@ -37,8 +37,9 @@ public:
 
   void cleanOnError()
   {
-    if (!errorMessage().empty())
+    if (!errorMessage().empty()) {
       clean();
+    }
   }
 
 public:
@@ -91,8 +92,9 @@ PcrScriptImpl::PcrScriptImpl(const char *scriptName)
   bool unknownDE(false);
   TRY_ALL
   {
-    if (!scriptName)
+    if (!scriptName) {
       throw com::Exception("call to pcr_createScript with 0 ptr argument");
+    }
     com::PathName const pn(scriptName);
     try {
       pcrxml::Document const doc(pn);
@@ -111,8 +113,9 @@ PcrScriptImpl::PcrScriptImpl(const char *scriptName)
         throw com::FileFormatError(pn, msg.str());
       }
     } catch (...) {
-      if (unknownDE)
+      if (unknownDE) {
         throw;
+      }
       // a normal script
       d_ci = new calc::ClientInterface();
       d_ci->setScriptFile(scriptName);
@@ -135,8 +138,9 @@ void PcrScriptImpl::run()
   {
     if (d_ci) {
       d_ci->run();
-      if (d_ci->executeScriptStatus() == calc::ErrorExecScript)
+      if (d_ci->executeScriptStatus() == calc::ErrorExecScript) {
         d_errorStream << d_ci->errorMsg();
+      }
     }
     if (d_wl) {
       d_wl->parseXml();
@@ -166,23 +170,26 @@ extern "C" PCR_DLL_FUNC(PcrScriptImpl *) pcr_createScript(const char *scriptName
 
 extern "C" PCR_DLL_FUNC(void) pcr_ScriptExecute(PcrScriptImpl *script)
 {
-  if (script)
+  if (script) {
     script->run();
+  }
 }
 
 /*! size of error message, 0 if none
  */
 extern "C" PCR_DLL_FUNC(int) pcr_ScriptError(PcrScriptImpl *script)
 {
-  if (!script)
+  if (!script) {
     return -1;  // BAD!
+  }
   return script->errorMessage().size();
 }
 
 extern "C" PCR_DLL_FUNC(const char *) pcr_ScriptErrorMessage(PcrScriptImpl *script)
 {
-  if (!script)
+  if (!script) {
     return "Error: called pcr_ScriptErrorMessage with 0 ptr";
+  }
   return script->errorMessage().c_str();
 }
 

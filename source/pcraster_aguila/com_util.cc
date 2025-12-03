@@ -18,21 +18,23 @@ double com_Util::ceil125(double x)
   double fr = NAN;
   double const sign = (x > 0) ? 1.0 : -1.0;
 
-  if (x == 0.0)
+  if (x == 0.0) {
     return 0.0;
+  }
 
   lx = std::log10(std::fabs(x));
   p10 = std::floor(lx);
   fr = std::pow(10.0, lx - p10);
 
-  if (fr <= 1.0)
+  if (fr <= 1.0) {
     fr = 1.0;
-  else if (fr <= 2.0)
+  } else if (fr <= 2.0) {
     fr = 2.0;
-  else if (fr <= 5.0)
+  } else if (fr <= 5.0) {
     fr = 5.0;
-  else
+  } else {
     fr = 10.0;
+  }
 
   rv = fr * std::pow(10.0, p10);
   return sign * rv;
@@ -57,10 +59,11 @@ void com_Util::linSpace(std::vector<double>::iterator begin, std::vector<double>
   imax = std::distance(begin, end) - 1;
 #endif
 
-  if (imax > 0)  // More than one value to fill: step is important.
+  if (imax > 0) {  // More than one value to fill: step is important.
     step = (max - min) / static_cast<double>(imax);
-  else
+  } else {
     step = 0;  // Only one value to fill (the first): step is not important.
+  }
 
   /*
   cout << "distance : " << imax << endl;
@@ -91,8 +94,9 @@ void com_Util::logSpace(std::vector<double>::iterator begin, std::vector<double>
   imax = std::distance(begin, end) - 1;
 #endif
 
-  if ((min <= 0.0) || (max <= 0.0) || (imax <= 0))
+  if ((min <= 0.0) || (max <= 0.0) || (imax <= 0)) {
     return;
+  }
 
   *begin = min;
   *(end - 1) = max;

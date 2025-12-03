@@ -22,8 +22,9 @@
 void calc::DataType::restrict(VS &vs, VS req)
 {
   VS const newVs = ::intersect(vs, req);
-  if (newVs == VS_UNKNOWN)
+  if (newVs == VS_UNKNOWN) {
     throw VSClash(vs, req);
+  }
   vs = newVs;
 }
 
@@ -113,8 +114,9 @@ calc::DataType &calc::DataType::operator=(DataType const &rhs)
 void calc::DataType::setUnit(const Dimension &unit)
 {
   d_unit = unit;
-  if (!d_unit.none())
+  if (!d_unit.none()) {
     d_vs = VS_S;
+  }
 }
 
 //! get value of d_unit
@@ -200,18 +202,21 @@ void calc::DataType::restrict(const DataType &req)
       d_mapStackType.update(req.mapStackType());
       break;
     case VS_TABLE:
-      if (d_tableColTypes.empty())
+      if (d_tableColTypes.empty()) {
         d_tableColTypes = req.tableColTypes();
+      }
       // empty: no info to restict;
-      if (req.tableColTypes().empty())
+      if (req.tableColTypes().empty()) {
         break;
+      }
       TableClash::checkNrOfColumns(d_tableColTypes.size(), req.tableColTypes().size());
-      for (size_t i = 0; i < d_tableColTypes.size(); ++i)
+      for (size_t i = 0; i < d_tableColTypes.size(); ++i) {
         try {
           restrict(d_tableColTypes[i], req.tableColTypes()[i]);
         } catch (const VSClash &c) {
           throw TableClash(i + 1, c);
         }
+      }
       break;
     default: {
       // check spatial type pcrcalc60, pcrcalc258,pcrcalc346
@@ -220,8 +225,9 @@ void calc::DataType::restrict(const DataType &req)
         // Only if req.allowPromotion() then \a this
         // (the DataType of an ASTPar)
         // may convert/promote from ST_NONSPATIAL to ST_SPATIAL.
-        if (!req.allowPromotion())
+        if (!req.allowPromotion()) {
           throw STClash(stSpatial());
+        }
         // else convert implict to spatial
         newSt = ST_SPATIAL;
       }
@@ -301,8 +307,9 @@ const calc::MapStackType &calc::DataType::mapStackType() const
 
 bool calc::operator==(const DataType &e1, const DataType &e2)
 {
-  if (e1.vs() != e2.vs())
+  if (e1.vs() != e2.vs()) {
     return false;
+  }
   switch (e1.vs()) {
     case VS_TSS:
     case VS_MAPSTACK:
@@ -349,7 +356,8 @@ std::ostream &calc::operator<<(std::ostream &s, const calc::DataType &ft)
   }
   s << "d_st(" << st << ")";
   s << "d_resultType(" << ft.resultType() << ")";
-  for (size_t i = 0; i < ft.tableColTypes().size(); ++i)  // empty if not a table
+  for (size_t i = 0; i < ft.tableColTypes().size(); ++i) {  // empty if not a table
     s << "\n\t d_tableColTypes(" << i << ":" << ft.tableColTypes()[i] << ")";
+  }
   return s;
 }

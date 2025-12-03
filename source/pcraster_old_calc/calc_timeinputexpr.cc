@@ -52,12 +52,14 @@ void calc::TimeinputExpr::execute(FieldStack &stack)
       const auto *ns = dynamic_cast<const calc::NonSpatial *>(id.get_rep());
       int const colNr = static_cast<int>(ns->getValue());
       // no such column pcrcalc/test232
-      if (colNr <= 0 || colNr >= tssTable->nrCols)
+      if (colNr <= 0 || colNr >= tssTable->nrCols) {
         throw std::runtime_error("No match in timeinput...");
+      }
 
       REAL8 *vPtr = tssTable->vals[rowIndex] + colNr;
-      if (IS_MV_REAL8(vPtr))  // pcrcalc/test37e
+      if (IS_MV_REAL8(vPtr)) {  // pcrcalc/test37e
         throw std::runtime_error("Read mv for non-spatial in timeinput...");
+      }
       stack.push(calc::FieldHandle(new calc::NonSpatial(vs(), *vPtr)));
 
     } else {

@@ -109,8 +109,9 @@ void calc::ReportVisitor::visitAss(ASTAss *a)
       updateReportPar(p);
     } else {
       // only update iff explicit report
-      if (d_currentReport)
+      if (d_currentReport) {
         updateReportPar(p);
+      }
     }
   }
 }

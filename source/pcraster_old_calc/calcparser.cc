@@ -263,9 +263,10 @@ void Parser::checkParseError()
   std::ostringstream msg;
   bool const kw = mytoken(at)->isKeyword();
   msg << "Syntax error at " << (kw ? "keyword " : "symbol ") << p.qName();
-  if (kw)
+  if (kw) {
     msg << "\n Keywords can not be used as names for files or variables"
         << "\n Keywords must be placed in a specific order";
+  }
   p.posError(msg.str());
 }
 
@@ -326,21 +327,24 @@ void Parser::externalBindings(int *_retsignal, calc::RunSettings &rs)
         if ((setwd1[LA(1)] & 0x1)) {
 #line 389 "calcparser.g"
           s = number(&_signal);
-          if (_signal)
+          if (_signal) {
             goto _handler;
+          }
 
         } else {
           if ((setwd1[LA(1)] & 0x2)) {
 #line 390 "calcparser.g"
             s = qid(&_signal);
-            if (_signal)
+            if (_signal) {
               goto _handler;
+            }
 
           } else {
-            if (_sva)
+            if (_sva) {
               _signal = NoViableAlt;
-            else
+            } else {
               _signal = NoSemViableAlt;
+            }
             goto _handler; /* MR7 */
           }
         }
@@ -399,8 +403,9 @@ void Parser::model(int *_retsignal)
     }
 #line 405 "calcparser.g"
     codeBlocks(&_signal, script());
-    if (_signal)
+    if (_signal) {
       goto _handler;
+    }
 #line 405 "calcparser.g"
     zzmatch_wsig(TOK_EOF, _handler);
     consume();
@@ -408,20 +413,23 @@ void Parser::model(int *_retsignal)
     if ((setwd1[LA(1)] & 0x20) && (setwd1[LA(2)] & 0x40)) {
 #line 406 "calcparser.g"
       modelProlog(&_signal);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
 #line 406 "calcparser.g"
       modelCode(&_signal);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
 #line 406 "calcparser.g"
       zzmatch_wsig(TOK_EOF, _handler);
       consume();
     } else {
-      if (_sva)
+      if (_sva) {
         _signal = NoViableAlt;
-      else
+      } else {
         _signal = NoSemViableAlt;
+      }
       goto _handler; /* MR7 */
     }
   }
@@ -460,8 +468,9 @@ void Parser::modelProlog(int *_retsignal)
       consume();
 #line 414 "calcparser.g"
       bindingSection(&_signal);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
     }
   }
 #line 414 "calcparser.g"
@@ -469,8 +478,9 @@ void Parser::modelProlog(int *_retsignal)
     if ((LA(1) == TOK_AREAMAP)) {
 #line 414 "calcparser.g"
       areaMapSection(&_signal);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
     }
   }
 #line 414 "calcparser.g"
@@ -478,8 +488,9 @@ void Parser::modelProlog(int *_retsignal)
     if ((LA(1) == TOK_TIMER)) {
 #line 414 "calcparser.g"
       timer(&_signal);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
     }
   }
   return;
@@ -514,18 +525,20 @@ void Parser::modelCode(int *_retsignal)
             zzmatch_wsig(TOK_MODEL, _handler);
             consume();
           } else {
-            if (_sva)
+            if (_sva) {
               _signal = NoViableAlt;
-            else
+            } else {
               _signal = NoSemViableAlt;
+            }
             goto _handler; /* MR7 */
           }
         }
       }
 #line 416 "calcparser.g"
       codeBlocks(&_signal, script());
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
     }
   }
 #line 418 "calcparser.g"
@@ -539,16 +552,18 @@ void Parser::modelCode(int *_retsignal)
 #line 419 "calcparser.g"
 
       calc::Element const p(element(pos));
-      if (!script()->isDynamicModel())  // pcrcalc/test8a
+      if (!script()->isDynamicModel()) {  // pcrcalc/test8a
         p.posError("There is a dynamic section but no timer section");
+      }
       // create and add it to the script
       auto *n = new calc::DynamicSection(p, script());
       script()->addStatement(n);
       consume();
 #line 427 "calcparser.g"
       codeBlocks(&_signal, n);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
     }
   }
   return;
@@ -572,8 +587,9 @@ void Parser::bindingSection(int *_retsignal)
     while ((setwd2[LA(1)] & 0x8)) {
 #line 431 "calcparser.g"
       bindingDefinition(&_signal);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
     }
   }
 #line 432 "calcparser.g"
@@ -601,8 +617,9 @@ void Parser::areaMapSection(int *_retsignal)
   consume();
 #line 437 "calcparser.g"
   s = qid(&_signal);
-  if (_signal)
+  if (_signal) {
     goto _handler;
+  }
 
 #line 437 "calcparser.g"
   zzmatch_wsig(TOK_SC, _handler);
@@ -641,18 +658,21 @@ void Parser::timer(int *_retsignal)
       {
 #line 447 "calcparser.g"
         start = timerValue(&_signal);
-        if (_signal)
+        if (_signal) {
           goto _handler;
+        }
 
 #line 448 "calcparser.g"
         end = timerValue(&_signal);
-        if (_signal)
+        if (_signal) {
           goto _handler;
+        }
 
 #line 449 "calcparser.g"
         step = timerValue(&_signal);
-        if (_signal)
+        if (_signal) {
           goto _handler;
+        }
 
 #line 450 "calcparser.g"
 
@@ -671,10 +691,11 @@ void Parser::timer(int *_retsignal)
         script()->setTimer(symbol(tssID));
         consume();
       } else {
-        if (_sva)
+        if (_sva) {
           _signal = NoViableAlt;
-        else
+        } else {
           _signal = NoSemViableAlt;
+        }
         goto _handler; /* MR7 */
       }
     }
@@ -687,8 +708,9 @@ void Parser::timer(int *_retsignal)
     while ((LA(1) == TOK_ID)) {
 #line 459 "calcparser.g"
       reportMomentDef(&_signal);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
     }
   }
   return;
@@ -716,21 +738,24 @@ calc::TimerValue Parser::timerValue(int *_retsignal)
     if ((setwd3[LA(1)] & 0x2)) {
 #line 464 "calcparser.g"
       sym = number(&_signal);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
 
     } else {
       if ((setwd3[LA(1)] & 0x4)) {
 #line 464 "calcparser.g"
         sym = qid(&_signal);
-        if (_signal)
+        if (_signal) {
           goto _handler;
+        }
 
       } else {
-        if (_sva)
+        if (_sva) {
           _signal = NoViableAlt;
-        else
+        } else {
           _signal = NoSemViableAlt;
+        }
         goto _handler; /* MR7 */
       }
     }
@@ -772,8 +797,9 @@ void Parser::reportMomentDef(int *_retsignal)
   consume();
 #line 472 "calcparser.g"
   reportMoments(&_signal, m);
-  if (_signal)
+  if (_signal) {
     goto _handler;
+  }
 #line 472 "calcparser.g"
   zzmatch_wsig(TOK_SC, _handler);
 
@@ -798,16 +824,18 @@ void Parser::bindingDefinition(int *_retsignal)
   *_retsignal = NoSignal;
 #line 479 "calcparser.g"
   calc::DefPar const p = parWithIndeces(&_signal, script());
-  if (_signal)
+  if (_signal) {
     goto _handler;
+  }
 
 #line 479 "calcparser.g"
   zzmatch_wsig(TOK_IS, _handler);
   consume();
 #line 479 "calcparser.g"
   bindingRight(&_signal, p);
-  if (_signal)
+  if (_signal) {
     goto _handler;
+  }
 #line 479 "calcparser.g"
   zzmatch_wsig(TOK_SC, _handler);
   consume();
@@ -834,13 +862,15 @@ void Parser::bindingRight(int *_retsignal, const calc::DefPar &par)
   if ((setwd3[LA(1)] & 0x40)) {
 #line 484 "calcparser.g"
     right = qid(&_signal);
-    if (_signal)
+    if (_signal) {
       goto _handler;
+    }
 
 #line 485 "calcparser.g"
 
-    if (par.isArray())
+    if (par.isArray()) {
       par.posError("Illegal construct");
+    }
     script()->addBinding(par, right);
 #line 490 "calcparser.g"
     {
@@ -859,13 +889,15 @@ void Parser::bindingRight(int *_retsignal, const calc::DefPar &par)
       calc::Symbol nr;
 #line 492 "calcparser.g"
       nr = number(&_signal);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
 
 #line 493 "calcparser.g"
 
-      if (par.isArray())
+      if (par.isArray()) {
         par.posError("Illegal construct");
+      }
       script()->addBinding(par, nr);
     } else {
       if ((LA(1) == TOK_CONV_F)) {
@@ -881,13 +913,15 @@ void Parser::bindingRight(int *_retsignal, const calc::DefPar &par)
         consume();
 #line 499 "calcparser.g"
         nr = number(&_signal);
-        if (_signal)
+        if (_signal) {
           goto _handler;
+        }
 
 #line 500 "calcparser.g"
 
-        if (par.isArray())
+        if (par.isArray()) {
           par.posError("Illegal construct");
+        }
 #line 504 "calcparser.g"
         zzmatch_wsig(TOK_RP, _handler);
 
@@ -905,13 +939,15 @@ void Parser::bindingRight(int *_retsignal, const calc::DefPar &par)
 
 #line 511 "calcparser.g"
           // par = [ index1, index2 ]
-          if (par.isArray())
+          if (par.isArray()) {
             par.posError("Illegal construct");
+          }
           consume();
 #line 515 "calcparser.g"
           indecesDef(&_signal, indDef);
-          if (_signal)
+          if (_signal) {
             goto _handler;
+          }
 #line 516 "calcparser.g"
           zzmatch_wsig(TOK_RB, _handler);
 
@@ -933,8 +969,9 @@ void Parser::bindingRight(int *_retsignal, const calc::DefPar &par)
             consume();
 #line 522 "calcparser.g"
             qId = qid(&_signal);
-            if (_signal)
+            if (_signal) {
               goto _handler;
+            }
 
 #line 523 "calcparser.g"
             {
@@ -978,14 +1015,16 @@ void Parser::bindingRight(int *_retsignal, const calc::DefPar &par)
             } catch (com::Exception &msg) {
               indexTableFile.posError(msg.messages());
             }
-            if (firstUse)  // pcrcalc/test280b
+            if (firstUse) {  // pcrcalc/test280b
               script()->addSymbol(p);
+            }
             consume();
           } else {
-            if (_sva)
+            if (_sva) {
               _signal = NoViableAlt;
-            else
+            } else {
               _signal = NoSemViableAlt;
+            }
             goto _handler; /* MR7 */
           }
         }
@@ -1012,8 +1051,9 @@ void Parser::indecesDef(int *_retsignal, std::vector<calc::ParsIndex *> &indDef)
   calc::ParsIndex *p = nullptr;
 #line 560 "calcparser.g"
   p = indexDef(&_signal);
-  if (_signal)
+  if (_signal) {
     goto _handler;
+  }
 
 #line 561 "calcparser.g"
   indDef.push_back(p);
@@ -1025,8 +1065,9 @@ void Parser::indecesDef(int *_retsignal, std::vector<calc::ParsIndex *> &indDef)
       consume();
 #line 562 "calcparser.g"
       p = indexDef(&_signal);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
 
 #line 563 "calcparser.g"
       indDef.push_back(p);
@@ -1088,8 +1129,9 @@ calc::ParsIndex *Parser::indexDef(int *_retsignal)
           if ((setwd4[LA(1)] & 0x8)) {
 #line 578 "calcparser.g"
             calc::Symbol const extName = qid(&_signal);
-            if (_signal)
+            if (_signal) {
               goto _handler;
+            }
 
 #line 579 "calcparser.g"
 
@@ -1098,16 +1140,18 @@ calc::ParsIndex *Parser::indexDef(int *_retsignal)
             if ((LA(1) == TOK_LP)) {
 #line 583 "calcparser.g"
               calc::IdList const set_list = idList(&_signal);
-              if (_signal)
+              if (_signal) {
                 goto _handler;
+              }
 
 #line 584 "calcparser.g"
               _retv = new calc::ParsIndexSet(on, symbol(name), set_list);
             } else {
-              if (_sva)
+              if (_sva) {
                 _signal = NoViableAlt;
-              else
+              } else {
                 _signal = NoSemViableAlt;
+              }
               goto _handler; /* MR7 */
             }
           }
@@ -1118,10 +1162,11 @@ calc::ParsIndex *Parser::indexDef(int *_retsignal)
 #line 587 "calcparser.g"
         _retv = new calc::ParsIndexName(on, symbol(name));
       } else {
-        if (_sva)
+        if (_sva) {
           _signal = NoViableAlt;
-        else
+        } else {
           _signal = NoSemViableAlt;
+        }
         goto _handler; /* MR7 */
       }
     }
@@ -1147,8 +1192,9 @@ void Parser::reportMoments(int *_retsignal, std::vector<calc::ParsReportMoment> 
   calc::ParsReportMoment p;
 #line 593 "calcparser.g"
   reportMoment(&_signal, p);
-  if (_signal)
+  if (_signal) {
     goto _handler;
+  }
 #line 594 "calcparser.g"
   m.push_back(p);
 #line 597 "calcparser.g"
@@ -1159,8 +1205,9 @@ void Parser::reportMoments(int *_retsignal, std::vector<calc::ParsReportMoment> 
       consume();
 #line 595 "calcparser.g"
       reportMoment(&_signal, p);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
 #line 596 "calcparser.g"
       m.push_back(p);
     }
@@ -1208,8 +1255,9 @@ void Parser::reportMoment(int *_retsignal, calc::ParsReportMoment &p)
             {
 #line 604 "calcparser.g"
               p.step = reportMomentStep(&_signal);
-              if (_signal)
+              if (_signal) {
                 goto _handler;
+              }
 
 #line 604 "calcparser.g"
               zzmatch_wsig(TOK_MOMENT_RANGE, _handler);
@@ -1236,10 +1284,11 @@ void Parser::reportMoment(int *_retsignal, calc::ParsReportMoment &p)
                 }
               }
             } else {
-              if (_sva)
+              if (_sva) {
                 _signal = NoViableAlt;
-              else
+              } else {
                 _signal = NoSemViableAlt;
+              }
               goto _handler; /* MR7 */
             }
           }
@@ -1260,10 +1309,11 @@ void Parser::reportMoment(int *_retsignal, calc::ParsReportMoment &p)
         p.start = -1;
         consume();
       } else {
-        if (_sva)
+        if (_sva) {
           _signal = NoViableAlt;
-        else
+        } else {
           _signal = NoSemViableAlt;
+        }
         goto _handler; /* MR7 */
       }
     }
@@ -1375,20 +1425,23 @@ void Parser::codeBlocks(int *_retsignal, calc::StatementBlock *inclIn)
 #line 652 "calcparser.g"
   {
     while (true) {
-      if (!((setwd5[LA(1)] & 0x8)))
+      if (!((setwd5[LA(1)] & 0x8))) {
         break;
+      }
       if ((LA(1) == TOK_FOREACH)) {
 #line 643 "calcparser.g"
         foreach (&_signal, inclIn)
           ;
-        if (_signal)
+        if (_signal) {
           goto _handler;
+        }
       } else {
         if ((LA(1) == TOK_REPEAT)) {
 #line 644 "calcparser.g"
           repeat(&_signal, inclIn);
-          if (_signal)
+          if (_signal) {
             goto _handler;
+          }
         } else {
           if ((setwd5[LA(1)] & 0x10)) {
 #line 649 "calcparser.g"
@@ -1398,20 +1451,23 @@ void Parser::codeBlocks(int *_retsignal, calc::StatementBlock *inclIn)
               inclIn->addStatement(b);
 #line 650 "calcparser.g"
               codeBlock(&_signal, b);
-              if (_signal)
+              if (_signal) {
                 goto _handler;
+              }
 #line 650 "calcparser.g"
               {
                 while ((setwd5[LA(1)] & 0x20) && (setwd5[LA(2)] & 0x40)) {
 #line 650 "calcparser.g"
                   codeBlock(&_signal, b);
-                  if (_signal)
+                  if (_signal) {
                     goto _handler;
+                  }
                 }
               }
             }
-          } else
+          } else {
             break; /* MR6 code for exiting loop "for sure" */
+          }
         }
       }
     }
@@ -1473,8 +1529,9 @@ void Parser::codeBlock(int *_retsignal, calc::StatementBlock *inclIn)
                 if ((setwd6[LA(1)] & 0x2)) {
 #line 670 "calcparser.g"
                   reportMoments(&_signal, inSitu);
-                  if (_signal)
+                  if (_signal) {
                     goto _handler;
+                  }
 #line 671 "calcparser.g"
 
                   const size_t buf_size = 8;
@@ -1487,10 +1544,11 @@ void Parser::codeBlock(int *_retsignal, calc::StatementBlock *inclIn)
                   r = rd;
                   script()->addReport(rd);
                 } else {
-                  if (_sva)
+                  if (_sva) {
                     _signal = NoViableAlt;
-                  else
+                  } else {
                     _signal = NoSemViableAlt;
+                  }
                   goto _handler; /* MR7 */
                 }
               }
@@ -1504,8 +1562,9 @@ void Parser::codeBlock(int *_retsignal, calc::StatementBlock *inclIn)
     }
 #line 685 "calcparser.g"
     assignment(&_signal, inclIn, calc::WriteInfo(script(), hasReport, r, inclIn->inDynamic()));
-    if (_signal)
+    if (_signal) {
       goto _handler;
+    }
   } else {
     if ((LA(1) == TOK_FILEOUTPUT)) {
 #line 686 "calcparser.g"
@@ -1513,13 +1572,15 @@ void Parser::codeBlock(int *_retsignal, calc::StatementBlock *inclIn)
       consume();
 #line 686 "calcparser.g"
       calc::FieldExpr *r_expr = expr(&_signal, inclIn);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
 
 #line 686 "calcparser.g"
       statementSep(&_signal);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
 #line 687 "calcparser.g"
 
       inclIn->addStatement(new calc::StdoutStatement(r_expr));
@@ -1546,19 +1607,22 @@ void Parser::codeBlock(int *_retsignal, calc::StatementBlock *inclIn)
         consume();
 #line 693 "calcparser.g"
         modelLinkArgs(&_signal, inclIn, strArg, args);
-        if (_signal)
+        if (_signal) {
           goto _handler;
+        }
 #line 693 "calcparser.g"
         statementSep(&_signal);
-        if (_signal)
+        if (_signal) {
           goto _handler;
+        }
 #line 694 "calcparser.g"
         inclIn->addStatement(new calc::ModelLinkInit(symbol(modelId), symbol(modelName), strArg, args));
       } else {
-        if (_sva)
+        if (_sva) {
           _signal = NoViableAlt;
-        else
+        } else {
           _signal = NoSemViableAlt;
+        }
         goto _handler; /* MR7 */
       }
     }
@@ -1618,14 +1682,16 @@ void Parser::foreach (int *_retsignal, calc::StatementBlock * inclIn)
       if ((LA(1) == TOK_LP)) {
 #line 706 "calcparser.g"
         in = idList(&_signal);
-        if (_signal)
+        if (_signal) {
           goto _handler;
+        }
 
       } else {
-        if (_sva)
+        if (_sva) {
           _signal = NoViableAlt;
-        else
+        } else {
           _signal = NoSemViableAlt;
+        }
         goto _handler; /* MR7 */
       }
     }
@@ -1651,14 +1717,16 @@ void Parser::foreach (int *_retsignal, calc::StatementBlock * inclIn)
           if ((LA(1) == TOK_LP)) {
 #line 710 "calcparser.g"
             except = idList(&_signal);
-            if (_signal)
+            if (_signal) {
               goto _handler;
+            }
 
           } else {
-            if (_sva)
+            if (_sva) {
               _signal = NoViableAlt;
-            else
+            } else {
               _signal = NoSemViableAlt;
+            }
             goto _handler; /* MR7 */
           }
         }
@@ -1674,8 +1742,9 @@ void Parser::foreach (int *_retsignal, calc::StatementBlock * inclIn)
   consume();
 #line 719 "calcparser.g"
   codeBlocks(&_signal, f);
-  if (_signal)
+  if (_signal) {
     goto _handler;
+  }
 #line 720 "calcparser.g"
   zzmatch_wsig(TOK_RC, _handler);
   consume();
@@ -1713,8 +1782,9 @@ void Parser::repeat(int *_retsignal, calc::StatementBlock *inclIn)
   consume();
 #line 732 "calcparser.g"
   codeBlocks(&_signal, ru);
-  if (_signal)
+  if (_signal) {
     goto _handler;
+  }
 #line 733 "calcparser.g"
   zzmatch_wsig(TOK_RC, _handler);
   consume();
@@ -1723,8 +1793,9 @@ void Parser::repeat(int *_retsignal, calc::StatementBlock *inclIn)
   consume();
 #line 733 "calcparser.g"
   condition = expr(&_signal, ru);
-  if (_signal)
+  if (_signal) {
     goto _handler;
+  }
 
 #line 733 "calcparser.g"
   zzmatch_wsig(TOK_SC, _handler);
@@ -1754,17 +1825,20 @@ void Parser::assignment(int *_retsignal, calc::StatementBlock *inclIn, const cal
   *_retsignal = NoSignal;
 #line 749 "calcparser.g"
   calc::UsePar par = parWithIndeces(&_signal, inclIn);
-  if (_signal)
+  if (_signal) {
     goto _handler;
+  }
 
 #line 750 "calcparser.g"
   assignmentTail(&_signal, inclIn, w, par);
-  if (_signal)
+  if (_signal) {
     goto _handler;
+  }
 #line 751 "calcparser.g"
   statementSep(&_signal);
-  if (_signal)
+  if (_signal) {
     goto _handler;
+  }
   return;
 fail:
   syn(zzBadTok, (ANTLRChar *)"", zzMissSet, zzMissTok, zzErrk);
@@ -1814,8 +1888,9 @@ void Parser::assignmentTail(int *_retsignal, calc::StatementBlock *inclIn, const
         consume();
 #line 765 "calcparser.g"
         exprList(&_signal, inclIn, args);
-        if (_signal)
+        if (_signal) {
           goto _handler;
+        }
 #line 765 "calcparser.g"
         zzmatch_wsig(TOK_RP, _handler);
 
@@ -1827,17 +1902,19 @@ void Parser::assignmentTail(int *_retsignal, calc::StatementBlock *inclIn, const
         if ((setwd6[LA(1)] & 0x40)) {
 #line 769 "calcparser.g"
           calc::FieldExpr *r_expr = expr(&_signal, inclIn);
-          if (_signal)
+          if (_signal) {
             goto _handler;
+          }
 
 #line 770 "calcparser.g"
 
           inclIn->addStatement(new calc::Assignment(inclIn, w, par, r_expr));
         } else {
-          if (_sva)
+          if (_sva) {
             _signal = NoViableAlt;
-          else
+          } else {
             _signal = NoSemViableAlt;
+          }
           goto _handler; /* MR7 */
         }
       }
@@ -1851,8 +1928,9 @@ void Parser::assignmentTail(int *_retsignal, calc::StatementBlock *inclIn, const
       consume();
 #line 775 "calcparser.g"
       calc::FieldExpr *r_expr = expr(&_signal, inclIn);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
 
 #line 776 "calcparser.g"
 
@@ -1882,8 +1960,9 @@ void Parser::assignmentTail(int *_retsignal, calc::StatementBlock *inclIn, const
             consume();
 #line 795 "calcparser.g"
             calc::UsePar const par2 = parWithIndeces(&_signal, inclIn);
-            if (_signal)
+            if (_signal) {
               goto _handler;
+            }
 
 #line 796 "calcparser.g"
 
@@ -1918,8 +1997,9 @@ void Parser::assignmentTail(int *_retsignal, calc::StatementBlock *inclIn, const
               consume();
 #line 810 "calcparser.g"
               modelLinkArgs(&_signal, inclIn, strArg, args);
-              if (_signal)
+              if (_signal) {
                 goto _handler;
+              }
 #line 811 "calcparser.g"
               inclIn->addStatement(new calc::ModelLinkMethodStatement(
                   inclIn, w, symbol(theId), symbol(methodId), leftPars, strArg, args));
@@ -1939,20 +2019,23 @@ void Parser::assignmentTail(int *_retsignal, calc::StatementBlock *inclIn, const
 #line 822 "calcparser.g"
                 calc::Symbol const sym1 = symbol(theId);
                 const calc::Operator &op1 = calc::funcName2op(sym1.name());
-                if (op1.opCode() == OP_NOP)
+                if (op1.opCode() == OP_NOP) {
                   notAFunc(sym1);
+                }
                 calc::Symbol const sym2 = symbol(fid2);
                 const calc::Operator &op2 = calc::funcName2op(sym2.name());
-                if (op2.opCode() == OP_NOP)
+                if (op2.opCode() == OP_NOP) {
                   notAFunc(sym2);
+                }
                 consume();
 #line 829 "calcparser.g"
                 zzmatch_wsig(TOK_LP, _handler);
                 consume();
 #line 829 "calcparser.g"
                 exprList(&_signal, inclIn, args);
-                if (_signal)
+                if (_signal) {
                   goto _handler;
+                }
 #line 829 "calcparser.g"
                 zzmatch_wsig(TOK_RP, _handler);
 
@@ -1967,19 +2050,21 @@ void Parser::assignmentTail(int *_retsignal, calc::StatementBlock *inclIn, const
                 consume();
               }
             } else {
-              if (_sva)
+              if (_sva) {
                 _signal = NoViableAlt;
-              else
+              } else {
                 _signal = NoSemViableAlt;
+              }
               goto _handler; /* MR7 */
             }
           }
         }
       } else {
-        if (_sva)
+        if (_sva) {
           _signal = NoViableAlt;
-        else
+        } else {
           _signal = NoSemViableAlt;
+        }
         goto _handler; /* MR7 */
       }
     }
@@ -2010,10 +2095,11 @@ void Parser::statementSep(int *_retsignal)
       zzmatch_wsig(TOK_EOF, _handler);
       consume();
     } else {
-      if (_sva)
+      if (_sva) {
         _signal = NoViableAlt;
-      else
+      } else {
         _signal = NoSemViableAlt;
+      }
       goto _handler; /* MR7 */
     }
   }
@@ -2040,8 +2126,9 @@ calc::FieldExpr *Parser::expr(int *_retsignal, calc::StatementBlock *inclIn)
   calc::FieldExpr *right = nullptr;
 #line 853 "calcparser.g"
   _retv = xor_expr(&_signal, inclIn);
-  if (_signal)
+  if (_signal) {
     goto _handler;
+  }
 
 #line 861 "calcparser.g"
   {
@@ -2053,8 +2140,9 @@ calc::FieldExpr *Parser::expr(int *_retsignal, calc::StatementBlock *inclIn)
       consume();
 #line 855 "calcparser.g"
       right = xor_expr(&_signal, inclIn);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
 
 #line 856 "calcparser.g"
       calc::FieldExprArgs args(2);
@@ -2097,8 +2185,9 @@ calc::FieldExpr *Parser::xor_expr(int *_retsignal, calc::StatementBlock *inclIn)
   calc::FieldExpr *right = nullptr;
 #line 871 "calcparser.g"
   _retv = and_expr(&_signal, inclIn);
-  if (_signal)
+  if (_signal) {
     goto _handler;
+  }
 
 #line 879 "calcparser.g"
   {
@@ -2110,8 +2199,9 @@ calc::FieldExpr *Parser::xor_expr(int *_retsignal, calc::StatementBlock *inclIn)
       consume();
 #line 873 "calcparser.g"
       right = and_expr(&_signal, inclIn);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
 
 #line 874 "calcparser.g"
       calc::FieldExprArgs args(2);
@@ -2144,8 +2234,9 @@ calc::FieldExpr *Parser::and_expr(int *_retsignal, calc::StatementBlock *inclIn)
   calc::FieldExpr *right = nullptr;
 #line 883 "calcparser.g"
   _retv = eq_expr(&_signal, inclIn);
-  if (_signal)
+  if (_signal) {
     goto _handler;
+  }
 
 #line 891 "calcparser.g"
   {
@@ -2157,8 +2248,9 @@ calc::FieldExpr *Parser::and_expr(int *_retsignal, calc::StatementBlock *inclIn)
       consume();
 #line 885 "calcparser.g"
       right = eq_expr(&_signal, inclIn);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
 
 #line 886 "calcparser.g"
       calc::FieldExprArgs args(2);
@@ -2191,8 +2283,9 @@ calc::FieldExpr *Parser::eq_expr(int *_retsignal, calc::StatementBlock *inclIn)
   calc::FieldExpr *right = nullptr;
 #line 896 "calcparser.g"
   _retv = comp_expr(&_signal, inclIn);
-  if (_signal)
+  if (_signal) {
     goto _handler;
+  }
 
 #line 904 "calcparser.g"
   {
@@ -2204,8 +2297,9 @@ calc::FieldExpr *Parser::eq_expr(int *_retsignal, calc::StatementBlock *inclIn)
       consume();
 #line 898 "calcparser.g"
       right = comp_expr(&_signal, inclIn);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
 
 #line 899 "calcparser.g"
       calc::FieldExprArgs args(2);
@@ -2238,8 +2332,9 @@ calc::FieldExpr *Parser::comp_expr(int *_retsignal, calc::StatementBlock *inclIn
   calc::FieldExpr *right = nullptr;
 #line 908 "calcparser.g"
   _retv = add_expr(&_signal, inclIn);
-  if (_signal)
+  if (_signal) {
     goto _handler;
+  }
 
 #line 916 "calcparser.g"
   {
@@ -2251,8 +2346,9 @@ calc::FieldExpr *Parser::comp_expr(int *_retsignal, calc::StatementBlock *inclIn
       consume();
 #line 910 "calcparser.g"
       right = add_expr(&_signal, inclIn);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
 
 #line 911 "calcparser.g"
       calc::FieldExprArgs args(2);
@@ -2285,8 +2381,9 @@ calc::FieldExpr *Parser::add_expr(int *_retsignal, calc::StatementBlock *inclIn)
   calc::FieldExpr *right = nullptr;
 #line 921 "calcparser.g"
   _retv = mult_expr(&_signal, inclIn);
-  if (_signal)
+  if (_signal) {
     goto _handler;
+  }
 
 #line 931 "calcparser.g"
   {
@@ -2298,8 +2395,9 @@ calc::FieldExpr *Parser::add_expr(int *_retsignal, calc::StatementBlock *inclIn)
       consume();
 #line 923 "calcparser.g"
       right = mult_expr(&_signal, inclIn);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
 
 #line 924 "calcparser.g"
       calc::FieldExprArgs args(2);
@@ -2333,8 +2431,9 @@ calc::FieldExpr *Parser::mult_expr(int *_retsignal, calc::StatementBlock *inclIn
   calc::FieldExpr *right = nullptr;
 #line 935 "calcparser.g"
   _retv = pow_expr(&_signal, inclIn);
-  if (_signal)
+  if (_signal) {
     goto _handler;
+  }
 
 #line 943 "calcparser.g"
   {
@@ -2346,8 +2445,9 @@ calc::FieldExpr *Parser::mult_expr(int *_retsignal, calc::StatementBlock *inclIn
       consume();
 #line 937 "calcparser.g"
       right = pow_expr(&_signal, inclIn);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
 
 #line 938 "calcparser.g"
       calc::FieldExprArgs args(2);
@@ -2380,8 +2480,9 @@ calc::FieldExpr *Parser::pow_expr(int *_retsignal, calc::StatementBlock *inclIn)
   calc::FieldExpr *right = nullptr;
 #line 947 "calcparser.g"
   _retv = sign_expr(&_signal, inclIn);
-  if (_signal)
+  if (_signal) {
     goto _handler;
+  }
 
 #line 955 "calcparser.g"
   {
@@ -2393,8 +2494,9 @@ calc::FieldExpr *Parser::pow_expr(int *_retsignal, calc::StatementBlock *inclIn)
       consume();
 #line 949 "calcparser.g"
       right = sign_expr(&_signal, inclIn);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
 
 #line 950 "calcparser.g"
       calc::FieldExprArgs args(2);
@@ -2440,8 +2542,9 @@ calc::FieldExpr *Parser::sign_expr(int *_retsignal, calc::StatementBlock *inclIn
   }
 #line 962 "calcparser.g"
   _retv = not_expr(&_signal, inclIn);
-  if (_signal)
+  if (_signal) {
     goto _handler;
+  }
 
 #line 963 "calcparser.g"
 
@@ -2496,8 +2599,9 @@ calc::FieldExpr *Parser::not_expr(int *_retsignal, calc::StatementBlock *inclIn)
   }
 #line 985 "calcparser.g"
   _retv = misc_expr(&_signal, inclIn);
-  if (_signal)
+  if (_signal) {
     goto _handler;
+  }
 
 #line 986 "calcparser.g"
 
@@ -2539,8 +2643,9 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
     consume();
 #line 997 "calcparser.g"
     _retv = expr(&_signal, inclIn);
-    if (_signal)
+    if (_signal) {
       goto _handler;
+    }
 
 #line 997 "calcparser.g"
     zzmatch_wsig(TOK_RP, _handler);
@@ -2561,8 +2666,9 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
       consume();
 #line 1001 "calcparser.g"
       f = expr(&_signal, inclIn);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
 
 #line 1001 "calcparser.g"
       args.push_back(f);
@@ -2571,8 +2677,9 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
       consume();
 #line 1002 "calcparser.g"
       f = expr(&_signal, inclIn);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
 
 #line 1002 "calcparser.g"
       args.push_back(f);
@@ -2584,8 +2691,9 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
           consume();
 #line 1003 "calcparser.g"
           f = expr(&_signal, inclIn);
-          if (_signal)
+          if (_signal) {
             goto _handler;
+          }
 
 #line 1003 "calcparser.g"
           c = OP_IF_ELSE;
@@ -2616,8 +2724,9 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
           if ((setwd9[LA(1)] & 0x1) && (setwd9[LA(2)] & 0x2)) {
 #line 1011 "calcparser.g"
             nr = number(&_signal);
-            if (_signal)
+            if (_signal) {
               goto _handler;
+            }
 
 #line 1011 "calcparser.g"
             zzmatch_wsig(TOK_RP, _handler);
@@ -2631,8 +2740,9 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
               calc::FieldExpr *e = nullptr;
 #line 1015 "calcparser.g"
               e = expr(&_signal, inclIn);
-              if (_signal)
+              if (_signal) {
                 goto _handler;
+              }
 
 #line 1015 "calcparser.g"
               zzmatch_wsig(TOK_RP, _handler);
@@ -2644,10 +2754,11 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
               _retv = NEW_EXPR(convF, tokenOp(convF), args);
               consume();
             } else {
-              if (_sva)
+              if (_sva) {
                 _signal = NoViableAlt;
-              else
+              } else {
                 _signal = NoSemViableAlt;
+              }
               goto _handler; /* MR7 */
             }
           }
@@ -2666,16 +2777,18 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
           consume();
 #line 1024 "calcparser.g"
           calc::UsePar const table = parWithIndeces(&_signal, inclIn);
-          if (_signal)
+          if (_signal) {
             goto _handler;
+          }
 
 #line 1025 "calcparser.g"
           zzmatch_wsig(TOK_COMMA, _handler);
           consume();
 #line 1025 "calcparser.g"
           exprList(&_signal, inclIn, args);
-          if (_signal)
+          if (_signal) {
             goto _handler;
+          }
 #line 1026 "calcparser.g"
           zzmatch_wsig(TOK_RP, _handler);
 
@@ -2702,16 +2815,18 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
             consume();
 #line 1038 "calcparser.g"
             calc::UsePar tss = parWithIndeces(&_signal, inclIn);
-            if (_signal)
+            if (_signal) {
               goto _handler;
+            }
 
 #line 1038 "calcparser.g"
             zzmatch_wsig(TOK_COMMA, _handler);
             consume();
 #line 1039 "calcparser.g"
             exprList(&_signal, inclIn, args);
-            if (_signal)
+            if (_signal) {
               goto _handler;
+            }
 #line 1039 "calcparser.g"
             zzmatch_wsig(TOK_RP, _handler);
 
@@ -2719,8 +2834,9 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
 
             try {
               // pcrcalc/test37
-              if (!inclIn->inDynamic())
+              if (!inclIn->inDynamic()) {
                 errorFuncInDynamic(symbol(tssF));
+              }
               _retv = new calc::TimeinputExpr(element(tssF), tokenOp(tssF), tss, args);
             } catch (...) {
               calc::cleanUp(args);
@@ -2733,8 +2849,9 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
               calc::Symbol nr;
 #line 1053 "calcparser.g"
               nr = number(&_signal);
-              if (_signal)
+              if (_signal) {
                 goto _handler;
+              }
 
 #line 1054 "calcparser.g"
               _retv = new calc::Constant(nr);
@@ -2776,8 +2893,9 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
                   }
 #line 1070 "calcparser.g"
                   stackSuffix = qid(&_signal);
-                  if (_signal)
+                  if (_signal) {
                     goto _handler;
+                  }
 
 #line 1072 "calcparser.g"
                   {
@@ -2798,8 +2916,9 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
 
                   calc::Symbol const fSym(symbol(indF));
                   const calc::Operator &fOp = calc::funcName2op(fSym.name());
-                  if (!inclIn->inDynamic())
+                  if (!inclIn->inDynamic()) {
                     errorFuncInDynamic(fSym);
+                  }
                   _retv = new calc::StackInput(fSym, calc::BindedSymbol(stackSuffix),
                                                fOp.opCode() == OP_TIMEINPUTSPARSE);
                   consume();
@@ -2820,9 +2939,10 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
                         calc::FieldExprArgs args;
                         calc::Symbol const name = symbol(theId);
                         const calc::Operator &o = calc::funcName2op(name.name());
-                        if (o.opCode() == OP_NOP)
+                        if (o.opCode() == OP_NOP) {
                           notAFunc(name);
-                        if (!inclIn->inDynamic())
+                        }
+                        if (!inclIn->inDynamic()) {
                           switch (o.opCode()) {
                             case OP_TIMEINPUT:
                             case OP_TIME:
@@ -2830,14 +2950,16 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
                               errorFuncInDynamic(name);
                             default:;
                           }
+                        }
                         consume();
 #line 1103 "calcparser.g"
                         {
                           if ((setwd9[LA(1)] & 0x80)) {
 #line 1103 "calcparser.g"
                             exprList(&_signal, inclIn, args);
-                            if (_signal)
+                            if (_signal) {
                               goto _handler;
+                            }
                           }
                         }
 #line 1104 "calcparser.g"
@@ -2864,8 +2986,9 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
                           consume();
 #line 1114 "calcparser.g"
                           modelLinkArgs(&_signal, inclIn, strArg, args);
-                          if (_signal)
+                          if (_signal) {
                             goto _handler;
+                          }
 #line 1115 "calcparser.g"
                           _retv =
                               new calc::ModelLinkMethodExpr(modelName, symbol(methodId), strArg, args);
@@ -2879,8 +3002,9 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
                               while ((LA(1) == TOK_LB)) {
 #line 1122 "calcparser.g"
                                 calc::Symbol const a = arrayIndex(&_signal);
-                                if (_signal)
+                                if (_signal) {
                                   goto _handler;
+                                }
 
 #line 1122 "calcparser.g"
                                 p.d_index.push_back(a);
@@ -2891,20 +3015,22 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
                             calc::UsePar pp(p);
                             _retv = new calc::FieldLeaf(pp);
                           } else {
-                            if (_sva)
+                            if (_sva) {
                               _signal = NoViableAlt;
-                            else
+                            } else {
                               _signal = NoSemViableAlt;
+                            }
                             goto _handler; /* MR7 */
                           }
                         }
                       }
                     }
                   } else {
-                    if (_sva)
+                    if (_sva) {
                       _signal = NoViableAlt;
-                    else
+                    } else {
                       _signal = NoSemViableAlt;
+                    }
                     goto _handler; /* MR7 */
                   }
                 }
@@ -2963,8 +3089,9 @@ void Parser::modelLinkArgs(int *_retsignal, calc::StatementBlock *inclIn, std::s
     if ((setwd10[LA(1)] & 0x8)) {
 #line 1135 "calcparser.g"
       exprList(&_signal, inclIn, args);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
     }
   }
 #line 1136 "calcparser.g"
@@ -2990,8 +3117,9 @@ void Parser::exprList(int *_retsignal, calc::StatementBlock *inclIn, calc::Field
   calc::FieldExpr *e = nullptr;
 #line 1142 "calcparser.g"
   e = expr(&_signal, inclIn);
-  if (_signal)
+  if (_signal) {
     goto _handler;
+  }
 
 #line 1142 "calcparser.g"
   args.push_back(e);
@@ -3003,8 +3131,9 @@ void Parser::exprList(int *_retsignal, calc::StatementBlock *inclIn, calc::Field
       consume();
 #line 1143 "calcparser.g"
       e = expr(&_signal, inclIn);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
 
 #line 1143 "calcparser.g"
       args.push_back(e);
@@ -3049,8 +3178,9 @@ calc::ConstructPar Parser::parWithIndeces(int *_retsignal, calc::StatementBlock 
         while ((LA(1) == TOK_LB)) {
 #line 1154 "calcparser.g"
           a = arrayIndex(&_signal);
-          if (_signal)
+          if (_signal) {
             goto _handler;
+          }
 
 #line 1154 "calcparser.g"
           _retv.d_index.push_back(a);
@@ -3067,10 +3197,11 @@ calc::ConstructPar Parser::parWithIndeces(int *_retsignal, calc::StatementBlock 
         _retv.d_name = symbol(r);
         consume();
       } else {
-        if (_sva)
+        if (_sva) {
           _signal = NoViableAlt;
-        else
+        } else {
           _signal = NoSemViableAlt;
+        }
         goto _handler; /* MR7 */
       }
     }
@@ -3150,10 +3281,11 @@ calc::Symbol Parser::qid(int *_retsignal)
       _retv = symbol(r);
       consume();
     } else {
-      if (_sva)
+      if (_sva) {
         _signal = NoViableAlt;
-      else
+      } else {
         _signal = NoSemViableAlt;
+      }
       goto _handler; /* MR7 */
     }
   }
@@ -3183,20 +3315,22 @@ calc::Symbol Parser::number(int *_retsignal)
     if ((setwd11[LA(1)] & 0x2)) {
 #line 1174 "calcparser.g"
       signS = sign(&_signal);
-      if (_signal)
+      if (_signal) {
         goto _handler;
+      }
     }
   }
 #line 1176 "calcparser.g"
   valS = unsignedNumber(&_signal);
-  if (_signal)
+  if (_signal) {
     goto _handler;
+  }
 
 #line 1177 "calcparser.g"
 
-  if (signS.empty())
+  if (signS.empty()) {
     _retv = valS;
-  else {
+  } else {
     // TODO er zouden spaties tussen signS en valS kunnen zitten!
     signS.setName(signS.name() + valS.name());
     _retv = signS;
@@ -3242,10 +3376,11 @@ calc::Symbol Parser::unsignedNumber(int *_retsignal)
       _retv = symbol(v2);
       consume();
     } else {
-      if (_sva)
+      if (_sva) {
         _signal = NoViableAlt;
-      else
+      } else {
         _signal = NoSemViableAlt;
+      }
       goto _handler; /* MR7 */
     }
   }
@@ -3290,10 +3425,11 @@ calc::Symbol Parser::sign(int *_retsignal)
       _retv = symbol(v2);
       consume();
     } else {
-      if (_sva)
+      if (_sva) {
         _signal = NoViableAlt;
-      else
+      } else {
         _signal = NoSemViableAlt;
+      }
       goto _handler; /* MR7 */
     }
   }

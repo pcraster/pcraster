@@ -43,13 +43,15 @@ int calc::ProgressCallBack::update(const struct ProgressInfo &)
 //! status of this callback
 calc::ProgressInfo::Status calc::ProgressInfo::status() const
 {
-  if (inTimeStep > nrTimeSteps)
+  if (inTimeStep > nrTimeSteps) {
     return Finished;
+  }
   if (!inTimeStep) {
-    if (nrTimeSteps)
+    if (nrTimeSteps) {
       return InitialSection;
-    else
+    } else {
       return Static;
+    }
   }
   return DynamicSection;
 }

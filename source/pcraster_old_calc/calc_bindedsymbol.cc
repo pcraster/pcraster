@@ -8,9 +8,9 @@
 calc::BindedSymbol::BindedSymbol(const calc::Symbol &parName) : Symbol(parName)
 {
   const Symbol *b = scriptConst().findBinding(name());
-  if (b)
+  if (b) {
     setBinded(*b);
-  else {
+  } else {
     d_externalBinding = parName;
     d_userName = name();
     d_externalName = name();
@@ -50,8 +50,9 @@ void calc::BindedSymbol::setInputFilePath()
 {
   // d_externalBinding = d_externalName;
   d_externalName = scriptConst().inputFilePath(d_externalName);
-  if (d_externalName != name())
+  if (d_externalName != name()) {
     setBindingInUserName();
+  }
 }
 
 //! the name used to look for externally
@@ -85,8 +86,9 @@ void calc::BindedSymbol::symError(const com::Exception &excep) const
 void calc::BindedSymbol::setName(pcrxml::Data *d) const
 {
   d->name = name();
-  if (name() != d_externalBinding.name())
+  if (name() != d_externalBinding.name()) {
     d->externalFileName = d_externalBinding.name();
+  }
 }
 
 /*!
@@ -97,10 +99,11 @@ void calc::BindedSymbol::setName(pcrxml::Data *d) const
  */
 void calc::BindedSymbol::posError(const std::string &msg) const
 {
-  if (d_externalBinding.positionPriority() > positionPriority())
+  if (d_externalBinding.positionPriority() > positionPriority()) {
     d_externalBinding.posError(msg);
-  else
+  } else {
     Element::posError(msg);
+  }
 }
 
 void calc::BindedSymbol::posError(const std::ostringstream &msg) const

@@ -74,12 +74,14 @@ void calc::NonSpatial::analyzeBoolean(bool &noneAreTrue, bool &noneAreFalse) con
   PRECOND(cr() == CR_UINT1);
  */
   noneAreTrue = noneAreFalse = true;
-  if (isMV())
+  if (isMV()) {
     return;
-  if (((int)getValue()) != 0)
+  }
+  if (((int)getValue()) != 0) {
     noneAreTrue = false;
-  else
+  } else {
     noneAreFalse = false;
+  }
 }
 
 calc::NonSpatial::~NonSpatial()
@@ -94,8 +96,9 @@ size_t calc::NonSpatial::nrValues() const
 //! \throws DomainError if \a value is MV
 void calc::NonSpatial::setCell(const double &value, size_t /* i */)
 {
-  if (pcr::isMV(value))
+  if (pcr::isMV(value)) {
     throw DomainError("NonSpatial set to MV");
+  }
 
   switch (cr()) {
     case CR_REAL4:

@@ -150,11 +150,13 @@ BOOST_AUTO_TEST_CASE(testCode)
 
     BOOST_CHECK_EQUAL(l->size(), 2U);
     ASTNodeList::const_iterator n(l->begin());
-    if (n != l->end())
+    if (n != l->end()) {
       BOOST_CHECK(dynamic_cast<ASTNodeList *>(*n));  // initial section
+    }
     n++;
-    if (n != l->end())
+    if (n != l->end()) {
       BOOST_CHECK(dynamic_cast<DynamicSection *>(*n));
+    }
   }
 }
 

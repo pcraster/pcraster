@@ -49,18 +49,22 @@ static std::string mvTest(const std::set<std::string> &names)
 {
   std::vector<std::string> s;
   for (const auto &a : names) {
-    if (com::isDouble(a))
+    if (com::isDouble(a)) {
       continue;  // skip MV check on numbers
-    if (a.find("].f[0]") != std::string::npos)
+    }
+    if (a.find("].f[0]") != std::string::npos) {
       continue;  // skip MV check on non-spatials
-    if (a.find("_f<point::") == 0)
+    }
+    if (a.find("_f<point::") == 0) {
       continue;  // skip MV check on inliners
+    }
     std::ostringstream str;
     str << "pcr::isMV(" << a << ")";
     s.push_back(str.str());
   }
-  if (s.empty())
+  if (s.empty()) {
     return "0";
+  }
   return com::join(s, "|");
 }
 
@@ -83,10 +87,11 @@ calc::PointCodeBodyGenerator::PointCodeBodyGenerator(CFGNode *cfg, const ParSet 
     std::ostringstream s;
     PRECOND(!p->returnDataType().stEither());
     s << "v[" << n << "]." << cellUnionField(p->returnDataType().vs());
-    if (p->returnDataType().stSpatial())
+    if (p->returnDataType().stSpatial()) {
       s << "[i]";
-    else
+    } else {
       s << "[0]";
+    }
     d_parNames.insert(std::make_pair(p->name(), s.str()));
     n++;
   }
@@ -135,10 +140,11 @@ void calc::PointCodeBodyGenerator::visitExpr(BaseExpr *e)
 
   reverseTop(e->nrArgs());
 
-  if (e->op().opCode() == OP_IFTHENELSE)
+  if (e->op().opCode() == OP_IFTHENELSE) {
     doIfThenElse(e);
-  else
+  } else {
     doExpr(e);
+  }
 }
 
 /*
@@ -365,10 +371,11 @@ void calc::PointCodeBodyGenerator::selectPart(const DataType &dt)
 {
   PRECOND(!dt.stEither());
   std::ostringstream *newCurr = nullptr;
-  if (dt.stSpatial())
+  if (dt.stSpatial()) {
     newCurr = &d_loop;
-  else
+  } else {
     newCurr = &d_ns;
+  }
 
   if (newCurr != d_curr && !d_args.size()) {
     /*! generate code for current stack (sub-expr)

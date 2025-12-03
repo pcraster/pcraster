@@ -68,11 +68,13 @@ public:
   int update(const ProgressInfo &pi) override
   {
     // no progress when --nothing or static model
-    if (appOutput == APP_NOOUT || !pi.nrTimeSteps)
+    if (appOutput == APP_NOOUT || !pi.nrTimeSteps) {
       return 0;
+    }
 
-    if (pi.inTimeStep == 1)
+    if (pi.inTimeStep == 1) {
       std::cerr << "\n";  // first clear line for progress
+    }
 
     if (pi.inTimeStep > pi.nrTimeSteps) {
       // finished
@@ -124,8 +126,9 @@ static void printUsage()
 {
 
 #ifdef DEBUG_DEVELOP
-  if (appOutput != APP_NOOUT)
+  if (appOutput != APP_NOOUT) {
     fprintf(stderr, "PCRTEAM VERSION, INTERNAL USE ONLY! (%s)\n", PLATFORM_TXT);
+  }
 #endif
   // this is the old edition supporting arrayed variables and so on
   fprintf(stderr, "pcrcalc (oldcalc/2003 edition) %s (%s)\n", PCRASTER_VERSION, PLATFORM_TXT);
@@ -164,8 +167,9 @@ int calc::CmdLineCalc::execute()
     exit(0);
   }
 
-  if (!processArgs(d_argc, d_argv))
+  if (!processArgs(d_argc, d_argv)) {
     return 0;
+  }
 
   // appIOstrategy = APP_IO_BANDMAP;
   // PRINT_VAR(appIOstrategy);
@@ -175,8 +179,9 @@ int calc::CmdLineCalc::execute()
     return 0;
   }
   parse();
-  if (!d_testScriptRunableOnly)
+  if (!d_testScriptRunableOnly) {
     executeScript();
+  }
   return script().exitVal();
 }
 

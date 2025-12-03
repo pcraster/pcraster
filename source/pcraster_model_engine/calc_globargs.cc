@@ -67,12 +67,14 @@ void calc::GlobArgs::init(RunTimeEnv *rte)
 
 calc::GlobArgs::~GlobArgs()
 {
-  for (auto &d_globArg : d_globArgs)
+  for (auto &d_globArg : d_globArgs) {
     delete d_globArg;
+  }
 
   delete[] d_voidArgs;
-  for (auto &d_globResult : d_globResults)
+  for (auto &d_globResult : d_globResults) {
     delete d_globResult;
+  }
 }
 
 /* NOT IMPLEMENTED
@@ -103,17 +105,20 @@ calc::GlobResult *calc::GlobArgs::createGlobResult(size_t n)
 //! result MAPinterface as void ptr
 void *calc::GlobArgs::dest(size_t r)
 {
-  if (d_globResults.empty())
-    for (size_t i = 0; i < d_op.nrResults(); ++i)
+  if (d_globResults.empty()) {
+    for (size_t i = 0; i < d_op.nrResults(); ++i) {
       d_globResults.push_back(createGlobResult(i));
+    }
+  }
 
   return d_globResults[r]->MAPinterface();
 }
 
 void calc::GlobArgs::pushResults()
 {
-  for (auto &d_globResult : d_globResults)
+  for (auto &d_globResult : d_globResults) {
     ExecArguments::pushResult(d_globResult->createField());
+  }
 }
 
 //! return array of opaque MAP_* ptr's
@@ -142,8 +147,9 @@ void calc::setMRFResult(RunTimeEnv *rte, size_t resultPos)
   PRECOND(resultPos < 2);
   Field *results[2];
   //! pop in reverse
-  for (size_t r = 0; r < 2; ++r)
+  for (size_t r = 0; r < 2; ++r) {
     results[2 - r - 1] = rte->popField();
+  }
   rte->pushField(results[resultPos]);
   delete results[!resultPos];
 }

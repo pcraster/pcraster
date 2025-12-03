@@ -81,18 +81,24 @@ XMLViewItems& XMLViewItems::operator=(
 
 pcrxml::StringSet::item_sequence const &XMLViewItems::get() const
 {
-  if (d_view.map().present())
+  if (d_view.map().present()) {
     return d_view.map().get().item();
-  if (d_view.drape().present())
+  }
+  if (d_view.drape().present()) {
     return d_view.drape().get().item();
-  if (d_view.timeGraph().present())
+  }
+  if (d_view.timeGraph().present()) {
     return d_view.timeGraph().get().item();
-  if (d_view.probabilityGraph().present())
+  }
+  if (d_view.probabilityGraph().present()) {
     return d_view.probabilityGraph().get().item();
-  if (d_view.valueOnly().present())
+  }
+  if (d_view.valueOnly().present()) {
     return d_view.valueOnly().get().item();
-  if (d_view.default_().present())
+  }
+  if (d_view.default_().present()) {
     return d_view.default_().get().item();
+  }
   assert(false);
   return d_view.default_().get().item();
 }

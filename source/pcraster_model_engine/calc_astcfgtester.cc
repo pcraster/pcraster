@@ -57,8 +57,9 @@ calc::ASTNode *calc::ASTCFGTester::ast() const
 //! set new AST and build its CFG
 void calc::ASTCFGTester::setAST(ASTNode *a)
 {
-  if (a != d_ast.get())
+  if (a != d_ast.get()) {
     d_ast.reset(a);
+  }
   rebuildCFG();
 }
 

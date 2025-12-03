@@ -29,7 +29,7 @@ calc::CsfMap::~CsfMap()
 void calc::CsfMap::readInBuffer(VS readAs, void *val)
 {
   size_t const len = nrCells();
-  if (!val)
+  if (!val) {
     switch (bytesPerCell(vs())) {
       case 1:
         val = new UINT1[len];
@@ -38,6 +38,7 @@ void calc::CsfMap::readInBuffer(VS readAs, void *val)
         val = new INT4[len];
         break;
     }
+  }
   d_map.useAs(biggestCellRepr(readAs));
   d_map.getCells(val);
 }

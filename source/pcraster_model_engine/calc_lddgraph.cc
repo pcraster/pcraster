@@ -101,15 +101,17 @@ calc::LddGraph::LddGraph(const UINT1 *lddField, const IFieldRDConversion &conv)
        * possible
        */
       DEVELOP_PRECOND(!d_added[i]);
-      if (d_added[i])
+      if (d_added[i]) {
         throw Unsound();
+      }
       d_added.set(i);
     }
 
     void finish() const
     {
-      if (d_added.count() != d_added.size())
+      if (d_added.count() != d_added.size()) {
         throw Unsound();
+      }
     }
   } check(fieldLen);
 
@@ -205,12 +207,13 @@ calc::LddGraph::LddGraph(const LddGraph &org, const boost::dynamic_bitset<> &isM
   boost::dynamic_bitset<> remove(isMV);
 
   // propagate
-  if (propagateDownstream)
+  if (propagateDownstream) {
     for (auto i = org.downBegin(); i != org.downEnd(); ++i) {
-      if (remove[i->up()])
+      if (remove[i->up()]) {
         remove[i->down()] = true;
+      }
     }
-  else {
+  } else {
     // FTTB propagateUpstream not yet tested
     // I think up traversal of d_edge
     // checkin target marking source
@@ -243,13 +246,14 @@ calc::LddGraph::LddGraph(const LddGraph &org, const boost::dynamic_bitset<> &isM
     // newC.d_beginEdge=d_edge.end();
 
     for (auto e = d_catchment.d_beginEdge; e != d_catchment.d_endEdge; ++e) {
-      if (remove[e->up()])
+      if (remove[e->up()]) {
         d_mv.push_back(e->up());
-      else {
+      } else {
         // for a still valid edge
         // both e->up() and e->down() should be unmarked
-        if (!remove[e->down()])
+        if (!remove[e->down()]) {
           d_edge.push_back(*e);
+        }
       }
     }
 

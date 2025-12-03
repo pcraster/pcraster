@@ -82,22 +82,27 @@ void calc::ManualExampleTester::test() const
 
   mb.setClone(d_clone);
 
-  for (const auto &i : d_option)
+  for (const auto &i : d_option) {
     mb.setGlobalOption(i);
+  }
 
   std::string statement;
   statement += com::join(d_result, ",");
   statement += "=" + d_expr;
 
   // hack in old calc to skip tests new or changed functions
-  if (statement.find("dynwave") != std::string::npos)
+  if (statement.find("dynwave") != std::string::npos) {
     return;
-  if (statement.find("areaorder") != std::string::npos)
+  }
+  if (statement.find("areaorder") != std::string::npos) {
     return;
-  if (statement.find("argorder") != std::string::npos)
+  }
+  if (statement.find("argorder") != std::string::npos) {
     return;
-  if (statement.find("kinematic") != std::string::npos)
+  }
+  if (statement.find("kinematic") != std::string::npos) {
     return;
+  }
 
 
   mb.addStatement(statement, true);

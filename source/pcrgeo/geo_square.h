@@ -29,8 +29,9 @@ namespace geo {
   template <typename T>
    static bool outside(T point, T centre, T halfWidth) {
      T diff=centre-point;
-     if (diff < 0)
+     if (diff < 0) {
       return diff <= -halfWidth;
+     }
      return diff > halfWidth;
    }
    static const char *name() { return "ClosedOpen"; }
@@ -41,8 +42,9 @@ namespace geo {
   template <typename T>
    static bool outside(T point, T centre, T halfWidth) {
      T diff=centre-point;
-     if (diff < 0)
+     if (diff < 0) {
       return diff <  -halfWidth;
+     }
      return diff >= halfWidth;
    }
    static const char *name() { return "OpenClosed"; }
@@ -137,11 +139,13 @@ template<typename T, size_t n, typename B >
 {
   P c(centre());
   T h=d_halfWidth/2;
-  for(size_t i = 0; i < n; ++i)
-    if (indexDirection & (1<<i))
+  for(size_t i = 0; i < n; ++i) {
+    if (indexDirection & (1<<i)) {
       c[i]-=h;
-    else
+    } else {
       c[i]+=h;
+    }
+  }
   return Square<T,n,B>(c,h);
 }
 
@@ -150,8 +154,9 @@ template<class T, size_t n, typename B>
   Square<T, n, B>::contains(const Point<T,n>&   p)  const
 {
   for(size_t i = 0; i < n; ++i) {
-   if (B::outside(p[i],d_centre[i],d_halfWidth))
+   if (B::outside(p[i],d_centre[i],d_halfWidth)) {
      return false;
+   }
   }
   return true;
 }
@@ -170,8 +175,9 @@ template<class T, size_t n, typename B>
    * catch partial overlap
    */
    if (contains(other.centre()) ||
-       other.contains(centre()) )
+       other.contains(centre()) ) {
      return true;
+   }
   /* if one of the edges is within the other
    * it intersects for boths partly
    */
@@ -188,8 +194,9 @@ template<class T, size_t n, typename B>
       p[i]+=side[!(s&(1<<i))]*      halfWidth();
      po[i]+=side[!(s&(1<<i))]*other.halfWidth();
 	}
-    if (other.contains(p)||contains(po))
+    if (other.contains(p)||contains(po)) {
         return true;
+    }
   }
   return false;
 }

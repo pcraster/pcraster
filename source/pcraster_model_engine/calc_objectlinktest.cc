@@ -48,8 +48,9 @@ void calc::CalcLibDemoObjectLink::testOrder2(std::vector<REAL4 *> &result,
   result[1][0] = dems[0][0];
   result[1][1] = dems[1][0];
   result[1][2] = singleLdd;
-  for (size_t i = 0; i < 3; ++i)
+  for (size_t i = 0; i < 3; ++i) {
     result[0][i] = result[1][i] * 10;
+  }
 }
 
 calc::CalcLibDemoObjectLink::CalcLibDemoObjectLink(const geo::RasterSpace & /* rs */)
@@ -158,8 +159,9 @@ BOOST_AUTO_TEST_CASE(testExec)
     BOOST_CHECK(f[0]->src_f()[0] == 10);
     BOOST_CHECK(f[0]->src_f()[1] == 20);
     BOOST_CHECK(f[0]->src_f()[2] == 5);
-    for (auto &i : f)
+    for (auto &i : f) {
       delete i;
+    }
   }
 
   bool catched = false;

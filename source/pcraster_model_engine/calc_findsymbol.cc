@@ -34,20 +34,23 @@ Operations globalOperations;
 PCR_ME_EXPORT const calc::Operator *calc::opName2op(const std::string &opName, size_t nrArgs)
 {
   const Operator *op(globalOperations[opName]);
-  if (!op)
+  if (!op) {
     return nullptr;
+  }
 
   // discern for binary or unary + and -
   switch (op->opCode()) {
     case OP_UADD:
     case OP_BADD:
-      if (nrArgs == 2)
+      if (nrArgs == 2) {
         return globalOperations[OP_BADD];
+      }
       return globalOperations[OP_UADD];
     case OP_UMIN:
     case OP_BMIN:
-      if (nrArgs == 2)
+      if (nrArgs == 2) {
         return globalOperations[OP_BMIN];
+      }
       return globalOperations[OP_UMIN];
     default:
       return op;

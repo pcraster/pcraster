@@ -58,19 +58,23 @@ calc::ExecArguments::ExecArguments(const Operator &op, RunTimeEnv *rte, size_t n
       d_result(op.nrResults(), nullptr), d_resultIsField(d_fields.size())  // init past a valid field
 {
   // reverse  reversed stack arguments
-  for (size_t i = 0; i < d_fields.size(); ++i)
+  for (size_t i = 0; i < d_fields.size(); ++i) {
     d_fields[d_fields.size() - i - 1] = d_rte->popField();
-  if (op.firstFieldInput())
+  }
+  if (op.firstFieldInput()) {
     d_firstNonFieldInput = rte->popDataValue();
+  }
 }
 
 calc::ExecArguments::~ExecArguments()
 {
 #ifdef DEBUG_DEVELOP
   // result should be pushed and cleared in normal cases
-  if (!std::uncaught_exceptions())
-    for (auto &i : d_result)
+  if (!std::uncaught_exceptions()) {
+    for (auto &i : d_result) {
       POSTCOND(!i);
+    }
+  }
 #endif
   clean();
 }
@@ -93,14 +97,16 @@ calc::ExecArguments::ExecArguments(const ExecArguments& rhs):
 
 void calc::ExecArguments::clean()
 {
-  for (size_t i = 0; i < d_fields.size(); ++i)
+  for (size_t i = 0; i < d_fields.size(); ++i) {
     if (i != d_resultIsField && !d_doNotDelete.count(d_fields[i])) {
       deleteFromPcrme(d_fields[i]);
       d_doNotDelete.insert(d_fields[i]);
     }
+  }
   d_fields.clear();
-  for (auto &i : d_result)
+  for (auto &i : d_result) {
     deleteFromPcrme(i);
+  }
   deleteFromPcrme(d_firstNonFieldInput);
 }
 
@@ -126,13 +132,15 @@ calc::DataType calc::ExecArguments::resultType(size_t r) const
 
   // first non field type are fixed
   //  get from operand description
-  for (size_t i = 0; i < d_op.firstFieldInput(); ++i)
+  for (size_t i = 0; i < d_op.firstFieldInput(); ++i) {
     at.push_back(d_op.argType(i));
+  }
 
   // actual types of fields
   //  get from popped stack items
-  for (auto d_field : d_fields)
+  for (auto d_field : d_fields) {
     at.push_back(d_field->type());
+  }
 
   return d_op.computeResultType(at, r);
 }
@@ -156,8 +164,9 @@ void calc::ExecArguments::createResults()
 void *calc::ExecArguments::dest(size_t d)
 {
   PRECOND(d < d_result.size());
-  if (!d_result[d])
+  if (!d_result[d]) {
     createResults();
+  }
   return d_result[d]->dest();
 }
 
@@ -177,8 +186,9 @@ void *calc::ExecArguments::srcDest(size_t a)
   const DataType r(resultType(0));
 
   Field *f = createDestCloneIfReadOnly(d_fields[a]);
-  if (f != d_fields[a])
+  if (f != d_fields[a]) {
     deleteFromPcrme(d_fields[a]);
+  }
   d_fields[a] = f;
 
   d_result[0] = d_fields[a];

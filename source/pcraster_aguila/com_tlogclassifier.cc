@@ -33,8 +33,9 @@ template <class T> void com_TLogClassifier<T>::classify(std::vector<T> &b, T min
   assert(min < max);
   assert(n > 0);
 
-  if (min == max)
+  if (min == max) {
     throw std::range_error("log10 of value == 0 is undefined");
+  }
 
   n += 1;
   b.resize(n);
@@ -48,9 +49,10 @@ template <class T> void com_TLogClassifier<T>::classify(std::vector<T> &b, T min
   double const width = lmax / (n - 1);
   assert(width > 0.0);
 
-  b[0] = min;                         // Set the first class border to min.
-  for (size_t i = 1; i < n - 1; i++)  // Calculate all but the last class border.
+  b[0] = min;                           // Set the first class border to min.
+  for (size_t i = 1; i < n - 1; i++) {  // Calculate all but the last class border.
     b[i] = min + static_cast<T>(std::pow(10.0, i * width)) - 1.0;
+  }
   b[n - 1] = max;  // Set the last class border to max.
 }
 

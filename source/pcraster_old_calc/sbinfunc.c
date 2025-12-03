@@ -38,13 +38,15 @@
 int Do_fdiv_ss(REAL4 *vL, REAL4 *vR, size_t n)
 {
   size_t i = 0;
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(vL + i)) {
-      if (IS_MV_REAL4(vR + i) || vR[i] == 0)
+      if (IS_MV_REAL4(vR + i) || vR[i] == 0) {
         SET_MV_REAL4(vL + i);
-      else
+      } else {
         vL[i] /= vR[i];
+      }
     }
+  }
   return 0;
 }
 
@@ -53,13 +55,15 @@ int Do_fdiv_ns(REAL4 *vL, REAL4 *vR, size_t n)
   size_t i = 0;
   REAL4 valL = *vL;
   PRECOND(!IS_MV_REAL4(vL));
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(vR + i)) {
-      if (vR[i] == 0)
+      if (vR[i] == 0) {
         SET_MV_REAL4(vR + i);
-      else
+      } else {
         vR[i] = valL / vR[i];
+      }
     }
+  }
   return 0;
 }
 
@@ -69,26 +73,31 @@ int Do_fdiv_sn(REAL4 *vL, REAL4 *vR, size_t n)
   REAL4 valR = *vR;
   PRECOND(!IS_MV_REAL4(vR));
   if (valR == 0.0) {  // pcrcalc/test64
-    for (i = 0; i < n; i++)
+    for (i = 0; i < n; i++) {
       SET_MV_REAL4(vL + i);
+    }
     return 0;
   }
-  for (i = 0; i < n; i++)
-    if (!IS_MV_REAL4(vL + i))
+  for (i = 0; i < n; i++) {
+    if (!IS_MV_REAL4(vL + i)) {
       vL[i] /= valR;
+    }
+  }
   return 0;
 }
 
 int Do_idiv_ss(REAL4 *vL, REAL4 *vR, size_t n)
 {
   size_t i = 0;
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(vL + i)) {
-      if (IS_MV_REAL4(vR + i) || vR[i] == 0)
+      if (IS_MV_REAL4(vR + i) || vR[i] == 0) {
         SET_MV_REAL4(vL + i);
-      else
+      } else {
         vL[i] = (REAL4)Fdiv(vL[i], vR[i]);
+      }
     }
+  }
   return 0;
 }
 
@@ -97,13 +106,15 @@ int Do_idiv_ns(REAL4 *vL, REAL4 *vR, size_t n)
   size_t i = 0;
   REAL4 valL = *vL;
   PRECOND(!IS_MV_REAL4(vL));
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(vR + i)) {
-      if (vR[i] == 0)
+      if (vR[i] == 0) {
         SET_MV_REAL4(vR + i);
-      else
+      } else {
         vR[i] = (REAL4)Fdiv(valL, vR[i]);
+      }
     }
+  }
   return 0;
 }
 
@@ -112,24 +123,29 @@ int Do_idiv_sn(REAL4 *vL, REAL4 *vR, size_t n)
   size_t i = 0;
   REAL4 valR = *vR;
   PRECOND(!IS_MV_REAL4(vR));
-  if (valR == 0.0)
+  if (valR == 0.0) {
     return 1;
-  for (i = 0; i < n; i++)
-    if (!IS_MV_REAL4(vL + i))
+  }
+  for (i = 0; i < n; i++) {
+    if (!IS_MV_REAL4(vL + i)) {
       vL[i] = (REAL4)Fdiv(vL[i], valR);
+    }
+  }
   return 0;
 }
 
 int Do_mod_ss(REAL4 *vL, REAL4 *vR, size_t n)
 {
   size_t i = 0;
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(vL + i)) {
-      if (IS_MV_REAL4(vR + i) || vR[i] == 0)
+      if (IS_MV_REAL4(vR + i) || vR[i] == 0) {
         SET_MV_REAL4(vL + i);
-      else
+      } else {
         vL[i] = (REAL4)fmod(vL[i], vR[i]);
+      }
     }
+  }
   return 0;
 }
 
@@ -138,13 +154,15 @@ int Do_mod_ns(REAL4 *vL, REAL4 *vR, size_t n)
   size_t i = 0;
   REAL4 valL = *vL;
   PRECOND(!IS_MV_REAL4(vL));
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(vR + i)) {
-      if (vR[i] == 0)
+      if (vR[i] == 0) {
         SET_MV_REAL4(vR + i);
-      else
+      } else {
         vR[i] = (REAL4)fmod(valL, vR[i]);
+      }
     }
+  }
   return 0;
 }
 
@@ -153,11 +171,14 @@ int Do_mod_sn(REAL4 *vL, REAL4 *vR, size_t n)
   size_t i = 0;
   REAL4 valR = *vR;
   PRECOND(!IS_MV_REAL4(vR));
-  if (valR == 0.0)
+  if (valR == 0.0) {
     return 1;
-  for (i = 0; i < n; i++)
-    if (!IS_MV_REAL4(vL + i))
+  }
+  for (i = 0; i < n; i++) {
+    if (!IS_MV_REAL4(vL + i)) {
       vL[i] = (REAL4)fmod(vL[i], valR);
+    }
+  }
   return 0;
 }
 
@@ -183,14 +204,16 @@ case:
 int Do_pow_ss(REAL4 *vL, REAL4 *vR, size_t n)
 {
   size_t i = 0;
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(vL + i)) {
       if (IS_MV_REAL4(vR + i) || (vL[i] == 0.0F && vR[i] <= 0.0F) ||
-          (vL[i] < 0.0F && floor(vR[i]) != vR[i]))
+          (vL[i] < 0.0F && floor(vR[i]) != vR[i])) {
         SET_MV_REAL4(vL + i);
-      else
+      } else {
         vL[i] = (REAL4)pow(vL[i], vR[i]);
+      }
     }
+  }
   return 0;
 }
 
@@ -200,27 +223,31 @@ int Do_pow_ns(REAL4 *vL, REAL4 *vR, size_t n)
   REAL4 valL = *vL;
   PRECOND(!IS_MV_REAL4(vL));
 
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(vR + i)) {
-      if ((valL == 0.0F && vR[i] <= 0.0F) || (valL < 0.0F && floor(vR[i]) != vR[i]))
+      if ((valL == 0.0F && vR[i] <= 0.0F) || (valL < 0.0F && floor(vR[i]) != vR[i])) {
         SET_MV_REAL4(vR + i);
-      else
+      } else {
         vR[i] = (REAL4)pow(valL, vR[i]);
+      }
     }
+  }
   return 0;
 }
 
 static void powAsMultiply(REAL4 *vL, size_t nrTimes, size_t n)
 {
   size_t i = 0;
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(vL + i)) {
       size_t p = 0;
       double val = vL[i];
       vL[i] = 1;
-      for (p = 0; p < nrTimes; p++)
+      for (p = 0; p < nrTimes; p++) {
         vL[i] *= val;
+      }
     }
+  }
 }
 
 int Do_pow_sn(REAL4 *vL, REAL4 *vR, size_t n)
@@ -234,26 +261,30 @@ int Do_pow_sn(REAL4 *vL, REAL4 *vR, size_t n)
     return 0;
   }
 
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(vL + i)) {
-      if ((vL[i] == 0.0F && valR <= 0.0F) || (vL[i] < 0.0F && floor(valR) != valR))
+      if ((vL[i] == 0.0F && valR <= 0.0F) || (vL[i] < 0.0F && floor(valR) != valR)) {
         SET_MV_REAL4(vL + i);
-      else
+      } else {
         vL[i] = (REAL4)pow(vL[i], valR);
+      }
     }
+  }
   return 0;
 }
 
 int Do_mul_ss(REAL4 *vL, REAL4 *vR, size_t n)
 {
   size_t i = 0;
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(vL + i)) {
-      if (IS_MV_REAL4(vR + i))
+      if (IS_MV_REAL4(vR + i)) {
         SET_MV_REAL4(vL + i);
-      else
+      } else {
         vL[i] *= vR[i];
+      }
     }
+  }
   return 0;
 }
 
@@ -262,22 +293,26 @@ int Do_mul_ns(REAL4 *vL, REAL4 *vR, size_t n)
   size_t i = 0;
   REAL4 valL = *vL;
   PRECOND(!IS_MV_REAL4(vL));
-  for (i = 0; i < n; i++)
-    if (!IS_MV_REAL4(vR + i))
+  for (i = 0; i < n; i++) {
+    if (!IS_MV_REAL4(vR + i)) {
       vR[i] *= valL;
+    }
+  }
   return 0;
 }
 
 int Do_badd_ss(REAL4 *vL, REAL4 *vR, size_t n)
 {
   size_t i = 0;
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(vL + i)) {
-      if (IS_MV_REAL4(vR + i))
+      if (IS_MV_REAL4(vR + i)) {
         SET_MV_REAL4(vL + i);
-      else
+      } else {
         vL[i] += vR[i];
+      }
     }
+  }
   return 0;
 }
 
@@ -286,22 +321,26 @@ int Do_badd_ns(REAL4 *vL, REAL4 *vR, size_t n)
   size_t i = 0;
   REAL4 valL = *vL;
   PRECOND(!IS_MV_REAL4(vL));
-  for (i = 0; i < n; i++)
-    if (!IS_MV_REAL4(vR + i))
+  for (i = 0; i < n; i++) {
+    if (!IS_MV_REAL4(vR + i)) {
       vR[i] += valL;
+    }
+  }
   return 0;
 }
 
 int Do_bmin_ss(REAL4 *vL, REAL4 *vR, size_t n)
 {
   size_t i = 0;
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(vL + i)) {
-      if (IS_MV_REAL4(vR + i))
+      if (IS_MV_REAL4(vR + i)) {
         SET_MV_REAL4(vL + i);
-      else
+      } else {
         vL[i] -= vR[i];
+      }
     }
+  }
   return 0;
 }
 
@@ -310,9 +349,11 @@ int Do_bmin_sn(REAL4 *vL, REAL4 *vR, size_t n)
   size_t i = 0;
   REAL4 valR = *vR;
   PRECOND(!IS_MV_REAL4(vR));
-  for (i = 0; i < n; i++)
-    if (!IS_MV_REAL4(vL + i))
+  for (i = 0; i < n; i++) {
+    if (!IS_MV_REAL4(vL + i)) {
       vL[i] -= valR;
+    }
+  }
   return 0;
 }
 
@@ -321,9 +362,11 @@ int Do_bmin_ns(REAL4 *vL, REAL4 *vR, size_t n)
   size_t i = 0;
   REAL4 valL = *vL;
   PRECOND(!IS_MV_REAL4(vL));
-  for (i = 0; i < n; i++)
-    if (!IS_MV_REAL4(vR + i))
+  for (i = 0; i < n; i++) {
+    if (!IS_MV_REAL4(vR + i)) {
       vR[i] = valL - vR[i];
+    }
+  }
   return 0;
 }
 
@@ -335,15 +378,16 @@ int Do_bmin_ns(REAL4 *vL, REAL4 *vR, size_t n)
 int Do_and_ss(UINT1 *vL, UINT1 *vR, size_t n)
 {
   size_t i = 0;
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (vL[i] != MV_UINT1) {
-      if (vR[i] == MV_UINT1)
+      if (vR[i] == MV_UINT1) {
         vL[i] = MV_UINT1;
-      else {
+      } else {
         PRECOND(vL[i] < TWO_UINT1 && vR[i] < TWO_UINT1);
         vL[i] &= vR[i];
       }
     }
+  }
   return 0;
 }
 
@@ -352,26 +396,28 @@ int Do_and_ns(UINT1 *vL, UINT1 *vR, size_t n)
   size_t i = 0;
   UINT1 valL = *vL;
   PRECOND(valL != MV_UINT1 && valL < TWO_UINT1);
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (vR[i] != MV_UINT1) {
       PRECOND(vR[i] < TWO_UINT1);
       vR[i] &= valL;
     }
+  }
   return 0;
 }
 
 int Do_or_ss(UINT1 *vL, UINT1 *vR, size_t n)
 {
   size_t i = 0;
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (vL[i] != MV_UINT1) {
-      if (vR[i] == MV_UINT1)
+      if (vR[i] == MV_UINT1) {
         vL[i] = MV_UINT1;
-      else {
+      } else {
         PRECOND(vL[i] < TWO_UINT1 && vR[i] < TWO_UINT1);
         vL[i] |= vR[i];
       }
     }
+  }
   return 0;
 }
 
@@ -380,26 +426,28 @@ int Do_or_ns(UINT1 *vL, UINT1 *vR, size_t n)
   size_t i = 0;
   UINT1 valL = *vL;
   PRECOND(valL != MV_UINT1 && valL < TWO_UINT1);
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (vR[i] != MV_UINT1) {
       PRECOND(vR[i] < TWO_UINT1);
       vR[i] |= valL;
     }
+  }
   return 0;
 }
 
 int Do_xor_ss(UINT1 *vL, UINT1 *vR, size_t n)
 {
   size_t i = 0;
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (vL[i] != MV_UINT1) {
-      if (vR[i] == MV_UINT1)
+      if (vR[i] == MV_UINT1) {
         vL[i] = MV_UINT1;
-      else {
+      } else {
         PRECOND(vL[i] < TWO_UINT1 && vR[i] < TWO_UINT1);
         vL[i] ^= vR[i];
       }
     }
+  }
   return 0;
 }
 
@@ -408,11 +456,12 @@ int Do_xor_ns(UINT1 *vL, UINT1 *vR, size_t n)
   size_t i = 0;
   UINT1 valL = *vL;
   PRECOND(valL != MV_UINT1 && valL < TWO_UINT1);
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (vR[i] != MV_UINT1) {
       PRECOND(vR[i] < TWO_UINT1);
       vR[i] ^= valL;
     }
+  }
   return 0;
 }
 
@@ -421,23 +470,27 @@ int Do_max_4_ns(INT4 *vL, INT4 *vR, size_t n)
   size_t i = 0;
   INT4 valL = *vL;
   PRECOND(valL != MV_INT4);
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (vR[i] != MV_INT4) {
-      if (valL > vR[i])
+      if (valL > vR[i]) {
         vR[i] = valL;
+      }
     }
+  }
   return 0;
 }
 
 int Do_max_4_ss(INT4 *vL, INT4 *vR, size_t n)
 {
   size_t i = 0;
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (vL[i] != MV_INT4) {
       INT4 valR = vR[i];
-      if (valR == MV_INT4 || valR > vL[i])
+      if (valR == MV_INT4 || valR > vL[i]) {
         vL[i] = valR;
+      }
     }
+  }
   return 0;
 }
 
@@ -446,23 +499,27 @@ int Do_min_4_ns(INT4 *vL, INT4 *vR, size_t n)
   size_t i = 0;
   INT4 valL = *vL;
   PRECOND(valL != MV_INT4);
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (vR[i] != MV_INT4) {
-      if (valL < vR[i])
+      if (valL < vR[i]) {
         vR[i] = valL;
+      }
     }
+  }
   return 0;
 }
 
 int Do_min_4_ss(INT4 *vL, INT4 *vR, size_t n)
 {
   size_t i = 0;
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (vL[i] != MV_INT4) {
       INT4 valR = vR[i];
-      if (valR == MV_INT4 || valR < vL[i])
+      if (valR == MV_INT4 || valR < vL[i]) {
         vL[i] = valR;
+      }
     }
+  }
   return 0;
 }
 
@@ -471,24 +528,28 @@ int Do_min_s_ns(REAL4 *vL, REAL4 *vR, size_t n)
   size_t i = 0;
   REAL4 valL = *vL;
   PRECOND(!IS_MV_REAL4(vL));
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(vR + i)) {
-      if (valL < vR[i])
+      if (valL < vR[i]) {
         vR[i] = valL;
+      }
     }
+  }
   return 0;
 }
 
 int Do_min_s_ss(REAL4 *vL, REAL4 *vR, size_t n)
 {
   size_t i = 0;
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(vL + i)) {
-      if (IS_MV_REAL4(vR + i))
+      if (IS_MV_REAL4(vR + i)) {
         SET_MV_REAL4(vL + i);
-      else if (vR[i] < vL[i])
+      } else if (vR[i] < vL[i]) {
         vL[i] = vR[i];
+      }
     }
+  }
   return 0;
 }
 
@@ -497,24 +558,28 @@ int Do_max_s_ns(REAL4 *vL, REAL4 *vR, size_t n)
   size_t i = 0;
   REAL4 valL = *vL;
   PRECOND(!IS_MV_REAL4(vL));
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(vR + i)) {
-      if (valL > vR[i])
+      if (valL > vR[i]) {
         vR[i] = valL;
+      }
     }
+  }
   return 0;
 }
 
 int Do_max_s_ss(REAL4 *vL, REAL4 *vR, size_t n)
 {
   size_t i = 0;
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     if (!IS_MV_REAL4(vL + i)) {
-      if (IS_MV_REAL4(vR + i))
+      if (IS_MV_REAL4(vR + i)) {
         SET_MV_REAL4(vL + i);
-      else if (vR[i] > vL[i])
+      } else if (vR[i] > vL[i]) {
         vL[i] = vR[i];
+      }
     }
+  }
   return 0;
 }
 
@@ -531,8 +596,9 @@ int Do_cover_1_ns(UINT1 *vL, UINT1 *vR, size_t n)
 static void DwordSet(INT4 *dest, INT4 value, size_t n)
 {
   size_t i = 0;
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     dest[i] = value;
+  }
 }
 
 int Do_cover_4_ns(INT4 *vL, INT4 *vR, size_t n)
@@ -552,18 +618,22 @@ int Do_cover_s_ns(REAL4 *vL, REAL4 *vR, size_t n)
 int Do_cover_1_ss(UINT1 *vL, UINT1 *vR, size_t n)
 {
   size_t i = 0;
-  for (i = 0; i < n; i++)
-    if (vL[i] == MV_UINT1)
+  for (i = 0; i < n; i++) {
+    if (vL[i] == MV_UINT1) {
       vL[i] = vR[i];
+    }
+  }
   return 0;
 }
 
 int Do_cover_4_ss(INT4 *vL, INT4 *vR, size_t n)
 {
   size_t i = 0;
-  for (i = 0; i < n; i++)
-    if (vL[i] == MV_INT4)
+  for (i = 0; i < n; i++) {
+    if (vL[i] == MV_INT4) {
       vL[i] = vR[i];
+    }
+  }
   return 0;
 }
 
@@ -572,9 +642,11 @@ int Do_cover_4_sn(INT4 *vL, INT4 *vR, size_t n)
   size_t i = 0;
   INT4 valR = *vR;
   PRECOND(valR != MV_INT4);
-  for (i = 0; i < n; i++)
-    if (vL[i] == MV_INT4)
+  for (i = 0; i < n; i++) {
+    if (vL[i] == MV_INT4) {
       vL[i] = valR;
+    }
+  }
   return 0;
 }
 
@@ -583,9 +655,11 @@ int Do_cover_1_sn(UINT1 *vL, UINT1 *vR, size_t n)
   size_t i = 0;
   UINT1 valR = *vR;
   PRECOND(valR != MV_UINT1);
-  for (i = 0; i < n; i++)
-    if (vL[i] == MV_UINT1)
+  for (i = 0; i < n; i++) {
+    if (vL[i] == MV_UINT1) {
       vL[i] = valR;
+    }
+  }
   return 0;
 }
 
@@ -595,9 +669,11 @@ int Do_cover_1_sn(UINT1 *vL, UINT1 *vR, size_t n)
 int Do_cover_s_ss(REAL4 *vL, REAL4 *vR, size_t n)
 {
   size_t i = 0;
-  for (i = 0; i < n; i++)
-    if (IS_MV_REAL4(vL + i))
+  for (i = 0; i < n; i++) {
+    if (IS_MV_REAL4(vL + i)) {
       vL[i] = vR[i];
+    }
+  }
   return 0;
 }
 
@@ -607,9 +683,11 @@ int Do_cover_s_sn(REAL4 *vL, REAL4 *vR, size_t n)
   REAL4 valR = NAN;
   PRECOND(!IS_MV_REAL4(vR));
   valR = *vR;
-  for (i = 0; i < n; i++)
-    if (IS_MV_REAL4(vL + i))
+  for (i = 0; i < n; i++) {
+    if (IS_MV_REAL4(vL + i)) {
       vL[i] = valR;
+    }
+  }
   return 0;
 }
 

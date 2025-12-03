@@ -97,8 +97,9 @@ calc::ASTNode *calc::ASTAss::rhs() const
  */
 void calc::ASTAss::addPar(const ASTPar &p)
 {
-  if (d_pars.empty())
+  if (d_pars.empty()) {
     setPosition(p.position());  // assignment starts with 1st par
+  }
   d_pars.push_back(p.createClone());
 }
 
@@ -115,8 +116,9 @@ void calc::ASTAss::swap01()
 //! transfer rhs
 void calc::ASTAss::transferRhs(ASTNode *rhs)
 {
-  if (d_rhs)
+  if (d_rhs) {
     delete d_rhs;
+  }
   d_rhs = rhs;
 }
 

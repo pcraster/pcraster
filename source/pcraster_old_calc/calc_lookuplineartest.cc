@@ -24,8 +24,9 @@ public:
 static std::vector<double> makeKey(double v1, double v2 = -1024)
 {
   std::vector<double> k(1, v1);
-  if (v2 != -1024)
+  if (v2 != -1024) {
     k.push_back(v2);
+  }
   return k;
 }
 

@@ -32,9 +32,9 @@ calc::TimerValue::TimerValue(const TimerValue &t) : Symbol(t), d_vs(t.d_vs), d_v
 
 calc::TimerValue::TimerValue(const Symbol &c) : Symbol(c)
 {
-  if (isNumber())
+  if (isNumber()) {
     d_value = toNumber();
-  else {
+  } else {
     // may be a numeric binding
     // that is already set as a FieldNrParameter
     const auto *nrP =
@@ -42,8 +42,9 @@ calc::TimerValue::TimerValue(const Symbol &c) : Symbol(c)
     if (!nrP || nrP->isArray()) {
       // maybe a string binding
       const Symbol *s = scriptConst().findBinding(c.name());
-      if (s)  // is a string binding, test48
+      if (s) {  // is a string binding, test48
         posError(qName() + " does not have a numeric value");
+      }
       // not known generate: undefined symbol test48a
       c.scriptConst().findSymbol(&c, VS_FIELD, true);
     }
@@ -59,8 +60,9 @@ size_t calc::TimerValue::value() const
 
 size_t calc::TimerValue::check(const std::string &name) const
 {
-  if ((!isIn(VS_N, d_vs)) || d_value < 0)  // pcrcalc/test7a
+  if ((!isIn(VS_N, d_vs)) || d_value < 0) {  // pcrcalc/test7a
     posError(qName() + " is not a whole positive number (in " + name + " definition)");
+  }
   return value();
 }
 
@@ -81,10 +83,13 @@ void calc::checkTimerSection(const TimerValue &start, const TimerValue &end, con
   size_t const timerEnd = end.check("end time");
   size_t const timerSlice = slice.check("time step");
 
-  if (timerStart != 1) /* pcrcalc/test6 */
+  if (timerStart != 1) { /* pcrcalc/test6 */
     end.posError("current limitation: start time must be 1 (not " + start.name() + ")");
-  if (timerSlice != 1) /* pcrcalc/test7 */
+  }
+  if (timerSlice != 1) { /* pcrcalc/test7 */
     slice.posError("current limitation: time step must be 1 (not " + slice.name() + ")");
-  if (timerStart > timerEnd) /* pcrcalc/test8 */
+  }
+  if (timerStart > timerEnd) { /* pcrcalc/test8 */
     start.posError("Start time (" + start.name() + ") is greater than end time (" + end.name() + ")");
+  }
 }

@@ -44,8 +44,9 @@ class calc::UserSymbol *calc::ForEach::findSymbol(const class calc::Symbol *sym,
                                                   bool mustExist) const
 {
   calc::UserSymbol *p = d_symTab.find(sym, typesExpected, mustExist);
-  if (!p)
+  if (!p) {
     p = parentBlock()->findSymbol(sym, typesExpected, mustExist);
+  }
   return p;
 }
 
@@ -66,9 +67,10 @@ void calc::ForEach::indexSet(Set &set, const calc::IdList &list)
     const auto *ic =
         dynamic_cast<const calc::IndexContainer *>(findSymbol(&(list[i]), VS_INDEX_CONTAINER, true));
     POSTCOND(ic);
-    if (d_loopedArray != ic->partOf())
+    if (d_loopedArray != ic->partOf()) {
       list[i].posError("Element expected to be part of array " +
                        d_loopedArray->qName());  // pcrcalc/test270
+    }
     ic->addActiveToSet(set);
   }
 }
@@ -92,12 +94,14 @@ void calc::ForEach::executeBlock()
   // put in array in correct order
   for (size_t i = 0; i < d_loopedArray->activeIndexSize(); i++) {
     const calc::IndexParameterConstant *ipc = d_loopedArray->item(i);
-    if (loopSet.count(ipc))
+    if (loopSet.count(ipc)) {
       loop.push_back(ipc);
+    }
   }
 
-  for (d_current = loop.begin(); d_current != loop.end(); d_current++)
+  for (d_current = loop.begin(); d_current != loop.end(); d_current++) {
     executeStatements();
+  }
 }
 
 //! return the current index, controlled by the loop

@@ -14,8 +14,9 @@
  */
 void calc::cleanUp(const FieldExprArgs &argsVect)
 {
-  for (auto i : argsVect)
+  for (auto i : argsVect) {
     delete i;
+  }
 }
 
 /*!
@@ -25,8 +26,9 @@ void calc::cleanUp(const FieldExprArgs &argsVect)
  */
 void calc::cleanUp(FieldExprArgs &argsVect)
 {
-  for (auto &i : argsVect)
+  for (auto &i : argsVect) {
     delete i;
+  }
   argsVect.resize(0);
 }
 
@@ -54,10 +56,11 @@ void calc::FieldArgs::checkArgs()
   if (msg != "") {
     /* pcrcalc/test25[23] */
     std::string const str(op().syntax() + " " + quote(op().name()) + " " + msg);
-    if (nrFieldArgs())
+    if (nrFieldArgs()) {
       d_args[0]->posError(str);
-    else  // pcrcalc/test252a
+    } else {  // pcrcalc/test252a
       d_pos.posError(str);
+    }
   }
 }
 
@@ -86,8 +89,9 @@ calc::FieldArgs::FieldArgs(const Element &p, const Operator &o, const FieldExprA
 
 calc::FieldArgs::~FieldArgs()
 {
-  if (d_ownArgs)
+  if (d_ownArgs) {
     cleanUp(d_args);
+  }
 }
 
 const calc::Operator &calc::FieldArgs::op() const
@@ -120,8 +124,9 @@ void calc::FieldArgs::executeArgs(calc::FieldStack &stack)
    * into COVERS
    * => leftmost arg on top
    */
-  for (int i = (int)d_args.size() - 1; i >= 0; i--)
+  for (int i = (int)d_args.size() - 1; i >= 0; i--) {
     d_args[i]->execute(stack);
+  }
 }
 
 void calc::FieldArgs::prepareExecution()
@@ -136,8 +141,9 @@ void calc::FieldArgs::prepareExecution()
     default:
       downTo = 0;
   }
-  for (int i = (int)d_args.size() - 1; i >= downTo; i--)
+  for (int i = (int)d_args.size() - 1; i >= downTo; i--) {
     d_args[i]->prepareExecution();
+  }
 }
 
 void calc::FieldArgs::skipExecution()
@@ -152,15 +158,17 @@ void calc::FieldArgs::skipExecution()
     default:
       downTo = 0;
   }
-  for (int i = (int)d_args.size() - 1; i >= downTo; i--)
+  for (int i = (int)d_args.size() - 1; i >= downTo; i--) {
     d_args[i]->skipExecution();
+  }
 }
 
 void calc::FieldArgs::print(calc::InfoScript &si) const
 {
   for (size_t i = 0; i < nrFieldArgs(); i++) {
     d_args[i]->print(si);
-    if (i < nrFieldArgs() - 1)
+    if (i < nrFieldArgs() - 1) {
       si.stream() << ",";
+    }
   }
 }

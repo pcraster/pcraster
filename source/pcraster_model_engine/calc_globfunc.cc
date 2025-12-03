@@ -12,8 +12,9 @@ namespace calc
 
 static void throwAtNoMem(void *ptr)
 {
-  if (!ptr)
+  if (!ptr) {
     throw std::bad_alloc();
+  }
 }
 
 struct MapReal8 {
@@ -93,24 +94,28 @@ struct AccumTT : public MapReal8 {
 
     MapUint1 const pits(ldd->nrRows, ldd->nrCols);
     MapReal8 const friction(ldd->nrRows, ldd->nrCols);
-    for (int r = 0; r < ldd->nrRows; ++r)
+    for (int r = 0; r < ldd->nrRows; ++r) {
       for (int c = 0; c < ldd->nrCols; ++c) {
         UINT1 p = 0;
-        if (ldd->Get(&p, r, c, ldd))
+        if (ldd->Get(&p, r, c, ldd)) {
           pits.map()->Put(p == 5, r, c, pits.map());
-        else
+        } else {
           pits.map()->PutMV(r, c, pits.map());
+        }
 
         REAL8 v = NAN;  // velocity -> friction
         if (velocity->Get(&v, r, c, velocity)) {
-          if (v <= 0)
+          if (v <= 0) {
             v = 0;  // WRONG
-          else
+          } else {
             v = 1 / v;
+          }
           friction.map()->Put(v, r, c, friction.map());
-        } else
+        } else {
           friction.map()->PutMV(r, c, friction.map());
+        }
       }
+    }
     lddDistResult = Ldddist(map(), ldd, pits.map(), friction.map(), false);
   }
 };
@@ -195,8 +200,9 @@ int Do_lddcreate(void *l, void *d, const void **ins)
 {
   auto *ldd = (MAP_UINT1 *)l;
   int const r = Lddm(ldd, (const MAP_REAL8 *)ins[0]);
-  if (r)
+  if (r) {
     return r;
+  }
 
   MapInt4 const t(ldd->nrRows, ldd->nrCols);
   return PitRem((MAP_UINT1 *)l, (MAP_REAL8 *)d, t.map(), (const MAP_REAL8 *)ins[0],
@@ -209,8 +215,9 @@ int Do_lddcreatend(void *l, void *d, const void **ins)
 
   auto *ldd = (MAP_UINT1 *)l;
   int const r = LddmND(ldd, (const MAP_REAL8 *)ins[0]);
-  if (r)
+  if (r) {
     return r;
+  }
 
   MapInt4 const t(ldd->nrRows, ldd->nrCols);
   return PitRemND((MAP_UINT1 *)l, (MAP_REAL8 *)d, t.map(), (const MAP_REAL8 *)ins[0],

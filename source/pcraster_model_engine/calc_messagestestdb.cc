@@ -116,8 +116,9 @@ class MessagesTestDBPrivate :
     std::string contents(result);
     if (contents.size()) {
       // reading in trims last end-of-line needed
-      if (contents[contents.size() - 1] != '\n')
+      if (contents[contents.size() - 1] != '\n') {
         contents += "\n";
+      }
     }
     pn.setExtension("res");
     com::write(contents, pn);
@@ -126,8 +127,9 @@ class MessagesTestDBPrivate :
 public:
   void operator()(const QDomElement &e)
   {
-    if (e.tagName() != "test")
+    if (e.tagName() != "test") {
       return;  // skip makefile
+    }
     std::string const id = attrStr(e, "id");
     PRECOND(!id.empty());
 
@@ -139,11 +141,13 @@ public:
       for (auto &i : c) {
         if (i.tagName() == QString(d_dbMsg.name().c_str())) {
           std::string const result = d_dbMsg.toString(id, i);
-          if (i.hasAttribute("resFile"))
+          if (i.hasAttribute("resFile")) {
             writeResFile(id, result);
+          }
         }
-        if (i.tagName() == QString(d_dbModel.name().c_str()))
+        if (i.tagName() == QString(d_dbModel.name().c_str())) {
           (void)d_dbModel.toString(id, i);
+        }
       }
     } catch (const detail::AddError &r) {
       d_dump << "messagestest.xml: " << r.text << "\n";
@@ -166,8 +170,9 @@ public:
   QDomElement findE(const detail::DBCol &subElem, const std::string &id) const
   {
     auto i = find(id);
-    if (i != end())
+    if (i != end()) {
       return pcrxml::firstMatchByTagName(i->second, QString(subElem.name().c_str()));
+    }
     return {};
   }
 
@@ -175,8 +180,9 @@ public:
   std::string findS(const detail::DBCol &subElem, const std::string &id) const
   {
     QDomElement const e(findE(subElem, id));
-    if (e.isNull())
+    if (e.isNull()) {
       return "";
+    }
     return subElem.toString(id, e);
   }
 
@@ -208,8 +214,9 @@ public:
       cmpTo = com::replaceCharByStr(cmpTo, '\\', "X");
     }
 
-    if (msg == cmpTo)
+    if (msg == cmpTo) {
       return true;
+    }
     return dumpDiff(id, msg, cmpTo);
   }
 
@@ -278,8 +285,9 @@ calc::MessagesTestDB::MessagesTestDB()
 
 calc::MessagesTestDB *calc::MessagesTestDB::instance()
 {
-  if (!d_instance.get())
+  if (!d_instance.get()) {
     d_instance.reset(new MessagesTestDB());
+  }
   return d_instance.get();
 }
 
@@ -302,8 +310,9 @@ bool calc::MessagesTestDB::equalsFile(const std::string &id, const std::string &
 {
   com::PathName res(id);
   res.setExtension("res");
-  if (com::filesExistsAndEqual(res.toString(), fileCreated))
+  if (com::filesExistsAndEqual(res.toString(), fileCreated)) {
     return true;
+  }
   std::string expect;
   std::string got;
   com::read(expect, res);
@@ -312,8 +321,9 @@ bool calc::MessagesTestDB::equalsFile(const std::string &id, const std::string &
   // TODO refactor differing on begin and end space
   com::removeFrontEndSpace(expect);
   com::removeFrontEndSpace(got);
-  if (expect != got)
+  if (expect != got) {
     return d_data->dumpDiff(id, expect, got);
+  }
   return true;
 }
 

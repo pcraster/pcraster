@@ -103,8 +103,9 @@ calc::ASTSymbolInfo::ASTSymbolInfo(const DataType &dataType, const ASTPar *first
 //! Assignment operator.
 calc::ASTSymbolInfo &calc::ASTSymbolInfo::operator=(const ASTSymbolInfo &rhs)
 {
-  if (this != &rhs)
+  if (this != &rhs) {
     initCopy(rhs);
+  }
   return *this;
 }
 
@@ -140,10 +141,11 @@ std::string calc::ASTSymbolInfo::vsClashError(const calc::VSClash &v,
                                               const std::string &currentVerb) const
 {
   std::ostringstream msg;
-  if (firstIsCreation())
+  if (firstIsCreation()) {
     msg << "defined as ";
-  else
+  } else {
     msg << "used as ";  // TODO pcrcalc501 must do this
+  }
   msg << v.mustBeOneOf() << " type on " << firstText() << " and " << currentVerb << " here as "
       << v.isOneOf() << " type";
   return msg.str();
@@ -243,18 +245,22 @@ void calc::ASTSymbolInfo::resolve(IOStrategy &ios)
 {
   // if output, check if path is correct
   // TODO moet eigenlijk naar execute initialisatie
-  if (reportPar())
+  if (reportPar()) {
     ios.checkOutputFilePath(*this);
+  }
 
   // only check the inputs FTTB
 
-  if (vs() == VS_STATISTICS)  // StatTable id
+  if (vs() == VS_STATISTICS) {  // StatTable id
     return;
-  if (vs() == VS_OBJECT)
+  }
+  if (vs() == VS_OBJECT) {
     return;
+  }
 
-  if (isConstant() || firstIsCreation())  // not input
-    return;                               // done rest of code dealing with input
+  if (isConstant() || firstIsCreation()) {  // not input
+    return;                                 // done rest of code dealing with input
+  }
 
   /*
  * if (d_hasInterface) {
@@ -271,13 +277,15 @@ void calc::ASTSymbolInfo::resolve(IOStrategy &ios)
       //  not yet resolved
       if (!d_stackInput) {
         d_stackInput = ios.createStackInput(externalName(), d_dataType.mapStackType());
-        if (d_stackInput)
+        if (d_stackInput) {
           d_dataType.setResultType(VS_MAPSTACK, d_stackInput->fieldReturnVs());
+        }
       }
       return;
     }
-    if (lookupTable())
+    if (lookupTable()) {
       return;
+    }
     if (memoryInputId() != noMemoryExchangeId()) {
       // memory input
       if (d_dataType.stEither()) {
@@ -348,9 +356,11 @@ void calc::ASTSymbolInfo::setReport(const ASTPar *reportPar, const Report *repor
   PRECOND(report);
 
   // only report from XML script if scriptOutput is present
-  if (xmlScriptInterface)
-    if (0 == d_definitionCreation || !d_definition->scriptOutput().present())
+  if (xmlScriptInterface) {
+    if (0 == d_definitionCreation || !d_definition->scriptOutput().present()) {
       return;
+    }
+  }
 
   d_reportPar = reportPar;
   d_report = report;
@@ -424,8 +434,9 @@ void calc::ASTSymbolInfo::setInfo(const ASTDefinition &ib)
   resetDefinition(Interface);
   d_definition = new pcrxml::Definition(name());
 
-  if (!ib.description().empty())
+  if (!ib.description().empty()) {
     d_definition->description(pcrxml::Description(ib.description()));
+  }
 
   d_dataType.setUnit(ib.unit());
 
@@ -440,8 +451,9 @@ void calc::ASTSymbolInfo::setResolvedScriptOutput(std::string const &foundFile)
     d_definition = new pcrxml::Definition(name());
     d_definitionCreation = Resolve;
   }
-  if (!d_definition->scriptOutput().present())
+  if (!d_definition->scriptOutput().present()) {
     d_definition->scriptOutput(pcrxml::Exchange());
+  }
   d_definition->scriptOutput().get().external(foundFile);
 }
 
@@ -510,10 +522,11 @@ std::string calc::ASTSymbolInfo::externalName() const
 //! empty string if not set
 std::string calc::ASTSymbolInfo::description() const
 {
-  if (d_definition)
+  if (d_definition) {
     if (d_definition->description().present()) {
       return d_definition->description()->text();
     }
+  }
   return {};
 }
 
@@ -525,8 +538,9 @@ size_t calc::ASTSymbolInfo::noMemoryExchangeId()
 //! set value of firstAss
 void calc::ASTSymbolInfo::setFirstAss(const ASTPar *firstAss)
 {
-  if (!d_firstAss)
+  if (!d_firstAss) {
     d_firstAss = firstAss;
+  }
 }
 
 const std::string &calc::ASTSymbolInfo::name() const
@@ -562,8 +576,9 @@ const calc::Report *calc::ASTSymbolInfo::report() const
  */
 std::string calc::ASTSymbolInfo::errorMsgName() const
 {
-  if (name() == externalName())
+  if (name() == externalName()) {
     return name();
+  }
   return name() + "(binding=" + externalName() + ")";
 }
 
@@ -679,20 +694,24 @@ pcrxml::Definition *calc::ASTSymbolInfo::createDefinition() const
 
   // add elements needed if not yet there
   if (d_dataType.isField()) {
-    if (!d->field().present())
+    if (!d->field().present()) {
       d->field(pcrxml::FieldValueOrType());
+    }
   } else {
-    if (d_dataType.vs() == VS_TABLE)
-      if (!d->relation().present())
+    if (d_dataType.vs() == VS_TABLE) {
+      if (!d->relation().present()) {
         d->relation(pcrxml::Relation());
+      }
+    }
   }
 
   // attach field types
   if (d_dataType.isField()) {
     PRECOND(d->field().present());
     d->field()->dataType().set(toXMLDataType(d_dataType));
-    if (!isConstant())
+    if (!isConstant()) {
       d->field()->spatialType().set(st2XML(d_dataType.st()));
+    }
     d->modelExchange() = pcrxml::ModelExchange();
     d->modelExchange()->input(d_ioType.input());
     d->modelExchange()->output(d_ioType.output());

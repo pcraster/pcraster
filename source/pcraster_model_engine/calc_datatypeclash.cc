@@ -94,8 +94,9 @@ const std::string &calc::TableClash::message() const
 //! throw TableClash if nr of columns does not match
 void calc::TableClash::checkNrOfColumns(size_t hasSize, size_t mustHaveSize)
 {
-  if (hasSize != mustHaveSize)
+  if (hasSize != mustHaveSize) {
     throw TableClash(hasSize, mustHaveSize);
+  }
 }
 
 calc::MapStackClash::MapStackClash(const std::string &message) : d_message(message)

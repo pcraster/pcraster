@@ -43,8 +43,9 @@ BOOST_AUTO_TEST_CASE(testSpatialPacking)
     UINT1 const maskInit[6] = {1, 1, 1, 1, 1, 1};
     // Test both being equal with full mask
     std::vector<bool> mask(6);
-    for (size_t i = 0; i < 6; ++i)
+    for (size_t i = 0; i < 6; ++i) {
       mask[i] = maskInit[i] == 1;
+    }
     MaskPacking mp(rs, mask);
     AsIsPacking ap(rs);
 
@@ -116,8 +117,9 @@ BOOST_AUTO_TEST_CASE(testSpatialPacking)
         if (c == &mp) {
           BOOST_CHECK(packed != &in);
           delete packed;
-        } else
+        } else {
           BOOST_CHECK(packed == &in);
+        }
       }
 
       // TEST UnpackedCreation
@@ -143,8 +145,9 @@ BOOST_AUTO_TEST_CASE(testSpatialPacking)
     UINT1 const maskInit[6] = {1, 1, MV_UINT1, 1, 0, 1};
     // rlIndex              0 -v-  2, -m-    3, -v- 4, -m- 5 -v- 6
     std::vector<bool> mask(6);
-    for (size_t i = 0; i < 6; ++i)
+    for (size_t i = 0; i < 6; ++i) {
       mask[i] = maskInit[i] == 1;
+    }
     MaskPacking mp(rs, mask);
 
     BOOST_CHECK(mp.d_evenIsValueRL);
@@ -252,8 +255,9 @@ BOOST_AUTO_TEST_CASE(testScript)
     for (size_t c = 0; c < rs.nrCols(); c++) {
       mask[r][c] = (r < c) ? MV_UINT1 : (r < rs.nrCols());
       pcr::setMV(result[r][c]);
-      if (mask[r][c] == 1)
+      if (mask[r][c] == 1) {
         result[r][c] = count++;
+      }
     }
   }
   std::fill_n(area[0], rs.nrCells(), count - 1);

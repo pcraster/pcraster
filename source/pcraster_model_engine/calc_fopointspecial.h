@@ -42,8 +42,9 @@ struct special {
     const double ldd2Dir[10] = { 0, 0.625, 0.500, 0.375,
                                  0.750, -1   , 0.250,
                                  0.875, 0    , 0.125 };
-    if (v == LDD_PIT)
+    if (v == LDD_PIT) {
      return -1;
+    }
     PRECOND(v > 0 && v < ((UINT1)10) );
     return (REAL4)(ldd2Dir[v] * M_2PI);
   }
@@ -62,7 +63,9 @@ struct special {
   }
    inline static UINT1 impl_4_2_l( const INT4& v) {
       auto   r = (UINT1)(std::abs(v) % 10);
-      if (!r) return 5; // pit who cares
+      if (!r) {
+        return 5; // pit who cares
+      }
       return r;// MISSING CODE: DO A LDD REPAIR
   }
    inline static UINT1 impl_s_2_l( const REAL4& v) {
@@ -72,8 +75,9 @@ struct special {
      const UINT1 lookup[8] = { 8, 9, 6, 3, 2, 1, 4, 7 };
      double dum = NAN;
      double const shift = 1.0/16.0; /* ((pi/8)/2pi) = 1/16 */
-     if (v == -1)
+     if (v == -1) {
        return LDD_PIT;
+}
      /* shift a halfdir - eps. (0.0624999) */
      auto r =(UINT1)( modf( (v/M_2PI)+shift, &dum)*8);
      POSTCOND(r < ((UINT1)8) );
@@ -86,7 +90,9 @@ struct special {
         d[0] = Side();
         d[1] = d[0]*std::numbers::sqrt2;
       }
-      if (v==LDD_PIT) return 0;
+      if (v==LDD_PIT) {
+        return 0;
+      }
        return (REAL4)d[((int)v)%2];
     }
 };

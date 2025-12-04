@@ -33,8 +33,9 @@ int main(int argc,      /* number of arguments */
   /* install application */
 
   appOutput = APP_NOOUT;
-  if(InstallArgs(argc, argv, "pf*", "mapdiff"))
-     exit(1);
+  if(InstallArgs(argc, argv, "pf*", "mapdiff")) {
+    exit(1);
+  }
 
   bool percentage=false;
   while((c = GetOpt()) != 0)
@@ -50,16 +51,19 @@ int main(int argc,      /* number of arguments */
   }
 
 
-  if ( (argv = ArgArguments(&argc)) == nullptr)
+  if ( (argv = ArgArguments(&argc)) == nullptr) {
     exit(1);
+  }
 
-  if (AppArgCountCheck(argc,3,3,USAGE))
+  if (AppArgCountCheck(argc,3,3,USAGE)) {
     exit(1);
+  }
 
   // mis use of file create tester
   geo::FileCreateTester t(argv[1],false);
-  if (fileName)
+  if (fileName) {
     t.setDifferenceFile(fileName);
+  }
 
   t.setPercentageDifference(percentage);
 

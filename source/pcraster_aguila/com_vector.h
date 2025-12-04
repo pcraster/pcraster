@@ -127,8 +127,9 @@ inline Vector<T>& Vector<T>::operator=(const Vector& v)
 {
   assert(d_size == v.d_size);
 
-  if(this != &v)
+  if(this != &v) {
     std::copy(v.d_data, v.d_data + v.d_size, d_data);
+  }
   return *this;
 }
 
@@ -149,8 +150,9 @@ void Vector<T>::add(const Vector& v)
 {
   assert(d_size == v.d_size);
 
-  for(size_t i = 0; i < d_size; ++i)
+  for(size_t i = 0; i < d_size; ++i) {
     d_data[i] += v.d_data[i];
+  }
 }
 
 
@@ -158,8 +160,9 @@ void Vector<T>::add(const Vector& v)
 template<class T>
 void Vector<T>::scale(double s)
 {
-  for(size_t i = 0; i < d_size; ++i)
+  for(size_t i = 0; i < d_size; ++i) {
     d_data[i] *= s;
+  }
 }
 
 template<class T>
@@ -181,8 +184,9 @@ double Vector<T>::magnitude() const
 {
   double m = 0;
 
-  for(size_t i = 0; i < d_size; ++i)
+  for(size_t i = 0; i < d_size; ++i) {
     m += static_cast<double>(d_data[i] * d_data[i]);
+  }
   return std::sqrt(m);
 }
 
@@ -197,8 +201,9 @@ inline double Vector<T>::dot(const Vector& v1, const Vector& v2)
   assert(v1.d_size == v2.d_size);
 
   double p = 0;
-  for(size_t i = 0; i < v1.d_size; ++i)
+  for(size_t i = 0; i < v1.d_size; ++i) {
     p += v1.d_data[i] * v2.d_data[i];
+  }
   return p;
 }
 

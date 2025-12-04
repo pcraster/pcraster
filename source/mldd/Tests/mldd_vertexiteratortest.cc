@@ -22,8 +22,9 @@ BOOST_AUTO_TEST_CASE(test)
     BOOST_CHECK(begin == end);
 
     int count=0;
-    for(VertexIterator i=begin; i != end; ++i)
+    for(VertexIterator i=begin; i != end; ++i) {
       count++;
+    }
     BOOST_CHECK(!count);
   }
 
@@ -38,8 +39,9 @@ BOOST_AUTO_TEST_CASE(test)
 
       int count=0;
       VertexIterator i=begin;
-      for(  ; i != end; ++i)
+      for(  ; i != end; ++i) {
         count++;
+      }
       BOOST_CHECK(count==3);
       // this iterator will proceed past the end
       ++i;

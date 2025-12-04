@@ -86,14 +86,17 @@ public:
   bool mergeKeepLive(bool keepLive) {
     // 1) update here: if any reachable node needs keepLive,
     //    it must be keepLive here
-    if (keepLive)
+    if (keepLive) {
       d_keepLive=keepLive;
+    }
 
     // 2) compute new backward value
-    if (use())
+    if (use()) {
       return true;
-    if (def())
+    }
+    if (def()) {
       return false;
+    }
     return d_keepLive;
   }
 
@@ -140,10 +143,11 @@ public:
    const char *names[4]= { "Def", "Use", "Jump", "Enter"};
    std::cerr << names[(int)type()]
              << " d_keepLive(" << d_keepLive << ")";
-   if (def()||use())
+   if (def()||use()) {
      std::cerr << " d_par->shortPosText(" << d_par->shortPosText() << ")";
-   else
+   } else {
      std::cerr << " d_block(" << d_block << ")";
+   }
    std::cerr << '\n';
   }
 

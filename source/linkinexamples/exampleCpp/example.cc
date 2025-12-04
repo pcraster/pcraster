@@ -34,8 +34,9 @@ public:
     std::string const objName=std::string(l.callPoint().object()->objectName());
     auto i=objects.find(objName);
       // instance already exists, constructing again means deleting the old one
-    if (i!=objects.end())
+    if (i!=objects.end()) {
       delete i->second;
+    }
     auto *c = new Class1(l,linkInTransferArray);
     objects.insert(std::make_pair(objName,c));
   }
@@ -62,10 +63,12 @@ public:
   }
 
   static void operationArgumentCheck(std::string const& op) {
-    if (op.empty())
+    if (op.empty()) {
       throw std::domain_error("string-argument missing, select add or div");
-    if (op != "add" && op != "div" )
+    }
+    if (op != "add" && op != "div" ) {
       throw std::domain_error("unknown operation in string-argument, select add or div");
+    }
   }
 
   void operation(pcrxml::LinkInExecuteInput const& l,
@@ -77,23 +80,26 @@ public:
     assert(op=="div" || op=="add"); // should be checked in pcr_LinkInCheck
 
       // run time error voor div
-    if (op=="div" && firstConstructorArgument==0.0F)
+    if (op=="div" && firstConstructorArgument==0.0F) {
       throw std::domain_error("attempting division by 0");
+    }
 
     auto       *result      = (float *)linkInTransferArray[0];
     const auto *leftOperand = (const float *)linkInTransferArray[1];
     size_t       len=1; // NonSpatial
-    if (l.argument()[0].spatialType() == pcrxml::SpatialType::Spatial)
+    if (l.argument()[0].spatialType() == pcrxml::SpatialType::Spatial) {
       len = static_cast<size_t>(l.context().areaMap().nrRows() *
-            l.context().areaMap().nrCols());
+      l.context().areaMap().nrCols());
+    }
     for(size_t i=0; i < len; ++i) {
-      if (pcr::isMV(leftOperand[i]))
+      if (pcr::isMV(leftOperand[i])) {
         pcr::setMV(result);
-      else {
-        if (op=="add")
+      } else {
+        if (op=="add") {
           result[i]=leftOperand[i]+firstConstructorArgument;
-        else
+        } else {
           result[i]=leftOperand[i]/firstConstructorArgument;
+        }
       }
     }
   }
@@ -131,17 +137,20 @@ PCR_DLL_FUNC (const char *) pcr_LinkInExecute(
     pcrxml::LinkInExecuteInput l(strToLinkInExecuteInput(xml));
 
     if (l.callPoint().function()) {
-      if (l.callPoint().function()->name()=="checkerBoard")
+      if (l.callPoint().function()->name()=="checkerBoard") {
         checkerBoard(l,linkInTransferArray);
+      }
     } else {
       assert(l.callPoint().object());
       if (l.callPoint().object()->constructor()) {
-        if (l.callPoint().object()->className()=="Class1")
+        if (l.callPoint().object()->className()=="Class1") {
           Class1::construct(l,linkInTransferArray);
+        }
       } else {
         assert(l.callPoint().object()->methodName());
-        if (l.callPoint().object()->className()=="Class1")
+        if (l.callPoint().object()->className()=="Class1") {
           Class1::callMethod(l,linkInTransferArray);
+        }
       }
     }
   }
@@ -181,8 +190,9 @@ PCR_DLL_FUNC (const char *) pcr_LinkInCheck(
 
      // must have string argument with value div or add
             std::string op;
-            if (input.stringArgument())
+            if (input.stringArgument()) {
               op = std::string(input.stringArgument().get());
+            }
             Class1::operationArgumentCheck(op);
 
      // spatialType of result equals spatialType of argument

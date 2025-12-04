@@ -57,10 +57,13 @@ template<class O>
      }
      static void fImpl(Val val, size_t n)
      {
-       for(size_t i=0; i < n; ++i)
-        if (!pcr::isMV(val[i])) // result already mv
-          if (O::domainOk(val[i]))
-            O::op(val[i]);
+       for(size_t i=0; i < n; ++i) {
+         if (!pcr::isMV(val[i])) { // result already mv
+           if (O::domainOk(val[i])) {
+             O::op(val[i]);
+           }
+         }
+       }
     }
  };
 
@@ -81,9 +84,10 @@ template<class O>
      static void fImpl(Result r, Input val, size_t n)
      {
        for(size_t i=0; i < n; ++i) {
-        pcr::setMV(r[i]);
-        if (!pcr::isMV(val[i]))
-          O::op(r[i],val[i]);
+         pcr::setMV(r[i]);
+         if (!pcr::isMV(val[i])) {
+           O::op(r[i],val[i]);
+         }
        }
     }
  };
@@ -118,42 +122,48 @@ template<class O>
      static void ssImpl(Result l, Input r, size_t n)
      {
        for(size_t i=0; i < n; ++i) {
-        if (!((pcr::isMV(l[i])|pcr::isMV(r[i]))
-              || domainIll(r[i],l[i])))
-            O::op(l[i],l[i],r[i]);
-          else
-            pcr::setMV(l[i]);
+         if (!((pcr::isMV(l[i])|pcr::isMV(r[i]))
+           || domainIll(r[i],l[i]))) {
+           O::op(l[i],l[i],r[i]);
+           } else {
+             pcr::setMV(l[i]);
+           }
       }
      }
      static void nsImpl(Input l, Result r, size_t n)
      {
-        DEVELOP_PRECOND(!pcr::isMV(*l));
-        T const lV=*l;
-        for(size_t i=0; i < n; ++i)
-        if (!pcr::isMV(r[i])) // result already mv
-        {
-          if (domainIll(r[i],lV))
-            pcr::setMV(r[i]);
-          else
-            O::op(r[i],lV,r[i]);
-        }
+       DEVELOP_PRECOND(!pcr::isMV(*l));
+       T const lV=*l;
+       for(size_t i=0; i < n; ++i) {
+         if (!pcr::isMV(r[i])) // result already mv
+         {
+           if (domainIll(r[i],lV)) {
+             pcr::setMV(r[i]);
+           } else {
+             O::op(r[i],lV,r[i]);
+           }
+         }
+       }
      }
 
      static void snImpl(Result l, Input r, size_t n)
      {
         DEVELOP_PRECOND(!pcr::isMV(*r));
         T const rV=*r;
-        if (O::rightDomainIll(rV))
+        if (O::rightDomainIll(rV)) {
           throw DomainError();
+        }
 
-        for(size_t i=0; i < n; ++i)
+        for(size_t i=0; i < n; ++i) {
          if (!pcr::isMV(l[i])) // result already mv
          {
-          if (domainIll(rV,l[i]))
+          if (domainIll(rV,l[i])) {
             pcr::setMV(l[i]);
-          else
+          } else {
             O::op(l[i],l[i],rV);
+          }
          }
+        }
      }
  };
 
@@ -175,9 +185,11 @@ template<typename T>
 
      static void ssImpl(Result l, Input r, size_t n)
      {
-       for(size_t i=0; i < n; ++i)
-        if (pcr::isMV(l[i]))
-          l[i]=r[i];
+       for(size_t i=0; i < n; ++i) {
+         if (pcr::isMV(l[i])) {
+           l[i]=r[i];
+         }
+       }
      }
      static void nsImpl(Input l, Result r, size_t n)
      {
@@ -185,17 +197,20 @@ template<typename T>
        // and thus non-spatial, result is always l
         DEVELOP_PRECOND(!pcr::isMV(*l));
         T lV=*l;
-        for(size_t i=0; i < n; ++i)
+        for(size_t i=0; i < n; ++i) {
           r[i]=lV;
+        }
      }
 
      static void snImpl(Result l, Input r, size_t n)
      {
-        DEVELOP_PRECOND(!pcr::isMV(*r));
-        T rV=*r;
-        for(size_t i=0; i < n; ++i)
-         if (pcr::isMV(l[i]))
+       DEVELOP_PRECOND(!pcr::isMV(*r));
+       T rV=*r;
+       for(size_t i=0; i < n; ++i) {
+         if (pcr::isMV(l[i])) {
            l[i]=rV;
+         }
+       }
      }
  };
 
@@ -219,31 +234,35 @@ template<typename T>
 
      static void op(T& r, const UINT1& c, const T& v)
      {
-       if (c==1)
+       if (c==1) {
          r=v;
-       else
+       } else {
          pcr::setMV(r);
+       }
      }
 
      static void ssImpl(Result r, Cond cond, True trueV, size_t n)
      {
-       for(size_t i=0; i < n; ++i)
+       for(size_t i=0; i < n; ++i) {
          op(r[i],cond[i],trueV[i]);
+       }
      }
      static void nsImpl(Result r, Cond cond, True trueV, size_t n)
      {
         DEVELOP_PRECOND(!pcr::isMV(*cond));
         UINT1 const c=*cond;
-        for(size_t i=0; i < n; ++i)
-         op(r[i],c,trueV[i]);
+        for(size_t i=0; i < n; ++i) {
+          op(r[i],c,trueV[i]);
+        }
      }
 
      static void snImpl(Result r, Cond cond, True trueV, size_t n)
      {
         DEVELOP_PRECOND(!pcr::isMV(*trueV));
         T tV=*trueV;
-        for(size_t i=0; i < n; ++i)
-         op(r[i],cond[i],tV);
+        for(size_t i=0; i < n; ++i) {
+          op(r[i],cond[i],tV);
+        }
      }
  };
 
@@ -286,30 +305,34 @@ template<typename T>
 
    static void ssImpl(Result r, Cond cond, Branch trueV, Branch falseV, size_t n)
    {
-     for(size_t i=0; i < n; ++i)
+     for(size_t i=0; i < n; ++i) {
        op(r[i],cond[i],trueV[i],falseV[i]);
+     }
    }
    static void nsImpl(Result r, Cond cond, Branch trueV, Branch falseV, size_t n)
    {
       DEVELOP_PRECOND(!pcr::isMV(*trueV));
       T t=*trueV;
-      for(size_t i=0; i < n; ++i)
-       op(r[i],cond[i],t,falseV[i]);
+      for(size_t i=0; i < n; ++i) {
+        op(r[i],cond[i],t,falseV[i]);
+      }
    }
    static void snImpl(Result r, Cond cond, Branch trueV, Branch falseV, size_t n)
    {
       DEVELOP_PRECOND(!pcr::isMV(*falseV));
       T f=*falseV;
-      for(size_t i=0; i < n; ++i)
-       op(r[i],cond[i],trueV[i],f);
+      for(size_t i=0; i < n; ++i) {
+        op(r[i],cond[i],trueV[i],f);
+      }
    }
    static void nnImpl(Result r, Cond cond, Branch trueV, Branch falseV, size_t n)
    {
       DEVELOP_PRECOND(!pcr::isMV(*trueV));
       T t=*trueV;
       T f=*falseV;
-      for(size_t i=0; i < n; ++i)
-       op(r[i],cond[i],t,f);
+      for(size_t i=0; i < n; ++i) {
+        op(r[i],cond[i],t,f);
+      }
    }
  };
 
@@ -340,8 +363,9 @@ template<class O>
      {
        for(size_t i=0; i < n; ++i) {
          pcr::setMV(res[i]);
-         if (!(pcr::isMV(l[i])|pcr::isMV(r[i])))
-            O::op(res[i],l[i],r[i]);
+         if (!(pcr::isMV(l[i])|pcr::isMV(r[i]))) {
+           O::op(res[i],l[i],r[i]);
+         }
        }
      }
      static void nsImpl(R res, E l, E r, size_t n)
@@ -350,8 +374,9 @@ template<class O>
         T const lV=*l;
         for(size_t i=0; i < n; ++i) {
          pcr::setMV(res[i]);
-         if (!pcr::isMV(r[i]))
+         if (!pcr::isMV(r[i])) {
            O::op(res[i],lV,r[i]);
+         }
         }
      }
      static void snImpl(R res, E l, E r, size_t n)
@@ -360,8 +385,9 @@ template<class O>
         T const rV=*r;
         for(size_t i=0; i < n; ++i) {
          pcr::setMV(res[i]);
-         if (!pcr::isMV(l[i]))
+         if (!pcr::isMV(l[i])) {
            O::op(res[i],l[i],rV);
+         }
         }
      }
  };
@@ -387,9 +413,11 @@ template<class O>
 
    static void fImpl(R r,I v, size_t n) {
      *r=O::init();
-     for(size_t i=0; i< n; ++i)
-       if (!pcr::isMV(v[i]))
-        O::op(*r,v[i]);
+     for(size_t i=0; i< n; ++i) {
+       if (!pcr::isMV(v[i])) {
+         O::op(*r,v[i]);
+       }
+     }
    }
  };
 }

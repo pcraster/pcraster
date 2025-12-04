@@ -48,10 +48,11 @@ static int PrintHeader(const char *mapName)
                            0, 0);            /* upper left corner */
   POSTCOND(headWin != NULL);
   werase(headWin);
-  if (currAttr->cloneCreation)
+  if (currAttr->cloneCreation) {
     Curr_wprintw(headWin, "creation of map: %s\n", mapName);
-  else
+  } else {
     Curr_wprintw(headWin, "change of attributes of map: %s\n", mapName);
+  }
   wrefresh(headWin);
   delwin(headWin);
   return r;
@@ -69,10 +70,12 @@ static void WriteItems(char **attrItems, const ATTRIBUTES *attr, int nrAttr)
 static void SetAllowEdits(void)
 {
   int i = 0;
-  for (i = ATTR_nrRows; i <= ATTR_cellRepr; i++)
+  for (i = ATTR_nrRows; i <= ATTR_cellRepr; i++) {
     allowEdit[i] = currAttr->cloneCreation;
-  for (i = ATTR_projection; i <= ATTR_gisFileId; i++)
+  }
+  for (i = ATTR_projection; i <= ATTR_gisFileId; i++) {
     allowEdit[i] = TRUE;
+  }
 }
 
 static int PrintLegend(int startY, ATTRIBUTES *attr, int nrAttr)
@@ -92,14 +95,16 @@ static int PrintLegend(int startY, ATTRIBUTES *attr, int nrAttr)
   boxCols = CurrScreenCols() - 6; /* 3 on both sides */
   attrItems = (char **)Malloc2d((size_t)nrAttr, (size_t)boxCols + 20, sizeof(char));
   /* ^- save side + 20 */
-  if (attrItems == NULL)
+  if (attrItems == NULL) {
     return 0;
+  }
   WriteItems(attrItems, attr, nrAttr);
   attrBox =
       CurrInitRadioSelectBox(startY, colXStart, LINES - startY - 4, boxCols, (const char **)attrItems,
                              nrAttr, otherKeys, ARRAY_SIZE(otherKeys), otherMsg);
-  if (attrBox == NULL)
+  if (attrBox == NULL) {
     return 0;
+  }
   prefLen = itemNamesLen + 3; /* prefix len, 3 for " : " */
   i = 0;
   while (i == 0) {
@@ -119,11 +124,12 @@ static int PrintLegend(int startY, ATTRIBUTES *attr, int nrAttr)
         lastEditOrig = orig;
         SetAttrDouble(attr, &edit, i);
         WriteItems(attrItems, attr, nrAttr);
-        if (CurrNewItemsInBox(attrBox, (const char **)attrItems, nrAttr) == NULL)
+        if (CurrNewItemsInBox(attrBox, (const char **)attrItems, nrAttr) == NULL) {
           return 0;
+        }
         CurrRadioIncSelectedItem(attrBox);
       }
-    } else
+    } else {
       switch (i) { /* it's an otherKey */
         case 'q':
           if (lastEdit != -1) {
@@ -131,31 +137,36 @@ static int PrintLegend(int startY, ATTRIBUTES *attr, int nrAttr)
             CurrRadioPrintItems(attrBox);
             valid = (attr->nrRows != MV_UINT4 && attr->nrCols != MV_UINT4);
             if (!valid) {
-              if (CurrPromptYesNo("No rows or columns set, Abort?", "ResumeEditing") == 'y')
+              if (CurrPromptYesNo("No rows or columns set, Abort?", "ResumeEditing") == 'y') {
                 return 2;
-            } else
+              }
+            } else {
               switch (CurrPromptYesNo(endMsg, "ResumeEditing")) {
                 case 'y':
                   return 1;
                 case 'n':
                   return 2;
               }
+            }
             break;
           }
           return 2;
         case 'u':
           if (lastEdit != -1) {
             SetAttrDouble(attr, &lastEditOrig, lastEdit);
-            if (lastEdit == ATTR_valueScale)
+            if (lastEdit == ATTR_valueScale) {
               attr->cellRepr = AppDefaultCellRepr(attr->valueScale);
+            }
             WriteItems(attrItems, attr, nrAttr);
-            if (CurrNewItemsInBox(attrBox, (const char **)attrItems, nrAttr) == NULL)
+            if (CurrNewItemsInBox(attrBox, (const char **)attrItems, nrAttr) == NULL) {
               return 0;
+            }
           }
           break;
         default:
           PRECOND(false);
       }
+    }
     i = 0;
   }
   POSTCOND(false);

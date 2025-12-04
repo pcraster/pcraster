@@ -79,30 +79,42 @@ static bool printDataType = false;
 
 static void MergeOptAttr(ATTRIBUTES *a, const ATTRIBUTES *opt)
 {
-  if (opt->projection != PT_UNDEFINED)
+  if (opt->projection != PT_UNDEFINED) {
     a->projection = opt->projection;
-  if (opt->valueScale != VS_UNDEFINED)
+  }
+  if (opt->valueScale != VS_UNDEFINED) {
     a->valueScale = opt->valueScale;
-  if (opt->cellRepr != CR_UNDEFINED)
+  }
+  if (opt->cellRepr != CR_UNDEFINED) {
     a->cellRepr = opt->cellRepr;
-  if (opt->nrRows != MV_UINT4)
+  }
+  if (opt->nrRows != MV_UINT4) {
     a->nrRows = opt->nrRows;
-  if (opt->nrCols != MV_UINT4)
+  }
+  if (opt->nrCols != MV_UINT4) {
     a->nrCols = opt->nrCols;
-  if (!(IS_MV_REAL8(&(opt->xUL))))
+  }
+  if (!(IS_MV_REAL8(&(opt->xUL)))) {
     a->xUL = opt->xUL;
-  if (!(IS_MV_REAL8(&(opt->yUL))))
+  }
+  if (!(IS_MV_REAL8(&(opt->yUL)))) {
     a->yUL = opt->yUL;
-  if (!(IS_MV_REAL8(&(opt->cellSize))))
+  }
+  if (!(IS_MV_REAL8(&(opt->cellSize)))) {
     a->cellSize = opt->cellSize;
-  if (!(IS_MV_REAL8(&(opt->angle))))
+  }
+  if (!(IS_MV_REAL8(&(opt->angle)))) {
     a->angle = opt->angle;
-  if (opt->gisFileId != MV_UINT4)
+  }
+  if (opt->gisFileId != MV_UINT4) {
     a->gisFileId = opt->gisFileId;
-  if (!(IS_MV_REAL8(&(opt->minVal))))
+  }
+  if (!(IS_MV_REAL8(&(opt->minVal)))) {
     a->minVal = opt->minVal;
-  if (!(IS_MV_REAL8(&(opt->maxVal))))
+  }
+  if (!(IS_MV_REAL8(&(opt->maxVal)))) {
     a->maxVal = opt->maxVal;
+  }
 }
 
 static void OptNotSetAttr(ATTRIBUTES *a)
@@ -142,8 +154,9 @@ static int ReadAttr(ATTRIBUTES *a, MAP *m, bool readOnly) /* are the attribute o
                        */
 {
   DefaultAttr(a);
-  if (RuseAs(m, CR_REAL8))
+  if (RuseAs(m, CR_REAL8)) {
     goto failure;
+  }
   RgetMinVal(m, &(a->minVal));
   RgetMaxVal(m, &(a->maxVal));
   a->projection = MgetProjection(m);
@@ -156,16 +169,18 @@ static int ReadAttr(ATTRIBUTES *a, MAP *m, bool readOnly) /* are the attribute o
   a->gisFileId = MgetGisFileId(m);
   a->byteOrder = m->main.byteOrder;
   a->attrTable = m->main.attrTable;
-  if (Merrno)
+  if (Merrno) {
     goto failure;
+  }
   if (a->version == 2 || readOnly) { /* otherwise use defaults */
     a->valueScale = RgetValueScale(m);
     a->cellRepr = RgetCellRepr(m);
     a->angle = RgetAngle(m);
-    if (a->angle < 0)
+    if (a->angle < 0) {
       a->angle = -Rad2Deg(-a->angle);
-    else
+    } else {
       a->angle = Rad2Deg(a->angle);
+    }
   }
   return 0;
 failure:
@@ -185,21 +200,25 @@ static int CreateMap(const char *name, const ATTRIBUTES *a)
            "applications accept maps of this size.\n");
   }
 
-  if (a->angle < 0)
+  if (a->angle < 0) {
     angle = -Deg2Rad(-a->angle);
-  else
+  } else {
     angle = Deg2Rad(a->angle);
+  }
   m = Rcreate(name, (size_t)a->nrRows, (size_t)a->nrCols, a->cellRepr, a->valueScale, a->projection,
               a->xUL, a->yUL, angle, a->cellSize);
-  if (m == NULL)
+  if (m == NULL) {
     goto error1;
+  }
 
   PRECOND(a->gisFileId != MV_UINT4);
-  if (MputGisFileId(m, a->gisFileId) == MV_UINT4)
+  if (MputGisFileId(m, a->gisFileId) == MV_UINT4) {
     goto error2;
+  }
 
-  if (RuseAs(m, CR_UINT1))
+  if (RuseAs(m, CR_UINT1)) {
     goto error2;
+  }
   buf = (UINT1 *)Rmalloc(m, (size_t)a->nrCols);
   if (buf == NULL) {
     Mclose(m);
@@ -225,29 +244,38 @@ static int SetAndCloseMap(MAP *m, const ATTRIBUTES *a)
   double angle = a->angle;
 
   if (!(IS_MV_REAL8(&angle))) {
-    if (a->angle < 0)
+    if (a->angle < 0) {
       angle = -Deg2Rad(-a->angle);
-    else
+    } else {
       angle = Deg2Rad(a->angle);
+    }
   }
-  if (RuseAs(m, CR_REAL8))
+  if (RuseAs(m, CR_REAL8)) {
     goto error2;
+  }
 
-  if (a->projection != PT_UNDEFINED)
+  if (a->projection != PT_UNDEFINED) {
     MputProjection(m, a->projection);
-  if (!(IS_MV_REAL8(&(a->xUL))))
+  }
+  if (!(IS_MV_REAL8(&(a->xUL)))) {
     RputXUL(m, a->xUL);
-  if (!(IS_MV_REAL8(&(a->yUL))))
+  }
+  if (!(IS_MV_REAL8(&(a->yUL)))) {
     RputYUL(m, a->yUL);
-  if (!(IS_MV_REAL8(&(a->angle))))
+  }
+  if (!(IS_MV_REAL8(&(a->angle)))) {
     RputAngle(m, angle);
-  if (!(IS_MV_REAL8(&(a->cellSize))))
+  }
+  if (!(IS_MV_REAL8(&(a->cellSize)))) {
     RputCellSize(m, a->cellSize);
-  if (a->gisFileId != MV_UINT4)
+  }
+  if (a->gisFileId != MV_UINT4) {
     MputGisFileId(m, a->gisFileId);
+  }
 
-  if (Merrno)
+  if (Merrno) {
     goto error2;
+  }
   return 0;
 error2:
   return RetError(1, "Can not write to '%s': %s", MgetFileName(m), MstrError());
@@ -259,15 +287,17 @@ static int DefaultCloneAttr(ATTRIBUTES *a)
   if (appClone != NULL) {
     char *dummy = NULL;
     in = AppOpenClone(&dummy, NULL);
-    if (in == NULL)
+    if (in == NULL) {
       return 1;
+    }
     if (ReadAttr(a, in, false)) {
       Mclose(in);
       return RetError(1, "while reading clone map '%s': %s", appClone, MstrError());
     }
     Mclose(in);
-  } else
+  } else {
     DefaultAttr(a);
+  }
   return 0;
 }
 
@@ -276,8 +306,9 @@ static int PrintOption(const char **names, int nrNames)
   ATTRIBUTES *a = (ATTRIBUTES *)ChkMalloc(sizeof(ATTRIBUTES) * nrNames);
   int *colLen = (int *)ChkMalloc(sizeof(int) * nrNames);
   int i = 0;
-  if (a == NULL || colLen == NULL)
+  if (a == NULL || colLen == NULL) {
     return 1;
+  }
   for (i = 0; i < nrNames; i++) {
     MAP *m = Mopen(names[i], M_READ);
     if (m == NULL) {
@@ -321,29 +352,34 @@ static int PrintOption(const char **names, int nrNames)
   }
 
   printf("%s", HEAD);
-  for (i = 0; i < nrNames; i++)
+  for (i = 0; i < nrNames; i++) {
     printf(" %-*s", colLen[i], names[i]);
+  }
   printf("\n");
 
   printf("%s", printLabels[ATTR_nrRows]);
-  for (i = 0; i < nrNames; i++)
+  for (i = 0; i < nrNames; i++) {
     printf(" %-*u", colLen[i], a[i].nrRows);
+  }
   printf("\n");
 
   printf("%s", printLabels[ATTR_nrCols]);
-  for (i = 0; i < nrNames; i++)
+  for (i = 0; i < nrNames; i++) {
     printf(" %-*u", colLen[i], a[i].nrCols);
+  }
   printf("\n");
 
   printf("%s", printLabels[ATTR_cellSize]);
-  for (i = 0; i < nrNames; i++)
+  for (i = 0; i < nrNames; i++) {
     printf(" %-*g", colLen[i], a[i].cellSize);
+  }
   printf("\n");
 
 
   printf("%s", printLabels[ATTR_valueScale]);
-  for (i = 0; i < nrNames; i++)
+  for (i = 0; i < nrNames; i++) {
     printf(" %-*s", colLen[i], RstrValueScale(a[i].valueScale));
+  }
   printf("\n");
 
   printf("%s", printLabels[ATTR_cellRepr]);
@@ -370,67 +406,79 @@ static int PrintOption(const char **names, int nrNames)
   printf("\n");
 
   printf("%s", printLabels[ATTR_projection]);
-  for (i = 0; i < nrNames; i++)
+  for (i = 0; i < nrNames; i++) {
     printf(" %-*s", colLen[i], a[i].projection ? "yb2t" : "yt2b");
+  }
   printf("\n");
 
   printf("%s", printLabels[ATTR_angle]);
-  for (i = 0; i < nrNames; i++)
+  for (i = 0; i < nrNames; i++) {
     printf(" %-*g", colLen[i], a[i].angle);
+  }
   printf("\n");
 
   printf("%s", printLabels[ATTR_xUL]);
-  for (i = 0; i < nrNames; i++)
+  for (i = 0; i < nrNames; i++) {
     printf(" %-*g", colLen[i], a[i].xUL);
+  }
   printf("\n");
 
   printf("%s", printLabels[ATTR_yUL]);
-  for (i = 0; i < nrNames; i++)
+  for (i = 0; i < nrNames; i++) {
     printf(" %-*g", colLen[i], a[i].yUL);
+  }
   printf("\n");
 
   printf("%s", printLabels[ATTR_minVal]);
-  for (i = 0; i < nrNames; i++)
-    if (IS_MV_REAL8(&(a[i].minVal)))
+  for (i = 0; i < nrNames; i++) {
+    if (IS_MV_REAL8(&(a[i].minVal))) {
       printf(" %-*s", colLen[i], "mv");
-    else {
-      if ((a[i].cellRepr) & CSF_FLOAT_MASK)
+    } else {
+      if ((a[i].cellRepr) & CSF_FLOAT_MASK) {
         printf(" %-*g", colLen[i], a[i].minVal);
-      else
+      } else {
         printf(" %-*d", colLen[i], (int)a[i].minVal);
+      }
     }
+  }
   printf("\n");
 
   printf("%s", printLabels[ATTR_maxVal]);
-  for (i = 0; i < nrNames; i++)
-    if (IS_MV_REAL8(&(a[i].maxVal)))
+  for (i = 0; i < nrNames; i++) {
+    if (IS_MV_REAL8(&(a[i].maxVal))) {
       printf(" %-*s", colLen[i], "mv");
-    else {
-      if ((a[i].cellRepr) & CSF_FLOAT_MASK)
+    } else {
+      if ((a[i].cellRepr) & CSF_FLOAT_MASK) {
         printf(" %-*g", colLen[i], a[i].maxVal);
-      else
+      } else {
         printf(" %-*d", colLen[i], (int)a[i].maxVal);
+      }
     }
+  }
   printf("\n");
 
   printf("%s", printLabels[ATTR_version]);
-  for (i = 0; i < nrNames; i++)
+  for (i = 0; i < nrNames; i++) {
     printf(" %-*u", colLen[i], a[i].version);
+  }
   printf("\n");
 
   printf("%s", printLabels[ATTR_gisFileId]);
-  for (i = 0; i < nrNames; i++)
+  for (i = 0; i < nrNames; i++) {
     printf(" %-*u", colLen[i], a[i].gisFileId);
+  }
   printf("\n");
 
   printf("%s", printLabels[ATTR_byteOrder]);
-  for (i = 0; i < nrNames; i++)
+  for (i = 0; i < nrNames; i++) {
     printf(" %-*s", colLen[i], a[i].byteOrder == 1 ? "y" : "n");
+  }
   printf("\n");
 
   printf("%s", printLabels[ATTR_attrTable]);
-  for (i = 0; i < nrNames; i++)
+  for (i = 0; i < nrNames; i++) {
     printf(" %-*s", colLen[i], a[i].attrTable == 0 ? "n" : "y");
+  }
   printf("\n");
 
   return 0;
@@ -442,8 +490,9 @@ static int CloneOption(const char *name)
   if (FileStat(name) != 2) {
     return RetError(1, "file '%s' exists, give new (non-existing) name", name);
   }
-  if (DefaultCloneAttr(&a))
+  if (DefaultCloneAttr(&a)) {
     return 1;
+  }
   a.cloneCreation = true;
   switch (MakeCloneMenu(&a, name)) {
     case 0:
@@ -463,12 +512,14 @@ static int EditOption(const char *name)
   ATTRIBUTES a;
   MAP *in = Mopen(name, M_READ_WRITE);
   if (in == NULL || ReadAttr(&a, in, false)) {
-    if (in != NULL)
+    if (in != NULL) {
       Mclose(in);
+    }
     return RetError(1, "while reading '%s': %s", name, MstrError());
   }
-  if (a.version != 2)
+  if (a.version != 2) {
     return RetError(1, "'%s' is not a version 2 map, no edits possible");
+  }
   a.cloneCreation = false;
   switch (MakeCloneMenu(&a, name)) {
     case 0:
@@ -493,8 +544,9 @@ static MAP **OpenCopyOrSetMaps(ATTRIBUTES *a, /* attributes first one */
   MAP **maps = NULL;
   int i = 0;
   maps = (MAP **)ChkCalloc((size_t)nrNames, sizeof(MAP *));
-  if (maps == NULL)
+  if (maps == NULL) {
     return NULL;
+  }
 
   for (i = 0; i < nrNames; i++) {
     maps[i] = Mopen(names[i], (i == 0 && copy) ? M_READ : M_READ_WRITE);
@@ -502,8 +554,9 @@ static MAP **OpenCopyOrSetMaps(ATTRIBUTES *a, /* attributes first one */
       Error("while reading '%s': %s", names[i], MstrError());
       goto error;
     }
-    if (i == 0)
+    if (i == 0) {
       ReadAttr(a, maps[0], false);
+    }
     if (MgetVersion(maps[i]) != 2) {
       Error("'%s' is not a version 2 map, no %s possible", names[i], copy ? "copy" : "set");
       goto error;
@@ -515,9 +568,11 @@ static MAP **OpenCopyOrSetMaps(ATTRIBUTES *a, /* attributes first one */
   }
   return maps;
 error:
-  for (i = 0; i < nrNames; i++)
-    if (maps[i] != NULL)
+  for (i = 0; i < nrNames; i++) {
+    if (maps[i] != NULL) {
       Mclose(maps[i]);
+    }
+  }
   Free(maps);
   return NULL;
 }
@@ -529,10 +584,12 @@ static int CopyOption(const char **names, int nrNames)
   int i = 0;
 
   maps = OpenCopyOrSetMaps(&a, true, names, nrNames);
-  if (maps == NULL)
+  if (maps == NULL) {
     return 1;
-  for (i = 1; i < nrNames; i++)
+  }
+  for (i = 1; i < nrNames; i++) {
     SetAndCloseMap(maps[i], &a);
+  }
   Free(maps);
   return 0;
 }
@@ -543,26 +600,33 @@ static int SetOption(const char **names, int nrNames, const ATTRIBUTES *opt)
   MAP **maps = NULL;
   int i = 0;
 
-  if (DefaultCloneAttr(&a))
+  if (DefaultCloneAttr(&a)) {
     return 1;
+  }
 
   if (FileStat(names[0]) == 2) { /* non-existing */
     MergeOptAttr(&a, opt);
-    if (nrNames > 1)
+    if (nrNames > 1) {
       return RetError(1, "-s: only one new map or multiple existing maps allowed");
-    if (a.nrRows == MV_UINT4 || a.nrCols == MV_UINT4)
+    }
+    if (a.nrRows == MV_UINT4 || a.nrCols == MV_UINT4) {
       return RetError(1, "-s: -R and/or -C not specified");
+    }
     return CreateMap(names[0], &a);
   } else { /* set all */
-    if (opt->nrRows != MV_UINT4 || opt->nrCols != MV_UINT4)
+    if (opt->nrRows != MV_UINT4 || opt->nrCols != MV_UINT4) {
       return RetError(1, "-s: can not change number of rows or columns of an existing map");
-    if (opt->valueScale != VS_UNDEFINED)
+    }
+    if (opt->valueScale != VS_UNDEFINED) {
       return RetError(1, "-s: can not change data type of an existing map");
+    }
     maps = OpenCopyOrSetMaps(&a, false, names, nrNames);
-    if (maps == NULL)
+    if (maps == NULL) {
       return 1;
-    for (i = 0; i < nrNames; i++)
+    }
+    for (i = 0; i < nrNames; i++) {
       SetAndCloseMap(maps[i], opt);
+    }
     Free(maps);
     return 0;
   }
@@ -584,8 +648,9 @@ int main(int argc,     /* number of arguments */
   } mode = CLONE;
 
   /* install application */
-  if (InstallArgs(argc, argv, "(ecps)dR#C#i#P*x$y$l$a$(BLNOSDV)", "mapattr"))
+  if (InstallArgs(argc, argv, "(ecps)dR#C#i#P*x$y$l$a$(BLNOSDV)", "mapattr")) {
     goto failure;
+  }
   OptNotSetAttr(&opt);
 
   while ((c = GetOpt()) != 0) {
@@ -666,44 +731,51 @@ int main(int argc,     /* number of arguments */
     opt.cellRepr = AppDefaultCellRepr(valueScale);
   }
 
-  if ((argv = ArgArguments(&argc)) == NULL)
+  if ((argv = ArgArguments(&argc)) == NULL) {
     goto failure;
+  }
 
-  if (AppArgCountCheck(argc, 2, -1, USAGE))
+  if (AppArgCountCheck(argc, 2, -1, USAGE)) {
     goto failure;
+  }
 
   switch (mode) {
     case PRINT:
-      if (PrintOption((const char **)argv + 1, argc - 1))
+      if (PrintOption((const char **)argv + 1, argc - 1)) {
         goto failure;
+      }
       break;
     case CLONE:
       if (argc != 2) {
         Error("Too many arguments, only one map allowed");
         goto failure;
       }
-      if (CloneOption(argv[1]))
+      if (CloneOption(argv[1])) {
         goto failure;
+      }
       break;
     case EDIT:
       if (argc != 2) {
         Error("-e: Too many arguments, only one map allowed");
         goto failure;
       }
-      if (EditOption(argv[1]))
+      if (EditOption(argv[1])) {
         goto failure;
+      }
       break;
     case COPY:
       if (argc <= 2) {
         Error("-c: requires more than one map");
         goto failure;
       }
-      if (CopyOption((const char **)argv + 1, argc - 1))
+      if (CopyOption((const char **)argv + 1, argc - 1)) {
         goto failure;
+      }
       break;
     case SET:
-      if (SetOption((const char **)argv + 1, argc - 1, &opt))
+      if (SetOption((const char **)argv + 1, argc - 1, &opt)) {
         goto failure;
+      }
       break;
   }
 

@@ -37,8 +37,9 @@ public:
 
   Handle& operator=(const Handle& r)
   {
-    if (d_rep == r.d_rep)
+    if (d_rep == r.d_rep) {
       return *this;
+    }
     if (--(*d_ptrCount) == 0) {
       delete d_rep;
       delete d_ptrCount;

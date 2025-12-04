@@ -120,8 +120,9 @@ inline void ObjectLinkProxy<C>::exec1(const std::string&  methodName,
                                       const std::vector<Field *>& fields)
 {
   PRECOND(d_obj);
-  if (!dispatch(methodName,fields))
+  if (!dispatch(methodName,fields)) {
     throw UnknownMethod();
+  }
 }
 
 template<class C>

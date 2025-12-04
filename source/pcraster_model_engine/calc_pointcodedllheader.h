@@ -40,19 +40,21 @@ namespace calc {
 template<typename A /* UINT1/INT4/REAL4 */>
 struct _ifthenelseClass {
   static inline void op(A &result, const UINT1& cond, const A& arg1,const A& arg2) {
-    if(pcr::isMV(cond)) // condition
+    if(pcr::isMV(cond)) { // condition
       pcr::setMV(result);
-    else {
+    } else {
       if(cond) {
-       if(pcr::isMV(arg1))
-         pcr::setMV(result);
-       else
-         result=arg1;
+        if(pcr::isMV(arg1)) {
+          pcr::setMV(result);
+        } else {
+          result=arg1;
+        }
       } else {
-       if(pcr::isMV(arg2))
-         pcr::setMV(result);
-       else
-         result=arg2;
+        if(pcr::isMV(arg2)) {
+          pcr::setMV(result);
+        } else {
+          result=arg2;
+        }
       }
     }
   }

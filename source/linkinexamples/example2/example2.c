@@ -37,10 +37,11 @@ PCR_DLL_FUNC (const char *) pcr_LinkInExecute(
   int c = 0;
   (void)xmlNotUsed; // shut up compiler
   for(c=0; c < nrCells; c++) {
-    if (IS_MV_REAL4(spatial+c))
+    if (IS_MV_REAL4(spatial+c)) {
       SET_MV_REAL4(result+c);
-    else
+    } else {
       result[c]=spatial[c]+nonSpatial;
+    }
   }
   /* no error */
   return 0;

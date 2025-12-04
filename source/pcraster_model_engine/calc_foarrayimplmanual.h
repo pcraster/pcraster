@@ -28,8 +28,9 @@ namespace calc {
        this->f=(IDiffUn::F)fImpl;
    }
    static void fImpl(UINT1* r,const T* v, size_t n) {
-     for(size_t i=0; i< n; ++i)
+     for(size_t i=0; i< n; ++i) {
        r[i]=!pcr::isMV(v[i]);
+     }
    }
  };
 
@@ -41,8 +42,9 @@ namespace calc {
    // specialization for UINT1: memset(vL, *vR, n);
    static void fImpl(T* r,const T* v, size_t n) {
      PRECOND(!pcr::isMV(v[0]));
-     for(size_t i=0; i< n; ++i)
+     for(size_t i=0; i< n; ++i) {
        r[i]=v[0];
+     }
    }
  };
 
@@ -53,12 +55,13 @@ namespace calc {
    }
   static void fImpl(INT4* r,const UINT1* v, size_t n) {
     INT4   p=1;
-    for(size_t i=0; i < n; ++i)
-    switch(v[i]) {
-       case MV_UINT1: r[i] = MV_INT4; break;
-       case LDD_PIT : r[i] = p++; break;
-       default      : r[i] = 0; break;
-   }
+    for(size_t i=0; i < n; ++i) {
+      switch(v[i]) {
+        case MV_UINT1: r[i] = MV_INT4; break;
+        case LDD_PIT : r[i] = p++; break;
+        default      : r[i] = 0; break;
+      }
+    }
   }
  };
 

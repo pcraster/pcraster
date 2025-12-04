@@ -242,8 +242,9 @@ inline Matrix<T>::Matrix(const Matrix &m)
   : d_nr(m.d_nr), d_nc(m.d_nc)
 {
   d_data = new T[d_nr * d_nc];
-  for(size_t i = 0; i < d_nr * d_nc; ++i)
+  for(size_t i = 0; i < d_nr * d_nc; ++i) {
     d_data[i] = m.d_data[i];
+  }
 }
 
 template<class T>
@@ -350,8 +351,9 @@ inline void Matrix<T>::setElement(size_t r, size_t c, const T &v)
 template<class T>
 inline void Matrix<T>::setElements(const T &v)
 {
-  for(size_t i = 0; i < d_nr * d_nc; ++i)
+  for(size_t i = 0; i < d_nr * d_nc; ++i) {
     d_data[i] = v;
+  }
 }
 
 //------------------------------------------------------------------------------
@@ -371,8 +373,9 @@ inline Matrix<T> Matrix<T>::identity(size_t nr)
   Matrix<T> const m(nr);
 
   // Set the diagonal elements to 1.
-  for(size_t i = 0; i < m.d_nr; ++i)
+  for(size_t i = 0; i < m.d_nr; ++i) {
     m.d_data[(i * m.d_nc) + i] = static_cast<T>(1);
+  }
 
   return m;
 }
@@ -388,9 +391,11 @@ inline Matrix<T> Matrix<T>::transpose(const Matrix<T> &m)
   Matrix<T> t(m.d_nc, m.d_nr);
 
   // Copy values from m to the new matrix.
-  for(size_t r = 1; r <= m.d_nr; ++r)
-    for(size_t c = 1; c <= m.d_nc; ++c)
+  for(size_t r = 1; r <= m.d_nr; ++r) {
+    for(size_t c = 1; c <= m.d_nc; ++c) {
       t.setElement(c, r, m.element(r, c));
+    }
+}
 
   return t;
 }
@@ -427,16 +432,18 @@ inline Matrix<T> Matrix<T>::invert(const Matrix<T> &m)
     for(j = 1; j <= scratch.d_nr; ++j)
     {
       // Set the scratch column to 0's
-      for(i = 1; i <= scratch.d_nr; ++i)
+      for(i = 1; i <= scratch.d_nr; ++i) {
         col[i - 1] = static_cast<T>(0);
+      }
       col[j - 1] = static_cast<T>(1);
 
       // Solve for the scratch column.
       luSolve(scratch, indx, col);
 
       // Copy scratch column's values to the result matrix.
-      for(i = 1; i <= scratch.d_nr; ++i)
+      for(i = 1; i <= scratch.d_nr; ++i) {
         inverse.setElement(i, j, col[i - 1]);
+      }
     }
 
     delete[] indx;
@@ -554,8 +561,9 @@ inline void Matrix<T>::luDecompose(Matrix<T> &a, size_t *indx, double *d)
         }
       }
 
-      if(big == static_cast<T>(0))
+      if(big == static_cast<T>(0)) {
         throw std::logic_error("singular matrix");
+      }
 
       vv[i - 1] = 1.0 / big;
     }
@@ -565,8 +573,9 @@ inline void Matrix<T>::luDecompose(Matrix<T> &a, size_t *indx, double *d)
       for(i = 1; i < j; i++)
       {
         sum = a.element(i, j);
-        for(k = 1; k < i; k++)
+        for(k = 1; k < i; k++) {
           sum -= a.element(i, k) * a.element(k, j);
+        }
         a.setElement(i, j, sum);
       }
 
@@ -574,8 +583,9 @@ inline void Matrix<T>::luDecompose(Matrix<T> &a, size_t *indx, double *d)
       for(i = j; i <= n; i++)
       {
         sum = a.element(i, j);
-        for(k = 1; k < j; k++)
+        for(k = 1; k < j; k++) {
           sum -= a.element(i, k) * a.element(k, j);
+        }
         a.setElement(i, j, sum);
         if((dum = vv[i - 1] * std::abs(sum)) >= big)
         {
@@ -598,15 +608,17 @@ inline void Matrix<T>::luDecompose(Matrix<T> &a, size_t *indx, double *d)
       }
 
       indx[j - 1] = imax;
-      if(a.element(j, j) == static_cast<T>(0))
+      if(a.element(j, j) == static_cast<T>(0)) {
         throw std::logic_error("singular matrix");
+      }
         // a.setElement(j, j, TINY);
 
       if(j != n)
       {
         dum = 1.0 / a.element(j, j);
-        for(i = j + 1; i <= n; i++)
+        for(i = j + 1; i <= n; i++) {
           a.setElement(i, j, a.element(i, j) * dum);
+        }
       }
     }
 
@@ -637,19 +649,22 @@ inline void Matrix<T>::luSolve(const Matrix<T> &a, const size_t *indx,
     ip = indx[i - 1];
     sum = b[ip - 1];
     b[ip - 1] = b[i - 1];
-    if(ii)
-      for(j = ii; j <= i - 1; j++)
+    if(ii) {
+      for(j = ii; j <= i - 1; j++) {
         sum -= a.element(i, j) * b[j - 1];
-    else if(sum)
+      }
+    } else if(sum) {
       ii = i;
+    }
     b[i - 1] = sum;
   }
 
   for(i = n; i >= 1; i--)
   {
     sum = b[i - 1];
-    for(j = i + 1; j <= n; j++)
+    for(j = i + 1; j <= n; j++) {
       sum -= a.element(i, j) * b[j - 1];
+    }
     b[i - 1] = sum / a.element(i, i);
   }
 }
@@ -666,8 +681,9 @@ bool operator==(const Matrix<T> &lhs, const Matrix<T> &rhs)
 
   for(size_t i = 0; i < lhs.d_nr * lhs.d_nc; ++i)
   {
-    if(lhs.d_data[i] != rhs.d_data[i])
+    if(lhs.d_data[i] != rhs.d_data[i]) {
       return false;
+    }
   }
 
   return true;
@@ -681,8 +697,9 @@ bool operator!=(const Matrix<T> &lhs, const Matrix<T> &rhs)
 
   for(size_t i = 0; i < lhs.d_nr * lhs.d_nc; ++i)
   {
-    if(lhs.d_data[i] != rhs.d_data[i])
+    if(lhs.d_data[i] != rhs.d_data[i]) {
       return true;
+    }
   }
 
   return false;
@@ -728,10 +745,12 @@ Matrix<T> operator+(const Matrix<T> &lhs, const Matrix<T> &rhs)
   assert(lhs.d_nc == rhs.d_nc);
 
   Matrix<T> m(lhs.d_nr, lhs.d_nc);
-  for(size_t r = 0; r < lhs.d_nr; ++r)
-    for(size_t c = 0; c < lhs.d_nc; ++c)
+  for(size_t r = 0; r < lhs.d_nr; ++r) {
+    for(size_t c = 0; c < lhs.d_nc; ++c) {
       m.d_data[r * lhs.d_nc + c] = lhs.d_data[r * lhs.d_nc + c] +
-                   rhs.d_data[r * lhs.d_nc + c];
+      rhs.d_data[r * lhs.d_nc + c];
+    }
+  }
 
   return m;
 }
@@ -749,10 +768,12 @@ Matrix<T> operator-(const Matrix<T> &lhs, const Matrix<T> &rhs)
   assert(lhs.d_nc == rhs.d_nc);
 
   Matrix<T> m(lhs.d_nr, lhs.d_nc);
-  for(size_t r = 0; r < lhs.d_nr; ++r)
-    for(size_t c = 0; c < lhs.d_nc; ++c)
+  for(size_t r = 0; r < lhs.d_nr; ++r) {
+    for(size_t c = 0; c < lhs.d_nc; ++c) {
       m.d_data[r * lhs.d_nc + c] = lhs.d_data[r * lhs.d_nc + c] -
-                   rhs.d_data[r * lhs.d_nc + c];
+      rhs.d_data[r * lhs.d_nc + c];
+    }
+  }
 
   return m;
 }
@@ -781,8 +802,9 @@ std::ostream &operator<<(std::ostream &s, const com::Matrix<T> &m)
 {
   for(size_t r = 0; r < m.nrRows(); ++r)
   {
-    for(size_t c = 0; c < m.nrCols(); ++c)
+    for(size_t c = 0; c < m.nrCols(); ++c) {
       s << m.element(r + 1, c + 1) << '\t';
+    }
     s << '\n';
   }
   return s;

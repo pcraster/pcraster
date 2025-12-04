@@ -64,22 +64,27 @@ static int PutCell(FILE *outputFile, /* write-only output file */
 
   /* Determine and print value to output file */
   if (!IS_MV_REAL8(val)) {
-    if (vs == VS_DIRECTION)
+    if (vs == VS_DIRECTION) {
       *val = AppOutputDirection(*val);
+    }
 
-    if (number_s && mvVal_s == *val)
+    if (number_s && mvVal_s == *val) {
       return 2;
+    }
 
     /* put value in output column file */
     (void)sprintf(buf, valFmt_s, *val);
-  } else
+  } else {
     (void)strcpy(buf, mvStr_s);
+  }
   if (sep != NULL) {
     LeftRightTrim(buf);
-    if (!firstOutputCol)
+    if (!firstOutputCol) {
       (void)fprintf(outputFile, "%s", sep);
-  } else
+    }
+  } else {
     (void)fprintf(outputFile, " ");
+  }
 
   return fprintf(outputFile, "%s", buf) < 0;
 }

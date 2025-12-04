@@ -125,8 +125,9 @@ void calc::Muskingum::exec(
 
      void finishVertexAfterAllSlices(size_t v) override
      {
-      if (!pcr::isMV(MyResultMap[v]))
-          MyResultMap[v] /=  d_csi.nrTimeSlices;
+       if (!pcr::isMV(MyResultMap[v])) {
+         MyResultMap[v] /=  d_csi.nrTimeSlices;
+       }
      }
 
      // Result

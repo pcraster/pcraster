@@ -90,18 +90,24 @@ int IntersectRectangles(POINT2D *pol,      /* intersecting rectangle stored in p
 
   /* look if cornerpoint fall in (or on) other rectangle */
   for (j = 0; j < 2; j++) {
-    for (i = 0; i < 4; i++)
-      if (PointInPolygon(r[j] + i, r[OTHER_RECT(j)], 4))
+    for (i = 0; i < 4; i++) {
+      if (PointInPolygon(r[j] + i, r[OTHER_RECT(j)], 4)) {
         p[n++] = r[j][i]; /* point in other rect */
+      }
+    }
   }
   /* look if sides intersect */
-  for (i = 0; i < 4; i++)
-    for (j = 0; j < 4; j++)
-      if (IntersectCords(p + n, r1 + i, r1 + (i + 1), r2 + j, r2 + (j + 1)) != nullptr)
+  for (i = 0; i < 4; i++) {
+    for (j = 0; j < 4; j++) {
+      if (IntersectCords(p + n, r1 + i, r1 + (i + 1), r2 + j, r2 + (j + 1)) != nullptr) {
         n++; /* cords intersect */
+      }
+    }
+  }
 
-  if (n == 0)
+  if (n == 0) {
     return 0;
+  }
 
   for (i = 0; i < n; i++) {
     c.x += p[i].x;
@@ -111,16 +117,18 @@ int IntersectRectangles(POINT2D *pol,      /* intersecting rectangle stored in p
   c.y /= n;
   for (i = 0; i < n; i++) {
     POINT2D t = p[i];
-    if ((sort[i].angle = CWAngle(SubtrPoint(&t, &c))) == -1)
+    if ((sort[i].angle = CWAngle(SubtrPoint(&t, &c))) == -1) {
       return 0; /* c falls on only point, degenerated case */
+    }
     sort[i].ind = i;
   }
   qsort(sort, (size_t)n, sizeof(SORT), (QSORT_CMP)CmpAngle);
   pol[0] = p[sort[0].ind];
   for (j = i = 1; i < n; i++) {
     pol[j] = p[sort[i].ind];
-    if (pol[j].x != pol[j - 1].x || pol[j].y != pol[j - 1].y)
+    if (pol[j].x != pol[j - 1].x || pol[j].y != pol[j - 1].y) {
       j++; /* remove duplicate points */
+    }
   }
   POSTCOND(j <= 8);
   pol[j] = pol[0]; /* close polygon */

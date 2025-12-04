@@ -60,10 +60,11 @@ const int itemNamesLen = 20;
 
 static void PrintFloat(char *buf, REAL8 v)
 {
-  if (floor(v) == v)
+  if (floor(v) == v) {
     sprintf(buf, "%d.0", (int)v);
-  else
+  } else {
     sprintf(buf, "%g", v);
+  }
 }
 
 const char *AttrStr(const ATTRIBUTES *a, ATTR_NRS i)
@@ -71,13 +72,15 @@ const char *AttrStr(const ATTRIBUTES *a, ATTR_NRS i)
   static char buf[32];
   switch (i) {
     case ATTR_nrRows:
-      if (a->nrRows == MV_UINT4)
+      if (a->nrRows == MV_UINT4) {
         return NOT_SET;
+      }
       sprintf(buf, "%lu", (long unsigned int)a->nrRows);
       break;
     case ATTR_nrCols:
-      if (a->nrCols == MV_UINT4)
+      if (a->nrCols == MV_UINT4) {
         return NOT_SET;
+      }
       sprintf(buf, "%lu", (long unsigned int)a->nrCols);
       break;
     case ATTR_valueScale:
@@ -106,13 +109,15 @@ const char *AttrStr(const ATTRIBUTES *a, ATTR_NRS i)
       sprintf(buf, "%lu", (long unsigned int)a->gisFileId);
       break;
     case ATTR_minVal:
-      if (IS_MV_REAL8(&(a->minVal)))
+      if (IS_MV_REAL8(&(a->minVal))) {
         return NOT_APPL;
+      }
       sprintf(buf, "%g", a->minVal);
       break;
     case ATTR_maxVal:
-      if (IS_MV_REAL8(&(a->maxVal)))
+      if (IS_MV_REAL8(&(a->maxVal))) {
         return NOT_APPL;
+      }
       sprintf(buf, "%g", a->maxVal);
       break;
     default:
@@ -267,8 +272,9 @@ static int EditProjection(double *editValue, /* read-write */
   (void)strcpy(options[0], MstrProjection(i));
   (void)strcpy(options[1], MstrProjection(!i));
   i = CurrGetRadioSelection((const char **)options, 2, yStart, xStart);
-  if (i) /* the other one */
+  if (i) { /* the other one */
     *editValue = i;
+  }
   return i == 1; /* the other one is selected, not 0 or ESC */
 }
 
@@ -331,11 +337,12 @@ static bool EditValueScale(double *editValue, /* read-write */
   options[4] = op4;
   options[5] = op5;
   (void)strcpy(options[0], RstrValueScale((CSF_VS)*editValue));
-  for (i = 0, j = 1; i < 6; i++)
+  for (i = 0, j = 1; i < 6; i++) {
     if (vs[i] != (CSF_VS)*editValue) {
       setVs[j] = vs[i];
       (void)strcpy(options[j++], RstrValueScale(vs[i]));
     }
+  }
   i = CurrGetRadioSelection((const char **)options, 6, yStart, xStart);
   if (i) /* the other one */
   {

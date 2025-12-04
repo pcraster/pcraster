@@ -14,10 +14,14 @@ class dynamicFrameworkTestScript(testcase.TestCase):
   def test_1(self):
     """test existence of added methods and attributes"""
     myModel = dynamicTestModels.T1()
-    self.assertEqual(sys.getrefcount(myModel), 2)
+
+    # https://docs.python.org/3/whatsnew/3.14.html#optimizations
+    refcount_correction = 1 if sys.version_info >= (3, 14) else 0
+
+    self.assertEqual(sys.getrefcount(myModel), 2 - refcount_correction)
     dynModelFw = df.DynamicFramework(myModel, 5)
-    self.assertEqual(sys.getrefcount(myModel), 3)
-    self.assertEqual(sys.getrefcount(dynModelFw), 2)
+    self.assertEqual(sys.getrefcount(myModel), 3 - refcount_correction)
+    self.assertEqual(sys.getrefcount(dynModelFw), 2 - refcount_correction)
     self.assertTrue(hasattr(myModel, "timeSteps"))
     self.assertTrue(hasattr(myModel, "nrTimeSteps"))
     self.assertTrue(hasattr(myModel, "currentTimeStep"))

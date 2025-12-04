@@ -11,13 +11,6 @@ jobs:
             matrix:
                 config:
                 - {
-                      name: "Windows 2022",
-                      os: windows-2022,
-                      cc: "cl", cxx: "cl",
-                      activate_script: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvarsall.bat",
-                      activate_version: "x64 -vcvars_ver=14.2"
-                  }
-                - {
                       name: "Windows 2025",
                       os: windows-2025,
                       cc: "cl", cxx: "cl",

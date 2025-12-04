@@ -45,9 +45,9 @@
    * returns TRUE if [r,c] is a map-co-ordinate
    *         FALSE otherwise
    */
-static void SpatialAndCoordInMapINT4(int r,                  /* row number */
-                                          int c,                  /* column number */
-                                          const MAP_INT4 *m) /* map this function belongs to */
+static void SpatialAndCoordInMapINT4(int r,             /* row number */
+                                     int c,             /* column number */
+                                     const MAP_INT4 *m) /* map this function belongs to */
 {
   if (!m->spatial) {
     Error("EXTERNAL API:Called Put function on nonspatial object", r, c);
@@ -63,9 +63,9 @@ static void SpatialAndCoordInMapINT4(int r,                  /* row number */
 #endif
 
 static bool GetSpatialINT4(INT4 *v,           /* write-only. Value */
-                                int r,                  /* row number */
-                                int c,                  /* column number */
-                                const MAP_INT4 *m) /* map this function belongs to */
+                           int r,             /* row number */
+                           int c,             /* column number */
+                           const MAP_INT4 *m) /* map this function belongs to */
 {
 
   PRECOND(m != NULL);
@@ -78,18 +78,19 @@ static bool GetSpatialINT4(INT4 *v,           /* write-only. Value */
 }
 
 static bool GetSpatialMVtestINT4(INT4 *v,           /* write-only. Value */
-                                      int r,                  /* row number */
-                                      int c,                  /* column number */
-                                      const MAP_INT4 *m) /* map this function belongs to */
+                                 int r,             /* row number */
+                                 int c,             /* column number */
+                                 const MAP_INT4 *m) /* map this function belongs to */
 {
-  if (GetSpatialINT4(v, r, c, m))
+  if (GetSpatialINT4(v, r, c, m)) {
     return !IS_MV_INT4(v);
+  }
   return false;
 }
 
-static void PutMV_INT4(int r,            /* row number */
-                            int c,            /* column number */
-                            MAP_INT4 *m) /* map this function belongs to */
+static void PutMV_INT4(int r,       /* row number */
+                       int c,       /* column number */
+                       MAP_INT4 *m) /* map this function belongs to */
 {
   SpatialAndCoordInMapINT4(r, c, m);
 
@@ -102,9 +103,11 @@ static void PutAllMVINT4(MAP_INT4 *m)
   int c = 0;
   PRECOND(m->spatial);
 
-  for (r = 0; r < m->NrRows(m); r++)
-    for (c = 0; c < m->NrCols(m); c++)
+  for (r = 0; r < m->NrRows(m); r++) {
+    for (c = 0; c < m->NrCols(m); c++) {
       m->PutMV(r, c, m);
+    }
+  }
 }
 
 /*
@@ -148,10 +151,10 @@ static void PutAllMVINT4(MAP_INT4 *m)
  * }
  */
 
-static void PutSpatialINT4(INT4 v,    /* Value */
-                                int r,            /* row number */
-                                int c,            /* column number */
-                                MAP_INT4 *m) /* map this function belongs to */
+static void PutSpatialINT4(INT4 v,      /* Value */
+                           int r,       /* row number */
+                           int c,       /* column number */
+                           MAP_INT4 *m) /* map this function belongs to */
 {
   SpatialAndCoordInMapINT4(r, c, m);
 #ifdef DEBUG_DEVELOP
@@ -174,10 +177,10 @@ static int NrColsINT4(const MAP_INT4 *m)
 }
 
 /* ARGSUSED */
-static void PutNonSpatialINT4(INT4 v,    /* Value */
-                                   int r,            /* row number */
-                                   int c,            /* column number */
-                                   MAP_INT4 *m) /* map this function belongs to */
+static void PutNonSpatialINT4(INT4 v,      /* Value */
+                              int r,       /* row number */
+                              int c,       /* column number */
+                              MAP_INT4 *m) /* map this function belongs to */
 {
   (void)v;  // Shut up compiler
   (void)r;  // Shut up compiler
@@ -188,9 +191,9 @@ static void PutNonSpatialINT4(INT4 v,    /* Value */
 }
 
 /* ARGSUSED */
-static void PutNonSpatialMV_INT4(int r,            /* row number */
-                                      int c,            /* column number */
-                                      MAP_INT4 *m) /* map this function belongs to */
+static void PutNonSpatialMV_INT4(int r,       /* row number */
+                                 int c,       /* column number */
+                                 MAP_INT4 *m) /* map this function belongs to */
 {
   (void)m;  // Shut up compiler
   (void)r;  // Shut up compiler
@@ -200,9 +203,9 @@ static void PutNonSpatialMV_INT4(int r,            /* row number */
 }
 
 static bool GetNonSpatialINT4(INT4 *v,           /* write-only. Value */
-                                   int r,                  /* row number */
-                                   int c,                  /* column number */
-                                   const MAP_INT4 *m) /* map this function belongs to */
+                              int r,             /* row number */
+                              int c,             /* column number */
+                              const MAP_INT4 *m) /* map this function belongs to */
 {
 
   PRECOND(m != NULL);
@@ -213,9 +216,8 @@ static bool GetNonSpatialINT4(INT4 *v,           /* write-only. Value */
 
 /* Changes test performed in m->Get() function, affecting its return value
  */
-static void
-SetGetTestINT4(GET_TEST t,               /* new get test */
-                    const MAP_INT4 *mIn) /* read-write. Structure SetGetTest works on. */
+static void SetGetTestINT4(GET_TEST t,          /* new get test */
+                           const MAP_INT4 *mIn) /* read-write. Structure SetGetTest works on. */
 {
   MAP_INT4 *m = (MAP_INT4 *)mIn; /* cheat on const ptr */
   PRECOND(m != NULL);
@@ -252,21 +254,23 @@ static REAL8 SideMap(const MAP_INT4 *argNeverUsed)
  * Default test in get function is with MV test
  */
 MAP_INT4 *InitMapINT4(size_t r,     /* number of rows */
-                                size_t c,     /* number of columns */
-                                void *v,      /* value buffer, ptr to 1 or all values */
-                                bool spatial, /* does v contains a spatial or nonSpatial.*/
-                                CSF_CR inCr)  /* map contents cell representation */
+                      size_t c,     /* number of columns */
+                      void *v,      /* value buffer, ptr to 1 or all values */
+                      bool spatial, /* does v contains a spatial or nonSpatial.*/
+                      CSF_CR inCr)  /* map contents cell representation */
 {
   MAP_INT4 *m = ChkMalloc(sizeof(MAP_INT4));
   /* Structure to be initialized.*/
-  if (m == NULL)
+  if (m == NULL) {
     return NULL;
+  }
 
   m->cr = (PCR_CR)CR_INT4;
   m->vs = 0;
   /* TEMPORAY CODE fix type */
-  if (inCr == CR_REAL8)
+  if (inCr == CR_REAL8) {
     inCr = CR_REAL4;
+  }
   PRECOND(inCr == CR_UINT1 || inCr == CR_INT4 || inCr == CR_REAL4);
   /*  precondition we do not downcast, only promotion:
    */
@@ -366,7 +370,8 @@ void DeleteInternalMAP_INT4(MAP_INT4 *m)
 { /* delete map object and index but not
    * the data area
    */
-  if (m->spatial)
+  if (m->spatial) {
     FreeIndex2d(m->spatialValue);
+  }
   Free(m);
 }

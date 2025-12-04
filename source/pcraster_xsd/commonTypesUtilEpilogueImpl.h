@@ -51,12 +51,15 @@ boost::posix_time::time_duration toPosixTimeDuration(
     pcrxml::TimeDuration const& duration) {
   using namespace boost::posix_time;
 
-  if (duration.hours().present())
+  if (duration.hours().present()) {
     return {duration.hours().get(),0,0,0};
-  if (duration.minutes().present())
+  }
+  if (duration.minutes().present()) {
     return {0,duration.minutes().get(),0,0};
-  if (duration.seconds().present())
+  }
+  if (duration.seconds().present()) {
     return {0,0,duration.seconds().get(),0};
+  }
   return {0,0,0,0};
 }
 

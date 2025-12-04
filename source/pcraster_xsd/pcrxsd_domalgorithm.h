@@ -39,8 +39,9 @@ class NodeSet :
 {
   public:
     NodeSet(const DOMNamedNodeMap* map) {
-     if (!map)
+      if (!map) {
         return;
+      }
      for(size_t i=0; i < map->getLength(); ++i) {
         insert(map->item(i));
       }
@@ -66,12 +67,14 @@ void forEachNode(DOMNode* node, Operation& o) {
   assert(node);
   o(node);
   NodeSet const nodeSet(node->getAttributes());
-  for(auto i : nodeSet)
+  for(auto i : nodeSet) {
     o(i);
+  }
   DOMNodeList* list = node->getChildNodes();
   assert(list);
-  for(size_t i=0; i < list->getLength(); ++i)
+  for(size_t i=0; i < list->getLength(); ++i) {
     forEachNode(list->item(i),o);
+  }
 }
 
 /*!
@@ -91,9 +94,11 @@ template <class Operation>
   assert(e);
   o(e);
   DOMNodeList* list = e->getChildNodes();
-   for(size_t i=0; i < list->getLength(); i++)
-     if (list->item(i)->getNodeType() == DOMNode::ELEMENT_NODE)
-       forEachElement(dynamic_cast<DOMElement *>(list->item(i)),o);
+  for(size_t i=0; i < list->getLength(); i++) {
+    if (list->item(i)->getNodeType() == DOMNode::ELEMENT_NODE) {
+      forEachElement(dynamic_cast<DOMElement *>(list->item(i)),o);
+    }
+  }
 }
 
 /*!
@@ -105,11 +110,13 @@ template <class Operation>
  *          call for each element.
  */
 template <class Operation>
- void forEachChildElement(DOMElement* e, Operation& o) {
- DOMNodeList* list = e->getChildNodes();
- for(size_t i=0; i < list->getLength(); i++)
-     if (list->item(i)->getNodeType() == DOMNode::ELEMENT_NODE)
-       o(dynamic_cast<DOMElement *>(list->item(i)));
+void forEachChildElement(DOMElement* e, Operation& o) {
+  DOMNodeList* list = e->getChildNodes();
+  for(size_t i=0; i < list->getLength(); i++) {
+    if (list->item(i)->getNodeType() == DOMNode::ELEMENT_NODE) {
+      o(dynamic_cast<DOMElement *>(list->item(i)));
+    }
+  }
 }
 }
 

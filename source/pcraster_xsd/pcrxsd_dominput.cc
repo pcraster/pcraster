@@ -146,12 +146,13 @@ private:
 bool pcrxsd::VerboseErrorHandler::handleError(const DOMError &domError)
 {
 
-  if (domError.getSeverity() == DOMError::DOM_SEVERITY_WARNING)
+  if (domError.getSeverity() == DOMError::DOM_SEVERITY_WARNING) {
     d_msg << "\nWarning at file ";
-  else if (domError.getSeverity() == DOMError::DOM_SEVERITY_ERROR)
+  } else if (domError.getSeverity() == DOMError::DOM_SEVERITY_ERROR) {
     d_msg << "\nError at file ";
-  else
+  } else {
     d_msg << "\nFatal Error at file ";
+  }
 
   d_msg << domError.getLocation()->getURI() << ", line " << domError.getLocation()->getLineNumber()
         << ", char " << domError.getLocation()->getColumnNumber()
@@ -188,12 +189,13 @@ bool pcrxsd::ViErrorHandler::handleError(const DOMError &domError)
   d_msg << domError.getLocation()->getURI() << ":" << domError.getLocation()->getLineNumber() << ":"
         << domError.getLocation()->getColumnNumber() << ":";
 
-  if (domError.getSeverity() == DOMError::DOM_SEVERITY_WARNING)
+  if (domError.getSeverity() == DOMError::DOM_SEVERITY_WARNING) {
     d_msg << "Warning";
-  else if (domError.getSeverity() == DOMError::DOM_SEVERITY_ERROR)
+  } else if (domError.getSeverity() == DOMError::DOM_SEVERITY_ERROR) {
     d_msg << "Error";
-  else
+  } else {
     d_msg << "Fatal Error";
+  }
 
   d_msg << ": " << domError.getMessage() << '\n';
   return true;  //  do not stop processing
@@ -248,8 +250,9 @@ DOMInput::~DOMInput()
 //! clear the parsed document
 void DOMInput::clearBuilder()
 {
-  if (d_parser)
+  if (d_parser) {
     d_parser->release();
+  }
   d_parser = nullptr;
   d_document = nullptr;
 }
@@ -309,8 +312,9 @@ const std::string &DOMInput::string() const
  */
 DOMDocument *DOMInput::document()
 {
-  if (d_document)
+  if (d_document) {
     return d_document;
+  }
 
   clearBuilder();
 
@@ -346,10 +350,12 @@ DOMDocument *DOMInput::document()
   //  only have to keep live during parse
 
   std::unique_ptr<DOMInputErrorHandler> errorHandler;
-  if (d_errorHandlerType == Vi)
+  if (d_errorHandlerType == Vi) {
     errorHandler = std::make_unique<ViErrorHandler>();
-  if (d_errorHandlerType == Verbose)
+  }
+  if (d_errorHandlerType == Verbose) {
     errorHandler = std::make_unique<VerboseErrorHandler>();
+  }
 
   d_parser->getDomConfig()->setParameter(XMLUni::fgDOMErrorHandler, errorHandler.get());
 
@@ -377,14 +383,16 @@ DOMDocument *DOMInput::document()
     XMLCh errText[maxChars + 1];
     std::ostringstream msg;
     msg << "\nDOM Error during parsing: DOMException code is: " << toCatch.code << '\n';
-    if (DOMImplementation::loadDOMExceptionMsg(toCatch.code, errText, maxChars))
+    if (DOMImplementation::loadDOMExceptionMsg(toCatch.code, errText, maxChars)) {
       msg << "Message is: " << errText << '\n';
+    }
     throw Exception(msg.str());
   } catch (...) {
     throw Exception("Unexpected exception in DOMInput");
   }
-  if (!errorHandler->error().empty())
+  if (!errorHandler->error().empty()) {
     throw Exception(errorHandler->error());
+  }
   return d_document;
 }
 

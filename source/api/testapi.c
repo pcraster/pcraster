@@ -64,8 +64,9 @@ static MAP *NewMap(const char *fileName, CSF_CR cellRepr, CSF_VS valueScale)
   }
   c = maps[0];
   m = Rdup(fileName, c, cellRepr, valueScale);
-  if (m == NULL)
+  if (m == NULL) {
     MperrorExit(fileName, 1);
+  }
   return (m);
 }
 
@@ -75,16 +76,18 @@ static void Register(const MAP *m)
     CSF_RASTER_LOCATION_ATTRIBUTES a;
     RgetLocationAttributes(&a, m);
     BootTestApi(/* a.nrRows,a.nrCols, */ a.cellSize, a.projection == PT_YINCT2B);
-  } else if ((!Rcompare(maps[0], m)))
+  } else if ((!Rcompare(maps[0], m))) {
     Error("Map '%s' not equal to previous maps read\n", MgetFileName(m));
+  }
   maps[nrMaps++] = m;
 }
 
 static void *ReadMapContents(MAP *m, CSF_CR outCr, size_t nrRows, size_t nrCols)
 {
   void *buf = Rmalloc(m, nrRows * nrCols);
-  if (buf == NULL)
+  if (buf == NULL) {
     return NULL;
+  }
   RgetSomeCells(m, (size_t)0, nrRows * nrCols, buf);
   buf = ChkRealloc(buf, nrRows * nrCols * CELLSIZE(outCr));
   POSTCOND(buf != NULL); /* realloc always smalller */

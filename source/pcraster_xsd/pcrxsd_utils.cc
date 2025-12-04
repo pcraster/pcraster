@@ -49,17 +49,21 @@ std::string contentsIsXMLOrPCRasterFileFormat(std::string const &contents)
 {
   bool firstNonWhiteSpaceCharIsLt = false;
   size_t i = 0;
-  for (; i < contents.size(); ++i)
+  for (; i < contents.size(); ++i) {
     if (!std::isspace(contents[i])) {
       firstNonWhiteSpaceCharIsLt = contents[i] == '<';
       break;
     }
-  if (!firstNonWhiteSpaceCharIsLt)
+  }
+  if (!firstNonWhiteSpaceCharIsLt) {
     return {};
+  }
   bool hasAlpha = false;
-  for (; i < contents.size() && !hasAlpha; ++i)
-    if (std::isalpha(contents[i]))
+  for (; i < contents.size() && !hasAlpha; ++i) {
+    if (std::isalpha(contents[i])) {
       hasAlpha = true;
+    }
+  }
   if (hasAlpha) {
     DOMInput dom;
     dom.setValidate(false);

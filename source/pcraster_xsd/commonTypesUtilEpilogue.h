@@ -51,8 +51,9 @@ namespace pcrxsd {
     {
         std::vector<T> r;
         for(auto i=s.item().begin();
-                    i!=s.item().end();++i)
-                r.push_back(*i);
+            i!=s.item().end();++i) {
+          r.push_back(*i);
+            }
             return r;
     }
 

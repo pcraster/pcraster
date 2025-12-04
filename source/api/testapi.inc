@@ -2,6 +2,7 @@
 #line 1 "testapi.tem"
 // vim: syntax=c
 #include <math.h>
+
 /* vim: syntax=c
  */
 
@@ -10,9 +11,9 @@
 MAP_UINT1 *ReadUINT1(const char *nameOrValue, size_t nrRows, size_t nrCols)
 {
   UINT1 val = 0;
-  if (CnvrtUINT1(&val, nameOrValue))
+  if (CnvrtUINT1(&val, nameOrValue)) {
     return InitMapUINT1(nrRows, nrCols, &val, false, CR_UINT1);
-  else {
+  } else {
     REAL8 dummy = NAN;
     if (CnvrtREAL8(&dummy, nameOrValue)) { /* it's a number but not a valid one for UINT1
       */
@@ -34,8 +35,9 @@ MAP_UINT1 *ReadUINT1Map(const char *name)
 
   PRECOND(name != NULL);
   m = Mopen(name, M_READ);
-  if (m == NULL)
+  if (m == NULL) {
     MperrorExit(name, 1);
+  }
 
   fileCr = RgetCellRepr(m);
 
@@ -61,8 +63,7 @@ MAP_UINT1 *ReadUINT1Map(const char *name)
   if ((CELLSIZE(inCr) > CELLSIZE(CR_UINT1))
       /* grabs all except: */
       || (inCr == CR_REAL4 && CR_UINT1 == CR_INT4)) {
-    Error(" (in ReadUINT1Map) '%s' is '%s' (too big for UINT1)", name,
-          RstrCellRepr(RgetCellRepr(m)));
+    Error(" (in ReadUINT1Map) '%s' is '%s' (too big for UINT1)", name, RstrCellRepr(RgetCellRepr(m)));
     goto errExit;
   }
 
@@ -76,8 +77,9 @@ MAP_UINT1 *ReadUINT1Map(const char *name)
     size_t nrCols = RgetNrCols(m);
     /* first register then create */
     buf = ReadMapContents(m, inCr, nrRows, nrCols);
-    if (buf == NULL)
+    if (buf == NULL) {
       goto errExit;
+    }
     map = InitMapUINT1(nrRows, nrCols, buf, true, inCr);
     if (map == NULL) {
       Free(buf);
@@ -116,18 +118,21 @@ void WriteUINT1Map(const char *name, MAP_UINT1 *map, CSF_VS valueScale)
   }
 
   m = NewMap(name, fileInCr, valueScale);
-  if (m == NULL)
+  if (m == NULL) {
     MperrorExit(name, 1);
-  if (RuseAs(m, map->inCellRepr))
+  }
+  if (RuseAs(m, map->inCellRepr)) {
     MperrorExit(name, 1);
+  }
   RputSomeCells(m, 0, (UINT4)(map->nrRows * map->nrCols), map->spatialValue[0]);
   Mclose(m);
 }
 
 void DeleteMAP_UINT1(MAP_UINT1 *m)
 {
-  if (m->spatial)
+  if (m->spatial) {
     Free(m->spatialValue[0]);
+  }
   DeleteInternalMAP_UINT1(m);
 }
 
@@ -140,11 +145,13 @@ MAP_UINT1 *CreateSpatialUINT1(CSF_CR cr, size_t nrRows, size_t nrCols)
     Error("CreateSpatialUINT1 cr must be UINT1,INT4,REAL4 or REAL8");
     return NULL;
   }
-  if (cr == CR_REAL8)
+  if (cr == CR_REAL8) {
     cr = CR_REAL4;
+  }
   buf = ChkMalloc(nrRows * nrCols * CELLSIZE(cr));
-  if (buf == NULL)
+  if (buf == NULL) {
     return NULL;
+  }
   map = InitMapUINT1(nrRows, nrCols, buf, true, cr);
   if (map == NULL) {
     Free(buf);
@@ -152,7 +159,9 @@ MAP_UINT1 *CreateSpatialUINT1(CSF_CR cr, size_t nrRows, size_t nrCols)
   }
   return map;
 }
+
 #line 1 "testapi.tem"
+
 /* vim: syntax=c
  */
 
@@ -161,9 +170,9 @@ MAP_UINT1 *CreateSpatialUINT1(CSF_CR cr, size_t nrRows, size_t nrCols)
 MAP_INT4 *ReadINT4(const char *nameOrValue, size_t nrRows, size_t nrCols)
 {
   INT4 val = 0;
-  if (CnvrtINT4(&val, nameOrValue))
+  if (CnvrtINT4(&val, nameOrValue)) {
     return InitMapINT4(nrRows, nrCols, &val, false, CR_INT4);
-  else {
+  } else {
     REAL8 dummy = NAN;
     if (CnvrtREAL8(&dummy, nameOrValue)) { /* it's a number but not a valid one for INT4
       */
@@ -185,8 +194,9 @@ MAP_INT4 *ReadINT4Map(const char *name)
 
   PRECOND(name != NULL);
   m = Mopen(name, M_READ);
-  if (m == NULL)
+  if (m == NULL) {
     MperrorExit(name, 1);
+  }
 
   fileCr = RgetCellRepr(m);
 
@@ -212,8 +222,7 @@ MAP_INT4 *ReadINT4Map(const char *name)
   if ((CELLSIZE(inCr) > CELLSIZE(CR_INT4))
       /* grabs all except: */
       || (inCr == CR_REAL4)) {
-    Error(" (in ReadINT4Map) '%s' is '%s' (too big for INT4)", name,
-          RstrCellRepr(RgetCellRepr(m)));
+    Error(" (in ReadINT4Map) '%s' is '%s' (too big for INT4)", name, RstrCellRepr(RgetCellRepr(m)));
     goto errExit;
   }
 
@@ -227,8 +236,9 @@ MAP_INT4 *ReadINT4Map(const char *name)
     size_t nrCols = RgetNrCols(m);
     /* first register then create */
     buf = ReadMapContents(m, inCr, nrRows, nrCols);
-    if (buf == NULL)
+    if (buf == NULL) {
       goto errExit;
+    }
     map = InitMapINT4(nrRows, nrCols, buf, true, inCr);
     if (map == NULL) {
       Free(buf);
@@ -267,18 +277,21 @@ void WriteINT4Map(const char *name, MAP_INT4 *map, CSF_VS valueScale)
   }
 
   m = NewMap(name, fileInCr, valueScale);
-  if (m == NULL)
+  if (m == NULL) {
     MperrorExit(name, 1);
-  if (RuseAs(m, map->inCellRepr))
+  }
+  if (RuseAs(m, map->inCellRepr)) {
     MperrorExit(name, 1);
+  }
   RputSomeCells(m, 0, (UINT4)(map->nrRows * map->nrCols), map->spatialValue[0]);
   Mclose(m);
 }
 
 void DeleteMAP_INT4(MAP_INT4 *m)
 {
-  if (m->spatial)
+  if (m->spatial) {
     Free(m->spatialValue[0]);
+  }
   DeleteInternalMAP_INT4(m);
 }
 
@@ -291,11 +304,13 @@ MAP_INT4 *CreateSpatialINT4(CSF_CR cr, size_t nrRows, size_t nrCols)
     Error("CreateSpatialINT4 cr must be UINT1,INT4,REAL4 or REAL8");
     return NULL;
   }
-  if (cr == CR_REAL8)
+  if (cr == CR_REAL8) {
     cr = CR_REAL4;
+  }
   buf = ChkMalloc(nrRows * nrCols * CELLSIZE(cr));
-  if (buf == NULL)
+  if (buf == NULL) {
     return NULL;
+  }
   map = InitMapINT4(nrRows, nrCols, buf, true, cr);
   if (map == NULL) {
     Free(buf);
@@ -303,7 +318,9 @@ MAP_INT4 *CreateSpatialINT4(CSF_CR cr, size_t nrRows, size_t nrCols)
   }
   return map;
 }
+
 #line 1 "testapi.tem"
+
 /* vim: syntax=c
  */
 
@@ -312,9 +329,9 @@ MAP_INT4 *CreateSpatialINT4(CSF_CR cr, size_t nrRows, size_t nrCols)
 MAP_REAL8 *ReadREAL8(const char *nameOrValue, size_t nrRows, size_t nrCols)
 {
   REAL8 val = NAN;
-  if (CnvrtREAL8(&val, nameOrValue))
+  if (CnvrtREAL8(&val, nameOrValue)) {
     return InitMapREAL8(nrRows, nrCols, &val, false, CR_REAL8);
-  else {
+  } else {
     REAL8 dummy = NAN;
     if (CnvrtREAL8(&dummy, nameOrValue)) { /* it's a number but not a valid one for REAL8
       */
@@ -336,8 +353,9 @@ MAP_REAL8 *ReadREAL8Map(const char *name)
 
   PRECOND(name != NULL);
   m = Mopen(name, M_READ);
-  if (m == NULL)
+  if (m == NULL) {
     MperrorExit(name, 1);
+  }
 
   fileCr = RgetCellRepr(m);
 
@@ -363,8 +381,7 @@ MAP_REAL8 *ReadREAL8Map(const char *name)
   if ((CELLSIZE(inCr) > CELLSIZE(CR_REAL8))
       /* grabs all except: */
       || (inCr == CR_REAL4 && CR_REAL8 == CR_INT4)) {
-    Error(" (in ReadREAL8Map) '%s' is '%s' (too big for REAL8)", name,
-          RstrCellRepr(RgetCellRepr(m)));
+    Error(" (in ReadREAL8Map) '%s' is '%s' (too big for REAL8)", name, RstrCellRepr(RgetCellRepr(m)));
     goto errExit;
   }
 
@@ -378,8 +395,9 @@ MAP_REAL8 *ReadREAL8Map(const char *name)
     size_t nrCols = RgetNrCols(m);
     /* first register then create */
     buf = ReadMapContents(m, inCr, nrRows, nrCols);
-    if (buf == NULL)
+    if (buf == NULL) {
       goto errExit;
+    }
     map = InitMapREAL8(nrRows, nrCols, buf, true, inCr);
     if (map == NULL) {
       Free(buf);
@@ -418,18 +436,21 @@ void WriteREAL8Map(const char *name, MAP_REAL8 *map, CSF_VS valueScale)
   }
 
   m = NewMap(name, fileInCr, valueScale);
-  if (m == NULL)
+  if (m == NULL) {
     MperrorExit(name, 1);
-  if (RuseAs(m, map->inCellRepr))
+  }
+  if (RuseAs(m, map->inCellRepr)) {
     MperrorExit(name, 1);
+  }
   RputSomeCells(m, 0, (UINT4)(map->nrRows * map->nrCols), map->spatialValue[0]);
   Mclose(m);
 }
 
 void DeleteMAP_REAL8(MAP_REAL8 *m)
 {
-  if (m->spatial)
+  if (m->spatial) {
     Free(m->spatialValue[0]);
+  }
   DeleteInternalMAP_REAL8(m);
 }
 
@@ -442,11 +463,13 @@ MAP_REAL8 *CreateSpatialREAL8(CSF_CR cr, size_t nrRows, size_t nrCols)
     Error("CreateSpatialREAL8 cr must be UINT1,INT4,REAL4 or REAL8");
     return NULL;
   }
-  if (cr == CR_REAL8)
+  if (cr == CR_REAL8) {
     cr = CR_REAL4;
+  }
   buf = ChkMalloc(nrRows * nrCols * CELLSIZE(cr));
-  if (buf == NULL)
+  if (buf == NULL) {
     return NULL;
+  }
   map = InitMapREAL8(nrRows, nrCols, buf, true, cr);
   if (map == NULL) {
     Free(buf);

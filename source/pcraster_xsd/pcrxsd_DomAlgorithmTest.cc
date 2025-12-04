@@ -23,8 +23,9 @@ struct CountNodeAttrs {
 
   void operator()(DOMNode *n)
   {
-    if (n->getNodeType() == DOMNode::ATTRIBUTE_NODE)
+    if (n->getNodeType() == DOMNode::ATTRIBUTE_NODE) {
       nr++;
+    }
   }
 };
 
@@ -37,8 +38,9 @@ struct ConcatNodeValues {
 
   void operator()(DOMNode *n)
   {
-    if (n->getNodeValue() != nullptr)
+    if (n->getNodeValue() != nullptr) {
       val += pcrxsd::toString(n->getNodeValue());
+    }
   }
 };
 

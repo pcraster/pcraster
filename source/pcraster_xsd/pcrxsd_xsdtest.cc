@@ -12,7 +12,6 @@ using Fixture = pcrxsd::Library;
 
 BOOST_GLOBAL_FIXTURE(Fixture);
 
-
 BOOST_AUTO_TEST_CASE(xml_to_class)
 {
   using namespace pcrxsd;
@@ -27,7 +26,7 @@ BOOST_AUTO_TEST_CASE(xml_to_class)
   std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(s));
 
   std::string const name(d->name());
-  BOOST_CHECK(d->name()==name);
+  BOOST_CHECK(d->name() == name);
   BOOST_CHECK(!d->name().empty());
 
   BOOST_CHECK(!d->field());
@@ -35,9 +34,8 @@ BOOST_AUTO_TEST_CASE(xml_to_class)
 
   BOOST_CHECK(d->description());
   std::string const des(d->description()->text());
-  BOOST_CHECK(des=="Haskell sucks");
+  BOOST_CHECK(des == "Haskell sucks");
 }
-
 
 BOOST_AUTO_TEST_CASE(class_to_xml)
 {
@@ -47,10 +45,9 @@ BOOST_AUTO_TEST_CASE(class_to_xml)
   d.field(pcrxml::FieldValueOrType());
 
   std::ostringstream s;
-  pcrxml::definition(s,d,pcrxsd::namespaceInfoMap("PCRaster.xsd"));
+  pcrxml::definition(s, d, pcrxsd::namespaceInfoMap("PCRaster.xsd"));
   BOOST_CHECK(true);
 }
-
 
 BOOST_AUTO_TEST_CASE(validation)
 {
@@ -63,7 +60,7 @@ BOOST_AUTO_TEST_CASE(validation)
             xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'           \
             xsi:schemaLocation='http://www.pcraster.nl/pcrxml PCRaster.xsd'/>");
   std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(s));
-  BOOST_CHECK(d->name()=="a");
+  BOOST_CHECK(d->name() == "a");
 
   try {
     pcrxml::definition("fullNs.xml");
@@ -75,108 +72,99 @@ BOOST_AUTO_TEST_CASE(validation)
     pcrxml::script("example2XmlReflectionAltered.xml");
 
     pcrxml::script("statistics.xml");
-  } catch(Exception const& e) {
+  } catch (Exception const &e) {
     // should not fail
-    BOOST_CHECK_MESSAGE(false,e.msg());
-  } catch(...) {
-    BOOST_CHECK_MESSAGE(false,"Unknown exception");
+    BOOST_CHECK_MESSAGE(false, e.msg());
+  } catch (...) {
+    BOOST_CHECK_MESSAGE(false, "Unknown exception");
   }
 }
-
 
 BOOST_AUTO_TEST_CASE(no_schema)
 {
   using namespace pcrxsd;
 
- {/// no validate
-  // set to schema PCRasterXX.xsd that should not be found
-  std::string const s(
-    "<definition name='a'                                   \
+  {  /// no validate
+    // set to schema PCRasterXX.xsd that should not be found
+    std::string const s("<definition name='a'                                   \
       xmlns='http://www.pcraster.nl/pcrxml'                 \
       xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' \
       xsi:schemaLocation='http://www.pcraster.nl/pcrxml PCRaster_X_X_X.xsd'/>");
-  pcrxsd::DOMInput ip(DOMInput::CompiledIn);
-  ip.setString(s);
-  ip.setValidate(true);
-  try {
-    std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(*ip.document()));
-    std::string const name("a");
-    BOOST_CHECK(d->name()==name);
-    BOOST_CHECK(!d->name().empty());
-  } catch(Exception const& e) {
-    // should not fail
-    BOOST_CHECK_MESSAGE(false,e.msg());
+    pcrxsd::DOMInput ip(DOMInput::CompiledIn);
+    ip.setString(s);
+    ip.setValidate(true);
+    try {
+      std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(*ip.document()));
+      std::string const name("a");
+      BOOST_CHECK(d->name() == name);
+      BOOST_CHECK(!d->name().empty());
+    } catch (Exception const &e) {
+      // should not fail
+      BOOST_CHECK_MESSAGE(false, e.msg());
+    }
   }
- }
- {/// no validate
-  // set to schema PCRasterXX.xsd that should not be found
-  std::istringstream s(
-    "<definition name='a'                                   \
+  {  /// no validate
+    // set to schema PCRasterXX.xsd that should not be found
+    std::istringstream s("<definition name='a'                                   \
       xmlns='http://www.pcraster.nl/pcrxml'                 \
       xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' \
       xsi:schemaLocation='http://www.pcraster.nl/pcrxml PCRaster_X_X_X.xsd'/>");
-  std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(s,
-                                          xml_schema::flags::dont_validate));
+    std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(s, xml_schema::flags::dont_validate));
 
-  std::string const name("a");
-  BOOST_CHECK(d->name()==name);
-  BOOST_CHECK(!d->name().empty());
- }
- {/// no validate
-  // no schemaLocation
-  std::istringstream s(
-    "<definition name='a'                                   \
+    std::string const name("a");
+    BOOST_CHECK(d->name() == name);
+    BOOST_CHECK(!d->name().empty());
+  }
+  {  /// no validate
+    // no schemaLocation
+    std::istringstream s("<definition name='a'                                   \
       xmlns='http://www.pcraster.nl/pcrxml'                 \
       xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'/>");
-  std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(s,
-                                          xml_schema::flags::dont_validate));
+    std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(s, xml_schema::flags::dont_validate));
 
-  std::string const name("a");
-  BOOST_CHECK(d->name()==name);
-  BOOST_CHECK(!d->name().empty());
- }
- {// validate, but do not find any schema, no xsd file
-  std::istringstream s(
-    "<definition name='a'                                   \
+    std::string const name("a");
+    BOOST_CHECK(d->name() == name);
+    BOOST_CHECK(!d->name().empty());
+  }
+  {  // validate, but do not find any schema, no xsd file
+    std::istringstream s("<definition name='a'                                   \
       xmlns='http://www.pcraster.nl/pcrxml'                 \
       xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' \
       xsi:schemaLocation='http://www.pcraster.nl/pcrxml'/>");
-  bool catched=false;
-  try {
-   std::unique_ptr<pcrxml::Definition> const d(pcrxml::definition(s));
-  } catch(...) {
-    catched=true;
+    bool catched = false;
+    try {
+      std::unique_ptr<pcrxml::Definition> const d(pcrxml::definition(s));
+    } catch (...) {
+      catched = true;
+    }
+    BOOST_CHECK(catched);
   }
-  BOOST_CHECK(catched);
- }
- {// validate, find schema by property
-  std::istringstream s(
-    "<definition name='a'                                   \
+  {  // validate, find schema by property
+    std::istringstream s("<definition name='a'                                   \
       xmlns='http://www.pcraster.nl/pcrxml'                 \
       xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'/>");
-  // xsi:schemaLocation='http://www.pcraster.nl/pcrxml'/>");
+    // xsi:schemaLocation='http://www.pcraster.nl/pcrxml'/>");
 
-  xml_schema::properties props;
-  props.schema_location (
-      "http://www.pcraster.nl/pcrxml", // namespace
-      "file:///home/cees/pcrtree/template/xml/PCRaster.xsd");
-/*
+    xml_schema::properties props;
+    props.schema_location("http://www.pcraster.nl/pcrxml",  // namespace
+                          "file:///home/cees/pcrtree/template/xml/PCRaster.xsd");
+    /*
   props.no_namespace_schema_location (
       "file:// /home/cees/pcrtree/template/xml/PCRaster.xsd");
  */
 
-  bool noException(true);
-  try {
-   std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(s,0,props));
-   std::string const name("a");
-   BOOST_CHECK(d->name()==name);
-   BOOST_CHECK(!d->name().empty());
-  } catch (xml_schema::exception const& ) {
-     noException=true;
+    bool noException(true);
+    try {
+      std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(s, 0, props));
+      std::string const name("a");
+      BOOST_CHECK(d->name() == name);
+      BOOST_CHECK(!d->name().empty());
+    } catch (xml_schema::exception const &) {
+      noException = true;
+    }
+    BOOST_CHECK(noException);
   }
-  BOOST_CHECK(noException);
- }
-/*
+  /*
  {// validate, but do not find any schema, no xsd file
   std::string s(
     "<definition name='a'                                   \
@@ -197,7 +185,6 @@ BOOST_AUTO_TEST_CASE(no_schema)
  }
 */
 }
-
 
 /*
 Both in this chapter and the schema documentation the elements are explained in its IN and OUT meaning. These meanings are from the viewpoint of the API:

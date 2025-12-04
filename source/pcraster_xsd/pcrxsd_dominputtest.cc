@@ -19,11 +19,11 @@ BOOST_AUTO_TEST_CASE(validate)
     DOMInput di;
     di.setValidate(true);
     di.setFile("notPCRasterXSDConforming.xml");
-    bool catched=false;
+    bool catched = false;
     try {
       di.document();
-    } catch(Exception const&) {
-      catched=true;
+    } catch (Exception const &) {
+      catched = true;
     }
     BOOST_CHECK(catched);
   }
@@ -41,44 +41,40 @@ BOOST_AUTO_TEST_CASE(validate)
   }
 }
 
-
 BOOST_AUTO_TEST_CASE(entity_resolver)
 {
   using namespace pcrxsd;
 
- { // catch the external entity PCRaster_X_X_X.xsd
-  std::string const s(
-    "<definition name='a'                                   \
+  {  // catch the external entity PCRaster_X_X_X.xsd
+    std::string const s("<definition name='a'                                   \
       xmlns='http://www.pcraster.nl/pcrxml'                 \
       xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' \
       xsi:schemaLocation='http://www.pcraster.nl/pcrxml PCRaster_X_X_X.xsd'/>");
-  DOMInput di(DOMInput::CompiledIn);
-  di.setString(s);
-  di.setValidate(false);
-  try {
-  di.document();
-  } catch(Exception const& e) {
-    // should not fail
-    BOOST_CHECK_MESSAGE(false,e.msg());
+    DOMInput di(DOMInput::CompiledIn);
+    di.setString(s);
+    di.setValidate(false);
+    try {
+      di.document();
+    } catch (Exception const &e) {
+      // should not fail
+      BOOST_CHECK_MESSAGE(false, e.msg());
+    }
   }
- }
- { // catch the external entity PCRaster_X_X_X.xsd and validation error
-  std::string const s(
-    "<definition namexxx='a'                                \
+  {  // catch the external entity PCRaster_X_X_X.xsd and validation error
+    std::string const s("<definition namexxx='a'                                \
       xmlns='http://www.pcraster.nl/pcrxml'                 \
       xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' \
       xsi:schemaLocation='http://www.pcraster.nl/pcrxml PCRaster_X_X_X.xsd'/>");
-  DOMInput di(DOMInput::CompiledIn);
-  di.setString(s);
-  di.setValidate(true);
-  try {
-   di.document();
-  } catch(Exception const& e) {
-    BOOST_CHECK(e.msg().find("namexxx") != std::string::npos);
+    DOMInput di(DOMInput::CompiledIn);
+    di.setString(s);
+    di.setValidate(true);
+    try {
+      di.document();
+    } catch (Exception const &e) {
+      BOOST_CHECK(e.msg().find("namexxx") != std::string::npos);
+    }
   }
- }
 }
-
 
 BOOST_AUTO_TEST_CASE(not_well_formed)
 {
@@ -87,11 +83,11 @@ BOOST_AUTO_TEST_CASE(not_well_formed)
   DOMInput di;
   di.setValidate(true);
   di.setFile("notWellFormed.xml");
-  bool catched=false;
+  bool catched = false;
   try {
     di.document();
-  } catch(Exception const& ) {
-    catched=true;
+  } catch (Exception const &) {
+    catched = true;
   }
   BOOST_CHECK(catched);
 }

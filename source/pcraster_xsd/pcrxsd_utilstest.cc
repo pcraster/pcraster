@@ -12,8 +12,8 @@ BOOST_AUTO_TEST_CASE(contents_is_xml_or_pcraster_file_format)
 {
   using namespace pcrxsd;
 
-  BOOST_CHECK(contentsIsXMLOrPCRasterFileFormat("<?pi ?> \n <empty/>")=="empty");
-  BOOST_CHECK(contentsIsXMLOrPCRasterFileFormat("\n<?pi ?> \n <empty/>")=="empty");
+  BOOST_CHECK(contentsIsXMLOrPCRasterFileFormat("<?pi ?> \n <empty/>") == "empty");
+  BOOST_CHECK(contentsIsXMLOrPCRasterFileFormat("\n<?pi ?> \n <empty/>") == "empty");
   BOOST_CHECK(contentsIsXMLOrPCRasterFileFormat("empty").empty());
   BOOST_CHECK(contentsIsXMLOrPCRasterFileFormat("< >").empty());
 }

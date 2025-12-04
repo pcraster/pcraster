@@ -13,37 +13,48 @@ XERCES_CPP_NAMESPACE_USE
 // TODO
 typedef std::string QString;
 
-
 //! count nodes that are attributes
 struct CountNodeAttrs {
   size_t nr{0};
-  CountNodeAttrs() {}
-  void operator()(DOMNode* n) {
+
+  CountNodeAttrs()
+  {
+  }
+
+  void operator()(DOMNode *n)
+  {
     if (n->getNodeType() == DOMNode::ATTRIBUTE_NODE)
-       nr++;
+      nr++;
   }
 };
 
-
 struct ConcatNodeValues {
   QString val;
-  ConcatNodeValues() {}
-  void operator()(DOMNode* n) {
+
+  ConcatNodeValues()
+  {
+  }
+
+  void operator()(DOMNode *n)
+  {
     if (n->getNodeValue() != nullptr)
       val += pcrxsd::toString(n->getNodeValue());
   }
 };
 
-
 //! count nr of attributes of element
 struct CountAttrsOfElement {
   size_t nr{0};
-  CountAttrsOfElement() {}
-  void operator()(DOMElement* e) {
-   nr+= e->getAttributes()->getLength();
+
+  CountAttrsOfElement()
+  {
+  }
+
+  void operator()(DOMElement *e)
+  {
+    nr += e->getAttributes()->getLength();
   }
 };
-
 
 /* no setTagName in XERCES DOM
 struct ChangeTagName {
@@ -74,16 +85,15 @@ BOOST_AUTO_TEST_CASE(for_each_node)
 
   // ensure attr Node are processed in alfabetic order
   {
-   ConcatNodeValues ca;
+    ConcatNodeValues ca;
 
-   StringDomInput sdi("<Main><S1 />Text<S2 b='a2' a='a1'/><S3><S1 a='a3' /></S3></Main>");
-   DOMDocument* doc(sdi.document());
-   BOOST_REQUIRE(doc);
-   pcrxml::forEachNode(doc->getDocumentElement(), ca);
-   BOOST_CHECK(ca.val == "Texta1a2a3");
+    StringDomInput sdi("<Main><S1 />Text<S2 b='a2' a='a1'/><S3><S1 a='a3' /></S3></Main>");
+    DOMDocument *doc(sdi.document());
+    BOOST_REQUIRE(doc);
+    pcrxml::forEachNode(doc->getDocumentElement(), ca);
+    BOOST_CHECK(ca.val == "Texta1a2a3");
   }
 }
-
 
 // void pcrxsd::DomAlgorithmTest::testForEachElement()
 // {

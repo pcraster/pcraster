@@ -14,15 +14,14 @@ XERCES_CPP_NAMESPACE_USE
 */
 
 
-
-namespace pcrxsd {
+namespace pcrxsd
+{
 
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -46,41 +45,42 @@ namespace pcrxsd {
  *  \returns empty string if not xml, the document element otherwise
  *  \exception pcrxsd::Exception if not well formed
  */
-std::string contentsIsXMLOrPCRasterFileFormat(std::string const& contents)
+std::string contentsIsXMLOrPCRasterFileFormat(std::string const &contents)
 {
-  bool firstNonWhiteSpaceCharIsLt=false;
-  size_t i=0;
-  for( ;i < contents.size(); ++i)
-    if(!std::isspace(contents[i])) {
-     firstNonWhiteSpaceCharIsLt= contents[i]=='<';
-     break;
+  bool firstNonWhiteSpaceCharIsLt = false;
+  size_t i = 0;
+  for (; i < contents.size(); ++i)
+    if (!std::isspace(contents[i])) {
+      firstNonWhiteSpaceCharIsLt = contents[i] == '<';
+      break;
     }
   if (!firstNonWhiteSpaceCharIsLt)
     return {};
-  bool hasAlpha=false;
-  for( ;i < contents.size() && !hasAlpha; ++i)
-    if(std::isalpha(contents[i]))
-      hasAlpha=true;
+  bool hasAlpha = false;
+  for (; i < contents.size() && !hasAlpha; ++i)
+    if (std::isalpha(contents[i]))
+      hasAlpha = true;
   if (hasAlpha) {
-      DOMInput dom;
-      dom.setValidate(false);
-      dom.setString(contents);
-      try {
-        DOMDocument* doc=dom.document();
-        return toString(doc->getDocumentElement()->getTagName());
-      } catch(Exception &) {
-        //PRINT_VAR(contents);
-      }
+    DOMInput dom;
+    dom.setValidate(false);
+    dom.setString(contents);
+    try {
+      DOMDocument *doc = dom.document();
+      return toString(doc->getDocumentElement()->getTagName());
+    } catch (Exception &) {
+      //PRINT_VAR(contents);
+    }
   }
   return {};
 }
 
 //! transcode XMLCh data to local code page for std::string
-std::string toString(const XMLCh* const toTranscode) {
-    char*   fLocalForm = XMLString::transcode(toTranscode);
-    std::string str(fLocalForm);
-    XMLString::release(&fLocalForm);
-    return str;
+std::string toString(const XMLCh *const toTranscode)
+{
+  char *fLocalForm = XMLString::transcode(toTranscode);
+  std::string str(fLocalForm);
+  XMLString::release(&fLocalForm);
+  return str;
 }
 
-} // namespace pcrxsd
+}  // namespace pcrxsd

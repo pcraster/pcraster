@@ -138,7 +138,7 @@ MAP_THIS_TYPE *CreateSpatialTHIS_TYPE(CSF_CR cr, size_t nrRows, size_t nrCols)
   }
   if (cr == CR_REAL8)
     cr = CR_REAL4;
-  buf = ChkMalloc((size_t)(nrRows * nrCols * CELLSIZE(cr)));
+  buf = ChkMalloc(nrRows * nrCols * CELLSIZE(cr));
   if (buf == NULL)
     return NULL;
   map = InitMapTHIS_TYPE(nrRows, nrCols, buf, true, cr);

@@ -13,13 +13,13 @@
   This file contains the implementation of the BinaryReader class.
 */
 
-namespace {
+namespace
+{
 
-} // Anonymous namespace
+}  // Anonymous namespace
 
-
-
-namespace mf {
+namespace mf
+{
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC BINARYREADER MEMBERS
@@ -34,20 +34,21 @@ BinaryReader::BinaryReader()
 {
 }
 
-
-
 BinaryReader::~BinaryReader()
 {
 }
-void BinaryReader::read(const std::string & err_mgs, const std::string & filename, float *values, const std::string& description, size_t multiplier) const {
-//void BinaryReader::read(const std::string & err_mgs, int unit_number, float *values, const std::string description, size_t multiplier) const {
+
+void BinaryReader::read(const std::string &err_mgs, const std::string &filename, float *values,
+                        const std::string &description, size_t multiplier) const
+{
+  //void BinaryReader::read(const std::string & err_mgs, int unit_number, float *values, const std::string description, size_t multiplier) const {
   // see also flow data description at faq how to read binary
   // http://water.usgs.gov/nrp/gwsoftware/modflow2000/Guide/index.html
 
   //std::string filename("fort." + boost::lexical_cast<std::string>(unit_number));
 
   std::ifstream file(filename.c_str(), std::ios::in | std::ios::binary);
-  if(!file.is_open()){
+  if (!file.is_open()) {
     std::cerr << "Error in PCRasterModflow: " << '\n' << "  ";
     std::cerr << err_mgs << '\n';
     //d_mf->d_cmethods->errorMessage(err_mgs, "run");
@@ -76,13 +77,13 @@ void BinaryReader::read(const std::string & err_mgs, const std::string & filenam
   //std::cout << desc << std::endl;
   //std::cout << description << std::endl;
 
-   if(description.compare(desc) != 0){
-     std::cerr << "Error in PCRasterModflow: " << '\n';
-     //std::stringstream stmp;
-     std::cerr << "  Cannot find " << description << " in the output file " << filename << '\n';
-     //d_mf->d_cmethods->errorMessage(stmp.str(), "run");
-     exit(1);
-   }
+  if (description.compare(desc) != 0) {
+    std::cerr << "Error in PCRasterModflow: " << '\n';
+    //std::stringstream stmp;
+    std::cerr << "  Cannot find " << description << " in the output file " << filename << '\n';
+    //d_mf->d_cmethods->errorMessage(stmp.str(), "run");
+    exit(1);
+  }
 
   int col = 0;
   file.read(tmp, 4);
@@ -92,7 +93,7 @@ void BinaryReader::read(const std::string & err_mgs, const std::string & filenam
   file.read(tmp, 4);
   std::memcpy(&row, &(tmp[0]), 4);
 
-  int lay= 0;
+  int lay = 0;
   file.read(tmp, 4);
   std::memcpy(&lay, &(tmp[0]), 4);
 
@@ -110,8 +111,8 @@ void BinaryReader::read(const std::string & err_mgs, const std::string & filenam
   file.read(charData, nr_cells * nr_bytes);
   auto *floatData = reinterpret_cast<float *>(charData);
 
-  for(size_t pos = 0; pos < nr_cells; ++pos){
-      values[pos] = floatData[pos];
+  for (size_t pos = 0; pos < nr_cells; ++pos) {
+    values[pos] = floatData[pos];
   }
 
   file.close();
@@ -121,20 +122,16 @@ void BinaryReader::read(const std::string & err_mgs, const std::string & filenam
 
   delete[] charData;
   charData = nullptr;
-//}
-
+  //}
 }
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace mf
-
+}  // namespace mf

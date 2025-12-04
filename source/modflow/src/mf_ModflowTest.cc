@@ -22,9 +22,7 @@
 // PCRaster library headers.
 
 // Module headers.
-#include  <memory>
-
-
+#include <memory>
 
 /*!
   \file
@@ -32,24 +30,22 @@
 */
 
 
-
-namespace mf {
+namespace mf
+{
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC MODFLOWTEST MEMBERS
 //------------------------------------------------------------------------------
 
 //! suite
-boost::unit_test::test_suite* ModflowTest::suite()
+boost::unit_test::test_suite *ModflowTest::suite()
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
+  boost::unit_test::test_suite *suite = BOOST_TEST_SUITE(__FILE__);
   std::shared_ptr<ModflowTest> instance(new ModflowTest());
   suite->add(BOOST_CLASS_TEST_CASE(&ModflowTest::test, instance));
 
   return suite;
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF MODFLOWTEST MEMBERS
@@ -60,13 +56,10 @@ ModflowTest::ModflowTest()
 {
 }
 
-
-
 void ModflowTest::test()
 {
   bool testImplemented = false;
   BOOST_WARN(testImplemented);
 }
 
-} // namespace mf
-
+}  // namespace mf

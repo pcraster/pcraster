@@ -15,31 +15,27 @@
 /**
  * Destructor
  */
-RIV::~RIV(){
+RIV::~RIV()
+{
 }
 
 /**
  * Constructor
  */
-RIV::RIV(PCRModflow *mf) :
-  d_mf(mf)
-  {//,
+RIV::RIV(PCRModflow *mf) : d_mf(mf)
+{  //,
   //d_fortran_unit_number(250) {
 }
-
 
 bool RIV::riverUpdated() const
 {
   return d_riverUpdated;
 }
 
-
 void RIV::setRiverUpdated(bool value)
 {
   d_riverUpdated = value;
 }
-
-
 
 /**
  * writes RIV to file
@@ -86,7 +82,7 @@ void RIV::setRiverUpdated(bool value)
 
 bool RIV::setRiver(const float *rivH, const float *rivB, const float *rivC, size_t layer)
 {
-  layer--; // layer number passed by user starts with 1
+  layer--;  // layer number passed by user starts with 1
   d_mf->d_gridCheck->isGrid(layer, "setRiver");
   d_mf->d_gridCheck->isConfined(layer, "setRiver");
   d_mf->d_methodName = "setRiver head values";
@@ -100,8 +96,9 @@ bool RIV::setRiver(const float *rivH, const float *rivB, const float *rivC, size
   return result;
 }
 
-
-void RIV::setRiver(const calc::Field *rivH, const calc::Field *rivB, const calc::Field *rivC, size_t layer){
+void RIV::setRiver(const calc::Field *rivH, const calc::Field *rivB, const calc::Field *rivC,
+                   size_t layer)
+{
   layer--;
   d_mf->d_gridCheck->isGrid(layer, "setRiver");
   d_mf->d_gridCheck->isConfined(layer, "setRiver");
@@ -114,11 +111,11 @@ void RIV::setRiver(const calc::Field *rivH, const calc::Field *rivB, const calc:
   d_riverUpdated = true;
 }
 
-
-
-void RIV::setRiver(const discr::BlockData<REAL4> &stage, const discr::BlockData<REAL4> &bottom, const discr::BlockData<REAL4> &cond){
+void RIV::setRiver(const discr::BlockData<REAL4> &stage, const discr::BlockData<REAL4> &bottom,
+                   const discr::BlockData<REAL4> &cond)
+{
   d_mf->d_cmethods->setDiscrBlockData(stage, *(d_mf->d_rivStage));
-  d_mf->d_cmethods->setDiscrBlockData(bottom,*(d_mf->d_rivBottom));
+  d_mf->d_cmethods->setDiscrBlockData(bottom, *(d_mf->d_rivBottom));
   d_mf->d_cmethods->setDiscrBlockData(cond, *(d_mf->d_rivCond));
   d_riverUpdated = true;
 }
@@ -133,8 +130,9 @@ void RIV::setRiver(const discr::BlockData<REAL4> &stage, const discr::BlockData<
 /**
  *
  */
-calc::Field* RIV::getRiverLeakage(size_t layer, std::string const& path) const {
-  layer--; // layer number passed by user starts with 1
+calc::Field *RIV::getRiverLeakage(size_t layer, std::string const &path) const
+{
+  layer--;  // layer number passed by user starts with 1
   d_mf->d_gridCheck->isGrid(layer, "getRiverLeakage");
   d_mf->d_gridCheck->isConfined(layer, "getRiverLeakage");
 
@@ -146,8 +144,8 @@ calc::Field* RIV::getRiverLeakage(size_t layer, std::string const& path) const {
   // get the 'inverse' layer number to start from the right position
   int const pos_multiplier = d_mf->get_modflow_layernr(layer);
 
-  auto* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
-  auto* cells = static_cast<REAL4*>(spatial->dest());
+  auto *spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
+  auto *cells = static_cast<REAL4 *>(spatial->dest());
 
   mf::BinaryReader const reader;
   const std::string filename(mf::execution_path(path, "fort." + std::to_string(d_output_unit_number)));
@@ -156,12 +154,12 @@ calc::Field* RIV::getRiverLeakage(size_t layer, std::string const& path) const {
   return spatial;
 }
 
-
 /**
 * writing river output to PCR map
 */
-void RIV::getRiverLeakage(float *values, size_t layer, std::string const& path) const {
-  layer--; // layer number passed by user starts with 1
+void RIV::getRiverLeakage(float *values, size_t layer, std::string const &path) const
+{
+  layer--;  // layer number passed by user starts with 1
   d_mf->d_gridCheck->isGrid(layer, "getRiverLeakage");
   d_mf->d_gridCheck->isConfined(layer, "getRiverLeakage");
 
@@ -179,9 +177,8 @@ void RIV::getRiverLeakage(float *values, size_t layer, std::string const& path) 
   reader.read(stmp.str(), filename, values, desc, pos_multiplier);
 }
 
-
-
-void RIV::write(std::string const& path){
+void RIV::write(std::string const &path)
+{
 
   // # riv cells is calculated by write_list
   assert(d_nr_river_cells != 0);
@@ -190,7 +187,7 @@ void RIV::write(std::string const& path){
 
   std::ofstream content(filename);
 
-  if(!content.is_open()){
+  if (!content.is_open()) {
     std::cerr << "Can not write " << filename << '\n';
     exit(1);
   }
@@ -207,29 +204,29 @@ void RIV::write(std::string const& path){
   d_nr_river_cells = 0;
 }
 
-
-void RIV::write_list(std::string const& path){
+void RIV::write_list(std::string const &path)
+{
   // This method also calculates the nr of river cells,
   // needs to be called before write
   std::string const filename = mf::execution_path(path, "pcrmf_riv.asc");
   std::ofstream content(filename);
 
-  if(!content.is_open()){
+  if (!content.is_open()) {
     std::cerr << "Can not write " << filename << '\n';
     exit(1);
   }
 
   int count = 0;
   int mfLayer = 1;
-  for(size_t layer = 1; layer<= d_mf->d_nrMFLayer; layer++){
+  for (size_t layer = 1; layer <= d_mf->d_nrMFLayer; layer++) {
     count = 0;
     size_t const size = d_mf->d_layer2BlockLayer.size();
     int const blockLayer = d_mf->d_layer2BlockLayer.at(size - layer);
 
-    for(size_t row = 0; row < d_mf->d_nrOfRows; row++){
-      for(size_t col = 0; col < d_mf->d_nrOfColumns; col++){
+    for (size_t row = 0; row < d_mf->d_nrOfRows; row++) {
+      for (size_t col = 0; col < d_mf->d_nrOfColumns; col++) {
         float const cond = d_mf->d_rivCond->cell(count)[blockLayer];
-        if(cond > 0.0){
+        if (cond > 0.0) {
           content << mfLayer;
           content << " " << (row + 1);
           content << " " << (col + 1);
@@ -245,9 +242,6 @@ void RIV::write_list(std::string const& path){
     mfLayer++;
   }
 }
-
-
-
 
 /**
  * retrieving river leakage values from the binary modflow output

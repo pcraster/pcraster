@@ -11,16 +11,16 @@
 // Module headers.
 
 
-
 /**
 * Destructor
 */
-HFB::~HFB(){  
+HFB::~HFB()
+{
 }
 
 /**
 * Constructor
 */
-HFB::HFB(PCRModflow *mf) : 
-d_mf(mf){  
+HFB::HFB(PCRModflow *mf) : d_mf(mf)
+{
 }

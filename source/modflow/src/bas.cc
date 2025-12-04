@@ -16,25 +16,25 @@
 #include <fstream>
 #include <cassert>
 
-
 /**
  * Destructor
  */
-BAS::~BAS(){
+BAS::~BAS()
+{
 }
 
 /**
  * Constructor
  */
-BAS::BAS(PCRModflow *amf) :
-  d_mf(amf)
-  {
+BAS::BAS(PCRModflow *amf) : d_mf(amf)
+{
 }
 
 /**
  * setting value assigned to no flow cells
  */
-void BAS::setNoFlowConstant(float value){
+void BAS::setNoFlowConstant(float value)
+{
   d_hnoflo = value;
 }
 
@@ -131,20 +131,22 @@ void BAS::setNoFlowConstant(float value){
  * rec2 : head values
  * rec3 : tail
  */
-void BAS::getHeadsFromBinary(std::string const& path){
+void BAS::getHeadsFromBinary(std::string const &path)
+{
 
-  const std::string filename(mf::execution_path(path, "fort." + std::to_string(d_fortran_unit_number_heads)));
+  const std::string filename(
+      mf::execution_path(path, "fort." + std::to_string(d_fortran_unit_number_heads)));
   //std::string filename("fort." + boost::lexical_cast<std::string>(d_fortran_unit_number_heads));
 
   std::ifstream file(filename.c_str(), std::ios::in | std::ios::binary);
-  if(!file.is_open()){
+  if (!file.is_open()) {
     std::stringstream stmp;
     stmp << "Can not open head value result file " << filename;
     d_mf->d_cmethods->error(stmp.str(), "run");
   }
 
-  for(size_t layer = 0; layer < d_mf->d_nrMFLayer; layer++){
-    size_t const blockLayer = d_mf->mfLayer2BlockLayer(layer);//+1);
+  for (size_t layer = 0; layer < d_mf->d_nrMFLayer; layer++) {
+    size_t const blockLayer = d_mf->mfLayer2BlockLayer(layer);  //+1);
     // first record contains the header informations
     // they are omitted because we already know nrRows aso
     char header[mf::recordMarkerSize];
@@ -169,9 +171,9 @@ void BAS::getHeadsFromBinary(std::string const& path){
 
     size_t const cellMax = d_mf->d_nrOfCells;
     //int k = 0;
-    for(size_t pos = 0; pos < cellMax; pos++){
+    for (size_t pos = 0; pos < cellMax; pos++) {
       auto val = floatData[pos];
-      d_mf->d_initialHead->cell(pos)[blockLayer] =  val;
+      d_mf->d_initialHead->cell(pos)[blockLayer] = val;
     }
     // read the tailing bytes, discard content
     file.read(header, mf::recordMarkerSize);
@@ -186,30 +188,31 @@ void BAS::getHeadsFromBinary(std::string const& path){
 /**
  * retrieving bounds from MF
  */
-void BAS::getBASBlockData(discr::BlockData<INT4> &bdata, std::string const& path){
+void BAS::getBASBlockData(discr::BlockData<INT4> &bdata, std::string const &path)
+{
 
-  const std::string filename(mf::execution_path(path, "fort." + std::to_string(d_fortran_unit_number_bounds)));
+  const std::string filename(
+      mf::execution_path(path, "fort." + std::to_string(d_fortran_unit_number_bounds)));
   //std::string filename("fort." + boost::lexical_cast<std::string>(d_fortran_unit_number_bounds));
 
   std::ifstream file(filename.c_str());
-  if(!file.is_open()){
+  if (!file.is_open()) {
     std::stringstream stmp;
     stmp << "Can not open BAS result file " << filename;
     d_mf->d_cmethods->error(stmp.str(), "run");
-  }
-  else{
+  } else {
     int val = 0;
     int count = 0;
     int blockLayer = 0;
-    for(size_t layer = 0; layer < d_mf->d_nrMFLayer; layer++){
+    for (size_t layer = 0; layer < d_mf->d_nrMFLayer; layer++) {
       count = 0;
       blockLayer = d_mf->mfLayer2BlockLayer(layer);
-      for (size_t row = 0; row < d_mf->d_nrOfRows; row++){
-	for(size_t col = 0; col < d_mf->d_nrOfColumns; col++){
-	  file >> val;
-	  bdata.cell(count)[blockLayer] = val;
-	  count++;
-	}
+      for (size_t row = 0; row < d_mf->d_nrOfRows; row++) {
+        for (size_t col = 0; col < d_mf->d_nrOfColumns; col++) {
+          file >> val;
+          bdata.cell(count)[blockLayer] = val;
+          count++;
+        }
       }
     }
     file.close();
@@ -220,80 +223,75 @@ void BAS::getBASBlockData(discr::BlockData<INT4> &bdata, std::string const& path
  * \param result result values, hdry cells are set to MV
  * \param layer layer number
  */
-void BAS::getHeads(float *result, size_t layer){
-  layer--; // layer number passed by user starts with 1
+void BAS::getHeads(float *result, size_t layer)
+{
+  layer--;  // layer number passed by user starts with 1
   d_mf->d_gridCheck->isGrid(layer, "getHeads");
   d_mf->d_gridCheck->isConfined(layer, "getHeads");
 
   REAL4 const hdry = d_mf->d_bcf->getHDRY();
   // mf to block
-  for(size_t i = 0; i < d_mf->d_nrOfCells; ++i){
+  for (size_t i = 0; i < d_mf->d_nrOfCells; ++i) {
     REAL4 const value = d_mf->d_initialHead->cell(i)[layer];
 
     //if(static_cast<float>(std::fabs((value - d_hnoflo))>0.00001)){
-    if(static_cast<float>(std::fabs((value - hdry)) > 0.00001)){
-    //if(value-hdry==0){
+    if (static_cast<float>(std::fabs((value - hdry)) > 0.00001)) {
+      //if(value-hdry==0){
       result[i] = value;
-    }
-    else{
+    } else {
       pcr::setMV(result[i]);
     }
   }
 }
 
-
-
-
-discr::BlockData<REAL4>* BAS::getHeads(){
+discr::BlockData<REAL4> *BAS::getHeads()
+{
   //REAL4 init = 0.0;
-  discr::Raster const raster(50,50,50.0,50.0,50.0);
-  discr::Block bla(raster);//NULL;//d_mf->d_baseArea;
+  discr::Raster const raster(50, 50, 50.0, 50.0, 50.0);
+  discr::Block bla(raster);  //NULL;//d_mf->d_baseArea;
   discr::BlockData<REAL4> const block(&bla);
-  discr::BlockData<REAL4> *resultHeads = nullptr;//
-  resultHeads = new discr::BlockData<REAL4>( &bla);
+  discr::BlockData<REAL4> *resultHeads = nullptr;  //
+  resultHeads = new discr::BlockData<REAL4>(&bla);
   d_mf->d_cmethods->setDiscrBlockData(*(d_mf->d_initialHead), *resultHeads);
   return resultHeads;
 }
 
-
-
-calc::Field* BAS::getHeads(size_t layer){
+calc::Field *BAS::getHeads(size_t layer)
+{
   layer--;
   d_mf->d_gridCheck->isGrid(layer, "getHeads");
   d_mf->d_gridCheck->isConfined(layer, "getHeads");
 
-  auto* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
-  auto* cells = static_cast<REAL4*>(spatial->dest());
-
+  auto *spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
+  auto *cells = static_cast<REAL4 *>(spatial->dest());
 
 
   float const hdry = d_mf->d_bcf->getHDRY();
-  for(size_t pos = 0; pos < d_mf->d_nrOfCells; pos++){
+  for (size_t pos = 0; pos < d_mf->d_nrOfCells; pos++) {
     REAL4 const value = d_mf->d_initialHead->cell(pos)[layer];
     //if(std::fabs(static_cast<float>(value - d_hnoflo)) < 0.00001){
-    if(std::fabs(static_cast<float>(value - hdry)) < 0.00001){
+    if (std::fabs(static_cast<float>(value - hdry)) < 0.00001) {
       pcr::setMV(cells[pos]);
-    }
-    else{
+    } else {
       cells[pos] = static_cast<REAL4>(value);
     }
   }
   return spatial;
 }
 
-
-
-void BAS::setBASBlockData(const discr::BlockData<INT4> &source, discr::BlockData<INT4> &result){
+void BAS::setBASBlockData(const discr::BlockData<INT4> &source, discr::BlockData<INT4> &result)
+{
   d_mf->d_cmethods->setDiscrBlockData(source, result);
 }
 
-void BAS::setBASBlockData(const discr::BlockData<REAL4> &source, discr::BlockData<REAL4> &result){
+void BAS::setBASBlockData(const discr::BlockData<REAL4> &source, discr::BlockData<REAL4> &result)
+{
   d_mf->d_cmethods->setDiscrBlockData(source, result);
 }
 
-
-void BAS::setIBound(const calc::Field *values, size_t layer){
-  layer--; // layer number passed by user starts with 1
+void BAS::setIBound(const calc::Field *values, size_t layer)
+{
+  layer--;  // layer number passed by user starts with 1
   d_mf->d_gridCheck->isGrid(layer, "setBoundary");
   d_mf->d_gridCheck->isConfined(layer, "setBoundary");
   d_mf->d_gridCheck->testMV(values->src_4(), "setBoundary");
@@ -301,9 +299,9 @@ void BAS::setIBound(const calc::Field *values, size_t layer){
   d_mf->setBlockData(*(d_mf->d_ibound), values->src_4(), layer);
 }
 
-
-void BAS::setInitialHead(const calc::Field *values, size_t layer){
-  layer--; // layer number passed by user starts with 1
+void BAS::setInitialHead(const calc::Field *values, size_t layer)
+{
+  layer--;  // layer number passed by user starts with 1
   d_mf->d_gridCheck->isGrid(layer, "setInitialHead");
   d_mf->d_gridCheck->isConfined(layer, "setInitialHead");
   d_mf->d_gridCheck->testMV(values->src_f(), "setInitialHead");
@@ -311,16 +309,18 @@ void BAS::setInitialHead(const calc::Field *values, size_t layer){
   d_mf->setBlockData(*(d_mf->d_initialHead), values->src_f(), layer);
 }
 
-int BAS::fortran_unit_number_heads() const {
+int BAS::fortran_unit_number_heads() const
+{
   return d_fortran_unit_number_heads;
 }
 
-int BAS::fortran_unit_number_bounds() const {
+int BAS::fortran_unit_number_bounds() const
+{
   return d_fortran_unit_number_bounds;
 }
 
-
-void BAS::write(std::string const& path) const {
+void BAS::write(std::string const &path) const
+{
 
   std::stringstream content;
 
@@ -333,11 +333,12 @@ void BAS::write(std::string const& path) const {
   // Item 2:  IBOUNDS per layer
   //
   size_t nrLayer = 1;
-  for(int i = d_mf->dd_nrLayer - 1; i >= 0; i--){
+  for (int i = d_mf->dd_nrLayer - 1; i >= 0; i--) {
 
     // only layer have boundary values
-    if(d_mf->dd_isConfined.at(i) == false){
-      content << "EXTERNAL " << d_external_unit_number_bounds << " 1 (FREE) -1 IBOUND Layer " << nrLayer << "\n";
+    if (d_mf->dd_isConfined.at(i) == false) {
+      content << "EXTERNAL " << d_external_unit_number_bounds << " 1 (FREE) -1 IBOUND Layer " << nrLayer
+              << "\n";
       nrLayer++;
     }
   }
@@ -349,29 +350,30 @@ void BAS::write(std::string const& path) const {
   // Item 4:  STRT, Initial Heads per layer
   //
   nrLayer = 1;
-  for(int i = d_mf->dd_nrLayer - 1; i >= 0; i--){
+  for (int i = d_mf->dd_nrLayer - 1; i >= 0; i--) {
 
     // only layer have boundary values
-    if(d_mf->dd_isConfined.at(i) == false){
-      content << "EXTERNAL " << d_external_unit_number_heads << " 1.0 (FREE) -1 STRT Layer " << nrLayer <<"\n";
+    if (d_mf->dd_isConfined.at(i) == false) {
+      content << "EXTERNAL " << d_external_unit_number_heads << " 1.0 (FREE) -1 STRT Layer " << nrLayer
+              << "\n";
       nrLayer++;
     }
   }
   d_mf->d_cmethods->writeToFile(mf::execution_path(path, "pcrmf.ba6"), content.str());
 }
 
-
-void BAS::write_bound_array(std::string const& path) const {
+void BAS::write_bound_array(std::string const &path) const
+{
 
   std::stringstream content;
 
-  for(int i = d_mf->dd_nrLayer - 1; i >= 0; i--){
+  for (int i = d_mf->dd_nrLayer - 1; i >= 0; i--) {
 
     // only layer have boundary values
     size_t pos = 0;
-    if(d_mf->dd_isConfined.at(i) == false){
-      for(size_t j = 0; j < d_mf->d_nrOfRows; j++){
-        for(size_t k = 0; k < d_mf->d_nrOfColumns; k++){
+    if (d_mf->dd_isConfined.at(i) == false) {
+      for (size_t j = 0; j < d_mf->d_nrOfRows; j++) {
+        for (size_t k = 0; k < d_mf->d_nrOfColumns; k++) {
           content << d_mf->d_ibound->cell(pos)[i] << " ";
           pos++;
         }
@@ -382,16 +384,13 @@ void BAS::write_bound_array(std::string const& path) const {
   d_mf->d_cmethods->writeToFile(mf::execution_path(path, "pcrmf_bounds.asc"), content.str());
 }
 
-
-void BAS::write_head_array(std::string const& path) const {
+void BAS::write_head_array(std::string const &path) const
+{
 
   std::stringstream content;
 
-  for(int i = d_mf->dd_nrLayer - 1; i >= 0; i--){
+  for (int i = d_mf->dd_nrLayer - 1; i >= 0; i--) {
     d_mf->d_cmethods->writeMatrix2(content, d_mf->d_layer2BlockLayer, *(d_mf->d_initialHead), i);
   }
   d_mf->d_cmethods->writeToFile(mf::execution_path(path, "pcrmf_heads.asc"), content.str());
 }
-
-
-

@@ -15,27 +15,24 @@
 // Module headers.
 
 
-
 /*!
   \file
   This file contains the implementation of the Modflow class.
 */
 
 
-
-namespace mf {
+namespace mf
+{
 
 // Code that is private to this module.
-namespace detail {
+namespace detail
+{
 
-} // namespace detail
-
-
+}  // namespace detail
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC MODFLOW MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -46,23 +43,17 @@ Modflow::Modflow()
 {
 }
 
-
-
 Modflow::~Modflow()
 {
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace mf
-
+}  // namespace mf

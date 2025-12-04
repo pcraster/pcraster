@@ -30,14 +30,14 @@
 #include <fstream>
 #include <cassert>
 
-
 /// \todo change the confined level vector to layer vector
 
 
 /**
  * Destructor
  */
-PCRModflow::~PCRModflow() {
+PCRModflow::~PCRModflow()
+{
   resetGrid(true);
 }
 
@@ -46,8 +46,7 @@ PCRModflow::~PCRModflow() {
  * spatial dimensions passed by clone()
  */
 
-PCRModflow::PCRModflow(const geo::RasterSpace &raster)
-  : dal::Client("",false)
+PCRModflow::PCRModflow(const geo::RasterSpace &raster) : dal::Client("", false)
 {
   d_nrOfRows = raster.nrRows();
   d_nrOfColumns = raster.nrCols();
@@ -62,12 +61,12 @@ PCRModflow::PCRModflow(const geo::RasterSpace &raster)
   d_cellsize = raster.cellSize();
   initDataStructures();
   //
-  if(d_nrOfRows == 0){
+  if (d_nrOfRows == 0) {
     d_cmethods->error("Aremap : No rows specified", "initialise");
-    }
-  if(d_nrOfColumns == 0){
+  }
+  if (d_nrOfColumns == 0) {
     d_cmethods->error("Aremap : No columns specified", "initialise");
-    }
+  }
   d_draster = new discr::Raster(d_nrOfRows, d_nrOfColumns, d_widthRows, d_west, d_north);
   d_thisbaseelev = new discr::RasterData<REAL4>(d_draster);
 }
@@ -77,7 +76,7 @@ PCRModflow::PCRModflow(const geo::RasterSpace &raster)
  * arguments are spatial properties retrieved from the linkIn
  */
 PCRModflow::PCRModflow(size_t nrRows, size_t nrCols, double cellsize, double west, double north)
-  : dal::Client("", false)
+    : dal::Client("", false)
 {
   d_nrOfRows = nrRows;
   d_nrOfColumns = nrCols;
@@ -91,23 +90,23 @@ PCRModflow::PCRModflow(size_t nrRows, size_t nrCols, double cellsize, double wes
   d_cellsize = cellsize;
   initDataStructures();
   //
-  if(d_nrOfRows == 0){
+  if (d_nrOfRows == 0) {
     d_cmethods->error("Clone map: No rows specified", "initialise");
-    }
-  if(d_nrOfColumns == 0){
+  }
+  if (d_nrOfColumns == 0) {
     d_cmethods->error("Clone map: No columns specified", "initialise");
-    }
+  }
   d_draster = new discr::Raster(d_nrOfRows, d_nrOfColumns, d_widthRows, d_west, d_north);
   d_thisbaseelev = new discr::RasterData<REAL4>(d_draster);
 }
-
 
 /**
  * spatial attributes for the raster
  * \todo check how it works with the python version, can be
  *
  */
-void PCRModflow::initDataStructures(){
+void PCRModflow::initDataStructures()
+{
   assert(dal::Client::isInitialized());
 
   d_modflow_converged = true;
@@ -145,13 +144,13 @@ void PCRModflow::initDataStructures(){
   d_rch = nullptr;
   d_recharge = nullptr;
   d_rechargeIrch = nullptr;
- // d_rechargeResult = NULL;
+  // d_rechargeResult = NULL;
   d_wetting = nullptr;
   // DRN
   d_drn = nullptr;
   d_drnElev = nullptr;
   d_drnCond = nullptr;
-//  d_drnResult = NULL;
+  //  d_drnResult = NULL;
   // solver
   d_pcg = nullptr;
   d_sip = nullptr;
@@ -174,12 +173,11 @@ void PCRModflow::initDataStructures(){
   run_arguments = "";
 }
 
-
-
 /**
  * resetting values in case of grid change
  */
-void PCRModflow::resetGrid(bool final) {
+void PCRModflow::resetGrid(bool final)
+{
   d_nrOfLayer = -1;
   d_nrOfCells = -1;
   d_nrMFLayer = 0;
@@ -193,23 +191,23 @@ void PCRModflow::resetGrid(bool final) {
   d_quasiConfined.clear();
   d_layer2BlockLayer.clear();
   d_layerType.clear();
-  if(d_pcg!=nullptr){
+  if (d_pcg != nullptr) {
     delete d_pcg;
-    d_pcg= nullptr;
+    d_pcg = nullptr;
   }
-  if(d_sip!=nullptr){
+  if (d_sip != nullptr) {
     delete d_sip;
     d_sip = nullptr;
   }
-  if(d_sor!=nullptr){
+  if (d_sor != nullptr) {
     delete d_sor;
     d_sor = nullptr;
   }
   delete d_dsp;
   d_dsp = nullptr;
-   if(d_riv!=nullptr){
-//   delete d_rivLeakage;
-//   d_rivLeakage = NULL;
+  if (d_riv != nullptr) {
+    //   delete d_rivLeakage;
+    //   d_rivLeakage = NULL;
     delete d_rivStage;
     d_rivStage = nullptr;
     delete d_rivBottom;
@@ -219,11 +217,11 @@ void PCRModflow::resetGrid(bool final) {
     delete d_riv;
     d_riv = nullptr;
   }
-  if(d_initialHead!=nullptr){
+  if (d_initialHead != nullptr) {
     delete d_initialHead;
     d_initialHead = nullptr;
   }
-  if(d_ibound!=nullptr){
+  if (d_ibound != nullptr) {
     delete d_ibound;
     d_ibound = nullptr;
   }
@@ -241,7 +239,7 @@ void PCRModflow::resetGrid(bool final) {
   d_bas = nullptr;
   delete d_bcf;
   d_bcf = nullptr;
-  if(d_rch != nullptr){
+  if (d_rch != nullptr) {
     delete d_rch;
     delete d_recharge;
     //delete d_rechargeResult;
@@ -251,17 +249,17 @@ void PCRModflow::resetGrid(bool final) {
     delete d_rechargeIrch;
     d_rechargeIrch = nullptr;
   }
-  if(d_drn != nullptr){
+  if (d_drn != nullptr) {
     delete d_drn;
     delete d_drnElev;
     delete d_drnCond;
-   // delete d_drnResult;
+    // delete d_drnResult;
     d_drn = nullptr;
     d_drnElev = nullptr;
     d_drnCond = nullptr;
     //d_drnResult = NULL;
   }
-  if(d_primaryStorage != nullptr){
+  if (d_primaryStorage != nullptr) {
     delete d_primaryStorage;
     delete d_secondaryStorage;
     d_primaryStorage = nullptr;
@@ -274,17 +272,17 @@ void PCRModflow::resetGrid(bool final) {
   d_draster = nullptr;
   delete d_thisbaseelev;
   d_thisbaseelev = nullptr;
-  if(d_wetting != nullptr){
+  if (d_wetting != nullptr) {
     delete d_wetting;
     d_wetting = nullptr;
   }
-  if(d_wel != nullptr){
+  if (d_wel != nullptr) {
     delete d_wel;
     delete d_welValues;
     d_wel = nullptr;
     d_welValues = nullptr;
   }
-  if(d_ghb != nullptr){
+  if (d_ghb != nullptr) {
     delete d_ghb;
     delete d_ghbHead;
     delete d_ghbCond;
@@ -301,39 +299,40 @@ void PCRModflow::resetGrid(bool final) {
   delete d_baseArea;
   d_baseArea = nullptr;
 
-  if(final == false) {
+  if (final == false) {
     d_cmethods = new Common(this);
     d_gridCheck = new GridCheck(this);
   }
 }
 
-
-int PCRModflow::nr_internal_layer() const {
+int PCRModflow::nr_internal_layer() const
+{
   return d_nrBlockLayer;
 }
 
-int PCRModflow::nr_modflow_layer() const {
+int PCRModflow::nr_modflow_layer() const
+{
   return d_nrMFLayer;
 }
 
-calc::Field* PCRModflow::getHeads(size_t mfLayer){
+calc::Field *PCRModflow::getHeads(size_t mfLayer)
+{
   return d_bas->getHeads(mfLayer);
 }
 
-
-
-void PCRModflow::getHeads(float *result, size_t mfLayer){
+void PCRModflow::getHeads(float *result, size_t mfLayer)
+{
   d_bas->getHeads(result, mfLayer);
 }
 
-discr::BlockData<REAL4>* PCRModflow::getBlockHeads(){
+discr::BlockData<REAL4> *PCRModflow::getBlockHeads()
+{
   return d_bas->getHeads();
 }
 
-
-
-void PCRModflow::getRecharge(float *result, size_t mfLayer){
-  if(nullptr == d_rch) {
+void PCRModflow::getRecharge(float *result, size_t mfLayer)
+{
+  if (nullptr == d_rch) {
     std::stringstream stmp;
     stmp << "No recharge package specified ";
     d_cmethods->error(stmp.str(), "getRecharge");
@@ -341,8 +340,9 @@ void PCRModflow::getRecharge(float *result, size_t mfLayer){
   d_rch->getRecharge(result, mfLayer, run_directory());
 }
 
-calc::Field* PCRModflow::getRecharge(size_t layer){
-  if(nullptr == d_rch) {
+calc::Field *PCRModflow::getRecharge(size_t layer)
+{
+  if (nullptr == d_rch) {
     std::stringstream stmp;
     stmp << "No recharge package specified ";
     d_cmethods->error(stmp.str(), "getRecharge");
@@ -365,8 +365,9 @@ calc::Field* PCRModflow::getRecharge(size_t layer){
 /**
  * \todo to riv
  */
-void PCRModflow::getRiverLeakage(float *result, size_t layer){
-  if(nullptr == d_riv) {
+void PCRModflow::getRiverLeakage(float *result, size_t layer)
+{
+  if (nullptr == d_riv) {
     std::stringstream stmp;
     stmp << "No river package specified: Define river head, bottom and conductance values ";
     d_cmethods->error(stmp.str(), "getRiverLeakage");
@@ -374,8 +375,9 @@ void PCRModflow::getRiverLeakage(float *result, size_t layer){
   d_riv->getRiverLeakage(result, layer, run_directory());
 }
 
-calc::Field* PCRModflow::getRiverLeakage(size_t layer){
-  if(nullptr == d_riv) {
+calc::Field *PCRModflow::getRiverLeakage(size_t layer)
+{
+  if (nullptr == d_riv) {
     std::stringstream stmp;
     stmp << "No river package specified: Define river head, bottom and conductance values ";
     d_cmethods->error(stmp.str(), "getRiverLeakage");
@@ -383,11 +385,11 @@ calc::Field* PCRModflow::getRiverLeakage(size_t layer){
   return d_riv->getRiverLeakage(layer, run_directory());
 }
 
-
 /**
  * sets the bottom layer
  */
-bool PCRModflow::createBottom(const float *lower, const float *upper){
+bool PCRModflow::createBottom(const float *lower, const float *upper)
+{
   initBlockData();
   return d_dis->createBottom(lower, upper);
 }
@@ -395,44 +397,44 @@ bool PCRModflow::createBottom(const float *lower, const float *upper){
 /**
  * adds unconfined layer
  */
-bool PCRModflow::addLayer(const float *values){
+bool PCRModflow::addLayer(const float *values)
+{
   return d_dis->addLayer(values);
 }
 
 /**
  * adds layer representing a confining bed
  */
-bool PCRModflow::addConfinedLayer(const float *values){
+bool PCRModflow::addConfinedLayer(const float *values)
+{
   return d_dis->addConfinedLayer(values);
 }
 
-
-
-
-bool PCRModflow::setBlockData(discr::BlockData<INT4> &bdata, const INT4 *values, size_t blockLayer) {
+bool PCRModflow::setBlockData(discr::BlockData<INT4> &bdata, const INT4 *values, size_t blockLayer)
+{
   d_gridCheck->testMV(values, d_methodName);
-  for(size_t i=0; i < d_nrOfCells; i++) {
+  for (size_t i = 0; i < d_nrOfCells; i++) {
     assert(blockLayer < bdata.cell(i).size());
     bdata.cell(i)[blockLayer] = values[i];
   }
   return true;
 }
 
-
-bool PCRModflow::setBlockData(discr::BlockData<REAL4> &bdata, const REAL4 *values, size_t blockLayer) {
+bool PCRModflow::setBlockData(discr::BlockData<REAL4> &bdata, const REAL4 *values, size_t blockLayer)
+{
   d_gridCheck->testMV(values, d_methodName);
-  for(size_t i = 0; i < d_nrOfCells; i++) {
+  for (size_t i = 0; i < d_nrOfCells; i++) {
     assert(blockLayer < bdata.cell(i).size());
     bdata.cell(i)[blockLayer] = values[i];
   }
   return true;
 }
-
 
 /**
  * writing NAM to file
  */
-bool PCRModflow::writeNAM() {
+bool PCRModflow::writeNAM()
+{
   std::stringstream content;
   // the unit numbers are just assigned manually
   // 0,5,6,100,101 seem to be sometimes used
@@ -457,57 +459,53 @@ bool PCRModflow::writeNAM() {
   content << "DATA  " << d_bcf->vcond_unit_number() << " pcrmf_bcf_vcont.asc\n";
   content << "DATA  " << d_bcf->tran_unit_number() << " pcrmf_bcf_tran.asc\n";
 
-  if(d_bcf->transient()){
+  if (d_bcf->transient()) {
     content << "DATA  " << d_bcf->sf1_unit_number() << " pcrmf_bcf_sf1.asc\n";
     content << "DATA  " << d_bcf->sf2_unit_number() << " pcrmf_bcf_sf2.asc\n";
   }
 
-  if(d_bcf->rewetting()){
+  if (d_bcf->rewetting()) {
     content << "DATA  " << d_bcf->wet_unit_number() << " pcrmf_bcf_wetdry.asc\n";
   }
 
 
-
-
-
-
-  if(d_solver_used == PCG_SOLVER) {
+  if (d_solver_used == PCG_SOLVER) {
     content << "PCG   210 pcrmf.pcg\n";
   }
-  if(d_solver_used == SIP_SOLVER) {
+  if (d_solver_used == SIP_SOLVER) {
     content << "SIP   210 pcrmf.sip\n";
   }
-  if(d_solver_used == SOR_SOLVER) {
+  if (d_solver_used == SOR_SOLVER) {
     content << "SOR   210 pcrmf.sor\n";
   }
-  if(d_solver_used == DSP_SOLVER) {
+  if (d_solver_used == DSP_SOLVER) {
     content << "DE4   210 pcrmf.de4\n";
   }
   content << "OC    220 pcrmf.oc\n";
-  if(d_riv!=nullptr){
+  if (d_riv != nullptr) {
     content << "RIV   221 pcrmf.riv\n";
     content << "DATA  251 pcrmf_riv.asc\n";
   }
 
-  if(d_rch!=nullptr){
+  if (d_rch != nullptr) {
     content << "RCH   222 pcrmf.rch\n";
     content << "DATA  261 pcrmf_rch.asc\n";
-    if(d_rch->indicated_recharge()){
+    if (d_rch->indicated_recharge()) {
       content << "DATA  262 pcrmf_irch.asc\n";
     }
   }
 
-  if(d_drn != nullptr){
+  if (d_drn != nullptr) {
     content << "DRN   223 pcrmf.drn\n";
     content << "DATA  270 pcrmf_drn.asc\n";
   }
 
-  if(d_wel != nullptr) {
+  if (d_wel != nullptr) {
     content << "WEL   224 pcrmf.wel\n";
     content << "DATA  280 pcrmf_wel.asc\n";
   }
 
-  if(d_ghb != nullptr){
+  if (d_ghb != nullptr) {
     content << "GHB   225 pcrmf.ghb\n";
     content << "DATA  256 pcrmf_ghb.asc\n";
   }
@@ -518,7 +516,8 @@ bool PCRModflow::writeNAM() {
 /**
  * writing OC to file
  */
-bool PCRModflow::writeOC() {
+bool PCRModflow::writeOC()
+{
   std::stringstream content;
   content << "# Generated by PCRaster Modflow\n";
   content << "HEAD SAVE UNIT " << d_bas->fortran_unit_number_heads() << "\n";
@@ -530,36 +529,35 @@ bool PCRModflow::writeOC() {
   return d_cmethods->writeToFile(mf::execution_path(run_directory(), "pcrmf.oc"), content.str());
 }
 
-
-
-void PCRModflow::initBlock(const discr::Block &elevation) {
+void PCRModflow::initBlock(const discr::Block &elevation)
+{
   //d_thisbaseelev = new discr::RasterData<REAL4>(d_draster);
-  for(size_t i = 0; i < d_nrOfCells; i++) {
+  for (size_t i = 0; i < d_nrOfCells; i++) {
     d_thisbaseelev->cell(i) = elevation.cell(i).baseElevation();
   }
   initBlockData();
 }
 
-
-void PCRModflow::initBlockData() {
+void PCRModflow::initBlockData()
+{
   d_baseArea = new discr::Block(*d_thisbaseelev);
   d_ibound = new discr::BlockData<INT4>(d_baseArea, 0);
   const REAL4 init = 0.0;
 
   initREAL4BlockData(&d_initialHead, init);
-  initREAL4BlockData( &d_hCond, init);
-  initREAL4BlockData( &d_vCond, init);
-  initREAL4BlockData( &d_layer, init);
-  initREAL4BlockData( &d_baseLayer, init);
+  initREAL4BlockData(&d_hCond, init);
+  initREAL4BlockData(&d_vCond, init);
+  initREAL4BlockData(&d_layer, init);
+  initREAL4BlockData(&d_baseLayer, init);
 
   d_dis = new DIS(this);
   d_bas = new BAS(this);
   d_bcf = new BCF(this);
 }
 
-
-void PCRModflow::setLayer(const discr::Block &elevation, const discr::BlockData<INT4> &conf) {
-  if(d_gridIsFixed == true) {
+void PCRModflow::setLayer(const discr::Block &elevation, const discr::BlockData<INT4> &conf)
+{
+  if (d_gridIsFixed == true) {
     resetGrid(false);
     d_gridIsFixed = false;
   }
@@ -567,40 +565,42 @@ void PCRModflow::setLayer(const discr::Block &elevation, const discr::BlockData<
   d_dis->setLayer(elevation, conf);
 }
 
-void PCRModflow::createBottom(const calc::Field *lower, const calc::Field *upper){
+void PCRModflow::createBottom(const calc::Field *lower, const calc::Field *upper)
+{
   initBlockData();
   d_dis->createBottom(lower, upper);
 }
-void PCRModflow::addLayer(const calc::Field *values){
+
+void PCRModflow::addLayer(const calc::Field *values)
+{
   d_dis->addLayer(values);
 }
-void PCRModflow::addConfinedLayer(const calc::Field *values){
+
+void PCRModflow::addConfinedLayer(const calc::Field *values)
+{
   d_dis->addConfinedLayer(values);
 }
 
-
-
-
-size_t PCRModflow::mfLayer2BlockLayer(size_t mflayer) {
-  mflayer++; // mflayer are
+size_t PCRModflow::mfLayer2BlockLayer(size_t mflayer)
+{
+  mflayer++;  // mflayer are
   try {
     size_t const size = d_layer2BlockLayer.size();
-    return d_layer2BlockLayer.at(size-mflayer);
-  }
-  catch(std::exception const& e) {
-    std::cout << "mfLayer2BlockLayer " << mflayer << " "<< e.what() << '\n';
+    return d_layer2BlockLayer.at(size - mflayer);
+  } catch (std::exception const &e) {
+    std::cout << "mfLayer2BlockLayer " << mflayer << " " << e.what() << '\n';
     exit(1);
   }
 }
-
 
 /**
  * setting the boundary values
  * @param values boundary values
  * @param layer layer number
  */
-bool PCRModflow::setIBound(const int *values, size_t layer) {
-  layer--; // layer number passed by user starts with 1
+bool PCRModflow::setIBound(const int *values, size_t layer)
+{
+  layer--;  // layer number passed by user starts with 1
   d_gridCheck->isGrid(layer, "setBoundary");
   d_gridCheck->isConfined(layer, "setBoundary");
   d_gridCheck->testMV(values, "setBoundary");
@@ -609,17 +609,21 @@ bool PCRModflow::setIBound(const int *values, size_t layer) {
   return result;
 }
 
-bool PCRModflow::setIBound(const discr::BlockData<INT4> &values) {
+bool PCRModflow::setIBound(const discr::BlockData<INT4> &values)
+{
   d_bas->setBASBlockData(values, *d_ibound);
   return true;
 }
 
-void PCRModflow::setIBound(const calc::Field *values, size_t layer){
+void PCRModflow::setIBound(const calc::Field *values, size_t layer)
+{
   d_bas->setIBound(values, layer);
 }
-void PCRModflow::setInitialHead(const calc::Field *values, size_t layer){
 
-  if(d_bas == nullptr){
+void PCRModflow::setInitialHead(const calc::Field *values, size_t layer)
+{
+
+  if (d_bas == nullptr) {
     std::string const stmp("Layers need to be specified at first!");
     d_cmethods->error(stmp, "setInitialHead");
   }
@@ -627,42 +631,45 @@ void PCRModflow::setInitialHead(const calc::Field *values, size_t layer){
   d_bas->setInitialHead(values, layer);
 }
 
-
-void PCRModflow::initRIV() {
+void PCRModflow::initRIV()
+{
   const REAL4 init = 0.0;
   d_riv = new RIV(this);
 
   initREAL4BlockData(&d_rivStage, init);
   initREAL4BlockData(&d_rivBottom, init);
   initREAL4BlockData(&d_rivCond, init);
- // initREAL4BlockData(&d_rivLeakage, init);
+  // initREAL4BlockData(&d_rivLeakage, init);
 }
 
-void PCRModflow::initREAL4BlockData(discr::BlockData<REAL4> **bdata, double init) {
+void PCRModflow::initREAL4BlockData(discr::BlockData<REAL4> **bdata, double init)
+{
   *bdata = new discr::BlockData<REAL4>(d_baseArea, init);
 }
 
-void PCRModflow::setRiver(const calc::Field *rivH, const calc::Field *rivB, const calc::Field *rivC, size_t layer){
+void PCRModflow::setRiver(const calc::Field *rivH, const calc::Field *rivB, const calc::Field *rivC,
+                          size_t layer)
+{
   //if(d_gridIsFixed == true){
   //  resetGrid(false);
   //  d_gridIsFixed = false;
   //}
-  if(d_riv == nullptr) {
+  if (d_riv == nullptr) {
     initRIV();
   }
   d_riv->setRiver(rivH, rivB, rivC, layer);
 }
 
-
-bool PCRModflow::setRiver(const float *rivH, const float *rivB, const float *rivC, size_t layer) {
+bool PCRModflow::setRiver(const float *rivH, const float *rivB, const float *rivC, size_t layer)
+{
   //if(d_gridIsFixed == true){
   //  resetGrid(false);
   //  d_gridIsFixed = false;
   //}
-  if(d_riv == nullptr) {
+  if (d_riv == nullptr) {
     initRIV();
   }
-  bool const result = d_riv->setRiver(rivH, rivB, rivC, layer);/*
+  bool const result = d_riv->setRiver(rivH, rivB, rivC, layer); /*
   layer--; // layer number passed by user starts with 1
   d_gridCheck->isGrid(layer, "setRiver");
   d_gridCheck->isConfined(layer, "setRiver");
@@ -676,25 +683,27 @@ bool PCRModflow::setRiver(const float *rivH, const float *rivB, const float *riv
   return result;
 }
 
-void PCRModflow::setRiver(discr::BlockData<REAL4> &stage, discr::BlockData<REAL4> &bottom, discr::BlockData<REAL4> &cond) {
+void PCRModflow::setRiver(discr::BlockData<REAL4> &stage, discr::BlockData<REAL4> &bottom,
+                          discr::BlockData<REAL4> &cond)
+{
   //if(d_gridIsFixed == true) {
   //  resetGrid(false);
   //  d_gridIsFixed = false;
   //}
-  if(d_riv == nullptr) {
+  if (d_riv == nullptr) {
     initRIV();
   }
   d_riv->setRiver(stage, bottom, cond);
 }
-
 
 /**
  * setting the initial head
  * @param values initial heads
  * @param layer layer number
  */
-bool PCRModflow::setInitialHead(const float *values, size_t layer) {
-  layer--; // layer number passed by user starts with 1
+bool PCRModflow::setInitialHead(const float *values, size_t layer)
+{
+  layer--;  // layer number passed by user starts with 1
   d_gridCheck->isGrid(layer, "setInitialHead");
   d_gridCheck->isConfined(layer, "setInitialHead");
   d_gridCheck->testMV(values, "setInitialHead");
@@ -703,10 +712,10 @@ bool PCRModflow::setInitialHead(const float *values, size_t layer) {
   return result;
 }
 
+bool PCRModflow::setInitialHead(const discr::BlockData<REAL4> &values)
+{
 
-bool PCRModflow::setInitialHead(const discr::BlockData<REAL4> &values){
-
-  if(d_bas == nullptr){
+  if (d_bas == nullptr) {
     std::string const stmp("Layers need to be specified at first!");
     d_cmethods->error(stmp, "setInitialHead");
   }
@@ -714,15 +723,15 @@ bool PCRModflow::setInitialHead(const discr::BlockData<REAL4> &values){
   return true;
 }
 
+void PCRModflow::setStorage(const calc::Field *primary, const calc::Field *secondary, size_t layer)
+{
 
-void PCRModflow::setStorage(const calc::Field *primary, const calc::Field *secondary, size_t layer){
-
-  if(d_bcf == nullptr){
+  if (d_bcf == nullptr) {
     std::string const stmp("Layers need to be specified at first!");
     d_cmethods->error(stmp, "setStorage");
   }
 
-  if(d_primaryStorage == nullptr) {
+  if (d_primaryStorage == nullptr) {
     d_primaryStorage = new discr::BlockData<REAL4>(d_baseArea);
     d_secondaryStorage = new discr::BlockData<REAL4>(d_baseArea);
   }
@@ -734,12 +743,13 @@ void PCRModflow::setStorage(const calc::Field *primary, const calc::Field *secon
  * @param values storage values
  * @param layer layer number
  */
-bool PCRModflow::setPrimaryStorage(const float *values, size_t layer){
-  if(d_primaryStorage == nullptr) {
+bool PCRModflow::setPrimaryStorage(const float *values, size_t layer)
+{
+  if (d_primaryStorage == nullptr) {
     d_primaryStorage = new discr::BlockData<REAL4>(d_baseArea);
     d_secondaryStorage = new discr::BlockData<REAL4>(d_baseArea);
   }
-  layer--; // layer number passed by user starts with 1
+  layer--;  // layer number passed by user starts with 1
   d_gridCheck->isGrid(layer, "setPrimaryStorage");
   d_gridCheck->isConfined(layer, "setStorage");
   d_gridCheck->testMV(values, "setPrimaryStorage");
@@ -752,12 +762,13 @@ bool PCRModflow::setPrimaryStorage(const float *values, size_t layer){
  * @param values storage values
  * @param layer layer number
  */
-bool PCRModflow::setSecondaryStorage(const float *values, size_t layer){
-  if(d_primaryStorage == nullptr) {
+bool PCRModflow::setSecondaryStorage(const float *values, size_t layer)
+{
+  if (d_primaryStorage == nullptr) {
     d_primaryStorage = new discr::BlockData<REAL4>(d_baseArea);
     d_secondaryStorage = new discr::BlockData<REAL4>(d_baseArea);
   }
-  layer--; // layer number passed by user starts with 1
+  layer--;  // layer number passed by user starts with 1
   d_gridCheck->isGrid(layer, "setSecondaryStorage");
   d_gridCheck->isConfined(layer, "setStorage");
   d_gridCheck->testMV(values, "setSecondaryStorage");
@@ -765,15 +776,15 @@ bool PCRModflow::setSecondaryStorage(const float *values, size_t layer){
   return result;
 }
 
+void PCRModflow::setWettingParameter(float wetfct, size_t iwetit, float ihdwet)
+{
 
-void PCRModflow::setWettingParameter(float wetfct, size_t iwetit, float ihdwet){
-
-  if(d_bcf == nullptr){
+  if (d_bcf == nullptr) {
     std::string const stmp("Layers need to be specified at first!");
     d_cmethods->error(stmp, "setWettingParameter");
   }
 
-  if(d_wetting == nullptr) {
+  if (d_wetting == nullptr) {
     d_wetting = new discr::BlockData<REAL4>(d_baseArea);
   }
   d_bcf->setWettingParameter(wetfct, iwetit, ihdwet);
@@ -784,11 +795,12 @@ void PCRModflow::setWettingParameter(float wetfct, size_t iwetit, float ihdwet){
  * @param values storage values
  * @param layer layer number
  */
-bool PCRModflow::setWetting(const float *values, size_t layer){
-  if(d_wetting == nullptr) {
+bool PCRModflow::setWetting(const float *values, size_t layer)
+{
+  if (d_wetting == nullptr) {
     d_wetting = new discr::BlockData<REAL4>(d_baseArea);
   }
-  layer--; // layer number passed by user starts with 1
+  layer--;  // layer number passed by user starts with 1
   d_gridCheck->isGrid(layer, "setWetting");
   d_gridCheck->isConfined(layer, "setWetting");
   d_gridCheck->testMV(values, "setWetting");
@@ -796,34 +808,38 @@ bool PCRModflow::setWetting(const float *values, size_t layer){
   return result;
 }
 
-void PCRModflow::setWetting(const calc::Field *values, size_t layer){
+void PCRModflow::setWetting(const calc::Field *values, size_t layer)
+{
 
-  if(d_bcf == nullptr){
+  if (d_bcf == nullptr) {
     std::string const stmp("Layers need to be specified at first!");
     d_cmethods->error(stmp, "setWetting");
   }
 
-  if(d_wetting == nullptr) {
+  if (d_wetting == nullptr) {
     d_wetting = new discr::BlockData<REAL4>(d_baseArea);
   }
   d_bcf->setWetting(values, layer);
 }
 
-void PCRModflow::setWetting(const discr::BlockData<REAL4> &values){
+void PCRModflow::setWetting(const discr::BlockData<REAL4> &values)
+{
 
-  if(d_bcf == nullptr){
+  if (d_bcf == nullptr) {
     std::string const stmp("Layers need to be specified at first!");
     d_cmethods->error(stmp, "setWetting");
   }
 
-  if(d_wetting==nullptr) {
+  if (d_wetting == nullptr) {
     d_wetting = new discr::BlockData<REAL4>(d_baseArea);
   }
   d_bcf->setWetting(values);
 }
 
-void PCRModflow::setStorage(const discr::BlockData<REAL4> &primary, const discr::BlockData<REAL4> &secondary) {
-  if(d_primaryStorage == nullptr) {
+void PCRModflow::setStorage(const discr::BlockData<REAL4> &primary,
+                            const discr::BlockData<REAL4> &secondary)
+{
+  if (d_primaryStorage == nullptr) {
     d_primaryStorage = new discr::BlockData<REAL4>(d_baseArea);
     d_secondaryStorage = new discr::BlockData<REAL4>(d_baseArea);
   }
@@ -831,95 +847,101 @@ void PCRModflow::setStorage(const discr::BlockData<REAL4> &primary, const discr:
 }
 
 /// \todo skip setting the hcond if layer is confining bed
-bool PCRModflow::setHCond(const float *values, size_t layer, size_t type){
-  layer--; // layer number passed by user starts with 1
+bool PCRModflow::setHCond(const float *values, size_t layer, size_t type)
+{
+  layer--;  // layer number passed by user starts with 1
   d_gridCheck->isGrid(layer, "setConductivity");
   d_gridCheck->testMV(values, "setHorizontalConductivity");
   bool const result = setBlockData(*d_hCond, values, layer);
-  if(result == true) {
+  if (result == true) {
     d_layerType.push_back(type);
   }
   return result;
 }
 
-void PCRModflow::setHCond(const discr::BlockData<REAL4> &values, const discr::BlockData<INT4> &type) {
+void PCRModflow::setHCond(const discr::BlockData<REAL4> &values, const discr::BlockData<INT4> &type)
+{
   d_bcf->setHCond(values, type);
 }
 
-void PCRModflow::setCond(size_t laycon, const calc::Field *hcond, const calc::Field *vcond, size_t layer, bool calc){
+void PCRModflow::setCond(size_t laycon, const calc::Field *hcond, const calc::Field *vcond, size_t layer,
+                         bool calc)
+{
   d_bcf->setCond(laycon, hcond, vcond, layer, calc);
 }
 
-
-bool PCRModflow::setVCond(const float *values, size_t layer) {
-  layer--; // layer number passed by user starts with 1
+bool PCRModflow::setVCond(const float *values, size_t layer)
+{
+  layer--;  // layer number passed by user starts with 1
   d_gridCheck->testMV(values, "setVerticalConductivity");
   d_gridCheck->setVCond(layer, "setVerticalConductivity");
   bool const result = setBlockData(*d_vCond, values, layer);
   return result;
 }
 
-void PCRModflow::setVCond(const discr::BlockData<REAL4> &values) {
+void PCRModflow::setVCond(const discr::BlockData<REAL4> &values)
+{
   d_bcf->setVCond(values);
 }
 
-
-
-void PCRModflow::initRCH(size_t option){
+void PCRModflow::initRCH(size_t option)
+{
   d_rch = new RCH(this, option);
 
   initREAL4BlockData(&d_recharge, 0.0);
- // initREAL4BlockData(&d_rechargeResult, 0.0);
+  // initREAL4BlockData(&d_rechargeResult, 0.0);
 }
 
-void PCRModflow::setRecharge(const float *values, size_t optCode) {
-  if(! ((optCode == 1) || (optCode == 3)) ) {
-    std::string const stmp("Input error: set recharge option code either to 1 or 3 or use setIndicatedRecharge");
+void PCRModflow::setRecharge(const float *values, size_t optCode)
+{
+  if (!((optCode == 1) || (optCode == 3))) {
+    std::string const stmp(
+        "Input error: set recharge option code either to 1 or 3 or use setIndicatedRecharge");
     d_cmethods->error(stmp, "setRecharge");
   }
-  if(d_rch==nullptr) {
+  if (d_rch == nullptr) {
     initRCH(optCode);
   }
   setBlockData(*d_recharge, values, 0);
 }
 
-
-void PCRModflow::setRechargeLay(const float *rch, const int *layer) {
-  if(d_rch == nullptr) {
+void PCRModflow::setRechargeLay(const float *rch, const int *layer)
+{
+  if (d_rch == nullptr) {
     initRCH(2);
   }
-  if(d_rechargeIrch == nullptr) {
+  if (d_rechargeIrch == nullptr) {
     d_rechargeIrch = new discr::BlockData<INT4>(d_baseArea);
   }
   /* bool result = */ setBlockData(*d_rechargeIrch, layer, 0);
   /* result =  */ setBlockData(*d_recharge, rch, 0);
 }
 
-
-void PCRModflow::setRecharge(const calc::Field *rch, size_t optCode) {
-  if(d_rch == nullptr) {
+void PCRModflow::setRecharge(const calc::Field *rch, size_t optCode)
+{
+  if (d_rch == nullptr) {
     initRCH(optCode);
   }
   d_rch->setRecharge(rch, optCode);
 }
 
-
-void PCRModflow::setRechargeLay(const calc::Field *rch, const calc::Field *layer) {
-  if(d_rch == nullptr) {
+void PCRModflow::setRechargeLay(const calc::Field *rch, const calc::Field *layer)
+{
+  if (d_rch == nullptr) {
     initRCH(2);
   }
   d_rch->setIndicatedRecharge(rch, layer);
 }
 
-
-void PCRModflow::removeTextFiles(std::string const & fileName) const
+void PCRModflow::removeTextFiles(std::string const &fileName) const
 {
-  if(std::filesystem::exists(fileName)) {
+  if (std::filesystem::exists(fileName)) {
     std::filesystem::remove(fileName);
   }
 }
 
-bool PCRModflow::runModflow(const std::string & working_directory) {
+bool PCRModflow::runModflow(const std::string &working_directory)
+{
 
   modflow_directory = working_directory;
 
@@ -929,16 +951,17 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
     exit(1);
   }
 
-  if(d_dis == nullptr) {
-    std::string const stmp("Can not execute Modflow: No grid specified. Use createBottomLayer and addLayer");
+  if (d_dis == nullptr) {
+    std::string const stmp(
+        "Can not execute Modflow: No grid specified. Use createBottomLayer and addLayer");
     d_cmethods->error(stmp, "run");
   }
-  if(d_bas == nullptr) {
+  if (d_bas == nullptr) {
     std::string const stmp("Can not execute Modflow: No BAS package specified");
     d_cmethods->error(stmp, "run");
   }
 
-  if(d_bcf == nullptr) {
+  if (d_bcf == nullptr) {
     std::string const stmp("Can not execute Modflow: No BCF package specified");
     d_cmethods->error(stmp, "run");
   }
@@ -955,13 +978,12 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
   removeTextFiles(mf::execution_path(run_directory(), "pcrmf.lst"));
 
 
-
   // do tests only if grid specification has changed since the
   // last MF run
-  if(d_gridIsFixed == false) {
+  if (d_gridIsFixed == false) {
     // test if top layer is a Q3dConfined layer
     size_t const size = d_quasiConfined.size();
-    if(d_quasiConfined.at(size-2) == 1) {
+    if (d_quasiConfined.at(size - 2) == 1) {
       std::string const stmp("Grid definition: layer 1 is a confined layer");
       d_cmethods->error(stmp, "run");
     }
@@ -972,7 +994,7 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
 
   // the following files do not change without grid modification
   // just write them once
-  if(d_gridIsFixed == false) {
+  if (d_gridIsFixed == false) {
     //result = writeNAM();
 
     //result = writeOC();
@@ -989,14 +1011,13 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
     d_bcf->write_tran(run_directory());
     d_bcf->write_vcond(run_directory());
 
-    if(d_bcf->transient()){
+    if (d_bcf->transient()) {
       d_bcf->write_sf1(run_directory());
       d_bcf->write_sf2(run_directory());
     }
-    if(d_bcf->rewetting()){
-     d_bcf->write_wetdry(run_directory());
+    if (d_bcf->rewetting()) {
+      d_bcf->write_wetdry(run_directory());
     }
-
   }
 
   //d_bas->writeBAS();
@@ -1004,50 +1025,50 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
   d_bas->write_head_array(run_directory());
   d_bas->write_bound_array(run_directory());
 
-///==============================================
-  if(d_pcg != nullptr) {
-    if(d_pcg->modified()){
+  ///==============================================
+  if (d_pcg != nullptr) {
+    if (d_pcg->modified()) {
       std::stringstream content;
       content << *d_pcg;
-      d_cmethods->writeToFile(mf::execution_path(run_directory(), "pcrmf.pcg"),content.str());
+      d_cmethods->writeToFile(mf::execution_path(run_directory(), "pcrmf.pcg"), content.str());
       d_pcg->update();
     }
   }
-  if(d_sip != nullptr) {
-    if(d_sip->modified()){
+  if (d_sip != nullptr) {
+    if (d_sip->modified()) {
       std::stringstream content;
       content << *d_sip;
-      d_cmethods->writeToFile(mf::execution_path(run_directory(), "pcrmf.sip"),content.str());
+      d_cmethods->writeToFile(mf::execution_path(run_directory(), "pcrmf.sip"), content.str());
       d_sip->update();
     }
   }
-  if(d_sor != nullptr) {
-    if(d_sor->modified()){
+  if (d_sor != nullptr) {
+    if (d_sor->modified()) {
       std::stringstream content;
       content << *d_sor;
-      d_cmethods->writeToFile(mf::execution_path(run_directory(), "pcrmf.sor"),content.str());
+      d_cmethods->writeToFile(mf::execution_path(run_directory(), "pcrmf.sor"), content.str());
       d_sor->update();
     }
   }
-  if(d_dsp != nullptr) {
-    if(d_dsp->modified()){
+  if (d_dsp != nullptr) {
+    if (d_dsp->modified()) {
       std::stringstream content;
       content << *d_dsp;
-      d_cmethods->writeToFile(mf::execution_path(run_directory(), "pcrmf.de4"),content.str());
+      d_cmethods->writeToFile(mf::execution_path(run_directory(), "pcrmf.de4"), content.str());
       d_dsp->update();
     }
   }
-///==============================================
-  if(d_drn != nullptr) {
-    if(d_drn->drainUpdated()){
+  ///==============================================
+  if (d_drn != nullptr) {
+    if (d_drn->drainUpdated()) {
       d_drn->write_list(run_directory());
       d_drn->write(run_directory());
       d_drn->setDrainUpdated(false);
     }
   }
 
-  if(d_riv!=nullptr) {
-    if(d_riv->riverUpdated()){
+  if (d_riv != nullptr) {
+    if (d_riv->riverUpdated()) {
       //d_riv ->writeRIV();
       d_riv->write_list(run_directory());
       d_riv->write(run_directory());
@@ -1056,24 +1077,24 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
   }
 
 
-  if(d_rch!=nullptr) {
-      //d_rch->writeRCH();
+  if (d_rch != nullptr) {
+    //d_rch->writeRCH();
 
     d_rch->write(run_directory());
     d_rch->write_array(run_directory());
-    if(d_rch->indicated_recharge()){
+    if (d_rch->indicated_recharge()) {
       d_rch->write_indicated(run_directory());
     }
   }
 
-  if(d_wel != nullptr) {
+  if (d_wel != nullptr) {
     //d_wel->writeWEL();
     d_wel->write_list(run_directory());
     d_wel->write(run_directory());
   }
 
-  if(d_ghb != nullptr) {
-    if(d_ghb->ghbUpdated()){
+  if (d_ghb != nullptr) {
+    if (d_ghb->ghbUpdated()) {
       d_ghb->write_list(run_directory());
       d_ghb->write(run_directory());
       d_ghb->setGhbUpdated(false);
@@ -1089,7 +1110,7 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
   result = writeOC();
 
 
-  if(result == true) {
+  if (result == true) {
     d_gridIsFixed = true;
 
     // old stuff...
@@ -1101,19 +1122,18 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
     process.setWorkingDirectory(QString::fromStdString(run_directory()));
 
     // Standard execution
-    if(run_command.empty()){
+    if (run_command.empty()) {
       QString const program{"pcr_mf2005"};
       QStringList const arg{"pcrmf.nam"};
       process.start(program, arg);
       process.waitForFinished(-1);
     }
     // User provided string
-    else{
+    else {
       QString const program{QString::fromStdString(run_command)};
       QStringList const arg{QString::fromStdString(run_arguments).split(" ")};
       process.start(program, arg);
       process.waitForFinished(-1);
-
     }
 
     process.setWorkingDirectory(working_directory);
@@ -1121,42 +1141,42 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
     // modflow seems to always return 0, also in error case :(
     // check listing file
     modflow_converged();
-  }
-  else {
+  } else {
     std::cerr << "Can not write MODFLOW input files" << '\n';
     exit(1);
   }
 
-//   if(!boost::filesystem::exists("fort.6")) {
-//     std::cerr << std::endl;
-//     std::cerr << "The execution of MODFLOW failed" << std::endl;
-//     std::string stmp("MODFLOW terminated abnormally");
-//     printList();
-//     d_cmethods->error(stmp, "run");
-//   }
+  //   if(!boost::filesystem::exists("fort.6")) {
+  //     std::cerr << std::endl;
+  //     std::cerr << "The execution of MODFLOW failed" << std::endl;
+  //     std::string stmp("MODFLOW terminated abnormally");
+  //     printList();
+  //     d_cmethods->error(stmp, "run");
+  //   }
 
   // get MF output
   d_bas->getHeadsFromBinary(run_directory());
   d_bas->getBASBlockData(*d_ibound, run_directory());
 
-//  if(d_riv != NULL) {
-//	   d_riv->getRivLeakFromBinary();
-//  }
-//  if(d_rch != NULL) {
-//	   d_rch->getFlowFromBinary();
-//  }
-//  if(d_drn != NULL) {
-//	    d_drn->getDrainFromBinary();
-//  }
+  //  if(d_riv != NULL) {
+  //	   d_riv->getRivLeakFromBinary();
+  //  }
+  //  if(d_rch != NULL) {
+  //	   d_rch->getFlowFromBinary();
+  //  }
+  //  if(d_drn != NULL) {
+  //	    d_drn->getDrainFromBinary();
+  //  }
 
   return result;
 }
 
-void PCRModflow::modflow_converged() {
+void PCRModflow::modflow_converged()
+{
 
   std::string const filename = mf::execution_path(run_directory(), "pcrmf.lst");
 
-  if(!std::filesystem::exists(filename)) {
+  if (!std::filesystem::exists(filename)) {
     std::cerr << "  Error in PCRasterModflow: can not open global list file " << filename << '\n';
     exit(1);
   }
@@ -1174,17 +1194,18 @@ void PCRModflow::modflow_converged() {
     }
     fileInput.close();
   }
-  if(d_modflow_converged == false){
+  if (d_modflow_converged == false) {
     printList();
     std::cerr << "\nError: MODFLOW failed to converge" << '\n';
   }
 }
 
-void PCRModflow::printList() {
+void PCRModflow::printList()
+{
 
   std::string const filename = mf::execution_path(run_directory(), "pcrmf.lst");
 
-  if(!std::filesystem::exists(filename)) {
+  if (!std::filesystem::exists(filename)) {
     std::cerr << "  Error in PCRasterModflow: can not open global list file " << filename << '\n';
     exit(1);
   }
@@ -1195,42 +1216,45 @@ void PCRModflow::printList() {
   file.seekg(0, std::ios::end);
   size_t const len = file.tellg();
   size_t last = 3000;
-  if(len <= last){
+  if (len <= last) {
     last = len - 1;
   }
   file.seekg(len - last);
-  while(!file.eof()) {
+  while (!file.eof()) {
     getline(file, line);
     std::cout << line << '\n';
-
   }
   file.close();
 }
 
-void PCRModflow::setDISParams(size_t timeUnits, size_t lentghUnits, float stressPeriodLength, size_t nrOfTimesteps, float timeStepMultiplier, bool isSteadyState) {
+void PCRModflow::setDISParams(size_t timeUnits, size_t lentghUnits, float stressPeriodLength,
+                              size_t nrOfTimesteps, float timeStepMultiplier, bool isSteadyState)
+{
 
-  if(d_dis == nullptr){
+  if (d_dis == nullptr) {
     std::string const stmp("Layers need to be specified at first!");
     d_cmethods->error(stmp, "setDISParameter");
   }
 
   d_isSteadyState = isSteadyState;
-  if(isSteadyState == false) {
-    if(d_primaryStorage == nullptr) {
+  if (isSteadyState == false) {
+    if (d_primaryStorage == nullptr) {
       d_primaryStorage = new discr::BlockData<REAL4>(d_baseArea);
       d_secondaryStorage = new discr::BlockData<REAL4>(d_baseArea);
     }
   }
-  if(d_gridIsFixed == true) {
+  if (d_gridIsFixed == true) {
     resetGrid(false);
     d_gridIsFixed = false;
   }
-  d_dis->setParams(timeUnits, lentghUnits, stressPeriodLength, nrOfTimesteps, timeStepMultiplier, isSteadyState);
+  d_dis->setParams(timeUnits, lentghUnits, stressPeriodLength, nrOfTimesteps, timeStepMultiplier,
+                   isSteadyState);
 }
 
-void PCRModflow::setNoFlowConstant(float value) {
+void PCRModflow::setNoFlowConstant(float value)
+{
 
-  if(d_bas == nullptr){
+  if (d_bas == nullptr) {
     std::string const stmp("Layers need to be specified at first!");
     d_cmethods->error(stmp, "setNoFlowHead");
   }
@@ -1238,70 +1262,76 @@ void PCRModflow::setNoFlowConstant(float value) {
   d_bas->setNoFlowConstant(value);
 }
 
-
-
-void PCRModflow::setTRPY(float trpy) {
+void PCRModflow::setTRPY(float trpy)
+{
   d_bcf->setTRPY(trpy);
 }
 
-void PCRModflow::setHDRY(float hdry) {
+void PCRModflow::setHDRY(float hdry)
+{
   d_bcf->setHDRY(hdry);
 }
 
 //
 // BCF
 //
-calc::Field* PCRModflow::get_storage(size_t layer){
+calc::Field *PCRModflow::get_storage(size_t layer)
+{
   return d_bcf->get_storage(layer, run_directory());
 }
 
-void PCRModflow::get_storage(float *values, size_t layer) {
+void PCRModflow::get_storage(float *values, size_t layer)
+{
   d_bcf->get_storage(values, layer, run_directory());
 }
 
-
-calc::Field* PCRModflow::get_constand_head(size_t layer){
+calc::Field *PCRModflow::get_constand_head(size_t layer)
+{
   return d_bcf->get_constand_head(layer, run_directory());
 }
 
-void PCRModflow::get_constand_head(float *values, size_t layer) {
+void PCRModflow::get_constand_head(float *values, size_t layer)
+{
   d_bcf->get_constand_head(values, layer, run_directory());
 }
 
-
-calc::Field* PCRModflow::get_right_face(size_t layer){
+calc::Field *PCRModflow::get_right_face(size_t layer)
+{
   return d_bcf->get_right_face(layer, run_directory());
 }
 
-void PCRModflow::get_right_face(float *values, size_t layer) {
+void PCRModflow::get_right_face(float *values, size_t layer)
+{
   d_bcf->get_right_face(values, layer, run_directory());
 }
 
-
-calc::Field* PCRModflow::get_front_face(size_t layer){
+calc::Field *PCRModflow::get_front_face(size_t layer)
+{
   return d_bcf->get_front_face(layer, run_directory());
 }
 
-void PCRModflow::get_front_face(float *values, size_t layer) {
+void PCRModflow::get_front_face(float *values, size_t layer)
+{
   d_bcf->get_front_face(values, layer, run_directory());
 }
 
-
-calc::Field* PCRModflow::get_lower_face(size_t layer){
+calc::Field *PCRModflow::get_lower_face(size_t layer)
+{
   return d_bcf->get_lower_face(layer, run_directory());
 }
 
-void PCRModflow::get_lower_face(float *values, size_t layer) {
+void PCRModflow::get_lower_face(float *values, size_t layer)
+{
   d_bcf->get_lower_face(values, layer, run_directory());
 }
-
 
 //
 // DRN package
 //
-void PCRModflow::initDRN() {
+void PCRModflow::initDRN()
+{
 
-  if(d_dis == nullptr){
+  if (d_dis == nullptr) {
     std::string const stmp("Layers need to be specified at first!");
     d_cmethods->error(stmp, "setDrain");
   }
@@ -1313,16 +1343,16 @@ void PCRModflow::initDRN() {
   //d_drnResult = new discr::BlockData<REAL4>(d_baseArea, init);
 }
 
-
-bool PCRModflow::setDrain(const float *elevation, const float *conductance, size_t layer) {
+bool PCRModflow::setDrain(const float *elevation, const float *conductance, size_t layer)
+{
   //if(d_gridIsFixed == true) {
   //  resetGrid(false);
   //  d_gridIsFixed = false;
   //}
-  if(d_drn == nullptr) {
+  if (d_drn == nullptr) {
     initDRN();
   }
-  layer--; // layer number passed by user starts with 1
+  layer--;  // layer number passed by user starts with 1
   d_gridCheck->isGrid(layer, "setDrain");
   d_gridCheck->isConfined(layer, "setDrain");
   d_gridCheck->testMV(elevation, "setDrain elevation");
@@ -1330,46 +1360,49 @@ bool PCRModflow::setDrain(const float *elevation, const float *conductance, size
   return d_drn->setDrain(elevation, conductance, layer);
 }
 
-void PCRModflow::setDrain(const calc::Field *elevation, const calc::Field *conductance, size_t layer){
+void PCRModflow::setDrain(const calc::Field *elevation, const calc::Field *conductance, size_t layer)
+{
   //if(d_gridIsFixed == true) {
   // resetGrid(false);
   //  d_gridIsFixed = false;
   //}
-  if(d_drn == nullptr) {
+  if (d_drn == nullptr) {
     initDRN();
   }
   d_drn->setDrain(elevation, conductance, layer);
 }
 
-
-void PCRModflow::setDrain(const discr::BlockData<REAL4> &elevation, const discr::BlockData<REAL4> &conductance) {
+void PCRModflow::setDrain(const discr::BlockData<REAL4> &elevation,
+                          const discr::BlockData<REAL4> &conductance)
+{
   //if(d_gridIsFixed == true) {
   //  resetGrid(false);
   //  d_gridIsFixed = false;
   //}
-  if(d_drn == nullptr) {
+  if (d_drn == nullptr) {
     initDRN();
   }
   d_drn->setDrain(elevation, conductance);
 }
 
-
 /**
  *
  */
-void PCRModflow::getDrain(float *values, size_t layer) {
-  if(d_drn == nullptr) {
+void PCRModflow::getDrain(float *values, size_t layer)
+{
+  if (d_drn == nullptr) {
     std::string const stmp("No drain values specified: Define elevation and conductance values");
     d_cmethods->error(stmp, "getDrain");
   }
-  layer--; // layer number passed by user starts with 1
+  layer--;  // layer number passed by user starts with 1
   d_gridCheck->isGrid(layer, "getDrain");
   d_gridCheck->isConfined(layer, "getDrain");
   d_drn->getDrain(values, layer, run_directory());
 }
 
-calc::Field* PCRModflow::getDrain(size_t layer){
-  if(nullptr == d_drn) {
+calc::Field *PCRModflow::getDrain(size_t layer)
+{
+  if (nullptr == d_drn) {
     std::string const stmp("No drain values specified: Define elevation and conductance values");
     d_cmethods->error(stmp, "getDrain");
   }
@@ -1379,9 +1412,10 @@ calc::Field* PCRModflow::getDrain(size_t layer){
 //
 // WEL package
 //
-void PCRModflow::initWEL() {
+void PCRModflow::initWEL()
+{
 
-  if(d_dis == nullptr){
+  if (d_dis == nullptr) {
     std::string const stmp("Layers need to be specified at first!");
     d_cmethods->error(stmp, "setWell");
   }
@@ -1390,42 +1424,45 @@ void PCRModflow::initWEL() {
   d_welValues = new discr::BlockData<REAL4>(d_baseArea, 0.0);
 }
 
-bool PCRModflow::setWell(const float *well, size_t layer) {
-  if(d_wel == nullptr) {
+bool PCRModflow::setWell(const float *well, size_t layer)
+{
+  if (d_wel == nullptr) {
     initWEL();
   }
-  layer--; // layer number passed by user starts with 1
+  layer--;  // layer number passed by user starts with 1
   d_gridCheck->isGrid(layer, "setWell");
   d_gridCheck->isConfined(layer, "setWell");
   return d_wel->setWell(well, layer);
 }
 
-void PCRModflow::setWell(const calc::Field *well, size_t layer){
-  if(d_wel == nullptr) {
+void PCRModflow::setWell(const calc::Field *well, size_t layer)
+{
+  if (d_wel == nullptr) {
     initWEL();
   }
   d_wel->setWell(well, layer);
 }
 
-void PCRModflow::setWell(discr::BlockData<REAL4> &well) {
-  if(d_wel == nullptr) {
+void PCRModflow::setWell(discr::BlockData<REAL4> &well)
+{
+  if (d_wel == nullptr) {
     initWEL();
   }
   d_wel->setWell(well);
 }
 
-
 //
 // Solver packages
 //
-void PCRModflow::setSOR(size_t mxiter, double accl, double hclose) {
+void PCRModflow::setSOR(size_t mxiter, double accl, double hclose)
+{
 
-  if(d_solver_used != NO_SOLVER && d_solver_used != SOR_SOLVER){
+  if (d_solver_used != NO_SOLVER && d_solver_used != SOR_SOLVER) {
     std::string const stmp("A solver package different to SOR was previously specified");
     d_cmethods->error(stmp, "setSOR");
   }
 
-  if(d_solver_used == NO_SOLVER){
+  if (d_solver_used == NO_SOLVER) {
     d_solver_used = SOR_SOLVER;
     d_sor = new SOR();
   }
@@ -1434,15 +1471,16 @@ void PCRModflow::setSOR(size_t mxiter, double accl, double hclose) {
   d_modflow_converged = true;
 }
 
+void PCRModflow::setSIP(size_t mxiter, size_t nparam, double accl, double hclose, size_t ipcalc,
+                        double wseed)
+{
 
-void PCRModflow::setSIP(size_t mxiter, size_t nparam, double accl, double hclose, size_t ipcalc, double wseed) {
-
-  if(d_solver_used != NO_SOLVER && d_solver_used != SIP_SOLVER){
+  if (d_solver_used != NO_SOLVER && d_solver_used != SIP_SOLVER) {
     std::string const stmp("A solver package different to SIP was previously specified");
     d_cmethods->error(stmp, "setSIP");
   }
 
-  if(d_solver_used == NO_SOLVER){
+  if (d_solver_used == NO_SOLVER) {
     d_solver_used = SIP_SOLVER;
     d_sip = new SIP();
   }
@@ -1451,15 +1489,16 @@ void PCRModflow::setSIP(size_t mxiter, size_t nparam, double accl, double hclose
   d_modflow_converged = true;
 }
 
+void PCRModflow::setPCG(size_t mxiter, size_t iteri, size_t npcond, double hclose, double rclose,
+                        double relax, double nbpol, double damp)
+{
 
-void PCRModflow::setPCG(size_t mxiter, size_t iteri,  size_t npcond, double hclose, double rclose, double relax,  double nbpol, double damp) {
-
-  if(d_solver_used != NO_SOLVER && d_solver_used != PCG_SOLVER){
+  if (d_solver_used != NO_SOLVER && d_solver_used != PCG_SOLVER) {
     std::string const stmp("A solver package different to PCG was previously specified");
     d_cmethods->error(stmp, "setPCG");
   }
 
-  if(d_solver_used == NO_SOLVER){
+  if (d_solver_used == NO_SOLVER) {
     d_solver_used = PCG_SOLVER;
     d_pcg = new PCG();
   }
@@ -1468,15 +1507,16 @@ void PCRModflow::setPCG(size_t mxiter, size_t iteri,  size_t npcond, double hclo
   d_modflow_converged = true;
 }
 
+void PCRModflow::setDSP(size_t itmx, size_t mxup, size_t mxlow, size_t mxbw, size_t ifreq, double accl,
+                        double hclose)
+{
 
-void PCRModflow::setDSP(size_t itmx, size_t mxup, size_t mxlow, size_t mxbw, size_t ifreq, double accl, double hclose) {
-
-  if(d_solver_used != NO_SOLVER && d_solver_used != DSP_SOLVER){
+  if (d_solver_used != NO_SOLVER && d_solver_used != DSP_SOLVER) {
     std::string const stmp("A solver package different to DSP was previously specified");
     d_cmethods->error(stmp, "setDSP");
   }
 
-  if(d_solver_used == NO_SOLVER){
+  if (d_solver_used == NO_SOLVER) {
     d_solver_used = DSP_SOLVER;
     d_dsp = new DSP();
   }
@@ -1485,162 +1525,166 @@ void PCRModflow::setDSP(size_t itmx, size_t mxup, size_t mxlow, size_t mxbw, siz
   d_modflow_converged = true;
 }
 
-
-
-
-void PCRModflow::createBottomPS(const std::string & lower, const std::string & upper){
+void PCRModflow::createBottomPS(const std::string &lower, const std::string &upper)
+{
   dal::RasterDal const rasterdal(true);
   std::shared_ptr<dal::Raster> const raster1(rasterdal.read(lower, dal::TI_REAL4));
   std::shared_ptr<dal::Raster> const raster2(rasterdal.read(upper, dal::TI_REAL4));
-  createBottom(static_cast<REAL4 const*>(raster1->cells()), static_cast<REAL4 const*>(raster2->cells()));
+  createBottom(static_cast<REAL4 const *>(raster1->cells()),
+               static_cast<REAL4 const *>(raster2->cells()));
 }
 
-void PCRModflow::addLayerPS(const std::string & values){
+void PCRModflow::addLayerPS(const std::string &values)
+{
   dal::RasterDal const rasterdal(true);
   std::shared_ptr<dal::Raster> const raster(rasterdal.read(values, dal::TI_REAL4));
-  addLayer(static_cast<REAL4 const*>(raster->cells()));
+  addLayer(static_cast<REAL4 const *>(raster->cells()));
 }
 
-void PCRModflow::addConfinedLayerPS(const std::string & values){
+void PCRModflow::addConfinedLayerPS(const std::string &values)
+{
   dal::RasterDal const rasterdal(true);
   std::shared_ptr<dal::Raster> const raster(rasterdal.read(values, dal::TI_REAL4));
-  addConfinedLayer(static_cast<REAL4 const*>(raster->cells()));
+  addConfinedLayer(static_cast<REAL4 const *>(raster->cells()));
 }
 
-
-void PCRModflow::setIBound(const std::string & values, size_t layer){
+void PCRModflow::setIBound(const std::string &values, size_t layer)
+{
   dal::RasterDal const rasterdal(true);
   std::shared_ptr<dal::Raster> const raster(rasterdal.read(values, dal::TI_INT4));
-  setIBound(static_cast<INT4 const*>(raster->cells()),layer);
+  setIBound(static_cast<INT4 const *>(raster->cells()), layer);
 }
 
-
-
-  void PCRModflow::setInitialHead(const std::string & values, size_t layer){
-   dal::RasterDal const rasterdal(true);
+void PCRModflow::setInitialHead(const std::string &values, size_t layer)
+{
+  dal::RasterDal const rasterdal(true);
   std::shared_ptr<dal::Raster> const raster(rasterdal.read(values, dal::TI_REAL4));
-  setInitialHead(static_cast<REAL4 const*>(raster->cells()), layer);
+  setInitialHead(static_cast<REAL4 const *>(raster->cells()), layer);
 }
 
-
-
-  void PCRModflow::setCond(size_t laycon, const std::string & hcond, const std::string & vcond, size_t layer, bool calc){
-   dal::RasterDal const rasterdal(true);
+void PCRModflow::setCond(size_t laycon, const std::string &hcond, const std::string &vcond, size_t layer,
+                         bool calc)
+{
+  dal::RasterDal const rasterdal(true);
   std::shared_ptr<dal::Raster> const raster1(rasterdal.read(hcond, dal::TI_REAL4));
   std::shared_ptr<dal::Raster> const raster2(rasterdal.read(vcond, dal::TI_REAL4));
 
-  setHCond(static_cast<REAL4 const*>(raster1->cells()),  layer, laycon);
-  setVCond(static_cast<REAL4 const*>(raster2->cells()),  layer);
+  setHCond(static_cast<REAL4 const *>(raster1->cells()), layer, laycon);
+  setVCond(static_cast<REAL4 const *>(raster2->cells()), layer);
   d_bcf->set_calculate_cond(calc);
 }
 
-  void PCRModflow::setRecharge(const std::string & values, size_t optCode){
-     dal::RasterDal const rasterdal(true);
+void PCRModflow::setRecharge(const std::string &values, size_t optCode)
+{
+  dal::RasterDal const rasterdal(true);
   std::shared_ptr<dal::Raster> const raster(rasterdal.read(values, dal::TI_REAL4));
-  setRecharge(static_cast<REAL4 const*>(raster->cells()), optCode);
+  setRecharge(static_cast<REAL4 const *>(raster->cells()), optCode);
 }
 
-  void PCRModflow::setRechargeLay(const std::string & values, const std::string & layer){
-     dal::RasterDal const rasterdal(true);
+void PCRModflow::setRechargeLay(const std::string &values, const std::string &layer)
+{
+  dal::RasterDal const rasterdal(true);
   std::shared_ptr<dal::Raster> const raster1(rasterdal.read(values, dal::TI_REAL4));
   std::shared_ptr<dal::Raster> const raster2(rasterdal.read(layer, dal::TI_INT4));
-  setRechargeLay(static_cast<REAL4 const*>(raster1->cells()), static_cast<INT4 const*>(raster2->cells()));
+  setRechargeLay(static_cast<REAL4 const *>(raster1->cells()),
+                 static_cast<INT4 const *>(raster2->cells()));
 }
 
+void PCRModflow::setWetting(const std::string &values, size_t mfLayer)
+{
 
-  void PCRModflow::setWetting(const std::string & values, size_t mfLayer){
-
-  if(d_bcf == nullptr){
+  if (d_bcf == nullptr) {
     std::string const stmp("Layers need to be specified at first!");
     d_cmethods->error(stmp, "setWetting");
   }
 
-     dal::RasterDal const rasterdal(true);
+  dal::RasterDal const rasterdal(true);
   std::shared_ptr<dal::Raster> const raster(rasterdal.read(values, dal::TI_REAL4));
-  setWetting(static_cast<REAL4 const*>(raster->cells()), mfLayer);
+  setWetting(static_cast<REAL4 const *>(raster->cells()), mfLayer);
 }
 
-
-  void PCRModflow::setWell(const std::string & values, size_t mfLayer){
-     dal::RasterDal const rasterdal(true);
+void PCRModflow::setWell(const std::string &values, size_t mfLayer)
+{
+  dal::RasterDal const rasterdal(true);
   std::shared_ptr<dal::Raster> const raster(rasterdal.read(values, dal::TI_REAL4));
-  setWell(static_cast<REAL4 const*>(raster->cells()), mfLayer);
+  setWell(static_cast<REAL4 const *>(raster->cells()), mfLayer);
 }
 
+void PCRModflow::setStorage(const std::string &prim, const std::string &second, size_t layer)
+{
 
-
-
- void PCRModflow::setStorage(const std::string & prim, const std::string & second, size_t layer){
-
-  if(d_bcf == nullptr){
+  if (d_bcf == nullptr) {
     std::string const stmp("Layers need to be specified at first!");
     d_cmethods->error(stmp, "setStorage");
   }
-    dal::RasterDal const rasterdal(true);
+  dal::RasterDal const rasterdal(true);
   std::shared_ptr<dal::Raster> const raster1(rasterdal.read(prim, dal::TI_REAL4));
   std::shared_ptr<dal::Raster> const raster2(rasterdal.read(second, dal::TI_REAL4));
 
-  setPrimaryStorage(static_cast<REAL4 const*>(raster1->cells()), layer);
-  setSecondaryStorage(static_cast<REAL4 const*>(raster2->cells()), layer);
+  setPrimaryStorage(static_cast<REAL4 const *>(raster1->cells()), layer);
+  setSecondaryStorage(static_cast<REAL4 const *>(raster2->cells()), layer);
 }
 
- void PCRModflow::setRiver(const std::string & rivH, const std::string & rivB, const std::string & rivC, size_t layer){
+void PCRModflow::setRiver(const std::string &rivH, const std::string &rivB, const std::string &rivC,
+                          size_t layer)
+{
   dal::RasterDal const rasterdal(true);
   std::shared_ptr<dal::Raster> const raster1(rasterdal.read(rivH, dal::TI_REAL4));
   std::shared_ptr<dal::Raster> const raster2(rasterdal.read(rivB, dal::TI_REAL4));
   std::shared_ptr<dal::Raster> const raster3(rasterdal.read(rivC, dal::TI_REAL4));
 
-  setRiver(static_cast<REAL4 const*>(raster1->cells()), static_cast<REAL4 const*>(raster2->cells()), static_cast<REAL4 const*>(raster3->cells()), layer);
+  setRiver(static_cast<REAL4 const *>(raster1->cells()), static_cast<REAL4 const *>(raster2->cells()),
+           static_cast<REAL4 const *>(raster3->cells()), layer);
 }
 
-
- void PCRModflow::setDrain(const std::string & elevation, const std::string & conductance, size_t layer){
-     dal::RasterDal const rasterdal(true);
+void PCRModflow::setDrain(const std::string &elevation, const std::string &conductance, size_t layer)
+{
+  dal::RasterDal const rasterdal(true);
   std::shared_ptr<dal::Raster> const raster1(rasterdal.read(elevation, dal::TI_REAL4));
   std::shared_ptr<dal::Raster> const raster2(rasterdal.read(conductance, dal::TI_REAL4));
 
-  setDrain(static_cast<REAL4 const*>(raster1->cells()), static_cast<REAL4 const*>(raster2->cells()), layer);
+  setDrain(static_cast<REAL4 const *>(raster1->cells()), static_cast<REAL4 const *>(raster2->cells()),
+           layer);
 }
 
-
-
-
-size_t PCRModflow::get_modflow_layernr(size_t layer) {
+size_t PCRModflow::get_modflow_layernr(size_t layer)
+{
   // return for a pcrmodflow layer number a modflow layer number
   size_t result = 999999;
 
-  for(size_t pos = 0; pos < d_layer2BlockLayer.size(); ++pos){
-      if(mfLayer2BlockLayer(pos) == layer){
-        result = pos;
-      }
+  for (size_t pos = 0; pos < d_layer2BlockLayer.size(); ++pos) {
+    if (mfLayer2BlockLayer(pos) == layer) {
+      result = pos;
+    }
   }
 
   return result;
 }
 
-
-
-bool PCRModflow::converged(){
+bool PCRModflow::converged()
+{
   return d_modflow_converged;
 }
 
-std::string PCRModflow::run_directory(){
+std::string PCRModflow::run_directory()
+{
   return modflow_directory;
 }
 
-
-void PCRModflow::update_dis_parameter(float stressPeriodLength, size_t nrOfTimesteps, float timeStepMultiplier){
+void PCRModflow::update_dis_parameter(float stressPeriodLength, size_t nrOfTimesteps,
+                                      float timeStepMultiplier)
+{
   d_dis->update_parameter(stressPeriodLength, nrOfTimesteps, timeStepMultiplier);
 }
 
-void PCRModflow::set_run_command(const std::string & command, const std::string & arguments){
+void PCRModflow::set_run_command(const std::string &command, const std::string &arguments)
+{
   run_command = command;
   run_arguments = arguments;
 }
 
-
-
-void PCRModflow::initGHB() {
+void PCRModflow::initGHB()
+{
   const REAL4 init = 0.0;
   d_ghb = new GHB(this);
 
@@ -1648,27 +1692,30 @@ void PCRModflow::initGHB() {
   initREAL4BlockData(&d_ghbCond, init);
 }
 
-
-void PCRModflow::setGHB(const calc::Field *head, const calc::Field *cond, size_t layer){
-  if(d_ghb == nullptr) {
+void PCRModflow::setGHB(const calc::Field *head, const calc::Field *cond, size_t layer)
+{
+  if (d_ghb == nullptr) {
     initGHB();
   }
   d_ghb->setGHB(head, cond, layer);
 }
 
-void PCRModflow::setGHB(const std::string & head, const std::string & cond, size_t layer){
-  if(d_ghb == nullptr) {
+void PCRModflow::setGHB(const std::string &head, const std::string &cond, size_t layer)
+{
+  if (d_ghb == nullptr) {
     initGHB();
   }
   dal::RasterDal const rasterdal(true);
   std::shared_ptr<dal::Raster> const raster1(rasterdal.read(head, dal::TI_REAL4));
   std::shared_ptr<dal::Raster> const raster2(rasterdal.read(cond, dal::TI_REAL4));
 
-  d_ghb->setGHB(static_cast<REAL4 const*>(raster1->cells()), static_cast<REAL4 const*>(raster2->cells()), layer);
+  d_ghb->setGHB(static_cast<REAL4 const *>(raster1->cells()),
+                static_cast<REAL4 const *>(raster2->cells()), layer);
 }
 
-calc::Field* PCRModflow::getGHBLeakage(size_t layer){
-  if(d_ghb == nullptr) {
+calc::Field *PCRModflow::getGHBLeakage(size_t layer)
+{
+  if (d_ghb == nullptr) {
     std::stringstream stmp;
     stmp << "No general head boundary package specified: Define head and conductance values ";
     d_cmethods->error(stmp.str(), "getGeneralHeadLeakage");

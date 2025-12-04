@@ -9,41 +9,36 @@
 #include <iostream>
 #include <sstream>
 
-
-
 /**
  * Destructor
  */
-DIS::~DIS(){
+DIS::~DIS()
+{
 }
 
 /**
  * Constructor
  */
-DIS::DIS(PCRModflow *mf) :
-  d_mf(mf),
-  d_sstr("SS"),
-  d_row_width(),
-  d_col_width()
+DIS::DIS(PCRModflow *mf) : d_mf(mf), d_sstr("SS"), d_row_width(), d_col_width()
 {
 }
-
 
 /**
  * setting DIS package parameter
  */
-void DIS::setParams(size_t itmuni, size_t lenuni, float perlen, size_t nstp, float tsmult, bool sstr){
-  if(itmuni>5){
+void DIS::setParams(size_t itmuni, size_t lenuni, float perlen, size_t nstp, float tsmult, bool sstr)
+{
+  if (itmuni > 5) {
     std::stringstream stmp;
     stmp << "Time unit mismatch: Set value within interval [0,5]";
     d_mf->d_cmethods->error(stmp.str(), "setDISParameter");
   }
-  if(lenuni>3){
+  if (lenuni > 3) {
     std::stringstream stmp;
     stmp << "Length unit mismatch: Set value within interval [0,3]";
     d_mf->d_cmethods->error(stmp.str(), "setDISParameter");
   }
-  if(nstp<1){
+  if (nstp < 1) {
     std::stringstream stmp;
     stmp << "Number of time steps mismatch: Number must be larger than 1";
     d_mf->d_cmethods->error(stmp.str(), "setDISParameter");
@@ -53,11 +48,9 @@ void DIS::setParams(size_t itmuni, size_t lenuni, float perlen, size_t nstp, flo
   d_perlen = perlen;
   d_nstp = nstp;
   d_tsmult = tsmult;
-  if(!sstr)
+  if (!sstr)
     d_sstr = "TR";
 }
-
-
 
 /**
  * write DIS to file
@@ -148,27 +141,28 @@ void DIS::setParams(size_t itmuni, size_t lenuni, float perlen, size_t nstp, flo
 /**
  * returns number of timesteps
  */
-size_t DIS::getTimeSteps() const{
+size_t DIS::getTimeSteps() const
+{
   return d_nstp;
 }
-
 
 /**
  * specification of the grid by PCR block
  */
-void DIS::setLayer(const discr::Block &elevation, const discr::BlockData<INT4> &conf){
+void DIS::setLayer(const discr::Block &elevation, const discr::BlockData<INT4> &conf)
+{
   d_mf->d_nrOfLayer = conf.cell(0).size() - 1;
   d_mf->d_nrBlockLayer = conf.cell(0).size();
 
   d_mf->dd_nrLayer = conf.cell(0).size();
 
-  for(size_t curLayer = 0; curLayer < d_mf->d_nrBlockLayer; curLayer++){
-    for(size_t curCell = 0; curCell < d_mf->d_nrOfCells; curCell++){
-      d_mf->d_baseArea->addVoxel(curCell,elevation.cell(curCell)[curLayer]);
+  for (size_t curLayer = 0; curLayer < d_mf->d_nrBlockLayer; curLayer++) {
+    for (size_t curCell = 0; curCell < d_mf->d_nrOfCells; curCell++) {
+      d_mf->d_baseArea->addVoxel(curCell, elevation.cell(curCell)[curLayer]);
     }
   }
 
-  for(size_t i = 0; i < d_mf->d_nrBlockLayer; i++){
+  for (size_t i = 0; i < d_mf->d_nrBlockLayer; i++) {
     d_mf->d_quasiConfined.push_back(conf.cell(0)[i]);
 
     d_mf->dd_isConfined.push_back(conf.cell(0)[i]);
@@ -177,9 +171,9 @@ void DIS::setLayer(const discr::Block &elevation, const discr::BlockData<INT4> &
   d_mf->d_quasiConfined.push_back(false);
 
 
-  for(size_t i = 1; i < d_mf->d_quasiConfined.size(); i++){
-    if(! ((d_mf->d_quasiConfined.at(i)==0) && (d_mf->d_quasiConfined.at(i-1)==1))){
-      d_mf->d_layer2BlockLayer.push_back(i-1);//
+  for (size_t i = 1; i < d_mf->d_quasiConfined.size(); i++) {
+    if (!((d_mf->d_quasiConfined.at(i) == 0) && (d_mf->d_quasiConfined.at(i - 1) == 1))) {
+      d_mf->d_layer2BlockLayer.push_back(i - 1);  //
       d_mf->d_nrMFLayer++;
       d_mf->dd_nrModflowLayer++;
     }
@@ -189,23 +183,26 @@ void DIS::setLayer(const discr::Block &elevation, const discr::BlockData<INT4> &
 /**
  * adding layer on top of the grid
  */
-bool DIS::addLayer(const float *values){
+bool DIS::addLayer(const float *values)
+{
   return addLayer(values, false);
 }
 
 /**
  * adding confined layer on top of the grid
  */
-bool DIS::addConfinedLayer(const float *values){
+bool DIS::addConfinedLayer(const float *values)
+{
   return addLayer(values, true);
 }
 
 /**
  * setting the bottom layer
  */
-bool DIS::createBottom(const float *lower, const float *upper){
+bool DIS::createBottom(const float *lower, const float *upper)
+{
   // reset grid if one of the
-  if(d_mf->d_gridIsFixed == true) {
+  if (d_mf->d_gridIsFixed == true) {
     d_mf->resetGrid(false);
     d_mf->d_gridIsFixed = false;
   }
@@ -218,16 +215,16 @@ bool DIS::createBottom(const float *lower, const float *upper){
   d_mf->d_gridCheck->testMV(upper, d_mf->d_methodName);
 
   // setting the base elevation
-  for(size_t i = 0; i < d_mf->d_nrOfCells; i++){
+  for (size_t i = 0; i < d_mf->d_nrOfCells; i++) {
     d_mf->d_baseArea->cell(i) = lower[i];
   }
 
   // adding the layer elevation
-  for(size_t i = 0; i < d_mf->d_nrOfCells; i++){
+  for (size_t i = 0; i < d_mf->d_nrOfCells; i++) {
     d_mf->d_baseArea->addVoxel(i, upper[i] - d_mf->d_baseArea->cell(i).baseElevation());
   }
   // base layer must not be no confining bed
-  d_mf->d_quasiConfined.push_back(false); //
+  d_mf->d_quasiConfined.push_back(false);  //
   d_mf->d_quasiConfined.push_back(false);
 
   //
@@ -251,17 +248,16 @@ bool DIS::createBottom(const float *lower, const float *upper){
   return true;
 }
 
-
-
 /**
  * adding a layer on top of the grid
  * @param values elevation values
  * @param confined true - confined
  * @return
  */
-bool DIS::addLayer(const float *values, bool confined){
+bool DIS::addLayer(const float *values, bool confined)
+{
 
-  if(d_mf->d_gridIsFixed == true) {
+  if (d_mf->d_gridIsFixed == true) {
     d_mf->resetGrid(false);
     d_mf->d_gridIsFixed = false;
   }
@@ -269,35 +265,33 @@ bool DIS::addLayer(const float *values, bool confined){
   d_mf->d_gridCheck->testElevation();
 
   d_mf->d_methodName = "addLayer";
-  if(confined == true)
+  if (confined == true)
     d_mf->d_methodName = "addConfinedLayer";
 
   d_mf->d_gridCheck->testMV(values, d_mf->d_methodName);
 
   // two confined layer not allowed
-  if(confined == true){
-    if(d_mf->d_lastIsConfined == true){
+  if (confined == true) {
+    if (d_mf->d_lastIsConfined == true) {
       std::string const stmp("Grid specification: two consecutive confining beds are not allowed");
       d_mf->d_cmethods->error(stmp, d_mf->d_methodName);
     }
     d_mf->d_lastIsConfined = true;
-  }
-  else {
+  } else {
     d_mf->d_lastIsConfined = false;
   }
 
   // add thickness of new-previous layer to grid
-  for(size_t i = 0; i < d_mf->d_nrOfCells; i++) {
+  for (size_t i = 0; i < d_mf->d_nrOfCells; i++) {
     d_mf->d_baseArea->addVoxel(i, values[i] - d_mf->d_layer->cell(i)[d_mf->d_nrOfLayer]);
   }
   // adapt confined layer information
-  if(confined){
+  if (confined) {
     // bottom of confined must be adapted
     /// \todo this should be changed...
     size_t const size = d_mf->d_quasiConfined.size() - 1;
     d_mf->d_quasiConfined.at(size) = confined;
     // top of confined
-
   }
   // top of layer
   d_mf->d_quasiConfined.push_back(false);
@@ -305,11 +299,10 @@ bool DIS::addLayer(const float *values, bool confined){
   d_mf->d_nrOfLayer++;
   d_mf->d_nrBlockLayer++;
 
-  if(!confined){
+  if (!confined) {
     d_mf->dd_isConfined.push_back(false);
     d_mf->dd_nrModflowLayer++;
-  }
-  else{
+  } else {
     d_mf->dd_isConfined.push_back(true);
   }
   d_mf->dd_nrLayer++;
@@ -318,18 +311,18 @@ bool DIS::addLayer(const float *values, bool confined){
   // store new layer
   d_mf->setBlockData(*(d_mf->d_layer), values, d_mf->d_nrOfLayer);
 
-  if(! ((d_mf->d_quasiConfined.at(d_mf->d_nrBlockLayer)==0) && (d_mf->d_quasiConfined.at(d_mf->d_nrBlockLayer-1)==1))) {
-    d_mf->d_layer2BlockLayer.push_back(d_mf->d_nrBlockLayer-1);//
+  if (!((d_mf->d_quasiConfined.at(d_mf->d_nrBlockLayer) == 0) &&
+        (d_mf->d_quasiConfined.at(d_mf->d_nrBlockLayer - 1) == 1))) {
+    d_mf->d_layer2BlockLayer.push_back(d_mf->d_nrBlockLayer - 1);  //
     d_mf->d_nrMFLayer++;
   }
   return true;
 }
 
-
-
-void DIS::createBottom(const calc::Field *lower, const calc::Field *upper){
+void DIS::createBottom(const calc::Field *lower, const calc::Field *upper)
+{
   // reset grid if one of the
-  if(d_mf->d_gridIsFixed == true) {
+  if (d_mf->d_gridIsFixed == true) {
     d_mf->resetGrid(false);
     d_mf->d_gridIsFixed = false;
   }
@@ -341,19 +334,19 @@ void DIS::createBottom(const calc::Field *lower, const calc::Field *upper){
   d_mf->d_gridCheck->testMV(upper->src_f(), d_mf->d_methodName);
   // setting the base elevation
   REAL8 value = 0.0;
-  for(size_t i = 0; i < d_mf->d_nrOfCells; i++){
+  for (size_t i = 0; i < d_mf->d_nrOfCells; i++) {
     lower->getCell(value, i);
     d_mf->d_baseArea->cell(i) = value;
   }
 
   // adding the layer elevation
   value = 0.0;
-  for(size_t i = 0; i < d_mf->d_nrOfCells; i++){
+  for (size_t i = 0; i < d_mf->d_nrOfCells; i++) {
     upper->getCell(value, i);
     d_mf->d_baseArea->addVoxel(i, value - d_mf->d_baseArea->cell(i).baseElevation());
   }
   // base layer must not be no confining bed
-  d_mf->d_quasiConfined.push_back(false); //
+  d_mf->d_quasiConfined.push_back(false);  //
   d_mf->d_quasiConfined.push_back(false);
 
   //
@@ -368,81 +361,71 @@ void DIS::createBottom(const calc::Field *lower, const calc::Field *upper){
   d_mf->dd_isConfined.push_back(false);
 
 
-
   d_mf->setBlockData(*(d_mf->d_layer), upper->src_f(), 0);
   // check if bottom layer  elevation > 0.0
   d_mf->d_gridCheck->testElevation();
 }
 
-
-void DIS::addLayer(const calc::Field *values){
+void DIS::addLayer(const calc::Field *values)
+{
   addLayer(values->src_f(), false);
 }
 
-
-void DIS::addConfinedLayer(const calc::Field *values){
+void DIS::addConfinedLayer(const calc::Field *values)
+{
   addLayer(values->src_f(), true);
 }
 
-
-void DIS::reset_row_width(){
+void DIS::reset_row_width()
+{
   d_row_width.clear();
 }
 
-
-void DIS::append_row_width(float width){
+void DIS::append_row_width(float width)
+{
   d_row_width.push_back(width);
 }
 
+void DIS::write_row_width(std::ostringstream &content) const
+{
 
-void DIS::write_row_width(std::ostringstream& content) const {
-
-  if(d_row_width.size() == 0){
+  if (d_row_width.size() == 0) {
     content << "CONSTANT " << d_mf->d_cellsize << "\n";
-  }
-  else{
+  } else {
     content << "INTERNAL   1.0 (FREE)    -1    DELC\n";
-    for(float const i : d_row_width){
+    for (float const i : d_row_width) {
       content << i << " ";
     }
     content << "\n";
   }
-
 }
 
-
-void DIS::reset_col_width(){
+void DIS::reset_col_width()
+{
   d_col_width.clear();
 }
 
-
-void DIS::append_col_width(float width){
+void DIS::append_col_width(float width)
+{
   d_col_width.push_back(width);
 }
 
+void DIS::write_col_width(std::ostringstream &content) const
+{
 
-void DIS::write_col_width(std::ostringstream& content) const {
-
-  if(d_col_width.size() == 0){
+  if (d_col_width.size() == 0) {
     content << "CONSTANT " << d_mf->d_cellsize << "\n";
-  }
-  else{
+  } else {
     content << "INTERNAL   1.0 (FREE)    -1    DELR\n";
-    for(float const i : d_col_width){
+    for (float const i : d_col_width) {
       content << i << " ";
     }
     content << "\n";
   }
-
 }
 
-
-
-
-
-
-
-void DIS::write_dis(std::string const& path) const {
+void DIS::write_dis(std::string const &path) const
+{
   //
 
   std::ostringstream content;
@@ -456,12 +439,11 @@ void DIS::write_dis(std::string const& path) const {
   // Item 2:  LAYCBD
   //
   auto ri = d_mf->dd_isConfined.rbegin();
-  while(ri != (d_mf->dd_isConfined.rend())) {
-    if((!(ri + 1 == d_mf->dd_isConfined.rend()))&&(d_mf->dd_isConfined.at(*(ri + 1)) == true)){
+  while (ri != (d_mf->dd_isConfined.rend())) {
+    if ((!(ri + 1 == d_mf->dd_isConfined.rend())) && (d_mf->dd_isConfined.at(*(ri + 1)) == true)) {
       content << " 1";
       ++ri;
-    }
-    else{
+    } else {
       content << " 0";
     }
     ++ri;
@@ -479,51 +461,48 @@ void DIS::write_dis(std::string const& path) const {
   // Item 5:  Layer
   //
   int nrLayer = 1;
-  for(int i = d_mf->dd_nrLayer - 1; i >= 0; i--){
-    if(i == static_cast<int>(d_mf->dd_nrLayer - 1)){
+  for (int i = d_mf->dd_nrLayer - 1; i >= 0; i--) {
+    if (i == static_cast<int>(d_mf->dd_nrLayer - 1)) {
       content << "EXTERNAL " << d_external_unit << " 1.0 (FREE) -1  Top of system\n";
-    }
-    else if((i > 0) && (d_mf->dd_isConfined.at(i - 1) == 0)){
+    } else if ((i > 0) && (d_mf->dd_isConfined.at(i - 1) == 0)) {
       content << "EXTERNAL " << d_external_unit << " 1.0 (FREE) -1  Bottom layer " << nrLayer << "\n";
       nrLayer++;
-    }
-    else if((i > 0) && (d_mf->dd_isConfined.at(i - 1) == 1)){
-      content << "EXTERNAL " << d_external_unit << " 1.0 (FREE) -1  Bottom confinig bed layer " << nrLayer - 1 << "\n";
-    }
-    else{
-      content << "EXTERNAL " << d_external_unit << " 1.0 (FREE) -1  Bottom confinig bed layer " << nrLayer - 1<< "\n";
+    } else if ((i > 0) && (d_mf->dd_isConfined.at(i - 1) == 1)) {
+      content << "EXTERNAL " << d_external_unit << " 1.0 (FREE) -1  Bottom confinig bed layer "
+              << nrLayer - 1 << "\n";
+    } else {
+      content << "EXTERNAL " << d_external_unit << " 1.0 (FREE) -1  Bottom confinig bed layer "
+              << nrLayer - 1 << "\n";
     }
   }
 
-  content <<  "EXTERNAL 300 1.0 (FREE) -1  Bottom of system\n";
+  content << "EXTERNAL 300 1.0 (FREE) -1  Bottom of system\n";
 
   // Item 7:  PERLEN NSTP TSMULT SS/TR
-  content << d_perlen  << " " << d_nstp << " " << d_tsmult << " " << d_sstr << "\n";
+  content << d_perlen << " " << d_nstp << " " << d_tsmult << " " << d_sstr << "\n";
 
-  d_mf->d_cmethods->writeToFile(mf::execution_path(path, "pcrmf.dis"),content.str());
+  d_mf->d_cmethods->writeToFile(mf::execution_path(path, "pcrmf.dis"), content.str());
 }
 
-
-
-
-void DIS::write_dis_array(std::string const& path) const {
+void DIS::write_dis_array(std::string const &path) const
+{
 
   std::string const filename = mf::execution_path(path, "pcrmf_elev.asc");
 
   std::ofstream content(filename);
 
-  if(!content.is_open()){
+  if (!content.is_open()) {
     std::cerr << "Can not write " << filename << '\n';
 
     exit(1);
   }
 
-  for(int i = d_mf->dd_nrLayer - 1; i >= 0; i--){
+  for (int i = d_mf->dd_nrLayer - 1; i >= 0; i--) {
     size_t pos = 0;
-    for(size_t j = 0; j < d_mf->d_nrOfRows; j++){
-      for(size_t k = 0; k < d_mf->d_nrOfColumns; k++){
+    for (size_t j = 0; j < d_mf->d_nrOfRows; j++) {
+      for (size_t k = 0; k < d_mf->d_nrOfColumns; k++) {
         double val = d_mf->d_baseArea->cell(pos).baseElevation();
-        for (int l = 0; l <= i; l++){
+        for (int l = 0; l <= i; l++) {
           val += d_mf->d_baseArea->cell(pos)[l];
         }
         content << " " << val;
@@ -536,9 +515,9 @@ void DIS::write_dis_array(std::string const& path) const {
   // Bottom of system
 
   size_t pos = 0;
-  for(size_t j = 0; j < d_mf->d_nrOfRows; j++){
-    for(size_t k = 0; k < d_mf->d_nrOfColumns; k++){
-      content << " " <<  d_mf->d_baseArea->cell(pos).baseElevation();
+  for (size_t j = 0; j < d_mf->d_nrOfRows; j++) {
+    for (size_t k = 0; k < d_mf->d_nrOfColumns; k++) {
+      content << " " << d_mf->d_baseArea->cell(pos).baseElevation();
       pos++;
     }
     content << "\n";
@@ -547,10 +526,9 @@ void DIS::write_dis_array(std::string const& path) const {
   content.close();
 }
 
-
-void DIS::update_parameter(float stressPeriodLength, size_t nrOfTimesteps, float timeStepMultiplier){
+void DIS::update_parameter(float stressPeriodLength, size_t nrOfTimesteps, float timeStepMultiplier)
+{
   d_perlen = stressPeriodLength;
   d_nstp = nrOfTimesteps;
   d_tsmult = timeStepMultiplier;
 }
-

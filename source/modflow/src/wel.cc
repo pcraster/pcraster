@@ -18,43 +18,43 @@
 /**
 * Destructor
 */
-WEL::~WEL(){
+WEL::~WEL()
+{
 }
 
 /**
 * Constructor
 */
-WEL::WEL(PCRModflow *mf) :
-  d_mf(mf)
-  {//,
+WEL::WEL(PCRModflow *mf) : d_mf(mf)
+{  //,
   //d_fortran_unit_number(0)
-
 }
 
 /**
 * set well values by pcr maps
 */
-bool WEL::setWell(const float *values, size_t layer){
+bool WEL::setWell(const float *values, size_t layer)
+{
   d_mf->d_methodName = "setWell";
   return d_mf->setBlockData(*(d_mf->d_welValues), values, layer);
 }
 
-void WEL::setWell(const calc::Field *well, size_t layer){
-  layer--; // layer number passed by user starts with 1
+void WEL::setWell(const calc::Field *well, size_t layer)
+{
+  layer--;  // layer number passed by user starts with 1
   d_mf->d_gridCheck->isGrid(layer, "setWell");
   d_mf->d_gridCheck->isConfined(layer, "setWell");
   d_mf->d_gridCheck->testMV(well->src_f(), "setWell");
   setWell(well->src_f(), layer);
 }
 
-
 /**
 * set well values by pcr block
 */
-void WEL::setWell(const discr::BlockData<REAL4> &well){
-d_mf->d_cmethods->setDiscrBlockData(well, *(d_mf->d_welValues));
+void WEL::setWell(const discr::BlockData<REAL4> &well)
+{
+  d_mf->d_cmethods->setDiscrBlockData(well, *(d_mf->d_welValues));
 }
-
 
 /**
 * write WEL to file
@@ -101,7 +101,8 @@ d_mf->d_cmethods->setDiscrBlockData(well, *(d_mf->d_welValues));
 // }
 
 
-calc::Field* WEL::get_well(size_t layer, std::string const& path){
+calc::Field *WEL::get_well(size_t layer, std::string const &path)
+{
   layer--;
   d_mf->d_gridCheck->isGrid(layer, "get_well");
   d_mf->d_gridCheck->isConfined(layer, "get_well");
@@ -114,8 +115,8 @@ calc::Field* WEL::get_well(size_t layer, std::string const& path){
   // get the 'inverse' layer number to start from the right position
   int const pos_multiplier = d_mf->get_modflow_layernr(layer);
 
-  auto* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
-  auto* cells = static_cast<REAL4*>(spatial->dest());
+  auto *spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
+  auto *cells = static_cast<REAL4 *>(spatial->dest());
 
   mf::BinaryReader const reader;
   const std::string filename(mf::execution_path(path, "fort." + std::to_string(d_output_unit_number)));
@@ -124,14 +125,14 @@ calc::Field* WEL::get_well(size_t layer, std::string const& path){
   return spatial;
 }
 
-
-void WEL::write_list(std::string const& path){
+void WEL::write_list(std::string const &path)
+{
 
   std::string const filename = mf::execution_path(path, "pcrmf_wel.asc");
 
   std::ofstream content(filename);
 
-  if(!content.is_open()){
+  if (!content.is_open()) {
     std::cerr << "Can not write " << filename << '\n';
     exit(1);
   }
@@ -139,17 +140,17 @@ void WEL::write_list(std::string const& path){
   int mfLayer = 1;
 
   boost::math::fpc::close_at_tolerance<REAL4> const tester(
-         boost::math::fpc::fpc_detail::fraction_tolerance<REAL4>(REAL4(1e-4)),
-         boost::math::fpc::FPC_STRONG);
+      boost::math::fpc::fpc_detail::fraction_tolerance<REAL4>(REAL4(1e-4)),
+      boost::math::fpc::FPC_STRONG);
 
-  for(size_t layer = 1; layer <= d_mf->d_nrMFLayer; layer++){
+  for (size_t layer = 1; layer <= d_mf->d_nrMFLayer; layer++) {
     size_t count = 0;
     size_t const size = d_mf->d_layer2BlockLayer.size();
     size_t const blockLayer = d_mf->d_layer2BlockLayer.at(size - layer);
-    for (size_t row = 0; row < d_mf->d_nrOfRows; row++){
-      for (size_t col = 0; col < d_mf->d_nrOfColumns; col++){
+    for (size_t row = 0; row < d_mf->d_nrOfRows; row++) {
+      for (size_t col = 0; col < d_mf->d_nrOfColumns; col++) {
         double const val = d_mf->d_welValues->cell(count)[blockLayer];
-        if(!tester(static_cast<REAL4>(0.0), static_cast<REAL4>(val))){
+        if (!tester(static_cast<REAL4>(0.0), static_cast<REAL4>(val))) {
           content << mfLayer;
           content << " " << (row + 1);
           content << " " << (col + 1);
@@ -163,8 +164,8 @@ void WEL::write_list(std::string const& path){
   }
 }
 
-
-void WEL::write(std::string const& path){
+void WEL::write(std::string const &path)
+{
 
   // # wel cells is calculated by write_list
   assert(d_nr_wel_cells != 0);
@@ -173,7 +174,7 @@ void WEL::write(std::string const& path){
 
   std::ofstream content(filename);
 
-  if(!content.is_open()){
+  if (!content.is_open()) {
     std::cerr << "Can not write " << filename << '\n';
     exit(1);
   }

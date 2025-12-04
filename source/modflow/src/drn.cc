@@ -15,31 +15,32 @@
 /**
 * Destructor
 */
-DRN::~DRN(){
+DRN::~DRN()
+{
 }
 
 /**
 * Constuctor
 */
-DRN::DRN(PCRModflow *mf) :
-  d_mf(mf)
-  {
+DRN::DRN(PCRModflow *mf) : d_mf(mf)
+{
 }
-
 
 bool DRN::drainUpdated() const
 {
   return d_drainUpdated;
 }
 
-void DRN::setDrainUpdated(bool value){
+void DRN::setDrainUpdated(bool value)
+{
   d_drainUpdated = value;
 }
 
 /**
 * setting drain values by pcr maps
 */
-bool DRN::setDrain(const float *elevation, const float *conductance, size_t layer){
+bool DRN::setDrain(const float *elevation, const float *conductance, size_t layer)
+{
   d_mf->d_methodName = "setDrain elevation values";
   bool result = d_mf->setBlockData(*(d_mf->d_drnElev), elevation, layer);
   d_mf->d_methodName = "setDrain conductance values";
@@ -48,8 +49,9 @@ bool DRN::setDrain(const float *elevation, const float *conductance, size_t laye
   return result;
 }
 
-void DRN::setDrain(const calc::Field *elevation, const calc::Field *conductance, size_t layer){
-  layer--; // layer number passed by user starts with 1
+void DRN::setDrain(const calc::Field *elevation, const calc::Field *conductance, size_t layer)
+{
+  layer--;  // layer number passed by user starts with 1
   d_mf->d_gridCheck->isGrid(layer, "setDrain");
   d_mf->d_gridCheck->isConfined(layer, "setDrain");
   d_mf->d_gridCheck->testMV(elevation->src_f(), "setDrain elevation");
@@ -61,13 +63,12 @@ void DRN::setDrain(const calc::Field *elevation, const calc::Field *conductance,
 /**
 * setting drain values by pcr blocks
 */
-void DRN::setDrain(const discr::BlockData<REAL4> &elevation, const discr::BlockData<REAL4> &conductance){
+void DRN::setDrain(const discr::BlockData<REAL4> &elevation, const discr::BlockData<REAL4> &conductance)
+{
   d_mf->d_cmethods->setDiscrBlockData(elevation, *(d_mf->d_drnElev));
   d_mf->d_cmethods->setDiscrBlockData(conductance, *(d_mf->d_drnCond));
   d_drainUpdated = true;
 }
-
-
 
 /**
  * retrieving drain cell-by-cell flow values from the binary modflow output
@@ -130,8 +131,6 @@ void DRN::setDrain(const discr::BlockData<REAL4> &elevation, const discr::BlockD
 // }
 
 
-
-
 /**
 * returning drain output as PCR blockdata
 */
@@ -140,8 +139,6 @@ void DRN::setDrain(const discr::BlockData<REAL4> &elevation, const discr::BlockD
 //   d_mf->d_cmethods->setDiscrBlockData(*(d_mf->d_drnResult), *resultDrn);
 //   return resultDrn;
 // }
-
-
 
 
 /**
@@ -210,12 +207,11 @@ void DRN::setDrain(const discr::BlockData<REAL4> &elevation, const discr::BlockD
 // }
 
 
-
-
 /**
 * writing drain output to PCR map
 */
-void DRN::getDrain(float *values, size_t layer, std::string const& path) const {
+void DRN::getDrain(float *values, size_t layer, std::string const &path) const
+{
   d_mf->d_gridCheck->isGrid(layer, "getDrain");
   d_mf->d_gridCheck->isConfined(layer, "getDrain");
 
@@ -232,9 +228,8 @@ void DRN::getDrain(float *values, size_t layer, std::string const& path) const {
   reader.read(stmp.str(), filename, values, desc, pos_multiplier);
 }
 
-
-
-calc::Field* DRN::getDrain(size_t layer, std::string const& path) const {
+calc::Field *DRN::getDrain(size_t layer, std::string const &path) const
+{
   layer--;
   d_mf->d_gridCheck->isGrid(layer, "getDrain");
   d_mf->d_gridCheck->isConfined(layer, "getDrain");
@@ -247,8 +242,8 @@ calc::Field* DRN::getDrain(size_t layer, std::string const& path) const {
   // get the 'inverse' layer number to start from the right position
   int const pos_multiplier = d_mf->get_modflow_layernr(layer);
 
-  auto* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
-  auto* cells = static_cast<REAL4*>(spatial->dest());
+  auto *spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
+  auto *cells = static_cast<REAL4 *>(spatial->dest());
 
   mf::BinaryReader const reader;
   const std::string filename(mf::execution_path(path, "fort." + std::to_string(d_output_unit_number)));
@@ -257,10 +252,8 @@ calc::Field* DRN::getDrain(size_t layer, std::string const& path) const {
   return spatial;
 }
 
-
-
-
-void DRN::write(std::string const& path) const{
+void DRN::write(std::string const &path) const
+{
 
   // # drn cells is calculated by write_list
   assert(d_nr_drain_cells != 0);
@@ -269,7 +262,7 @@ void DRN::write(std::string const& path) const{
 
   std::ofstream content(filename);
 
-  if(!content.is_open()){
+  if (!content.is_open()) {
     std::cerr << "Can not write " << filename << '\n';
     exit(1);
   }
@@ -285,17 +278,16 @@ void DRN::write(std::string const& path) const{
   // ITMP NP
   content << d_nr_drain_cells << " 0\n";
   content << "EXTERNAL " << d_input_unit_number << "\n";
-
 }
 
-
-void DRN::write_list(std::string const& path) {
+void DRN::write_list(std::string const &path)
+{
 
   std::string const filename = mf::execution_path(path, "pcrmf_drn.asc");
 
   std::ofstream content(filename);
 
-  if(!content.is_open()){
+  if (!content.is_open()) {
     std::cerr << "Can not write " << filename << '\n';
 
     exit(1);
@@ -306,14 +298,14 @@ void DRN::write_list(std::string const& path) {
   float val = -1.0;
   int mfLayer = 1;
 
-  for(size_t layer = 1; layer <= d_mf->d_nrMFLayer; layer++){
+  for (size_t layer = 1; layer <= d_mf->d_nrMFLayer; layer++) {
     count = 0;
     size_t const size = d_mf->d_layer2BlockLayer.size();
     size_t const blockLayer = d_mf->d_layer2BlockLayer.at(size - layer);
-    for (size_t row = 0; row < d_mf->d_nrOfRows; row++){
-      for (size_t col=0; col < d_mf->d_nrOfColumns; col++){
+    for (size_t row = 0; row < d_mf->d_nrOfRows; row++) {
+      for (size_t col = 0; col < d_mf->d_nrOfColumns; col++) {
         val = d_mf->d_drnCond->cell(count)[blockLayer];
-        if(val>0.0){
+        if (val > 0.0) {
           content << mfLayer;
           content << " " << (row + 1);
           content << " " << (col + 1);

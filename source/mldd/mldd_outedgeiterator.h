@@ -1,35 +1,12 @@
 #ifndef INCLUDED_MLDD_OUTEDGEITERATOR
 #define INCLUDED_MLDD_OUTEDGEITERATOR
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_ITERATOR_ADAPTORS
-#include <boost/iterator_adaptors.hpp>
-#define INCLUDED_BOOST_ITERATOR_ADAPTORS
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_MISC
 #include "misc.h"  // FIRSTBITSET_TYPE
-#define INCLUDED_MISC
-#endif
-
-#ifndef INCLUDED_GEO_NEIGHBOUR
 #include "geo_neighbour.h"
-#define INCLUDED_GEO_NEIGHBOUR
-#endif
-
-// Module headers.
-#ifndef INCLUDED_MLDD_EDGEVERTEX
 #include "mldd_edgevertex.h"
-#define INCLUDED_MLDD_EDGEVERTEX
-#endif
+
+#include <boost/iterator_adaptors.hpp>
 
 
 

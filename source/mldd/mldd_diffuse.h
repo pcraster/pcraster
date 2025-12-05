@@ -1,30 +1,13 @@
 #ifndef INCLUDED_MLDD_DIFFUSE
 #define INCLUDED_MLDD_DIFFUSE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_SIMPLERASTER
 #include "geo_simpleraster.h"
-#define INCLUDED_GEO_SIMPLERASTER
-#endif
-
-// Module headers.
-#ifndef INCLUDED_MLDD_EDGEVERTEX
 #include "mldd_edgevertex.h"
-#define INCLUDED_MLDD_EDGEVERTEX
-#endif
+
+#include <vector>
+
+
 
 namespace geo {
   class RasterSpace;

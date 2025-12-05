@@ -1,20 +1,8 @@
 #ifndef INCLUDED_MLDD_EDGEVERTEX
 #define INCLUDED_MLDD_EDGEVERTEX
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_NEIGHBOUR
 #include "geo_neighbour.h"
-#define INCLUDED_GEO_NEIGHBOUR
-#endif
-
-// Module headers.
 
 
 

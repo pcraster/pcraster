@@ -1,21 +1,8 @@
-#ifndef INCLUDED_WEL
-#define INCLUDED_WEL
+#ifndef INCLUDED_MODFLOW_WEL
+#define INCLUDED_MODFLOW_WEL
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_DISCR_BLOCKDATA
 #include "discr_blockdata.h"
-#define INCLUDED_DISCR_BLOCKDATA
-#endif
-
-// Module headers.
 
 
 
@@ -53,4 +40,4 @@ class WEL{
   void             write_list          (std::string const& path);
 };
 
-#endif // INCLUDED_WEL
+#endif // INCLUDED_MODFLOW_WEL

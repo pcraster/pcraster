@@ -1,39 +1,13 @@
-#ifndef INCLUDED_COMMON
-#define INCLUDED_COMMON
+#ifndef INCLUDED_MODFLOW_COMMON
+#define INCLUDED_MODFLOW_COMMON
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifdef DEBUG_DEVELOP_LIN
-#include <sys/time.h>
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_DISCR_BLOCKDATA
 #include "discr_blockdata.h"
-#define INCLUDED_DISCR_BLOCKDATA
-#endif
 
-// Module headers.
+#include <string>
+#include <sstream>
+#include <vector>
+
 
 
 class PCRModflow;
@@ -55,4 +29,4 @@ class Common{
     void setDiscrBlockData(const discr::BlockData<T> &source, discr::BlockData<T> &result);
 };
 
-#endif // INCLUDED_COMMON
+#endif // INCLUDED_MODFLOW_COMMON

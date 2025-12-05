@@ -1,13 +1,7 @@
-#ifndef INCLUDED_PCG
-#define INCLUDED_PCG
+#ifndef INCLUDED_MODFLOW_PCG
+#define INCLUDED_MODFLOW_PCG
 
-
-// Library headers.
 #include<ostream>
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 class PCG {
@@ -61,5 +55,5 @@ public:
 };
 
 
-#endif // INCLUDED_PCG
+#endif // INCLUDED_MODFLOW_PCG
 

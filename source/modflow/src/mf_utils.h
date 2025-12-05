@@ -1,3 +1,6 @@
+#ifndef INCLUDED_MODFLOW_UTILS
+#define INCLUDED_MODFLOW_UTILS
+
 #include <string>
 
 
@@ -15,3 +18,5 @@ namespace mf {
                                         const std::string& filename);
 
 }
+
+#endif

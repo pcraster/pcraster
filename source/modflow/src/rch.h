@@ -1,32 +1,9 @@
-#ifndef INCLUDED_RCH
-#define INCLUDED_RCH
+#ifndef INCLUDED_MODFLOW_RCH
+#define INCLUDED_MODFLOW_RCH
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCK
 #include "discr_block.h"
-#define INCLUDED_DISCR_BLOCK
-#endif
-
-// #ifndef INCLUDED_DISCR_BLOCKDATA
-// #include "discr_blockdata.h"
-// #define INCLUDED_DISCR_BLOCKDATA
-// #endif
-
-
-// Module headers.
 
 
 class PCRModflow;
@@ -70,4 +47,4 @@ class RCH{
   bool             indicated_recharge  () const;
 };
 
-#endif // INCLUDED_RCH
+#endif // INCLUDED_MODFLOW_RCH

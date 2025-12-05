@@ -1,18 +1,7 @@
-#ifndef INCLUDED_MF_BINARYREADER
-#define INCLUDED_MF_BINARYREADER
+#ifndef INCLUDED_MODFLOW_BINARYREADER
+#define INCLUDED_MODFLOW_BINARYREADER
 
-
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
-
 
 
 

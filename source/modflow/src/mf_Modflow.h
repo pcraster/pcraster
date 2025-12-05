@@ -1,18 +1,7 @@
-#ifndef INCLUDED_MF_MODFLOW
-#define INCLUDED_MF_MODFLOW
+#ifndef INCLUDED_MODFLOW_MODFLOW
+#define INCLUDED_MODFLOW_MODFLOW
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

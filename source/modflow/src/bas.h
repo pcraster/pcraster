@@ -1,41 +1,13 @@
-#ifndef INCLUDED_BAS
-#define INCLUDED_BAS
+#ifndef INCLUDED_MODFLOW_BAS
+#define INCLUDED_MODFLOW_BAS
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-
-// PCRaster library headers.
-#ifndef INCLUDED_DISCR_BLOCK
 #include "discr_block.h"
-#define INCLUDED_DISCR_BLOCK
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCKDATA
 #include "discr_blockdata.h"
-#define INCLUDED_DISCR_BLOCKDATA
-#endif
-
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
 
+#include <string>
 
-// Module headers.
-//#ifndef INCLUDED_PCRMODFLOW
-//#include "pcrmodflow.h"
-//#define INCLUDED_PCRMODFLOW
-//#endif
 
 
 class PCRModflow;
@@ -82,4 +54,4 @@ public:
   void             write_bound_array   (std::string const& path) const;
 };
 
-#endif // INCLUDED_BAS
+#endif // INCLUDED_MODFLOW_BAS

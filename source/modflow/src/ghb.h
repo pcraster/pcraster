@@ -1,25 +1,9 @@
-#ifndef INCLUDED_GHB
-#define INCLUDED_GHB
+#ifndef INCLUDED_MODFLOW_GHB
+#define INCLUDED_MODFLOW_GHB
 
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_DISCR_BLOCK
 #include "discr_block.h"
-#define INCLUDED_DISCR_BLOCK
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCKDATA
 #include "discr_blockdata.h"
-#define INCLUDED_DISCR_BLOCKDATA
-#endif
-
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-
-// Module headers.
 
 
 

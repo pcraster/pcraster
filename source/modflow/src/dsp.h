@@ -1,13 +1,7 @@
-#ifndef INCLUDED_DSP
-#define INCLUDED_DSP
+#ifndef INCLUDED_MODFLOW_DSP
+#define INCLUDED_MODFLOW_DSP
 
-
-// Library headers.
 #include<ostream>
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 
@@ -58,4 +52,4 @@ public:
                                         const DSP& dsp);
 };
 
-#endif // INCLUDED_DSP
+#endif // INCLUDED_MODFLOW_DSP

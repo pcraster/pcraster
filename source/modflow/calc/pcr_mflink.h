@@ -1,62 +1,18 @@
-#ifndef INCLUDED_PCRMODFLOWLINK
-#define INCLUDED_PCRMODFLOWLINK
+#ifndef INCLUDED_MODFLOW_CALC_MFLINK
+#define INCLUDED_MODFLOW_CALC_MFLINK
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
 #include "pcraster_modflow_export.h"
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-
-#ifndef INCLUDED_ASSERT
-#include <cassert>
-#define INCLUDED_ASSERT
-#endif
-
-#ifndef INCLUDED_STDEXCEPT
-#include <stdexcept>
-#define INCLUDED_STDEXCEPT
-#endif
-
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRLINKIN
 #include "pcrlinkin.h"
-#define INCLUDED_PCRLINKIN
-#endif
-
-#ifndef INCLUDED_PCRTYPES
 #include "pcrtypes.h"
-#define INCLUDED_PCRTYPES
-#endif
-
-#ifndef INCLUDED_XML
 #include "xml.h"
-#define INCLUDED_XML
-#endif
-
-#ifndef INCLUDED_PCRMODFLOW
 #include "pcrmodflow.h"
-#define INCLUDED_PCRMODFLOW
-#endif
 
-// Module headers.
-
+#include <string>
+#include <map>
+#include <cassert>
+#include <stdexcept>
+#include <iostream>
 
 
 static std::string xmlResultBuffer;
@@ -323,4 +279,4 @@ PCRMF_EXPORT const char * pcr_LinkInCheck(const char *xml){
 
 
 
-#endif // INCLUDED_PCRMODFLOWLINK
+#endif // INCLUDED_MODFLOW_CALC_MFLINK

@@ -1,20 +1,11 @@
-#ifndef INCLUDED_MLDD
-#define INCLUDED_MLDD
+#ifndef INCLUDED_MLDD_PYTHON_MLDD
+#define INCLUDED_MLDD_PYTHON_MLDD
 
-
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_MLDD_MLDD
 #include "mldd_mldd.h"
-#define INCLUDED_MLDD_MLDD
-#endif
 
 #include <pybind11/pybind11.h>
 #include <memory>
+
 
 
 namespace calc {

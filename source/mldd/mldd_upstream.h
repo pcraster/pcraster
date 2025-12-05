@@ -1,26 +1,9 @@
 #ifndef INCLUDED_MLDD_UPSTREAM
 #define INCLUDED_MLDD_UPSTREAM
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_SIMPLERASTER
 #include "geo_simpleraster.h"
-#define INCLUDED_GEO_SIMPLERASTER
-#endif
-
-// Module headers.
-#ifndef INCLUDED_MLDD_DOWNSTREAMVISITOR
 #include "mldd_downstreamvisitor.h"
-#define INCLUDED_MLDD_DOWNSTREAMVISITOR
-#endif
 
 
 

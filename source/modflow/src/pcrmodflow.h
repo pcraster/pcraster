@@ -1,50 +1,15 @@
-#ifndef INCLUDED_PCRMODFLOW
-#define INCLUDED_PCRMODFLOW
+#ifndef INCLUDED_MODFLOW_PCRMODFLOW
+#define INCLUDED_MODFLOW_PCRMODFLOW
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_RASTERSPACE
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
-
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCK
 #include "discr_block.h"
-#define INCLUDED_DISCR_BLOCK
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCKDATA
 #include "discr_blockdata.h"
-#define INCLUDED_DISCR_BLOCKDATA
-#endif
-
-#ifndef INCLUDED_DAL_CLIENT
 #include "dal_Client.h"
-#define INCLUDED_DAL_CLIENT
-#endif
 
-// Module headers.
+#include <string>
+#include <vector>
 
 
 // level = elevation level/pcraster map
@@ -395,4 +360,4 @@ public:
   void setWell(const std::string & well, size_t mfLayer);
 };
 
-#endif // INCLUDED_PCRMODFLOW
+#endif // INCLUDED_MODFLOW_PCRMODFLOW

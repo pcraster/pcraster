@@ -1,31 +1,12 @@
 #ifndef INCLUDED_BLOCKPY_FUNCTIONS
 #define INCLUDED_BLOCKPY_FUNCTIONS
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRDATATYPE
 #include "pcrdatatype.h"
-#define INCLUDED_PCRDATATYPE
-#endif
-
-#ifndef INCLUDED_PCRTYPES
 #include "pcrtypes.h"
-#define INCLUDED_PCRTYPES
-#endif
 
-// Module headers.
+#include <vector>
+
 
 
 namespace geo {

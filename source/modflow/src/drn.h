@@ -1,36 +1,12 @@
-#ifndef INCLUDED_DRN
-#define INCLUDED_DRN
+#ifndef INCLUDED_MODFLOW_DRN
+#define INCLUDED_MODFLOW_DRN
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-
-// PCRaster library headers.
-#ifndef INCLUDED_DISCR_BLOCK
 #include "discr_block.h"
-#define INCLUDED_DISCR_BLOCK
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCKDATA
 #include "discr_blockdata.h"
-#define INCLUDED_DISCR_BLOCKDATA
-#endif
-
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
 
-// Module headers.
+#include <string>
 
 
 class PCRModflow;
@@ -70,4 +46,4 @@ public:
   void             write_list          (std::string const& path);
 };
 
-#endif // INCLUDED_DRN
+#endif // INCLUDED_DMODFLOW_RN

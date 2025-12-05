@@ -1,10 +1,7 @@
-#ifndef INCLUDED_HFB
-#define INCLUDED_HFB
+#ifndef INCLUDED_MODFLOW_HFB
+#define INCLUDED_MODFLOW_HFB
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
 
 // Library headers.
@@ -24,4 +21,4 @@ public:
   HFB(PCRModflow *mf);
 };
 
-#endif // INCLUDED_HFB
+#endif // INCLUDED_MODFLOW_HFB

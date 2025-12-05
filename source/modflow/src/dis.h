@@ -1,36 +1,14 @@
-#ifndef INCLUDED_DIS
-#define INCLUDED_DIS
+#ifndef INCLUDED_MODFLOW_DIS
+#define INCLUDED_MODFLOW_DIS
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <sstream>
-#define INCLUDED_STRING
-#endif
-
-
-// PCRaster library headers.
-#ifndef INCLUDED_DISCR_BLOCK
-#include <discr_block.h>
-#define INCLUDED_DISCR_BLOCK
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCKDATA
-#include <discr_blockdata.h>
-#define INCLUDED_DISCR_BLOCKDATA
-#endif
-
-#ifndef INCLUDED_CALC_FIELD
+#include "discr_block.h"
+#include "discr_blockdata.h"
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
 
-// Module headers.
+#include <sstream>
+
+
 
 class PCRModflow;
 
@@ -88,4 +66,4 @@ public:
   void             update_parameter    (float stressPeriodLength, size_t nrOfTimesteps, float timeStepMultiplier);
 };
 
-#endif // INCLUDED_DIS
+#endif // INCLUDED_MODFLOW_DIS

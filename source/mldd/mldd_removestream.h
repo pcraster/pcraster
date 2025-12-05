@@ -1,39 +1,12 @@
 #ifndef INCLUDED_MLDD_REMOVESTREAM
 #define INCLUDED_MLDD_REMOVESTREAM
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRTYPES
 #include "pcrtypes.h"
-#define INCLUDED_PCRTYPES
-#endif
-// Module headers.
-#ifndef INCLUDED_MLDD_DOWNSTREAMVISITOR
 #include "mldd_downstreamvisitor.h"
-#define INCLUDED_MLDD_DOWNSTREAMVISITOR
-#endif
-#ifndef INCLUDED_MLDD_DAGRASTER
 #include "mldd_dagraster.h"
-#define INCLUDED_MLDD_DAGRASTER
-#endif
+
+#include <vector>
 
 
 

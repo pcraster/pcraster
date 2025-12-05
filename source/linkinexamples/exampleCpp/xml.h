@@ -1,9 +1,7 @@
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
 #include "PCRasterXSD.h"
+
+#include <string>
+
 
 pcrxml::LinkInExecuteInput strToLinkInExecuteInput(std::string const& xml);
 pcrxml::LinkInCheckInput   strToLinkInCheckInput(std::string const& xml);

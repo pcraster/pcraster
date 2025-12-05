@@ -1,21 +1,9 @@
-#ifndef INCLUDED_GRIDCHECK
-#define INCLUDED_GRIDCHECK
+#ifndef INCLUDED_MODFLOW_GRIDCHECK
+#define INCLUDED_MODFLOW_GRIDCHECK
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-
-// Library headers.
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 
@@ -37,4 +25,4 @@ class GridCheck{
 };
 
 
-#endif // INCLUDED_GRIDCHECK
+#endif // INCLUDED_MODFLOW_GRIDCHECK

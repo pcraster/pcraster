@@ -1,24 +1,14 @@
 #ifndef INCLUDED_MLDD_GRAPH
 #define INCLUDED_MLDD_GRAPH
 
+#include "mldd_outedgeiterator.h"
+#include "mldd_vertexiterator.h"
+#include "mldd_dagraster.h"
+
 #include <boost/config.hpp>
 #include <boost/iterator_adaptors.hpp>
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/properties.hpp>
-
-#ifndef INCLUDED_MLDD_OUTEDGEITERATOR
-#include "mldd_outedgeiterator.h"
-#define INCLUDED_MLDD_OUTEDGEITERATOR
-#endif
-#ifndef INCLUDED_MLDD_VERTEXITERATOR
-#include "mldd_vertexiterator.h"
-#define INCLUDED_MLDD_VERTEXITERATOR
-#endif
-
-#ifndef INCLUDED_MLDD_DAGRASTER
-#include "mldd_dagraster.h"
-#define INCLUDED_MLDD_DAGRASTER
-#endif
 
 // adapted from boost/graph/mldd_graph.hpp
 // this is complex stuff, some definitions seems to be needed

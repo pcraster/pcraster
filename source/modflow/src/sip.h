@@ -1,13 +1,7 @@
-#ifndef INCLUDED_SIP
-#define INCLUDED_SIP
+#ifndef INCLUDED_MODFLOW_SIP
+#define INCLUDED_MODFLOW_SIP
 
-
-// Library headers.
-#include<ostream>
-
-// PCRaster library headers.
-
-// Module headers.
+#include <ostream>
 
 
 class SIP {
@@ -51,4 +45,4 @@ private:
                                         const SIP& sip);
 };
 
-#endif // INCLUDED_SIP
+#endif // INCLUDED_MODFLOW_SIP

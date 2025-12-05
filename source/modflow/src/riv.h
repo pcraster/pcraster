@@ -1,31 +1,10 @@
-#ifndef INCLUDED_RIV
-#define INCLUDED_RIV
+#ifndef INCLUDED_MODFLOW_RIV
+#define INCLUDED_MODFLOW_RIV
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_DISCR_BLOCK
 #include "discr_block.h"
-#define INCLUDED_DISCR_BLOCK
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCKDATA
 #include "discr_blockdata.h"
-#define INCLUDED_DISCR_BLOCKDATA
-#endif
-
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-
-// Module headers.
 
 
 
@@ -69,4 +48,4 @@ class RIV{
 
 };
 
-#endif // INCLUDED_RIV
+#endif // INCLUDED_MODFLOW_RIV

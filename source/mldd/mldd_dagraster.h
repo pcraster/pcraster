@@ -1,38 +1,14 @@
 #ifndef INCLUDED_MLDD_DAGRASTER
 #define INCLUDED_MLDD_DAGRASTER
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_RASTERDIM
 #include "geo_rasterdim.h"
-#define INCLUDED_GEO_RASTERDIM
-#endif
-#ifndef INCLUDED_GEO_NEIGHBOUR
 #include "geo_neighbour.h"
-#define INCLUDED_GEO_NEIGHBOUR
-#endif
-#ifndef INCLUDED_GEO_SIMPLERASTER
 #include "geo_simpleraster.h"
-#define INCLUDED_GEO_SIMPLERASTER
-#endif
-// Module headers.
-
-#ifndef INCLUDED_MLDD_OUTEDGEITERATOR
 #include "mldd_outedgeiterator.h"
-#define INCLUDED_MLDD_OUTEDGEITERATOR
-#endif
+
+#include <vector>
+
 
 
 namespace geo {

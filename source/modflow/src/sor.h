@@ -1,13 +1,7 @@
-#ifndef INCLUDED_SOR
-#define INCLUDED_SOR
+#ifndef INCLUDED_MODFLOW_SOR
+#define INCLUDED_MODFLOW_SOR
 
-
-// Library headers.
-#include<ostream>
-
-// PCRaster library headers.
-
-// Module headers.
+#include <ostream>
 
 
 
@@ -44,4 +38,4 @@ public:
                                         const SOR& sor);
 };
 
-#endif // INCLUDED_SOR
+#endif // INCLUDED_MODFLOW_SOR

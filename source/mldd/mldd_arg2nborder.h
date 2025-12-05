@@ -1,26 +1,12 @@
 #ifndef INCLUDED_MLDD_ARG2NBORDER
 #define INCLUDED_MLDD_ARG2NBORDER
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_NEIGHBOUR
 #include "geo_neighbour.h"
-#define INCLUDED_GEO_NEIGHBOUR
-#endif
 
-// Module headers.
+#include <vector>
+
+
 
 namespace mldd {
   template<class T> void arg2NBOrder(

@@ -1,28 +1,13 @@
 #ifndef INCLUDED_MLDD_VERTEXITERATOR
 #define INCLUDED_MLDD_VERTEXITERATOR
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_ITERATOR_ADAPTORS
-#include <boost/iterator_adaptors.hpp>
-#define INCLUDED_BOOST_ITERATOR_ADAPTORS
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_MLDD_EDGEVERTEX
 #include "mldd_edgevertex.h"
-#define INCLUDED_MLDD_EDGEVERTEX
-#endif
-#ifndef INCLUDED_MLDD_DAGRASTER
 #include "mldd_dagraster.h"
-#define INCLUDED_MLDD_DAGRASTER
-#endif
+
+#include <boost/iterator_adaptors.hpp>
+
+
 
 namespace mldd {
   // VertexIterator declarations.

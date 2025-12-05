@@ -1,37 +1,13 @@
-#ifndef INCLUDED_BCF
-#define INCLUDED_BCF
+#ifndef INCLUDED_MODFLOW_BCF
+#define INCLUDED_MODFLOW_BCF
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-
-// PCRaster library headers.
-#ifndef INCLUDED_DISCR_BLOCKDATA
 #include "discr_blockdata.h"
-#define INCLUDED_DISCR_BLOCKDATA
-#endif
-
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
 
+#include <string>
+#include <sstream>
 
-// Module headers.
 
 
 class PCRModflow;
@@ -135,4 +111,4 @@ public:
   int              sf2_unit_number() const;
 };
 
-#endif // INCLUDED_BCF
+#endif // INCLUDED_MODFLOW_BCF

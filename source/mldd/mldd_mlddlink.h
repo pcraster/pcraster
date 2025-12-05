@@ -1,30 +1,10 @@
 #ifndef INCLUDED_MLDD_MLDDLINK
 #define INCLUDED_MLDD_MLDDLINK
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_GEO_RASTERSPACE
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
-#ifndef INCLUDED_GEO_SIMPLERASTER
 #include "geo_simpleraster.h"
-#define INCLUDED_GEO_SIMPLERASTER
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_CALC_MODELLINK
 #include "calc_modellink.h"
-#define INCLUDED_CALC_MODELLINK
-#endif
-
-// Module headers.
 
 
 

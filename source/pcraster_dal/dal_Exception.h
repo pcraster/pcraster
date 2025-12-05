@@ -3,19 +3,8 @@
 
 #include "dal_Configure.h"
 
-// Library headers.
 #include <exception>
-
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
-
-
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

@@ -1,8 +1,8 @@
 /* this file is created by oplist. do not edit */
 /* major opcodes */
-#ifndef INCLUDED_MAJOR_OP
-#define INCLUDED_MAJOR_OP
-typedef enum MAJOR_CODE { 
+#ifndef INCLUDED_OLDCALC_MAJOR_OP
+#define INCLUDED_OLDCALC_MAJOR_OP
+typedef enum MAJOR_CODE {
 OP_NOP=0 ,
 OP_ILL=1 ,
 OP_IF_ELSE=2 ,
@@ -258,6 +258,6 @@ OP_SPREADMAX_IMPL=251 ,
 OP_DYNAMICWAVEH=252 ,
 OP_SPREADLDD_IMPL=253 ,
 OP_LDDCREATE_IMPL=254 ,
-OP_DYNAMICWAVE=255 
-} MAJOR_CODE ; 
+OP_DYNAMICWAVE=255
+} MAJOR_CODE ;
 #endif /* INCLUDED_MAJOR_OP */

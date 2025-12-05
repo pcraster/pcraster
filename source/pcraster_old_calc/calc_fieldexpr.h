@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_FIELDEXPR
-#define INCLUDED_CALC_FIELDEXPR
+#ifndef INCLUDED_OLDCALC_FIELDEXPR
+#define INCLUDED_OLDCALC_FIELDEXPR
 
 #include "calc_element.h"
 #include "calc_vs.h"

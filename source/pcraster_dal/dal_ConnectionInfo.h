@@ -1,22 +1,8 @@
 #ifndef INCLUDED_DAL_CONNECTIONINFO
 #define INCLUDED_DAL_CONNECTIONINFO
 
-
-
-// Library headers.
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_VECTOR
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

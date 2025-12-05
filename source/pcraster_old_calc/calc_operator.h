@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_OPERATOR
-#define INCLUDED_CALC_OPERATOR
+#ifndef INCLUDED_OLDCALC_OPERATOR
+#define INCLUDED_OLDCALC_OPERATOR
 
 #include "stddefx.h"
 #include "calctypes.h"

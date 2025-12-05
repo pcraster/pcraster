@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_SCRIPT
-#define INCLUDED_CALC_SCRIPT
+#ifndef INCLUDED_OLDCALC_SCRIPT
+#define INCLUDED_OLDCALC_SCRIPT
 
 #include "com_pathname.h"
 #include "calc_iscript.h"

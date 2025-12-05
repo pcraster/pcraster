@@ -1,31 +1,14 @@
 #ifndef INCLUDED_DAL_SQLTABLEDRIVER
 #define INCLUDED_DAL_SQLTABLEDRIVER
 
+#include "dal_TableDriver.h"
 
-// Library headers.
-#ifndef INCLUDED_QTGLOBAL
 #include <QtGlobal>
-#define INCLUDED_QTGLOBAL
-#endif
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-  #ifndef INCLUDED_QMETATYPE
   #include <QMetaType>
-  #define INCLUDED_QMETATYPE
-  #endif
 #else
-  #ifndef INCLUDED_QVARIANT
   #include <QVariant>
-  #define INCLUDED_QVARIANT
-  #endif
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_TABLEDRIVER
-#include "dal_TableDriver.h"
-#define INCLUDED_DAL_TABLEDRIVER
 #endif
 
 

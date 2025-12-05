@@ -1,42 +1,11 @@
 #ifndef INCLUDED_DAL_BASICTYPES
 #define INCLUDED_DAL_BASICTYPES
 
-
-
-// Library headers.
-#ifndef INCLUDED_BOOST_TYPE_TRAITS
-#include <boost/type_traits.hpp>
-#define INCLUDED_BOOST_TYPE_TRAITS
-#endif
-
-#ifdef _MSC_VER
-  #if _MSC_VER
-    #pragma warning(disable: 4244)
-  #endif
-#endif
-#ifndef INCLUDED_BOOST_SPIRIT_INCLUDE_CLASSIC
-#include <boost/spirit/include/classic.hpp>
-#define INCLUDED_BOOST_SPIRIT_INCLUDE_CLASSIC
-#endif
-#ifdef _MSC_VER
-  #if _MSC_VER
-    #pragma warning(default: 4244)
-  #endif
-#endif
-
-#ifndef INCLUDED_BOOST_SPIRIT_INCLUDE_CLASSIC_STORED_RULE
-#include <boost/spirit/include/classic_stored_rule.hpp>
-#define INCLUDED_BOOST_SPIRIT_INCLUDE_CLASSIC_STORED_RULE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_TYPE
 #include "dal_Type.h"
-#define INCLUDED_DAL_TYPE
-#endif
 
+#include <boost/spirit/include/classic.hpp>
+#include <boost/spirit/include/classic_stored_rule.hpp>
+#include <boost/type_traits.hpp>
 
 namespace dal {
   // BasicTypes declarations.

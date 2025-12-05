@@ -1,28 +1,11 @@
 #ifndef INCLUDED_DAL_VECTORDRIVER
 #define INCLUDED_DAL_VECTORDRIVER
 
-
-
-// External headers.
-#include <boost/scoped_ptr.hpp>
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
-
-#ifndef INCLUDED_DAL_DRIVER
 #include "dal_Driver.h"
-#define INCLUDED_DAL_DRIVER
-#endif
-
-#ifndef INCLUDED_DAL_VECTOR
 #include "dal_Vector.h"
-#define INCLUDED_DAL_VECTOR
-#endif
+
+#include <boost/scoped_ptr.hpp>
 
 
 

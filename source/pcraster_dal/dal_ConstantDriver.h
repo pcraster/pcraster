@@ -1,22 +1,8 @@
 #ifndef INCLUDED_DAL_CONSTANTDRIVER
 #define INCLUDED_DAL_CONSTANTDRIVER
 
-
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_DRIVER
 #include "dal_Driver.h"
-#define INCLUDED_DAL_DRIVER
-#endif
-
-#ifndef INCLUDED_DAL_CONSTANT
 #include "dal_Constant.h"
-#define INCLUDED_DAL_CONSTANT
-#endif
 
 
 

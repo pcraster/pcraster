@@ -1,42 +1,13 @@
 #ifndef INCLUDED_DAL_FEATURELAYER
 #define INCLUDED_DAL_FEATURELAYER
 
-
-
-
-// Library headers.
-#ifndef INCLUDED_BOOST_ANY
-#include <boost/any.hpp>
-#define INCLUDED_BOOST_ANY
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_OGR_CORE
-#include <ogr_core.h>
-#define INCLUDED_OGR_CORE
-#endif
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
-
-#ifndef INCLUDED_DAL_DATASET
 #include "dal_Dataset.h"
-#define INCLUDED_DAL_DATASET
-#endif
-
-#ifndef INCLUDED_DAL_FEATURELAYERGEOMETRIES
 #include "dal_FeatureLayerGeometries.h"
-#define INCLUDED_DAL_FEATURELAYERGEOMETRIES
-#endif
-
-#ifndef INCLUDED_DAL_TABLE
 #include "dal_Table.h"
-#define INCLUDED_DAL_TABLE
-#endif
 
+#include <boost/any.hpp>
+#include <ogr_core.h>
 
 
 class OGRGeometry;

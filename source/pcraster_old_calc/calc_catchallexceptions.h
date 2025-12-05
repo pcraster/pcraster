@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_CATCHALLEXCEPTIONS
-#define INCLUDED_CALC_CATCHALLEXCEPTIONS
+#ifndef INCLUDED_OLDCALC_CATCHALLEXCEPTIONS
+#define INCLUDED_OLDCALC_CATCHALLEXCEPTIONS
 
 #include "com_catchallexceptions.h"
 #include "calc_posexception.h"

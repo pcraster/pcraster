@@ -1,44 +1,15 @@
 #ifndef INCLUDED_DAL_MEMORYRASTERDATA
 #define INCLUDED_DAL_MEMORYRASTERDATA
 
-
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_BOOST_ANY
-#include <boost/any.hpp>
-#define INCLUDED_BOOST_ANY
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_DATASPACE
 #include "dal_DataSpace.h"
-#define INCLUDED_DAL_DATASPACE
-#endif
-
-#ifndef INCLUDED_DAL_DEF
 #include "dal_Def.h"
-#define INCLUDED_DAL_DEF
-#endif
-
-#ifndef INCLUDED_DAL_MEMORYDATA
 #include "dal_MemoryData.h"
-#define INCLUDED_DAL_MEMORYDATA
-#endif
-
-#ifndef INCLUDED_DAL_RASTER
 #include "dal_Raster.h"
-#define INCLUDED_DAL_RASTER
-#endif
+
+#include <boost/any.hpp>
 
 #include <memory>
-
+#include <vector>
 
 namespace dal {
   // MemoryRasterData declarations.

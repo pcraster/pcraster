@@ -1,22 +1,9 @@
 #ifndef INCLUDED_DAL_COORDINATEMAPPER
 #define INCLUDED_DAL_COORDINATEMAPPER
 
-
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
 
+#include <string>
 
 
 namespace dal {

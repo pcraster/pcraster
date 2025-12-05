@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_COMPRESSOR
-#define INCLUDED_CALC_COMPRESSOR
+#ifndef INCLUDED_OLDCALC_COMPRESSOR
+#define INCLUDED_OLDCALC_COMPRESSOR
 
 #include "stddefx.h"
 #include "vsenum.h"

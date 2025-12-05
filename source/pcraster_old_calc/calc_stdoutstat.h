@@ -1,9 +1,9 @@
 #ifndef INCLUDED_STDOUTSTATEMENT
 #define INCLUDED_STDOUTSTATEMENT
 
-# include "calc_statement.h"
+#include "calc_statement.h"
 
-# include <memory>
+#include <memory>
 
 
 

@@ -1,27 +1,9 @@
 #ifndef INCLUDED_DAL_CSFRASTERDRIVER
 #define INCLUDED_DAL_CSFRASTERDRIVER
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
-
-#ifndef INCLUDED_DAL_RASTERDRIVER
 #include "dal_RasterDriver.h"
-#define INCLUDED_DAL_RASTERDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_UTILS
 #include "dal_Utils.h"
-#define INCLUDED_DAL_UTILS
-#endif
 
 #include <filesystem>
 

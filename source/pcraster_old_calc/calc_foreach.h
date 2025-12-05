@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_FOREACH
-#define INCLUDED_CALC_FOREACH
+#ifndef INCLUDED_OLDCALC_FOREACH
+#define INCLUDED_OLDCALC_FOREACH
 
 #include "calc_innerstatementblock.h"
 #include "calc_idlist.h"

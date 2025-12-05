@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_MIXEDEXPR
-#define INCLUDED_CALC_MIXEDEXPR
+#ifndef INCLUDED_OLDCALC_MIXEDEXPR
+#define INCLUDED_OLDCALC_MIXEDEXPR
 
 #include "calc_fieldexpr.h"
 #include "calc_fieldargs.h"

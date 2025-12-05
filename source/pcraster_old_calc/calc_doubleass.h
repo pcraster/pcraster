@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_DOUBLEASS
-#define INCLUDED_CALC_DOUBLEASS
+#ifndef INCLUDED_OLDCALC_DOUBLEASS
+#define INCLUDED_OLDCALC_DOUBLEASS
 
 #include "calc_statement.h"
 #include "calc_fieldexprargs.h"

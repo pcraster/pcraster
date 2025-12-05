@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_FINDSYMBOL
-#define INCLUDED_CALC_FINDSYMBOL
+#ifndef INCLUDED_OLDCALC_FINDSYMBOL
+#define INCLUDED_OLDCALC_FINDSYMBOL
 
 #include "stddefx.h"
 #include "calctypes.h"

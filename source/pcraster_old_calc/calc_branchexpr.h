@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_BRANCHEXPR
-#define INCLUDED_CALC_BRANCHEXPR
+#ifndef INCLUDED_OLDCALC_BRANCHEXPR
+#define INCLUDED_OLDCALC_BRANCHEXPR
 
 #include "calc_fieldexpr.h"
 #include "calc_fieldargs.h"

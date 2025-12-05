@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_RUNSCRIPT
-#define INCLUDED_CALC_RUNSCRIPT
+#ifndef INCLUDED_OLDCALC_RUNSCRIPT
+#define INCLUDED_OLDCALC_RUNSCRIPT
 
 namespace calc {
   int runScriptFile(const char *scriptFileName);

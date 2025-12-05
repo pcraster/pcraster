@@ -1,8 +1,8 @@
-#ifndef INCLUDED_CALC_BANDMAP
-#define INCLUDED_CALC_BANDMAP
+#ifndef INCLUDED_OLDCALC_BANDMAP
+#define INCLUDED_OLDCALC_BANDMAP
 
 #include "calc_gridmap.h"
-#include"geo_bandmap.h"
+#include "geo_bandmap.h"
 
 #include <string>
 

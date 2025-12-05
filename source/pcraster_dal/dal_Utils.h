@@ -1,56 +1,16 @@
 #ifndef INCLUDED_DAL_UTILS
 #define INCLUDED_DAL_UTILS
 
-
-
-// Library headers.
-#ifndef INCLUDED_ALGORITHM
-#include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_SET
-#include <set>
-#define INCLUDED_SET
-#endif
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// #include <boost/spirit/actor/ref_value_actor.hpp>
-// #include <boost/spirit/actor/ref_const_ref_actor.hpp>
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_ARRAY
 #include "dal_Array.h"
-#define INCLUDED_DAL_ARRAY
-#endif
-
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
-
-#ifndef INCLUDED_DAL_DEF
 #include "dal_Def.h"
-#define INCLUDED_DAL_DEF
-#endif
 
+#include <algorithm>
+#include <iostream>
+#include <string>
+#include <set>
 #include <tuple>
+#include <vector>
 
 
 namespace dal {

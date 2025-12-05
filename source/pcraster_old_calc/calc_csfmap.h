@@ -1,8 +1,8 @@
-#ifndef INCLUDED_CALC_CSFMAP
-#define INCLUDED_CALC_CSFMAP
+#ifndef INCLUDED_OLDCALC_CSFMAP
+#define INCLUDED_OLDCALC_CSFMAP
 
 #include "calc_gridmap.h"
-#include"geo_csfmap.h"
+#include "geo_csfmap.h"
 
 #include <string>
 

@@ -1,62 +1,18 @@
 #ifndef INCLUDED_DAL_TABLE
 #define INCLUDED_DAL_TABLE
 
-
-
-// Library headers.
-#ifndef INCLUDED_CASSERT
-#include <cassert>
-#define INCLUDED_CASSERT
-#endif
-
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_BOOST_ANY
-#include <boost/any.hpp>
-#define INCLUDED_BOOST_ANY
-#endif
-
-#ifndef INCLUDED_BOOST_LEXICAL_CAST
-#include <boost/lexical_cast.hpp>
-#define INCLUDED_BOOST_LEXICAL_CAST
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_ARRAY
 #include "dal_Array.h"
-#define INCLUDED_DAL_ARRAY
-#endif
-
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
-
-#ifndef INCLUDED_DAL_DATASET
 #include "dal_Dataset.h"
-#define INCLUDED_DAL_DATASET
-#endif
-
-#ifndef INCLUDED_DAL_TYPE
 #include "dal_Type.h"
-#define INCLUDED_DAL_TYPE
-#endif
-
-#ifndef INCLUDED_DAL_UTILS
 #include "dal_Utils.h" // copyCells
-#define INCLUDED_DAL_UTILS
-#endif
 
+#include <boost/any.hpp>
+#include <boost/lexical_cast.hpp>
+
+#include <cassert>
+#include <iostream>
+#include <vector>
 
 
 namespace dal {
@@ -1055,20 +1011,20 @@ inline void Table::appendCol(
 // /*!
 //   \return    Reference to the created column.
 //   \sa        appendCol(std::string const&)
-// 
+//
 //   It is assumed that a title for this column is already set.
-// 
+//
 //   The column will have nrRecs() default constructed values.
 // */
 // template<typename T>
 // inline Array<T>& Table::appendCol()
 // {
 //   assert(d_titles.size() > d_cols.size());
-// 
+//
 //   Array<T>* array = new Array<T>(nrRecs());
-// 
+//
 //   d_cols.push_back(array);
-// 
+//
 //   return *array;
 // }
 

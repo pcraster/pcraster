@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_MODELPARSER
-#define INCLUDED_CALC_MODELPARSER
+#ifndef INCLUDED_OLDCALC_MODELPARSER
+#define INCLUDED_OLDCALC_MODELPARSER
 
 #include "stddefx.h"
 #include "tokens.h"

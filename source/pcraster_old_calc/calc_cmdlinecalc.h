@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_CMDLINECALC
-#define INCLUDED_CALC_CMDLINECALC
+#ifndef INCLUDED_OLDCALC_CMDLINECALC
+#define INCLUDED_OLDCALC_CMDLINECALC
 
 #include "stddefx.h"
 #include "pcrdll.h"

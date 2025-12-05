@@ -1,5 +1,5 @@
-#ifndef INCLUDED_LEXTOKEN
-#define INCLUDED_LEXTOKEN
+#ifndef INCLUDED_OLDCALC_LEXTOKEN
+#define INCLUDED_OLDCALC_LEXTOKEN
 
 #include "tokens.h"
 #include "AToken.h"

@@ -1,22 +1,10 @@
 #ifndef INCLUDED_DAL_STEPMAPPER
 #define INCLUDED_DAL_STEPMAPPER
 
-
-
-// Library headers.
-#ifdef DEBUG_DEVELOP
-  #ifndef INCLUDED_IOSTREAM
-  #include <iostream>
-  #define INCLUDED_IOSTREAM
-  #endif
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
+
+#ifdef DEBUG_DEVELOP
+  #include <iostream>
 #endif
 
 

@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_TIMERVALUE
-#define INCLUDED_CALC_TIMERVALUE
+#ifndef INCLUDED_OLDCALC_TIMERVALUE
+#define INCLUDED_OLDCALC_TIMERVALUE
 
 #include "stddefx.h"
 #include "calc_symbol.h"

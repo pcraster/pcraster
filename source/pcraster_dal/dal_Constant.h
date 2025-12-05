@@ -1,17 +1,7 @@
 #ifndef INCLUDED_DAL_CONSTANT
 #define INCLUDED_DAL_CONSTANT
 
-
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_DATASET
 #include "dal_Dataset.h"
-#define INCLUDED_DAL_DATASET
-#endif
 
 
 

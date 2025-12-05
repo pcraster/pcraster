@@ -1,17 +1,7 @@
 #ifndef INCLUDED_DAL_CONFIGURE
 #define INCLUDED_DAL_CONFIGURE
 
-
-
-// External headers.
-#ifndef INCLUDED_BOOST_CONFIG
 #include <boost/config.hpp>
-#define INCLUDED_BOOST_CONFIG
-#endif
-
-// Project headers.
-
-// Module headers.
 
 
 

@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALCTYPES
-#define INCLUDED_CALCTYPES
+#ifndef INCLUDED_OLDCALC_CALCTYPES
+#define INCLUDED_OLDCALC_CALCTYPES
 
 #include "pcrdatatype.h"
 

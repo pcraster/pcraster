@@ -1,22 +1,8 @@
 #ifndef INCLUDED_DAL_TEXTTABLEDRIVER
 #define INCLUDED_DAL_TEXTTABLEDRIVER
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_TABLEDRIVER
 #include "dal_TableDriver.h"
-#define INCLUDED_DAL_TABLEDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_TEXTFILEDRIVER
 #include "dal_TextFileDriver.h"
-#define INCLUDED_DAL_TEXTFILEDRIVER
-#endif
 
 
 

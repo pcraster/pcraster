@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_VS
-#define INCLUDED_CALC_VS
+#ifndef INCLUDED_OLDCALC_VS
+#define INCLUDED_OLDCALC_VS
 
 #include "vsenum.h"
 

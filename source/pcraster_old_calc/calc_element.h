@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_ELEMENT
-#define INCLUDED_CALC_ELEMENT
+#ifndef INCLUDED_OLDCALC_ELEMENT
+#define INCLUDED_OLDCALC_ELEMENT
 
 #include "stddefx.h"
 #include "calc_quote.h"

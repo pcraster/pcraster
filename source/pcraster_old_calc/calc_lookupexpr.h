@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_LOOKUPEXPR
-#define INCLUDED_CALC_LOOKUPEXPR
+#ifndef INCLUDED_OLDCALC_LOOKUPEXPR
+#define INCLUDED_OLDCALC_LOOKUPEXPR
 
 # include "calc_mixedexpr.h"
 # include "calc_fieldexprargs.h"

@@ -1,5 +1,5 @@
-#ifndef INCLUDED_PCR_PCRCALC
-#define INCLUDED_PCR_PCRCALC
+#ifndef INCLUDED_OLDCALC_PCRCALC
+#define INCLUDED_OLDCALC_PCRCALC
 
 #include "pcrdll.h"
 

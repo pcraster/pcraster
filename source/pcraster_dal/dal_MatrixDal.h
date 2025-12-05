@@ -1,17 +1,7 @@
 #ifndef INCLUDED_DAL_MATRIXDAL
 #define INCLUDED_DAL_MATRIXDAL
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_DAL
 #include "dal_Dal.h"
-#define INCLUDED_DAL_DAL
-#endif
 
 
 

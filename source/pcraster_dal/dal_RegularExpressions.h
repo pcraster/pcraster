@@ -1,15 +1,9 @@
 #ifndef INCLUDED_DAL_REGULAREXPRESSIONS
 #define INCLUDED_DAL_REGULAREXPRESSIONS
 
-
-
-// External headers.
 #include <string>
 #include <regex>
 
-// Project headers.
-
-// Module headers.
 
 
 

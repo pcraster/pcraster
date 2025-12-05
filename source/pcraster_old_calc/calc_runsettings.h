@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_RUNSETTINGS
-#define INCLUDED_CALC_RUNSETTINGS
+#ifndef INCLUDED_OLDCALC_RUNSETTINGS
+#define INCLUDED_OLDCALC_RUNSETTINGS
 
 #include "stddefx.h"
 #include "pcrdll.h"

@@ -1,26 +1,10 @@
 #ifndef INCLUDED_DAL_TIMESTEPMAPPER
 #define INCLUDED_DAL_TIMESTEPMAPPER
 
-
-
-// Library headers.
-#ifndef INCLUDED_BOOST_DATE_TIME_POSIX_TIME_POSIX_TIME
-#include <boost/date_time/posix_time/posix_time.hpp>
-#define INCLUDED_BOOST_DATE_TIME_POSIX_TIME_POSIX_TIME
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_DEV_COMPILER
 #include "dev_Compiler.h"
-#define INCLUDED_DEV_COMPILER
-#endif
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
 
+#include <boost/date_time/posix_time/posix_time.hpp>
 
 
 namespace dal {

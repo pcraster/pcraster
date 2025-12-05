@@ -1,46 +1,15 @@
 #ifndef INCLUDED_DAL_APPLICATION
 #define INCLUDED_DAL_APPLICATION
 
-
-
-// Library headers.
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-
-#ifndef INCLUDED_QCOREAPPLICATION
-#include <QCoreApplication>
-#define INCLUDED_QCOREAPPLICATION
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_DEV_COMMANDLINEAPPLICATION
 #include "dev_CommandLineApplication.h"
-#define INCLUDED_DEV_COMMANDLINEAPPLICATION
-#endif
-
-#ifndef INCLUDED_DEV_GDALCLIENT
 #include "dev_GDalClient.h"
-#define INCLUDED_DEV_GDALCLIENT
-#endif
-
-#ifndef INCLUDED_DEV_QTCLIENT
 #include "dev_QtClient.h"
-#define INCLUDED_DEV_QTCLIENT
-#endif
-
-// Module headers.
-#ifndef INCLUDED_DAL_CLIENT
 #include "dal_Client.h"
-#define INCLUDED_DAL_CLIENT
-#endif
-
-#ifndef INCLUDED_DAL_DATASPACE
 #include "dal_DataSpace.h"
-#define INCLUDED_DAL_DATASPACE
-#endif
 
+#include <QCoreApplication>
+
+#include <map>
 
 
 namespace dal {

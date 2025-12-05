@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_PARAMETER
-#define INCLUDED_CALC_PARAMETER
+#ifndef INCLUDED_OLDCALC_PARAMETER
+#define INCLUDED_OLDCALC_PARAMETER
 
 #include "calc_usersymbol.h"
 

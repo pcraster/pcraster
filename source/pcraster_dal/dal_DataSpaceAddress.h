@@ -1,31 +1,12 @@
 #ifndef INCLUDED_DAL_DATASPACEADDRESS
 #define INCLUDED_DAL_DATASPACEADDRESS
 
-
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_BOOST_ANY
-#include <boost/any.hpp>
-#define INCLUDED_BOOST_ANY
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_DEV_COMPILER
 #include "dev_Compiler.h"
-#define INCLUDED_DEV_COMPILER
-#endif
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
 
+#include <boost/any.hpp>
+
+#include <vector>
 
 
 namespace dal {

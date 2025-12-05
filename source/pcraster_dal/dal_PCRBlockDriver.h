@@ -1,27 +1,10 @@
 #ifndef INCLUDED_DAL_PCRBLOCKDRIVER
 #define INCLUDED_DAL_PCRBLOCKDRIVER
 
-
-
-// Library headers.
-#ifndef INCLUDED_FSTREAM
-#include <fstream>
-#define INCLUDED_FSTREAM
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_BLOCKDRIVER
 #include "dal_BlockDriver.h"
-#define INCLUDED_DAL_BLOCKDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_TEXTFILEDRIVER
 #include "dal_TextFileDriver.h"
-#define INCLUDED_DAL_TEXTFILEDRIVER
-#endif
 
+#include <fstream>
 
 
 namespace dal {

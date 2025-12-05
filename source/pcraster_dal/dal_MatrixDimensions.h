@@ -1,17 +1,7 @@
 #ifndef INCLUDED_DAL_MATRIXDIMENSIONS
 #define INCLUDED_DAL_MATRIXDIMENSIONS
 
-
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
 
 
 

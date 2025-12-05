@@ -1,24 +1,10 @@
 #ifndef INCLUDED_DAL_TEXTFILEDRIVER
 #define INCLUDED_DAL_TEXTFILEDRIVER
 
-
-
-// Library headers.
-#ifndef INCLUDED_FSTREAM
-#include <fstream>
-#define INCLUDED_FSTREAM
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_TYPES
 #include "dal_Types.h"
-#define INCLUDED_DAL_TYPES
-#endif
 
 #include <filesystem>
-
+#include <fstream>
 
 
 namespace dal {

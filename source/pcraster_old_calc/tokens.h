@@ -1,5 +1,5 @@
-#ifndef tokens_h
-#define tokens_h
+#ifndef INCLUDED_OLDCALC_TOKENS
+#define INCLUDED_OLDCALC_TOKENS
 /* tokens.h -- List of labelled tokens and stuff
  *
  * Generated from: calcparser.g

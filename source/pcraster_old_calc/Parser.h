@@ -1,5 +1,5 @@
 /*
- * Parser: P a r s e r  H e a d e r 
+ * Parser: P a r s e r  H e a d e r
  *
  * Generated from: calcparser.g
  *
@@ -10,8 +10,8 @@
  * ANTLR Version 1.33MR19
  */
 
-#ifndef Parser_h
-#define Parser_h
+#ifndef INCLUDED_OLDCALC_Parser_h
+#define INCLUDED_OLDCALC_Parser_h
 
 #ifndef ANTLR_VERSION
 #define ANTLR_VERSION 13319
@@ -67,13 +67,13 @@ class  Script;
 class  RunSettings;
 }
 
-#ifndef INCLUDED_CALC_FIELDEXPRARGS
+#ifndef INCLUDED_OLDCALC_FIELDEXPRARGS
 #include "calc_fieldexprargs.h"
-#define INCLUDED_CALC_FIELDEXPRARGS
+#define INCLUDED_OLDCALC_FIELDEXPRARGS
 #endif
-#ifndef INCLUDED_CALC_SYMBOL
+#ifndef INCLUDED_OLDCALC_SYMBOL
 #include "calc_symbol.h"
-#define INCLUDED_CALC_SYMBOL
+#define INCLUDED_OLDCALC_SYMBOL
 #endif
 
 #include "ATokPtr.h"

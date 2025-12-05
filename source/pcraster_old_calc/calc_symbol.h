@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_SYMBOL
-#define INCLUDED_CALC_SYMBOL
+#ifndef INCLUDED_OLDCALC_SYMBOL
+#define INCLUDED_OLDCALC_SYMBOL
 
 #include "stddefx.h"
 #include "calc_element.h"

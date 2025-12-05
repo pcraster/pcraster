@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_STACKINPUT
-#define INCLUDED_CALC_STACKINPUT
+#ifndef INCLUDED_OLDCALC_STACKINPUT
+#define INCLUDED_OLDCALC_STACKINPUT
 
 #include "calc_fieldexpr.h"
 #include "calc_bindedsymbol.h"

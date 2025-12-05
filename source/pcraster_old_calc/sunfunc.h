@@ -1,3 +1,5 @@
+#ifndef INCLUDED_OLDCALC_SUNFUNC
+#define INCLUDED_OLDCALC_SUNFUNC
 /* sunfunc.c */
 extern void Do_pred(INT4 *val, size_t n);
 extern void Do_succ(INT4 *val, size_t n);
@@ -24,3 +26,5 @@ extern void Do_roundoff(REAL4 *val, size_t n);
 extern void Do_roundup(REAL4 *val, size_t n);
 extern void Do_abs(REAL4 *val, size_t n);
 extern void Do_exp(REAL4 *val, size_t n);
+
+#endif

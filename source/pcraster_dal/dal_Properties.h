@@ -1,46 +1,15 @@
 #ifndef INCLUDED_DAL_PROPERTIES
 #define INCLUDED_DAL_PROPERTIES
 
-
-
-// Library headers.
-#ifndef INCLUDED_CASSERT
-#include <cassert>
-#define INCLUDED_CASSERT
-#endif
-
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_BOOST_ANY
-#include <boost/any.hpp>
-#define INCLUDED_BOOST_ANY
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_DEV_COMPILER
 #include "dev_Compiler.h"
-#define INCLUDED_DEV_COMPILER
-#endif
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
-
-#ifndef INCLUDED_DAL_PROPERTYKEYS
 #include "dal_PropertyKeys.h"          // Only for convenience.
-#define INCLUDED_DAL_PROPERTYKEYS
-#endif
 
+#include <boost/any.hpp>
+
+#include <cassert>
+#include <map>
+#include <string>
 
 
 namespace dal {

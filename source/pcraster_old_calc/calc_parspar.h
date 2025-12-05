@@ -1,9 +1,9 @@
-#ifndef  INCLUDED_CALC_PARSPAR
-#define  INCLUDED_CALC_PARSPAR
+#ifndef INCLUDED_OLDCALC_PARSPAR
+#define INCLUDED_OLDCALC_PARSPAR
 
-#include  "calc_bindedsymbol.h"
+#include "calc_bindedsymbol.h"
 
-#include  <vector>
+#include <vector>
 
 
 

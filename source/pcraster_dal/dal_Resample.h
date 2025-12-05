@@ -1,17 +1,7 @@
 #ifndef INCLUDED_DAL_RESAMPLE
 #define INCLUDED_DAL_RESAMPLE
 
-
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_RASTER
 #include "dal_Raster.h"
-#define INCLUDED_DAL_RASTER
-#endif
 
 
 

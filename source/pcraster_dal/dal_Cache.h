@@ -1,9 +1,10 @@
 #ifndef INCLUDED_DAL_CACHE
 #define INCLUDED_DAL_CACHE
 
+#include <boost/bimap.hpp>
+
 #include <cassert>
 #include <map>
-#include <boost/bimap.hpp>
 
 
 namespace dal {

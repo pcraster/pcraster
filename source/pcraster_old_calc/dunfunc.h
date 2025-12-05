@@ -1,3 +1,5 @@
+#ifndef INCLUDED_OLDCALC_DUNFUNC
+#define INCLUDED_OLDCALC_DUNFUNC
 /* dunfunc.c */
 extern void Do_4_2_b(UINT1 *r, const INT4 *v, size_t n);
 extern void Do_4to1(UINT1 *r, const INT4 *v, size_t n);
@@ -38,3 +40,5 @@ void Do_uniform_1(REAL4 *values, const UINT1 *b, size_t n);
 extern int Do_spatial_4(INT4 *vL, INT4 *vR, size_t n);
 extern int Do_spatial_1(UINT1 *vL, UINT1 *vR, size_t n);
 extern int Do_spatial_s(UINT4 *vL, UINT4 *vR, size_t n);
+
+#endif

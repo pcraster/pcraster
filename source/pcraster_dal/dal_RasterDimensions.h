@@ -1,27 +1,9 @@
 #ifndef INCLUDED_DAL_RASTERDIMENSIONS
 #define INCLUDED_DAL_RASTERDIMENSIONS
 
-
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
-
-#ifndef INCLUDED_DAL_MATRIXDIMENSIONS
 #include "dal_MatrixDimensions.h"
-#define INCLUDED_DAL_MATRIXDIMENSIONS
-#endif
-
-#ifndef INCLUDED_DAL_SPACEDIMENSIONS
 #include "dal_SpaceDimensions.h"
-#define INCLUDED_DAL_SPACEDIMENSIONS
-#endif
 
 #include <tuple>
 

@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_GLOBRESULT
-#define INCLUDED_CALC_GLOBRESULT
+#ifndef INCLUDED_OLDCALC_GLOBRESULT
+#define INCLUDED_OLDCALC_GLOBRESULT
 
 #include "stddefx.h"
 #include "vsenum.h"

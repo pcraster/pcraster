@@ -1,7 +1,7 @@
-#ifndef INCLUDED_CALC_IDLIST
-#define INCLUDED_CALC_IDLIST
+#ifndef INCLUDED_OLDCALC_IDLIST
+#define INCLUDED_OLDCALC_IDLIST
 
-# include "calc_symbol.h"
+#include "calc_symbol.h"
 
 #include <vector>
 

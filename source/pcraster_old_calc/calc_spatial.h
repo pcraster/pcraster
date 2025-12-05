@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_SPATIAL
-#define INCLUDED_CALC_SPATIAL
+#ifndef INCLUDED_OLDCALC_SPATIAL
+#define INCLUDED_OLDCALC_SPATIAL
 
 #include "calc_field.h"
 #include "csftypes.h"

@@ -1,23 +1,9 @@
 #ifndef INCLUDED_DAL_CSFMAP
 #define INCLUDED_DAL_CSFMAP
 
-
-
-
-// Library headers.
-#ifndef INCLUDED_BOOST_ANY
-#include <boost/any.hpp>
-#define INCLUDED_BOOST_ANY
-#endif
-
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_DEF
 #include "dal_Def.h"
-#define INCLUDED_DAL_DEF
-#endif
+
+#include <boost/any.hpp>
 
 #include <filesystem>
 

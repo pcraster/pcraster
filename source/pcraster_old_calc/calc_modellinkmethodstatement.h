@@ -1,8 +1,8 @@
-#ifndef INCLUDED_CALC_MODELLINKMETHODSTATEMENT
-#define INCLUDED_CALC_MODELLINKMETHODSTATEMENT
+#ifndef INCLUDED_OLDCALC_MODELLINKMETHODSTATEMENT
+#define INCLUDED_OLDCALC_MODELLINKMETHODSTATEMENT
 
-# include "calc_statement.h"
-# include "calc_fieldexprargs.h"
+#include "calc_statement.h"
+#include "calc_fieldexprargs.h"
 #include "calc_symbol.h"
 #include "calc_modellink.h"
 

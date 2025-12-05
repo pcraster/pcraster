@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_VALUEBUFFER
-#define INCLUDED_CALC_VALUEBUFFER
+#ifndef INCLUDED_OLDCALC_VALUEBUFFER
+#define INCLUDED_OLDCALC_VALUEBUFFER
 
 #include "stddefx.h"
 #include "csftypes.h"

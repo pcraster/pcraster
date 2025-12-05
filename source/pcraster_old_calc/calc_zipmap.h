@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_ZIPMAP
-#define INCLUDED_CALC_ZIPMAP
+#ifndef INCLUDED_OLDCALC_ZIPMAP
+#define INCLUDED_OLDCALC_ZIPMAP
 
 #include "stddefx.h"
 #include "calc_spatial.h"

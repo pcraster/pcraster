@@ -1,22 +1,9 @@
 #ifndef INCLUDED_DAL_TYPES
 #define INCLUDED_DAL_TYPES
 
-
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_TYPE
 #include "dal_Type.h"
-#define INCLUDED_DAL_TYPE
-#endif
 
+#include <vector>
 
 
 namespace dal {

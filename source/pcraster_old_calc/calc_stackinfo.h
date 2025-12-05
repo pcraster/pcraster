@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_STACKINFO
-#define INCLUDED_CALC_STACKINFO
+#ifndef INCLUDED_OLDCALC_STACKINFO
+#define INCLUDED_OLDCALC_STACKINFO
 
 #include "stddefx.h"
 #include "vsenum.h"

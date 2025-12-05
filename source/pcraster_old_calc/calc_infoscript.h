@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_INFOSCRIPT
-#define INCLUDED_CALC_INFOSCRIPT
+#ifndef INCLUDED_OLDCALC_INFOSCRIPT
+#define INCLUDED_OLDCALC_INFOSCRIPT
 
 #include <fstream>
 #include <string>

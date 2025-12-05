@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_INDEXPARAMETER
-#define INCLUDED_CALC_INDEXPARAMETER
+#ifndef INCLUDED_OLDCALC_INDEXPARAMETER
+#define INCLUDED_OLDCALC_INDEXPARAMETER
 
 #include "calc_parameter.h"
 #include "calc_indexcontainer.h"

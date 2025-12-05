@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_FIELDTYPE
-#define INCLUDED_CALC_FIELDTYPE
+#ifndef INCLUDED_OLDCALC_FIELDTYPE
+#define INCLUDED_OLDCALC_FIELDTYPE
 
 #include "calctypes.h"   // VS and ST
 

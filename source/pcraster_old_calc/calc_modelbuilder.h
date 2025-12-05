@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_MODELBUILDER
-#define INCLUDED_CALC_MODELBUILDER
+#ifndef INCLUDED_OLDCALC_MODELBUILDER
+#define INCLUDED_OLDCALC_MODELBUILDER
 
 #include "stddefx.h"
 #include "calc_script.h"

@@ -1,5 +1,5 @@
-#ifndef INCLUDED_LEXGRAMMAR
-#define INCLUDED_LEXGRAMMAR
+#ifndef INCLUDED_OLDCALC_LEXGRAMMAR
+#define INCLUDED_OLDCALC_LEXGRAMMAR
 
 #undef   yyFlexLexer
 #define  yyFlexLexer gramFlexLexer

@@ -1,22 +1,9 @@
 #ifndef INCLUDED_DAL_OGRFEATUREDRIVER
 #define INCLUDED_DAL_OGRFEATUREDRIVER
 
-
-
-// Library headers.
-#ifndef INCLUDED_SET
-#include <set>
-#define INCLUDED_SET
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_FEATUREDRIVER
 #include "dal_FeatureDriver.h"
-#define INCLUDED_DAL_FEATUREDRIVER
-#endif
 
+#include <set>
 
 
 class OGRDataSource;

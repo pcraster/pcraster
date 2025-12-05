@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_APIMAP
-#define INCLUDED_CALC_APIMAP
+#ifndef INCLUDED_OLDCALC_APIMAP
+#define INCLUDED_OLDCALC_APIMAP
 
 #include "csftypes.h"
 #include "calc_objcount.h"

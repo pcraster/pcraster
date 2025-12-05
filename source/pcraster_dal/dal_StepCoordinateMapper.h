@@ -1,36 +1,11 @@
 #ifndef INCLUDED_DAL_STEPCOORDINATEMAPPER
 #define INCLUDED_DAL_STEPCOORDINATEMAPPER
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_DEV_COMPILER
 #include "dev_Compiler.h"
-#define INCLUDED_DEV_COMPILER
-#endif
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
-
-#ifndef INCLUDED_DAL_COORDINATEMAPPER
 #include "dal_CoordinateMapper.h"
-#define INCLUDED_DAL_COORDINATEMAPPER
-#endif
-
-#ifndef INCLUDED_DAL_DEF
 #include "dal_Def.h"
-#define INCLUDED_DAL_DEF
-#endif
-
-#ifndef INCLUDED_DAL_STEPMAPPER
 #include "dal_StepMapper.h"
-#define INCLUDED_DAL_STEPMAPPER
-#endif
 
 #include <string>
 

@@ -1,22 +1,8 @@
 #ifndef INCLUDED_DAL_BLOCKDRIVER
 #define INCLUDED_DAL_BLOCKDRIVER
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_DRIVER
 #include "dal_Driver.h"
-#define INCLUDED_DAL_DRIVER
-#endif
-
-#ifndef INCLUDED_DAL_BLOCK
 #include "dal_Block.h"
-#define INCLUDED_DAL_BLOCK
-#endif
 
 
 

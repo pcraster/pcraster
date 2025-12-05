@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_GLOBARGS
-#define INCLUDED_CALC_GLOBARGS
+#ifndef INCLUDED_OLDCALC_GLOBARGS
+#define INCLUDED_OLDCALC_GLOBARGS
 
 #include "calc_fieldstack.h"
 

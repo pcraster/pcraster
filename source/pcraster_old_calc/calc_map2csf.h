@@ -1,4 +1,5 @@
-#ifndef INCLUDED_CALC_MAP2CSF
+#ifndef INCLUDED_OLDCALC_MAP2CSF
+#define INCLUDED_OLDCALC_MAP2CSF
 
 #include "csftypes.h"
 #include "calctypes.h"

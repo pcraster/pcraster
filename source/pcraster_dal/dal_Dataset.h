@@ -1,27 +1,9 @@
 #ifndef INCLUDED_DAL_DATASET
 #define INCLUDED_DAL_DATASET
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
-
-#ifndef INCLUDED_DAL_DEF
 #include "dal_Def.h"
-#define INCLUDED_DAL_DEF
-#endif
-
-#ifndef INCLUDED_DAL_PROPERTIES
 #include "dal_Properties.h"
-#define INCLUDED_DAL_PROPERTIES
-#endif
 
 
 

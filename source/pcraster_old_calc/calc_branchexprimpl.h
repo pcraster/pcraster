@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_BRANCHEXPRIMPL
-#define INCLUDED_CALC_BRANCHEXPRIMPL
+#ifndef INCLUDED_OLDCALC_BRANCHEXPRIMPL
+#define INCLUDED_OLDCALC_BRANCHEXPRIMPL
 
 #include "calc_branchexpr.h"
 #include "calc_field.h"

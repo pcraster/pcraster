@@ -1,22 +1,8 @@
 #ifndef INCLUDED_DAL_TEXTMATRIXDRIVER
 #define INCLUDED_DAL_TEXTMATRIXDRIVER
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_MATRIXDRIVER
 #include "dal_MatrixDriver.h"
-#define INCLUDED_DAL_MATRIXDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_TEXTFILEDRIVER
 #include "dal_TextFileDriver.h"
-#define INCLUDED_DAL_TEXTFILEDRIVER
-#endif
 
 
 

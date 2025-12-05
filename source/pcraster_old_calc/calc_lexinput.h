@@ -1,5 +1,5 @@
-#ifndef  INCLUDED_CALC_LEXINPUT
-#define INCLUDED_CALC_LEXINPUT
+#ifndef INCLUDED_OLDCALC_LEXINPUT
+#define INCLUDED_OLDCALC_LEXINPUT
 
 #include <iostream>
 #include <vector>

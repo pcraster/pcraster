@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_FIELDVALUE
-#define INCLUDED_CALC_FIELDVALUE
+#ifndef INCLUDED_OLDCALC_FIELDVALUE
+#define INCLUDED_OLDCALC_FIELDVALUE
 
 #include "calc_filewriter.h"
 #include "calc_field.h"

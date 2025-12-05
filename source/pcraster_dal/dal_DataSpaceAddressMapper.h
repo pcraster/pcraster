@@ -1,22 +1,8 @@
 #ifndef INCLUDED_DAL_DATASPACEADDRESSMAPPER
 #define INCLUDED_DAL_DATASPACEADDRESSMAPPER
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
-
-#ifndef INCLUDED_DAL_DATASPACE
 #include "dal_DataSpace.h"
-#define INCLUDED_DAL_DATASPACE
-#endif
 
 
 

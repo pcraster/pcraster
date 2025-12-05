@@ -1,8 +1,7 @@
-#ifndef INCLUDED_CALC_IOFIELDSTRATEGY
-#define INCLUDED_CALC_IOFIELDSTRATEGY
+#ifndef INCLUDED_OLDCALC_IOFIELDSTRATEGY
+#define INCLUDED_OLDCALC_IOFIELDSTRATEGY
 
 #include "stddefx.h"
-
 #include "geo_rasterspace.h"
 #include "pcrgenxml_iostrategy.h"
 #include "appargs.h" // APP_IO_STRATEGY
@@ -90,7 +89,7 @@ public:
      \throws com::Exception if clone differs
    */
   virtual void checkClone(const std::string& mapFileName)=0;
- 
+
   //! return a format specific reader for a stack
   virtual const StackReader* createStackReader(
       const RunDirectory& rd,

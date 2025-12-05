@@ -1,3 +1,5 @@
+#ifndef INCLUDED_OLDCALC_DBINFUNC
+#define INCLUDED_OLDCALC_DBINFUNC
 /* dbinfunc.c */
 extern int Do_ne_1_ss(UINT1 *v1, const UINT1 *v2, size_t n);
 extern int Do_ne_1_ns(const UINT1 *v1, UINT1 *v2, size_t n);
@@ -65,3 +67,5 @@ extern void Do_if_else_s_snn(REAL4 *r, const UINT1 *test, const REAL4 *t, const 
 extern void Do_if_else_s_sns(REAL4 *r, const UINT1 *test, const REAL4 *t, const REAL4 *f, size_t n);
 extern void Do_if_else_s_nns(REAL4 *r, const UINT1 *test, const REAL4 *t, const REAL4 *f, size_t n);
 extern void Do_if_else_s_nsn(REAL4 *r, const UINT1 *test, const REAL4 *t, const REAL4 *f, size_t n);
+
+#endif

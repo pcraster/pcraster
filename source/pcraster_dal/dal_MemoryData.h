@@ -3,14 +3,6 @@
 
 
 
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-
-
-
 namespace dal {
   // MemoryData declarations.
 }

@@ -1,22 +1,12 @@
 #ifndef INCLUDED_DAL_FEATURELAYERGEOMETRIES
 #define INCLUDED_DAL_FEATURELAYERGEOMETRIES
 
-
-
-// External headers.
+#include "dal_SpaceDimensions.h"
 
 #include <boost/geometry/geometries/box.hpp>
 #include <boost/geometry/geometries/point.hpp>
 #include <boost/geometry/strategies/strategies.hpp>
 #include <boost/geometry/index/rtree.hpp>
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_SPACEDIMENSIONS
-#include "dal_SpaceDimensions.h"
-#define INCLUDED_DAL_SPACEDIMENSIONS
-#endif
 
 #include <map>
 

@@ -1,22 +1,8 @@
 #ifndef INCLUDED_DAL_TIMESTEPCOORDINATEMAPPER
 #define INCLUDED_DAL_TIMESTEPCOORDINATEMAPPER
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_COORDINATEMAPPER
 #include "dal_CoordinateMapper.h"
-#define INCLUDED_DAL_COORDINATEMAPPER
-#endif
-
-#ifndef INCLUDED_DAL_TIMESTEPMAPPER
 #include "dal_TimeStepMapper.h"
-#define INCLUDED_DAL_TIMESTEPMAPPER
-#endif
 
 
 

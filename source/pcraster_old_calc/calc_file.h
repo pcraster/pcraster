@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_FILE
-#define INCLUDED_CALC_FILE
+#ifndef INCLUDED_OLDCALC_FILE
+#define INCLUDED_OLDCALC_FILE
 
 #include <string>
 

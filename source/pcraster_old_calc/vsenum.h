@@ -1,5 +1,5 @@
-#ifndef INCLUDED_VSENUM
-#define INCLUDED_VSENUM
+#ifndef INCLUDED_OLDCALC_VSENUM
+#define INCLUDED_OLDCALC_VSENUM
 
 #include "pcrdatatype.h"
 

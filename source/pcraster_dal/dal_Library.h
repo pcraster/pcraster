@@ -1,46 +1,13 @@
 #ifndef INCLUDED_DAL_LIBRARY
 #define INCLUDED_DAL_LIBRARY
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_DEV_COMPILER
 #include "dev_Compiler.h"
-#define INCLUDED_DEV_COMPILER
-#endif
-
-// Module headers.
-#ifndef INCLUDED_DAL_CACHE
 #include "dal_Cache.h"
-#define INCLUDED_DAL_CACHE
-#endif
-
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
-
-#ifndef INCLUDED_DAL_ENVIRONMENT
 #include "dal_Environment.h"
-#define INCLUDED_DAL_ENVIRONMENT
-#endif
-
-#ifndef INCLUDED_DAL_FEATURELAYERGEOMETRIES
 #include "dal_FeatureLayerGeometries.h"
-#define INCLUDED_DAL_FEATURELAYERGEOMETRIES
-#endif
-
-#ifndef INCLUDED_DAL_FORMATS
 #include "dal_Formats.h"
-#define INCLUDED_DAL_FORMATS
-#endif
-
-#ifndef INCLUDED_DAL_MEMORYDATAPOOL
 #include "dal_MemoryDataPool.h"
-#define INCLUDED_DAL_MEMORYDATAPOOL
-#endif
 
 #include <filesystem>
 

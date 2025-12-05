@@ -1,38 +1,14 @@
 #ifndef INCLUDED_DAL_VECTOR
 #define INCLUDED_DAL_VECTOR
 
-
-
-// External headers.
-
-// Project headers.
-#ifndef INCLUDED_CMATH
-#include <cmath>
-#define INCLUDED_CMATH
-#endif
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
-
-#ifndef INCLUDED_DAL_DATASET
 #include "dal_Dataset.h"
-#define INCLUDED_DAL_DATASET
-#endif
-
-#ifndef INCLUDED_DAL_MATRIX
 #include "dal_Matrix.h"
-#define INCLUDED_DAL_MATRIX
-#endif
-
-#ifndef INCLUDED_DAL_RASTERDIMENSIONS
 #include "dal_RasterDimensions.h"
-#define INCLUDED_DAL_RASTERDIMENSIONS
-#endif
 
+#include <cmath>
 #include <memory>
+
 
 
 namespace dal {

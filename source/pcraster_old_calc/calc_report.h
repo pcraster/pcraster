@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_REPORT
-#define INCLUDED_CALC_REPORT
+#ifndef INCLUDED_OLDCALC_REPORT
+#define INCLUDED_OLDCALC_REPORT
 
 #include "calc_symbol.h"
 

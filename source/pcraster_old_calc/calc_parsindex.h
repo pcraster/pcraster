@@ -1,7 +1,7 @@
-#ifndef INCLUDED_CALC_PARSINDEX
-#define INCLUDED_CALC_PARSINDEX
+#ifndef INCLUDED_OLDCALC_PARSINDEX
+#define INCLUDED_OLDCALC_PARSINDEX
 
-# include "calc_symbol.h"
+#include "calc_symbol.h"
 #include "calc_idlist.h"
 
 #include <vector>

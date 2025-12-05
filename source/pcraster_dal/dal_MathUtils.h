@@ -1,41 +1,14 @@
 #ifndef INCLUDED_DAL_MATHUTILS
 #define INCLUDED_DAL_MATHUTILS
 
-
-// Library headers.
-#ifndef INCLUDED_BOOST_NUMERIC_CONVERSION_CONVERTER
-#include <boost/numeric/conversion/converter.hpp>
-#define INCLUDED_BOOST_NUMERIC_CONVERSION_CONVERTER
-#endif
-
-#ifndef INCLUDED_BOOST_TYPE_TRAITS
-#include <boost/type_traits.hpp>
-#define INCLUDED_BOOST_TYPE_TRAITS
-#endif
-
-#ifndef INCLUDED_BOOST_TYPE_TRAITS_IS_FLOATING_POINT
-#include <boost/type_traits/is_floating_point.hpp>
-#define INCLUDED_BOOST_TYPE_TRAITS_IS_FLOATING_POINT
-#endif
-
-#include <boost/test/tools/floating_point_comparison.hpp>
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRTYPES
 #include "pcrtypes.h"
-#define INCLUDED_PCRTYPES
-#endif
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
-
-#ifndef INCLUDED_DAL_ARRAY
 #include "dal_Array.h"
-#define INCLUDED_DAL_ARRAY
-#endif
+
+#include <boost/numeric/conversion/converter.hpp>
+#include <boost/type_traits.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
+#include <boost/test/tools/floating_point_comparison.hpp>
 
 #include <cassert>
 #include <cmath>

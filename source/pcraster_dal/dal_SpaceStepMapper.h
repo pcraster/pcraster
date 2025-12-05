@@ -1,27 +1,12 @@
 #ifndef INCLUDED_DAL_SPACESTEPMAPPER
 #define INCLUDED_DAL_SPACESTEPMAPPER
 
+#include "dal_Configure.h"
 
-
-// External headers.
-#ifndef INCLUDED_CSTDDEF
 #include <cstddef>
-#define INCLUDED_CSTDDEF
-#endif
 
 #ifdef DEBUG_DEVELOP
-  #ifndef INCLUDED_IOSTREAM
   #include <iostream>
-  #define INCLUDED_IOSTREAM
-  #endif
-#endif
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONFIGURE
-#include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
 #endif
 
 

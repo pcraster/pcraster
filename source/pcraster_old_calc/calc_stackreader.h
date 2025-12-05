@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_STACKREADER
-#define INCLUDED_CALC_STACKREADER
+#ifndef INCLUDED_OLDCALC_STACKREADER
+#define INCLUDED_OLDCALC_STACKREADER
 
 #include "stddefx.h"
 #include "vsenum.h"

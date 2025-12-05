@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_MODELLINKINIT
-#define INCLUDED_CALC_MODELLINKINIT
+#ifndef INCLUDED_OLDCALC_MODELLINKINIT
+#define INCLUDED_OLDCALC_MODELLINKINIT
 
 #include "calc_statement.h"
 #include "calc_fieldexprargs.h"

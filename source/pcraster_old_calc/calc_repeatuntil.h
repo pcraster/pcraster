@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_REPEATUNTIL
-#define INCLUDED_CALC_REPEATUNTIL
+#ifndef INCLUDED_OLDCALC_REPEATUNTIL
+#define INCLUDED_OLDCALC_REPEATUNTIL
 
 #include "calc_innerstatementblock.h"
 

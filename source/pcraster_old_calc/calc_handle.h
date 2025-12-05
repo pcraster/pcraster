@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_HANDLE
-#define INCLUDED_CALC_HANDLE
+#ifndef INCLUDED_OLDCALC_HANDLE
+#define INCLUDED_OLDCALC_HANDLE
 
 namespace calc {
 //! handle template with automatic clean up

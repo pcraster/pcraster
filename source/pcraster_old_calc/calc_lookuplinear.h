@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_LOOKUPLINEAR
-#define INCLUDED_CALC_LOOKUPLINEAR
+#ifndef INCLUDED_OLDCALC_LOOKUPLINEAR
+#define INCLUDED_OLDCALC_LOOKUPLINEAR
 
 #include "stddefx.h"
 #include "calc_lookuptable.h"

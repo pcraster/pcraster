@@ -1,32 +1,10 @@
 #ifndef INCLUDED_DAL_MEMORYDATAPOOL
 #define INCLUDED_DAL_MEMORYDATAPOOL
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_DATASPACE
 #include "dal_DataSpace.h"
-#define INCLUDED_DAL_DATASPACE
-#endif
-
-#ifndef INCLUDED_DAL_DEF
 #include "dal_Def.h"
-#define INCLUDED_DAL_DEF
-#endif
-
-#ifndef INCLUDED_DAL_MEMORYRASTERDATA
 #include "dal_MemoryRasterData.h"
-#define INCLUDED_DAL_MEMORYRASTERDATA
-#endif
-
-#ifndef INCLUDED_DAL_MEMORYTABLEDATA
 #include "dal_MemoryTableData.h"
-#define INCLUDED_DAL_MEMORYTABLEDATA
-#endif
 
 #include <map>
 

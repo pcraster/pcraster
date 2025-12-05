@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_FIELD
-#define INCLUDED_CALC_FIELD
+#ifndef INCLUDED_OLDCALC_FIELD
+#define INCLUDED_OLDCALC_FIELD
 
 #include "calc_vs.h"
 #include "calc_objcount.h"

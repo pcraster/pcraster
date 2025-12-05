@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_QUOTE
-#define INCLUDED_CALC_QUOTE
+#ifndef INCLUDED_OLDCALC_QUOTE
+#define INCLUDED_OLDCALC_QUOTE
 
 #include <string>
 

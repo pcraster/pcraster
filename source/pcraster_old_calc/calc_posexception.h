@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_POSEXCEPTION
-#define INCLUDED_CALC_POSEXCEPTION
+#ifndef INCLUDED_OLDCALC_POSEXCEPTION
+#define INCLUDED_OLDCALC_POSEXCEPTION
 
 #include "stddefx.h"
 #include "com_exception.h"

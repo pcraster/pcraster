@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_FIELDPARAMETER
-#define INCLUDED_CALC_FIELDPARAMETER
+#ifndef INCLUDED_OLDCALC_FIELDPARAMETER
+#define INCLUDED_OLDCALC_FIELDPARAMETER
 
 #include "calc_fieldtype.h"
 #include "calc_subparameter.h"

@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_ARRAYDEFINITION
-#define INCLUDED_CALC_ARRAYDEFINITION
+#ifndef INCLUDED_OLDCALC_ARRAYDEFINITION
+#define INCLUDED_OLDCALC_ARRAYDEFINITION
 
 #include "calc_usersymbol.h"
 #include "calc_indexcontainer.h"

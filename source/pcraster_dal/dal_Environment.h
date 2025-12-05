@@ -1,14 +1,6 @@
 #ifndef INCLUDED_DAL_ENVIRONMENT
 #define INCLUDED_DAL_ENVIRONMENT
 
-
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
-
 #include <filesystem>
 #include <string>
 #include <vector>

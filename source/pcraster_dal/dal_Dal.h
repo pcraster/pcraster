@@ -1,41 +1,15 @@
 #ifndef INCLUDED_DAL_DAL
 #define INCLUDED_DAL_DAL
 
-
-
-// Library headers.
-
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
-
-#ifndef INCLUDED_DAL_DATASPACEADDRESS
 #include "dal_DataSpaceAddress.h"
-#define INCLUDED_DAL_DATASPACEADDRESS
-#endif
-
-#ifndef INCLUDED_DAL_DEF
 #include "dal_Def.h"
-#define INCLUDED_DAL_DEF
-#endif
-
-#ifndef INCLUDED_DAL_DRIVER
 #include "dal_Driver.h" // DataSpaceQueryResult
-#define INCLUDED_DAL_DRIVER
-#endif
-
-#ifndef INCLUDED_DAL_FORMATS
 #include "dal_Formats.h"
-#define INCLUDED_DAL_FORMATS
-#endif
 
 #include <tuple>
 #include <vector>
+
 
 
 namespace dal {

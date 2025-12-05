@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_USERSYMBOL
-#define INCLUDED_CALC_USERSYMBOL
+#ifndef INCLUDED_OLDCALC_USERSYMBOL
+#define INCLUDED_OLDCALC_USERSYMBOL
 
 #include "calc_bindedsymbol.h"
 #include "vsenum.h"

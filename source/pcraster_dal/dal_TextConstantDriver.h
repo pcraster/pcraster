@@ -1,22 +1,8 @@
 #ifndef INCLUDED_DAL_TEXTCONSTANTDRIVER
 #define INCLUDED_DAL_TEXTCONSTANTDRIVER
 
-
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONSTANTDRIVER
 #include "dal_ConstantDriver.h"
-#define INCLUDED_DAL_CONSTANTDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_TEXTFILEDRIVER
 #include "dal_TextFileDriver.h"
-#define INCLUDED_DAL_TEXTFILEDRIVER
-#endif
 
 
 

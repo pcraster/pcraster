@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_EXTSYM
-#define INCLUDED_CALC_EXTSYM
+#ifndef INCLUDED_OLDCALC_EXTSYM
+#define INCLUDED_OLDCALC_EXTSYM
 
 #include "stddefx.h"
 

@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_TSSOUTPUTVALUE
-#define INCLUDED_CALC_TSSOUTPUTVALUE
+#ifndef INCLUDED_OLDCALC_TSSOUTPUTVALUE
+#define INCLUDED_OLDCALC_TSSOUTPUTVALUE
 
 #include "calc_vs.h"
 #include "calc_filewriter.h"

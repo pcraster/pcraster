@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_ESRIMAP
-#define INCLUDED_CALC_ESRIMAP
+#ifndef INCLUDED_OLDCALC_ESRIMAP
+#define INCLUDED_OLDCALC_ESRIMAP
 
 #include "com_exception.h"
 #include "calc_gridmap.h"

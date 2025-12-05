@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_MASKCOMPRESSOR
-#define INCLUDED_CALC_MASKCOMPRESSOR
+#ifndef INCLUDED_OLDCALC_MASKCOMPRESSOR
+#define INCLUDED_OLDCALC_MASKCOMPRESSOR
 
 #include "stddefx.h"
 #include "calc_compressor.h"

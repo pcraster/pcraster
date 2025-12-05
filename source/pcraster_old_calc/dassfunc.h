@@ -1,3 +1,5 @@
+#ifndef INCLUDED_OLDCALC_DASSFUNC
+#define INCLUDED_OLDCALC_DASSFUNC
 /* dassfunc.c */
 extern int Do_accu(void *s, void *f, const void **ins);
 extern int Do_accucapacity(void *s, void *f, const void **ins);
@@ -12,3 +14,5 @@ extern int Do_lddcreate_impl(void *l, void *d, const void **ins);
 extern int Do_dynamicwave(void *q, void *h, const void **in);
 extern int Do_route(void *l, void *d, const void **ins);
 extern int Do_diffuse(void *s, void *f, const void **ins);
+
+#endif

@@ -1,5 +1,5 @@
-#ifndef INCLUDED_EXTERNFUNCS
-#define INCLUDED_EXTERNFUNCS
+#ifndef INCLUDED_OLDCALC_EXTERNFUNCS
+#define INCLUDED_OLDCALC_EXTERNFUNCS
 
 void initExternFuncs();
 void cleanUpExternFuncs();

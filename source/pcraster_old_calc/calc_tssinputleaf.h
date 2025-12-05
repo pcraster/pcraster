@@ -1,10 +1,10 @@
-#ifndef INCLUDED_CALC_TSSINPUTLEAF
-#define INCLUDED_CALC_TSSINPUTLEAF
+#ifndef INCLUDED_OLDCALC_TSSINPUTLEAF
+#define INCLUDED_OLDCALC_TSSINPUTLEAF
 
-# include "calc_symbol.h"
-# include "calc_vs.h"
+#include "calc_symbol.h"
+#include "calc_vs.h"
 
-# include <memory>
+#include <memory>
 
 
 

@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_POSITIONNONE
-#define INCLUDED_CALC_POSITIONNONE
+#ifndef INCLUDED_OLDCALC_POSITIONNONE
+#define INCLUDED_OLDCALC_POSITIONNONE
 
 #include "stddefx.h"
 #include "calc_position.h"

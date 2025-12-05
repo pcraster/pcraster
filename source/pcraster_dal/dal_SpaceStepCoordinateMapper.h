@@ -1,22 +1,8 @@
 #ifndef INCLUDED_DAL_SPACESTEPCOORDINATEMAPPER
 #define INCLUDED_DAL_SPACESTEPCOORDINATEMAPPER
 
-
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_COORDINATEMAPPER
 #include "dal_CoordinateMapper.h"
-#define INCLUDED_DAL_COORDINATEMAPPER
-#endif
-
-#ifndef INCLUDED_DAL_SPACESTEPMAPPER
 #include "dal_SpaceStepMapper.h"
-#define INCLUDED_DAL_SPACESTEPMAPPER
-#endif
 
 
 

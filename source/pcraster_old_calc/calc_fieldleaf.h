@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_FIELDLEAF
-#define INCLUDED_CALC_FIELDLEAF
+#ifndef INCLUDED_OLDCALC_FIELDLEAF
+#define INCLUDED_OLDCALC_FIELDLEAF
 
 #include "calc_fieldexpr.h"
 #include "calc_usedefnode.h"

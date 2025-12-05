@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_SUBPARAMETER
-#define INCLUDED_CALC_SUBPARAMETER
+#ifndef INCLUDED_OLDCALC_SUBPARAMETER
+#define INCLUDED_OLDCALC_SUBPARAMETER
 
 #include "calc_parameter.h"
 #include "calc_arraydefvector.h"

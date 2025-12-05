@@ -1,22 +1,8 @@
 #ifndef INCLUDED_DAL_GEOEASTABLEDRIVER
 #define INCLUDED_DAL_GEOEASTABLEDRIVER
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_TEXTTABLEDRIVER
 #include "dal_TextTableDriver.h"
-#define INCLUDED_DAL_TEXTTABLEDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_UTILS
 #include "dal_Utils.h"
-#define INCLUDED_DAL_UTILS
-#endif
 
 
 

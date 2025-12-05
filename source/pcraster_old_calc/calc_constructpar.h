@@ -1,9 +1,9 @@
-#ifndef  INCLUDED_CALC_CONSTRUCTPAR
-#define  INCLUDED_CALC_CONSTRUCTPAR
+#ifndef INCLUDED_OLDCALC_CONSTRUCTPAR
+#define INCLUDED_OLDCALC_CONSTRUCTPAR
 
-#include  "calc_symbol.h"
+#include "calc_symbol.h"
 
-#include  <vector>
+#include <vector>
 
 
 namespace calc {

@@ -1,8 +1,7 @@
-#ifndef INCLUDED_CALC_STATTABLE
-#define INCLUDED_CALC_STATTABLE
+#ifndef INCLUDED_OLDCALC_STATTABLE
+#define INCLUDED_OLDCALC_STATTABLE
 
 #include "stddefx.h"
-
 #include "com_pathname.h"
 #include "csftypes.h"
 #include "com_interval.h"

@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_NONSPATIALTSSIMPL
-#define INCLUDED_CALC_NONSPATIALTSSIMPL
+#ifndef INCLUDED_OLDCALC_NONSPATIALTSSIMPL
+#define INCLUDED_OLDCALC_NONSPATIALTSSIMPL
 
 #include "calc_nonspatialimpl.h"
 #include "calc_tssoutputvalue.h"

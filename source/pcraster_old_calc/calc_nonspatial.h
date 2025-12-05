@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_NONSPATIAL
-#define INCLUDED_CALC_NONSPATIAL
+#ifndef INCLUDED_OLDCALC_NONSPATIAL
+#define INCLUDED_OLDCALC_NONSPATIAL
 
 #include "csftypes.h"
 #include "calc_field.h"

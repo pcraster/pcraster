@@ -1,22 +1,8 @@
 #ifndef INCLUDED_DAL_SPACEDIMENSIONS
 #define INCLUDED_DAL_SPACEDIMENSIONS
 
-
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
-
-#ifndef INCLUDED_DAL_SPATIALCOORDINATE
 #include "dal_SpatialCoordinate.h"
-#define INCLUDED_DAL_SPATIALCOORDINATE
-#endif
 
 
 

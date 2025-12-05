@@ -1,3 +1,5 @@
+#ifndef INCLUDED_OLDCALC_SBINFUNC
+#define INCLUDED_OLDCALC_SBINFUNC
 /* sbinfunc.c */
 extern int Do_fdiv_ss(REAL4 *vL, REAL4 *vR, size_t n);
 extern int Do_fdiv_ns(REAL4 *vL, REAL4 *vR, size_t n);
@@ -42,4 +44,4 @@ extern int Do_cover_1_sn(UINT1 *vL, UINT1 *vR, size_t n);
 extern int Do_cover_s_ss(REAL4 *vL, REAL4 *vR, size_t n);
 extern int Do_cover_s_sn(REAL4 *vL, REAL4 *vR, size_t n);
 
-
+#endif

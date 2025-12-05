@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_ZEROMAP
-#define INCLUDED_CALC_ZEROMAP
+#ifndef INCLUDED_OLDCALC_ZEROMAP
+#define INCLUDED_OLDCALC_ZEROMAP
 
 #include "stddefx.h"
 #include "calc_spatial.h"

@@ -1,31 +1,11 @@
 #ifndef INCLUDED_DAL_DATASPACE
 #define INCLUDED_DAL_DATASPACE
 
-
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
-
-#ifndef INCLUDED_DAL_DATASPACEITERATOR
 #include "dal_DataSpaceIterator.h"
-#define INCLUDED_DAL_DATASPACEITERATOR
-#endif
-
-#ifndef INCLUDED_DAL_DIMENSION
 #include "dal_Dimension.h"
-#define INCLUDED_DAL_DIMENSION
-#endif
+
+#include <vector>
 
 
 

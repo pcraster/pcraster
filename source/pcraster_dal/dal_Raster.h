@@ -1,28 +1,9 @@
 #ifndef INCLUDED_DAL_RASTER
 #define INCLUDED_DAL_RASTER
 
-
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
-
-#ifndef INCLUDED_DAL_MATRIX
 #include "dal_Matrix.h"
-#define INCLUDED_DAL_MATRIX
-#endif
-
-#ifndef INCLUDED_DAL_RASTERDIMENSIONS
 #include "dal_RasterDimensions.h"
-#define INCLUDED_DAL_RASTERDIMENSIONS
-#endif
 
 
 

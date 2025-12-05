@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_FIELDLEFT
-#define INCLUDED_CALC_FIELDLEFT
+#ifndef INCLUDED_OLDCALC_FIELDLEFT
+#define INCLUDED_OLDCALC_FIELDLEFT
 
 #include "calc_writeinfo.h"
 #include "calc_vs.h"

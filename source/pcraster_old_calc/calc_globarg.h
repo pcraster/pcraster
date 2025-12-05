@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_GLOBARG
-#define INCLUDED_CALC_GLOBARG
+#ifndef INCLUDED_OLDCALC_GLOBARG
+#define INCLUDED_OLDCALC_GLOBARG
 
 #include "stddefx.h"
 #include "vsenum.h"

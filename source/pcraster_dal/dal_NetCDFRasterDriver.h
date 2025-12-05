@@ -1,17 +1,7 @@
 #ifndef INCLUDED_DAL_NETCDFRASTERDRIVER
 #define INCLUDED_DAL_NETCDFRASTERDRIVER
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_RASTERDRIVER
 #include "dal_RasterDriver.h"
-#define INCLUDED_DAL_RASTERDRIVER
-#endif
 
 
 

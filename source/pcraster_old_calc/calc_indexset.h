@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_INDEXSET
-#define INCLUDED_CALC_INDEXSET
+#ifndef INCLUDED_OLDCALC_INDEXSET
+#define INCLUDED_OLDCALC_INDEXSET
 
 #include "calc_usersymbol.h"
 #include "calc_indexcontainer.h"

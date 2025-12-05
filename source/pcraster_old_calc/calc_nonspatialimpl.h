@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_NONSPATIALIMPL
-#define INCLUDED_CALC_NONSPATIALIMPL
+#ifndef INCLUDED_OLDCALC_NONSPATIALIMPL
+#define INCLUDED_OLDCALC_NONSPATIALIMPL
 
 #include "calc_fieldvalue.h"
 #include "calc_field.h"

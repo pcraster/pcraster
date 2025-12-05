@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_INDEXTABLE
-#define INCLUDED_CALC_INDEXTABLE
+#ifndef INCLUDED_OLDCALC_INDEXTABLE
+#define INCLUDED_OLDCALC_INDEXTABLE
 
 #include "calc_parameter.h"
 #include "calc_arraydefvector.h"

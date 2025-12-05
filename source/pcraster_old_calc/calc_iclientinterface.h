@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_ICLIENTINTERFACE
-#define INCLUDED_CALC_ICLIENTINTERFACE
+#ifndef INCLUDED_OLDCALC_ICLIENTINTERFACE
+#define INCLUDED_OLDCALC_ICLIENTINTERFACE
 
 #include "stddefx.h"
 #include "calc_executescriptstatus.h"

@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_BINDINGTABLE
-#define INCLUDED_CALC_BINDINGTABLE
+#ifndef INCLUDED_OLDCALC_BINDINGTABLE
+#define INCLUDED_OLDCALC_BINDINGTABLE
 
 #include "stddefx.h"
 #include "calc_symbol.h"

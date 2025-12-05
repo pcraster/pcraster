@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_CONSTANT
-#define INCLUDED_CALC_CONSTANT
+#ifndef INCLUDED_OLDCALC_CONSTANT
+#define INCLUDED_OLDCALC_CONSTANT
 
 #include "calc_fieldexpr.h"
 #include "calc_fieldtype.h"

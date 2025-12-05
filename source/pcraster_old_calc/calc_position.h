@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_POSITION
-#define INCLUDED_CALC_POSITION
+#ifndef INCLUDED_OLDCALC_POSITION
+#define INCLUDED_OLDCALC_POSITION
 
 #include "stddefx.h"
 #include "calc_quote.h" // used often in combo with throwError

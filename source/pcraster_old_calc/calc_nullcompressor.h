@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_NULLCOMPRESSOR
-#define INCLUDED_CALC_NULLCOMPRESSOR
+#ifndef INCLUDED_OLDCALC_NULLCOMPRESSOR
+#define INCLUDED_OLDCALC_NULLCOMPRESSOR
 
 #include "stddefx.h"
 #include "calc_compressor.h"

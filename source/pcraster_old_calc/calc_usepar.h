@@ -1,10 +1,10 @@
-#ifndef  INCLUDED_CALC_USEPAR
-#define  INCLUDED_CALC_USEPAR
+#ifndef INCLUDED_OLDCALC_USEPAR
+#define INCLUDED_OLDCALC_USEPAR
 
-#include  "calc_parspar.h"
-#include  "calc_arraydefvector.h"
+#include "calc_parspar.h"
+#include "calc_arraydefvector.h"
 
-#include  <vector>
+#include <vector>
 
 
 namespace calc {

@@ -1,47 +1,13 @@
 #ifndef INCLUDED_DAL_DRIVER
 #define INCLUDED_DAL_DRIVER
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_BROWSEINFO
 #include "dal_BrowseInfo.h"
-#define INCLUDED_DAL_BROWSEINFO
-#endif
-
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
-
-#ifndef INCLUDED_DAL_DATASPACE
 #include "dal_DataSpace.h"
-#define INCLUDED_DAL_DATASPACE
-#endif
-
-#ifndef INCLUDED_DAL_DATASPACEQUERYRESULT
 #include "dal_DataSpaceQueryResult.h"
-#define INCLUDED_DAL_DATASPACEQUERYRESULT
-#endif
-
-#ifndef INCLUDED_DAL_DEF
 #include "dal_Def.h"
-#define INCLUDED_DAL_DEF
-#endif
-
-#ifndef INCLUDED_DAL_FORMAT
 #include "dal_Format.h"
-#define INCLUDED_DAL_FORMAT
-#endif
-
-#ifndef INCLUDED_DAL_PROPERTIES
 #include "dal_Properties.h"
-#define INCLUDED_DAL_PROPERTIES
-#endif
 
 #include <string>
 

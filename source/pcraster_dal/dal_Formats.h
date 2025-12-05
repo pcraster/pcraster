@@ -1,22 +1,8 @@
 #ifndef INCLUDED_DAL_FORMATS
 #define INCLUDED_DAL_FORMATS
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
-
-#ifndef INCLUDED_DAL_FORMAT
 #include "dal_Format.h"
-#define INCLUDED_DAL_FORMAT
-#endif
 
 
 

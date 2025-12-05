@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_STACKCR
-#define INCLUDED_CALC_STACKCR
+#ifndef INCLUDED_OLDCALC_STACKCR
+#define INCLUDED_OLDCALC_STACKCR
 
 #ifdef __cplusplus
  extern "C" {
@@ -16,10 +16,7 @@ typedef enum STACK_CR { /* STACK CELL REPRESENTATION */
 #ifdef __cplusplus
  }
 
-# ifndef  INCLUDED_VSENUM
-# include "vsenum.h"
-# define INCLUDED_VSENUM
-# endif
+#include "vsenum.h"
 
  //! select cellrepresentation based VS with largest type
  STACK_CR stackCellRepr(VS vs);

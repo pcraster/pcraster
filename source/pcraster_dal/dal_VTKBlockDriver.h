@@ -1,22 +1,8 @@
 #ifndef INCLUDED_DAL_VTKBLOCKDRIVER
 #define INCLUDED_DAL_VTKBLOCKDRIVER
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_BLOCKDRIVER
 #include "dal_BlockDriver.h"
-#define INCLUDED_DAL_BLOCKDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_TEXTFILEDRIVER
 #include "dal_TextFileDriver.h"
-#define INCLUDED_DAL_TEXTFILEDRIVER
-#endif
 
 
 

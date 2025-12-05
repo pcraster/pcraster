@@ -1,19 +1,8 @@
 #ifndef INCLUDED_DAL_STACKINFO
 #define INCLUDED_DAL_STACKINFO
 
-
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
 #include <filesystem>
-
-// PCRaster library headers.
-
-// Module headers.
+#include <vector>
 
 
 

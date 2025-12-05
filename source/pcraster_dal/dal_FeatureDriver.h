@@ -1,27 +1,9 @@
 #ifndef INCLUDED_DAL_FEATUREDRIVER
 #define INCLUDED_DAL_FEATUREDRIVER
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
-
-#ifndef INCLUDED_DAL_DRIVER
 #include "dal_Driver.h"
-#define INCLUDED_DAL_DRIVER
-#endif
-
-#ifndef INCLUDED_DAL_FEATURELAYER
 #include "dal_FeatureLayer.h"
-#define INCLUDED_DAL_FEATURELAYER
-#endif
 
 
 

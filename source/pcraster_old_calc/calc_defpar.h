@@ -1,8 +1,8 @@
-#ifndef  INCLUDED_CALC_DEFPAR
-#define  INCLUDED_CALC_DEFPAR
+#ifndef INCLUDED_OLDCALC_DEFPAR
+#define INCLUDED_OLDCALC_DEFPAR
 
-#include  "calc_parspar.h"
-#include  "calc_arraydefvector.h"
+#include "calc_parspar.h"
+#include "calc_arraydefvector.h"
 
 
 namespace com {

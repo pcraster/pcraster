@@ -1,20 +1,20 @@
-#ifndef INCLUDED_GIOAPI
-#define INCLUDED_GIOAPI
+#ifndef INCLUDED_OLDCALC_GIOAPI
+#define INCLUDED_OLDCALC_GIOAPI
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/* 
+/*
  * This file is copied from the ArcView 3.1
- * distribution. ESRI does not use const, we do 
+ * distribution. ESRI does not use const, we do
  * Checked that Arc 9.0 still has the identical header
  */
 typedef  const char * ConstCstr;
 
 /*
 ****************************************************
- 
+
 Grid IO API
 ---------------
 
@@ -79,7 +79,7 @@ Buffer Cache Allocation is dependent on IO mode.
 #define ROWRUNIO	4
 #define BLOCKRUNIO	5
 
-#define	REGIONIO	6	
+#define	REGIONIO	6
 #define REGIONRUNIO	7
 
 
@@ -97,7 +97,7 @@ typedef	int		CELLTYPE;	/* cell values are 32 bit quantities */
 
 
 void  GetMissingFloat(float *);
-          
+
 
 /*
  * ------------------------------------------------------------------
@@ -108,12 +108,12 @@ void  GetMissingFloat(float *);
  * Grid Management Functions
  * -------------------------
  *
- * GridExists - check for existence of a grid 
+ * GridExists - check for existence of a grid
  * GridCopy - copy a grid given from and to pathnames
  * GridRename - rename a grid given old and new pathnames
- * GridDelete - delete a grid removing all 
- *              component files including info files 
- * GridKill - delete a grid with options for component removal 
+ * GridDelete - delete a grid removing all
+ *              component files including info files
+ * GridKill - delete a grid with options for component removal
  * DescribeGridDbl - Describe spatial, statistical and attribute
  *                   characteristics of a grid
  * BndCellRead - read the bounding box for a grid
@@ -125,17 +125,17 @@ int GridRename(ConstCstr from_grid, ConstCstr to_grid);
 int GridDelete(ConstCstr grid_name);
 int GridKill(ConstCstr grid_name, int option);
 
-int DescribeGridDbl(ConstCstr grdnam, double *cellsz, int *gridsz, 
-                    double *box, double *sta, 
+int DescribeGridDbl(ConstCstr grdnam, double *cellsz, int *gridsz,
+                    double *box, double *sta,
                     int *datatyp, int *nclass, int *reclen);
 
 
-int BndCellRead (ConstCstr grdnam, double *box); 
+int BndCellRead (ConstCstr grdnam, double *box);
 
 
 
 
-/* 
+/*
  * CLYRIO : Access operations on Grids
  * -----------------------------------
  */
@@ -146,9 +146,9 @@ int BndCellRead (ConstCstr grdnam, double *box);
  * CLYRIO performs I/O operations on grids.
  * It consists of a library of C functions that allow the user
  * to read and write raster data by row, rectangle or cell
- * to or from a specified area of a grid at a specified resolution. 
- * It handles windowing, resampling, 
- * attribute access and data compression 
+ * to or from a specified area of a grid at a specified resolution.
+ * It handles windowing, resampling,
+ * attribute access and data compression
  * in a manner transparent to the application program.
  */
 
@@ -158,7 +158,7 @@ int BndCellRead (ConstCstr grdnam, double *box);
  * Grids are based on a locational data model in which space is partitioned
  * into square cells. Each cell in a grid stores a numeric value.
  * Integer Grids are also accompanied by Value Attribute Tables that
- * can store attributes defined on the set of values for a grid. 
+ * can store attributes defined on the set of values for a grid.
  *
  * A grid exists in a cartesian coordinate system, and the rows and columns in the
  * grid are parallel to the axes of the coordinate system.
@@ -166,56 +166,56 @@ int BndCellRead (ConstCstr grdnam, double *box);
  * need not be at the same resolution
  * or cover exactly the same spatial area
  * but they must be in the same map projection.
- * 
+ *
  * Grids are implemented using a tiled raster data structure
- * in which the basic unit of data storage is 
- * a rectangular block of cells. 
+ * in which the basic unit of data storage is
+ * a rectangular block of cells.
  *
  * A Cell Layer is a raster layer defined
  * by a grid name and optionally an item name in the VAT.
  * The CLYRIO module allows an aplication program to
- * create, open and close cell layers and 
+ * create, open and close cell layers and
  * to read and write data from and
- * to cell layers. 
- * All access to the data in a cell layer is 
+ * to cell layers.
+ * All access to the data in a cell layer is
  * made through a rectangular window in cartesian (map) coordinate space.
- * The extent and resolution of 
+ * The extent and resolution of
  * this window must be set by the application program by calling
  * the WindowSet routine, prior to performing any
  * I/O operations.
- * Once a window has been set, an application program can access the cells 
- * in a cell layer by row, rectangle, or cell - all specified 
+ * Once a window has been set, an application program can access the cells
+ * in a cell layer by row, rectangle, or cell - all specified
  * relative to the virtual raster represented by the window.
  *
- * The I/O units used by the application program are  
+ * The I/O units used by the application program are
  * the Window-Row spanning the width of the window, the Window-Band consisting
  * of a set of contiguos rows, the Window-Rectangle consisting of a 2D rectangle
  * contained in the window and, the Window-Cell consisting of a single cell
  * specified by its window row and column coordinates.
  * All cell data is automatically resampled to the window cell size on retrieval
- * during row and cell access. 
+ * during row and cell access.
  *
- * An application program can either set a global window 
- * that is applied to all cell layers accessed or set a separate 
- * window for each layer accessed. The latter mode is suitable 
+ * An application program can either set a global window
+ * that is applied to all cell layers accessed or set a separate
+ * window for each layer accessed. The latter mode is suitable
  * when transforming a grid from one coordinate system to another
- * such as during warping or projection. 
- * 
+ * such as during warping or projection.
+ *
  * Grids may be integer or floating point.
  * Integer grids are accompanied by a Value Attribute Table.
- * The CLYRIO module supports spatial access to the numeric value 
- * attributes associated with a grid by supporting 
- * a grid.item naming convention for cell layers that correspond 
+ * The CLYRIO module supports spatial access to the numeric value
+ * attributes associated with a grid by supporting
+ * a grid.item naming convention for cell layers that correspond
  * to grid value attributes.
  * If an item name is specified when a Cell Layer is opened
  * for read access then the values returned for the cells retrieved
  * will be the values for the specified item.
- * 
+ *
  */
 
 
- 
-/* 
+
+/*
  * Initialization  and Termination
  * --------------------------------
  *
@@ -226,7 +226,7 @@ int GridIOSetup(void);
 int GridIOExit(void);
 
 
-/* 
+/*
  * Creating, Opening and Closing Grids :
  * -----------------------------------
  *
@@ -234,17 +234,17 @@ int GridIOExit(void);
  * CellLayerCreate - Create a new Cell Layer using the default blocksize.
  * CellLayerCreateTiled - Create a new Cell Layer using the specified blocksize.
  * CellLayerOpen - Open an existing Cell Layer.
- * CellLyrClose - Close an opened or created Cell Layer, 
+ * CellLyrClose - Close an opened or created Cell Layer,
  *                automatically builds VAT and STA.
- * CellLyrCloseNoVat - Close an opened or created Cell Layer, 
+ * CellLyrCloseNoVat - Close an opened or created Cell Layer,
  *                     does not build VAT.
  * CellLyrDelete - Delete a cell layer.
  *
- * IO mode 
+ * IO mode
  * -------
  *
  * The client is responsible for selecting an IO mode
- * when opening or creating a cell layer and for using 
+ * when opening or creating a cell layer and for using
  * the access method appropriate for the current IO mode.
  * The IO mode can be reset while the layer is opened.
  * The permissible values for IO mode are
@@ -254,7 +254,7 @@ int GridIOExit(void);
  *
  * ReadWriteFlag
  * -------------
- * A celllayer is opened READONLY or READWRITE 
+ * A celllayer is opened READONLY or READWRITE
  *
  * Compression
  * -----------
@@ -284,14 +284,14 @@ int GridIOExit(void);
 
 int CellLyrExists (ConstCstr clyr_name);
 
-int CellLayerCreate (ConstCstr clyr_name, int rdwrflag, int iomode, 
+int CellLayerCreate (ConstCstr clyr_name, int rdwrflag, int iomode,
                      int celltype, double cellsize, double box[4]);
 
-int CellLayerCreateTiled (ConstCstr clyr_name, int rdwrflag, int iomode, 
-                          int  celltype, double cellsize, double box[4], 
+int CellLayerCreateTiled (ConstCstr clyr_name, int rdwrflag, int iomode,
+                          int  celltype, double cellsize, double box[4],
                           int blockxcells, int blockycells);
 
-int CellLayerOpen (ConstCstr clyr_name, int rdwrflag, int iomode, 
+int CellLayerOpen (ConstCstr clyr_name, int rdwrflag, int iomode,
                    int  *celltype, double *cellsize);
 
 int CellLyrClose (int channel);
@@ -299,16 +299,16 @@ int CellLyrCloseNoVat (int channel);
 int CellLyrDelete (ConstCstr clyr_name);
 
 /*
- * AcessDepth 
+ * AcessDepth
  *
  * CLYRIO mantains an internal cache of block buffers for each opened grid.
  *
  * The process of performing IO on a cell layer involves
  * mapping data between client buffers and cache buffers
- * for the layer and between the cache buffers and records on disk. 
- * Data compression is applied in the process of mapping data between the 
+ * for the layer and between the cache buffers and records on disk.
+ * Data compression is applied in the process of mapping data between the
  * cache buffers and records on disk and is hidden from the client.
- * 
+ *
  * When a layer is opened in 32 bit mode the client is responsible
  * for ensuring that all client (input and output) buffers used in the
  * CLYRIO API functions are 32 bits per cell.
@@ -319,13 +319,13 @@ int CellLyrDelete (ConstCstr clyr_name);
  *
  *
  */
- 
- 
+
+
 
 /*
- * IO mode 
+ * IO mode
  *
- * The client is responsible for using 
+ * The client is responsible for using
  * the access method appropriate for the current IO mode.
  * The IO modes supported are :
  *
@@ -344,23 +344,23 @@ int CellLyrSetIO(int channel, int mode);
 /*
  * Getting information about an opened cell layer given its handle
  *
- * CellLyrName - query the grid name for the cell layer 
- * CellLyrItem - query the item name for the cell layer 
- * CellLyrEvalType - query the cell type for the cell layer, 
+ * CellLyrName - query the grid name for the cell layer
+ * CellLyrItem - query the item name for the cell layer
+ * CellLyrEvalType - query the cell type for the cell layer,
  *                   the cell type is based on the type of the item
- * CellLyrBlockSize - query the block size for the cell layer 
- * CellLyrSta - query the statistics for the cell layer 
+ * CellLyrBlockSize - query the block size for the cell layer
+ * CellLyrSta - query the statistics for the cell layer
  */
 
 int CellLyrName (int channel, char *name);
 int CellLyrItem (int channel, char *name);
 int CellLyrEvalType (int channel);
 int CellLyrBlockSize (int channel, int *bxcells, int *bycells);
-int CellLyrSta (int channel, double *dmin, double *dmax, 
+int CellLyrSta (int channel, double *dmin, double *dmax,
                 double *dmean, double *dstdv);
 
 
-/* 
+/*
  * Setting and Querying the Overlay Window for Multi-Layer registered I/O
  *
  * AccessWindowSet - Set the Overlay Window
@@ -379,8 +379,8 @@ int XY2WindowColRow(double x, double y, int *col, int *row);
 int AccessWindowClear(void);
 
 /*
- * 
- * Routines for Setting Separate Windows for each layer 
+ *
+ * Routines for Setting Separate Windows for each layer
  *
  * PrivateAccessWindowSet - Set the Window for the specified layer.
  * PrivateWindowRows - Return number of rows in window for specified layer.
@@ -390,7 +390,7 @@ int AccessWindowClear(void);
  * PrivateAccessWindowClear - Clear the window for the specified layer
  */
 
-int PrivateAccessWindowSet(int channel, double box[4], 
+int PrivateAccessWindowSet(int channel, double box[4],
                            double cellsize, double newbox[4]);
 int PrivateWindowCols(int i);
 int PrivateWindowRows(int i);
@@ -406,7 +406,7 @@ int PrivateAccessWindowClear(int channel);
  *              that can be accessed as pointer[i]
  * CAllocate2 - allocate a 2 dimensional "array" (Rectangle, Band)
  *              that can be accessed as pointer[i][j]
- * CAllocate3 - allocate a 3 dimensional "array" 
+ * CAllocate3 - allocate a 3 dimensional "array"
  *              that can be accessed as pointer[i][j][k]
  * CFree1     - free a 1 dimensional array
  * CFree2     - free a 2 dimensional array
@@ -422,7 +422,7 @@ void CFree1(char *ptr);
 void CFree2(char **ptr, int nrows);
 void CFree3(char ***ptr, int nlyrs, int nrows);
 
-/* 
+/*
  * ACCESS FUNCTIONS :
  * The following functions access the data within the window for a given layer.
  * The window may be the overlay window, or the private window set for the layer.
@@ -430,7 +430,7 @@ void CFree3(char ***ptr, int nlyrs, int nrows);
 
 /*
  * Routines for 32 bit ROW based access :
- * 
+ *
  * GetWindowRow - Get a row spanning the window for a layer
  *                as a buffer of 32 bit values.
  *                Client must interpret the type of the output buffer
@@ -442,11 +442,11 @@ void CFree3(char ***ptr, int nlyrs, int nrows);
  * PutWindowRow - Put a row spanning the window for a layer
  *                as a buffer of 32 bit values.
  *                Client must ensure that the type of the input buffer
- *                (32 bit int or float) is the type of the layer being written to.  
+ *                (32 bit int or float) is the type of the layer being written to.
  *
  * The following band access functions retrieve contiguos sets of
  * rows into a two dimensional buffer.
- *               
+ *
  * GetWindowBand - Get a band of rows spanning the window for a layer.
  *                 Client must interpret the type of the output buffer
  *                 to be the type of the layer being read from (32 bit int or float).
@@ -455,7 +455,7 @@ void CFree3(char ***ptr, int nlyrs, int nrows);
  *
  * PutWindowBand - Put a band of rows spanning the window for a layer.
  *                Client must ensure that the type of the input buffer
- *                (32 bit int or float) is the type of the layer being written to.  
+ *                (32 bit int or float) is the type of the layer being written to.
  *
  */
 
@@ -481,7 +481,7 @@ int PutWindowBand(int channel, int startrow, int nrows, CELLTYPE **bandbuf);
  * GetWindowRectangle - Get a rectangle of cells within the window for a layer
  *                      as a 2D buffer of 32 bit values.
  *                      Client must interpret the type of the output buffer
- *                      to be the type of the layer being read from 
+ *                      to be the type of the layer being read from
  *                      (32 bit int or float).
  *
  * GetWindowRectangleInt - Get a rectangle of cells within the window for a layer
@@ -493,18 +493,18 @@ int PutWindowBand(int channel, int startrow, int nrows, CELLTYPE **bandbuf);
  * PutWindowRectangle - Put a rectangle of cells within the window for a layer
  *                      as a 2D buffer of 32 bit values.
  *                      Client must ensure that the type of the input buffer
- *                      (32 bit int or float) is the type of the 
- *                      layer being written to.  
+ *                      (32 bit int or float) is the type of the
+ *                      layer being written to.
  */
 
-int GetWindowRectangle(int channel, int rxul, int ryul, 
+int GetWindowRectangle(int channel, int rxul, int ryul,
                        int rxcells, int rycells, CELLTYPE **rbuf);
-int GetWindowRectangleInt(int channel, int rxul, int ryul, 
+int GetWindowRectangleInt(int channel, int rxul, int ryul,
                           int rxcells, int rycells, int **rbuf);
-int GetWindowRectangleFloat(int channel, int rxul, int ryul, 
+int GetWindowRectangleFloat(int channel, int rxul, int ryul,
                             int rxcells, int rycells, float **rbuf);
 
-int PutWindowRectangle(int channel, int rxul, int ryul, 
+int PutWindowRectangle(int channel, int rxul, int ryul,
                        int rxcells, int rycells, CELLTYPE **rbuf);
 
 
@@ -546,7 +546,7 @@ int PutWindowCell(int channel, int col, int row, CELLTYPE cell);
  *
  */
 
-int StaGetDbl(ConstCstr clyr_name, double *dmin, double *dmax, 
+int StaGetDbl(ConstCstr clyr_name, double *dmin, double *dmax,
                               double *dmean, double *dstdv);
 
 int StaGetMinmaxDbl(ConstCstr clyr_name, double *dmin, double *dmax);

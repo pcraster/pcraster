@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_DLLCALC
-#define INCLUDED_CALC_DLLCALC
+#ifndef INCLUDED_OLDCALC_DLLCALC
+#define INCLUDED_OLDCALC_DLLCALC
 
 #include "stddefx.h"
 #include "calc_calc.h"

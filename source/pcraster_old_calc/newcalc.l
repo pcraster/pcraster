@@ -3,18 +3,11 @@
 
 #include <string.h>
 
-#ifndef INCLUDED_IOSTREAM
 #include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
 using std::cerr;
 using std::cin;
 using std::cout;
 
-#ifndef INCLUDED_MEMORY
-#include <memory>
-#define INCLUDED_MEMORY
-#endif
 
 #ifndef INCLUDED_LEXGRAMMAR
   // do not include renamed xxFlexLexer itself!
@@ -23,40 +16,15 @@ using std::cout;
 # define INCLUDED_LEXGRAMMAR
 #endif
 
-#ifndef INCLUDED_CALCTYPES
 #include "calctypes.h"
-#define INCLUDED_CALCTYPES
-#endif
-
-#ifndef INCLUDED_MAJOR_OP
 #include "major_op.h"
-#define INCLUDED_MAJOR_OP
-#endif
-
-#ifndef INCLUDED_MISC
 #include "misc.h"
-#define INCLUDED_MISC
-#endif
-
-#ifndef INCLUDED_APP
 #include "app.h" // AppParseShellLine()
-#define INCLUDED_APP
-#endif
-
-#ifndef INCLUDED_CALC_LIBERROR
 #include "calc_liberror.h" // getLibError
-#define INCLUDED_CALC_LIBERROR
-#endif
-
-#ifndef INCLUDED_CALC_POSITION
 #include "calc_position.h"
-#define INCLUDED_CALC_POSITION
-#endif
 
-#ifndef INCLUDED_CCTYPE
 #include <cctype>
-#define INCLUDED_CCTYPE
-#endif
+#include <memory>
 
 #include "tokens.h"
 #undef  YY_DECL
@@ -472,7 +440,7 @@ ANTLRChar     *calc::LexToken::getText() const
 }
 
 const std::string& calc::LexToken::stringVal()  const
-{ return d_text;  
+{ return d_text;
 }
 
 MAJOR_CODE calc::LexToken::opCode() const

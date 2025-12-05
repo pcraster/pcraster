@@ -1,29 +1,11 @@
 #ifndef INCLUDED_DAL_MAPPERUTILS
 #define INCLUDED_DAL_MAPPERUTILS
 
-
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
-
-#ifndef INCLUDED_DAL_STEPMAPPER
 #include "dal_StepMapper.h"
-#define INCLUDED_DAL_STEPMAPPER
-#endif
 
 #include <tuple>
-
+#include <vector>
 
 namespace dal {
   // MapperUtils declarations.

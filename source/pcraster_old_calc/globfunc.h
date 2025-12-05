@@ -1,3 +1,5 @@
+#ifndef INCLUDED_OLDCALC_GLOBFUNC
+#define INCLUDED_OLDCALC_GLOBFUNC
 /* globfunc.c */
 extern int Do_areaaverage(void *out, const void **ins);
 extern int Do_areaarea(void *out, const void **ins);
@@ -51,3 +53,5 @@ extern int Do_influencesimplegauss(void *out, const void **ins);
 extern int Do_distributesimplegauss(void *out, const void **ins);
 extern int Do_ibngauss(void *out, const void **ins);
 extern int Do_horizontan(void *out, const void **ins);
+
+#endif

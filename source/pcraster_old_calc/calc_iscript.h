@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_ISCRIPT
-#define INCLUDED_CALC_ISCRIPT
+#ifndef INCLUDED_OLDCALC_ISCRIPT
+#define INCLUDED_OLDCALC_ISCRIPT
 
 #include "calc_symbol.h"
 #include "vsenum.h"

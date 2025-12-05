@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_INPUTSPATIAL
-#define INCLUDED_CALC_INPUTSPATIAL
+#ifndef INCLUDED_OLDCALC_INPUTSPATIAL
+#define INCLUDED_OLDCALC_INPUTSPATIAL
 
 #include "stddefx.h"
 #include "calc_spatial.h"

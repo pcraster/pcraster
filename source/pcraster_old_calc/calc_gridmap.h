@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_GRIDMAP
-#define INCLUDED_CALC_GRIDMAP
+#ifndef INCLUDED_OLDCALC_GRIDMAP
+#define INCLUDED_OLDCALC_GRIDMAP
 
 #include "stddefx.h"
 #include "vsenum.h"

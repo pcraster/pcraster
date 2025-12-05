@@ -1,24 +1,11 @@
 #ifndef INCLUDED_DAL_FEATUREPATH
 #define INCLUDED_DAL_FEATUREPATH
 
-
-
-// External headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
 #ifdef DEBUG
-  #ifndef INCLUDED_IOSTREAM
   #include <iostream>
-  #define INCLUDED_IOSTREAM
-  #endif
 #endif
 
-// Project headers.
-
-// Module headers.
+#include <string>
 
 
 

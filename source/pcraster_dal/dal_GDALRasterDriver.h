@@ -1,32 +1,11 @@
 #ifndef INCLUDED_DAL_GDALRASTERDRIVER
 #define INCLUDED_DAL_GDALRASTERDRIVER
 
-
-
-// Library headers.
-
-#ifndef INCLUDED_GDAL
-#include <gdal.h>
-#define INCLUDED_GDAL
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONFIGURE
 #include "dal_Configure.h"
-#define INCLUDED_DAL_CONFIGURE
-#endif
-
-#ifndef INCLUDED_DAL_RASTER
 #include "dal_Raster.h"
-#define INCLUDED_DAL_RASTER
-#endif
-
-#ifndef INCLUDED_DAL_RASTERDRIVER
 #include "dal_RasterDriver.h"
-#define INCLUDED_DAL_RASTERDRIVER
-#endif
+
+#include <gdal.h>
 
 #include <filesystem>
 

@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_LOOKUPTABLE
-#define INCLUDED_CALC_LOOKUPTABLE
+#ifndef INCLUDED_OLDCALC_LOOKUPTABLE
+#define INCLUDED_OLDCALC_LOOKUPTABLE
 
 #include "calc_vs.h"
 #include "com_interval.h"

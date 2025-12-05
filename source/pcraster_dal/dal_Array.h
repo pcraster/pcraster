@@ -1,29 +1,12 @@
 #ifndef INCLUDED_DAL_ARRAY
 #define INCLUDED_DAL_ARRAY
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRTYPES
 #include "pcrtypes.h"
-#define INCLUDED_PCRTYPES
-#endif
-
-// Module headers.
-// #ifndef INCLUDED_DAL_CONFIGURE
-// #include "dal_Configure.h"
-// #define INCLUDED_DAL_CONFIGURE
-// #endif
-
-#ifndef INCLUDED_DAL_DEF
 #include "dal_Def.h"
-#define INCLUDED_DAL_DEF
-#endif
 
 #include <cassert>
 #include <cstring>
+
 
 // #ifdef _MSC_VER // TODO link error otherwise
 // namespace pcr {

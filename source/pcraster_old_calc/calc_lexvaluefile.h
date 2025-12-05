@@ -1,5 +1,5 @@
-#ifndef INCLUDED_CALC_LEXVALUEFILE
-#define INCLUDED_CALC_LEXVALUEFILE
+#ifndef INCLUDED_OLDCALC_LEXVALUEFILE
+#define INCLUDED_OLDCALC_LEXVALUEFILE
 
 // #undef   yyFlexLexer
 // #define  yyFlexLexer LexValueFile

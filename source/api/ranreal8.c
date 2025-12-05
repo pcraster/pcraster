@@ -45,9 +45,9 @@
    * returns TRUE if [r,c] is a map-co-ordinate
    *         FALSE otherwise
    */
-static void SpatialAndCoordInMapREAL8(int r,              /* row number */
-                                      int c,              /* column number */
-                                      const MAP_REAL8 *m) /* map this function belongs to */
+static void SpatialAndCoordInMapREAL8(int r,                  /* row number */
+                                          int c,                  /* column number */
+                                          const MAP_REAL8 *m) /* map this function belongs to */
 {
   if (!m->spatial) {
     Error("EXTERNAL API:Called Put function on nonspatial object", r, c);
@@ -63,9 +63,9 @@ static void SpatialAndCoordInMapREAL8(int r,              /* row number */
 #endif
 
 static bool GetSpatialREAL8(REAL8 *v,           /* write-only. Value */
-                            int r,              /* row number */
-                            int c,              /* column number */
-                            const MAP_REAL8 *m) /* map this function belongs to */
+                                int r,                  /* row number */
+                                int c,                  /* column number */
+                                const MAP_REAL8 *m) /* map this function belongs to */
 {
 
   PRECOND(m != NULL);
@@ -78,9 +78,9 @@ static bool GetSpatialREAL8(REAL8 *v,           /* write-only. Value */
 }
 
 static bool GetSpatialMVtestREAL8(REAL8 *v,           /* write-only. Value */
-                                  int r,              /* row number */
-                                  int c,              /* column number */
-                                  const MAP_REAL8 *m) /* map this function belongs to */
+                                      int r,                  /* row number */
+                                      int c,                  /* column number */
+                                      const MAP_REAL8 *m) /* map this function belongs to */
 {
   if (GetSpatialREAL8(v, r, c, m)) {
     return !IS_MV_REAL8(v);
@@ -88,9 +88,9 @@ static bool GetSpatialMVtestREAL8(REAL8 *v,           /* write-only. Value */
   return false;
 }
 
-static void PutMV_REAL8(int r,        /* row number */
-                        int c,        /* column number */
-                        MAP_REAL8 *m) /* map this function belongs to */
+static void PutMV_REAL8(int r,            /* row number */
+                            int c,            /* column number */
+                            MAP_REAL8 *m) /* map this function belongs to */
 {
   SpatialAndCoordInMapREAL8(r, c, m);
 
@@ -151,10 +151,10 @@ static void PutAllMVREAL8(MAP_REAL8 *m)
  * }
  */
 
-static void PutSpatialREAL8(REAL8 v,      /* Value */
-                            int r,        /* row number */
-                            int c,        /* column number */
-                            MAP_REAL8 *m) /* map this function belongs to */
+static void PutSpatialREAL8(REAL8 v,    /* Value */
+                                int r,            /* row number */
+                                int c,            /* column number */
+                                MAP_REAL8 *m) /* map this function belongs to */
 {
   SpatialAndCoordInMapREAL8(r, c, m);
 #ifdef DEBUG_DEVELOP
@@ -177,10 +177,10 @@ static int NrColsREAL8(const MAP_REAL8 *m)
 }
 
 /* ARGSUSED */
-static void PutNonSpatialREAL8(REAL8 v,      /* Value */
-                               int r,        /* row number */
-                               int c,        /* column number */
-                               MAP_REAL8 *m) /* map this function belongs to */
+static void PutNonSpatialREAL8(REAL8 v,    /* Value */
+                                   int r,            /* row number */
+                                   int c,            /* column number */
+                                   MAP_REAL8 *m) /* map this function belongs to */
 {
   (void)v;  // Shut up compiler
   (void)r;  // Shut up compiler
@@ -191,9 +191,9 @@ static void PutNonSpatialREAL8(REAL8 v,      /* Value */
 }
 
 /* ARGSUSED */
-static void PutNonSpatialMV_REAL8(int r,        /* row number */
-                                  int c,        /* column number */
-                                  MAP_REAL8 *m) /* map this function belongs to */
+static void PutNonSpatialMV_REAL8(int r,            /* row number */
+                                      int c,            /* column number */
+                                      MAP_REAL8 *m) /* map this function belongs to */
 {
   (void)m;  // Shut up compiler
   (void)r;  // Shut up compiler
@@ -203,9 +203,9 @@ static void PutNonSpatialMV_REAL8(int r,        /* row number */
 }
 
 static bool GetNonSpatialREAL8(REAL8 *v,           /* write-only. Value */
-                               int r,              /* row number */
-                               int c,              /* column number */
-                               const MAP_REAL8 *m) /* map this function belongs to */
+                                   int r,                  /* row number */
+                                   int c,                  /* column number */
+                                   const MAP_REAL8 *m) /* map this function belongs to */
 {
 
   PRECOND(m != NULL);
@@ -216,8 +216,8 @@ static bool GetNonSpatialREAL8(REAL8 *v,           /* write-only. Value */
 
 /* Changes test performed in m->Get() function, affecting its return value
  */
-static void SetGetTestREAL8(GET_TEST t,           /* new get test */
-                            const MAP_REAL8 *mIn) /* read-write. Structure SetGetTest works on. */
+static void SetGetTestREAL8(GET_TEST t,   /* new get test */
+                    const MAP_REAL8 *mIn) /* read-write. Structure SetGetTest works on. */
 {
   MAP_REAL8 *m = (MAP_REAL8 *)mIn; /* cheat on const ptr */
   PRECOND(m != NULL);
@@ -254,10 +254,10 @@ static REAL8 SideMap(const MAP_REAL8 *argNeverUsed)
  * Default test in get function is with MV test
  */
 MAP_REAL8 *InitMapREAL8(size_t r,     /* number of rows */
-                        size_t c,     /* number of columns */
-                        void *v,      /* value buffer, ptr to 1 or all values */
-                        bool spatial, /* does v contains a spatial or nonSpatial.*/
-                        CSF_CR inCr)  /* map contents cell representation */
+                                size_t c,     /* number of columns */
+                                void *v,      /* value buffer, ptr to 1 or all values */
+                                bool spatial, /* does v contains a spatial or nonSpatial.*/
+                                CSF_CR inCr)  /* map contents cell representation */
 {
   MAP_REAL8 *m = ChkMalloc(sizeof(MAP_REAL8));
   /* Structure to be initialized.*/

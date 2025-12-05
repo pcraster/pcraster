@@ -260,12 +260,14 @@ PCRMF_EXPORT const char * pcr_LinkInExecute(const char *xml,
     } else if(l.callPoint().object()){
       assert(l.callPoint().object());
       if (l.callPoint().object()->constructor()) {
-	if (l.callPoint().object()->className()=="initialise")
+	if (l.callPoint().object()->className()=="initialise") {
 	  ModflowLink::construct(l);
+	}
       } else {
 	assert(l.callPoint().object()->methodName());
-	if (l.callPoint().object()->className()=="initialise")
+	if (l.callPoint().object()->className()=="initialise") {
 	  ModflowLink::callMethod(l,linkInTransferArray);
+	}
       }
     }
     else{

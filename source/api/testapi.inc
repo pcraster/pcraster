@@ -2,7 +2,6 @@
 #line 1 "testapi.tem"
 // vim: syntax=c
 #include <math.h>
-
 /* vim: syntax=c
  */
 
@@ -159,9 +158,7 @@ MAP_UINT1 *CreateSpatialUINT1(CSF_CR cr, size_t nrRows, size_t nrCols)
   }
   return map;
 }
-
 #line 1 "testapi.tem"
-
 /* vim: syntax=c
  */
 
@@ -318,9 +315,7 @@ MAP_INT4 *CreateSpatialINT4(CSF_CR cr, size_t nrRows, size_t nrCols)
   }
   return map;
 }
-
 #line 1 "testapi.tem"
-
 /* vim: syntax=c
  */
 

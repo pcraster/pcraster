@@ -205,8 +205,9 @@ bool BCF::hasConfinedSubLayer(size_t layer)
 {
   size_t lay = 0;
   int const size = d_mf->d_quasiConfined.size() - 1;
-  if (size < 1)
+  if (size < 1) {
     return false;
+  }
   for (int i = 0; i < size; i++) {
     int const low = d_mf->d_quasiConfined.at(i);
     int const top = d_mf->d_quasiConfined.at(i + 1);

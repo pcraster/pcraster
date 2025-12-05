@@ -6,9 +6,9 @@
 MAP_THIS_TYPE *ReadTHIS_TYPE(const char *nameOrValue, size_t nrRows, size_t nrCols)
 {
   THIS_TYPE val = ZERO;
-  if (CnvrtTHIS_TYPE(&val, nameOrValue))
+  if (CnvrtTHIS_TYPE(&val, nameOrValue)) {
     return InitMapTHIS_TYPE(nrRows, nrCols, &val, false, CR_THIS_TYPE);
-  else {
+  } else {
     REAL8 dummy = NAN;
     if (CnvrtREAL8(&dummy, nameOrValue)) { /* it's a number but not a valid one for THIS_TYPE
       */
@@ -30,8 +30,9 @@ MAP_THIS_TYPE *ReadTHIS_TYPEMap(const char *name)
 
   PRECOND(name != NULL);
   m = Mopen(name, M_READ);
-  if (m == NULL)
+  if (m == NULL) {
     MperrorExit(name, 1);
+  }
 
   fileCr = RgetCellRepr(m);
 
@@ -57,8 +58,7 @@ MAP_THIS_TYPE *ReadTHIS_TYPEMap(const char *name)
   if ((CELLSIZE(inCr) > CELLSIZE(CR_THIS_TYPE))
       /* grabs all except: */
       || (inCr == CR_REAL4 && CR_THIS_TYPE == CR_INT4)) {
-    Error(" (in ReadTHIS_TYPEMap) '%s' is '%s' (too big for THIS_TYPE)", name,
-          RstrCellRepr(RgetCellRepr(m)));
+    Error(" (in ReadTHIS_TYPEMap) '%s' is '%s' (too big for THIS_TYPE)", name, RstrCellRepr(RgetCellRepr(m)));
     goto errExit;
   }
 
@@ -72,8 +72,9 @@ MAP_THIS_TYPE *ReadTHIS_TYPEMap(const char *name)
     size_t nrCols = RgetNrCols(m);
     /* first register then create */
     buf = ReadMapContents(m, inCr, nrRows, nrCols);
-    if (buf == NULL)
+    if (buf == NULL) {
       goto errExit;
+    }
     map = InitMapTHIS_TYPE(nrRows, nrCols, buf, true, inCr);
     if (map == NULL) {
       Free(buf);
@@ -112,18 +113,21 @@ void WriteTHIS_TYPEMap(const char *name, MAP_THIS_TYPE *map, CSF_VS valueScale)
   }
 
   m = NewMap(name, fileInCr, valueScale);
-  if (m == NULL)
+  if (m == NULL) {
     MperrorExit(name, 1);
-  if (RuseAs(m, map->inCellRepr))
+  }
+  if (RuseAs(m, map->inCellRepr)) {
     MperrorExit(name, 1);
+  }
   RputSomeCells(m, 0, (UINT4)(map->nrRows * map->nrCols), map->spatialValue[0]);
   Mclose(m);
 }
 
 void DeleteMAP_THIS_TYPE(MAP_THIS_TYPE *m)
 {
-  if (m->spatial)
+  if (m->spatial) {
     Free(m->spatialValue[0]);
+  }
   DeleteInternalMAP_THIS_TYPE(m);
 }
 
@@ -136,11 +140,13 @@ MAP_THIS_TYPE *CreateSpatialTHIS_TYPE(CSF_CR cr, size_t nrRows, size_t nrCols)
     Error("CreateSpatialTHIS_TYPE cr must be UINT1,INT4,REAL4 or REAL8");
     return NULL;
   }
-  if (cr == CR_REAL8)
+  if (cr == CR_REAL8) {
     cr = CR_REAL4;
+  }
   buf = ChkMalloc(nrRows * nrCols * CELLSIZE(cr));
-  if (buf == NULL)
+  if (buf == NULL) {
     return NULL;
+  }
   map = InitMapTHIS_TYPE(nrRows, nrCols, buf, true, cr);
   if (map == NULL) {
     Free(buf);

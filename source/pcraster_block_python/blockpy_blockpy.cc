@@ -69,7 +69,9 @@ PYBIND11_MODULE(_pcraster_block_python, module)
 
   register_exception_translator([](std::exception_ptr p) {
     try {
-      if (p) std::rethrow_exception(p);
+      if (p) {
+        std::rethrow_exception(p);
+      }
     }
     catch (dal::Exception const& exception) {
       PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());

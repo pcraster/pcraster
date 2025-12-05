@@ -80,8 +80,9 @@ static bool GetSpatialMVtestTHIS_TYPE(THIS_TYPE *v,           /* write-only. Val
                                       int c,                  /* column number */
                                       const MAP_THIS_TYPE *m) /* map this function belongs to */
 {
-  if (GetSpatialTHIS_TYPE(v, r, c, m))
+  if (GetSpatialTHIS_TYPE(v, r, c, m)) {
     return !IS_MV_THIS_TYPE(v);
+  }
   return false;
 }
 
@@ -100,9 +101,11 @@ static void PutAllMVTHIS_TYPE(MAP_THIS_TYPE *m)
   int c = 0;
   PRECOND(m->spatial);
 
-  for (r = 0; r < m->NrRows(m); r++)
-    for (c = 0; c < m->NrCols(m); c++)
+  for (r = 0; r < m->NrRows(m); r++) {
+    for (c = 0; c < m->NrCols(m); c++) {
       m->PutMV(r, c, m);
+    }
+  }
 }
 
 /*
@@ -211,8 +214,7 @@ static bool GetNonSpatialTHIS_TYPE(THIS_TYPE *v,           /* write-only. Value 
 
 /* Changes test performed in m->Get() function, affecting its return value
  */
-static void
-SetGetTestTHIS_TYPE(GET_TEST t,               /* new get test */
+static void SetGetTestTHIS_TYPE(GET_TEST t,   /* new get test */
                     const MAP_THIS_TYPE *mIn) /* read-write. Structure SetGetTest works on. */
 {
   MAP_THIS_TYPE *m = (MAP_THIS_TYPE *)mIn; /* cheat on const ptr */
@@ -257,14 +259,16 @@ MAP_THIS_TYPE *InitMapTHIS_TYPE(size_t r,     /* number of rows */
 {
   MAP_THIS_TYPE *m = ChkMalloc(sizeof(MAP_THIS_TYPE));
   /* Structure to be initialized.*/
-  if (m == NULL)
+  if (m == NULL) {
     return NULL;
+  }
 
   m->cr = (PCR_CR)CR_THIS_TYPE;
   m->vs = 0;
   /* TEMPORAY CODE fix type */
-  if (inCr == CR_REAL8)
+  if (inCr == CR_REAL8) {
     inCr = CR_REAL4;
+  }
   PRECOND(inCr == CR_UINT1 || inCr == CR_INT4 || inCr == CR_REAL4);
   /*  precondition we do not downcast, only promotion:
    */
@@ -364,7 +368,8 @@ void DeleteInternalMAP_THIS_TYPE(MAP_THIS_TYPE *m)
 { /* delete map object and index but not
    * the data area
    */
-  if (m->spatial)
+  if (m->spatial) {
     FreeIndex2d(m->spatialValue);
+  }
   Free(m);
 }

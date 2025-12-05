@@ -45,9 +45,9 @@
    * returns TRUE if [r,c] is a map-co-ordinate
    *         FALSE otherwise
    */
-static void SpatialAndCoordInMapUINT1(int r,              /* row number */
-                                      int c,              /* column number */
-                                      const MAP_UINT1 *m) /* map this function belongs to */
+static void SpatialAndCoordInMapUINT1(int r,                  /* row number */
+                                          int c,                  /* column number */
+                                          const MAP_UINT1 *m) /* map this function belongs to */
 {
   if (!m->spatial) {
     Error("EXTERNAL API:Called Put function on nonspatial object", r, c);
@@ -63,9 +63,9 @@ static void SpatialAndCoordInMapUINT1(int r,              /* row number */
 #endif
 
 static bool GetSpatialUINT1(UINT1 *v,           /* write-only. Value */
-                            int r,              /* row number */
-                            int c,              /* column number */
-                            const MAP_UINT1 *m) /* map this function belongs to */
+                                int r,                  /* row number */
+                                int c,                  /* column number */
+                                const MAP_UINT1 *m) /* map this function belongs to */
 {
 
   PRECOND(m != NULL);
@@ -78,9 +78,9 @@ static bool GetSpatialUINT1(UINT1 *v,           /* write-only. Value */
 }
 
 static bool GetSpatialMVtestUINT1(UINT1 *v,           /* write-only. Value */
-                                  int r,              /* row number */
-                                  int c,              /* column number */
-                                  const MAP_UINT1 *m) /* map this function belongs to */
+                                      int r,                  /* row number */
+                                      int c,                  /* column number */
+                                      const MAP_UINT1 *m) /* map this function belongs to */
 {
   if (GetSpatialUINT1(v, r, c, m)) {
     return !IS_MV_UINT1(v);
@@ -88,9 +88,9 @@ static bool GetSpatialMVtestUINT1(UINT1 *v,           /* write-only. Value */
   return false;
 }
 
-static void PutMV_UINT1(int r,        /* row number */
-                        int c,        /* column number */
-                        MAP_UINT1 *m) /* map this function belongs to */
+static void PutMV_UINT1(int r,            /* row number */
+                            int c,            /* column number */
+                            MAP_UINT1 *m) /* map this function belongs to */
 {
   SpatialAndCoordInMapUINT1(r, c, m);
 
@@ -152,9 +152,9 @@ static void PutAllMVUINT1(MAP_UINT1 *m)
  */
 
 static void PutSpatialUINT1(UINT1_T v,    /* Value */
-                            int r,        /* row number */
-                            int c,        /* column number */
-                            MAP_UINT1 *m) /* map this function belongs to */
+                                int r,            /* row number */
+                                int c,            /* column number */
+                                MAP_UINT1 *m) /* map this function belongs to */
 {
   SpatialAndCoordInMapUINT1(r, c, m);
 #ifdef DEBUG_DEVELOP
@@ -178,9 +178,9 @@ static int NrColsUINT1(const MAP_UINT1 *m)
 
 /* ARGSUSED */
 static void PutNonSpatialUINT1(UINT1_T v,    /* Value */
-                               int r,        /* row number */
-                               int c,        /* column number */
-                               MAP_UINT1 *m) /* map this function belongs to */
+                                   int r,            /* row number */
+                                   int c,            /* column number */
+                                   MAP_UINT1 *m) /* map this function belongs to */
 {
   (void)v;  // Shut up compiler
   (void)r;  // Shut up compiler
@@ -191,9 +191,9 @@ static void PutNonSpatialUINT1(UINT1_T v,    /* Value */
 }
 
 /* ARGSUSED */
-static void PutNonSpatialMV_UINT1(int r,        /* row number */
-                                  int c,        /* column number */
-                                  MAP_UINT1 *m) /* map this function belongs to */
+static void PutNonSpatialMV_UINT1(int r,            /* row number */
+                                      int c,            /* column number */
+                                      MAP_UINT1 *m) /* map this function belongs to */
 {
   (void)m;  // Shut up compiler
   (void)r;  // Shut up compiler
@@ -203,9 +203,9 @@ static void PutNonSpatialMV_UINT1(int r,        /* row number */
 }
 
 static bool GetNonSpatialUINT1(UINT1 *v,           /* write-only. Value */
-                               int r,              /* row number */
-                               int c,              /* column number */
-                               const MAP_UINT1 *m) /* map this function belongs to */
+                                   int r,                  /* row number */
+                                   int c,                  /* column number */
+                                   const MAP_UINT1 *m) /* map this function belongs to */
 {
 
   PRECOND(m != NULL);
@@ -216,8 +216,8 @@ static bool GetNonSpatialUINT1(UINT1 *v,           /* write-only. Value */
 
 /* Changes test performed in m->Get() function, affecting its return value
  */
-static void SetGetTestUINT1(GET_TEST t,           /* new get test */
-                            const MAP_UINT1 *mIn) /* read-write. Structure SetGetTest works on. */
+static void SetGetTestUINT1(GET_TEST t,   /* new get test */
+                    const MAP_UINT1 *mIn) /* read-write. Structure SetGetTest works on. */
 {
   MAP_UINT1 *m = (MAP_UINT1 *)mIn; /* cheat on const ptr */
   PRECOND(m != NULL);
@@ -254,10 +254,10 @@ static REAL8 SideMap(const MAP_UINT1 *argNeverUsed)
  * Default test in get function is with MV test
  */
 MAP_UINT1 *InitMapUINT1(size_t r,     /* number of rows */
-                        size_t c,     /* number of columns */
-                        void *v,      /* value buffer, ptr to 1 or all values */
-                        bool spatial, /* does v contains a spatial or nonSpatial.*/
-                        CSF_CR inCr)  /* map contents cell representation */
+                                size_t c,     /* number of columns */
+                                void *v,      /* value buffer, ptr to 1 or all values */
+                                bool spatial, /* does v contains a spatial or nonSpatial.*/
+                                CSF_CR inCr)  /* map contents cell representation */
 {
   MAP_UINT1 *m = ChkMalloc(sizeof(MAP_UINT1));
   /* Structure to be initialized.*/

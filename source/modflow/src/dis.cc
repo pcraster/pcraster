@@ -48,8 +48,9 @@ void DIS::setParams(size_t itmuni, size_t lenuni, float perlen, size_t nstp, flo
   d_perlen = perlen;
   d_nstp = nstp;
   d_tsmult = tsmult;
-  if (!sstr)
+  if (!sstr) {
     d_sstr = "TR";
+  }
 }
 
 /**
@@ -265,8 +266,9 @@ bool DIS::addLayer(const float *values, bool confined)
   d_mf->d_gridCheck->testElevation();
 
   d_mf->d_methodName = "addLayer";
-  if (confined == true)
+  if (confined == true) {
     d_mf->d_methodName = "addConfinedLayer";
+  }
 
   d_mf->d_gridCheck->testMV(values, d_mf->d_methodName);
 

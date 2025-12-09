@@ -95,29 +95,16 @@ endif()
 # Get required dependencies first...
 CPMAddPackage("gh:pcraster/rasterformat#cff814148151884a2bba4c6ea980c36045bd3bf5")
 
-CPMAddPackage(
-  NAME xsd
-  GIT_REPOSITORY https://git.codesynthesis.com/xsd/xsd.git
-  GIT_TAG 538fb327e13c3c9d3e7ae4a7dd06098d12667f2a
-  DOWNLOAD_ONLY YES
-)
-
-# Make sure patch is only done once
-# otherwise changing any CMakeLists.txt triggers continuous rebuild of most files
-if(NOT EXISTS ${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd/xsd/cxx/xml/dom/serialization-header.txx.sentinel)
-    # XSD uses two custom build systems. It's easier to apply the MSVC workaround to the currently used version rather than trying
-    # to build a newer XSD version. Using a XSD 4.2.0-b.4 release may render the fix obsolete.
-    message(STATUS "  Applying fix for XSD serialization-header.txx")
-    file(READ ${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd/xsd/cxx/xml/dom/serialization-header.txx XSD_HEADER)
-    string(REPLACE "std::vector<DOMAttr*>::iterator" "std::vector<xercesc::DOMAttr*>::iterator" XSD_HEADER "${XSD_HEADER}")
-    file(WRITE ${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd/xsd/cxx/xml/dom/serialization-header.txx "${XSD_HEADER}")
-    file(TOUCH ${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd/xsd/cxx/xml/dom/serialization-header.txx.sentinel)
-endif()
-
 add_library(Clipp::Clipp INTERFACE IMPORTED)
 set_target_properties(Clipp::Clipp
     PROPERTIES
         INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_SOURCE_DIR}/external/include/clipp/"
+)
+
+add_library(Xsd::Xsd INTERFACE IMPORTED)
+set_target_properties(Xsd::Xsd
+    PROPERTIES
+        INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_SOURCE_DIR}/external/include/"
 )
 
 

@@ -43,7 +43,7 @@ static REAL8 VISMIN = (-REAL8_MAX); Initial value visibility plane
  */
 static void CalcView(MAP_UINT1 *out,          /* write-only output map        */
                      REAL8 *currRow,          /* read-write vis. planes curr. row  */
-                     REAL8 *lastRow,          /* read-write vis. planes last row   */
+                     const REAL8 *lastRow,          /* read-write vis. planes last row   */
                      const MAP_REAL8 *dem,    /* dem map (Digital Elevation Model) */
                      const MAP_UINT1 *points, /* view points map */
                      int r,                   /* row of point to check */

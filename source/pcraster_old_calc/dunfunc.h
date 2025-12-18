@@ -37,8 +37,8 @@ extern void Do_uniform(REAL4 *r, const UINT1 *v, size_t n);
 void Do_normal_1(REAL4 *values, const UINT1 *b, size_t n);
 void Do_uniform_1(REAL4 *values, const UINT1 *b, size_t n);
 
-extern int Do_spatial_4(INT4 *vL, INT4 *vR, size_t n);
-extern int Do_spatial_1(UINT1 *vL, UINT1 *vR, size_t n);
-extern int Do_spatial_s(UINT4 *vL, UINT4 *vR, size_t n);
+extern int Do_spatial_4(INT4 *vL, const INT4 *vR, size_t n);
+extern int Do_spatial_1(UINT1 *vL, const UINT1 *vR, size_t n);
+extern int Do_spatial_s(UINT4 *vL, const UINT4 *vR, size_t n);
 
 #endif

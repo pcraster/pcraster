@@ -508,13 +508,13 @@ void Do_uniform_1(REAL4 *values, const UINT1 *b, size_t n)
   }
 }
 
-int Do_spatial_1(UINT1 *vL, UINT1 *vR, size_t n)
+int Do_spatial_1(UINT1 *vL, const UINT1 *vR, size_t n)
 {
   memset(vL, *vR, n);
   return 0;
 }
 
-int Do_spatial_4(INT4 *vL, INT4 *vR, size_t n)
+int Do_spatial_4(INT4 *vL, const INT4 *vR, size_t n)
 {
   size_t i = 0;
   INT4 val = *vR;
@@ -524,7 +524,7 @@ int Do_spatial_4(INT4 *vL, INT4 *vR, size_t n)
   return 0;
 }
 
-int Do_spatial_s(UINT4 *vL, UINT4 *vR, size_t n)
+int Do_spatial_s(UINT4 *vL, const UINT4 *vR, size_t n)
 {
   size_t i = 0;
   REAL4 val = *vR;

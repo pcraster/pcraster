@@ -464,7 +464,7 @@ syn(_ANTLRTokenPtr /*tok MR23*/, ANTLRChar *egroup, SetWordType *eset,
 
 /* is b an element of set p? */
 int ANTLRParser::
-set_el(ANTLRTokenType b, SetWordType *p)
+set_el(ANTLRTokenType b, const SetWordType *p)
 {
 	return( p[DIVWORD(b)] & bitmask[MODWORD(b)] );
 }

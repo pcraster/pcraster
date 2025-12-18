@@ -77,7 +77,7 @@ static char *strToInit(const std::string &s)
   return str;
 }
 
-static void strToCheck(char *str, char const *endPtr, char const *errMsg)
+static void strToCheck(const char *str, char const *endPtr, char const *errMsg)
 {
   std::string endRemaining(endPtr);
   bool const test = (endPtr == str);  // nothing parsed, all space

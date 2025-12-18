@@ -35,7 +35,7 @@
 /******************/
 
 
-int Do_fdiv_ss(REAL4 *vL, REAL4 *vR, size_t n)
+int Do_fdiv_ss(REAL4 *vL, const REAL4 *vR, size_t n)
 {
   size_t i = 0;
   for (i = 0; i < n; i++) {
@@ -50,7 +50,7 @@ int Do_fdiv_ss(REAL4 *vL, REAL4 *vR, size_t n)
   return 0;
 }
 
-int Do_fdiv_ns(REAL4 *vL, REAL4 *vR, size_t n)
+int Do_fdiv_ns(const REAL4 *vL, REAL4 *vR, size_t n)
 {
   size_t i = 0;
   REAL4 valL = *vL;
@@ -67,7 +67,7 @@ int Do_fdiv_ns(REAL4 *vL, REAL4 *vR, size_t n)
   return 0;
 }
 
-int Do_fdiv_sn(REAL4 *vL, REAL4 *vR, size_t n)
+int Do_fdiv_sn(REAL4 *vL, const REAL4 *vR, size_t n)
 {
   size_t i = 0;
   REAL4 valR = *vR;
@@ -101,7 +101,7 @@ int Do_idiv_ss(REAL4 *vL, REAL4 *vR, size_t n)
   return 0;
 }
 
-int Do_idiv_ns(REAL4 *vL, REAL4 *vR, size_t n)
+int Do_idiv_ns(const REAL4 *vL, REAL4 *vR, size_t n)
 {
   size_t i = 0;
   REAL4 valL = *vL;
@@ -118,7 +118,7 @@ int Do_idiv_ns(REAL4 *vL, REAL4 *vR, size_t n)
   return 0;
 }
 
-int Do_idiv_sn(REAL4 *vL, REAL4 *vR, size_t n)
+int Do_idiv_sn(REAL4 *vL, const REAL4 *vR, size_t n)
 {
   size_t i = 0;
   REAL4 valR = *vR;
@@ -149,7 +149,7 @@ int Do_mod_ss(REAL4 *vL, REAL4 *vR, size_t n)
   return 0;
 }
 
-int Do_mod_ns(REAL4 *vL, REAL4 *vR, size_t n)
+int Do_mod_ns(const REAL4 *vL, REAL4 *vR, size_t n)
 {
   size_t i = 0;
   REAL4 valL = *vL;
@@ -166,7 +166,7 @@ int Do_mod_ns(REAL4 *vL, REAL4 *vR, size_t n)
   return 0;
 }
 
-int Do_mod_sn(REAL4 *vL, REAL4 *vR, size_t n)
+int Do_mod_sn(REAL4 *vL, const REAL4 *vR, size_t n)
 {
   size_t i = 0;
   REAL4 valR = *vR;
@@ -217,7 +217,7 @@ int Do_pow_ss(REAL4 *vL, REAL4 *vR, size_t n)
   return 0;
 }
 
-int Do_pow_ns(REAL4 *vL, REAL4 *vR, size_t n)
+int Do_pow_ns(const REAL4 *vL, REAL4 *vR, size_t n)
 {
   size_t i = 0;
   REAL4 valL = *vL;
@@ -250,7 +250,7 @@ static void powAsMultiply(REAL4 *vL, size_t nrTimes, size_t n)
   }
 }
 
-int Do_pow_sn(REAL4 *vL, REAL4 *vR, size_t n)
+int Do_pow_sn(REAL4 *vL, const REAL4 *vR, size_t n)
 {
   size_t i = 0;
   REAL4 valR = *vR;
@@ -273,7 +273,7 @@ int Do_pow_sn(REAL4 *vL, REAL4 *vR, size_t n)
   return 0;
 }
 
-int Do_mul_ss(REAL4 *vL, REAL4 *vR, size_t n)
+int Do_mul_ss(REAL4 *vL, const REAL4 *vR, size_t n)
 {
   size_t i = 0;
   for (i = 0; i < n; i++) {
@@ -288,7 +288,7 @@ int Do_mul_ss(REAL4 *vL, REAL4 *vR, size_t n)
   return 0;
 }
 
-int Do_mul_ns(REAL4 *vL, REAL4 *vR, size_t n)
+int Do_mul_ns(const REAL4 *vL, REAL4 *vR, size_t n)
 {
   size_t i = 0;
   REAL4 valL = *vL;
@@ -301,7 +301,7 @@ int Do_mul_ns(REAL4 *vL, REAL4 *vR, size_t n)
   return 0;
 }
 
-int Do_badd_ss(REAL4 *vL, REAL4 *vR, size_t n)
+int Do_badd_ss(REAL4 *vL, const REAL4 *vR, size_t n)
 {
   size_t i = 0;
   for (i = 0; i < n; i++) {
@@ -316,7 +316,7 @@ int Do_badd_ss(REAL4 *vL, REAL4 *vR, size_t n)
   return 0;
 }
 
-int Do_badd_ns(REAL4 *vL, REAL4 *vR, size_t n)
+int Do_badd_ns(const REAL4 *vL, REAL4 *vR, size_t n)
 {
   size_t i = 0;
   REAL4 valL = *vL;
@@ -329,7 +329,7 @@ int Do_badd_ns(REAL4 *vL, REAL4 *vR, size_t n)
   return 0;
 }
 
-int Do_bmin_ss(REAL4 *vL, REAL4 *vR, size_t n)
+int Do_bmin_ss(REAL4 *vL, const REAL4 *vR, size_t n)
 {
   size_t i = 0;
   for (i = 0; i < n; i++) {
@@ -344,7 +344,7 @@ int Do_bmin_ss(REAL4 *vL, REAL4 *vR, size_t n)
   return 0;
 }
 
-int Do_bmin_sn(REAL4 *vL, REAL4 *vR, size_t n)
+int Do_bmin_sn(REAL4 *vL, const REAL4 *vR, size_t n)
 {
   size_t i = 0;
   REAL4 valR = *vR;
@@ -357,7 +357,7 @@ int Do_bmin_sn(REAL4 *vL, REAL4 *vR, size_t n)
   return 0;
 }
 
-int Do_bmin_ns(REAL4 *vL, REAL4 *vR, size_t n)
+int Do_bmin_ns(const REAL4 *vL, REAL4 *vR, size_t n)
 {
   size_t i = 0;
   REAL4 valL = *vL;
@@ -375,7 +375,7 @@ int Do_bmin_ns(REAL4 *vL, REAL4 *vR, size_t n)
  * we do bitwise operands
  */
 
-int Do_and_ss(UINT1 *vL, UINT1 *vR, size_t n)
+int Do_and_ss(UINT1 *vL, const UINT1 *vR, size_t n)
 {
   size_t i = 0;
   for (i = 0; i < n; i++) {
@@ -391,7 +391,7 @@ int Do_and_ss(UINT1 *vL, UINT1 *vR, size_t n)
   return 0;
 }
 
-int Do_and_ns(UINT1 *vL, UINT1 *vR, size_t n)
+int Do_and_ns(const UINT1 *vL, UINT1 *vR, size_t n)
 {
   size_t i = 0;
   UINT1 valL = *vL;
@@ -405,7 +405,7 @@ int Do_and_ns(UINT1 *vL, UINT1 *vR, size_t n)
   return 0;
 }
 
-int Do_or_ss(UINT1 *vL, UINT1 *vR, size_t n)
+int Do_or_ss(UINT1 *vL, const UINT1 *vR, size_t n)
 {
   size_t i = 0;
   for (i = 0; i < n; i++) {
@@ -421,7 +421,7 @@ int Do_or_ss(UINT1 *vL, UINT1 *vR, size_t n)
   return 0;
 }
 
-int Do_or_ns(UINT1 *vL, UINT1 *vR, size_t n)
+int Do_or_ns(const UINT1 *vL, UINT1 *vR, size_t n)
 {
   size_t i = 0;
   UINT1 valL = *vL;
@@ -435,7 +435,7 @@ int Do_or_ns(UINT1 *vL, UINT1 *vR, size_t n)
   return 0;
 }
 
-int Do_xor_ss(UINT1 *vL, UINT1 *vR, size_t n)
+int Do_xor_ss(UINT1 *vL, const UINT1 *vR, size_t n)
 {
   size_t i = 0;
   for (i = 0; i < n; i++) {
@@ -451,7 +451,7 @@ int Do_xor_ss(UINT1 *vL, UINT1 *vR, size_t n)
   return 0;
 }
 
-int Do_xor_ns(UINT1 *vL, UINT1 *vR, size_t n)
+int Do_xor_ns(const UINT1 *vL, UINT1 *vR, size_t n)
 {
   size_t i = 0;
   UINT1 valL = *vL;
@@ -465,7 +465,7 @@ int Do_xor_ns(UINT1 *vL, UINT1 *vR, size_t n)
   return 0;
 }
 
-int Do_max_4_ns(INT4 *vL, INT4 *vR, size_t n)
+int Do_max_4_ns(const INT4 *vL, INT4 *vR, size_t n)
 {
   size_t i = 0;
   INT4 valL = *vL;
@@ -480,7 +480,7 @@ int Do_max_4_ns(INT4 *vL, INT4 *vR, size_t n)
   return 0;
 }
 
-int Do_max_4_ss(INT4 *vL, INT4 *vR, size_t n)
+int Do_max_4_ss(INT4 *vL, const INT4 *vR, size_t n)
 {
   size_t i = 0;
   for (i = 0; i < n; i++) {
@@ -494,7 +494,7 @@ int Do_max_4_ss(INT4 *vL, INT4 *vR, size_t n)
   return 0;
 }
 
-int Do_min_4_ns(INT4 *vL, INT4 *vR, size_t n)
+int Do_min_4_ns(const INT4 *vL, INT4 *vR, size_t n)
 {
   size_t i = 0;
   INT4 valL = *vL;
@@ -509,7 +509,7 @@ int Do_min_4_ns(INT4 *vL, INT4 *vR, size_t n)
   return 0;
 }
 
-int Do_min_4_ss(INT4 *vL, INT4 *vR, size_t n)
+int Do_min_4_ss(INT4 *vL, const INT4 *vR, size_t n)
 {
   size_t i = 0;
   for (i = 0; i < n; i++) {
@@ -523,7 +523,7 @@ int Do_min_4_ss(INT4 *vL, INT4 *vR, size_t n)
   return 0;
 }
 
-int Do_min_s_ns(REAL4 *vL, REAL4 *vR, size_t n)
+int Do_min_s_ns(const REAL4 *vL, REAL4 *vR, size_t n)
 {
   size_t i = 0;
   REAL4 valL = *vL;
@@ -538,7 +538,7 @@ int Do_min_s_ns(REAL4 *vL, REAL4 *vR, size_t n)
   return 0;
 }
 
-int Do_min_s_ss(REAL4 *vL, REAL4 *vR, size_t n)
+int Do_min_s_ss(REAL4 *vL, const REAL4 *vR, size_t n)
 {
   size_t i = 0;
   for (i = 0; i < n; i++) {
@@ -553,7 +553,7 @@ int Do_min_s_ss(REAL4 *vL, REAL4 *vR, size_t n)
   return 0;
 }
 
-int Do_max_s_ns(REAL4 *vL, REAL4 *vR, size_t n)
+int Do_max_s_ns(const REAL4 *vL, REAL4 *vR, size_t n)
 {
   size_t i = 0;
   REAL4 valL = *vL;
@@ -568,7 +568,7 @@ int Do_max_s_ns(REAL4 *vL, REAL4 *vR, size_t n)
   return 0;
 }
 
-int Do_max_s_ss(REAL4 *vL, REAL4 *vR, size_t n)
+int Do_max_s_ss(REAL4 *vL, const REAL4 *vR, size_t n)
 {
   size_t i = 0;
   for (i = 0; i < n; i++) {
@@ -586,7 +586,7 @@ int Do_max_s_ss(REAL4 *vL, REAL4 *vR, size_t n)
 /* cover_ns
  * is a simple memset
  */
-int Do_cover_1_ns(UINT1 *vL, UINT1 *vR, size_t n)
+int Do_cover_1_ns(const UINT1 *vL, UINT1 *vR, size_t n)
 {
   PRECOND(*vL != MV_UINT1);
   memset(vR, *vL, n);
@@ -601,21 +601,21 @@ static void DwordSet(INT4 *dest, INT4 value, size_t n)
   }
 }
 
-int Do_cover_4_ns(INT4 *vL, INT4 *vR, size_t n)
+int Do_cover_4_ns(const INT4 *vL, INT4 *vR, size_t n)
 {
   PRECOND(*vL != MV_INT4);
   DwordSet(vR, *vL, n);
   return 0;
 }
 
-int Do_cover_s_ns(REAL4 *vL, REAL4 *vR, size_t n)
+int Do_cover_s_ns(const REAL4 *vL, REAL4 *vR, size_t n)
 {
   PRECOND(!IS_MV_REAL4(vL));
   DwordSet((INT4 *)vR, *((INT4 *)vL), n);
   return 0;
 }
 
-int Do_cover_1_ss(UINT1 *vL, UINT1 *vR, size_t n)
+int Do_cover_1_ss(UINT1 *vL, const UINT1 *vR, size_t n)
 {
   size_t i = 0;
   for (i = 0; i < n; i++) {
@@ -626,7 +626,7 @@ int Do_cover_1_ss(UINT1 *vL, UINT1 *vR, size_t n)
   return 0;
 }
 
-int Do_cover_4_ss(INT4 *vL, INT4 *vR, size_t n)
+int Do_cover_4_ss(INT4 *vL, const INT4 *vR, size_t n)
 {
   size_t i = 0;
   for (i = 0; i < n; i++) {
@@ -637,7 +637,7 @@ int Do_cover_4_ss(INT4 *vL, INT4 *vR, size_t n)
   return 0;
 }
 
-int Do_cover_4_sn(INT4 *vL, INT4 *vR, size_t n)
+int Do_cover_4_sn(INT4 *vL, const INT4 *vR, size_t n)
 {
   size_t i = 0;
   INT4 valR = *vR;
@@ -650,7 +650,7 @@ int Do_cover_4_sn(INT4 *vL, INT4 *vR, size_t n)
   return 0;
 }
 
-int Do_cover_1_sn(UINT1 *vL, UINT1 *vR, size_t n)
+int Do_cover_1_sn(UINT1 *vL, const UINT1 *vR, size_t n)
 {
   size_t i = 0;
   UINT1 valR = *vR;
@@ -666,7 +666,7 @@ int Do_cover_1_sn(UINT1 *vL, UINT1 *vR, size_t n)
 /* scalar cover
  * MV bit-patterm is equal for REAL4 and UINT4
  */
-int Do_cover_s_ss(REAL4 *vL, REAL4 *vR, size_t n)
+int Do_cover_s_ss(REAL4 *vL, const REAL4 *vR, size_t n)
 {
   size_t i = 0;
   for (i = 0; i < n; i++) {
@@ -677,7 +677,7 @@ int Do_cover_s_ss(REAL4 *vL, REAL4 *vR, size_t n)
   return 0;
 }
 
-int Do_cover_s_sn(REAL4 *vL, REAL4 *vR, size_t n)
+int Do_cover_s_sn(REAL4 *vL, const REAL4 *vR, size_t n)
 {
   size_t i = 0;
   REAL4 valR = NAN;

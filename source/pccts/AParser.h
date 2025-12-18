@@ -207,7 +207,7 @@ protected:
 	static unsigned MODWORD(unsigned x) {return x & (EXT_WORDSIZE-1);}	// x % EXT_WORDSIZE // MR9
 	static unsigned DIVWORD(unsigned x) {return x >> EXT_LOGWORDSIZE;}	// x / EXT_WORDSIZE // MR9
 	int set_deg(SetWordType *);
-	int set_el(ANTLRTokenType, SetWordType *);
+	int set_el(ANTLRTokenType, const SetWordType *);
 	virtual void edecode(SetWordType *);				// MR1
 	virtual void FAIL(int k, ...);					    // MR1
     int                 traceOptionValue{};                           // MR10

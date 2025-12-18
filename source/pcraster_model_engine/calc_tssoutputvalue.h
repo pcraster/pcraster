@@ -81,7 +81,7 @@ class FileTimeoutput : public TssOutputValue {
   bool reportTimeStep(size_t t) const;
 
   void printLine(size_t         t,
-                 double        *v,
+                 const double        *v,
                  std::ofstream& f);
 
  public:

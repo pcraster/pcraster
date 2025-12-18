@@ -140,7 +140,7 @@ static int CalcOut(MAP *out,            /* write-only output map */
 static int AddCell(SEARCH_TABLE *table,       /* read-write search table */
                    const POINT2D *inputCell,  /* input cell as polygon */
                    const POINT2D *outputCell, /* output cell as polygon */
-                   INT4 *currRow,             /* current row */
+                   const INT4 *currRow,             /* current row */
                    const MAP *in,             /* input map */
                    double r,                  /* current row number */
                    double c,                  /* current column number */

@@ -259,7 +259,7 @@ void calc::FileTimeoutput::openFile(std::ofstream &ofs)
 /*
  * \todo  dangerous typecase VS->CSF_VS
  */
-void calc::FileTimeoutput::printLine(size_t t, double *v, std::ofstream &f)
+void calc::FileTimeoutput::printLine(size_t t, const double *v, std::ofstream &f)
 {
   const char *mvFmt = nullptr;
   int valFmt = 0;

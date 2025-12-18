@@ -1,11 +1,10 @@
 #ifndef INCLUDED_COM_PALETTE
 #define INCLUDED_COM_PALETTE
 
-
+#include "com_colour.h"
 
 #include <cstring>
 #include <vector>
-#include "com_colour.h"
 
 
 

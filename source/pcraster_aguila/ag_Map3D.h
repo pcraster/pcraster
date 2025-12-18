@@ -1,8 +1,6 @@
 #ifndef INCLUDED_AG_MAP3D
 #define INCLUDED_AG_MAP3D
 
-
-
 #include "ag_Map.h"
 
 #include <filesystem>

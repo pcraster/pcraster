@@ -1,11 +1,11 @@
 #ifndef INCLUDED_AG_UTIL
 #define INCLUDED_AG_UTIL
 
+#include "ag_DataGuide.h"
 
+#include <QPixmap>
 
 #include <string>
-#include <QPixmap>
-#include "ag_DataGuide.h"
 
 
 

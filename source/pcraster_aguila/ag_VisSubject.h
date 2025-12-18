@@ -1,13 +1,8 @@
 #ifndef INCLUDED_AG_VISSUBJECT
 #define INCLUDED_AG_VISSUBJECT
 
-
-
 #include "ag_Configure.h"
-
-#ifndef INCLUDED_AG_VISCHANGEMANAGER
 #include "ag_VisChangeManager.h"
-#endif
 
 
 

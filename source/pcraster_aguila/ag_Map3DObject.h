@@ -1,8 +1,6 @@
 #ifndef INCLUDED_AG_MAP3DOBJECT
 #define INCLUDED_AG_MAP3DOBJECT
 
-
-
 #include "ag_SceneObject.h"
 #include "ag_DataObject.h"
 

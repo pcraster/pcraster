@@ -1,17 +1,10 @@
 #ifndef INCLUDED_AG_SAVEDATAASDIALOG
 #define INCLUDED_AG_SAVEDATAASDIALOG
 
-
-
-// Library headers.
-#include <QDialog>
-
-// PCRaster library headers.
 #include "dal_Formats.h"
-
-// Module headers.
 #include "ui_SaveDataAsDialogBase.h"
 
+#include <QDialog>
 
 
 namespace ag {

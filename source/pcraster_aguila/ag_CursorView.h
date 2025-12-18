@@ -1,11 +1,7 @@
 #ifndef INCLUDED_AG_CURSORVIEW
 #define INCLUDED_AG_CURSORVIEW
 
-
-// PCRaster library headers.
 #include "dal_DataSpaceAddress.h"
-
-// Module headers.
 #include "ag_Visualisation.h"
 
 #include <tuple>

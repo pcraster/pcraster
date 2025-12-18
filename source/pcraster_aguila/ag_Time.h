@@ -1,8 +1,6 @@
 #ifndef INCLUDED_AG_TIME
 #define INCLUDED_AG_TIME
 
-
-
 #include <ctime>
 
 

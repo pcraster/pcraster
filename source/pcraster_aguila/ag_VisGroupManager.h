@@ -1,16 +1,15 @@
 #ifndef INCLUDED_AG_VISGROUPMANAGER
 #define INCLUDED_AG_VISGROUPMANAGER
 
-
-
-#include <memory>
-#include <vector>
-#include <QtXml>
-#include <QObject>
 #include "ag_Configurable.h"
 #include "ag_DataObject.h"
 #include "ag_VisGroup.h"
 
+#include <QtXml>
+#include <QObject>
+
+#include <memory>
+#include <vector>
 
 
 namespace dal {

@@ -1,15 +1,10 @@
 #ifndef INCLUDED_AG_VISUALISATION
 #define INCLUDED_AG_VISUALISATION
 
-
-
-// Library headers.
-#include <QWidget>
-
-// PCRaster library headers.
 #include "ag_IVisualisation.h"
 
-// Module headers.
+#include <QWidget>
+
 
 
 

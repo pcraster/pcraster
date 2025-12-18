@@ -1,8 +1,6 @@
 #ifndef INCLUDED_AG_MAP3DVIEW
 #define INCLUDED_AG_MAP3DVIEW
 
-
-
 #include "ag_DataGuide.h"
 #include "ag_GLVisualisation.h"
 #include "ag_MouseTarget.h"

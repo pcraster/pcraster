@@ -1,18 +1,11 @@
 #ifndef INCLUDED_AG_DATAOBJECT
 #define INCLUDED_AG_DATAOBJECT
 
-
-
-// Library headers.
-#include <QObject>
 #ifndef Q_MOC_RUN
-
-// PCRaster library headers.
 #include "dal_MapperUtils.h"
 #include "dal_Utils.h"
 #endif
 
-// Module headers.
 #include "ag_Configure.h"
 #include "ag_DataGuide.h"
 #include "ag_DataProperties.h"
@@ -29,6 +22,8 @@
 #endif
 #include "ag_Types.h"
 #include "ag_VisSubject.h"
+
+#include <QObject>
 
 #include <cassert>
 #include <vector>

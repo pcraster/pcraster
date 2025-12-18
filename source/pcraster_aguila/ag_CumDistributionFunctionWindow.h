@@ -1,13 +1,6 @@
 #ifndef INCLUDED_AG_CUMDISTRIBUTIONFUNCTIONWINDOW
 #define INCLUDED_AG_CUMDISTRIBUTIONFUNCTIONWINDOW
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 #include "ag_VisualisationWindow.h"
 
 

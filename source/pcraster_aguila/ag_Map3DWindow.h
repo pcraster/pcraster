@@ -1,8 +1,6 @@
 #ifndef INCLUDED_AG_MAP3DWINDOW
 #define INCLUDED_AG_MAP3DWINDOW
 
-
-
 #include "ag_Configure.h"
 #include "ag_MapWindow.h"
 

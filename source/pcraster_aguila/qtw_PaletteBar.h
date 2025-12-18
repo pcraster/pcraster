@@ -1,12 +1,11 @@
 #ifndef INCLUDED_QTW_PALETTEBAR
 #define INCLUDED_QTW_PALETTEBAR
 
-
-
-#include <vector>
 #include <QColor>
 #include <QSize>
 #include <QWidget>
+
+#include <vector>
 
 
 

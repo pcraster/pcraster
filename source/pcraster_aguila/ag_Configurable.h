@@ -1,12 +1,11 @@
 #ifndef INCLUDED_AG_CONFIGURABLE
 #define INCLUDED_AG_CONFIGURABLE
 
-
-
-#include <string>
-#include <QtXml>
 #include "ag_Configure.h"
 
+#include <QtXml>
+
+#include <string>
 
 
 namespace ag {

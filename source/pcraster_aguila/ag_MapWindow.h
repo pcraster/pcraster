@@ -1,8 +1,6 @@
 #ifndef INCLUDED_AG_MAPWINDOW
 #define INCLUDED_AG_MAPWINDOW
 
-
-
 #include "ag_VisualisationWindow.h"
 
 

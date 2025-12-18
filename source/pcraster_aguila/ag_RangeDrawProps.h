@@ -1,8 +1,6 @@
 #ifndef INCLUDED_AG_RANGEDRAWPROPS
 #define INCLUDED_AG_RANGEDRAWPROPS
 
-
-
 #include "com_classifier.h"
 #include "ag_DrawProps.h"
 #include "ag_Types.h"

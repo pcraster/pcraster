@@ -1,8 +1,6 @@
 #ifndef INCLUDED_AG_VISCHANGEMANAGER
 #define INCLUDED_AG_VISCHANGEMANAGER
 
-
-
 #include <vector>
 
 
@@ -34,7 +32,7 @@ private:
   VisSubject*      d_subject;
 
   //! The observers.
-  std::vector<VisObserver*> d_observers; 
+  std::vector<VisObserver*> d_observers;
 
   //! Assignment operator. NOT IMPLEMENTED.
   VisChangeManager &operator=          (const VisChangeManager&);

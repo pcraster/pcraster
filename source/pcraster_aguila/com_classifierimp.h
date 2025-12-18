@@ -1,7 +1,6 @@
 #ifndef INCLUDED_COM_CLASSIFIERIMP
 #define INCLUDED_COM_CLASSIFIERIMP
 
-
 #include <cstring>
 #include <vector>
 

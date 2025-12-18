@@ -1,10 +1,9 @@
 #ifndef INCLUDED_QT_ANIMATION
 #define INCLUDED_QT_ANIMATION
 
-
+#include <QObject>
 
 #include <set>
-#include <QObject>
 
 
 

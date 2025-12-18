@@ -1,13 +1,6 @@
 #ifndef INCLUDED_AG_SPATIALDATASET
 #define INCLUDED_AG_SPATIALDATASET
 
-
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
 #include "ag_Dataset.h"
 
 

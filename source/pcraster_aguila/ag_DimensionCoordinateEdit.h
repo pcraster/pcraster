@@ -1,14 +1,8 @@
 #ifndef INCLUDED_AG_DIMENSIONCOORDINATEEDIT
 #define INCLUDED_AG_DIMENSIONCOORDINATEEDIT
 
-
-
-// Library headers.
 #include <QWidget>
 
-// PCRaster library headers.
-
-// Module headers.
 
 
 

@@ -1,8 +1,6 @@
 #ifndef COM_CONTPALETTE
 #define COM_CONTPALETTE
 
-
-
 #include "csftypes.h"
 
 

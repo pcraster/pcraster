@@ -1,13 +1,6 @@
 #ifndef INCLUDED_AG_RANGEFEATURELAYERDRAWER
 #define INCLUDED_AG_RANGEFEATURELAYERDRAWER
 
-
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
 #include "ag_FeatureLayerDrawer.h"
 
 

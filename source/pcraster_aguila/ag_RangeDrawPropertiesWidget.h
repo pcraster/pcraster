@@ -1,18 +1,11 @@
 #ifndef INCLUDED_AG_RANGEDRAWPROPERTIESWIDGET
 #define INCLUDED_AG_RANGEDRAWPROPERTIESWIDGET
 
-
-
-// Library headers.
-#include <memory>
-
-// PCRaster library headers.
-
-// Module headers.
 #include "ag_DrawPropertiesWidget.h"
 #include "ag_RangeDrawProps.h"
 #include "ag_Types.h"
 
+#include <memory>
 
 
 namespace ag {

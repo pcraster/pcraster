@@ -1,13 +1,6 @@
 #ifndef INCLUDED_AG_FEATUREDATASOURCES
 #define INCLUDED_AG_FEATUREDATASOURCES
 
-
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
 #include "ag_DataObjectBase.h"
 #include "ag_FeatureLayer.h"
 

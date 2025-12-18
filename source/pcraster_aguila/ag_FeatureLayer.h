@@ -1,15 +1,8 @@
 #ifndef INCLUDED_AG_FEATURELAYER
 #define INCLUDED_AG_FEATURELAYER
 
-
-
-// External headers.
-
-// Project headers.
 #include "dal_DataSpace.h"
 #include "dal_FeatureLayer.h"
-
-// Module headers.
 #include "ag_SpatialDataset.h"
 
 

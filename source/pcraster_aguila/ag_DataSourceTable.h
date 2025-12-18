@@ -1,13 +1,6 @@
 #ifndef INCLUDED_AG_DATASOURCETABLE
 #define INCLUDED_AG_DATASOURCETABLE
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 #include "ag_TableVisualisation.h"
 
 

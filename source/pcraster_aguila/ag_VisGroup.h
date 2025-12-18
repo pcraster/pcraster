@@ -1,11 +1,13 @@
 #ifndef INCLUDED_AG_VISGROUP
 #define INCLUDED_AG_VISGROUP
 
+#include "ag_DataGuide.h"
+
+#include <QObject>
+
 #include <memory>
 #include <string>
 #include <vector>
-#include <QObject>
-#include "ag_DataGuide.h"
 
 // #ifdef DEBUG_DEVELOP
 // #ifndef INCLUDED_AG_MAP3DWINDOW3

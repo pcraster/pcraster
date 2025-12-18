@@ -1,7 +1,6 @@
 #ifndef INCLUDED_COM_MATRIX
 #define INCLUDED_COM_MATRIX
 
-
 #include <algorithm>
 #include <cassert>
 #include <cmath>

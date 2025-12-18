@@ -1,11 +1,10 @@
 #ifndef INCLUDED_COM_UTIL
 #define INCLUDED_COM_UTIL
 
-
+#include "csftypes.h"
 
 #include <iostream>
 #include <vector>
-#include "csftypes.h"
 
 
 

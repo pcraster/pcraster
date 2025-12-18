@@ -1,8 +1,6 @@
 #ifndef COM_GRAYDIRECTPALETTE
 #define COM_GRAYDIRECTPALETTE
 
-
-
 #include "csftypes.h"
 
 

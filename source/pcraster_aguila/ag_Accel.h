@@ -1,7 +1,6 @@
 #ifndef INCLUDED_AG_ACCEL
 #define INCLUDED_AG_ACCEL
 
-
 #include <QtGlobal>
 #include <Qt>
 

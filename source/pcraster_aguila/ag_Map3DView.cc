@@ -378,7 +378,7 @@ void ag::Map3DView::mouseMoveEvent(QMouseEvent *event)
     // Changes in y direction: move aim in z-direction.
     rotateHead(static_cast<double>(move.y()) / 25 * com::DEG2RAD, 0.0, 0.0);
     update();
-  } else if ((event->buttons() & Qt::LeftButton != 0u) && (event->buttons() & Qt::RightButton != 0u)) {
+  } else if ((event->buttons() & (Qt::LeftButton != 0u)) && (event->buttons() & (Qt::RightButton != 0u))) {
 
     moveHead(step() * static_cast<double>(move.x()) / 10, 0.0, 0.0);
     moveHead(0.0, -step() * static_cast<double>(move.y()) / 10, 0.0);
@@ -393,7 +393,7 @@ void ag::Map3DView::keyPressEvent(QKeyEvent *event)
 {
   SceneView::keyPressEvent(event);
 
-  if (event->modifiers() & Qt::ShiftModifier != 0u) {
+  if (event->modifiers() & (Qt::ShiftModifier != 0u)) {
     switch (event->key()) {
       case Qt::Key_Q: {
         // Make the quadlength larger.
@@ -406,9 +406,9 @@ void ag::Map3DView::keyPressEvent(QKeyEvent *event)
         break;
       }
     }
-  } else if (event->modifiers() & Qt::ControlModifier != 0u) {
+  } else if (event->modifiers() & (Qt::ControlModifier != 0u)) {
     event->ignore();
-  } else if (event->modifiers() & Qt::AltModifier != 0u) {
+  } else if (event->modifiers() & (Qt::AltModifier != 0u)) {
     event->ignore();
   } else {
     switch (event->key()) {

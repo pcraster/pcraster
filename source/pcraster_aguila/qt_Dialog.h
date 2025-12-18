@@ -1,8 +1,6 @@
 #ifndef INCLUDED_QT_DIALOG
 #define INCLUDED_QT_DIALOG
 
-
-
 #include <QDialog>
 
 

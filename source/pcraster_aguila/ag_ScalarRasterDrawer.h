@@ -1,13 +1,6 @@
 #ifndef INCLUDED_AG_SCALARRASTERDRAWER
 #define INCLUDED_AG_SCALARRASTERDRAWER
 
-
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
 #include "ag_RangeDrawProps.h"
 #include "ag_RasterDrawer.h"
 

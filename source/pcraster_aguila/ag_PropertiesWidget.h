@@ -1,17 +1,10 @@
 #ifndef INCLUDED_AG_PROPERTIESWIDGET
 #define INCLUDED_AG_PROPERTIESWIDGET
 
-
-
-// Library headers.
-#include <memory>
-#include <string>
-
-// PCRaster library headers.
 #include "qt_PropertiesWidget.h"
 
-// Module headers.
-
+#include <memory>
+#include <string>
 
 
 class QGroupBox;

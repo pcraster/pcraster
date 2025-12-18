@@ -1,13 +1,6 @@
 #ifndef INCLUDED_AG_ORDINALRASTERDRAWER
 #define INCLUDED_AG_ORDINALRASTERDRAWER
 
-
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
 #include "ag_OrdinalDrawProps.h"
 #include "ag_RasterDrawer.h"
 

@@ -1,17 +1,10 @@
 #ifndef INCLUDED_AG_BUFFEREDWIDGET
 #define INCLUDED_AG_BUFFEREDWIDGET
 
-
-
-// Library headers.
 #include <QPixmap>
 #include <QPoint>
 #include <QRect>
 #include <QWidget>
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

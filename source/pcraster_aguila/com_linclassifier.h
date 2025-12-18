@@ -1,10 +1,9 @@
 #ifndef INCLUDED_COM_LINCLASSIFIER
 #define INCLUDED_COM_LINCLASSIFIER
 
-
+#include "com_classifierimp.h"
 
 #include <vector>
-#include "com_classifierimp.h"
 
 
 

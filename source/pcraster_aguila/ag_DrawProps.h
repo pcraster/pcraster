@@ -1,11 +1,10 @@
 #ifndef INCLUDED_AG_DRAWPROPS
 #define INCLUDED_AG_DRAWPROPS
 
-
+#include <QColor>
 
 #include <string>
 #include <vector>
-#include <QColor>
 
 
 

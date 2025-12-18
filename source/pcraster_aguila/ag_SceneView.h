@@ -1,11 +1,10 @@
 #ifndef INCLUDED_AG_SCENEVIEW
 #define INCLUDED_AG_SCENEVIEW
 
-
+#include "csf.h"
 
 #include <QOpenGLWidget>
 #include <QtOpenGL>
-#include "csf.h"
 
 
 

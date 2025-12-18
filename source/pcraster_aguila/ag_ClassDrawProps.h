@@ -1,10 +1,9 @@
 #ifndef INCLUDED_AG_CLASSDRAWPROPS
 #define INCLUDED_AG_CLASSDRAWPROPS
 
-
+#include "ag_DrawProps.h"
 
 #include <string>
-#include "ag_DrawProps.h"
 
 
 

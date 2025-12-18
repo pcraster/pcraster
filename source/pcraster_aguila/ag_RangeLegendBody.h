@@ -1,8 +1,6 @@
 #ifndef INCLUDED_AG_RANGELEGENDBODY
 #define INCLUDED_AG_RANGELEGENDBODY
 
-
-
 #include "ag_LegendBody.h"
 
 

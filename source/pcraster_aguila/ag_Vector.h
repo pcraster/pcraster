@@ -1,18 +1,13 @@
 #ifndef INCLUDED_AG_VECTOR
 #define INCLUDED_AG_VECTOR
 
-
-
-// External headers.
-#include <boost/scoped_ptr.hpp>
-
-// Project headers.
 #include "dal_Vector.h"
-
-// Module headers.
 #include "ag_RasterDataset.h"
 
+#include <boost/scoped_ptr.hpp>
+
 #include <cmath>
+
 
 namespace ag {
   // Vector declarations.

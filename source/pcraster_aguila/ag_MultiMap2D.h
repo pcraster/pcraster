@@ -1,7 +1,6 @@
 #ifndef INCLUDED_AG_MULTIMAP2D
 #define INCLUDED_AG_MULTIMAP2D
 
-
 #include "ag_Map.h"
 
 #include <filesystem>

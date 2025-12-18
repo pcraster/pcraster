@@ -1,8 +1,6 @@
 #ifndef COM_CLASSPALETTE
 #define COM_CLASSPALETTE
 
-
-
 #include "csftypes.h"
 
 

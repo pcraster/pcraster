@@ -1,8 +1,6 @@
 #ifndef INCLUDED_AG_ORDINALDRAWPROPS
 #define INCLUDED_AG_ORDINALDRAWPROPS
 
-
-
 #include "pcrtypes.h"
 #include "com_classclassifier.h"
 #include "ag_ClassDrawProps.h"

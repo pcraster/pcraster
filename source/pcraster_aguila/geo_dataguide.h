@@ -1,8 +1,6 @@
 #ifndef INCLUDED_GEO_DATAGUIDE
 #define INCLUDED_GEO_DATAGUIDE
 
-
-
 #include "csftypes.h"
 #include "com_rcptr.h"
 #include "com_rcsize_t.h"

@@ -1,8 +1,6 @@
 #ifndef COM_Y2BMPALETTE
 #define COM_Y2BMPALETTE
 
-
-
 #include "csftypes.h"
 
 

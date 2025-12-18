@@ -1,14 +1,7 @@
 #ifndef INCLUDED_QT_SELECTABLEWIDGET
 #define INCLUDED_QT_SELECTABLEWIDGET
 
-
-
-// Library headers.
 #include <QFrame>
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

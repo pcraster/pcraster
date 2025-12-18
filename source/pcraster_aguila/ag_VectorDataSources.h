@@ -1,13 +1,6 @@
 #ifndef INCLUDED_AG_VECTORDATASOURCES
 #define INCLUDED_AG_VECTORDATASOURCES
 
-
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
 #include "ag_DataObjectBase.h"
 #include "ag_Vector.h"
 

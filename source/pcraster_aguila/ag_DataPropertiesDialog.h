@@ -1,16 +1,9 @@
 #ifndef INCLUDED_AG_DATAPROPERTIESDIALOG
 #define INCLUDED_AG_DATAPROPERTIESDIALOG
 
-
-
-// Library headers.
-#include <memory>
-
-// PCRaster library headers.
-
-// Module headers.
 #include "ag_VisualisationDialog.h"
 
+#include <memory>
 
 
 namespace ag {

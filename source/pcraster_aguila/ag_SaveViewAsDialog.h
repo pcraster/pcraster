@@ -1,21 +1,16 @@
 #ifndef INCLUDED_AG_SAVEVIEWASDIALOG
 #define INCLUDED_AG_SAVEVIEWASDIALOG
 
-
-
-// Library headers.
-#include <vector>
-#include <QDialog>
-
-// PCRaster library headers.
 #ifndef Q_MOC_RUN
 #include "dal_DataSpace.h"
 #include "com_fileformatinfo.h"
 #endif
 
-// Module headers.
 #include "ui_SaveViewAsDialogBase.h"
 
+#include <QDialog>
+
+#include <vector>
 
 
 namespace ag {

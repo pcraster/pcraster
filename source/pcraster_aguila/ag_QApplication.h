@@ -1,14 +1,8 @@
 #ifndef INCLUDED_AG_QAPPLICATION
 #define INCLUDED_AG_QAPPLICATION
 
-
-
-// External headers.
 #include <QApplication>
 
-// Project headers.
-
-// Module headers.
 
 
 

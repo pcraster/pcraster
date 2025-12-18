@@ -1,15 +1,8 @@
 #ifndef INCLUDED_AG_DATAGUIDE
 #define INCLUDED_AG_DATAGUIDE
 
-
-
-// Library headers.
-
-// PCRaster library headers.
 #include "dev_Compiler.h"
 #include "geo_dataguide.h"
-
-// Module headers.
 #include "ag_Configure.h"
 
 

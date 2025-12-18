@@ -1,8 +1,6 @@
 #ifndef COM_R2PPALETTE
 #define COM_R2PPALETTE
 
-
-
 #include "csftypes.h"
 
 static const size_t r2pPaletteSize = 100;

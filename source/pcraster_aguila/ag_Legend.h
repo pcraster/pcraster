@@ -1,10 +1,10 @@
 #ifndef INCLUDED_AG_LEGEND
 #define INCLUDED_AG_LEGEND
 
-#include <QWidget>
 #include "ag_Types.h"
 #include "qt_EventFilterSubject.h"
 
+#include <QWidget>
 
 
 class QLabel;

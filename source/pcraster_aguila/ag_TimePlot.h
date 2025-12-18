@@ -1,8 +1,6 @@
 #ifndef INCLUDED_AG_TIMEPLOT
 #define INCLUDED_AG_TIMEPLOT
 
-
-
 #include "ag_Visualisation.h"
 
 #include <filesystem>

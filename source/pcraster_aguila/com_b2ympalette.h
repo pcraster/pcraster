@@ -1,8 +1,6 @@
 #ifndef COM_B2YMPALETTE
 #define COM_B2YMPALETTE
 
-
-
 #include "csftypes.h"
 
 

@@ -1,21 +1,17 @@
 #ifndef INCLUDED_AG_IVISUALISATION
 #define INCLUDED_AG_IVISUALISATION
 
-
-
-#include <string>
-#include <vector>
 #ifndef Q_MOC_RUN
 #include "dal_DataSpace.h"
 #include "com_fileformatinfo.h"
 #include "geo_dataguide.h"
 #endif
 
-#ifndef INCLUDED_AG_VISOBSERVER
 #include "ag_VisObserver.h"
-#endif
 
 #include <filesystem>
+#include <string>
+#include <vector>
 
 namespace ag {
   class DataGuide;

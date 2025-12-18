@@ -1,10 +1,6 @@
 #ifndef INCLUDED_QT_GUIAPP
 #define INCLUDED_QT_GUIAPP
 
-
-
-#include <string>
-#include <QObject>
 #include "dev_CommandLineApplication.h"
 #include "dev_QtClient.h"
 #include "com_exception.h"
@@ -12,7 +8,10 @@
 #include "qt_Def.h"
 #include "ag_QApplication.h"
 
+#include <QObject>
+
 #include <filesystem>
+#include <string>
 
 
 namespace qt {

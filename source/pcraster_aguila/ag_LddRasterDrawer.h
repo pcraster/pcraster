@@ -1,13 +1,6 @@
 #ifndef INCLUDED_AG_LDDRASTERDRAWER
 #define INCLUDED_AG_LDDRASTERDRAWER
 
-
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
 #include "ag_LddDrawProps.h"
 #include "ag_RasterDrawer.h"
 

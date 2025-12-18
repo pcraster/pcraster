@@ -1,11 +1,9 @@
 #ifndef INCLUDED_AG_LEGENDBODY
 #define INCLUDED_AG_LEGENDBODY
 
-
-
-#include <QWidget>
 #include "ag_Types.h"
 
+#include <QWidget>
 
 
 namespace ag {

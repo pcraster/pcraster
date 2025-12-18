@@ -1,7 +1,6 @@
 #ifndef INCLUDED_AG_MULTIMAP2DWINDOW
 #define INCLUDED_AG_MULTIMAP2DWINDOW
 
-
 #include "ag_MapWindow.h"
 
 #include <filesystem>

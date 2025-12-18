@@ -1,16 +1,9 @@
 #ifndef INCLUDED_AG_PROPERTIESDIALOG
 #define INCLUDED_AG_PROPERTIESDIALOG
 
-
-
-// Library headers.
-#include <memory>
-
-// PCRaster library headers.
 #include "qt_PropertiesDialog.h"
 
-// Module headers.
-
+#include <memory>
 
 
 namespace ag {

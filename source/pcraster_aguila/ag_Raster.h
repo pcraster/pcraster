@@ -1,21 +1,14 @@
 #ifndef INCLUDED_AG_RASTER
 #define INCLUDED_AG_RASTER
 
-
-
-// Library headers.
-
-#include <boost/lexical_cast.hpp>
-
-// PCRaster library headers.
 #include "dal_DataSpace.h"
 #include "dal_DataSpaceAddress.h"
 #include "dal_Raster.h"
 #include "dal_RasterDimensions.h"
 #include "dal_SpatialCoordinate.h"
-
-// Module headers.
 #include "ag_RasterDataset.h"
+
+#include <boost/lexical_cast.hpp>
 
 #include <cassert>
 #include <cmath>

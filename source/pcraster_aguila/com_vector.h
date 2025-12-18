@@ -1,8 +1,6 @@
 #ifndef INCLUDED_COM_VECTOR
 #define INCLUDED_COM_VECTOR
 
-
-
 #include <algorithm>
 #include <cassert>
 #include <cmath>

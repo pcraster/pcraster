@@ -1,16 +1,9 @@
 #ifndef INCLUDED_QT_APPWINDOWPROPERTIES
 #define INCLUDED_QT_APPWINDOWPROPERTIES
 
-
-
-// Library headers.
-#include <string>
 #include <QPixmap>
 
-// PCRaster library headers.
-
-// Module headers.
-
+#include <string>
 
 
 namespace qt {

@@ -1,13 +1,6 @@
 #ifndef INCLUDED_COM_USERDEFINEDCLASSIFIER
 #define INCLUDED_COM_USERDEFINEDCLASSIFIER
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 #include "com_classifierimp.h"
 
 

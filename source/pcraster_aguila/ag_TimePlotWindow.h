@@ -1,8 +1,6 @@
 #ifndef INCLUDED_AG_TIMEPLOTWINDOW
 #define INCLUDED_AG_TIMEPLOTWINDOW
 
-
-
 #include "ag_Configure.h"
 #include "ag_VisualisationWindow.h"
 

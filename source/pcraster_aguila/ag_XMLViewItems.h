@@ -1,16 +1,10 @@
 #ifndef INCLUDED_AG_XMLVIEWITEMS
 #define INCLUDED_AG_XMLVIEWITEMS
 
-
-
-// Library headers.
-#include <vector>
-#include <string>
-
-// PCRaster library headers.
 #include "AguilaXSD.h"
 
-// Module headers.
+#include <vector>
+#include <string>
 
 
 

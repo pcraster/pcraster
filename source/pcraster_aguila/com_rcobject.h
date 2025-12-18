@@ -1,8 +1,6 @@
 #ifndef INCLUDED_COM_RCOBJECT
 #define INCLUDED_COM_RCOBJECT
 
-
-
 #include <cstring>
 
 

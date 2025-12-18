@@ -1,13 +1,6 @@
 #ifndef INCLUDED_EXCEEDANCEPROBABILITYFEATURELAYERDRAWER
 #define INCLUDED_EXCEEDANCEPROBABILITYFEATURELAYERDRAWER
 
-
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
 #include "ag_FeatureLayerDrawer.h"
 
 

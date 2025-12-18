@@ -1,15 +1,13 @@
 #ifndef COM_NETSCAPEPALETTE
 #define COM_NETSCAPEPALETTE
 
-
-
 #include "csftypes.h"
 
 
 
 static const size_t netscapePaletteSize = 216;
 static const UINT2 netscapePaletteMaxVal = 255;
-static UINT2 netscapePaletteColours[][3] = 
+static UINT2 netscapePaletteColours[][3] =
 {
   { 0, 0, 0 },
   { 0, 0, 51 },

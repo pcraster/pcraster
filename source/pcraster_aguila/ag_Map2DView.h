@@ -1,19 +1,12 @@
 #ifndef INCLUDED_AG_MAP2DVIEW
 #define INCLUDED_AG_MAP2DVIEW
 
-
-
-// Library headers.
-#include <vector>
-
-// PCRaster library headers.
-
-// Module headers.
 #include "ag_BufferedVisualisation.h"
 #include "ag_DataGuide.h"
 #include "ag_Types.h"
 #include "ag_MouseTarget.h"
 
+#include <vector>
 
 
 namespace dal {

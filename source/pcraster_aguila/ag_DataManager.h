@@ -1,7 +1,6 @@
 #ifndef INCLUDED_AG_DATAMANAGER
 #define INCLUDED_AG_DATAMANAGER
 
-
 #include "ag_DataGuide.h"
 #include "ag_DataInfo.h"
 

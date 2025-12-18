@@ -1,16 +1,9 @@
 #ifndef INCLUDED_AG_PREFERENCESDIALOG
 #define INCLUDED_AG_PREFERENCESDIALOG
 
-
-
-// Library headers.
-#include <QDialog>
-
-// PCRaster library headers.
-
-// Module headers.
 #include "ui_PreferencesDialogBase.h"
 
+#include <QDialog>
 
 
 namespace ag {

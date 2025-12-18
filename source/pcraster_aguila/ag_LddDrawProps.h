@@ -1,15 +1,9 @@
 #ifndef INCLUDED_AG_LDDDRAWPROPS
 #define INCLUDED_AG_LDDDRAWPROPS
 
-
-
 #include "pcrtypes.h"
-
-#ifndef INCLUDED_COM_CLASSCLASSIFIER
 #include "com_classclassifier.h"
-#endif
 #include "ag_ClassDrawProps.h"
-
 
 #ifdef AGUILA_WITH_OPENGL
   #include <QtOpenGL>

@@ -1,13 +1,9 @@
 #ifndef INCLUDED_AG_SCENEOBJECT
 #define INCLUDED_AG_SCENEOBJECT
 
-
+#include "ag_Quaternion.h"
 
 #include <QtOpenGL>
-
-#ifndef INCLUDED_AG_QUATERNION
-#include "ag_Quaternion.h"
-#endif
 
 
 
@@ -22,7 +18,7 @@ namespace ag {
   The position of a scene object is determined by the x, y and z coordinates.
 
   The orientation of a scene object is determined by the yaw, pitch and roll
-  rotations. Imagine an aeroplane: yaw change is turning left or right, pitch 
+  rotations. Imagine an aeroplane: yaw change is turning left or right, pitch
   change is moving nose down and tail up (or vice-versa) and roll change is
   moving one wingtip up and the other down.
 */

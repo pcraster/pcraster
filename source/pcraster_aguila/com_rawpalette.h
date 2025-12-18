@@ -1,11 +1,10 @@
 #ifndef INCLUDED_COM_RAWPALETTE
 #define INCLUDED_COM_RAWPALETTE
 
-
+#include "com_rgbtuple.h"
 
 #include <iostream>
 #include <vector>
-#include "com_rgbtuple.h"
 
 
 

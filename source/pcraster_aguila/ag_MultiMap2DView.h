@@ -1,17 +1,10 @@
 #ifndef INCLUDED_AG_MULTIMAP2DVIEW
 #define INCLUDED_AG_MULTIMAP2DVIEW
 
-
-
-// Library headers.
-#include <vector>
-#include <tuple>
-
-// PCRaster library headers.
-
-// Module headers.
 #include "ag_Visualisation.h"
 
+#include <vector>
+#include <tuple>
 
 
 class QLineEdit;

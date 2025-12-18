@@ -1,8 +1,6 @@
 #ifndef COM_G2RMPALETTE
 #define COM_G2RMPALETTE
 
-
-
 #include "csftypes.h"
 
 

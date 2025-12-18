@@ -1,13 +1,6 @@
 #ifndef INCLUDED_AG_PLOTVIEW
 #define INCLUDED_AG_PLOTVIEW
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 #include "ag_PlotVisualisation.h"
 
 

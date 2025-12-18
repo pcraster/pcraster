@@ -1,16 +1,9 @@
 #ifndef INCLUDED_AG_GENERALDATAPROPERTIESWIDGET
 #define INCLUDED_AG_GENERALDATAPROPERTIESWIDGET
 
-
-
-// Library headers.
-#include <memory>
-
-// PCRaster library headers.
-
-// Module headers.
 #include "ag_PropertiesWidget.h"
 
+#include <memory>
 
 
 namespace ag {

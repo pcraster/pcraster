@@ -1,16 +1,9 @@
 #ifndef INCLUDED_AG_FEATURELAYERDRAWER
 #define INCLUDED_AG_FEATURELAYERDRAWER
 
-
-
-// External headers.
-#include <set>
-
-// Project headers.
-
-// Module headers.
 #include "ag_MapDrawer.h"
 
+#include <set>
 
 
 class QPainterPath;

@@ -1,8 +1,6 @@
 #ifndef INCLUDED_AG_AGUILA
 #define INCLUDED_AG_AGUILA
 
-
-
 #include "dev_GDalClient.h"
 #include "dal_Client.h"
 #include "qt_Def.h"

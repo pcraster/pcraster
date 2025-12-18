@@ -1,8 +1,6 @@
 #ifndef INCLUDED_AG_NOMINALDRAWPROPS
 #define INCLUDED_AG_NOMINALDRAWPROPS
 
-
-
 #include "pcrtypes.h"
 #include "com_classclassifier.h"
 #include "ag_ClassDrawProps.h"

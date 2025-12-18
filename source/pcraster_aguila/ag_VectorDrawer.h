@@ -1,15 +1,9 @@
 #ifndef INCLUDED_AG_VECTORDRAWER
 #define INCLUDED_AG_VECTORDRAWER
 
-
-
-// External headers.
-
-// Project headers.
 #include "ag_RangeDrawProps.h"
 #include "ag_RasterDrawer.h"
 
-// Module headers.
 
 
 

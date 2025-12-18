@@ -1,15 +1,8 @@
 #ifndef INCLUDED_APP_DATAINFO
 #define INCLUDED_APP_DATAINFO
 
-
-
-// Library headers.
-
-// PCRaster library headers.
 #include "dal_DataSpace.h"
 #include "csftypes.h"
-
-// Module headers.
 
 
 

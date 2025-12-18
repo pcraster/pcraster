@@ -1,12 +1,13 @@
 #ifndef INCLUDED_QT_COLOURSELECTOR
 #define INCLUDED_QT_COLOURSELECTOR
 
-#include <cassert>
-#include <vector>
-#include <QColor>
 #include "qt_ColourLib.h"
 #include "com_rawpalette.h"
 
+#include <QColor>
+
+#include <cassert>
+#include <vector>
 
 
 namespace ag {

@@ -1,13 +1,6 @@
 #ifndef INCLUDED_AG_CUMDISTRIBUTIONFUNCTION
 #define INCLUDED_AG_CUMDISTRIBUTIONFUNCTION
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 #include "ag_Visualisation.h"
 
 

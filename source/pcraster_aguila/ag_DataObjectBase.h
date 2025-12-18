@@ -1,13 +1,6 @@
 #ifndef INCLUDED_AG_DATAOBJECTBASE
 #define INCLUDED_AG_DATAOBJECTBASE
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 #include "ag_DataGuide.h"
 #include "ag_DataManager.h"
 

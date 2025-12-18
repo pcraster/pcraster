@@ -1,13 +1,6 @@
 #ifndef INCLUDED_AG_TABLEDATASOURCES
 #define INCLUDED_AG_TABLEDATASOURCES
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 #include "ag_DataObjectBase.h"
 #include "ag_Table.h"
 

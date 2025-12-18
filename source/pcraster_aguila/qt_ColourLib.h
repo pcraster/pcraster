@@ -1,10 +1,9 @@
 #ifndef INCLUDED_QT_COLOURLIB
 #define INCLUDED_QT_COLOURLIB
 
-
+#include "csftypes.h"
 
 #include <QColor>
-#include "csftypes.h"
 
 
 

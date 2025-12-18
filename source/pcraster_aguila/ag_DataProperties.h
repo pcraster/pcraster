@@ -1,7 +1,6 @@
 #ifndef INCLUDED_AG_DATAPROPERTIES
 #define INCLUDED_AG_DATAPROPERTIES
 
-
 #include "csftypes.h"
 
 #include <QColor>

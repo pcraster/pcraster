@@ -1,8 +1,6 @@
 #ifndef INCLUDED_QT_ANIMATIONPROGBAR
 #define INCLUDED_QT_ANIMATIONPROGBAR
 
-
-
 #include <QProgressBar>
 
 

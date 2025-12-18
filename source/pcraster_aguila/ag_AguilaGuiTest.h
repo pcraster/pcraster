@@ -1,14 +1,7 @@
 #ifndef INCLUDED_AG_AGUILAGUITEST
 #define INCLUDED_AG_AGUILAGUITEST
 
-
-
-// External headers.
 #include <QtTest/QtTest>
-
-// Project headers.
-
-// Module headers.
 
 
 

@@ -1,13 +1,6 @@
 #ifndef INCLUDED_AG_GLVISUALISATION
 #define INCLUDED_AG_GLVISUALISATION
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 #include "ag_IVisualisation.h"
 #include "ag_SceneView.h"
 

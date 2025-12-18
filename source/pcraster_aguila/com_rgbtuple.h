@@ -1,9 +1,8 @@
 #ifndef INCLUDED_COM_RGBTUPLE
 #define INCLUDED_COM_RGBTUPLE
 
-
-
 #include "csftypes.h"
+
 #include <iostream>
 
 

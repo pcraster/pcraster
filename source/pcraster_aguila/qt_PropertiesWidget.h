@@ -1,15 +1,7 @@
 #ifndef INCLUDED_QT_PROPERTIESWIDGET
 #define INCLUDED_QT_PROPERTIESWIDGET
 
-
-
-// Library headers.
 #include <QWidget>
-
-// PCRaster library headers.
-
-// Module headers.
-
 
 
 namespace qt {

@@ -1,15 +1,9 @@
 #ifndef INCLUDED_AG_DATASET
 #define INCLUDED_AG_DATASET
 
-
-
-// Library headers.
-#include <boost/any.hpp>
-
-// PCRaster library headers.
 #include "dal_DataSource.h"
 
-// Module headers.
+#include <boost/any.hpp>
 
 #include <string>
 

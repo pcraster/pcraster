@@ -1,14 +1,12 @@
 #ifndef INCLUDED_AG_QUADDRAWER
 #define INCLUDED_AG_QUADDRAWER
 
-
-
-#include <QtOpenGL>
 #include "dal_Raster.h"
 #include "com_classifier.h"
 #include "com_rawpalette.h"
 #include "ag_Raster.h"
 
+#include <QtOpenGL>
 
 
 class QImage;

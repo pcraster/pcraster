@@ -1,8 +1,6 @@
 #ifndef COM_RAINBOWPALETTE
 #define COM_RAINBOWPALETTE
 
-
-
 #include "csftypes.h"
 
 

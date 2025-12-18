@@ -1,12 +1,12 @@
 #ifndef INCLUDED_QT_APPWINDOW
 #define INCLUDED_QT_APPWINDOW
 
-
-
-#include <string>
-#include <QMainWindow>
 #include "qt_AppWindowProperties.h"
 #include "qt_Def.h"
+
+#include <QMainWindow>
+
+#include <string>
 
 
 

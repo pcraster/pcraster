@@ -1,7 +1,6 @@
 #ifndef INCLUDED_AG_DOMANAGER
 #define INCLUDED_AG_DOMANAGER
 
-
 #include <cstring>
 #include <vector>
 

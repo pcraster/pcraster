@@ -1,15 +1,8 @@
 #ifndef INCLUDED_AG_AGUILAPROGRAMOPTIONS
 #define INCLUDED_AG_AGUILAPROGRAMOPTIONS
 
-
-
-// Library headers.
 #include <string>
 #include <vector>
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

@@ -1,8 +1,6 @@
 #ifndef COM_R2PMPALETTE
 #define COM_R2PMPALETTE
 
-
-
 #include "csftypes.h"
 
 

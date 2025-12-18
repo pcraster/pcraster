@@ -3,12 +3,6 @@
 
 
 
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-
 
 
 class QObject;

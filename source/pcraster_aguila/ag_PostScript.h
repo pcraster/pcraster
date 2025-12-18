@@ -1,11 +1,7 @@
 #ifndef INCLUDED_AG_POSTSCRIPT
 #define INCLUDED_AG_POSTSCRIPT
 
-
-
-#ifndef INCLUDED_AG_FEEDBACK
 #include "ag_Feedback.h"
-#endif
 
 #include <iostream>
 #include <filesystem>

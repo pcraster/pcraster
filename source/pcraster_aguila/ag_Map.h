@@ -1,13 +1,6 @@
 #ifndef INCLUDED_AG_MAP
 #define INCLUDED_AG_MAP
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 #include "ag_Visualisation.h"
 
 

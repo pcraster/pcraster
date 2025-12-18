@@ -1,8 +1,6 @@
 #ifndef COM_B2WPALETTE
 #define COM_B2WPALETTE
 
-
-
 #include "csftypes.h"
 
 

@@ -1,12 +1,7 @@
 #ifndef INCLUDED_AG_VIEWER
 #define INCLUDED_AG_VIEWER
 
-// Library headers.
-
-// PCRaster library headers.
 #include "dal_Driver.h" // DataSpaceQueryResult
-
-// Module headers.
 #include "ag_VisGroupManager.h"
 
 #include <cassert>

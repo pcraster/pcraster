@@ -1,8 +1,6 @@
 #ifndef INCLUDED_COM_LEGENDCLASS
 #define INCLUDED_COM_LEGENDCLASS
 
-
-
 #include <functional>
 #include <string>
 

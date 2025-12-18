@@ -1,8 +1,6 @@
 #ifndef COM_BOOLPALETTE
 #define COM_BOOLPALETTE
 
-
-
 #include "csftypes.h"
 
 

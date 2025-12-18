@@ -1,8 +1,6 @@
 #ifndef INCLUDED_AG_MAP2DWINDOW
 #define INCLUDED_AG_MAP2DWINDOW
 
-
-
 #include "ag_MapWindow.h"
 
 #include <filesystem>

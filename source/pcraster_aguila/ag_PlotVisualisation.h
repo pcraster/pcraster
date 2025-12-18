@@ -1,7 +1,6 @@
 #ifndef INCLUDED_AG_PLOTVISUALISATION
 #define INCLUDED_AG_PLOTVISUALISATION
 
-
 #include "ag_DataGuide.h"
 #include "ag_IVisualisation.h"
 #include "ag_LineMarker.h"

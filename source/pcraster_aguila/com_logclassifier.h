@@ -1,10 +1,9 @@
 #ifndef INCLUDED_COM_LOGCLASSIFIER
 #define INCLUDED_COM_LOGCLASSIFIER
 
-
+#include "com_classifierimp.h"
 
 #include <vector>
-#include "com_classifierimp.h"
 
 
 

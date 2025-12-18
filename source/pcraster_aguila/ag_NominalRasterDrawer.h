@@ -1,13 +1,6 @@
 #ifndef INCLUDED_AG_NOMINALRASTERDRAWER
 #define INCLUDED_AG_NOMINALRASTERDRAWER
 
-
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
 #include "ag_NominalDrawProps.h"
 #include "ag_RasterDrawer.h"
 

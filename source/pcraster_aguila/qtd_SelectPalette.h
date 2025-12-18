@@ -1,11 +1,7 @@
 #ifndef INCLUDED_QTD_SELECTPALETTEDIALOG
 #define INCLUDED_QTD_SELECTPALETTEDIALOG
 
-
-
-#ifndef INCLUDED_QT_DIALOG
 #include "qt_Dialog.h"
-#endif
 
 
 

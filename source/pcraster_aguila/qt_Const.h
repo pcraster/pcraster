@@ -1,10 +1,6 @@
 #ifndef INCLUDED_QT_CONST
 #define INCLUDED_QT_CONST
 
-
-
-
-
 #include <QColor>
 #include <QPalette>
 

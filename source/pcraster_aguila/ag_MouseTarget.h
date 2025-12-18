@@ -1,15 +1,7 @@
 #ifndef INCLUDED_AG_MOUSETARGET
 #define INCLUDED_AG_MOUSETARGET
 
-
-
-// Library headers.
 #include <QPoint>
-
-// PCRaster library headers.
-
-// Module headers.
-
 
 
 namespace ag {
@@ -52,7 +44,7 @@ public:
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  
+
   void             initialize          ();
 
   void             press               (const QPoint& pos);

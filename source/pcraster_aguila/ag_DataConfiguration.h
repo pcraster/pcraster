@@ -1,16 +1,10 @@
 #ifndef INCLUDED_AG_DATACONFIGURATION
 #define INCLUDED_AG_DATACONFIGURATION
 
-
-
-// Library headers.
-
-// PCRaster library headers.
 #include "ag_DataGuide.h"
 #include "dal_DataSpace.h"
 #include "AguilaXSD.h"
 
-// Module headers.
 
 namespace dal {
   /// class Dal;

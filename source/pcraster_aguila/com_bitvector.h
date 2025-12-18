@@ -3,13 +3,6 @@
 
 
 
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-
-
 
 namespace com {
   // BitVector declarations.

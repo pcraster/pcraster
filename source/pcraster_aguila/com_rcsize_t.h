@@ -1,8 +1,6 @@
 #ifndef INCLUDED_COM_RCSIZE_T
 #define INCLUDED_COM_RCSIZE_T
 
-
-
 #include "com_rcobject.h"
 
 

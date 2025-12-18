@@ -1,13 +1,6 @@
 #ifndef INCLUDED_AG_RASTERDATASOURCES
 #define INCLUDED_AG_RASTERDATASOURCES
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 #include "ag_DataObjectBase.h"
 #include "ag_Raster.h"
 

@@ -1,8 +1,6 @@
 #ifndef INCLUDED_AG_GEOMETRYLEGENDBODY
 #define INCLUDED_AG_GEOMETRYLEGENDBODY
 
-
-
 #include "ag_LegendBody.h"
 
 

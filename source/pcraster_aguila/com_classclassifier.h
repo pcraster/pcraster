@@ -1,11 +1,10 @@
 #ifndef INCLUDED_COM_CLASSCLASSIFIER
 #define INCLUDED_COM_CLASSCLASSIFIER
 
-
+#include "com_legendclass.h"
 
 #include <set>
 #include <vector>                  // cpp makes an error(?)
-#include "com_legendclass.h"
 
 
 

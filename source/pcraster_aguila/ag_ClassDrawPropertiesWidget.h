@@ -1,16 +1,9 @@
 #ifndef INCLUDED_AG_CLASSDRAWPROPERTIESWIDGET
 #define INCLUDED_AG_CLASSDRAWPROPERTIESWIDGET
 
-
-
-// Library headers.
-#include <memory>
-
-// PCRaster library headers.
-
-// Module headers.
 #include "ag_DrawPropertiesWidget.h"
 
+#include <memory>
 
 
 namespace ag {

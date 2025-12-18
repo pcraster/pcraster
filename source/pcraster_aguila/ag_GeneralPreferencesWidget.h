@@ -1,15 +1,10 @@
 #ifndef INCLUDED_AG_GENERALPREFERENCESWIDGET
 #define INCLUDED_AG_GENERALPREFERENCESWIDGET
 
+#include "ui_GeneralPreferencesWidgetBase.h"
 
-
-// Library headers.
 #include <QWidget>
 
-// PCRaster library headers.
-
-// Module headers.
-#include "ui_GeneralPreferencesWidgetBase.h"
 
 
 

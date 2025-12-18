@@ -1,8 +1,6 @@
 #ifndef INCLUDED_QT_UTIL
 #define INCLUDED_QT_UTIL
 
-
-
 #include <string>
 #include <vector>
 

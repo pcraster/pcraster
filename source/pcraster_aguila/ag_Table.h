@@ -1,21 +1,14 @@
 #ifndef INCLUDED_AG_TABLE
 #define INCLUDED_AG_TABLE
 
-
-
-// Library headers.
-#include <cassert>
-
-// PCRaster library headers.
 #include "dal_DataSource.h"
 #include "dal_DataSpaceAddress.h"
 #include "dal_Dimension.h"
 #include "dal_Table.h"
 #include "pcrtypes.h"
-
-// Module headers.
 #include "ag_Dataset.h"
 
+#include <cassert>
 
 
 namespace dal {

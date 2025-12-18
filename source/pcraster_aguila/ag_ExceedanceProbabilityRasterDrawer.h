@@ -1,13 +1,6 @@
 #ifndef INCLUDED_AG_EXCEEDANCEPROBABILITYRASTERDRAWER
 #define INCLUDED_AG_EXCEEDANCEPROBABILITYRASTERDRAWER
 
-
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
 #include "ag_RangeDrawProps.h"
 #include "ag_RasterDrawer.h"
 

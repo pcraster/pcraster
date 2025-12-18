@@ -1,13 +1,6 @@
 #ifndef INCLUDED_AG_BUFFEREDVISUALISATION
 #define INCLUDED_AG_BUFFEREDVISUALISATION
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 #include "ag_BufferedWidget.h"
 #include "ag_IVisualisation.h"
 

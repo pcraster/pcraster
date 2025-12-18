@@ -1,10 +1,9 @@
 #ifndef INCLUDED_AG_VISENGINE
 #define INCLUDED_AG_VISENGINE
 
-
+#include "ag_DataGuide.h"
 
 #include <vector>
-#include "ag_DataGuide.h"
 
 
 
@@ -37,7 +36,7 @@ namespace ag {
   visualisation and, together with a dataobject, it can decide what should be
   done. The engine is the brain of the visualisation.
 
-  \todo All test code in 
+  \todo All test code in
         ag::IVisualisation::testDataGuide(const geo::DataGuide& dataGuide)
         might be better moved to this class. See also the setHeight function.
 */

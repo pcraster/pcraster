@@ -1,8 +1,6 @@
 #ifndef INCLUDED_AG_CLASSLEGENDBODY
 #define INCLUDED_AG_CLASSLEGENDBODY
 
-
-
 #include "ag_DataGuide.h"
 #include "ag_LegendBody.h"
 

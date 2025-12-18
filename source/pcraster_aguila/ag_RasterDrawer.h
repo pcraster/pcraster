@@ -1,13 +1,6 @@
 #ifndef INCLUDED_AG_RASTERDRAWER
 #define INCLUDED_AG_RASTERDRAWER
 
-
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
 #include "ag_MapDrawer.h"
 
 

@@ -1,16 +1,9 @@
 #ifndef INCLUDED_QT_PROPERTIESDIALOG
 #define INCLUDED_QT_PROPERTIESDIALOG
 
-
-
-// Library headers.
-#include <memory>
 #include <QDialog>
 
-// PCRaster library headers.
-
-// Module headers.
-
+#include <memory>
 
 
 namespace qt {

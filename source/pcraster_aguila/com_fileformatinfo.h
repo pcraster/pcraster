@@ -1,15 +1,8 @@
 #ifndef INCLUDED_COM_FILEFORMATINFO
 #define INCLUDED_COM_FILEFORMATINFO
 
-
-
-// Library headers.
 #include <string>
 #include <vector>
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

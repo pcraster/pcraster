@@ -1,13 +1,6 @@
 #ifndef INCLUDED_AG_BOOLEANRASTERDRAWER
 #define INCLUDED_AG_BOOLEANRASTERDRAWER
 
-
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
 #include "ag_BooleanDrawProps.h"
 #include "ag_RasterDrawer.h"
 

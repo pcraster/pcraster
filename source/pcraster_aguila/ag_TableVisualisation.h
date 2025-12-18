@@ -1,15 +1,9 @@
 #ifndef INCLUDED_AG_TABLEVISUALISATION
 #define INCLUDED_AG_TABLEVISUALISATION
 
-
-
-// External headers.
-#include <QTableWidget>
-
-// Project headers.
-
-// Module headers.
 #include "ag_Visualisation.h"
+
+#include <QTableWidget>
 
 
 

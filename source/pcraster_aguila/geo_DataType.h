@@ -1,15 +1,8 @@
 #ifndef INCLUDED_GEO_DATATYPE
 #define INCLUDED_GEO_DATATYPE
 
-
-
 #include <string>
 
-// External headers.
-
-// Project headers.
-
-// Module headers.
 
 
 

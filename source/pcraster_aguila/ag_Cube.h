@@ -1,11 +1,7 @@
 #ifndef INCLUDED_AG_CUBE
 #define INCLUDED_AG_CUBE
 
-
-
-#ifndef INCLUDED_AG_SCENEOBJECT
 #include "ag_SceneObject.h"
-#endif
 
 
 

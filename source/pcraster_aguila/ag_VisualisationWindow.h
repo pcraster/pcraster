@@ -1,17 +1,10 @@
 #ifndef INCLUDED_AG_VISUALISATIONWINDOW
 #define INCLUDED_AG_VISUALISATIONWINDOW
 
-
-
-// Library headers.
-#include <cassert>
-
-// PCRaster library headers.
 #include "qt_AppWindow.h"
-
-// Module headers.
 #include "ag_IVisualisation.h"
 
+#include <cassert>
 
 
 class QAction;

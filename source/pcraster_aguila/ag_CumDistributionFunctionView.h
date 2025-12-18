@@ -1,13 +1,6 @@
 #ifndef INCLUDED_AG_CUMDISTRIBUTIONFUNCTIONVIEW
 #define INCLUDED_AG_CUMDISTRIBUTIONFUNCTIONVIEW
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 #include "ag_PlotVisualisation.h"
 
 

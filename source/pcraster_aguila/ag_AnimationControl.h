@@ -1,13 +1,6 @@
 #ifndef INCLUDED_AG_ANIMATIONCONTROL
 #define INCLUDED_AG_ANIMATIONCONTROL
 
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 #include "ag_VisualisationDialog.h"
 
 

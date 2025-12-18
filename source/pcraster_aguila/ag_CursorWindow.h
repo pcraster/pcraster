@@ -1,8 +1,8 @@
 #ifndef INCLUDED_AG_CURSORWINDOW
 #define INCLUDED_AG_CURSORWINDOW
 
-
 #include "ag_VisualisationDialog.h"
+
 #include <filesystem>
 
 

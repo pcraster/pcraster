@@ -60,7 +60,7 @@ pcrxml::Script::Script(const Script &src)
     : pcrxml::Element(src), scriptFileName(src.scriptFileName), scriptType(src.scriptType),
       ioStrategy(src.ioStrategy)
 {
-  integerTimer = (src.integerTimer) ? new IntegerTimer(*(src.integerTimer)) : nullptr;
+  integerTimer = ((src.integerTimer) != nullptr) ? new IntegerTimer(*(src.integerTimer)) : nullptr;
   scriptData = new ScriptData(*(src.scriptData));
 }
 
@@ -70,7 +70,7 @@ pcrxml::Script &pcrxml::Script::operator=(const Script &src)
   if (this != &src) {
     clean();
     PRECOND(false);
-    integerTimer = (src.integerTimer) ? new IntegerTimer(*(src.integerTimer)) : nullptr;
+    integerTimer = ((src.integerTimer) != nullptr) ? new IntegerTimer(*(src.integerTimer)) : nullptr;
     scriptData = new ScriptData(*(src.scriptData));
   }
   return *this;
@@ -81,10 +81,10 @@ void pcrxml::Script::fill(QDomElement el) const
   scriptFileName.addToElement(el, "scriptFileName");
   scriptType.addToElement(el, "scriptType");
   ioStrategy.addToElement(el, "ioStrategy");
-  if (integerTimer) {
+  if (integerTimer != nullptr) {
     integerTimer->appendTo(el);
   }
-  if (scriptData) {
+  if (scriptData != nullptr) {
     scriptData->appendTo(el);
   }
 }

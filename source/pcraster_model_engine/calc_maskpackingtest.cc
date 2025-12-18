@@ -253,7 +253,7 @@ BOOST_AUTO_TEST_CASE(testScript)
   REAL4 count = 1;
   for (size_t r = 0; r < rs.nrRows(); r++) {
     for (size_t c = 0; c < rs.nrCols(); c++) {
-      mask[r][c] = (r < c) ? MV_UINT1 : (r < rs.nrCols());
+      mask[r][c] = (r < c) ? MV_UINT1 : static_cast<int>(r < rs.nrCols());
       pcr::setMV(result[r][c]);
       if (mask[r][c] == 1) {
         result[r][c] = count++;

@@ -31,20 +31,20 @@ struct CmpNode {
 
   bool validASTNode() const
   {
-    return d_id || d_ass || d_stat;
+    return (d_id != nullptr) || (d_ass != nullptr) || (d_stat != nullptr);
   }
 
   bool equal() const
   {
     PRECOND(validASTNode());
-    if (d_id) {
+    if (d_id != nullptr) {
       return d_id->name() == d_name;
     }
     std::string name;
-    if (d_ass) {
+    if (d_ass != nullptr) {
       name = "ass-" + d_ass->par()->name();
     }
-    if (d_stat) {
+    if (d_stat != nullptr) {
       name = "stat-start";  // +d_stat->par()->name();
     }
     return name == d_name;
@@ -94,7 +94,7 @@ BOOST_AUTO_TEST_CASE(testExpr)
       }
       i = i->succ(0);
       ic++;
-    } while (i);
+    } while (i != nullptr);
   }
   {
     ASTCFGTester const e(sp.createExpr("((1+2)*(3-4))/5"));
@@ -113,10 +113,10 @@ BOOST_AUTO_TEST_CASE(testExpr)
       last = i;
       i = i->succ(0);
       ic++;
-    } while (i);
+    } while (i != nullptr);
     BOOST_CHECK(ic == ARRAY_SIZE(names));
     // test pred
-    while (last) {
+    while (last != nullptr) {
       --ic;
       cfgCreatorTest::CmpNode const cn(names[ic], last);
       BOOST_CHECK(cn.validASTNode());
@@ -150,11 +150,11 @@ BOOST_AUTO_TEST_CASE(testStatementList)
       last = i;
       i = i->succ(0);
       ic++;
-    } while (i);
+    } while (i != nullptr);
     BOOST_CHECK(ic == ARRAY_SIZE(names));
     // test pred
     // backward test
-    while (last) {
+    while (last != nullptr) {
       --ic;
       cfgCreatorTest::CmpNode const cn(names[ic], last);
       BOOST_CHECK(cn.validASTNode());

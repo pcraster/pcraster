@@ -70,9 +70,9 @@ void pcrxml::ParameterItem::clean()
 pcrxml::ParameterItem::ParameterItem(const ParameterItem &src) : pcrxml::Element(src), label(src.label)
 {
   scriptLink = new ScriptLink(*(src.scriptLink));
-  numericInput = (src.numericInput) ? new NumericInput(*(src.numericInput)) : nullptr;
-  fileInput = (src.fileInput) ? new FileInput(*(src.fileInput)) : nullptr;
-  showData = (src.showData) ? new ShowData(*(src.showData)) : nullptr;
+  numericInput = ((src.numericInput) != nullptr) ? new NumericInput(*(src.numericInput)) : nullptr;
+  fileInput = ((src.fileInput) != nullptr) ? new FileInput(*(src.fileInput)) : nullptr;
+  showData = ((src.showData) != nullptr) ? new ShowData(*(src.showData)) : nullptr;
 }
 
 //! assignment operator
@@ -82,9 +82,9 @@ pcrxml::ParameterItem &pcrxml::ParameterItem::operator=(const ParameterItem &src
     clean();
     PRECOND(false);
     scriptLink = new ScriptLink(*(src.scriptLink));
-    numericInput = (src.numericInput) ? new NumericInput(*(src.numericInput)) : nullptr;
-    fileInput = (src.fileInput) ? new FileInput(*(src.fileInput)) : nullptr;
-    showData = (src.showData) ? new ShowData(*(src.showData)) : nullptr;
+    numericInput = ((src.numericInput) != nullptr) ? new NumericInput(*(src.numericInput)) : nullptr;
+    fileInput = ((src.fileInput) != nullptr) ? new FileInput(*(src.fileInput)) : nullptr;
+    showData = ((src.showData) != nullptr) ? new ShowData(*(src.showData)) : nullptr;
   }
   return *this;
 }
@@ -92,16 +92,16 @@ pcrxml::ParameterItem &pcrxml::ParameterItem::operator=(const ParameterItem &src
 void pcrxml::ParameterItem::fill(QDomElement el) const
 {
   label.addToElement(el, "label");
-  if (scriptLink) {
+  if (scriptLink != nullptr) {
     scriptLink->appendTo(el);
   }
-  if (numericInput) {
+  if (numericInput != nullptr) {
     numericInput->appendTo(el);
   }
-  if (fileInput) {
+  if (fileInput != nullptr) {
     fileInput->appendTo(el);
   }
-  if (showData) {
+  if (showData != nullptr) {
     showData->appendTo(el);
   }
 }

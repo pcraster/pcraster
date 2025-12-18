@@ -249,7 +249,7 @@ calc::DataValue *calc::RunTimeEnv::load(std::string const &name, std::string con
 {
   DataTable::DTE e(d_data.dataLoad(name));
   DataValue *dv = e.getOrReleaseValue(lastUse);
-  if (dv) {  // yes loaded
+  if (dv != nullptr) {  // yes loaded
     return dv;
   }
 
@@ -363,7 +363,7 @@ void calc::RunTimeEnv::deleteValue(const std::string &parName)
   PRECOND(d_data.contains(parName));
   DataTable::DTE e(d_data.dataLoad(parName));
   auto *f = dynamic_cast<Field *>(e.dataValue());
-  if (f) {
+  if (f != nullptr) {
     // a loaded field can have cached objects
     deleteCacheEntry(f->src());
   }
@@ -446,7 +446,7 @@ void calc::RunTimeEnv::assignStackTop(const ASTPar *p)
     deleteValue(p->name());
   } else {
     // set to the new value
-    if (d_swapDir && f->isSpatial()) {
+    if ((d_swapDir != nullptr) && f->isSpatial()) {
       if (writtenAsFile.empty()) {
         writtenAsFile = d_swapDir->memberPath(name).string();
         ioStrategy().writeField(writtenAsFile, f.get());

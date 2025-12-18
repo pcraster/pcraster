@@ -55,13 +55,13 @@ calc::UserSymbol *calc::SymbolTable::find(const class calc::Symbol *sym, VS type
                                           bool mustExist) const
 {
   calc::UserSymbol *u = find(sym->name());
-  if ((!u) && d_parentBlock) {
+  if ((u == nullptr) && (d_parentBlock != nullptr)) {
     u = d_parentBlock->findSymbol(sym, typesExpected, mustExist);
   }
-  if ((!u) && mustExist) {
+  if ((u == nullptr) && mustExist) {
     sym->posError(sym->qName() + " not defined");
   }
-  if (u) {
+  if (u != nullptr) {
     if (!isIn(u->symbolType(), typesExpected)) {
       // pcrcalc/test265  GPF'ed bcc55/release mode if posError with +'ed
       //  strings, now ok with ostringstream
@@ -128,7 +128,7 @@ calc::SubParameter *calc::SymbolTable::findParameter(const calc::ParsPar &par, V
                                                      bool mustExist) const
 {
   auto *p = dynamic_cast<calc::SubParameter *>(find(&par, expectedVs, mustExist));
-  if (p && !(par.descriptor() == p->arrayDefVector())) {  // pcrcalc/test268
+  if ((p != nullptr) && !(par.descriptor() == p->arrayDefVector())) {  // pcrcalc/test268
     std::ostringstream msg;
     msg << par.qName() << " is used here as " << par.name() << par.descriptor().name() << " first use ("
         << p->definitionPoint() << ") was " << p->arrayName();
@@ -168,7 +168,7 @@ void calc::SymbolTable::createXmlData(std::vector<pcrxml::Data *> &addHere) cons
 
   for (auto &i : inDefOrder) {
     pcrxml::Data *d = i->createXmlData();
-    if (d) {
+    if (d != nullptr) {
       addHere.push_back(d);
     }
   }
@@ -188,7 +188,7 @@ void calc::SymbolTable::setArcViewExtCheckData(std::vector<ArcViewExtCheckData> 
     switch (i->ioType()) {
       case pcrxml::IoType::Output:
       case pcrxml::IoType::Both: {
-        if (!(i->stack || i->map)) {
+        if (!((i->stack != nullptr) || (i->map != nullptr))) {
           break;  // only stacks or maps can be in foreign (ArcView) format
         }
         com::PathName pn;
@@ -198,7 +198,7 @@ void calc::SymbolTable::setArcViewExtCheckData(std::vector<ArcViewExtCheckData> 
           pn = i->name();
         }
         pn.makeAbsolute();
-        r.push_back(ArcViewExtCheckData(i->stack != nullptr, pn.toString()));
+        r.push_back(ArcViewExtCheckData(static_cast<int>(i->stack != nullptr), pn.toString()));
       }
       default:;
     }

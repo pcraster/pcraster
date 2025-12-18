@@ -155,7 +155,7 @@ DataConfiguration::DataConfiguration(
       // TODO KDJ name is not a good identifier for a data set, the name
       // TODO space combination is. This works for as long as no two datasets
       // TODO with the same name but different space are mentioned in xmlGroup.
-      if (!d_dataMap2.count(item)) {
+      if (d_dataMap2.count(item) == 0u) {
         space = d_searchSpace;
         add(item, space, pcrxml::AguilaData(item));
       }
@@ -182,11 +182,11 @@ DataConfiguration::DataConfiguration(
       // Data space stuff in data item takes precedence
       if (guide.type() == geo::STACK) {
         // TODO only supported for stacks at the moment.
-        if (configuration.dataSpace().present() && configuration.dataSpace()->timesteps().size() &&
+        if (configuration.dataSpace().present() && (configuration.dataSpace()->timesteps().size() != 0u) &&
             configuration.dataSpace()->timesteps()[0].dateMapper().present()) {
           d_group->dataObject().setDateMapper(
               guide, configuration.dataSpace()->timesteps()[0].dateMapper().get(), false);
-        } else if (xmlGroup.searchSpace().present() && xmlGroup.searchSpace()->timesteps().size() &&
+        } else if (xmlGroup.searchSpace().present() && (xmlGroup.searchSpace()->timesteps().size() != 0u) &&
                    xmlGroup.searchSpace()->timesteps()[0].dateMapper().present()) {
           d_group->dataObject().setDateMapper(
               guide, xmlGroup.searchSpace()->timesteps()[0].dateMapper().get(), false);

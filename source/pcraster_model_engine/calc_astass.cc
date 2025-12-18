@@ -116,7 +116,7 @@ void calc::ASTAss::swap01()
 //! transfer rhs
 void calc::ASTAss::transferRhs(ASTNode *rhs)
 {
-  if (d_rhs) {
+  if (d_rhs != nullptr) {
     delete d_rhs;
   }
   d_rhs = rhs;

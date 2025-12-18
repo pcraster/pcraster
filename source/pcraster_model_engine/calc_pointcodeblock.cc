@@ -218,7 +218,7 @@ void calc::PointCodeBlock::exec(RunTimeEnv &rte)
     // can be set to 0
     pcb.setOutput(d_output.find(p));
 
-    if (pcb.input()) {
+    if (pcb.input() != nullptr) {
       // get input
       // use stack as input mechanism, since it will automatic
       // read input maps when needed (StackedValue)
@@ -226,7 +226,7 @@ void calc::PointCodeBlock::exec(RunTimeEnv &rte)
       pcb.setField(rte.popField());
 
       // read/write ?
-      if (pcb.output()) {
+      if (pcb.output() != nullptr) {
         pcb.setField(createDestCloneIfReadOnly(pcb.field()));
       }
     } else {
@@ -241,7 +241,7 @@ void calc::PointCodeBlock::exec(RunTimeEnv &rte)
 
   // reverse order due to stack assign
   for (auto i = vector.rbegin(); i != vector.rend(); ++i) {
-    if ((*i)->output()) {
+    if ((*i)->output() != nullptr) {
       rte.pushField((*i)->releaseField());
     }
   }

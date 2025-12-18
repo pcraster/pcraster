@@ -35,7 +35,7 @@ calc::GridMap::~GridMap()
 
 calc::GridMap::GridMap(std::string const &fileName) : d_fileName(fileName)
 {
-  if (!rasterDal) {
+  if (rasterDal == nullptr) {
     rasterDal = new dal::RasterDal(true);
   }
 }

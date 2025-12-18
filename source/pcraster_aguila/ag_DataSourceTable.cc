@@ -73,7 +73,7 @@ void DataSourceTable::rescan()
 
 void DataSourceTable::process()
 {
-  if (visualisationEngine().change() & VisEngine::OTHERATTRIB) {
+  if ((visualisationEngine().change() & VisEngine::OTHERATTRIB) != 0u) {
     clearTable();
     fillTable();
   }
@@ -81,11 +81,11 @@ void DataSourceTable::process()
 
 void DataSourceTable::visualise()
 {
-  if (visualisationEngine().change() & VisEngine::SELECTION) {
+  if ((visualisationEngine().change() & VisEngine::SELECTION) != 0u) {
     updateSelection();
-  } else if (visualisationEngine().change() & VisEngine::CURSOR ||
-             visualisationEngine().change() & VisEngine::VALUE_SELECTION ||
-             visualisationEngine().change() & VisEngine::DRAWPROPS) {
+  } else if (((visualisationEngine().change() & VisEngine::CURSOR) != 0u) ||
+             ((visualisationEngine().change() & VisEngine::VALUE_SELECTION) != 0u) ||
+             ((visualisationEngine().change() & VisEngine::DRAWPROPS) != 0u)) {
     updateValues();
   }
 

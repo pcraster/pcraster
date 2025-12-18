@@ -85,7 +85,7 @@ geo::RasterSpace const& Globals::cloneSpace()
 
 calc::RunTimeEngine& Globals::rte()
 {
-  if(!_rte){
+  if(_rte == nullptr){
     throw PyUtilsException("no clone or area map specified, use setclone()");
   }
   return *_rte;

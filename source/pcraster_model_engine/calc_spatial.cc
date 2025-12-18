@@ -105,7 +105,7 @@ void calc::Spatial::allocate()
 //! dtor
 calc::Spatial::~Spatial()
 {
-  if (!d_val) {
+  if (d_val == nullptr) {
     return;
   }
   d_currentBPC -= bytesPerCell(vs());

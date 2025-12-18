@@ -84,7 +84,7 @@ void calc::PointCodeBlockReplacer::visitAss(ASTAss *a)
   for (size_t i = 0; i < a->nrPars(); ++i) {
     ASTPar *p = a->par(i);
     // FTTB skip reported stuff
-    if (d_symbols.count(p->name()) && d_symbols[p->name()].reportPar() == p) {
+    if ((d_symbols.count(p->name()) != 0u) && d_symbols[p->name()].reportPar() == p) {
       info().d_allPoint = false;
     }
   }
@@ -107,7 +107,7 @@ void calc::PointCodeBlockReplacer::visitAss(ASTAss *a)
 void calc::PointCodeBlockReplacer::addBlock(ASTNodeList *l, I begin, I end)
 {
   // if statements and some operations (not only a=0;b=a;)
-  if (begin != end && info().d_nrPointsOps) {
+  if (begin != end && (info().d_nrPointsOps != 0u)) {
     // created object is inserted into input AST by its ctor
     d_list.push_back(new PointCodeBlock(l, begin, end, info().d_pars, info().d_nrPointsOps));
   }

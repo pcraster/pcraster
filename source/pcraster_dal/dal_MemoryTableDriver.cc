@@ -104,7 +104,7 @@ Table* MemoryTableDriver::open(
   if(d_dataPool->tableExists(name, space)) {
     Table const* table = d_dataPool->table(name, space).table(address);
 
-    if(table) {
+    if(table != nullptr) {
       result = new Table(*table);
     }
   }
@@ -126,13 +126,13 @@ Table* MemoryTableDriver::read(
   if(d_dataPool->tableExists(name, space)) {
     Table const* table = d_dataPool->table(name, space).table(address);
 
-    if(table) {
+    if(table != nullptr) {
       // Create a copy to be returned.
       result = new Table(*table);
     }
   }
 
-  if(!result) {
+  if(result == nullptr) {
     throwCannotBeOpened(name, TABLE, space, address);
   }
 
@@ -155,7 +155,7 @@ void MemoryTableDriver::read(
     tmpTable = d_dataPool->table(name, space).table(address);
   }
 
-  if(!tmpTable) {
+  if(tmpTable == nullptr) {
     throwCannotBeOpened(name, TABLE, space, address);
   }
 

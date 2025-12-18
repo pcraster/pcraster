@@ -97,7 +97,7 @@ void com::copyCells2Boolean(UINT1 *dest, const INT4 *src, size_t n)
     if (pcr::isMV(src[i])) {
       pcr::setMV(dest[i]);
     } else {
-      dest[i] = (src[i] != 0);
+      dest[i] = static_cast<UINT1>(src[i] != 0);
     }
   }
 }

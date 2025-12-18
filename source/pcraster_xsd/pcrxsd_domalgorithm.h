@@ -39,7 +39,7 @@ class NodeSet :
 {
   public:
     NodeSet(const DOMNamedNodeMap* map) {
-      if (!map) {
+      if (map == nullptr) {
         return;
       }
      for(size_t i=0; i < map->getLength(); ++i) {

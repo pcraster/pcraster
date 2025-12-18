@@ -164,16 +164,16 @@ void DIS::setLayer(const discr::Block &elevation, const discr::BlockData<INT4> &
   }
 
   for (size_t i = 0; i < d_mf->d_nrBlockLayer; i++) {
-    d_mf->d_quasiConfined.push_back(conf.cell(0)[i]);
+    d_mf->d_quasiConfined.push_back(conf.cell(0)[i] != 0);
 
-    d_mf->dd_isConfined.push_back(conf.cell(0)[i]);
+    d_mf->dd_isConfined.push_back(conf.cell(0)[i] != 0);
   }
   // to "correct" the top of layer 1
   d_mf->d_quasiConfined.push_back(false);
 
 
   for (size_t i = 1; i < d_mf->d_quasiConfined.size(); i++) {
-    if (!((d_mf->d_quasiConfined.at(i) == 0) && (d_mf->d_quasiConfined.at(i - 1) == 1))) {
+    if (!((static_cast<int>(d_mf->d_quasiConfined.at(i)) == 0) && (static_cast<int>(d_mf->d_quasiConfined.at(i - 1)) == 1))) {
       d_mf->d_layer2BlockLayer.push_back(i - 1);  //
       d_mf->d_nrMFLayer++;
       d_mf->dd_nrModflowLayer++;
@@ -313,8 +313,8 @@ bool DIS::addLayer(const float *values, bool confined)
   // store new layer
   d_mf->setBlockData(*(d_mf->d_layer), values, d_mf->d_nrOfLayer);
 
-  if (!((d_mf->d_quasiConfined.at(d_mf->d_nrBlockLayer) == 0) &&
-        (d_mf->d_quasiConfined.at(d_mf->d_nrBlockLayer - 1) == 1))) {
+  if (!((static_cast<int>(d_mf->d_quasiConfined.at(d_mf->d_nrBlockLayer)) == 0) &&
+        (static_cast<int>(d_mf->d_quasiConfined.at(d_mf->d_nrBlockLayer - 1)) == 1))) {
     d_mf->d_layer2BlockLayer.push_back(d_mf->d_nrBlockLayer - 1);  //
     d_mf->d_nrMFLayer++;
   }
@@ -442,7 +442,7 @@ void DIS::write_dis(std::string const &path) const
   //
   auto ri = d_mf->dd_isConfined.rbegin();
   while (ri != (d_mf->dd_isConfined.rend())) {
-    if ((!(ri + 1 == d_mf->dd_isConfined.rend())) && (d_mf->dd_isConfined.at(*(ri + 1)) == true)) {
+    if ((!(ri + 1 == d_mf->dd_isConfined.rend())) && (d_mf->dd_isConfined.at(static_cast<size_t>(*(ri + 1))) == true)) {
       content << " 1";
       ++ri;
     } else {
@@ -466,10 +466,10 @@ void DIS::write_dis(std::string const &path) const
   for (int i = d_mf->dd_nrLayer - 1; i >= 0; i--) {
     if (i == static_cast<int>(d_mf->dd_nrLayer - 1)) {
       content << "EXTERNAL " << d_external_unit << " 1.0 (FREE) -1  Top of system\n";
-    } else if ((i > 0) && (d_mf->dd_isConfined.at(i - 1) == 0)) {
+    } else if ((i > 0) && (static_cast<int>(d_mf->dd_isConfined.at(i - 1)) == 0)) {
       content << "EXTERNAL " << d_external_unit << " 1.0 (FREE) -1  Bottom layer " << nrLayer << "\n";
       nrLayer++;
-    } else if ((i > 0) && (d_mf->dd_isConfined.at(i - 1) == 1)) {
+    } else if ((i > 0) && (static_cast<int>(d_mf->dd_isConfined.at(i - 1)) == 1)) {
       content << "EXTERNAL " << d_external_unit << " 1.0 (FREE) -1  Bottom confinig bed layer "
               << nrLayer - 1 << "\n";
     } else {

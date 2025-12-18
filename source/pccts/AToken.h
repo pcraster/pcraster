@@ -185,7 +185,7 @@ public:
 	ANTLRCommonNoRefCountToken()
 	{ setType((ANTLRTokenType)0); _line = 0; _text = nullptr; setText(""); }
 
-	~ANTLRCommonNoRefCountToken() override { if (_text) delete [] _text; }  // MR9 RJV: Added Destructor to remove string
+	~ANTLRCommonNoRefCountToken() override { if (_text != nullptr) delete [] _text; }  // MR9 RJV: Added Destructor to remove string
 
 	ANTLRTokenType getType() const override 	{ return _type; }
 	void setType(ANTLRTokenType t) override	{ _type = t; }
@@ -198,7 +198,7 @@ public:
 
 	void setText(const ANTLRChar *s) override
 	{	if (s != _text) {
-          if (_text) delete [] _text;
+          if (_text != nullptr) delete [] _text;
           if (s != nullptr) {
          	_text = new ANTLRChar[strlen(s)+1];
             if (_text == nullptr) panic("ANTLRCommonNoRefCountToken::setText new failed");
@@ -258,7 +258,7 @@ public:
 	ANTLRCommonToken()
 		{ setType((ANTLRTokenType)0); _line = 0; _text = nullptr; setText(""); }   // MR9
 
-	virtual ~ANTLRCommonToken() override { if (_text) delete [] _text; } // MR9 RJV: Added Destructor to remove string
+	virtual ~ANTLRCommonToken() override { if (_text != nullptr) delete [] _text; } // MR9 RJV: Added Destructor to remove string
 
 	ANTLRTokenType getType() const override 	{ return _type; }
 	void setType(ANTLRTokenType t) override	{ _type = t; }
@@ -271,7 +271,7 @@ public:
 
 	void setText(const ANTLRChar *s) override
 	{	if (s != _text) {
-          if (_text) delete [] _text;
+          if (_text != nullptr) delete [] _text;
           if (s != nullptr) {
          	_text = new ANTLRChar[strlen(s)+1];
             if (_text == nullptr) panic("ANTLRCommonToken::setText new failed");

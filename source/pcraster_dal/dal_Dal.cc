@@ -211,7 +211,7 @@ size_t Dal::nrDrivers() const
 void Dal::add(
          Driver* driver)
 {
-  if(driver && std::find(_drivers.begin(), _drivers.end(), driver) ==
+  if((driver != nullptr) && std::find(_drivers.begin(), _drivers.end(), driver) ==
          _drivers.end()) {
     _drivers.push_back(driver);
   }
@@ -537,7 +537,7 @@ bool Dal::exists(
   bool result = false;
   Driver* driver = driverByDataset(name, space);
 
-  if(driver) {
+  if(driver != nullptr) {
     result = driver->exists(name, space, address);
   }
   else {
@@ -630,7 +630,7 @@ std::tuple<std::shared_ptr<Dataset>, Driver*> Dal::open(
   std::shared_ptr<Dataset> dataset;
   Driver* driver = driverByDataset(name, space);
 
-  if(driver) {
+  if(driver != nullptr) {
     dataset.reset(driver->open(name, space, address));
   }
   else {
@@ -890,7 +890,7 @@ Formats Dal::readerFormats() const
     auto const& properties =
          driver->properties().value<DriverProperties>(DAL_DRIVER_GENERAL);
 
-    if(properties & Reader) {
+    if((properties & Reader) != 0u) {
       result.push_back(driver->format());
     }
   }
@@ -925,7 +925,7 @@ Formats Dal::writerFormats(
       auto const& properties =
            driver->properties().value<DriverProperties>(DAL_DRIVER_GENERAL);
 
-      if(properties & Writer) {
+      if((properties & Writer) != 0u) {
         result.push_back(driver->format());
       }
     }

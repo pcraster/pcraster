@@ -477,7 +477,7 @@ std::string calc::WlDelftHabitat::generatedName(const std::string &nameSuggestio
 {
   // create new name
   std::string newName(nameSuggestion + "_Generated");
-  if (d_alreadyDefinedSymbols.count(newName)) {
+  if (d_alreadyDefinedSymbols.count(newName) != 0u) {
     d_alreadyDefinedSymbols.setPrefix(newName);
     newName = d_alreadyDefinedSymbols.generate();
   }

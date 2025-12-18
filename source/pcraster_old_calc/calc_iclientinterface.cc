@@ -32,7 +32,7 @@ calc::IClientInterface::IClientInterface()
 
 calc::IClientInterface::~IClientInterface()
 {
-  if (d_ci) {
+  if (d_ci != nullptr) {
     delete d_ci;
     d_ci = nullptr;
   }

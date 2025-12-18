@@ -28,7 +28,7 @@ BOOST_AUTO_TEST_CASE(test)
 
     void create()
     {
-      if (str.size()) {
+      if (str.size() != 0u) {
         s = new DataEnvelop(str);
         s->encoding = pcrxml::DataEnvelopEncoding::text;
       } else {

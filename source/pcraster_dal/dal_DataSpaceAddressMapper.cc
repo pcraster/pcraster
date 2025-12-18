@@ -124,7 +124,7 @@ void DataSpaceAddressMapper::setMapper(
   assert(index < _mappers.size());
   assert(mapper);
 
-  if(_mappers[index]) {
+  if(_mappers[index] != nullptr) {
     delete _mappers[index];
   }
 

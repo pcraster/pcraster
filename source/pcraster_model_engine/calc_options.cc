@@ -129,7 +129,7 @@ void calc::Options::processArgs(int argc, char **argv)
      */
 
   appAllOptionsMostLeft = true;
-  if (InstallArgs(argc, argv, "Ccd*1mleEr*s#tTf*F*X*K*b*p", "pcrcalc")) {
+  if (InstallArgs(argc, argv, "Ccd*1mleEr*s#tTf*F*X*K*b*p", "pcrcalc") != 0) {
     throwLibError();
   }
 

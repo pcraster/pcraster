@@ -400,7 +400,7 @@ void calc::LookupState::exec(RunTimeEnv *rte, const Operator &op, size_t nrActua
   PRECOND(result.cri() == CRI_f);
   float *r = result.dest_f();
   for (size_t i = 0; i < fLen; ++i) {
-    if (com::oneIsMV(profileId[i], bottomLevel[i]) | com::oneIsMV(segmentLength[i], potential[i])) {
+    if ((static_cast<int>(com::oneIsMV(profileId[i], bottomLevel[i])) | static_cast<int>(com::oneIsMV(segmentLength[i], potential[i]))) != 0) {
       pcr::setMV(r[i]);
     } else {
       float const h = potential[i] - bottomLevel[i];
@@ -430,7 +430,7 @@ void calc::LookupPotential::exec(RunTimeEnv *rte, const Operator &op, size_t nrA
   PRECOND(result.cri() == CRI_f);
   float *r = result.dest_f();
   for (size_t i = 0; i < fLen; ++i) {
-    if (com::oneIsMV(profileId[i], bottomLevel[i]) | com::oneIsMV(segmentLength[i], state[i])) {
+    if ((static_cast<int>(com::oneIsMV(profileId[i], bottomLevel[i])) | static_cast<int>(com::oneIsMV(segmentLength[i], state[i]))) != 0) {
       pcr::setMV(r[i]);
     } else {
       // identical to dwPotential
@@ -539,8 +539,8 @@ void calc::Kinematic::exec(RunTimeEnv *rte, const Operator &op, size_t nrArgs) c
 
     bool mv(size_t pos) const
     {
-      return com::oneIsMV(d_QSumDownStream[pos], d_q[pos], d_alpha[pos]) |
-             com::oneIsMV(d_beta[pos], d_deltaX[pos]);
+      return (static_cast<int>(com::oneIsMV(d_QSumDownStream[pos], d_q[pos], d_alpha[pos])) |
+             static_cast<int>(com::oneIsMV(d_beta[pos], d_deltaX[pos]))) != 0;
     }
 
     void initPerCatchmentSlice(CurrentSliceInfo const &csi) override
@@ -556,7 +556,7 @@ void calc::Kinematic::exec(RunTimeEnv *rte, const Operator &op, size_t nrArgs) c
 
     void finishVertex(size_t v) override
     {
-      if (mv(v) | pcr::isMV(d_Qnew[v])) {
+      if ((static_cast<int>(mv(v)) | static_cast<int>(pcr::isMV(d_Qnew[v]))) != 0) {
         pcr::setMV(d_Qnew[v]);
         return;
       }
@@ -621,8 +621,8 @@ void calc::KinematicWave::exec(RunTimeEnv *rte, const Operator &op, size_t nrArg
 
     bool mv(size_t pos) const
     {
-      return com::oneIsMV(d_QSumDownStream[pos], d_qChan[pos], d_alpha[pos]) |
-             com::oneIsMV(d_beta[pos], d_deltaX[pos]);
+      return (static_cast<int>(com::oneIsMV(d_QSumDownStream[pos], d_qChan[pos], d_alpha[pos])) |
+             static_cast<int>(com::oneIsMV(d_beta[pos], d_deltaX[pos]))) != 0;
     }
 
     void initPerCatchmentSlice(CurrentSliceInfo const &csi) override
@@ -638,7 +638,7 @@ void calc::KinematicWave::exec(RunTimeEnv *rte, const Operator &op, size_t nrArg
 
     void finishVertex(size_t v) override
     {
-      if (mv(v) | pcr::isMV(d_Qnew[v])) {
+      if ((static_cast<int>(mv(v)) | static_cast<int>(pcr::isMV(d_Qnew[v]))) != 0) {
         pcr::setMV(d_Qnew[v]);
         return;
       }
@@ -664,8 +664,8 @@ void calc::KinematicWave::exec(RunTimeEnv *rte, const Operator &op, size_t nrArg
       // initialize Qold as first Qnew value
       // d_Qnew is MV marker used in computeFluxAndState
       for (size_t i = 0; i < newState.nrValues(); ++i) {
-        if (com::oneIsMV(previousState[i], d_qChan[i], d_alpha[i]) |
-            com::oneIsMV(d_beta[i], d_deltaX[i])) {
+        if ((static_cast<int>(com::oneIsMV(previousState[i], d_qChan[i], d_alpha[i])) |
+            static_cast<int>(com::oneIsMV(d_beta[i], d_deltaX[i]))) != 0) {
           pcr::setMV(d_Qnew[i]);
           pcr::setMV(d_QSum[i]);
         } else {

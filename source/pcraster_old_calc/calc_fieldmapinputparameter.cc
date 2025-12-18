@@ -17,7 +17,7 @@ calc::FieldMapInputParameter::FieldMapInputParameter(const ParsPar &par, bool co
 void calc::FieldMapInputParameter::goInScope()
 {
   for (size_t i = 0; i < nrElements(); i++) {
-    if (!d_value[i]) {
+    if (d_value[i] == nullptr) {
       d_value[i] = new calc::SpatialImpl(
           *this, i, d_ioFieldStrategy.newInputMap(d_initVals[i], vs(), scriptConst().compressor()));
     }

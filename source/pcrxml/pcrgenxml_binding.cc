@@ -78,11 +78,11 @@ void pcrxml::Binding::clean()
 pcrxml::Binding::Binding(const Binding &src)
     : pcrxml::Element(src), parameter(src.parameter), value(src.value)
 {
-  map = (src.map) ? new Map(*(src.map)) : nullptr;
-  nonSpatial = (src.nonSpatial) ? new NonSpatial(*(src.nonSpatial)) : nullptr;
-  stack = (src.stack) ? new Stack(*(src.stack)) : nullptr;
-  timeSeries = (src.timeSeries) ? new TimeSeries(*(src.timeSeries)) : nullptr;
-  table = (src.table) ? new Table(*(src.table)) : nullptr;
+  map = ((src.map) != nullptr) ? new Map(*(src.map)) : nullptr;
+  nonSpatial = ((src.nonSpatial) != nullptr) ? new NonSpatial(*(src.nonSpatial)) : nullptr;
+  stack = ((src.stack) != nullptr) ? new Stack(*(src.stack)) : nullptr;
+  timeSeries = ((src.timeSeries) != nullptr) ? new TimeSeries(*(src.timeSeries)) : nullptr;
+  table = ((src.table) != nullptr) ? new Table(*(src.table)) : nullptr;
 }
 
 //! assignment operator
@@ -91,11 +91,11 @@ pcrxml::Binding &pcrxml::Binding::operator=(const Binding &src)
   if (this != &src) {
     clean();
     PRECOND(false);
-    map = (src.map) ? new Map(*(src.map)) : nullptr;
-    nonSpatial = (src.nonSpatial) ? new NonSpatial(*(src.nonSpatial)) : nullptr;
-    stack = (src.stack) ? new Stack(*(src.stack)) : nullptr;
-    timeSeries = (src.timeSeries) ? new TimeSeries(*(src.timeSeries)) : nullptr;
-    table = (src.table) ? new Table(*(src.table)) : nullptr;
+    map = ((src.map) != nullptr) ? new Map(*(src.map)) : nullptr;
+    nonSpatial = ((src.nonSpatial) != nullptr) ? new NonSpatial(*(src.nonSpatial)) : nullptr;
+    stack = ((src.stack) != nullptr) ? new Stack(*(src.stack)) : nullptr;
+    timeSeries = ((src.timeSeries) != nullptr) ? new TimeSeries(*(src.timeSeries)) : nullptr;
+    table = ((src.table) != nullptr) ? new Table(*(src.table)) : nullptr;
   }
   return *this;
 }
@@ -104,19 +104,19 @@ void pcrxml::Binding::fill(QDomElement el) const
 {
   parameter.addToElement(el, "parameter");
   value.addToElement(el, "value");
-  if (map) {
+  if (map != nullptr) {
     map->appendTo(el);
   }
-  if (nonSpatial) {
+  if (nonSpatial != nullptr) {
     nonSpatial->appendTo(el);
   }
-  if (stack) {
+  if (stack != nullptr) {
     stack->appendTo(el);
   }
-  if (timeSeries) {
+  if (timeSeries != nullptr) {
     timeSeries->appendTo(el);
   }
-  if (table) {
+  if (table != nullptr) {
     table->appendTo(el);
   }
 }

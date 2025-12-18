@@ -81,7 +81,7 @@ void calc::ReportVisitor::visitStat(ASTStat *s)
   d_currentReport = nullptr;
   if (s->reportParsed()) {
     //  reportById && reportInSitu are mutually exclusive
-    if (s->reportInSitu()) {
+    if (s->reportInSitu() != nullptr) {
       // e.g. report(1,3,5)  a = .......;
       s->reportInSitu()->update(d_timer);
       d_currentReport = s->reportInSitu();
@@ -109,7 +109,7 @@ void calc::ReportVisitor::visitAss(ASTAss *a)
       updateReportPar(p);
     } else {
       // only update iff explicit report
-      if (d_currentReport) {
+      if (d_currentReport != nullptr) {
         updateReportPar(p);
       }
     }
@@ -137,7 +137,7 @@ void calc::ReportVisitor::updateReportPar(ASTPar const *p)
       p->symError("Report already done previous (" + f->second.d_par->shortPosText() + ")");
     }
   }
-  ReportPar const pp = {p, d_currentReport ? d_currentReport : d_reports.reportDefault(), d_inDynamic};
+  ReportPar const pp = {p, (d_currentReport != nullptr) ? d_currentReport : d_reports.reportDefault(), d_inDynamic};
   // always overwrite
   d_reportPars[p->name()] = pp;
 }

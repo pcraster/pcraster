@@ -649,7 +649,7 @@ inline void Matrix<T>::luSolve(const Matrix<T> &a, const size_t *indx,
     ip = indx[i - 1];
     sum = b[ip - 1];
     b[ip - 1] = b[i - 1];
-    if(ii) {
+    if(ii != 0u) {
       for(j = ii; j <= i - 1; j++) {
         sum -= a.element(i, j) * b[j - 1];
       }

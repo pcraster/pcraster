@@ -51,7 +51,7 @@ calc::ExtSym &calc::ExtSym::operator=(const ExtSym &rhs)
 {
   if (this != &rhs) {
     d_name = rhs.name();
-    if (d_pos) {
+    if (d_pos != nullptr) {
       delete d_pos;
     }
     d_pos = rhs.position()->createClone();

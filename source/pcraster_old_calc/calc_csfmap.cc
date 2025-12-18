@@ -29,7 +29,7 @@ calc::CsfMap::~CsfMap()
 void calc::CsfMap::readInBuffer(VS readAs, void *val)
 {
   size_t const len = nrCells();
-  if (!val) {
+  if (val == nullptr) {
     switch (bytesPerCell(vs())) {
       case 1:
         val = new UINT1[len];

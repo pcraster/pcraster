@@ -71,7 +71,7 @@ void calc::BindingTable::add(const Symbol &left, const Symbol &right, VS vs)
 {
   //! if right is a binding we want to copy it's contents
   const Symbol *rightV = find(right.name());
-  if (!rightV) {
+  if (rightV == nullptr) {
     rightV = &right;
   }
 

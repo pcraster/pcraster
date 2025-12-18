@@ -55,7 +55,7 @@ public:
   {
 
     std::string const name(pcrxsd::toString(s.name()));
-    if (d_nameStatTableMap.count(name)) {
+    if (d_nameStatTableMap.count(name) != 0u) {
       std::ostringstream is;
       is << "redefinition of textStatistics with name '" << name << "'" << '\n';
       throw com::Exception(is.str());
@@ -66,7 +66,7 @@ public:
       StatTable::InputMap in;
       in.d_name = pcrxsd::toString(i.fieldRef());
       in.d_field = new ASTPar(pcrxsd::toString(i.fieldRef()));
-      if (i.intervalRef()) {
+      if (i.intervalRef() != nullptr) {
         in.d_intervals = new ASTPar(pcrxsd::toString(i.intervalRef()));
       }
       maps.push_back(in);
@@ -105,7 +105,7 @@ public:
   {
     for (NameStatTablePair const i : d_nameStatTableMap) {
       std::string const name(i.first);
-      if (d_table.count(name)) {
+      if (d_table.count(name) != 0u) {
         // force a type error on existing
         ASTSymbolInfo &sym(d_table[i.second->id()]);
         try {
@@ -221,7 +221,7 @@ ASTScript *XMLScriptClientInterface::createScriptAndAnalyzeNoContext()
 
   detail::ParseModelParts pmp;
 
-  if (d_xml->model()) {
+  if (d_xml->model() != nullptr) {
     pmp.parseTextModel(pcrxsd::toString<>(d_xml->model()->textModel()));
   }
   for (pcrxml::TextStatistics const &s : d_xml->textStatistics()) {
@@ -239,7 +239,7 @@ ASTScript *XMLScriptClientInterface::createScriptAndAnalyzeNoContext()
 
   script->transferCode(pmp.releaseCode());
 
-  if (d_xml->timer()) {
+  if (d_xml->timer() != nullptr) {
     Timer t;
     t.setStartInt(d_xml->timer()->integer().start());
     if (d_xml->timer()->integer().end().present()) {

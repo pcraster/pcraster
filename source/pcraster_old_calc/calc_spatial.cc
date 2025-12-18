@@ -48,7 +48,7 @@ void calc::Spatial::allocate() const
 //! dtor
 calc::Spatial::~Spatial()
 {
-  if (!d_val) {  // e.g. ZeroMap may have 0 as d_val
+  if (d_val == nullptr) {  // e.g. ZeroMap may have 0 as d_val
     return;
   }
   // 'de-'count allocated
@@ -81,7 +81,7 @@ size_t calc::Spatial::nrValues() const
 
 void calc::Spatial::makeDataAvailable() const
 {
-  if (!d_val) {
+  if (d_val == nullptr) {
     loadExternal();
   }
 }

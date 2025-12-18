@@ -112,7 +112,7 @@ bool calc::DataValue::pcrmeManaged() const
  */
 void calc::deleteFromPcrme(const DataValue *dv)
 {
-  if (!dv) {
+  if (dv == nullptr) {
     return;
   }
   if (dv->pcrmeManaged()) {
@@ -130,7 +130,7 @@ void calc::deleteFromPcrme(const DataValue *dv)
 //! always delete, even if readOnlyReference is true
 void calc::deleteAlways(DataValue *dv)
 {
-  if (dv) {
+  if (dv != nullptr) {
     PRECOND(dv->pcrmeManaged());
     dv->setReadOnlyReference(false);
     delete dv;

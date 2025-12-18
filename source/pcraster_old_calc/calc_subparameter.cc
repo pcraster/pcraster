@@ -74,7 +74,7 @@ std::string calc::SubParameter::outputFileName(size_t index) const
 
 void calc::SubParameter::setReportPoint(const Position *writtenHere, const WriteInfo &w)
 {
-  if (d_writeInfo) {
+  if (d_writeInfo != nullptr) {
     if (w.hasReportPrefix() && d_writeInfo->hasReportPrefix()) {
       PRECOND(d_reportPoint);
       writtenHere->throwError("Report already on " + quote(userName()) + " done previous (" +
@@ -108,13 +108,13 @@ bool calc::SubParameter::writeHere(const Position *assignPoint) const
 
 bool calc::SubParameter::reportedInDynamic() const
 {
-  return d_writeInfo && d_writeInfo->inDynamic();
+  return (d_writeInfo != nullptr) && d_writeInfo->inDynamic();
 }
 
 //! will this parameter be written as result?
 bool calc::SubParameter::isOutput() const
 {
-  return d_writeInfo && d_writeInfo->isWritten();
+  return (d_writeInfo != nullptr) && d_writeInfo->isWritten();
 }
 
 //! is parameter initialized by its external name

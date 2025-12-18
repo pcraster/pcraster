@@ -57,7 +57,7 @@ ag::DataPropertiesDialog *ag::DataPropertiesDialog::instance(DataObject *object,
   DataPropertiesDialog *dialog =
       VisualisationDialog<DataGuide, DataPropertiesDialog>::instance(object, guide);
 
-  if (dialog) {
+  if (dialog != nullptr) {
     dialog->raise();
   } else {
     // Create and add instance.

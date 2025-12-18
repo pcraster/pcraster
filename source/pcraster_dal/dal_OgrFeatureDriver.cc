@@ -250,11 +250,11 @@ void OgrFeatureDriver::registerOgrDrivers()
     auto* driver = manager->GetDriver(i);
     auto metadata = driver->GetMetadata();
 
-    if(CSLFetchBoolean(metadata, GDAL_DCAP_VECTOR, FALSE)) {
+    if(CSLFetchBoolean(metadata, GDAL_DCAP_VECTOR, FALSE) != 0) {
         detail::drivers.push_back(driver);
     }
 
-    if(!CSLFetchBoolean(metadata, GDAL_DCAP_VECTOR, FALSE) && !(CSLFetchBoolean(metadata, GDAL_DCAP_RASTER, FALSE))) {
+    if((CSLFetchBoolean(metadata, GDAL_DCAP_VECTOR, FALSE) == 0) && ((CSLFetchBoolean(metadata, GDAL_DCAP_RASTER, FALSE)) == 0)) {
         detail::drivers.push_back(driver);
     }
   }
@@ -345,7 +345,7 @@ OgrFeatureDriver::OgrFeatureDriver(
 {
   _driver = driverByName(name);
 
-  if(!_driver) {
+  if(_driver == nullptr) {
     throw Exception(std::format(
          "OGR feature driver for %1%: Not available",
          name));
@@ -396,11 +396,11 @@ void OgrFeatureDriver::init()
   char** metadata = _driver->GetMetadata();
 
   // GDAL_DCAP_CREATECOPY?
-  if(CSLFetchBoolean(metadata, ODrCCreateDataSource, FALSE)) {
+  if(CSLFetchBoolean(metadata, ODrCCreateDataSource, FALSE) != 0) {
     properties |= Writer;
   }
 
-  if(CSLFetchBoolean(metadata, ODrCDeleteDataSource, FALSE)) {
+  if(CSLFetchBoolean(metadata, ODrCDeleteDataSource, FALSE) != 0) {
     properties |= Deleter;
   }
 
@@ -673,11 +673,11 @@ FeatureLayer* OgrFeatureDriver::open(
     auto dataset = static_cast<GDALDataset*>(GDALOpenEx(path.source().c_str(),
         GDAL_OF_VECTOR, _driver_names, nullptr, nullptr));
 
-    if(dataset) {
+    if(dataset != nullptr) {
       // Layer is owned by the data source.
       OGRLayer* ogrLayer = dataset->GetLayerByName(path.layer().c_str());
 
-      if(ogrLayer) {
+      if(ogrLayer != nullptr) {
         // Feature definition is owned by the layer.
         OGRFeatureDefn* featureDefinition = ogrLayer->GetLayerDefn();
         OGRwkbGeometryType const geometryType = featureDefinition->GetGeomType();
@@ -756,7 +756,7 @@ FeatureLayer* OgrFeatureDriver::read(
 
   FeatureLayer* result = open(name, space, address, typeId);
 
-  if(!result) {
+  if(result == nullptr) {
     throwCannotBeOpened(name, FEATURE, space, address);
   }
 
@@ -780,7 +780,7 @@ void OgrFeatureDriver::readGeometry(
 
   ogrLayer.ResetReading();
 
-  while((feature = ogrLayer.GetNextFeature())) {
+  while((feature = ogrLayer.GetNextFeature()) != nullptr) {
     featureId = feature->GetFID();
     geometry = feature->StealGeometry();
     assert(geometry);
@@ -813,7 +813,7 @@ void OgrFeatureDriver::readGeometryAndAttribute(
   // FEATURE optimize, see GetFieldAs*List.
   assert(layer.typeId() != TI_NR_TYPES);
 
-  while((feature = ogrLayer.GetNextFeature())) {
+  while((feature = ogrLayer.GetNextFeature()) != nullptr) {
     featureId = feature->GetFID();
     geometry = feature->StealGeometry();
     assert(geometry);
@@ -955,7 +955,7 @@ void OgrFeatureDriver::updateAttribute(
   // FEATURE optimize, see GetFieldAs*List.
   assert(layer.typeId() != TI_NR_TYPES);
 
-  while((feature = ogrLayer.GetNextFeature())) {
+  while((feature = ogrLayer.GetNextFeature()) != nullptr) {
     featureId = feature->GetFID();
 
     switch(layer.typeId()) {
@@ -1096,7 +1096,7 @@ void OgrFeatureDriver::readAttribute(
   // FEATURE optimize, see GetFieldAs*List.
   assert(layer.typeId() != TI_NR_TYPES);
 
-  while((feature = ogrLayer.GetNextFeature())) {
+  while((feature = ogrLayer.GetNextFeature()) != nullptr) {
     featureId = feature->GetFID();
 
     switch(layer.typeId()) {
@@ -1168,14 +1168,14 @@ void OgrFeatureDriver::read(
     auto* dataset = static_cast<GDALDataset*>(GDALOpenEx(
         path.source().c_str(), GDAL_OF_VECTOR, _driver_names, nullptr, nullptr));
 
-    if(!dataset) {
+    if(dataset == nullptr) {
       throwCannotBeOpened(name, FEATURE, space, address);
     }
 
     // Layer is owned by the data source.
     OGRLayer* ogrLayer = dataset->GetLayerByName(path.layer().c_str());
 
-    if(!ogrLayer) {
+    if(ogrLayer == nullptr) {
       // FEATURE  Layer not present in feature data source, improve msg.
       throwCannotBeOpened(name, FEATURE, space, address);
     }
@@ -1304,7 +1304,7 @@ void OgrFeatureDriver::browse(
         (path / leave).string().c_str(), GDAL_OF_VECTOR, _driver_names,
         nullptr, nullptr));
 
-    if(dataset) {
+    if(dataset != nullptr) {
       // Ok, this is a feature layer data set.
 
       // Loop over all layers.

@@ -36,10 +36,10 @@ calc::TssInputLeaf::TssInputLeaf(UsePar &par, VS vsOfResult) : Symbol(par), d_in
   // first cast to more generic
   auto *p = dynamic_cast<TssParameter *>(script().findRightParameter(par, VS_TSS));
   d_par = dynamic_cast<TssInputParameter *>(p);
-  if (d_par) {  // found
+  if (d_par != nullptr) {  // found
     return;
   }
-  if (p) {  // it is a tss but not an input! pcrcalc/test44
+  if (p != nullptr) {  // it is a tss but not an input! pcrcalc/test44
     posError(p->userName() +
              "\n is already defined as an timeoutput"
              " on " +

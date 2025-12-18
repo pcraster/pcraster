@@ -102,7 +102,7 @@ void calc::FieldParameter::finalCheck()
   // of the chain in the dynamic, then the last node points
   // to that node, if d_firstChainNodeInDynamic may be 0 if
   // there is no use in the dynamic
-  if (d_chainEnd) {
+  if (d_chainEnd != nullptr) {
     d_chainEnd->addNextUseDef(d_firstChainNodeInDynamic);
   } else {
     //! TODO: WARNING
@@ -119,12 +119,12 @@ const calc::UseDefNode *calc::FieldParameter::firstDef() const
 //! add \a l to use/def chain
 void calc::FieldParameter::addToChain(calc::UseDefNode *l)
 {
-  if (d_chainEnd) {
+  if (d_chainEnd != nullptr) {
     d_chainEnd->addNextUseDef(l);
   } else {
     d_chainBegin = l;
   }
-  if (l->inDynamic() && (!d_firstChainNodeInDynamic)) {
+  if (l->inDynamic() && (d_firstChainNodeInDynamic == nullptr)) {
     d_firstChainNodeInDynamic = l;
   }
   d_chainEnd = l;

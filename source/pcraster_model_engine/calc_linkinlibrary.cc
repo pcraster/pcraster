@@ -124,7 +124,7 @@ public:
     d_check = (CheckFun)d_dl->address("pcr_LinkInCheck");
     d_runContext = (RunContextFun)d_dl->address("pcr_LinkInRunContext");
 #endif
-    if (!d_execute) {
+    if (d_execute == nullptr) {
       throwException("code library does not contain pcr_LinkInExecute");
     }
 
@@ -163,7 +163,7 @@ public:
 
   void execute(pcrxml::LinkInExecuteInput const &li, void **transferArray) const
   {
-    if (d_runContext) {
+    if (d_runContext != nullptr) {
       runContext(li.context());
     }
     std::ostringstream s;
@@ -184,7 +184,7 @@ public:
 
   pcrxml::LinkInCheckResult check(pcrxml::LinkInCheckInput const &in) const
   {
-    if (d_check) {
+    if (d_check != nullptr) {
       std::ostringstream inS;
       pcrxml::linkInCheckInput(inS, in, pcrxsd::namespaceInfoMap("PCRaster.xsd"));
       const char *outCstr = check(inS.str().c_str());

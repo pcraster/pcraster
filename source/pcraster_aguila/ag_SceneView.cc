@@ -107,7 +107,7 @@ public:
   ~SceneViewPrivate()
   {
     delete d_userCamera;
-    if (d_staticCamera) {
+    if (d_staticCamera != nullptr) {
       delete d_staticCamera;
     }
   }
@@ -251,7 +251,7 @@ void ag::SceneView::paintGL()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
-    if (d_data->d_staticCamera) {
+    if (d_data->d_staticCamera != nullptr) {
       d_data->d_staticCamera->apply();
       d_data->d_userCamera->render();
     } else {
@@ -493,7 +493,7 @@ bool ag::SceneView::dirty() const
 
 void ag::SceneView::keyPressEvent(QKeyEvent *event)
 {
-  if (event->modifiers() & Qt::ShiftModifier) {
+  if (event->modifiers() & Qt::ShiftModifier != 0u) {
     switch (event->key()) {
       case Qt::Key_Up: {
         // Move camera to the front.
@@ -551,7 +551,7 @@ void ag::SceneView::keyPressEvent(QKeyEvent *event)
         break;
       }
     }
-  } else if (event->modifiers() & Qt::ControlModifier) {
+  } else if (event->modifiers() & Qt::ControlModifier != 0u) {
     switch (event->key()) {
       case Qt::Key_K: {
         // Move camera to the front.
@@ -715,7 +715,7 @@ void ag::SceneView::installCamera(Camera c)
   // RIGHT: 270.0     0.0    0.0
 
   if (c == USER) {
-    if (d_data->d_staticCamera) {
+    if (d_data->d_staticCamera != nullptr) {
       delete d_data->d_staticCamera;
       d_data->d_staticCamera = nullptr;
       d_data->d_dirty = true;
@@ -769,7 +769,7 @@ void ag::SceneView::installCamera(Camera c)
       x = y = z = yaw = pitch = roll = -99999.99999f;  // Never reached.
     }
 
-    if (!d_data->d_staticCamera) {
+    if (d_data->d_staticCamera == nullptr) {
       d_data->d_staticCamera = new ag::Camera();
     }
 

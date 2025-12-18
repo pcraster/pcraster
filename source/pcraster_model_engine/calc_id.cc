@@ -101,7 +101,7 @@ void calc::Id::setPosition(const Position *position)
 {
   delete d_position;
   d_position = nullptr;
-  if (position) {
+  if (position != nullptr) {
     d_position = position->createClone();
   }
 }

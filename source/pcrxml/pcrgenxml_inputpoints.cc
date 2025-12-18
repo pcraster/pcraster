@@ -61,8 +61,8 @@ pcrxml::InputPoints::InputPoints(const InputPoints &src)
     : pcrxml::Element(src), lodingDistance(src.lodingDistance), maxPointDeviation(src.maxPointDeviation)
 {
   computedRiverAxis =
-      (src.computedRiverAxis) ? new ComputedRiverAxis(*(src.computedRiverAxis)) : nullptr;
-  riverAxisFile = (src.riverAxisFile) ? new RiverAxisFile(*(src.riverAxisFile)) : nullptr;
+      ((src.computedRiverAxis) != nullptr) ? new ComputedRiverAxis(*(src.computedRiverAxis)) : nullptr;
+  riverAxisFile = ((src.riverAxisFile) != nullptr) ? new RiverAxisFile(*(src.riverAxisFile)) : nullptr;
 }
 
 //! assignment operator
@@ -72,8 +72,8 @@ pcrxml::InputPoints &pcrxml::InputPoints::operator=(const InputPoints &src)
     clean();
     PRECOND(false);
     computedRiverAxis =
-        (src.computedRiverAxis) ? new ComputedRiverAxis(*(src.computedRiverAxis)) : nullptr;
-    riverAxisFile = (src.riverAxisFile) ? new RiverAxisFile(*(src.riverAxisFile)) : nullptr;
+        ((src.computedRiverAxis) != nullptr) ? new ComputedRiverAxis(*(src.computedRiverAxis)) : nullptr;
+    riverAxisFile = ((src.riverAxisFile) != nullptr) ? new RiverAxisFile(*(src.riverAxisFile)) : nullptr;
   }
   return *this;
 }
@@ -82,10 +82,10 @@ void pcrxml::InputPoints::fill(QDomElement el) const
 {
   lodingDistance.addToElement(el, "lodingDistance");
   maxPointDeviation.addToElement(el, "maxPointDeviation");
-  if (computedRiverAxis) {
+  if (computedRiverAxis != nullptr) {
     computedRiverAxis->appendTo(el);
   }
-  if (riverAxisFile) {
+  if (riverAxisFile != nullptr) {
     riverAxisFile->appendTo(el);
   }
 }

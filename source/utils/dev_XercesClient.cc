@@ -55,7 +55,7 @@ XercesClient::XercesClient()
   try {
     xercesc::XMLPlatformUtils::Initialize();
 
-    if(!_utf8Transcoder) {
+    if(_utf8Transcoder == nullptr) {
       assert(_count == 0);
 
       xercesc::XMLTransService::Codes failReason;

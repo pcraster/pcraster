@@ -119,12 +119,12 @@ DataObject::~DataObject()
 
 int DataObject::firstTimeStep() const
 {
-  return d_data->d_animManager.nrSteps() ? static_cast<int>(d_data->d_animManager.firstStep()) : -1;
+  return (d_data->d_animManager.nrSteps() != 0u) ? static_cast<int>(d_data->d_animManager.firstStep()) : -1;
 }
 
 int DataObject::lastTimeStep() const
 {
-  return d_data->d_animManager.nrSteps() ? static_cast<int>(d_data->d_animManager.lastStep()) : -1;
+  return (d_data->d_animManager.nrSteps() != 0u) ? static_cast<int>(d_data->d_animManager.lastStep()) : -1;
 }
 
 size_t DataObject::timeSpan() const
@@ -979,7 +979,7 @@ DataGuide DataObject::addVector(std::string const &name, dal::DataSpace const &s
 
 void DataObject::clear()
 {
-  if (nrDataSets()) {
+  if (nrDataSets() != 0u) {
     tableDataSources().clear();
     rasterDataSources().clear();
     featureDataSources().clear();
@@ -1256,10 +1256,10 @@ void DataObject::setXML(DataGuide const &guide, pcrxml::DrawProperties const &dp
   }
   if (dp.drawMode().present()) {
     pcrxml::DrawMode const &dm(dp.drawMode().get());
-    if (dm.fill()) {
+    if (dm.fill() != nullptr) {
       setDrawerType(guide, COLOURFILL, false);
     }
-    if (dm.contour()) {
+    if (dm.contour() != nullptr) {
       setDrawerType(guide, CONTOUR, false);
     }
   }
@@ -1293,7 +1293,7 @@ void DataObject::setDateMapper(DataGuide const &guide, pcrxml::DateMapper const 
   auto const *currentMapper =
       dynamic_cast<dal::TimeStepCoordinateMapper const *>(localToWorldMapper(guide).mapper(id));
 
-  if (!currentMapper || *newMapper != *currentMapper) {
+  if ((currentMapper == nullptr) || *newMapper != *currentMapper) {
     localToWorldMapper(guide).setMapper(id, newMapper.release());
     setNotifyNeeded(true);
   }
@@ -1888,7 +1888,7 @@ void DataObject::localStepMappings(std::vector<dal::DimensionTimeStepMapping> &t
           auto const *mapper =
               dynamic_cast<dal::TimeStepMapper const *>(localToWorldMapper(guide).mapper(dimensionId));
 
-          if (mapper) {
+          if (mapper != nullptr) {
             // Possibly zero!
             timeMappings.push_back(dal::DimensionTimeStepMapping(space.dimension(dimensionId), mapper));
           }
@@ -1901,7 +1901,7 @@ void DataObject::localStepMappings(std::vector<dal::DimensionTimeStepMapping> &t
               auto const *mapper = dynamic_cast<dal::SpaceStepMapper const *>(
                   localToWorldMapper(guide).mapper(dimensionId));
 
-              if (mapper) {
+              if (mapper != nullptr) {
                 // Possibly zero!
                 spaceMappings.push_back(
                     dal::DimensionSpaceStepMapping(space.dimension(dimensionId), mapper));
@@ -2019,7 +2019,7 @@ void DataObject::setGlobalToWorldMappers(std::vector<dal::StepMapper> const &tim
           auto const *mapper =
               dynamic_cast<dal::TimeStepMapper const *>(localToWorldMapper(guide).mapper(dimensionId));
 
-          if (mapper) {
+          if (mapper != nullptr) {
             globalToLocalMapper(guide).setMapper(
                 dimensionId, new dal::StepCoordinateMapper(timeStepMappers[t++], dal::UsePrevious));
           }
@@ -2032,7 +2032,7 @@ void DataObject::setGlobalToWorldMappers(std::vector<dal::StepMapper> const &tim
               auto const *mapper = dynamic_cast<dal::SpaceStepMapper const *>(
                   localToWorldMapper(guide).mapper(dimensionId));
 
-              if (mapper) {
+              if (mapper != nullptr) {
                 globalToLocalMapper(guide).setMapper(
                     dimensionId,
                     new dal::StepCoordinateMapper(spaceStepMappers[s++], dal::SetToMissingValue));

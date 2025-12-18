@@ -76,7 +76,7 @@ static MAJOR_CODE FindFunc(const char *name, bool loadExtLibs)
   }
 
   const calc::Operator *extOp = ExternalSymbols::instance()->find(name);
-  if (extOp) {
+  if (extOp != nullptr) {
     return extOp->opCode();
   }
   return OP_NOP;
@@ -104,7 +104,7 @@ static void loadExternalSymbols()
     for (size_t j = functionIndex; j < ExternalSymbols::instance()->nrExternalFunctions(); ++j) {
       functionName = ExternalSymbols::instance()->externFunc(j).name();
 
-      if (FindFunc(functionName.c_str(), false) != OP_NOP || StrEq("if", functionName.c_str())) {
+      if (FindFunc(functionName.c_str(), false) != OP_NOP || (StrEq("if", functionName.c_str()) != 0)) {
         // if is a special can
         std::ostringstream str;
         str << "dynamic library " << quote(libraryName) << ", function " << quote(functionName)
@@ -116,7 +116,7 @@ static void loadExternalSymbols()
     for (size_t j = modelLinkIndex; j < ExternalSymbols::instance()->nrModelLinkProxies(); ++j) {
       modelLinkName = ExternalSymbols::instance()->modelLinkProxy(j).name();
 
-      if (FindFunc(modelLinkName.c_str(), false) != OP_NOP || StrEq("if", modelLinkName.c_str())) {
+      if (FindFunc(modelLinkName.c_str(), false) != OP_NOP || (StrEq("if", modelLinkName.c_str()) != 0)) {
         // if is a special can
         std::ostringstream str;
         str << "dynamic library " << quote(libraryName) << ", model link " << quote(modelLinkName)
@@ -192,7 +192,7 @@ calc::ModelLink *calc::createModelLink(const std::string &name)
   // Get model link proxy for the model link requested.
   const calc::ModelLinkProxy *proxy = ExternalSymbols::instance()->findModelLinkProxy(name);
 
-  if (proxy) {
+  if (proxy != nullptr) {
     // Create the model link using the proxy.
     link = (*(proxy->creator()))();
   }

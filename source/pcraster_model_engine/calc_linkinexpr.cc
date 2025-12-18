@@ -82,7 +82,7 @@ public:
   Operator *createConstructor(std::string const &name) const
   {
     const pcrxml::LinkInClassManifest *c = findClass(name);
-    if (!c) {
+    if (c == nullptr) {
       return nullptr;
     }
     return new Operator(name,
@@ -97,7 +97,7 @@ public:
     std::vector<DataType> const argument;  // input types
 
     const pcrxml::LinkInFunctionManifest *f = findFunction(name);
-    if (!f) {
+    if (f == nullptr) {
       return nullptr;
     }
     return new Operator(name, xml2DataType(f->result()), xml2DataType(f->argument()));
@@ -106,11 +106,11 @@ public:
   Operator *createMethod(std::string const &className, std::string const &methodName) const
   {
     const pcrxml::LinkInClassManifest *c = findClass(className);
-    if (!c) {
+    if (c == nullptr) {
       return nullptr;
     }
     const pcrxml::LinkInClassMethod *m = findMethod(c, methodName);
-    if (!m) {
+    if (m == nullptr) {
       return nullptr;
     }
     return new Operator(className + "::" + methodName, xml2DataType(m->result()),
@@ -184,7 +184,7 @@ const Operator &LinkInExpr::op() const
  */
 void LinkInExpr::loadLibrary(const LinkInLibrary *library)
 {
-  if (d_library) {
+  if (d_library != nullptr) {
     return;
   }
 
@@ -193,19 +193,19 @@ void LinkInExpr::loadLibrary(const LinkInLibrary *library)
 
   if (isConstructor()) {
     d_op = std::shared_ptr<Operator>(oc.createConstructor(d_className));
-    if (!d_op.get()) {
+    if (d_op.get() == nullptr) {
       d_nameAfter.symError("unknown class");
     }
   }
   if (isFunction()) {
     d_op = std::shared_ptr<Operator>(oc.createFunction(d_functionName));
-    if (!d_op.get()) {
+    if (d_op.get() == nullptr) {
       d_nameAfter.symError("unknown function");
     }
   }
   if (isMethod()) {
     d_op = std::shared_ptr<Operator>(oc.createMethod(d_className, d_methodName));
-    if (!d_op.get()) {
+    if (d_op.get() == nullptr) {
       d_nameAfter.symError("unknown method");
     }
   }
@@ -260,7 +260,7 @@ void LinkInExpr::check()
   }
 
   pcrxml::LinkInCheckResult r(d_library->check(in));
-  if (r.error()) {
+  if (r.error() != nullptr) {
     posError(r.error().get());
   }
 

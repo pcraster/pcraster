@@ -98,7 +98,7 @@ Raster* MemoryRasterDriver::read(
               MemoryRasterData::IncludingValues);
   }
 
-  if(!result) {
+  if(result == nullptr) {
     throwCannotBeOpened(name, RASTER, space, address);
   }
 

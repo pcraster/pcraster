@@ -93,14 +93,14 @@ calc::ASTExpr *calc::ASTTestFactory::createExpr(const std::string &opName)
     nrDefaultArgs = 1;
   }
   const Operator *op(opName2op(opN, nrDefaultArgs));
-  if (!op) {
+  if (op == nullptr) {
     if (opName == "ifthenelse") {
       op = major2op(OP_IFTHENELSE);
     }
     if (opName == "ifthen") {
       op = major2op(OP_IFTHEN);
     }
-    if (!op) {
+    if (op == nullptr) {
       throw com::BadStreamFormat("createExpr illegal op: " + opName);
     }
   }

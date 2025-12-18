@@ -76,7 +76,7 @@ void calc::ASTDefinition::add(const Id &key, const Id &value)
   keys.insert("constant");
 
   // is it an definitionrole?
-  if (keys.count(key.name())) {
+  if (keys.count(key.name()) != 0u) {
     // already set?
     if (!d_definitionRole.empty()) {
       key.symError(std::vformat("can not define both {0} and {1}",
@@ -90,7 +90,7 @@ void calc::ASTDefinition::add(const Id &key, const Id &value)
   keys.insert("description");
 
   // known key?
-  if (!keys.count(key.name())) {
+  if (keys.count(key.name()) == 0u) {
     key.symError("unknown item");
   }
 

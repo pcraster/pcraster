@@ -327,7 +327,7 @@ void calc::BranchExprImpl::executeOperation(const calc::Operator &implOp, calc::
 
       FieldHandle const top = stack.popReadOnly();
       FieldHandle const under = stack.popReadOnly();
-      if (resultPos) {
+      if (resultPos != 0) {
         stack.push(top);  // result on top
       } else {
         stack.push(under);
@@ -403,7 +403,7 @@ void calc::BranchExprImpl::executeDoubleAss(const calc::Operator &implOp, calc::
   GlobResult const result1(major2op(f->op[1]).vs(), resultVs[1], compressor());
   GlobArgs args(implOp, compressor(), stack);
 
-  if (f->func(result0.MAPinterface(), result1.MAPinterface(), args.mapVals())) {
+  if (f->func(result0.MAPinterface(), result1.MAPinterface(), args.mapVals()) != 0) {
     // pcrcalc/test349-351
     FieldExpr::runtimeError("Domain error on function/operator " + op().name() + ":\n" + getLibError());
   }
@@ -807,7 +807,7 @@ void calc::BranchExprImpl::execGlob(const Operator &implOp, FieldStack &stack)
   GlobResult const result(implOp.vs(), vs(), compressor());
   GlobArgs args(implOp, compressor(), stack);
 
-  if (f(result.MAPinterface(), args.mapVals())) {
+  if (f(result.MAPinterface(), args.mapVals()) != 0) {
     FieldExpr::runtimeError(  // pcrcalc/test348
         std::string("Domain error on function/operator " + op().name() + ":\n" + getLibError()));
   }
@@ -825,7 +825,7 @@ void calc::BranchExprImpl::execExternal(const Operator &op, FieldStack &stack)
     GlobArgs args(op, compressor(), stack, nrArgs());
     void *r[1];
     r[0] = result.MAPinterface();
-    if (externalExecute(op.opCode(), r, args.mapVals(), nrArgs())) {
+    if (externalExecute(op.opCode(), r, args.mapVals(), nrArgs()) != 0) {
       FieldExpr::runtimeError("Domain error on (dll) function " + op.name() + ":\n" + getLibError());
     }
 

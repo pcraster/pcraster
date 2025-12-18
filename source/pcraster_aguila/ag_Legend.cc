@@ -155,11 +155,11 @@ void ag::Legend::resetLayout()
 
   QBoxLayout *layout = new QVBoxLayout(this);
 
-  if (d_title) {
+  if (d_title != nullptr) {
     layout->addWidget(d_title);
   }
 
-  if (d_body) {
+  if (d_body != nullptr) {
     layout->addWidget(d_body);
   }
 }
@@ -188,22 +188,22 @@ QWidget const *ag::Legend::body() const
 
 void ag::Legend::redirectChildEventsTo(QObject *filter)
 {
-  if (d_title) {
+  if (d_title != nullptr) {
     d_title->installEventFilter(filter);
   }
 
-  if (d_body) {
+  if (d_body != nullptr) {
     d_body->installEventFilter(filter);
   }
 }
 
 void ag::Legend::removeChildEventFilter(QObject *filter)
 {
-  if (d_title) {
+  if (d_title != nullptr) {
     d_title->removeEventFilter(filter);
   }
 
-  if (d_body) {
+  if (d_body != nullptr) {
     d_body->removeEventFilter(filter);
   }
 }

@@ -164,7 +164,7 @@ void com::ProgressTracker::finishedSteps(size_t nrSteps)
 {
   DEVELOP_PRECOND(d_nrFinishedSteps + nrSteps <= d_nrSteps);
 
-  if (nrSteps && (d_nrFinishedSteps + nrSteps) <= d_nrSteps) {
+  if ((nrSteps != 0u) && (d_nrFinishedSteps + nrSteps) <= d_nrSteps) {
     d_nrFinishedSteps += nrSteps;
     update();
   }

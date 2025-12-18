@@ -145,7 +145,7 @@ bool geo::DataGuide::equals(DataGuide const &dataGuide) const
 */
 bool geo::DataGuide::isValid() const
 {
-  return d_index && d_address && d_type != DT_INVALID;
+  return (d_index != nullptr) && (d_address != nullptr) && d_type != DT_INVALID;
   /* && d_valueScale != VS_UNDEFINED; */
 }
 

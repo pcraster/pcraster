@@ -78,7 +78,7 @@ ANTLRTokenBuffer::
 {
 	f();
 	// Delete all remaining tokens (from 0..last inclusive)
-	if ( _deleteTokens )
+	if ( _deleteTokens != 0u )
 	{
 		_ANTLRTokenPtr *z = nullptr;
 		for (z=buffer; z<=last; z++)
@@ -238,7 +238,7 @@ makeRoom()
 #endif
 
 		// Delete all tokens from 0..last-(k-1) inclusive
-		if ( _deleteTokens )
+		if ( _deleteTokens != 0u )
 		{
 			_ANTLRTokenPtr *z = nullptr;
 			for (z=buffer; z<=last-(k-1); z++)
@@ -341,7 +341,7 @@ getParser() {							// MR1
 
 void ANTLRTokenBuffer::panic(const char *msg) // MR23
 { 
-	if (parser)				//MR23
+	if (parser != nullptr)				//MR23
 		parser->panic(msg);	//MR23
 	else					//MR23
 		exit(PCCTS_EXIT_FAILURE); 
@@ -354,7 +354,7 @@ int ANTLRTokenBuffer::printMessage(FILE* pFile, const char* pFormat, ...)
 	va_start( marker, pFormat );
 
 	int iRet = 0;
-	if (parser)
+	if (parser != nullptr)
 		parser->printMessageV(pFile, pFormat, marker);
 	else
   		iRet = vfprintf(pFile, pFormat, marker);

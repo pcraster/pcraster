@@ -151,5 +151,5 @@ void calc::setMRFResult(RunTimeEnv *rte, size_t resultPos)
     results[2 - r - 1] = rte->popField();
   }
   rte->pushField(results[resultPos]);
-  delete results[!resultPos];
+  delete results[resultPos == 0u];
 }

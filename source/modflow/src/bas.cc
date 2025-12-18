@@ -235,7 +235,7 @@ void BAS::getHeads(float *result, size_t layer)
     REAL4 const value = d_mf->d_initialHead->cell(i)[layer];
 
     //if(static_cast<float>(std::fabs((value - d_hnoflo))>0.00001)){
-    if (static_cast<float>(std::fabs((value - hdry)) > 0.00001)) {
+    if (static_cast<float>(std::fabs((value - hdry)) > 0.00001) != 0.0f) {
       //if(value-hdry==0){
       result[i] = value;
     } else {

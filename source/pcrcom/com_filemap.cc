@@ -152,7 +152,7 @@ class FileMapPrivate
       close(d_fd);
     }
     d_fd = -1;
-    if (d_ptr) {
+    if (d_ptr != nullptr) {
       int r = msync(d_ptr, d_mappedLen, 0);
       POSTCOND(!r);
       r = munmap(d_ptr, d_mappedLen);
@@ -169,14 +169,14 @@ public:
     if (d_fd == -1) {
       throwError("open failed");
     }
-    if (!len) {
+    if (len == 0u) {
       // compute length
       off_t const size = lseek(d_fd, 0, SEEK_END);
       if (size == -1) {
         throwError("lseek failed");
       }
       len = (size_t)size - offset;
-      if (!len) {
+      if (len == 0u) {
         throwError("mmap does not support 0 sized files");
       }
     }

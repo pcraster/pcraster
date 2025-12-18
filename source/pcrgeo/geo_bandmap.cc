@@ -405,7 +405,7 @@ void geo::BandMap::writeHeader()
   if (mvIsSet()) {
     str << "NODATA        " << d_mvValue << "\n";
   }
-  if (pixelType) {
+  if (pixelType != nullptr) {
     str << "PIXELTYPE     " << pixelType << "\n";
   }
 

@@ -111,7 +111,7 @@ calc::StatTable::InputMap::InputMap()
 
 void calc::StatComputation::InputMap::verbosePrint(std::ostream &d_out) const
 {
-  if (!d_intervals) {
+  if (d_intervals == nullptr) {
     d_out << "\tniet opgegeven\n";
   } else {
     d_out << "\n";
@@ -248,7 +248,7 @@ private:
   void printLineCommon(double area, std::ostream &d_out) const
   {
     d_out << "\t" << area * nr();
-    if (nr()) {
+    if (nr() != 0u) {
       d_out << "\t" << sum() << "\t" << minimum() << "\t" << maximum() << "\t" << average() << "\t"
             << sd() << "\t" << d_med;
     }
@@ -332,21 +332,21 @@ calc::StatTable::StatTable(std::string const &id, InputMap const &subject, Input
   std::vector<OP_ARGS> input;
 
   // table upfront
-  if (d_subject.d_intervals) {
+  if (d_subject.d_intervals != nullptr) {
     PRECOND(d_subject.d_field);
     input.push_back(tableArgType);
     transferArg(d_subject.d_intervals);
   }
-  if (d_cross.d_intervals) {
+  if (d_cross.d_intervals != nullptr) {
     PRECOND(d_cross.d_field);
     input.push_back(tableArgType);
     transferArg(d_cross.d_intervals);
   }
-  if (d_subject.d_field) {
+  if (d_subject.d_field != nullptr) {
     input.push_back(fieldArgType);
     transferArg(d_subject.d_field);
   }
-  if (d_cross.d_field) {
+  if (d_cross.d_field != nullptr) {
     input.push_back(fieldArgType);
     transferArg(d_cross.d_field);
   }
@@ -384,7 +384,7 @@ void calc::StatComputation::verboseHeader() const
   if (d_verbose) {
     d_out << "Klassen/Grenzen Onderwerp:";
     d_subject.verbosePrint(d_out);
-    if (d_cross.d_field) {
+    if (d_cross.d_field != nullptr) {
       d_out << "Klassen/Grenzen Indeling:";
       d_cross.verbosePrint(d_out);
     }
@@ -431,15 +431,15 @@ void calc::StatTable::exec(RunTimeEnv *rte) const
   std::unique_ptr<I const> subjectTable;
   std::unique_ptr<I const> crossTable;
 
-  if (d_cross.d_field) {
+  if (d_cross.d_field != nullptr) {
     crossField = rte->popField();
   }
   PRECOND(d_subject.d_field);
   subjectField = rte->popField();
-  if (d_cross.d_intervals) {
+  if (d_cross.d_intervals != nullptr) {
     crossTable.reset(FetchIntervals::create(rte));
   }
-  if (d_subject.d_intervals) {
+  if (d_subject.d_intervals != nullptr) {
     subjectTable.reset(FetchIntervals::create(rte));
   }
 
@@ -476,11 +476,11 @@ calc::StatComputation::StatComputation(std::ostream &out, bool verbose, Field co
 
   // Reverse if needed
   bool doSwap = false;
-  if (d_cross.d_field) {
+  if (d_cross.d_field != nullptr) {
     if (d_subject.d_field->cr() == CR_REAL4) {
       if (d_cross.d_field->cr() != CR_REAL4) {
         doSwap = true;  // r1,r2
-      } else if ((!d_subject.d_intervals) && d_cross.d_intervals) {
+      } else if ((d_subject.d_intervals == nullptr) && (d_cross.d_intervals != nullptr)) {
         doSwap = true;  //r3
       }
     }
@@ -592,7 +592,7 @@ void calc::StatComputation::classCrossTable(const SubjectType *subject) const
 
 void calc::StatComputation::crossHeader(std::ostream &d_out) const
 {
-  if (d_cross.d_field) {
+  if (d_cross.d_field != nullptr) {
     d_out << "\t" << d_cross.d_name << "\n";
   } else {
     d_out << "\t" << d_subject.d_name << "\n";
@@ -605,7 +605,7 @@ void calc::StatComputation::scalarCrossHeader(std::ostream &d_out, int nrRowDesc
   d_out << d_subject.d_name;
   // print with intervening space
   //  do not allow empty between tab seperators
-  if (nrRowDescriptors) {
+  if (nrRowDescriptors != 0) {
     d_out << "\t";
   }
   for (int i = 1; i < nrRowDescriptors; ++i) {
@@ -786,19 +786,19 @@ void calc::StatComputation::GGTable(const REAL4 *subject) const
       d_out << *k.first << "\t";
       i->second.printLine(*(i->first), area(1), d_out);
     }
-    if (k.second.outside().nr()) {
+    if (k.second.outside().nr() != 0u) {
       d_out << *k.first << "\t";
       k.second.outside().printLine("otherwise", area(1), d_out);
     }
   }
 
   const MapKey &mko(m.outside());
-  if (mko.nrVisits()) {
+  if (mko.nrVisits() != 0u) {
     for (const auto &i : mko) {
       d_out << "otherwise" << "\t";
       i.second.printLine(*(i.first), area(1), d_out);
     }
-    if (mko.outside().nr()) {
+    if (mko.outside().nr() != 0u) {
       d_out << "otherwise" << "\t";
       mko.outside().printLine("otherwise", area(1), d_out);
     }
@@ -852,7 +852,7 @@ void calc::StatComputation::scalarTable(const REAL4 *begin, const REAL4 *end) co
 
   d_out << "\t" << d_subject.d_name << "\n";
   d_out << "area\t" << area(s.nr()) << "\n";
-  if (!s.nr()) {  // empty, skip
+  if (s.nr() == 0u) {  // empty, skip
     return;
   }
   d_out << "sum" << "\t" << s.sum() << "\n";
@@ -871,14 +871,14 @@ void calc::StatComputation::scalarTable(const REAL4 *beginS, const REAL4 *endS, 
 
   d_out << "\t" << d_subject.d_name << "\t" << d_cross.d_name << "\n";
   d_out << "area\t" << area(s.nr()) << "\t" << area(c.nr()) << "\n";
-  if (!s.nr() && !c.nr()) {  // empty, skip
+  if ((s.nr() == 0u) && (c.nr() == 0u)) {  // empty, skip
     return;
   }
   // just put 0 if one of two is empty
-  if (!s.nr()) {
+  if (s.nr() == 0u) {
     s(0);  // init with 0
   }
-  if (!c.nr()) {
+  if (c.nr() == 0u) {
     c(0);  // init with 0
   }
 
@@ -894,7 +894,7 @@ void calc::StatComputation::scalarSubject() const
 {
   const REAL4 *r = d_subject.d_field->src_f();
 
-  if (!d_cross.d_field && !d_subject.d_intervals) {
+  if ((d_cross.d_field == nullptr) && (d_subject.d_intervals == nullptr)) {
     scalarTable(r, r + d_subject.d_field->nrValues());
     return;
   }
@@ -902,8 +902,8 @@ void calc::StatComputation::scalarSubject() const
   // scalarScalarTable with possible implicit cross = subject
   //                   if cross is not specified
 
-  if (d_subject.d_intervals) {
-    if (d_cross.d_intervals) {
+  if (d_subject.d_intervals != nullptr) {
+    if (d_cross.d_intervals != nullptr) {
       // TODO split up in 4 cases with overlap on subject/cross
       // typedef com::IntervalMap<detail::ScalarStats, Real> IM;
       GGTable(r);  // GG

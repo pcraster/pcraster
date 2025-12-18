@@ -91,7 +91,7 @@ int IntersectRectangles(POINT2D *pol,      /* intersecting rectangle stored in p
   /* look if cornerpoint fall in (or on) other rectangle */
   for (j = 0; j < 2; j++) {
     for (i = 0; i < 4; i++) {
-      if (PointInPolygon(r[j] + i, r[OTHER_RECT(j)], 4)) {
+      if (PointInPolygon(r[j] + i, r[OTHER_RECT(j)], 4) != 0) {
         p[n++] = r[j][i]; /* point in other rect */
       }
     }

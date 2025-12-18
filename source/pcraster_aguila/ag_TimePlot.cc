@@ -105,7 +105,7 @@ void TimePlot::rescan()
 
 void TimePlot::process()
 {
-  if (visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+  if ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0u) {
     if (!dataObject().backgroundColour().isValid()) {
       setPalette(QPalette());
     } else {
@@ -119,7 +119,7 @@ void TimePlot::process()
 void TimePlot::visualise()
 {
   // Done scanning, update stuff if needed.
-  if (visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+  if ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0u) {
     _splitter->update();
   }
 

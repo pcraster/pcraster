@@ -43,7 +43,7 @@ struct _ifthenelseClass {
     if(pcr::isMV(cond)) { // condition
       pcr::setMV(result);
     } else {
-      if(cond) {
+      if(cond != 0u) {
         if(pcr::isMV(arg1)) {
           pcr::setMV(result);
         } else {

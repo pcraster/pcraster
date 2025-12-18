@@ -148,7 +148,7 @@ void geo::CSFMap::open(bool allowUpdate)
 
   d_map = Mopen(d_fn.c_str(), p);
 
-  if (!d_map) {
+  if (d_map == nullptr) {
     if (Merrno == NOT_CSF) {
       throw NotA_PCRasterMap(d_fn);
     }
@@ -203,7 +203,7 @@ void geo::CSFMap::create(size_t nr, size_t nc, CSF_VS vs, CSF_PT proj, REAL8 lef
 
   d_map = Rcreate(d_fn.c_str(), nr, nc, cr, vs, proj, left, top, a, cs);
 
-  if (!d_map) {
+  if (d_map == nullptr) {
     throwFileError("error creating raster", true);
   }
 }
@@ -218,7 +218,7 @@ void geo::CSFMap::close()
   PRECOND(d_map);
 #endif
 
-  if (Mclose(d_map)) {
+  if (Mclose(d_map) != 0) {
     throwFileError("error closing raster", true);
   }
   d_map = nullptr;
@@ -241,7 +241,7 @@ bool geo::CSFMap::isOpen() const
 */
 void geo::CSFMap::useAs(CSF_CR cr)
 {
-  if (RuseAs(d_map, cr)) {
+  if (RuseAs(d_map, cr) != 0) {
     throwFileError("conversion rules not obeyed", true);
   }
 }
@@ -464,7 +464,7 @@ bool geo::CSFMap::getMinMax(double &min, double &max) const
   // save current
   CSF_CR const currCr = RgetUseCellRepr(d_map);
   RuseAs(d_map, CR_REAL8);
-  bool const minMaxSet = (RgetMinVal(d_map, &min) != 0) & (RgetMaxVal(d_map, &max) != 0);
+  bool const minMaxSet = (static_cast<int>(RgetMinVal(d_map, &min) != 0) & static_cast<int>(RgetMaxVal(d_map, &max) != 0)) != 0;
   // YES, bitwise &,eval both, do not shortcut
   // set to saved
   RuseAs(d_map, currCr);
@@ -505,7 +505,7 @@ UINT4 geo::CSFMap::version() const
 */
 bool geo::CSFMap::hasLegend() const
 {
-  return (MattributeAvail(d_map, ATTR_ID_LEGEND_V1) || MattributeAvail(d_map, ATTR_ID_LEGEND_V2)) != 0;
+  return static_cast<int>((MattributeAvail(d_map, ATTR_ID_LEGEND_V1) != 0) || (MattributeAvail(d_map, ATTR_ID_LEGEND_V2) != 0)) != 0;
 }
 
 //! Returns the number of legend entries plus 1 for the name of the legend.

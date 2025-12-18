@@ -12,7 +12,7 @@ namespace calc
 
 static void throwAtNoMem(void *ptr)
 {
-  if (!ptr) {
+  if (ptr == nullptr) {
     throw std::bad_alloc();
   }
 }
@@ -98,7 +98,7 @@ struct AccumTT : public MapReal8 {
       for (int c = 0; c < ldd->nrCols; ++c) {
         UINT1 p = 0;
         if (ldd->Get(&p, r, c, ldd)) {
-          pits.map()->Put(p == 5, r, c, pits.map());
+          pits.map()->Put(static_cast<UINT1_T>(p == 5), r, c, pits.map());
         } else {
           pits.map()->PutMV(r, c, pits.map());
         }
@@ -200,7 +200,7 @@ int Do_lddcreate(void *l, void *d, const void **ins)
 {
   auto *ldd = (MAP_UINT1 *)l;
   int const r = Lddm(ldd, (const MAP_REAL8 *)ins[0]);
-  if (r) {
+  if (r != 0) {
     return r;
   }
 
@@ -215,7 +215,7 @@ int Do_lddcreatend(void *l, void *d, const void **ins)
 
   auto *ldd = (MAP_UINT1 *)l;
   int const r = LddmND(ldd, (const MAP_REAL8 *)ins[0]);
-  if (r) {
+  if (r != 0) {
     return r;
   }
 

@@ -103,7 +103,7 @@ calc::DataTable::DTE calc::DataTable::dataLoad(const std::string &name)
  */
 void calc::DataTable::insert(const ASTSymbolInfo &i, size_t nrTimeStepsExpected, const IOStrategy &ios)
 {
-  if (d_table.count(i.name())) {
+  if (d_table.count(i.name()) != 0u) {
     return;
   }
 
@@ -143,7 +143,7 @@ void calc::DataTable::insert(const ASTSymbolInfo &i, size_t nrTimeStepsExpected,
           //  Entry::d_dv is 0, StackedValue does reading
         }
     }
-    if (dv.get()) {
+    if (dv.get() != nullptr) {
       dv->setReadOnlyReference(true);
     }
     d_table.insert(std::make_pair(i.name(), Entry(i, dv.release())));
@@ -200,7 +200,7 @@ bool calc::DataTable::allNoValue() const
 {
   for (const auto &i : d_table) {
     size_t const N = ASTSymbolInfo::noMemoryExchangeId();
-    if (i.second.d_dv && !i.second.isConstant() && i.second.memoryInputId() == N &&
+    if ((i.second.d_dv != nullptr) && !i.second.isConstant() && i.second.memoryInputId() == N &&
         i.second.memoryOutputId() == N) {
       // has a datavalue that is  not a constant or a memory exchange
       // both constants and  memory exchange id or NOT considered a value when checking post execution
@@ -220,7 +220,7 @@ bool calc::DataTable::allNoValue() const
  */
 calc::DataValue *calc::DataTable::DTE::getOrReleaseValue(bool lastUse)
 {
-  if (!dataValue()) {
+  if (dataValue() == nullptr) {
     return nullptr;  // not yet loaded
   }
 
@@ -234,7 +234,7 @@ calc::DataValue *calc::DataTable::DTE::getOrReleaseValue(bool lastUse)
   // BEGIN HACKED_UP
   else if (DataTable::d_useDiskStorage && symbol().ioType().input() != pcrxml::ModelInputType::None) {
     auto *s = dynamic_cast<Spatial *>(dv);
-    if (s) {
+    if (s != nullptr) {
       dv->setReadOnlyReference(false);
       dataValue() = nullptr;
     }

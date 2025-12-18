@@ -70,7 +70,7 @@ void calc::FileWriter::removeTssFile() const
 
 std::string calc::FileWriter::mapFileName(size_t t) const
 {
-  t = t ? t : currentTimeStep();
+  t = (t != 0u) ? t : currentTimeStep();
   if (d_par.writeInfo()->inDynamic()) {
     return d_par.scriptConst().ioFieldStrategy().makeStackItemName(baseName(), t);
   }

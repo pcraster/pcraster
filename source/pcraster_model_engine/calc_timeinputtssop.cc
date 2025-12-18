@@ -88,7 +88,7 @@ void calc::TimeinputTssOp::exec(RunTimeEnv *rte, const Operator &op, size_t nrAr
 
   Field &r(a.createResult());
 
-  if (!rte->timer().currentInt()) {
+  if (rte->timer().currentInt() == 0u) {
     throw DomainError("called outside dynamic section");
   }
   int const rowIndex = rte->timer().currentInt() - 1;

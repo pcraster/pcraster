@@ -172,7 +172,7 @@ std::string ag::Map3DWindow::windowName() const
 {
   std::string name = "No data loaded";
 
-  if (visualisationEngine().heightDataGuide()) {
+  if (visualisationEngine().heightDataGuide() != nullptr) {
     name = dataObject().name(*visualisationEngine().heightDataGuide());
     std::vector<DataGuide> const dataGuides = visualisationEngine().dataGuides();
 

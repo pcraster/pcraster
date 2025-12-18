@@ -247,10 +247,10 @@ std::string calc::RunTimeEnvSettings::setSettingsFromXML(pcrxml::Script const &s
       pcrxml::OutputMapFormat const &omf(e.outputMapFormat().get());
       // if (omf.pcrasterMapFormat())
       //  ; // default
-      if (omf.bandMapFormat()) {
+      if (omf.bandMapFormat() != nullptr) {
         appIOstrategy = APP_IO_BANDMAP;
       }
-      if (omf.esriGridFormat()) {
+      if (omf.esriGridFormat() != nullptr) {
         appIOstrategy = APP_IO_ESRIGRID;
       }
     }
@@ -319,14 +319,14 @@ std::string calc::RunTimeEnvSettings::setSettingsFromXML(pcrxml::Script const &s
   // computationMask will piggy back on the areaMap created here
   std::string areaMapReference;
 
-  if (s.areaMap()) {
-    if (s.areaMap()->fieldReference()) {
+  if (s.areaMap() != nullptr) {
+    if (s.areaMap()->fieldReference() != nullptr) {
       areaMapReference = s.areaMap()->fieldReference().get().ref();
     } else {
       d_ioStrategy->setXMLAreaMapScript(s.areaMap().get());
     }
   }
-  if (s.computationMask()) {
+  if (s.computationMask() != nullptr) {
     d_ioStrategy->setXMLComputationMask(s.computationMask().get());
   }
 

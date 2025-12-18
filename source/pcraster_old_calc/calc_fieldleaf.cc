@@ -16,7 +16,7 @@ calc::FieldLeaf::FieldLeaf(UsePar &par)
     : FieldExpr(par), UseDefNode(*(par.block())), d_index(par.createSelector())
 {
   d_par = dynamic_cast<FieldParameter *>(script().findRightParameter(par, VS_FIELD));
-  if (!d_par) {
+  if (d_par == nullptr) {
     par.setInputFilePath();
     d_par = script().addExternalFieldLeaf(par);
   }
@@ -82,7 +82,7 @@ void calc::FieldLeaf::analyseUseDef()
     }
   } else {
     const calc::UseDefNode *next = nextUseDef();
-    if ((!next) ||                   // there is no next
+    if ((next == nullptr) ||                   // there is no next
         (next == d_par->firstDef())  // of the next is the first def
     ) {
       if (!deleteValueAtEndOfBlock(d_par, true)) {

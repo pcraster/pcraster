@@ -81,7 +81,7 @@ pcrxml::Lodings &pcrxml::Lodings::operator=(const Lodings &src)
 
 void pcrxml::Lodings::fill(QDomElement el) const
 {
-  if (dataExtend) {
+  if (dataExtend != nullptr) {
     dataExtend->appendTo(el);
   }
   for (auto i : lodingName) {

@@ -77,7 +77,7 @@ calc::IoFieldStrategy *calc::IoEsriFieldStrategy::checkInputMap(VS &vs, const st
   try {
     EsriMap const grid(fName);
     // always prefer an esri grid prj file
-    if (grid.prjFile().size()) {
+    if (grid.prjFile().size() != 0u) {
       d_prjFile = grid.prjFile();
     }
     vs = grid.vs();
@@ -127,7 +127,7 @@ void calc::IoEsriFieldStrategy::checkClone(const std::string &mapFileName)
 
   setAndCheckCommon(mapFileName, mapRs);
 
-  if (!d_rasterSpaceEsri.nrRows()) {  // not yet initialized
+  if (d_rasterSpaceEsri.nrRows() == 0u) {  // not yet initialized
     d_cloneNameEsri = mapFileName;
     d_rasterSpaceEsri = mapRs;
     map.bbox(d_bbox);
@@ -148,7 +148,7 @@ void calc::IoEsriFieldStrategy::checkClone(const std::string &mapFileName)
  */
 void calc::IoEsriFieldStrategy::setupFormatSpecificClone()
 {
-  if (!d_rasterSpaceEsri.nrRows()) {
+  if (d_rasterSpaceEsri.nrRows() == 0u) {
     // Esri output wanted, but no Esri clone detected
     //  ESRI grid always cartesian yb2t
     PRECOND(rasterSpace().nrRows());
@@ -171,7 +171,7 @@ calc::GridMap *calc::IoEsriFieldStrategy::createMap(const std::string &fileName,
   removeOutputObject(pn.toString());
   auto *m = new EsriMap(pn.toString(), rasterSpace().nrRows(), rasterSpace().nrCols(),
                         rasterSpace().cellSize(), d_bbox, vs);
-  if (d_prjFile.size()) {
+  if (d_prjFile.size() != 0u) {
     m->setPrjFile(d_prjFile);
   }
   return m;
@@ -211,10 +211,10 @@ void calc::IoEsriFieldStrategy::removeOutputObject(const std::string &objName) c
   for (fs::directory_iterator f(stack); f != end_iter && isAStack; ++f) {
     // expect only pcr_esri, info and numeric
     // file names
-    if (!com::compareNoCase(f->path().filename().string(), "pcr_esri")) {
+    if (com::compareNoCase(f->path().filename().string(), "pcr_esri") == 0) {
       continue;
     }
-    if (!com::compareNoCase(f->path().filename().string(), "info")) {
+    if (com::compareNoCase(f->path().filename().string(), "info") == 0) {
       infoDir = *f;
       continue;
     }
@@ -235,7 +235,7 @@ void calc::IoEsriFieldStrategy::removeOutputObject(const std::string &objName) c
   // both is fine and can be deleted
 
   for (fs::directory_iterator f(stack); f != end_iter; ++f) {
-    if (com::compareNoCase(f->path().filename().string(), "info")) {  // skip info
+    if (com::compareNoCase(f->path().filename().string(), "info") != 0) {  // skip info
       removeOutputObject(f->path().string());
     }
   }
@@ -380,9 +380,9 @@ extern "C" PCR_DLL_FUNC(int)
 
     *allMissingValue = 0;  // FALSE;
     if (d.allMissingValue.present()) {
-      *allMissingValue = d.allMissingValue();
+      *allMissingValue = static_cast<int>(d.allMissingValue());
     }
-    if (!*allMissingValue) {
+    if (*allMissingValue == 0) {
       *minimumValue = d.minimumValue();
       *maximumValue = d.maximumValue();
     } else {

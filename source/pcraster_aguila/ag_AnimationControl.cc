@@ -76,7 +76,7 @@ AnimationControl *AnimationControl::instance(DataObject *object)
   AnimationControl *dialog =
       VisualisationDialog<DataObject *, AnimationControl>::instance(object, object);
 
-  if (dialog) {
+  if (dialog != nullptr) {
     dialog->raise();
   } else {
     // Create and add instance.

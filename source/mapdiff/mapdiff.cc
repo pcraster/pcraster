@@ -33,7 +33,7 @@ int main(int argc,      /* number of arguments */
   /* install application */
 
   appOutput = APP_NOOUT;
-  if(InstallArgs(argc, argv, "pf*", "mapdiff")) {
+  if(InstallArgs(argc, argv, "pf*", "mapdiff") != 0) {
     exit(1);
   }
 
@@ -55,13 +55,13 @@ int main(int argc,      /* number of arguments */
     exit(1);
   }
 
-  if (AppArgCountCheck(argc,3,3,USAGE)) {
+  if (AppArgCountCheck(argc,3,3,USAGE) != 0) {
     exit(1);
   }
 
   // mis use of file create tester
   geo::FileCreateTester t(argv[1],false);
-  if (fileName) {
+  if (fileName != nullptr) {
     t.setDifferenceFile(fileName);
   }
 
@@ -75,6 +75,6 @@ int main(int argc,      /* number of arguments */
     exit(1);
   }
 
-  exit(!equal);
+  exit(static_cast<int>(!equal));
   return 0;
 }

@@ -75,7 +75,7 @@ bool calc::LookupLinear::find(double &result, const std::vector<double> &key) co
         return true;
       case 1:
         // assign the first greater one that is most close to key
-        if (!gt) {
+        if (gt == 0u) {
           gt = i;
         }
         break;

@@ -70,7 +70,7 @@ std::string calc::LexInput::getParameter(const std::string &name, bool bracePres
     case 0: /* env. variable */
     {
       char *n = getenv(name.c_str());
-      if (n) {
+      if (n != nullptr) {
         return n;
       }
     }
@@ -239,7 +239,7 @@ void calc::LexInput::parseShellParamUse()
   } else {
     // start of number or id (env. var.)
     do {
-      if (!IsAlphaNumericUnderscore(c)) {
+      if (IsAlphaNumericUnderscore(c) == 0) {
         break;
       }
       d_expInBuf += c;

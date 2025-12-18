@@ -57,7 +57,7 @@ calc::CFGVisitor::~CFGVisitor()
 void calc::CFGVisitor::visit()
 {
   reset();
-  while (d_current) {
+  while (d_current != nullptr) {
     visitCurrent();
     advance();
   }
@@ -114,7 +114,7 @@ bool calc::CFGVisitor::takeBackBranch() const
  */
 calc::ASTNode *calc::CFGVisitor::current() const
 {
-  if (d_current) {
+  if (d_current != nullptr) {
     return d_current->node();
   }
   return nullptr;

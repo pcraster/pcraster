@@ -119,7 +119,7 @@ struct ASTPathCaster {
         }
         size_t const pos = c - '0';
         auto *sl = dynamic_cast<ASTNodeList *>(d_node);
-        if (sl) {
+        if (sl != nullptr) {
           auto i = sl->begin();
           size_t n = 0;
           for (; n != pos && i != sl->end(); ++i) {
@@ -152,7 +152,7 @@ calc::ASTNode *calc::path(ASTNode *root, const char *pathStr)
 
   const char *ptr = nullptr;
   try {
-    for (ptr = pathStr; *ptr; ++ptr) {
+    for (ptr = pathStr; *ptr != 0; ++ptr) {
       current.add(*ptr);
     }
   } catch (com::Exception &e) {

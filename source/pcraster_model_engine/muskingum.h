@@ -65,8 +65,8 @@ void calc::Muskingum::exec(
 
      void finishVertex(size_t v) override // each iteration
      {
-       if (oneInputIsMV(v)|pcr::isMV(UpstreamSumIterationFlowRateMap[v])
-                |pcr::isMV(UpstreamSumIterationPrevFlowRateMap[v]))
+       if ((static_cast<int>(oneInputIsMV(v))|static_cast<int>(pcr::isMV(UpstreamSumIterationFlowRateMap[v]))
+                |static_cast<int>(pcr::isMV(UpstreamSumIterationPrevFlowRateMap[v]))) != 0)
        {
          pcr::setMV(MyResultMap[v]);
          pcr::setMV(IterationFlowRateMap[v]);
@@ -154,8 +154,8 @@ void calc::Muskingum::exec(
       d_csi = csi;
      }
      bool oneInputIsMV(size_t i) const {
-       return (com::oneIsMV(d_prevFlowRate[i],d_prevInflow[i],d_inflow[i]) |
-          com::oneIsMV(d_k[i], d_x[i],d_segmentLength[i]));
+       return (static_cast<int>(com::oneIsMV(d_prevFlowRate[i],d_prevInflow[i],d_inflow[i])) |
+          static_cast<int>(com::oneIsMV(d_k[i], d_x[i],d_segmentLength[i]))) != 0;
      }
 
      MGVisitor(

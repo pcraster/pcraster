@@ -68,8 +68,8 @@ void pcrxml::ExchangeModel::clean()
 pcrxml::ExchangeModel::ExchangeModel(const ExchangeModel &src)
     : pcrxml::Element(src), id(src.id), ioStrategy(src.ioStrategy), description(src.description)
 {
-  integerTimer = (src.integerTimer) ? new IntegerTimer(*(src.integerTimer)) : nullptr;
-  areaMapDTD = (src.areaMapDTD) ? new AreaMapDTD(*(src.areaMapDTD)) : nullptr;
+  integerTimer = ((src.integerTimer) != nullptr) ? new IntegerTimer(*(src.integerTimer)) : nullptr;
+  areaMapDTD = ((src.areaMapDTD) != nullptr) ? new AreaMapDTD(*(src.areaMapDTD)) : nullptr;
   for (auto i : src.exchangeItem) {
     exchangeItem.push_back(new ExchangeItem(*i));
   }
@@ -81,8 +81,8 @@ pcrxml::ExchangeModel &pcrxml::ExchangeModel::operator=(const ExchangeModel &src
   if (this != &src) {
     clean();
     PRECOND(false);
-    integerTimer = (src.integerTimer) ? new IntegerTimer(*(src.integerTimer)) : nullptr;
-    areaMapDTD = (src.areaMapDTD) ? new AreaMapDTD(*(src.areaMapDTD)) : nullptr;
+    integerTimer = ((src.integerTimer) != nullptr) ? new IntegerTimer(*(src.integerTimer)) : nullptr;
+    areaMapDTD = ((src.areaMapDTD) != nullptr) ? new AreaMapDTD(*(src.areaMapDTD)) : nullptr;
     for (auto i : src.exchangeItem) {
       exchangeItem.push_back(new ExchangeItem(*i));
     }
@@ -95,10 +95,10 @@ void pcrxml::ExchangeModel::fill(QDomElement el) const
   id.addToElement(el, "id");
   ioStrategy.addToElement(el, "ioStrategy");
   description.addToElement(el, "description");
-  if (integerTimer) {
+  if (integerTimer != nullptr) {
     integerTimer->appendTo(el);
   }
-  if (areaMapDTD) {
+  if (areaMapDTD != nullptr) {
     areaMapDTD->appendTo(el);
   }
   for (auto i : exchangeItem) {

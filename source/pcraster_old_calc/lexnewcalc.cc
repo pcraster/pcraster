@@ -628,7 +628,7 @@ YY_DECL
 
 #line 722 "<stdout>"
 
-  if (!(yy_init)) {
+  if ((yy_init) == 0) {
     (yy_init) = 1;
 
 #ifdef YY_USER_INIT
@@ -636,19 +636,19 @@ YY_DECL
 #endif
 
     /* Create the reject buffer large enough to save one state per allowed character. */
-    if (!(yy_state_buf)) {
+    if ((yy_state_buf) == nullptr) {
       (yy_state_buf) = (yy_state_type *)gramalloc(YY_STATE_BUF_SIZE);
     }
 
-    if (!(yy_start)) {
+    if ((yy_start) == 0) {
       (yy_start) = 1; /* first start state */
     }
 
-    if (!yyin) {
+    if (yyin == nullptr) {
       yyin = &std::cin;
     }
 
-    if (!yyout) {
+    if (yyout == nullptr) {
       yyout = &std::cout;
     }
 
@@ -697,15 +697,15 @@ YY_DECL
   find_rule: /* we branch to this label when backing up */
     for (;;) /* until we find what rule we matched */
     {
-      if ((yy_lp) && (yy_lp) < yy_accept[yy_current_state + 1]) {
+      if (((yy_lp) != 0) && (yy_lp) < yy_accept[yy_current_state + 1]) {
         yy_act = yy_acclist[(yy_lp)];
-        if (yy_act & YY_TRAILING_HEAD_MASK || yy_looking_for_trail_begin) {
+        if (((yy_act & YY_TRAILING_HEAD_MASK) != 0) || (yy_looking_for_trail_begin != 0)) {
           if (yy_act == yy_looking_for_trail_begin) {
             yy_looking_for_trail_begin = 0;
             yy_act &= ~YY_TRAILING_HEAD_MASK;
             break;
           }
-        } else if (yy_act & YY_TRAILING_MASK) {
+        } else if ((yy_act & YY_TRAILING_MASK) != 0) {
           yy_looking_for_trail_begin = yy_act & ~YY_TRAILING_MASK;
           yy_looking_for_trail_begin |= YY_TRAILING_HEAD_MASK;
         } else {
@@ -1108,7 +1108,7 @@ YY_DECL
 
           yy_bp = (yytext_ptr) + YY_MORE_ADJ;
 
-          if (yy_next_state) {
+          if (yy_next_state != 0) {
             /* Consume the NUL. */
             yy_cp = ++(yy_c_buf_p);
             yy_current_state = yy_next_state;
@@ -1143,7 +1143,7 @@ YY_DECL
               }
 
               else {
-                if (!(yy_did_buffer_switch_on_eof)) {
+                if ((yy_did_buffer_switch_on_eof) == 0) {
                   YY_NEW_FILE;
                 }
               }
@@ -1207,12 +1207,12 @@ yyFlexLexer::yyFlexLexer(std::istream *arg_yyin, std::ostream *arg_yyout)
 
 void yyFlexLexer::switch_streams(std::istream *new_in, std::ostream *new_out)
 {
-  if (new_in) {
+  if (new_in != nullptr) {
     yy_delete_buffer(YY_CURRENT_BUFFER);
     yy_switch_to_buffer(yy_create_buffer(new_in, YY_BUF_SIZE));
   }
 
-  if (new_out) {
+  if (new_out != nullptr) {
     yyout = new_out;
   }
 }
@@ -1362,7 +1362,7 @@ yy_state_type yyFlexLexer::yy_get_previous_state()
   *(yy_state_ptr)++ = yy_current_state;
 
   for (yy_cp = (yytext_ptr) + YY_MORE_ADJ; yy_cp < (yy_c_buf_p); ++yy_cp) {
-    YY_CHAR yy_c = (*yy_cp ? yy_ec[YY_SC_TO_UI(*yy_cp)] : 1);
+    YY_CHAR yy_c = ((*yy_cp != 0) ? yy_ec[YY_SC_TO_UI(*yy_cp)] : 1);
     while (yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state) {
       yy_current_state = (int)yy_def[yy_current_state];
       if (yy_current_state >= 97) {
@@ -1393,12 +1393,12 @@ yy_state_type yyFlexLexer::yy_try_NUL_trans(yy_state_type yy_current_state)
     }
   }
   yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int)yy_c];
-  yy_is_jam = (yy_current_state == 96);
-  if (!yy_is_jam) {
+  yy_is_jam = static_cast<int>(yy_current_state == 96);
+  if (yy_is_jam == 0) {
     *(yy_state_ptr)++ = yy_current_state;
   }
 
-  return yy_is_jam ? 0 : yy_current_state;
+  return (yy_is_jam != 0) ? 0 : yy_current_state;
 }
 
 void yyFlexLexer::yyunput(int c, char *yy_bp)
@@ -1477,7 +1477,7 @@ int yyFlexLexer::yyinput()
             return EOF;
           }
 
-          if (!(yy_did_buffer_switch_on_eof)) {
+          if ((yy_did_buffer_switch_on_eof) == 0) {
             YY_NEW_FILE;
           }
 #ifdef __cplusplus
@@ -1572,7 +1572,7 @@ YY_BUFFER_STATE yyFlexLexer::yy_create_buffer(std::istream *file, int size)
   YY_BUFFER_STATE b = nullptr;
 
   b = (YY_BUFFER_STATE)gramalloc(sizeof(struct yy_buffer_state));
-  if (!b) {
+  if (b == nullptr) {
     YY_FATAL_ERROR("out of dynamic memory in yy_create_buffer()");
   }
 
@@ -1582,7 +1582,7 @@ YY_BUFFER_STATE yyFlexLexer::yy_create_buffer(std::istream *file, int size)
 	 * we need to put in 2 end-of-buffer characters.
 	 */
   b->yy_ch_buf = (char *)gramalloc(b->yy_buf_size + 2);
-  if (!b->yy_ch_buf) {
+  if (b->yy_ch_buf == nullptr) {
     YY_FATAL_ERROR("out of dynamic memory in yy_create_buffer()");
   }
 
@@ -1600,7 +1600,7 @@ YY_BUFFER_STATE yyFlexLexer::yy_create_buffer(std::istream *file, int size)
 void yyFlexLexer::yy_delete_buffer(YY_BUFFER_STATE b)
 {
 
-  if (!b) {
+  if (b == nullptr) {
     return;
   }
 
@@ -1608,7 +1608,7 @@ void yyFlexLexer::yy_delete_buffer(YY_BUFFER_STATE b)
     YY_CURRENT_BUFFER_LVALUE = (YY_BUFFER_STATE) nullptr;
   }
 
-  if (b->yy_is_our_buffer) {
+  if (b->yy_is_our_buffer != 0) {
     gramfree((void *)b->yy_ch_buf);
   }
 
@@ -1648,7 +1648,7 @@ void yyFlexLexer::yy_init_buffer(YY_BUFFER_STATE b, std::istream *file)
  */
 void yyFlexLexer::yy_flush_buffer(YY_BUFFER_STATE b)
 {
-  if (!b) {
+  if (b == nullptr) {
     return;
   }
 
@@ -1733,7 +1733,7 @@ void yyFlexLexer::yyensure_buffer_stack()
 {
   int num_to_alloc = 0;
 
-  if (!(yy_buffer_stack)) {
+  if ((yy_buffer_stack) == nullptr) {
 
     /* First allocation is just for 2 elements, since we don't know if this
 		 * scanner will even need a stack. We use 2 instead of 1 to avoid an
@@ -1773,14 +1773,14 @@ void yyFlexLexer::yy_push_state(int new_state)
     (yy_start_stack_depth) += YY_START_STACK_INCR;
     new_size = (yy_start_stack_depth) * sizeof(int);
 
-    if (!(yy_start_stack)) {
+    if ((yy_start_stack) == nullptr) {
       (yy_start_stack) = (int *)gramalloc(new_size);
 
     } else {
       (yy_start_stack) = (int *)gramrealloc((void *)(yy_start_stack), new_size);
     }
 
-    if (!(yy_start_stack)) {
+    if ((yy_start_stack) == nullptr) {
       YY_FATAL_ERROR("out of memory expanding start-condition stack");
     }
   }
@@ -2014,7 +2014,7 @@ ANTLRAbstractToken *calc::LexGrammar::idOrKeyWord()
   p = static_cast<KWORD *>(
       bsearch((const void *)&dummy, (const void *)keywordTable, NR_KWORDS, sizeof(KWORD), cmp));
 
-  if (p) {
+  if (p != nullptr) {
     LexToken *lt = createToken(p->token, p->op);
     lt->setIsKeyword(true);
     return lt;
@@ -2063,7 +2063,7 @@ void calc::LexGrammar::parseComment()
     while (c != EOF) {
       c = yyinput();
       if (c == EOF || c == '\n') {
-        if (AppParseShellLine(d_optionLine.c_str())) {
+        if (AppParseShellLine(d_optionLine.c_str()) != 0) {
           // argscalc/test21a
           pos->throwError(getLibError());
         }
@@ -2115,7 +2115,7 @@ calc::LexToken::LexToken(ANTLRTokenType type, MAJOR_CODE op, const char *text, P
         [[fallthrough]];
       case TOK_ILLEGAL:
         char aBuf[64];
-        if (std::isprint(d_text[0])) {
+        if (std::isprint(d_text[0]) != 0) {
           // pcrcalc/test318
           // argscalc/test41a
           // argscalc/test40

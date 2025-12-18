@@ -199,7 +199,7 @@ private:
   void printLineCommon(double area, std::ostream &out) const
   {
     out << "\t" << area * nr();
-    if (nr()) {
+    if (nr() != 0u) {
       out << "\t" << sum() << "\t" << minimum() << "\t" << maximum() << "\t" << average() << "\t" << sd()
           << "\t" << d_med;
     }
@@ -498,7 +498,7 @@ void calc::StatTable::scalarCrossHeader(std::ostream &out, int nrRowDescriptors)
   out << d_subject.d_name;
   // print with intervening space
   //  do not allow empty between tab seperators
-  if (nrRowDescriptors) {
+  if (nrRowDescriptors != 0) {
     out << "\t";
   }
   for (int i = 1; i < nrRowDescriptors; ++i) {
@@ -688,19 +688,19 @@ void calc::StatTable::GGTable(const REAL4 *subject, FieldStack &stack) const
       out << *k.first << "\t";
       i->second.printLine(*(i->first), area(1), out);
     }
-    if (k.second.outside().nr()) {
+    if (k.second.outside().nr() != 0u) {
       out << *k.first << "\t";
       k.second.outside().printLine("anders", area(1), out);
     }
   }
 
   const MapKey &mko(m.outside());
-  if (mko.nrVisits()) {
+  if (mko.nrVisits() != 0u) {
     for (const auto &i : mko) {
       out << "anders" << "\t";
       i.second.printLine(*(i.first), area(1), out);
     }
-    if (mko.outside().nr()) {
+    if (mko.outside().nr() != 0u) {
       out << "anders" << "\t";
       mko.outside().printLine("anders", area(1), out);
     }
@@ -771,7 +771,7 @@ void calc::StatTable::scalarTable(const REAL4 *begin, const REAL4 *end) const
   open(out);
   out << "\t" << d_subject.d_name << "\n";
   out << "opp\t" << area(s.nr()) << "\n";
-  if (!s.nr()) {  // empty, skip
+  if (s.nr() == 0u) {  // empty, skip
     return;
   }
   out << "som" << "\t" << s.sum() << "\n";
@@ -792,14 +792,14 @@ void calc::StatTable::scalarTable(const REAL4 *beginS, const REAL4 *endS, const 
   open(out);
   out << "\t" << d_subject.d_name << "\t" << d_cross.d_name << "\n";
   out << "opp\t" << area(s.nr()) << "\t" << area(c.nr()) << "\n";
-  if (!s.nr() && !c.nr()) {  // empty, skip
+  if ((s.nr() == 0u) && (c.nr() == 0u)) {  // empty, skip
     return;
   }
   // just put 0 if one of two is empty
-  if (!s.nr()) {
+  if (s.nr() == 0u) {
     s(0);  // init with 0
   }
-  if (!c.nr()) {
+  if (c.nr() == 0u) {
     c(0);  // init with 0
   }
 

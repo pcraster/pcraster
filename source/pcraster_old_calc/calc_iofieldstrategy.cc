@@ -57,7 +57,7 @@ void calc::IoFieldStrategy::setupClone()
 {
   setupFormatSpecificClone();
 
-  BootTestApi(d_commonRS.cellSize(), d_commonRS.projection() == geo::YIncrT2B);
+  BootTestApi(d_commonRS.cellSize(), static_cast<int>(d_commonRS.projection() == geo::YIncrT2B));
 }
 
 void calc::IoFieldStrategy::setupFormatSpecificClone()
@@ -114,7 +114,7 @@ calc::IoFieldStrategy::createFieldMapInputParameter(const calc::ParsPar &par)
 void calc::IoFieldStrategy::setAndCheckCommon(const std::string &mapFileName,
                                               const geo::RasterSpace &mapRs)
 {
-  if (!d_commonRS.nrRows()) {  // not yet initialized
+  if (d_commonRS.nrRows() == 0u) {  // not yet initialized
     d_cloneNameCommon = mapFileName;
     d_commonRS = mapRs;
   }

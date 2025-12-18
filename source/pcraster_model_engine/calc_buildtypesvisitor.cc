@@ -209,7 +209,7 @@ public:
     dtExpr.restrict(dtOp);
 
     // push down
-    if (!dtOp.singleVs() && /* WHY THIS CLAUSE?: */ !op.firstFieldInput()) {
+    if (!dtOp.singleVs() && /* WHY THIS CLAUSE?: */ (op.firstFieldInput() == 0u)) {
       // push type down in poly types
       for (size_t i = op.firstPolyInput(); i < e->nrArgs() && op.isPolyInput(i); ++i) {
         DataType ftArg(op.argType(i));
@@ -223,10 +223,10 @@ public:
     d_dtc.restrict(e->returnDataType(0), dtExpr);
 
     // if 1st arg is not a field it is a DataStorage
-    if (op.firstFieldInput()) {
+    if (op.firstFieldInput() != 0u) {
       POSTCOND(op.firstFieldInput() == 1);
       auto *p = dynamic_cast<ASTPar *>(e->arg(0));
-      if (!p) {  // can happen if arg is incorrect for operation
+      if (p == nullptr) {  // can happen if arg is incorrect for operation
         return;
       }
       try {
@@ -284,7 +284,7 @@ public:
             PRECOND(e->nrArgs() == 2);
             auto *n = dynamic_cast<ASTNumber *>(e->arg(1));
             // typecheck already forces n to be ordinal integer
-            if (!n || n->value() < 1) {
+            if ((n == nullptr) || n->value() < 1) {
               e->arg(1)->posError("highestTimestepAvailable argument of "
                                   "timeinputmodulo must be an integer > 0");
             }
@@ -363,7 +363,7 @@ void calc::BuildTypesVisitor::init(const ASTSymbolTable &table)
 void calc::BuildTypesVisitor::checkOnTimeinput(BaseExpr *o)
 {
   // proceed only when first arg is VS_MAPSTACK
-  if (!o->nrArgs() || o->op().argType(0).vs() != VS_MAPSTACK) {
+  if ((o->nrArgs() == 0u) || o->op().argType(0).vs() != VS_MAPSTACK) {
     return;
   }
 
@@ -371,7 +371,7 @@ void calc::BuildTypesVisitor::checkOnTimeinput(BaseExpr *o)
 
   // timeinput(sparse|modulo)
   auto *ms = dynamic_cast<ASTPar *>(o->arg(0));
-  if (ms) {
+  if (ms != nullptr) {
     POSTCOND(d_table.contains(ms));
     DataType const req(d_table[ms].dataType().resultType(), ST_SPATIAL);
     eResult.restrict(req);
@@ -391,7 +391,7 @@ void calc::BuildTypesVisitor::checkOnTimeinput(BaseExpr *o)
 void calc::BuildTypesVisitor::visitExpr(BaseExpr *o)
 {
   auto *lie = dynamic_cast<LinkInExpr *>(o);
-  if (lie) {
+  if (lie != nullptr) {
 
     std::string libraryName;
     if (lie->isConstructor()) {
@@ -446,7 +446,7 @@ void calc::BuildTypesVisitor::visitExpr(BaseExpr *o)
   //pcrcalc/test14
   std::string const msg(op.checkNrInputs(o->nrArgs()));
   if (!msg.empty()) {
-    if (o->nrArgs()) {
+    if (o->nrArgs() != 0u) {
       o->arg(0)->posError(msg);
     } else {  // pcrcalc/test252a
       o->posError(msg);

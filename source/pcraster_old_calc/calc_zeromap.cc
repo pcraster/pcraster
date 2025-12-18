@@ -28,7 +28,7 @@ calc::ZeroMap::~ZeroMap()
 
 void calc::ZeroMap::loadExternal() const
 {
-  if (valuePtr()) {
+  if (valuePtr() != nullptr) {
     return;
   }
   allocate();
@@ -37,7 +37,7 @@ void calc::ZeroMap::loadExternal() const
 
 calc::Spatial *calc::ZeroMap::copy() const
 {
-  if (valuePtr()) {
+  if (valuePtr() != nullptr) {
     return Spatial::copy();
   }
 
@@ -47,7 +47,7 @@ calc::Spatial *calc::ZeroMap::copy() const
 
 void calc::ZeroMap::analyzeBoolean(bool &noneAreTrue, bool &noneAreFalse) const
 {
-  if (valuePtr()) {
+  if (valuePtr() != nullptr) {
     Spatial::analyzeBoolean(noneAreTrue, noneAreFalse);
   } else {
     noneAreTrue = true;
@@ -57,7 +57,7 @@ void calc::ZeroMap::analyzeBoolean(bool &noneAreTrue, bool &noneAreFalse) const
 
 bool calc::ZeroMap::getCell(double &value, size_t i) const
 {
-  if (valuePtr()) {
+  if (valuePtr() != nullptr) {
     return Spatial::getCell(value, i);
   }
   value = 0;

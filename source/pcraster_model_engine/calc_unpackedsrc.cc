@@ -77,7 +77,7 @@ calc::UnpackedSrc::UnpackedSrc(const UnpackedSrc& rhs):
 //! return field as a (use-only) source
 const calc::Field *calc::UnpackedSrc::src()
 {
-  if (!d_unpacked) {
+  if (d_unpacked == nullptr) {
     d_unpacked = d_packed->isSpatial() ? d_sp.unpack(d_packed) : d_packed;
   }
   return d_unpacked;

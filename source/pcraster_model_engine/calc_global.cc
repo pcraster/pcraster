@@ -70,14 +70,14 @@ calc::Global::Global(const Global& rhs):
 */
 void calc::Global::exec(RunTimeEnv *rte, const Operator &op, size_t nrArgs) const
 {
-  if (redirect()) {
+  if (redirect() != nullptr) {
     redirect()->exec(rte, op, nrArgs);
     return;
   }
 
   GlobArgs a(op, rte, nrArgs);
   int const error = d_f(a.dest(), a.src());
-  if (error) {
+  if (error != 0) {
     throwDomainErrorFromCalcLib();
   }
   a.pushResults();
@@ -116,12 +116,12 @@ calc::MRF::MRF(const MRF& rhs):
 
 void calc::MRF::exec(RunTimeEnv *rte, const Operator &op, size_t nrArgs) const
 {
-  if (redirect()) {
+  if (redirect() != nullptr) {
     redirect()->exec(rte, op, nrArgs);
   } else {
     GlobArgs a(op, rte, nrArgs);
     int const error = d_f(a.dest(0), a.dest(1), a.src());
-    if (error) {
+    if (error != 0) {
       throwDomainErrorFromCalcLib();
     }
     a.pushResults();

@@ -97,7 +97,7 @@ void calc::IoCsfFieldStrategy::checkClone(const std::string &mapFileName)
 
   setAndCheckCommon(mapFileName, mapRs);
 
-  if (!d_rasterSpaceCsf.nrRows()) {  // not yet initialized
+  if (d_rasterSpaceCsf.nrRows() == 0u) {  // not yet initialized
     d_cloneNameCsf = mapFileName;
     d_rasterSpaceCsf = mapRs;
   }

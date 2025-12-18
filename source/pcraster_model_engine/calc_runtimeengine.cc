@@ -72,7 +72,7 @@ calc::RunTimeEngine& calc::RunTimeEngine::operator=(RunTimeEngine const& rhs)
 
 void calc::RunTimeEngine::pushUnmanaged(const DataValue *d)
 {
-  if (!d) {
+  if (d == nullptr) {
     // exposed calls in PCRasterPython/PCRaster.cc are suspect to this
     d = &pythonNone;
   }
@@ -169,7 +169,7 @@ void calc::RunTimeEngine::transferPushField(Field *f)
 void calc::RunTimeEngine::setNrTimeSteps(size_t nrTimeSteps)
 {
   Timer t = d_rte->timer();
-  if (nrTimeSteps) {  // dynamic model
+  if (nrTimeSteps != 0u) {  // dynamic model
     t.setLastInt(nrTimeSteps);
     t.setStartInt(1);
   }

@@ -8,7 +8,7 @@
 calc::UserModelLink::UserModelLink(const Symbol &parName, const Symbol &modelName) : UserSymbol(parName)
 {
   d_modelInstance = createModelLink(modelName.name());
-  if (!d_modelInstance) {
+  if (d_modelInstance == nullptr) {
     // pcrcalc/test319
     modelName.posError(modelName.qName() + " No such modellink");
   }

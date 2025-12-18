@@ -54,10 +54,10 @@ void calc::execObjectLinkMethod(const Operator &op, RunTimeEnv *rte, size_t nrFi
       std::reverse(data.begin() + op.nrResults(), data.end());
 
       ObjectLink *o(nullptr);
-      if (rte->stackSize()) {
+      if (rte->stackSize() != 0u) {
         o = dynamic_cast<ObjectLink *>(rte->popDataValue());
       }
-      if (!o) {
+      if (o == nullptr) {
         throw com::Exception(
             std::format("Method '{0}' called while no ObjectLink present", op.implName()));
       }

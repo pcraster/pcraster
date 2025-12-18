@@ -70,7 +70,7 @@ calc::PointCodeBlockDll::PointCodeBlockDll(PointCodeBlockDll const& rhs)
 
 calc::PointCodeBlockDll::~PointCodeBlockDll()
 {
-  if (d_dll) {
+  if (d_dll != nullptr) {
     unload();
   }
 }
@@ -136,12 +136,12 @@ void calc::PointCodeBlockDll::compile() const
 */
   int exitCode = com::spawn("gcc", dll + args);
   POSTCOND(!exitCode);
-  if (exitCode) {
+  if (exitCode != 0) {
     throw com::Exception("compile failed");
   }
   exitCode = com::spawn("gcc", asmS + args);
   POSTCOND(!exitCode);
-  if (exitCode) {
+  if (exitCode != 0) {
     throw com::Exception(".s failed");
   }
 #endif

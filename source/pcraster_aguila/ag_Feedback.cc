@@ -103,7 +103,7 @@ void ag::Feedback::describe() const
   int token = 0;
   int nrVertices = 0;
 
-  while (count) {
+  while (count != 0) {
     token = static_cast<int>(d_data->d_buffer[d_data->d_valuesStored - count]);
     --count;
 

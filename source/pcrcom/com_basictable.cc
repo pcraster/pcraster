@@ -255,7 +255,7 @@ namespace com
 */
 std::ostream &operator<<(std::ostream &s, const BasicTable &t)
 {
-  if (t.nrCols()) {
+  if (t.nrCols() != 0u) {
     size_t r = 0;
     size_t c = 0;
     for (r = 0; r < t.nrRecs(); r++) {
@@ -335,7 +335,7 @@ std::istream &operator>>(std::istream &s, BasicTable &t)
       if (c == '\n')  // Ok, just some optional whitespace and
       {               // the newline.
         break;
-      } else if (!std::isspace(c))  // Not a newline, space or tab.
+      } else if (std::isspace(c) == 0)  // Not a newline, space or tab.
       {
         std::string const m = createMessage("bad format, line %d, token %d", l, i + 1);
         throw BadStreamFormat(m);

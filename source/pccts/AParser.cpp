@@ -337,7 +337,7 @@ _setmatch(SetWordType *tset, ANTLRChar **MissText,
 	if ( dirty==LLk ) {
 		consume();
 	}
-	if ( !set_el(LA(1), tset) ) {
+	if ( set_el(LA(1), tset) == 0 ) {
 		*MissText=nullptr;										/* MR23 */
 		*MissTok=(ANTLRTokenType) 0;						/* MR23 */
 		*BadTok=LT(1);										/* MR23 */
@@ -355,7 +355,7 @@ _setmatch_wsig(SetWordType *tset)
 	if ( dirty==LLk ) {
 		consume();
 	}
-	if ( !set_el(LA(1), tset) ) return 0;
+	if ( set_el(LA(1), tset) == 0 ) return 0;
 	dirty++;
 	labase = (labase+1)&(LLk-1);	// labase maintained even if !demand look
 	return 1;
@@ -371,7 +371,7 @@ consumeUntil(SetWordType *st)
 {
 	ANTLRTokenType		tmp;	                        				// MR1
 	const			int Eof=1;                                          // MR1
-	while ( !set_el( (tmp=LA(1)), st) && tmp!=Eof) { consume(); }       // MR1
+	while ( (set_el( (tmp=LA(1)), st) == 0) && tmp!=Eof) { consume(); }       // MR1
 }
 
 //
@@ -399,15 +399,15 @@ resynch(SetWordType *wd,SetWordType mask)
 	/* if you enter here without having consumed a token from last resynch
 	 * force a token consumption.
 	 */
-/* MR8 */  	if ( !resynchConsumed ) {consume(); resynchConsumed=1; return;}
+/* MR8 */  	if ( resynchConsumed == 0 ) {consume(); resynchConsumed=1; return;}
 
    	/* if current token is in resynch set, we've got what we wanted */
 
-/* MR8 */  	if ( wd[LA(1)]&mask || LA(1) == eofToken ) {resynchConsumed=0; return;}
+/* MR8 */  	if ( ((wd[LA(1)]&mask) != 0) || LA(1) == eofToken ) {resynchConsumed=0; return;}
 
    	/* scan until we find something in the resynch set */
 
-        	while ( !(wd[LA(1)]&mask) && LA(1) != eofToken ) {consume();}
+        	while ( ((wd[LA(1)]&mask) == 0) && LA(1) != eofToken ) {consume();}
 
 /* MR8 */	resynchConsumed=1;
 }
@@ -449,7 +449,7 @@ syn(_ANTLRTokenPtr /*tok MR23*/, ANTLRChar *egroup, SetWordType *eset,
 	}
 	/* MR23 */ printMessage(stderr, "line %d: syntax error at \"%s\"",
 					line, errorAt);
-	if ( !etok && !eset ) {/* MR23 */ printMessage(stderr, "\n"); return;}
+	if ( (etok == 0u) && (eset == nullptr) ) {/* MR23 */ printMessage(stderr, "\n"); return;}
 	if ( k==1 ) /* MR23 */ printMessage(stderr, " missing");
 	else
 	{
@@ -486,7 +486,7 @@ set_deg(SetWordType *a)
 		SetWordType const t = *p;
 		SetWordType *b = &(bitmask[0]);
 		do {
-			if (t & *b) ++degree;
+			if ((t & *b) != 0) ++degree;
 		} while (++b < &(bitmask[sizeof(SetWordType)*8]));
 		p++;
 	}
@@ -506,7 +506,7 @@ edecode(SetWordType *a)
 		SetWordType const t = *p;
 		SetWordType *b = &(bitmask[0]);
 		do {
-			if ( t & *b ) /* MR23 */ printMessage(stderr, " %s", token_tbl[e]);
+			if ( (t & *b) != 0 ) /* MR23 */ printMessage(stderr, " %s", token_tbl[e]);
 			e++;
 		} while (++b < &(bitmask[sizeof(SetWordType)*8]));
 	} while (++p < endp);
@@ -559,7 +559,7 @@ ANTLRParser::FAIL(int k, ...)
     {
         if ( i>1 ) strcat(zzFAILtext, " ");
         strcat(zzFAILtext, LT(i)->getText());
-        if ( !set_el(LA(i), f[i-1]) ) break;
+        if ( set_el(LA(i), f[i-1]) == 0 ) break;
     }
     miss_set = va_arg(ap, SetWordType **);
     miss_text = va_arg(ap, ANTLRChar **);
@@ -632,7 +632,7 @@ _setmatch_wdfltsig(SetWordType *tokensWanted,
 					SetWordType *whatFollows)
 {
 	if ( dirty==LLk ) consume();
-	if ( !set_el(LA(1), tokensWanted) )
+	if ( set_el(LA(1), tokensWanted) == 0 )
 	{
         syntaxErrCount++;                                   /* MR11 */
 		/* MR23 */ printMessage(stderr,
@@ -698,7 +698,7 @@ void ANTLRParser::traceGuessDone(const ANTLRParserState *state) {
     doIt=1;
   };
 
-  if (doIt) {
+  if (doIt != 0) {
     /* MR23 */ printMessage(stderr,"guess done - returning to rule %s {\"%s\"} at depth %d",
         state->traceCurrentRuleName,
         LT(1)->getType() == eofToken ? "@" : LT(1)->getText(),
@@ -720,13 +720,13 @@ void ANTLRParser::traceGuessFail() {
 
   if (traceOptionValue <= 0) {
     doIt=0;
-  } else if (guessing && traceGuessOptionValue <= 0) {
+  } else if ((guessing != 0) && traceGuessOptionValue <= 0) {
     doIt=0;
   } else {
     doIt=1;
   };
 
-  if (doIt) {
+  if (doIt != 0) {
     /* MR23 */ printMessage(stderr,"guess failed in %s\n",traceCurrentRuleName);
   };
 }
@@ -744,18 +744,18 @@ void ANTLRParser::tracein(const ANTLRChar * rule) {
 
   if (traceOptionValue <= 0) {
     doIt=0;
-  } else if (guessing && traceGuessOptionValue <= 0) {
+  } else if ((guessing != 0) && traceGuessOptionValue <= 0) {
     doIt=0;
   } else {
     doIt=1;
   };
 
-  if (doIt) {
+  if (doIt != 0) {
     /* MR23 */ printMessage(stderr,"enter rule %s {\"%s\"} depth %d",
             rule,
             LT(1)->getType() == eofToken ? "@" : LT(1)->getText(),
             traceDepth);
-    if (guessing) /* MR23 */ printMessage(stderr," guessing");
+    if (guessing != 0) /* MR23 */ printMessage(stderr," guessing");
     /* MR23 */ printMessage(stderr,"\n");
   };
   return;
@@ -769,18 +769,18 @@ void ANTLRParser::traceout(const ANTLRChar * rule) {
 
   if (traceOptionValue <= 0) {
     doIt=0;
-  } else if (guessing && traceGuessOptionValue <= 0) {
+  } else if ((guessing != 0) && traceGuessOptionValue <= 0) {
     doIt=0;
   } else {
     doIt=1;
   };
 
-  if (doIt) {
+  if (doIt != 0) {
     /* MR23 */ printMessage(stderr,"exit rule %s {\"%s\"} depth %d",
             rule,
             LT(1)->getType() == eofToken ? "@" : LT(1)->getText(),
             traceDepth+1);
-    if (guessing) /* MR23 */ printMessage(stderr," guessing");
+    if (guessing != 0) /* MR23 */ printMessage(stderr," guessing");
     /* MR23 */ printMessage(stderr,"\n");
   };
 }

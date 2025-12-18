@@ -170,7 +170,7 @@ const char *calc::ASTSymbolInfo::str(DefinitionCreation dc)
 
 void calc::ASTSymbolInfo::resetDefinition(DefinitionCreation definitionCreation)
 {
-  if (d_definition && d_definitionCreation != definitionCreation) {
+  if ((d_definition != nullptr) && d_definitionCreation != definitionCreation) {
     std::ostringstream msg;
     msg << "duplicate definition in both " << str(d_definitionCreation) << " and "
         << str(definitionCreation);
@@ -245,7 +245,7 @@ void calc::ASTSymbolInfo::resolve(IOStrategy &ios)
 {
   // if output, check if path is correct
   // TODO moet eigenlijk naar execute initialisatie
-  if (reportPar()) {
+  if (reportPar() != nullptr) {
     ios.checkOutputFilePath(*this);
   }
 
@@ -275,15 +275,15 @@ void calc::ASTSymbolInfo::resolve(IOStrategy &ios)
   try {
     if (vs() == VS_MAPSTACK) {
       //  not yet resolved
-      if (!d_stackInput) {
+      if (d_stackInput == nullptr) {
         d_stackInput = ios.createStackInput(externalName(), d_dataType.mapStackType());
-        if (d_stackInput) {
+        if (d_stackInput != nullptr) {
           d_dataType.setResultType(VS_MAPSTACK, d_stackInput->fieldReturnVs());
         }
       }
       return;
     }
-    if (lookupTable()) {
+    if (lookupTable() != nullptr) {
       return;
     }
     if (memoryInputId() != noMemoryExchangeId()) {
@@ -383,7 +383,7 @@ void calc::ASTSymbolInfo::setConstantByBinding(const ASTNumber *n)
 {
   // check on lhsUse
   const ASTPar *f = d_firstAss;
-  if (f) {  // pcrcalc0
+  if (f != nullptr) {  // pcrcalc0
     std::ostringstream os;
     os << "Assigning value to constant binding: '" << name() << "=" << n->value() << "'";
     f->symError(os.str());
@@ -446,7 +446,7 @@ void calc::ASTSymbolInfo::setInfo(const ASTDefinition &ib)
 
 void calc::ASTSymbolInfo::setResolvedScriptOutput(std::string const &foundFile)
 {
-  if (!d_definition) {
+  if (d_definition == nullptr) {
     // only found by RunDirectory and so on
     d_definition = new pcrxml::Definition(name());
     d_definitionCreation = Resolve;
@@ -471,7 +471,7 @@ void calc::ASTSymbolInfo::setResolvedScriptOutput(std::string const &foundFile)
 //! 0 if symbol has no xml LookupTable
 pcrxml::Relation const *calc::ASTSymbolInfo::lookupTable() const
 {
-  if (d_definition) {
+  if (d_definition != nullptr) {
     if (d_definition->relation().present()) {
       return &(d_definition->relation().get());
     }
@@ -522,7 +522,7 @@ std::string calc::ASTSymbolInfo::externalName() const
 //! empty string if not set
 std::string calc::ASTSymbolInfo::description() const
 {
-  if (d_definition) {
+  if (d_definition != nullptr) {
     if (d_definition->description().present()) {
       return d_definition->description()->text();
     }
@@ -538,7 +538,7 @@ size_t calc::ASTSymbolInfo::noMemoryExchangeId()
 //! set value of firstAss
 void calc::ASTSymbolInfo::setFirstAss(const ASTPar *firstAss)
 {
-  if (!d_firstAss) {
+  if (d_firstAss == nullptr) {
     d_firstAss = firstAss;
   }
 }
@@ -685,7 +685,7 @@ const calc::IOType &calc::ASTSymbolInfo::ioType() const
 pcrxml::Definition *calc::ASTSymbolInfo::createDefinition() const
 {
   pcrxml::Definition *d(nullptr);
-  if (d_definition) {
+  if (d_definition != nullptr) {
     d = new pcrxml::Definition(*d_definition);
   } else {
     // no present, build
@@ -784,7 +784,7 @@ std::ostream &calc::operator<<(std::ostream &s, calc::ASTSymbolInfo const &si)
 {
   s << "name() (" << si.name() << ")" << '\n';
   s << "d_dataType(" << si.dataType() << ")" << '\n';
-  if (si.d_definition) {
+  if (si.d_definition != nullptr) {
     std::ostringstream str;
     pcrxml::definition(str, *(si.d_definition), pcrxsd::namespaceInfoMap("PCRaster.xsd"));
     s << "d_definitionCreation(" << si.str(si.d_definitionCreation) << ")" << '\n';

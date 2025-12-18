@@ -104,7 +104,7 @@ void calc::ReportDefault::setDefinition(const ReportDefinition *definition)
 bool calc::ReportDefault::reportTimestep(size_t t) const
 {
   // pcrcalc/test234d: t >= 1: definition is only for dynamic
-  if (d_definition && t >= 1) {
+  if ((d_definition != nullptr) && t >= 1) {
     return d_definition->reportTimestep(t);
   }
   // otherwise report at each timestep

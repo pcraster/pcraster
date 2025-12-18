@@ -2,7 +2,7 @@
 #include "geo_apprasterspace.h"
 #include "app.h"
 
-geo::AppRasterSpace::AppRasterSpace(const RasterSpace &rs) : d_rs(rs), d_trueCoords(appUnitTrue != 0)
+geo::AppRasterSpace::AppRasterSpace(const RasterSpace &rs) : d_rs(rs), d_trueCoords(static_cast<int>(appUnitTrue) != 0)
 {
   switch (appCoord) {
     case APP_UL:

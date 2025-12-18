@@ -65,15 +65,15 @@ AreaMap::AreaMap(pcrxml::AreaMapScript const &am)
   size_t const nrCols(d_areaMap->nrCols().get());
 
   double cellSize = 1;
-  if (d_areaMap->cellSize()) {
+  if (d_areaMap->cellSize() != nullptr) {
     cellSize = d_areaMap->cellSize().get();
   }
   double xLowerLeftCorner = 0;
-  if (d_areaMap->xLowerLeftCorner()) {
+  if (d_areaMap->xLowerLeftCorner() != nullptr) {
     xLowerLeftCorner = d_areaMap->xLowerLeftCorner().get();
   }
   double yLowerLeftCorner = 0;
-  if (d_areaMap->yLowerLeftCorner()) {
+  if (d_areaMap->yLowerLeftCorner() != nullptr) {
     yLowerLeftCorner = d_areaMap->yLowerLeftCorner().get();
   }
   geo::RasterSpace const rs(nrRows, nrCols, cellSize, xLowerLeftCorner,
@@ -86,7 +86,7 @@ AreaMap::AreaMap(AreaMap const &rhs)
 {
   d_rs = rhs.d_rs;
   d_mask = rhs.d_mask;
-  if (rhs.d_areaMap) {
+  if (rhs.d_areaMap != nullptr) {
     d_areaMap = new pcrxml::AreaMapScript(*rhs.d_areaMap);
   }
 }
@@ -105,10 +105,10 @@ AreaMap &AreaMap::operator=(AreaMap const &rhs)
   if (this != &rhs) {
     d_rs = rhs.d_rs;
     d_mask = rhs.d_mask;
-    if (rhs.d_areaMap) {
+    if (rhs.d_areaMap != nullptr) {
       d_areaMap = new pcrxml::AreaMapScript(*rhs.d_areaMap);
     }
-    if (rhs.d_computationMask) {
+    if (rhs.d_computationMask != nullptr) {
       d_computationMask = new pcrxml::ComputationMask(*rhs.d_computationMask);
     }
   }
@@ -133,7 +133,7 @@ bool AreaMap::isSet() const
 
 bool AreaMap::hasCoordinateMask() const
 {
-  return d_computationMask && d_computationMask->coordinates();
+  return (d_computationMask != nullptr) && (d_computationMask->coordinates() != nullptr);
 }
 
 void AreaMap::setComputationMask(pcrxml::ComputationMask const &computationMask)
@@ -168,7 +168,7 @@ void AreaMap::transferMask(const Field *f)
   d_mask = Mask(d_rs.nrCells(), false);
 
   bool const atNonMVs =
-      (d_computationMask && d_computationMask->areaMap() &&
+      ((d_computationMask != nullptr) && (d_computationMask->areaMap() != nullptr) &&
        d_computationMask->areaMap().get().maskType() == pcrxml::MaskMapType::computeAtNonMissingValues);
   if (atNonMVs) {
     // computeAtNonMissingValues
@@ -193,7 +193,7 @@ void AreaMap::setRasterSpace(const geo::RasterSpace &rs)
 {
   d_rs = rs;
   throwIfNotSet();
-  BootTestApi(d_rs.cellSize(), d_rs.projection() == geo::YIncrT2B);
+  BootTestApi(d_rs.cellSize(), static_cast<int>(d_rs.projection() == geo::YIncrT2B));
   syncMask();
 }
 

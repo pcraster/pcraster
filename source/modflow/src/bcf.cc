@@ -209,8 +209,8 @@ bool BCF::hasConfinedSubLayer(size_t layer)
     return false;
   }
   for (int i = 0; i < size; i++) {
-    int const low = d_mf->d_quasiConfined.at(i);
-    int const top = d_mf->d_quasiConfined.at(i + 1);
+    int const low = static_cast<const int>(d_mf->d_quasiConfined.at(i));
+    int const top = static_cast<const int>(d_mf->d_quasiConfined.at(i + 1));
     if (((low - top) == 1) && (lay == (layer - 1))) {
       return true;
     }
@@ -251,7 +251,7 @@ void BCF::calcVCond(std::stringstream &aStream, size_t layer, const std::string 
                                 (thickMid / d_mf->d_vCond->cell(i)[layer - 1]) +
                                 (thickLower / d_mf->d_vCond->cell(i)[layer - 2]);
 
-      if (std::isfinite(denominator) == 0) {
+      if (static_cast<int>(std::isfinite(denominator)) == 0) {
         int const row = 1 + (i / d_mf->d_nrOfColumns);
         int const col = 1 + (i % d_mf->d_nrOfColumns);
         std::stringstream stmp;
@@ -275,7 +275,7 @@ void BCF::calcVCond(std::stringstream &aStream, size_t layer, const std::string 
       float const denominator = (thickUpper / d_mf->d_vCond->cell(i)[layer]) +
                                 (thickLower / d_mf->d_vCond->cell(i)[layer - 1]);
 
-      if (std::isfinite(denominator) == 0) {
+      if (static_cast<int>(std::isfinite(denominator)) == 0) {
         int const row = 1 + (i / d_mf->d_nrOfColumns);
         int const col = 1 + (i % d_mf->d_nrOfColumns);
         std::stringstream stmp;
@@ -971,7 +971,7 @@ void BCF::write_vcond(std::string const &path)
                                       (thickMid / d_mf->d_vCond->cell(i)[blockLayer - 1]) +
                                       (thickLower / d_mf->d_vCond->cell(i)[blockLayer - 2]);
 
-            if (std::isfinite(denominator) == 0) {
+            if (static_cast<int>(std::isfinite(denominator)) == 0) {
               int const row = 1 + (i / d_mf->d_nrOfColumns);
               int const col = 1 + (i % d_mf->d_nrOfColumns);
               std::stringstream stmp;
@@ -1000,7 +1000,7 @@ void BCF::write_vcond(std::string const &path)
             float const denominator = (thickUpper / d_mf->d_vCond->cell(i)[blockLayer]) +
                                       (thickLower / d_mf->d_vCond->cell(i)[blockLayer - 1]);
 
-            if (std::isfinite(denominator) == 0) {
+            if (static_cast<int>(std::isfinite(denominator)) == 0) {
               int const row = 1 + (i / d_mf->d_nrOfColumns);
               int const col = 1 + (i % d_mf->d_nrOfColumns);
               std::stringstream stmp;

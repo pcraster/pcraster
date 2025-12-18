@@ -41,7 +41,7 @@ CursorWindow *CursorWindow::instance(DataObject *object)
 {
   CursorWindow *dialog = VisualisationDialog<DataObject *, CursorWindow>::instance(object, object);
 
-  if (dialog) {
+  if (dialog != nullptr) {
     dialog->raise();
   } else {
     // Create and add instance.

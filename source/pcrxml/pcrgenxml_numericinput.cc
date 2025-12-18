@@ -57,8 +57,8 @@ void pcrxml::NumericInput::clean()
 //! copy ctor
 pcrxml::NumericInput::NumericInput(const NumericInput &src) : pcrxml::Element(src)
 {
-  lowerLimit = (src.lowerLimit) ? new LowerLimit(*(src.lowerLimit)) : nullptr;
-  upperLimit = (src.upperLimit) ? new UpperLimit(*(src.upperLimit)) : nullptr;
+  lowerLimit = ((src.lowerLimit) != nullptr) ? new LowerLimit(*(src.lowerLimit)) : nullptr;
+  upperLimit = ((src.upperLimit) != nullptr) ? new UpperLimit(*(src.upperLimit)) : nullptr;
 }
 
 //! assignment operator
@@ -67,18 +67,18 @@ pcrxml::NumericInput &pcrxml::NumericInput::operator=(const NumericInput &src)
   if (this != &src) {
     clean();
     PRECOND(false);
-    lowerLimit = (src.lowerLimit) ? new LowerLimit(*(src.lowerLimit)) : nullptr;
-    upperLimit = (src.upperLimit) ? new UpperLimit(*(src.upperLimit)) : nullptr;
+    lowerLimit = ((src.lowerLimit) != nullptr) ? new LowerLimit(*(src.lowerLimit)) : nullptr;
+    upperLimit = ((src.upperLimit) != nullptr) ? new UpperLimit(*(src.upperLimit)) : nullptr;
   }
   return *this;
 }
 
 void pcrxml::NumericInput::fill(QDomElement el) const
 {
-  if (lowerLimit) {
+  if (lowerLimit != nullptr) {
     lowerLimit->appendTo(el);
   }
-  if (upperLimit) {
+  if (upperLimit != nullptr) {
     upperLimit->appendTo(el);
   }
 }

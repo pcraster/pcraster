@@ -116,7 +116,7 @@ bool qtw::PaletteBar::outline() const
 
 QSize qtw::PaletteBar::sizeHint() const
 {
-  return d_palette ? QSize(d_palette->nrColours(), 20) : QSize();
+  return (d_palette != nullptr) ? QSize(d_palette->nrColours(), 20) : QSize();
 }
 
 //------------------------------------------------------------------------------

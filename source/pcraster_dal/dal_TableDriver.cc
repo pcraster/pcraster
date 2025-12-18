@@ -153,7 +153,7 @@ Table* TableDriver::read(
 {
   auto* table = dynamic_cast<Table*>(Driver::open(name));
 
-  if(!table) {
+  if(table == nullptr) {
     throwCannotBeOpened(name, TABLE);
   }
 
@@ -186,7 +186,7 @@ Table* TableDriver::read(
 {
   auto* table = dynamic_cast<Table*>(Driver::open(name));
 
-  if(!table) {
+  if(table == nullptr) {
     throwCannotBeOpened(name, TABLE);
   }
 

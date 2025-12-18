@@ -17,7 +17,7 @@ BOOST_AUTO_TEST_CASE(fixed_head)
   double const cellSize = 15.0;
   CSF_PT const projection = PT_YINCT2B;
 
-  BootTestApi(cellSize, projection == PT_YINCT2B);
+  BootTestApi(cellSize, static_cast<int>(projection == PT_YINCT2B));
 
   // Set cell values.
   REAL4 resultElevationCells[9];
@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_CASE(budget)
   double const cellSize = 100.0;
   CSF_PT const projection = PT_YINCT2B;
 
-  BootTestApi(cellSize, projection == PT_YINCT2B);
+  BootTestApi(cellSize, static_cast<int>(projection == PT_YINCT2B));
 
   // Set cell values.
   REAL4 resultElevationCells[9];

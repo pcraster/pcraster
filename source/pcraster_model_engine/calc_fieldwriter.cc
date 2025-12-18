@@ -40,7 +40,7 @@ public:
   std::string write(const Field *f, size_t timeStep) override
   {
     DEVELOP_PRECOND(!timeStep);
-    if (!timeStep) {  // initial
+    if (timeStep == 0u) {  // initial
       d_fios.writeField(outputFilePath(), f);
       return outputFilePath();
     }
@@ -127,17 +127,17 @@ public:
   //! tss is created the first time id contains values > 0
   void writeOutTss(const Field *id, const Field *expr, size_t timeStep) override
   {
-    if (!d_tss) {
+    if (d_tss == nullptr) {
       d_tss = createFileTimeoutput(d_stackInfo, id);
     }
-    if (d_tss) {
+    if (d_tss != nullptr) {
       d_tss->timeoutput(id, expr, timeStep);
     }
   }
 
   void finish() override
   {
-    if (d_tss) {
+    if (d_tss != nullptr) {
       d_tss->finish();
     }
   }

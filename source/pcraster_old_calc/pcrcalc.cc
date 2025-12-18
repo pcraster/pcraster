@@ -92,7 +92,7 @@ PcrScriptImpl::PcrScriptImpl(const char *scriptName)
   bool unknownDE(false);
   TRY_ALL
   {
-    if (!scriptName) {
+    if (scriptName == nullptr) {
       throw com::Exception("call to pcr_createScript with 0 ptr argument");
     }
     com::PathName const pn(scriptName);
@@ -136,13 +136,13 @@ void PcrScriptImpl::run()
 {
   TRY_ALL
   {
-    if (d_ci) {
+    if (d_ci != nullptr) {
       d_ci->run();
       if (d_ci->executeScriptStatus() == calc::ErrorExecScript) {
         d_errorStream << d_ci->errorMsg();
       }
     }
-    if (d_wl) {
+    if (d_wl != nullptr) {
       d_wl->parseXml();
       d_wl->execute();
     }
@@ -170,7 +170,7 @@ extern "C" PCR_DLL_FUNC(PcrScriptImpl *) pcr_createScript(const char *scriptName
 
 extern "C" PCR_DLL_FUNC(void) pcr_ScriptExecute(PcrScriptImpl *script)
 {
-  if (script) {
+  if (script != nullptr) {
     script->run();
   }
 }
@@ -179,7 +179,7 @@ extern "C" PCR_DLL_FUNC(void) pcr_ScriptExecute(PcrScriptImpl *script)
  */
 extern "C" PCR_DLL_FUNC(int) pcr_ScriptError(PcrScriptImpl *script)
 {
-  if (!script) {
+  if (script == nullptr) {
     return -1;  // BAD!
   }
   return script->errorMessage().size();
@@ -187,7 +187,7 @@ extern "C" PCR_DLL_FUNC(int) pcr_ScriptError(PcrScriptImpl *script)
 
 extern "C" PCR_DLL_FUNC(const char *) pcr_ScriptErrorMessage(PcrScriptImpl *script)
 {
-  if (!script) {
+  if (script == nullptr) {
     return "Error: called pcr_ScriptErrorMessage with 0 ptr";
   }
   return script->errorMessage().c_str();

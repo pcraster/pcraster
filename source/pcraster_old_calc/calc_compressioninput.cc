@@ -29,7 +29,7 @@ calc::CompressionInput::CompressionInput(VS vs, void *decompressedDataOwnAndDele
   d_decompressedData.d_void = decompressedDataOwnAndDelete;
 
   size_t const len = compressor.rasterSpace().nrCells();
-  if (!d_decompressedData.d_void) {
+  if (d_decompressedData.d_void == nullptr) {
     d_decompressedData = createValueBuffer(biggestCellRepr(vs), len);
   }
 }

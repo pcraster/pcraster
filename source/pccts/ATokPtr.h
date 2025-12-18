@@ -61,13 +61,13 @@ public:
     void operator = (const ANTLRTokenPtr & lhs);		    	// MR1
     void operator = (ANTLRAbstractToken *addr);
     int operator != (const ANTLRTokenPtr &q) const	    		// MR1 // MR11 unsigned -> int
-	{ return this->ptr_ != q.ptr_; }
+	{ return static_cast<int>(this->ptr_ != q.ptr_); }
     int operator == (const ANTLRTokenPtr &q) const  			// MR1 // MR11 unsigned -> int
-	{ return this->ptr_ == q.ptr_; }
+	{ return static_cast<int>(this->ptr_ == q.ptr_); }
     int operator == (const ANTLRAbstractToken *addr) const      // MR11
-    { return this->ptr_ == addr; }
+    { return static_cast<int>(this->ptr_ == addr); }
     int operator != (const ANTLRAbstractToken *addr) const      // MR11
-    { return this->ptr_ != addr; }
+    { return static_cast<int>(this->ptr_ != addr); }
 
     void ref() const;
     void deref();

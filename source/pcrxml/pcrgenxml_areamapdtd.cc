@@ -57,8 +57,8 @@ void pcrxml::AreaMapDTD::clean()
 //! copy ctor
 pcrxml::AreaMapDTD::AreaMapDTD(const AreaMapDTD &src) : pcrxml::Element(src)
 {
-  rasterSpace = (src.rasterSpace) ? new RasterSpace(*(src.rasterSpace)) : nullptr;
-  rasterMask = (src.rasterMask) ? new RasterMask(*(src.rasterMask)) : nullptr;
+  rasterSpace = ((src.rasterSpace) != nullptr) ? new RasterSpace(*(src.rasterSpace)) : nullptr;
+  rasterMask = ((src.rasterMask) != nullptr) ? new RasterMask(*(src.rasterMask)) : nullptr;
 }
 
 //! assignment operator
@@ -67,18 +67,18 @@ pcrxml::AreaMapDTD &pcrxml::AreaMapDTD::operator=(const AreaMapDTD &src)
   if (this != &src) {
     clean();
     PRECOND(false);
-    rasterSpace = (src.rasterSpace) ? new RasterSpace(*(src.rasterSpace)) : nullptr;
-    rasterMask = (src.rasterMask) ? new RasterMask(*(src.rasterMask)) : nullptr;
+    rasterSpace = ((src.rasterSpace) != nullptr) ? new RasterSpace(*(src.rasterSpace)) : nullptr;
+    rasterMask = ((src.rasterMask) != nullptr) ? new RasterMask(*(src.rasterMask)) : nullptr;
   }
   return *this;
 }
 
 void pcrxml::AreaMapDTD::fill(QDomElement el) const
 {
-  if (rasterSpace) {
+  if (rasterSpace != nullptr) {
     rasterSpace->appendTo(el);
   }
-  if (rasterMask) {
+  if (rasterMask != nullptr) {
     rasterMask->appendTo(el);
   }
 }

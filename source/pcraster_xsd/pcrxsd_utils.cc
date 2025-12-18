@@ -50,7 +50,7 @@ std::string contentsIsXMLOrPCRasterFileFormat(std::string const &contents)
   bool firstNonWhiteSpaceCharIsLt = false;
   size_t i = 0;
   for (; i < contents.size(); ++i) {
-    if (!std::isspace(contents[i])) {
+    if (std::isspace(contents[i]) == 0) {
       firstNonWhiteSpaceCharIsLt = contents[i] == '<';
       break;
     }
@@ -60,7 +60,7 @@ std::string contentsIsXMLOrPCRasterFileFormat(std::string const &contents)
   }
   bool hasAlpha = false;
   for (; i < contents.size() && !hasAlpha; ++i) {
-    if (std::isalpha(contents[i])) {
+    if (std::isalpha(contents[i]) != 0) {
       hasAlpha = true;
     }
   }

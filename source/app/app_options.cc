@@ -51,7 +51,7 @@ extern "C" bool app_setDynamicLibraries(
   PRECOND(libList[0] == "dynamiclibraries");
   for (size_t i=1;i < libList.size(); i++) {
    if (nrDynamicLibraryNames == 64) {
-    return RetError(false,"Too many dynamic libraries (max=%d)",64);
+    return RetError(0,"Too many dynamic libraries (max=%d)",64) != 0;
    }
    dynamicLibraryNames[nrDynamicLibraryNames++] =
      StrcpyChkMalloc(libList[i].c_str());

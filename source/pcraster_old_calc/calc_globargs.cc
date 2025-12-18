@@ -9,11 +9,11 @@
  */
 calc::GlobArgs::GlobArgs(const Operator &op, const Compressor &compressor, FieldStack &stack,
                          size_t nrActualArgs)
-    : d_nrArgs(nrActualArgs ? nrActualArgs : op.nrArgs()), d_fields(stack, d_nrArgs), d_args(d_nrArgs)
+    : d_nrArgs((nrActualArgs != 0u) ? nrActualArgs : op.nrArgs()), d_fields(stack, d_nrArgs), d_args(d_nrArgs)
 {
 #ifdef DEBUG_DEVELOP
   // test/pcrcalc224c
-  if (!nrActualArgs) {
+  if (nrActualArgs == 0u) {
     POSTCOND(op.nrArgs() >= 0);  // not a var arg def
   }
 #endif

@@ -123,17 +123,17 @@ void Map2DView::rescan()
 
 void Map2DView::process()
 {
-  if (visualisationEngine().change() & VisEngine::MAP2DZOOM) {
+  if ((visualisationEngine().change() & VisEngine::MAP2DZOOM) != 0u) {
     setDirty();
   }
 
-  if (visualisationEngine().change() & VisEngine::MAP2DMOVE) {
+  if ((visualisationEngine().change() & VisEngine::MAP2DMOVE) != 0u) {
     QPointF const offset(
         worldUnitsToPixels(dataObject().map2DOffset() - visualisationEngine().map2DOffset()));
     moveBy(offset);
   }
 
-  if (visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+  if ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0u) {
     if (!dataObject().backgroundColour().isValid()) {
       setPalette(QPalette());
     } else {
@@ -145,16 +145,16 @@ void Map2DView::process()
     deleteScene(QRectF(0.0, 0.0, size().width(), size().height()));
   }
 
-  if (visualisationEngine().change() & VisEngine::OTHERATTRIB ||
-      visualisationEngine().change() & VisEngine::VISIBILITY ||
-      visualisationEngine().change() & VisEngine::DRAWPROPS ||
-      visualisationEngine().change() & VisEngine::MAP2DZOOM ||
-      visualisationEngine().change() & VisEngine::MAP2DSCALE ||
-      (visualisationEngine().change() & VisEngine::CURSOR &&
-       (visualisationEngine().change() & VisEngine::TIME ||
-        visualisationEngine().change() & VisEngine::QUANTILE)) ||
-      visualisationEngine().change() & VisEngine::VALUE_SELECTION ||
-      visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+  if (((visualisationEngine().change() & VisEngine::OTHERATTRIB) != 0u) ||
+      ((visualisationEngine().change() & VisEngine::VISIBILITY) != 0u) ||
+      ((visualisationEngine().change() & VisEngine::DRAWPROPS) != 0u) ||
+      ((visualisationEngine().change() & VisEngine::MAP2DZOOM) != 0u) ||
+      ((visualisationEngine().change() & VisEngine::MAP2DSCALE) != 0u) ||
+      (((visualisationEngine().change() & VisEngine::CURSOR) != 0u) &&
+       (((visualisationEngine().change() & VisEngine::TIME) != 0u) ||
+        ((visualisationEngine().change() & VisEngine::QUANTILE) != 0u))) ||
+      ((visualisationEngine().change() & VisEngine::VALUE_SELECTION) != 0u) ||
+      ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0u)) {
     createScene(visualisationEngine().dataGuides(), QRectF(0.0, 0.0, size().width(), size().height()));
     setClean();
   }
@@ -162,18 +162,18 @@ void Map2DView::process()
 
 void Map2DView::visualise()
 {
-  if (visualisationEngine().change() & VisEngine::OTHERATTRIB ||
-      visualisationEngine().change() & VisEngine::VISIBILITY ||
-      visualisationEngine().change() & VisEngine::DRAWPROPS ||
-      visualisationEngine().change() & VisEngine::MAP2DZOOM ||
-      visualisationEngine().change() & VisEngine::MAP2DSCALE ||
-      (visualisationEngine().change() & VisEngine::CURSOR &&
-       (visualisationEngine().change() & VisEngine::TIME ||
-        visualisationEngine().change() & VisEngine::QUANTILE)) ||
-      visualisationEngine().change() & VisEngine::RASTER_CELL ||
-      visualisationEngine().change() & VisEngine::VALUE_SELECTION ||
-      visualisationEngine().change() & VisEngine::MAP2DMOVE ||
-      visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+  if (((visualisationEngine().change() & VisEngine::OTHERATTRIB) != 0u) ||
+      ((visualisationEngine().change() & VisEngine::VISIBILITY) != 0u) ||
+      ((visualisationEngine().change() & VisEngine::DRAWPROPS) != 0u) ||
+      ((visualisationEngine().change() & VisEngine::MAP2DZOOM) != 0u) ||
+      ((visualisationEngine().change() & VisEngine::MAP2DSCALE) != 0u) ||
+      (((visualisationEngine().change() & VisEngine::CURSOR) != 0u) &&
+       (((visualisationEngine().change() & VisEngine::TIME) != 0u) ||
+        ((visualisationEngine().change() & VisEngine::QUANTILE) != 0u))) ||
+      ((visualisationEngine().change() & VisEngine::RASTER_CELL) != 0u) ||
+      ((visualisationEngine().change() & VisEngine::VALUE_SELECTION) != 0u) ||
+      ((visualisationEngine().change() & VisEngine::MAP2DMOVE) != 0u) ||
+      ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0u)) {
     repaint();
   }
 
@@ -300,16 +300,16 @@ void Map2DView::mousePressEvent(QMouseEvent *event)
 {
   _mapViewMouseTarget.press(event->pos());
 
-  if (event->modifiers() & Qt::ShiftModifier) {
+  if (event->modifiers() & Qt::ShiftModifier != 0u) {
     if (event->button() == Qt::LeftButton) {
       startZoomAreaMode();
     }
-  } else if (event->modifiers() & Qt::ControlModifier) {
+  } else if (event->modifiers() & Qt::ControlModifier != 0u) {
     if (event->button() == Qt::LeftButton) {
       startQueryMode();
       queryMap(event->pos());
     }
-  } else if (event->modifiers() & Qt::AltModifier) {
+  } else if (event->modifiers() & Qt::AltModifier != 0u) {
   } else {
     // No, it may be that we are going to Pan or ZoomByRectangle. In that case
     // we don't want the spatial cursor to change.
@@ -332,15 +332,15 @@ QRect Map2DView::zoomRectangle() const
 
 void Map2DView::mouseReleaseEvent(QMouseEvent *event)
 {
-  if (event->modifiers() & Qt::ShiftModifier) {
+  if (event->modifiers() & Qt::ShiftModifier != 0u) {
     if ((event->button() == Qt::LeftButton)) {
       // Reset the mouse target, otherwise the zoom rectangle will be shown.
       QRect const rectangle(zoomRectangle());
       _mapViewMouseTarget.initialize();
       zoomByRectangle(rectangle);
     }
-  } else if (event->modifiers() & Qt::ControlModifier) {
-  } else if (event->modifiers() & Qt::AltModifier) {
+  } else if (event->modifiers() & Qt::ControlModifier != 0u) {
+  } else if (event->modifiers() & Qt::AltModifier != 0u) {
   } else {
     if ((event->button() == Qt::LeftButton) && _action == Query) {
       queryMap(event->pos());
@@ -355,9 +355,9 @@ void Map2DView::mouseDoubleClickEvent(QMouseEvent *event)
 {
   assert(!_mapViewMouseTarget.moved());
 
-  if (event->modifiers() & Qt::ShiftModifier) {
-  } else if (event->modifiers() & Qt::ControlModifier) {
-  } else if (event->modifiers() & Qt::AltModifier) {
+  if (event->modifiers() & Qt::ShiftModifier != 0u) {
+  } else if (event->modifiers() & Qt::ControlModifier != 0u) {
+  } else if (event->modifiers() & Qt::AltModifier != 0u) {
   } else {
     if (event->button() == Qt::LeftButton) {
       // This makes the crosshair disappear.
@@ -385,19 +385,19 @@ void Map2DView::mouseMoveEvent(QMouseEvent *event)
     return;
   }
 
-  if (event->modifiers() & Qt::ShiftModifier) {
-    if (event->buttons() & Qt::LeftButton) {
+  if (event->modifiers() & Qt::ShiftModifier != 0u) {
+    if (event->buttons() & Qt::LeftButton != 0u) {
       startZoomAreaMode();
       repaint();
     }
-  } else if (event->modifiers() & Qt::ControlModifier) {
-    if (event->buttons() & Qt::LeftButton) {
+  } else if (event->modifiers() & Qt::ControlModifier != 0u) {
+    if (event->buttons() & Qt::LeftButton != 0u) {
       startQueryMode();
       queryMap(event->pos());
     }
-  } else if (event->modifiers() & Qt::AltModifier) {
+  } else if (event->modifiers() & Qt::AltModifier != 0u) {
   } else {
-    if (event->buttons() & Qt::LeftButton) {
+    if (event->buttons() & Qt::LeftButton != 0u) {
       startPanMode();
       dataObject().map2DMoveBy(pixelsToWorldUnits(_mapViewMouseTarget.movement().x()),
                                pixelsToWorldUnits(_mapViewMouseTarget.movement().y()), true);
@@ -414,9 +414,9 @@ void Map2DView::mouseMoveEvent(QMouseEvent *event)
 
 void Map2DView::wheelEvent(QWheelEvent *event)
 {
-  if (event->modifiers() & Qt::ShiftModifier) {
-  } else if (event->modifiers() & Qt::ControlModifier) {
-  } else if (event->modifiers() & Qt::AltModifier) {
+  if (event->modifiers() & Qt::ShiftModifier != 0u) {
+  } else if (event->modifiers() & Qt::ControlModifier != 0u) {
+  } else if (event->modifiers() & Qt::AltModifier != 0u) {
   } else {
     int const nrDegrees = event->angleDelta().y() / 8;
     double const fraction = nrDegrees / 360.0;
@@ -431,7 +431,7 @@ void Map2DView::wheelEvent(QWheelEvent *event)
 
 void Map2DView::keyPressEvent(QKeyEvent *event)
 {
-  if (event->modifiers() & Qt::ShiftModifier) {
+  if (event->modifiers() & Qt::ShiftModifier != 0u) {
     switch (event->key()) {
       case Qt::Key_Plus: {
         // Zoom map in.
@@ -443,7 +443,7 @@ void Map2DView::keyPressEvent(QKeyEvent *event)
         break;
       }
     }
-  } else if (event->modifiers() & Qt::ControlModifier) {
+  } else if (event->modifiers() & Qt::ControlModifier != 0u) {
 
     switch (event->key()) {
 
@@ -478,7 +478,7 @@ void Map2DView::keyPressEvent(QKeyEvent *event)
         break;
       }
     }
-  } else if (event->modifiers() & Qt::AltModifier) {
+  } else if (event->modifiers() & Qt::AltModifier != 0u) {
     event->ignore();
   } else {
 

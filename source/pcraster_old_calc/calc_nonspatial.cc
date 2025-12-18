@@ -53,7 +53,7 @@ size_t calc::NonSpatial::nrValues() const
 
 void calc::NonSpatial::setCell(const double &value, size_t /* i */)
 {
-  if (IsMVcellRepr(CR_REAL8, &value)) {
+  if (IsMVcellRepr(CR_REAL8, &value) != 0) {
     throw SetNonSpatialToMV();
   }
   switch (d_crVal) {

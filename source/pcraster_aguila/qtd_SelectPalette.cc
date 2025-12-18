@@ -50,7 +50,7 @@ public:
 
   void resetLayout()
   {
-    if (layout()) {
+    if (layout() != nullptr) {
       delete layout();
     }
 
@@ -111,7 +111,7 @@ public:
 
 qtd::SelectPalette::SelectPalette(QWidget *p, const char *n)
 
-    : qt::Dialog(p, n)
+    : qt::Dialog(p, n != nullptr)
 
 
 {

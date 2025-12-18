@@ -71,8 +71,8 @@ pcrxml::DataSetConfiguration::DataSetConfiguration(const DataSetConfiguration &s
 {
   input = new Input(*(src.input));
   compute = new Compute(*(src.compute));
-  interpolate = (src.interpolate) ? new Interpolate(*(src.interpolate)) : nullptr;
-  lodings = (src.lodings) ? new Lodings(*(src.lodings)) : nullptr;
+  interpolate = ((src.interpolate) != nullptr) ? new Interpolate(*(src.interpolate)) : nullptr;
+  lodings = ((src.lodings) != nullptr) ? new Lodings(*(src.lodings)) : nullptr;
 }
 
 //! assignment operator
@@ -83,8 +83,8 @@ pcrxml::DataSetConfiguration &pcrxml::DataSetConfiguration::operator=(const Data
     PRECOND(false);
     input = new Input(*(src.input));
     compute = new Compute(*(src.compute));
-    interpolate = (src.interpolate) ? new Interpolate(*(src.interpolate)) : nullptr;
-    lodings = (src.lodings) ? new Lodings(*(src.lodings)) : nullptr;
+    interpolate = ((src.interpolate) != nullptr) ? new Interpolate(*(src.interpolate)) : nullptr;
+    lodings = ((src.lodings) != nullptr) ? new Lodings(*(src.lodings)) : nullptr;
   }
   return *this;
 }
@@ -92,16 +92,16 @@ pcrxml::DataSetConfiguration &pcrxml::DataSetConfiguration::operator=(const Data
 void pcrxml::DataSetConfiguration::fill(QDomElement el) const
 {
   version.addToElement(el, "version");
-  if (input) {
+  if (input != nullptr) {
     input->appendTo(el);
   }
-  if (compute) {
+  if (compute != nullptr) {
     compute->appendTo(el);
   }
-  if (interpolate) {
+  if (interpolate != nullptr) {
     interpolate->appendTo(el);
   }
-  if (lodings) {
+  if (lodings != nullptr) {
     lodings->appendTo(el);
   }
 }

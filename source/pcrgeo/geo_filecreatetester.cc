@@ -80,7 +80,7 @@ class DiffMap
 
   void init()
   {
-    if (!d_values) {
+    if (d_values == nullptr) {
       d_values = new Raster<UINT1>(d_rs);
       for (size_t i = 0; i < d_values->nrCells(); i++) {
         (*d_values)[i] = MV_UINT1;
@@ -127,7 +127,7 @@ public:
   //! return 0 if no diffs detected or wanted
   UINT1 *diffs()
   {
-    if (d_values) {
+    if (d_values != nullptr) {
       return d_values->cells();
     }
     return nullptr;
@@ -204,7 +204,7 @@ bool geo::FileCreateTester::equalToTss(const com::PathName &eqTo, bool throwWhat
             << v2 << "=" << diff << '\n';
         firstErrMsg = str.str();
       }
-      if (c) {  // skip time column
+      if (c != 0u) {  // skip time column
         if (diff != 0 && d_percentageDifference) {
           tss1.setValue(c, r, com::fractionDifference(v1, v2));
         } else {
@@ -260,7 +260,7 @@ bool geo::FileCreateTester::equalToCsf(const com::PathName &eqTo, bool throwWhat
     }
   }
 
-  if (dm.diffs()) {
+  if (dm.diffs() != nullptr) {
     POSTCOND(!d_diffMapName.isEmpty());
     CSFMap diffMap(d_diffMapName.toString(), map1, VS_NOMINAL, CR_UINT1);
     diffMap.putCells(dm.diffs());

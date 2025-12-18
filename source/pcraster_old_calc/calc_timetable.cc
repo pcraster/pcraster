@@ -22,7 +22,7 @@ calc::TimeTable::TimeTable(const std::string &fileName, VS vs, size_t nrTimeStep
     : d_vs(vs), d_tss(ReadTimeInputTable(fileName.c_str(), 0, 0, vs2CsfVs(vs)))
 {
   try {
-    if (!d_tss) {
+    if (d_tss == nullptr) {
       libError("");
     }
 
@@ -49,7 +49,7 @@ calc::TimeTable::TimeTable(const std::string &fileName)
     : d_vs(VS_S), d_tss(ReadTimeInputTable(fileName.c_str(), 0, 0, vs2CsfVs(VS_S)))
 {
   try {
-    if (!d_tss) {
+    if (d_tss == nullptr) {
       libError("");
     }
   } catch (...) {
@@ -67,7 +67,7 @@ const TIME_TABLE *calc::TimeTable::tss() const
 //! delete the TIME_TABLE struct
 void calc::TimeTable::cleanUp()
 {
-  if (d_tss) {
+  if (d_tss != nullptr) {
     FreeTimeTable(d_tss);
   }
   d_tss = nullptr;

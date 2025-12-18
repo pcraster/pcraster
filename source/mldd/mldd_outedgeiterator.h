@@ -75,7 +75,7 @@ public:
   // MANIPULATORS
   //----------------------------------------------------------------------------
   void increment() {
-    if (d_outflowMask) {
+    if (d_outflowMask != 0u) {
       // unset current
       size_t const pos=FIRSTBITSET_TYPE(d_outflowMask,char);
       d_outflowMask^=(1<<pos);
@@ -108,7 +108,7 @@ public:
    *  end() iterator to compare against
    */
   bool any() const {
-        return d_outflowMask;
+        return d_outflowMask != 0u;
   }
 };
 /*

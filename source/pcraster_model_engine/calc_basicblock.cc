@@ -54,14 +54,14 @@ calc::BasicBlock::BasicBlock(const Position *beginOfBlock, BlockEntrance *transf
   // transferredStatements must be a ASTNodeList because we allow
   // code to be added by BasicBlock::transferPushBack()
   ASTNodeList *nl = (dynamic_cast<ASTNodeList *>(transferredStatements));
-  if (nl) {
+  if (nl != nullptr) {
     d_statements = nl;
   } else {
     d_statements = new ASTNodeList();
     d_statements->transferPushBack(transferredStatements);
   }
 
-  if (beginOfBlock) {
+  if (beginOfBlock != nullptr) {
     setPosition(beginOfBlock);
   } else {
     setPosition(transferredStatements->position());

@@ -71,7 +71,7 @@ void pcrxml::ExchangeItem::fill(QDomElement el) const
 {
   exchangeDirection.addToElement(el, "exchangeDirection");
   index.addToElement(el, "index");
-  if (variable) {
+  if (variable != nullptr) {
     variable->appendTo(el);
   }
 }

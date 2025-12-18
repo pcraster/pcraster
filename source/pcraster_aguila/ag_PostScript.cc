@@ -133,7 +133,7 @@ void ag::PostScript::sort()
 
 void ag::PostScript::deletePrimitivesArray()
 {
-  if (d_data->d_primitives) {
+  if (d_data->d_primitives != nullptr) {
     delete[] d_data->d_primitives;
     d_data->d_primitives = nullptr;
   }
@@ -212,7 +212,7 @@ void ag::PostScript::writeHeader(std::ostream &os)
 
 void ag::PostScript::writeBody(std::ostream &os)
 {
-  if (d_data->d_primitives) {
+  if (d_data->d_primitives != nullptr) {
     for (size_t i = 0; i < d_data->d_nrPrimitives; ++i) {
       (void)writePrimitive(os, d_data->d_primitives[i].d_it);
     }

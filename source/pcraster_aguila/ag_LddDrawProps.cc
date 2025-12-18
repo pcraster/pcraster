@@ -215,7 +215,7 @@ GLuint ag::LddDrawProps::texture(unsigned char gdd, UINT1 ldd) const
     // Add gdd texture.
     // Loop over gdd directions.
     for (size_t i = 0; i < 8; ++i) {
-      if (gdd & (1 << i)) {
+      if ((gdd & (1 << i)) != 0) {
         // Loop over rows in bitmap.
         for (size_t j = 0; j < 64; ++j) {
           // Loop over bytes in row.

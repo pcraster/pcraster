@@ -12,7 +12,7 @@ void calc::TimeTable::init(const std::string &fileName, VS resultFieldVs, size_t
   d_tss = nullptr;
   try {
     d_tss = ReadTimeInputTable(fileName.c_str(), 0, 0, vs2CsfVs(resultFieldVs));
-    if (!d_tss) {
+    if (d_tss == nullptr) {
       libError("");
     }
 
@@ -55,7 +55,7 @@ const TIME_TABLE *calc::TimeTable::tss() const
 //! delete the TIME_TABLE struct
 void calc::TimeTable::clean()
 {
-  if (d_tss) {
+  if (d_tss != nullptr) {
     FreeTimeTable(d_tss);
   }
   d_tss = nullptr;

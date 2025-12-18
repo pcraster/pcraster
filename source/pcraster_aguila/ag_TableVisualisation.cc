@@ -179,7 +179,7 @@ void TableVisualisation::handleChangedSelection(QItemSelection const &selectedIt
 */
 void TableVisualisation::clearTable()
 {
-  while (rowCount()) {
+  while (rowCount() != 0) {
     removeRow(rowCount() - 1);
   }
 

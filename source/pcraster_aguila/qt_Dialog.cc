@@ -93,7 +93,7 @@ void Dialog::resetLayout()
 
   d_data->top = new QVBoxLayout(this);
 
-  if (centralWidget()) {
+  if (centralWidget() != nullptr) {
     d_data->top->addWidget(centralWidget(), 1);
   } else {
     d_data->top->addStretch(1);

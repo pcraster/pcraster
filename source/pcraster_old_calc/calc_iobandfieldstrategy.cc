@@ -82,7 +82,7 @@ void calc::IoBandFieldStrategy::checkClone(const std::string &mapFileName)
 
   setAndCheckCommon(mapFileName, mapRs);
 
-  if (!d_rasterSpaceBand.nrRows()) {  // not yet initialized
+  if (d_rasterSpaceBand.nrRows() == 0u) {  // not yet initialized
     d_cloneNameBand = mapFileName;
     d_rasterSpaceBand = mapRs;
   }

@@ -56,7 +56,7 @@ void calc::FieldArgs::checkArgs()
   if (msg != "") {
     /* pcrcalc/test25[23] */
     std::string const str(op().syntax() + " " + quote(op().name()) + " " + msg);
-    if (nrFieldArgs()) {
+    if (nrFieldArgs() != 0u) {
       d_args[0]->posError(str);
     } else {  // pcrcalc/test252a
       d_pos.posError(str);

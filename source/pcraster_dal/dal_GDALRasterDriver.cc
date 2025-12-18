@@ -303,7 +303,7 @@ Raster* GDALDataset2Raster(
   double minimum = rasterBand->GetMinimum(&hasMinimum);
   double maximum = rasterBand->GetMaximum(&hasMaximum);
 
-  if(hasMinimum && hasMaximum) {
+  if((hasMinimum != 0) && (hasMaximum != 0)) {
     switch(typeId) {
       case TI_UINT1: {
         raster->setExtremes(boost::any(UINT1(minimum)),
@@ -362,7 +362,7 @@ Raster* GDALDataset2Raster(
     char const* valueScaleDescription = gdalDataset->GetMetadataItem(
          "PCRASTER_VALUESCALE");
 
-    if(valueScaleDescription) {
+    if(valueScaleDescription != nullptr) {
       valueScale = dal::valueScale(valueScaleDescription);
     }
 
@@ -409,7 +409,7 @@ GDALDataset* GDALRasterDriver::openGDALDataset(
   dataset = static_cast<GDALDataset*>(GDALOpen(
          path.string().c_str(), access));
 
-  if(!dataset) {
+  if(dataset == nullptr) {
     throwCannotBeOpened(path.string(), RASTER);
   }
 
@@ -460,7 +460,7 @@ void GDALRasterDriver::registerGDALDrivers()
     auto* driver = manager->GetDriver(i);
     auto metadata = driver->GetMetadata();
 
-    if(CSLFetchBoolean(metadata, GDAL_DCAP_RASTER, FALSE)) {
+    if(CSLFetchBoolean(metadata, GDAL_DCAP_RASTER, FALSE) != 0) {
       d_drivers.push_back(driver);
     }
   }
@@ -661,7 +661,7 @@ void GDALRasterDriver::init()
 
   char** metadata = d_driver->GetMetadata();
 
-  if(CSLFetchBoolean(metadata, GDAL_DCAP_CREATECOPY, FALSE)) {
+  if(CSLFetchBoolean(metadata, GDAL_DCAP_CREATECOPY, FALSE) != 0) {
     properties |= Writer;
   }
 
@@ -873,7 +873,7 @@ void GDALRasterDriver::read(
   GDALRasterBand* rasterBand = gdalDataset->GetRasterBand(1);
   assert(rasterBand);
 
-  if(!rasterBand) {
+  if(rasterBand == nullptr) {
     throwCannotBeOpened(name, RASTER, space, address);
   }
 
@@ -890,7 +890,7 @@ void GDALRasterDriver::read(
   int hasNoDataValue = 0;
   double const noDataValue = rasterBand->GetNoDataValue(&hasNoDataValue);
 
-  if(hasNoDataValue) {
+  if(hasNoDataValue != 0) {
     toStdMV(raster.typeId(), raster.cells(), raster.nrCells(), noDataValue);
   }
 
@@ -915,7 +915,7 @@ Raster* GDALRasterDriver::read(
 
   Raster* raster = open(name, space, address, typeId);
 
-  if(!raster) {
+  if(raster == nullptr) {
     throwCannotBeOpened(name, RASTER, space, address);
   }
 
@@ -980,7 +980,7 @@ void GDALRasterDriver::read(
   GDALRasterBand* rasterBand = gdalDataset->GetRasterBand(1);
   assert(rasterBand);
 
-  if(!rasterBand) {
+  if(rasterBand == nullptr) {
     throwCannotBeOpened(name, RASTER, space, address);
   }
 
@@ -1014,7 +1014,7 @@ void GDALRasterDriver::read(
   int hasNoDataValue = 0;
   double const noDataValue = rasterBand->GetNoDataValue(&hasNoDataValue);
 
-  if(hasNoDataValue) {
+  if(hasNoDataValue != 0) {
     toStdMV(typeId, cell, 1, noDataValue);
   }
 }

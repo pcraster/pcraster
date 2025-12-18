@@ -70,8 +70,8 @@ pcrxml::Input::Input(const Input &src)
     : pcrxml::Element(src), flipZ(src.flipZ), samplingInterval(src.samplingInterval),
       migrDirection(src.migrDirection)
 {
-  inputLodings = (src.inputLodings) ? new InputLodings(*(src.inputLodings)) : nullptr;
-  inputPoints = (src.inputPoints) ? new InputPoints(*(src.inputPoints)) : nullptr;
+  inputLodings = ((src.inputLodings) != nullptr) ? new InputLodings(*(src.inputLodings)) : nullptr;
+  inputPoints = ((src.inputPoints) != nullptr) ? new InputPoints(*(src.inputPoints)) : nullptr;
   for (auto i : src.inputFile) {
     inputFile.push_back(new InputFile(*i));
   }
@@ -83,8 +83,8 @@ pcrxml::Input &pcrxml::Input::operator=(const Input &src)
   if (this != &src) {
     clean();
     PRECOND(false);
-    inputLodings = (src.inputLodings) ? new InputLodings(*(src.inputLodings)) : nullptr;
-    inputPoints = (src.inputPoints) ? new InputPoints(*(src.inputPoints)) : nullptr;
+    inputLodings = ((src.inputLodings) != nullptr) ? new InputLodings(*(src.inputLodings)) : nullptr;
+    inputPoints = ((src.inputPoints) != nullptr) ? new InputPoints(*(src.inputPoints)) : nullptr;
     for (auto i : src.inputFile) {
       inputFile.push_back(new InputFile(*i));
     }
@@ -97,10 +97,10 @@ void pcrxml::Input::fill(QDomElement el) const
   flipZ.addToElement(el, "flipZ");
   samplingInterval.addToElement(el, "samplingInterval");
   migrDirection.addToElement(el, "migrDirection");
-  if (inputLodings) {
+  if (inputLodings != nullptr) {
     inputLodings->appendTo(el);
   }
-  if (inputPoints) {
+  if (inputPoints != nullptr) {
     inputPoints->appendTo(el);
   }
   for (auto i : inputFile) {

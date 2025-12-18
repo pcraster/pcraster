@@ -57,8 +57,8 @@ void pcrxml::RunDirectory::clean()
 //! copy ctor
 pcrxml::RunDirectory::RunDirectory(const RunDirectory &src) : pcrxml::Element(src)
 {
-  modelRunSettings = (src.modelRunSettings) ? new ModelRunSettings(*(src.modelRunSettings)) : nullptr;
-  modelRunStatus = (src.modelRunStatus) ? new ModelRunStatus(*(src.modelRunStatus)) : nullptr;
+  modelRunSettings = ((src.modelRunSettings) != nullptr) ? new ModelRunSettings(*(src.modelRunSettings)) : nullptr;
+  modelRunStatus = ((src.modelRunStatus) != nullptr) ? new ModelRunStatus(*(src.modelRunStatus)) : nullptr;
 }
 
 //! assignment operator
@@ -67,18 +67,18 @@ pcrxml::RunDirectory &pcrxml::RunDirectory::operator=(const RunDirectory &src)
   if (this != &src) {
     clean();
     PRECOND(false);
-    modelRunSettings = (src.modelRunSettings) ? new ModelRunSettings(*(src.modelRunSettings)) : nullptr;
-    modelRunStatus = (src.modelRunStatus) ? new ModelRunStatus(*(src.modelRunStatus)) : nullptr;
+    modelRunSettings = ((src.modelRunSettings) != nullptr) ? new ModelRunSettings(*(src.modelRunSettings)) : nullptr;
+    modelRunStatus = ((src.modelRunStatus) != nullptr) ? new ModelRunStatus(*(src.modelRunStatus)) : nullptr;
   }
   return *this;
 }
 
 void pcrxml::RunDirectory::fill(QDomElement el) const
 {
-  if (modelRunSettings) {
+  if (modelRunSettings != nullptr) {
     modelRunSettings->appendTo(el);
   }
-  if (modelRunStatus) {
+  if (modelRunStatus != nullptr) {
     modelRunStatus->appendTo(el);
   }
 }

@@ -92,7 +92,7 @@ calc::ClientInterface& calc::ClientInterface::operator=(ClientInterface const& r
 //! load if not yet loaded
 void calc::ClientInterface::load()
 {
-  if (d_script) {
+  if (d_script != nullptr) {
     return;
   }
   d_script = createScriptAndAnalyzeNoContext();
@@ -129,7 +129,7 @@ int calc::ClientInterface::pcr_ScriptExecuteInitialStepMemory(void **data)
   // resolve possible lookuptables and so on
   d_script->resolve();
 
-  if (d_executor) {
+  if (d_executor != nullptr) {
     throw com::Exception("pcr_ScriptExecuteInitialStepMemory called twice");
   }
 
@@ -146,7 +146,7 @@ int calc::ClientInterface::pcr_ScriptExecuteInitialStepMemory(void **data)
 
 int calc::ClientInterface::pcr_ScriptExecuteNextTimeStepMemory(void **data)
 {
-  if (!d_executor) {
+  if (d_executor == nullptr) {
     throw com::Exception("pcr_ScriptExecuteNextTimeStepMemory called with no prior call to "
                          "pcr_ScriptExecuteInitialStepMemory");
   }
@@ -162,7 +162,7 @@ int calc::ClientInterface::pcr_ScriptExecuteNextTimeStepMemory(void **data)
 void calc::ClientInterface::pcr_ScriptReleaseAllAllocatedMemory()
 {
   assert(false);
-  if (d_executor)  // TODO need this?
+  if (d_executor != nullptr)  // TODO need this?
   {                // nothing executed, nothing to do
     // for all allocated memory elements: release
   }

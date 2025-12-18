@@ -191,7 +191,7 @@ void calc::FileTimeoutput::finish()
   // if data left, write it otherwise not
   // the if prevent the case that we only
   // write a header and no data
-  if (d_step.size()) {
+  if (d_step.size() != 0u) {
     flushToFile();
   }
 }
@@ -214,7 +214,7 @@ double *calc::FileTimeoutput::setRow(size_t currentTimeStep)
   if (!reportTimeStep(currentTimeStep)) {
     return nullptr;
   }
-  if (d_step.size() && currentTimeStep == d_step.back()) {
+  if ((d_step.size() != 0u) && currentTimeStep == d_step.back()) {
     // pcrcalc/test317 writing a value twice in loop!
     return d_value[d_step.size() - 1];
   }
@@ -287,7 +287,7 @@ void calc::FileTimeoutput::printLine(size_t t, const double *v, std::ofstream &f
 
   // print columns of row on line of file
   for (size_t c = 0; c < d_nrCols; c++) {
-    if (!v || IS_MV_REAL8(v + c)) {
+    if ((v == nullptr) || IS_MV_REAL8(v + c)) {
       f << mvFmt;
     } else {
       double d = v[c];
@@ -332,7 +332,7 @@ void calc::FileTimeoutput::flushToFile()
 void calc::FileTimeoutput::nonspatial(const Field *f, size_t currentTimeStep)
 {
   double *v = setRow(currentTimeStep);
-  if (v) {
+  if (v != nullptr) {
     f->getCell(*v, 0);
   }
 }
@@ -342,13 +342,13 @@ void calc::FileTimeoutput::timeoutput(const Field *id, const Field *expr, size_t
   // val[0] will hold for id 1, val[2] for id 2, etc.
   double *val = setRow(currentTimeStep);
 
-  if (!val) {  // do not write this time step
+  if (val == nullptr) {  // do not write this time step
     return;
   }
 
   int const result = detail::doTimeoutput(val, id, expr, d_nrCols);
 
-  if (result) {
+  if (result != 0) {
     d_fileErrorOccured = true;
     throw std::runtime_error("Failed to add data to timeseries");
   }
@@ -360,7 +360,7 @@ void calc::FileTimeoutput::timeoutput(const Field *id, const Field *expr, size_t
 calc::FileTimeoutput *calc::createFileTimeoutput(const StackInfo &stackInfo, const Field *id)
 {
   size_t const nrCols = detail::maxId(id);
-  if (nrCols) {
+  if (nrCols != 0u) {
     return new FileTimeoutput(stackInfo, nrCols);
   }
   return nullptr;
@@ -382,7 +382,7 @@ void calc::MemoryTimeoutput::timeoutput(const Field *id, const Field *expr, size
   // then recast in case of INT4 or UINT1
   std::vector<double> val(nrCols);
   int const result = detail::doTimeoutput(&(val[0]), id, expr, nrCols);
-  if (result) {
+  if (result != 0) {
     throw std::runtime_error("Failed to add data to timeseries");
   }
 

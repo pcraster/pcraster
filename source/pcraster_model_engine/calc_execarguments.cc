@@ -61,7 +61,7 @@ calc::ExecArguments::ExecArguments(const Operator &op, RunTimeEnv *rte, size_t n
   for (size_t i = 0; i < d_fields.size(); ++i) {
     d_fields[d_fields.size() - i - 1] = d_rte->popField();
   }
-  if (op.firstFieldInput()) {
+  if (op.firstFieldInput() != 0u) {
     d_firstNonFieldInput = rte->popDataValue();
   }
 }
@@ -70,7 +70,7 @@ calc::ExecArguments::~ExecArguments()
 {
 #ifdef DEBUG_DEVELOP
   // result should be pushed and cleared in normal cases
-  if (!std::uncaught_exceptions()) {
+  if (std::uncaught_exceptions() == 0) {
     for (auto &i : d_result) {
       POSTCOND(!i);
     }
@@ -98,7 +98,7 @@ calc::ExecArguments::ExecArguments(const ExecArguments& rhs):
 void calc::ExecArguments::clean()
 {
   for (size_t i = 0; i < d_fields.size(); ++i) {
-    if (i != d_resultIsField && !d_doNotDelete.count(d_fields[i])) {
+    if (i != d_resultIsField && (d_doNotDelete.count(d_fields[i]) == 0u)) {
       deleteFromPcrme(d_fields[i]);
       d_doNotDelete.insert(d_fields[i]);
     }
@@ -164,7 +164,7 @@ void calc::ExecArguments::createResults()
 void *calc::ExecArguments::dest(size_t d)
 {
   PRECOND(d < d_result.size());
-  if (!d_result[d]) {
+  if (d_result[d] == nullptr) {
     createResults();
   }
   return d_result[d]->dest();

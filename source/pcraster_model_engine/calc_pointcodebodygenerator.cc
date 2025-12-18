@@ -170,7 +170,7 @@ void calc::PointCodeBodyGenerator::visitAss(ASTAss *a)
 
   if (d_parNames.count(lhs->name()) == 0) {
     // first assignment to local
-    if (d_args.back().expr()) {
+    if (d_args.back().expr() != nullptr) {
       // must be assigned an inliner
       (*d_curr) << "// forced inline assignment " << a->shortPosText() << '\n';
       std::string const name = tmpDef(d_args.back().expr());
@@ -377,7 +377,7 @@ void calc::PointCodeBodyGenerator::selectPart(const DataType &dt)
     newCurr = &d_ns;
   }
 
-  if (newCurr != d_curr && !d_args.size()) {
+  if (newCurr != d_curr && (d_args.size() == 0u)) {
     /*! generate code for current stack (sub-expr)
      * always a transfer from d_ns -> d_loop
      */

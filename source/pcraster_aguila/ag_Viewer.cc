@@ -68,7 +68,7 @@ Viewer *Viewer::instance()
 
 void Viewer::resetInstance()
 {
-  if (d_instance) {
+  if (d_instance != nullptr) {
     delete d_instance;
     d_instance = nullptr;
   }
@@ -133,7 +133,7 @@ VisGroupManager &Viewer::manager()
  */
 void Viewer::createViews(pcrxml::Aguila const &cfg)
 {
-  if (!cfg.visualisationGroup().view().size()) {
+  if (cfg.visualisationGroup().view().size() == 0u) {
     com::Exception exception("Nothing to do!");
     exception.append("Use -h or --help for usage information");
     throw exception;
@@ -654,7 +654,7 @@ VisGroup *Viewer::groupFor(std::string const &name, dal::DataSpace const &space)
 {
   VisGroup *group = findCompatibleGroup(name, space);
 
-  if (!group) {
+  if (group == nullptr) {
     group = newGroup();
   }
 
@@ -747,7 +747,7 @@ VisGroup *Viewer::displayMap2D(QueryResults const &results, VisGroup *group, boo
   if (results.empty()) {
     return group;
   }
-  if (!group) {
+  if (group == nullptr) {
     group = groupFor(results);
   }
   assert(group);
@@ -792,7 +792,7 @@ VisGroup *Viewer::displayMultiMap2D(QueryResults const &queryResults, VisGroup *
                                     size_t nrCols, bool sync)
 {
   if (!queryResults.empty()) {
-    if (!group) {
+    if (group == nullptr) {
       group = groupFor(queryResults);
     }
 
@@ -931,7 +931,7 @@ VisGroup *Viewer::displayMap3D(QueryResults const &results, VisGroup *group, boo
   if (results.empty()) {
     return group;
   }
-  if (!group) {
+  if (group == nullptr) {
     group = groupFor(results);
   }
 
@@ -1049,7 +1049,7 @@ VisGroup *Viewer::displayProbabilityGraphWindow(dal::DataSpace const &space,
 {
   assert(!names.empty());
 
-  if (!group) {
+  if (group == nullptr) {
     group = groupFor(names.front(), space);
   }
 
@@ -1110,7 +1110,7 @@ VisGroup *Viewer::displayValueView(QueryResults const &queryResults, VisGroup *g
 {
   if (!queryResults.empty()) {
 
-    if (!group) {
+    if (group == nullptr) {
       group = groupFor(queryResults);
     }
 

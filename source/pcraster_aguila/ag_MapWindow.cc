@@ -118,7 +118,7 @@ void ag::MapWindow::createInterface()
 
 void ag::MapWindow::setEnableDataInterfaceElements(bool enable)
 {
-  if (/* d_queryAction && d_panAction && d_zoomAction && */ d_zoomAllAction) {
+  if (/* d_queryAction && d_panAction && d_zoomAction && */ d_zoomAllAction != nullptr) {
     /// d_queryAction->setEnabled(enable);
     /// d_panAction->setEnabled(enable);
     /// d_zoomAction->setEnabled(enable);

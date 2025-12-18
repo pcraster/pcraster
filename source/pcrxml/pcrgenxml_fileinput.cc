@@ -79,10 +79,10 @@ void pcrxml::FileInput::clean()
 pcrxml::FileInput::FileInput(const FileInput &src)
     : pcrxml::Element(src), canChooseOtherFiles(src.canChooseOtherFiles)
 {
-  map = (src.map) ? new Map(*(src.map)) : nullptr;
-  stack = (src.stack) ? new Stack(*(src.stack)) : nullptr;
-  timeSeries = (src.timeSeries) ? new TimeSeries(*(src.timeSeries)) : nullptr;
-  table = (src.table) ? new Table(*(src.table)) : nullptr;
+  map = ((src.map) != nullptr) ? new Map(*(src.map)) : nullptr;
+  stack = ((src.stack) != nullptr) ? new Stack(*(src.stack)) : nullptr;
+  timeSeries = ((src.timeSeries) != nullptr) ? new TimeSeries(*(src.timeSeries)) : nullptr;
+  table = ((src.table) != nullptr) ? new Table(*(src.table)) : nullptr;
   for (auto i : src.data) {
     data.push_back(new Data(*i));
   }
@@ -94,10 +94,10 @@ pcrxml::FileInput &pcrxml::FileInput::operator=(const FileInput &src)
   if (this != &src) {
     clean();
     PRECOND(false);
-    map = (src.map) ? new Map(*(src.map)) : nullptr;
-    stack = (src.stack) ? new Stack(*(src.stack)) : nullptr;
-    timeSeries = (src.timeSeries) ? new TimeSeries(*(src.timeSeries)) : nullptr;
-    table = (src.table) ? new Table(*(src.table)) : nullptr;
+    map = ((src.map) != nullptr) ? new Map(*(src.map)) : nullptr;
+    stack = ((src.stack) != nullptr) ? new Stack(*(src.stack)) : nullptr;
+    timeSeries = ((src.timeSeries) != nullptr) ? new TimeSeries(*(src.timeSeries)) : nullptr;
+    table = ((src.table) != nullptr) ? new Table(*(src.table)) : nullptr;
     for (auto i : src.data) {
       data.push_back(new Data(*i));
     }
@@ -108,16 +108,16 @@ pcrxml::FileInput &pcrxml::FileInput::operator=(const FileInput &src)
 void pcrxml::FileInput::fill(QDomElement el) const
 {
   canChooseOtherFiles.addToElement(el, "canChooseOtherFiles");
-  if (map) {
+  if (map != nullptr) {
     map->appendTo(el);
   }
-  if (stack) {
+  if (stack != nullptr) {
     stack->appendTo(el);
   }
-  if (timeSeries) {
+  if (timeSeries != nullptr) {
     timeSeries->appendTo(el);
   }
-  if (table) {
+  if (table != nullptr) {
     table->appendTo(el);
   }
   for (auto i : data) {

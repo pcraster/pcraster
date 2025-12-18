@@ -468,7 +468,7 @@ void PlotVisualisation::mousePressEvent(QMouseEvent *event)
 // Drags the marker to the corresponding axis position
 void PlotVisualisation::mouseMoveEvent(QMouseEvent *event)
 {
-  if (event->buttons() & Qt::LeftButton) {
+  if (event->buttons() & Qt::LeftButton != 0u) {
     mousePressEvent(event);
   }
 }

@@ -34,7 +34,7 @@ calc::SpatialImpl::~SpatialImpl()
 {
   // no bookkeeping if error state
 #if __cpp_lib_uncaught_exceptions
-  if (!std::uncaught_exceptions()) {
+  if (std::uncaught_exceptions() == 0) {
 #else
   if (!std::uncaught_exception()) {
 #endif

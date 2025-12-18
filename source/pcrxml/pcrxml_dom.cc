@@ -131,7 +131,7 @@ QString pcrxml::textOnlyContents(QDomElement e)
 {
   e.normalize();
   QDomNodeList const c(e.childNodes());
-  if (!c.length()) {
+  if (c.length() == 0) {
     return "";
   }
   PRECOND(c.length() == 1 && c.item(0).isCharacterData());

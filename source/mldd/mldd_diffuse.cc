@@ -77,7 +77,7 @@ public:
       return;
     }
     size_t const v = linear(vC);
-    if (!d_data.d_fixedHead[v]) {
+    if (d_data.d_fixedHead[v] == 0.0f) {
       d_data.d_dem[v] += (d_inflow[v] - d_outflow[v]) / d_data.d_area[v];
       d_data.checkDem(v);
     }
@@ -129,7 +129,7 @@ mldd::Diffuse::Diffuse(geo::ScalarSimpleRaster &dem, REAL4 *totalOutflow, const 
 
 mldd::Diffuse::~Diffuse()
 {
-  if (d_infinity || d_minInfinity) {
+  if ((d_infinity != 0u) || (d_minInfinity != 0u)) {
     std::cerr << '\n';
     std::cerr << "Dem of diffuse has reached " << d_infinity << " times +infinity " << '\n';
     std::cerr << "Dem of diffuse has reached " << d_minInfinity << " times -infinity " << '\n';

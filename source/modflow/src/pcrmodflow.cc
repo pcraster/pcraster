@@ -983,7 +983,7 @@ bool PCRModflow::runModflow(const std::string &working_directory)
   if (d_gridIsFixed == false) {
     // test if top layer is a Q3dConfined layer
     size_t const size = d_quasiConfined.size();
-    if (d_quasiConfined.at(size - 2) == 1) {
+    if (static_cast<int>(d_quasiConfined.at(size - 2)) == 1) {
       std::string const stmp("Grid definition: layer 1 is a confined layer");
       d_cmethods->error(stmp, "run");
     }

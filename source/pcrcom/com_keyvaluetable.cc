@@ -316,14 +316,14 @@ const std::string &com::KeyValueEnum::configValue(const KeyValueTable &kvt) cons
 com::KeyValueNumber::KeyValueNumber(const std::string &keyName, const Interval<double> *iv)
     : KeyValueConfig(keyName)
 {
-  if (iv) {
+  if (iv != nullptr) {
     d_iv = iv->createClone();
   }
 }
 
 com::KeyValueNumber::KeyValueNumber(const KeyValueNumber &k) : KeyValueConfig(k.keyName())
 {
-  if (k.d_iv) {
+  if (k.d_iv != nullptr) {
     d_iv = k.d_iv->createClone();
   }
 }
@@ -334,7 +334,7 @@ com::KeyValueNumber &com::KeyValueNumber::operator=(const KeyValueNumber &k)
     *this = k;
     delete this->d_iv;
     this->d_iv = nullptr;
-    if (k.d_iv) {
+    if (k.d_iv != nullptr) {
       this->d_iv = k.d_iv->createClone();
     }
   }
@@ -358,7 +358,7 @@ void com::KeyValueNumber::validate(const std::string &value) const
 {
   try {
     double const numericValue = typeValidate(value);
-    if (d_iv) {
+    if (d_iv != nullptr) {
       if (!d_iv->valid(numericValue)) {
         throw com::Exception(d_iv->msg());
       }

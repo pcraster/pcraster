@@ -47,7 +47,7 @@ calc::ExternalSymbols *calc::ExternalSymbols::d_instance = nullptr;
 
 calc::ExternalSymbols *calc::ExternalSymbols::instance()
 {
-  if (!d_instance) {
+  if (d_instance == nullptr) {
     d_instance = new ExternalSymbols();
   }
 
@@ -59,7 +59,7 @@ calc::ExternalSymbols *calc::ExternalSymbols::instance()
 */
 void calc::ExternalSymbols::clear()
 {
-  if (d_instance) {
+  if (d_instance != nullptr) {
     delete d_instance;
     d_instance = nullptr;
   }
@@ -85,7 +85,7 @@ void calc::ExternalSymbols::addFunction(const PCR_EXTERNAL_FUNCTION_SYNOPSIS &fd
 {
   // Check if an external function with the same name doesn't already exist.
   const char *functionName = fd.name;
-  if (find(functionName)) {
+  if (find(functionName) != nullptr) {
     std::ostringstream str;
     str << "function" << quote(functionName) << ", already a known function name";
     throw com::Exception(str.str());
@@ -112,7 +112,7 @@ void calc::ExternalSymbols::addModelLink(const PCR_EXTERNAL_MODELLINK_SYNOPSIS &
 {
   // Check if a link with the same name doesn't already exist.
   const char *modelLinkName = synopsis.name;
-  if (findModelLinkProxy(modelLinkName)) {
+  if (findModelLinkProxy(modelLinkName) != nullptr) {
     std::ostringstream str;
     str << "model link " << quote(modelLinkName) << ", already a known model link name";
     throw com::Exception(str.str());

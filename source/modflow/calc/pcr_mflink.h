@@ -212,10 +212,10 @@ PCRMF_EXPORT const char * pcr_LinkInExecute(const char *xml,
   try {
     pcrxml::LinkInExecuteInput l(strToLinkInExecuteInput(xml));
 
-    if (l.callPoint().function()) {
-    } else if(l.callPoint().object()){
+    if (l.callPoint().function() != nullptr) {
+    } else if(l.callPoint().object() != nullptr){
       assert(l.callPoint().object());
-      if (l.callPoint().object()->constructor()) {
+      if (l.callPoint().object()->constructor() != nullptr) {
 	if (l.callPoint().object()->className()=="initialise") {
 	  ModflowLink::construct(l);
 	}
@@ -257,9 +257,9 @@ PCRMF_EXPORT const char * pcr_LinkInCheck(const char *xml){
     returnResult.argument(input.argument());
 
     // and a modified returnResult
-    if(   input.callPoint().object()
+    if(   (input.callPoint().object() != nullptr)
           && input.callPoint().object()->className()=="initialise"
-          && input.callPoint().object()->methodName()   // method call
+          && (input.callPoint().object()->methodName() != nullptr)   // method call
           && input.callPoint().object()->methodName().get()=="setLayer") {
 
       returnResult.result()[0].spatialType(returnResult.argument()[0].spatialType());

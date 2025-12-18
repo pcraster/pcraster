@@ -64,7 +64,7 @@ calc::Executor::Executor(CFGNode *cfg, const RunTimeEnvSettings &s, const ASTSym
 calc::Executor::~Executor()
 {
 #ifdef DEBUG_DEVELOP
-  if (!std::uncaught_exceptions()) {
+  if (std::uncaught_exceptions() == 0) {
     if (!d_rte.empty()) {
       DEVELOP_PRECOND(d_rte.empty());
     }
@@ -108,14 +108,14 @@ void calc::Executor::wrapVisitWithCatch(Visit v)
     // if we have a current node, we can position
     // the error to that node
     ASTNode *n = current();
-    if (n) {
+    if (n != nullptr) {
       n->runtimeError(d_rte.timer().currentInt(), e.messages());
     } else {  // else rethrow
       throw;
     }
   } catch (const std::exception &e) {
     ASTNode *n = current();
-    if (n) {
+    if (n != nullptr) {
       n->runtimeError(d_rte.timer().currentInt(), e.what());
     } else {  // else rethrow
       throw;
@@ -252,7 +252,7 @@ void calc::Executor::visitExpr(BaseExpr *e)
 
 void calc::Executor::visitAss(ASTAss *a)
 {
-  if (!d_timeoutput) {
+  if (d_timeoutput == nullptr) {
     d_rte.assignStackTop(a->pars());
   } else {
     // delay to reach  a->pars holding the tss

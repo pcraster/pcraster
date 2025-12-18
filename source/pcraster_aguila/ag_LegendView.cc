@@ -159,7 +159,7 @@ void LegendView::editDrawProperties()
     widget = new RangeDrawPropertiesWidget(dataObject(), _contextMenuGuides.front(), this);
   }
 
-  if (widget) {
+  if (widget != nullptr) {
     auto *dialog = new PropertiesDialog(widget, this);
     dialog->setFixedSize(dialog->sizeHint());
     dialog->exec();
@@ -401,7 +401,7 @@ void LegendView::rescan()
 
 void LegendView::process()
 {
-  if (visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+  if ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0u) {
     if (!dataObject().backgroundColour().isValid()) {
       setPalette(QPalette());
     } else {
@@ -415,9 +415,9 @@ void LegendView::process()
 void LegendView::visualise()
 {
   // Done scanning, update stuff if needed.
-  if (visualisationEngine().change() & VisEngine::OTHERATTRIB ||
-      visualisationEngine().change() & VisEngine::DRAWPROPS ||
-      visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR  // ||
+  if (((visualisationEngine().change() & VisEngine::OTHERATTRIB) != 0u) ||
+      ((visualisationEngine().change() & VisEngine::DRAWPROPS) != 0u) ||
+      ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0u)  // ||
       // Results in too many recreation of legend when it is not needed.
       // I guess we're only interested in flips of no value selected to
       // value selected or the other way around. Not interested in selected
@@ -426,7 +426,7 @@ void LegendView::visualise()
     recreateLegend(visualisationEngine().dataGuides());
   }
 
-  if (visualisationEngine().change() & VisEngine::SELECTION) {
+  if ((visualisationEngine().change() & VisEngine::SELECTION) != 0u) {
     updateSelection();
   }
 

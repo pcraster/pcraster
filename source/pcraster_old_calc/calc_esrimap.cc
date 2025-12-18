@@ -115,7 +115,7 @@ calc::EsriMap::EsriMap(const std::string &fileName, size_t nrRows, size_t nrCols
 calc::EsriMap::~EsriMap()
 {
   close();
-  if (d_prjFile.size()) {
+  if (d_prjFile.size() != 0u) {
     com::copy(d_prjFile, prjFilePath());
   }
 }
@@ -141,8 +141,8 @@ void calc::EsriMap::bbox(double *setThis) const
 
 bool calc::EsriMap::cmpBox(const double *otherBox) const
 {
-  return (otherBox[0] == d_box[0]) & (otherBox[1] == d_box[1]) & (otherBox[2] == d_box[2]) &
-         (otherBox[3] == d_box[3]);
+  return (static_cast<int>(otherBox[0] == d_box[0]) & static_cast<int>(otherBox[1] == d_box[1]) & static_cast<int>(otherBox[2] == d_box[2]) &
+         static_cast<int>(otherBox[3] == d_box[3])) != 0;
 }
 
 calc::EsriMap::Window calc::EsriMap::window()
@@ -176,7 +176,7 @@ void calc::EsriMap::readInBuffer(VS readAs, void *val)
   Window const workWindow(window());
 
   size_t const len = nrCells();
-  if (!val) {
+  if (val == nullptr) {
     switch (bytesPerCell(vs())) {
       case 1:
         val = new UINT1[len];

@@ -629,14 +629,14 @@ void Visualisation::createFullScreenToolButton(QToolBar* toolBar)
 
 void VisualisationWindow::setEnableAnimation(bool enable)
 {
-  if (d_animateAction) {
+  if (d_animateAction != nullptr) {
     d_animateAction->setEnabled(enable);
   }
 }
 
 void VisualisationWindow::setEnableSaveAs(bool enable)
 {
-  if (d_saveAsAction) {
+  if (d_saveAsAction != nullptr) {
     d_saveAsAction->setEnabled(enable);
   }
 }

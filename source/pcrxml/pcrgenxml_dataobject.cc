@@ -80,7 +80,7 @@ pcrxml::DataObject &pcrxml::DataObject::operator=(const DataObject &src)
 
 void pcrxml::DataObject::fill(QDomElement el) const
 {
-  if (cursor) {
+  if (cursor != nullptr) {
     cursor->appendTo(el);
   }
   for (auto i : data) {

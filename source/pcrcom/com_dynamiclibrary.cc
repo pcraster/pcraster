@@ -20,7 +20,7 @@ bool com::DynamicLibrary::checkError() const
    * so cache it in d_dllError
    */
   d_dllError = ::dlerror();
-  return d_dllError;
+  return d_dllError != nullptr;
 }
 
 #endif
@@ -137,7 +137,7 @@ void *com::DynamicLibrary::address(const std::string &symbolName) const
 void *com::DynamicLibrary::addressAndSetLibPath(const std::string &symbolName)
 {
   void *addr = address(symbolName);
-  if (!addr) {
+  if (addr == nullptr) {
     return nullptr;
   }
 
@@ -151,7 +151,7 @@ void *com::DynamicLibrary::addressAndSetLibPath(const std::string &symbolName)
   // #error   linux requires GNU compiler for dladdr extension
   // #endif
   Dl_info loc;
-  if (dladdr(addr, &loc)) {
+  if (dladdr(addr, &loc) != 0) {
     d_directory = loc.dli_fname;
   } else {
     assert(false);
@@ -180,7 +180,7 @@ void *com::DynamicLibrary::loadSymbol(const std::string &symName) const
 {
   void *addr = address(symName);
 
-  if (!addr) {
+  if (addr == nullptr) {
     throwException(symName);
   }
   return addr;

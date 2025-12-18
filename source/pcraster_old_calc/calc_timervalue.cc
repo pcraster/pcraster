@@ -39,10 +39,10 @@ calc::TimerValue::TimerValue(const Symbol &c) : Symbol(c)
     // that is already set as a FieldNrParameter
     const auto *nrP =
         dynamic_cast<const FieldNrParameter *>(c.scriptConst().findSymbol(&c, VS_FIELD, false));
-    if (!nrP || nrP->isArray()) {
+    if ((nrP == nullptr) || nrP->isArray()) {
       // maybe a string binding
       const Symbol *s = scriptConst().findBinding(c.name());
-      if (s) {  // is a string binding, test48
+      if (s != nullptr) {  // is a string binding, test48
         posError(qName() + " does not have a numeric value");
       }
       // not known generate: undefined symbol test48a

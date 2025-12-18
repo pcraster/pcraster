@@ -57,7 +57,7 @@ void pcrxml::Stack::clean()
 pcrxml::Stack::Stack(const Stack &src) : pcrxml::Element(src)
 {
   dataTypeDTD = new DataTypeDTD(*(src.dataTypeDTD));
-  timestepRange = (src.timestepRange) ? new TimestepRange(*(src.timestepRange)) : nullptr;
+  timestepRange = ((src.timestepRange) != nullptr) ? new TimestepRange(*(src.timestepRange)) : nullptr;
 }
 
 //! assignment operator
@@ -67,17 +67,17 @@ pcrxml::Stack &pcrxml::Stack::operator=(const Stack &src)
     clean();
     PRECOND(false);
     dataTypeDTD = new DataTypeDTD(*(src.dataTypeDTD));
-    timestepRange = (src.timestepRange) ? new TimestepRange(*(src.timestepRange)) : nullptr;
+    timestepRange = ((src.timestepRange) != nullptr) ? new TimestepRange(*(src.timestepRange)) : nullptr;
   }
   return *this;
 }
 
 void pcrxml::Stack::fill(QDomElement el) const
 {
-  if (dataTypeDTD) {
+  if (dataTypeDTD != nullptr) {
     dataTypeDTD->appendTo(el);
   }
-  if (timestepRange) {
+  if (timestepRange != nullptr) {
     timestepRange->appendTo(el);
   }
 }

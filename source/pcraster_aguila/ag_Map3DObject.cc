@@ -173,7 +173,7 @@ void ag::Map3DObject::createHeightScene(const ag::DataObject &o, const ag::DataG
           maxHeight - minHeight);
 
   // Calculate default scale.
-  if (height()) {
+  if (height() != 0.0f) {
     scale *= ((width() + depth()) / 8) / height();
   }
   dy *= scale;
@@ -439,7 +439,7 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject &dataObject, const a
             heightRaster.dimensions().latitudinalExtent(), maxHeight - minHeight);
 
     // Calculate default scale.
-    if (height()) {
+    if (height() != 0.0f) {
       scale *= ((width() + depth()) / 8) / height();
     }
     dy *= scale;

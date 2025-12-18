@@ -27,14 +27,14 @@ bool calc::UseDefNode::inDynamic() const
  */
 bool calc::UseDefNode::nextIsNotUse() const
 {
-  return !d_next || d_next->IsDef();
+  return (d_next == nullptr) || d_next->IsDef();
 }
 
 /*! There is a next and it is in the same block
  */
 bool calc::UseDefNode::nextInSameBlock() const
 {
-  return d_next && (d_inBlock == d_next->d_inBlock);
+  return (d_next != nullptr) && (d_inBlock == d_next->d_inBlock);
 }
 
 bool calc::UseDefNode::deleteValueAtEndOfBlock(calc::FieldParameter *par, bool forceBlockClean)
@@ -42,7 +42,7 @@ bool calc::UseDefNode::deleteValueAtEndOfBlock(calc::FieldParameter *par, bool f
   calc::StatementBlock *p = nullptr;
   calc::StatementBlock *delAfterBlock = &d_inBlock;
   p = delAfterBlock;
-  while (p) {
+  while (p != nullptr) {
     if (p->isForEachBlock()) {
       delAfterBlock = p;
     }

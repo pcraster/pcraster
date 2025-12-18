@@ -113,7 +113,7 @@ void ag::DrawPropertiesWidget::addPalettes(const std::vector<const com::RawPalet
 void ag::DrawPropertiesWidget::paletteBarClicked(qtw::PaletteBar * /* paletteBar */, QMouseEvent *event)
 {
   if (event->button() == Qt::LeftButton) {
-    if (d_data->d_paletteDialog->exec()) {
+    if (d_data->d_paletteDialog->exec() != 0) {
       if (d_data->d_paletteDialog->selected() != nullptr &&
           d_data->d_paletteBar->palette() != d_data->d_paletteDialog->selected()) {
         d_data->d_paletteBar->setPalette((d_data->d_paletteDialog->selected()));

@@ -57,7 +57,7 @@ extern "C" int Idi(MAP_REAL8 *m_resultMap,    /* write-only output map  */
   size_t const nrPoints = points.size();
 
   // if no points at all then all MV
-  if (!nrPoints) {
+  if (nrPoints == 0u) {
     // no points; all mv
     result.putAllMV();
     return 0;
@@ -71,14 +71,14 @@ extern "C" int Idi(MAP_REAL8 *m_resultMap,    /* write-only output map  */
     double const v = maxNr.value(0, 0);
     auto maxNrP = static_cast<size_t>(v <= 0 ? 0 : v);
 
-    if ((!maxNrP) && (radVal <= 0)) {
+    if ((maxNrP == 0u) && (radVal <= 0)) {
       com::auto_array_ptr<double> const dist(new double[nrPoints]);
       // both 0 means interpolate on all
       for (geo::CellLocVisitor c(mask); c.valid(); ++c) {
         UINT1 maskVal = 0;
         REAL8 idpVal = NAN;
         if (mask.get(maskVal, *c) && idp.get(idpVal, *c) &&
-            maskVal /* == 1 garantueed by boolean type */) {
+            (maskVal != 0u) /* == 1 garantueed by boolean type */) {
           result.put(interpolateNoSort(points, idpVal, *c), *c);
         } else {
           result.putMV(*c);
@@ -95,10 +95,10 @@ extern "C" int Idi(MAP_REAL8 *m_resultMap,    /* write-only output map  */
     REAL8 radVal = NAN;
     REAL8 f_maxNr = NAN;
     if (mask.get(maskVal, *c) && idp.get(idpVal, *c) && maxNr.get(f_maxNr, *c) &&
-        radius.get(radVal, *c) && maskVal /* == 1 garantueed by boolean type */
+        radius.get(radVal, *c) && (maskVal != 0u) /* == 1 garantueed by boolean type */
         && f_maxNr >= 0) {
       auto maxNr = static_cast<size_t>(f_maxNr);
-      if (maxNr) {
+      if (maxNr != 0u) {
         maxNr = std::min(maxNr, nrPoints);
       } else {
         maxNr = nrPoints;

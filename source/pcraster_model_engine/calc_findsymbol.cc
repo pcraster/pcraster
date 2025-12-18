@@ -34,7 +34,7 @@ Operations globalOperations;
 PCR_ME_EXPORT const calc::Operator *calc::opName2op(const std::string &opName, size_t nrArgs)
 {
   const Operator *op(globalOperations[opName]);
-  if (!op) {
+  if (op == nullptr) {
     return nullptr;
   }
 

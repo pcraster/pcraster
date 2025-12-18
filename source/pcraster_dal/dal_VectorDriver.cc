@@ -640,7 +640,7 @@ void VectorDriver::browse(
 
           vector = open((path / name).string(), space, address);
 
-          if(vector) {
+          if(vector != nullptr) {
             size_t first = 0;
             size_t last = 0;
             size_t interval = 0;
@@ -694,7 +694,7 @@ void VectorDriver::browse(
 
           vector = open((path / name).string());
 
-          if(vector) {
+          if(vector != nullptr) {
             Properties const& properties(vector->properties());
 
             CSF_VS const valueScale = properties.hasValue(DAL_CSF_VALUESCALE)

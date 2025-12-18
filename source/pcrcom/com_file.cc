@@ -128,7 +128,7 @@ void com::create(const com::PathName &fileName)
 */
 void com::move(const PathName &from, const PathName &to)
 {
-  if (std::rename(from.toString().c_str(), to.toString().c_str())) {
+  if (std::rename(from.toString().c_str(), to.toString().c_str()) != 0) {
     throw FileErrnoMsg(from, "while moving to " + to.toString());
   }
 }
@@ -198,7 +198,7 @@ void com::skipWhiteSpace(std::istream &stream)
   if (stream) {
     char ch = 0;
     while (stream.get(ch)) {
-      if (!std::isspace(ch)) {
+      if (std::isspace(ch) == 0) {
         stream.putback(ch);
         break;
       }
@@ -216,7 +216,7 @@ void com::toNextLine(std::istream &stream)
   int ch = stream.get();
 
   while (ch != '\n') {
-    if (!std::isspace(ch)) {
+    if (std::isspace(ch) == 0) {
       stream.putback((char)ch);
       std::ostringstream s;
       s << "Expecting whitespace but character read was '" << ch << '\'';

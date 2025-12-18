@@ -30,8 +30,8 @@ calc::MaskPacking::MaskPacking(const geo::RasterDim &rs, const Mask &mask)
   PRECOND(mask.size() == rs.nrCells());
   size_t compressedSize(0);
 
-  d_evenIsValueRL = mask[0] == 1;
-  if (mask[0] == 1) {
+  d_evenIsValueRL = static_cast<int>(static_cast<size_t>(mask[0]) == 1);
+  if (static_cast<int>(mask[0]) == 1) {
     d_decompressedToCompressed[0] = compressedSize;
     d_compressedToDecompressed[compressedSize++] = 0;
   } else {
@@ -44,14 +44,14 @@ calc::MaskPacking::MaskPacking(const geo::RasterDim &rs, const Mask &mask)
   size_t rlInd = 1;
 
   for (size_t i = 1; i < rs.nrCells(); i++) {
-    if (mask[i] == 1) {
+    if (static_cast<int>(mask[i]) == 1) {
       d_decompressedToCompressed[i] = compressedSize;
       d_compressedToDecompressed[compressedSize++] = i;
     } else {
       d_decompressedToCompressed[i] = invalidId();
       // no index in compressed representation
     }
-    if ((mask[i] == 1) != (mask[i - 1] == 1)) {
+    if ((static_cast<int>(mask[i]) == 1) != (static_cast<int>(mask[i - 1]) == 1)) {
       d_rlIndex[rlInd + 1] = d_rlIndex[rlInd];
       rlInd++;
     }

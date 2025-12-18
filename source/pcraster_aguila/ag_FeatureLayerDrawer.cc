@@ -94,7 +94,7 @@ void FeatureLayerDrawer::drawPolygon(QPainter &painter, QTransform const &world_
                                      OGRPolygon const &polygon) const
 {
   // No exterior ring if the polygon is empty.
-  if (polygon.getExteriorRing()) {
+  if (polygon.getExteriorRing() != nullptr) {
     QPainterPath path;
     OGRLinearRing const &exteriorRing(*polygon.getExteriorRing());
     QPolygonF ring(exteriorRing.getNumPoints());

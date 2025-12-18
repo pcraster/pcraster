@@ -124,7 +124,7 @@ static void checkerBoard(
     for(size_t c=0;c<nrCols; c++) {
       result[cell]=value;
       cell++;
-      value=!value;
+      value=static_cast<unsigned char>(value == 0u);
     }
   }
 }
@@ -136,13 +136,13 @@ PCR_DLL_FUNC (const char *) pcr_LinkInExecute(
   try {
     pcrxml::LinkInExecuteInput l(strToLinkInExecuteInput(xml));
 
-    if (l.callPoint().function()) {
+    if (l.callPoint().function() != nullptr) {
       if (l.callPoint().function()->name()=="checkerBoard") {
         checkerBoard(l,linkInTransferArray);
       }
     } else {
       assert(l.callPoint().object());
-      if (l.callPoint().object()->constructor()) {
+      if (l.callPoint().object()->constructor() != nullptr) {
         if (l.callPoint().object()->className()=="Class1") {
           Class1::construct(l,linkInTransferArray);
         }
@@ -183,14 +183,14 @@ PCR_DLL_FUNC (const char *) pcr_LinkInCheck(
 
    // only Class1::operation needs checking
    // and a modified returnResult
-    if(   input.callPoint().object()
+    if(   (input.callPoint().object() != nullptr)
           && input.callPoint().object()->className()=="Class1"
-          && input.callPoint().object()->methodName()   // method call
+          && (input.callPoint().object()->methodName() != nullptr)   // method call
           && input.callPoint().object()->methodName().get()=="operation") {
 
      // must have string argument with value div or add
             std::string op;
-            if (input.stringArgument()) {
+            if (input.stringArgument() != nullptr) {
               op = std::string(input.stringArgument().get());
             }
             Class1::operationArgumentCheck(op);

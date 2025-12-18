@@ -24,7 +24,7 @@ Table* TextTableDriver::markSelectedCols(
          Table* table,
          std::vector<std::string> const& selectedCols)
 {
-  if(table && !selectedCols.empty()) {
+  if((table != nullptr) && !selectedCols.empty()) {
     // Set type id of not explicitly selected columns to TI_NR_TYPES.
     for(size_t i = 0; i < table->nrCols(); ++i) {
       if(std::find(selectedCols.begin(), selectedCols.end(),
@@ -621,7 +621,7 @@ Table* TextTableDriver::read(
 {
   Table* result = open(name, space, address);
 
-  if(!result) {
+  if(result == nullptr) {
     throwCannotBeOpened(name, TABLE, space, address);
   }
 

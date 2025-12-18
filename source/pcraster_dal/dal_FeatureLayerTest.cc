@@ -63,7 +63,7 @@ BOOST_AUTO_TEST_CASE(test_)
     BOOST_WARN_MESSAGE(polygon->IsValid(), "If this fails, gdal is probably not built using support for geos.");
     assert(polygon->IsValid());
 
-    if(polygon->IsValid()){
+    if(polygon->IsValid() != 0){
 
       featureLayer.insert(3, polygon);
 

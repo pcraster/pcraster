@@ -94,7 +94,7 @@ namespace python {
  */
 void checkNotNullPointer(void const* ptr)
 {
-  if (! ptr) {
+  if (ptr == nullptr) {
     throw com::Exception("None value not allowed");
   }
 }
@@ -251,19 +251,19 @@ pybind11::object readFieldCell(
     case dal::TI_UINT1: {
       UINT1 v = 0;
       driver->read(&v, dal::TI_UINT1, filename, space, address);
-      tuple = pybind11::make_tuple(static_cast<float>(v), !static_cast<int>(pcr::isMV(v)));
+      tuple = pybind11::make_tuple(static_cast<float>(v), static_cast<int>(pcr::isMV(v)) == 0);
       break;
     }
     case dal::TI_INT4: {
       INT4 v = 0;
       driver->read(&v, dal::TI_INT4, filename, space, address);
-      tuple = pybind11::make_tuple(static_cast<float>(v), !static_cast<int>(pcr::isMV(v)));
+      tuple = pybind11::make_tuple(static_cast<float>(v), static_cast<int>(pcr::isMV(v)) == 0);
       break;
     }
     case dal::TI_REAL4: {
       REAL4 v = NAN;
       driver->read(&v, dal::TI_REAL4, filename, space, address);
-      tuple = pybind11::make_tuple(static_cast<float>(v), !static_cast<int>(pcr::isMV(v)));
+      tuple = pybind11::make_tuple(static_cast<float>(v), static_cast<int>(pcr::isMV(v)) == 0);
       break;
     }
     default: {
@@ -710,7 +710,7 @@ calc::Field* closeAtTolerance(calc::Field const * result,
 
 void setGlobalOption(
          std::string const& option) {
-  if(!calc::parseGlobalFlag(option)) {
+  if(calc::parseGlobalFlag(option) == 0) {
     throw com::Exception(std::vformat("Global option {0}: not supported",
          std::make_format_args(option)));
   }
@@ -737,7 +737,7 @@ void check_csftype(std::string const& filename){
   // Simple check if filename is a PCRaster map
   MAP* raster = Mopen(filename.c_str(), M_READ);
 
-  if(!raster) {
+  if(raster == nullptr) {
     std::ostringstream errMsg;
     errMsg << "Cannot open '"
            << filename

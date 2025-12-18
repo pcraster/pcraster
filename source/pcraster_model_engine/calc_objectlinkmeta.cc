@@ -77,7 +77,7 @@ calc::ObjectLinkMeta &calc::ObjectLinkMeta::operator=(ObjectLinkMeta const &rhs)
 
 void calc::ObjectLinkMeta::add(const std::string &methodName)
 {
-  if (!d_methods.count(methodName)) {
+  if (d_methods.count(methodName) == 0u) {
     d_methods.insert(std::make_pair(methodName, ObjectLinkMethod(methodName)));
   }
 }

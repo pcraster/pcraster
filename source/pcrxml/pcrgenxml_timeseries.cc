@@ -67,7 +67,7 @@ pcrxml::TimeSeries &pcrxml::TimeSeries::operator=(const TimeSeries &src)
 
 void pcrxml::TimeSeries::fill(QDomElement el) const
 {
-  if (dataTypeDTD) {
+  if (dataTypeDTD != nullptr) {
     dataTypeDTD->appendTo(el);
   }
 }

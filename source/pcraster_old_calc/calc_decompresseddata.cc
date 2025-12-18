@@ -42,7 +42,7 @@ void calc::DecompressedData::setDecompressedCopy(const unsigned char *decompress
 //! return ptr to buffer with decompressed data
 const void *calc::DecompressedData::decompressed() const
 {
-  if (d_originalData) {
+  if (d_originalData != nullptr) {
     return d_originalData;
   }
   return (const void *)d_decompressedCopy;

@@ -227,7 +227,7 @@ void IOStrategy::resolve(ASTSymbolTable &symbols, std::string const &areaMap, Ti
   //  --> e.g. implicit clone
   d_areaMap->throwIfNotSet();  // pcrcalc4
 
-  if (!d_spatialPacking) {
+  if (d_spatialPacking == nullptr) {
     d_spatialPacking = new AsIsPacking(rasterSpace());
   }
   if (needExplicitClone) {
@@ -251,7 +251,7 @@ void IOStrategy::debugMVAssignments(const Field *f) const
   }
 
   Field *mark = f->findMVinMask(d_areaMap->mask());
-  if (mark) {
+  if (mark != nullptr) {
     writeField(d_debugMVAssignmentsMap, mark);
     deleteFromPcrme(mark);
     throw com::Exception("-d catched MV creation, inspection map written to " + d_debugMVAssignmentsMap);
@@ -278,7 +278,7 @@ void IOStrategy::initResolve()
 void IOStrategy::checkOutputFilePath(ASTSymbolInfo const &i)
 {
   if (isIn(i.vs(), VS_FIELD) &&
-      memoryValue(i.name())) {  // Output field will be MemoryExchange'd no output file path
+      (memoryValue(i.name()) != nullptr)) {  // Output field will be MemoryExchange'd no output file path
     return;
   } else {
     d_runDirectory.checkOutputFilePath(i.externalName());
@@ -407,7 +407,7 @@ void IOStrategy::transferMemoryExchangeItemIntoDataTransferArray(MemoryExchangeI
 void IOStrategy::readField(void *dest, const std::string &name, const DataType &type) const
 {
   MemoryExchangeItem *mem = memoryValue(name);
-  if (!mem) {
+  if (mem == nullptr) {
     // file based
     PRECOND(type.st() == ST_SPATIAL);
     d_fs->readField(dest, name, type.vs());
@@ -416,7 +416,7 @@ void IOStrategy::readField(void *dest, const std::string &name, const DataType &
 
   // memory exchange
   const void *src = d_dataTransferArray[mem->id()];
-  if (src) {
+  if (src != nullptr) {
     size_t const n(type.st() == ST_SPATIAL ? rasterSpace().nrCells() : 1);
     std::memcpy(dest, src, n * bytesPerCell(type.vs()));
   } else {
@@ -428,7 +428,7 @@ GridStat IOStrategy::writeFieldUnpacked(const std::string &name, const Field *f)
 {
   MemoryExchangeItem *mem = memoryValue(name);
 
-  if (!mem) {
+  if (mem == nullptr) {
     return d_fs->writeFieldUnpacked(name, f);
   } else {                                       // write to memory
     if (!d_dataTransferArrayUser0[mem->id()]) {  // user supplied buffer

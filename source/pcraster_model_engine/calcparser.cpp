@@ -265,7 +265,7 @@ void Parser::illegalFunc(const calc::ASTPar& s) const {
 
 const calc::Operator* Parser::expectFunction(const calc::Id& id) const {
 	const calc::Operator* o = calc::opName2op(id.name());
-	if (!o)
+	if (o == nullptr)
 	id.posError("'"+id.name()+"' is not a function");
 	return o;
 }
@@ -315,7 +315,7 @@ Parser::model(int *_retsignal)
 			zzmatch_wsig(TOK_INTERFACE, _handler);
 			 consume();
 #line 410 "calcparser.g"
-			interfaceSection(&_signal, _retv.get() ); if (_signal) goto _handler;
+			interfaceSection(&_signal, _retv.get() ); if (_signal != 0) goto _handler;
 		}
 	}
 #line 411 "calcparser.g"
@@ -325,32 +325,32 @@ Parser::model(int *_retsignal)
 			zzmatch_wsig(TOK_BINDING, _handler);
 			 consume();
 #line 411 "calcparser.g"
-			bindingSection(&_signal, _retv.get() ); if (_signal) goto _handler;
+			bindingSection(&_signal, _retv.get() ); if (_signal != 0) goto _handler;
 		}
 	}
 #line 412 "calcparser.g"
 	{
 		if ( (LA(1)==TOK_AREAMAP) ) {
 #line 412 "calcparser.g"
-			areaMapSection(&_signal, _retv.get() ); if (_signal) goto _handler;
+			areaMapSection(&_signal, _retv.get() ); if (_signal != 0) goto _handler;
 		}
 	}
 #line 412 "calcparser.g"
 	{
 		if ( (LA(1)==TOK_TIMER) ) {
 #line 412 "calcparser.g"
-			timer(&_signal, _retv.get() ); if (_signal) goto _handler;
+			timer(&_signal, _retv.get() ); if (_signal != 0) goto _handler;
 		}
 	}
 #line 413 "calcparser.g"
-	 b  = body(&_signal); if (_signal) goto _handler;
+	 b  = body(&_signal); if (_signal != 0) goto _handler;
 
 #line 413 "calcparser.g"
 	zzmatch_wsig(TOK_EOF, _handler);
 	
 #line 414 "calcparser.g"
 	
-	if (!b.get())
+	if (b.get() == nullptr)
 	throw com::Exception("script contains no code");
 	_retv->transferCode(b.release());
  consume();
@@ -384,10 +384,10 @@ Parser::externalBindings(int *_retsignal, calc::ASTNodeVector& l )
 	AP_ASTNode e;
 #line 434 "calcparser.g"
 	{
-		while ( (setwd1[LA(1)]&0x2)
+		while ( (setwd1[LA(1)]&0x2) != 0
  ) {
 #line 431 "calcparser.g"
-			 e  = bindingDefinition(&_signal); if (_signal) goto _handler;
+			 e  = bindingDefinition(&_signal); if (_signal != 0) goto _handler;
 
 #line 432 "calcparser.g"
 			l.transferPushBack(e.release());
@@ -434,13 +434,13 @@ Parser::bindingSection(int *_retsignal, calc::ASTScript *script )
 	AP_ASTNode e;
 #line 449 "calcparser.g"
 	{
-		while ( (setwd1[LA(1)]&0x8) && (setwd1[LA(2)]&0x10) ) {
+		while ( ((setwd1[LA(1)]&0x8) != 0) && ((setwd1[LA(2)]&0x10) != 0) ) {
 #line 443 "calcparser.g"
-			 e  = bindingDefinition(&_signal); if (_signal) goto _handler;
+			 e  = bindingDefinition(&_signal); if (_signal != 0) goto _handler;
 
 #line 444 "calcparser.g"
 			
-			if (e.get())
+			if (e.get() != nullptr)
 			script->transferOneBinding(e.release());
 			// else index/array stuf
 #line 449 "calcparser.g"
@@ -470,13 +470,13 @@ Parser::bindingDefinition(int *_retsignal)
 #line 453 "calcparser.g"
 	AP_ASTNode const e;
 #line 454 "calcparser.g"
-	 calc::ASTPar const p  = parWithIndeces(&_signal); if (_signal) goto _handler;
+	 calc::ASTPar const p  = parWithIndeces(&_signal); if (_signal != 0) goto _handler;
 
 #line 455 "calcparser.g"
 	zzmatch_wsig(TOK_IS, _handler);
 	 consume();
 #line 455 "calcparser.g"
-	 _retv  = bindingRHS(&_signal, p ); if (_signal) goto _handler;
+	 _retv  = bindingRHS(&_signal, p ); if (_signal != 0) goto _handler;
 
 	return _retv;
 fail:
@@ -503,9 +503,9 @@ Parser::bindingRHS(int *_retsignal, const calc::ASTPar& par )
 	AP_ASTNode n; calc::Id right;
 #line 464 "calcparser.g"
 	{
-		if ( (setwd1[LA(1)]&0x80) ) {
+		if ( (setwd1[LA(1)]&0x80) != 0 ) {
 #line 464 "calcparser.g"
-			 right  = qid(&_signal); if (_signal) goto _handler;
+			 right  = qid(&_signal); if (_signal != 0) goto _handler;
 
 #line 464 "calcparser.g"
 			n = std::make_unique<calc::ASTPar>(right);
@@ -522,10 +522,10 @@ Parser::bindingRHS(int *_retsignal, const calc::ASTPar& par )
 			}
 		}
 		else {
-			if ( (setwd2[LA(1)]&0x1)
+			if ( (setwd2[LA(1)]&0x1) != 0
  ) {
 #line 466 "calcparser.g"
-				 right  = number(&_signal); if (_signal) goto _handler;
+				 right  = number(&_signal); if (_signal != 0) goto _handler;
 
 #line 467 "calcparser.g"
 				n = std::make_unique<calc::ASTNumber>(right);
@@ -541,7 +541,7 @@ Parser::bindingRHS(int *_retsignal, const calc::ASTPar& par )
 					zzmatch_wsig(TOK_LP, _handler);
 					 consume();
 #line 468 "calcparser.g"
-					 right  = number(&_signal); if (_signal) goto _handler;
+					 right  = number(&_signal); if (_signal != 0) goto _handler;
 
 #line 469 "calcparser.g"
 					zzmatch_wsig(TOK_RP, _handler);
@@ -551,7 +551,7 @@ Parser::bindingRHS(int *_retsignal, const calc::ASTPar& par )
  consume();
 				}
 				else {
-					if (_sva) _signal=NoViableAlt;
+					if (_sva != 0) _signal=NoViableAlt;
 					else _signal=NoSemViableAlt;
 					goto _handler;  /* MR7 */
 				}
@@ -560,7 +560,7 @@ Parser::bindingRHS(int *_retsignal, const calc::ASTPar& par )
 	}
 #line 474 "calcparser.g"
 	
-	if (n.get())
+	if (n.get() != nullptr)
 	_retv = std::make_unique<ASTAss>(expectId( par),n.get());
 	// else index/array stuff
 	return _retv;
@@ -614,9 +614,9 @@ Parser::interfaceSection(int *_retsignal, calc::ASTScript *script )
 					 consume();
 #line 488 "calcparser.g"
 					{
-						if ( (setwd2[LA(1)]&0x4) ) {
+						if ( (setwd2[LA(1)]&0x4) != 0 ) {
 #line 488 "calcparser.g"
-							 value  = nrOrId(&_signal); if (_signal) goto _handler;
+							 value  = nrOrId(&_signal); if (_signal != 0) goto _handler;
 
 						}
 					}
@@ -667,7 +667,7 @@ Parser::areaMapSection(int *_retsignal, calc::ASTScript *script )
 	zzmatch_wsig(TOK_AREAMAP, _handler);
 	 consume();
 #line 498 "calcparser.g"
-	 s  = nrOrPar(&_signal); if (_signal) goto _handler;
+	 s  = nrOrPar(&_signal); if (_signal != 0) goto _handler;
 
 #line 498 "calcparser.g"
 	zzmatch_wsig(TOK_SC, _handler);
@@ -698,16 +698,16 @@ Parser::timer(int *_retsignal, calc::ASTScript *script )
 	zzmatch_wsig(TOK_TIMER, _handler);
 	 consume();
 #line 505 "calcparser.g"
-	 eTimerStartOrTss  = nrOrPar(&_signal); if (_signal) goto _handler;
+	 eTimerStartOrTss  = nrOrPar(&_signal); if (_signal != 0) goto _handler;
 
 #line 506 "calcparser.g"
 	{
-		if ( (setwd2[LA(1)]&0x20) ) {
+		if ( (setwd2[LA(1)]&0x20) != 0 ) {
 #line 506 "calcparser.g"
-			 eTimerEnd  = nrOrPar(&_signal); if (_signal) goto _handler;
+			 eTimerEnd  = nrOrPar(&_signal); if (_signal != 0) goto _handler;
 
 #line 507 "calcparser.g"
-			 eTimerStep  = nrOrPar(&_signal); if (_signal) goto _handler;
+			 eTimerStep  = nrOrPar(&_signal); if (_signal != 0) goto _handler;
 
 #line 508 "calcparser.g"
 			
@@ -724,7 +724,7 @@ Parser::timer(int *_retsignal, calc::ASTScript *script )
 	{
 		while ( (LA(1)==TOK_ID) && (LA(2)==TOK_IS) ) {
 #line 515 "calcparser.g"
-			reportMomentDef(&_signal, script ); if (_signal) goto _handler;
+			reportMomentDef(&_signal, script ); if (_signal != 0) goto _handler;
 		}
 	}
 	return;
@@ -752,7 +752,7 @@ Parser::body(int *_retsignal)
 	std::unique_ptr<DynamicSection> dynamic;
 #line 525 "calcparser.g"
 	{
-		if ( (setwd2[LA(1)]&0x80) && (setwd3[LA(2)]&0x1) ) {
+		if ( ((setwd2[LA(1)]&0x80) != 0) && ((setwd3[LA(2)]&0x1) != 0) ) {
 #line 525 "calcparser.g"
 			{
 				if ( (LA(1)==TOK_INITIAL) ) {
@@ -770,7 +770,7 @@ Parser::body(int *_retsignal)
 				}
 			}
 #line 525 "calcparser.g"
-			 initial  = statementList(&_signal); if (_signal) goto _handler;
+			 initial  = statementList(&_signal); if (_signal != 0) goto _handler;
 
 		}
 	}
@@ -785,7 +785,7 @@ Parser::body(int *_retsignal)
 			td = (ANTLRTokenPtr)LT(1);
  consume();
 #line 528 "calcparser.g"
-			 dynamicStatements  = statementList(&_signal); if (_signal) goto _handler;
+			 dynamicStatements  = statementList(&_signal); if (_signal != 0) goto _handler;
 
 #line 529 "calcparser.g"
 			dynamic = std::make_unique<calc::DynamicSection>(
@@ -793,11 +793,11 @@ Parser::body(int *_retsignal)
 		}
 	}
 #line 533 "calcparser.g"
-	if (!dynamic.get()) {
+	if (dynamic.get() == nullptr) {
 		// no dynamic body is initial
 		_retv=std::move(initial);
 	} else {
-		if (!initial.get()) {
+		if (initial.get() == nullptr) {
 			// no initial body is dynamic
 			_retv=std::move(dynamic);
 		} else { // both
@@ -837,7 +837,7 @@ Parser::reportMomentDef(int *_retsignal, calc::ASTScript *script )
 	zzmatch_wsig(TOK_IS, _handler);
 	 consume();
 #line 557 "calcparser.g"
-	reportMoments(&_signal, m ); if (_signal) goto _handler;
+	reportMoments(&_signal, m ); if (_signal != 0) goto _handler;
 #line 557 "calcparser.g"
 	zzmatch_wsig(TOK_SC, _handler);
 	
@@ -864,7 +864,7 @@ Parser::reportMoments(int *_retsignal, std::vector<calc::ParsReportMoment> &m )
 #line 563 "calcparser.g"
 	calc::ParsReportMoment p;
 #line 564 "calcparser.g"
-	reportMoment(&_signal, p ); if (_signal) goto _handler;
+	reportMoment(&_signal, p ); if (_signal != 0) goto _handler;
 #line 565 "calcparser.g"
 	m.push_back(p);
 #line 568 "calcparser.g"
@@ -874,7 +874,7 @@ Parser::reportMoments(int *_retsignal, std::vector<calc::ParsReportMoment> &m )
 			zzmatch_wsig(TOK_COMMA, _handler);
 			 consume();
 #line 566 "calcparser.g"
-			reportMoment(&_signal, p ); if (_signal) goto _handler;
+			reportMoment(&_signal, p ); if (_signal != 0) goto _handler;
 #line 567 "calcparser.g"
 			m.push_back(p);
 		}
@@ -920,7 +920,7 @@ Parser::reportMoment(int *_retsignal, calc::ParsReportMoment& p )
 #line 575 "calcparser.g"
 						{
 #line 575 "calcparser.g"
-							  p.step  = reportMomentStep(&_signal); if (_signal) goto _handler;
+							  p.step  = reportMomentStep(&_signal); if (_signal != 0) goto _handler;
 
 #line 575 "calcparser.g"
 							zzmatch_wsig(TOK_MOMENT_RANGE, _handler);
@@ -933,7 +933,7 @@ Parser::reportMoment(int *_retsignal, calc::ParsReportMoment& p )
 						}
 					}
 					else {
-						if ( (setwd3[LA(1)]&0x10)
+						if ( (setwd3[LA(1)]&0x10) != 0
  ) {
 #line 578 "calcparser.g"
 							{
@@ -950,7 +950,7 @@ Parser::reportMoment(int *_retsignal, calc::ParsReportMoment& p )
 							}
 						}
 						else {
-							if (_sva) _signal=NoViableAlt;
+							if (_sva != 0) _signal=NoViableAlt;
 							else _signal=NoSemViableAlt;
 							goto _handler;  /* MR7 */
 						}
@@ -974,7 +974,7 @@ Parser::reportMoment(int *_retsignal, calc::ParsReportMoment& p )
  consume();
 			}
 			else {
-				if (_sva) _signal=NoViableAlt;
+				if (_sva != 0) _signal=NoViableAlt;
 				else _signal=NoSemViableAlt;
 				goto _handler;  /* MR7 */
 			}
@@ -1087,29 +1087,29 @@ Parser::statementList(int *_retsignal)
 	AP_ASTNode s;
 #line 620 "calcparser.g"
 	{
-		while ( (setwd4[LA(1)]&0x1) ) {
+		while ( (setwd4[LA(1)]&0x1) != 0 ) {
 #line 614 "calcparser.g"
 			{
 				if ( (LA(1)==TOK_FOREACH)
  ) {
 #line 614 "calcparser.g"
-					 s  = foreach(&_signal); if (_signal) goto _handler;
+					 s  = foreach(&_signal); if (_signal != 0) goto _handler;
 
 				}
 				else {
 					if ( (LA(1)==TOK_REPEAT) ) {
 #line 614 "calcparser.g"
-						 s  = repeat(&_signal); if (_signal) goto _handler;
+						 s  = repeat(&_signal); if (_signal != 0) goto _handler;
 
 					}
 					else {
-						if ( (setwd4[LA(1)]&0x2) ) {
+						if ( (setwd4[LA(1)]&0x2) != 0 ) {
 #line 614 "calcparser.g"
-							 s  = statement(&_signal); if (_signal) goto _handler;
+							 s  = statement(&_signal); if (_signal != 0) goto _handler;
 
 						}
 						else {
-							if (_sva) _signal=NoViableAlt;
+							if (_sva != 0) _signal=NoViableAlt;
 							else _signal=NoSemViableAlt;
 							goto _handler;  /* MR7 */
 						}
@@ -1118,7 +1118,7 @@ Parser::statementList(int *_retsignal)
 			}
 #line 615 "calcparser.g"
 			
-			if (!_retv.get())
+			if (_retv.get() == nullptr)
 			_retv = std::make_unique<calc::ASTNodeList>();
 			_retv->transferPushBack(s.release());
 		}
@@ -1150,7 +1150,7 @@ Parser::statement(int *_retsignal)
 	_retv = std::make_unique<calc::ASTStat>();
 #line 655 "calcparser.g"
 	{
-		if ( (setwd4[LA(1)]&0x8) ) {
+		if ( (setwd4[LA(1)]&0x8) != 0 ) {
 #line 626 "calcparser.g"
 			{
 				if ( (LA(1)==TOK_FILEOUTPUT) ) {
@@ -1160,14 +1160,14 @@ Parser::statement(int *_retsignal)
 					ni = (ANTLRTokenPtr)LT(1);
  consume();
 #line 626 "calcparser.g"
-					 AP_ASTNode r_expr  = expr(&_signal); if (_signal) goto _handler;
+					 AP_ASTNode r_expr  = expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 627 "calcparser.g"
 					notImplemented(ni);
 					_retv->transferStat(r_expr.release());
 				}
 				else {
-					if ( (setwd4[LA(1)]&0x10)
+					if ( (setwd4[LA(1)]&0x10) != 0
  ) {
 #line 630 "calcparser.g"
 						{
@@ -1197,12 +1197,12 @@ Parser::statement(int *_retsignal)
  consume();
 											}
 											else {
-												if ( (setwd4[LA(1)]&0x20) ) {
+												if ( (setwd4[LA(1)]&0x20) != 0 ) {
 #line 636 "calcparser.g"
 													std::vector<calc::ParsReportMoment> inSitu;
 													calc::Id pos(genId(LT(1)));
 #line 639 "calcparser.g"
-													reportMoments(&_signal, inSitu ); if (_signal) goto _handler;
+													reportMoments(&_signal, inSitu ); if (_signal != 0) goto _handler;
 #line 640 "calcparser.g"
 													
 													char buf[8];
@@ -1213,7 +1213,7 @@ Parser::statement(int *_retsignal)
 													new calc::Report(pos, inSitu));
 												}
 												else {
-													if (_sva) _signal=NoViableAlt;
+													if (_sva != 0) _signal=NoViableAlt;
 													else _signal=NoSemViableAlt;
 													goto _handler;  /* MR7 */
 												}
@@ -1227,14 +1227,14 @@ Parser::statement(int *_retsignal)
 							}
 						}
 #line 651 "calcparser.g"
-						 AP_ASTAss a  = assignment(&_signal); if (_signal) goto _handler;
+						 AP_ASTAss a  = assignment(&_signal); if (_signal != 0) goto _handler;
 
 #line 652 "calcparser.g"
 						
 						_retv->transferStat(a.release());
 					}
 					else {
-						if (_sva) _signal=NoViableAlt;
+						if (_sva != 0) _signal=NoViableAlt;
 						else _signal=NoSemViableAlt;
 						goto _handler;  /* MR7 */
 					}
@@ -1258,27 +1258,27 @@ Parser::statement(int *_retsignal)
 					zzmatch_wsig(TOK_IS, _handler);
 					 consume();
 #line 655 "calcparser.g"
-					 AP_ASTNode r_expr  = expr(&_signal); if (_signal) goto _handler;
+					 AP_ASTNode r_expr  = expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 656 "calcparser.g"
 					
 					// rewrite to single expr, no assignment
 					auto *lie=dynamic_cast<LinkInExpr *>(r_expr.get());
-					if (!lie)
+					if (lie == nullptr)
 					r_expr->posError("libraryName::ClassName construct expected");
 					lie->setAsConstructor(ASTPar(genId(objectName)));
 					_retv->transferStat(r_expr.release());
 				}
 			}
 			else {
-				if (_sva) _signal=NoViableAlt;
+				if (_sva != 0) _signal=NoViableAlt;
 				else _signal=NoSemViableAlt;
 				goto _handler;  /* MR7 */
 			}
 		}
 	}
 #line 666 "calcparser.g"
-	statementSep(&_signal); if (_signal) goto _handler;
+	statementSep(&_signal); if (_signal != 0) goto _handler;
 	return _retv;
 fail:
 	syn(zzBadTok, (ANTLRChar *)"", zzMissSet, zzMissTok, zzErrk);
@@ -1339,11 +1339,11 @@ Parser::foreach(int *_retsignal)
 		else {
 			if ( (LA(1)==TOK_LP) ) {
 #line 679 "calcparser.g"
-				 in  = idList(&_signal); if (_signal) goto _handler;
+				 in  = idList(&_signal); if (_signal != 0) goto _handler;
 
 			}
 			else {
-				if (_sva) _signal=NoViableAlt;
+				if (_sva != 0) _signal=NoViableAlt;
 				else _signal=NoSemViableAlt;
 				goto _handler;  /* MR7 */
 			}
@@ -1371,11 +1371,11 @@ Parser::foreach(int *_retsignal)
 					if ( (LA(1)==TOK_LP)
  ) {
 #line 683 "calcparser.g"
-						 except  = idList(&_signal); if (_signal) goto _handler;
+						 except  = idList(&_signal); if (_signal != 0) goto _handler;
 
 					}
 					else {
-						if (_sva) _signal=NoViableAlt;
+						if (_sva != 0) _signal=NoViableAlt;
 						else _signal=NoSemViableAlt;
 						goto _handler;  /* MR7 */
 					}
@@ -1394,7 +1394,7 @@ Parser::foreach(int *_retsignal)
 	//inclIn->addStatement(f);
  consume();
 #line 693 "calcparser.g"
-	 forEachBody  = statementList(&_signal); if (_signal) goto _handler;
+	 forEachBody  = statementList(&_signal); if (_signal != 0) goto _handler;
 
 #line 694 "calcparser.g"
 	zzmatch_wsig(TOK_RC, _handler);
@@ -1433,7 +1433,7 @@ Parser::repeat(int *_retsignal)
 	zzmatch_wsig(TOK_LC, _handler);
 	 consume();
 #line 704 "calcparser.g"
-	 repeatBody  = statementList(&_signal); if (_signal) goto _handler;
+	 repeatBody  = statementList(&_signal); if (_signal != 0) goto _handler;
 
 #line 705 "calcparser.g"
 	zzmatch_wsig(TOK_RC, _handler);
@@ -1442,7 +1442,7 @@ Parser::repeat(int *_retsignal)
 	zzmatch_wsig(TOK_UNTIL, _handler);
 	 consume();
 #line 705 "calcparser.g"
-	 condition  = expr(&_signal); if (_signal) goto _handler;
+	 condition  = expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 705 "calcparser.g"
 	zzmatch_wsig(TOK_SC, _handler);
@@ -1479,7 +1479,7 @@ Parser::assignment(int *_retsignal)
 	AP_ASTNode   right;
 	_retv = std::make_unique<calc::ASTAss>();
 #line 723 "calcparser.g"
-	 par  = parWithIndeces(&_signal); if (_signal) goto _handler;
+	 par  = parWithIndeces(&_signal); if (_signal != 0) goto _handler;
 
 #line 724 "calcparser.g"
 	_retv->addPar(par);
@@ -1490,14 +1490,14 @@ Parser::assignment(int *_retsignal)
 			zzmatch_wsig(TOK_COMMA, _handler);
 			 consume();
 #line 726 "calcparser.g"
-			 par  = parWithIndeces(&_signal); if (_signal) goto _handler;
+			 par  = parWithIndeces(&_signal); if (_signal != 0) goto _handler;
 
 #line 727 "calcparser.g"
 			_retv->addPar(par);
 		}
 	}
 #line 729 "calcparser.g"
-	 right  = assignmentTail(&_signal, par,swap ); if (_signal) goto _handler;
+	 right  = assignmentTail(&_signal, par,swap ); if (_signal != 0) goto _handler;
 
 #line 730 "calcparser.g"
 	_retv->transferRhs(right.release());
@@ -1544,7 +1544,7 @@ Parser::assignmentTail(int *_retsignal, const calc::ASTPar& lhs, bool& swap )
 			ass = (ANTLRTokenPtr)LT(1);
  consume();
 #line 742 "calcparser.g"
-			 AP_ASTNode right  = expr(&_signal); if (_signal) goto _handler;
+			 AP_ASTNode right  = expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 743 "calcparser.g"
 			
@@ -1592,7 +1592,7 @@ Parser::assignmentTail(int *_retsignal, const calc::ASTPar& lhs, bool& swap )
 							zzmatch_wsig(TOK_LP, _handler);
 							 consume();
 #line 763 "calcparser.g"
-							 AP_ASTNodeVector args  = exprList(&_signal); if (_signal) goto _handler;
+							 AP_ASTNodeVector args  = exprList(&_signal); if (_signal != 0) goto _handler;
 
 #line 763 "calcparser.g"
 							zzmatch_wsig(TOK_RP, _handler);
@@ -1620,16 +1620,16 @@ Parser::assignmentTail(int *_retsignal, const calc::ASTPar& lhs, bool& swap )
 						}
 					}
 					else {
-						if ( (setwd5[LA(1)]&0x4) && 
-(setwd5[LA(2)]&0x8) ) {
+						if ( ((setwd5[LA(1)]&0x4) != 0) && 
+((setwd5[LA(2)]&0x8) != 0) ) {
 #line 783 "calcparser.g"
-							 AP_ASTNode right  = expr(&_signal); if (_signal) goto _handler;
+							 AP_ASTNode right  = expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 784 "calcparser.g"
 							_retv=std::move(right);
 						}
 						else {
-							if (_sva) _signal=NoViableAlt;
+							if (_sva != 0) _signal=NoViableAlt;
 							else _signal=NoSemViableAlt;
 							goto _handler;  /* MR7 */
 						}
@@ -1638,7 +1638,7 @@ Parser::assignmentTail(int *_retsignal, const calc::ASTPar& lhs, bool& swap )
 			}
 		}
 		else {
-			if (_sva) _signal=NoViableAlt;
+			if (_sva != 0) _signal=NoViableAlt;
 			else _signal=NoSemViableAlt;
 			goto _handler;  /* MR7 */
 		}
@@ -1673,7 +1673,7 @@ Parser::statementSep(int *_retsignal)
 			 consume();
 		}
 		else {
-			if (_sva) _signal=NoViableAlt;
+			if (_sva != 0) _signal=NoViableAlt;
 			else _signal=NoSemViableAlt;
 			goto _handler;  /* MR7 */
 		}
@@ -1738,7 +1738,7 @@ Parser::expr(int *_retsignal)
 #line 803 "calcparser.g"
 	AP_ASTNode right;
 #line 804 "calcparser.g"
-	 _retv  = xor_expr(&_signal); if (_signal) goto _handler;
+	 _retv  = xor_expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 813 "calcparser.g"
 	{
@@ -1749,7 +1749,7 @@ Parser::expr(int *_retsignal)
 			opS = (ANTLRTokenPtr)LT(1);
  consume();
 #line 806 "calcparser.g"
-			 right  = xor_expr(&_signal); if (_signal) goto _handler;
+			 right  = xor_expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 807 "calcparser.g"
 			
@@ -1792,7 +1792,7 @@ Parser::xor_expr(int *_retsignal)
 #line 822 "calcparser.g"
 	AP_ASTNode right;
 #line 823 "calcparser.g"
-	 _retv  = and_expr(&_signal); if (_signal) goto _handler;
+	 _retv  = and_expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 832 "calcparser.g"
 	{
@@ -1804,7 +1804,7 @@ Parser::xor_expr(int *_retsignal)
 			opS = (ANTLRTokenPtr)LT(1);
  consume();
 #line 825 "calcparser.g"
-			 right  = and_expr(&_signal); if (_signal) goto _handler;
+			 right  = and_expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 826 "calcparser.g"
 			
@@ -1838,7 +1838,7 @@ Parser::and_expr(int *_retsignal)
 #line 835 "calcparser.g"
 	AP_ASTNode right;
 #line 836 "calcparser.g"
-	 _retv  = eq_expr(&_signal); if (_signal) goto _handler;
+	 _retv  = eq_expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 845 "calcparser.g"
 	{
@@ -1849,7 +1849,7 @@ Parser::and_expr(int *_retsignal)
 			opS = (ANTLRTokenPtr)LT(1);
  consume();
 #line 838 "calcparser.g"
-			 right  = eq_expr(&_signal); if (_signal) goto _handler;
+			 right  = eq_expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 839 "calcparser.g"
 			
@@ -1883,7 +1883,7 @@ Parser::eq_expr(int *_retsignal)
 #line 849 "calcparser.g"
 	AP_ASTNode right;
 #line 850 "calcparser.g"
-	 _retv  = comp_expr(&_signal); if (_signal) goto _handler;
+	 _retv  = comp_expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 859 "calcparser.g"
 	{
@@ -1894,7 +1894,7 @@ Parser::eq_expr(int *_retsignal)
 			opS = (ANTLRTokenPtr)LT(1);
  consume();
 #line 852 "calcparser.g"
-			 right  = comp_expr(&_signal); if (_signal) goto _handler;
+			 right  = comp_expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 853 "calcparser.g"
 			
@@ -1928,7 +1928,7 @@ Parser::comp_expr(int *_retsignal)
 #line 862 "calcparser.g"
 	AP_ASTNode right;
 #line 863 "calcparser.g"
-	 _retv  = add_expr(&_signal); if (_signal) goto _handler;
+	 _retv  = add_expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 872 "calcparser.g"
 	{
@@ -1939,7 +1939,7 @@ Parser::comp_expr(int *_retsignal)
 			opS = (ANTLRTokenPtr)LT(1);
  consume();
 #line 865 "calcparser.g"
-			 right  = add_expr(&_signal); if (_signal) goto _handler;
+			 right  = add_expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 866 "calcparser.g"
 			
@@ -1973,18 +1973,18 @@ Parser::add_expr(int *_retsignal)
 #line 875 "calcparser.g"
 	AP_ASTNode right;
 #line 877 "calcparser.g"
-	 _retv  = mult_expr(&_signal); if (_signal) goto _handler;
+	 _retv  = mult_expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 888 "calcparser.g"
 	{
-		while ( (setwd6[LA(1)]&0x10) ) {
+		while ( (setwd6[LA(1)]&0x10) != 0 ) {
 #line 879 "calcparser.g"
 			zzsetmatch_wsig(ADD_GROUP_set, _handler);
 			
 			opS = (ANTLRTokenPtr)LT(1);
  consume();
 #line 879 "calcparser.g"
-			 right  = mult_expr(&_signal); if (_signal) goto _handler;
+			 right  = mult_expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 880 "calcparser.g"
 			
@@ -2020,11 +2020,11 @@ Parser::mult_expr(int *_retsignal)
 #line 891 "calcparser.g"
 	AP_ASTNode right;
 #line 893 "calcparser.g"
-	 _retv  = pow_expr(&_signal); if (_signal) goto _handler;
+	 _retv  = pow_expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 902 "calcparser.g"
 	{
-		while ( (setwd6[LA(1)]&0x40)
+		while ( (setwd6[LA(1)]&0x40) != 0
  ) {
 #line 895 "calcparser.g"
 			zzsetmatch_wsig(MULT_GROUP_set, _handler);
@@ -2032,7 +2032,7 @@ Parser::mult_expr(int *_retsignal)
 			opS = (ANTLRTokenPtr)LT(1);
  consume();
 #line 895 "calcparser.g"
-			 right  = pow_expr(&_signal); if (_signal) goto _handler;
+			 right  = pow_expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 896 "calcparser.g"
 			
@@ -2075,7 +2075,7 @@ Parser::pow_expr(int *_retsignal)
 #line 911 "calcparser.g"
 	AP_ASTNode right;
 #line 912 "calcparser.g"
-	 _retv  = sign_expr(&_signal); if (_signal) goto _handler;
+	 _retv  = sign_expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 921 "calcparser.g"
 	{
@@ -2086,7 +2086,7 @@ Parser::pow_expr(int *_retsignal)
 			opS = (ANTLRTokenPtr)LT(1);
  consume();
 #line 914 "calcparser.g"
-			 right  = sign_expr(&_signal); if (_signal) goto _handler;
+			 right  = sign_expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 915 "calcparser.g"
 			
@@ -2121,7 +2121,7 @@ Parser::sign_expr(int *_retsignal)
 	std::vector<calc::Id> signs;
 #line 928 "calcparser.g"
 	{
-		while ( (setwd7[LA(1)]&0x2) && (setwd7[LA(2)]&0x4) ) {
+		while ( ((setwd7[LA(1)]&0x2) != 0) && ((setwd7[LA(2)]&0x4) != 0) ) {
 #line 927 "calcparser.g"
 			zzsetmatch_wsig(ADD_GROUP_set, _handler);
 			
@@ -2133,7 +2133,7 @@ Parser::sign_expr(int *_retsignal)
 		}
 	}
 #line 928 "calcparser.g"
-	 _retv  = not_expr(&_signal); if (_signal) goto _handler;
+	 _retv  = not_expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 929 "calcparser.g"
 	
@@ -2181,7 +2181,7 @@ Parser::not_expr(int *_retsignal)
 		}
 	}
 #line 943 "calcparser.g"
-	 _retv  = misc_expr(&_signal); if (_signal) goto _handler;
+	 _retv  = misc_expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 944 "calcparser.g"
 	
@@ -2220,7 +2220,7 @@ Parser::misc_expr(int *_retsignal)
 		zzmatch_wsig(TOK_LP, _handler);
 		 consume();
 #line 955 "calcparser.g"
-		 _retv  = expr(&_signal); if (_signal) goto _handler;
+		 _retv  = expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 955 "calcparser.g"
 		zzmatch_wsig(TOK_RP, _handler);
@@ -2241,22 +2241,22 @@ Parser::misc_expr(int *_retsignal)
 			zzmatch_wsig(TOK_LP, _handler);
 			 consume();
 #line 959 "calcparser.g"
-			 condn  = expr(&_signal); if (_signal) goto _handler;
+			 condn  = expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 960 "calcparser.g"
 			zzsetmatch_wsig(THEN_GROUP_set, _handler);
 			 consume();
 #line 960 "calcparser.g"
-			 truen  = expr(&_signal); if (_signal) goto _handler;
+			 truen  = expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 961 "calcparser.g"
 			{
-				if ( (setwd7[LA(1)]&0x20) ) {
+				if ( (setwd7[LA(1)]&0x20) != 0 ) {
 #line 961 "calcparser.g"
 					zzsetmatch_wsig(ELSE_GROUP_set, _handler);
 					 consume();
 #line 961 "calcparser.g"
-					 falsen  = expr(&_signal); if (_signal) goto _handler;
+					 falsen  = expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 961 "calcparser.g"
 					c=OP_IFTHENELSE;
@@ -2289,9 +2289,9 @@ Parser::misc_expr(int *_retsignal)
 				{
 #line 973 "calcparser.g"
 					calc::Id nr;
-					if ( (setwd7[LA(1)]&0x40) && (setwd7[LA(2)]&0x80) ) {
+					if ( ((setwd7[LA(1)]&0x40) != 0) && ((setwd7[LA(2)]&0x80) != 0) ) {
 #line 974 "calcparser.g"
-						 nr  = number(&_signal); if (_signal) goto _handler;
+						 nr  = number(&_signal); if (_signal != 0) goto _handler;
 
 #line 974 "calcparser.g"
 						zzmatch_wsig(TOK_RP, _handler);
@@ -2301,11 +2301,11 @@ Parser::misc_expr(int *_retsignal)
  consume();
 					}
 					else {
-						if ( (setwd8[LA(1)]&0x1) && (setwd8[LA(2)]&0x2) ) {
+						if ( ((setwd8[LA(1)]&0x1) != 0) && ((setwd8[LA(2)]&0x2) != 0) ) {
 #line 977 "calcparser.g"
 							AP_ASTNode a;
 #line 978 "calcparser.g"
-							 a  = expr(&_signal); if (_signal) goto _handler;
+							 a  = expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 978 "calcparser.g"
 							zzmatch_wsig(TOK_RP, _handler);
@@ -2318,7 +2318,7 @@ Parser::misc_expr(int *_retsignal)
  consume();
 						}
 						else {
-							if (_sva) _signal=NoViableAlt;
+							if (_sva != 0) _signal=NoViableAlt;
 							else _signal=NoSemViableAlt;
 							goto _handler;  /* MR7 */
 						}
@@ -2326,12 +2326,12 @@ Parser::misc_expr(int *_retsignal)
 				}
 			}
 			else {
-				if ( (setwd8[LA(1)]&0x4)
+				if ( (setwd8[LA(1)]&0x4) != 0
  ) {
 #line 985 "calcparser.g"
 					calc::Id nr;
 #line 986 "calcparser.g"
-					 nr  = number(&_signal); if (_signal) goto _handler;
+					 nr  = number(&_signal); if (_signal != 0) goto _handler;
 
 #line 987 "calcparser.g"
 					_retv = std::make_unique<calc::ASTNumber>(nr);
@@ -2372,9 +2372,9 @@ Parser::misc_expr(int *_retsignal)
  consume();
 #line 1003 "calcparser.g"
 									{
-										if ( (setwd8[LA(1)]&0x8) ) {
+										if ( (setwd8[LA(1)]&0x8) != 0 ) {
 #line 1003 "calcparser.g"
-											 args  = exprList(&_signal); if (_signal) goto _handler;
+											 args  = exprList(&_signal); if (_signal != 0) goto _handler;
 
 										}
 									}
@@ -2405,19 +2405,19 @@ Parser::misc_expr(int *_retsignal)
 										std::string strArg;
  consume();
 #line 1016 "calcparser.g"
-										 args  = modelLinkArgs(&_signal, strArg ); if (_signal) goto _handler;
+										 args  = modelLinkArgs(&_signal, strArg ); if (_signal != 0) goto _handler;
 
 #line 1017 "calcparser.g"
 										
 										std::unique_ptr<LinkInExpr> e(new LinkInExpr(nameBefore,genId(nameAfter),strArg));
 										// Hack a method with no args, yields a 0-ptr!
-										if (!args.get())
+										if (args.get() == nullptr)
 										args = std::make_unique<calc::ASTNodeVector>();
 										e->transferFunctionArgs(args.release());
 										_retv=AP_ASTNode(e.release());
 									}
 									else {
-										if ( (setwd8[LA(1)]&0x10) ) {
+										if ( (setwd8[LA(1)]&0x10) != 0 ) {
 #line 1026 "calcparser.g"
 											
 											calc::ASTPar p(genId(theId));
@@ -2425,7 +2425,7 @@ Parser::misc_expr(int *_retsignal)
 											{
 												while ( (LA(1)==TOK_LB) ) {
 #line 1029 "calcparser.g"
-													 calc::Id const a  = arrayIndex(&_signal); if (_signal) goto _handler;
+													 calc::Id const a  = arrayIndex(&_signal); if (_signal != 0) goto _handler;
 
 #line 1029 "calcparser.g"
 													p.pushBackIndex(a);
@@ -2436,7 +2436,7 @@ Parser::misc_expr(int *_retsignal)
 											_retv = std::make_unique<calc::ASTPar>(p);
 										}
 										else {
-											if (_sva) _signal=NoViableAlt;
+											if (_sva != 0) _signal=NoViableAlt;
 											else _signal=NoSemViableAlt;
 											goto _handler;  /* MR7 */
 										}
@@ -2445,7 +2445,7 @@ Parser::misc_expr(int *_retsignal)
 							}
 						}
 						else {
-							if (_sva) _signal=NoViableAlt;
+							if (_sva != 0) _signal=NoViableAlt;
 							else _signal=NoSemViableAlt;
 							goto _handler;  /* MR7 */
 						}
@@ -2489,7 +2489,7 @@ Parser::modelLinkArgs(int *_retsignal, std::string& strArg )
 	 consume();
 #line 1043 "calcparser.g"
 	{
-		if ( (LA(1)==TOK_REFERENCE) && (setwd8[LA(2)]&0x40) ) {
+		if ( (LA(1)==TOK_REFERENCE) && ((setwd8[LA(2)]&0x40) != 0) ) {
 #line 1043 "calcparser.g"
 			zzmatch_wsig(TOK_REFERENCE, _handler);
 			
@@ -2510,10 +2510,10 @@ Parser::modelLinkArgs(int *_retsignal, std::string& strArg )
 	}
 #line 1046 "calcparser.g"
 	{
-		if ( (setwd8[LA(1)]&0x80)
+		if ( (setwd8[LA(1)]&0x80) != 0
  ) {
 #line 1046 "calcparser.g"
-			 _retv  = exprList(&_signal); if (_signal) goto _handler;
+			 _retv  = exprList(&_signal); if (_signal != 0) goto _handler;
 
 		}
 	}
@@ -2545,7 +2545,7 @@ Parser::exprList(int *_retsignal)
 	_retv = std::make_unique<calc::ASTNodeVector>();
 	AP_ASTNode e;
 #line 1056 "calcparser.g"
-	 e  = expr(&_signal); if (_signal) goto _handler;
+	 e  = expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 1056 "calcparser.g"
 	_retv->transferPushBack(e.release());
@@ -2556,7 +2556,7 @@ Parser::exprList(int *_retsignal)
 			zzmatch_wsig(TOK_COMMA, _handler);
 			 consume();
 #line 1057 "calcparser.g"
-			 e  = expr(&_signal); if (_signal) goto _handler;
+			 e  = expr(&_signal); if (_signal != 0) goto _handler;
 
 #line 1057 "calcparser.g"
 			_retv->transferPushBack(e.release());
@@ -2601,7 +2601,7 @@ Parser::parWithIndeces(int *_retsignal)
 			{
 				while ( (LA(1)==TOK_LB) ) {
 #line 1068 "calcparser.g"
-					 a  = arrayIndex(&_signal); if (_signal) goto _handler;
+					 a  = arrayIndex(&_signal); if (_signal != 0) goto _handler;
 
 #line 1068 "calcparser.g"
 					_retv.pushBackIndex(a);
@@ -2620,7 +2620,7 @@ Parser::parWithIndeces(int *_retsignal)
  consume();
 			}
 			else {
-				if (_sva) _signal=NoViableAlt;
+				if (_sva != 0) _signal=NoViableAlt;
 				else _signal=NoSemViableAlt;
 				goto _handler;  /* MR7 */
 			}
@@ -2706,7 +2706,7 @@ Parser::qid(int *_retsignal)
  consume();
 		}
 		else {
-			if (_sva) _signal=NoViableAlt;
+			if (_sva != 0) _signal=NoViableAlt;
 			else _signal=NoSemViableAlt;
 			goto _handler;  /* MR7 */
 		}
@@ -2735,14 +2735,14 @@ Parser::number(int *_retsignal)
 	calc::Id signS,valS;
 #line 1088 "calcparser.g"
 	{
-		if ( (setwd9[LA(1)]&0x20) ) {
+		if ( (setwd9[LA(1)]&0x20) != 0 ) {
 #line 1088 "calcparser.g"
-			 signS  = sign(&_signal); if (_signal) goto _handler;
+			 signS  = sign(&_signal); if (_signal != 0) goto _handler;
 
 		}
 	}
 #line 1090 "calcparser.g"
-	 valS  = unsignedNumber(&_signal); if (_signal) goto _handler;
+	 valS  = unsignedNumber(&_signal); if (_signal != 0) goto _handler;
 
 #line 1091 "calcparser.g"
 	
@@ -2797,7 +2797,7 @@ Parser::unsignedNumber(int *_retsignal)
  consume();
 		}
 		else {
-			if (_sva) _signal=NoViableAlt;
+			if (_sva != 0) _signal=NoViableAlt;
 			else _signal=NoSemViableAlt;
 			goto _handler;  /* MR7 */
 		}
@@ -2847,7 +2847,7 @@ Parser::sign(int *_retsignal)
  consume();
 		}
 		else {
-			if (_sva) _signal=NoViableAlt;
+			if (_sva != 0) _signal=NoViableAlt;
 			else _signal=NoSemViableAlt;
 			goto _handler;  /* MR7 */
 		}
@@ -2874,23 +2874,23 @@ Parser::nrOrPar(int *_retsignal)
 	*_retsignal = NoSignal;
 #line 1120 "calcparser.g"
 	calc::Id i;
-	if ( (setwd10[LA(1)]&0x2) ) {
+	if ( (setwd10[LA(1)]&0x2) != 0 ) {
 #line 1121 "calcparser.g"
-		 i  = number(&_signal); if (_signal) goto _handler;
+		 i  = number(&_signal); if (_signal != 0) goto _handler;
 
 #line 1121 "calcparser.g"
 		_retv = std::make_unique<ASTNumber>(i);
 	}
 	else {
-		if ( (setwd10[LA(1)]&0x4) ) {
+		if ( (setwd10[LA(1)]&0x4) != 0 ) {
 #line 1122 "calcparser.g"
-			 i  = qid(&_signal); if (_signal) goto _handler;
+			 i  = qid(&_signal); if (_signal != 0) goto _handler;
 
 #line 1122 "calcparser.g"
 			_retv = std::make_unique<ASTPar>(i);
 		}
 		else {
-			if (_sva) _signal=NoViableAlt;
+			if (_sva != 0) _signal=NoViableAlt;
 			else _signal=NoSemViableAlt;
 			goto _handler;  /* MR7 */
 		}
@@ -2917,24 +2917,24 @@ Parser::nrOrId(int *_retsignal)
 	*_retsignal = NoSignal;
 #line 1128 "calcparser.g"
 	calc::Id i;
-	if ( (setwd10[LA(1)]&0x10) ) {
+	if ( (setwd10[LA(1)]&0x10) != 0 ) {
 #line 1129 "calcparser.g"
-		 i  = number(&_signal); if (_signal) goto _handler;
+		 i  = number(&_signal); if (_signal != 0) goto _handler;
 
 #line 1129 "calcparser.g"
 		_retv=i;
 	}
 	else {
-		if ( (setwd10[LA(1)]&0x20)
+		if ( (setwd10[LA(1)]&0x20) != 0
  ) {
 #line 1130 "calcparser.g"
-			 i  = qid(&_signal); if (_signal) goto _handler;
+			 i  = qid(&_signal); if (_signal != 0) goto _handler;
 
 #line 1130 "calcparser.g"
 			_retv=i;
 		}
 		else {
-			if (_sva) _signal=NoViableAlt;
+			if (_sva != 0) _signal=NoViableAlt;
 			else _signal=NoSemViableAlt;
 			goto _handler;  /* MR7 */
 		}

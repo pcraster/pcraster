@@ -202,7 +202,7 @@ void Table::read(dal::DataSpace const &space, dal::DataSpaceAddress const &addre
       auto const *mapper =
           dynamic_cast<dal::StepCoordinateMapper const *>(globalToLocalMapper().mapper(id));
 
-      if (mapper) {
+      if (mapper != nullptr) {
         double const timeStepOffset = mapper->source(1.0) - 1.0;
         assert(dal::greaterOrComparable(timeStepOffset, 0.0));
         assert(dal::comparable(std::fmod(timeStepOffset, 1.0), 0.0));

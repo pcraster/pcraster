@@ -467,8 +467,8 @@ void calc::Script::setupClone()
 
   if (needClone || rasterSpace().nrRows() == 0)  // no clone booted
   {
-    if (!d_areaMap) {   // we do not have an areamap, look for --clone
-      if (!appClone) {  // Except 1
+    if (d_areaMap == nullptr) {   // we do not have an areamap, look for --clone
+      if (appClone == nullptr) {  // Except 1
         throw com::Exception("no clone or area map specified");
       }
       // pcrcalc/test82
@@ -582,14 +582,14 @@ void calc::Script::updateProgress(ProgressPulse p, int step)
   }
   pi.inTimeStep = step;
   pi.nrTimeSteps = isDynamicModel() ? nrTimeSteps() : 0;
-  if (d_progressCallBack->update(pi)) {
+  if (d_progressCallBack->update(pi) != 0) {
     throw calc::QuitForProgressCallBack();
   }
 }
 
 void calc::Script::processFileOutputValue(double val)
 {
-  if (d_fileOutputStream) {
+  if (d_fileOutputStream != nullptr) {
     *d_fileOutputStream << val << "\n";
     d_fileOutputStream->flush();
   }

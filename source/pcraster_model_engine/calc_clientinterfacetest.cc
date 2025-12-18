@@ -96,18 +96,18 @@ static void foo()
 {
 
   PcrScript *s = pcr_createScriptFromXMLFile("c:\\tmp\\case.xml");
-  if (!s) {
+  if (s == nullptr) {
     printf("PANIC allocation of a few bytes failed");
     abort();
   }
-  if (pcr_ScriptError(s)) {
+  if (pcr_ScriptError(s) != 0) {
     /* typical error: case.xml is not existant */
     printf("ERROR: %s\n", pcr_ScriptErrorMessage(s));
     exit(1);
   }
 
   pcr_ScriptExecute(s);
-  if (pcr_ScriptError(s)) {
+  if (pcr_ScriptError(s) != 0) {
     /* typical errors:
        * - case.xml is malformed
        * - some inputs are not found
@@ -118,7 +118,7 @@ static void foo()
   }
 
   pcr_destroyScript(s);
-  if (pcr_ScriptError(s)) {
+  if (pcr_ScriptError(s) != 0) {
     /* very unlikely, program corruption
        */
     printf("ERROR: %s\n", pcr_ScriptErrorMessage(s));
@@ -187,7 +187,7 @@ BOOST_AUTO_TEST_CASE(testCapi)
     geo::FileCreateTester const fct("tmp2.res");
     PcrScript *s = pcr_createScriptFromTextFile("pcrscripttest.mod");
     BOOST_CHECK(s);
-    if (!s) {
+    if (s == nullptr) {
       foo();  // supress not used message of foo: the sample code
     }
     pcr_ScriptExecute(s);
@@ -332,7 +332,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
     BOOST_CHECK(is.symbols().contains("memOutStr2"));
 
     BOOST_CHECK(data[2]);  // allocated
-    if (data[2]) {
+    if (data[2] != nullptr) {
       std::string const statTable((const char *)data[2]);
       BOOST_CHECK_EQUAL(statTable, std::string("	memInput\n"
                                                "area	2500\n"
@@ -344,7 +344,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
                                                "median	4.5\n"));
     }
     BOOST_CHECK(data[3]);  // allocated
-    if (data[3]) {
+    if (data[3] != nullptr) {
       std::string const statTable((const char *)data[3]);
       BOOST_CHECK_EQUAL(statTable, std::string("	memOutMap\n"
                                                "area	2500\n"
@@ -584,7 +584,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
 
     BOOST_CHECK(data[MemOutputInitial]);
     auto *allocatedMemOutputInitial = (float *)data[MemOutputInitial];
-    if (allocatedMemOutputInitial) {
+    if (allocatedMemOutputInitial != nullptr) {
       BOOST_CHECK_EQUAL(allocatedMemOutputInitial[0], 5.0F);
     }
 
@@ -592,7 +592,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
     pcr_ScriptExecuteNextTimeStepMemory(s, data);
     auto *allocatedMemOutputDynamic = (float *)data[MemOutputDynamic];
     BOOST_CHECK(allocatedMemOutputDynamic);
-    if (allocatedMemOutputDynamic) {
+    if (allocatedMemOutputDynamic != nullptr) {
       BOOST_CHECK_EQUAL(allocatedMemOutputDynamic[1], 13.5F);
       BOOST_CHECK_EQUAL(allocatedMemOutputDynamic[1], 13.5F);
       BOOST_CHECK_EQUAL(allocatedMemOutputDynamic[24], 13.5F);
@@ -606,7 +606,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
     allocatedMemOutputDynamic = (float *)data[MemOutputDynamic];
     BOOST_CHECK(allocatedMemOutputDynamic);
 
-    if (allocatedMemOutputDynamic) {
+    if (allocatedMemOutputDynamic != nullptr) {
       BOOST_CHECK_EQUAL(allocatedMemOutputDynamic[1], 106.0F);
       BOOST_CHECK_EQUAL(allocatedMemOutputDynamic[1], 106.0F);
       BOOST_CHECK_EQUAL(allocatedMemOutputDynamic[24], 106.0F);
@@ -709,7 +709,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryTimeoutput)
     BOOST_CHECK_EQUAL(r, 1);
     BOOST_REQUIRE(!pcr_ScriptError(s));
     BOOST_CHECK(data[0]);
-    if (data[0]) {
+    if (data[0] != nullptr) {
       const auto *header = (const UINT4 *)data[0];
       BOOST_CHECK_EQUAL(header[0], (UINT4)1);         // id
       BOOST_CHECK_EQUAL(header[1], (UINT4)CR_REAL4);  // value type
@@ -728,7 +728,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryTimeoutput)
     BOOST_CHECK_EQUAL(r, 0);
     BOOST_REQUIRE(!pcr_ScriptError(s));
     BOOST_CHECK(data[0]);
-    if (data[0]) {
+    if (data[0] != nullptr) {
       const auto *header = (const UINT4 *)data[0];
       BOOST_CHECK_EQUAL(header[0], (UINT4)1);         // id
       BOOST_CHECK_EQUAL(header[1], (UINT4)CR_REAL4);  // value type

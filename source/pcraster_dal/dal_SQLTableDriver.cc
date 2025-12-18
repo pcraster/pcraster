@@ -698,7 +698,7 @@ Table* SQLTableDriver::read(
 {
   Table* table = open(name, space, address);
 
-  if(!table) {
+  if(table == nullptr) {
     throwCannotBeOpened(name, space, TABLE);
   }
 

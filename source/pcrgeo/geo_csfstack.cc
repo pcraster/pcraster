@@ -123,7 +123,7 @@ template <class T> void geo::CSFStack<T>::init()
     }
 
     com::PathName fn;
-    if (d_name.isDynamic() && d_name.nrLayers()) {
+    if (d_name.isDynamic() && (d_name.nrLayers() != 0u)) {
       fn = d_name.fileName(*d_name.begin());
     } else {
       fn = d_name.baseName();
@@ -157,7 +157,7 @@ template <class T> void geo::CSFStack<T>::init()
 
     // If stack is dynamic we have to scan the whole stack to get the extremes.
     // FIXME: Isn't the min and max of the first layer enough?
-    if (d_name.isDynamic() && d_name.nrLayers()) {
+    if (d_name.isDynamic() && (d_name.nrLayers() != 0u)) {
       T min;
       T max;
 
@@ -203,7 +203,7 @@ template <class T> void geo::CSFStack<T>::load(size_t t)
 
   if (!loaded(t)) {    // 1.
     com::PathName fn;  // 2.
-    if (d_name.isDynamic() && d_name.nrLayers()) {
+    if (d_name.isDynamic() && (d_name.nrLayers() != 0u)) {
       if (isAvailable(t)) {
         fn = d_name.fileName(t);
       }
@@ -266,7 +266,7 @@ template <class T> bool geo::CSFStack<T>::isAvailable(size_t t) const
 */
 template <class T> size_t geo::CSFStack<T>::firstStep() const
 {
-  return d_name.isDynamic() && d_name.nrLayers() ? *(d_name.begin()) : 0;
+  return d_name.isDynamic() && (d_name.nrLayers() != 0u) ? *(d_name.begin()) : 0;
 }
 
 /*!

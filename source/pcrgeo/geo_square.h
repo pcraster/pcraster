@@ -140,7 +140,7 @@ template<typename T, size_t n, typename B >
   P c(centre());
   T h=d_halfWidth/2;
   for(size_t i = 0; i < n; ++i) {
-    if (indexDirection & (1<<i)) {
+    if ((indexDirection & (1<<i)) != 0u) {
       c[i]-=h;
     } else {
       c[i]+=h;
@@ -191,8 +191,8 @@ template<class T, size_t n, typename B>
     for(size_t i = 0; i < n; ++i) {
       // !-negation just to cast to 0,1 range
       // !=0 would also do
-      p[i]+=side[!(s&(1<<i))]*      halfWidth();
-     po[i]+=side[!(s&(1<<i))]*other.halfWidth();
+      p[i]+=side[(s&(1<<i)) == 0u]*      halfWidth();
+     po[i]+=side[(s&(1<<i)) == 0u]*other.halfWidth();
 	}
     if (other.contains(p)||contains(po)) {
         return true;

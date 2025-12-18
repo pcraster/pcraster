@@ -100,7 +100,7 @@ calc::CFGNode *calc::createCFG(const std::vector<ASTNode *> &nodeVector)
 {
   CFGCreatorPrivate c;
   for (auto i : nodeVector) {
-    if (i) {
+    if (i != nullptr) {
       i->accept(c);
     }
   }
@@ -143,7 +143,7 @@ calc::CFGNode *calc::CFGCreatorPrivate::releaseFirst()
 void calc::CFGCreatorPrivate::add(ASTNode *an)
 {
   auto *n = new CFGNode(an);
-  if (d_last) {
+  if (d_last != nullptr) {
     d_last->setForward(n);
     n->setPred(d_last);
   } else {

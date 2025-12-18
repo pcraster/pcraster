@@ -63,7 +63,7 @@ public:
   {
 
     d_values.clear();
-    if (!memoryArray) {
+    if (memoryArray == nullptr) {
       return;
     }
 
@@ -124,7 +124,7 @@ LOOK_UP_TABLE *calc::LookupTable::createOldStyle(const std::string &fileName)
 {
   LOOK_UP_TABLE *t(nullptr);
   FILE *f = fopen(fileName.c_str(), "r");
-  if (!f) {
+  if (f == nullptr) {
     libError("Can't open lookup table " + quote(fileName));
   }
 
@@ -135,7 +135,7 @@ LOOK_UP_TABLE *calc::LookupTable::createOldStyle(const std::string &fileName)
     }
     // discern between last (back) and rest of columns
     t = ReadLookupTable(f, &(csfVs[0]), csfVs.size() - 1, csfVs.back());
-    if (!t) {
+    if (t == nullptr) {
       // pcrcalc10a
       libError("while parsing lookuptable " + quote(fileName));
     }
@@ -163,7 +163,7 @@ calc::LookupTable::LookupTable(const ASTSymbolInfo &i) : d_vs(i.dataType().resul
   if (vs.empty()) {
     vs.push_back(VS_S);
   }
-  if (i.lookupTable()) {
+  if (i.lookupTable() != nullptr) {
     setXMLRecords(*(i.lookupTable()), vs);
   } else {
     setRecords(i.externalName(), vs);
@@ -258,7 +258,7 @@ void calc::LookupTable::setRecords(const Records &records, const std::vector<VS>
 calc::DataValue *calc::LookupTable::load()
 {
   // now we need! it
-  if (d_memoryInputTableCreator) {
+  if (d_memoryInputTableCreator != nullptr) {
     if (d_memoryInputTableCreator->empty()) {
       throw std::range_error("0-ptr data buffer passed");
     }
@@ -291,7 +291,7 @@ calc::LookupTable::const_iterator calc::LookupTable::find(const Key &prefixKey) 
  */
 bool calc::LookupTable::find(double &result, const Key &prefixKey) const
 {
-  if (d_memoryInputTableCreator) {
+  if (d_memoryInputTableCreator != nullptr) {
     return d_memoryInputTableCreator->find(result, prefixKey);
   }
 
@@ -396,7 +396,7 @@ bool calc::LookupTable::interpolate(double &result, const_iterator begin, const_
 void calc::LookupTable::setPrefixStableSort([[maybe_unused]] size_t prefixLen)
 {
   // already constructed
-  if (d_prefixMap) {
+  if (d_prefixMap != nullptr) {
     return;
   }
 

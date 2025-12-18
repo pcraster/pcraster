@@ -11,7 +11,7 @@ calc::RunTimeStack::~RunTimeStack()
 #ifdef DEBUG_DEVELOP
   // in normal cases the stack should be empty
   // but not always when an exception is unwinded
-  if (!std::uncaught_exceptions()) {
+  if (std::uncaught_exceptions() == 0) {
     POSTCOND(d_stack.empty());
   }
 #endif

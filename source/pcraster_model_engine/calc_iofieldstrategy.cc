@@ -255,7 +255,7 @@ void calc::IoFieldStrategy::readField(void *dest, const std::string &mapName, VS
   //  - pcrcalc525 if different input bindings point to the same file!
   //  - if areamap is read and same is used as model input
   //  - solved bug with lastUse UseDefAnalyzerTest::nestedLoops()
-  if (d_readFiles.count(mapName)) {
+  if (d_readFiles.count(mapName) != 0u) {
     const std::string &debugDevelopOnly(mapName);
     if (debugDevelopOnly == "inp1b.map") {  // in known tests to fail
       throw com::OpenFileError(mapName, "IoFieldStrategy::createField");

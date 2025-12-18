@@ -14,7 +14,7 @@ LOOK_UP_TABLE *calc::LookupTable::createOldStyle(const std::string &fileName)
 {
   LOOK_UP_TABLE *t(nullptr);
   FILE *f = fopen(fileName.c_str(), "r");
-  if (!f) {
+  if (f == nullptr) {
     libError("Can't open lookup table " + quote(fileName));
   }
 
@@ -25,7 +25,7 @@ LOOK_UP_TABLE *calc::LookupTable::createOldStyle(const std::string &fileName)
     }
 
     t = ReadLookupTable(f, &(keyTypes[0]), keyTypes.size(), vs2CsfVs(d_vs));
-    if (!t) {
+    if (t == nullptr) {
       // pcrcalc/test10a
       libError("while parsing lookuptable " + quote(fileName));
     }

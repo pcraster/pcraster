@@ -136,7 +136,7 @@ com::PathName com::tempDirectoryName()
     tempDirName = buf;
 #else
   char *r = getenv("TMP");
-  if (r) {
+  if (r != nullptr) {
     tempDirName = r;
   }
 #endif
@@ -273,7 +273,7 @@ bool com::PathInfo::isFile() const
   }
 #ifndef WIN32
   struct stat s{};
-  if (stat(d_pathName.toString().c_str(), &s)) {
+  if (stat(d_pathName.toString().c_str(), &s) != 0) {
     throw std::runtime_error(d_pathName.toString() + ": " + strerror(errno));
   }
   return S_ISREG(s.st_mode) || S_ISLNK(s.st_mode);

@@ -97,7 +97,7 @@ DataSpaceIterator::DataSpaceIterator(
 */
 DataSpaceIterator::~DataSpaceIterator()
 {
-  if(d_space) {
+  if(d_space != nullptr) {
     delete d_space;
   }
 }
@@ -113,14 +113,14 @@ DataSpaceIterator& DataSpaceIterator::operator=(
          DataSpaceIterator const& rhs)
 {
   if(this != &rhs) {
-    if(!rhs.d_space) {
-      if(d_space) {
+    if(rhs.d_space == nullptr) {
+      if(d_space != nullptr) {
         delete d_space;
         d_space = nullptr;
       }
     }
     else {
-      if(!d_space) {
+      if(d_space == nullptr) {
         d_space = new DataSpace(*rhs.d_space);
       }
       else {
@@ -772,7 +772,7 @@ bool DataSpaceIterator::equals(
          (d_rendReached == true && rhs.d_rendReached == true) ||
          (d_endReached == rhs.d_endReached &&
          d_rendReached == rhs.d_rendReached &&
-         d_space && rhs.d_space && *d_space == *rhs.d_space &&
+         (d_space != nullptr) && (rhs.d_space != nullptr) && *d_space == *rhs.d_space &&
          d_space->equal(d_address, rhs.d_address) &&
          d_setIndices == rhs.d_setIndices);
 }

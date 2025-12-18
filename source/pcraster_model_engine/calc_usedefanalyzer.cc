@@ -343,7 +343,7 @@ public:
       PRECOND(d_stack.size());
       ASTPar *p = d_stack.top();
       d_stack.pop();
-      if (p) {
+      if (p != nullptr) {
         add(UDEvent(UDEvent::Use, p));
       }
     }
@@ -355,7 +355,7 @@ public:
 
     // if we already have an EventChain
     // then no need to add prologue
-    if (count(e.name())) {
+    if (count(e.name()) != 0u) {
       return;
     }
 
@@ -435,7 +435,7 @@ public:
     ParSet s;
     for (const auto &i : *this) {
       ASTPar *p = i.second.firstUse(&d_dummy);
-      if (p) {
+      if (p != nullptr) {
         s.insert(p);
       }
     }
@@ -447,7 +447,7 @@ public:
     ParSet s;
     for (const auto &i : *this) {
       ASTPar *p = i.second.newLiveDef(&d_dummy);
-      if (p) {
+      if (p != nullptr) {
         s.insert(p);
       }
     }
@@ -482,7 +482,7 @@ public:
 calc::UseDefAnalyzer::UseDefAnalyzer(CFGNode *cfg, bool keepLiveAtEnd, bool prefixFirstUseByDef)
     : CFGVisitor(cfg), d_keepLiveAtEnd(keepLiveAtEnd)
 {
-  if (!dynamic_cast<BlockEntrance *>(current())) {
+  if (dynamic_cast<BlockEntrance *>(current()) == nullptr) {
     PRECOND(dynamic_cast<BlockEntrance *>(current()));
   }
   d_rec = new UseDefRecorder(prefixFirstUseByDef);

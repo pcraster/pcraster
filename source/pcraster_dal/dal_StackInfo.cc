@@ -81,7 +81,7 @@ dal::StackInfo::StackInfo(
         // No + sign.
         pos == std::string::npos &&
         (
-          !std::isdigit(*filename.rbegin()) ||
+          (std::isdigit(*filename.rbegin()) == 0) ||
           filename.length() != 12
         )
       ) ||
@@ -154,14 +154,14 @@ dal::StackInfo::StackInfo(
           break;
         }
 
-        if(std::isdigit(filename[pos])) {
+        if(std::isdigit(filename[pos]) != 0) {
           firstStr += filename[pos];
         }
         else {
           // Break on the character being end of stack name.
           break;
         }
-      } while(pos);
+      } while(pos != 0u);
 
       std::reverse(firstStr.begin(), firstStr.end());
       wrongFormatIf(firstStr.empty());
@@ -271,7 +271,7 @@ bool dal::StackInfo::isMemberOfStack(std::filesystem::path const& path) const
       std::string const numbers = path.filename().string().substr(d_name.filename().string().size());
       bool dotSeen = false;
       for(char  const& number : numbers) {
-        if(!std::isdigit(number)) {
+        if(std::isdigit(number) == 0) {
 
           if(number != '.') {
             // Not a digit, should be the one extension separator.
@@ -325,7 +325,7 @@ size_t dal::StackInfo::startOfStep(std::string const& name) const
 
   do {
     --pos;
-    if(!std::isdigit(name[pos])) {
+    if(std::isdigit(name[pos]) == 0) {
       break;
     }
   } while(pos != 0);

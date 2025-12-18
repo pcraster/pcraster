@@ -59,7 +59,7 @@ struct Check {
     PRECOND(id);
     const auto *n = dynamic_cast<const ASTNumber *>(id);
     double value = NAN;
-    if (n) {
+    if (n != nullptr) {
       value = n->value();
     } else {
       PRECOND(d_syms.contains(id->name()));
@@ -91,7 +91,7 @@ struct Check {
 calc::ASTScript::ASTScript()
 
 {
-  if (appClone) {
+  if (appClone != nullptr) {
     setAreaMapFromString(appClone, "--clone");
   }
 }
@@ -329,7 +329,7 @@ void calc::ASTScript::resolveUnChecked()
 {
 
   std::string areaMap;
-  if (d_areaMap) {
+  if (d_areaMap != nullptr) {
     areaMap = d_areaMap->name();
   }
 
@@ -366,7 +366,7 @@ void calc::ASTScript::analyzeAndResolve()
 void calc::ASTScript::setReports()
 {
   Timer t = timer();
-  if (!t.lastInt()) {
+  if (t.lastInt() == 0u) {
     t.setLastInt(1);
   }
 
@@ -379,7 +379,7 @@ void calc::ASTScript::setReports()
   }
 
   ReportVisitor rv(reportLastAssOfEverySymbol, d_reports, t);
-  if (d_code) {
+  if (d_code != nullptr) {
     d_code->accept(rv);
   }
 
@@ -492,11 +492,11 @@ calc::Timer calc::ASTScript::timer() const
 {
   Timer timer;
 
-  if (d_externalTimer) {
+  if (d_externalTimer != nullptr) {
     return *d_externalTimer;
   }
 
-  if (!d_timerStartOrTss) {
+  if (d_timerStartOrTss == nullptr) {
     return timer;  // no timer section, static model
   }
 
@@ -518,7 +518,7 @@ calc::Timer calc::ASTScript::timer() const
   }
 
   // if not set by tss
-  if (!timer.startInt()) {
+  if (timer.startInt() == 0u) {
 
     Private::Check c(d_symbols);
     timer.setStartInt(c(d_timerStartOrTss, "start time"));

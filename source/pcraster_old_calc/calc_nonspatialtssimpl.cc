@@ -12,7 +12,7 @@ void calc::NonSpatialTssImpl::write()
 {
   size_t dummy = 0;
   double *val = d_tss.getValueBuffer(dummy);
-  if (!val) {  // do not write this time step
+  if (val == nullptr) {  // do not write this time step
     return;
   }
   POSTCOND(dummy == 1);

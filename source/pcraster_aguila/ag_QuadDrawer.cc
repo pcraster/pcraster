@@ -95,7 +95,7 @@ void ag::BooleanQuadDrawer::draw(size_t r, size_t c) const
   UINT1 const v = d_raster.cell<UINT1>(r, c);
 
   if (!pcr::isMV(v)) {
-    if (v) {
+    if (v != 0u) {
       glColor3f(trueColour.red() / m, trueColour.green() / m, trueColour.blue() / m);
       glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, diffuse_true);
       glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular_true);

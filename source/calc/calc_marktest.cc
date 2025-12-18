@@ -31,7 +31,7 @@ public:
     double const cellSize = 15.0;
     CSF_PT const projection = PT_YINCT2B;
 
-    BootTestApi(cellSize, projection == PT_YINCT2B);
+    BootTestApi(cellSize, static_cast<int>(projection == PT_YINCT2B));
 
     d_result = InitMapUINT1(d_nrRows, d_nrCols, d_resultCells, true, CR_UINT1);
     d_order = InitMapREAL8(d_nrRows, d_nrCols, d_orderCells, true, CR_REAL4);
@@ -95,7 +95,7 @@ public:
   {
     // non spatial is copied!
     d_tresholdValue[0] = t;
-    if (d_treshold) {
+    if (d_treshold != nullptr) {
       DeleteInternalMAP_REAL8(d_treshold);
     }
     d_treshold = InitMapREAL8(d_nrRows, d_nrCols, d_tresholdValue, false, CR_REAL4);

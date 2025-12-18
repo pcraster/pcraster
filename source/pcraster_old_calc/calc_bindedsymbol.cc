@@ -8,7 +8,7 @@
 calc::BindedSymbol::BindedSymbol(const calc::Symbol &parName) : Symbol(parName)
 {
   const Symbol *b = scriptConst().findBinding(name());
-  if (b) {
+  if (b != nullptr) {
     setBinded(*b);
   } else {
     d_externalBinding = parName;

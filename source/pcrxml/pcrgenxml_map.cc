@@ -66,7 +66,7 @@ pcrxml::Map &pcrxml::Map::operator=(const Map &src)
 
 void pcrxml::Map::fill(QDomElement el) const
 {
-  if (dataTypeDTD) {
+  if (dataTypeDTD != nullptr) {
     dataTypeDTD->appendTo(el);
   }
 }

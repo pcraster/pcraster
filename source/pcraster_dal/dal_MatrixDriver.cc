@@ -63,7 +63,7 @@ Matrix* MatrixDriver::read(std::string const& name) const
 {
   auto* matrix = dynamic_cast<Matrix*>(open(name));
 
-  if(!matrix) {
+  if(matrix == nullptr) {
     throwCannotBeOpened(name, MATRIX);
   }
 

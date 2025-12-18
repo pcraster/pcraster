@@ -172,7 +172,7 @@ Block* PCRBlockDriver::open(
 
   std::ifstream stream;
 
-  if(TextFileDriver::open(stream, path), std::ios::binary) {
+  if(TextFileDriver::open(stream, path), std::ios::binary != 0) {
     result = open(stream, typeId);
   }
 
@@ -228,7 +228,7 @@ Block* PCRBlockDriver::read(
 
   Block* result(open(stream, typeId));
 
-  if(!result) {
+  if(result == nullptr) {
     // File does not contain block stuff.
     throwCannotBeOpened(path.string(), BLOCK,
          "does not contain block discretisation or data");

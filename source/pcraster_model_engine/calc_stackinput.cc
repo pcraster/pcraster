@@ -81,7 +81,7 @@ calc::StackInput::StackInput(IOStrategy &fios, const std::string &stackName, con
 
     // item i expected exist, at this point in code
     // but may cause a file not found message
-    if (!firstExisting) {
+    if (firstExisting == 0u) {
       firstExisting = i;
     }
 
@@ -89,7 +89,7 @@ calc::StackInput::StackInput(IOStrategy &fios, const std::string &stackName, con
 
   }  // eofor
   // at least 1 element needed
-  if (!firstExisting) {
+  if (firstExisting == 0u) {
     // pcrcalc376
     throw com::Exception(" on checking map-stack:\n not a single map found");
   }
@@ -139,7 +139,7 @@ calc::OVS calc::StackInput::ovs() const
  */
 calc::Field *calc::StackInput::read(size_t t)
 {
-  if (!t) {
+  if (t == 0u) {
     throw DomainError("timeinput outside dynamic section");
   }
   /* TODO now checked in resolve, but other runtime engines might need this

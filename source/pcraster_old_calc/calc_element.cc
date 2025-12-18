@@ -29,7 +29,7 @@ calc::Element::Element()
 
 calc::Element::Element(IScript *script, const Position *pos) : d_script(script)
 {
-  if (pos) {
+  if (pos != nullptr) {
     d_pos = pos->createClone();
   } else {
     d_pos = new PositionNone();
@@ -57,7 +57,7 @@ calc::Element::~Element()
 
 calc::IScript &calc::Element::script()
 {
-  if (!d_script) {
+  if (d_script == nullptr) {
     throw SyntaxErrorBug();
   }
   return *d_script;
@@ -65,7 +65,7 @@ calc::IScript &calc::Element::script()
 
 const calc::IScript &calc::Element::scriptConst() const
 {
-  if (!d_script) {
+  if (d_script == nullptr) {
     throw SyntaxErrorBug();
   }
   return *d_script;

@@ -113,7 +113,7 @@ bool calc::Timer::dynamic() const
 
 void calc::Timer::increment()
 {
-  if (d_currentInt) {
+  if (d_currentInt != 0u) {
     ++d_currentInt;
   } else {
     d_currentInt = d_startInt;

@@ -135,14 +135,14 @@ size_t MultiMap2DView::nrCols() const
 
 void MultiMap2DView::zoomAll()
 {
-  if (d_nrRows && d_nrCols) {
+  if ((d_nrRows != 0u) && (d_nrCols != 0u)) {
     std::get<1>(d_mapViews[0])->zoomAll();
   }
 }
 
 void MultiMap2DView::resetMapView()
 {
-  if (d_nrRows && d_nrCols) {
+  if ((d_nrRows != 0u) && (d_nrCols != 0u)) {
     std::get<1>(d_mapViews[0])->resetMapView();
   }
 }
@@ -154,7 +154,7 @@ void MultiMap2DView::rescan()
 
 void MultiMap2DView::process()
 {
-  if (visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+  if ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0u) {
     if (!dataObject().backgroundColour().isValid()) {
       setPalette(QPalette());
 
@@ -179,7 +179,7 @@ void MultiMap2DView::process()
 void MultiMap2DView::visualise()
 {
   // Done scanning, update stuff if needed.
-  if (visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+  if ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0u) {
     for (auto &d_mapView : d_mapViews) {
       std::get<0>(d_mapView)->update();
     }

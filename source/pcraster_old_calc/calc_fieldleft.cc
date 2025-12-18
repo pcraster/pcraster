@@ -15,7 +15,7 @@ calc::FieldLeft::FieldLeft(StatementBlock *b, const WriteInfo &write, const UseP
 {
   try {
     auto *p = dynamic_cast<FieldParameter *>(script().findLeftParameter(field, vsRight));
-    if (!p) {
+    if (p == nullptr) {
       d_par = new FieldNewParameter(field, false, false, VS_FIELD, ST_DERIVED);
       script().addSymbol(d_par);
     } else {

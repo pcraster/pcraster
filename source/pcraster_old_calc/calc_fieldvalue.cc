@@ -30,7 +30,7 @@ const calc::Field *calc::FieldValue::value() const
  */
 calc::FieldHandle calc::FieldValue::value(bool isLastUse)
 {
-  if (!d_val) {
+  if (d_val == nullptr) {
     throw calc::Field::NotInitialized();
   }
   FieldHandle const f = *d_val;

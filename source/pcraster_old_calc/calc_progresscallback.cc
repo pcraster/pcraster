@@ -46,8 +46,8 @@ calc::ProgressInfo::Status calc::ProgressInfo::status() const
   if (inTimeStep > nrTimeSteps) {
     return Finished;
   }
-  if (!inTimeStep) {
-    if (nrTimeSteps) {
+  if (inTimeStep == 0) {
+    if (nrTimeSteps != 0) {
       return InitialSection;
     } else {
       return Static;

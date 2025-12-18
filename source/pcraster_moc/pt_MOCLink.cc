@@ -62,7 +62,7 @@ pt::MOCLink::MOCLink()
 
 pt::MOCLink::~MOCLink()
 {
-  if(d_tracker) {
+  if(d_tracker != nullptr) {
     delete d_tracker;
   }
 }

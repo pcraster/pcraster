@@ -94,15 +94,15 @@ void ag::Map3DView::rescan()
 
 void ag::Map3DView::process()
 {
-  if (visualisationEngine().change() & VisEngine::QUADLENGTH) {
+  if ((visualisationEngine().change() & VisEngine::QUADLENGTH) != 0u) {
     d_data->d_map3D->setQuadLength(dataObject().quadLength());
   }
 
-  if (visualisationEngine().change() & VisEngine::MAP3DSCALE) {
+  if ((visualisationEngine().change() & VisEngine::MAP3DSCALE) != 0u) {
     d_data->d_map3D->setScale(dataObject().map3DScale());
   }
 
-  if (visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+  if ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0u) {
     if (!dataObject().backgroundColour().isValid()) {
       setPalette(QPalette());
     } else {
@@ -115,24 +115,24 @@ void ag::Map3DView::process()
                  dataObject().backgroundColour().blueF(), dataObject().backgroundColour().alphaF());
   }
 
-  if (visualisationEngine().change() & VisEngine::OTHERHEIGHT ||
-      visualisationEngine().change() & VisEngine::OTHERATTRIB ||
-      (visualisationEngine().change() & VisEngine::CURSOR &&
-       visualisationEngine().change() & VisEngine::TIME) ||
-      visualisationEngine().change() & VisEngine::VISIBILITY ||
-      visualisationEngine().change() & VisEngine::QUADLENGTH ||
-      visualisationEngine().change() & VisEngine::MAP3DSCALE ||
-      visualisationEngine().change() & VisEngine::DRAWPROPS ||
-      visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+  if (((visualisationEngine().change() & VisEngine::OTHERHEIGHT) != 0u) ||
+      ((visualisationEngine().change() & VisEngine::OTHERATTRIB) != 0u) ||
+      (((visualisationEngine().change() & VisEngine::CURSOR) != 0u) &&
+       ((visualisationEngine().change() & VisEngine::TIME) != 0u)) ||
+      ((visualisationEngine().change() & VisEngine::VISIBILITY) != 0u) ||
+      ((visualisationEngine().change() & VisEngine::QUADLENGTH) != 0u) ||
+      ((visualisationEngine().change() & VisEngine::MAP3DSCALE) != 0u) ||
+      ((visualisationEngine().change() & VisEngine::DRAWPROPS) != 0u) ||
+      ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0u)) {
 
     deleteScene();
 
-    if (visualisationEngine().heightDataGuide()) {
+    if (visualisationEngine().heightDataGuide() != nullptr) {
       createScene(*visualisationEngine().heightDataGuide(), visualisationEngine().dataGuides());
 
       // If this is the first data set we need to position the camera and
       // set up the projection.
-      if (visualisationEngine().change() & VisEngine::OTHERHEIGHT) {
+      if ((visualisationEngine().change() & VisEngine::OTHERHEIGHT) != 0u) {
         reset();
         resetViewport(width(), height());
       }
@@ -142,15 +142,15 @@ void ag::Map3DView::process()
 
 void ag::Map3DView::visualise()
 {
-  if (visualisationEngine().change() & VisEngine::OTHERHEIGHT ||
-      visualisationEngine().change() & VisEngine::OTHERATTRIB ||
-      (visualisationEngine().change() & VisEngine::CURSOR &&
-       visualisationEngine().change() & VisEngine::TIME) ||
-      visualisationEngine().change() & VisEngine::VISIBILITY ||
-      visualisationEngine().change() & VisEngine::QUADLENGTH ||
-      visualisationEngine().change() & VisEngine::MAP3DSCALE ||
-      visualisationEngine().change() & VisEngine::DRAWPROPS ||
-      visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+  if (((visualisationEngine().change() & VisEngine::OTHERHEIGHT) != 0u) ||
+      ((visualisationEngine().change() & VisEngine::OTHERATTRIB) != 0u) ||
+      (((visualisationEngine().change() & VisEngine::CURSOR) != 0u) &&
+       ((visualisationEngine().change() & VisEngine::TIME) != 0u)) ||
+      ((visualisationEngine().change() & VisEngine::VISIBILITY) != 0u) ||
+      ((visualisationEngine().change() & VisEngine::QUADLENGTH) != 0u) ||
+      ((visualisationEngine().change() & VisEngine::MAP3DSCALE) != 0u) ||
+      ((visualisationEngine().change() & VisEngine::DRAWPROPS) != 0u) ||
+      ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0u)) {
     update();
   }
 
@@ -378,7 +378,7 @@ void ag::Map3DView::mouseMoveEvent(QMouseEvent *event)
     // Changes in y direction: move aim in z-direction.
     rotateHead(static_cast<double>(move.y()) / 25 * com::DEG2RAD, 0.0, 0.0);
     update();
-  } else if (event->buttons() & Qt::LeftButton && event->buttons() & Qt::RightButton) {
+  } else if ((event->buttons() & Qt::LeftButton != 0u) && (event->buttons() & Qt::RightButton != 0u)) {
 
     moveHead(step() * static_cast<double>(move.x()) / 10, 0.0, 0.0);
     moveHead(0.0, -step() * static_cast<double>(move.y()) / 10, 0.0);
@@ -393,7 +393,7 @@ void ag::Map3DView::keyPressEvent(QKeyEvent *event)
 {
   SceneView::keyPressEvent(event);
 
-  if (event->modifiers() & Qt::ShiftModifier) {
+  if (event->modifiers() & Qt::ShiftModifier != 0u) {
     switch (event->key()) {
       case Qt::Key_Q: {
         // Make the quadlength larger.
@@ -406,9 +406,9 @@ void ag::Map3DView::keyPressEvent(QKeyEvent *event)
         break;
       }
     }
-  } else if (event->modifiers() & Qt::ControlModifier) {
+  } else if (event->modifiers() & Qt::ControlModifier != 0u) {
     event->ignore();
-  } else if (event->modifiers() & Qt::AltModifier) {
+  } else if (event->modifiers() & Qt::AltModifier != 0u) {
     event->ignore();
   } else {
     switch (event->key()) {

@@ -114,7 +114,7 @@ class MessagesTestDBPrivate :
   {
     com::PathName pn(id);
     std::string contents(result);
-    if (contents.size()) {
+    if (contents.size() != 0u) {
       // reading in trims last end-of-line needed
       if (contents[contents.size() - 1] != '\n') {
         contents += "\n";
@@ -285,7 +285,7 @@ calc::MessagesTestDB::MessagesTestDB()
 
 calc::MessagesTestDB *calc::MessagesTestDB::instance()
 {
-  if (!d_instance.get()) {
+  if (d_instance.get() == nullptr) {
     d_instance.reset(new MessagesTestDB());
   }
   return d_instance.get();

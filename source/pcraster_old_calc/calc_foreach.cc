@@ -44,7 +44,7 @@ class calc::UserSymbol *calc::ForEach::findSymbol(const class calc::Symbol *sym,
                                                   bool mustExist) const
 {
   calc::UserSymbol *p = d_symTab.find(sym, typesExpected, mustExist);
-  if (!p) {
+  if (p == nullptr) {
     p = parentBlock()->findSymbol(sym, typesExpected, mustExist);
   }
   return p;
@@ -53,7 +53,7 @@ class calc::UserSymbol *calc::ForEach::findSymbol(const class calc::Symbol *sym,
 void calc::ForEach::addLocal(calc::UserSymbol *par)
 {
   calc::Symbol *firstDef = findSymbol(par, VS_ANYTHING, false);
-  if (firstDef) {  // pcrcalc/test273[a]
+  if (firstDef != nullptr) {  // pcrcalc/test273[a]
     std::ostringstream msg;
     msg << par->qName() << " defined twice, first definition at " << firstDef->definitionPoint();
     par->posError(msg);
@@ -94,7 +94,7 @@ void calc::ForEach::executeBlock()
   // put in array in correct order
   for (size_t i = 0; i < d_loopedArray->activeIndexSize(); i++) {
     const calc::IndexParameterConstant *ipc = d_loopedArray->item(i);
-    if (loopSet.count(ipc)) {
+    if (loopSet.count(ipc) != 0u) {
       loop.push_back(ipc);
     }
   }

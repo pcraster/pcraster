@@ -980,7 +980,7 @@ void DataProperties::removeRangeDrawProperties(const DataGuide &guide)
 
   eraseRangeClassifier(drawProps->rawValueClassifier());
 
-  if (drawProps->displayValueClassifier()) {
+  if (drawProps->displayValueClassifier() != nullptr) {
     eraseRangeClassifier(drawProps->displayValueClassifier());
   }
 
@@ -1219,7 +1219,7 @@ void DataProperties::addRangeDrawProperties(DataGuide const &guide, DataProperti
 
   // Classifiers.
   com::Classifier *displayClassifier = nullptr;
-  if (source.displayValueClassifier()) {
+  if (source.displayValueClassifier() != nullptr) {
     displayClassifier = new com::Classifier(*(source.displayValueClassifier()));
     _data->_rangeClassifiers.push_back(displayClassifier);
   }
@@ -1271,7 +1271,7 @@ void DataProperties::copyRangeDrawProperties(DataGuide const &guide, DataPropert
 
       eraseRangeClassifier(raw);
 
-      if (display) {
+      if (display != nullptr) {
         eraseRangeClassifier(display);
       }
     }
@@ -1296,7 +1296,7 @@ void DataProperties::copyRangeDrawProperties(DataGuide const &guide, DataPropert
     com::Classifier *targetDisplay(std::get<1>(targetTuple));
 
     assert(sourceRaw);
-    if (targetRaw) {
+    if (targetRaw != nullptr) {
       *targetRaw = *sourceRaw;
       assert(*targetRaw == *sourceRaw);
     } else {
@@ -1306,8 +1306,8 @@ void DataProperties::copyRangeDrawProperties(DataGuide const &guide, DataPropert
       assert(*std::get<0>(targetTuple) == *classifier);
     }
 
-    if (sourceDisplay) {
-      if (targetDisplay) {
+    if (sourceDisplay != nullptr) {
+      if (targetDisplay != nullptr) {
         *targetDisplay = *sourceDisplay;
         assert(*targetDisplay == *sourceDisplay);
       } else {
@@ -1316,7 +1316,7 @@ void DataProperties::copyRangeDrawProperties(DataGuide const &guide, DataPropert
         std::get<1>(targetTuple) = classifier;
         assert(*std::get<1>(targetTuple) == *classifier);
       }
-    } else if (targetDisplay) {
+    } else if (targetDisplay != nullptr) {
       eraseRangeClassifier(targetDisplay);
       std::get<1>(targetTuple) = nullptr;
     }
@@ -2362,7 +2362,7 @@ void DataProperties::popClassifier(DataGuide const &guide)
   assert(raw);
   eraseRangeClassifier(raw);
 
-  if (display) {
+  if (display != nullptr) {
     eraseRangeClassifier(display);
   }
 

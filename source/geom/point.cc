@@ -102,15 +102,15 @@ LINE *CalcLine(LINE *l,          /* write-only, line created */
                const POINT2D *a, /* first point on the line */
                const POINT2D *b) /* second point on the line */
 {
-  if (PointsEq(a, b)) {
+  if (PointsEq(a, b) != 0) {
     PRECOND(!PointsEq(a, b));
   }
   if (a->x == b->x) {
-    l->parY = true;
+    l->parY = 1;
     l->xInt = Double(a->x);
     l->slope = 0.0;
   } else {
-    l->parY = false;
+    l->parY = 0;
     l->slope = Double(a->y - b->y) / Double(a->x - b->x);
     l->yInt = Double(a->y) - (l->slope * Double(a->x));
   }
@@ -124,22 +124,22 @@ LINE *PerpLine(LINE *perp,       /* write-only. line created */
                const POINT2D *k, /* point element of perp */
                const LINE *l)    /* line perpendicular to perp  */
 {
-  if (l->parY) /* vertical */
+  if (l->parY != 0) /* vertical */
   {
     /* perpendicular is horizontal */
     perp->slope = 0;
-    perp->parY = false;
+    perp->parY = 0;
     perp->yInt = k->y;
   } else {
     if (l->slope == 0) /* horizontal */
     {
       /* perpendicular is vertical */
       perp->slope = 0; /* actually undefined */
-      perp->parY = true;
+      perp->parY = 1;
       perp->xInt = k->x;
     } else { /* not vertical or horizontal */
       perp->slope = -1 / l->slope;
-      perp->parY = false;
+      perp->parY = 0;
       perp->yInt = -(perp->slope * k->x) + k->y;
       POSTCOND(CompEps(YgivenX(perp, (PTYPE)0), perp->yInt));
     }
@@ -161,17 +161,17 @@ POINT2D *IntersectLines(POINT2D *p,     /* write-only, point of intersection. Pr
                         const LINE *l1, /* line 1 */
                         const LINE *l2) /* line 2 */
 {
-  if (l1->parY && l2->parY) {
+  if ((l1->parY != 0) && (l2->parY != 0)) {
     return (nullptr);
   }
 
-  if (l1->parY) /* l2 not */
+  if (l1->parY != 0) /* l2 not */
   {
     p->x = (PTYPE)l1->xInt;
     p->y = (PTYPE)YgivenX(l2, p->x);
     return (p);
   }
-  if (l2->parY) /* l1 not */
+  if (l2->parY != 0) /* l1 not */
   {
     p->x = (PTYPE)l2->xInt;
     p->y = (PTYPE)YgivenX(l1, p->x);
@@ -203,14 +203,14 @@ POINT2D *IntersectCords(POINT2D *i,          /* write-only, point of intersectio
   (void)CalcLine(&l1, l1p1, l1p2);
   (void)CalcLine(&l2, l2p1, l2p2);
 
-  if (!IntersectLines(i, &l1, &l2)) {
+  if (IntersectLines(i, &l1, &l2) == nullptr) {
     return (nullptr);
   }
   /* else there is an intersection,
      *  So point i is on both lines,
      *  now test if that intersection falls on both cords:
      */
-  if (PointOnLineAlsoOnCord(i, l1p1, l1p2) && PointOnLineAlsoOnCord(i, l2p1, l2p2)) {
+  if ((PointOnLineAlsoOnCord(i, l1p1, l1p2) != 0) && (PointOnLineAlsoOnCord(i, l2p1, l2p2) != 0)) {
     return (i);
   }
   return (nullptr);
@@ -231,14 +231,14 @@ POINT2D *IntersectLineCord(POINT2D *i,        /* write-only, point of intersecti
 
   (void)CalcLine(&cordLine, c1, c2);
 
-  if (!IntersectLines(i, l, &cordLine)) {
+  if (IntersectLines(i, l, &cordLine) == nullptr) {
     return (nullptr);
   }
   /* else there is an intersection,
      *  So point i is on both lines,
      *  now test if that intersection falls on the cord:
      */
-  if (PointOnLineAlsoOnCord(i, c1, c2)) {
+  if (PointOnLineAlsoOnCord(i, c1, c2) != 0) {
     return (i);
   }
   return (nullptr);
@@ -272,7 +272,7 @@ int PointOnLineAlsoOnCord(const POINT2D *p,  /* point that is on the line throug
   minY = std::min(c1->y, c2->y);
 
   /* see if it falls on the cord */
-  return ((minX <= p->x) && (p->x <= maxX) && (minY <= p->y) && (p->y <= maxY));
+  return static_cast<int>((minX <= p->x) && (p->x <= maxX) && (minY <= p->y) && (p->y <= maxY));
 }
 
 /* compute perpendicular line going through point p and perpendicular to cord c1-c2
@@ -296,7 +296,7 @@ POINT2D *PerpOnCord(POINT2D *cut,      /* write-only. Cutting point of perp and 
   (void)PerpLine(perp, p, &lineThroughCord);
   (void)IntersectLines(cut, &lineThroughCord, perp);
 
-  if (PointOnLineAlsoOnCord(cut, c1, c2)) {
+  if (PointOnLineAlsoOnCord(cut, c1, c2) != 0) {
     return (cut);
   }
   return (nullptr);
@@ -307,7 +307,7 @@ void Projected(POINT2D *projected, const POINT2D *p, const LINE *line)
   LINE perp;
   (void)PerpLine(&perp, p, line);
   // if they do not intersect then it was already on the line
-  if (!IntersectLines(projected, line, &perp)) {
+  if (IntersectLines(projected, line, &perp) == nullptr) {
     *projected = *p;
   }
 }
@@ -343,7 +343,7 @@ int MiddleOnLine(const LINE *l,     /* line where all three points are part of *
   PRECOND(PointOnLine(l, p2));
   PRECOND(PointOnLine(l, p3));
 
-  if (l->parY) {
+  if (l->parY != 0) {
     /* test on Y-value */
     d1 = p1->y;
     d2 = p2->y;
@@ -379,7 +379,7 @@ double XgivenY(const LINE *l, /* the line  */
 {
   PRECOND(l->parY || l->slope != 0); /* ! parX */
 
-  if (l->parY) {
+  if (l->parY != 0) {
     return (l->xInt);
   } else {
     return ((y - l->yInt) / l->slope);
@@ -411,13 +411,13 @@ double YgivenX(const LINE *l, /* the line  */
 int PointOnLine(const LINE *l,    /* line */
                 const POINT2D *p) /* point */
 {
-  if (l->parY) {
-    return (l->xInt == p->x);
+  if (l->parY != 0) {
+    return static_cast<int>(l->xInt == p->x);
   }
   if (l->slope == 0) {
-    return (l->yInt == p->y);
+    return static_cast<int>(l->yInt == p->y);
   }
-  return (CompEps(YgivenX(l, p->x), p->y));
+  return static_cast<int>(CompEps(YgivenX(l, p->x), p->y));
 }
 
 /* test if a point p is in polygon pol
@@ -515,7 +515,7 @@ int PointInPolygon(const POINT2D *p,   /* point  */
       }
     }
   } /* eofor */
-  return ((nrInter % 2) == 1);
+  return static_cast<int>((nrInter % 2) == 1);
 }
 
 /* compute the centroid of polygon pol
@@ -617,7 +617,7 @@ int SmallestFittingRectangleCentre(POINT2D *c, /* write-only. the centre of the 
     if (smallArea == 0.0 || smallArea > area) {
       nc.x = minX + ((maxX - minX) / 2);
       nc.y = minY + ((maxY - minY) / 2);
-      if (PointInPolygon(&nc, p, nr)) {
+      if (PointInPolygon(&nc, p, nr) != 0) {
         smallArea = area;
         (void)CopyPoint(c, &nc);
         bestAngle = angle;
@@ -632,12 +632,12 @@ int SmallestFittingRectangleCentre(POINT2D *c, /* write-only. the centre of the 
   Free(p);
 
   if (smallArea == 0.0) {
-    return false;
+    return 0;
   }
 
   (void)RotPoint(c, -bestAngle);
   POSTCOND(PointInPolygon(c, pol, nr));
-  return true;
+  return 1;
 }
 
 /* compute area of rectangle. DOES NOT WORK!
@@ -739,7 +739,7 @@ double Dist(const POINT2D *p1, const POINT2D *p2)
 int PointsEq(const POINT2D *p1, /* point 1 */
              const POINT2D *p2) /* point 2 */
 {
-  return (p1->x == p2->x && p1->y == p2->y);
+  return static_cast<int>(p1->x == p2->x && p1->y == p2->y);
 }
 
 /* compare two points in qsort fashion
@@ -757,7 +757,7 @@ int CmpPoints(const POINT2D *p1, /* point 1 */
               const POINT2D *p2) /* point 2 */
 {
   int const xc = CmpDouble(&(p1->x), &(p2->x));
-  if (!xc) {
+  if (xc == 0) {
     return CmpDouble(&(p1->y), &(p2->y));
   }
   return xc;

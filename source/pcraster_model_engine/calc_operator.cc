@@ -206,7 +206,7 @@ size_t calc::Operator::nrResults() const
 calc::DataType calc::Operator::computeResultType(const ArgTypes &args, size_t r) const
 {
   DataType ft(resultType(r));
-  if (!ft.singleVs() && !firstFieldInput()) {
+  if (!ft.singleVs() && (firstFieldInput() == 0u)) {
     // type derived from first arg with
     // multiple types in its arg definition
     // e.g. areaminimum
@@ -366,7 +366,7 @@ std::string calc::Operator::checkNrInputs(size_t actualNrInputs) const
 {
   // Check number of arguments
   int const argCond = (int)d_inputs.size() - (int)actualNrInputs;
-  int const argTest = (!argCond) ? 0 : argCond / std::abs(argCond);
+  int const argTest = (argCond == 0) ? 0 : argCond / std::abs(argCond);
 
   std::string msg;
   switch (argTest) {
@@ -374,7 +374,7 @@ std::string calc::Operator::checkNrInputs(size_t actualNrInputs) const
       msg = "not enough arguments specified";
       break;
     case -1:
-      if (d_inputTailRepeat) {
+      if (d_inputTailRepeat != 0u) {
         break;
       }
       msg = "too many arguments specified";  //pcrcalc/test14
@@ -406,7 +406,7 @@ bool calc::Operator::isDynamicSectionOperation() const
 void calc::Operator::exec(class RunTimeEnv *rte, size_t nrActualInputs) const
 {
   try {
-    if (d_impl) {
+    if (d_impl != nullptr) {
       d_impl->exec(rte, *this, nrActualInputs);
     } else {
       PRECOND(d_objectLinkFactory);

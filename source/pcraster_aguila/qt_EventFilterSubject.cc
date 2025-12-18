@@ -96,7 +96,7 @@ void qt::EventFilterSubject::removeChildEventFilter(QObject * /* filter */)
 */
 void qt::EventFilterSubject::removeEventFilter()
 {
-  if (d_filter) {
+  if (d_filter != nullptr) {
     d_filterSubject->removeEventFilter(d_filter);
     removeChildEventFilter(d_filter);
     d_filter = nullptr;

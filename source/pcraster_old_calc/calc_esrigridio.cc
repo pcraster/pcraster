@@ -130,7 +130,7 @@ static com::DynamicLibrary *openGridDll()
 calc::EsriGridIO::EsriGridIO()
 {
   try {
-    if (!d_dll) {
+    if (d_dll == nullptr) {
 #ifdef WIN32
       /*
  *   // insert PATH to avgridio (an dependants) as first in path
@@ -151,7 +151,7 @@ calc::EsriGridIO::EsriGridIO()
 #else
       d_dll = new com::DynamicLibrary("avgridio");
 #endif
-      if (!d_dll) {
+      if (d_dll == nullptr) {
         throw com::Exception("No correct version of Spatial Analyst or ArcGrid found");
       }
     }
@@ -181,7 +181,7 @@ void calc::EsriGridIO::throwError(const std::string &msg)
 
 void calc::EsriGridIO::clean()
 {
-  if (d_dll && !d_dll->wasAlreadyLoaded()) {
+  if ((d_dll != nullptr) && !d_dll->wasAlreadyLoaded()) {
     // should load symbol on init to verify existence !
     IntVoidPtr gridIOExit = (IntVoidPtr)d_dll->loadFunction("GridIOExit");
     (*gridIOExit)();
@@ -332,7 +332,7 @@ void calc::EsriGridIO::describeGridDbl(const std::string &grdnam, double *cellsz
                                    int *, int *);
   STATIC_GRIDIO_FPTR(DescribeGridDbl);
   int dataTypeInt = 0;
-  if ((*funcPtr)(grdnam.c_str(), cellsz, gridsz, box, sta, &dataTypeInt, nclass, reclen)) {
+  if ((*funcPtr)(grdnam.c_str(), cellsz, gridsz, box, sta, &dataTypeInt, nclass, reclen) != 0) {
     ;  // throwError("Esri DescribeGrdDbl failed");
   }
 

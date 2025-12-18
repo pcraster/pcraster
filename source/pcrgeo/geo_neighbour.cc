@@ -94,7 +94,7 @@ geo::UpstreamNeighbourVisitor::UpstreamNeighbourVisitor(const geo::CellLoc &l,
 void geo::UpstreamNeighbourVisitor::operator++()
 {
   while (valid()) {
-    if (d_upstreamNeighbourDirs & (1 << d_nextNeighbourToVisit)) {
+    if ((d_upstreamNeighbourDirs & (1 << d_nextNeighbourToVisit)) != 0) {
       break;
     }
     d_nextNeighbourToVisit++;
@@ -194,10 +194,10 @@ static inline LinearLoc adjLinearLoc(LinearLoc s, /* source */
       (result[0] >= nrCells) ||
       // on col decrement a source
       // on the left border will get out of range
-      (colDec && !(s % nrCols)) ||
+      (colDec && ((s % nrCols) == 0u)) ||
       // on col increment a result
       // on the left border, indicates a row wrap
-      (colInc && !(result[0] % nrCols));
+      (colInc && ((result[0] % nrCols) == 0u));
   return result[outOfRange];
 }
 

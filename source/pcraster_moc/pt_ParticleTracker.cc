@@ -2264,14 +2264,14 @@ double pt::ParticleTracker::percentageVoidCells() const
 
   for(geo::CellLocVisitor loc(nrRows(), nrCols()); loc.valid(); ++loc) {
     if(!_particles.isMV(*loc)) {
-      if(!_particles.size(*loc)) {
+      if(_particles.size(*loc) == 0u) {
         ++nrVoidCells;
       }
       ++nrCells;
     }
   }
 
-  return nrCells ? 100.0 * static_cast<double>(nrVoidCells) /
+  return (nrCells != 0u) ? 100.0 * static_cast<double>(nrVoidCells) /
          static_cast<double>(nrCells): 0.0;
 }
 

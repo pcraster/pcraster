@@ -536,7 +536,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
       raster = open((path / name).string(), space,
          address);
 
-      if(raster) {
+      if(raster != nullptr) {
         {
           size_t first = 0;
           size_t last = 0;
@@ -623,7 +623,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
       raster = open((path / name).string(), space,
          address);
 
-      if(raster) {
+      if(raster != nullptr) {
         float first = NAN;
         float last = NAN;
         float interval = NAN;
@@ -694,7 +694,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
 
       raster = open((path / name).string(), space, address);
 
-      if(raster) {
+      if(raster != nullptr) {
         size_t first = 0;
         size_t last = 0;
         size_t interval = 0;
@@ -723,7 +723,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
     }
   }
 
-  if(conventions & PCRConvention) {
+  if((conventions & PCRConvention) != 0u) {
     // Temporal rasters.
     // 8.3 Dos convention.
     // <name><timestep>
@@ -777,7 +777,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
           raster = open((path / name).string(), space,
               address);
 
-          if(raster) {
+          if(raster != nullptr) {
             size_t first = 0;
             size_t last = 0;
             size_t interval = 0;
@@ -812,7 +812,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
   for(int i = 0; i < int(leaves.size()); ++i) {
     raster = open((path / leaves[i]).string());
 
-    if(raster) {
+    if(raster != nullptr) {
       Properties const& properties(raster->properties());
 
       CSF_VS const valueScale = properties.hasValue(DAL_CSF_VALUESCALE)

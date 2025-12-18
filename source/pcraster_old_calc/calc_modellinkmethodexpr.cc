@@ -59,7 +59,7 @@ void calc::ModelLinkMethodExpr::buildTypes()
     posError("Expecting only one return value");
   }
 
-  d_fieldType.restrictUser(d_sig.d_result[0].vs, d_sig.d_result[0].st);
+  d_fieldType.restrictUser(d_sig.d_result[0].vs, d_sig.d_result[0].st != 0u);
 
   calc::MethodOperator const mop(d_methodName.name(), d_sig);
 

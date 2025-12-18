@@ -72,19 +72,19 @@ public:
         if (str[pos] == '.') {
           continue;  // skip the . in between the DOS 8+3
         } else {
-          if (std::isdigit(str[pos])) {
+          if (std::isdigit(str[pos]) != 0) {
             firstStr += str[pos];
           } else {
             break;  // break on the character being end of stackname
           }
         }
-      } while (pos);
+      } while (pos != 0u);
       std::reverse(firstStr.begin(), firstStr.end());
       wrongFormatIf(firstStr.empty());
 
       // The code above might still result in a point at the end of the
       // pathname. Remove it if so.
-      if (pos && str[pos] == '.') {
+      if ((pos != 0u) && str[pos] == '.') {
         --pos;
       }
       d_path = str.substr(0, pos + 1);
@@ -314,7 +314,7 @@ bool geo::CSFStackName::isMemberOfStack(const com::PathName &fileName) const
   bool extensionSeen = false;
   for (std::string::iterator it = numbers.begin(); it != numbers.end(); ++it) {
 
-    if (!std::isdigit(*it)) {
+    if (std::isdigit(*it) == 0) {
       // Not a digit, should be the one extension separator.
       if (*it == '.') {
 
@@ -608,7 +608,7 @@ com::PathName geo::CSFStackName::fileName() const
       size_t step = 0;
       firstAvailableTimeStep(pool, step);
 
-      if (!step) {
+      if (step == 0u) {
         std::ostringstream s;
         s << "Stack '" << baseName().toString() << "': is empty";
         throw com::Exception(s.str());

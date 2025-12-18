@@ -81,7 +81,7 @@ std::ostream &operator<<(std::ostream &msg, VS setOfVs)
     }
   }
 
-  if (!thisSetNr) {
+  if (thisSetNr == 0u) {
     msg << "unknown!";
     return msg;
   }

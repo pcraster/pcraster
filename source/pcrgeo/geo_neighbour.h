@@ -61,7 +61,7 @@ struct NB {
                           size_t     nrColls);
   static /* LDD::Code */unsigned int toLDD(Code c) {
     DEVELOP_PRECOND(valid(c));
-    return c+1+(c>5);
+    return c+1+static_cast<Code>(c>5);
   }
 };
 
@@ -115,7 +115,7 @@ struct LDD {
   static NB::Code toNB(Code c) {
     DEVELOP_PRECOND(valid(c));
     DEVELOP_PRECOND(c!=5); // cannnot convert pit
-    return c-1-(c>5);
+    return c-1-static_cast<Code>(c>5);
   }
 };
 

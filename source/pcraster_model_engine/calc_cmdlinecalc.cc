@@ -74,7 +74,7 @@ public:
   int update(const ProgressInfo &pi) override
   {
     // no progress when --nothing or static model
-    if (appOutput == APP_NOOUT || !pi.nrTimeSteps) {
+    if (appOutput == APP_NOOUT || (pi.nrTimeSteps == 0)) {
       return 0;
     }
 

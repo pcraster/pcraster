@@ -61,7 +61,7 @@ BOOST_AUTO_TEST_CASE(testSameBin)
     RunTimeEnv rte(rs);
 
     for (size_t i = 0; i < 2; ++i) {
-      if (i) {
+      if (i != 0u) {
         // NS
         rte.pushField(new NonSpatial(VS_S, v1));
         rte.pushField(new Spatial(VS_S, vb, NR));
@@ -129,7 +129,7 @@ BOOST_AUTO_TEST_CASE(testCover)
     RunTimeEnv rte(rs);
 
     for (size_t i = 0; i < 2; ++i) {
-      if (i) {
+      if (i != 0u) {
         // NS
         rte.pushField(new NonSpatial(VS_S, v1));
         rte.pushField(new Spatial(VS_S, vb, NR));
@@ -142,7 +142,7 @@ BOOST_AUTO_TEST_CASE(testCover)
       DVAutoPtr<Field> r(rte.popField());
       BOOST_CHECK(r->isSpatial());
       BOOST_CHECK(r->vs() == VS_S);
-      if (i) {
+      if (i != 0u) {
         REAL4 res[NR] = {1, 1, 1};
         BOOST_CHECK(std::equal(res, res + NR, r->src_f()));
       } else {
@@ -397,7 +397,7 @@ BOOST_AUTO_TEST_CASE(testCompare)
     RunTimeEnv rte(rs);
 
     for (size_t i = 0; i < 2; ++i) {
-      if (i) {
+      if (i != 0u) {
         // NS  1 < ( 2,MV, 6) -> (1,MV,1)
         rte.pushField(new NonSpatial(VS_S, v1));
         rte.pushField(new Spatial(VS_S, vb, NR));

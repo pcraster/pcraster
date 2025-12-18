@@ -146,7 +146,7 @@ Constant* TextConstantDriver::read(
 {
   Constant* result = open(name, space, address);
 
-  if(!result) {
+  if(result == nullptr) {
     throwCannotBeOpened(name, CONSTANT, space, address);
   }
 

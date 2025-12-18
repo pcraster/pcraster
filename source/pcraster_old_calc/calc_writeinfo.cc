@@ -10,7 +10,7 @@ calc::WriteInfo::WriteInfo(const IScript *script, bool hasReportPrefix, const Re
                            bool inDynamic)
     : d_script(script), d_hasReportPrefix(hasReportPrefix), d_report(report), d_inDynamic(inDynamic)
 {
-  if ((!d_report) && d_hasReportPrefix) {
+  if ((d_report == nullptr) && d_hasReportPrefix) {
     d_report = d_script->reportDefault();
   }
 }

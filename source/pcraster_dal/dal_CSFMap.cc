@@ -227,7 +227,7 @@ void dal::CSFMap::open(
   //   }
   // }
 
-  if(!d_map) {
+  if(d_map == nullptr) {
     throwCannotBeOpened(d_path.string(), RASTER);
   }
 }
@@ -264,7 +264,7 @@ void dal::CSFMap::create(
          projectionType,
          west, north, angle, cellSize);
 
-  if(!d_map) {
+  if(d_map == nullptr) {
     throwCannotBeCreated(d_path.string(), RASTER);
   }
 }
@@ -279,7 +279,7 @@ void dal::CSFMap::close()
 {
   assert(d_map);
 
-  if(Mclose(d_map)) {
+  if(Mclose(d_map) != 0) {
     throwCannotBeClosed(d_path.string(), RASTER);
   }
 
@@ -607,7 +607,7 @@ boost::any dal::CSFMap::min() const
 void*   dal::CSFMap::malloc(size_t nrCells) const
 {
   void *m = Rmalloc(d_map,nrCells);
-  if (!m) {
+  if (m == nullptr) {
     throw std::bad_alloc();
   }
   return m;
@@ -640,8 +640,8 @@ namespace dal {
 
 bool CSFMap::hasLegend() const
 {
-  return MattributeAvail(d_map, ATTR_ID_LEGEND_V1) ||
-         MattributeAvail(d_map, ATTR_ID_LEGEND_V2);
+  return (MattributeAvail(d_map, ATTR_ID_LEGEND_V1) != 0) ||
+         (MattributeAvail(d_map, ATTR_ID_LEGEND_V2) != 0);
 }
 
 

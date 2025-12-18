@@ -107,7 +107,7 @@ void CumDistributionFunction::rescan()
 
 void CumDistributionFunction::process()
 {
-  if (visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+  if ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0u) {
     if (!dataObject().backgroundColour().isValid()) {
       setPalette(QPalette());
     } else {
@@ -121,7 +121,7 @@ void CumDistributionFunction::process()
 void CumDistributionFunction::visualise()
 {
   // Done scanning, update stuff if needed.
-  if (visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+  if ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0u) {
     d_splitter->update();
   }
 

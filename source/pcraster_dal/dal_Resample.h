@@ -48,7 +48,7 @@ public:
 
 template<typename T,
          class Operation>
-class Aggregator<T, Operation, WhateverContribution>
+class Aggregator<T, Operation, WhateverContribution != 0u>
 {
 private:
 
@@ -78,7 +78,7 @@ public:
 
 template<typename T,
          class Operation>
-class Aggregator<T, Operation, LargestContribution>
+class Aggregator<T, Operation, LargestContribution != 0u>
 {
 private:
 

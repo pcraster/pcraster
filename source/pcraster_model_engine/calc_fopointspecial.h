@@ -63,7 +63,7 @@ struct special {
   }
    inline static UINT1 impl_4_2_l( const INT4& v) {
       auto   r = (UINT1)(std::abs(v) % 10);
-      if (!r) {
+      if (r == 0u) {
         return 5; // pit who cares
       }
       return r;// MISSING CODE: DO A LDD REPAIR

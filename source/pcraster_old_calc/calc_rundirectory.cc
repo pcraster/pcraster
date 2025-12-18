@@ -96,7 +96,7 @@ public:
   {
     std::vector<com::PathName> cwd;
     cwd.push_back(com::currentWorkingDirectory());
-    const std::vector<com::PathName> &paths(d_searchPaths.size() ? d_searchPaths : cwd);
+    const std::vector<com::PathName> &paths((d_searchPaths.size() != 0u) ? d_searchPaths : cwd);
 
     for (const auto &path : paths) {
       com::PathName const b = path + "binding.ipcr";

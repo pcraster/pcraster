@@ -39,7 +39,7 @@ RangeDrawProps::RangeDrawProps(std::string const &title, com::RawPalette const *
 {
   assert(rawValueClassifier);
 
-  if (displayValueClassifier) {
+  if (displayValueClassifier != nullptr) {
     assert(rawValueClassifier->nrClasses() == displayValueClassifier->nrClasses());
   }
 
@@ -126,11 +126,11 @@ bool RangeDrawProps::equals(RangeDrawProps const &rhs) const
     lhsClassifier = std::get<0>(lhsTuple);
     rhsClassifier = std::get<0>(rhsTuple);
 
-    if ((lhsClassifier && !rhsClassifier) || (!lhsClassifier && rhsClassifier)) {
+    if (((lhsClassifier != nullptr) && (rhsClassifier == nullptr)) || ((lhsClassifier == nullptr) && (rhsClassifier != nullptr))) {
       return false;
     }
 
-    if (lhsClassifier && rhsClassifier) {
+    if ((lhsClassifier != nullptr) && (rhsClassifier != nullptr)) {
       if (*lhsClassifier != *rhsClassifier) {
         return false;
       }
@@ -139,11 +139,11 @@ bool RangeDrawProps::equals(RangeDrawProps const &rhs) const
     lhsClassifier = std::get<1>(lhsTuple);
     rhsClassifier = std::get<1>(rhsTuple);
 
-    if ((lhsClassifier && !rhsClassifier) || (!lhsClassifier && rhsClassifier)) {
+    if (((lhsClassifier != nullptr) && (rhsClassifier == nullptr)) || ((lhsClassifier == nullptr) && (rhsClassifier != nullptr))) {
       return false;
     }
 
-    if (lhsClassifier && rhsClassifier) {
+    if ((lhsClassifier != nullptr) && (rhsClassifier != nullptr)) {
       if (*lhsClassifier != *rhsClassifier) {
         return false;
       }
@@ -202,7 +202,7 @@ void RangeDrawProps::setNrClasses(size_t nrClasses)
 
   com::Classifier *display(displayValueClassifier());
 
-  if (display) {
+  if (display != nullptr) {
     display->setNrClasses(nrClasses);
   }
 }
@@ -215,7 +215,7 @@ void RangeDrawProps::setMaxCutoff(double maxCutoff)
 
   com::Classifier *display(displayValueClassifier());
 
-  if (display) {
+  if (display != nullptr) {
     display->setMaxCutoff(maxCutoff);
   }
 }
@@ -228,7 +228,7 @@ void RangeDrawProps::setMinCutoff(double cutoff)
 
   com::Classifier *display(displayValueClassifier());
 
-  if (display) {
+  if (display != nullptr) {
     display->setMinCutoff(cutoff);
   }
 }
@@ -241,7 +241,7 @@ void RangeDrawProps::setCutoffs(double minCutoff, double maxCutoff)
 
   com::Classifier *display(displayValueClassifier());
 
-  if (display) {
+  if (display != nullptr) {
     display->setCutoffs(minCutoff, maxCutoff);
   }
 }
@@ -252,7 +252,7 @@ void RangeDrawProps::resetMaxCutoff()
   com::Classifier *display(displayValueClassifier());
   raw->resetMaxCutoff();
 
-  if (display) {
+  if (display != nullptr) {
     display->resetMaxCutoff();
   }
 }
@@ -263,7 +263,7 @@ void RangeDrawProps::resetMinCutoff()
   com::Classifier *display(displayValueClassifier());
   raw->resetMinCutoff();
 
-  if (display) {
+  if (display != nullptr) {
     display->resetMinCutoff();
   }
 }
@@ -274,7 +274,7 @@ void RangeDrawProps::resetCutoffs()
   com::Classifier *display(displayValueClassifier());
   raw->resetCutoffs();
 
-  if (display) {
+  if (display != nullptr) {
     display->resetCutoffs();
   }
 }
@@ -290,7 +290,7 @@ void RangeDrawProps::setMode(Mode mode)
   com::Classifier *display(displayValueClassifier());
   raw->setMode(mode);
 
-  if (display) {
+  if (display != nullptr) {
     display->setMode(mode);
   }
 }
@@ -312,7 +312,7 @@ void RangeDrawProps::setAlgorithm(Algorithm algorithm)
   com::Classifier *display(displayValueClassifier());
   raw->installAlgorithm(algorithm);
 
-  if (display) {
+  if (display != nullptr) {
     display->installAlgorithm(algorithm);
   }
 }
@@ -334,7 +334,7 @@ bool RangeDrawProps::cutoffsAreValid() const
   com::Classifier const *raw(rawValueClassifier());
   com::Classifier const *display(displayValueClassifier());
 
-  return display ? display->cutoffsAreValid() : raw->cutoffsAreValid();
+  return (display != nullptr) ? display->cutoffsAreValid() : raw->cutoffsAreValid();
 }
 
 double RangeDrawProps::min() const
@@ -342,7 +342,7 @@ double RangeDrawProps::min() const
   com::Classifier const *raw(rawValueClassifier());
   com::Classifier const *display(displayValueClassifier());
 
-  return display ? display->min() : raw->min();
+  return (display != nullptr) ? display->min() : raw->min();
 }
 
 double RangeDrawProps::max() const
@@ -350,7 +350,7 @@ double RangeDrawProps::max() const
   com::Classifier const *raw(rawValueClassifier());
   com::Classifier const *display(displayValueClassifier());
 
-  return display ? display->max() : raw->max();
+  return (display != nullptr) ? display->max() : raw->max();
 }
 
 double RangeDrawProps::minCutoff() const
@@ -358,7 +358,7 @@ double RangeDrawProps::minCutoff() const
   com::Classifier const *raw(rawValueClassifier());
   com::Classifier const *display(displayValueClassifier());
 
-  return display ? display->minCutoff() : raw->minCutoff();
+  return (display != nullptr) ? display->minCutoff() : raw->minCutoff();
 }
 
 double RangeDrawProps::maxCutoff() const
@@ -366,7 +366,7 @@ double RangeDrawProps::maxCutoff() const
   com::Classifier const *raw(rawValueClassifier());
   com::Classifier const *display(displayValueClassifier());
 
-  return display ? display->maxCutoff() : raw->maxCutoff();
+  return (display != nullptr) ? display->maxCutoff() : raw->maxCutoff();
 }
 
 RangeDrawProps::Algorithm RangeDrawProps::algorithm() const
@@ -382,7 +382,7 @@ void RangeDrawProps::classify()
   com::Classifier *display(displayValueClassifier());
   raw->classify();
 
-  if (display) {
+  if (display != nullptr) {
     display->classify();
     assert(display->nrClasses() == raw->nrClasses());
   }
@@ -417,7 +417,7 @@ void RangeDrawProps::assignLabels()
     com::Classifier *raw(rawValueClassifier());
     com::Classifier *display(displayValueClassifier());
 
-    if (display) {
+    if (display != nullptr) {
 
       for (size_t i = 0; i <= nrClasses(); ++i) {
         _labels[i] = std::to_string(display->classBorder(i));
@@ -470,7 +470,7 @@ double RangeDrawProps::rawToDisplay(double value) const
   com::Classifier const *raw(rawValueClassifier());
   com::Classifier const *display(displayValueClassifier());
 
-  if (display) {
+  if (display != nullptr) {
     com::RangeMap<double, double> mapper(raw->min(), raw->max(), display->min(), display->max());
     value = mapper.map(value);
   }
@@ -500,7 +500,7 @@ void RangeDrawProps::merge(RangeDrawProps const &properties)
   com::Classifier *lhsDisplay(displayValueClassifier());
   com::Classifier const *rhsDisplay(properties.displayValueClassifier());
 
-  if (lhsDisplay && rhsDisplay) {
+  if ((lhsDisplay != nullptr) && (rhsDisplay != nullptr)) {
     lhsDisplay->merge(*rhsDisplay);
   }
 }

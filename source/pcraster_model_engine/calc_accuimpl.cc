@@ -217,7 +217,7 @@ void calc::AccuImpl::visitEdge(size_t up, size_t down)
 
 void calc::AccuImpl::finishVertex(size_t v)
 {
-  if (com::oneIsMV(d_oldState[v], d_flux[v]) | d_fluxFo.mv(v)) {
+  if ((static_cast<int>(com::oneIsMV(d_oldState[v], d_flux[v])) | static_cast<int>(d_fluxFo.mv(v))) != 0) {
     pcr::setMV(d_flux[v]);
     pcr::setMV(d_newState[v]);
   } else {

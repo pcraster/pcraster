@@ -55,7 +55,7 @@ public:
                               const XMLCh *const systemId, const XMLCh *const /*  baseURI */) override
   {
     SupportedSchema const *s = SupportedSchema::findBySystemId(toString(systemId));
-    if (s) {
+    if (s != nullptr) {
       return s->createInputSource();
     }
     return nullptr;
@@ -250,7 +250,7 @@ DOMInput::~DOMInput()
 //! clear the parsed document
 void DOMInput::clearBuilder()
 {
-  if (d_parser) {
+  if (d_parser != nullptr) {
     d_parser->release();
   }
   d_parser = nullptr;
@@ -312,7 +312,7 @@ const std::string &DOMInput::string() const
  */
 DOMDocument *DOMInput::document()
 {
-  if (d_document) {
+  if (d_document != nullptr) {
     return d_document;
   }
 

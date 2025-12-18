@@ -110,7 +110,7 @@ void BooleanRasterDrawer::draw(QPainter &painter, QRect const &indices,
         bottomScreen = world_to_screen.map(p).y();
 
         painter.fillRect(leftScreen, topScreen, rightScreen - leftScreen + 1,
-                         bottomScreen - topScreen + 1, value ? trueColour : falseColour);
+                         bottomScreen - topScreen + 1, (value != 0u) ? trueColour : falseColour);
       }
     }
   }

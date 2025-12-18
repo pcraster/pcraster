@@ -85,7 +85,7 @@ inline std::string ArgumentParser<std::string>::parse(char const* const string)
 
   std::string value(string);
   d_length = value.length();
-  d_full = d_length && d_length == std::strlen(string);
+  d_full = (d_length != 0u) && d_length == std::strlen(string);
 
   boost::trim(value);
   return value;
@@ -100,7 +100,7 @@ inline size_t ArgumentParser<size_t>::parse(char const* const string)
   boost::spirit::rule<> const rule =
          boost::spirit::uint_p[boost::spirit::assign(value)];
   d_length = std::distance(string, boost::spirit::parse(string, rule).stop);
-  d_full = d_length && d_length == std::strlen(string);
+  d_full = (d_length != 0u) && d_length == std::strlen(string);
 
   return value;
 }
@@ -114,7 +114,7 @@ inline int ArgumentParser<int>::parse(char const* const string)
   boost::spirit::rule<> const rule =
          boost::spirit::int_p[boost::spirit::assign(value)];
   d_length = std::distance(string, boost::spirit::parse(string, rule).stop);
-  d_full = d_length && d_length == std::strlen(string);
+  d_full = (d_length != 0u) && d_length == std::strlen(string);
 
   return value;
 }
@@ -128,7 +128,7 @@ inline double ArgumentParser<double>::parse(char const* const string)
   boost::spirit::rule<> const rule =
          boost::spirit::real_p[boost::spirit::assign(value)];
   d_length = std::distance(string, boost::spirit::parse(string, rule).stop);
-  d_full = d_length && d_length == std::strlen(string);
+  d_full = (d_length != 0u) && d_length == std::strlen(string);
 
   return value;
 }

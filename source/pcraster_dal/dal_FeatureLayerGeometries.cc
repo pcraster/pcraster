@@ -129,7 +129,7 @@ FeatureId FeatureLayerGeometries::featureId(
 
   OGRGeometry const* geometry = this->geometry(x, y);
 
-  if(geometry) {
+  if(geometry != nullptr) {
     result = featureId(geometry);
   }
 
@@ -159,7 +159,7 @@ OGRGeometry const* FeatureLayerGeometries::geometry(
 
     for(auto const& value: values) {
       geometry = _geometryByFeatureId.at(value.second);
-      if(geometry->Contains(&point)) {
+      if(geometry->Contains(&point) != 0) {
         result = geometry;
         break;
       }

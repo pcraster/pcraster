@@ -207,9 +207,9 @@ std::vector<std::string> com::split(const std::string &s)
   std::string::const_iterator it;
 
   for (it = s.begin(); it != s.end(); it++) {
-    if (!std::isspace(*it)) {
+    if (std::isspace(*it) == 0) {
       std::string tmp;
-      while (it != s.end() && !std::isspace(*it)) {
+      while (it != s.end() && (std::isspace(*it) == 0)) {
         tmp += *it;
         it++;
       }
@@ -314,7 +314,7 @@ bool com::equalNoCase(const std::string &s, const std::string &s2)
 void com::removeFrontEndSpace(std::string &str)
 {
   std::string::iterator it(str.begin());
-  while (it != str.end() && std::isspace(*it)) {
+  while (it != str.end() && (std::isspace(*it) != 0)) {
     it++;
   }
   str.erase(str.begin(), it);
@@ -324,7 +324,7 @@ void com::removeFrontEndSpace(std::string &str)
   it = str.end();
   do {
     it--;
-  } while (it != str.begin() && std::isspace(*it));
+  } while (it != str.begin() && (std::isspace(*it) != 0));
   it++;
   str.erase(it, str.end());
 }
@@ -347,7 +347,7 @@ void com::removeAllSpace(std::string &str)
 {
   std::string newStr;
   for (char const i : str) {
-    if (!std::isspace(i)) {
+    if (std::isspace(i) == 0) {
       newStr += i;
     }
   }
@@ -442,7 +442,7 @@ std::string com::format(const std::string &str, size_t offset, size_t width)
       POSTCOND(end > begin && end < str.end());
 
       // Find first whitespace character, starting from the end.
-      while ((end != begin) && !std::isspace(*end)) {
+      while ((end != begin) && (std::isspace(*end) == 0)) {
         --end;
       }
 
@@ -488,7 +488,7 @@ void com::replaceChars(std::string &str, char resultChar, const std::string &cha
   std::set<char> replaceSet;
   com::insertTo(charsToBeReplaced, replaceSet);
   for (char &i : str) {
-    if (replaceSet.count(i)) {
+    if (replaceSet.count(i) != 0u) {
       i = resultChar;
     }
   }

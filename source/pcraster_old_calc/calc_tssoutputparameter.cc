@@ -66,7 +66,7 @@ void calc::TssOutputParameter::AddTotss(size_t index, const void **args, bool is
   if (scriptConst().currentTimeStep() == 1) {  // initializing, first timestep
     PRECOND(nrInSet(d_vs) == 1);
     int const max = GetMaxId(idMap);
-    if (max > 0 && (!d_value[index] /* prevent multiple alloc: see pcrcalc/test317 */)) {
+    if (max > 0 && (d_value[index] == nullptr /* prevent multiple alloc: see pcrcalc/test317 */)) {
       d_value[index] = new calc::TssOutputValue(calc::FileWriter(*this, index, d_vs), max, d_vs);
     }
     /* CW if max <= 0
@@ -74,13 +74,13 @@ void calc::TssOutputParameter::AddTotss(size_t index, const void **args, bool is
     */
   }
 
-  if (!d_value[index]) {
+  if (d_value[index] == nullptr) {
     return;  // no tss was created, during the first timestep
   }
 
   size_t nrVals = 0;
   double *val = d_value[index]->getValueBuffer(nrVals);
-  if (!val) {  // do not write this time step
+  if (val == nullptr) {  // do not write this time step
     return;
   }
   int result = 0;
@@ -89,7 +89,7 @@ void calc::TssOutputParameter::AddTotss(size_t index, const void **args, bool is
   } else {
     result = AddToTssRowREAL8(val, nrVals, idMap, (const MAP_REAL8 *)args[1]);
   }
-  if (result) {
+  if (result != 0) {
     throw std::runtime_error("Failed to add data to timeseries");
   }
 }

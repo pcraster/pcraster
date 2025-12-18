@@ -52,7 +52,7 @@ static std::unique_ptr<ClientHolder> s_client(nullptr);
 PCR_ME_EXPORT void calc::globalInit()
 {
   // /home/cees/development/projects/DevEnv/sources/Utils/dev_XercesClient.h
-  if (!s_client.get()) {
+  if (s_client.get() == nullptr) {
     s_client = std::make_unique<ClientHolder>();
   }
 
@@ -80,7 +80,7 @@ PCR_ME_EXPORT void calc::setRan(size_t seed)
 */
 PCR_ME_EXPORT int calc::parseGlobalFlag(std::string const &option)
 {
-  return ParseGlobalFlag(("--" + option).c_str());
+  return static_cast<int>(ParseGlobalFlag(("--" + option).c_str()));
 }
 
 PCR_ME_EXPORT void calc::globalEnd()

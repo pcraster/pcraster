@@ -87,18 +87,18 @@ void PlotView::rescan()
 
 bool PlotView::recreatePlotRequired() const
 {
-  return visualisationEngine().change() & VisEngine::OTHERATTRIB ||
-         visualisationEngine().change() & VisEngine::RASTER_CELL ||
-         visualisationEngine().change() & VisEngine::DRAWPROPS ||
-         visualisationEngine().change() & VisEngine::VALUE_SELECTION ||
-         visualisationEngine().change() & VisEngine::SELECTION ||
-         visualisationEngine().change() & VisEngine::QUANTILE;
+  return ((visualisationEngine().change() & VisEngine::OTHERATTRIB) != 0u) ||
+         ((visualisationEngine().change() & VisEngine::RASTER_CELL) != 0u) ||
+         ((visualisationEngine().change() & VisEngine::DRAWPROPS) != 0u) ||
+         ((visualisationEngine().change() & VisEngine::VALUE_SELECTION) != 0u) ||
+         ((visualisationEngine().change() & VisEngine::SELECTION) != 0u) ||
+         ((visualisationEngine().change() & VisEngine::QUANTILE) != 0u);
 }
 
 bool PlotView::replotRequired() const
 {
-  return recreatePlotRequired() || visualisationEngine().change() & VisEngine::TIME ||
-         visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR;
+  return recreatePlotRequired() || ((visualisationEngine().change() & VisEngine::TIME) != 0u) ||
+         ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0u);
 }
 
 void PlotView::process()
@@ -108,7 +108,7 @@ void PlotView::process()
     createPlot();
   }
 
-  if (visualisationEngine().change() & VisEngine::TIME) {
+  if ((visualisationEngine().change() & VisEngine::TIME) != 0u) {
     dal::DataSpace const &space(dataObject().dataSpace());
 
     if (space.hasTime()) {
@@ -120,7 +120,7 @@ void PlotView::process()
     }
   }
 
-  if (visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
+  if ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0u) {
     if (!dataObject().backgroundColour().isValid()) {
       setPalette(QPalette());
     } else {

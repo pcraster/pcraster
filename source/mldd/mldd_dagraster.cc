@@ -127,12 +127,12 @@ bool mldd::DagRaster::isPit(const size_t c) const
 
 bool mldd::DagRaster::hasInflowNB(const geo::CellLoc &c) const
 {
-  return d_inflowNB[c];
+  return d_inflowNB[c] != 0u;
 }
 
 bool mldd::DagRaster::hasOutflowNB(const geo::CellLoc &c) const
 {
-  return d_outflowNB[c];
+  return d_outflowNB[c] != 0u;
 }
 
 //! clear all data
@@ -157,7 +157,7 @@ size_t mldd::DagRaster::nrVertices() const
    */
   size_t count = 0;
   for (geo::LinearLoc i = 0; i < d_outflowNB.nrCells(); i++) {
-    count += isVertex(i);
+    count += static_cast<size_t>(isVertex(i));
   }
   return count;
 }
@@ -173,12 +173,12 @@ size_t mldd::DagRaster::nrEdges() const
 
 bool mldd::DagRaster::hasOutflowDir(geo::LinearLoc c, geo::NB::Code dir) const
 {
-  return d_outflowNB[c] & (1 << dir);
+  return (d_outflowNB[c] & (1 << dir)) != 0;
 }
 
 bool mldd::DagRaster::isVertex(geo::LinearLoc l) const
 {
-  return d_outflowNB[l] || d_inflowNB[l];
+  return (d_outflowNB[l] != 0u) || (d_inflowNB[l] != 0u);
 }
 
 mldd::Vertex mldd::DagRaster::nextVertex(const Vertex &c) const

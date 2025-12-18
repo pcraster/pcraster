@@ -78,10 +78,10 @@ double Fdiv(double x, /* x    */
 
 extern "C" int com_equalEpsilonFloat(float a, float b)
 {
-  return com::equal_epsilon<float>(a, b);
+  return static_cast<int>(com::equal_epsilon<float>(a, b));
 }
 
 extern "C" int com_equalEpsilonDouble(double a, double b)
 {
-  return com::equal_epsilon<double>(a, b);
+  return static_cast<int>(com::equal_epsilon<double>(a, b));
 }

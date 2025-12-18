@@ -4,9 +4,8 @@
 #include "dal_Vector.h"
 #include "ag_RasterDataset.h"
 
-#include <boost/scoped_ptr.hpp>
-
 #include <cmath>
+#include <memory>
 
 
 namespace ag {
@@ -30,7 +29,7 @@ class Vector: public RasterDataset
 
 private:
 
-  boost::scoped_ptr<dal::Vector> _vector;
+  std::unique_ptr<dal::Vector> _vector;
 
   dal::DataSpace   _space;
 

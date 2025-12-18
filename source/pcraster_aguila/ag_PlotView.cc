@@ -2,7 +2,6 @@
 
 // Library headers.
 #include <boost/scoped_array.hpp>
-#include <boost/scoped_ptr.hpp>
 #include <QApplication>
 #include <QPen>
 
@@ -274,7 +273,7 @@ void PlotView::configureYAxis()
 
 void PlotView::drawPlots()
 {
-  boost::scoped_ptr<dal::Table> scopedTable;
+  std::unique_ptr<dal::Table> scopedTable;
   dal::Table const *table = nullptr;  // Shut up compiler.
   size_t timeColIndex = 0;            // Shut up compiler.
   size_t attrColIndex = 0;            // Shut up compiler.

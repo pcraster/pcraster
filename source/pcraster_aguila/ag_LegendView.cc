@@ -1,7 +1,6 @@
 #include "ag_LegendView.h"
 
 // Library headers.
-#include <boost/scoped_ptr.hpp>
 #include <QHeaderView>
 #include <QGridLayout>
 #include <QMenu>
@@ -175,7 +174,7 @@ void LegendView::saveGraphData()
   if (dialog.exec() == QDialog::Accepted) {
     DataGuide const &guide = _contextMenuGuides.front();
     dal::Table const *table = nullptr;
-    boost::scoped_ptr<dal::Table> scopedTable;
+    std::unique_ptr<dal::Table> scopedTable;
 
     // We only handle time graph data at the moment.
     assert(dataObject().hasTimeSeries(guide));

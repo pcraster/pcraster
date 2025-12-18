@@ -12,7 +12,7 @@
 #include "calc_operator.h"
 #include "calc_execarguments.h"
 
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 /*!
   \file
@@ -531,7 +531,7 @@ void calc::Order::exec(RunTimeEnv *rte, const Operator &op, size_t nrArgs) const
   ExecArguments args(op, rte, nrArgs);
 
   auto *r = (REAL4 *)args.dest();
-  boost::scoped_ptr<IVSpatial<double>> expr(nullptr);
+  std::unique_ptr<IVSpatial<double>> expr(nullptr);
 
   switch (args[0].cri()) {
     case CRI_4:
@@ -553,8 +553,8 @@ void calc::AreaOrder::exec(RunTimeEnv *rte, const Operator &op, size_t nrArgs) c
   ExecArguments args(op, rte, nrArgs);
 
   auto *r = (REAL4 *)args.dest();
-  boost::scoped_ptr<IVSpatial<double>> expr(nullptr);
-  boost::scoped_ptr<IVSpatial<INT4>> areaClass(nullptr);
+  std::unique_ptr<IVSpatial<double>> expr(nullptr);
+  std::unique_ptr<IVSpatial<INT4>> areaClass(nullptr);
 
   switch (args[0].cri()) {
     case CRI_4:

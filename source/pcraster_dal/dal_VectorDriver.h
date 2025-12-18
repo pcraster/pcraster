@@ -5,7 +5,7 @@
 #include "dal_Driver.h"
 #include "dal_Vector.h"
 
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 
 
@@ -39,7 +39,7 @@ private:
 
   class Data;
 
-  boost::scoped_ptr<Data> _data;
+  std::unique_ptr<Data> _data;
 
   template<typename T>
   bool             extremes            (T& min,

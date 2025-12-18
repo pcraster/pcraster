@@ -5,12 +5,12 @@
 
 // External headers.
 #ifndef INCLUDED_BOOST_SCOPED_ARRAY
-#include <boost/scoped_array.hpp>
+// #include <boost/scoped_array.hpp>
 #define INCLUDED_BOOST_SCOPED_ARRAY
 #endif
 
 #ifndef INCLUDED_BOOST_SCOPED_PTR
-#include <boost/scoped_ptr.hpp>
+// #include <boost/scoped_ptr.hpp>
 #define INCLUDED_BOOST_SCOPED_PTR
 #endif
 

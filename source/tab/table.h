@@ -49,8 +49,8 @@ typedef enum LOOK_UP_TEST{
  TEST_GE_LT  =8,  /* [l  ,h>                         */
  TEST_GT_LT  =9,  /* <l  ,h>                         */
  /* special values when scanned partially or returned from ParseKey */
- TEST_NOKEY, /* end of file */
- TEST_ERROR
+ TEST_NOKEY = 10, /* end of file */
+ TEST_ERROR = 11
 }LOOK_UP_TEST;
 
 #define TEST_NOKEYREAD(t)  ((t) >= TEST_NOKEY)

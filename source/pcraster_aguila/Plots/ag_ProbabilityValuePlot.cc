@@ -5,7 +5,7 @@
 
 // External headers.
 #ifndef INCLUDED_BOOST_SCOPED_ARRAY
-#include <boost/scoped_array.hpp>
+// #include <boost/scoped_array.hpp>
 #define INCLUDED_BOOST_SCOPED_ARRAY
 #endif
 
@@ -456,7 +456,7 @@ void ProbabilityValuePlot::extremes(
 
 ///     RangeDrawProps const& properties(
 ///        dataObject().properties().rangeDrawProperties(guide));
-/// 
+///
     /// if(properties.cutoffsAreValid()) {
     ///   if(pcr::isMV(*min)) {
     ///     *min = properties.minCutoff();

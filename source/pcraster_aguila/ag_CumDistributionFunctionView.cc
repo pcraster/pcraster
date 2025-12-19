@@ -15,11 +15,11 @@
 #include "ag_RasterDataSources.h"
 #include "ag_VisEngine.h"
 
-#include <boost/smart_ptr.hpp>
 #include <QApplication>
 #include <QPen>
 
 #include <cmath>
+#include <memory>
 
 /*!
   \file
@@ -304,8 +304,8 @@ void CumDistributionFunctionView::drawPlots()
 
       dal::Array<REAL4> const &quantileCol(table.col<REAL4>(0));
       dal::Array<REAL4> const &attrCol(table.col<REAL4>(1));
-      boost::scoped_array<double> const x(new double[table.nrRecs()]);
-      boost::scoped_array<double> const y(new double[table.nrRecs()]);
+      std::unique_ptr<double[]> const x = std::make_unique<double[]>(table.nrRecs());
+      std::unique_ptr<double[]> const y = std::make_unique<double[]>(table.nrRecs());
 
       RangeDrawProps const &properties(object.properties().rangeDrawProperties(guide));
 

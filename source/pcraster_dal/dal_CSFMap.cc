@@ -3,9 +3,8 @@
 #include "dal_Table.h"
 #include "dal_Utils.h"
 
-#include <boost/scoped_array.hpp>
-
 #include <filesystem>
+#include <memory>
 
 /*!
   \file
@@ -667,7 +666,7 @@ Table CSFMap::legend() const
   if(hasLegend()) {
     size_t const nrEntries = nrLegendEntries();
     assert(nrEntries > 0);
-    boost::scoped_array<CSF_LEGEND> const csfLegend(new CSF_LEGEND[nrEntries]);
+    std::unique_ptr<CSF_LEGEND[]> const csfLegend = std::make_unique<CSF_LEGEND[]>(nrEntries);
 
     if(MgetLegend(d_map, csfLegend.get()) == 0) {
       throwCannotReadLegend(d_path.string());

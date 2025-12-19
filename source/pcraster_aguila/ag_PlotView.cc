@@ -1,7 +1,6 @@
 #include "ag_PlotView.h"
 
 // Library headers.
-#include <boost/scoped_array.hpp>
 #include <QApplication>
 #include <QPen>
 
@@ -21,6 +20,7 @@
 #include "ag_VisEngine.h"
 
 #include <cstdlib>
+#include <memory>
 
 /*!
   \file
@@ -335,8 +335,8 @@ void PlotView::drawPlots()
     // drawCurve expects.
     dal::Array<UINT4> const &timeCol(table->col<UINT4>(timeColIndex));
     dal::Array<REAL4> const &attrCol(table->col<REAL4>(attrColIndex));
-    boost::scoped_array<double> const x(new double[table->nrRecs()]);
-    boost::scoped_array<double> const y(new double[table->nrRecs()]);
+    std::unique_ptr<double[]> const x = std::make_unique<double[]>(table->nrRecs());
+    std::unique_ptr<double[]> const y = std::make_unique<double[]>(table->nrRecs());
 
     for (size_t i = 0; i < table->nrRecs(); ++i) {
       x[i] = timeCol[i];

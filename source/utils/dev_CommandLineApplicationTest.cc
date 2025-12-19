@@ -67,6 +67,6 @@ BOOST_AUTO_TEST_CASE(command_line_application_)
          ;
     result << std::ends;
 
-    BOOST_CHECK_EQUAL(stream.str(), result.str());
+    BOOST_TEST(stream.str() == result.str());
   }
 }

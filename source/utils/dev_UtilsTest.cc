@@ -10,36 +10,36 @@ BOOST_AUTO_TEST_CASE(unique_)
   {
     std::vector<int> container;
     unique(container);
-    BOOST_CHECK(container.empty());
+    BOOST_TEST(container.empty());
   }
 
   {
     std::vector<int> container;
     container.push_back(6);
     unique(container);
-    BOOST_CHECK_EQUAL(container.size(), size_t(1));
-    BOOST_CHECK_EQUAL(container[0], 6);
-  }
-
-  {
-    std::vector<int> container;
-    container.push_back(6);
-    container.push_back(5);
-    unique(container);
-    BOOST_CHECK_EQUAL(container.size(), size_t(2));
-    BOOST_CHECK_EQUAL(container[0], 6);
-    BOOST_CHECK_EQUAL(container[1], 5);
+    BOOST_TEST(container.size() == size_t(1));
+    BOOST_TEST(container[0] == 6);
   }
 
   {
     std::vector<int> container;
     container.push_back(6);
     container.push_back(5);
+    unique(container);
+    BOOST_TEST(container.size() == size_t(2));
+    BOOST_TEST(container[0] == 6);
+    BOOST_TEST(container[1] == 5);
+  }
+
+  {
+    std::vector<int> container;
+    container.push_back(6);
+    container.push_back(5);
     container.push_back(6);
     unique(container);
-    BOOST_CHECK_EQUAL(container.size(), size_t(2));
-    BOOST_CHECK_EQUAL(container[0], 6);
-    BOOST_CHECK_EQUAL(container[1], 5);
+    BOOST_TEST(container.size() == size_t(2));
+    BOOST_TEST(container[0] == 6);
+    BOOST_TEST(container[1] == 5);
   }
 }
 
@@ -55,25 +55,25 @@ BOOST_AUTO_TEST_CASE(environment_variable)
 #else
   // Unset non-existing variable.
   unsetEnvironmentVariable("BLA");
-  BOOST_CHECK(!environmentVariableSet("BLA"));
+  BOOST_TEST(!environmentVariableSet("BLA"));
 
   // Create variable.
   setEnvironmentVariable("BLA", "Bla value");
-  BOOST_CHECK(environmentVariableSet("BLA"));
-  BOOST_CHECK_EQUAL(environmentVariable("BLA"), "Bla value");
+  BOOST_TEST(environmentVariableSet("BLA"));
+  BOOST_TEST(environmentVariable("BLA") == "Bla value");
 
   // Update variable to empty string.
   setEnvironmentVariable("BLA", "");
-  BOOST_CHECK(environmentVariableSet("BLA"));
-  BOOST_CHECK_EQUAL(environmentVariable("BLA"), "");
+  BOOST_TEST(environmentVariableSet("BLA"));
+  BOOST_TEST(environmentVariable("BLA") == "");
 
   // Update variable to non-empty string.
   setEnvironmentVariable("BLA", "Bla value2");
-  BOOST_CHECK(environmentVariableSet("BLA"));
-  BOOST_CHECK_EQUAL(environmentVariable("BLA"), "Bla value2");
+  BOOST_TEST(environmentVariableSet("BLA"));
+  BOOST_TEST(environmentVariable("BLA") == "Bla value2");
 
   // Unset existing variable.
   unsetEnvironmentVariable("BLA");
-  BOOST_CHECK(!environmentVariableSet("BLA"));
+  BOOST_TEST(!environmentVariableSet("BLA"));
 #endif
 }

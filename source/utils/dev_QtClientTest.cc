@@ -23,5 +23,5 @@ BOOST_AUTO_TEST_CASE(is_initialized)
 
   Client const client(argc, const_cast<char**>(argv));
 
-  BOOST_CHECK(client.isInitialized());
+  BOOST_TEST(client.isInitialized());
 }

@@ -1,26 +1,10 @@
 #ifndef INCLUDED_CALC_AREAMAP
 #define INCLUDED_CALC_AREAMAP
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_GEO_RASTERSPACE
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
-#ifndef INCLUDED_VECTOR
+
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

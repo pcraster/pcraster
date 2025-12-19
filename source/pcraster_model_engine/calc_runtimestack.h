@@ -1,10 +1,8 @@
 #ifndef INCLUDED_CALC_RUNTIMESTACK
 #define INCLUDED_CALC_RUNTIMESTACK
 
-#ifndef INCLUDED_STACK
 #include <stack>
-#define INCLUDED_STACK
-#endif
+
 
 namespace calc {
 class DataValue;

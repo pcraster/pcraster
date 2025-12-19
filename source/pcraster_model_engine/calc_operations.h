@@ -1,38 +1,13 @@
 #ifndef INCLUDED_CALC_OPERATIONS
 #define INCLUDED_CALC_OPERATIONS
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_MAJOR_OP
 #include "major_op.h"
-#define INCLUDED_MAJOR_OP
-#endif
-#ifndef INCLUDED_CALC_CALCLIB
 #include "calc_calclib.h"
-#define INCLUDED_CALC_CALCLIB
-#endif
+
+#include <vector>
+#include <map>
+#include <string>
 
 
 namespace calc {

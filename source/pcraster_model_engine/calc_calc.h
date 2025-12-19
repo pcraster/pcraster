@@ -1,26 +1,11 @@
 #ifndef INCLUDED_CALC_CALC
 #define INCLUDED_CALC_CALC
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_EXECUTESCRIPTSTATUS
 #include "calc_executescriptstatus.h"
-#define INCLUDED_CALC_EXECUTESCRIPTSTATUS
-#endif
+
+#include <iostream>
+
 
 namespace com {
   class PathName;

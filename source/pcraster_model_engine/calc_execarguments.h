@@ -1,23 +1,10 @@
 #ifndef INCLUDED_CALC_EXECARGUMENTS
 #define INCLUDED_CALC_EXECARGUMENTS
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-// Library headers.
-#ifndef INCLUDED_VECTOR
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
-#ifndef INCLUDED_SET
 #include <set>
-#define INCLUDED_SET
-#endif
-// PCRaster library headers.
-
-// Module headers.
 
 
 

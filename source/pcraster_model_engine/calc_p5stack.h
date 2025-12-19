@@ -1,31 +1,13 @@
 #ifndef INCLUDED_CALC_P5STACK
 #define INCLUDED_CALC_P5STACK
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_MEMORY
-#include <memory>
-#define INCLUDED_MEMORY
-#endif
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_ASTTESTFACTORY
 #include "calc_asttestfactory.h"
-#define INCLUDED_CALC_ASTTESTFACTORY
-#endif
-#ifndef INCLUDED_CALC_EXECUTOR
 #include "calc_executor.h"
-#define INCLUDED_CALC_EXECUTOR
-#endif
-#ifndef INCLUDED_CALC_ASTSCRIPT
 #include "calc_astscript.h"
-#define INCLUDED_CALC_ASTSCRIPT
-#endif
+
+#include <memory>
+
 
 namespace calc {
   // P5Stack declarations.

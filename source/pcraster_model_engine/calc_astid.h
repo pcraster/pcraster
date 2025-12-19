@@ -1,24 +1,11 @@
 #ifndef INCLUDED_CALC_ASTID
 #define INCLUDED_CALC_ASTID
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-// PCRaster library headers.  // Module headers.
-#ifndef INCLUDED_CALC_ASTNODE
 #include "calc_astnode.h"
-#define INCLUDED_CALC_ASTNODE
-#endif
+
+#include <string>
+
 
 namespace calc {
   // ASTId declarations.

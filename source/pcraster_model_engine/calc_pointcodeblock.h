@@ -1,30 +1,11 @@
 #ifndef INCLUDED_CALC_POINTCODEBLOCK
 #define INCLUDED_CALC_POINTCODEBLOCK
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_ASTNODE
 #include "calc_astnode.h"
-#define INCLUDED_CALC_ASTNODE
-#endif
-#ifndef INCLUDED_CALC_ASTNODELIST
 #include "calc_astnodelist.h"
-#define INCLUDED_CALC_ASTNODELIST
-#endif
-#ifndef INCLUDED_CALC_PARSET
 #include "calc_parset.h"
-#define INCLUDED_CALC_PARSET
-#endif
+
 
 namespace calc {
   // PointCodeBlock declarations.

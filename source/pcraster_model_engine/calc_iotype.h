@@ -1,23 +1,8 @@
 #ifndef INCLUDED_CALC_IOTYPE
 #define INCLUDED_CALC_IOTYPE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRASTERXSD
 #include "PCRasterXSD.h"
-#define INCLUDED_PCRASTERXSD
-#endif
-
-
-// Module headers.
 
 
 namespace calc {

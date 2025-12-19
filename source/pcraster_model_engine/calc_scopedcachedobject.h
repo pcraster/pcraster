@@ -1,27 +1,9 @@
 #ifndef INCLUDED_CALC_SCOPEDCACHEDOBJECT
 #define INCLUDED_CALC_SCOPEDCACHEDOBJECT
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_RUNTIMEENV
 #include "calc_runtimeenv.h"
-#define INCLUDED_CALC_RUNTIMEENV
-#endif
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-
 
 
 namespace calc {

@@ -1,26 +1,9 @@
 #ifndef INCLUDED_CALC_SCOPEDLDDGRAPH
 #define INCLUDED_CALC_SCOPEDLDDGRAPH
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_LDDGRAPH
 #include "calc_lddgraph.h"
-#define INCLUDED_CALC_LDDGRAPH
-#endif
-#ifndef INCLUDED_CALC_SCOPEDCACHEDOBJECT
 #include "calc_scopedcachedobject.h"
-#define INCLUDED_CALC_SCOPEDCACHEDOBJECT
-#endif
 
 
 

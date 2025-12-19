@@ -1,27 +1,10 @@
 #ifndef INCLUDED_CALC_LEXINPUTSOURCESTRING
 #define INCLUDED_CALC_LEXINPUTSOURCESTRING
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_LEXINPUTSOURCE
 #include "calc_lexinputsource.h"
-#define INCLUDED_CALC_LEXINPUTSOURCE
-#endif
 
+#include <string>
 
 
 namespace calc {

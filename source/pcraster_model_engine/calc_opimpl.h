@@ -1,37 +1,13 @@
 #ifndef INCLUDED_CALC_OPIMPL
 #define INCLUDED_CALC_OPIMPL
 
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_TYPES
 #include "calc_types.h"
-#define INCLUDED_CALC_TYPES
-#endif
-#ifndef INCLUDED_CALC_IOPIMPL
 #include "calc_iopimpl.h"
-#define INCLUDED_CALC_IOPIMPL
-#endif
-#ifndef INCLUDED_CALC_POINTIMPL
 #include "calc_pointimpl.h"
-#define INCLUDED_CALC_POINTIMPL
-#endif
-#ifndef INCLUDED_CALC_IFOPOINTARRAY
 #include "calc_ifopointarray.h"
-#define INCLUDED_CALC_IFOPOINTARRAY
-#endif
+
+#include <vector>
 
 
 namespace calc {

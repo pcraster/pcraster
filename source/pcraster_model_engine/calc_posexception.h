@@ -1,26 +1,11 @@
 #ifndef INCLUDED_CALC_POSEXCEPTION
 #define INCLUDED_CALC_POSEXCEPTION
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
 #include "pcraster_model_engine_export.h"
 
-// Module headers.
-
-// Library headers.
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
 
 
 

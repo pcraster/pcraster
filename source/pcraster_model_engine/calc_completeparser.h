@@ -1,36 +1,13 @@
 #ifndef INCLUDED_CALC_COMPLETEPARSER
 #define INCLUDED_CALC_COMPLETEPARSER
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_PARSERINPUT
 #include "calc_parserinput.h"
-#define INCLUDED_CALC_PARSERINPUT
-#endif
-#ifndef INCLUDED_PARSER
 #include "tokens.h"
 #include "Parser.h"
-#define INCLUDED_PARSER
-#endif
-
-#ifndef INCLUDED_CALC_REWRITEPARSEDAST
 #include "calc_rewriteparsedast.h"
-#define INCLUDED_CALC_REWRITEPARSEDAST
-#endif
-#ifndef INCLUDED_CALC_ASTSCRIPT
 #include "calc_astscript.h"
-#define INCLUDED_CALC_ASTSCRIPT
-#endif
+
 
 namespace calc {
   // CompleteParser declarations.

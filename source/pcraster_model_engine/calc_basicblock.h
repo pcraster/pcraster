@@ -1,22 +1,9 @@
 #ifndef INCLUDED_CALC_BASICBLOCK
 #define INCLUDED_CALC_BASICBLOCK
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_ASTNODE
 #include "calc_astnode.h"
-#define INCLUDED_CALC_ASTNODE
-#endif
+
 
 
 namespace calc {

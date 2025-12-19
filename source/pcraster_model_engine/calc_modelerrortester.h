@@ -1,18 +1,7 @@
 #ifndef INCLUDED_CALC_MODELERRORTESTER
 #define INCLUDED_CALC_MODELERRORTESTER
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

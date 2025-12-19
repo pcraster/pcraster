@@ -1,26 +1,10 @@
 #ifndef INCLUDED_CALC_DIMENSION
 #define INCLUDED_CALC_DIMENSION
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-// Library headers.
-#ifndef INCLUDED_VECTOR
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

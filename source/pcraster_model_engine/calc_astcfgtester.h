@@ -1,29 +1,12 @@
 #ifndef INCLUDED_CALC_ASTCFGTESTER
 #define INCLUDED_CALC_ASTCFGTESTER
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_MEMORY
-#include <memory>
-#define INCLUDED_MEMORY
-#endif
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_ASTNODE
 #include "calc_astnode.h"
-#define INCLUDED_CALC_ASTNODE
-#endif
-#ifndef INCLUDED_CALC_CFGNODE
 #include "calc_cfgnode.h"
-#define INCLUDED_CALC_CFGNODE
-#endif
+
+#include <memory>
+
 
 namespace calc {
   // ASTCFGTester declarations.

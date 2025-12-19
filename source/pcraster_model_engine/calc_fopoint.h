@@ -1,18 +1,9 @@
 #ifndef INCLUDED_CALC_FOPOINT
 #define INCLUDED_CALC_FOPOINT
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRTYPES
 #include "pcrtypes.h"
-#define INCLUDED_PCRTYPES
-#endif
+
 
 // Module headers.
 

@@ -1,32 +1,11 @@
 #ifndef INCLUDED_CALC_BUILDTYPESVISITOR
 #define INCLUDED_CALC_BUILDTYPESVISITOR
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_CFGVISITOR
 #include "calc_cfgvisitor.h"
-#define INCLUDED_CALC_CFGVISITOR
-#endif
-#ifndef INCLUDED_CALC_DATATYPE
 #include "calc_datatype.h"
-#define INCLUDED_CALC_DATATYPE
-#endif
-#ifndef INCLUDED_CALC_DATATYPECHANGER
 #include "calc_datatypechanger.h"
-#define INCLUDED_CALC_DATATYPECHANGER
-#endif
-#ifndef INCLUDED_CALC_ASTSYMBOLTABLE
 #include "calc_astsymboltable.h"
-#define INCLUDED_CALC_ASTSYMBOLTABLE
-#endif
 
 
 
@@ -43,7 +22,7 @@ namespace calc {
 /*!
     - type info is updated and syncronized between the graph and an ASTSymbolTable
     - resulting table is in table() after the visit
-    - the graph features  containsDynamicSection() and 
+    - the graph features  containsDynamicSection() and
       hasStatementWithReportKeyword() are deduced in the visit
 
    Implements one sweep of the closure algorithm to derive
@@ -77,7 +56,7 @@ as:<i>
   gathered from the AST. This table describes what
   data is needed and what data is generated from the AST.
 
-  A CFGVisitor is used in order to garantuee the evaluation of ASTNode 
+  A CFGVisitor is used in order to garantuee the evaluation of ASTNode
   descendants before the ASTNode itself.
 
  */

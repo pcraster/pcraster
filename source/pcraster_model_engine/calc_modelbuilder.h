@@ -1,22 +1,8 @@
 #ifndef INCLUDED_CALC_MODELBUILDER
 #define INCLUDED_CALC_MODELBUILDER
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_RUNTIMEENVSETTINGS
 #include "calc_runtimeenvsettings.h"
-#define INCLUDED_CALC_RUNTIMEENVSETTINGS
-#endif
 
 #include  <memory>
 

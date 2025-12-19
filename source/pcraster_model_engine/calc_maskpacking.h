@@ -1,30 +1,11 @@
 #ifndef INCLUDED_CALC_MASKPACKING
 #define INCLUDED_CALC_MASKPACKING
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_SPATIALPACKING
 #include "calc_spatialpacking.h"
-#define INCLUDED_CALC_SPATIALPACKING
-#endif
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
+
+#include <vector>
 
 
 namespace calc {

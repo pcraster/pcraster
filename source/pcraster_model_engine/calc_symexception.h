@@ -1,22 +1,9 @@
 #ifndef INCLUDED_CALC_SYMEXCEPTION
 #define INCLUDED_CALC_SYMEXCEPTION
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_POSEXCEPTION
 #include "calc_posexception.h"
-#define INCLUDED_CALC_POSEXCEPTION
-#endif
+
 
 namespace calc {
   // SymException declarations.

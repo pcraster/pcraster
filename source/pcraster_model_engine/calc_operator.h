@@ -1,42 +1,14 @@
 #ifndef INCLUDED_CALC_OPERATOR
 #define INCLUDED_CALC_OPERATOR
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-# include <string>
-#define INCLUDED_STRING
-#endif
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_MAJOR_OP
-# include "major_op.h"
-#define INCLUDED_MAJOR_OP
-#endif
-#ifndef INCLUDED_CALC_DOMAINILL
+#include "major_op.h"
 #include "calc_domainill.h"
-#define INCLUDED_CALC_DOMAINILL
-#endif
-#ifndef INCLUDED_CALC_DATATYPE
 #include "calc_datatype.h"
-#define INCLUDED_CALC_DATATYPE
-#endif
-#ifndef INCLUDED_CALC_OBJECTLINKRUNTIME
 #include "calc_objectlinkruntime.h"
-#define INCLUDED_CALC_OBJECTLINKRUNTIME
-#endif
+
+#include <string>
+#include <vector>
 
 namespace calc {
   // Operator declarations.

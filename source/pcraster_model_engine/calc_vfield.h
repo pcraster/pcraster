@@ -1,27 +1,10 @@
 #ifndef INCLUDED_CALC_VFIELD
 #define INCLUDED_CALC_VFIELD
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_DYNAMIC_BITSET
-#include <boost/dynamic_bitset.hpp>
-#define INCLUDED_BOOST_DYNAMIC_BITSET
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
 
+#include <boost/dynamic_bitset.hpp>
 
 
 namespace calc {

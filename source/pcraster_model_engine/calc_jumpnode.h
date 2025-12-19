@@ -1,25 +1,10 @@
 #ifndef INCLUDED_CALC_JUMPNODE
 #define INCLUDED_CALC_JUMPNODE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SET
-#include <set>
-#define INCLUDED_SET
-#endif
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_ASTNODE
 #include "calc_astnode.h"
-#define INCLUDED_CALC_ASTNODE
-#endif
+
+#include <set>
 
 
 namespace calc {

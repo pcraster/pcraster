@@ -1,30 +1,10 @@
 #ifndef INCLUDED_CALC_SPATIALPACKING
 #define INCLUDED_CALC_SPATIALPACKING
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_CALC_TYPES
 #include "calc_types.h"
-#define INCLUDED_CALC_TYPES
-#endif
-#ifndef INCLUDED_GEO_RASTERDIM
 #include "geo_rasterdim.h"
-#define INCLUDED_GEO_RASTERDIM
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_IFIELDRDCONVERSION
 #include "calc_ifieldrdconversion.h"
-#define INCLUDED_CALC_IFIELDRDCONVERSION
-#endif
 
 
 

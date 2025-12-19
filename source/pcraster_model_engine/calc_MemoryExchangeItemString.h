@@ -1,22 +1,9 @@
 #ifndef INCLUDED_CALC_MEMORYEXCHANGEITEMSTRING
 #define INCLUDED_CALC_MEMORYEXCHANGEITEMSTRING
 
-
-
-// External headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_MEMORYEXCHANGEITEM
 #include "calc_MemoryExchangeItem.h"
-#define INCLUDED_CALC_MEMORYEXCHANGEITEM
-#endif
 
+#include <string>
 
 
 namespace calc {

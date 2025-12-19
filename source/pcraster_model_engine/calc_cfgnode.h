@@ -1,16 +1,7 @@
 #ifndef INCLUDED_CALC_CFGNODE
 #define INCLUDED_CALC_CFGNODE
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 
@@ -56,8 +47,8 @@ private:
    * points Forward in a linear view of a script, d_succ[1] points Back.
    * For example the JumpNode of the DynamicSection will have d_succ[Forward] set 0;
    * no more code, and d_succ[Back] pointing to the beginning of the dynamic script.
-   * 
-   * Forward is created when building up the CFG, while Back is set to an already 
+   *
+   * Forward is created when building up the CFG, while Back is set to an already
    * existing node.
    */
   CFGNode         *d_succ[NrSuccs]{};

@@ -1,22 +1,8 @@
 #ifndef INCLUDED_CALC_OPERATION
 #define INCLUDED_CALC_OPERATION
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_MAJOR_OP
 #include "major_op.h"
-#define INCLUDED_MAJOR_OP
-#endif
-
-// Module headers.
 
 
 

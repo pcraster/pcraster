@@ -1,27 +1,10 @@
 #ifndef INCLUDED_CALC_RELATIONRECORD
 #define INCLUDED_CALC_RELATIONRECORD
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_INTERVAL
 #include "com_interval.h"
-#define INCLUDED_COM_INTERVAL
-#endif
 
-// Module headers.
-
+#include <vector>
 
 
 namespace calc {

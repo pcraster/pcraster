@@ -1,25 +1,10 @@
 #ifndef INCLUDED_CALC_ASTNODELIST
 #define INCLUDED_CALC_ASTNODELIST
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_LIST
-#include <list>
-#define INCLUDED_LIST
-#endif
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_ASTNODECONTAINER
 #include "calc_astnodecontainer.h"
-#define INCLUDED_CALC_ASTNODECONTAINER
-#endif
+
+#include <list>
 
 
 namespace calc {

@@ -6,38 +6,15 @@
  *   maps the ObjectLinkMeta xml tag
  */
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRDATATYPE
 #include "pcrdatatype.h"
-#define INCLUDED_PCRDATATYPE
-#endif
-
 #include "pcraster_model_engine_export.h"
-
-// Module headers.
-#ifndef INCLUDED_CALC_OBJECTLINKRUNTIME
 #include "calc_objectlinkruntime.h"
-#define INCLUDED_CALC_OBJECTLINKRUNTIME
-#endif
+
+#include <map>
+#include <string>
+#include <vector>
+
 
 namespace calc {
   // ObjectLinkMeta declarations.

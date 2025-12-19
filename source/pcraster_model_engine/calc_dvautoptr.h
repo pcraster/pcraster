@@ -1,22 +1,8 @@
 #ifndef INCLUDED_CALC_DVAUTOPTR
 #define INCLUDED_CALC_DVAUTOPTR
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_DATAVALUE
 #include "calc_datavalue.h"
-#define INCLUDED_CALC_DATAVALUE
-#endif
 
 
 namespace calc {

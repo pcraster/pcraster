@@ -1,26 +1,10 @@
 #ifndef INCLUDED_CALC_EXECUTOR
 #define INCLUDED_CALC_EXECUTOR
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_CFGVISITOR
 #include "calc_cfgvisitor.h"
-#define INCLUDED_CALC_CFGVISITOR
-#endif
-#ifndef INCLUDED_CALC_RUNTIMEENV
 #include "calc_runtimeenv.h"
-#define INCLUDED_CALC_RUNTIMEENV
-#endif
+
 
 namespace geo {
   // Executor declarations.

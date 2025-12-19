@@ -1,30 +1,11 @@
 #ifndef INCLUDED_CALC_AVERAGEMAP
 #define INCLUDED_CALC_AVERAGEMAP
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-#ifndef INCLUDED_CSFTYPES
 #include "csftypes.h"
-#define INCLUDED_CSFTYPES
-#endif
-// PCRaster library headers.
-#ifndef INCLUDED_COM_STATISTICS
 #include "com_statistics.h"
-#define INCLUDED_COM_STATISTICS
-#endif
 
-// Module headers.
-
+#include <map>
 
 
 namespace calc {

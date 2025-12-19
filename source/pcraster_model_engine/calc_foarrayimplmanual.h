@@ -3,14 +3,8 @@
  * the "irregular" cases typed in manual (not generated)
  */
 
-#ifndef INCLUDED_CALC_IFOPOINTARRAY
 #include "calc_ifopointarray.h"
-#define INCLUDED_CALC_IFOPOINTARRAY
-#endif
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
 
 namespace calc {
 

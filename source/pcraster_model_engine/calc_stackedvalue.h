@@ -1,22 +1,9 @@
 #ifndef INCLUDED_CALC_STACKEDVALUE
 #define INCLUDED_CALC_STACKEDVALUE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_DATAVALUE
 #include "calc_datavalue.h"
-#define INCLUDED_CALC_DATAVALUE
-#endif
+
 
 namespace calc {
   // StackedValue declarations.
@@ -39,7 +26,7 @@ class ASTSymbolInfo;
     is computed, a naive implementation would read all a..z first, and then
     execute. The current implementation needs only 2 maps at once in RAM.
     That  implies that spatials are handled by reference on the stack, and
-    setUseDefs() sets the ASTPar::d_lastUse in the order the the data is 
+    setUseDefs() sets the ASTPar::d_lastUse in the order the the data is
     POPPED from RunTimeEnv::d_fieldStack not PUSHED onto it.
 
  */

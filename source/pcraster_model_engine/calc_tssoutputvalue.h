@@ -1,18 +1,12 @@
 #ifndef INCLUDED_CALC_TSSOUTPUTVALUE
 #define INCLUDED_CALC_TSSOUTPUTVALUE
 
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
-
-#ifndef INCLUDED_CALC_STACKINFO
 #include "calc_stackinfo.h"
-#define INCLUDED_CALC_STACKINFO
-#endif
 
 #include <fstream>
 #include <vector>
+
 
 namespace calc {
 

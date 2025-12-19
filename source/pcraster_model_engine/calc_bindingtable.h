@@ -1,28 +1,11 @@
 #ifndef INCLUDED_CALC_BINDINGTABLE
 #define INCLUDED_CALC_BINDINGTABLE
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SET
-#include <set>
-#define INCLUDED_SET
-#endif
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_ASTNODEVECTOR
 #include "calc_astnodevector.h"
-#define INCLUDED_CALC_ASTNODEVECTOR
-#endif
+
+#include <set>
+#include <string>
 
 
 namespace calc {

@@ -1,11 +1,7 @@
 #ifndef INCLUDED_CALC_CMDLINECALC
 #define INCLUDED_CALC_CMDLINECALC
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
 #include "pcraster_model_engine_export.h"
 
 namespace calc {

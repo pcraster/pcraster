@@ -1,18 +1,10 @@
-#ifndef  INCLUDED_CALC_LEXINPUT
+#ifndef INCLUDED_CALC_LEXINPUT
 #define INCLUDED_CALC_LEXINPUT
 
-#ifndef INCLUDED_OSTREAM
 #include <iostream>
-#define INCLUDED_OSTREAM
-#endif
-#ifndef INCLUDED_VECTOR
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
+
 
 namespace com {
   class PathName;

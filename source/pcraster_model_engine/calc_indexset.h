@@ -1,10 +1,8 @@
 #ifndef INCLUDED_CALC_INDEXSET
 #define INCLUDED_CALC_INDEXSET
 
-#ifndef INCLUDED_CALC_INDEXCONTAINER
-# include "calc_indexcontainer.h"
-# define INCLUDED_CALC_INDEXCONTAINER
-#endif
+#include "calc_indexcontainer.h"
+
 
 namespace calc {
 

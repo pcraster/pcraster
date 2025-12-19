@@ -1,37 +1,13 @@
 #ifndef INCLUDED_CALC_DATATYPE
 #define INCLUDED_CALC_DATATYPE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-// PCRaster library headers.
-// Module headers.
-#ifndef INCLUDED_CALC_TYPES
 #include "calc_types.h"
-#define INCLUDED_CALC_TYPES
-#endif
-#ifndef INCLUDED_CALC_DIMENSION
 #include "calc_dimension.h"
-#define INCLUDED_CALC_DIMENSION
-#endif
-#ifndef INCLUDED_CALC_MAPSTACKTYPE
 #include "calc_mapstacktype.h"
-#define INCLUDED_CALC_MAPSTACKTYPE
-#endif
 
+#include <iostream>
+#include <vector>
 
 
 namespace calc {

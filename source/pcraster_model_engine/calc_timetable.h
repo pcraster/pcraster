@@ -1,18 +1,11 @@
 #ifndef INCLUDED_CALC_TIMETABLE
 #define INCLUDED_CALC_TIMETABLE
 
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-#ifndef INCLUDED_CALC_TYPES
 #include "calc_types.h"
-#define INCLUDED_CALC_TYPES
-#endif
-#ifndef INCLUDED_CALC_DATAVALUE
 #include "calc_datavalue.h"
-#define INCLUDED_CALC_DATAVALUE
-#endif
+
+#include <string>
+
 
 struct TIME_TABLE;
 

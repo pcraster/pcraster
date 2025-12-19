@@ -1,17 +1,10 @@
 #ifndef INCLUDED_CALC_NONSPATIAL
 #define INCLUDED_CALC_NONSPATIAL
 
-#ifndef INCLUDED_CSFTYPES
 #include "csftypes.h"
-#define INCLUDED_CSFTYPES
-#endif
-
 #include "pcraster_model_engine_export.h"
-
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
+
 
 namespace calc {
 

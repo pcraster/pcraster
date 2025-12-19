@@ -1,34 +1,12 @@
 #ifndef INCLUDED_CALC_FOPOINTARRAY
 #define INCLUDED_CALC_FOPOINTARRAY
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_IFOPOINTARRAY
 #include "calc_ifopointarray.h"
-#define INCLUDED_CALC_IFOPOINTARRAY
-#endif
-
-#ifndef INCLUDED_CALC_CR
 #include "calc_cr.h"
-#define INCLUDED_CALC_CR
-#endif
-
-#ifndef INCLUDED_CALC_DOMAINERROR
 #include "calc_domainerror.h"
-#define INCLUDED_CALC_DOMAINERROR
-#endif
+
 
 /*! \file
  *   templates for point operations implementations on array

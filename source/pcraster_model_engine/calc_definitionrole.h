@@ -1,18 +1,7 @@
 #ifndef INCLUDED_CALC_DEFINITIONROLE
 #define INCLUDED_CALC_DEFINITIONROLE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

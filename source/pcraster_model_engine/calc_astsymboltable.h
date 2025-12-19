@@ -1,35 +1,14 @@
 #ifndef INCLUDED_CALC_ASTSYMBOLTABLE
 #define INCLUDED_CALC_ASTSYMBOLTABLE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-#ifndef INCLUDED_SET
-#include <set>
-#define INCLUDED_SET
-#endif
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_ASTSYMBOLINFO
 #include "calc_astsymbolinfo.h"
-#define INCLUDED_CALC_ASTSYMBOLINFO
-#endif
 
-#include  <memory>
+#include <memory>
+#include <map>
+#include <set>
+#include <string>
+
 
 namespace calc {
   // ASTSymbolTable declarations.

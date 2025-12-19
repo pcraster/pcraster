@@ -1,31 +1,11 @@
 #ifndef INCLUDED_CALC_REPORT
 #define INCLUDED_CALC_REPORT
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_ASTID
 #include "calc_astid.h"
-#define INCLUDED_CALC_ASTID
-#endif
-#ifndef INCLUDED_CALC_ID
 #include "calc_id.h"
-#define INCLUDED_CALC_ID
-#endif
 
+#include <vector>
 
 
 namespace calc {

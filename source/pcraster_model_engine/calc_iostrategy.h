@@ -1,42 +1,15 @@
 #ifndef INCLUDED_CALC_IOSTRATEGY
 #define INCLUDED_CALC_IOSTRATEGY
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-// PCRaster library headers.
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
-#ifndef INCLUDED_CALC_TIMER
 #include "calc_timer.h"
-#define INCLUDED_CALC_TIMER
-#endif
-#ifndef INCLUDED_CALC_RUNDIRECTORY
 #include "calc_rundirectory.h"
-#define INCLUDED_CALC_RUNDIRECTORY
-#endif
 
-#include  <memory>
+#include <memory>
+#include <map>
+#include <string>
 
 
 namespace calc {

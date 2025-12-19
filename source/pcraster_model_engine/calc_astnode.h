@@ -1,30 +1,12 @@
 #ifndef INCLUDED_CALC_ASTNODE
 #define INCLUDED_CALC_ASTNODE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_DATATYPE
 #include "calc_datatype.h"
-#define INCLUDED_CALC_DATATYPE
-#endif
+
+#include <string>
+#include <vector>
+
 
 namespace calc {
   // ASTNode declarations.

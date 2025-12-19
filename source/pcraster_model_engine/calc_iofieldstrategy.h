@@ -1,45 +1,19 @@
 #ifndef INCLUDED_CALC_IOFIELDSTRATEGY
 #define INCLUDED_CALC_IOFIELDSTRATEGY
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-#ifdef DEBUG_DEVELOP
- #ifndef INCLUDED_SET
- #include <set>
- #define INCLUDED_SET
- #endif
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_RASTERSPACE
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
-#ifndef INCLUDED_APPARGS
 #include "appargs.h"
-#define INCLUDED_APPARGS
-#endif
-
-// Module headers.
-
-#ifndef INCLUDED_CALC_TYPES
 #include "calc_types.h"
-#define INCLUDED_CALC_TYPES
-#endif
-#ifndef INCLUDED_CALC_GRIDSTAT
 #include "calc_gridstat.h"
-#define INCLUDED_CALC_GRIDSTAT
+
+#include <memory>
+#include <string>
+
+#ifdef DEBUG_DEVELOP
+ #include <set>
 #endif
 
-#include  <memory>
 
 namespace calc {
   class Field;

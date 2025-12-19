@@ -1,34 +1,12 @@
 #ifndef INCLUDED_CALC_PARSET
 #define INCLUDED_CALC_PARSET
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-#ifndef INCLUDED_SET
-#include <set>
-#define INCLUDED_SET
-#endif
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_ASTPAR
 #include "calc_astpar.h"
-#define INCLUDED_CALC_ASTPAR
-#endif
 
+#include <iostream>
+#include <set>
+#include <vector>
 
 
 namespace calc {

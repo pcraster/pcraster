@@ -1,22 +1,9 @@
 #ifndef INCLUDED_CALC_XMLDATATYPE
 #define INCLUDED_CALC_XMLDATATYPE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_DATATYPE
 #include "calc_datatype.h"
-#define INCLUDED_CALC_DATATYPE
-#endif
+
 
 
 namespace pcrxml {

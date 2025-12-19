@@ -1,34 +1,12 @@
 #ifndef INCLUDED_CALC_REPORTVISITOR
 #define INCLUDED_CALC_REPORTVISITOR
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_ASTVISITOR
 #include "calc_astvisitor.h"
-#define INCLUDED_CALC_ASTVISITOR
-#endif
-#ifndef INCLUDED_CALC_TIMER
 #include "calc_timer.h"
-#define INCLUDED_CALC_TIMER
-#endif
 
+#include <map>
+#include <string>
 
 
 namespace calc {

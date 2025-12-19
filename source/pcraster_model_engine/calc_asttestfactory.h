@@ -1,35 +1,12 @@
 #ifndef INCLUDED_CALC_ASTTESTFACTORY
 #define INCLUDED_CALC_ASTTESTFACTORY
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_POSEXCEPTION
 #include "calc_posexception.h"
-#define INCLUDED_CALC_POSEXCEPTION
-#endif
 
+#include <string>
+#include <vector>
 
 
 class QDomElement;

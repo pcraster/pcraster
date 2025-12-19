@@ -1,17 +1,7 @@
 #ifndef INCLUDED_CALC_TIMESLICEVISITOR
 #define INCLUDED_CALC_TIMESLICEVISITOR
 
-
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_DOWNSTREAMVISITOR
 #include "calc_downstreamvisitor.h"
-#define INCLUDED_CALC_DOWNSTREAMVISITOR
-#endif
 
 
 

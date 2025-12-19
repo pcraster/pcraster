@@ -1,26 +1,9 @@
 #ifndef INCLUDED_CALC_OPTIONS
 #define INCLUDED_CALC_OPTIONS
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_RUNTIMEENVSETTINGS
 #include "calc_runtimeenvsettings.h"
-#define INCLUDED_CALC_RUNTIMEENVSETTINGS
-#endif
-#ifndef INCLUDED_CALC_LEXINPUTCREATOR
 #include "calc_lexinputcreator.h"
-#define INCLUDED_CALC_LEXINPUTCREATOR
-#endif
 
 
 

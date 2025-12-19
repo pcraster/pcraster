@@ -1,32 +1,13 @@
 #ifndef INCLUDED_CALC_RUNSETTINGS
 #define INCLUDED_CALC_RUNSETTINGS
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_BINDINGTABLE
 #include "calc_bindingtable.h"
-#define INCLUDED_CALC_BINDINGTABLE
-#endif
+
+#include <string>
+#include <vector>
+#include <map>
+
 
 namespace pcrxml {
 //  class ModelRunSettings;

@@ -1,10 +1,8 @@
 #ifndef INCLUDED_CALC_DOMAINILL
 #define INCLUDED_CALC_DOMAINILL
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
+
 
 namespace calc {
 

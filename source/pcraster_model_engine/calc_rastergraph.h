@@ -1,29 +1,11 @@
 #ifndef INCLUDED_CALC_RASTERGRAPH
 #define INCLUDED_CALC_RASTERGRAPH
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_CALC_IFIELDRDCONVERSION
 #include "calc_ifieldrdconversion.h"
-#define INCLUDED_CALC_IFIELDRDCONVERSION
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_VFIELD
 #include "calc_vfield.h"
-#define INCLUDED_CALC_VFIELD
-#endif
 
+#include <vector>
 
 
 namespace calc {

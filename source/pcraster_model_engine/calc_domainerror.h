@@ -1,24 +1,9 @@
 #ifndef INCLUDED_CALC_DOMAINERROR
 #define INCLUDED_CALC_DOMAINERROR
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
 #include "pcraster_model_engine_export.h"
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

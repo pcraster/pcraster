@@ -1,22 +1,8 @@
 #ifndef INCLUDED_CALC_PROGRESSCALLBACK
 #define INCLUDED_CALC_PROGRESSCALLBACK
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_PROGRESSPULSE
 #include "calc_progresspulse.h"
-#define INCLUDED_CALC_PROGRESSPULSE
-#endif
 
 
 namespace calc {

@@ -1,15 +1,8 @@
 #ifndef INCLUDED_CALC_STACKCR
 #define INCLUDED_CALC_STACKCR
 
-#ifndef INCLUDED_CSFTYPES
 #include "csftypes.h"
-#define INCLUDED_CSFTYPES
-#endif
-
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
 
 
 namespace calc {

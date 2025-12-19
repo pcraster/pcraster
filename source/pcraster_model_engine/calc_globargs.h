@@ -1,27 +1,10 @@
 #ifndef INCLUDED_CALC_GLOBARGS
 #define INCLUDED_CALC_GLOBARGS
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_EXECARGUMENTS
 #include "calc_execarguments.h"
-#define INCLUDED_CALC_EXECARGUMENTS
-#endif
 
+#include <vector>
 
 
 namespace calc {

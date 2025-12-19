@@ -1,25 +1,11 @@
 #ifndef INCLUDED_CALC_MESSAGESTESTDB
 #define INCLUDED_CALC_MESSAGESTESTDB
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-// Library headers.
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
-#ifndef INCLUDED_MEMORY
 #include <memory>
-#define INCLUDED_MEMORY
-#endif
-// PCRaster library headers.
 
-// Module headers.
 
 namespace com {
   class Exception;

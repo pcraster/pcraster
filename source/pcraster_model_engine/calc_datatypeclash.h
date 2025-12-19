@@ -1,25 +1,11 @@
 #ifndef INCLUDED_CALC_DATATYPECLASH
 #define INCLUDED_CALC_DATATYPECLASH
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_TYPES
 #include "calc_types.h"
-#define INCLUDED_CALC_TYPES
-#endif
+
+#include <string>
+
 
 namespace calc {
   // DataTypeClash declarations.

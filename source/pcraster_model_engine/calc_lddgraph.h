@@ -1,38 +1,13 @@
 #ifndef INCLUDED_CALC_LDDGRAPH
 #define INCLUDED_CALC_LDDGRAPH
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_DYNAMIC_BITSET
-#include <boost/dynamic_bitset.hpp>
-#define INCLUDED_BOOST_DYNAMIC_BITSET
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_CSFTYPES
 #include "csftypes.h"
-#define INCLUDED_CSFTYPES
-#endif
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_ICACHEDOBJECT
 #include "calc_icachedobject.h"
-#define INCLUDED_CALC_ICACHEDOBJECT
-#endif
-#ifndef INCLUDED_CALC_RASTERGRAPH
 #include "calc_rastergraph.h"
-#define INCLUDED_CALC_RASTERGRAPH
-#endif
 
+#include <boost/dynamic_bitset.hpp>
 
 
 namespace calc {

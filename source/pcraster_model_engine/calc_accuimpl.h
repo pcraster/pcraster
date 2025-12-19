@@ -1,23 +1,10 @@
 #ifndef INCLUDED_CALC_ACCUIMPL
 #define INCLUDED_CALC_ACCUIMPL
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_CALC_IOPIMPL
 #include "calc_iopimpl.h"
-#define INCLUDED_CALC_IOPIMPL
-#endif
 
 
-// Module headers.
 
 namespace calc {
   class RunTimeEnv;

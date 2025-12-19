@@ -1,34 +1,12 @@
 #ifndef INCLUDED_CALC_GRIDMAP
 #define INCLUDED_CALC_GRIDMAP
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_RASTERSPACE
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_TYPES
 #include "calc_types.h"
-#define INCLUDED_CALC_TYPES
-#endif
-#ifndef INCLUDED_CALC_GRIDSTAT
 #include "calc_gridstat.h"
-#define INCLUDED_CALC_GRIDSTAT
-#endif
+
+#include <string>
 
 
 namespace dal {

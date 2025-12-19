@@ -7,30 +7,11 @@
   for point code generation
 */
 
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_FOPOINTIMPL
 #include "calc_fopointimpl.h"
-#define INCLUDED_CALC_FOPOINTIMPL
-#endif
-
-#ifndef INCLUDED_CALC_CELLUNION
 #include "calc_cellunion.h"
-#define INCLUDED_CALC_CELLUNION
-#endif
+
 
 namespace calc {
 

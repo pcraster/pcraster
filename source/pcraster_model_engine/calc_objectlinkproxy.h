@@ -1,40 +1,14 @@
 #ifndef INCLUDED_CALC_OBJECTLINKPROXY
 #define INCLUDED_CALC_OBJECTLINKPROXY
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_RASTERSPACE
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
-
-// type1 links use std pcr types
-#ifndef INCLUDED_PCRTYPES
 #include "pcrtypes.h"
-#define INCLUDED_PCRTYPES
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_OBJECTLINK
 #include "calc_objectlink.h"
-#define INCLUDED_CALC_OBJECTLINK
-#endif
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
+
+#include <vector>
+
 
 namespace calc {
   // ObjectLinkProxy declarations.

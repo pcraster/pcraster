@@ -1,18 +1,8 @@
 #ifndef INCLUDED_CALC_IOPIMPL
 #define INCLUDED_CALC_IOPIMPL
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 namespace calc {
   // IOpImpl declarations.

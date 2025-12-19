@@ -1,36 +1,12 @@
 #ifndef INCLUDED_CALC_STACKINPUT
 #define INCLUDED_CALC_STACKINPUT
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_DATATYPE
-# include "calc_datatype.h"
-#define INCLUDED_CALC_DATATYPE
-#endif
-
-#ifndef INCLUDED_CALC_DATAVALUE
+#include "calc_datatype.h"
 #include "calc_datavalue.h"
-#define INCLUDED_CALC_DATAVALUE
-#endif
+
+#include <vector>
+#include <string>
 
 
 namespace calc {

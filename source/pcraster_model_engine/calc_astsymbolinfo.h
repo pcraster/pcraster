@@ -1,42 +1,15 @@
 #ifndef INCLUDED_CALC_ASTSYMBOLINFO
 #define INCLUDED_CALC_ASTSYMBOLINFO
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_DATATYPE
 #include "calc_datatype.h"
-#define INCLUDED_CALC_DATATYPE
-#endif
-#ifndef INCLUDED_CALC_OVS
 #include "calc_ovs.h"
-#define INCLUDED_CALC_OVS
-#endif
-#ifndef INCLUDED_CALC_DEFINITIONROLE
 #include "calc_definitionrole.h"
-#define INCLUDED_CALC_DEFINITIONROLE
-#endif
-#ifndef INCLUDED_CALC_IOTYPE
 #include "calc_iotype.h"
-#define INCLUDED_CALC_IOTYPE
-#endif
+
+#include <iostream>
+#include <vector>
+
 
 namespace pcrxml {
   class Relation;

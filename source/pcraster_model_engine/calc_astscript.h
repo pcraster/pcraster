@@ -1,38 +1,12 @@
 #ifndef INCLUDED_CALC_ASTSCRIPT
 #define INCLUDED_CALC_ASTSCRIPT
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_REPORTTABLE
 #include "calc_reporttable.h"
-#define INCLUDED_CALC_REPORTTABLE
-#endif
-#ifndef INCLUDED_CALC_BINDINGTABLE
 #include "calc_bindingtable.h"
-#define INCLUDED_CALC_BINDINGTABLE
-#endif
-#ifndef INCLUDED_CALC_ASTSYMBOLTABLE
 #include "calc_astsymboltable.h"
-#define INCLUDED_CALC_ASTSYMBOLTABLE
-#endif
-#ifndef INCLUDED_CALC_RUNTIMEENVSETTINGS
 #include "calc_runtimeenvsettings.h"
-#define INCLUDED_CALC_RUNTIMEENVSETTINGS
-#endif
-#ifndef INCLUDED_CALC_ASTDEFINITION
 #include "calc_astdefinition.h"
-#define INCLUDED_CALC_ASTDEFINITION
-#endif
 
 
 namespace geo {

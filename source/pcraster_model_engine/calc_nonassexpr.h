@@ -1,23 +1,8 @@
 #ifndef INCLUDED_CALC_NONASSEXPR
 #define INCLUDED_CALC_NONASSEXPR
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-
-#ifndef INCLUDED_CALC_ASTNODE
 #include "calc_astnode.h"
-#define INCLUDED_CALC_ASTNODE
-#endif
 
 
 

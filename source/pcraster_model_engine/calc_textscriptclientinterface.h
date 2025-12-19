@@ -1,23 +1,10 @@
 #ifndef INCLUDED_CALC_TEXTSCRIPTCLIENTINTERFACE
 #define INCLUDED_CALC_TEXTSCRIPTCLIENTINTERFACE
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_CLIENTINTERFACE
 #include "calc_clientinterface.h"
-#define INCLUDED_CALC_CLIENTINTERFACE
-#endif
+
+#include <string>
 
 
 namespace calc {

@@ -1,20 +1,9 @@
 #ifndef INCLUDED_CALC_BASEEXPR
 #define INCLUDED_CALC_BASEEXPR
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_ASTID
 #include "calc_astid.h"
-#define INCLUDED_CALC_ASTID
-#endif
+
 
 namespace calc {
   // BaseExpr declarations.

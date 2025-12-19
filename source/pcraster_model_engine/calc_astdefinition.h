@@ -1,34 +1,13 @@
 #ifndef INCLUDED_CALC_ASTDEFINITION
 #define INCLUDED_CALC_ASTDEFINITION
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_ID
 #include "calc_id.h"
-#define INCLUDED_CALC_ID
-#endif
-#ifndef INCLUDED_CALC_DEFINITIONROLE
 #include "calc_definitionrole.h"
-#define INCLUDED_CALC_DEFINITIONROLE
-#endif
+
+#include <string>
+#include <map>
+
 
 namespace calc {
   // ASTDefinition declarations.

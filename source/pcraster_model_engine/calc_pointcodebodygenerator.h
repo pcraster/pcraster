@@ -1,53 +1,17 @@
 #ifndef INCLUDED_CALC_POINTCODEBODYGENERATOR
 #define INCLUDED_CALC_POINTCODEBODYGENERATOR
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-#ifndef INCLUDED_SET
-#include <set>
-#define INCLUDED_SET
-#endif
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_DOMAINILL
 #include "calc_domainill.h"
-#define INCLUDED_CALC_DOMAINILL
-#endif
-#ifndef INCLUDED_CALC_PARSET
 #include "calc_parset.h"
-#define INCLUDED_CALC_PARSET
-#endif
-#ifndef INCLUDED_CALC_CFGVISITOR
 #include "calc_cfgvisitor.h"
-#define INCLUDED_CALC_CFGVISITOR
-#endif
+
+#include <sstream>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <map>
+#include <set>
 
 
 namespace calc {

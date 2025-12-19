@@ -1,21 +1,9 @@
 #ifndef INCLUDED_CALC_IFIELDRDCONVERSION
 #define INCLUDED_CALC_IFIELDRDCONVERSION
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-// Library headers.
-#ifndef INCLUDED_LIMITS
 #include <limits>
-#define INCLUDED_LIMITS
-#endif
-// PCRaster library headers.
-
-// Module headers.
 
 
 

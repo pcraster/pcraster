@@ -2,21 +2,11 @@
 #define INCLUDED_CALC_VS
 
 #include "pcraster_model_engine_export.h"
-
-#ifndef INCLUDED_CALC_TYPES
 #include "calc_types.h"
-#define INCLUDED_CALC_TYPES
-#endif
 
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_IOSTREAM
 #include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
+
 
 VS biggestVs(VS setOfVs);
 

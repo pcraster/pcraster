@@ -1,38 +1,13 @@
 #ifndef INCLUDED_CALC_USEDEFANALYZER
 #define INCLUDED_CALC_USEDEFANALYZER
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_PARSET
 #include "calc_parset.h"
-#define INCLUDED_CALC_PARSET
-#endif
-#ifndef INCLUDED_CALC_CFGVISITOR
 #include "calc_cfgvisitor.h"
-#define INCLUDED_CALC_CFGVISITOR
-#endif
-#ifndef INCLUDED_CALC_IOTYPE
 #include "calc_iotype.h"
-#define INCLUDED_CALC_IOTYPE
-#endif
 
+#include <map>
+#include <string>
 
 
 namespace calc {

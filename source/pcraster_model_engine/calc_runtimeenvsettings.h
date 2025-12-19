@@ -1,21 +1,9 @@
 #ifndef INCLUDED_CALC_RUNTIMEENVSETTINGS
 #define INCLUDED_CALC_RUNTIMEENVSETTINGS
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-// Module headers.
+
 
 namespace geo {
   class RasterSpace;

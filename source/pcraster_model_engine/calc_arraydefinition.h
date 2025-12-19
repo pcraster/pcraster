@@ -1,20 +1,11 @@
 #ifndef INCLUDED_CALC_ARRAYDEFINITION
 #define INCLUDED_CALC_ARRAYDEFINITION
 
-#ifndef INCLUDED_CALC_INDEXCONTAINER
 # include "calc_indexcontainer.h"
-# define INCLUDED_CALC_INDEXCONTAINER
-#endif
 
-#ifndef INCLUDED_VECTOR
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_SET
 #include <set>
-#define INCLUDED_SET
-#endif
+
 
 namespace calc {
 
@@ -32,7 +23,7 @@ class ArrayDefinition: /*: public UserSymbol*/ public IndexContainer {
   // ordered vector of indices
    typedef std::vector<const class IndexParameterConstant *> IndexVector;
 
-  //! list of active indices, in correct order 
+  //! list of active indices, in correct order
   IndexVector d_activeIndex;
   //! list of indices that are off, prefixed by -
   IndexVector d_offIndex;

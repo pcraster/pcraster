@@ -1,22 +1,11 @@
 #ifndef INCLUDED_CALC_GLOBALLIBDEFS
 #define INCLUDED_CALC_GLOBALLIBDEFS
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-
-// PCRaster library headers.
 #include "pcraster_model_engine_export.h"
 
-// Module headers.
+#include <string>
+
 
 
 namespace calc {

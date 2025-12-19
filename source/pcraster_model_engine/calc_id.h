@@ -1,22 +1,9 @@
 #ifndef INCLUDED_CALC_ID
 #define INCLUDED_CALC_ID
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-// Library headers.
-#ifndef INCLUDED_SSTREAM
 #include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

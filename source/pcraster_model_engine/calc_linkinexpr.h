@@ -1,31 +1,13 @@
 #ifndef INCLUDED_CALC_LINKINEXPR
 #define INCLUDED_CALC_LINKINEXPR
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_ID
 #include "calc_id.h"
-#define INCLUDED_CALC_ID
-#endif
-#ifndef INCLUDED_CALC_BASEEXPR
 #include "calc_baseexpr.h"
-#define INCLUDED_CALC_BASEEXPR
-#endif
 
-#include  <memory>
+#include <memory>
+#include <string>
+
 
 namespace calc {
   // LinkInExpr declarations.

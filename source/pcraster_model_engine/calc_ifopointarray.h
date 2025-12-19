@@ -1,24 +1,9 @@
 #ifndef INCLUDED_CALC_IFOPOINTARRAY
 #define INCLUDED_CALC_IFOPOINTARRAY
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_CSFTYPES
 #include "csftypes.h"  // UINT1
-#define INCLUDED_CSFTYPES
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_CR
 #include "calc_cr.h"
-#define INCLUDED_CALC_CR
-#endif
 
 
 /*! \file

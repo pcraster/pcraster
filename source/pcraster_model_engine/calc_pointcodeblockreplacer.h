@@ -1,43 +1,14 @@
 #ifndef INCLUDED_CALC_POINTCODEBLOCKREPLACER
 #define INCLUDED_CALC_POINTCODEBLOCKREPLACER
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-#ifndef INCLUDED_STACK
-#include <stack>
-#define INCLUDED_STACK
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_ASTNODELIST
 #include "calc_astnodelist.h"
-#define INCLUDED_CALC_ASTNODELIST
-#endif
-#ifndef INCLUDED_CALC_ASTVISITOR
 #include "calc_astvisitor.h"
-#define INCLUDED_CALC_ASTVISITOR
-#endif
-#ifndef INCLUDED_CALC_POINTCODEBLOCK
 #include "calc_pointcodeblock.h"
-#define INCLUDED_CALC_POINTCODEBLOCK
-#endif
-#ifndef INCLUDED_CALC_PARSET
 #include "calc_parset.h"
-#define INCLUDED_CALC_PARSET
-#endif
 
+#include <vector>
+#include <stack>
 
 
 namespace calc {
@@ -61,7 +32,7 @@ class ASTSymbolTable;
  * suitable for replacement by a PointCodeBlock.
  *
  * \todo
- *  result d_list kan sanity check krijgen, wat local is in pred kan geen 
+ *  result d_list kan sanity check krijgen, wat local is in pred kan geen
  *  input zijn in succ *    -> tricky met repeat/dynamic ?
  */
 class PointCodeBlockReplacer : public ASTVisitor

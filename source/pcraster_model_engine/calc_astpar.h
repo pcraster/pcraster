@@ -1,25 +1,9 @@
 #ifndef INCLUDED_CALC_ASTPAR
 #define INCLUDED_CALC_ASTPAR
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-
-#ifndef INCLUDED_CALC_ASTID
 #include "calc_astid.h"
-#define INCLUDED_CALC_ASTID
-#endif
-#ifndef INCLUDED_CALC_IDLIST
 #include "calc_idlist.h"
-#define INCLUDED_CALC_IDLIST
-#endif
 
 
 namespace calc {

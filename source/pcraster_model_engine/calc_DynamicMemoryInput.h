@@ -1,26 +1,9 @@
 #ifndef INCLUDED_CALC_DYNAMICMEMORYINPUT
 #define INCLUDED_CALC_DYNAMICMEMORYINPUT
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_DATAVALUE
 #include "calc_datavalue.h"
-#define INCLUDED_CALC_DATAVALUE
-#endif
-#ifndef INCLUDED_CALC_DATATYPE
 #include "calc_datatype.h"
-#define INCLUDED_CALC_DATATYPE
-#endif
 
 
 namespace calc {

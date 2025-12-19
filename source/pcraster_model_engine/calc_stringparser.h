@@ -1,21 +1,9 @@
 #ifndef INCLUDED_CALC_STRINGPARSER
 #define INCLUDED_CALC_STRINGPARSER
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-// Library headers.
-
-// PCRaster library headers.
-
-
-// Module headers.
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
 
 
 namespace calc {

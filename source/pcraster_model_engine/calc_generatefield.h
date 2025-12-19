@@ -1,10 +1,8 @@
 #ifndef INCLUDED_CALC_GENERATEFIELD
 #define INCLUDED_CALC_GENERATEFIELD
 
-#ifndef INCLUDED_CSFTYPES
 #include "csftypes.h"
-#define INCLUDED_CSFTYPES
-#endif
+
 
 namespace geo {
   class RasterSpace;

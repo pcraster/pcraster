@@ -2,17 +2,10 @@
 #define INCLUDED_CALC_SPATIAL
 
 #include "pcraster_model_engine_export.h"
-
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
 
 #ifdef DEBUG_DEVELOP
-#ifndef INCLUDED_SET
 #include <set>
-#define INCLUDED_SET
-#endif
 #endif
 
 

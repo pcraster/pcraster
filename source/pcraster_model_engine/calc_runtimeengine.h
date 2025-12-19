@@ -1,19 +1,8 @@
 #ifndef INCLUDED_CALC_RUNTIMEENGINE
 #define INCLUDED_CALC_RUNTIMEENGINE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
 #include "pcraster_model_engine_export.h"
-
-// Module headers.
 
 
 

@@ -1,21 +1,8 @@
 #ifndef INCLUDED_CALC_DOWNSTREAMVISITOR
 #define INCLUDED_CALC_DOWNSTREAMVISITOR
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_CALC_LDDGRAPH
 #include "calc_lddgraph.h"
-#define INCLUDED_CALC_LDDGRAPH
-#endif
-// Module headers.
 
 
 

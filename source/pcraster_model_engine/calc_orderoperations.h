@@ -1,25 +1,9 @@
 #ifndef INCLUDED_CALC_ORDEROPERATIONS
 #define INCLUDED_CALC_ORDEROPERATIONS
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRTYPES
 #include "pcrtypes.h"
-#define INCLUDED_PCRTYPES
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_VSPATIAL
 #include "calc_vspatial.h"
-#define INCLUDED_CALC_VSPATIAL
-#endif
 
 
 

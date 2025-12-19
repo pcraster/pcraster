@@ -1,19 +1,7 @@
 #ifndef INCLUDED_CALC_UDEVENT
 #define INCLUDED_CALC_UDEVENT
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-
 
 
 namespace calc {

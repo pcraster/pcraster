@@ -1,22 +1,8 @@
 #ifndef INCLUDED_CALC_POINTIMPL
 #define INCLUDED_CALC_POINTIMPL
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_IOPIMPL
 #include "calc_iopimpl.h"
-#define INCLUDED_CALC_IOPIMPL
-#endif
 
 
 
@@ -30,7 +16,7 @@ namespace calc {
 
 
 
-//! having a possible point implementation 
+//! having a possible point implementation
 class PointImpl : public IOpImpl
 {
 

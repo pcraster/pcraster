@@ -6,15 +6,9 @@
 #define INCLUDED_FLEXLEXER
 #endif
 
-#ifndef INCLUDED_VECTOR
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
+
 
 namespace calc {
 

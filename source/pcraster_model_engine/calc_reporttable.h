@@ -1,33 +1,12 @@
 #ifndef INCLUDED_CALC_REPORTTABLE
 #define INCLUDED_CALC_REPORTTABLE
 
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_REPORT
 #include "calc_report.h"
-#define INCLUDED_CALC_REPORT
-#endif
-#ifndef INCLUDED_CALC_TIMER
 #include "calc_timer.h"
-#define INCLUDED_CALC_TIMER
-#endif
+
+#include <string>
+#include <map>
 
 
 namespace calc {

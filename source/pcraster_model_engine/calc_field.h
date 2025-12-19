@@ -1,27 +1,13 @@
 #ifndef INCLUDED_CALC_FIELD
 #define INCLUDED_CALC_FIELD
 
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
 #include "pcraster_model_engine_export.h"
-
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
-
-#ifndef INCLUDED_CALC_CR
 #include "calc_cr.h"
-#define INCLUDED_CALC_CR
-#endif
-
-#ifndef INCLUDED_CALC_DATAVALUE
 #include "calc_datavalue.h"
-#define INCLUDED_CALC_DATAVALUE
-#endif
+
+#include <vector>
+
 
 namespace calc {
 

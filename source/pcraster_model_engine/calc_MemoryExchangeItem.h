@@ -1,17 +1,7 @@
 #ifndef INCLUDED_CALC_MEMORYEXCHANGEITEM
 #define INCLUDED_CALC_MEMORYEXCHANGEITEM
 
-
-
-// External headers.
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
-
-// Project headers.
-
-// Module headers.
 
 
 

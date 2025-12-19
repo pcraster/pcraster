@@ -1,28 +1,11 @@
 #ifndef INCLUDED_CALC_DATASTORAGEID
 #define INCLUDED_CALC_DATASTORAGEID
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-// PCRaster library headers.
 #include "pcraster_model_engine_export.h"
-
-// Module headers.
-#ifndef INCLUDED_CALC_DATAVALUE
 #include "calc_datavalue.h"
-#define INCLUDED_CALC_DATAVALUE
-#endif
 
+#include <string>
 
 
 namespace calc {

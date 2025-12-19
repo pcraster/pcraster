@@ -1,42 +1,16 @@
 #ifndef INCLUDED_CALC_STATTABLE
 #define INCLUDED_CALC_STATTABLE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-#ifndef INCLUDED_CSFTYPES
 #include "csftypes.h"
-#define INCLUDED_CSFTYPES
-#endif
-#ifndef INCLUDED_COM_INTERVAL
 #include "com_interval.h"
-#define INCLUDED_COM_INTERVAL
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_BASEEXPR
 #include "calc_baseexpr.h"
-#define INCLUDED_CALC_BASEEXPR
-#endif
-#ifndef INCLUDED_CALC_ASTSYMBOLINFO
 #include "calc_astsymbolinfo.h"
-#define INCLUDED_CALC_ASTSYMBOLINFO
-#endif
+
+#include <iostream>
+
+
 namespace calc {
 
 class Field;

@@ -1,38 +1,12 @@
 #ifndef INCLUDED_CALC_RUNTIMEENV
 #define INCLUDED_CALC_RUNTIMEENV
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_TYPES
 #include "calc_types.h"
-#define INCLUDED_CALC_TYPES
-#endif
-#ifndef INCLUDED_CALC_RUNTIMESTACK
 #include "calc_runtimestack.h"
-#define INCLUDED_CALC_RUNTIMESTACK
-#endif
-#ifndef INCLUDED_CALC_DATATABLE
 #include "calc_datatable.h"
-#define INCLUDED_CALC_DATATABLE
-#endif
-#ifndef INCLUDED_CALC_TIMER
 #include "calc_timer.h"
-#define INCLUDED_CALC_TIMER
-#endif
 
 
 

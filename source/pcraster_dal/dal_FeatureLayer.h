@@ -6,8 +6,9 @@
 #include "dal_FeatureLayerGeometries.h"
 #include "dal_Table.h"
 
-#include <boost/any.hpp>
 #include <ogr_core.h>
+
+#include <any>
 
 
 class OGRGeometry;
@@ -57,10 +58,10 @@ private:
   std::map<long int, size_t> _valueIdByFeatureId;
 
   //! Minimum attribute value. If empty() then !hasExtremes().
-  boost::any       _min;
+  std::any         _min;
 
   //! Maximum attribute value. If empty() then !hasExtremes().
-  boost::any       _max;
+  std::any         _max;
 
   template<typename T>
   void             calculateExtremes   ();

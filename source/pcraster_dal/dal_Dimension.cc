@@ -186,9 +186,9 @@ void Dimension::checkConsistency()
       assert(_values[0].type() == typeid(float));
       assert(_values[1].type() == typeid(float));
       assert(_values[2].type() == typeid(float));
-      auto first = boost::any_cast<float>(_values[0]);
-      auto last = boost::any_cast<float>(_values[1]);
-      auto interval = boost::any_cast<float>(_values[2]);
+      auto first = std::any_cast<float>(_values[0]);
+      auto last = std::any_cast<float>(_values[1]);
+      auto interval = std::any_cast<float>(_values[2]);
       assert(first > float(0.0));
       assert(smallerOrComparable(first, last));
       assert(interval > float(0.0));
@@ -202,9 +202,9 @@ void Dimension::checkConsistency()
       assert(_values[0].type() == typeid(size_t));
       assert(_values[1].type() == typeid(size_t));
       assert(_values[2].type() == typeid(size_t));
-      auto first = boost::any_cast<size_t>(_values[0]);
-      auto last = boost::any_cast<size_t>(_values[1]);
-      auto interval = boost::any_cast<size_t>(_values[2]);
+      auto first = std::any_cast<size_t>(_values[0]);
+      auto last = std::any_cast<size_t>(_values[1]);
+      auto interval = std::any_cast<size_t>(_values[2]);
       assert(first > 0);
       assert(first <= last);
       assert(interval > 0);
@@ -218,9 +218,9 @@ void Dimension::checkConsistency()
       assert(_values[0].type() == typeid(size_t));
       assert(_values[1].type() == typeid(size_t));
       assert(_values[2].type() == typeid(size_t));
-      auto first = boost::any_cast<size_t>(_values[0]);
-      auto last = boost::any_cast<size_t>(_values[1]);
-      auto interval = boost::any_cast<size_t>(_values[2]);
+      auto first = std::any_cast<size_t>(_values[0]);
+      auto last = std::any_cast<size_t>(_values[1]);
+      auto interval = std::any_cast<size_t>(_values[2]);
       assert(first > 0);
       assert(first <= last);
       assert(interval > 0);
@@ -474,18 +474,18 @@ size_t Dimension::nrCoordinates() const
       break;
     }
     case CumulativeProbabilities: {
-      auto first = boost::any_cast<float>(_values[0]);
-      auto last = boost::any_cast<float>(_values[1]);
-      auto interval = boost::any_cast<float>(_values[2]);
+      auto first = std::any_cast<float>(_values[0]);
+      auto last = std::any_cast<float>(_values[1]);
+      auto interval = std::any_cast<float>(_values[2]);
       result = round<float, size_t>(((last - first) / interval) + float(1.0));
 
       break;
     }
     case Samples:
     case Time: {
-      auto first = boost::any_cast<size_t>(_values[0]);
-      auto last = boost::any_cast<size_t>(_values[1]);
-      auto interval = boost::any_cast<size_t>(_values[2]);
+      auto first = std::any_cast<size_t>(_values[0]);
+      auto last = std::any_cast<size_t>(_values[1]);
+      auto interval = std::any_cast<size_t>(_values[2]);
       result = ((last - first) / interval) + 1;
 
       break;
@@ -555,8 +555,8 @@ bool Dimension::equals(
       switch(meaning()) {
         case Scenarios: {
           for(size_t i = 0; i < nrValues(); ++i) {
-            if(boost::any_cast<std::string>(_values[i]) !=
-               boost::any_cast<std::string>(rhs._values[i])) {
+            if(std::any_cast<std::string>(_values[i]) !=
+               std::any_cast<std::string>(rhs._values[i])) {
               return false;
             }
           }
@@ -565,8 +565,8 @@ bool Dimension::equals(
         }
         case CumulativeProbabilities: {
           for(size_t i = 0; i < nrValues(); ++i) {
-            if(!comparable<float>(boost::any_cast<float>(_values[i]),
-                   boost::any_cast<float>(rhs._values[i]))) {
+            if(!comparable<float>(std::any_cast<float>(_values[i]),
+                   std::any_cast<float>(rhs._values[i]))) {
               return false;
             }
           }
@@ -575,8 +575,8 @@ bool Dimension::equals(
         }
         case Samples: {
           for(size_t i = 0; i < nrValues(); ++i) {
-            if(boost::any_cast<size_t>(_values[i]) !=
-               boost::any_cast<size_t>(rhs._values[i])) {
+            if(std::any_cast<size_t>(_values[i]) !=
+               std::any_cast<size_t>(rhs._values[i])) {
               return false;
             }
           }
@@ -585,8 +585,8 @@ bool Dimension::equals(
         }
         case Time: {
           for(size_t i = 0; i < nrValues(); ++i) {
-            if(boost::any_cast<size_t>(_values[i]) !=
-               boost::any_cast<size_t>(rhs._values[i])) {
+            if(std::any_cast<size_t>(_values[i]) !=
+               std::any_cast<size_t>(rhs._values[i])) {
               return false;
             }
           }
@@ -623,7 +623,7 @@ bool Dimension::equals(
 
       return true;
     }
-    catch(boost::bad_any_cast const&) {
+    catch(std::bad_any_cast const&) {
       return false;
     }
   }
@@ -634,29 +634,29 @@ bool Dimension::equals(
 
 
 bool Dimension::contains(
-         boost::any const& coordinate) const
+         std::any const& coordinate) const
 {
-  assert(!coordinate.empty());
+  assert(coordinate.has_value());
 
   bool result = false;
 
   switch(meaning()) {
     case Scenarios: {
       result = containsExactValue<std::string>(
-         boost::any_cast<std::string>(coordinate));
+         std::any_cast<std::string>(coordinate));
       break;
     }
     case CumulativeProbabilities: {
-      result = containsValueInRange<float>(boost::any_cast<float>(coordinate));
+      result = containsValueInRange<float>(std::any_cast<float>(coordinate));
       break;
     }
     case Samples: {
-      result = containsValueInRange<size_t>(boost::any_cast<size_t>(
+      result = containsValueInRange<size_t>(std::any_cast<size_t>(
          coordinate));
       break;
     }
     case Time: {
-      result = containsValueInRange<size_t>(boost::any_cast<size_t>(
+      result = containsValueInRange<size_t>(std::any_cast<size_t>(
          coordinate));
       break;
     }
@@ -679,7 +679,7 @@ bool Dimension::contains(
       }
 
       auto const& spatialCoordinate(
-            boost::any_cast<SpatialCoordinate const&>(coordinate));
+            std::any_cast<SpatialCoordinate const&>(coordinate));
       result = dimensions->contains(spatialCoordinate);
 
       break;

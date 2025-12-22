@@ -5,8 +5,7 @@
 #include "dal_Configure.h"
 #include "dal_PropertyKeys.h"          // Only for convenience.
 
-#include <boost/any.hpp>
-
+#include <any>
 #include <cassert>
 #include <map>
 #include <string>
@@ -41,7 +40,7 @@ class PCR_DAL_DECL Properties
 private:
 
   //! Datastructure for storing the property values by name.
-  std::map<std::string, boost::any> d_values;
+  std::map<std::string, std::any> d_values;
 
 protected:
 
@@ -134,7 +133,7 @@ inline T const& Properties::value(
 {
   assert(hasValue(name));
 
-  return *boost::any_cast<T>(&(*d_values.find(name)).second);
+  return *std::any_cast<T>(&(*d_values.find(name)).second);
 }
 
 //! Returns the property value for \a name.
@@ -149,7 +148,7 @@ inline T& Properties::value(
 {
   assert(hasValue(name));
 
-  return *boost::any_cast<T>(&(*d_values.find(name)).second);
+  return *std::any_cast<T>(&(*d_values.find(name)).second);
 }
 
 //! Returns the property value for \a name.

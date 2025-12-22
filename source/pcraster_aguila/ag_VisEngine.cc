@@ -44,8 +44,8 @@ public:
 
   DataGuide const *_height{nullptr};
 
-  boost::any _selectedValue;
-  /// std::map<DataGuide, boost::any> _selectedValues;
+  std::any _selectedValue;
+  /// std::map<DataGuide, std::any> _selectedValues;
 
   QColor _backgroundColour;
 
@@ -294,14 +294,14 @@ void VisEngine::rescan(DataObject const &object)
   }
 
   if (object.hasSelectedValue()) {
-    if (_data->_selectedValue.empty() ||
-        !dal::comparable(object.selectedValue(), boost::any_cast<REAL4>(_data->_selectedValue))) {
+    if (!_data->_selectedValue.has_value() ||
+        !dal::comparable(object.selectedValue(), std::any_cast<REAL4>(_data->_selectedValue))) {
       _data->_selectedValue = object.selectedValue();
       _data->_change |= VALUE_SELECTION;
     }
   } else {
-    if (!_data->_selectedValue.empty()) {
-      _data->_selectedValue = boost::any();
+    if (_data->_selectedValue.has_value()) {
+      _data->_selectedValue = std::any();
       _data->_change |= VALUE_SELECTION;
     }
   }
@@ -350,7 +350,7 @@ void VisEngine::addDataGuide(DataGuide const &aDataGuide)
   // KDJ: It is possible that the same data is visualised more than once.
   // assert(_data->_selectedValues.find(aDataGuide) ==
   //        _data->_selectedValues.end());
-  /// _data->_selectedValues[aDataGuide] = boost::any();
+  /// _data->_selectedValues[aDataGuide] = std::any();
 }
 
 void VisEngine::addDataProperties(DataObject const &dataObject, DataGuide const &dataGuide)

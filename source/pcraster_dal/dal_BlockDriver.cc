@@ -97,8 +97,8 @@ DataSpace BlockDriver::dataSpace(
     throwCannotBeOpened(name, BLOCK, space, address);
   }
 
-  std::vector<boost::any> rows;
-  std::vector<boost::any> cols;
+  std::vector<std::any> rows;
+  std::vector<std::any> cols;
   rows.push_back(size_t(1));
   rows.push_back(block->nrRows());
   rows.push_back(size_t(1));

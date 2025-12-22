@@ -19,8 +19,8 @@ template<typename T>
 static void findExtremes(
          T const* data,
          size_t size,
-         boost::any& min,
-         boost::any& max,
+         std::any& min,
+         std::any& max,
          bool& allMV)
 {
   allMV=true;
@@ -38,7 +38,7 @@ static void findExtremes(
     }
   }
   if (allMV) {
-    min=max=boost::any();
+    min=max=std::any();
   } else {
     min=minT;
     max=maxT;
@@ -146,7 +146,7 @@ dal::Matrix::Matrix(
 
   : Dataset(rhs),
     d_nrRows(rhs.d_nrRows), d_nrCols(rhs.d_nrCols),
-    d_typeId(rhs.d_typeId), 
+    d_typeId(rhs.d_typeId),
     d_min(rhs.d_min), d_max(rhs.d_max), d_allMV(rhs.d_allMV),
     d_hasExtremes(rhs.d_hasExtremes)
 
@@ -355,7 +355,7 @@ dal::TypeId dal::Matrix::typeId() const
 
 bool dal::Matrix::cellsAreCreated() const
 {
-  return !d_cells.empty();
+  return d_cells.has_value();
 }
 
 
@@ -506,14 +506,14 @@ void dal::Matrix::createCells()
  *  Should set the extremes in accordance with the data
  */
 void dal::Matrix::setExtremes(
-         const boost::any& min,
-         const boost::any& max)
+         const std::any& min,
+         const std::any& max)
 {
-  assert(min.empty() == max.empty());
+  assert(!min.has_value() == !max.has_value());
 
   d_min = min;
   d_max = max;
-  d_allMV = min.empty();
+  d_allMV = !min.has_value();
   d_hasExtremes = true;
 }
 
@@ -594,14 +594,14 @@ bool dal::Matrix::hasExtremes() const
 
 
 
-boost::any dal::Matrix::min() const
+std::any dal::Matrix::min() const
 {
   return d_min;
 }
 
 
 
-boost::any dal::Matrix::max() const
+std::any dal::Matrix::max() const
 {
   return d_max;
 }
@@ -704,8 +704,8 @@ inline T* Matrix::release()
 {
   assert(cellsAreCreated());
 
-  T* pointer = boost::any_cast<T*>(d_cells);
-  d_cells = boost::any();
+  T* pointer = std::any_cast<T*>(d_cells);
+  d_cells = std::any();
 
   return pointer;
 }
@@ -725,7 +725,7 @@ inline T const* Matrix::cells() const
 {
   assert(cellsAreCreated());
 
-  T* pointer = boost::any_cast<T*>(d_cells);
+  T* pointer = std::any_cast<T*>(d_cells);
 
   return pointer;
 }
@@ -737,7 +737,7 @@ inline PCR_DAL_DECL T* Matrix::cells()
 {
   assert(cellsAreCreated());
 
-  T* pointer = boost::any_cast<T*>(d_cells);
+  T* pointer = std::any_cast<T*>(d_cells);
 
   return pointer;
 }
@@ -799,7 +799,7 @@ inline void Matrix::eraseCells()
     delete[] cells<T>();
   }
 
-  d_cells = boost::any();
+  d_cells = std::any();
 }
 
 
@@ -823,8 +823,8 @@ inline void Matrix::setAllMV()
 
   d_allMV = true;
   d_hasExtremes = false;
-  d_min = boost::any();
-  d_max = boost::any();
+  d_min = std::any();
+  d_max = std::any();
 }
 
 
@@ -880,13 +880,13 @@ inline void Matrix::fill(T const& value)
 template<typename T>
 inline T Matrix::min() const
 {
-  return boost::any_cast<T>(d_min);
+  return std::any_cast<T>(d_min);
 }
 
 template<typename T>
 inline T Matrix::max() const
 {
-  return boost::any_cast<T>(d_max);
+  return std::any_cast<T>(d_max);
 }
 
 

@@ -17,12 +17,12 @@ BOOST_AUTO_TEST_CASE(read_)
   {
     UINT1 data[25];
     map.getCells(0, 25, data);
-    BOOST_CHECK(pcr::isMV(data[0]));
+    BOOST_TEST(pcr::isMV(data[0]));
     BOOST_CHECK_EQUAL(data[1], 1);
     BOOST_CHECK_EQUAL(map.fileTypeId(), TI_UINT1);
     BOOST_CHECK_EQUAL(map.useTypeId(), TI_UINT1);
 
-    auto min = boost::any_cast<UINT1>(map.min());
+    auto min = std::any_cast<UINT1>(map.min());
     BOOST_CHECK_EQUAL(min, 1);
   }
   {
@@ -32,12 +32,12 @@ BOOST_AUTO_TEST_CASE(read_)
     map.useAs(TI_REAL4);
     REAL4 data[25];
     map.getCells(0, 25, data);
-    BOOST_CHECK(pcr::isMV(data[0]));
+    BOOST_TEST(pcr::isMV(data[0]));
     BOOST_CHECK_EQUAL(data[1], 1);
 
-    BOOST_CHECK_THROW(boost::any_cast<UINT1>(map.min()), boost::bad_any_cast);
+    BOOST_CHECK_THROW(std::any_cast<UINT1>(map.min()), std::bad_any_cast);
 
-    auto min = boost::any_cast<REAL4>(map.min());
+    auto min = std::any_cast<REAL4>(map.min());
     BOOST_CHECK_EQUAL(min, 1);
   }
 }
@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_CASE(error)
   BOOST_CHECK_THROW(
          CSFMap("csfMapTestErrorCreate.map", 5, 5, 0, 0, 0, -30,
          TI_UINT1, VS_BOOLEAN), dal::Exception);
-  BOOST_CHECK(MstrError());
+  BOOST_TEST(MstrError());
   /* TODO
    * - let CSFMap and also gdal add  "driver" specific message to error
    *    such as MstrError()
@@ -81,7 +81,7 @@ BOOST_AUTO_TEST_CASE(error)
 // BOOST_AUTO_TEST_CASE(legend)
 // {
 //   using namespace dal;
-// 
+//
 //   // TODO Bug? Legend detection seems wrong.
 //   CSFMap map("d83.map");
 //   BOOST_CHECK(map.hasLegend());

@@ -3,8 +3,7 @@
 
 #include "dal_Def.h"
 
-#include <boost/any.hpp>
-
+#include <any>
 #include <filesystem>
 
 
@@ -106,8 +105,8 @@ public:
                                         size_t nrCells,
                                         void const* buffer);
 
-  void             setExtremes         (const boost::any& min,
-                                        const boost::any& max);
+  void             setExtremes         (const std::any& min,
+                                        const std::any& max);
 
   //----------------------------------------------------------------------------
   // ACCESSORS
@@ -145,9 +144,9 @@ public:
 
   bool             isMV                (void const* value) const;
 
-  boost::any       min                 () const;
+  std::any       min                 () const;
 
-  boost::any       max                 () const;
+  std::any       max                 () const;
 
   void*            malloc              (size_t nrCells) const;
 

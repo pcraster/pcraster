@@ -92,8 +92,8 @@ Raster::Raster(std::string const &name, dal::DataSpace const &dataSpace)
   d_raster->setTypeId(useTypeId);
   d_raster->createCells();
 
-  boost::any min;
-  boost::any max;
+  std::any min;
+  std::any max;
   auto *driver = dynamic_cast<dal::RasterDriver *>(dataSource().reader());
   assert(driver);
 

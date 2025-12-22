@@ -77,8 +77,8 @@ FeatureLayer::FeatureLayer(std::string const &name, dal::DataSpace const &space)
     auto *driver = dynamic_cast<dal::FeatureDriver *>(dataSource().reader());
     assert(driver);
 
-    boost::any min;
-    boost::any max;
+    std::any min;
+    std::any max;
 
     if (driver->extremes(min, max, layer->typeId(), dataSource().name(),
                          dataSource().enclosingDataSpace())) {

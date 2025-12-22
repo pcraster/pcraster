@@ -6,9 +6,9 @@
 #include "dal_Dataset.h"
 #include "dal_Type.h"
 
-#include <boost/any.hpp>
-
+#include <any>
 #include <cassert>
+#include <cstring>
 
 
 namespace dal {
@@ -81,15 +81,15 @@ private:
   TypeId           d_typeId{TI_NR_TYPES};
 
   //! Cell values.
-  boost::any       d_cells;
+  std::any       d_cells;
 
   Ownership        d_ownership{TakeOwnership};
 
   //! minimum value, if empty() then !hasExtremes() or allMV()
-  boost::any       d_min;
+  std::any       d_min;
 
   //! maximum value, if empty() then !hasExtremes() or allMV()
-  boost::any       d_max;
+  std::any       d_max;
 
   //! is all data MV?, unspecified if !hasExtremes()
   bool             d_allMV{true};
@@ -173,8 +173,8 @@ public:
   template<typename T>
   PCR_DAL_DECL void fill               (T const& value);
 
-  void             setExtremes         (const boost::any& min,
-                                        const boost::any& max);
+  void             setExtremes         (const std::any& min,
+                                        const std::any& max);
 
   void             setExtremes         ();
 
@@ -221,9 +221,9 @@ public:
 
   bool             allMV               () const;
 
-  boost::any       min                 () const;
+  std::any       min                 () const;
 
-  boost::any       max                 () const;
+  std::any       max                 () const;
 
   template<typename T>
   PCR_DAL_DECL T   min                 () const;

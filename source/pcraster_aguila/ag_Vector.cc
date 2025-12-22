@@ -49,8 +49,8 @@ Vector::Vector(std::string const &name, dal::DataSpace const &space)
   auto const *driver = dynamic_cast<dal::VectorDriver const *>(dataSource().reader());
   assert(driver);
 
-  boost::any min;
-  boost::any max;
+  std::any min;
+  std::any max;
 
   if (driver->extremes(min, max, _vector->typeId(), dataSource().name(),
                        dataSource().enclosingDataSpace())) {

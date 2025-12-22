@@ -96,8 +96,8 @@ public:
                                         DataSpace const& space=DataSpace(),
                                         DataSpaceAddress const& address=DataSpaceAddress()) const override;
 
-  bool             extremes            (boost::any& min,
-                                        boost::any& max,
+  bool             extremes            (std::any& min,
+                                        std::any& max,
                                         TypeId typeId,
                                         std::string const& name,
                                         DataSpace const& space=DataSpace()) const;

@@ -3,8 +3,7 @@
 
 #include "dal_DataSource.h"
 
-#include <boost/any.hpp>
-
+#include <any>
 #include <string>
 
 
@@ -36,9 +35,9 @@ private:
 
   dal::DataSource  _source;
 
-  boost::any       _min;
+  std::any       _min;
 
-  boost::any       _max;
+  std::any       _max;
 
   dal::DataSpaceAddressMapper* _localToWorldMapper{nullptr};
 
@@ -47,7 +46,7 @@ private:
   //! Data space address of data read in local (data set) coordinates.
   dal::DataSpaceAddress _addressRead;
 
-  boost::any       _selectedValue;
+  std::any       _selectedValue;
 
   void             initialiseLocalToWorldMapper(
                                         dal::DataSpace const& space);
@@ -68,14 +67,14 @@ protected:
 
   virtual bool     isRead              (dal::DataSpaceAddress const& address) const=0;
 
-  /// boost::any const& selectedValue      () const;
+  /// std::any const& selectedValue      () const;
 
   dal::DataSpaceAddress const& addressRead() const;
 
   void             setAddressRead      (dal::DataSpaceAddress const& address);
 
-  void             setExtremes         (boost::any const& min,
-                                        boost::any const& max);
+  void             setExtremes         (std::any const& min,
+                                        std::any const& max);
 
 public:
 
@@ -149,8 +148,8 @@ template<typename T>
 bool Dataset::min(
          T& value) const
 {
-  if(!_min.empty()) {
-    value = boost::any_cast<T>(_min);
+  if(_min.has_value()) {
+    value = std::any_cast<T>(_min);
 
     if(!pcr::isMV(value)) {
       return true;
@@ -166,8 +165,8 @@ template<typename T>
 bool Dataset::max(
          T& value) const
 {
-  if(!_max.empty()) {
-    value = boost::any_cast<T>(_max);
+  if(_max.has_value()) {
+    value = std::any_cast<T>(_max);
     if(!pcr::isMV(value)) {
       return true;
     }
@@ -179,15 +178,15 @@ bool Dataset::max(
 template<typename T>
 T Dataset::min() const
 {
-  assert(!_min.empty());
-  return boost::any_cast<T>(_min);
+  assert(_min.has_value());
+  return std::any_cast<T>(_min);
 }
 
 template<typename T>
 T Dataset::max() const
 {
-  assert(!_max.empty());
-  return boost::any_cast<T>(_max);
+  assert(_max.has_value());
+  return std::any_cast<T>(_max);
 }
 
 

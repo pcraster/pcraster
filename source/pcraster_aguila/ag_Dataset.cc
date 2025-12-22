@@ -166,25 +166,25 @@ REAL4 Dataset::selectedValue() const
 {
   assert(hasSelectedValue());
 
-  return boost::any_cast<REAL4>(_selectedValue);
+  return std::any_cast<REAL4>(_selectedValue);
 }
 
 bool Dataset::hasSelectedValue() const
 {
-  return !_selectedValue.empty();
+  return _selectedValue.has_value();
 }
 
 void Dataset::unsetSelectedValue()
 {
   if (hasSelectedValue()) {
-    _selectedValue = boost::any();
+    _selectedValue = std::any();
 
     // Make sure new data is read by invalidating the current data.
     _addressRead = dataSource().dataSpace().address();
   }
 }
 
-/// boost::any const& Dataset::selectedValue() const
+/// std::any const& Dataset::selectedValue() const
 /// {
 ///   return _selectedValue;
 /// }
@@ -200,7 +200,7 @@ void Dataset::setAddressRead(dal::DataSpaceAddress const &address)
   _addressRead = address;
 }
 
-void Dataset::setExtremes(boost::any const &min, boost::any const &max)
+void Dataset::setExtremes(std::any const &min, std::any const &max)
 {
   _min = min;
   _max = max;
@@ -208,8 +208,8 @@ void Dataset::setExtremes(boost::any const &min, boost::any const &max)
 
 bool Dataset::allMV() const
 {
-  assert((_min.empty() && _max.empty()) || (!_min.empty() && !_max.empty()));
-  return _min.empty();
+  assert((!_min.has_value() && !_max.has_value()) || (_min.has_value() && _max.has_value()));
+  return _min.has_value();
 }
 
 //------------------------------------------------------------------------------

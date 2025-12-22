@@ -144,8 +144,8 @@ Table::Table(std::string const &name, dal::DataSpace const &space)
   d_table = table.release();
   d_table->createCols();
 
-  boost::any min;
-  boost::any max;
+  std::any min;
+  std::any max;
   if (driver->extremes(min, max, d_attrCol, d_table->typeId(d_attrCol), dataSource().name(),
                        dataSource().enclosingDataSpace())) {
     setExtremes(min, max);

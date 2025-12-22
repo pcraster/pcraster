@@ -161,8 +161,8 @@ public:
                                         DataSpaceAddress const& address,
                                         std::string const& name) const=0;
 
-  bool             extremes            (boost::any& min,
-                                        boost::any& max,
+  bool             extremes            (std::any& min,
+                                        std::any& max,
                                         TypeId typeId,
                                         std::string const& name,
                                         DataSpace const& space) const;

@@ -4,8 +4,7 @@
 #include "dev_Compiler.h"
 #include "dal_Configure.h"
 
-#include <boost/any.hpp>
-
+#include <any>
 #include <vector>
 
 
@@ -62,7 +61,7 @@ class PCR_DAL_DECL DataSpaceAddress
 private:
 
   //! Collection of coordinates.
-  std::vector<boost::any> d_coordinates;
+  std::vector<std::any> d_coordinates;
 
 public:
 
@@ -108,7 +107,7 @@ public:
 
   size_t           nrInvalidCoordinates() const;
 
-  boost::any const& coordinate         (size_t index) const;
+  std::any const& coordinate         (size_t index) const;
 
   template<typename T>
   T const&         coordinate          (size_t index) const;
@@ -157,7 +156,7 @@ template<typename T>
 inline T const& DataSpaceAddress::coordinate(
          size_t index) const
 {
-  return boost::any_cast<T const&>(d_coordinates[index]);
+  return std::any_cast<T const&>(d_coordinates[index]);
 }
 
 

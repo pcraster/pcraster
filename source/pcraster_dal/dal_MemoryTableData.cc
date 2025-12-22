@@ -96,16 +96,16 @@ MemoryTableData& MemoryTableData::operator=(
 
 
 void MemoryTableData::initialiseValues(
-         std::vector<boost::any>& values)
+         std::vector<std::any>& values)
 {
   assert(values.empty());
-  values.push_back(std::vector<boost::any>());
+  values.push_back(std::vector<std::any>());
 }
 
 
 
 void MemoryTableData::initialiseValues(
-         std::vector<boost::any>& values,
+         std::vector<std::any>& values,
          DataSpace space)
 {
   // If space has no dimensions any more, this is the level where the actual
@@ -130,11 +130,11 @@ void MemoryTableData::initialiseValues(
       case Samples:
       case Time:
       case Space: {
-        values.resize(dimension.nrCoordinates(), std::vector<boost::any>());
+        values.resize(dimension.nrCoordinates(), std::vector<std::any>());
 
         for(auto & value : values) {
           initialiseValues(
-             boost::any_cast<std::vector<boost::any>&>(value), space);
+             std::any_cast<std::vector<std::any>&>(value), space);
         }
 
         break;
@@ -155,15 +155,15 @@ void MemoryTableData::initialiseValues(
 //          std::vector<boost::any>& destinationValues)
 // {
 //   assert(destinationValues.empty());
-// 
-// 
+//
+//
 // }
 
 
 
 void MemoryTableData::add(
          Table* table,
-         std::vector<boost::any>& values)
+         std::vector<std::any>& values)
 {
   assert(values.size() == 1);
   values[0] = table;
@@ -175,7 +175,7 @@ void MemoryTableData::add(
          Table* table,
          DataSpace space,
          DataSpaceAddress address,
-         std::vector<boost::any>& values)
+         std::vector<std::any>& values)
 {
   if(space.isEmpty()) {
     add(table, values);
@@ -209,7 +209,7 @@ void MemoryTableData::add(
     address.eraseCoordinate(0);
 
     add(table, space, address,
-       boost::any_cast<std::vector<boost::any>&>(values[index]));
+       std::any_cast<std::vector<std::any>&>(values[index]));
   }
 }
 
@@ -236,12 +236,12 @@ void MemoryTableData::add(
 
 
 void MemoryTableData::clear(
-         std::vector<boost::any>& values)
+         std::vector<std::any>& values)
 {
   assert(values.size() == 1);
 
   if(exists(values)) {
-    delete boost::any_cast<Table*>(values[0]);
+    delete std::any_cast<Table*>(values[0]);
     values.clear();
   }
 }
@@ -249,7 +249,7 @@ void MemoryTableData::clear(
 
 
 void MemoryTableData::clear(
-         std::vector<boost::any>& values,
+         std::vector<std::any>& values,
          DataSpace space)
 {
   if(space.isEmpty()) {
@@ -260,7 +260,7 @@ void MemoryTableData::clear(
     space.eraseDimension(0);
 
     for(size_t i = 0; i < dimension.nrCoordinates(); ++i) {
-      clear(boost::any_cast<std::vector<boost::any>&>(values[i]), space);
+      clear(std::any_cast<std::vector<std::any>&>(values[i]), space);
     }
   }
 }
@@ -290,10 +290,10 @@ DataSpace const& MemoryTableData::dataSpace() const
 
 
 bool MemoryTableData::exists(
-         std::vector<boost::any> const& values) const
+         std::vector<std::any> const& values) const
 {
   assert(values.size() == 1);
-  return boost::any_cast<Table*>(&values[0]) != nullptr;
+  return std::any_cast<Table*>(&values[0]) != nullptr;
 }
 
 
@@ -301,7 +301,7 @@ bool MemoryTableData::exists(
 bool MemoryTableData::exists(
          DataSpace space,
          DataSpaceAddress address,
-         std::vector<boost::any> const& values) const
+         std::vector<std::any> const& values) const
 {
   bool result = false;
 
@@ -337,7 +337,7 @@ bool MemoryTableData::exists(
     address.eraseCoordinate(0);
 
     result = exists(space, address,
-         boost::any_cast<std::vector<boost::any> const&>(values[index]));
+         std::any_cast<std::vector<std::any> const&>(values[index]));
   }
 
   return result;
@@ -359,14 +359,14 @@ bool MemoryTableData::exists(
 
 
 Table const* MemoryTableData::table(
-         std::vector<boost::any>& values)
+         std::vector<std::any>& values)
 {
   assert(values.size() == 1);
 
   Table const* result = nullptr;
 
   if(exists(values)) {
-    result = *boost::any_cast<Table*>(&values[0]);
+    result = *std::any_cast<Table*>(&values[0]);
   }
 
   return result;
@@ -375,7 +375,7 @@ Table const* MemoryTableData::table(
 
 
 Table const* MemoryTableData::table(
-         std::vector<boost::any>& values,
+         std::vector<std::any>& values,
          DataSpace space,
          DataSpaceAddress address)
 {
@@ -414,7 +414,7 @@ Table const* MemoryTableData::table(
     space.eraseDimension(0);
     address.eraseCoordinate(0);
 
-    result = table(boost::any_cast<std::vector<boost::any>&>(values[index]),
+    result = table(std::any_cast<std::vector<std::any>&>(values[index]),
          space, address);
   }
 

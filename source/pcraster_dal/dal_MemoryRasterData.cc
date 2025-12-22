@@ -69,7 +69,7 @@ MemoryRasterData::MemoryRasterData(
 
 
 MemoryRasterData::MemoryRasterData(
-         std::vector<boost::any>& values,
+         std::vector<std::any>& values,
          DataSpace const& dataSpace,
          TypeId typeId,
          size_t nrRows,
@@ -165,7 +165,7 @@ void MemoryRasterData::add(
 
 bool MemoryRasterData::hasExtremes()
 {
-  return !d_min.empty() && !d_max.empty();
+  return d_min.has_value() && d_max.has_value();
 }
 
 
@@ -192,25 +192,25 @@ void MemoryRasterData::updateExtremes()
 
 
 void* MemoryRasterData::cells(
-         std::vector<boost::any> values)
+         std::vector<std::any> values)
 {
   assert(values.size() == 1);
 
   void* result = nullptr;
 
   switch(d_typeId) {
-    case TI_INT1 : { result = boost::any_cast<INT1* >(values[0]); break; }
-    case TI_INT2 : { result = boost::any_cast<INT2* >(values[0]); break; }
-    case TI_INT4 : { result = boost::any_cast<INT4* >(values[0]); break; }
-    case TI_UINT1: { result = boost::any_cast<UINT1*>(values[0]); break; }
-    case TI_UINT2: { result = boost::any_cast<UINT2*>(values[0]); break; }
-    case TI_UINT4: { result = boost::any_cast<UINT4*>(values[0]); break; }
-    case TI_REAL4: { result = boost::any_cast<REAL4*>(values[0]); break; }
-    case TI_REAL8: { result = boost::any_cast<REAL8*>(values[0]); break; }
+    case TI_INT1 : { result = std::any_cast<INT1* >(values[0]); break; }
+    case TI_INT2 : { result = std::any_cast<INT2* >(values[0]); break; }
+    case TI_INT4 : { result = std::any_cast<INT4* >(values[0]); break; }
+    case TI_UINT1: { result = std::any_cast<UINT1*>(values[0]); break; }
+    case TI_UINT2: { result = std::any_cast<UINT2*>(values[0]); break; }
+    case TI_UINT4: { result = std::any_cast<UINT4*>(values[0]); break; }
+    case TI_REAL4: { result = std::any_cast<REAL4*>(values[0]); break; }
+    case TI_REAL8: { result = std::any_cast<REAL8*>(values[0]); break; }
     case TI_UINT1_VECTOR: { assert(d_typeId != TI_UINT1_VECTOR); break; }
     case TI_INT4_VECTOR: { assert(d_typeId != TI_INT4_VECTOR); break; }
     case TI_REAL4_VECTOR: { assert(d_typeId != TI_REAL4_VECTOR); break; }
-    case TI_STRING: { result = boost::any_cast<std::string*>(values[0]); break; }
+    case TI_STRING: { result = std::any_cast<std::string*>(values[0]); break; }
     case TI_NR_TYPES: { assert(d_typeId != TI_NR_TYPES); break; }
   }
 
@@ -225,14 +225,14 @@ void* MemoryRasterData::cells(
 // void* MemoryRasterData::cells(
 //          std::vector<boost::any> values)
 // {
-//   void* result = 
+//   void* result =
 // }
 
 
 
 template<class T>
 void* MemoryRasterData::cells(
-         std::vector<boost::any> values,
+         std::vector<std::any> values,
          DataSpace space,
          DataSpaceAddress address)
 {
@@ -247,8 +247,8 @@ void* MemoryRasterData::cells(
 
   size_t i = 0;
   while(i < values.size()) {
-    if(comparable<T>(valueToFind, boost::any_cast<T>(std::get<0>(
-         boost::any_cast<std::tuple<T, std::vector<boost::any> > >(
+    if(comparable<T>(valueToFind, std::any_cast<T>(std::get<0>(
+         std::any_cast<std::tuple<T, std::vector<std::any> > >(
          values[i]))))) {
       break;
     }
@@ -265,7 +265,7 @@ void* MemoryRasterData::cells(
     // to the data we need.
     result = cells(
          std::get<1>(
-         boost::any_cast<std::tuple<T, std::vector<boost::any> > >(
+         std::any_cast<std::tuple<T, std::vector<std::any> > >(
          values[i])));
   }
   else {
@@ -276,7 +276,7 @@ void* MemoryRasterData::cells(
 
     result = cells(
          std::get<1>(
-         boost::any_cast<std::tuple<T, std::vector<boost::any> > >(
+         std::any_cast<std::tuple<T, std::vector<std::any> > >(
          values[i])), space, address);
 
   }
@@ -289,7 +289,7 @@ void* MemoryRasterData::cells(
 
 
 void* MemoryRasterData::cells(
-         const std::vector<boost::any>& values,
+         const std::vector<std::any>& values,
          DataSpace space,
          const DataSpaceAddress& address)
 {
@@ -338,7 +338,7 @@ void* MemoryRasterData::cells(
 #ifdef DEBUG_DEVELOP
 template<typename T>
 void MemoryRasterData::checkConsistency(
-         std::vector<boost::any> values)
+         std::vector<std::any> values)
 {
   assert(values.size() == 1);
   assert(values[0].type() == typeid(T*));
@@ -347,7 +347,7 @@ void MemoryRasterData::checkConsistency(
 
 
 void MemoryRasterData::checkConsistency(
-         const std::vector<boost::any>& values)
+         const std::vector<std::any>& values)
 {
   switch(d_typeId) {
     case TI_INT1:         { checkConsistency<INT1>(values);        break; }
@@ -370,18 +370,18 @@ void MemoryRasterData::checkConsistency(
 
 template<class T>
 void MemoryRasterData::checkConsistency(
-         std::vector<boost::any> values,
+         std::vector<std::any> values,
          DataSpace space)
 {
   space.eraseDimension(0);
 
   for(auto & value : values) {
     assert(value.type() ==
-         typeid(std::tuple<T, std::vector<boost::any> >));
+         typeid(std::tuple<T, std::vector<std::any> >));
 
     checkConsistency(
          std::get<1>(
-         boost::any_cast<std::tuple<T, std::vector<boost::any> > >(
+         std::any_cast<std::tuple<T, std::vector<std::any> > >(
          value)), space);
   }
 }
@@ -389,7 +389,7 @@ void MemoryRasterData::checkConsistency(
 
 
 void MemoryRasterData::checkConsistency(
-         const std::vector<boost::any>& values,
+         const std::vector<std::any>& values,
          DataSpace space)
 {
   // values contains <T, std::vector<boost::any> > records, unless space does

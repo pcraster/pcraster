@@ -18,7 +18,7 @@ BOOST_AUTO_TEST_CASE(test_)
   REAL4 q5[6] = { 6.0, 7.0, 8.0, 9.0, 10.0, 11.0 };
   REAL4 q9[6] = { 12.0, 13.0, 14.0, 15.0, 16.0, 17.0 };
 
-  std::vector<boost::any> values;
+  std::vector<std::any> values;
   DataSpace space;
   TypeId const typeId = TI_REAL4;
   size_t const nrRows = 3;
@@ -40,18 +40,18 @@ BOOST_AUTO_TEST_CASE(test_)
   {
     MemoryRasterData data(values, space, typeId, nrRows, nrCols, cellSize,
          north, west);
-    BOOST_CHECK(data.exists());
+    BOOST_TEST(data.exists());
     raster.reset(data.raster(MemoryRasterData::HeaderOnly));
-    BOOST_CHECK(raster);
-    BOOST_CHECK(raster->hasExtremes());
-    BOOST_CHECK(dal::comparable(raster->min<REAL4>(), REAL4(1.0)));
-    BOOST_CHECK(dal::comparable(raster->max<REAL4>(), REAL4(6.0)));
+    BOOST_TEST(raster);
+    BOOST_TEST(raster->hasExtremes());
+    BOOST_TEST(dal::comparable(raster->min<REAL4>(), REAL4(1.0)));
+    BOOST_TEST(dal::comparable(raster->max<REAL4>(), REAL4(6.0)));
 
     raster.reset(data.raster(MemoryRasterData::IncludingValues));
-    BOOST_CHECK(raster);
-    BOOST_CHECK(dal::comparable(raster->cell<REAL4>(0), REAL4(1.0)));
-    BOOST_CHECK(dal::comparable(raster->cell<REAL4>(2), REAL4(3.0)));
-    BOOST_CHECK(dal::comparable(raster->cell<REAL4>(5), REAL4(6.0)));
+    BOOST_TEST(raster);
+    BOOST_TEST(dal::comparable(raster->cell<REAL4>(0), REAL4(1.0)));
+    BOOST_TEST(dal::comparable(raster->cell<REAL4>(2), REAL4(3.0)));
+    BOOST_TEST(dal::comparable(raster->cell<REAL4>(5), REAL4(6.0)));
   }
 
   std::vector<float> quantiles;
@@ -60,10 +60,10 @@ BOOST_AUTO_TEST_CASE(test_)
   quantiles.push_back(0.1f);
   space.addDimension(Dimension(CumulativeProbabilities, quantiles));
 
-  typedef std::tuple<float, std::vector<boost::any> > FloatTuple;
+  typedef std::tuple<float, std::vector<std::any> > FloatTuple;
   values.clear();
 
-  std::vector<boost::any> tmp;
+  std::vector<std::any> tmp;
   tmp.push_back(static_cast<REAL4*>(q1));
   values.push_back(FloatTuple(0.1f, tmp));
   tmp.clear();
@@ -78,14 +78,14 @@ BOOST_AUTO_TEST_CASE(test_)
          north, west);
     DataSpaceAddress address(space.address());
     address.setCoordinate<float>(0, 0.9f);
-    BOOST_CHECK(data.exists(address));
+    BOOST_TEST(data.exists(address));
     raster.reset(data.raster(address, MemoryRasterData::IncludingValues));
-    BOOST_CHECK(raster);
-    BOOST_CHECK(raster->hasExtremes());
-    BOOST_CHECK(dal::comparable(raster->min<REAL4>(), REAL4(1.0)));
-    BOOST_CHECK(dal::comparable(raster->max<REAL4>(), REAL4(17.0)));
-    BOOST_CHECK(comparable<REAL4>(raster->cell<REAL4>(0), 12.0));
-    BOOST_CHECK(comparable<REAL4>(raster->cell<REAL4>(2), 14.0));
-    BOOST_CHECK(comparable<REAL4>(raster->cell<REAL4>(5), 17.0));
+    BOOST_TEST(raster);
+    BOOST_TEST(raster->hasExtremes());
+    BOOST_TEST(dal::comparable(raster->min<REAL4>(), REAL4(1.0)));
+    BOOST_TEST(dal::comparable(raster->max<REAL4>(), REAL4(17.0)));
+    BOOST_TEST(comparable<REAL4>(raster->cell<REAL4>(0), 12.0));
+    BOOST_TEST(comparable<REAL4>(raster->cell<REAL4>(2), 14.0));
+    BOOST_TEST(comparable<REAL4>(raster->cell<REAL4>(5), 17.0));
   }
 }

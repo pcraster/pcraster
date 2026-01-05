@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_CASE(determine_type_id)
 
     TypeId typeId = TI_NR_TYPES;
     driver.determineTypeId(row, typeId);
-    BOOST_WARN_EQUAL(typeId, TI_STRING);
+    BOOST_TEST_WARN(typeId == TI_STRING);
   }
 
   {
@@ -39,6 +39,6 @@ BOOST_AUTO_TEST_CASE(determine_type_id)
 
     TypeId typeId = TI_NR_TYPES;
     driver.determineTypeId(row, typeId);
-    BOOST_WARN_EQUAL(typeId, TI_STRING);
+    BOOST_TEST_WARN(typeId == TI_STRING);
   }
 }

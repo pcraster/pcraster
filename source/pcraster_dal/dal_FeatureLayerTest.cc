@@ -84,9 +84,9 @@ BOOST_AUTO_TEST_CASE(test_)
     // The points that make up the polygon.
     // TODO Doesn't work. The implementation uses 'Contains' which apparently
     // TODO means that the border is 'out'. Not a big issue at the moment.
-    BOOST_WARN(featureLayer.geometry(1.0, 1.0));
-    BOOST_WARN(featureLayer.geometry(3.0, 1.0));
-    BOOST_WARN(featureLayer.geometry(2.0, 3.0));
+    BOOST_TEST_WARN(featureLayer.geometry(1.0, 1.0));
+    BOOST_TEST_WARN(featureLayer.geometry(3.0, 1.0));
+    BOOST_TEST_WARN(featureLayer.geometry(2.0, 3.0));
 
     BOOST_CHECK(Client::library().geometriesCache().contains("bla"));
   }

@@ -118,7 +118,7 @@ BOOST_AUTO_TEST_CASE(remove_voxels)
   using namespace discr;
 
   bool const testImplemented = false;
-  BOOST_WARN(testImplemented);
+  BOOST_TEST_WARN(testImplemented);
 }
 
 
@@ -128,5 +128,5 @@ BOOST_AUTO_TEST_CASE(cut_voxels)
 
   // Test for all supported value types. Cut behaviour differs per value type.
   bool const testImplemented = false;
-  BOOST_WARN(testImplemented);
+  BOOST_TEST_WARN(testImplemented);
 }

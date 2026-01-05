@@ -125,7 +125,7 @@ BOOST_AUTO_TEST_CASE(testXMLReflection)
  *  BOOST_CHECK(1==xml.outputs().size());
 
  *  bool areaMapReadingForIOConfigurable=false;
- *  BOOST_WARN(areaMapReadingForIOConfigurable);
+ *  BOOST_TEST_WARN(areaMapReadingForIOConfigurable);
 
  *  BOOST_CHECK(em.areaMapDTD);
  *  BOOST_CHECK(5 == em.areaMapDTD->rasterSpace->nrRows());
@@ -178,7 +178,7 @@ BOOST_AUTO_TEST_CASE(testXMLReflection)
 // {
 /*
   bool esriXMLReflectionAgain=true;
-  BOOST_WARN(esriXMLReflectionAgain);
+  BOOST_TEST_WARN(esriXMLReflectionAgain);
   {
     ASTScript *s=ASTTestFactory::createFromIdOrStr("pcrcalc533");
     s->analyzeNoContext();

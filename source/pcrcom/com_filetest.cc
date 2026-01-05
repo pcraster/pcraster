@@ -82,13 +82,13 @@ BOOST_AUTO_TEST_CASE(open_ofstream)
   try {
     std::ofstream fs;
     open(fs, "if_notwritable");
-    BOOST_WARN(false);  // should not come here
-    BOOST_WARN(!fs);    // should not come here
+    BOOST_TEST_WARN(false);  // should not come here
+    BOOST_TEST_WARN(!fs);    // should not come here
   } catch (const com::OpenFileError &e) {
-    BOOST_WARN(e.errorNr() == E_ACCESWRITE);
+    BOOST_TEST_WARN(e.errorNr() == E_ACCESWRITE);
     visit = true;
   }
-  BOOST_WARN(visit);
+  BOOST_TEST_WARN(visit);
 #else
   visit = false;
   try {
@@ -97,7 +97,7 @@ BOOST_AUTO_TEST_CASE(open_ofstream)
     BOOST_CHECK(false);  // should not come here
     BOOST_CHECK(!fs);    // should not come here
   } catch (const com::OpenFileError &e) {
-    BOOST_WARN(e.errorNr() == E_ACCESWRITE);
+    BOOST_TEST_WARN(e.errorNr() == E_ACCESWRITE);
     visit = true;
   }
   BOOST_CHECK(visit);
@@ -126,7 +126,7 @@ BOOST_AUTO_TEST_CASE(open_ofstream)
   } catch (const com::OpenFileError &e) {
     // bugzilla #82  WIndows
     // if fixed also edit enum comment of E_ACCESCREATE
-    BOOST_WARN(e.errorNr() == E_ACCESCREATE);
+    BOOST_TEST_WARN(e.errorNr() == E_ACCESCREATE);
     visit = true;
   }
   // BOOST_CHECK(visit);
@@ -159,7 +159,7 @@ BOOST_AUTO_TEST_CASE(move_)
     moveFailed = true;
   }
 #ifdef WIN32
-  BOOST_WARN(!moveFailed);  // WindowsPerm Bugzilla #284
+  BOOST_TEST_WARN(!moveFailed);  // WindowsPerm Bugzilla #284
 #else
   BOOST_CHECK(!moveFailed);
 #endif
@@ -186,7 +186,7 @@ BOOST_AUTO_TEST_CASE(move_)
   }
 
 #ifdef WIN32
-  BOOST_WARN(!moveFailed);  // WindowsPerm Bugzilla #284
+  BOOST_TEST_WARN(!moveFailed);  // WindowsPerm Bugzilla #284
 #else
   BOOST_CHECK(!moveFailed);
 #endif

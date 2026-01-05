@@ -165,7 +165,7 @@ BOOST_AUTO_TEST_CASE(remove__)
     }
   }
 
-  BOOST_WARN(false);
+  BOOST_TEST_WARN(false);
 }
 
 

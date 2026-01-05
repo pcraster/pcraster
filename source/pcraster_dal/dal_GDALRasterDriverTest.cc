@@ -587,5 +587,5 @@ BOOST_AUTO_TEST_CASE(rectangular_cells)
 
   // TODO create raster with rectangular cells. Use GDAL Python extension.
   // TODO Make sure the detailed error message gets out.
-  BOOST_WARN(false);
+  BOOST_TEST_WARN(false);
 }

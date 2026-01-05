@@ -230,7 +230,7 @@ BOOST_AUTO_TEST_CASE(intersect)
   using namespace dal;
 
   bool const testIntersectImplemented = false;
-  BOOST_WARN(testIntersectImplemented);
+  BOOST_TEST_WARN(testIntersectImplemented);
 }
 
 

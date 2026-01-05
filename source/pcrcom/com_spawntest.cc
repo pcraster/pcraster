@@ -11,7 +11,7 @@ BOOST_AUTO_TEST_CASE(no_arg)
 #if defined(WIN32) || defined(__x86_64__) || defined(__aarch64__)
   // or use Qt/process
   bool const noSpawnWorking = false;
-  BOOST_WARN(noSpawnWorking);
+  BOOST_TEST_WARN(noSpawnWorking);
 #else
   std::string sigR, sig("KILLROY WAS HERE\n");
 
@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE(args)
 
 #if defined(WIN32) || defined(__x86_64__) || defined(__aarch64__)
   bool const noSpawnWorking = false;
-  BOOST_WARN(noSpawnWorking);
+  BOOST_TEST_WARN(noSpawnWorking);
 #else
   std::string sigR, sig("KILLROY WAS HERE\n");
   com::PathName pn("spawn.txt");
@@ -59,7 +59,7 @@ BOOST_AUTO_TEST_CASE(args)
 
     if (expectExplicitExitCode != 2)
       ;
-    BOOST_WARN(expectExplicitExitCode);
+    BOOST_TEST_WARN(expectExplicitExitCode);
     BOOST_CHECK(com::exists(pn));
     com::read(sigR, pn);
     BOOST_CHECK(sig == sigR);

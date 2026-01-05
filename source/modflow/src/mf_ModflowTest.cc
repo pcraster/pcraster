@@ -59,7 +59,7 @@ ModflowTest::ModflowTest()
 void ModflowTest::test()
 {
   bool testImplemented = false;
-  BOOST_WARN(testImplemented);
+  BOOST_TEST_WARN(testImplemented);
 }
 
 }  // namespace mf

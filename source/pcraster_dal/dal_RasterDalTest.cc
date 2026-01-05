@@ -53,8 +53,8 @@ BOOST_AUTO_TEST_CASE(supported_drivers)
   BOOST_CHECK(!dal.driverByName("PCRaster"));
 
 // #ifdef WIN32
-//   BOOST_WARN(dal.driverByName("HDF4Image"));
-//   BOOST_WARN(dal.driverByName("HDF4"));
+//   BOOST_TEST_WARN(dal.driverByName("HDF4Image"));
+//   BOOST_TEST_WARN(dal.driverByName("HDF4"));
 // #else
 //   BOOST_CHECK(dal.driverByName("HDF4Image"));
 //   BOOST_CHECK(dal.driverByName("HDF4"));
@@ -108,5 +108,5 @@ BOOST_AUTO_TEST_CASE(hdf4_image1)
   using namespace dal;
 
   bool const testImplemented = false;
-  BOOST_WARN(testImplemented);
+  BOOST_TEST_WARN(testImplemented);
 }

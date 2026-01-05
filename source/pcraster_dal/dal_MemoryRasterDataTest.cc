@@ -11,7 +11,7 @@ BOOST_AUTO_TEST_CASE(test_)
 
   // Doesn't work anymore after getting rid for suppor of ExactDiscretisation
   // for quantiles.
-  BOOST_WARN(false);
+  BOOST_TEST_WARN(false);
   return;
 
   REAL4 q1[6] = { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };

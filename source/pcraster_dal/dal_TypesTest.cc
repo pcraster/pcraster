@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE(id_of_smallest_type)
     // Overgang REAL4 / REAL8...
     // String...
 
-    BOOST_WARN_EQUAL(types.idOfSmallestType("NROWS"), TI_STRING);
+    BOOST_TEST_WARN(types.idOfSmallestType("NROWS") == TI_STRING);
   }
 }
 
@@ -47,5 +47,5 @@ BOOST_AUTO_TEST_CASE(id_of_largest_type)
   BOOST_CHECK_EQUAL(types.idOfLargestType(TI_UINT1, TI_UINT2), TI_UINT2);
 
   bool const idOfLargestTypeImplemented = false;
-  BOOST_WARN(idOfLargestTypeImplemented);
+  BOOST_TEST_WARN(idOfLargestTypeImplemented);
 }

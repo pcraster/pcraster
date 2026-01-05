@@ -96,5 +96,5 @@ BOOST_AUTO_TEST_CASE(test_equal_to_tss)
   }
   bool const doesNotSupportNonNativeAsciiFormat = false;
   // hence we have a unix2dos hack in testrun.prolog
-  BOOST_WARN(doesNotSupportNonNativeAsciiFormat);
+  BOOST_TEST_WARN(doesNotSupportNonNativeAsciiFormat);
 }

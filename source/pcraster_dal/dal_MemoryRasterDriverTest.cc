@@ -90,7 +90,7 @@ BOOST_AUTO_TEST_CASE(same_name)
   using namespace dal;
 
   bool const testImplemented = false;
-  BOOST_WARN(testImplemented);
+  BOOST_TEST_WARN(testImplemented);
 }
 
 
@@ -100,7 +100,7 @@ BOOST_AUTO_TEST_CASE(test_)
 
   // Doesn't work anymore after getting rid for support of ExactDiscretisation
   // for quantiles.
-  BOOST_WARN(false);
+  BOOST_TEST_WARN(false);
   return;
 
   // Fill global memory pool with rasters.

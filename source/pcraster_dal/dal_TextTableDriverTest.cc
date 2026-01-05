@@ -457,7 +457,7 @@ BOOST_AUTO_TEST_CASE(column_with_empty_values)
   // Should be possible, by splitting the record on the seperator. Empty value
   // is a missing value.
   bool const testImplemented = false;
-  BOOST_WARN(testImplemented);
+  BOOST_TEST_WARN(testImplemented);
 }
 
 

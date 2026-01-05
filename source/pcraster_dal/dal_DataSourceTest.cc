@@ -725,7 +725,7 @@ BOOST_AUTO_TEST_CASE(dataset_1)
   }
 
   bool const emptyDataSpaceTestCreated = false;
-  BOOST_WARN(emptyDataSpaceTestCreated);
+  BOOST_TEST_WARN(emptyDataSpaceTestCreated);
 }
 
 
@@ -1524,7 +1524,7 @@ BOOST_AUTO_TEST_CASE(uncertain_temporal_feature_layer)
 {
   using namespace dal;
 
-  BOOST_WARN(false);
+  BOOST_TEST_WARN(false);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

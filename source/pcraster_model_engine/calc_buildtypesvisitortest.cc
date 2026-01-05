@@ -237,7 +237,7 @@ BOOST_AUTO_TEST_CASE(testModel)
       btv.visit();
     }
     bool const todoAddTESTPATHandAresolveUNtil = false;
-    BOOST_WARN(todoAddTESTPATHandAresolveUNtil);
+    BOOST_TEST_WARN(todoAddTESTPATHandAresolveUNtil);
   }
 }
 
@@ -794,7 +794,7 @@ BOOST_AUTO_TEST_CASE(testRepeat)
       StringParser::createCodeAsNode("tmp.res = scalar(0); repeat { tmp.res += 5; } until 1;"));
   BuildTypesVisitor const btv(n.cfg());
   bool const todoAddBoolTestPath = false;
-  BOOST_WARN(todoAddBoolTestPath);
+  BOOST_TEST_WARN(todoAddBoolTestPath);
 }
 
 

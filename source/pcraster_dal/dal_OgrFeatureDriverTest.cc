@@ -406,7 +406,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///   OgrFeatureDriver driver("VRT");
 ///   std::shared_ptr<FeatureLayer> layer;
 ///
-///   BOOST_WARN(dynamic_cast<Driver&>(driver).exists(name, space, address));
+///   BOOST_TEST_WARN(dynamic_cast<Driver&>(driver).exists(name, space, address));
 ///   // BOOST_REQUIRE(dynamic_cast<Driver&>(driver).exists(name, space, address));
 ///
 ///   // BOOST_REQUIRE_NO_THROW(
@@ -477,7 +477,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///   std::shared_ptr<FeatureLayer> layer;
 ///
 ///   // KDJ 20090403 - Will be fixed soon.
-///   BOOST_WARN(dynamic_cast<Driver&>(driver).exists(name, space, address));
+///   BOOST_TEST_WARN(dynamic_cast<Driver&>(driver).exists(name, space, address));
 ///   /// BOOST_REQUIRE_NO_THROW(
 ///   ///   layer.reset(dynamic_cast<FeatureDriver&>(driver).read(name, space, address,
 ///   ///        TI_REAL8));
@@ -553,7 +553,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///   std::shared_ptr<FeatureLayer> layer;
 ///
 ///   // KDJ 20090403 - Will be fixed soon.
-///   BOOST_WARN(dynamic_cast<Driver&>(driver).exists(name, space, address));
+///   BOOST_TEST_WARN(dynamic_cast<Driver&>(driver).exists(name, space, address));
 ///   /// BOOST_REQUIRE_NO_THROW(
 ///   ///   layer.reset(dynamic_cast<FeatureDriver&>(driver).read(name, space, address,
 ///   ///        TI_REAL8));

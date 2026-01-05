@@ -96,7 +96,7 @@ BOOST_AUTO_TEST_CASE(test1)
   BOOST_CHECK(esriMap);
   BOOST_CHECK_EQUAL(esriMap->typeId(), dal::TI_UINT1);
   bool const arcCatalogSaysSignedIntegerPixelDept16=false;
-  BOOST_WARN(arcCatalogSaysSignedIntegerPixelDept16);
+  BOOST_TEST_WARN(arcCatalogSaysSignedIntegerPixelDept16);
   }
 }
 

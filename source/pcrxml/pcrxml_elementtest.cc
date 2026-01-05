@@ -102,6 +102,6 @@ BOOST_AUTO_TEST_CASE(required)
       BOOST_CHECK(e.messages().find("BLA BLA") != std::string::npos);
       doesNotTellRequiredChoiseIsMissing = true;
     }
-    BOOST_WARN(doesNotTellRequiredChoiseIsMissing);
+    BOOST_TEST_WARN(doesNotTellRequiredChoiseIsMissing);
   }
 }

@@ -137,7 +137,7 @@ void execTest(const std::string& id);
   { TRY_TEST_MSG {       \
     execTest(id);        \
     } CATCH_TEST_MSG(id);\
-   BOOST_WARN(catched);   \
+   BOOST_TEST_WARN(catched);   \
   }
 
 } // namespace calc

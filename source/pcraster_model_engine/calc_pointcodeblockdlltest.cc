@@ -93,7 +93,7 @@ BOOST_AUTO_TEST_CASE(testCompile)
 
 #ifdef WIN32
   bool addWin32DllCompile = false;
-  BOOST_WARN(addWin32DllCompile);
+  BOOST_TEST_WARN(addWin32DllCompile);
 #else
 
   {

@@ -7,5 +7,5 @@ BOOST_AUTO_TEST_CASE(test_)
   // using namespace dal;
 
   bool const test_implemented = false;
-  BOOST_WARN(test_implemented);
+  BOOST_TEST_WARN(test_implemented);
 }

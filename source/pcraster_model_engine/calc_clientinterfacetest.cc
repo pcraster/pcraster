@@ -388,7 +388,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
     BOOST_CHECK_MESSAGE_ErrorMessage(s, "ID attribute 'tmp'");
 
     bool const todoAllowModelVarsToBeUsedInStatistics(false);
-    BOOST_WARN(todoAllowModelVarsToBeUsedInStatistics);
+    BOOST_TEST_WARN(todoAllowModelVarsToBeUsedInStatistics);
   }
   {  // writing to same output twice
     void *data[2] = {input, nullptr};
@@ -516,7 +516,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
     // see \bug tag in API documentation of pcr_ScriptExecuteInitialStepMemory
     // bugzilla #104
     bool const todoMemAssignInStatic = false;
-    BOOST_WARN(todoMemAssignInStatic);
+    BOOST_TEST_WARN(todoMemAssignInStatic);
     BOOST_CHECK_EQUAL(memOutputDynamic[1], -1.0F);   // should NOT be -1 !!!
     BOOST_CHECK_EQUAL(memOutputDynamic[24], -1.0F);  // should NOT be -1 !!!
 
@@ -886,7 +886,7 @@ BOOST_AUTO_TEST_CASE(testXML)
 
   // test xsd not found
   bool const skipValidatingIfSchemaIsNotFound = true;
-  BOOST_WARN(skipValidatingIfSchemaIsNotFound);
+  BOOST_TEST_WARN(skipValidatingIfSchemaIsNotFound);
 }
 
 BOOST_AUTO_TEST_CASE(testXMLHabitat)
@@ -964,7 +964,7 @@ BOOST_AUTO_TEST_CASE(testXMLStatistics)
   }
 #ifdef __linux__
   bool const writingBilReadingCsfMakeDalUnstable = true;
-  BOOST_WARN(writingBilReadingCsfMakeDalUnstable);
+  BOOST_TEST_WARN(writingBilReadingCsfMakeDalUnstable);
 #endif
 }
 

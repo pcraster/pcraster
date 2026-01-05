@@ -445,7 +445,7 @@ BOOST_AUTO_TEST_CASE(fill_using_previous_value)
   using namespace dal;
 
   bool const testImplemented = false;
-  BOOST_WARN(testImplemented);
+  BOOST_TEST_WARN(testImplemented);
 }
 
 
@@ -698,7 +698,7 @@ BOOST_AUTO_TEST_CASE(rintf_)
 
 #ifdef _MSC_VER
   bool seeIfVS2005HasRintfC99=false;
-  BOOST_WARN(seeIfVS2005HasRintfC99);
+  BOOST_TEST_WARN(seeIfVS2005HasRintfC99);
 #endif
 }
 

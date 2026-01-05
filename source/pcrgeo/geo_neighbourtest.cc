@@ -158,6 +158,6 @@ BOOST_AUTO_TEST_CASE(down_stream_visitor_cell)
     // Bugzilla #133
     bool const todoBitPackingOnNon32Bit =
         sizeof(geo::DownStreamVisitorCell) <= (sizeof(geo::CellLoc) + 4);
-    BOOST_WARN(todoBitPackingOnNon32Bit);
+    BOOST_TEST_WARN(todoBitPackingOnNon32Bit);
   }
 }

@@ -200,7 +200,7 @@ BOOST_AUTO_TEST_CASE(testErrors)
   EXEC_ERROR_TEST("pcrcalc547");
 
   bool const todo_pcrcalc364and539 = false;
-  BOOST_WARN(todo_pcrcalc364and539);
+  BOOST_TEST_WARN(todo_pcrcalc364and539);
   // EXEC_ERROR_TEST("pcrcalc364");
   // EXEC_ERROR_TEST("pcrcalc539");
 }
@@ -222,7 +222,7 @@ BOOST_AUTO_TEST_CASE(testRunTimeErrors)
   EXEC_ERROR_TEST("pcrcalc561");
 
   bool const todo_runTimeMsgAccuMRF = false;
-  BOOST_WARN(todo_runTimeMsgAccuMRF);
+  BOOST_TEST_WARN(todo_runTimeMsgAccuMRF);
   // see template<class AccuStateFo> static void calc::accuStateFlux()
   // also make error in 8th argument of dynwave
 }
@@ -275,7 +275,7 @@ BOOST_AUTO_TEST_CASE(testBugs)
 
 
   bool const todoSolveMultipleReads = false;
-  BOOST_WARN(todoSolveMultipleReads);
+  BOOST_TEST_WARN(todoSolveMultipleReads);
 
 #ifdef DEBUG_DEVELOP
   // since bug is harmless, only trap
@@ -462,7 +462,7 @@ BOOST_AUTO_TEST_CASE(testModel)
     // TODO is anders op linux!
     geo::FileCreateTester const fct("tmp559.res");
     execTest("pcrcalc559");
-    BOOST_WARN(fct.equalTo("diagonalLdd559.map", false));
+    BOOST_TEST_WARN(fct.equalTo("diagonalLdd559.map", false));
   }
 
   {  // lddcreatend, TODO make example in pcrExamples.xml of manual
@@ -471,7 +471,7 @@ BOOST_AUTO_TEST_CASE(testModel)
     // TODO is anders op linux!
     geo::FileCreateTester const fct("tmp558.res");
     execTest("pcrcalc558");
-    BOOST_WARN(fct.equalTo("nondiagonalLdd558.map", false));
+    BOOST_TEST_WARN(fct.equalTo("nondiagonalLdd558.map", false));
   }
 }
 
@@ -698,7 +698,7 @@ BOOST_AUTO_TEST_CASE(testDynamic)
   // void calc::AreaTotal::exec ()
   //  .........
   //   PRECOND(args[0].nrValues()==args[1].nrValues());
-  BOOST_WARN(SeriousBindingClosureProblemPlusNovJrcReport);
+  BOOST_TEST_WARN(SeriousBindingClosureProblemPlusNovJrcReport);
 }
 
 BOOST_AUTO_TEST_CASE(testUseDiskStorage)

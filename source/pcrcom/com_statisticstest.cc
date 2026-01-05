@@ -256,7 +256,7 @@ BOOST_AUTO_TEST_CASE(percentile_)
 
 #ifdef _MSC_VER
     // bugzilla #80
-    BOOST_WARN(*percentile<I>(val.begin(), val.end(), 0.6) == 5);
+    BOOST_TEST_WARN(*percentile<I>(val.begin(), val.end(), 0.6) == 5);
 #else
     BOOST_CHECK(*percentile<I>(val.begin(), val.end(), 0.6) == 5);
 #endif
@@ -268,7 +268,7 @@ BOOST_AUTO_TEST_CASE(percentile_)
 
 #ifdef _MSC_VER
     // bugzilla #80
-    BOOST_WARN(*percentile<I>(val.begin(), val.end(), 0.6, statisticsTest::Reverse()) == 4);
+    BOOST_TEST_WARN(*percentile<I>(val.begin(), val.end(), 0.6, statisticsTest::Reverse()) == 4);
 #else
     BOOST_CHECK(*percentile<I>(val.begin(), val.end(), 0.6, statisticsTest::Reverse()) == 4);
 #endif
@@ -301,5 +301,5 @@ BOOST_AUTO_TEST_CASE(suse)
   using namespace com;
 
   bool suse64FailsALot = false;
-  BOOST_WARN(suse64FailsALot);
+  BOOST_TEST_WARN(suse64FailsALot);
 }

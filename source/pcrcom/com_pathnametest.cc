@@ -49,7 +49,7 @@ BOOST_AUTO_TEST_CASE(constructor)
   } catch (...) {
   }
   bool const todoHaatQuoteInNaam = false;
-  BOOST_WARN(todoHaatQuoteInNaam);
+  BOOST_TEST_WARN(todoHaatQuoteInNaam);
 }
 
 BOOST_AUTO_TEST_CASE(to_string)
@@ -113,7 +113,7 @@ BOOST_AUTO_TEST_CASE(to_string)
 
 #ifdef WIN32
   bool todoCheckDoubleSlash = false;
-  BOOST_WARN(todoCheckDoubleSlash);
+  BOOST_TEST_WARN(todoCheckDoubleSlash);
 #else
   // "//bla//bli"
   result = d_slash + d_slash + "bla" + d_slash + d_slash + "bli";
@@ -457,7 +457,7 @@ BOOST_AUTO_TEST_CASE(extension)
   };
   bool todoNameCheckFailure = false;
   // see boost::filesystem::name_check
-  BOOST_WARN(todoNameCheckFailure);
+  BOOST_TEST_WARN(todoNameCheckFailure);
 #else
   pn = PathName("bla.");
 #endif
@@ -711,7 +711,7 @@ BOOST_AUTO_TEST_CASE(up)
     ;
   }
   bool todoCheckDoubleSlash = false;
-  BOOST_WARN(todoCheckDoubleSlash);
+  BOOST_TEST_WARN(todoCheckDoubleSlash);
   pn.up();
   result = "c:\\\\";  // "c:\\";
   BOOST_CHECK_EQUAL(pn, result);

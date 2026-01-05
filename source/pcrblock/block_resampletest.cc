@@ -10,7 +10,7 @@
 BOOST_AUTO_TEST_CASE(resample_block)
 {
   bool const testImplemented = false;
-  BOOST_WARN(testImplemented);
+  BOOST_TEST_WARN(testImplemented);
 }
 
 

@@ -502,7 +502,7 @@ void com::CommandLineArgumentTest::testOptionList()
       exceptionThrown = true;
       // TODO Check error message, missing value.
     }
-    BOOST_WARN(exceptionThrown);
+    BOOST_TEST_WARN(exceptionThrown);
   }
   {
     char c1[4] = {"cmd"};

@@ -53,9 +53,9 @@ BOOST_AUTO_TEST_CASE(testScriptFile)
     //                                      "-f", "/home/cees/tmp/pcrtest/pcrtest.mod"
     //                   };
     bool const absolutePathInRunDirectory = false;
-    BOOST_WARN(absolutePathInRunDirectory);
+    BOOST_TEST_WARN(absolutePathInRunDirectory);
     int const r = 1;  // TODO calc::executeCommandLine(6, argv); MAKE a bugzilla note
-    BOOST_WARN(r == 0);
+    BOOST_TEST_WARN(r == 0);
   }
 }
 

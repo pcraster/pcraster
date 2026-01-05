@@ -11,7 +11,7 @@ BOOST_AUTO_TEST_CASE(path_is_readable)
   using namespace dal;
 
   bool const testImplemented = false;
-  BOOST_WARN(testImplemented);
+  BOOST_TEST_WARN(testImplemented);
 }
 
 
@@ -20,7 +20,7 @@ BOOST_AUTO_TEST_CASE(path_is_writable)
   using namespace dal;
 
   bool const testImplemented = false;
-  BOOST_WARN(testImplemented);
+  BOOST_TEST_WARN(testImplemented);
 }
 
 
@@ -187,7 +187,7 @@ void testTimeStepPathVariant(
   {
     std::filesystem::path path("n.n");
     path = variant(path, 50000);
-    BOOST_WARN_EQUAL(path.string(), "n.n");
+    BOOST_TEST_WARN(path.string() == "n.n");
   }
 
 }
@@ -258,7 +258,7 @@ BOOST_AUTO_TEST_CASE(time_step_path)
 
   // See first lines of this function.
   bool const timeStepPathVariantTested = false;
-  BOOST_WARN(timeStepPathVariantTested);
+  BOOST_TEST_WARN(timeStepPathVariantTested);
 }
 
 
@@ -285,7 +285,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_quantile_sample_time)
   // TODO
   // Invalid path name.
   // bool testImplemented = false;
-  // BOOST_WARN(testImplemented);
+  // BOOST_TEST_WARN(testImplemented);
 }
 
 
@@ -312,7 +312,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_quantile_sample)
   // TODO
   // Invalid path name.
   // bool testImplemented = false;
-  // BOOST_WARN(testImplemented);
+  // BOOST_TEST_WARN(testImplemented);
 }
 
 
@@ -339,7 +339,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_quantile_time)
   // TODO
   // Invalid path name.
   // bool testImplemented = false;
-  // BOOST_WARN(testImplemented);
+  // BOOST_TEST_WARN(testImplemented);
 }
 
 
@@ -366,7 +366,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_quantile)
   // TODO
   // Invalid path name.
   // bool testImplemented = false;
-  // BOOST_WARN(testImplemented);
+  // BOOST_TEST_WARN(testImplemented);
 }
 
 
@@ -393,7 +393,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_sample_time)
   // TODO
   // Invalid path name.
   // bool testImplemented = false;
-  // BOOST_WARN(testImplemented);
+  // BOOST_TEST_WARN(testImplemented);
 }
 
 
@@ -420,7 +420,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_sample)
   // TODO
   // Invalid path name.
   // bool testImplemented = false;
-  // BOOST_WARN(testImplemented);
+  // BOOST_TEST_WARN(testImplemented);
 }
 
 
@@ -447,7 +447,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_time)
   // TODO
   // Invalid path name.
   // bool testImplemented = false;
-  // BOOST_WARN(testImplemented);
+  // BOOST_TEST_WARN(testImplemented);
 }
 
 
@@ -500,7 +500,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario)
   // TODO
   // Invalid path name.
   // bool testImplemented = false;
-  // BOOST_WARN(testImplemented);
+  // BOOST_TEST_WARN(testImplemented);
 }
 
 
@@ -527,7 +527,7 @@ BOOST_AUTO_TEST_CASE(path_for_quantile_sample_time)
   // TODO
   // Invalid path name.
   // bool testImplemented = false;
-  // BOOST_WARN(testImplemented);
+  // BOOST_TEST_WARN(testImplemented);
 }
 
 
@@ -554,7 +554,7 @@ BOOST_AUTO_TEST_CASE(path_for_quantile_sample)
   // TODO
   // Invalid path name.
   // bool testImplemented = false;
-  // BOOST_WARN(testImplemented);
+  // BOOST_TEST_WARN(testImplemented);
 }
 
 
@@ -584,7 +584,7 @@ BOOST_AUTO_TEST_CASE(path_for_quantile_time)
   // TODO
   // Invalid path name.
   // bool testImplemented = false;
-  // BOOST_WARN(testImplemented);
+  // BOOST_TEST_WARN(testImplemented);
 }
 
 
@@ -611,7 +611,7 @@ BOOST_AUTO_TEST_CASE(path_for_quantile)
   // TODO
   // Invalid path name.
   // bool testImplemented = false;
-  // BOOST_WARN(testImplemented);
+  // BOOST_TEST_WARN(testImplemented);
 }
 
 
@@ -638,7 +638,7 @@ BOOST_AUTO_TEST_CASE(path_for_sample_time)
   // TODO
   // Invalid path name.
   // bool testImplemented = false;
-  // BOOST_WARN(testImplemented);
+  // BOOST_TEST_WARN(testImplemented);
 }
 
 
@@ -681,7 +681,7 @@ BOOST_AUTO_TEST_CASE(path_for_sample)
   // TODO
   // Invalid path name.
   // bool testImplemented = false;
-  // BOOST_WARN(testImplemented);
+  // BOOST_TEST_WARN(testImplemented);
 }
 
 
@@ -693,8 +693,8 @@ BOOST_AUTO_TEST_CASE(path_for_time)
 
   // TODO
   // Default.
-  // BOOST_WARN(pathForTime("bla",    5), path("bla_5"));
-  // BOOST_WARN(pathForTime("bla", 5555), path("bla_5555"));
+  // BOOST_TEST_WARN(pathForTime("bla",    5), path("bla_5"));
+  // BOOST_TEST_WARN(pathForTime("bla", 5555), path("bla_5555"));
 
   // Dal convention.
   BOOST_CHECK(pathForTime("bla",    5, DALConvention) == path("bla_5"));
@@ -707,9 +707,9 @@ BOOST_AUTO_TEST_CASE(path_for_time)
   // Fieldwidth determines number of positions used for the time step. Time
   // step is prepended with zero's. No extension dot is added.
   // Fieldwidth zero is illegal, fall back to required width.
-  // BOOST_WARN(pathForTime("bla", 5, 0), path("bla_5"));
-  // BOOST_WARN(pathForTime("bla", 5, 3), path("bla_005"));
-  // BOOST_WARN(pathForTime("bla", 5, 8), path("bla_00000005"));
+  // BOOST_TEST_WARN(pathForTime("bla", 5, 0), path("bla_5"));
+  // BOOST_TEST_WARN(pathForTime("bla", 5, 3), path("bla_005"));
+  // BOOST_TEST_WARN(pathForTime("bla", 5, 8), path("bla_00000005"));
 
   // When an extension is present in de name of the dataset, it is saved in
   // the result. This limits the freedom the user has when naming files.
@@ -740,12 +740,12 @@ BOOST_AUTO_TEST_CASE(path_for_time)
   //        path("bla.map.png"));
 
   // Using fieldwidth.
-  // BOOST_WARN(pathForTime("bla.map", 5, 0) == path("bla_5.map"));
-  // BOOST_WARN(pathForTime("bla.map", 5, 3) == path("bla_005.map"));
-  // BOOST_WARN(pathForTime("bla.map", 5, 8) == path("bla_00000005.map"));
-  // BOOST_WARN(pathForTime("bla.png", 5, 3) == path("bla_005.png"));
-  // BOOST_WARN(pathForTime("bla.x"  , 5, 3) == path("bla_005.x"));
-  // BOOST_WARN(pathForTime("bla."   , 5, 3) == path("bla_005."));
+  // BOOST_TEST_WARN(pathForTime("bla.map", 5, 0) == path("bla_5.map"));
+  // BOOST_TEST_WARN(pathForTime("bla.map", 5, 3) == path("bla_005.map"));
+  // BOOST_TEST_WARN(pathForTime("bla.map", 5, 8) == path("bla_00000005.map"));
+  // BOOST_TEST_WARN(pathForTime("bla.png", 5, 3) == path("bla_005.png"));
+  // BOOST_TEST_WARN(pathForTime("bla.x"  , 5, 3) == path("bla_005.x"));
+  // BOOST_TEST_WARN(pathForTime("bla."   , 5, 3) == path("bla_005."));
 
   bool exceptionThrown = false;
 
@@ -764,7 +764,7 @@ BOOST_AUTO_TEST_CASE(path_for_time)
   // TODO
   // Invalid path name.
   // bool testImplemented = false;
-  // BOOST_WARN(testImplemented);
+  // BOOST_TEST_WARN(testImplemented);
 }
 
 
@@ -820,7 +820,7 @@ BOOST_AUTO_TEST_CASE(path_for_data_space_address)
 
 // #ifdef WIN32
 //   bool testPathForDataSpaceAddressFails=false;
-//   BOOST_WARN(testPathForDataSpaceAddressFails);
+//   BOOST_TEST_WARN(testPathForDataSpaceAddressFails);
 // #endif
 
   DataSpace const space;
@@ -941,7 +941,7 @@ BOOST_AUTO_TEST_CASE(path_for_data_space_address)
   // PCRCalc convention.
   // TODO
   // bool testImplemented = false;
-  // BOOST_WARN(testImplemented);
+  // BOOST_TEST_WARN(testImplemented);
 
   {
     std::string const name = "soil";
@@ -996,7 +996,7 @@ BOOST_AUTO_TEST_CASE(add_extension_if_needed)
 
   {
     bool const addExtensionIfNeededOnEmptyBaseNameWorks = false;
-    BOOST_WARN(addExtensionIfNeededOnEmptyBaseNameWorks);
+    BOOST_TEST_WARN(addExtensionIfNeededOnEmptyBaseNameWorks);
     // name = ".";
     // extension = ".eas";
     // path = addExtensionIfNeeded(name, extension);

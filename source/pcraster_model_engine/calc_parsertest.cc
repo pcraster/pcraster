@@ -404,6 +404,6 @@ BOOST_AUTO_TEST_CASE(testNonAsciiScript)
     } catch (const com::Exception &) {
       todoCharSet = false;  // STILL TO SOLVE!
     }
-    BOOST_WARN(todoCharSet);
+    BOOST_TEST_WARN(todoCharSet);
   }
 }

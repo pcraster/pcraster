@@ -56,7 +56,7 @@ BOOST_AUTO_TEST_CASE(get_stack_reader_path)
 //PRINT_VAR(result.toString());
 #ifdef WIN32
   bool onWin32 = true;
-  BOOST_WARN((onWin32 && sr->itemName(1) == result.toString()));
+  BOOST_TEST_WARN((onWin32 && sr->itemName(1) == result.toString()));
   BOOST_CHECK((onWin32 && sr->stackName() == (path + stackName)));
 #endif
 

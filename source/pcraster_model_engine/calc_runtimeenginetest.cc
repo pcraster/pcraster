@@ -199,7 +199,7 @@ BOOST_AUTO_TEST_CASE(testBuildExpr)
 {
 
   bool const todoCoverMaxVarArgForPython = false;
-  BOOST_WARN(todoCoverMaxVarArgForPython);
+  BOOST_TEST_WARN(todoCoverMaxVarArgForPython);
 
   /* bug with building up the expression
  *  RunTimeEngine      rte(geo::RasterSpace(2,2));

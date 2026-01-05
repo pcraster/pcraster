@@ -9,5 +9,5 @@ BOOST_AUTO_TEST_CASE(test)
 
   VTKBlockDriver const driver;
   bool const testImplemented = false;
-  BOOST_WARN(testImplemented);
+  BOOST_TEST_WARN(testImplemented);
 }

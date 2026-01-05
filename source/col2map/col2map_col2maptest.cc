@@ -46,7 +46,7 @@ BOOST_AUTO_TEST_CASE(NaN)
   BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
   BOOST_CHECK_EQUAL(raster->cell<REAL4>(0), 1.0F);
   //cuTodo(pcr::isMV(raster->cell<REAL4>(1)));
-  BOOST_WARN(pcr::isMV(raster->cell<REAL4>(1)));
+  BOOST_TEST_WARN(pcr::isMV(raster->cell<REAL4>(1)));
   BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(2)));
   BOOST_CHECK_EQUAL(raster->cell<REAL4>(2), 3.0F);
 //  #endif

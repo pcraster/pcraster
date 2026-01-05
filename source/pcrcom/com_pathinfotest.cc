@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_CASE(exists)
   pn = "\\\\P4\\bin\\ls";
   pi = PathInfo(pn);
   bool volumePathTest = false;
-  BOOST_WARN((pi.exists() || volumePathTest));
+  BOOST_TEST_WARN((pi.exists() || volumePathTest));
 #endif
 }
 
@@ -77,7 +77,7 @@ BOOST_AUTO_TEST_CASE(is_file)
   BOOST_CHECK(!PathInfo("pi_not_existent_file").isFile());
 #ifdef WIN32
   bool reimplementIsFileOnWin32 = false;
-  BOOST_WARN(reimplementIsFileOnWin32);
+  BOOST_TEST_WARN(reimplementIsFileOnWin32);
 #endif
 }
 
@@ -87,7 +87,7 @@ BOOST_AUTO_TEST_CASE(is_readable)
 
   BOOST_CHECK(!PathInfo("pi_not_existent_file").isReadable());
 #ifdef WIN32
-  BOOST_WARN(!PathInfo("if_notreadable").isReadable());  // WindowsPerm Bugzilla #284
+  BOOST_TEST_WARN(!PathInfo("if_notreadable").isReadable());  // WindowsPerm Bugzilla #284
 #else
   BOOST_CHECK(!PathInfo("if_notreadable").isReadable());
 #endif
@@ -100,7 +100,7 @@ BOOST_AUTO_TEST_CASE(is_writable)
 
   BOOST_CHECK(!PathInfo("pi_not_existent_file").isWritable());
 #ifdef WIN32
-  BOOST_WARN(!PathInfo("if_notwritable").isWritable());  // WindowsPerm Bugzilla #284
+  BOOST_TEST_WARN(!PathInfo("if_notwritable").isWritable());  // WindowsPerm Bugzilla #284
 #else
   BOOST_CHECK(!PathInfo("if_notwritable").isWritable());
 #endif

@@ -401,11 +401,11 @@ BOOST_AUTO_TEST_CASE(testIOTypes)
     //ASTNode *e=StringParser::createExpr("a"); // NOT
     ASTNode *e = StringParser::createExpr("not a");  // WORKS
     bool const todo_ioTypes_expr = false;
-    BOOST_WARN(todo_ioTypes_expr);
+    BOOST_TEST_WARN(todo_ioTypes_expr);
     ASTCFGTester const test(new Code(e));
     std::map<std::string, IOType> r = ioTypes(test.cfg());
-    BOOST_WARN(r.count("a"));
-    BOOST_WARN(r["a"].input() == pcrxml::ModelInputType::Initial);
-    BOOST_WARN(r["a"].output() == pcrxml::ModelOutputType::Fixed);
+    BOOST_TEST_WARN(r.count("a"));
+    BOOST_TEST_WARN(r["a"].input() == pcrxml::ModelInputType::Initial);
+    BOOST_TEST_WARN(r["a"].output() == pcrxml::ModelOutputType::Fixed);
   }
 }

@@ -16,6 +16,8 @@
 #include "app_options.h"
 
 #include <stdbool.h>
+#include <assert.h>
+#include <limits.h>
 
 /* apps. called */
 
@@ -461,9 +463,9 @@ static bool GroupCheck(void)
     GROUP
   } state;
 
-  int groupMemberUsed = -1; /* FOR DEBUG */
-  int i = 0;
-  int n = strlen(groupResult);
+  long groupMemberUsed = -1; /* FOR DEBUG */
+  size_t i = 0;
+  size_t n = strlen(groupResult);
   PRECOND(groupResult);
   state = SINGLE;
   for (i = 0; i < n; i++) {
@@ -487,7 +489,8 @@ static bool GroupCheck(void)
       switch (groupResult[i]) {
         case '-':
           if (!groupMemberUsed) {
-            groupMemberUsed = i;
+            assert(i < LONG_MAX);
+            groupMemberUsed = (long)i;
           } else {
             return RetError(0,
                             "Options '-%c' and '-%c' are mutually exclusive "

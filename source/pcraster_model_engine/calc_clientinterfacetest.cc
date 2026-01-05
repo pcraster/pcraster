@@ -508,7 +508,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
 
     int const r(pcr_ScriptExecuteInitialStepMemory(s, data));
     BOOST_CHECK_EQUAL(r, 1);
-    BOOST_REQUIRE(!pcr_ScriptError(s));
+    BOOST_TEST_REQUIRE(!pcr_ScriptError(s));
 
     BOOST_CHECK_EQUAL(memOutputInitial[0], 5.0F);
 
@@ -580,7 +580,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
     BOOST_CHECK(!data[MemOutputInitial]);
     int const r(pcr_ScriptExecuteInitialStepMemory(s, data));
     BOOST_CHECK_EQUAL(r, 1);
-    BOOST_REQUIRE(!pcr_ScriptError(s));
+    BOOST_TEST_REQUIRE(!pcr_ScriptError(s));
 
     BOOST_CHECK(data[MemOutputInitial]);
     auto *allocatedMemOutputInitial = (float *)data[MemOutputInitial];
@@ -707,7 +707,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryTimeoutput)
 
     r = pcr_ScriptExecuteNextTimeStepMemory(s, data);
     BOOST_CHECK_EQUAL(r, 1);
-    BOOST_REQUIRE(!pcr_ScriptError(s));
+    BOOST_TEST_REQUIRE(!pcr_ScriptError(s));
     BOOST_CHECK(data[0]);
     if (data[0] != nullptr) {
       const auto *header = (const UINT4 *)data[0];
@@ -726,7 +726,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryTimeoutput)
     data[0] = nullptr;
     r = pcr_ScriptExecuteNextTimeStepMemory(s, data);
     BOOST_CHECK_EQUAL(r, 0);
-    BOOST_REQUIRE(!pcr_ScriptError(s));
+    BOOST_TEST_REQUIRE(!pcr_ScriptError(s));
     BOOST_CHECK(data[0]);
     if (data[0] != nullptr) {
       const auto *header = (const UINT4 *)data[0];

@@ -169,7 +169,7 @@ BOOST_AUTO_TEST_CASE(table2)
   std::string const filename = "table2.col";
   TextTableDriver driver;
   Table* table = driver.open(std::filesystem::path(filename));
-  BOOST_REQUIRE(table);
+  BOOST_TEST_REQUIRE(table);
   BOOST_REQUIRE_EQUAL(table->nrCols(), size_t(3));
 
   BOOST_REQUIRE_EQUAL(table->typeId(0), TI_UINT1);
@@ -424,7 +424,7 @@ BOOST_AUTO_TEST_CASE(dos_formatted)
   TextTableDriver driver;
   std::shared_ptr<Table> const table(driver.open(
     std::filesystem::path(filename)));
-  BOOST_REQUIRE(table);
+  BOOST_TEST_REQUIRE(table);
   BOOST_CHECK_EQUAL(table->nrCols(), size_t(9));
   BOOST_CHECK_EQUAL(table->title(4), "KANTOREN");
 
@@ -469,7 +469,7 @@ BOOST_AUTO_TEST_CASE(column_with_quite_some_zeros)
   TextTableDriver const driver;
   std::shared_ptr<Table> const table(driver.open(
     std::filesystem::path(filename)));
-  BOOST_REQUIRE(table);
+  BOOST_TEST_REQUIRE(table);
   BOOST_CHECK_EQUAL(table->nrCols(), size_t(2));
 
   BOOST_CHECK_EQUAL(table->typeId(0), TI_UINT1);

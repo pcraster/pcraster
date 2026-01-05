@@ -718,9 +718,9 @@ BOOST_AUTO_TEST_CASE(trim)
     address.setCoordinate<SpatialCoordinate>(3, SpatialCoordinate(5.5, 6.6));
     address = toSpace.trim(fromSpace, address);
 
-    BOOST_REQUIRE(toSpace.isValid(address));
+    BOOST_TEST_REQUIRE(toSpace.isValid(address));
     BOOST_CHECK_EQUAL(address.size(), size_t(1));
-    BOOST_REQUIRE(address.isValid(0));
+    BOOST_TEST_REQUIRE(address.isValid(0));
     BOOST_CHECK(address.coordinate<SpatialCoordinate>(0) ==
          SpatialCoordinate(5.5, 6.6));
 
@@ -751,9 +751,9 @@ BOOST_AUTO_TEST_CASE(trim)
 
     address = toSpace.trim(fromSpace, address);
 
-    BOOST_REQUIRE(toSpace.isValid(address));
+    BOOST_TEST_REQUIRE(toSpace.isValid(address));
     BOOST_CHECK_EQUAL(address.size(), size_t(1));
-    BOOST_REQUIRE(address.isValid(0));
+    BOOST_TEST_REQUIRE(address.isValid(0));
     BOOST_CHECK(address.coordinate<SpatialCoordinate>(0) ==
          SpatialCoordinate(464260.0, 5687057.0));
   }

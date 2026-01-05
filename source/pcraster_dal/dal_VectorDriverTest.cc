@@ -89,7 +89,7 @@ BOOST_AUTO_TEST_CASE(open)
   {
     vector.reset(dynamic_cast<Vector*>(
          dynamic_cast<Driver&>(driver).open("vector")));
-    BOOST_REQUIRE(vector);
+    BOOST_TEST_REQUIRE(vector);
 
     BOOST_CHECK_EQUAL(vector->nrRows(), size_t(3));
     BOOST_CHECK_EQUAL(vector->nrCols(), size_t(2));
@@ -111,7 +111,7 @@ BOOST_AUTO_TEST_CASE(open)
     address.setCoordinate<size_t>(0, 2);
     vector.reset(dynamic_cast<Vector*>(
          dynamic_cast<Driver&>(driver).open("vector", space, address)));
-    BOOST_REQUIRE(vector);
+    BOOST_TEST_REQUIRE(vector);
 
     BOOST_CHECK_EQUAL(vector->nrRows(), size_t(3));
     BOOST_CHECK_EQUAL(vector->nrCols(), size_t(2));
@@ -203,7 +203,7 @@ BOOST_AUTO_TEST_CASE(read_)
            dynamic_cast<Driver&>(driver).read("vector")));
     );
 
-    BOOST_REQUIRE(vector);
+    BOOST_TEST_REQUIRE(vector);
 
     BOOST_CHECK_EQUAL(vector->nrRows(), size_t(3));
     BOOST_CHECK_EQUAL(vector->nrCols(), size_t(2));
@@ -233,7 +233,7 @@ BOOST_AUTO_TEST_CASE(read_)
   {
     vector.reset(dynamic_cast<Vector*>(
          dynamic_cast<Driver&>(driver).open("vector")));
-    BOOST_REQUIRE(vector);
+    BOOST_TEST_REQUIRE(vector);
 
     BOOST_REQUIRE_NO_THROW(
       driver.read(*vector, "vector", DataSpace(), DataSpaceAddress());
@@ -292,7 +292,7 @@ BOOST_AUTO_TEST_CASE(extremes)
   std::any max;
 
   {
-    BOOST_REQUIRE(driver.extremes(min, max, TI_REAL4, "vector"));
+    BOOST_TEST_REQUIRE(driver.extremes(min, max, TI_REAL4, "vector"));
     BOOST_CHECK_CLOSE(std::any_cast<REAL4>(min), REAL4(1.1), REAL4(0.001));
     BOOST_CHECK_CLOSE(std::any_cast<REAL4>(max), REAL4(2.459674784),
          REAL4(0.001));

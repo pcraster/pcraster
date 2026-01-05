@@ -91,7 +91,7 @@ BOOST_AUTO_TEST_CASE(for_each_node)
 
     StringDomInput sdi("<Main><S1 />Text<S2 b='a2' a='a1'/><S3><S1 a='a3' /></S3></Main>");
     DOMDocument *doc(sdi.document());
-    BOOST_REQUIRE(doc);
+    BOOST_TEST_REQUIRE(doc);
     pcrxml::forEachNode(doc->getDocumentElement(), ca);
     BOOST_CHECK(ca.val == "Texta1a2a3");
   }

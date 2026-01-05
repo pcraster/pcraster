@@ -360,7 +360,7 @@ BOOST_AUTO_TEST_CASE(properties)
     name = "d83";
     std::shared_ptr<Raster> const raster(dynamic_cast<Raster*>(
          dynamic_cast<Driver&>(driver).open(name)));
-    BOOST_REQUIRE(raster);
+    BOOST_TEST_REQUIRE(raster);
 
     // Raster properties.
     BOOST_CHECK(raster->properties().hasValue(DAL_CSF_VALUESCALE));

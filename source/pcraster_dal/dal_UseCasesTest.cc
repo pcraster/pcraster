@@ -53,13 +53,13 @@ BOOST_AUTO_TEST_CASE(test1)
 
   std::shared_ptr<dal::Raster> pcrMap;
   std::tie(pcrMap, std::ignore) = rasterDal.open("soil.map");
-  BOOST_REQUIRE(pcrMap);
+  BOOST_TEST_REQUIRE(pcrMap);
   BOOST_CHECK_EQUAL(pcrMap->typeId(), dal::TI_INT4);
 
   {
   std::shared_ptr<dal::Raster> bilMap;
   std::tie(bilMap, std::ignore) = rasterDal.open("inp14_gl.bil");
-  BOOST_REQUIRE(bilMap);
+  BOOST_TEST_REQUIRE(bilMap);
   BOOST_CHECK_EQUAL(bilMap->typeId(), dal::TI_REAL4);
   }
 
@@ -112,9 +112,9 @@ BOOST_AUTO_TEST_CASE(bil_format)
     // but first column is MV, with maybe throw gdal in error
     std::shared_ptr<dal::Raster> map;
     std::tie(map, std::ignore) = rasterDal.open("all1_float.bil");
-    BOOST_REQUIRE(map);
+    BOOST_TEST_REQUIRE(map);
     map = rasterDal.read("all1_float.bil", dal::TI_REAL4);
-    BOOST_REQUIRE(map);
+    BOOST_TEST_REQUIRE(map);
 
     BOOST_CHECK_EQUAL(map->typeId(), dal::TI_REAL4);
     BOOST_CHECK_EQUAL(map->nrRows(), size_t(4));
@@ -140,7 +140,7 @@ BOOST_AUTO_TEST_CASE(bil_format)
    // dal::RasterDal rasterDal(true);
    std::shared_ptr<dal::Raster> map;
    std::tie(map, std::ignore) = rasterDal.open("int2mv0.bil");
-   BOOST_REQUIRE(map);
+   BOOST_TEST_REQUIRE(map);
    BOOST_CHECK_EQUAL(map->typeId(), dal::TI_INT2);
   }
 
@@ -148,7 +148,7 @@ BOOST_AUTO_TEST_CASE(bil_format)
    //dal::RasterDal rasterDal(true);
    std::shared_ptr<dal::Raster> const map(rasterDal.read("int2mv0.bil",
       dal::TI_INT2));
-   BOOST_REQUIRE(map);
+   BOOST_TEST_REQUIRE(map);
    BOOST_CHECK_EQUAL(map->typeId(), dal::TI_INT2);
    BOOST_CHECK_EQUAL(map->cellSize(), 10);
 

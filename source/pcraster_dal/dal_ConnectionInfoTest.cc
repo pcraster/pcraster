@@ -12,14 +12,14 @@ BOOST_AUTO_TEST_CASE(test_)
   std::string user;
 
 #ifdef WIN32
-  BOOST_REQUIRE(dev::environmentVariableSet("USERNAME"));
+  BOOST_TEST_REQUIRE(dev::environmentVariableSet("USERNAME"));
   user = dev::environmentVariable("USERNAME");
 #else
-  BOOST_REQUIRE(dev::environmentVariableSet("LOGNAME"));
+  BOOST_TEST_REQUIRE(dev::environmentVariableSet("LOGNAME"));
   user = dev::environmentVariable("LOGNAME");
 #endif
 
-  BOOST_REQUIRE(!user.empty());
+  BOOST_TEST_REQUIRE(!user.empty());
 
   if(user.find(' ') != std::string::npos) {
     // We don't support user names with spaces in them yet.

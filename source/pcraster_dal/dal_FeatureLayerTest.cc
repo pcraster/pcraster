@@ -71,7 +71,7 @@ BOOST_AUTO_TEST_CASE(test_)
       // BOOST_CHECK_EQUAL(featureLayer.featureId(polygon), 3);
 
       OGRGeometry const* geometry = featureLayer.geometry(2.0, 2.0);
-      BOOST_REQUIRE(geometry);
+      BOOST_TEST_REQUIRE(geometry);
 
       BOOST_CHECK_EQUAL(geometry->getGeometryType(), wkbPolygon);
     }

@@ -48,7 +48,7 @@ BOOST_AUTO_TEST_CASE(environment_variable)
 {
   using namespace dev;
 
-  BOOST_REQUIRE(!environmentVariableSet("BLA"));
+  BOOST_TEST_REQUIRE(!environmentVariableSet("BLA"));
 
 #ifdef _WIN32
   BOOST_WARN_MESSAGE(false, "Environment handling does not work on windows(?)");

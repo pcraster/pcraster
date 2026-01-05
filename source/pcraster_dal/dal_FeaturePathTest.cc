@@ -54,7 +54,7 @@ BOOST_AUTO_TEST_CASE(test_)
 
   {
     FeaturePath const path("source/layer/", FeaturePath::WithoutAttribute);
-    BOOST_REQUIRE(path.isValid());
+    BOOST_TEST_REQUIRE(path.isValid());
     BOOST_CHECK_EQUAL(path.source(), "source");
     BOOST_CHECK_EQUAL(path.layer(), "layer");
     BOOST_CHECK(path.attribute().empty());

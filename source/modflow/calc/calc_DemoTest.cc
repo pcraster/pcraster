@@ -27,7 +27,7 @@
 BOOST_AUTO_TEST_CASE(test_demo)
 {
   PcrScript* s=pcr_createScriptFromTextFile("example.mod");
-  BOOST_REQUIRE(s);
+  BOOST_TEST_REQUIRE(s);
 
   BOOST_CHECK_MESSAGE(!pcr_ScriptError(s),pcr_ScriptErrorMessage(s));
 
@@ -82,7 +82,7 @@ BOOST_AUTO_TEST_CASE(test_demo)
 
 BOOST_AUTO_TEST_CASE(test_bcf2ss) {
   PcrScript* s=pcr_createScriptFromTextFile("bcf2ss.mod");
-  BOOST_REQUIRE(s);
+  BOOST_TEST_REQUIRE(s);
 
   BOOST_CHECK_MESSAGE(!pcr_ScriptError(s),pcr_ScriptErrorMessage(s));
 

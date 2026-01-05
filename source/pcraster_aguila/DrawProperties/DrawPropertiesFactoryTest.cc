@@ -120,14 +120,14 @@ void DrawPropertiesFactoryTest::test()
   {
     std::shared_ptr<DrawPropertiesBase> object(
          factory.CreateObject(properties1));
-    BOOST_REQUIRE(object);
+    BOOST_TEST_REQUIRE(object);
     BOOST_CHECK(dynamic_cast<DrawProperties1*>(object.get()));
   }
 
   {
     std::shared_ptr<DrawPropertiesBase> object(
          factory.CreateObject(properties2));
-    BOOST_REQUIRE(object);
+    BOOST_TEST_REQUIRE(object);
     BOOST_CHECK(dynamic_cast<DrawProperties2*>(object.get()));
   }
 }

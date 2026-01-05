@@ -138,7 +138,7 @@ BOOST_AUTO_TEST_CASE(testCode)
     typedef std::unique_ptr<ASTNode> B;
     B const l(sp.createCodeAsNode(parsertest::model("pcrcalc8a")));
     auto *d(astCast<DynamicSection>(l.get(), "C/b/0"));
-    BOOST_REQUIRE(d);
+    BOOST_TEST_REQUIRE(d);
     auto *s(dynamic_cast<ASTNodeList *>(d->statements()));
     BOOST_CHECK_EQUAL(s->size(), 2U);
   }
@@ -146,7 +146,7 @@ BOOST_AUTO_TEST_CASE(testCode)
     typedef std::unique_ptr<ASTNode> B;
     B const b(sp.createCodeAsNode(parsertest::model("pcrcalc8ab")));
     auto *l(astCast<ASTNodeList>(b.get(), "C/b"));
-    BOOST_REQUIRE(l);
+    BOOST_TEST_REQUIRE(l);
 
     BOOST_CHECK_EQUAL(l->size(), 2U);
     ASTNodeList::const_iterator n(l->begin());

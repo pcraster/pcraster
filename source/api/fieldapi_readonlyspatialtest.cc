@@ -14,36 +14,36 @@ template <typename UseAsT, typename StoredAsT> void testType()
   ReadOnlySpatial<UseAsT, StoredAsT> const t(TEST_FIELD_INIT(d2));
   UseAsT v;
 
-  BOOST_CHECK(t.spatial());
-  BOOST_CHECK(t.nrRows() == 2);
-  BOOST_CHECK(t.nrCols() == 3);
+  BOOST_TEST(t.spatial());
+  BOOST_TEST(t.nrRows() == 2);
+  BOOST_TEST(t.nrCols() == 3);
 
   // out of range
-  BOOST_CHECK(!t.get(v, 2, 3));
-  BOOST_CHECK(!t.get(v, -1, 0));
+  BOOST_TEST(!t.get(v, 2, 3));
+  BOOST_TEST(!t.get(v, -1, 0));
 
 
   // get value
-  BOOST_CHECK(t.get(v, 0, 0));
-  BOOST_CHECK(v == 0);
-  BOOST_CHECK(t.get(v, 0, 1));
-  BOOST_CHECK(v == 1);
-  BOOST_CHECK(t.get(v, 0, 2));
-  BOOST_CHECK(v == 2);
-  BOOST_CHECK(t.get(v, 1, 0));
-  BOOST_CHECK(v == 3);
-  BOOST_CHECK(t.get(v, 1, 2));
-  BOOST_CHECK(v == 5);
+  BOOST_TEST(t.get(v, 0, 0));
+  BOOST_TEST(v == 0);
+  BOOST_TEST(t.get(v, 0, 1));
+  BOOST_TEST(v == 1);
+  BOOST_TEST(t.get(v, 0, 2));
+  BOOST_TEST(v == 2);
+  BOOST_TEST(t.get(v, 1, 0));
+  BOOST_TEST(v == 3);
+  BOOST_TEST(t.get(v, 1, 2));
+  BOOST_TEST(v == 5);
 
   // get MV
-  BOOST_CHECK(!t.get(v, 1, 1));
+  BOOST_TEST(!t.get(v, 1, 1));
 
   // value
-  BOOST_CHECK(t.value(0, 0) == 0);
-  BOOST_CHECK(t.value(0, 1) == 1);
-  BOOST_CHECK(t.value(0, 2) == 2);
-  BOOST_CHECK(t.value(1, 0) == 3);
-  BOOST_CHECK(t.value(1, 2) == 5);
+  BOOST_TEST(t.value(0, 0) == 0);
+  BOOST_TEST(t.value(0, 1) == 1);
+  BOOST_TEST(t.value(0, 2) == 2);
+  BOOST_TEST(t.value(1, 0) == 3);
+  BOOST_TEST(t.value(1, 2) == 5);
 }
 
 BOOST_AUTO_TEST_CASE(all)

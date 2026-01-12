@@ -118,7 +118,7 @@ BOOST_AUTO_TEST_CASE(le)
     data.setTreshold(100000);
     UINT1 result1[6] = {1, 1, 1, 1, 1, 1};
 
-    BOOST_CHECK(data.execCheckLe(result1));
+    BOOST_TEST(data.execCheckLe(result1));
   }
   {  // treshold low
     SET_ORDER(1.0, 2.0, 3.0, 4.0, 5.0, 6.0);
@@ -126,7 +126,7 @@ BOOST_AUTO_TEST_CASE(le)
     data.setTreshold(-100000);
     UINT1 result1[6] = {0, 0, 0, 0, 0, 0};
 
-    BOOST_CHECK(data.execCheckLe(result1));
+    BOOST_TEST(data.execCheckLe(result1));
   }
   {  //  no spill, treshold exactly
     SET_ORDER(11.0, 12.0, 13.0, 4.0, 5.0, 6.0);
@@ -134,7 +134,7 @@ BOOST_AUTO_TEST_CASE(le)
     data.setTreshold(15);
     UINT1 result1[6] = {0, 0, 0, 1, 1, 1};
 
-    BOOST_CHECK(data.execCheckLe(result1));
+    BOOST_TEST(data.execCheckLe(result1));
   }
   {  //  spill, treshold exceeded in cell
     SET_ORDER(11.0, 12.0, 13.0, 4.0, 5.0, 6.0);
@@ -142,7 +142,7 @@ BOOST_AUTO_TEST_CASE(le)
     data.setTreshold(10);
     UINT1 result1[6] = {0, 0, 0, 1, 1, 0};
 
-    BOOST_CHECK(data.execCheckLe(result1));
+    BOOST_TEST(data.execCheckLe(result1));
   }
 }
 
@@ -155,7 +155,7 @@ BOOST_AUTO_TEST_CASE(ge)
     data.setTreshold(100000);
     UINT1 result1[6] = {1, 1, 1, 1, 1, 1};
 
-    BOOST_CHECK(data.execCheckGe(result1));
+    BOOST_TEST(data.execCheckGe(result1));
   }
   {  // treshold low
     SET_ORDER(1.0, 2.0, 3.0, 4.0, 5.0, 6.0);
@@ -163,7 +163,7 @@ BOOST_AUTO_TEST_CASE(ge)
     data.setTreshold(-100000);
     UINT1 result1[6] = {0, 0, 0, 0, 0, 0};
 
-    BOOST_CHECK(data.execCheckGe(result1));
+    BOOST_TEST(data.execCheckGe(result1));
   }
   {  //  no spill, treshold exactly
     SET_ORDER(11.0, 12.0, 13.0, 4.0, 5.0, 6.0);
@@ -171,7 +171,7 @@ BOOST_AUTO_TEST_CASE(ge)
     data.setTreshold(15);
     UINT1 result1[6] = {0, 0, 0, 1, 1, 1};
 
-    BOOST_CHECK(data.execCheckGe(result1));
+    BOOST_TEST(data.execCheckGe(result1));
   }
   {  //  spill, treshold exceeded in cell
     SET_ORDER(11.0, 12.0, 13.0, 4.0, 5.0, 6.0);
@@ -179,6 +179,6 @@ BOOST_AUTO_TEST_CASE(ge)
     data.setTreshold(10);
     UINT1 result1[6] = {0, 0, 0, 1, 1, 1};
 
-    BOOST_CHECK(data.execCheckGe(result1));
+    BOOST_TEST(data.execCheckGe(result1));
   }
 }

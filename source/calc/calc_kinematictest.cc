@@ -24,7 +24,7 @@ BOOST_AUTO_TEST_CASE(iterate1)
       /* epsilon */ 1E-12);
   // printf("\n %20.18f \n",v);
   double const retV = 0.000031450866300937;
-  BOOST_CHECK(v > (retV - cmpEps) && v < (retV + cmpEps));
+  BOOST_TEST((v > (retV - cmpEps) && v < (retV + cmpEps)));
 }
 
 //! more stuff that crashed
@@ -41,7 +41,7 @@ BOOST_AUTO_TEST_CASE(iterate2)
       /* deltaX */ 10,
       /* epsilon */ 1E-12);
 
-  BOOST_CHECK(v == 1e-30);
+  BOOST_TEST(v == 1e-30);
 }
 
 /*

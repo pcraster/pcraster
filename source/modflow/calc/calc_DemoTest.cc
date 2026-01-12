@@ -57,21 +57,21 @@ BOOST_AUTO_TEST_CASE(test_demo)
 
   try {
     // compare them
-    BOOST_CHECK(hOne.equalTo("demoValidatedOutput/hOne.map", false));
-    BOOST_CHECK(hThree.equalTo("demoValidatedOutput/hThree.map", false));
-    BOOST_CHECK(hFive.equalTo("demoValidatedOutput/hFive.map", false));
-    BOOST_CHECK(dFive.equalTo("demoValidatedOutput/dFive.map", false));
-    BOOST_CHECK(rFive.equalTo("demoValidatedOutput/rFive.map", false));
-    BOOST_CHECK(c5.equalTo("demoValidatedOutput/c5.map", false));
-    BOOST_CHECK(c3.equalTo("demoValidatedOutput/c3.map", false));
-    BOOST_CHECK(ff1.equalTo("demoValidatedOutput/ff1.map", false));
-    BOOST_CHECK(ff3.equalTo("demoValidatedOutput/ff3.map", false));
-    BOOST_CHECK(ff5.equalTo("demoValidatedOutput/ff5.map", false));
-    BOOST_CHECK(fr1.equalTo("demoValidatedOutput/fr1.map", false));
-    BOOST_CHECK(fr3.equalTo("demoValidatedOutput/fr3.map", false));
-    BOOST_CHECK(fr5.equalTo("demoValidatedOutput/fr5.map", false));
-    BOOST_CHECK(fl3.equalTo("demoValidatedOutput/fl3.map", false));
-    BOOST_CHECK(fl5.equalTo("demoValidatedOutput/fl5.map", false));
+    BOOST_TEST(hOne.equalTo("demoValidatedOutput/hOne.map", false));
+    BOOST_TEST(hThree.equalTo("demoValidatedOutput/hThree.map", false));
+    BOOST_TEST(hFive.equalTo("demoValidatedOutput/hFive.map", false));
+    BOOST_TEST(dFive.equalTo("demoValidatedOutput/dFive.map", false));
+    BOOST_TEST(rFive.equalTo("demoValidatedOutput/rFive.map", false));
+    BOOST_TEST(c5.equalTo("demoValidatedOutput/c5.map", false));
+    BOOST_TEST(c3.equalTo("demoValidatedOutput/c3.map", false));
+    BOOST_TEST(ff1.equalTo("demoValidatedOutput/ff1.map", false));
+    BOOST_TEST(ff3.equalTo("demoValidatedOutput/ff3.map", false));
+    BOOST_TEST(ff5.equalTo("demoValidatedOutput/ff5.map", false));
+    BOOST_TEST(fr1.equalTo("demoValidatedOutput/fr1.map", false));
+    BOOST_TEST(fr3.equalTo("demoValidatedOutput/fr3.map", false));
+    BOOST_TEST(fr5.equalTo("demoValidatedOutput/fr5.map", false));
+    BOOST_TEST(fl3.equalTo("demoValidatedOutput/fl3.map", false));
+    BOOST_TEST(fl5.equalTo("demoValidatedOutput/fl5.map", false));
 
   }
   catch (const com::Exception& e) {
@@ -127,37 +127,37 @@ BOOST_AUTO_TEST_CASE(test_bcf2ss) {
 
   try {
     // compare them
-    BOOST_CHECK(hTwo_1.equalTo("demoValidatedOutput/bcf2ss_hTwo_1.map", false));
-    BOOST_CHECK(hOne_1.equalTo("demoValidatedOutput/bcf2ss_hOne_1.map", false));
-    BOOST_CHECK(rTwo_1.equalTo("demoValidatedOutput/bcf2ss_rTwo_1.map", false));
-    BOOST_CHECK(rOne_1.equalTo("demoValidatedOutput/bcf2ss_rOne_1.map", false));
-    BOOST_CHECK(riTwo_1.equalTo("demoValidatedOutput/bcf2ss_riTwo_1.map", false));
-    BOOST_CHECK(riOne_1.equalTo("demoValidatedOutput/bcf2ss_riOne_1.map", false));
-    BOOST_CHECK(chTwo_1.equalTo("demoValidatedOutput/bcf2ss_chTwo_1.map", false));
-    BOOST_CHECK(chOne_1.equalTo("demoValidatedOutput/bcf2ss_chOne_1.map", false));
-    BOOST_CHECK(rfTwo_1.equalTo("demoValidatedOutput/bcf2ss_rfTwo_1.map", false));
-    BOOST_CHECK(rfOne_1.equalTo("demoValidatedOutput/bcf2ss_rfOne_1.map", false));
-    BOOST_CHECK(lfOne_1.equalTo("demoValidatedOutput/bcf2ss_lfOne_1.map", false));
+    BOOST_TEST(hTwo_1.equalTo("demoValidatedOutput/bcf2ss_hTwo_1.map", false));
+    BOOST_TEST(hOne_1.equalTo("demoValidatedOutput/bcf2ss_hOne_1.map", false));
+    BOOST_TEST(rTwo_1.equalTo("demoValidatedOutput/bcf2ss_rTwo_1.map", false));
+    BOOST_TEST(rOne_1.equalTo("demoValidatedOutput/bcf2ss_rOne_1.map", false));
+    BOOST_TEST(riTwo_1.equalTo("demoValidatedOutput/bcf2ss_riTwo_1.map", false));
+    BOOST_TEST(riOne_1.equalTo("demoValidatedOutput/bcf2ss_riOne_1.map", false));
+    BOOST_TEST(chTwo_1.equalTo("demoValidatedOutput/bcf2ss_chTwo_1.map", false));
+    BOOST_TEST(chOne_1.equalTo("demoValidatedOutput/bcf2ss_chOne_1.map", false));
+    BOOST_TEST(rfTwo_1.equalTo("demoValidatedOutput/bcf2ss_rfTwo_1.map", false));
+    BOOST_TEST(rfOne_1.equalTo("demoValidatedOutput/bcf2ss_rfOne_1.map", false));
+    BOOST_TEST(lfOne_1.equalTo("demoValidatedOutput/bcf2ss_lfOne_1.map", false));
 
-    BOOST_CHECK(hTwo_2.equalTo("demoValidatedOutput/bcf2ss_hTwo_2.map", false));
-    BOOST_CHECK(hOne_2.equalTo("demoValidatedOutput/bcf2ss_hOne_2.map", false));
-    BOOST_CHECK(rTwo_2.equalTo("demoValidatedOutput/bcf2ss_rTwo_2.map", false));
-    BOOST_CHECK(rOne_2.equalTo("demoValidatedOutput/bcf2ss_rOne_2.map", false));
-    BOOST_CHECK(riTwo_2.equalTo("demoValidatedOutput/bcf2ss_riTwo_2.map", false));
-    BOOST_CHECK(riOne_2.equalTo("demoValidatedOutput/bcf2ss_riOne_2.map", false));
-    BOOST_CHECK(chTwo_2.equalTo("demoValidatedOutput/bcf2ss_chTwo_2.map", false));
-    BOOST_CHECK(chOne_2.equalTo("demoValidatedOutput/bcf2ss_chOne_2.map", false));
-    BOOST_CHECK(ffTwo_2.equalTo("demoValidatedOutput/bcf2ss_ffTwo_2.map", false));
-    BOOST_CHECK(rfTwo_2.equalTo("demoValidatedOutput/bcf2ss_rfTwo_2.map", false));
-    BOOST_CHECK(lfOne_2.equalTo("demoValidatedOutput/bcf2ss_lfOne_2.map", false));
+    BOOST_TEST(hTwo_2.equalTo("demoValidatedOutput/bcf2ss_hTwo_2.map", false));
+    BOOST_TEST(hOne_2.equalTo("demoValidatedOutput/bcf2ss_hOne_2.map", false));
+    BOOST_TEST(rTwo_2.equalTo("demoValidatedOutput/bcf2ss_rTwo_2.map", false));
+    BOOST_TEST(rOne_2.equalTo("demoValidatedOutput/bcf2ss_rOne_2.map", false));
+    BOOST_TEST(riTwo_2.equalTo("demoValidatedOutput/bcf2ss_riTwo_2.map", false));
+    BOOST_TEST(riOne_2.equalTo("demoValidatedOutput/bcf2ss_riOne_2.map", false));
+    BOOST_TEST(chTwo_2.equalTo("demoValidatedOutput/bcf2ss_chTwo_2.map", false));
+    BOOST_TEST(chOne_2.equalTo("demoValidatedOutput/bcf2ss_chOne_2.map", false));
+    BOOST_TEST(ffTwo_2.equalTo("demoValidatedOutput/bcf2ss_ffTwo_2.map", false));
+    BOOST_TEST(rfTwo_2.equalTo("demoValidatedOutput/bcf2ss_rfTwo_2.map", false));
+    BOOST_TEST(lfOne_2.equalTo("demoValidatedOutput/bcf2ss_lfOne_2.map", false));
 
     // some maps give slightly differences with mf2k 32 and 64
     // but they are ok, so deactivate tests for 32bit
 //#if defined(__amd64) || defined(_M_AMD64)
-//    BOOST_CHECK(ffOne_2.equalTo("demoValidatedOutput/bcf2ss_ffOne_2.map", false));
-//    BOOST_CHECK(rfOne_2.equalTo("demoValidatedOutput/bcf2ss_rfOne_2.map", false));
-//    BOOST_CHECK(ffTwo_1.equalTo("demoValidatedOutput/bcf2ss_ffTwo_1.map", false));
-//    BOOST_CHECK(ffOne_1.equalTo("demoValidatedOutput/bcf2ss_ffOne_1.map", false));
+//    BOOST_TEST(ffOne_2.equalTo("demoValidatedOutput/bcf2ss_ffOne_2.map", false));
+//    BOOST_TEST(rfOne_2.equalTo("demoValidatedOutput/bcf2ss_rfOne_2.map", false));
+//    BOOST_TEST(ffTwo_1.equalTo("demoValidatedOutput/bcf2ss_ffTwo_1.map", false));
+//    BOOST_TEST(ffOne_1.equalTo("demoValidatedOutput/bcf2ss_ffOne_1.map", false));
 //#endif
   }
   catch (const com::Exception& e) {
@@ -188,5 +188,5 @@ BOOST_AUTO_TEST_CASE(test_bcf2ss) {
 //   catch(...){
 //      PyErr_Print();
 //   }
-//   BOOST_CHECK(failed == 0);
+//   BOOST_TEST(failed == 0);
 // }

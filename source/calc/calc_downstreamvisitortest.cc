@@ -23,15 +23,15 @@ BOOST_AUTO_TEST_CASE(realistic_ldd)
     size_t count = 0;
     for (DownStreamVisitor v(f, geo::CellLoc(1, 0)); v.valid(); ++v) {
       for (geo::UpstreamNeighbourVisitor u(*v); u.valid(); ++u) {
-        BOOST_CHECK(mask.value(u.nb()) == 1);
+        BOOST_TEST(mask.value(u.nb()) == 1);
       }
 
       count++;
       UINT1 m = 0;
-      BOOST_CHECK(!mask.get(m, *v));
+      BOOST_TEST(!mask.get(m, *v));
       mask.put(1, *v);
     }
-    BOOST_CHECK(count == 9);
+    BOOST_TEST(count == 9);
   }
 }
 
@@ -47,10 +47,10 @@ BOOST_AUTO_TEST_CASE(known_order)
 
     size_t count = 0;
     for (DownStreamVisitor v(f, geo::CellLoc(0, 0)); v.valid(); ++v) {
-      BOOST_CHECK(*v == geo::CellLoc(0, 2 - count));
+      BOOST_TEST(*v == geo::CellLoc(0, 2 - count));
       count++;
     }
-    BOOST_CHECK(count == 3);
+    BOOST_TEST(count == 3);
   }
   {
     UINT1 d1[] = {MV_UINT1, MV_UINT1, MV_UINT1, MV_UINT1, MV_UINT1, MV_UINT1, 5,       4,
@@ -60,10 +60,10 @@ BOOST_AUTO_TEST_CASE(known_order)
 
     size_t count = 0;
     for (DownStreamVisitor v(f, geo::CellLoc(1, 1)); v.valid(); ++v) {
-      BOOST_CHECK(*v == geo::CellLoc(1, 3 - count));
+      BOOST_TEST(*v == geo::CellLoc(1, 3 - count));
       count++;
     }
-    BOOST_CHECK(count == 3);
+    BOOST_TEST(count == 3);
   }
   {
     UINT1 d1[] = {6, 6, 5};
@@ -72,10 +72,10 @@ BOOST_AUTO_TEST_CASE(known_order)
 
     size_t count = 0;
     for (DownStreamVisitor v(f, geo::CellLoc(0, 2)); v.valid(); ++v) {
-      BOOST_CHECK(*v == geo::CellLoc(0, count));
+      BOOST_TEST(*v == geo::CellLoc(0, count));
       count++;
     }
-    BOOST_CHECK(count == 3);
+    BOOST_TEST(count == 3);
   }
   {
     UINT1 d1[] = {MV_UINT1, MV_UINT1, MV_UINT1, MV_UINT1, MV_UINT1, MV_UINT1, 6,       6,
@@ -85,10 +85,10 @@ BOOST_AUTO_TEST_CASE(known_order)
 
     size_t count = 0;
     for (DownStreamVisitor v(f, geo::CellLoc(1, 3)); v.valid(); ++v) {
-      BOOST_CHECK(*v == geo::CellLoc(1, count + 1));
+      BOOST_TEST(*v == geo::CellLoc(1, count + 1));
       count++;
     }
-    BOOST_CHECK(count == 3);
+    BOOST_TEST(count == 3);
   }
 }
 
@@ -105,7 +105,7 @@ BOOST_AUTO_TEST_CASE(all_directions)
     for (DownStreamVisitor v(f, geo::CellLoc(1, 1)); v.valid(); ++v) {
       count++;
     }
-    BOOST_CHECK(count == 9);
+    BOOST_TEST(count == 9);
   }
   {
     UINT1 d1[] = {MV_UINT1, MV_UINT1, MV_UINT1, MV_UINT1, MV_UINT1, MV_UINT1, 3,        2, 1,
@@ -118,7 +118,7 @@ BOOST_AUTO_TEST_CASE(all_directions)
     for (DownStreamVisitor v(f, geo::CellLoc(2, 2)); v.valid(); ++v) {
       count++;
     }
-    BOOST_CHECK(count == 9);
+    BOOST_TEST(count == 9);
   }
 }
 
@@ -136,7 +136,7 @@ BOOST_AUTO_TEST_CASE(pit_only)
     for (DownStreamVisitor v(f, geo::CellLoc(0, 0)); v.valid(); ++v) {
       count++;
     }
-    BOOST_CHECK(count == 1);
+    BOOST_TEST(count == 1);
   }
   {
     UINT1 d1[] = {MV_UINT1, MV_UINT1, MV_UINT1, MV_UINT1, 5, MV_UINT1, MV_UINT1, MV_UINT1, MV_UINT1};
@@ -151,8 +151,8 @@ BOOST_AUTO_TEST_CASE(pit_only)
         shouldNotReach = false;
       }
     }
-    BOOST_CHECK(shouldNotReach);
-    BOOST_CHECK(count == 1);
+    BOOST_TEST(shouldNotReach);
+    BOOST_TEST(count == 1);
   }
   // test with   2*2 -> all MV not possible,yet
   /*

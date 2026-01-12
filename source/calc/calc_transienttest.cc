@@ -1,12 +1,12 @@
 #define BOOST_TEST_MODULE pcraster calc transient
 #include <boost/test/unit_test.hpp>
-#include <algorithm>
-#include <functional>
-#include <numeric>
 #include "stddefx.h"
 #include "api.h"
 #include "csftypes.h"
 #include "calc.h"
+#include <algorithm>
+#include <functional>
+#include <numeric>
 
 // Test if fixed head cells stay constant.
 BOOST_AUTO_TEST_CASE(fixed_head)
@@ -43,7 +43,7 @@ BOOST_AUTO_TEST_CASE(fixed_head)
   void *out[] = {resultElevation};
   const void *in[] = {elevation,          recharge, transmissivity, flowCondition,
                       storageCoefficient, interval, tolerance};
-  BOOST_CHECK(!Transient(out, in, 7));
+  BOOST_TEST(!Transient(out, in, 7));
 
   // Delete maps.
   DeleteInternalMAP_REAL8(resultElevation);
@@ -56,7 +56,7 @@ BOOST_AUTO_TEST_CASE(fixed_head)
   DeleteInternalMAP_REAL8(tolerance);
 
   // Check result.
-  BOOST_CHECK(std::equal(elevationCells, elevationCells + nrCells, resultElevationCells));
+  BOOST_TEST(std::equal(elevationCells, elevationCells + nrCells, resultElevationCells));
 }
 
 BOOST_AUTO_TEST_CASE(budget)
@@ -103,11 +103,11 @@ BOOST_AUTO_TEST_CASE(budget)
   in[6] = tolerance;
 
   // Call function.
-  BOOST_CHECK(!Transient(out, in, 7));
+  BOOST_TEST(!Transient(out, in, 7));
 
   // Nothing should have changed.
   for (size_t i = 0; i < nrCells; ++i) {
-    BOOST_CHECK(resultElevationCells[i] == elevationCells[0]);
+    BOOST_TEST(resultElevationCells[i] == elevationCells[0]);
   }
 
   //----------------------------------------------------------------------------
@@ -117,10 +117,10 @@ BOOST_AUTO_TEST_CASE(budget)
   in[1] = recharge;
 
   // Call function.
-  BOOST_CHECK(!Transient(out, in, 7));
+  BOOST_TEST(!Transient(out, in, 7));
 
   // No flow: equal amount of stuff on all cells.
-  BOOST_CHECK(std::count_if(resultElevationCells, resultElevationCells + nrCells,
+  BOOST_TEST(std::count_if(resultElevationCells, resultElevationCells + nrCells,
                             [capture0 = resultElevationCells[0]](auto &&PH1) {
                               return std::equal_to<REAL4>()(std::forward<decltype(PH1)>(PH1), capture0);
                             }));
@@ -160,7 +160,7 @@ BOOST_AUTO_TEST_CASE(budget)
 
   /*
   // Check result.
-  BOOST_CHECK(std::accumulate(elevationCells, elevationCells + nrCells, 0.0) ==
+  BOOST_TEST(std::accumulate(elevationCells, elevationCells + nrCells, 0.0) ==
          std::accumulate(resultElevationCells, resultElevationCells + nrCells, 0.0));
 */
 }

@@ -40,15 +40,15 @@ BOOST_AUTO_TEST_CASE(test)
     profile(result, date, (i - 1) * thickness);
 
     for(size_t j = 0; j < raster.nrCells(); ++j) {
-      BOOST_CHECK(dal::comparable(result.cell(j), REAL4(i + j)));
+      BOOST_TEST(dal::comparable(result.cell(j), REAL4(i + j)));
     }
 
     // Center of voxel.
     profile(result, date, ((i - 1) * thickness) + (0.5 * thickness));
-    BOOST_CHECK(dal::comparable(result.cell(0), REAL4(i)));
+    BOOST_TEST(dal::comparable(result.cell(0), REAL4(i)));
 
     for(size_t j = 0; j < raster.nrCells(); ++j) {
-      BOOST_CHECK(dal::comparable(result.cell(j), REAL4(i + j)));
+      BOOST_TEST(dal::comparable(result.cell(j), REAL4(i + j)));
     }
 
     // Top of voxel == bottom of upper voxel, except for the upper voxel.
@@ -56,12 +56,12 @@ BOOST_AUTO_TEST_CASE(test)
 
     if(i != lastTimeStep) {
       for(size_t j = 0; j < raster.nrCells(); ++j) {
-        BOOST_CHECK(dal::comparable(result.cell(j), REAL4(i + j + 1)));
+        BOOST_TEST(dal::comparable(result.cell(j), REAL4(i + j + 1)));
       }
     }
     else {
       for(size_t j = 0; j < raster.nrCells(); ++j) {
-        BOOST_CHECK(pcr::isMV(result.cell(j)));
+        BOOST_TEST(pcr::isMV(result.cell(j)));
       }
     }
   }

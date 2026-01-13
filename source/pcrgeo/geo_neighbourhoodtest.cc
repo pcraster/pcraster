@@ -27,7 +27,7 @@ BOOST_AUTO_TEST_CASE(random_cell_locations)
     CellLoc cell(1, 1);       // center of raster
 
     randomCellLocations(locations, neighbourhood.nrCells(), space, neighbourhood, cell);
-    BOOST_CHECK(locations.size() == neighbourhood.nrCells());
+    BOOST_TEST(locations.size() == neighbourhood.nrCells());
 
     // Neigbourhood with one zero.
     locations.clear();
@@ -35,14 +35,14 @@ BOOST_AUTO_TEST_CASE(random_cell_locations)
     neighbourhood.cell(0, 0) = 0.0;
 
     randomCellLocations(locations, neighbourhood.nrCells(), space, neighbourhood, cell);
-    BOOST_CHECK(locations.size() == neighbourhood.nrCells() - 1);
+    BOOST_TEST(locations.size() == neighbourhood.nrCells() - 1);
 
     // Neigbourhood with only zero's.
     locations.clear();
     neighbourhood.fill(0.0);
 
     randomCellLocations(locations, neighbourhood.nrCells(), space, neighbourhood, cell);
-    BOOST_CHECK(locations.size() == 0);
+    BOOST_TEST(locations.size() == 0);
 
     // Neighbourhood at upper left of raster.
     locations.clear();
@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_CASE(random_cell_locations)
     cell = CellLoc(0, 0);
 
     randomCellLocations(locations, neighbourhood.nrCells(), space, neighbourhood, cell);
-    BOOST_CHECK(locations.size() == 4);
+    BOOST_TEST(locations.size() == 4);
 
     // Neighbourhood at upper right of raster.
     locations.clear();
@@ -58,7 +58,7 @@ BOOST_AUTO_TEST_CASE(random_cell_locations)
     cell = CellLoc(0, 2);
 
     randomCellLocations(locations, neighbourhood.nrCells(), space, neighbourhood, cell);
-    BOOST_CHECK(locations.size() == 4);
+    BOOST_TEST(locations.size() == 4);
 
     // Neighbourhood at lower right of raster.
     locations.clear();
@@ -66,7 +66,7 @@ BOOST_AUTO_TEST_CASE(random_cell_locations)
     cell = CellLoc(2, 2);
 
     randomCellLocations(locations, neighbourhood.nrCells(), space, neighbourhood, cell);
-    BOOST_CHECK(locations.size() == 4);
+    BOOST_TEST(locations.size() == 4);
 
     // Neighbourhood at lower left of raster.
     locations.clear();
@@ -74,6 +74,6 @@ BOOST_AUTO_TEST_CASE(random_cell_locations)
     cell = CellLoc(2, 0);
 
     randomCellLocations(locations, neighbourhood.nrCells(), space, neighbourhood, cell);
-    BOOST_CHECK(locations.size() == 4);
+    BOOST_TEST(locations.size() == 4);
   }
 }

@@ -21,10 +21,10 @@ BOOST_AUTO_TEST_CASE(no_arg)
 
   int i = spawn("spawnScript");
 
-  BOOST_CHECK(i == 0);
-  BOOST_CHECK(com::exists(pn));
+  BOOST_TEST(i == 0);
+  BOOST_TEST(com::exists(pn));
   com::read(sigR, pn);
-  BOOST_CHECK(sig == sigR);
+  BOOST_TEST(sig == sigR);
 #endif
 }
 
@@ -45,10 +45,10 @@ BOOST_AUTO_TEST_CASE(args)
     // explicit exit 2 in working script
     spawn("spawnScript2", "KILLROY WAS    HERE");
 
-    BOOST_CHECK(com::exists(pn));
+    BOOST_TEST(com::exists(pn));
     sigR.clear();
     com::read(sigR, pn);
-    BOOST_CHECK(sig == sigR);
+    BOOST_TEST(sig == sigR);
   }
   {
     const char *args[5] = {"spawnScript2", "KILLROY", "WAS", "HERE", 0};
@@ -60,9 +60,9 @@ BOOST_AUTO_TEST_CASE(args)
     if (expectExplicitExitCode != 2)
       ;
     BOOST_TEST_WARN(expectExplicitExitCode);
-    BOOST_CHECK(com::exists(pn));
+    BOOST_TEST(com::exists(pn));
     com::read(sigR, pn);
-    BOOST_CHECK(sig == sigR);
+    BOOST_TEST(sig == sigR);
   }
 #endif
 }

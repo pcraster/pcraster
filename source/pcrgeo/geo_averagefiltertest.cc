@@ -52,36 +52,36 @@ BOOST_AUTO_TEST_CASE(test)
     FilterEngine<double, double> engine(source, filter, destination);
     engine.calc();
 
-    BOOST_CHECK(destination.cell(0, 0) == 4.0);
-    BOOST_CHECK(destination.cell(0, 1) == 4.5);
-    BOOST_CHECK(destination.cell(0, 2) == 5.5);
-    BOOST_CHECK(destination.cell(0, 3) == 6.5);
-    BOOST_CHECK(destination.cell(0, 4) == 7.0);
+    BOOST_TEST(destination.cell(0, 0) == 4.0);
+    BOOST_TEST(destination.cell(0, 1) == 4.5);
+    BOOST_TEST(destination.cell(0, 2) == 5.5);
+    BOOST_TEST(destination.cell(0, 3) == 6.5);
+    BOOST_TEST(destination.cell(0, 4) == 7.0);
 
-    BOOST_CHECK(destination.cell(1, 0) == 6.5);
-    BOOST_CHECK(destination.cell(1, 1) == 7.0);
-    BOOST_CHECK(destination.cell(1, 2) == 8.0);
-    BOOST_CHECK(destination.cell(1, 3) == 9.0);
-    BOOST_CHECK(destination.cell(1, 4) == 9.5);
+    BOOST_TEST(destination.cell(1, 0) == 6.5);
+    BOOST_TEST(destination.cell(1, 1) == 7.0);
+    BOOST_TEST(destination.cell(1, 2) == 8.0);
+    BOOST_TEST(destination.cell(1, 3) == 9.0);
+    BOOST_TEST(destination.cell(1, 4) == 9.5);
 
-    BOOST_CHECK(destination.cell(2, 0) == 11.5);
-    BOOST_CHECK(destination.cell(2, 1) == 11.25);
-    BOOST_CHECK(destination.cell(2, 2) == 12.375);
-    BOOST_CHECK(destination.cell(2, 3) == 13.5);
-    BOOST_CHECK(destination.cell(2, 4) == 14.5);
+    BOOST_TEST(destination.cell(2, 0) == 11.5);
+    BOOST_TEST(destination.cell(2, 1) == 11.25);
+    BOOST_TEST(destination.cell(2, 2) == 12.375);
+    BOOST_TEST(destination.cell(2, 3) == 13.5);
+    BOOST_TEST(destination.cell(2, 4) == 14.5);
 
 
-    BOOST_CHECK(destination.cell(3, 0) == 16.5);
-    BOOST_CHECK(destination.cell(3, 1) == 16.875);
-    BOOST_CHECK(pcr::isMV(destination.cell(3, 2)));
-    BOOST_CHECK(destination.cell(3, 3) == 19.125);
-    BOOST_CHECK(destination.cell(3, 4) == 19.5);
+    BOOST_TEST(destination.cell(3, 0) == 16.5);
+    BOOST_TEST(destination.cell(3, 1) == 16.875);
+    BOOST_TEST(pcr::isMV(destination.cell(3, 2)));
+    BOOST_TEST(destination.cell(3, 3) == 19.125);
+    BOOST_TEST(destination.cell(3, 4) == 19.5);
 
-    BOOST_CHECK(destination.cell(4, 0) == 19.0);
-    BOOST_CHECK(destination.cell(4, 1) == 19.8);
-    BOOST_CHECK(destination.cell(4, 2) == 21);
-    BOOST_CHECK(destination.cell(4, 3) == 22.2);
-    BOOST_CHECK(destination.cell(4, 4) == 22);
+    BOOST_TEST(destination.cell(4, 0) == 19.0);
+    BOOST_TEST(destination.cell(4, 1) == 19.8);
+    BOOST_TEST(destination.cell(4, 2) == 21);
+    BOOST_TEST(destination.cell(4, 3) == 22.2);
+    BOOST_TEST(destination.cell(4, 4) == 22);
   }
 
   {
@@ -110,15 +110,15 @@ BOOST_AUTO_TEST_CASE(test)
     FilterEngine<double, double> engine(source, filter, destination);
     engine.calc();
 
-    BOOST_CHECK(pcr::isMV(destination.cell(0, 0)));
-    BOOST_CHECK(pcr::isMV(destination.cell(0, 1)));
-    BOOST_CHECK(pcr::isMV(destination.cell(0, 2)));
-    BOOST_CHECK(pcr::isMV(destination.cell(1, 0)));
-    BOOST_CHECK(pcr::isMV(destination.cell(1, 1)));
-    BOOST_CHECK(destination.cell(1, 2) == 6.0);
-    BOOST_CHECK(pcr::isMV(destination.cell(2, 0)));
-    BOOST_CHECK(pcr::isMV(destination.cell(2, 1)));
-    BOOST_CHECK(pcr::isMV(destination.cell(2, 2)));
+    BOOST_TEST(pcr::isMV(destination.cell(0, 0)));
+    BOOST_TEST(pcr::isMV(destination.cell(0, 1)));
+    BOOST_TEST(pcr::isMV(destination.cell(0, 2)));
+    BOOST_TEST(pcr::isMV(destination.cell(1, 0)));
+    BOOST_TEST(pcr::isMV(destination.cell(1, 1)));
+    BOOST_TEST(destination.cell(1, 2) == 6.0);
+    BOOST_TEST(pcr::isMV(destination.cell(2, 0)));
+    BOOST_TEST(pcr::isMV(destination.cell(2, 1)));
+    BOOST_TEST(pcr::isMV(destination.cell(2, 2)));
   }
 
   {
@@ -152,14 +152,14 @@ BOOST_AUTO_TEST_CASE(test)
     FilterEngine<double, double> engine(source, filter, destination);
     engine.calc();
 
-    BOOST_CHECK(pcr::isMV(destination.cell(0, 0)));
-    BOOST_CHECK(pcr::isMV(destination.cell(0, 1)));
-    BOOST_CHECK(pcr::isMV(destination.cell(0, 2)));
-    BOOST_CHECK(pcr::isMV(destination.cell(1, 0)));
-    BOOST_CHECK(pcr::isMV(destination.cell(1, 1)));
-    BOOST_CHECK(destination.cell(1, 2) == 6.0);
-    BOOST_CHECK(pcr::isMV(destination.cell(2, 0)));
-    BOOST_CHECK(pcr::isMV(destination.cell(2, 1)));
-    BOOST_CHECK(pcr::isMV(destination.cell(2, 2)));
+    BOOST_TEST(pcr::isMV(destination.cell(0, 0)));
+    BOOST_TEST(pcr::isMV(destination.cell(0, 1)));
+    BOOST_TEST(pcr::isMV(destination.cell(0, 2)));
+    BOOST_TEST(pcr::isMV(destination.cell(1, 0)));
+    BOOST_TEST(pcr::isMV(destination.cell(1, 1)));
+    BOOST_TEST(destination.cell(1, 2) == 6.0);
+    BOOST_TEST(pcr::isMV(destination.cell(2, 0)));
+    BOOST_TEST(pcr::isMV(destination.cell(2, 1)));
+    BOOST_TEST(pcr::isMV(destination.cell(2, 2)));
   }
 }

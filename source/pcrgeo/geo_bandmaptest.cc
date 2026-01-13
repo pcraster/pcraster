@@ -48,18 +48,18 @@ BOOST_AUTO_TEST_CASE(open)
   ;
   try {
     BandMap const bm("uint1minimal");
-    BOOST_CHECK(bm.nrRows() == 4);
-    BOOST_CHECK(bm.nrCols() == 5);
-    BOOST_CHECK(bm.nrCells() == 20);
-    BOOST_CHECK(size(com::PathName("uint1minimal.bil")) == bm.nrCells());
+    BOOST_TEST(bm.nrRows() == 4);
+    BOOST_TEST(bm.nrCols() == 5);
+    BOOST_TEST(bm.nrCells() == 20);
+    BOOST_TEST(size(com::PathName("uint1minimal.bil")) == bm.nrCells());
     buf = new UINT1[bm.nrCells()];
-    BOOST_CHECK(bm.cellSize() == 1);  // default
+    BOOST_TEST(bm.cellSize() == 1);  // default
     bm.getCellsAsUINT1(buf);
-    BOOST_CHECK(!bm.mvIsSet());
-    BOOST_CHECK(buf[12] == 12);
+    BOOST_TEST(!bm.mvIsSet());
+    BOOST_TEST(buf[12] == 12);
 
     createBil("uint1minimalcpy.bil", bm.rasterSpace(), buf);
-    BOOST_CHECK(com::filesExistsAndEqual("uint1minimalcpy.bil", "uint1minimal.bil"));
+    BOOST_TEST(com::filesExistsAndEqual("uint1minimalcpy.bil", "uint1minimal.bil"));
 
 
   } catch (const com::Exception &e) {
@@ -86,10 +86,10 @@ BOOST_AUTO_TEST_CASE(multi_band)
   BandMap const bm("mband");
   auto *real4 = new REAL4[bm.nrCells()];
   bm.getCellsAsREAL4(real4);
-  BOOST_CHECK(real4[0] == 0);
-  BOOST_CHECK(real4[10] == 30);
-  BOOST_CHECK(real4[20] == 60);
-  BOOST_CHECK(real4[39] == 99);
+  BOOST_TEST(real4[0] == 0);
+  BOOST_TEST(real4[10] == 30);
+  BOOST_TEST(real4[20] == 60);
+  BOOST_TEST(real4[39] == 99);
   delete[] real4;
 }
 
@@ -98,28 +98,28 @@ BOOST_AUTO_TEST_CASE(open2)
   using namespace geo;
 
   BandMap const bm("int2mv0");
-  BOOST_CHECK(bm.nrRows() == 4);
-  BOOST_CHECK(bm.nrCols() == 5);
-  BOOST_CHECK(bm.mvIsSet());
-  BOOST_CHECK(bm.mvValue() == 0);
-  BOOST_CHECK(bm.cellRepr() == CR_INT2);
+  BOOST_TEST(bm.nrRows() == 4);
+  BOOST_TEST(bm.nrCols() == 5);
+  BOOST_TEST(bm.mvIsSet());
+  BOOST_TEST(bm.mvValue() == 0);
+  BOOST_TEST(bm.cellRepr() == CR_INT2);
 
   INT2 *bufi2 = new INT2[bm.nrCells()];
 
   bm.getCellsRaw(bufi2);
-  BOOST_CHECK(bufi2[0] == 0);
-  BOOST_CHECK(bufi2[11] == 11);
+  BOOST_TEST(bufi2[0] == 0);
+  BOOST_TEST(bufi2[11] == 11);
 
   INT4 *bufi4 = new INT4[bm.nrCells()];
   bm.getCellsAsINT4(bufi4);
-  BOOST_CHECK(bufi4[19] == MV_INT4);
-  BOOST_CHECK(bufi4[0] == MV_INT4);
-  BOOST_CHECK(bufi4[11] == 11);
+  BOOST_TEST(bufi4[19] == MV_INT4);
+  BOOST_TEST(bufi4[0] == MV_INT4);
+  BOOST_TEST(bufi4[11] == 11);
 
   auto *real4 = new REAL4[bm.nrCells()];
   bm.getCellsAsREAL4(real4);
-  BOOST_CHECK(pcr::isMV(real4[0]));
-  BOOST_CHECK(real4[11] == 11.0);
+  BOOST_TEST(pcr::isMV(real4[0]));
+  BOOST_TEST(real4[11] == 11.0);
 
   delete[] bufi4;
   delete[] bufi2;
@@ -135,14 +135,14 @@ BOOST_AUTO_TEST_CASE(read)
   // 1 everywhere
   // but first column is MV
   BandMap const bm("all1_float.bil");
-  BOOST_CHECK(bm.nrRows() == 4);
-  BOOST_CHECK(bm.nrCols() == 4);
+  BOOST_TEST(bm.nrRows() == 4);
+  BOOST_TEST(bm.nrCols() == 4);
   auto *buf = new REAL4[bm.nrCells()];
-  BOOST_CHECK(bm.cellSize() == 1);
+  BOOST_TEST(bm.cellSize() == 1);
 
   bm.getCellsRaw(buf);
-  BOOST_CHECK(buf[1] == 1);
-  BOOST_CHECK(buf[bm.nrCells() - 1] == 1);
+  BOOST_TEST(buf[1] == 1);
+  BOOST_TEST(buf[bm.nrCells() - 1] == 1);
 
   delete[] buf;
 }
@@ -162,24 +162,24 @@ BOOST_AUTO_TEST_CASE(create)
 
   BandMap const out("inp1b");
 
-  BOOST_CHECK(out.nrRows() == in.nrRows());
-  BOOST_CHECK(out.nrCols() == in.nrCols());
-  BOOST_CHECK(out.cellSize() == in.cellSize());
-  BOOST_CHECK(out.cellRepr() == in.cellRepr());
+  BOOST_TEST(out.nrRows() == in.nrRows());
+  BOOST_TEST(out.nrCols() == in.nrCols());
+  BOOST_TEST(out.cellSize() == in.cellSize());
+  BOOST_TEST(out.cellRepr() == in.cellRepr());
 
   in.getCells(buf);
-  BOOST_CHECK(buf[0] == MV_UINT1);
-  BOOST_CHECK(buf[1] == 1);
-  BOOST_CHECK(buf[24] == 1);
+  BOOST_TEST(buf[0] == MV_UINT1);
+  BOOST_TEST(buf[1] == 1);
+  BOOST_TEST(buf[24] == 1);
 
-  BOOST_CHECK(size(com::PathName("inp1b.bil")) == in.nrCells());
+  BOOST_TEST(size(com::PathName("inp1b.bil")) == in.nrCells());
 
   BandMap const asInt4("inp1b");
   INT4 *bufI4 = new INT4[in.nrCells()];
   asInt4.getCellsAsINT4(bufI4);
-  BOOST_CHECK(bufI4[0] == MV_INT4);
-  BOOST_CHECK(bufI4[1] == 1);
-  BOOST_CHECK(bufI4[24] == 1);
+  BOOST_TEST(bufI4[0] == MV_INT4);
+  BOOST_TEST(bufI4[1] == 1);
+  BOOST_TEST(bufI4[24] == 1);
 
   delete[] bufI4;
 
@@ -202,15 +202,15 @@ BOOST_AUTO_TEST_CASE(put_cells)
     bm.putCellsAsINT4(createBuf);
 
     BandMap const readBm("testPutCellsputINT4");
-    BOOST_CHECK(readBm.cellRepr() == CR_INT2);
-    BOOST_CHECK(readBm.nrRows() == 4);
-    BOOST_CHECK(readBm.nrCols() == 5);
+    BOOST_TEST(readBm.cellRepr() == CR_INT2);
+    BOOST_TEST(readBm.nrRows() == 4);
+    BOOST_TEST(readBm.nrCols() == 5);
     INT4 readBuf[20];
     readBm.getCellsAsINT4(readBuf);
-    BOOST_CHECK(readBuf[0] == MV_INT4);
-    BOOST_CHECK(readBuf[2] == 2);
+    BOOST_TEST(readBuf[0] == MV_INT4);
+    BOOST_TEST(readBuf[2] == 2);
     // test truncation/sign wrap due to INT2 storage
-    BOOST_CHECK(readBuf[10] == INT2_MIN - 1 + 99);
+    BOOST_TEST(readBuf[10] == INT2_MIN - 1 + 99);
   }
   {
     RasterSpace const rs(4, 5);
@@ -222,25 +222,25 @@ BOOST_AUTO_TEST_CASE(put_cells)
     bm.putCellsAsREAL4(createBuf);
 
     BandMap const readBm("testPutCellsputREAL4");
-    BOOST_CHECK(readBm.cellRepr() == CR_REAL4);
-    BOOST_CHECK(readBm.nrRows() == 4);
-    BOOST_CHECK(readBm.nrCols() == 5);
+    BOOST_TEST(readBm.cellRepr() == CR_REAL4);
+    BOOST_TEST(readBm.nrRows() == 4);
+    BOOST_TEST(readBm.nrCols() == 5);
     REAL4 readBuf[20];
 
     readBm.getCellsRaw(readBuf);
-    BOOST_CHECK(readBuf[0] == -999);
-    BOOST_CHECK(readBuf[2] == 2);
+    BOOST_TEST(readBuf[0] == -999);
+    BOOST_TEST(readBuf[2] == 2);
 
     REAL4 readBuf2[20];
     readBm.getCellsAsREAL4(readBuf2);
-    BOOST_CHECK(pcr::isMV(readBuf2[0]));
-    BOOST_CHECK(readBuf2[2] == 2);
+    BOOST_TEST(pcr::isMV(readBuf2[0]));
+    BOOST_TEST(readBuf2[2] == 2);
 
     // test stx
     com::PathName const stx("testPutCellsputREAL4.stx");
     std::string stxContents;
     com::read(stxContents, stx);
-    BOOST_CHECK(stxContents == "1 1 19\n");
+    BOOST_TEST(stxContents == "1 1 19\n");
   }
 }
 
@@ -262,7 +262,7 @@ BOOST_AUTO_TEST_CASE(header)
   } catch (...) {
     succes = false;
   }
-  BOOST_CHECK(succes);
+  BOOST_TEST(succes);
 
   // NROWS and NCOLS are required
   bool failure = false;
@@ -270,11 +270,11 @@ BOOST_AUTO_TEST_CASE(header)
     com::write("XDIM 1\nUNKNOWNKEY 5\n", pn);
     BandMap const bm("headertest");
   } catch (const com::Exception &e) {
-    BOOST_CHECK(e.messages().find("NROWS") != std::string::npos ||
-                e.messages().find("NCOLS") != std::string::npos);
+    BOOST_TEST((e.messages().find("NROWS") != std::string::npos ||
+                e.messages().find("NCOLS") != std::string::npos));
     failure = true;
   }
-  BOOST_CHECK(failure);
+  BOOST_TEST(failure);
 
   // allow ommision of last new line
   succes = true;
@@ -284,20 +284,20 @@ BOOST_AUTO_TEST_CASE(header)
   } catch (...) {
     succes = false;
   }
-  BOOST_CHECK(succes);
+  BOOST_TEST(succes);
 
   {
     // if both dim are set, then ok
     com::write("NROWS 4\nNCOLS 5\nXDIM 0.5\nYDIM 0.5", pn);
     BandMap const bm("headertest");
-    BOOST_CHECK(bm.cellSize() == 0.5);  // as set
+    BOOST_TEST(bm.cellSize() == 0.5);  // as set
   }
 
   {
     // if only one dim then the default is set
     com::write("NROWS 4\nNCOLS 5\nXDIM 0.5\n", pn);
     BandMap const bm("headertest");
-    BOOST_CHECK(bm.cellSize() == 1);  // the default
+    BOOST_TEST(bm.cellSize() == 1);  // the default
   }
 
   // if both DIM set they must be equal
@@ -306,11 +306,11 @@ BOOST_AUTO_TEST_CASE(header)
     com::write("NROWS 3\nNCOLS 4\nXDIM 1\nYDIM 0.5\n", pn);
     BandMap const bm("headertest");
   } catch (const com::Exception &e) {
-    BOOST_CHECK(e.messages().find("XDIM") != std::string::npos &&
-                e.messages().find("YDIM") != std::string::npos);
+    BOOST_TEST((e.messages().find("XDIM") != std::string::npos &&
+                e.messages().find("YDIM") != std::string::npos));
     failure = true;
   }
-  BOOST_CHECK(failure);
+  BOOST_TEST(failure);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

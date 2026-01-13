@@ -16,7 +16,7 @@ BOOST_AUTO_TEST_CASE(test_)
     // Scenario names are exact.
     BOOST_CHECK_EQUAL(dimension.discretisation(), ExactDiscretisation);
 
-    BOOST_CHECK(!dimension.isWide());
+    BOOST_TEST(!dimension.isWide());
   }
 }
 
@@ -31,13 +31,13 @@ BOOST_AUTO_TEST_CASE(contains_value_in_range)
     values.push_back(5);
     values.push_back(1);
     Dimension const dimension(Time, values);
-    BOOST_CHECK(!dimension.containsValueInRange<size_t>(0));
-    BOOST_CHECK(!dimension.containsValueInRange<size_t>(1));
-    BOOST_CHECK( dimension.containsValueInRange<size_t>(2));
-    BOOST_CHECK( dimension.containsValueInRange<size_t>(3));
-    BOOST_CHECK( dimension.containsValueInRange<size_t>(4));
-    BOOST_CHECK( dimension.containsValueInRange<size_t>(5));
-    BOOST_CHECK(!dimension.containsValueInRange<size_t>(6));
+    BOOST_TEST(!dimension.containsValueInRange<size_t>(0));
+    BOOST_TEST(!dimension.containsValueInRange<size_t>(1));
+    BOOST_TEST( dimension.containsValueInRange<size_t>(2));
+    BOOST_TEST( dimension.containsValueInRange<size_t>(3));
+    BOOST_TEST( dimension.containsValueInRange<size_t>(4));
+    BOOST_TEST( dimension.containsValueInRange<size_t>(5));
+    BOOST_TEST(!dimension.containsValueInRange<size_t>(6));
   }
 
   {
@@ -46,13 +46,13 @@ BOOST_AUTO_TEST_CASE(contains_value_in_range)
     values.push_back(5);
     values.push_back(2);
     Dimension const dimension(Time, values);
-    BOOST_CHECK(!dimension.containsValueInRange<size_t>(0));
-    BOOST_CHECK(!dimension.containsValueInRange<size_t>(1));
-    BOOST_CHECK( dimension.containsValueInRange<size_t>(2));
-    BOOST_CHECK(!dimension.containsValueInRange<size_t>(3));
-    BOOST_CHECK( dimension.containsValueInRange<size_t>(4));
-    BOOST_CHECK(!dimension.containsValueInRange<size_t>(5));
-    BOOST_CHECK(!dimension.containsValueInRange<size_t>(6));
+    BOOST_TEST(!dimension.containsValueInRange<size_t>(0));
+    BOOST_TEST(!dimension.containsValueInRange<size_t>(1));
+    BOOST_TEST( dimension.containsValueInRange<size_t>(2));
+    BOOST_TEST(!dimension.containsValueInRange<size_t>(3));
+    BOOST_TEST( dimension.containsValueInRange<size_t>(4));
+    BOOST_TEST(!dimension.containsValueInRange<size_t>(5));
+    BOOST_TEST(!dimension.containsValueInRange<size_t>(6));
   }
 
   {
@@ -61,19 +61,19 @@ BOOST_AUTO_TEST_CASE(contains_value_in_range)
     values.push_back(0.99f);
     values.push_back(0.01f);
     Dimension const dimension(CumulativeProbabilities, values);
-    BOOST_CHECK(!dimension.containsValueInRange<float>(0.00f));
-    BOOST_CHECK( dimension.containsValueInRange<float>(0.01f));
-    BOOST_CHECK( dimension.containsValueInRange<float>(0.02f));
-    BOOST_CHECK( dimension.containsValueInRange<float>(0.03f));
-    BOOST_CHECK( dimension.containsValueInRange<float>(0.04f));
-    BOOST_CHECK( dimension.containsValueInRange<float>(0.05f));
-    BOOST_CHECK( dimension.containsValueInRange<float>(0.50f));
-    BOOST_CHECK( dimension.containsValueInRange<float>(0.95f));
-    BOOST_CHECK( dimension.containsValueInRange<float>(0.96f));
-    BOOST_CHECK( dimension.containsValueInRange<float>(0.97f));
-    BOOST_CHECK( dimension.containsValueInRange<float>(0.98f));
-    BOOST_CHECK( dimension.containsValueInRange<float>(0.99f));
-    BOOST_CHECK(!dimension.containsValueInRange<float>(1.00f));
+    BOOST_TEST(!dimension.containsValueInRange<float>(0.00f));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.01f));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.02f));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.03f));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.04f));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.05f));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.50f));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.95f));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.96f));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.97f));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.98f));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.99f));
+    BOOST_TEST(!dimension.containsValueInRange<float>(1.00f));
   }
 
   {
@@ -82,19 +82,19 @@ BOOST_AUTO_TEST_CASE(contains_value_in_range)
     values.push_back(0.99f);
     values.push_back(0.02f);
     Dimension const dimension(CumulativeProbabilities, values);
-    BOOST_CHECK(!dimension.containsValueInRange<float>(0.00f));
-    BOOST_CHECK( dimension.containsValueInRange<float>(0.01f));
-    BOOST_CHECK(!dimension.containsValueInRange<float>(0.02f));
-    BOOST_CHECK( dimension.containsValueInRange<float>(0.03f));
-    BOOST_CHECK(!dimension.containsValueInRange<float>(0.04f));
-    BOOST_CHECK( dimension.containsValueInRange<float>(0.05f));
-    BOOST_CHECK(!dimension.containsValueInRange<float>(0.50f));
-    BOOST_CHECK( dimension.containsValueInRange<float>(0.95f));
-    BOOST_CHECK(!dimension.containsValueInRange<float>(0.96f));
-    BOOST_CHECK( dimension.containsValueInRange<float>(0.97f));
-    BOOST_CHECK(!dimension.containsValueInRange<float>(0.98f));
-    BOOST_CHECK( dimension.containsValueInRange<float>(0.99f));
-    BOOST_CHECK(!dimension.containsValueInRange<float>(1.00f));
+    BOOST_TEST(!dimension.containsValueInRange<float>(0.00f));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.01f));
+    BOOST_TEST(!dimension.containsValueInRange<float>(0.02f));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.03f));
+    BOOST_TEST(!dimension.containsValueInRange<float>(0.04f));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.05f));
+    BOOST_TEST(!dimension.containsValueInRange<float>(0.50f));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.95f));
+    BOOST_TEST(!dimension.containsValueInRange<float>(0.96f));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.97f));
+    BOOST_TEST(!dimension.containsValueInRange<float>(0.98f));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.99f));
+    BOOST_TEST(!dimension.containsValueInRange<float>(1.00f));
   }
 }
 
@@ -108,7 +108,7 @@ BOOST_AUTO_TEST_CASE(clamp)
   values.push_back(0.99f);
   values.push_back(0.01f);
   Dimension const dimension(CumulativeProbabilities, values);
-  BOOST_CHECK(dal::comparable<float>(dimension.clamp<float>(0.5), 0.5f));
+  BOOST_TEST(dal::comparable<float>(dimension.clamp<float>(0.5), 0.5f));
 }
 
 
@@ -130,7 +130,7 @@ BOOST_AUTO_TEST_CASE(index_of_value_of)
 
   for(size_t i = 0; i < dimension.nrCoordinates(); ++i) {
     BOOST_CHECK_EQUAL(dimension.indexOf<float>(first + i * interval), i);
-    BOOST_CHECK(comparable<float>(dimension.coordinate<float>(i),
+    BOOST_TEST(comparable<float>(dimension.coordinate<float>(i),
          first + i * interval));
   }
 }
@@ -179,7 +179,7 @@ BOOST_AUTO_TEST_CASE(merge)
 
     dimension1 |= dimension2;
     BOOST_CHECK_EQUAL(dimension1.nrValues(), size_t(3));
-    BOOST_CHECK(comparable<float>(dimension1.value<float>(2), 0.01f));
+    BOOST_TEST(comparable<float>(dimension1.value<float>(2), 0.01f));
   }
 
   {
@@ -265,21 +265,21 @@ BOOST_AUTO_TEST_CASE(is_wide)
 
   {
     Dimension const dimension(Time, size_t(5), size_t(5), size_t(1));
-    BOOST_CHECK(!dimension.isWide());
+    BOOST_TEST(!dimension.isWide());
   }
 
   {
     Dimension const dimension(Time, size_t(5), size_t(5), size_t(2));
-    BOOST_CHECK(!dimension.isWide());
+    BOOST_TEST(!dimension.isWide());
   }
 
   {
     Dimension const dimension(Time, size_t(5), size_t(6), size_t(2));
-    BOOST_CHECK(!dimension.isWide());
+    BOOST_TEST(!dimension.isWide());
   }
 
   {
     Dimension const dimension(Time, size_t(5), size_t(7), size_t(2));
-    BOOST_CHECK(dimension.isWide());
+    BOOST_TEST(dimension.isWide());
   }
 }

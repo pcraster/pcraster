@@ -24,7 +24,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
 
   auto* table = dynamic_cast<Table*>(
          dynamic_cast<Driver&>(driver).open(filename));
-  BOOST_CHECK(!table);
+  BOOST_TEST(!table);
 
   try {
     exceptionCaught = false;
@@ -35,7 +35,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
        "Data source " + filename + "(table):\ncannot be opened");
     exceptionCaught = true;
   }
-  BOOST_CHECK(exceptionCaught);
+  BOOST_TEST(exceptionCaught);
 }
 
 
@@ -49,7 +49,7 @@ BOOST_AUTO_TEST_CASE(empty)
 
   auto* table = dynamic_cast<Table*>(
          dynamic_cast<Driver&>(driver).open(filename));
-  BOOST_CHECK(!table);
+  BOOST_TEST(!table);
 
   try {
     exceptionCaught = false;
@@ -60,7 +60,7 @@ BOOST_AUTO_TEST_CASE(empty)
        "Data source " + filename + "(table):\ncannot be opened");
     exceptionCaught = true;
   }
-  BOOST_CHECK(exceptionCaught);
+  BOOST_TEST(exceptionCaught);
 }
 
 
@@ -74,7 +74,7 @@ BOOST_AUTO_TEST_CASE(invalid_grammer)
 
   auto* table = dynamic_cast<Table*>(
          dynamic_cast<Driver&>(driver).open(filename));
-  BOOST_CHECK(!table);
+  BOOST_TEST(!table);
 
   try {
     exceptionCaught = false;
@@ -85,7 +85,7 @@ BOOST_AUTO_TEST_CASE(invalid_grammer)
        "Data source " + filename + "(table):\ncannot be opened");
     exceptionCaught = true;
   }
-  BOOST_CHECK(exceptionCaught);
+  BOOST_TEST(exceptionCaught);
 }
 
 
@@ -115,7 +115,7 @@ BOOST_AUTO_TEST_CASE(table1)
     filename = "table1.eas";
     table = dynamic_cast<Table*>(
          dynamic_cast<Driver&>(driver).open(filename));
-    BOOST_CHECK(table);
+    BOOST_TEST(table);
     BOOST_CHECK_EQUAL(table->title(), "Special table");
     BOOST_CHECK_EQUAL(table->nrCols(), size_t(3));
     BOOST_CHECK_EQUAL(table->title(0), "One");
@@ -153,7 +153,7 @@ BOOST_AUTO_TEST_CASE(table1)
     BOOST_CHECK_EQUAL(col3[2],  9.0);
     BOOST_CHECK_EQUAL(col3[3], 12.0);
     BOOST_CHECK_EQUAL(col3[4], 15.5);
-    BOOST_CHECK(pcr::isMV(col3[5]));
+    BOOST_TEST(pcr::isMV(col3[5]));
 
     delete table;
   }
@@ -172,7 +172,7 @@ BOOST_AUTO_TEST_CASE(table2)
     filename = "table2.eas";
     table = dynamic_cast<Table*>(
          dynamic_cast<Driver&>(driver).open(filename));
-    BOOST_CHECK(table);
+    BOOST_TEST(table);
     BOOST_CHECK_EQUAL(table->title()  , "Attributes of the zones.");
     BOOST_CHECK_EQUAL(table->nrCols() , size_t(12));
     BOOST_CHECK_EQUAL(table->title(0) , "Zone number");

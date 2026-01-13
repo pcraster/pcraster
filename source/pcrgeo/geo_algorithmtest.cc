@@ -33,17 +33,17 @@ BOOST_AUTO_TEST_CASE(points_in_area)
 
     subset.clear();
     pointsInArea(point, radius, points.begin(), points.end(), std::back_inserter(subset));
-    BOOST_CHECK(subset.size() == 9);
+    BOOST_TEST(subset.size() == 9);
 
     radius = 1;
     subset.clear();
     pointsInArea(point, radius, points.begin(), points.end(), std::back_inserter(subset));
-    BOOST_CHECK(subset.size() == 5);
+    BOOST_TEST(subset.size() == 5);
 
     radius = 2;
     subset.clear();
     pointsInArea(point, radius, points.begin(), points.end(), std::back_inserter(subset));
-    BOOST_CHECK(subset.size() == 9);
+    BOOST_TEST(subset.size() == 9);
   }
 }
 
@@ -75,20 +75,20 @@ BOOST_AUTO_TEST_CASE(maximum_)
     radius = 0;
     subset.clear();
     result = maximum(max, point, radius, points.begin(), points.end());
-    BOOST_CHECK(result == true);
-    BOOST_CHECK(max == 8);
+    BOOST_TEST(result == true);
+    BOOST_TEST(max == 8);
 
     radius = 1;
     subset.clear();
     result = maximum(max, point, radius, points.begin(), points.end());
-    BOOST_CHECK(result == true);
-    BOOST_CHECK(max == 7);
+    BOOST_TEST(result == true);
+    BOOST_TEST(max == 7);
 
     radius = 2;
     subset.clear();
     result = maximum(max, point, radius, points.begin(), points.end());
-    BOOST_CHECK(result == true);
-    BOOST_CHECK(max == 8);
+    BOOST_TEST(result == true);
+    BOOST_TEST(max == 8);
   }
 
   {
@@ -115,19 +115,19 @@ BOOST_AUTO_TEST_CASE(maximum_)
     radius = 0;
     subset.clear();
     result = maximum(max, point, radius, points.begin(), points.end());
-    BOOST_CHECK(result == true);
-    BOOST_CHECK(max == 8);
+    BOOST_TEST(result == true);
+    BOOST_TEST(max == 8);
 
     radius = 1;
     subset.clear();
     result = maximum(max, point, radius, points.begin(), points.end());
-    BOOST_CHECK(result == true);
-    BOOST_CHECK(max == 7);
+    BOOST_TEST(result == true);
+    BOOST_TEST(max == 7);
 
     radius = 2;
     subset.clear();
     result = maximum(max, point, radius, points.begin(), points.end());
-    BOOST_CHECK(result == true);
-    BOOST_CHECK(max == 8);
+    BOOST_TEST(result == true);
+    BOOST_TEST(max == 8);
   }
 }

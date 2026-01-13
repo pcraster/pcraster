@@ -16,26 +16,26 @@ BOOST_AUTO_TEST_CASE(mean_)
       double result = NAN;
 
       mean<float, double>(&sources[0], 3, result);
-      BOOST_CHECK(dal::comparable<double>(result, 200.0));
+      BOOST_TEST(dal::comparable<double>(result, 200.0));
     }
 
     {
       float result = NAN;
 
       mean<float, float>(&sources[0], 3, result);
-      BOOST_CHECK(dal::comparable<float>(result, 200.0f));
+      BOOST_TEST(dal::comparable<float>(result, 200.0f));
 
       pcr::setMV(sources[0]);
       mean<float, float>(&sources[0], 3, result);
-      BOOST_CHECK(dal::comparable<float>(result, 250.0f));
+      BOOST_TEST(dal::comparable<float>(result, 250.0f));
 
       pcr::setMV(sources[1]);
       mean<float, float>(&sources[0], 3, result);
-      BOOST_CHECK(dal::comparable<float>(result, 300.0f));
+      BOOST_TEST(dal::comparable<float>(result, 300.0f));
 
       pcr::setMV(sources[2]);
       mean<float, float>(&sources[0], 3, result);
-      BOOST_CHECK(pcr::isMV(result));
+      BOOST_TEST(pcr::isMV(result));
     }
   }
 
@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_CASE(mean_)
 
       mean<std::vector<float>::const_iterator, double>(
          sources.begin(), sources.end(), result);
-      BOOST_CHECK(dal::comparable<double>(result, 200.0));
+      BOOST_TEST(dal::comparable<double>(result, 200.0));
     }
 
     {
@@ -58,22 +58,22 @@ BOOST_AUTO_TEST_CASE(mean_)
 
       mean<std::vector<float>::const_iterator, float>(
          sources.begin(), sources.end(), result);
-      BOOST_CHECK(dal::comparable<float>(result, 200.0f));
+      BOOST_TEST(dal::comparable<float>(result, 200.0f));
 
       pcr::setMV(sources[0]);
       mean<std::vector<float>::const_iterator, float>(
          sources.begin(), sources.end(), result);
-      BOOST_CHECK(dal::comparable<float>(result, 250.0f));
+      BOOST_TEST(dal::comparable<float>(result, 250.0f));
 
       pcr::setMV(sources[1]);
       mean<std::vector<float>::const_iterator, float>(
          sources.begin(), sources.end(), result);
-      BOOST_CHECK(dal::comparable<float>(result, 300.0f));
+      BOOST_TEST(dal::comparable<float>(result, 300.0f));
 
       pcr::setMV(sources[2]);
       mean<std::vector<float>::const_iterator, float>(
          sources.begin(), sources.end(), result);
-      BOOST_CHECK(pcr::isMV(result));
+      BOOST_TEST(pcr::isMV(result));
     }
   }
 }

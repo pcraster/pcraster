@@ -32,16 +32,16 @@ BOOST_AUTO_TEST_CASE(view_plus_syntax_to_view_constructor)
     std::vector<std::vector<std::string>> result;
     result = AguilaProgramOptions::viewPlusSyntaxToViewCtor(arguments);
 
-    BOOST_CHECK(result.size() == 3);
-    BOOST_CHECK(result[0].size() == 2);
-    BOOST_CHECK(result[0][0] == "a");
-    BOOST_CHECK(result[0][1] == "b");
-    BOOST_CHECK(result[1].size() == 3);
-    BOOST_CHECK(result[1][0] == "c");
-    BOOST_CHECK(result[1][1] == "d");
-    BOOST_CHECK(result[1][2] == "e");
-    BOOST_CHECK(result[2].size() == 1);
-    BOOST_CHECK(result[2][0] == "f");
+    BOOST_TEST(result.size() == 3);
+    BOOST_TEST(result[0].size() == 2);
+    BOOST_TEST(result[0][0] == "a");
+    BOOST_TEST(result[0][1] == "b");
+    BOOST_TEST(result[1].size() == 3);
+    BOOST_TEST(result[1][0] == "c");
+    BOOST_TEST(result[1][1] == "d");
+    BOOST_TEST(result[1][2] == "e");
+    BOOST_TEST(result[2].size() == 1);
+    BOOST_TEST(result[2][0] == "f");
   }
 
   {
@@ -61,14 +61,14 @@ BOOST_AUTO_TEST_CASE(view_plus_syntax_to_view_constructor)
     std::vector<std::vector<std::string>> result;
     result = AguilaProgramOptions::viewPlusSyntaxToViewCtor(arguments);
 
-    BOOST_CHECK(result.size() == 3);
-    BOOST_CHECK(result[0].size() == 1);
-    BOOST_CHECK(result[0][0] == "a+b");
-    BOOST_CHECK(result[1].size() == 2);
-    BOOST_CHECK(result[1][0] == "c");
-    BOOST_CHECK(result[1][1] == "d+e");
-    BOOST_CHECK(result[2].size() == 1);
-    BOOST_CHECK(result[2][0] == "f");
+    BOOST_TEST(result.size() == 3);
+    BOOST_TEST(result[0].size() == 1);
+    BOOST_TEST(result[0][0] == "a+b");
+    BOOST_TEST(result[1].size() == 2);
+    BOOST_TEST(result[1][0] == "c");
+    BOOST_TEST(result[1][1] == "d+e");
+    BOOST_TEST(result[2].size() == 1);
+    BOOST_TEST(result[2][0] == "f");
   }
 
   {
@@ -81,9 +81,9 @@ BOOST_AUTO_TEST_CASE(view_plus_syntax_to_view_constructor)
     std::vector<std::vector<std::string>> result;
     result = AguilaProgramOptions::viewPlusSyntaxToViewCtor(arguments);
 
-    BOOST_CHECK(result.size() == 1);
-    BOOST_CHECK(result[0].size() == 1);
-    BOOST_CHECK(result[0][0] == "volcano/volcano0.090+volcano/lava0000.090");
+    BOOST_TEST(result.size() == 1);
+    BOOST_TEST(result[0].size() == 1);
+    BOOST_TEST(result[0][0] == "volcano/volcano0.090+volcano/lava0000.090");
   }
 }
 
@@ -107,8 +107,8 @@ BOOST_AUTO_TEST_CASE(boost_options)
   // pcrxml::VisualisationGroup::view_sequence const& views(group.view());
 
   // BOOST_CHECK_EQUAL(views.size(), size_t(2));
-  // BOOST_CHECK(views[0].map().present());
-  // BOOST_CHECK(views[1].map().present());
+  // BOOST_TEST(views[0].map().present());
+  // BOOST_TEST(views[1].map().present());
 }
 
 
@@ -126,8 +126,8 @@ BOOST_AUTO_TEST_CASE(boost_options_to_xml)
     AguilaProgramOptions apo(3, argv);
 
     // should create 1 map view element:
-    BOOST_CHECK(apo.configuration().visualisationGroup().view().size() == 1);
-    BOOST_CHECK(apo.configuration().visualisationGroup().view()[0].map().present());
+    BOOST_TEST(apo.configuration().visualisationGroup().view().size() == 1);
+    BOOST_TEST(apo.configuration().visualisationGroup().view()[0].map().present());
   }
 
   {
@@ -139,10 +139,10 @@ BOOST_AUTO_TEST_CASE(boost_options_to_xml)
     AguilaProgramOptions apo(3, argv);
 
     // should create 1 map view element:
-    BOOST_CHECK(apo.configuration().visualisationGroup().view().size() == 1);
-    BOOST_CHECK(apo.configuration().visualisationGroup().view()[0].drape().present());
+    BOOST_TEST(apo.configuration().visualisationGroup().view().size() == 1);
+    BOOST_TEST(apo.configuration().visualisationGroup().view()[0].drape().present());
     // choice is mutally exclusive
-    BOOST_CHECK(!apo.configuration().visualisationGroup().view()[0].map().present());
+    BOOST_TEST(!apo.configuration().visualisationGroup().view()[0].map().present());
   }
 }
 #endif
@@ -157,15 +157,15 @@ BOOST_AUTO_TEST_CASE(stackname_fix)
     char *argv[] = {c1, c2};
 
     AguilaProgramOptions const apo(2, argv);
-    BOOST_CHECK(apo.configuration().visualisationGroup().view().size() == 1);
-    BOOST_CHECK(apo.configuration().visualisationGroup().searchSpace().present());
+    BOOST_TEST(apo.configuration().visualisationGroup().view().size() == 1);
+    BOOST_TEST(apo.configuration().visualisationGroup().searchSpace().present());
 
     pcrxml::DataSpace const &s(apo.configuration().visualisationGroup().searchSpace().get());
-    BOOST_CHECK(s.timesteps().size() == 1);
-    BOOST_CHECK(s.timesteps()[0].range().present());
-    BOOST_CHECK(s.timesteps()[0].range()->begin() == 1);
-    BOOST_CHECK(s.timesteps()[0].range()->end() == 90);
-    BOOST_CHECK(s.timesteps()[0].range()->increment() == 1);
+    BOOST_TEST(s.timesteps().size() == 1);
+    BOOST_TEST(s.timesteps()[0].range().present());
+    BOOST_TEST(s.timesteps()[0].range()->begin() == 1);
+    BOOST_TEST(s.timesteps()[0].range()->end() == 90);
+    BOOST_TEST(s.timesteps()[0].range()->increment() == 1);
   }
 
   {
@@ -174,7 +174,7 @@ BOOST_AUTO_TEST_CASE(stackname_fix)
     char *argv[] = {c1, c2};
 
     AguilaProgramOptions const apo(2, argv);
-    BOOST_CHECK(!apo.configuration().visualisationGroup().searchSpace().present());
+    BOOST_TEST(!apo.configuration().visualisationGroup().searchSpace().present());
   }
 
   {
@@ -183,15 +183,15 @@ BOOST_AUTO_TEST_CASE(stackname_fix)
     char *argv[] = {c1, c2};
 
     AguilaProgramOptions const apo(2, argv);
-    BOOST_CHECK(apo.configuration().visualisationGroup().view().size() == 1);
-    BOOST_CHECK(apo.configuration().visualisationGroup().searchSpace().present());
+    BOOST_TEST(apo.configuration().visualisationGroup().view().size() == 1);
+    BOOST_TEST(apo.configuration().visualisationGroup().searchSpace().present());
 
     pcrxml::DataSpace const &s(apo.configuration().visualisationGroup().searchSpace().get());
-    BOOST_CHECK(s.timesteps().size() == 1);
-    BOOST_CHECK(s.timesteps()[0].range().present());
-    BOOST_CHECK(s.timesteps()[0].range()->begin() == 90);
-    BOOST_CHECK(s.timesteps()[0].range()->end() == 90);
-    BOOST_CHECK(s.timesteps()[0].range()->increment() == 1);
+    BOOST_TEST(s.timesteps().size() == 1);
+    BOOST_TEST(s.timesteps()[0].range().present());
+    BOOST_TEST(s.timesteps()[0].range()->begin() == 90);
+    BOOST_TEST(s.timesteps()[0].range()->end() == 90);
+    BOOST_TEST(s.timesteps()[0].range()->increment() == 1);
   }
 }
 
@@ -232,7 +232,7 @@ BOOST_AUTO_TEST_CASE(drape_syntax)
     };
 
     AguilaProgramOptions apo(2, argv);
-    BOOST_CHECK(apo.configuration().visualisationGroup().view().size()==1);
+    BOOST_TEST(apo.configuration().visualisationGroup().view().size()==1);
   }
 
   {
@@ -246,11 +246,11 @@ BOOST_AUTO_TEST_CASE(drape_syntax)
     }
     catch(com::Exception const& exception) {
       exceptionThrown = true;
-      BOOST_CHECK(exception.messages() ==
+      BOOST_TEST(exception.messages() ==
          "Data source a/b+b in /:\nwrong format for stack name");
     }
 
-    BOOST_CHECK(exceptionThrown);
+    BOOST_TEST(exceptionThrown);
   }
 */
 
@@ -281,16 +281,16 @@ BOOST_AUTO_TEST_CASE(multiple_views)
   //   pcrxml::VisualisationGroup::view_sequence const& views(group.view());
   //   BOOST_CHECK_EQUAL(views.size(), size_t(2));
   //   // Two names in the map view.
-  //   BOOST_CHECK(views[0].map().present());
+  //   BOOST_TEST(views[0].map().present());
   //   BOOST_CHECK_EQUAL(views[0].map().get().item().size(), size_t(2));
   //   // One name in the time graph view.
-  //   BOOST_CHECK(views[1].timeGraph().present());
+  //   BOOST_TEST(views[1].timeGraph().present());
   //   BOOST_CHECK_EQUAL(views[1].timeGraph().get().item().size(), size_t(1));
 
-  //   BOOST_CHECK(group.searchSpace().present());
+  //   BOOST_TEST(group.searchSpace().present());
   //   pcrxml::DataSpace const& space(group.searchSpace().get());
   //   BOOST_CHECK_EQUAL(space.timesteps().size(), size_t(1));
-  //   BOOST_CHECK(space.timesteps()[0].range().present());
+  //   BOOST_TEST(space.timesteps()[0].range().present());
   //   BOOST_CHECK_EQUAL(space.timesteps()[0].range()->begin(), size_t(1));
   //   BOOST_CHECK_EQUAL(space.timesteps()[0].range()->end(), size_t(250));
   //   BOOST_CHECK_EQUAL(space.timesteps()[0].range()->increment(), size_t(1));

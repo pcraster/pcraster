@@ -32,22 +32,22 @@ BOOST_AUTO_TEST_CASE(test)
 
   RasterDataSources dataSources;
   BOOST_CHECK_EQUAL(dataSources.size(), size_t(0));
-  BOOST_CHECK(dataSources.empty());
+  BOOST_TEST(dataSources.empty());
 
   DataGuide const guide1 = dataSources.add(name, space);
   BOOST_CHECK_EQUAL(dataSources.size(), size_t(1));
-  BOOST_CHECK(!dataSources.empty());
+  BOOST_TEST(!dataSources.empty());
 
   DataGuide const guide2 = dataSources.add(name, space);
   BOOST_CHECK_EQUAL(dataSources.size(), size_t(1));
-  BOOST_CHECK(!dataSources.empty());
+  BOOST_TEST(!dataSources.empty());
 
   // BOOST_CHECK_EQUAL(dataSources._manager.size(), size_t(1));
 
   dataSources.clear();
   BOOST_CHECK_EQUAL(dataSources.size(), size_t(0));
-  BOOST_CHECK(dataSources.empty());
+  BOOST_TEST(dataSources.empty());
 
-  // BOOST_CHECK(dataSources._manager.empty());
+  // BOOST_TEST(dataSources._manager.empty());
   BOOST_WARN_MESSAGE(false, "Disabled dataSources._manager.empty() tests");
 }

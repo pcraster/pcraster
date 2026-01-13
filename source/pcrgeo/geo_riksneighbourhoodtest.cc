@@ -37,27 +37,27 @@ BOOST_AUTO_TEST_CASE(test)
   {
     // Nr 1.
     RiksNeighbourhoodWrapper neighbourhood(0.0);
-    BOOST_CHECK(neighbourhood.cell(0, 0) == 1.0);
+    BOOST_TEST(neighbourhood.cell(0, 0) == 1.0);
   }
 
   {
     // Nr 2.
     RiksNeighbourhoodWrapper neighbourhood(1.0, 1.0);
-    BOOST_CHECK(neighbourhood.cell(0, 1) == 1.0);
-    BOOST_CHECK(neighbourhood.cell(1, 0) == 1.0);
-    BOOST_CHECK(neighbourhood.cell(1, 2) == 1.0);
-    BOOST_CHECK(neighbourhood.cell(2, 1) == 1.0);
-    BOOST_CHECK(neighbourhood.sum() == 4.0);
+    BOOST_TEST(neighbourhood.cell(0, 1) == 1.0);
+    BOOST_TEST(neighbourhood.cell(1, 0) == 1.0);
+    BOOST_TEST(neighbourhood.cell(1, 2) == 1.0);
+    BOOST_TEST(neighbourhood.cell(2, 1) == 1.0);
+    BOOST_TEST(neighbourhood.sum() == 4.0);
   }
 
   {
     // Nr 4.
     RiksNeighbourhoodWrapper neighbourhood(2.0, 2.0);
-    BOOST_CHECK(neighbourhood.cell(0, 2) == 1.0);
-    BOOST_CHECK(neighbourhood.cell(2, 0) == 1.0);
-    BOOST_CHECK(neighbourhood.cell(2, 4) == 1.0);
-    BOOST_CHECK(neighbourhood.cell(4, 2) == 1.0);
-    BOOST_CHECK(neighbourhood.sum() == 4.0);
+    BOOST_TEST(neighbourhood.cell(0, 2) == 1.0);
+    BOOST_TEST(neighbourhood.cell(2, 0) == 1.0);
+    BOOST_TEST(neighbourhood.cell(2, 4) == 1.0);
+    BOOST_TEST(neighbourhood.cell(4, 2) == 1.0);
+    BOOST_TEST(neighbourhood.sum() == 4.0);
   }
 
   {
@@ -65,25 +65,25 @@ BOOST_AUTO_TEST_CASE(test)
     double const radius = std::hypot(4.0, 2.0);
     RiksNeighbourhoodWrapper neighbourhood(radius, radius);
     size_t const offset = neighbourhood.radius();
-    BOOST_CHECK(neighbourhood.cell(offset + 4, offset + 2) == 1.0);
-    BOOST_CHECK(neighbourhood.cell(offset + 2, offset + 4) == 1.0);
-    BOOST_CHECK(neighbourhood.cell(offset - 2, offset + 4) == 1.0);
-    BOOST_CHECK(neighbourhood.cell(offset - 4, offset + 2) == 1.0);
-    BOOST_CHECK(neighbourhood.cell(offset + 4, offset - 2) == 1.0);
-    BOOST_CHECK(neighbourhood.cell(offset + 2, offset - 4) == 1.0);
-    BOOST_CHECK(neighbourhood.cell(offset - 2, offset - 4) == 1.0);
-    BOOST_CHECK(neighbourhood.cell(offset - 4, offset - 2) == 1.0);
-    BOOST_CHECK(neighbourhood.sum() == 8.0);
+    BOOST_TEST(neighbourhood.cell(offset + 4, offset + 2) == 1.0);
+    BOOST_TEST(neighbourhood.cell(offset + 2, offset + 4) == 1.0);
+    BOOST_TEST(neighbourhood.cell(offset - 2, offset + 4) == 1.0);
+    BOOST_TEST(neighbourhood.cell(offset - 4, offset + 2) == 1.0);
+    BOOST_TEST(neighbourhood.cell(offset + 4, offset - 2) == 1.0);
+    BOOST_TEST(neighbourhood.cell(offset + 2, offset - 4) == 1.0);
+    BOOST_TEST(neighbourhood.cell(offset - 2, offset - 4) == 1.0);
+    BOOST_TEST(neighbourhood.cell(offset - 4, offset - 2) == 1.0);
+    BOOST_TEST(neighbourhood.sum() == 8.0);
   }
 
   {
     // Nr 30.
     RiksNeighbourhoodWrapper neighbourhood(8.0, 8.0);
     size_t const offset = neighbourhood.radius();
-    BOOST_CHECK(neighbourhood.cell(offset + 0, offset + 8) == 1.0);
-    BOOST_CHECK(neighbourhood.cell(offset + 8, offset + 0) == 1.0);
-    BOOST_CHECK(neighbourhood.cell(offset - 8, offset + 0) == 1.0);
-    BOOST_CHECK(neighbourhood.cell(offset + 0, offset - 8) == 1.0);
-    BOOST_CHECK(neighbourhood.sum() == 4.0);
+    BOOST_TEST(neighbourhood.cell(offset + 0, offset + 8) == 1.0);
+    BOOST_TEST(neighbourhood.cell(offset + 8, offset + 0) == 1.0);
+    BOOST_TEST(neighbourhood.cell(offset - 8, offset + 0) == 1.0);
+    BOOST_TEST(neighbourhood.cell(offset + 0, offset - 8) == 1.0);
+    BOOST_TEST(neighbourhood.sum() == 4.0);
   }
 }

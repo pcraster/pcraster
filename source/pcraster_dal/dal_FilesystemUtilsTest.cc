@@ -280,7 +280,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_quantile_sample_time)
     BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
   }
 
-  BOOST_CHECK(exceptionThrown);
+  BOOST_TEST(exceptionThrown);
 
   // TODO
   // Invalid path name.
@@ -307,7 +307,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_quantile_sample)
     BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
   }
 
-  BOOST_CHECK(exceptionThrown);
+  BOOST_TEST(exceptionThrown);
 
   // TODO
   // Invalid path name.
@@ -334,7 +334,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_quantile_time)
     BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
   }
 
-  BOOST_CHECK(exceptionThrown);
+  BOOST_TEST(exceptionThrown);
 
   // TODO
   // Invalid path name.
@@ -361,7 +361,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_quantile)
     BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
   }
 
-  BOOST_CHECK(exceptionThrown);
+  BOOST_TEST(exceptionThrown);
 
   // TODO
   // Invalid path name.
@@ -388,7 +388,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_sample_time)
     BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
   }
 
-  BOOST_CHECK(exceptionThrown);
+  BOOST_TEST(exceptionThrown);
 
   // TODO
   // Invalid path name.
@@ -415,7 +415,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_sample)
     BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
   }
 
-  BOOST_CHECK(exceptionThrown);
+  BOOST_TEST(exceptionThrown);
 
   // TODO
   // Invalid path name.
@@ -442,7 +442,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_time)
     BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
   }
 
-  BOOST_CHECK(exceptionThrown);
+  BOOST_TEST(exceptionThrown);
 
   // TODO
   // Invalid path name.
@@ -469,7 +469,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario)
     BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
   }
 
-  BOOST_CHECK(exceptionThrown);
+  BOOST_TEST(exceptionThrown);
 
   // Empty scenario name.
   try {
@@ -481,7 +481,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario)
     BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
   }
 
-  BOOST_CHECK(exceptionThrown);
+  BOOST_TEST(exceptionThrown);
 
   // Directories.
   {
@@ -522,7 +522,7 @@ BOOST_AUTO_TEST_CASE(path_for_quantile_sample_time)
     BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
   }
 
-  BOOST_CHECK(exceptionThrown);
+  BOOST_TEST(exceptionThrown);
 
   // TODO
   // Invalid path name.
@@ -549,7 +549,7 @@ BOOST_AUTO_TEST_CASE(path_for_quantile_sample)
     BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
   }
 
-  BOOST_CHECK(exceptionThrown);
+  BOOST_TEST(exceptionThrown);
 
   // TODO
   // Invalid path name.
@@ -579,7 +579,7 @@ BOOST_AUTO_TEST_CASE(path_for_quantile_time)
     BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
   }
 
-  BOOST_CHECK(exceptionThrown);
+  BOOST_TEST(exceptionThrown);
 
   // TODO
   // Invalid path name.
@@ -606,7 +606,7 @@ BOOST_AUTO_TEST_CASE(path_for_quantile)
     BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
   }
 
-  BOOST_CHECK(exceptionThrown);
+  BOOST_TEST(exceptionThrown);
 
   // TODO
   // Invalid path name.
@@ -633,7 +633,7 @@ BOOST_AUTO_TEST_CASE(path_for_sample_time)
     BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
   }
 
-  BOOST_CHECK(exceptionThrown);
+  BOOST_TEST(exceptionThrown);
 
   // TODO
   // Invalid path name.
@@ -648,7 +648,7 @@ BOOST_AUTO_TEST_CASE(path_for_sample)
 
   typedef std::filesystem::path path;
 
-  BOOST_CHECK(pathForSample("bla", 5) == path("5/bla"));
+  BOOST_TEST(pathForSample("bla", 5) == path("5/bla"));
 
   bool exceptionThrown = false;
 
@@ -662,7 +662,7 @@ BOOST_AUTO_TEST_CASE(path_for_sample)
     BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
   }
 
-  BOOST_CHECK(exceptionThrown);
+  BOOST_TEST(exceptionThrown);
 
   // Directories.
   {
@@ -697,12 +697,12 @@ BOOST_AUTO_TEST_CASE(path_for_time)
   // BOOST_TEST_WARN(pathForTime("bla", 5555), path("bla_5555"));
 
   // Dal convention.
-  BOOST_CHECK(pathForTime("bla",    5, DALConvention) == path("bla_5"));
-  BOOST_CHECK(pathForTime("bla", 5555, DALConvention) == path("bla_5555"));
+  BOOST_TEST(pathForTime("bla",    5, DALConvention) == path("bla_5"));
+  BOOST_TEST(pathForTime("bla", 5555, DALConvention) == path("bla_5555"));
 
   // PCRaster convention.
-  BOOST_CHECK(pathForTime("bla",    5, PCRConvention) == path("bla00000.005"));
-  BOOST_CHECK(pathForTime("bla", 5555, PCRConvention) == path("bla00005.555"));
+  BOOST_TEST(pathForTime("bla",    5, PCRConvention) == path("bla00000.005"));
+  BOOST_TEST(pathForTime("bla", 5555, PCRConvention) == path("bla00005.555"));
 
   // Fieldwidth determines number of positions used for the time step. Time
   // step is prepended with zero's. No extension dot is added.
@@ -714,15 +714,15 @@ BOOST_AUTO_TEST_CASE(path_for_time)
   // When an extension is present in de name of the dataset, it is saved in
   // the result. This limits the freedom the user has when naming files.
   // Dal default.
-  BOOST_CHECK(pathForTime("bla.map"    , 5, DALConvention) ==
+  BOOST_TEST(pathForTime("bla.map"    , 5, DALConvention) ==
          path("bla_5.map"));
-  BOOST_CHECK(pathForTime("bla.png"    , 5, DALConvention) ==
+  BOOST_TEST(pathForTime("bla.png"    , 5, DALConvention) ==
          path("bla_5.png"));
-  BOOST_CHECK(pathForTime("bla.x"      , 5, DALConvention) ==
+  BOOST_TEST(pathForTime("bla.x"      , 5, DALConvention) ==
          path("bla_5.x"));
   // TODO
-  // BOOST_CHECK(pathForTime("bla."       , 5, DALConvention) == path("bla_5"));
-  BOOST_CHECK(pathForTime("bla.map.png", 5, DALConvention) ==
+  // BOOST_TEST(pathForTime("bla."       , 5, DALConvention) == path("bla_5"));
+  BOOST_TEST(pathForTime("bla.map.png", 5, DALConvention) ==
          path("bla.map_5.png"));
 
   // The PCRaster convention does not support formatting a path name for
@@ -731,12 +731,12 @@ BOOST_AUTO_TEST_CASE(path_for_time)
   // This is implemented in timeStepPath83 as a feature.
   // Since this feature conflicts with the general ideas of Dal extensions are
   // checked by pathForTime and an assertion fires if they are too big.
-  // BOOST_CHECK(pathForTime("bla.map"    , 5, PCRConvention) == path("bla.map"));
-  // BOOST_CHECK(pathForTime("bla.png"    , 5, PCRConvention) == path("bla.png"));
-  BOOST_CHECK(pathForTime("bla.x" , 5, PCRConvention) == path("bla.x000.005"));
+  // BOOST_TEST(pathForTime("bla.map"    , 5, PCRConvention) == path("bla.map"));
+  // BOOST_TEST(pathForTime("bla.png"    , 5, PCRConvention) == path("bla.png"));
+  BOOST_TEST(pathForTime("bla.x" , 5, PCRConvention) == path("bla.x000.005"));
   // TODO
-  // BOOST_CHECK(pathForTime("bla."       , 5, PCRConvention) == path("bla.005"));
-  // BOOST_CHECK(pathForTime("bla.map.png", 5, PCRConvention) ==
+  // BOOST_TEST(pathForTime("bla."       , 5, PCRConvention) == path("bla.005"));
+  // BOOST_TEST(pathForTime("bla.map.png", 5, PCRConvention) ==
   //        path("bla.map.png"));
 
   // Using fieldwidth.
@@ -759,7 +759,7 @@ BOOST_AUTO_TEST_CASE(path_for_time)
     BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
   }
 
-  BOOST_CHECK(exceptionThrown);
+  BOOST_TEST(exceptionThrown);
 
   // TODO
   // Invalid path name.
@@ -772,9 +772,9 @@ BOOST_AUTO_TEST_CASE(path_for)
 {
   using namespace dal;
 
-  BOOST_CHECK(std::filesystem::path("data") == pathFor("data"));
-  BOOST_CHECK(std::filesystem::path("data.col") == pathFor("data.col"));
-  BOOST_CHECK(std::filesystem::path("12345") == pathFor("12345"));
+  BOOST_TEST(std::filesystem::path("data") == pathFor("data"));
+  BOOST_TEST(std::filesystem::path("data.col") == pathFor("data.col"));
+  BOOST_TEST(std::filesystem::path("12345") == pathFor("12345"));
 
   bool exceptionThrown = false;
 
@@ -787,7 +787,7 @@ BOOST_AUTO_TEST_CASE(path_for)
     BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
   }
 
-  BOOST_CHECK(exceptionThrown);
+  BOOST_TEST(exceptionThrown);
 
   // try {
   //   exceptionThrown = false;
@@ -798,7 +798,7 @@ BOOST_AUTO_TEST_CASE(path_for)
   //   BOOST_CHECK_EQUAL(exception.message(), "Pathname '...': Not valid on the current platform");
   // }
 
-  // BOOST_CHECK(exceptionThrown);
+  // BOOST_TEST(exceptionThrown);
 }
 
 
@@ -828,7 +828,7 @@ BOOST_AUTO_TEST_CASE(path_for_data_space_address)
 
   {
     // Empty space and address.
-    BOOST_CHECK(pathForDataSpaceAddress("soil", space, address) ==
+    BOOST_TEST(pathForDataSpaceAddress("soil", space, address) ==
          path("soil"));
   }
 
@@ -858,19 +858,19 @@ BOOST_AUTO_TEST_CASE(path_for_data_space_address)
     DataSpaceAddress address = space.address();
 
     address.setCoordinate<float>(0, 0.01f);
-    BOOST_CHECK(pathForDataSpaceAddress("nox", space, address) ==
+    BOOST_TEST(pathForDataSpaceAddress("nox", space, address) ==
          path("nox_0.01"));
 
     address.setCoordinate<float>(0, 0.09f);
-    BOOST_CHECK(pathForDataSpaceAddress("nox", space, address) ==
+    BOOST_TEST(pathForDataSpaceAddress("nox", space, address) ==
          path("nox_0.09"));
 
     address.setCoordinate<float>(0, 0.90f);
-    BOOST_CHECK(pathForDataSpaceAddress("nox", space, address) ==
+    BOOST_TEST(pathForDataSpaceAddress("nox", space, address) ==
          path("nox_0.9"));
 
     address.setCoordinate<float>(0, 0.99f);
-    BOOST_CHECK(pathForDataSpaceAddress("nox", space, address) ==
+    BOOST_TEST(pathForDataSpaceAddress("nox", space, address) ==
          path("nox_0.99"));
   }
 
@@ -895,16 +895,16 @@ BOOST_AUTO_TEST_CASE(path_for_data_space_address)
     address.setCoordinate<size_t>(0, 1);
     address.setCoordinate<float>(1, 0.01f);
 
-    BOOST_CHECK(pathForDataSpaceAddress("nox", space, address, DALConvention) ==
+    BOOST_TEST(pathForDataSpaceAddress("nox", space, address, DALConvention) ==
          path("nox_1_0.01"));
     // TODO
-    // BOOST_CHECK(pathForDataSpaceAddress("nox", space, address, PCRConvention) ==
+    // BOOST_TEST(pathForDataSpaceAddress("nox", space, address, PCRConvention) ==
     //      path("nox_0.01._01"));
 
-    BOOST_CHECK(pathForDataSpaceAddress("nox.map", space, address,
+    BOOST_TEST(pathForDataSpaceAddress("nox.map", space, address,
          DALConvention) == path("nox_1_0.01.map"));
     // TODO
-    // BOOST_CHECK(pathForDataSpaceAddress("nox.map", space, address,
+    // BOOST_TEST(pathForDataSpaceAddress("nox.map", space, address,
     //      PCRConvention) == path("nox.map"));
   }
 
@@ -928,10 +928,10 @@ BOOST_AUTO_TEST_CASE(path_for_data_space_address)
          "/home/kor/notinbackup/apmosphere/postprocessed/ok");
     address.setCoordinate<float>(1, 0.001f);
 
-    BOOST_CHECK(
+    BOOST_TEST(
          pathForDataSpaceAddress("so2", space, address, DALConvention) ==
          path("/home/kor/notinbackup/apmosphere/postprocessed/ok/so2_0.001"));
-    BOOST_CHECK(
+    BOOST_TEST(
          pathForDataSpaceAddress("so2.map", space, address, DALConvention) ==
          path("/home/kor/notinbackup/apmosphere/postprocessed/ok/so2_0.001.map"));
   }

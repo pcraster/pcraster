@@ -23,7 +23,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
 
   auto* matrix = dynamic_cast<Matrix*>(
          dynamic_cast<Driver&>(driver).open(filename));
-  BOOST_CHECK(!matrix);
+  BOOST_TEST(!matrix);
 
   try {
     exceptionCaught = false;
@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
        "Data source " + filename + "(matrix):\ncannot be opened");
     exceptionCaught = true;
   }
-  BOOST_CHECK(exceptionCaught);
+  BOOST_TEST(exceptionCaught);
 }
 
 
@@ -48,7 +48,7 @@ BOOST_AUTO_TEST_CASE(empty)
 
   auto* matrix = dynamic_cast<Matrix*>(
          dynamic_cast<Driver&>(driver).open(filename));
-  BOOST_CHECK(!matrix);
+  BOOST_TEST(!matrix);
 
   try {
     exceptionCaught = false;
@@ -59,7 +59,7 @@ BOOST_AUTO_TEST_CASE(empty)
        "Data source " + filename + "(matrix):\ncannot be opened");
     exceptionCaught = true;
   }
-  BOOST_CHECK(exceptionCaught);
+  BOOST_TEST(exceptionCaught);
 }
 
 
@@ -73,7 +73,7 @@ BOOST_AUTO_TEST_CASE(invalid_grammar)
 
   auto* matrix = dynamic_cast<Matrix*>(
          dynamic_cast<Driver&>(driver).open(filename));
-  BOOST_CHECK(!matrix);
+  BOOST_TEST(!matrix);
 
   try {
     exceptionCaught = false;
@@ -84,7 +84,7 @@ BOOST_AUTO_TEST_CASE(invalid_grammar)
          "Data source " + filename + "(matrix):\ncannot be opened");
     exceptionCaught = true;
   }
-  BOOST_CHECK(exceptionCaught);
+  BOOST_TEST(exceptionCaught);
 }
 
 
@@ -100,7 +100,7 @@ BOOST_AUTO_TEST_CASE(matrix1)
     filename = "matrix1.txt";
     matrix = dynamic_cast<Matrix*>(
            dynamic_cast<Driver&>(driver).open(filename));
-    BOOST_CHECK(matrix);
+    BOOST_TEST(matrix);
     BOOST_CHECK_EQUAL(matrix->nrRows(), size_t(0));
     BOOST_CHECK_EQUAL(matrix->nrCols(), size_t(3));
     BOOST_CHECK_EQUAL(matrix->typeId(), TI_REAL4);
@@ -145,7 +145,7 @@ BOOST_AUTO_TEST_CASE(matrix2)
     filename = "matrix2.txt";
     matrix = dynamic_cast<Matrix*>(
            dynamic_cast<Driver&>(driver).open(filename));
-    BOOST_CHECK(matrix);
+    BOOST_TEST(matrix);
     BOOST_CHECK_EQUAL(matrix->nrRows(), size_t(0));
     BOOST_CHECK_EQUAL(matrix->nrCols(), size_t(3));
     BOOST_CHECK_EQUAL(matrix->typeId(), TI_UINT1);
@@ -181,7 +181,7 @@ BOOST_AUTO_TEST_CASE(matrix2)
 ///   {
 ///     filename = "matrix3.txt";
 ///     matrix = driver.open(filename);
-///     BOOST_CHECK(matrix);
+///     BOOST_TEST(matrix);
 ///     BOOST_CHECK_EQUAL(matrix->nrRows(), size_t(0));
 ///     BOOST_CHECK_EQUAL(matrix->nrCols(), size_t(3));
 ///     BOOST_CHECK_EQUAL(matrix->typeId(), TI_STRING);
@@ -219,7 +219,7 @@ BOOST_AUTO_TEST_CASE(matrix2)
 ///     matrix = dynamic_cast<Matrix*>(
 ///            dynamic_cast<Driver&>(driver).open(filename));
 ///     /*
-///     BOOST_CHECK(matrix);
+///     BOOST_TEST(matrix);
 ///     BOOST_CHECK_EQUAL(matrix->nrRows(), size_t(0));
 ///     BOOST_CHECK_EQUAL(matrix->nrCols(), size_t(3));
 ///     BOOST_CHECK_EQUAL(matrix->typeId(), TI_REAL4);

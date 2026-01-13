@@ -13,20 +13,20 @@ BOOST_AUTO_TEST_CASE(base_name)
   // Static stack in current dir.
   pn = "soil.csf";
   geo::CSFStackName sn(pn);
-  BOOST_CHECK(sn.baseName() == "soil.csf");
+  BOOST_TEST(sn.baseName() == "soil.csf");
 
   // Dynamic stack in current dir.
   pn = "soil0000.010+100";
   sn = pn;
-  BOOST_CHECK(sn.baseName() == "soil0000");
+  BOOST_TEST(sn.baseName() == "soil0000");
 
   pn = "soilsoil.010+100";
   sn = pn;
-  BOOST_CHECK(sn.baseName() == "soilsoil");
+  BOOST_TEST(sn.baseName() == "soilsoil");
 
   pn = "soilsoil.s10+100";
   sn = pn;
-  BOOST_CHECK(sn.baseName() == "soilsoil.s");
+  BOOST_TEST(sn.baseName() == "soilsoil.s");
 
   {
     // Test functionality that based on the last timestep the digits for the
@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE(base_name)
     // timestep and thus is part of the basename.
     pn = "lisw9700.001+999";
     sn = pn;
-    BOOST_CHECK(sn.baseName() == "lisw9700");
+    BOOST_TEST(sn.baseName() == "lisw9700");
   }
 }
 
@@ -46,7 +46,7 @@ BOOST_AUTO_TEST_CASE(filename)
     // Static stack in current dir.
     com::PathName const pn = "soil.csf";
     geo::CSFStackName const sn(pn);
-    BOOST_CHECK(sn.fileName(50) == "soil.csf");
+    BOOST_TEST(sn.fileName(50) == "soil.csf");
   }
   // pcrcalc has a trick that if the extension
   // is given each timestep is written to the
@@ -55,35 +55,35 @@ BOOST_AUTO_TEST_CASE(filename)
     // CW wanted to use this one  in pcrcalc
     com::PathName const pn = "tmp.res";
     geo::CSFStackName const sn(pn);
-    BOOST_CHECK(!sn.isDynamic());
-    BOOST_CHECK(sn.fileName(1) == "tmp.res");
-    BOOST_CHECK(sn.fileName(300) == "tmp.res");
+    BOOST_TEST(!sn.isDynamic());
+    BOOST_TEST(sn.fileName(1) == "tmp.res");
+    BOOST_TEST(sn.fileName(300) == "tmp.res");
   }
   {
     // and not this one in pcrcalc
     com::PathName const pn = "tmp.res";
     geo::CSFStackName const sn(pn, 1, 1000);
-    BOOST_CHECK(sn.isDynamic());
-    BOOST_CHECK(sn.fileName(1) == "tmp.res");
-    BOOST_CHECK(sn.fileName(300) == "tmp.res");
+    BOOST_TEST(sn.isDynamic());
+    BOOST_TEST(sn.fileName(1) == "tmp.res");
+    BOOST_TEST(sn.fileName(300) == "tmp.res");
   }
   {
     // Dynamic stack in current dir.
     com::PathName const pn = "soil0000.010+100";
     geo::CSFStackName const sn(pn);
-    BOOST_CHECK(sn.fileName(50) == "soil0000.050");
+    BOOST_TEST(sn.fileName(50) == "soil0000.050");
   }
 
   {
     com::PathName const pn = "soilsoil.010+100";
     geo::CSFStackName const sn(pn);
-    BOOST_CHECK(sn.fileName(50) == "soilsoil.050");
+    BOOST_TEST(sn.fileName(50) == "soilsoil.050");
   }
 
   {
     com::PathName const pn = "soilsoil.s10+100";
     geo::CSFStackName const sn(pn);
-    BOOST_CHECK(sn.fileName(50) == "soilsoil.s50");
+    BOOST_TEST(sn.fileName(50) == "soilsoil.s50");
   }
 }
 
@@ -96,12 +96,12 @@ BOOST_AUTO_TEST_CASE(nr_layers)
   // Static stack in current dir.
   pn = "soil.csf";
   geo::CSFStackName sn(pn);
-  BOOST_CHECK(sn.nrLayers() == 1);
+  BOOST_TEST(sn.nrLayers() == 1);
 
   // Dynamic stack in current dir.
   pn = "soil0000.010+100";
   sn = pn;
-  BOOST_CHECK(sn.nrLayers() == 0);  // Stack doesn't exist in current dir.
+  BOOST_TEST(sn.nrLayers() == 0);  // Stack doesn't exist in current dir.
 }
 
 BOOST_AUTO_TEST_CASE(constructor)
@@ -113,25 +113,25 @@ BOOST_AUTO_TEST_CASE(constructor)
   // Static stack in current dir.
   pn = "soil.csf";
   geo::CSFStackName sn(pn);
-  BOOST_CHECK(!sn.isDynamic());
+  BOOST_TEST(!sn.isDynamic());
 
   // Dynamic stack in current dir.
   pn = "soil0000.010+100";
   sn = pn;
-  BOOST_CHECK(sn.scanned());
-  BOOST_CHECK(sn.isDynamic());
+  BOOST_TEST(sn.scanned());
+  BOOST_TEST(sn.isDynamic());
 
   // Dynamic stack in current dir.
   pn = "XXXeight.001+20000";
   sn = pn;
-  BOOST_CHECK(sn.scanned());
-  BOOST_CHECK(sn.isDynamic());
+  BOOST_TEST(sn.scanned());
+  BOOST_TEST(sn.isDynamic());
 
   // baseName ends with numeric digits
   pn = "XXXX970.001+30";
   sn = pn;
-  BOOST_CHECK(sn.scanned());
-  BOOST_CHECK(sn.isDynamic());
+  BOOST_TEST(sn.scanned());
+  BOOST_TEST(sn.isDynamic());
 }
 
 BOOST_AUTO_TEST_CASE(bad_formats)
@@ -148,7 +148,7 @@ BOOST_AUTO_TEST_CASE(bad_formats)
   } catch (const com::Exception &) {
     catchWrongFormat = true;
   }
-  BOOST_CHECK(catchWrongFormat);
+  BOOST_TEST(catchWrongFormat);
 
   // no last timestep
   catchWrongFormat = false;
@@ -158,7 +158,7 @@ BOOST_AUTO_TEST_CASE(bad_formats)
   } catch (const com::Exception &) {
     catchWrongFormat = true;
   }
-  BOOST_CHECK(catchWrongFormat);
+  BOOST_TEST(catchWrongFormat);
 
   // last timestep is not numeric
   catchWrongFormat = false;
@@ -168,7 +168,7 @@ BOOST_AUTO_TEST_CASE(bad_formats)
   } catch (const com::Exception &) {
     catchWrongFormat = true;
   }
-  BOOST_CHECK(catchWrongFormat);
+  BOOST_TEST(catchWrongFormat);
 
   // no first timestep
   catchWrongFormat = false;
@@ -178,7 +178,7 @@ BOOST_AUTO_TEST_CASE(bad_formats)
   } catch (const com::Exception &) {
     catchWrongFormat = true;
   }
-  BOOST_CHECK(catchWrongFormat);
+  BOOST_TEST(catchWrongFormat);
 
   catchWrongFormat = false;
   // first timestep larger than second
@@ -188,7 +188,7 @@ BOOST_AUTO_TEST_CASE(bad_formats)
   } catch (const com::Exception &) {
     catchWrongFormat = true;
   }
-  BOOST_CHECK(catchWrongFormat);
+  BOOST_TEST(catchWrongFormat);
 }
 
 BOOST_AUTO_TEST_CASE(as_aguila_argument)
@@ -196,5 +196,5 @@ BOOST_AUTO_TEST_CASE(as_aguila_argument)
   using namespace geo;
 
   std::string const r(CSFStackName::asAguilaArgument("prefix", 1, 100));
-  BOOST_CHECK(r == "prefix00.001+100");
+  BOOST_TEST(r == "prefix00.001+100");
 }

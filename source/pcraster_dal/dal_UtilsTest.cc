@@ -58,7 +58,7 @@ BOOST_AUTO_TEST_CASE(dataset_type)
     timeSteps.push_back(size_t(1));
 
     space.addDimension(Dimension(Time, timeSteps));
-    BOOST_CHECK(space.hasTime());
+    BOOST_TEST(space.hasTime());
 
     type = dal.datasetType(name, space);    // Finds soil0000.010.
     BOOST_CHECK_EQUAL(type, RASTER);
@@ -183,7 +183,7 @@ BOOST_AUTO_TEST_CASE(data_space_to_field_names)
   {
     fieldNames.clear();
 
-    BOOST_CHECK(dataSpaceToFieldNames(space) == fieldNames);
+    BOOST_TEST(dataSpaceToFieldNames(space) == fieldNames);
   }
 
   {
@@ -193,7 +193,7 @@ BOOST_AUTO_TEST_CASE(data_space_to_field_names)
     fieldNames.clear();
     fieldNames.insert("scenario");
 
-    BOOST_CHECK(dataSpaceToFieldNames(space) == fieldNames);
+    BOOST_TEST(dataSpaceToFieldNames(space) == fieldNames);
   }
 
   {
@@ -203,7 +203,7 @@ BOOST_AUTO_TEST_CASE(data_space_to_field_names)
     fieldNames.clear();
     fieldNames.insert("quantile");
 
-    BOOST_CHECK(dataSpaceToFieldNames(space) == fieldNames);
+    BOOST_TEST(dataSpaceToFieldNames(space) == fieldNames);
   }
 
   {
@@ -213,7 +213,7 @@ BOOST_AUTO_TEST_CASE(data_space_to_field_names)
     fieldNames.clear();
     fieldNames.insert("date");
 
-    BOOST_CHECK(dataSpaceToFieldNames(space) == fieldNames);
+    BOOST_TEST(dataSpaceToFieldNames(space) == fieldNames);
   }
 
   {
@@ -227,7 +227,7 @@ BOOST_AUTO_TEST_CASE(data_space_to_field_names)
     fieldNames.insert("date");
     fieldNames.insert("quantile");
 
-    BOOST_CHECK(dataSpaceToFieldNames(space) == fieldNames);
+    BOOST_TEST(dataSpaceToFieldNames(space) == fieldNames);
   }
 }
 

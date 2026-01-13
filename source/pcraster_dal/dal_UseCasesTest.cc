@@ -43,13 +43,13 @@ BOOST_AUTO_TEST_CASE(test1)
   std::shared_ptr<dal::Raster> notExisting;
   std::tie(notExisting, std::ignore) = rasterDal.open(
       "notExisting.map");
-  BOOST_CHECK(!notExisting);
+  BOOST_TEST(!notExisting);
 
   // mallformed
   std::shared_ptr<dal::Raster> notRecognizedFormat;
   std::tie(notRecognizedFormat, std::ignore) = rasterDal.open(
       "main.cc");
-  BOOST_CHECK(!notRecognizedFormat);
+  BOOST_TEST(!notRecognizedFormat);
 
   std::shared_ptr<dal::Raster> pcrMap;
   std::tie(pcrMap, std::ignore) = rasterDal.open("soil.map");
@@ -77,7 +77,7 @@ BOOST_AUTO_TEST_CASE(test1)
   std::shared_ptr<dal::Raster> esriMap;
   std::tie(esriMap, std::ignore) = rasterDal.open(
                     "c:/esri/av_gis30/avtutor/spatial/dem");
-  BOOST_CHECK(esriMap);
+  BOOST_TEST(esriMap);
   BOOST_CHECK_EQUAL(esriMap->typeId(), dal::TI_REAL4);
   }
 
@@ -85,7 +85,7 @@ BOOST_AUTO_TEST_CASE(test1)
   std::shared_ptr<dal::Raster> esriMap;
   std::tie(esriMap, std::ignore) = rasterDal.open(
                    "c:/esri/av_gis30/avtutor/spatial/elevgrd");
-  BOOST_CHECK(esriMap);
+  BOOST_TEST(esriMap);
   BOOST_CHECK_EQUAL(esriMap->typeId(), dal::TI_REAL4);
   }
 
@@ -93,7 +93,7 @@ BOOST_AUTO_TEST_CASE(test1)
   std::shared_ptr<dal::Raster> esriMap;
   std::tie(esriMap, std::ignore) = rasterDal.open(
                    "c:/esri/av_gis30/avtutor/spatial/hillshd");
-  BOOST_CHECK(esriMap);
+  BOOST_TEST(esriMap);
   BOOST_CHECK_EQUAL(esriMap->typeId(), dal::TI_UINT1);
   bool const arcCatalogSaysSignedIntegerPixelDept16=false;
   BOOST_TEST_WARN(arcCatalogSaysSignedIntegerPixelDept16);
@@ -153,24 +153,24 @@ BOOST_AUTO_TEST_CASE(bil_format)
    BOOST_CHECK_EQUAL(map->cellSize(), 10);
 
    INT2 const* cells = map->cells<INT2>();
-   BOOST_CHECK(pcr::isMV(cells[0]));
+   BOOST_TEST(pcr::isMV(cells[0]));
    BOOST_CHECK_EQUAL(cells[1], 1);
    BOOST_CHECK_EQUAL(cells[9], 9);
-   BOOST_CHECK(pcr::isMV(cells[19]));
+   BOOST_TEST(pcr::isMV(cells[19]));
   }
 
 /*
  * { // same and autoconver to INT4
  *  std::shared_ptr<dal::Raster> map(rasterDal.read("int2mv0.bil",dal::TI_INT4));
- *  BOOST_CHECK(map);
+ *  BOOST_TEST(map);
  *  BOOST_CHECK_EQUAL(map->typeId(), dal::TI_INT4);
  *  BOOST_CHECK_EQUAL(map->cellSize(), 10);
 
  *  INT4 const* cells = map->cells<INT4>();
- *  BOOST_CHECK(pcr::isMV(cells[0]));
+ *  BOOST_TEST(pcr::isMV(cells[0]));
  *  BOOST_CHECK_EQUAL(cells[1], 1);
  *  BOOST_CHECK_EQUAL(cells[9], 9);
- *  BOOST_CHECK(pcr::isMV(cells[19]));
+ *  BOOST_TEST(pcr::isMV(cells[19]));
  * }
  */
 }
@@ -208,11 +208,11 @@ BOOST_AUTO_TEST_CASE(bil_format)
 *   buf = new TI_UINT1[bm.nrCells()];
 *   BOOST_CHECK_EQUAL(bm.cellSize(), 1); // default
 *   bm.getCellsAsUINT1(buf);
-*   BOOST_CHECK(!bm.mvIsSet());
+*   BOOST_TEST(!bm.mvIsSet());
 *   BOOST_CHECK_EQUAL(buf[12], 12);
 *
 *   createBil("uint1minimalcpy.bil",bm.rasterSpace(), buf);
-*   BOOST_CHECK(com::filesExistsAndEqual("uint1minimalcpy.bil","uint1minimal.bil"));
+*   BOOST_TEST(com::filesExistsAndEqual("uint1minimalcpy.bil","uint1minimal.bil"));
 *
 *
 *  } catch (const com::Exception& e) {
@@ -251,7 +251,7 @@ BOOST_AUTO_TEST_CASE(bil_format)
 * BandMap bm("int2mv0");
 * BOOST_CHECK_EQUAL( bm.nrRows(), size_t(4));
 * BOOST_CHECK_EQUAL( bm.nrCols(), size_t(5));
-* BOOST_CHECK( bm.mvIsSet());
+* BOOST_TEST( bm.mvIsSet());
 * BOOST_CHECK_EQUAL( bm.mvValue(), 0);
 * BOOST_CHECK_EQUAL( bm.cellRepr(), CR_INT2);
 *
@@ -269,7 +269,7 @@ BOOST_AUTO_TEST_CASE(bil_format)
 *
 * TI_REAL4 *REAL4 = new TI_REAL4[bm.nrCells()];
 * bm.getCellsAsREAL4(REAL4);
-* BOOST_CHECK(pcr::isMV(REAL4[0]));
+* BOOST_TEST(pcr::isMV(REAL4[0]));
 * BOOST_CHECK_EQUAL(REAL4[11], 11.0);
 *
 * delete [] bufi4;
@@ -360,7 +360,7 @@ BOOST_AUTO_TEST_CASE(bil_format)
 *
 *  TI_REAL4 readBuf2[20];
 *  readBm.getCellsAsREAL4(readBuf2);
-*  BOOST_CHECK(pcr::isMV(readBuf2[0]));
+*  BOOST_TEST(pcr::isMV(readBuf2[0]));
 *  BOOST_CHECK_EQUAL(readBuf2[2], 2);
 *
 *  // test stx
@@ -387,7 +387,7 @@ BOOST_AUTO_TEST_CASE(bil_format)
 *  } catch(...) {
 *    succes=false;
 *  }
-*  BOOST_CHECK(succes);
+*  BOOST_TEST(succes);
 *
 *  // NROWS and NCOLS are required
 *  bool failure=false;
@@ -395,11 +395,11 @@ BOOST_AUTO_TEST_CASE(bil_format)
 *    com::write("XDIM 1\nUNKNOWNKEY 5\n",pn);
 *    BandMap bm("headertest");
 *  } catch(const com::Exception& e) {
-*    BOOST_CHECK(e.messages().find("NROWS") != std::string::npos
+*    BOOST_TEST(e.messages().find("NROWS") != std::string::npos
 *           || e.messages().find("NCOLS") != std::string::npos);
 *    failure=true;
 *  }
-*  BOOST_CHECK(failure);
+*  BOOST_TEST(failure);
 *
 *  // allow ommision of last new line
 *  succes=true;
@@ -409,7 +409,7 @@ BOOST_AUTO_TEST_CASE(bil_format)
 *  } catch(...) {
 *    succes=false;
 *  }
-*  BOOST_CHECK(succes);
+*  BOOST_TEST(succes);
 *
 *  {
 *    // if both dim are set, then ok
@@ -431,11 +431,11 @@ BOOST_AUTO_TEST_CASE(bil_format)
 *    com::write("NROWS 3\nNCOLS 4\nXDIM 1\nYDIM 0.5\n",pn);
 *    BandMap bm("headertest");
 *  } catch(const com::Exception& e) {
-*    BOOST_CHECK(e.messages().find("XDIM") != std::string::npos
+*    BOOST_TEST(e.messages().find("XDIM") != std::string::npos
 *           && e.messages().find("YDIM") != std::string::npos);
 *    failure=true;
 *  }
-*  BOOST_CHECK(failure);
+*  BOOST_TEST(failure);
 *}
 *
 */

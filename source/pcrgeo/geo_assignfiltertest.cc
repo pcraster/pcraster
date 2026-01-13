@@ -45,5 +45,5 @@ BOOST_AUTO_TEST_CASE(test)
   FilterEngine<int, int> engine(source, filter, destination);
   engine.calc();
 
-  BOOST_CHECK(source == destination);
+  BOOST_TEST(source == destination);
 }

@@ -79,24 +79,24 @@ void com::ArgumentParserTest::testString()
   std::string result;
 
   result = parser.parse("bla");
-  BOOST_CHECK(result == "bla");
-  BOOST_CHECK(parser.length() == 3);
-  BOOST_CHECK(parser.full());
+  BOOST_TEST(result == "bla");
+  BOOST_TEST(parser.length() == 3);
+  BOOST_TEST(parser.full());
 
   result = parser.parse("bla bla");
-  BOOST_CHECK(result == "bla bla");
-  BOOST_CHECK(parser.length() == 7);
-  BOOST_CHECK(parser.full());
+  BOOST_TEST(result == "bla bla");
+  BOOST_TEST(parser.length() == 7);
+  BOOST_TEST(parser.full());
 
   result = parser.parse(" 012345 ");
-  BOOST_CHECK(result == "012345");
-  BOOST_CHECK(parser.length() == 8);
-  BOOST_CHECK(parser.full());
+  BOOST_TEST(result == "012345");
+  BOOST_TEST(parser.length() == 8);
+  BOOST_TEST(parser.full());
 
   result = parser.parse("0.5");
-  BOOST_CHECK(result == "0.5");
-  BOOST_CHECK(parser.length() == 3);
-  BOOST_CHECK(parser.full());
+  BOOST_TEST(result == "0.5");
+  BOOST_TEST(parser.length() == 3);
+  BOOST_TEST(parser.full());
 }
 
 void com::ArgumentParserTest::testSize_t()
@@ -105,34 +105,34 @@ void com::ArgumentParserTest::testSize_t()
   size_t result;
 
   result = parser.parse("bla");
-  BOOST_CHECK(parser.length() == 0);
-  BOOST_CHECK(!parser.full());
+  BOOST_TEST(parser.length() == 0);
+  BOOST_TEST(!parser.full());
 
   result = parser.parse("bla bla");
-  BOOST_CHECK(parser.length() == 0);
-  BOOST_CHECK(!parser.full());
+  BOOST_TEST(parser.length() == 0);
+  BOOST_TEST(!parser.full());
 
   result = parser.parse(" 012345");
-  BOOST_CHECK(parser.length() == 0);
-  BOOST_CHECK(!parser.full());
+  BOOST_TEST(parser.length() == 0);
+  BOOST_TEST(!parser.full());
 
   result = parser.parse("012345");
-  BOOST_CHECK(result == 12345);
-  BOOST_CHECK(parser.length() == 6);
-  BOOST_CHECK(parser.full());
+  BOOST_TEST(result == 12345);
+  BOOST_TEST(parser.length() == 6);
+  BOOST_TEST(parser.full());
 
   result = parser.parse("-012345");
-  BOOST_CHECK(parser.length() == 0);
-  BOOST_CHECK(!parser.full());
+  BOOST_TEST(parser.length() == 0);
+  BOOST_TEST(!parser.full());
 
   result = parser.parse("+012345");
-  BOOST_CHECK(parser.length() == 0);
-  BOOST_CHECK(!parser.full());
+  BOOST_TEST(parser.length() == 0);
+  BOOST_TEST(!parser.full());
 
   result = parser.parse("3.4");
-  BOOST_CHECK(result == 3);
-  BOOST_CHECK(parser.length() == 1);
-  BOOST_CHECK(!parser.full());
+  BOOST_TEST(result == 3);
+  BOOST_TEST(parser.length() == 1);
+  BOOST_TEST(!parser.full());
 }
 
 void com::ArgumentParserTest::testInt()
@@ -141,36 +141,36 @@ void com::ArgumentParserTest::testInt()
   int result;
 
   result = parser.parse("bla");
-  BOOST_CHECK(parser.length() == 0);
-  BOOST_CHECK(!parser.full());
+  BOOST_TEST(parser.length() == 0);
+  BOOST_TEST(!parser.full());
 
   result = parser.parse("bla bla");
-  BOOST_CHECK(parser.length() == 0);
-  BOOST_CHECK(!parser.full());
+  BOOST_TEST(parser.length() == 0);
+  BOOST_TEST(!parser.full());
 
   result = parser.parse(" 012345");
-  BOOST_CHECK(parser.length() == 0);
-  BOOST_CHECK(!parser.full());
+  BOOST_TEST(parser.length() == 0);
+  BOOST_TEST(!parser.full());
 
   result = parser.parse("012345");
-  BOOST_CHECK(result == 12345);
-  BOOST_CHECK(parser.length() == 6);
-  BOOST_CHECK(parser.full());
+  BOOST_TEST(result == 12345);
+  BOOST_TEST(parser.length() == 6);
+  BOOST_TEST(parser.full());
 
   result = parser.parse("-012345");
-  BOOST_CHECK(result == -12345);
-  BOOST_CHECK(parser.length() == 7);
-  BOOST_CHECK(parser.full());
+  BOOST_TEST(result == -12345);
+  BOOST_TEST(parser.length() == 7);
+  BOOST_TEST(parser.full());
 
   result = parser.parse("+012345");
-  BOOST_CHECK(result == 12345);
-  BOOST_CHECK(parser.length() == 7);
-  BOOST_CHECK(parser.full());
+  BOOST_TEST(result == 12345);
+  BOOST_TEST(parser.length() == 7);
+  BOOST_TEST(parser.full());
 
   result = parser.parse("3.4");
-  BOOST_CHECK(result == 3);
-  BOOST_CHECK(parser.length() == 1);
-  BOOST_CHECK(!parser.full());
+  BOOST_TEST(result == 3);
+  BOOST_TEST(parser.length() == 1);
+  BOOST_TEST(!parser.full());
 }
 
 void com::ArgumentParserTest::testDouble()
@@ -179,34 +179,34 @@ void com::ArgumentParserTest::testDouble()
   double result;
 
   result = parser.parse("bla");
-  BOOST_CHECK(parser.length() == 0);
-  BOOST_CHECK(!parser.full());
+  BOOST_TEST(parser.length() == 0);
+  BOOST_TEST(!parser.full());
 
   result = parser.parse("bla bla");
-  BOOST_CHECK(parser.length() == 0);
-  BOOST_CHECK(!parser.full());
+  BOOST_TEST(parser.length() == 0);
+  BOOST_TEST(!parser.full());
 
   result = parser.parse(" 012345");
-  BOOST_CHECK(parser.length() == 0);
-  BOOST_CHECK(!parser.full());
+  BOOST_TEST(parser.length() == 0);
+  BOOST_TEST(!parser.full());
 
   result = parser.parse("012345");
-  BOOST_CHECK(result == 12345);
-  BOOST_CHECK(parser.length() == 6);
-  BOOST_CHECK(parser.full());
+  BOOST_TEST(result == 12345);
+  BOOST_TEST(parser.length() == 6);
+  BOOST_TEST(parser.full());
 
   result = parser.parse("-012345");
-  BOOST_CHECK(result == -12345);
-  BOOST_CHECK(parser.length() == 7);
-  BOOST_CHECK(parser.full());
+  BOOST_TEST(result == -12345);
+  BOOST_TEST(parser.length() == 7);
+  BOOST_TEST(parser.full());
 
   result = parser.parse("+012345");
-  BOOST_CHECK(result == 12345);
-  BOOST_CHECK(parser.length() == 7);
-  BOOST_CHECK(parser.full());
+  BOOST_TEST(result == 12345);
+  BOOST_TEST(parser.length() == 7);
+  BOOST_TEST(parser.full());
 
   result = parser.parse("3.4");
-  BOOST_CHECK(result == 3.4);
-  BOOST_CHECK(parser.length() == 3);
-  BOOST_CHECK(parser.full());
+  BOOST_TEST(result == 3.4);
+  BOOST_TEST(parser.length() == 3);
+  BOOST_TEST(parser.full());
 }

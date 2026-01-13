@@ -37,28 +37,28 @@ BOOST_AUTO_TEST_CASE(properties)
 {
   using namespace geo;
 
-  BOOST_CHECK(d_raster1->nrRows() == 0);
-  BOOST_CHECK(d_raster1->nrCols() == 0);
-  BOOST_CHECK(d_raster1->nrCells() == 0);
+  BOOST_TEST(d_raster1->nrRows() == 0);
+  BOOST_TEST(d_raster1->nrCols() == 0);
+  BOOST_TEST(d_raster1->nrCells() == 0);
 
-  BOOST_CHECK(d_raster2->nrRows() == 5);
-  BOOST_CHECK(d_raster2->nrCols() == 5);
-  BOOST_CHECK(d_raster2->nrCells() == 25);
+  BOOST_TEST(d_raster2->nrRows() == 5);
+  BOOST_TEST(d_raster2->nrCols() == 5);
+  BOOST_TEST(d_raster2->nrCells() == 25);
 }
 
 BOOST_AUTO_TEST_CASE(contents)
 {
   using namespace geo;
 
-  BOOST_CHECK(d_raster2->end() - d_raster2->begin() == static_cast<int>(d_raster2->nrCells()));
+  BOOST_TEST(d_raster2->end() - d_raster2->begin() == static_cast<int>(d_raster2->nrCells()));
 
   for (int const it : *d_raster2) {
-    BOOST_CHECK(it == 8);
+    BOOST_TEST(it == 8);
   }
 
   for (size_t r = 0; r < d_raster2->nrRows(); ++r) {
     for (size_t c = 0; c < d_raster2->nrCols(); ++c) {
-      BOOST_CHECK(d_raster2->cell(r, c) == 8);
+      BOOST_TEST(d_raster2->cell(r, c) == 8);
     }
   }
 
@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_CASE(contents)
 
   for (size_t r = 0; r < d_raster3->nrRows(); ++r) {
     for (size_t c = 0; c < d_raster3->nrCols(); ++c) {
-      BOOST_CHECK(d_raster3->cell(r, c) == static_cast<int>((r + 1) * (c + 1)));
+      BOOST_TEST(d_raster3->cell(r, c) == static_cast<int>((r + 1) * (c + 1)));
     }
   }
 }
@@ -93,7 +93,7 @@ BOOST_AUTO_TEST_CASE(assignment)
   }
 
   // The rasters should be different.
-  BOOST_CHECK(!result);
+  BOOST_TEST(!result);
 
   *d_raster2 = *d_raster3;
   result = true;
@@ -107,7 +107,7 @@ BOOST_AUTO_TEST_CASE(assignment)
   }
 
   // The rasters should be equal.
-  BOOST_CHECK(result);
+  BOOST_TEST(result);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

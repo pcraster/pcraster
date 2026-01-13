@@ -19,7 +19,7 @@ BOOST_AUTO_TEST_CASE(required)
   } catch (KeyValueTable::MissingKey & /*v*/) {
     catched = true;
   }
-  BOOST_CHECK(catched);
+  BOOST_TEST(catched);
 
   // Insert
   bool succes = true;
@@ -28,8 +28,8 @@ BOOST_AUTO_TEST_CASE(required)
   } catch (KeyValueTable::IllegalValue & /*v*/) {
     succes = false;
   }
-  BOOST_CHECK(succes);
-  BOOST_CHECK(kvd.value(kvt) == 2.2);
+  BOOST_TEST(succes);
+  BOOST_TEST(kvd.value(kvt) == 2.2);
 
   // OK
   succes = true;
@@ -38,7 +38,7 @@ BOOST_AUTO_TEST_CASE(required)
   } catch (...) {
     succes = false;
   }
-  BOOST_CHECK(succes);
+  BOOST_TEST(succes);
 }
 
 BOOST_AUTO_TEST_CASE(double_)
@@ -56,7 +56,7 @@ BOOST_AUTO_TEST_CASE(double_)
   } catch (KeyValueTable::IllegalValue & /*v*/) {
     catched = true;
   }
-  BOOST_CHECK(catched);
+  BOOST_TEST(catched);
 
   // Ok
   bool succes = true;
@@ -65,8 +65,8 @@ BOOST_AUTO_TEST_CASE(double_)
   } catch (KeyValueTable::IllegalValue & /*v*/) {
     succes = false;
   }
-  BOOST_CHECK(succes);
-  BOOST_CHECK(kvd.value(kvt) == 2.2);
+  BOOST_TEST(succes);
+  BOOST_TEST(kvd.value(kvt) == 2.2);
 
   com::GreaterThan<> gt4(4);
   KeyValueDouble const kvgt4("keyGt4", &gt4);
@@ -79,7 +79,7 @@ BOOST_AUTO_TEST_CASE(double_)
   } catch (KeyValueTable::IllegalValue & /*v*/) {
     catched = true;
   }
-  BOOST_CHECK(catched);
+  BOOST_TEST(catched);
 
   // ok
   succes = true;
@@ -88,8 +88,8 @@ BOOST_AUTO_TEST_CASE(double_)
   } catch (...) {
     succes = false;
   }
-  BOOST_CHECK(succes);
-  BOOST_CHECK(kvgt4.value(kvt) == 45);
+  BOOST_TEST(succes);
+  BOOST_TEST(kvgt4.value(kvt) == 45);
 }
 
 BOOST_AUTO_TEST_CASE(integer_)
@@ -105,7 +105,7 @@ BOOST_AUTO_TEST_CASE(integer_)
 
   int keep = 999;
   kvNotSet.setConditional(keep, kvt);
-  BOOST_CHECK(keep == 999);
+  BOOST_TEST(keep == 999);
 
   bool catched = false;
   try {
@@ -113,7 +113,7 @@ BOOST_AUTO_TEST_CASE(integer_)
   } catch (KeyValueTable::IllegalValue & /*v*/) {
     catched = true;
   }
-  BOOST_CHECK(catched);
+  BOOST_TEST(catched);
 
   catched = false;
   try {
@@ -121,7 +121,7 @@ BOOST_AUTO_TEST_CASE(integer_)
   } catch (KeyValueTable::IllegalValue & /*v*/) {
     catched = true;
   }
-  BOOST_CHECK(catched);
+  BOOST_TEST(catched);
 
   // real
   catched = false;
@@ -130,7 +130,7 @@ BOOST_AUTO_TEST_CASE(integer_)
   } catch (KeyValueTable::IllegalValue & /*v*/) {
     catched = true;
   }
-  BOOST_CHECK(catched);
+  BOOST_TEST(catched);
 
 
   bool succes = true;
@@ -139,12 +139,12 @@ BOOST_AUTO_TEST_CASE(integer_)
   } catch (...) {
     succes = false;
   }
-  BOOST_CHECK(succes);
-  BOOST_CHECK(kvi.value(kvt) == 45);
+  BOOST_TEST(succes);
+  BOOST_TEST(kvi.value(kvt) == 45);
 
   int i45 = 999;
   kvi.setConditional(i45, kvt);
-  BOOST_CHECK(i45 == 45);
+  BOOST_TEST(i45 == 45);
 
   KeyValueInteger kvgt4("keyGt4");
   kvgt4.setInterval(com::GreaterThan<>(4));
@@ -157,7 +157,7 @@ BOOST_AUTO_TEST_CASE(integer_)
   } catch (KeyValueTable::IllegalValue & /*v*/) {
     catched = true;
   }
-  BOOST_CHECK(catched);
+  BOOST_TEST(catched);
 
   // ok
   succes = true;
@@ -166,8 +166,8 @@ BOOST_AUTO_TEST_CASE(integer_)
   } catch (...) {
     succes = false;
   }
-  BOOST_CHECK(succes);
-  BOOST_CHECK(kvgt4.value(kvt) == 45);
+  BOOST_TEST(succes);
+  BOOST_TEST(kvgt4.value(kvt) == 45);
 }
 
 BOOST_AUTO_TEST_CASE(enum_)
@@ -187,7 +187,7 @@ BOOST_AUTO_TEST_CASE(enum_)
   } catch (KeyValueTable::IllegalValue & /*v*/) {
     catched = true;
   }
-  BOOST_CHECK(catched);
+  BOOST_TEST(catched);
 
   bool succes = true;
   try {
@@ -195,10 +195,10 @@ BOOST_AUTO_TEST_CASE(enum_)
   } catch (...) {
     succes = false;
   }
-  BOOST_CHECK(succes);
+  BOOST_TEST(succes);
 
-  BOOST_CHECK(kve1.value(kvt) == "E1");
-  BOOST_CHECK(kve1.configValue(kvt) == "e1");
+  BOOST_TEST(kve1.value(kvt) == "E1");
+  BOOST_TEST(kve1.configValue(kvt) == "e1");
 }
 
 BOOST_AUTO_TEST_CASE(add)
@@ -218,18 +218,18 @@ BOOST_AUTO_TEST_CASE(add)
   } catch (KeyValueTable::UnknownKey & /*v*/) {
     catched = true;
   }
-  BOOST_CHECK(catched);
+  BOOST_TEST(catched);
 
-  BOOST_CHECK(!kvt.isSet(kvs1));
+  BOOST_TEST(!kvt.isSet(kvs1));
   kvt.add("key1", "value1");
-  BOOST_CHECK(kvt.isSet(kvs1));
-  BOOST_CHECK(kvs1.value(kvt) == "value1");
+  BOOST_TEST(kvt.isSet(kvs1));
+  BOOST_TEST(kvs1.value(kvt) == "value1");
 
   // case insensitive
-  BOOST_CHECK(!kvt.isSet(kvs2));
+  BOOST_TEST(!kvt.isSet(kvs2));
   kvt.add("KEY2", "value2");
-  BOOST_CHECK(kvt.isSet(kvs2));
-  BOOST_CHECK(kvs2.value(kvt) == "value2");
+  BOOST_TEST(kvt.isSet(kvs2));
+  BOOST_TEST(kvs2.value(kvt) == "value2");
 
   // catch double
   catched = false;
@@ -238,7 +238,7 @@ BOOST_AUTO_TEST_CASE(add)
   } catch (KeyValueTable::DuplicateKey & /*v*/) {
     catched = true;
   }
-  BOOST_CHECK(catched);
+  BOOST_TEST(catched);
 
   // catch double other case
   catched = false;
@@ -247,7 +247,7 @@ BOOST_AUTO_TEST_CASE(add)
   } catch (KeyValueTable::DuplicateKey & /*v*/) {
     catched = true;
   }
-  BOOST_CHECK(catched);
+  BOOST_TEST(catched);
 
   // test discard
   kvt.setDiscardUnknownKeys(true);
@@ -258,7 +258,7 @@ BOOST_AUTO_TEST_CASE(add)
   } catch (...) {
     ignored = false;
   }
-  BOOST_CHECK(ignored);
+  BOOST_TEST(ignored);
 
   bool succes = true;
   try {
@@ -266,5 +266,5 @@ BOOST_AUTO_TEST_CASE(add)
   } catch (...) {
     succes = false;
   }
-  BOOST_CHECK(succes);
+  BOOST_TEST(succes);
 }

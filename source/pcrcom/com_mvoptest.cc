@@ -27,7 +27,7 @@ template <typename T> void test_assignment()
     T argument;
     pcr::setMV(argument);
     auto result = argument;
-    BOOST_CHECK(pcr::isMV(result));
+    BOOST_TEST(pcr::isMV(result));
   }
 }
 
@@ -38,7 +38,7 @@ template <typename T> void test_add()
     T argument1 = 3;
     T argument2 = 4;
     auto result = com::add<T>(argument1, argument2);
-    BOOST_CHECK(!pcr::isMV(result));
+    BOOST_TEST(!pcr::isMV(result));
     BOOST_CHECK_EQUAL(result, 7);
   }
 
@@ -48,7 +48,7 @@ template <typename T> void test_add()
     T argument2 = 4;
     pcr::setMV(argument1);
     auto result = com::add<T>(argument1, argument2);
-    BOOST_CHECK(pcr::isMV(result));
+    BOOST_TEST(pcr::isMV(result));
   }
 
   // 3 + mv
@@ -57,7 +57,7 @@ template <typename T> void test_add()
     T argument2 = 4;
     pcr::setMV(argument2);
     auto result = com::add<T>(argument1, argument2);
-    BOOST_CHECK(pcr::isMV(result));
+    BOOST_TEST(pcr::isMV(result));
   }
 
   // mv + mv
@@ -67,7 +67,7 @@ template <typename T> void test_add()
     pcr::setMV(argument1);
     pcr::setMV(argument2);
     auto result = com::add<T>(argument1, argument2);
-    BOOST_CHECK(pcr::isMV(result));
+    BOOST_TEST(pcr::isMV(result));
   }
 }
 
@@ -78,7 +78,7 @@ template <typename T> void test_inplace_add()
     T argument1 = 3;
     T argument2 = 4;
     com::inplace_add<T>(argument1, argument2);
-    BOOST_CHECK(!pcr::isMV(argument1));
+    BOOST_TEST(!pcr::isMV(argument1));
     BOOST_CHECK_EQUAL(argument1, 7);
   }
 
@@ -88,7 +88,7 @@ template <typename T> void test_inplace_add()
     T argument2 = 4;
     pcr::setMV(argument1);
     com::inplace_add<T>(argument1, argument2);
-    BOOST_CHECK(pcr::isMV(argument1));
+    BOOST_TEST(pcr::isMV(argument1));
   }
 
   // 3 += mv
@@ -97,7 +97,7 @@ template <typename T> void test_inplace_add()
     T argument2 = 4;
     pcr::setMV(argument2);
     com::inplace_add<T>(argument1, argument2);
-    BOOST_CHECK(pcr::isMV(argument1));
+    BOOST_TEST(pcr::isMV(argument1));
   }
 
   // mv += mv
@@ -107,7 +107,7 @@ template <typename T> void test_inplace_add()
     pcr::setMV(argument1);
     pcr::setMV(argument2);
     com::inplace_add<T>(argument1, argument2);
-    BOOST_CHECK(pcr::isMV(argument1));
+    BOOST_TEST(pcr::isMV(argument1));
   }
 }
 
@@ -118,7 +118,7 @@ template <typename T> void test_subtract()
     T argument1 = 3;
     T argument2 = 4;
     auto result = com::subtract<T>(argument1, argument2);
-    BOOST_CHECK(!pcr::isMV(result));
+    BOOST_TEST(!pcr::isMV(result));
     BOOST_CHECK_EQUAL(result, -1);
   }
 
@@ -128,7 +128,7 @@ template <typename T> void test_subtract()
     T argument2 = 4;
     pcr::setMV(argument1);
     auto result = com::subtract<T>(argument1, argument2);
-    BOOST_CHECK(pcr::isMV(result));
+    BOOST_TEST(pcr::isMV(result));
   }
 
   // 3 - mv
@@ -137,7 +137,7 @@ template <typename T> void test_subtract()
     T argument2 = 4;
     pcr::setMV(argument2);
     auto result = com::subtract<T>(argument1, argument2);
-    BOOST_CHECK(pcr::isMV(result));
+    BOOST_TEST(pcr::isMV(result));
   }
 
   // mv - mv
@@ -147,7 +147,7 @@ template <typename T> void test_subtract()
     pcr::setMV(argument1);
     pcr::setMV(argument2);
     auto result = com::subtract<T>(argument1, argument2);
-    BOOST_CHECK(pcr::isMV(result));
+    BOOST_TEST(pcr::isMV(result));
   }
 }
 
@@ -158,7 +158,7 @@ template <typename T> void test_inplace_subtract()
     T argument1 = 3;
     T argument2 = 4;
     com::inplace_subtract<T>(argument1, argument2);
-    BOOST_CHECK(!pcr::isMV(argument1));
+    BOOST_TEST(!pcr::isMV(argument1));
     BOOST_CHECK_EQUAL(argument1, -1);
   }
 
@@ -168,7 +168,7 @@ template <typename T> void test_inplace_subtract()
     T argument2 = 4;
     pcr::setMV(argument1);
     com::inplace_subtract<T>(argument1, argument2);
-    BOOST_CHECK(pcr::isMV(argument1));
+    BOOST_TEST(pcr::isMV(argument1));
   }
 
   // 3 -= mv
@@ -177,7 +177,7 @@ template <typename T> void test_inplace_subtract()
     T argument2 = 4;
     pcr::setMV(argument2);
     com::inplace_subtract<T>(argument1, argument2);
-    BOOST_CHECK(pcr::isMV(argument1));
+    BOOST_TEST(pcr::isMV(argument1));
   }
 
   // mv -= mv
@@ -187,7 +187,7 @@ template <typename T> void test_inplace_subtract()
     pcr::setMV(argument1);
     pcr::setMV(argument2);
     com::inplace_subtract<T>(argument1, argument2);
-    BOOST_CHECK(pcr::isMV(argument1));
+    BOOST_TEST(pcr::isMV(argument1));
   }
 }
 

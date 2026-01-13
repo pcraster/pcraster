@@ -10,19 +10,19 @@ BOOST_AUTO_TEST_CASE(argv_argc)
   {
     com::AppArgs const in1("no whe at end");
     char **argv = in1.argv();
-    BOOST_CHECK(in1.argc() == 4);
-    BOOST_CHECK(argv[0] == std::string("no"));
-    BOOST_CHECK(argv[1] == std::string("whe"));
-    BOOST_CHECK(argv[2] == std::string("at"));
-    BOOST_CHECK(argv[3] == std::string("end"));
+    BOOST_TEST(in1.argc() == 4);
+    BOOST_TEST(argv[0] == std::string("no"));
+    BOOST_TEST(argv[1] == std::string("whe"));
+    BOOST_TEST(argv[2] == std::string("at"));
+    BOOST_TEST(argv[3] == std::string("end"));
   }
   {
     com::AppArgs const in1("no", " whe at end");
     char **argv = in1.argv();
-    BOOST_CHECK(in1.argc() == 4);
-    BOOST_CHECK(argv[0] == std::string("no"));
-    BOOST_CHECK(argv[1] == std::string("whe"));
-    BOOST_CHECK(argv[2] == std::string("at"));
-    BOOST_CHECK(argv[3] == std::string("end"));
+    BOOST_TEST(in1.argc() == 4);
+    BOOST_TEST(argv[0] == std::string("no"));
+    BOOST_TEST(argv[1] == std::string("whe"));
+    BOOST_TEST(argv[2] == std::string("at"));
+    BOOST_TEST(argv[3] == std::string("end"));
   }
 }

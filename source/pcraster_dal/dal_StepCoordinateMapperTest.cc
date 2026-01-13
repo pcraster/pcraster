@@ -103,7 +103,7 @@ BOOST_AUTO_TEST_CASE(test)
 
     address.setCoordinate<size_t>(0, 4);
     mapper.mapToDestination(space, address, 0);
-    BOOST_CHECK(!address.isValid(0));
+    BOOST_TEST(!address.isValid(0));
 
     address.setCoordinate<size_t>(0, 5);
     mapper.mapToDestination(space, address, 0);

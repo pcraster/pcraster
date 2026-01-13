@@ -13,8 +13,8 @@ BOOST_AUTO_TEST_CASE(empty_file)
   com::create(pn);
 #ifdef WIN32
   com::FileMap fm(pn);
-  BOOST_CHECK(fm.begin() == fm.pointer());
-  BOOST_CHECK(fm.begin() == fm.end());
+  BOOST_TEST(fm.begin() == fm.pointer());
+  BOOST_TEST(fm.begin() == fm.end());
 #else
   // linux no mmap call with length 0 allowed since 2.6.something
   bool catched = false;
@@ -22,9 +22,9 @@ BOOST_AUTO_TEST_CASE(empty_file)
     com::FileMap const fm(pn);
   } catch (const com::OpenFileError &e) {
     catched = true;
-    BOOST_CHECK(e.messages().find("mmap does not support 0 sized files") != std::string::npos);
+    BOOST_TEST(e.messages().find("mmap does not support 0 sized files") != std::string::npos);
   }
-  BOOST_CHECK(catched);
+  BOOST_TEST(catched);
 #endif
 }
 
@@ -46,7 +46,7 @@ BOOST_AUTO_TEST_CASE(iterators)
     com::FileMap const fm(pn);
     std::string const contents(fm.begin(), fm.end());
     std::vector<std::string> lines(com::split(contents, '\n'));
-    BOOST_CHECK(lines.size() == 5 + 155);
+    BOOST_TEST(lines.size() == 5 + 155);
     for (size_t l = 0; l < header.size(); l++) {
       if (lines[l][0] == '\r') {
         lines[l].erase(0, 1);
@@ -57,7 +57,7 @@ BOOST_AUTO_TEST_CASE(iterators)
           lines[l].erase(last, 1);
         }
       }
-      BOOST_CHECK(header[l] == lines[l]);
+      BOOST_TEST(header[l] == lines[l]);
     }
   }
 }
@@ -72,7 +72,7 @@ BOOST_AUTO_TEST_CASE(file_map_to_large)
   com::PathName const big("/home/cees/tmp/gam_allXL.xyz");
 #endif
   if (com::exists(big)) {
-    BOOST_CHECK(size(big) > gigaByte<size_t>(2));
+    BOOST_TEST(size(big) > gigaByte<size_t>(2));
     testOpenForReading(big);
     bool catched(false);
     try {
@@ -80,8 +80,8 @@ BOOST_AUTO_TEST_CASE(file_map_to_large)
     } catch (const com::OpenFileError &e) {
       catched = true;
 
-      BOOST_CHECK(e.messages().find("Too large to map in memory") != std::string::npos);
+      BOOST_TEST(e.messages().find("Too large to map in memory") != std::string::npos);
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
 }

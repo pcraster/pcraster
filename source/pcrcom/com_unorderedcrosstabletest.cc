@@ -10,14 +10,14 @@ BOOST_AUTO_TEST_CASE(simple_usage)
 
   // Create a cross table.
   UnOrderedCrossTable t(3);
-  BOOST_CHECK(t.size() == 3);
-  BOOST_CHECK(t.nrCells() == 9);
-  BOOST_CHECK(t.cell(0, 0) == 0);
-  BOOST_CHECK(t.cell(0, 1) == 0);
-  BOOST_CHECK(t.cell(0, 2) == 0);
-  BOOST_CHECK(t.cell(1, 1) == 0);
-  BOOST_CHECK(t.cell(1, 2) == 0);
-  BOOST_CHECK(t.cell(2, 2) == 0);
+  BOOST_TEST(t.size() == 3);
+  BOOST_TEST(t.nrCells() == 9);
+  BOOST_TEST(t.cell(0, 0) == 0);
+  BOOST_TEST(t.cell(0, 1) == 0);
+  BOOST_TEST(t.cell(0, 2) == 0);
+  BOOST_TEST(t.cell(1, 1) == 0);
+  BOOST_TEST(t.cell(1, 2) == 0);
+  BOOST_TEST(t.cell(2, 2) == 0);
 
   // Fill it as folows:
   //   6 5 4
@@ -31,12 +31,12 @@ BOOST_AUTO_TEST_CASE(simple_usage)
   t.cell(2, 2) = 1;
 
   // Check the contents:
-  BOOST_CHECK(t.cell(0, 0) == 6);
-  BOOST_CHECK(t.cell(0, 1) == 5);
-  BOOST_CHECK(t.cell(0, 2) == 4);
-  BOOST_CHECK(t.cell(1, 1) == 0);
-  BOOST_CHECK(t.cell(1, 2) == 4);
-  BOOST_CHECK(t.cell(2, 2) == 1);
+  BOOST_TEST(t.cell(0, 0) == 6);
+  BOOST_TEST(t.cell(0, 1) == 5);
+  BOOST_TEST(t.cell(0, 2) == 4);
+  BOOST_TEST(t.cell(1, 1) == 0);
+  BOOST_TEST(t.cell(1, 2) == 4);
+  BOOST_TEST(t.cell(2, 2) == 1);
 
   // Fill it as folows:
   // 1 - -
@@ -49,10 +49,10 @@ BOOST_AUTO_TEST_CASE(simple_usage)
   t.cell(2, 1) = 5;
   t.cell(2, 2) = 6;
 
-  BOOST_CHECK(t.cell(0, 0) == 1);
-  BOOST_CHECK(t.cell(0, 1) == 2);
-  BOOST_CHECK(t.cell(0, 2) == 4);
-  BOOST_CHECK(t.cell(1, 1) == 3);
-  BOOST_CHECK(t.cell(1, 2) == 5);
-  BOOST_CHECK(t.cell(2, 2) == 6);
+  BOOST_TEST(t.cell(0, 0) == 1);
+  BOOST_TEST(t.cell(0, 1) == 2);
+  BOOST_TEST(t.cell(0, 2) == 4);
+  BOOST_TEST(t.cell(1, 1) == 3);
+  BOOST_TEST(t.cell(1, 2) == 5);
+  BOOST_TEST(t.cell(2, 2) == 6);
 }

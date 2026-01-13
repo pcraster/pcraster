@@ -31,7 +31,7 @@ BOOST_AUTO_TEST_CASE(test_)
   // {
   //   MemoryRasterData data(values, space, typeId, nrRows, nrCols, cellSize,
   //        north, west);
-  //   BOOST_CHECK(!data.exists());
+  //   BOOST_TEST(!data.exists());
   // }
 
   std::shared_ptr<Raster> raster;

@@ -68,53 +68,53 @@ BOOST_AUTO_TEST_CASE(can_parse_uint1)
 
   Uint1Type const type;
 
-  BOOST_CHECK(!type.canParse("-1"));
-  BOOST_CHECK(type.canParse("0"));
-  BOOST_CHECK(type.canParse("1"));
-  BOOST_CHECK(type.canParse("255"));
-  BOOST_CHECK(!type.canParse("256"));
-  BOOST_CHECK(!type.canParse("257"));
-  BOOST_CHECK(!type.canParse("258"));
+  BOOST_TEST(!type.canParse("-1"));
+  BOOST_TEST(type.canParse("0"));
+  BOOST_TEST(type.canParse("1"));
+  BOOST_TEST(type.canParse("255"));
+  BOOST_TEST(!type.canParse("256"));
+  BOOST_TEST(!type.canParse("257"));
+  BOOST_TEST(!type.canParse("258"));
   // bool TODOUint1CannotParse999 = false;
-  // BOOST_CHECK(TODOUint1CannotParse999);
-  // BOOST_CHECK(!type.canParse("999"));
-  BOOST_CHECK(!type.canParse("1000"));
-  BOOST_CHECK(!type.canParse("10000"));
-  BOOST_CHECK(!type.canParse("50000"));
-  BOOST_CHECK(!type.canParse("65534"));
-  BOOST_CHECK(!type.canParse("65535"));
-  BOOST_CHECK(!type.canParse("65536"));
+  // BOOST_TEST(TODOUint1CannotParse999);
+  // BOOST_TEST(!type.canParse("999"));
+  BOOST_TEST(!type.canParse("1000"));
+  BOOST_TEST(!type.canParse("10000"));
+  BOOST_TEST(!type.canParse("50000"));
+  BOOST_TEST(!type.canParse("65534"));
+  BOOST_TEST(!type.canParse("65535"));
+  BOOST_TEST(!type.canParse("65536"));
 
-  BOOST_CHECK(!type.canParse("1.0"));
-  BOOST_CHECK(!type.canParse("x"));
-  BOOST_CHECK(!type.canParse("1x"));
-  BOOST_CHECK(!type.canParse("x1"));
+  BOOST_TEST(!type.canParse("1.0"));
+  BOOST_TEST(!type.canParse("x"));
+  BOOST_TEST(!type.canParse("1x"));
+  BOOST_TEST(!type.canParse("x1"));
 
 
 /*
 * BOOST_CHECK_EQUAL(TypeTraits<UINT1>::id, TI_UINT1);
-* BOOST_CHECK(TypeTraits<UINT1>::canParse("0"));
-* BOOST_CHECK(TypeTraits<UINT1>::canParse("1"));
-* BOOST_CHECK(TypeTraits<UINT1>::canParse("255"));
-* BOOST_CHECK(!TypeTraits<UINT1>::canParse("256"));
-* BOOST_CHECK(!TypeTraits<UINT1>::canParse("257"));
-* BOOST_CHECK(!TypeTraits<UINT1>::canParse("258"));
+* BOOST_TEST(TypeTraits<UINT1>::canParse("0"));
+* BOOST_TEST(TypeTraits<UINT1>::canParse("1"));
+* BOOST_TEST(TypeTraits<UINT1>::canParse("255"));
+* BOOST_TEST(!TypeTraits<UINT1>::canParse("256"));
+* BOOST_TEST(!TypeTraits<UINT1>::canParse("257"));
+* BOOST_TEST(!TypeTraits<UINT1>::canParse("258"));
 * {
 *   bool TODOUint1CannotParse999 = false;
-*   BOOST_CHECK(TODOUint1CannotParse999);
+*   BOOST_TEST(TODOUint1CannotParse999);
 * }
-* // BOOST_CHECK(!TypeTraits<UINT1>::canParse("999"));
-* BOOST_CHECK(!TypeTraits<UINT1>::canParse("1000"));
-* BOOST_CHECK(!TypeTraits<UINT1>::canParse("10000"));
-* BOOST_CHECK(!TypeTraits<UINT1>::canParse("50000"));
-* BOOST_CHECK(!TypeTraits<UINT1>::canParse("65534"));
-* BOOST_CHECK(!TypeTraits<UINT1>::canParse("65535"));
-* BOOST_CHECK(!TypeTraits<UINT1>::canParse("65536"));
+* // BOOST_TEST(!TypeTraits<UINT1>::canParse("999"));
+* BOOST_TEST(!TypeTraits<UINT1>::canParse("1000"));
+* BOOST_TEST(!TypeTraits<UINT1>::canParse("10000"));
+* BOOST_TEST(!TypeTraits<UINT1>::canParse("50000"));
+* BOOST_TEST(!TypeTraits<UINT1>::canParse("65534"));
+* BOOST_TEST(!TypeTraits<UINT1>::canParse("65535"));
+* BOOST_TEST(!TypeTraits<UINT1>::canParse("65536"));
 *
-* BOOST_CHECK(!TypeTraits<UINT1>::canParse("1.0"));
-* BOOST_CHECK(!TypeTraits<UINT1>::canParse("x"));
-* BOOST_CHECK(!TypeTraits<UINT1>::canParse("1x"));
-* BOOST_CHECK(!TypeTraits<UINT1>::canParse("x1"));
+* BOOST_TEST(!TypeTraits<UINT1>::canParse("1.0"));
+* BOOST_TEST(!TypeTraits<UINT1>::canParse("x"));
+* BOOST_TEST(!TypeTraits<UINT1>::canParse("1x"));
+* BOOST_TEST(!TypeTraits<UINT1>::canParse("x1"));
 * */
 }
 
@@ -125,16 +125,16 @@ BOOST_AUTO_TEST_CASE(can_parse_uint2)
 
   Uint2Type const type;
 
-  BOOST_CHECK(!type.canParse("-1"));
-  BOOST_CHECK(type.canParse("0"));
-  BOOST_CHECK(type.canParse("1"));
-  BOOST_CHECK(type.canParse("65535"));
-  BOOST_CHECK(!type.canParse("65536"));
+  BOOST_TEST(!type.canParse("-1"));
+  BOOST_TEST(type.canParse("0"));
+  BOOST_TEST(type.canParse("1"));
+  BOOST_TEST(type.canParse("65535"));
+  BOOST_TEST(!type.canParse("65536"));
 
-  BOOST_CHECK(!type.canParse("1.0"));
-  BOOST_CHECK(!type.canParse("x"));
-  BOOST_CHECK(!type.canParse("1x"));
-  BOOST_CHECK(!type.canParse("x1"));
+  BOOST_TEST(!type.canParse("1.0"));
+  BOOST_TEST(!type.canParse("x"));
+  BOOST_TEST(!type.canParse("1x"));
+  BOOST_TEST(!type.canParse("x1"));
 }
 
 
@@ -144,18 +144,18 @@ BOOST_AUTO_TEST_CASE(can_parse_uint4)
 
   Uint4Type const type;
 
-  BOOST_CHECK(!type.canParse("-1"));
-  BOOST_CHECK(type.canParse("0"));
-  BOOST_CHECK(type.canParse("1"));
-  BOOST_CHECK(type.canParse("65535"));
-  BOOST_CHECK(type.canParse("65536"));
-  BOOST_CHECK(type.canParse("4294967295"));
-  BOOST_CHECK(!type.canParse("4294967296"));
+  BOOST_TEST(!type.canParse("-1"));
+  BOOST_TEST(type.canParse("0"));
+  BOOST_TEST(type.canParse("1"));
+  BOOST_TEST(type.canParse("65535"));
+  BOOST_TEST(type.canParse("65536"));
+  BOOST_TEST(type.canParse("4294967295"));
+  BOOST_TEST(!type.canParse("4294967296"));
 
-  BOOST_CHECK(!type.canParse("1.0"));
-  BOOST_CHECK(!type.canParse("x"));
-  BOOST_CHECK(!type.canParse("1x"));
-  BOOST_CHECK(!type.canParse("x1"));
+  BOOST_TEST(!type.canParse("1.0"));
+  BOOST_TEST(!type.canParse("x"));
+  BOOST_TEST(!type.canParse("1x"));
+  BOOST_TEST(!type.canParse("x1"));
 }
 
 
@@ -165,19 +165,19 @@ BOOST_AUTO_TEST_CASE(can_parse_int1)
 
   Int1Type const type;
 
-  BOOST_CHECK(!type.canParse("-129"));
-  BOOST_CHECK(type.canParse("-128"));
-  BOOST_CHECK(type.canParse("-1"));
-  BOOST_CHECK(!type.canParse("-1.0"));
-  BOOST_CHECK(type.canParse("0"));
-  BOOST_CHECK(!type.canParse("0.0"));
-  BOOST_CHECK(!type.canParse(".0"));
-  BOOST_CHECK(!type.canParse("0."));
-  BOOST_CHECK(type.canParse("1"));
-  BOOST_CHECK(!type.canParse("1.0"));
-  BOOST_CHECK(!type.canParse(".1"));
-  BOOST_CHECK(type.canParse("127"));
-  BOOST_CHECK(!type.canParse("128"));
+  BOOST_TEST(!type.canParse("-129"));
+  BOOST_TEST(type.canParse("-128"));
+  BOOST_TEST(type.canParse("-1"));
+  BOOST_TEST(!type.canParse("-1.0"));
+  BOOST_TEST(type.canParse("0"));
+  BOOST_TEST(!type.canParse("0.0"));
+  BOOST_TEST(!type.canParse(".0"));
+  BOOST_TEST(!type.canParse("0."));
+  BOOST_TEST(type.canParse("1"));
+  BOOST_TEST(!type.canParse("1.0"));
+  BOOST_TEST(!type.canParse(".1"));
+  BOOST_TEST(type.canParse("127"));
+  BOOST_TEST(!type.canParse("128"));
 }
 
 
@@ -187,19 +187,19 @@ BOOST_AUTO_TEST_CASE(can_parse_int2)
 
   Int2Type const type;
 
-  BOOST_CHECK(!type.canParse("-32769"));
-  BOOST_CHECK(type.canParse("-32768"));
-  BOOST_CHECK(type.canParse("-1"));
-  BOOST_CHECK(!type.canParse("-1.0"));
-  BOOST_CHECK(type.canParse("0"));
-  BOOST_CHECK(!type.canParse("0.0"));
-  BOOST_CHECK(!type.canParse(".0"));
-  BOOST_CHECK(!type.canParse("0."));
-  BOOST_CHECK(type.canParse("1"));
-  BOOST_CHECK(!type.canParse("1.0"));
-  BOOST_CHECK(!type.canParse(".1"));
-  BOOST_CHECK(type.canParse("32767"));
-  BOOST_CHECK(!type.canParse("32768"));
+  BOOST_TEST(!type.canParse("-32769"));
+  BOOST_TEST(type.canParse("-32768"));
+  BOOST_TEST(type.canParse("-1"));
+  BOOST_TEST(!type.canParse("-1.0"));
+  BOOST_TEST(type.canParse("0"));
+  BOOST_TEST(!type.canParse("0.0"));
+  BOOST_TEST(!type.canParse(".0"));
+  BOOST_TEST(!type.canParse("0."));
+  BOOST_TEST(type.canParse("1"));
+  BOOST_TEST(!type.canParse("1.0"));
+  BOOST_TEST(!type.canParse(".1"));
+  BOOST_TEST(type.canParse("32767"));
+  BOOST_TEST(!type.canParse("32768"));
 }
 
 
@@ -209,19 +209,19 @@ BOOST_AUTO_TEST_CASE(can_parse_int4)
 
   Int4Type const type;
 
-  BOOST_CHECK(!type.canParse("-2147483649"));
-  BOOST_CHECK(type.canParse("-2147483648"));
-  BOOST_CHECK(type.canParse("-1"));
-  BOOST_CHECK(!type.canParse("-1.0"));
-  BOOST_CHECK(type.canParse("0"));
-  BOOST_CHECK(!type.canParse("0.0"));
-  BOOST_CHECK(!type.canParse(".0"));
-  BOOST_CHECK(!type.canParse("0."));
-  BOOST_CHECK(type.canParse("1"));
-  BOOST_CHECK(!type.canParse("1.0"));
-  BOOST_CHECK(!type.canParse(".1"));
-  BOOST_CHECK(type.canParse("2147483647"));
-  BOOST_CHECK(!type.canParse("2147483648"));
+  BOOST_TEST(!type.canParse("-2147483649"));
+  BOOST_TEST(type.canParse("-2147483648"));
+  BOOST_TEST(type.canParse("-1"));
+  BOOST_TEST(!type.canParse("-1.0"));
+  BOOST_TEST(type.canParse("0"));
+  BOOST_TEST(!type.canParse("0.0"));
+  BOOST_TEST(!type.canParse(".0"));
+  BOOST_TEST(!type.canParse("0."));
+  BOOST_TEST(type.canParse("1"));
+  BOOST_TEST(!type.canParse("1.0"));
+  BOOST_TEST(!type.canParse(".1"));
+  BOOST_TEST(type.canParse("2147483647"));
+  BOOST_TEST(!type.canParse("2147483648"));
 }
 
 
@@ -231,25 +231,25 @@ BOOST_AUTO_TEST_CASE(can_parse_real4)
 
   Real4Type const type;
 
-  BOOST_CHECK(type.canParse("5.0"));
-  BOOST_CHECK(type.canParse("5"));
-  BOOST_CHECK(type.canParse(".5"));
-  BOOST_CHECK(type.canParse("5."));
-  BOOST_CHECK(type.canParse("-5"));
+  BOOST_TEST(type.canParse("5.0"));
+  BOOST_TEST(type.canParse("5"));
+  BOOST_TEST(type.canParse(".5"));
+  BOOST_TEST(type.canParse("5."));
+  BOOST_TEST(type.canParse("-5"));
 
-  BOOST_CHECK(!type.canParse(""));
-  BOOST_CHECK(!type.canParse("a"));
-  BOOST_CHECK(!type.canParse("5.0a"));
-  BOOST_CHECK(!type.canParse("a5.0"));
-  BOOST_CHECK(!type.canParse("5.."));
-  BOOST_CHECK(!type.canParse("..5"));
-  BOOST_CHECK(!type.canParse("5..0"));
-  BOOST_CHECK(!type.canParse("5.0."));
-  BOOST_CHECK(!type.canParse("5.0.2"));
+  BOOST_TEST(!type.canParse(""));
+  BOOST_TEST(!type.canParse("a"));
+  BOOST_TEST(!type.canParse("5.0a"));
+  BOOST_TEST(!type.canParse("a5.0"));
+  BOOST_TEST(!type.canParse("5.."));
+  BOOST_TEST(!type.canParse("..5"));
+  BOOST_TEST(!type.canParse("5..0"));
+  BOOST_TEST(!type.canParse("5.0."));
+  BOOST_TEST(!type.canParse("5.0.2"));
 
-  BOOST_CHECK(!type.canParse("5,0"));
-  BOOST_CHECK(!type.canParse(",0"));
-  BOOST_CHECK(!type.canParse("5,"));
+  BOOST_TEST(!type.canParse("5,0"));
+  BOOST_TEST(!type.canParse(",0"));
+  BOOST_TEST(!type.canParse("5,"));
 }
 
 
@@ -259,24 +259,24 @@ BOOST_AUTO_TEST_CASE(can_parse_real8)
 
   Real8Type const type;
 
-  BOOST_CHECK(type.canParse("5.0"));
-  BOOST_CHECK(type.canParse("5"));
-  BOOST_CHECK(type.canParse(".5"));
-  BOOST_CHECK(type.canParse("5."));
+  BOOST_TEST(type.canParse("5.0"));
+  BOOST_TEST(type.canParse("5"));
+  BOOST_TEST(type.canParse(".5"));
+  BOOST_TEST(type.canParse("5."));
 
-  BOOST_CHECK(!type.canParse(""));
-  BOOST_CHECK(!type.canParse("a"));
-  BOOST_CHECK(!type.canParse("5.0a"));
-  BOOST_CHECK(!type.canParse("a5.0"));
-  BOOST_CHECK(!type.canParse("5.."));
-  BOOST_CHECK(!type.canParse("..5"));
-  BOOST_CHECK(!type.canParse("5..0"));
-  BOOST_CHECK(!type.canParse("5.0."));
-  BOOST_CHECK(!type.canParse("5.0.2"));
+  BOOST_TEST(!type.canParse(""));
+  BOOST_TEST(!type.canParse("a"));
+  BOOST_TEST(!type.canParse("5.0a"));
+  BOOST_TEST(!type.canParse("a5.0"));
+  BOOST_TEST(!type.canParse("5.."));
+  BOOST_TEST(!type.canParse("..5"));
+  BOOST_TEST(!type.canParse("5..0"));
+  BOOST_TEST(!type.canParse("5.0."));
+  BOOST_TEST(!type.canParse("5.0.2"));
 
-  BOOST_CHECK(!type.canParse("5,0"));
-  BOOST_CHECK(!type.canParse(",0"));
-  BOOST_CHECK(!type.canParse("5,"));
+  BOOST_TEST(!type.canParse("5,0"));
+  BOOST_TEST(!type.canParse(",0"));
+  BOOST_TEST(!type.canParse("5,"));
 }
 
 
@@ -286,7 +286,7 @@ BOOST_AUTO_TEST_CASE(type_traits)
 
   BOOST_CHECK_EQUAL(TypeTraits<UINT1>::typeId, TI_UINT1);
   BOOST_CHECK_EQUAL(TypeTraits<UINT1>::csfCr, CR_UINT1);
-  BOOST_CHECK(TypeTraits<std::string>::typeId != TI_UINT1);
+  BOOST_TEST(TypeTraits<std::string>::typeId != TI_UINT1);
   BOOST_CHECK_EQUAL(TypeTraits<std::string>::typeId, TI_STRING);
 
   TypeOfTypeId<TI_UINT1> const v;
@@ -301,5 +301,5 @@ BOOST_AUTO_TEST_CASE(basic_type)
   Type const& i2(Type::get(TI_INT2));
   BOOST_CHECK_EQUAL(i2.size(), size_t(2));
   BOOST_CHECK_EQUAL(i2.id(), TI_INT2);
-  BOOST_CHECK(i2.hasTrivialCopy());
+  BOOST_TEST(i2.hasTrivialCopy());
 }

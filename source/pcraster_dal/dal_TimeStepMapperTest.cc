@@ -29,30 +29,30 @@ BOOST_AUTO_TEST_CASE(test)
   bp::time_duration const duration(24, 0, 0, 0);
 
   TimeStepMapper const mapperA(1.0, time, duration);
-  BOOST_CHECK(mapperA.destination(1.0) == time);
-  BOOST_CHECK(mapperA.destination(2.0) == time + bg::days(1));
-  BOOST_CHECK(comparable(mapperA.source(time), 1.0));
-  BOOST_CHECK(comparable(mapperA.source(time + bg::days(1)), 2.0));
-  BOOST_CHECK(comparable(mapperA.source(time - bg::days(2)), -1.0));
+  BOOST_TEST(mapperA.destination(1.0) == time);
+  BOOST_TEST(mapperA.destination(2.0) == time + bg::days(1));
+  BOOST_TEST(comparable(mapperA.source(time), 1.0));
+  BOOST_TEST(comparable(mapperA.source(time + bg::days(1)), 2.0));
+  BOOST_TEST(comparable(mapperA.source(time - bg::days(2)), -1.0));
 
   time = bp::ptime(bg::date(2006, boost::gregorian::Jan, 1),
          bp::time_duration(0, 0, 0, 0));
 
   TimeStepMapper const mapperB(1.0, time, duration);
-  BOOST_CHECK(comparable(mapperB.source(bp::ptime(
+  BOOST_TEST(comparable(mapperB.source(bp::ptime(
          bg::date(2006, boost::gregorian::Dec, 31),
          bp::time_duration(0, 0, 0, 0))), 365.0));
 
   TimeStepMapper mapper(mapperA);
   mapper |= mapperB;
 
-  BOOST_CHECK(comparable(mapper.source(bp::ptime(
+  BOOST_TEST(comparable(mapper.source(bp::ptime(
          bg::date(2006, boost::gregorian::Jan, 1),
          bp::time_duration(0, 0, 0, 0))), 1.0));
-  BOOST_CHECK(comparable(mapper.source(bp::ptime(
+  BOOST_TEST(comparable(mapper.source(bp::ptime(
          bg::date(2006, boost::gregorian::Feb, 1),
          bp::time_duration(0, 0, 0, 0))), 32.0));
-  BOOST_CHECK(comparable(mapper.source(bp::ptime(
+  BOOST_TEST(comparable(mapper.source(bp::ptime(
          bg::date(2006, boost::gregorian::Dec, 31),
          bp::time_duration(0, 0, 0, 0))), 365.0));
 }

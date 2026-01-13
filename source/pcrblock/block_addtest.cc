@@ -32,17 +32,17 @@ BOOST_AUTO_TEST_CASE(no_compaction_add)
 
     noCompactionAdd(block, thicknesses);
 
-    BOOST_CHECK(dal::comparable(block.cell(0).baseElevation(), T(-5.0)));
-    BOOST_CHECK(block.cell(0).size() == 0);
-    BOOST_CHECK(dal::comparable(block.cell(0).thickness(), T(0.0)));
-    BOOST_CHECK(dal::comparable(block.cell(0).surfaceElevation(), T(-5.0)));
+    BOOST_TEST(dal::comparable(block.cell(0).baseElevation(), T(-5.0)));
+    BOOST_TEST(block.cell(0).size() == 0);
+    BOOST_TEST(dal::comparable(block.cell(0).thickness(), T(0.0)));
+    BOOST_TEST(dal::comparable(block.cell(0).surfaceElevation(), T(-5.0)));
 
-    BOOST_CHECK(dal::comparable(block.cell(1).baseElevation(), T(-5.0)));
-    BOOST_CHECK(block.cell(1).size() == 1);
-    BOOST_CHECK(dal::comparable(block.cell(1).thickness(), T(1.0)));
-    BOOST_CHECK(dal::comparable(block.cell(1).surfaceElevation(), T(-4.0)));
+    BOOST_TEST(dal::comparable(block.cell(1).baseElevation(), T(-5.0)));
+    BOOST_TEST(block.cell(1).size() == 1);
+    BOOST_TEST(dal::comparable(block.cell(1).thickness(), T(1.0)));
+    BOOST_TEST(dal::comparable(block.cell(1).surfaceElevation(), T(-4.0)));
 
-    BOOST_CHECK(block.cell(2).isMV());
+    BOOST_TEST(block.cell(2).isMV());
   }
 }
 
@@ -80,20 +80,20 @@ BOOST_AUTO_TEST_CASE(macky_bridge_add)
 
   // Check discretisation.
   for(size_t i = 0; i < block.nrCells(); ++i) {
-    BOOST_CHECK(block.cell(i).size() == 16);
-    BOOST_CHECK(block.cell(i).thickness() == REAL4(15.5));
-    BOOST_CHECK(block.cell(i).back() == REAL4(0.5));
+    BOOST_TEST(block.cell(i).size() == 16);
+    BOOST_TEST(block.cell(i).thickness() == REAL4(15.5));
+    BOOST_TEST(block.cell(i).back() == REAL4(0.5));
   }
 
   // Check data.
   for(size_t i = 0; i < block.nrCells(); ++i) {
     for(size_t j = 0; j < block.cell(i).size() - 1; ++j) {
-      BOOST_CHECK(originalThickness.cell(i)[j] == maxVoxelThickness);
-      BOOST_CHECK(sediment.cell(i)[j] == 3);
+      BOOST_TEST(originalThickness.cell(i)[j] == maxVoxelThickness);
+      BOOST_TEST(sediment.cell(i)[j] == 3);
     }
 
-    BOOST_CHECK(originalThickness.cell(i).back() == REAL4(0.5));
-    BOOST_CHECK(sediment.cell(i).back() == 3);
+    BOOST_TEST(originalThickness.cell(i).back() == REAL4(0.5));
+    BOOST_TEST(sediment.cell(i).back() == 3);
   }
 }
 
@@ -133,8 +133,8 @@ BOOST_AUTO_TEST_CASE(de_haan_add)
   // Check discretisation.
   PRECOND(block.nrCells() == 1);
   discr::VoxelStack const& stack(block.cell(0));
-  BOOST_CHECK(!stack.isMV());
-  BOOST_CHECK(stack.size() == nrTimeSteps);
+  BOOST_TEST(!stack.isMV());
+  BOOST_TEST(stack.size() == nrTimeSteps);
 
   // From spreadsheet Theo:
   // 1.377602705
@@ -160,6 +160,6 @@ BOOST_AUTO_TEST_CASE(de_haan_add)
   // 1.681448649
   // 1.684692206
 
-  BOOST_CHECK(dal::comparable(stack[nrTimeSteps - 1], REAL4(1.377602705)));
-  BOOST_CHECK(dal::comparable(stack[0], REAL4(1.684692206)));
+  BOOST_TEST(dal::comparable(stack[nrTimeSteps - 1], REAL4(1.377602705)));
+  BOOST_TEST(dal::comparable(stack[0], REAL4(1.684692206)));
 }

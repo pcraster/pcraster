@@ -10,7 +10,7 @@ BOOST_AUTO_TEST_CASE(constructor)
 
   RasterSpace const space(5, 6, 10.0, 0.0, 1.0, YIncrB2T);
   GriddedPoints<Point<double, 2>> const points(space);
-  // BOOST_CHECK(false);
+  // BOOST_TEST(false);
 }
 
 BOOST_AUTO_TEST_CASE(nr_points)
@@ -21,8 +21,8 @@ BOOST_AUTO_TEST_CASE(nr_points)
   RasterSpace const space(1, 2, 1.0, 0.0, 0.0, YIncrB2T);
   GriddedPoints<Point<double, 2>> points(space);
 
-  BOOST_CHECK(points.nrPoints(0, 0) == 0);
-  BOOST_CHECK(points.nrPoints(0, 1) == 0);
+  BOOST_TEST(points.nrPoints(0, 0) == 0);
+  BOOST_TEST(points.nrPoints(0, 1) == 0);
 
   // First cell is MV. Second not.
   points.setMV(0, 0);
@@ -35,8 +35,8 @@ BOOST_AUTO_TEST_CASE(nr_points)
   points.insert(p);
   points.insert(p);
 
-  BOOST_CHECK(points.nrPoints(0, 0) == 0);
-  BOOST_CHECK(points.nrPoints(0, 1) == 3);
+  BOOST_TEST(points.nrPoints(0, 0) == 0);
+  BOOST_TEST(points.nrPoints(0, 1) == 3);
 }
 
 BOOST_AUTO_TEST_CASE(points)
@@ -51,25 +51,25 @@ BOOST_AUTO_TEST_CASE(points)
 
     points.clear();
     griddedPoints.points(CellLoc(0, 0), 3, points);
-    BOOST_CHECK(points.empty());
+    BOOST_TEST(points.empty());
 
     griddedPoints.insert(Point<double, 2>(0.0, 0.0));
     points.clear();
     griddedPoints.points(CellLoc(0, 0), 1, points);
-    BOOST_CHECK(points.size() == 1);
+    BOOST_TEST(points.size() == 1);
 
     points.clear();
     griddedPoints.points(CellLoc(0, 0), 3, points);
-    BOOST_CHECK(points.size() == 1);
+    BOOST_TEST(points.size() == 1);
 
     griddedPoints.insert(Point<double, 2>(0.0, 0.0));
     points.clear();
     griddedPoints.points(CellLoc(0, 0), 1, points);
-    BOOST_CHECK(points.size() == 2);
+    BOOST_TEST(points.size() == 2);
 
     points.clear();
     griddedPoints.points(CellLoc(0, 0), 3, points);
-    BOOST_CHECK(points.size() == 2);
+    BOOST_TEST(points.size() == 2);
   }
 
   {
@@ -78,7 +78,7 @@ BOOST_AUTO_TEST_CASE(points)
 
     points.clear();
     griddedPoints.points(CellLoc(0, 0), 1, points);
-    BOOST_CHECK(points.empty());
+    BOOST_TEST(points.empty());
 
     // Put a point in each cell.
     for (size_t row = 0; row < griddedPoints.nrRows(); ++row) {
@@ -90,7 +90,7 @@ BOOST_AUTO_TEST_CASE(points)
     // 5 points in a circular neighbourhood with radius 1.
     points.clear();
     griddedPoints.points(CellLoc(1, 1), 1, points);
-    BOOST_CHECK(points.size() == 5);
+    BOOST_TEST(points.size() == 5);
   }
 }
 
@@ -111,5 +111,5 @@ BOOST_AUTO_TEST_CASE(copy)
   GriddedPoints<Point<double, 2>> const target(source);
 
   // Compare source and target objects.
-  BOOST_CHECK(source.size() == target.size());
+  BOOST_TEST(source.size() == target.size());
 }

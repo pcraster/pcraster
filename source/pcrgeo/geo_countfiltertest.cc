@@ -31,15 +31,15 @@ BOOST_AUTO_TEST_CASE(test)
 
   engine.calc();
 
-  BOOST_CHECK(destination.cell(0, 0) == 1.0);
-  BOOST_CHECK(destination.cell(0, 1) == 1.0);
-  BOOST_CHECK(destination.cell(0, 2) == 0.0);
-  BOOST_CHECK(destination.cell(1, 0) == 1.0);
-  BOOST_CHECK(destination.cell(1, 1) == 1.0);
-  BOOST_CHECK(destination.cell(1, 2) == 0.0);
-  BOOST_CHECK(destination.cell(2, 0) == 1.0);
-  BOOST_CHECK(destination.cell(2, 1) == 1.0);
-  BOOST_CHECK(destination.cell(2, 2) == 0.0);
+  BOOST_TEST(destination.cell(0, 0) == 1.0);
+  BOOST_TEST(destination.cell(0, 1) == 1.0);
+  BOOST_TEST(destination.cell(0, 2) == 0.0);
+  BOOST_TEST(destination.cell(1, 0) == 1.0);
+  BOOST_TEST(destination.cell(1, 1) == 1.0);
+  BOOST_TEST(destination.cell(1, 2) == 0.0);
+  BOOST_TEST(destination.cell(2, 0) == 1.0);
+  BOOST_TEST(destination.cell(2, 1) == 1.0);
+  BOOST_TEST(destination.cell(2, 2) == 0.0);
 
   // see __x86_64__
   // TODO Suse problem: 8 byte isMV template instantion for unsigned long

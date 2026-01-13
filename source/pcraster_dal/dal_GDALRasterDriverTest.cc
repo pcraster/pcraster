@@ -44,7 +44,7 @@ void testUInt1Raster1(
   BOOST_CHECK_EQUAL(cells[0], 1);
   BOOST_CHECK_EQUAL(cells[1], 0);
   BOOST_CHECK_EQUAL(cells[2], 1);
-  BOOST_CHECK(pcr::isMV(cells[3]));
+  BOOST_TEST(pcr::isMV(cells[3]));
   BOOST_CHECK_EQUAL(cells[4], 1);
   BOOST_CHECK_EQUAL(cells[5], 1);
   BOOST_CHECK_EQUAL(cells[6], 1);
@@ -78,7 +78,7 @@ void testInt4Raster1(
   BOOST_CHECK_EQUAL(cells[1], 6);
   BOOST_CHECK_EQUAL(cells[2], 2);
   BOOST_CHECK_EQUAL(cells[3], 2);
-  BOOST_CHECK(pcr::isMV(cells[4]));
+  BOOST_TEST(pcr::isMV(cells[4]));
   BOOST_CHECK_EQUAL(cells[5], 6);
   BOOST_CHECK_EQUAL(cells[6], 6);
   BOOST_CHECK_EQUAL(cells[7], 2);
@@ -130,7 +130,7 @@ void testInt4Raster2(
   BOOST_CHECK_EQUAL(cells[4], 5);
   BOOST_CHECK_EQUAL(cells[5], 6);
   BOOST_CHECK_EQUAL(cells[6], 7);
-  BOOST_CHECK(pcr::isMV(cells[7]));
+  BOOST_TEST(pcr::isMV(cells[7]));
   BOOST_CHECK_EQUAL(cells[8], 9);
 }
 
@@ -161,7 +161,7 @@ void testReal4Raster1(
   BOOST_CHECK_EQUAL(cells[2], REAL4(3.5));
   BOOST_CHECK_EQUAL(cells[3], REAL4(-8.5));
   BOOST_CHECK_EQUAL(cells[4], REAL4(3.6));
-  BOOST_CHECK(pcr::isMV(cells[5]));
+  BOOST_TEST(pcr::isMV(cells[5]));
   BOOST_CHECK_EQUAL(cells[6], REAL4(0.0));
   BOOST_CHECK_EQUAL(cells[7], REAL4(14));
   BOOST_CHECK_EQUAL(cells[8], REAL4(-0.8));
@@ -190,15 +190,15 @@ void testReal4Raster2(
   auto const* cells = static_cast<REAL4 const*>(raster->cells());
   BOOST_TEST_REQUIRE(cells);
 
-  BOOST_CHECK(dal::comparable(REAL4(cells[0] * 180.0 / std::numbers::pi_v<REAL4>), REAL4(280.0F)));
-  BOOST_CHECK(dal::comparable(REAL4(cells[1] * 180.0 / std::numbers::pi_v<REAL4>), REAL4(25.0)));
-  BOOST_CHECK(dal::comparable(REAL4(cells[2] * 180.0 / std::numbers::pi_v<REAL4>), REAL4(11.0)));
-  BOOST_CHECK(dal::comparable(REAL4(cells[3] * 180.0 / std::numbers::pi_v<REAL4>), REAL4(68.0)));
-// BOOST_CHECK(dal::comparable(REAL4(cells[4] * 180.0 / std::numbers::pi_v<REAL4>), REAL4(-1.0)));
-  BOOST_CHECK(dal::comparable(REAL4(cells[5] * 180.0 / std::numbers::pi_v<REAL4>), REAL4(0.0)));
-  BOOST_CHECK(pcr::isMV(cells[6]));
-// BOOST_CHECK(dal::comparable(REAL4(cells[7] * 180.0 / std::numbers::pi_v<REAL4>), REAL4(-1.0)));
-  BOOST_CHECK(dal::comparable(REAL4(cells[8] * 180.0 / std::numbers::pi_v<REAL4>), REAL4(7.0)));
+  BOOST_TEST(dal::comparable(REAL4(cells[0] * 180.0 / std::numbers::pi_v<REAL4>), REAL4(280.0F)));
+  BOOST_TEST(dal::comparable(REAL4(cells[1] * 180.0 / std::numbers::pi_v<REAL4>), REAL4(25.0)));
+  BOOST_TEST(dal::comparable(REAL4(cells[2] * 180.0 / std::numbers::pi_v<REAL4>), REAL4(11.0)));
+  BOOST_TEST(dal::comparable(REAL4(cells[3] * 180.0 / std::numbers::pi_v<REAL4>), REAL4(68.0)));
+// BOOST_TEST(dal::comparable(REAL4(cells[4] * 180.0 / std::numbers::pi_v<REAL4>), REAL4(-1.0)));
+  BOOST_TEST(dal::comparable(REAL4(cells[5] * 180.0 / std::numbers::pi_v<REAL4>), REAL4(0.0)));
+  BOOST_TEST(pcr::isMV(cells[6]));
+// BOOST_TEST(dal::comparable(REAL4(cells[7] * 180.0 / std::numbers::pi_v<REAL4>), REAL4(-1.0)));
+  BOOST_TEST(dal::comparable(REAL4(cells[8] * 180.0 / std::numbers::pi_v<REAL4>), REAL4(7.0)));
 }
 
 
@@ -275,12 +275,12 @@ void testAllMVRaster(
   BOOST_TEST_REQUIRE(raster);
   auto const* cells = static_cast<UINT1 const*>(raster->cells());
   BOOST_TEST_REQUIRE(cells);
-  BOOST_CHECK(pcr::isMV(cells[0]));
-  BOOST_CHECK(pcr::isMV(cells[1]));
-  BOOST_CHECK(pcr::isMV(cells[2]));
-  BOOST_CHECK(pcr::isMV(cells[3]));
-  BOOST_CHECK(pcr::isMV(cells[4]));
-  BOOST_CHECK(pcr::isMV(cells[5]));
+  BOOST_TEST(pcr::isMV(cells[0]));
+  BOOST_TEST(pcr::isMV(cells[1]));
+  BOOST_TEST(pcr::isMV(cells[2]));
+  BOOST_TEST(pcr::isMV(cells[3]));
+  BOOST_TEST(pcr::isMV(cells[4]));
+  BOOST_TEST(pcr::isMV(cells[5]));
 }
 
 
@@ -367,7 +367,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
 
   auto* raster = dynamic_cast<Raster*>(
          dynamic_cast<Driver&>(driver).open(filename));
-  BOOST_CHECK(!raster);
+  BOOST_TEST(!raster);
 
   bool exceptionCaught = false;
   try {
@@ -379,7 +379,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
          "Data source " + filename + "(raster):\ncannot be opened");
     exceptionCaught = true;
   }
-  BOOST_CHECK(exceptionCaught);
+  BOOST_TEST(exceptionCaught);
 }
 
 
@@ -392,7 +392,7 @@ BOOST_AUTO_TEST_CASE(empty)
 
   auto* raster = dynamic_cast<Raster*>(
          dynamic_cast<Driver&>(driver).open(filename));
-  BOOST_CHECK(!raster);
+  BOOST_TEST(!raster);
 
   bool exceptionCaught = false;
   try {
@@ -404,7 +404,7 @@ BOOST_AUTO_TEST_CASE(empty)
         "Data source " + filename + "(raster):\ncannot be opened");
     exceptionCaught = true;
   }
-  BOOST_CHECK(exceptionCaught);
+  BOOST_TEST(exceptionCaught);
   delete raster;
 }
 
@@ -494,7 +494,7 @@ BOOST_AUTO_TEST_CASE(esri_ascii_grid1)
   {
     raster = dynamic_cast<Raster*>(
            dynamic_cast<Driver&>(driver).open(filename));
-    BOOST_CHECK(raster);
+    BOOST_TEST(raster);
 
     // BOOST_CHECK_EQUAL(raster->name(), std::string("esriasciigrid1.asc"));
     BOOST_CHECK_EQUAL(raster->nrRows(), size_t(4));
@@ -511,15 +511,15 @@ BOOST_AUTO_TEST_CASE(esri_ascii_grid1)
 
   {
     raster = dynamic_cast<RasterDriver&>(driver).read(filename);
-    BOOST_CHECK(raster);
+    BOOST_TEST(raster);
     INT4 const* cells = static_cast<INT4 const*>(raster->cells());
-    BOOST_CHECK(cells);
+    BOOST_TEST(cells);
 
     BOOST_CHECK_EQUAL(cells[0], 1);
     BOOST_CHECK_EQUAL(cells[1], 2);
     BOOST_CHECK_EQUAL(cells[2], 3);
     BOOST_CHECK_EQUAL(cells[3], 4);
-    BOOST_CHECK(pcr::isMV(cells[4]));
+    BOOST_TEST(pcr::isMV(cells[4]));
     BOOST_CHECK_EQUAL(cells[5], 6);
     BOOST_CHECK_EQUAL(cells[6], 7);
     BOOST_CHECK_EQUAL(cells[7], 8);
@@ -561,13 +561,13 @@ BOOST_AUTO_TEST_CASE(default_extension)
   GDALRasterDriver driver("AAIGrid");
   Raster* raster = nullptr;
 
-  BOOST_CHECK(dynamic_cast<Driver&>(driver).exists("esriasciigrid1.asc"));
-  BOOST_CHECK(dynamic_cast<Driver&>(driver).exists("esriasciigrid1"));
+  BOOST_TEST(dynamic_cast<Driver&>(driver).exists("esriasciigrid1.asc"));
+  BOOST_TEST(dynamic_cast<Driver&>(driver).exists("esriasciigrid1"));
 
   {
     raster = dynamic_cast<Raster*>(
            dynamic_cast<Driver&>(driver).open(filename));
-    BOOST_CHECK(raster);
+    BOOST_TEST(raster);
 
     BOOST_CHECK_EQUAL(raster->nrRows(), size_t(4));
     BOOST_CHECK_EQUAL(raster->nrCols(), size_t(3));

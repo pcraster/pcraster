@@ -20,7 +20,7 @@ BOOST_AUTO_TEST_CASE(open_ifstream)
   } catch (const com::OpenFileError &) {
     visit = true;
   }
-  BOOST_CHECK(visit);
+  BOOST_TEST(visit);
 
   visit = false;
   try {
@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_CASE(open_ifstream)
   } catch (const com::OpenFileError &) {
     visit = true;
   }
-  BOOST_CHECK(visit);
+  BOOST_TEST(visit);
 
 #ifndef WIN32
   visit = false;
@@ -39,7 +39,7 @@ BOOST_AUTO_TEST_CASE(open_ifstream)
   } catch (const com::OpenFileError &) {
     visit = true;
   }
-  BOOST_CHECK(visit);
+  BOOST_TEST(visit);
 #endif
 
   visit = false;
@@ -49,7 +49,7 @@ BOOST_AUTO_TEST_CASE(open_ifstream)
   } catch (...) {
     visit = true;
   }
-  BOOST_CHECK(!visit);
+  BOOST_TEST(!visit);
 }
 
 BOOST_AUTO_TEST_CASE(open_ofstream)
@@ -65,17 +65,17 @@ BOOST_AUTO_TEST_CASE(open_ofstream)
   } catch (const com::OpenFileError &) {
     visit = true;
   }
-  BOOST_CHECK(!visit);
+  BOOST_TEST(!visit);
 
   visit = false;
   try {
     std::ofstream fs;
     open(fs, "if_isdirectory");
   } catch (const com::OpenFileError &e) {
-    BOOST_CHECK(e.errorNr() == E_ISDIR);
+    BOOST_TEST(e.errorNr() == E_ISDIR);
     visit = true;
   }
-  BOOST_CHECK(visit);
+  BOOST_TEST(visit);
 
 #ifdef WIN32
   visit = false;
@@ -94,13 +94,13 @@ BOOST_AUTO_TEST_CASE(open_ofstream)
   try {
     std::ofstream fs;
     open(fs, "if_notwritable");
-    BOOST_CHECK(false);  // should not come here
-    BOOST_CHECK(!fs);    // should not come here
+    BOOST_TEST(false);  // should not come here
+    BOOST_TEST(!fs);    // should not come here
   } catch (const com::OpenFileError &e) {
     BOOST_TEST_WARN(e.errorNr() == E_ACCESWRITE);
     visit = true;
   }
-  BOOST_CHECK(visit);
+  BOOST_TEST(visit);
 #endif
 
   // create in subdir
@@ -113,7 +113,7 @@ BOOST_AUTO_TEST_CASE(open_ofstream)
   } catch (...) {
     visit = true;
   }
-  BOOST_CHECK(!visit);
+  BOOST_TEST(!visit);
   PathInfo(pn).exists();
 
   // can not create in subdir
@@ -129,7 +129,7 @@ BOOST_AUTO_TEST_CASE(open_ofstream)
     BOOST_TEST_WARN(e.errorNr() == E_ACCESCREATE);
     visit = true;
   }
-  // BOOST_CHECK(visit);
+  // BOOST_TEST(visit);
   PathInfo(pn2).exists();
 }
 
@@ -147,21 +147,21 @@ BOOST_AUTO_TEST_CASE(move_)
 
     pn = "mv_existingfile";
     pi = PathInfo(pn);
-    BOOST_CHECK(pi.exists());
-    BOOST_CHECK(pi.isFile());
+    BOOST_TEST(pi.exists());
+    BOOST_TEST(pi.isFile());
     move("mv_existingfile", "mv_movedexistingfile");
-    BOOST_CHECK(!pi.exists());
+    BOOST_TEST(!pi.exists());
     pn = PathName("mv_movedexistingfile");
     pi = PathInfo(pn);
-    BOOST_CHECK(pi.exists());
-    BOOST_CHECK(pi.isFile());
+    BOOST_TEST(pi.exists());
+    BOOST_TEST(pi.isFile());
   } catch (const FileError &) {
     moveFailed = true;
   }
 #ifdef WIN32
   BOOST_TEST_WARN(!moveFailed);  // WindowsPerm Bugzilla #284
 #else
-  BOOST_CHECK(!moveFailed);
+  BOOST_TEST(!moveFailed);
 #endif
 
 
@@ -173,14 +173,14 @@ BOOST_AUTO_TEST_CASE(move_)
 
     pn = "mv_existingdir";
     pi = PathInfo(pn);
-    BOOST_CHECK(pi.exists());
-    BOOST_CHECK(pi.isDirectory());
+    BOOST_TEST(pi.exists());
+    BOOST_TEST(pi.isDirectory());
     move("mv_existingdir", "mv_movedexistingdir");
-    BOOST_CHECK(!pi.exists());
+    BOOST_TEST(!pi.exists());
     pn = PathName("mv_movedexistingdir");
     pi = PathInfo(pn);
-    BOOST_CHECK(pi.exists());
-    BOOST_CHECK(pi.isDirectory());
+    BOOST_TEST(pi.exists());
+    BOOST_TEST(pi.isDirectory());
   } catch (const FileError &) {
     moveFailed = true;
   }
@@ -188,7 +188,7 @@ BOOST_AUTO_TEST_CASE(move_)
 #ifdef WIN32
   BOOST_TEST_WARN(!moveFailed);  // WindowsPerm Bugzilla #284
 #else
-  BOOST_CHECK(!moveFailed);
+  BOOST_TEST(!moveFailed);
 #endif
 
   // - Move non-existing regular file.
@@ -199,15 +199,15 @@ BOOST_AUTO_TEST_CASE(move_)
 
     pn = "mv_failureExpected";
     pi = PathInfo(pn);
-    BOOST_CHECK(!pi.exists());
-    BOOST_CHECK(!pi.isDirectory());
+    BOOST_TEST(!pi.exists());
+    BOOST_TEST(!pi.isDirectory());
     move("mv_failureExpected", "mv_movedfailureExpected");
   } catch (const FileError &e) {
-    BOOST_CHECK(e.messages().find("No such file or directory") != std::string::npos);
+    BOOST_TEST(e.messages().find("No such file or directory") != std::string::npos);
     moveFailed = true;
   }
 
-  BOOST_CHECK(moveFailed);
+  BOOST_TEST(moveFailed);
 
 
   // - Move non-existing directory.
@@ -218,15 +218,15 @@ BOOST_AUTO_TEST_CASE(move_)
 
     pn = "mv_failureExpectedDir";
     pi = PathInfo(pn);
-    BOOST_CHECK(!pi.exists());
-    BOOST_CHECK(!pi.isDirectory());
+    BOOST_TEST(!pi.exists());
+    BOOST_TEST(!pi.isDirectory());
     move("mv_failureExpectedDir", "mv_movedfailureExpectedDir");
   } catch (const FileError &e) {
-    BOOST_CHECK(e.messages().find("No such file or directory") != std::string::npos);
+    BOOST_TEST(e.messages().find("No such file or directory") != std::string::npos);
     moveFailed = true;
   }
 
-  BOOST_CHECK(moveFailed);
+  BOOST_TEST(moveFailed);
 }
 
 BOOST_AUTO_TEST_CASE(remove_file)
@@ -239,36 +239,36 @@ BOOST_AUTO_TEST_CASE(remove_file)
     PathName const f2("rm_emptyDir");
     com::remove(f2);
   } catch (const FileError &) {
-    BOOST_CHECK(false);
+    BOOST_TEST(false);
   }
 
   PathName f("rm_nestedDir");
   f += "rm_thisEmptyDir";
-  BOOST_CHECK(com::PathInfo(f).exists());
+  BOOST_TEST(com::PathInfo(f).exists());
   com::remove(f);
-  BOOST_CHECK(!com::PathInfo(f).exists());
+  BOOST_TEST(!com::PathInfo(f).exists());
 
   // can not remove a directory containing something
   bool visit = false;
   PathName const notDeleted("rm_failureExpectedFilledDir");
   try {
-    BOOST_CHECK(com::PathInfo(notDeleted).exists());
+    BOOST_TEST(com::PathInfo(notDeleted).exists());
     com::remove(notDeleted);
   } catch (const FileError &) {
     visit = true;
   }
-  BOOST_CHECK(com::PathInfo(notDeleted).exists());
-  BOOST_CHECK(visit);
+  BOOST_TEST(com::PathInfo(notDeleted).exists());
+  BOOST_TEST(visit);
 }
 
 BOOST_AUTO_TEST_CASE(files_equal)
 {
   using namespace com;
 
-  BOOST_CHECK(filesEqual("fe_one", "fe_one"));
-  BOOST_CHECK(!filesEqual("fe_one", "fe_two"));
-  BOOST_CHECK(!filesEqual("fe_empty", "fe_one"));
-  BOOST_CHECK(filesEqual("fe_empty", "fe_empty"));
+  BOOST_TEST(filesEqual("fe_one", "fe_one"));
+  BOOST_TEST(!filesEqual("fe_one", "fe_two"));
+  BOOST_TEST(!filesEqual("fe_empty", "fe_one"));
+  BOOST_TEST(filesEqual("fe_empty", "fe_empty"));
 }
 
 BOOST_AUTO_TEST_CASE(copy_)
@@ -278,35 +278,35 @@ BOOST_AUTO_TEST_CASE(copy_)
   {
     remove("result.tmp");
     copy("fe_one", "result.tmp");
-    BOOST_CHECK(exists("result.tmp"));
-    BOOST_CHECK(filesExistsAndEqual("fe_one", "result.tmp"));
+    BOOST_TEST(exists("result.tmp"));
+    BOOST_TEST(filesExistsAndEqual("fe_one", "result.tmp"));
   }
   {
     {
       ScopedRename const sr("result.tmp", "result.swap");
-      BOOST_CHECK(filesExistsAndEqual("fe_one", "result.swap"));
-      BOOST_CHECK(!exists("result.tmp"));
+      BOOST_TEST(filesExistsAndEqual("fe_one", "result.swap"));
+      BOOST_TEST(!exists("result.tmp"));
     }
-    BOOST_CHECK(filesExistsAndEqual("fe_one", "result.tmp"));
-    BOOST_CHECK(!exists("result.swap"));
+    BOOST_TEST(filesExistsAndEqual("fe_one", "result.tmp"));
+    BOOST_TEST(!exists("result.swap"));
   }
   {
     remove("result.tmp");
     copy("fe_empty", "result.tmp");
-    BOOST_CHECK(exists("result.tmp"));
-    BOOST_CHECK(filesExistsAndEqual("fe_empty", "result.tmp"));
+    BOOST_TEST(exists("result.tmp"));
+    BOOST_TEST(filesExistsAndEqual("fe_empty", "result.tmp"));
   }
   {
     PathName r("if_isdirectory");
-    BOOST_CHECK(exists(r));
+    BOOST_TEST(exists(r));
 
     r.join("fe_one");
     remove(r);
 
     copy("fe_one", "if_isdirectory");
-    BOOST_CHECK(exists(r));
+    BOOST_TEST(exists(r));
 
-    BOOST_CHECK(filesExistsAndEqual("fe_one", r.toString()));
+    BOOST_TEST(filesExistsAndEqual("fe_one", r.toString()));
   }
 }
 
@@ -319,17 +319,17 @@ BOOST_AUTO_TEST_CASE(read_write_size)
     std::string c;
     PathName const pn("fe_empty");
     read(c, pn);
-    BOOST_CHECK(size(pn) == 0);
+    BOOST_TEST(size(pn) == 0);
     write(c, "result.tmp");
-    BOOST_CHECK(filesEqual("fe_empty", "result.tmp"));
-    BOOST_CHECK(size("result.tmp") == 0);
+    BOOST_TEST(filesEqual("fe_empty", "result.tmp"));
+    BOOST_TEST(size("result.tmp") == 0);
   }
   {
     std::string c;
     PathName const pn("fe_one");
     read(c, pn);
     write(c, "result.tmp");
-    BOOST_CHECK(filesEqual("fe_one", "result.tmp"));
+    BOOST_TEST(filesEqual("fe_one", "result.tmp"));
   }
   {
     std::string c;
@@ -341,12 +341,12 @@ BOOST_AUTO_TEST_CASE(read_write_size)
     size_t const expectedSize = contents.size();
 #endif
     PathName const pn("fe_two");
-    BOOST_CHECK(size(pn) == expectedSize);
+    BOOST_TEST(size(pn) == expectedSize);
     read(c, pn);
-    BOOST_CHECK(c == contents);
+    BOOST_TEST(c == contents);
     write(c, "result.tmp");
-    BOOST_CHECK(filesEqual("fe_two", "result.tmp"));
-    BOOST_CHECK(size("result.tmp") == expectedSize);
+    BOOST_TEST(filesEqual("fe_two", "result.tmp"));
+    BOOST_TEST(size("result.tmp") == expectedSize);
   }
 }
 
@@ -361,12 +361,12 @@ BOOST_AUTO_TEST_CASE(skip_white_space)
   skipWhiteSpace(stream);
   char a = 0;
   stream >> a;
-  BOOST_CHECK(a == 'a');
+  BOOST_TEST(a == 'a');
   // back space
   skipWhiteSpace(stream);
-  BOOST_CHECK(stream.eof());
+  BOOST_TEST(stream.eof());
   // THIS is not true, str() always has the whole
   //  buffer, not the buffer starting from the seek-point
-  // BOOST_CHECK(stream.str() == "a\n\t ");
-  BOOST_CHECK(stream.str() == "   a\n\t ");
+  // BOOST_TEST(stream.str() == "a\n\t ");
+  BOOST_TEST(stream.str() == "   a\n\t ");
 }

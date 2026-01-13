@@ -52,37 +52,37 @@ BOOST_AUTO_TEST_CASE(exists)
   {
     driver.datasetProperties().clear();
     name = "unexisting";
-    BOOST_CHECK(!dynamic_cast<Driver&>(driver).exists(name));
+    BOOST_TEST(!dynamic_cast<Driver&>(driver).exists(name));
   }
 
   // Existing feature data set. No layer selected.
   {
     driver.datasetProperties().clear();
     name = "points.shp//id";
-    BOOST_CHECK(!dynamic_cast<Driver&>(driver).exists(name));
+    BOOST_TEST(!dynamic_cast<Driver&>(driver).exists(name));
   }
 
   // Existing feature data set. Attribute selected.
   {
     driver.datasetProperties().clear();
     name = "points.shp/points/id";
-    BOOST_CHECK(dynamic_cast<Driver&>(driver).exists(name));
+    BOOST_TEST(dynamic_cast<Driver&>(driver).exists(name));
 
     // No extension.
     driver.datasetProperties().clear();
     name = "points/points/id";
-    BOOST_CHECK(dynamic_cast<Driver&>(driver).exists(name));
+    BOOST_TEST(dynamic_cast<Driver&>(driver).exists(name));
   }
 
   // Existing feature data set. Only geometry selected.
   {
     driver.datasetProperties().clear();
     name = "points.shp/points";
-    BOOST_CHECK(dynamic_cast<Driver&>(driver).exists(name));
+    BOOST_TEST(dynamic_cast<Driver&>(driver).exists(name));
 
     driver.datasetProperties().clear();
     name = "points.shp/points/";
-    BOOST_CHECK(dynamic_cast<Driver&>(driver).exists(name));
+    BOOST_TEST(dynamic_cast<Driver&>(driver).exists(name));
   }
 
   // Existing feature data set. Path includes directory specifier.
@@ -94,7 +94,7 @@ BOOST_AUTO_TEST_CASE(exists)
     // attribute: points
     // layer name is false.
     name = "./points.shp/concentrat";
-    BOOST_CHECK(!dynamic_cast<Driver&>(driver).exists(name));
+    BOOST_TEST(!dynamic_cast<Driver&>(driver).exists(name));
 
     // source   : .
     // layer    : points
@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_CASE(exists)
     // layer name is fine.
     driver.datasetProperties().clear();
     name = "./points/concentrat";
-    BOOST_CHECK(dynamic_cast<Driver&>(driver).exists(name));
+    BOOST_TEST(dynamic_cast<Driver&>(driver).exists(name));
 
     // source   : .
     // layer    : points
@@ -110,11 +110,11 @@ BOOST_AUTO_TEST_CASE(exists)
     // Selects the geometry.
     driver.datasetProperties().clear();
     name = "./points";
-    BOOST_CHECK(dynamic_cast<Driver&>(driver).exists(name));
+    BOOST_TEST(dynamic_cast<Driver&>(driver).exists(name));
 
     driver.datasetProperties().clear();
     name = "./points/points";
-    BOOST_CHECK(!dynamic_cast<Driver&>(driver).exists(name));
+    BOOST_TEST(!dynamic_cast<Driver&>(driver).exists(name));
   }
 }
 
@@ -131,11 +131,11 @@ BOOST_AUTO_TEST_CASE(exists)
 ///   {
 ///     driver.datasetProperties().clear();
 ///     name = "unexisting";
-///     BOOST_CHECK(Client::library().geometriesCache().empty());
+///     BOOST_TEST(Client::library().geometriesCache().empty());
 ///     layer.reset(dynamic_cast<FeatureLayer*>(
 ///            dynamic_cast<Driver&>(driver).open(name)));
-///     BOOST_CHECK(!layer);
-///     BOOST_CHECK(Client::library().geometriesCache().empty());
+///     BOOST_TEST(!layer);
+///     BOOST_TEST(Client::library().geometriesCache().empty());
 ///   }
 ///
 ///   {
@@ -143,8 +143,8 @@ BOOST_AUTO_TEST_CASE(exists)
 ///     name = "points.shp/points/blablabla";
 ///     layer.reset(dynamic_cast<FeatureLayer*>(
 ///            dynamic_cast<Driver&>(driver).open(name)));
-///     BOOST_CHECK(!layer);
-///     BOOST_CHECK(Client::library().geometriesCache().empty());
+///     BOOST_TEST(!layer);
+///     BOOST_TEST(Client::library().geometriesCache().empty());
 ///   }
 ///
 ///   // Existing feature data set.
@@ -155,7 +155,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///            dynamic_cast<Driver&>(driver).open(name)));
 ///     BOOST_CHECK_EQUAL(Client::library().geometriesCache().size(), size_t(1));
 ///     BOOST_TEST_REQUIRE(layer);
-///     BOOST_CHECK(!layer->hasAttribute());
+///     BOOST_TEST(!layer->hasAttribute());
 ///     BOOST_CHECK_EQUAL(layer->typeId(), TI_NR_TYPES);
 ///
 ///     BOOST_CHECK_CLOSE(layer->dimensions().west(), -0.900337, 0.001);
@@ -170,7 +170,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///     layer.reset(dynamic_cast<FeatureLayer*>(
 ///            dynamic_cast<Driver&>(driver).open(name)));
 ///     BOOST_TEST_REQUIRE(layer);
-///     BOOST_CHECK(layer->hasAttribute());
+///     BOOST_TEST(layer->hasAttribute());
 ///     BOOST_CHECK_EQUAL(layer->typeId(), TI_INT4);
 ///   }
 ///
@@ -180,7 +180,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///     layer.reset(dynamic_cast<FeatureLayer*>(
 ///            dynamic_cast<Driver&>(driver).open(name)));
 ///     BOOST_TEST_REQUIRE(layer);
-///     BOOST_CHECK(layer->hasAttribute());
+///     BOOST_TEST(layer->hasAttribute());
 ///     BOOST_CHECK_EQUAL(layer->typeId(), TI_STRING);
 ///   }
 ///
@@ -190,7 +190,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///     layer.reset(dynamic_cast<FeatureLayer*>(
 ///            dynamic_cast<Driver&>(driver).open(name)));
 ///     BOOST_TEST_REQUIRE(layer);
-///     BOOST_CHECK(layer->hasAttribute());
+///     BOOST_TEST(layer->hasAttribute());
 ///     BOOST_CHECK_EQUAL(layer->typeId(), TI_REAL8);
 ///   }
 /// }
@@ -252,7 +252,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///       exceptionCaught = true;
 ///     }
 ///
-///     BOOST_CHECK(exceptionCaught);
+///     BOOST_TEST(exceptionCaught);
 ///   }
 ///
 ///   {
@@ -307,7 +307,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///   BOOST_REQUIRE_NO_THROW(
 ///          result = driver.search("points.shp/points", DataSpace(),
 ///               SearchForAllItems);
-///          BOOST_CHECK(result);
+///          BOOST_TEST(result);
 ///   );
 ///
 ///   driver.datasetProperties().clear();
@@ -315,7 +315,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///   BOOST_REQUIRE_NO_THROW(
 ///          result = driver.search("lines.shp/lines/distance", DataSpace(),
 ///               SearchForAllItems);
-///          BOOST_CHECK(result);
+///          BOOST_TEST(result);
 ///   );
 ///
 ///   driver.datasetProperties().clear();
@@ -323,7 +323,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///   BOOST_REQUIRE_NO_THROW(
 ///          result = driver.search("doesnotexist.shp/bla/bli", DataSpace(),
 ///               SearchForAllItems);
-///          BOOST_CHECK(!result);
+///          BOOST_TEST(!result);
 ///   );
 /// }
 ///
@@ -368,7 +368,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///   OgrFeatureDriver driver("VRT");
 ///   std::shared_ptr<FeatureLayer> layer;
 ///
-///   BOOST_CHECK(dynamic_cast<Driver&>(driver).exists(name));
+///   BOOST_TEST(dynamic_cast<Driver&>(driver).exists(name));
 ///   BOOST_REQUIRE_NO_THROW(
 ///     layer.reset(dynamic_cast<FeatureDriver&>(driver).read(name));
 ///   )
@@ -429,7 +429,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///
 ///   // // Read another time step in the existing layer.
 ///   // address.setCoordinate<size_t>(0, 2);
-///   // BOOST_CHECK(dynamic_cast<Driver&>(driver).exists(name, space, address));
+///   // BOOST_TEST(dynamic_cast<Driver&>(driver).exists(name, space, address));
 ///   // BOOST_REQUIRE_NO_THROW(
 ///   //   dynamic_cast<FeatureDriver&>(driver).read(*layer, name, space, address);
 ///   // )
@@ -446,7 +446,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///
 ///   // // Read an unexisting time step in the existing layer.
 ///   // address.setCoordinate<size_t>(0, 3);
-///   // BOOST_CHECK(!dynamic_cast<Driver&>(driver).exists(name, space, address));
+///   // BOOST_TEST(!dynamic_cast<Driver&>(driver).exists(name, space, address));
 ///   // BOOST_CHECK_THROW(
 ///   //   dynamic_cast<FeatureDriver&>(driver).read(*layer, name, space, address),
 ///   //   Exception
@@ -498,7 +498,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///
 ///   /// // Read another quantile in the existing layer.
 ///   /// address.setCoordinate<float>(0, 0.5f);
-///   /// BOOST_CHECK(dynamic_cast<Driver&>(driver).exists(name, space, address));
+///   /// BOOST_TEST(dynamic_cast<Driver&>(driver).exists(name, space, address));
 ///   /// BOOST_REQUIRE_NO_THROW(
 ///   ///   dynamic_cast<FeatureDriver&>(driver).read(*layer, name, space, address);
 ///   /// )
@@ -515,7 +515,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///
 ///   /// // Read an unexisting quantile in the existing layer.
 ///   /// address.setCoordinate<float>(0, 0.6f);
-///   /// BOOST_CHECK(!dynamic_cast<Driver&>(driver).exists(name, space, address));
+///   /// BOOST_TEST(!dynamic_cast<Driver&>(driver).exists(name, space, address));
 ///   /// BOOST_CHECK_THROW(
 ///   ///   dynamic_cast<FeatureDriver&>(driver).read(*layer, name, space, address),
 ///   ///   Exception
@@ -574,7 +574,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///
 ///   /// // Read another quantile in the existing layer.
 ///   /// address.setCoordinate<float>(1, 0.5f);
-///   /// BOOST_CHECK(dynamic_cast<Driver&>(driver).exists(name, space, address));
+///   /// BOOST_TEST(dynamic_cast<Driver&>(driver).exists(name, space, address));
 ///   /// BOOST_REQUIRE_NO_THROW(
 ///   ///   dynamic_cast<FeatureDriver&>(driver).read(*layer, name, space, address);
 ///   /// )
@@ -591,7 +591,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///
 ///   /// // Read an unexisting quantile in the existing layer.
 ///   /// address.setCoordinate<float>(1, 0.6f);
-///   /// BOOST_CHECK(!dynamic_cast<Driver&>(driver).exists(name, space, address));
+///   /// BOOST_TEST(!dynamic_cast<Driver&>(driver).exists(name, space, address));
 ///   /// BOOST_CHECK_THROW(
 ///   ///   dynamic_cast<FeatureDriver&>(driver).read(*layer, name, space, address),
 ///   ///   Exception
@@ -600,7 +600,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///   /// // Read another time step in the existing layer.
 ///   /// address.setCoordinate<size_t>(0, 2);
 ///   /// address.setCoordinate<float>(1, 0.5f);
-///   /// BOOST_CHECK(dynamic_cast<Driver&>(driver).exists(name, space, address));
+///   /// BOOST_TEST(dynamic_cast<Driver&>(driver).exists(name, space, address));
 ///   /// BOOST_REQUIRE_NO_THROW(
 ///   ///   dynamic_cast<FeatureDriver&>(driver).read(*layer, name, space, address);
 ///   /// )
@@ -617,7 +617,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///
 ///   /// // Read an unexisting time step in the existing layer.
 ///   /// address.setCoordinate<size_t>(0, 3);
-///   /// BOOST_CHECK(!dynamic_cast<Driver&>(driver).exists(name, space, address));
+///   /// BOOST_TEST(!dynamic_cast<Driver&>(driver).exists(name, space, address));
 ///   /// BOOST_CHECK_THROW(
 ///   ///   dynamic_cast<FeatureDriver&>(driver).read(*layer, name, space, address),
 ///   ///   Exception

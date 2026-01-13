@@ -31,12 +31,12 @@ BOOST_AUTO_TEST_CASE(constructor)
     map2 = new CSFMap("csfmap2.map", 11, 12, VS_SCALAR, PT_YINCT2B, 3.0, 14.0, 15.0, 5.0);
   } catch (const com::FileError &e) {
     const char *msgExpect = "File 'csfmap2.map': error creating raster: Angle < -0.5 pi or > 0.5 pi\n";
-    BOOST_CHECK(e.messages() == msgExpect);
+    BOOST_TEST(e.messages() == msgExpect);
     failureExpected = true;
   }
-  BOOST_CHECK(failureExpected);
+  BOOST_TEST(failureExpected);
   delete map2;
-  BOOST_CHECK(!com::PathInfo("csfmap2.map").exists());
+  BOOST_TEST(!com::PathInfo("csfmap2.map").exists());
 }
 
 
@@ -46,21 +46,21 @@ BOOST_AUTO_TEST_CASE(nr_rows)
 {
   using namespace geo;
 
-  BOOST_CHECK(d_map1->nrRows() == 11);
+  BOOST_TEST(d_map1->nrRows() == 11);
 }
 
 BOOST_AUTO_TEST_CASE(nr_cols)
 {
   using namespace geo;
 
-  BOOST_CHECK(d_map1->nrCols() == 12);
+  BOOST_TEST(d_map1->nrCols() == 12);
 }
 
 BOOST_AUTO_TEST_CASE(nr_cells)
 {
   using namespace geo;
 
-  BOOST_CHECK(d_map1->nrCells() == static_cast<size_t>(11 * 12));
+  BOOST_TEST(d_map1->nrCells() == static_cast<size_t>(11 * 12));
 }
 
 BOOST_AUTO_TEST_SUITE_END()

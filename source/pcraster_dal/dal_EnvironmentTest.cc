@@ -13,14 +13,14 @@ BOOST_AUTO_TEST_CASE(dal_formats)
 #else
   {
     dev::unsetEnvironmentVariable("PCRASTER_DAL_FORMATS");
-    BOOST_CHECK(!dev::environmentVariableSet("PCRASTER_DAL_FORMATS"));
+    BOOST_TEST(!dev::environmentVariableSet("PCRASTER_DAL_FORMATS"));
     Environment const environment("/usr/bin/dal");
-    BOOST_CHECK(environment.formatNames().empty());
+    BOOST_TEST(environment.formatNames().empty());
   }
 
   {
     dev::setEnvironmentVariable("PCRASTER_DAL_FORMATS", "PCRaster");
-    BOOST_CHECK(dev::environmentVariableSet("PCRASTER_DAL_FORMATS"));
+    BOOST_TEST(dev::environmentVariableSet("PCRASTER_DAL_FORMATS"));
     Environment const environment("/usr/bin/dal");
     BOOST_REQUIRE_EQUAL(environment.formatNames().size(), size_t(1));
     BOOST_CHECK_EQUAL(environment.formatNames()[0], "PCRaster");

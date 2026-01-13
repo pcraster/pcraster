@@ -8,12 +8,12 @@ BOOST_AUTO_TEST_CASE(index_left)
   using namespace geo;
 
   RasterBoundaries<size_t> const boundaries(3, 2);
-  BOOST_CHECK(boundaries.indexLeft(0, 0) == 2);
-  BOOST_CHECK(boundaries.indexLeft(0, 1) == 3);
-  BOOST_CHECK(boundaries.indexLeft(1, 0) == 7);
-  BOOST_CHECK(boundaries.indexLeft(1, 1) == 8);
-  BOOST_CHECK(boundaries.indexLeft(2, 0) == 12);
-  BOOST_CHECK(boundaries.indexLeft(2, 1) == 13);
+  BOOST_TEST(boundaries.indexLeft(0, 0) == 2);
+  BOOST_TEST(boundaries.indexLeft(0, 1) == 3);
+  BOOST_TEST(boundaries.indexLeft(1, 0) == 7);
+  BOOST_TEST(boundaries.indexLeft(1, 1) == 8);
+  BOOST_TEST(boundaries.indexLeft(2, 0) == 12);
+  BOOST_TEST(boundaries.indexLeft(2, 1) == 13);
 }
 
 BOOST_AUTO_TEST_CASE(index_top)
@@ -21,12 +21,12 @@ BOOST_AUTO_TEST_CASE(index_top)
   using namespace geo;
 
   RasterBoundaries<size_t> const boundaries(3, 2);
-  BOOST_CHECK(boundaries.indexTop(0, 0) == 0);
-  BOOST_CHECK(boundaries.indexTop(0, 1) == 1);
-  BOOST_CHECK(boundaries.indexTop(1, 0) == 5);
-  BOOST_CHECK(boundaries.indexTop(1, 1) == 6);
-  BOOST_CHECK(boundaries.indexTop(2, 0) == 10);
-  BOOST_CHECK(boundaries.indexTop(2, 1) == 11);
+  BOOST_TEST(boundaries.indexTop(0, 0) == 0);
+  BOOST_TEST(boundaries.indexTop(0, 1) == 1);
+  BOOST_TEST(boundaries.indexTop(1, 0) == 5);
+  BOOST_TEST(boundaries.indexTop(1, 1) == 6);
+  BOOST_TEST(boundaries.indexTop(2, 0) == 10);
+  BOOST_TEST(boundaries.indexTop(2, 1) == 11);
 }
 
 BOOST_AUTO_TEST_CASE(index_right)
@@ -34,12 +34,12 @@ BOOST_AUTO_TEST_CASE(index_right)
   using namespace geo;
 
   RasterBoundaries<size_t> const boundaries(3, 2);
-  BOOST_CHECK(boundaries.indexRight(0, 0) == 3);
-  BOOST_CHECK(boundaries.indexRight(0, 1) == 4);
-  BOOST_CHECK(boundaries.indexRight(1, 0) == 8);
-  BOOST_CHECK(boundaries.indexRight(1, 1) == 9);
-  BOOST_CHECK(boundaries.indexRight(2, 0) == 13);
-  BOOST_CHECK(boundaries.indexRight(2, 1) == 14);
+  BOOST_TEST(boundaries.indexRight(0, 0) == 3);
+  BOOST_TEST(boundaries.indexRight(0, 1) == 4);
+  BOOST_TEST(boundaries.indexRight(1, 0) == 8);
+  BOOST_TEST(boundaries.indexRight(1, 1) == 9);
+  BOOST_TEST(boundaries.indexRight(2, 0) == 13);
+  BOOST_TEST(boundaries.indexRight(2, 1) == 14);
 }
 
 BOOST_AUTO_TEST_CASE(index_bottom)
@@ -47,12 +47,12 @@ BOOST_AUTO_TEST_CASE(index_bottom)
   using namespace geo;
 
   RasterBoundaries<size_t> const boundaries(3, 2);
-  BOOST_CHECK(boundaries.indexBottom(0, 0) == 5);
-  BOOST_CHECK(boundaries.indexBottom(0, 1) == 6);
-  BOOST_CHECK(boundaries.indexBottom(1, 0) == 10);
-  BOOST_CHECK(boundaries.indexBottom(1, 1) == 11);
-  BOOST_CHECK(boundaries.indexBottom(2, 0) == 15);
-  BOOST_CHECK(boundaries.indexBottom(2, 1) == 16);
+  BOOST_TEST(boundaries.indexBottom(0, 0) == 5);
+  BOOST_TEST(boundaries.indexBottom(0, 1) == 6);
+  BOOST_TEST(boundaries.indexBottom(1, 0) == 10);
+  BOOST_TEST(boundaries.indexBottom(1, 1) == 11);
+  BOOST_TEST(boundaries.indexBottom(2, 0) == 15);
+  BOOST_TEST(boundaries.indexBottom(2, 1) == 16);
 }
 
 BOOST_AUTO_TEST_CASE(boundaries)
@@ -82,16 +82,16 @@ BOOST_AUTO_TEST_CASE(boundaries)
   boundaries.bottomBoundary(2, 0) = 15;
   boundaries.bottomBoundary(2, 1) = 16;
 
-  BOOST_CHECK(boundaries.leftBoundary(0, 0) == 2);
-  BOOST_CHECK(boundaries.topBoundary(0, 0) == 0);
-  BOOST_CHECK(boundaries.rightBoundary(0, 0) == 3);
-  BOOST_CHECK(boundaries.bottomBoundary(0, 0) == 5);
+  BOOST_TEST(boundaries.leftBoundary(0, 0) == 2);
+  BOOST_TEST(boundaries.topBoundary(0, 0) == 0);
+  BOOST_TEST(boundaries.rightBoundary(0, 0) == 3);
+  BOOST_TEST(boundaries.bottomBoundary(0, 0) == 5);
 
-  BOOST_CHECK(boundaries.leftBoundary(1, 1) == 8);
-  BOOST_CHECK(boundaries.topBoundary(1, 1) == 6);
-  BOOST_CHECK(boundaries.rightBoundary(1, 1) == 9);
-  BOOST_CHECK(boundaries.bottomBoundary(1, 1) == 11);
+  BOOST_TEST(boundaries.leftBoundary(1, 1) == 8);
+  BOOST_TEST(boundaries.topBoundary(1, 1) == 6);
+  BOOST_TEST(boundaries.rightBoundary(1, 1) == 9);
+  BOOST_TEST(boundaries.bottomBoundary(1, 1) == 11);
 
-  BOOST_CHECK(boundaries.rightBoundary(2, 0) == boundaries.leftBoundary(2, 1));
-  BOOST_CHECK(boundaries.topBoundary(2, 0) == boundaries.bottomBoundary(1, 0));
+  BOOST_TEST(boundaries.rightBoundary(2, 0) == boundaries.leftBoundary(2, 1));
+  BOOST_TEST(boundaries.topBoundary(2, 0) == boundaries.bottomBoundary(1, 0));
 }

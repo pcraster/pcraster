@@ -15,7 +15,7 @@ BOOST_AUTO_TEST_CASE(test)
   {
     nrClasses = 0;
     selection = mapEqualInterval(palette, nrClasses);
-    BOOST_CHECK(selection.empty());
+    BOOST_TEST(selection.empty());
   }
 
   // Non empty palette, 5 classes.

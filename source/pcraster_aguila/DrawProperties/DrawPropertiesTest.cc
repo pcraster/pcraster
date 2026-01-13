@@ -72,19 +72,19 @@ void DrawPropertiesTest::test()
   // Default constructor.
   {
     DrawProperties drawProperties;
-    BOOST_CHECK(drawProperties.pen() == QPen());
-    BOOST_CHECK(drawProperties.attributePen() == QPen());
-    BOOST_CHECK(drawProperties.brush() == QBrush());
-    BOOST_CHECK(drawProperties.palette() == Palette());
+    BOOST_TEST(drawProperties.pen() == QPen());
+    BOOST_TEST(drawProperties.attributePen() == QPen());
+    BOOST_TEST(drawProperties.brush() == QBrush());
+    BOOST_TEST(drawProperties.palette() == Palette());
   }
 
   {
     DrawProperties drawProperties(QPen(Qt::red), QPen(Qt::white),
          QBrush(Qt::blue), Palette(colors.begin(), colors.end()));
-    BOOST_CHECK(drawProperties.pen() == QPen(Qt::red));
-    BOOST_CHECK(drawProperties.attributePen() == QPen(Qt::white));
-    BOOST_CHECK(drawProperties.brush() == QBrush(Qt::blue));
-    BOOST_CHECK(drawProperties.palette() ==
+    BOOST_TEST(drawProperties.pen() == QPen(Qt::red));
+    BOOST_TEST(drawProperties.attributePen() == QPen(Qt::white));
+    BOOST_TEST(drawProperties.brush() == QBrush(Qt::blue));
+    BOOST_TEST(drawProperties.palette() ==
          Palette(colors.begin(), colors.end()));
   }
 }

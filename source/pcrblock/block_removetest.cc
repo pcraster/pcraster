@@ -77,19 +77,19 @@ BOOST_AUTO_TEST_CASE(remove__)
     remove(*d_block, thickness);
 
     for(size_t i = 0; i < d_block->nrCells(); ++i) {
-      BOOST_CHECK(d_block->cell(i).size() == 16);
-      BOOST_CHECK(d_block->cell(i).thickness() == REAL4(15.5));
-      BOOST_CHECK(d_block->cell(i).back() == REAL4(0.5));
+      BOOST_TEST(d_block->cell(i).size() == 16);
+      BOOST_TEST(d_block->cell(i).thickness() == REAL4(15.5));
+      BOOST_TEST(d_block->cell(i).back() == REAL4(0.5));
     }
 
     for(size_t i = 0; i < d_block->nrCells(); ++i) {
       for(size_t j = 0; j < d_block->cell(i).size() - 1; ++j) {
-        BOOST_CHECK(d_originalThickness->cell(i)[j] == d_maxVoxelThickness);
-        BOOST_CHECK(d_sediment->cell(i)[j] == 3);
+        BOOST_TEST(d_originalThickness->cell(i)[j] == d_maxVoxelThickness);
+        BOOST_TEST(d_sediment->cell(i)[j] == 3);
       }
 
-      BOOST_CHECK(d_originalThickness->cell(i).back() == REAL4(0.5));
-      BOOST_CHECK(d_sediment->cell(i).back() == 3);
+      BOOST_TEST(d_originalThickness->cell(i).back() == REAL4(0.5));
+      BOOST_TEST(d_sediment->cell(i).back() == 3);
     }
   }
 
@@ -99,21 +99,21 @@ BOOST_AUTO_TEST_CASE(remove__)
     remove(*d_block, thickness);
 
     for(size_t i = 0; i < d_block->nrCells(); ++i) {
-      BOOST_CHECK(d_block->cell(i).size() == 16);
-      BOOST_CHECK(dal::comparable(d_block->cell(i).thickness(), REAL4(15.1)));
-      BOOST_CHECK(dal::comparable(d_block->cell(i).back(), REAL4(0.1)));
+      BOOST_TEST(d_block->cell(i).size() == 16);
+      BOOST_TEST(dal::comparable(d_block->cell(i).thickness(), REAL4(15.1)));
+      BOOST_TEST(dal::comparable(d_block->cell(i).back(), REAL4(0.1)));
     }
 
     for(size_t i = 0; i < d_block->nrCells(); ++i) {
       for(size_t j = 0; j < d_block->cell(i).size() - 1; ++j) {
-        BOOST_CHECK(dal::comparable(d_originalThickness->cell(i)[j],
+        BOOST_TEST(dal::comparable(d_originalThickness->cell(i)[j],
               d_maxVoxelThickness));
-        BOOST_CHECK(d_sediment->cell(i)[j] == 3);
+        BOOST_TEST(d_sediment->cell(i)[j] == 3);
       }
 
-      BOOST_CHECK(dal::comparable(
+      BOOST_TEST(dal::comparable(
               d_originalThickness->cell(i).back(), REAL4(0.5)));
-      BOOST_CHECK(d_sediment->cell(i).back() == 3);
+      BOOST_TEST(d_sediment->cell(i).back() == 3);
     }
   }
 
@@ -123,21 +123,21 @@ BOOST_AUTO_TEST_CASE(remove__)
     remove(*d_block, thickness);
 
     for(size_t i = 0; i < d_block->nrCells(); ++i) {
-      BOOST_CHECK(d_block->cell(i).size() == 15);
-      BOOST_CHECK(dal::comparable(d_block->cell(i).thickness(), REAL4(14.7)));
-      BOOST_CHECK(dal::comparable(d_block->cell(i).back(), REAL4(0.7)));
+      BOOST_TEST(d_block->cell(i).size() == 15);
+      BOOST_TEST(dal::comparable(d_block->cell(i).thickness(), REAL4(14.7)));
+      BOOST_TEST(dal::comparable(d_block->cell(i).back(), REAL4(0.7)));
     }
 
     for(size_t i = 0; i < d_block->nrCells(); ++i) {
       for(size_t j = 0; j < d_block->cell(i).size() - 1; ++j) {
-        BOOST_CHECK(dal::comparable(d_originalThickness->cell(i)[j],
+        BOOST_TEST(dal::comparable(d_originalThickness->cell(i)[j],
               d_maxVoxelThickness));
-        BOOST_CHECK(d_sediment->cell(i)[j] == 3);
+        BOOST_TEST(d_sediment->cell(i)[j] == 3);
       }
 
-      BOOST_CHECK(dal::comparable(
+      BOOST_TEST(dal::comparable(
               d_originalThickness->cell(i).back(), REAL4(1.0)));
-      BOOST_CHECK(d_sediment->cell(i).back() == 3);
+      BOOST_TEST(d_sediment->cell(i).back() == 3);
     }
   }
 
@@ -147,21 +147,21 @@ BOOST_AUTO_TEST_CASE(remove__)
     remove(*d_block, thickness);
 
     for(size_t i = 0; i < d_block->nrCells(); ++i) {
-      BOOST_CHECK(d_block->cell(i).size() == 11);
-      BOOST_CHECK(dal::comparable(d_block->cell(i).thickness(), REAL4(10.3)));
-      BOOST_CHECK(dal::comparable(d_block->cell(i).back(), REAL4(0.3)));
+      BOOST_TEST(d_block->cell(i).size() == 11);
+      BOOST_TEST(dal::comparable(d_block->cell(i).thickness(), REAL4(10.3)));
+      BOOST_TEST(dal::comparable(d_block->cell(i).back(), REAL4(0.3)));
     }
 
     for(size_t i = 0; i < d_block->nrCells(); ++i) {
       for(size_t j = 0; j < d_block->cell(i).size() - 1; ++j) {
-        BOOST_CHECK(dal::comparable(d_originalThickness->cell(i)[j],
+        BOOST_TEST(dal::comparable(d_originalThickness->cell(i)[j],
               d_maxVoxelThickness));
-        BOOST_CHECK(d_sediment->cell(i)[j] == 3);
+        BOOST_TEST(d_sediment->cell(i)[j] == 3);
       }
 
-      BOOST_CHECK(dal::comparable(
+      BOOST_TEST(dal::comparable(
               d_originalThickness->cell(i).back(), REAL4(1.0)));
-      BOOST_CHECK(d_sediment->cell(i).back() == 3);
+      BOOST_TEST(d_sediment->cell(i).back() == 3);
     }
   }
 
@@ -179,14 +179,14 @@ BOOST_AUTO_TEST_CASE(remove_more_than_available)
     remove(*d_block, thickness);
 
     for(size_t i = 0; i < d_block->nrCells(); ++i) {
-      BOOST_CHECK(dal::comparable(d_block->cell(i).baseElevation(), REAL4(4.5)));
-      BOOST_CHECK(d_block->cell(i).size() == 0);
-      BOOST_CHECK(dal::comparable(d_block->cell(i).thickness(), REAL4(0)));
+      BOOST_TEST(dal::comparable(d_block->cell(i).baseElevation(), REAL4(4.5)));
+      BOOST_TEST(d_block->cell(i).size() == 0);
+      BOOST_TEST(dal::comparable(d_block->cell(i).thickness(), REAL4(0)));
     }
 
     for(size_t i = 0; i < d_block->nrCells(); ++i) {
-      BOOST_CHECK(d_originalThickness->cell(i).empty());
-      BOOST_CHECK(d_sediment->cell(i).empty());
+      BOOST_TEST(d_originalThickness->cell(i).empty());
+      BOOST_TEST(d_sediment->cell(i).empty());
     }
   }
 }

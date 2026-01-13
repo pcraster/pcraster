@@ -18,8 +18,8 @@ BOOST_AUTO_TEST_CASE(perp_on_cord)
     POINT2D cut;
     LINE perp;
     PerpOnCord(&cut, &perp, &p, &c1, &c2);
-    BOOST_CHECK(cut.x == 0 && cut.y == 0);
-    BOOST_CHECK(perp.yInt == 0);
+    BOOST_TEST((cut.x == 0 && cut.y == 0));
+    BOOST_TEST(perp.yInt == 0);
   }
 
   POINT2D const p = {4354, 0 /* -8.4128132584737614e-06 */};

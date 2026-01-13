@@ -63,9 +63,9 @@ struct Fixture
     // {
     //   SQLTableDriver driver(driverName);
     //
-    //   BOOST_CHECK(!driver.databaseExists(databaseName));
+    //   BOOST_TEST(!driver.databaseExists(databaseName));
     //   driver.addDatabase(databaseName);
-    //   BOOST_CHECK(driver.databaseExists(databaseName));
+    //   BOOST_TEST(driver.databaseExists(databaseName));
     // }
     //
     //
@@ -76,9 +76,9 @@ struct Fixture
     // {
     //   SQLTableDriver driver(driverName);
     //
-    //   BOOST_CHECK(driver.databaseExists(databaseName));
+    //   BOOST_TEST(driver.databaseExists(databaseName));
     //   driver.removeDatabase(databaseName);
-    //   BOOST_CHECK(!driver.databaseExists(databaseName));
+    //   BOOST_TEST(!driver.databaseExists(databaseName));
     // }
 
 
@@ -94,19 +94,19 @@ struct Fixture
       {
         name = "";
         table = dynamic_cast<Table*>(dynamic_cast<Driver&>(driver).open(name));
-        BOOST_CHECK(!table);
+        BOOST_TEST(!table);
       }
 
       {
         name = "unexisting";
         table = dynamic_cast<Table*>(dynamic_cast<Driver&>(driver).open(name));
-        BOOST_CHECK(!table);
+        BOOST_TEST(!table);
       }
 
       {
         name = "DSN=unexisting;UID=" + d_user;
         table = dynamic_cast<Table*>(dynamic_cast<Driver&>(driver).open(name));
-        BOOST_CHECK(!table);
+        BOOST_TEST(!table);
       }
     }
 
@@ -158,12 +158,12 @@ struct Fixture
         ///   inputTable.reset(dynamic_cast<TableDriver&>(driver).read(name));
         /// )
         /// BOOST_TEST_REQUIRE(inputTable);
-        /// BOOST_CHECK(*inputTable == *outputTable);
+        /// BOOST_TEST(*inputTable == *outputTable);
 
         /// inputTable.reset(new Table(titles, typeIds));
         /// inputTable->createCols();
         /// dynamic_cast<TableDriver&>(driver).read(*inputTable, name);
-        /// BOOST_CHECK(*inputTable == *outputTable);
+        /// BOOST_TEST(*inputTable == *outputTable);
         /// inputTable.reset();
 
         /// outputTable->clear();
@@ -203,9 +203,9 @@ struct Fixture
 
         /// Array<REAL8> const* col4 = 0;
         /// BOOST_REQUIRE_NO_THROW(col4 = &inputTable->col<REAL8>(3));
-        /// BOOST_CHECK(comparable((*col4)[0], 1.92));
-        /// BOOST_CHECK(comparable((*col4)[1], 1.85));
-        /// BOOST_CHECK(comparable((*col4)[2], 2.11));
+        /// BOOST_TEST(comparable((*col4)[0], 1.92));
+        /// BOOST_TEST(comparable((*col4)[1], 1.85));
+        /// BOOST_TEST(comparable((*col4)[2], 2.11));
       }
 
       // Selective read.
@@ -239,9 +239,9 @@ struct Fixture
 
         // Array<REAL8> const* col4 = 0;
         // BOOST_REQUIRE_NO_THROW(col4 = &table->col<REAL8>(3));
-        // BOOST_CHECK(comparable((*col4)[0], 1.92));
-        // BOOST_CHECK(comparable((*col4)[1], 1.85));
-        // BOOST_CHECK(comparable((*col4)[2], 2.11));
+        // BOOST_TEST(comparable((*col4)[0], 1.92));
+        // BOOST_TEST(comparable((*col4)[1], 1.85));
+        // BOOST_TEST(comparable((*col4)[2], 2.11));
       }
     }
 
@@ -262,7 +262,7 @@ struct Fixture
       {
         space.clear();
         address = space.address();
-        BOOST_CHECK(driver.exists(name, space, address));
+        BOOST_TEST(driver.exists(name, space, address));
 
         // Read all.
         table.reset(driver.open(name, space, address));
@@ -325,7 +325,7 @@ struct Fixture
       {
         space.clear();
         address = space.address();
-        BOOST_CHECK(driver.exists(name, space, address));
+        BOOST_TEST(driver.exists(name, space, address));
       }
 
       {
@@ -416,7 +416,7 @@ struct Fixture
         space.clear();
         address = space.address();
 
-        BOOST_CHECK(driver.exists(name, space, address));
+        BOOST_TEST(driver.exists(name, space, address));
 
         // Read all.
         table.reset(driver.open(name, space, address));
@@ -482,7 +482,7 @@ struct Fixture
       {
         space.clear();
         address = space.address();
-        BOOST_CHECK(driver.exists(name, space, address));
+        BOOST_TEST(driver.exists(name, space, address));
       }
 
       {
@@ -494,7 +494,7 @@ struct Fixture
         address = space.address();
         address.setCoordinate<std::string>(0, "noot");
 
-        BOOST_CHECK(driver.exists(name, space, address));
+        BOOST_TEST(driver.exists(name, space, address));
       }
 
       {
@@ -503,7 +503,7 @@ struct Fixture
         address = space.address();
         address.setCoordinate<size_t>(0, 2);
 
-        BOOST_CHECK(driver.exists(name, space, address));
+        BOOST_TEST(driver.exists(name, space, address));
       }
 
       {
@@ -691,7 +691,7 @@ BOOST_AUTO_TEST_CASE(driver_is_available)
   // BOOST_TEST_REQUIRE(SQLTableDriver::driverIsAvailable("QODBC3"));
 
   // One that does not exist.
-  BOOST_CHECK(!SQLTableDriver::driverIsAvailable("QDOESNOTEXIST"));
+  BOOST_TEST(!SQLTableDriver::driverIsAvailable("QDOESNOTEXIST"));
 }
 
 
@@ -713,7 +713,7 @@ BOOST_AUTO_TEST_CASE(constructor)
          "SQL table driver for bla: Not available");
   }
 
-  BOOST_CHECK(exceptionThrown);
+  BOOST_TEST(exceptionThrown);
 }
 
 
@@ -750,13 +750,13 @@ BOOST_AUTO_TEST_CASE(sqlite)
   // This code checks whether this behaviour still works.
   {
     std::string name = "DoesNotExist";
-    BOOST_CHECK(!std::filesystem::exists(name));
+    BOOST_TEST(!std::filesystem::exists(name));
 
     std::shared_ptr<Dataset> dataset(dynamic_cast<Driver const&>(
          driver).open(name));
 
-    BOOST_CHECK(!dataset);
-    BOOST_CHECK(!std::filesystem::exists(name));
+    BOOST_TEST(!dataset);
+    BOOST_TEST(!std::filesystem::exists(name));
   }
 
   // Read a time series from a table in an SQLite database.
@@ -764,7 +764,7 @@ BOOST_AUTO_TEST_CASE(sqlite)
     std::string name = "MyDatabase.sql3/timesteps/co2";
 
     BOOST_TEST_REQUIRE(std::filesystem::exists("MyDatabase.sql3"));
-    BOOST_CHECK(dynamic_cast<Driver const&>(driver).exists(name));
+    BOOST_TEST(dynamic_cast<Driver const&>(driver).exists(name));
 
     DataSpace space = dynamic_cast<Driver const&>(driver).dataSpace(name);
     BOOST_REQUIRE_EQUAL(space.rank(), 1u);
@@ -776,7 +776,7 @@ BOOST_AUTO_TEST_CASE(sqlite)
 
     std::shared_ptr<Dataset> dataset(dynamic_cast<Driver const&>(
          driver).open(name));
-    BOOST_CHECK(dataset);
+    BOOST_TEST(dataset);
 
     Table* table = dynamic_cast<Table*>(dataset.get());
     BOOST_TEST_REQUIRE(table);
@@ -809,7 +809,7 @@ BOOST_AUTO_TEST_CASE(sqlite)
     std::string name = "MyDatabase.sql3/quantiles/co2";
 
     BOOST_TEST_REQUIRE(std::filesystem::exists("MyDatabase.sql3"));
-    BOOST_CHECK(dynamic_cast<Driver const&>(driver).exists(name));
+    BOOST_TEST(dynamic_cast<Driver const&>(driver).exists(name));
 
     DataSpace space = dynamic_cast<Driver const&>(driver).dataSpace(name);
     BOOST_REQUIRE_EQUAL(space.rank(), 1u);
@@ -824,7 +824,7 @@ BOOST_AUTO_TEST_CASE(sqlite)
 
     std::shared_ptr<Dataset> dataset(dynamic_cast<Driver const&>(
          driver).open(name));
-    BOOST_CHECK(dataset);
+    BOOST_TEST(dataset);
 
     Table* table = dynamic_cast<Table*>(dataset.get());
     BOOST_TEST_REQUIRE(table);

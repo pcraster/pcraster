@@ -73,7 +73,7 @@ BOOST_AUTO_TEST_CASE(open)
   {
     block = dynamic_cast<Block*>(
          dynamic_cast<Driver&>(driver).open("notexisting"));
-    BOOST_CHECK(!block);
+    BOOST_TEST(!block);
   }
 
   // Block created in setUp()
@@ -81,12 +81,12 @@ BOOST_AUTO_TEST_CASE(open)
     block = dynamic_cast<Block*>(
          dynamic_cast<Driver&>(driver).open("discretisation.pcrblock"));
 
-    BOOST_CHECK(block);
+    BOOST_TEST(block);
     BOOST_CHECK_EQUAL(block->nrRows(), size_t(3));
     BOOST_CHECK_EQUAL(block->nrCols(), size_t(2));
-    BOOST_CHECK(dal::comparable(block->cellSize(), 1.0));
-    BOOST_CHECK(dal::comparable(block->west(), 4.0));
-    BOOST_CHECK(dal::comparable(block->north(), 5.0));
+    BOOST_TEST(dal::comparable(block->cellSize(), 1.0));
+    BOOST_TEST(dal::comparable(block->west(), 4.0));
+    BOOST_TEST(dal::comparable(block->north(), 5.0));
 
     delete block;
   }
@@ -114,36 +114,36 @@ BOOST_AUTO_TEST_CASE(read_)
          "Data source notexisting(block):\ncannot be opened");
     }
 
-    BOOST_CHECK(exceptionCaught);
-    BOOST_CHECK(!block);
+    BOOST_TEST(exceptionCaught);
+    BOOST_TEST(!block);
   }
 
   // Block created in setUp()
   {
     block = static_cast<BlockDriver&>(driver).read("discretisation.pcrblock");
-    BOOST_CHECK(block);
+    BOOST_TEST(block);
 
     BOOST_CHECK_EQUAL(block->nrRows(), size_t(3));
     BOOST_CHECK_EQUAL(block->nrCols(), size_t(2));
-    BOOST_CHECK(dal::comparable(block->cellSize(), 1.0));
-    BOOST_CHECK(dal::comparable(block->west(), 4.0));
-    BOOST_CHECK(dal::comparable(block->north(), 5.0));
+    BOOST_TEST(dal::comparable(block->cellSize(), 1.0));
+    BOOST_TEST(dal::comparable(block->west(), 4.0));
+    BOOST_TEST(dal::comparable(block->north(), 5.0));
 
-    BOOST_CHECK(block->containsDiscretisationInfo());
-    BOOST_CHECK(!block->containsData());
-    BOOST_CHECK(block->baseElevation());
+    BOOST_TEST(block->containsDiscretisationInfo());
+    BOOST_TEST(!block->containsData());
+    BOOST_TEST(block->baseElevation());
 
     Raster const& elevation(*block->baseElevation());
 
     for(size_t i = 0; i < elevation.nrCells(); ++i) {
-      BOOST_CHECK(dal::comparable(elevation.cell<REAL4>(i), REAL4(i)));
+      BOOST_TEST(dal::comparable(elevation.cell<REAL4>(i), REAL4(i)));
 
       auto& stack(block->cell<REAL4_VECTOR>(i));
 
       BOOST_CHECK_EQUAL(stack.size(), i);
 
       for(float  const& j : stack) {
-        BOOST_CHECK(dal::comparable(j, REAL4(i)));
+        BOOST_TEST(dal::comparable(j, REAL4(i)));
       }
     }
 

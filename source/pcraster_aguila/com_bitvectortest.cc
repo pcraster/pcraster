@@ -58,9 +58,9 @@ void com::BitVectorTest::test()
   bv.set(2);
   bv.set(4);
 
-  BOOST_CHECK(bv[0]);
-  BOOST_CHECK(!bv[1]);
-  BOOST_CHECK(bv[2]);
-  BOOST_CHECK(!bv[3]);
-  BOOST_CHECK(bv[4]);
+  BOOST_TEST(bv[0]);
+  BOOST_TEST(!bv[1]);
+  BOOST_TEST(bv[2]);
+  BOOST_TEST(!bv[3]);
+  BOOST_TEST(bv[4]);
 }

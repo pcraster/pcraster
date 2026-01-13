@@ -59,7 +59,7 @@ struct Fixture
 
       BOOST_CHECK_EQUAL(table.nrCols(), size_t(0));
       BOOST_CHECK_EQUAL(table.nrRecs(), size_t(0));
-      BOOST_CHECK(table.title().empty());
+      BOOST_TEST(table.title().empty());
     }
 
 
@@ -81,19 +81,19 @@ struct Fixture
       BOOST_CHECK_EQUAL(table.title(3), "REAL4");
 
       Array<UINT1> const& col1(table.col<UINT1>(0));
-      BOOST_CHECK(dal::comparable(col1[0], UINT1(1)));
-      BOOST_CHECK(dal::comparable(col1[1], UINT1(0)));
-      BOOST_CHECK(dal::comparable(col1[2], UINT1(1)));
+      BOOST_TEST(dal::comparable(col1[0], UINT1(1)));
+      BOOST_TEST(dal::comparable(col1[1], UINT1(0)));
+      BOOST_TEST(dal::comparable(col1[2], UINT1(1)));
 
       Array<INT4> const& col2(table.col<INT4>(1));
-      BOOST_CHECK(dal::comparable(col2[0], INT4(3)));
-      BOOST_CHECK(dal::comparable(col2[1], INT4(33)));
-      BOOST_CHECK(dal::comparable(col2[2], INT4(333)));
+      BOOST_TEST(dal::comparable(col2[0], INT4(3)));
+      BOOST_TEST(dal::comparable(col2[1], INT4(33)));
+      BOOST_TEST(dal::comparable(col2[2], INT4(333)));
 
       Array<REAL4> const& col4(table.col<REAL4>(3));
-      BOOST_CHECK(dal::comparable(col4[0], REAL4(3.3)));
-      BOOST_CHECK(dal::comparable(col4[1], REAL4(4.4)));
-      BOOST_CHECK(dal::comparable(col4[2], REAL4(5.5)));
+      BOOST_TEST(dal::comparable(col4[0], REAL4(3.3)));
+      BOOST_TEST(dal::comparable(col4[1], REAL4(4.4)));
+      BOOST_TEST(dal::comparable(col4[2], REAL4(5.5)));
     }
 
     dal::Table* d_empty;
@@ -205,7 +205,7 @@ BOOST_AUTO_TEST_CASE(assign)
     table1.assign(colToWrite, joinFrom, table2, colToRead, joinTo);
 
     BOOST_CHECK_EQUAL(values1[0], 3);
-    BOOST_CHECK(pcr::isMV(values1[1]));
+    BOOST_TEST(pcr::isMV(values1[1]));
     BOOST_CHECK_EQUAL(values1[2], 1);
     BOOST_CHECK_EQUAL(values1[3], 2);
     BOOST_CHECK_EQUAL(values1[4], 4);

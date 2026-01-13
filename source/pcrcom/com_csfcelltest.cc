@@ -8,14 +8,14 @@
 
 BOOST_AUTO_TEST_CASE(csf_sizes)
 {
-  BOOST_CHECK(sizeof(UINT1) == 1);
-  BOOST_CHECK(sizeof(INT1) == 1);
-  BOOST_CHECK(sizeof(UINT2) == 2);
-  BOOST_CHECK(sizeof(INT2) == 2);
-  BOOST_CHECK(sizeof(UINT4) == 4);
-  BOOST_CHECK(sizeof(INT4) == 4);
-  BOOST_CHECK(sizeof(REAL4) == 4);
-  BOOST_CHECK(sizeof(REAL8) == 8);
+  BOOST_TEST(sizeof(UINT1) == 1);
+  BOOST_TEST(sizeof(INT1) == 1);
+  BOOST_TEST(sizeof(UINT2) == 2);
+  BOOST_TEST(sizeof(INT2) == 2);
+  BOOST_TEST(sizeof(UINT4) == 4);
+  BOOST_TEST(sizeof(INT4) == 4);
+  BOOST_TEST(sizeof(REAL4) == 4);
+  BOOST_TEST(sizeof(REAL8) == 8);
 }
 
 //! does also CastCell, since copy is no more than a loop around CastCell
@@ -35,12 +35,12 @@ BOOST_AUTO_TEST_CASE(cast_and_copy_cells)
   }
   copyCells(uint1, int4, NR);
   for (size_t i = 0; i < 10; i++) {
-    BOOST_CHECK(static_cast<size_t>(uint1[i]) == i);
+    BOOST_TEST(static_cast<size_t>(uint1[i]) == i);
   }
 
   copyCells(int4, uint1, NR);
   for (size_t i = 0; i < 10; i++) {
-    BOOST_CHECK(int4[i] == static_cast<INT4>(i));
+    BOOST_TEST(int4[i] == static_cast<INT4>(i));
   }
 
   delete[] int4;
@@ -52,27 +52,27 @@ BOOST_AUTO_TEST_CASE(cast_and_copy_cells)
     INT2 const i2 = MV_INT2;
     INT4 i4 = 0;
     copyCells(&i4, &i2, 1);
-    BOOST_CHECK(i4 == MV_INT4);
+    BOOST_TEST(i4 == MV_INT4);
   }
 
   {
     INT4 const i4 = MV_INT4;
     INT2 i2 = 0;
     copyCells(&i2, &i4, 1);
-    BOOST_CHECK(i2 == MV_INT2);
+    BOOST_TEST(i2 == MV_INT2);
   }
   {
     double const d = 14;
     UINT1 i1 = 0;
     CastCell<UINT1, double>()(i1, d);
-    BOOST_CHECK(i1 == 14);
+    BOOST_TEST(i1 == 14);
   }
   {
     double d = NAN;
     pcr::setMV(d);
     UINT1 i1 = 0;
     CastCell<UINT1, double>()(i1, d);
-    BOOST_CHECK(i1 == MV_UINT1);
+    BOOST_TEST(i1 == MV_UINT1);
   }
   {
     /*
@@ -80,7 +80,7 @@ BOOST_AUTO_TEST_CASE(cast_and_copy_cells)
   *SetMV()(d);
   *UINT1 i1;
   *CastCell<UINT1,float>()(i1,d);
-  *BOOST_CHECK(i1==MV_UINT1);
+  *BOOST_TEST(i1==MV_UINT1);
   */
   }
 }
@@ -92,8 +92,8 @@ BOOST_AUTO_TEST_CASE(set_mv)
   std::memset(int4, 0, 10 * sizeof(INT4));
   pcr::setMV(int4, 10);
   for (size_t i = 0; i < 10; i++) {
-    BOOST_CHECK(pcr::isMV(int4[i]));
-    BOOST_CHECK(pcr::isMV(int4 + i));
+    BOOST_TEST(pcr::isMV(int4[i]));
+    BOOST_TEST(pcr::isMV(int4 + i));
   }
 
   // the specialization UINT1
@@ -101,8 +101,8 @@ BOOST_AUTO_TEST_CASE(set_mv)
   std::memset(uint1, 0, 10 * sizeof(UINT1));
   pcr::setMV(uint1, 10);
   for (size_t i = 0; i < 10; i++) {
-    BOOST_CHECK(pcr::isMV(uint1[i]));
-    BOOST_CHECK(pcr::isMV(uint1 + i));
+    BOOST_TEST(pcr::isMV(uint1[i]));
+    BOOST_TEST(pcr::isMV(uint1 + i));
   }
 
   // the specialization REAL4
@@ -110,21 +110,21 @@ BOOST_AUTO_TEST_CASE(set_mv)
   std::memset(real4, 0, 10 * sizeof(REAL4));
   pcr::setMV(real4, 10);
   for (size_t i = 0; i < 10; i++) {
-    BOOST_CHECK(pcr::isMV(real4[i]));
-    BOOST_CHECK(pcr::isMV(real4 + i));
+    BOOST_TEST(pcr::isMV(real4[i]));
+    BOOST_TEST(pcr::isMV(real4 + i));
   }
   {
     double real8 = NAN;
     pcr::setMV(real8);
     auto *c = (UINT1 *)&real8;
-    BOOST_CHECK(c[0] == MV_UINT1);
-    BOOST_CHECK(c[1] == MV_UINT1);
-    BOOST_CHECK(c[2] == MV_UINT1);
-    BOOST_CHECK(c[3] == MV_UINT1);
-    BOOST_CHECK(c[4] == MV_UINT1);
-    BOOST_CHECK(c[5] == MV_UINT1);
-    BOOST_CHECK(c[6] == MV_UINT1);
-    BOOST_CHECK(c[7] == MV_UINT1);
+    BOOST_TEST(c[0] == MV_UINT1);
+    BOOST_TEST(c[1] == MV_UINT1);
+    BOOST_TEST(c[2] == MV_UINT1);
+    BOOST_TEST(c[3] == MV_UINT1);
+    BOOST_TEST(c[4] == MV_UINT1);
+    BOOST_TEST(c[5] == MV_UINT1);
+    BOOST_TEST(c[6] == MV_UINT1);
+    BOOST_TEST(c[7] == MV_UINT1);
   }
 }
 
@@ -136,45 +136,45 @@ BOOST_AUTO_TEST_CASE(get_min_max)
     UINT1 v[3] = {0, 3, MV_UINT1};
     GetMinMax<UINT1> g(MV_UINT1);
     g.add(v, 3);
-    BOOST_CHECK(g.min() == 0);
-    BOOST_CHECK(g.max() == 3);
+    BOOST_TEST(g.min() == 0);
+    BOOST_TEST(g.max() == 3);
   }
   {  // no add
     UINT1 v[3] = {0, 3, MV_UINT1};
     GetMinMax<UINT1> g(MV_UINT1);
-    BOOST_CHECK(g.min() == MV_UINT1);
-    BOOST_CHECK(g.max() == MV_UINT1);
+    BOOST_TEST(g.min() == MV_UINT1);
+    BOOST_TEST(g.max() == MV_UINT1);
     g.add(v, 0);
-    BOOST_CHECK(g.min() == MV_UINT1);
-    BOOST_CHECK(g.max() == MV_UINT1);
+    BOOST_TEST(g.min() == MV_UINT1);
+    BOOST_TEST(g.max() == MV_UINT1);
   }
   {  // add 1
     UINT1 v[1] = {0};
     GetMinMax<UINT1> g(MV_UINT1);
     g.add(v, 1);
-    BOOST_CHECK(g.min() == 0);
-    BOOST_CHECK(g.max() == 0);
+    BOOST_TEST(g.min() == 0);
+    BOOST_TEST(g.max() == 0);
   }
   {  // add 1 MV
     UINT1 v[1] = {MV_UINT1};
     GetMinMax<UINT1> g(MV_UINT1);
     g.add(v, 1);
-    BOOST_CHECK(g.min() == MV_UINT1);
-    BOOST_CHECK(g.max() == MV_UINT1);
+    BOOST_TEST(g.min() == MV_UINT1);
+    BOOST_TEST(g.max() == MV_UINT1);
   }
   {  // add 2 MV
     UINT1 v[3] = {MV_UINT1, MV_UINT1, MV_UINT1};
     GetMinMax<UINT1> g(MV_UINT1);
     g.add(v, 3);
-    BOOST_CHECK(g.min() == MV_UINT1);
-    BOOST_CHECK(g.max() == MV_UINT1);
+    BOOST_TEST(g.min() == MV_UINT1);
+    BOOST_TEST(g.max() == MV_UINT1);
   }
   {  // float -999
     REAL4 v[3] = {0, 3, -999};
     GetMinMax<REAL4> g(-999);
     g.add(v, 3);
-    BOOST_CHECK(g.min() == 0);
-    BOOST_CHECK(g.max() == 3);
+    BOOST_TEST(g.min() == 0);
+    BOOST_TEST(g.max() == 3);
   }
 }
 
@@ -184,17 +184,17 @@ BOOST_AUTO_TEST_CASE(alter_to_std_mv)
     UINT1 v[3] = {0, 3, MV_UINT1};
     pcr::AlterToStdMV<UINT1> const t(3);
     std::for_each(v, v + 3, t);
-    BOOST_CHECK(v[0] == 0);
-    BOOST_CHECK(v[1] == MV_UINT1);
-    BOOST_CHECK(v[2] == MV_UINT1);
+    BOOST_TEST(v[0] == 0);
+    BOOST_TEST(v[1] == MV_UINT1);
+    BOOST_TEST(v[2] == MV_UINT1);
   }
   {
     REAL4 v[3] = {0, 3, -8};
     pcr::setMV(v[2]);
     std::for_each(v, v + 3, pcr::AlterToStdMV<REAL4>(3));
-    BOOST_CHECK(v[0] == 0);
-    BOOST_CHECK(pcr::isMV(v[1]));
-    BOOST_CHECK(pcr::isMV(v[2]));
+    BOOST_TEST(v[0] == 0);
+    BOOST_TEST(pcr::isMV(v[1]));
+    BOOST_TEST(pcr::isMV(v[2]));
   }
 }
 
@@ -204,18 +204,18 @@ BOOST_AUTO_TEST_CASE(from_std_mv)
     UINT1 v[3] = {0, 3, MV_UINT1};
     pcr::FromStdMV<UINT1> const t(3);
     std::transform(v, v + 3, v, t);
-    BOOST_CHECK(v[0] == 0);
-    BOOST_CHECK(v[1] == 3);
-    BOOST_CHECK(v[2] == 3);
+    BOOST_TEST(v[0] == 0);
+    BOOST_TEST(v[1] == 3);
+    BOOST_TEST(v[2] == 3);
   }
   {
     REAL4 v[3] = {0, 3, -1};
     pcr::setMV(v[2]);
     std::transform(v, v + 3, v, pcr::FromStdMV<REAL4>(-999));
-    BOOST_CHECK(v[0] == 0);
-    BOOST_CHECK(v[1] == 3);
-    BOOST_CHECK(!pcr::isMV(v[2]));
-    BOOST_CHECK(v[2] == -999);
+    BOOST_TEST(v[0] == 0);
+    BOOST_TEST(v[1] == 3);
+    BOOST_TEST(!pcr::isMV(v[2]));
+    BOOST_TEST(v[2] == -999);
   }
 }
 
@@ -225,21 +225,21 @@ BOOST_AUTO_TEST_CASE(csf_cell_max)
 
   REAL4 v[3] = {0, 3, -1};
   pcr::setMV(v[0]);
-  BOOST_CHECK(pcr::isMV(v[0]));
+  BOOST_TEST(pcr::isMV(v[0]));
   const REAL4 *max = csfCellMax(v, v + 3);
-  BOOST_CHECK(max == v + 1);
-  BOOST_CHECK(*max == 3);
+  BOOST_TEST(max == v + 1);
+  BOOST_TEST(*max == 3);
 
   // all MV
   pcr::setMV(v[1]);
-  BOOST_CHECK(pcr::isMV(v[0]));
-  BOOST_CHECK(pcr::isMV(v[1]));
+  BOOST_TEST(pcr::isMV(v[0]));
+  BOOST_TEST(pcr::isMV(v[1]));
   max = csfCellMax(v, v + 2);
-  BOOST_CHECK(max == v + 2);
+  BOOST_TEST(max == v + 2);
 
   // all MV
   max = csfCellMax(v, v);
-  BOOST_CHECK(max == v);
+  BOOST_TEST(max == v);
 }
 
 BOOST_AUTO_TEST_CASE(endian_swap)
@@ -249,16 +249,16 @@ BOOST_AUTO_TEST_CASE(endian_swap)
   {
     INT2 v[3] = {0, 3, MV_INT2};
     std::for_each(v, v + 3, EndianSwapINT2());
-    BOOST_CHECK(v[0] == 0);  // 0 is "symmetric"
-    BOOST_CHECK(v[1] != 3);
-    BOOST_CHECK(v[2] != MV_INT2);
+    BOOST_TEST(v[0] == 0);  // 0 is "symmetric"
+    BOOST_TEST(v[1] != 3);
+    BOOST_TEST(v[2] != MV_INT2);
   }
   {
     REAL4 v[2] = {0, -1};
     pcr::setMV(v[1]);
     std::for_each(v, v + 2, EndianSwapREAL4());
-    BOOST_CHECK(v[0] == 0);        // 0 is "symmetric"
-    BOOST_CHECK(pcr::isMV(v[1]));  // MV_UINT4,MV_REAL4 is "symmetric"
+    BOOST_TEST(v[0] == 0);        // 0 is "symmetric"
+    BOOST_TEST(pcr::isMV(v[1]));  // MV_UINT4,MV_REAL4 is "symmetric"
   }
 }
 
@@ -266,25 +266,25 @@ BOOST_AUTO_TEST_CASE(is_type)
 {
   using namespace com;
 
-  BOOST_CHECK(isUINT1(0));
-  BOOST_CHECK(isUINT1(UINT1_MIN));
-  BOOST_CHECK(isUINT1(UINT1_MAX));
-  BOOST_CHECK(isUINT1(8));
+  BOOST_TEST(isUINT1(0));
+  BOOST_TEST(isUINT1(UINT1_MIN));
+  BOOST_TEST(isUINT1(UINT1_MAX));
+  BOOST_TEST(isUINT1(8));
 
-  BOOST_CHECK(!isUINT1(MV_UINT1));
-  BOOST_CHECK(!isUINT1(-2));
-  BOOST_CHECK(!isUINT1(7.34));
-  BOOST_CHECK(!isUINT1(7.0000007));
+  BOOST_TEST(!isUINT1(MV_UINT1));
+  BOOST_TEST(!isUINT1(-2));
+  BOOST_TEST(!isUINT1(7.34));
+  BOOST_TEST(!isUINT1(7.0000007));
 
-  BOOST_CHECK(isINT2(0));
-  BOOST_CHECK(isINT2(INT2_MIN));
-  BOOST_CHECK(isINT2(INT2_MAX));
-  BOOST_CHECK(isINT2(8));
-  BOOST_CHECK(isINT2(-2));
+  BOOST_TEST(isINT2(0));
+  BOOST_TEST(isINT2(INT2_MIN));
+  BOOST_TEST(isINT2(INT2_MAX));
+  BOOST_TEST(isINT2(8));
+  BOOST_TEST(isINT2(-2));
 
-  BOOST_CHECK(!isINT2(MV_INT2));
-  BOOST_CHECK(!isINT2(-7.32));
-  BOOST_CHECK(!isINT2(7.0000007));
+  BOOST_TEST(!isINT2(MV_INT2));
+  BOOST_TEST(!isINT2(-7.32));
+  BOOST_TEST(!isINT2(7.0000007));
 }
 
 BOOST_AUTO_TEST_CASE(less_mv)
@@ -294,19 +294,19 @@ BOOST_AUTO_TEST_CASE(less_mv)
   {
     UINT1 const u1(1);
     UINT1 const u5(5);
-    BOOST_CHECK(lessMV(u1, u5));
-    BOOST_CHECK(!lessMV(u5, u1));
-    BOOST_CHECK(!lessMV(u1, u1));
-    BOOST_CHECK(lessMV(u1, MV_UINT1));
-    BOOST_CHECK(!lessMV(MV_UINT1, u1));
+    BOOST_TEST(lessMV(u1, u5));
+    BOOST_TEST(!lessMV(u5, u1));
+    BOOST_TEST(!lessMV(u1, u1));
+    BOOST_TEST(lessMV(u1, MV_UINT1));
+    BOOST_TEST(!lessMV(MV_UINT1, u1));
   }
   {
     INT4 const u1(1);
     INT4 const u5(5);
-    BOOST_CHECK(lessMV(u1, u5));
-    BOOST_CHECK(!lessMV(u5, u1));
-    BOOST_CHECK(!lessMV(u1, u1));
-    BOOST_CHECK(lessMV(u1, MV_INT4));
-    BOOST_CHECK(!lessMV(MV_INT4, u1));
+    BOOST_TEST(lessMV(u1, u5));
+    BOOST_TEST(!lessMV(u5, u1));
+    BOOST_TEST(!lessMV(u1, u1));
+    BOOST_TEST(lessMV(u1, MV_INT4));
+    BOOST_TEST(!lessMV(MV_INT4, u1));
   }
 }

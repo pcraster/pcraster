@@ -29,13 +29,13 @@ BOOST_AUTO_TEST_CASE(filling_of_data_space)
     TypeId const typeId = TI_REAL4;
     MemoryRasterData data(space, typeId, nrRows, nrCols, cellSize,
          north, west);
-    BOOST_CHECK(!pool.rasterExists("dem", space));
+    BOOST_TEST(!pool.rasterExists("dem", space));
     pool.add("dem", data);
 
     // Check for availabiliby of the raster.
-    BOOST_CHECK(pool.rasterExists("dem", space));
+    BOOST_TEST(pool.rasterExists("dem", space));
     data = pool.raster("dem", space);
-    BOOST_CHECK(!data.exists());
+    BOOST_TEST(!data.exists());
 
     REAL4 t1[6] = {  1.0,  2.0,  3.0,  4.0,  5.0,  6.0 };
     // REAL4 t5[6] = {  7.0,  8.0,  9.0, 10.0, 11.0, 12.0 };
@@ -54,10 +54,10 @@ BOOST_AUTO_TEST_CASE(filling_of_data_space)
     //      cellSize, north, west), address);
 
     // Check for availabiliby of the added raster.
-    // BOOST_CHECK(pool.rasterExists("dem", space));
+    // BOOST_TEST(pool.rasterExists("dem", space));
     // data = pool.raster("dem", space);
-    // BOOST_CHECK(data.exists());
-    // BOOST_CHECK(data.exists(address));
+    // BOOST_TEST(data.exists());
+    // BOOST_TEST(data.exists(address));
 
     // Create and add another raster at another location.
 

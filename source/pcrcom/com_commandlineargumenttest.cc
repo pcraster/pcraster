@@ -116,13 +116,13 @@ void com::CommandLineArgumentTest::testPositionalValue()
 
   size_t nrTokensParsed;
 
-  BOOST_CHECK(arg1.canParse(*(argv + 1)));
+  BOOST_TEST(arg1.canParse(*(argv + 1)));
   nrTokensParsed = arg1.parse(argc - 1, argv + 1);
   BOOST_CHECK_EQUAL(nrTokensParsed, (size_t)1);
   BOOST_CHECK_EQUAL(arg1.isParsed(), true);
   BOOST_CHECK_EQUAL(arg1.value(), "arg1");
 
-  BOOST_CHECK(!arg2.canParse(*(argv + 1 + nrTokensParsed)));
+  BOOST_TEST(!arg2.canParse(*(argv + 1 + nrTokensParsed)));
   BOOST_CHECK_EQUAL(arg2.isParsed(), false);
   BOOST_CHECK_EQUAL(arg2.value(), "");
 
@@ -135,7 +135,7 @@ void com::CommandLineArgumentTest::testPositionalValue()
 
     BOOST_CHECK_EQUAL(positional.isRequired(), true);
     BOOST_CHECK_EQUAL(positional.isParsed(), false);
-    BOOST_CHECK(positional.canParse(*argv));
+    BOOST_TEST(positional.canParse(*argv));
     nrTokensParsed = positional.parse(argc, argv);
     BOOST_CHECK_EQUAL(nrTokensParsed, (size_t)1);
     BOOST_CHECK_EQUAL(positional.isParsed(), true);
@@ -151,7 +151,7 @@ void com::CommandLineArgumentTest::testPositionalValue()
 
     BOOST_CHECK_EQUAL(positional.isRequired(), true);
     BOOST_CHECK_EQUAL(positional.isParsed(), false);
-    BOOST_CHECK(positional.canParse(*argv));
+    BOOST_TEST(positional.canParse(*argv));
     try {
       nrTokensParsed = positional.parse(argc, argv);
     } catch (com::CommandLineException &exception) {
@@ -183,14 +183,14 @@ void com::CommandLineArgumentTest::testPositionalList()
 
   size_t nrTokensParsed;
 
-  BOOST_CHECK(arg1.canParse(*(argv + 1)));
+  BOOST_TEST(arg1.canParse(*(argv + 1)));
   nrTokensParsed = arg1.parse(argc - 1, argv + 1);
   BOOST_CHECK_EQUAL(nrTokensParsed, (size_t)2);
   BOOST_CHECK_EQUAL(arg1.isParsed(), true);
   BOOST_CHECK_EQUAL(arg1.value(0), "arg1");
   BOOST_CHECK_EQUAL(arg1.value(1), "file-name");
 
-  BOOST_CHECK(!arg2.canParse(*(argv + 1 + nrTokensParsed)));
+  BOOST_TEST(!arg2.canParse(*(argv + 1 + nrTokensParsed)));
   BOOST_CHECK_EQUAL(arg2.isParsed(), false);
 
   {
@@ -202,7 +202,7 @@ void com::CommandLineArgumentTest::testPositionalList()
 
     BOOST_CHECK_EQUAL(positional.isRequired(), true);
     BOOST_CHECK_EQUAL(positional.isParsed(), false);
-    BOOST_CHECK(positional.canParse(*argv));
+    BOOST_TEST(positional.canParse(*argv));
     try {
       nrTokensParsed = positional.parse(argc, argv);
     } catch (com::CommandLineException &exception) {
@@ -244,17 +244,17 @@ void com::CommandLineArgumentTest::testOption()
 
     size_t nrTokensParsed;
 
-    BOOST_CHECK(optionA.canParse(*(argv + 1)));
+    BOOST_TEST(optionA.canParse(*(argv + 1)));
     nrTokensParsed = optionA.parse(argc - 1, argv + 1);
     BOOST_CHECK_EQUAL(nrTokensParsed, (size_t)1);
     BOOST_CHECK_EQUAL(optionA.isParsed(), true);
 
-    BOOST_CHECK(optionB.canParse(*(argv + 2)));
+    BOOST_TEST(optionB.canParse(*(argv + 2)));
     nrTokensParsed = optionB.parse(argc - 2, argv + 2);
     BOOST_CHECK_EQUAL(nrTokensParsed, (size_t)1);
     BOOST_CHECK_EQUAL(optionB.isParsed(), true);
 
-    BOOST_CHECK(optionC.canParse(*(argv + 3)));
+    BOOST_TEST(optionC.canParse(*(argv + 3)));
     nrTokensParsed = optionC.parse(argc - 3, argv + 3);
     BOOST_CHECK_EQUAL(nrTokensParsed, (size_t)1);
     BOOST_CHECK_EQUAL(optionC.isParsed(), true);
@@ -275,17 +275,17 @@ void com::CommandLineArgumentTest::testOption()
 
     size_t nrTokensParsed;
 
-    BOOST_CHECK(optionA.canParse(*(argv + 1)));
+    BOOST_TEST(optionA.canParse(*(argv + 1)));
     nrTokensParsed = optionA.parse(argc - 1, argv + 1);
     BOOST_CHECK_EQUAL(nrTokensParsed, 0);
     BOOST_CHECK_EQUAL(optionA.isParsed(), true);
 
-    BOOST_CHECK(optionB.canParse(*(argv + 1)));
+    BOOST_TEST(optionB.canParse(*(argv + 1)));
     nrTokensParsed = optionB.parse(argc - 1, argv + 1);
     BOOST_CHECK_EQUAL(nrTokensParsed, 0);
     BOOST_CHECK_EQUAL(optionB.isParsed(), true);
 
-    BOOST_CHECK(optionC.canParse(*(argv + 1)));
+    BOOST_TEST(optionC.canParse(*(argv + 1)));
     nrTokensParsed = optionC.parse(argc - 1, argv + 1);
     // Now the whole token is parsed.
     BOOST_CHECK_EQUAL(nrTokensParsed, 1);
@@ -328,19 +328,19 @@ void com::CommandLineArgumentTest::testOptionValue()
 
     size_t nrTokensParsed;
 
-    BOOST_CHECK(optionA.canParse(*(argv + 1)));
+    BOOST_TEST(optionA.canParse(*(argv + 1)));
     nrTokensParsed = optionA.parse(argc - 1, argv + 1);
     BOOST_CHECK_EQUAL(nrTokensParsed, 2);
     BOOST_CHECK_EQUAL(optionA.isParsed(), true);
     BOOST_CHECK_EQUAL(optionA.value(), "valueA");
 
-    BOOST_CHECK(optionB.canParse(*(argv + 3)));
+    BOOST_TEST(optionB.canParse(*(argv + 3)));
     nrTokensParsed = optionB.parse(argc - 3, argv + 3);
     BOOST_CHECK_EQUAL(nrTokensParsed, 2);
     BOOST_CHECK_EQUAL(optionB.isParsed(), true);
     BOOST_CHECK_EQUAL(optionB.value(), "valueB");
 
-    BOOST_CHECK(optionC.canParse(*(argv + 5)));
+    BOOST_TEST(optionC.canParse(*(argv + 5)));
     nrTokensParsed = optionC.parse(argc - 5, argv + 5);
     BOOST_CHECK_EQUAL(nrTokensParsed, 2);
     BOOST_CHECK_EQUAL(optionC.isParsed(), true);
@@ -361,19 +361,19 @@ void com::CommandLineArgumentTest::testOptionValue()
 
     size_t nrTokensParsed;
 
-    BOOST_CHECK(optionA.canParse(*(argv + 1)));
+    BOOST_TEST(optionA.canParse(*(argv + 1)));
     nrTokensParsed = optionA.parse(argc - 1, argv + 1);
     BOOST_CHECK_EQUAL(nrTokensParsed, 1);
     BOOST_CHECK_EQUAL(optionA.isParsed(), true);
     BOOST_CHECK_EQUAL(optionA.value(), "valueA");
 
-    BOOST_CHECK(optionB.canParse(*(argv + 2)));
+    BOOST_TEST(optionB.canParse(*(argv + 2)));
     nrTokensParsed = optionB.parse(argc - 2, argv + 2);
     BOOST_CHECK_EQUAL(nrTokensParsed, 1);
     BOOST_CHECK_EQUAL(optionB.isParsed(), true);
     BOOST_CHECK_EQUAL(optionB.value(), "valueB");
 
-    BOOST_CHECK(optionC.canParse(*(argv + 3)));
+    BOOST_TEST(optionC.canParse(*(argv + 3)));
     nrTokensParsed = optionC.parse(argc - 3, argv + 3);
     BOOST_CHECK_EQUAL(nrTokensParsed, 1);
     BOOST_CHECK_EQUAL(optionC.isParsed(), true);
@@ -416,7 +416,7 @@ void com::CommandLineArgumentTest::testOptionList()
 
     size_t nrTokensParsed;
 
-    BOOST_CHECK(optionA.canParse(*(argv + 1)));
+    BOOST_TEST(optionA.canParse(*(argv + 1)));
     nrTokensParsed = optionA.parse(argc - 1, argv + 1);
     BOOST_CHECK_EQUAL(nrTokensParsed, 4);
     BOOST_CHECK_EQUAL(optionA.isParsed(), true);
@@ -425,14 +425,14 @@ void com::CommandLineArgumentTest::testOptionList()
     BOOST_CHECK_EQUAL(optionA[1], "valueA2");
     BOOST_CHECK_EQUAL(optionA[2], "valueA3");
 
-    BOOST_CHECK(optionB.canParse(*(argv + 5)));
+    BOOST_TEST(optionB.canParse(*(argv + 5)));
     nrTokensParsed = optionB.parse(argc - 5, argv + 5);
     BOOST_CHECK_EQUAL(nrTokensParsed, 2);
     BOOST_CHECK_EQUAL(optionB.isParsed(), true);
     BOOST_CHECK_EQUAL(optionB.size(), 1);
     BOOST_CHECK_EQUAL(optionB[0], "valueB1");
 
-    BOOST_CHECK(optionC.canParse(*(argv + 7)));
+    BOOST_TEST(optionC.canParse(*(argv + 7)));
     nrTokensParsed = optionC.parse(argc - 7, argv + 7);
     BOOST_CHECK_EQUAL(nrTokensParsed, 3);
     BOOST_CHECK_EQUAL(optionC.isParsed(), true);
@@ -458,7 +458,7 @@ void com::CommandLineArgumentTest::testOptionList()
 
     size_t nrTokensParsed;
 
-    BOOST_CHECK(optionA.canParse(*(argv + 1)));
+    BOOST_TEST(optionA.canParse(*(argv + 1)));
     nrTokensParsed = optionA.parse(argc - 1, argv + 1);
     BOOST_CHECK_EQUAL(nrTokensParsed, 3);
     BOOST_CHECK_EQUAL(optionA.isParsed(), true);
@@ -467,14 +467,14 @@ void com::CommandLineArgumentTest::testOptionList()
     BOOST_CHECK_EQUAL(optionA[1], "valueA2");
     BOOST_CHECK_EQUAL(optionA[2], "valueA3");
 
-    BOOST_CHECK(optionB.canParse(*(argv + 4)));
+    BOOST_TEST(optionB.canParse(*(argv + 4)));
     nrTokensParsed = optionB.parse(argc - 4, argv + 4);
     BOOST_CHECK_EQUAL(nrTokensParsed, 1);
     BOOST_CHECK_EQUAL(optionB.isParsed(), true);
     BOOST_CHECK_EQUAL(optionB.size(), 1);
     BOOST_CHECK_EQUAL(optionB[0], "valueB1");
 
-    BOOST_CHECK(optionC.canParse(*(argv + 5)));
+    BOOST_TEST(optionC.canParse(*(argv + 5)));
     nrTokensParsed = optionC.parse(argc - 5, argv + 5);
     BOOST_CHECK_EQUAL(nrTokensParsed, 2);
     BOOST_CHECK_EQUAL(optionC.isParsed(), true);
@@ -495,7 +495,7 @@ void com::CommandLineArgumentTest::testOptionList()
     // size_t nrTokensParsed;
 
     bool exceptionThrown = false;
-    BOOST_CHECK(optionA.canParse(arg));
+    BOOST_TEST(optionA.canParse(arg));
     try {
       optionA.parse(1, &arg);
     } catch (com::Exception const &exception) {
@@ -519,7 +519,7 @@ void com::CommandLineArgumentTest::testOptionList()
 
     size_t nrTokensParsed;
 
-    BOOST_CHECK(optionA.canParse(*(argv + 1)));
+    BOOST_TEST(optionA.canParse(*(argv + 1)));
     nrTokensParsed = optionA.parse(argc - 1, argv + 1);
     BOOST_CHECK_EQUAL(nrTokensParsed, 1);
     BOOST_CHECK_EQUAL(optionA.isParsed(), true);
@@ -528,7 +528,7 @@ void com::CommandLineArgumentTest::testOptionList()
     BOOST_CHECK_EQUAL(optionA[1], "v2");
     BOOST_CHECK_EQUAL(optionA[2], "v3");
 
-    BOOST_CHECK(optionB.canParse(*(argv + 2)));
+    BOOST_TEST(optionB.canParse(*(argv + 2)));
     nrTokensParsed = optionB.parse(argc - 2, argv + 2);
     BOOST_CHECK_EQUAL(nrTokensParsed, 1);
     BOOST_CHECK_EQUAL(optionB.size(), 3);
@@ -563,11 +563,11 @@ void com::CommandLineArgumentTest::testArgumentSort()
   arguments1.add(&optionC);
 
   iterator = arguments1.begin();
-  BOOST_CHECK(*iterator++ == &optionA);
-  BOOST_CHECK(*iterator++ == &optionB);
-  BOOST_CHECK(*iterator++ == &optionC);
-  BOOST_CHECK(*iterator++ == &positional1);
-  BOOST_CHECK(*iterator++ == &positional2);
+  BOOST_TEST(*iterator++ == &optionA);
+  BOOST_TEST(*iterator++ == &optionB);
+  BOOST_TEST(*iterator++ == &optionC);
+  BOOST_TEST(*iterator++ == &positional1);
+  BOOST_TEST(*iterator++ == &positional2);
 
   // b, c, a -> a, b, c
   CommandLineArguments arguments2;
@@ -578,11 +578,11 @@ void com::CommandLineArgumentTest::testArgumentSort()
   arguments2.add(&optionC);
 
   iterator = arguments2.begin();
-  BOOST_CHECK(*iterator++ == &optionA);
-  BOOST_CHECK(*iterator++ == &optionB);
-  BOOST_CHECK(*iterator++ == &optionC);
-  BOOST_CHECK(*iterator++ == &positional1);
-  BOOST_CHECK(*iterator++ == &positional2);
+  BOOST_TEST(*iterator++ == &optionA);
+  BOOST_TEST(*iterator++ == &optionB);
+  BOOST_TEST(*iterator++ == &optionC);
+  BOOST_TEST(*iterator++ == &positional1);
+  BOOST_TEST(*iterator++ == &positional2);
 
   // c, a, b -> a, b, c
   CommandLineArguments arguments3;
@@ -593,11 +593,11 @@ void com::CommandLineArgumentTest::testArgumentSort()
   arguments3.add(&optionC);
 
   iterator = arguments3.begin();
-  BOOST_CHECK(*iterator++ == &optionA);
-  BOOST_CHECK(*iterator++ == &optionB);
-  BOOST_CHECK(*iterator++ == &optionC);
-  BOOST_CHECK(*iterator++ == &positional1);
-  BOOST_CHECK(*iterator++ == &positional2);
+  BOOST_TEST(*iterator++ == &optionA);
+  BOOST_TEST(*iterator++ == &optionB);
+  BOOST_TEST(*iterator++ == &optionC);
+  BOOST_TEST(*iterator++ == &positional1);
+  BOOST_TEST(*iterator++ == &positional2);
 
   // c, b, a -> a, b, c
   CommandLineArguments arguments4;
@@ -608,11 +608,11 @@ void com::CommandLineArgumentTest::testArgumentSort()
   arguments4.add(&optionC);
 
   iterator = arguments4.begin();
-  BOOST_CHECK(*iterator++ == &optionA);
-  BOOST_CHECK(*iterator++ == &optionB);
-  BOOST_CHECK(*iterator++ == &optionC);
-  BOOST_CHECK(*iterator++ == &positional1);
-  BOOST_CHECK(*iterator++ == &positional2);
+  BOOST_TEST(*iterator++ == &optionA);
+  BOOST_TEST(*iterator++ == &optionB);
+  BOOST_TEST(*iterator++ == &optionC);
+  BOOST_TEST(*iterator++ == &positional1);
+  BOOST_TEST(*iterator++ == &positional2);
 }
 
 void com::CommandLineArgumentTest::testRepeatableArgument()

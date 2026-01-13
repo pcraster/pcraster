@@ -46,18 +46,18 @@ BOOST_AUTO_TEST_CASE(supported_drivers)
 
   RasterDal dal(true);
 
-  BOOST_CHECK(!dal.driverByName("NoSuchDriver"));
+  BOOST_TEST(!dal.driverByName("NoSuchDriver"));
 
   // Add the drivers needed by client code.
-  BOOST_CHECK(dal.driverByName("CSF"));
-  BOOST_CHECK(!dal.driverByName("PCRaster"));
+  BOOST_TEST(dal.driverByName("CSF"));
+  BOOST_TEST(!dal.driverByName("PCRaster"));
 
 // #ifdef WIN32
 //   BOOST_TEST_WARN(dal.driverByName("HDF4Image"));
 //   BOOST_TEST_WARN(dal.driverByName("HDF4"));
 // #else
-//   BOOST_CHECK(dal.driverByName("HDF4Image"));
-//   BOOST_CHECK(dal.driverByName("HDF4"));
+//   BOOST_TEST(dal.driverByName("HDF4Image"));
+//   BOOST_TEST(dal.driverByName("HDF4"));
 // #endif
 }
 
@@ -91,7 +91,7 @@ BOOST_AUTO_TEST_CASE(esri_ascii_grid1)
     BOOST_CHECK_EQUAL(cells[1], 2);
     BOOST_CHECK_EQUAL(cells[2], 3);
     BOOST_CHECK_EQUAL(cells[3], 4);
-    BOOST_CHECK(pcr::isMV(cells[4]));
+    BOOST_TEST(pcr::isMV(cells[4]));
     BOOST_CHECK_EQUAL(cells[5], 6);
     BOOST_CHECK_EQUAL(cells[6], 7);
     BOOST_CHECK_EQUAL(cells[7], 8);

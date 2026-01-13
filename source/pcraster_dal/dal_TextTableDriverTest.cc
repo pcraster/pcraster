@@ -22,7 +22,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
   bool exceptionCaught = false;
 
   Table* table = driver.open(std::filesystem::path(filename));
-  BOOST_CHECK(!table);
+  BOOST_TEST(!table);
 
   try {
     exceptionCaught = false;
@@ -33,7 +33,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
        "Data source " + filename + "(table):\ncannot be opened");
     exceptionCaught = true;
   }
-  BOOST_CHECK(exceptionCaught);
+  BOOST_TEST(exceptionCaught);
 }
 
 
@@ -46,7 +46,7 @@ BOOST_AUTO_TEST_CASE(empty)
   bool exceptionCaught = false;
 
   Table* table = driver.open(std::filesystem::path(filename));
-  BOOST_CHECK(!table);
+  BOOST_TEST(!table);
 
   try {
     exceptionCaught = false;
@@ -57,7 +57,7 @@ BOOST_AUTO_TEST_CASE(empty)
        "Data source " + filename + "(table):\ncannot be opened");
     exceptionCaught = true;
   }
-  BOOST_CHECK(exceptionCaught);
+  BOOST_TEST(exceptionCaught);
 }
 
 
@@ -75,7 +75,7 @@ BOOST_AUTO_TEST_CASE(invalid_grammar)
     exceptionCaught = false;
     table = driver.open(std::filesystem::path(filename));
 #ifndef WIN32
-    BOOST_CHECK(!table);
+    BOOST_TEST(!table);
 #endif
     table = dynamic_cast<TableDriver&>(driver).read(filename);
   }
@@ -89,7 +89,7 @@ BOOST_AUTO_TEST_CASE(invalid_grammar)
 // #endif
     exceptionCaught = true;
   }
-  BOOST_CHECK(exceptionCaught);
+  BOOST_TEST(exceptionCaught);
 }
 
 
@@ -103,7 +103,7 @@ BOOST_AUTO_TEST_CASE(table1)
 
   {
     table = driver.open(std::filesystem::path(filename));
-    BOOST_CHECK(table);
+    BOOST_TEST(table);
     BOOST_CHECK_EQUAL(table->nrCols(), size_t(3));
 
     BOOST_CHECK_EQUAL(table->typeId(0), TI_UINT1);
@@ -144,7 +144,7 @@ BOOST_AUTO_TEST_CASE(table1)
 
   DataSpace dataSpace(dynamic_cast<Driver&>(driver).dataSpace(filename));
   BOOST_CHECK_EQUAL(dataSpace.rank(), size_t(1));
-  BOOST_CHECK(dataSpace.hasTime());
+  BOOST_TEST(dataSpace.hasTime());
 
   Dimension const& dimension(dataSpace.dimension(0));
   BOOST_CHECK_EQUAL(dimension.value<size_t>(0), size_t(1));
@@ -212,7 +212,7 @@ BOOST_AUTO_TEST_CASE(table2)
 
   DataSpace dataSpace(dynamic_cast<Driver&>(driver).dataSpace(filename));
   BOOST_CHECK_EQUAL(dataSpace.rank(), size_t(1));
-  BOOST_CHECK(dataSpace.hasTime());
+  BOOST_TEST(dataSpace.hasTime());
 
   Dimension const& dimension(dataSpace.dimension(0));
   BOOST_CHECK_EQUAL(dimension.value<size_t>(0), size_t(1));
@@ -233,7 +233,7 @@ BOOST_AUTO_TEST_CASE(table5)
     TextTableDriver driver(AUTO_HEADER);
     table = driver.open(std::filesystem::path(filename));
 
-    BOOST_CHECK(table);
+    BOOST_TEST(table);
     BOOST_CHECK_EQUAL(table->nrCols(), size_t(5));
     BOOST_CHECK_EQUAL(table->typeId(0), TI_UINT1);
     BOOST_CHECK_EQUAL(table->typeId(1), TI_UINT1);
@@ -264,7 +264,7 @@ BOOST_AUTO_TEST_CASE(table5)
     TextTableDriver driver(NO_HEADER);
     table = driver.open(std::filesystem::path(filename));
 
-    BOOST_CHECK(table);
+    BOOST_TEST(table);
     BOOST_CHECK_EQUAL(table->nrCols(), size_t(5));
     BOOST_CHECK_EQUAL(table->typeId(0), TI_UINT1);
     BOOST_CHECK_EQUAL(table->typeId(1), TI_UINT1);
@@ -295,7 +295,7 @@ BOOST_AUTO_TEST_CASE(table5)
     TextTableDriver const driver(HEADER);
     table = driver.open(std::filesystem::path(filename));
 
-    BOOST_CHECK(table);
+    BOOST_TEST(table);
     BOOST_CHECK_EQUAL(table->nrCols(), size_t(5));
     BOOST_CHECK_EQUAL(table->typeId(0), TI_NR_TYPES);
     BOOST_CHECK_EQUAL(table->typeId(1), TI_NR_TYPES);
@@ -329,7 +329,7 @@ BOOST_AUTO_TEST_CASE(table6)
   {
     filename = "table6.col";
     table = driver.open(std::filesystem::path(filename));
-    BOOST_CHECK(table);
+    BOOST_TEST(table);
     BOOST_CHECK_EQUAL(table->nrCols(), size_t(3));
 
     BOOST_CHECK_EQUAL(table->typeId(0), TI_UINT1);
@@ -370,7 +370,7 @@ BOOST_AUTO_TEST_CASE(table6)
 
   DataSpace dataSpace(dynamic_cast<Driver&>(driver).dataSpace(filename));
   BOOST_CHECK_EQUAL(dataSpace.rank(), size_t(1));
-  BOOST_CHECK(dataSpace.hasTime());
+  BOOST_TEST(dataSpace.hasTime());
 
   Dimension const& dimension(dataSpace.dimension(0));
   BOOST_CHECK_EQUAL(dimension.value<size_t>(0), size_t(1));
@@ -389,7 +389,7 @@ BOOST_AUTO_TEST_CASE(table2_eas)
 
   std::shared_ptr<Table> table(driver.open(std::filesystem::path(
     filename)));
-  BOOST_CHECK(!table);
+  BOOST_TEST(!table);
 
   try {
     exceptionCaught = false;
@@ -400,7 +400,7 @@ BOOST_AUTO_TEST_CASE(table2_eas)
        "Data source " + filename + "(table):\ncannot be opened");
     exceptionCaught = true;
   }
-  BOOST_CHECK(exceptionCaught);
+  BOOST_TEST(exceptionCaught);
 }
 
 

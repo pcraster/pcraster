@@ -9,19 +9,19 @@ BOOST_AUTO_TEST_CASE(constructor)
 
   {
     Array<int> const array;
-    BOOST_CHECK(array.empty());
+    BOOST_TEST(array.empty());
     BOOST_CHECK_EQUAL(array.size(), size_t(0));
   }
 
   {
     Array<int> const array(5);
-    BOOST_CHECK(!array.empty());
+    BOOST_TEST(!array.empty());
     BOOST_CHECK_EQUAL(array.size(), size_t(5));
   }
 
   {
     Array<int> array(5, 3);
-    BOOST_CHECK(!array.empty());
+    BOOST_TEST(!array.empty());
     BOOST_CHECK_EQUAL(array.size(), size_t(5));
     for(size_t i = 0; i < 5; ++i) {
       BOOST_CHECK_EQUAL(array[i], 3);

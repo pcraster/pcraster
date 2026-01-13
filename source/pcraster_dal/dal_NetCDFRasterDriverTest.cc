@@ -86,7 +86,7 @@ void NetCDFRasterDriverTest::testDefaultExtension()
   BOOST_CHECK_EQUAL(driver.format().name(), "NetCDF");
   BOOST_CHECK_EQUAL(driver.format().description(), "NetCDF raster file format");
   BOOST_CHECK_EQUAL(driver.format().datasetType(), RASTER);
-  BOOST_CHECK(driver.format().isFileBased());
+  BOOST_TEST(driver.format().isFileBased());
   BOOST_CHECK_EQUAL(driver.format().extension(), "nc");
 }
 
@@ -105,11 +105,11 @@ void NetCDFRasterDriverTest::testEmptyDataSpace()
 
   // Write a single raster.
   driver.remove(name, DataSpace());
-  BOOST_CHECK(!driver.exists(name));
-  BOOST_CHECK(!driver.open(name));
+  BOOST_TEST(!driver.exists(name));
+  BOOST_TEST(!driver.open(name));
   driver.write(raster, DataSpace(), DataSpaceAddress(), name)
-  BOOST_CHECK(driver.exists(name, DataSpace(), DataSpaceAddress()));
-  BOOST_CHECK(driver.open(name, DataSpace(), DataSpaceAddress()));
+  BOOST_TEST(driver.exists(name, DataSpace(), DataSpaceAddress()));
+  BOOST_TEST(driver.open(name, DataSpace(), DataSpaceAddress()));
   */
 
 /*

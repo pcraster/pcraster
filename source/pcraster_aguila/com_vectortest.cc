@@ -7,7 +7,7 @@ BOOST_AUTO_TEST_CASE(size)
   using namespace com;
 
   Vector<double> const v(5);
-  BOOST_CHECK(v.size() == 5);
+  BOOST_TEST(v.size() == 5);
 }
 
 BOOST_AUTO_TEST_CASE(set_element)
@@ -16,7 +16,7 @@ BOOST_AUTO_TEST_CASE(set_element)
 
   Vector<double> v(5);
   v.setElement(1, 12345.6789);
-  BOOST_CHECK(v.element(1) == 12345.6789);
+  BOOST_TEST(v.element(1) == 12345.6789);
 }
 
 BOOST_AUTO_TEST_CASE(scale)
@@ -26,7 +26,7 @@ BOOST_AUTO_TEST_CASE(scale)
   Vector<double> v(5);
   v.setElement(1, 1.2345);
   v.scale(2.0);
-  BOOST_CHECK(v.element(1) == 2.469);
+  BOOST_TEST(v.element(1) == 2.469);
 }
 
 BOOST_AUTO_TEST_CASE(add)
@@ -45,9 +45,9 @@ BOOST_AUTO_TEST_CASE(add)
   v2.setElement(3, 1);
 
   v1.add(v2);
-  BOOST_CHECK(v1.element(1) == 4);
-  BOOST_CHECK(v1.element(2) == 2);
-  BOOST_CHECK(v1.element(3) == -1);
+  BOOST_TEST(v1.element(1) == 4);
+  BOOST_TEST(v1.element(2) == 2);
+  BOOST_TEST(v1.element(3) == -1);
 }
 
 BOOST_AUTO_TEST_CASE(magnitude)
@@ -60,7 +60,7 @@ BOOST_AUTO_TEST_CASE(magnitude)
   v.setElement(1, 3.0);
   v.setElement(1, 4.0);
   v.setElement(1, 5.0);
-  BOOST_CHECK(v.magnitude() == 5.0);
+  BOOST_TEST(v.magnitude() == 5.0);
 }
 
 BOOST_AUTO_TEST_CASE(dot)
@@ -82,7 +82,7 @@ BOOST_AUTO_TEST_CASE(dot)
   v2.setElement(4, 9);
   v2.setElement(5, 10);
 
-  BOOST_CHECK(Vector<int>::dot(v1, v2) == 130);
+  BOOST_TEST(Vector<int>::dot(v1, v2) == 130);
 }
 
 BOOST_AUTO_TEST_CASE(cross)
@@ -101,7 +101,7 @@ BOOST_AUTO_TEST_CASE(cross)
   v2.setElement(3, 1);
 
   Vector<int> const v3 = Vector<int>::cross(v1, v2);
-  BOOST_CHECK(v3.element(1) == 2);
-  BOOST_CHECK(v3.element(2) == -7);
-  BOOST_CHECK(v3.element(3) == -6);
+  BOOST_TEST(v3.element(1) == 2);
+  BOOST_TEST(v3.element(2) == -7);
+  BOOST_TEST(v3.element(3) == -6);
 }

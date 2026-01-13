@@ -38,14 +38,14 @@ BOOST_AUTO_TEST_CASE(exists)
 
   // Static data.
   {
-    BOOST_CHECK( dynamic_cast<Driver const&>(driver).exists("vector"));
-    BOOST_CHECK( dynamic_cast<Driver const&>(driver).exists("vector.map"));
+    BOOST_TEST( dynamic_cast<Driver const&>(driver).exists("vector"));
+    BOOST_TEST( dynamic_cast<Driver const&>(driver).exists("vector.map"));
 
-    BOOST_CHECK(!dynamic_cast<Driver const&>(driver).exists("vector_x"));
-    BOOST_CHECK(!dynamic_cast<Driver const&>(driver).exists("vector_y"));
-    BOOST_CHECK(!dynamic_cast<Driver const&>(driver).exists("vector_x.map"));
-    BOOST_CHECK(!dynamic_cast<Driver const&>(driver).exists("vector_y.map"));
-    BOOST_CHECK(!dynamic_cast<Driver const&>(driver).exists("DoesNotExist"));
+    BOOST_TEST(!dynamic_cast<Driver const&>(driver).exists("vector_x"));
+    BOOST_TEST(!dynamic_cast<Driver const&>(driver).exists("vector_y"));
+    BOOST_TEST(!dynamic_cast<Driver const&>(driver).exists("vector_x.map"));
+    BOOST_TEST(!dynamic_cast<Driver const&>(driver).exists("vector_y.map"));
+    BOOST_TEST(!dynamic_cast<Driver const&>(driver).exists("DoesNotExist"));
   }
 
   // Temporal data.
@@ -55,23 +55,23 @@ BOOST_AUTO_TEST_CASE(exists)
     DataSpaceAddress address(space.address());
 
     address.setCoordinate<size_t>(0, 1);
-    BOOST_CHECK( dynamic_cast<Driver const&>(driver).exists("vector", space,
+    BOOST_TEST( dynamic_cast<Driver const&>(driver).exists("vector", space,
               address));
 
     address.setCoordinate<size_t>(0, 2);
-    BOOST_CHECK( dynamic_cast<Driver const&>(driver).exists("vector", space,
+    BOOST_TEST( dynamic_cast<Driver const&>(driver).exists("vector", space,
               address));
 
     address.setCoordinate<size_t>(0, 3);
-    BOOST_CHECK( dynamic_cast<Driver const&>(driver).exists("vector", space,
+    BOOST_TEST( dynamic_cast<Driver const&>(driver).exists("vector", space,
               address));
-    BOOST_CHECK( dynamic_cast<Driver const&>(driver).exists("vector.map", space,
+    BOOST_TEST( dynamic_cast<Driver const&>(driver).exists("vector.map", space,
               address));
 
     address.setCoordinate<size_t>(0, 4);
-    BOOST_CHECK(!dynamic_cast<Driver const&>(driver).exists("vector", space,
+    BOOST_TEST(!dynamic_cast<Driver const&>(driver).exists("vector", space,
               address));
-    BOOST_CHECK(!dynamic_cast<Driver const&>(driver).exists("vector.map", space,
+    BOOST_TEST(!dynamic_cast<Driver const&>(driver).exists("vector.map", space,
               address));
 
   }
@@ -97,7 +97,7 @@ BOOST_AUTO_TEST_CASE(open)
     BOOST_CHECK_EQUAL(vector->west(), 100000.0);
     BOOST_CHECK_EQUAL(vector->south(), 199850.0);
     BOOST_CHECK_EQUAL(vector->typeId(), TI_REAL4);
-    BOOST_CHECK(!vector->hasExtremes());
+    BOOST_TEST(!vector->hasExtremes());
 
     vector.reset();
   }
@@ -119,7 +119,7 @@ BOOST_AUTO_TEST_CASE(open)
     BOOST_CHECK_EQUAL(vector->west(), 100000.0);
     BOOST_CHECK_EQUAL(vector->south(), 199850.0);
     BOOST_CHECK_EQUAL(vector->typeId(), TI_REAL4);
-    BOOST_CHECK(!vector->hasExtremes());
+    BOOST_TEST(!vector->hasExtremes());
 
     vector.reset();
   }
@@ -215,14 +215,14 @@ BOOST_AUTO_TEST_CASE(read_)
     BOOST_CHECK_CLOSE(vector->x<REAL4>(0, 0), REAL4( 1.1), REAL4(0.001));
     BOOST_CHECK_CLOSE(vector->x<REAL4>(0, 1), REAL4( 0.0), REAL4(0.001));
     BOOST_CHECK_CLOSE(vector->x<REAL4>(1, 0), REAL4( 1.1), REAL4(0.001));
-    BOOST_CHECK(pcr::isMV(vector->x<REAL4>(1, 1)));
+    BOOST_TEST(pcr::isMV(vector->x<REAL4>(1, 1)));
     BOOST_CHECK_CLOSE(vector->x<REAL4>(2, 0), REAL4( 1.1), REAL4(0.001));
     BOOST_CHECK_CLOSE(vector->x<REAL4>(2, 1), REAL4(-1.1), REAL4(0.001));
 
     BOOST_CHECK_CLOSE(vector->y<REAL4>(0, 0), REAL4( 0.0), REAL4(0.001));
     BOOST_CHECK_CLOSE(vector->y<REAL4>(0, 1), REAL4(-2.2), REAL4(0.001));
     BOOST_CHECK_CLOSE(vector->y<REAL4>(1, 0), REAL4(-2.2), REAL4(0.001));
-    BOOST_CHECK(pcr::isMV(vector->y<REAL4>(1, 1)));
+    BOOST_TEST(pcr::isMV(vector->y<REAL4>(1, 1)));
     BOOST_CHECK_CLOSE(vector->y<REAL4>(2, 0), REAL4( 0.0), REAL4(0.001));
     BOOST_CHECK_CLOSE(vector->y<REAL4>(2, 1), REAL4(-2.2), REAL4(0.001));
 
@@ -249,14 +249,14 @@ BOOST_AUTO_TEST_CASE(read_)
     BOOST_CHECK_CLOSE(vector->x<REAL4>(0, 0), REAL4( 1.1), REAL4(0.001));
     BOOST_CHECK_CLOSE(vector->x<REAL4>(0, 1), REAL4( 0.0), REAL4(0.001));
     BOOST_CHECK_CLOSE(vector->x<REAL4>(1, 0), REAL4( 1.1), REAL4(0.001));
-    BOOST_CHECK(pcr::isMV(vector->x<REAL4>(1, 1)));
+    BOOST_TEST(pcr::isMV(vector->x<REAL4>(1, 1)));
     BOOST_CHECK_CLOSE(vector->x<REAL4>(2, 0), REAL4( 1.1), REAL4(0.001));
     BOOST_CHECK_CLOSE(vector->x<REAL4>(2, 1), REAL4(-1.1), REAL4(0.001));
 
     BOOST_CHECK_CLOSE(vector->y<REAL4>(0, 0), REAL4( 0.0), REAL4(0.001));
     BOOST_CHECK_CLOSE(vector->y<REAL4>(0, 1), REAL4(-2.2), REAL4(0.001));
     BOOST_CHECK_CLOSE(vector->y<REAL4>(1, 0), REAL4(-2.2), REAL4(0.001));
-    BOOST_CHECK(pcr::isMV(vector->y<REAL4>(1, 1)));
+    BOOST_TEST(pcr::isMV(vector->y<REAL4>(1, 1)));
     BOOST_CHECK_CLOSE(vector->y<REAL4>(2, 0), REAL4( 0.0), REAL4(0.001));
     BOOST_CHECK_CLOSE(vector->y<REAL4>(2, 1), REAL4(-2.2), REAL4(0.001));
 
@@ -277,7 +277,7 @@ BOOST_AUTO_TEST_CASE(read_)
       exceptionCaught = true;
     }
 
-    BOOST_CHECK(exceptionCaught);
+    BOOST_TEST(exceptionCaught);
   }
 }
 

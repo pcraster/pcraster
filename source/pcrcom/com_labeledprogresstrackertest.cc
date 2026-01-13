@@ -28,19 +28,19 @@ BOOST_AUTO_TEST_CASE(test)
 
   ProgressBar progressBar(15, 10, stream);
   LabeledProgressTrackerWrapper<ProgressBar> labeledTracker(progressBar, "task", 6);
-  BOOST_CHECK(labeledTracker.labelWidth() == 6);
-  BOOST_CHECK(labeledTracker.width() == 7);
-  BOOST_CHECK(labeledTracker.nrSteps() == 15);
-  BOOST_CHECK(labeledTracker.nrFinishedSteps() == 0);
+  BOOST_TEST(labeledTracker.labelWidth() == 6);
+  BOOST_TEST(labeledTracker.width() == 7);
+  BOOST_TEST(labeledTracker.nrSteps() == 15);
+  BOOST_TEST(labeledTracker.nrFinishedSteps() == 0);
 
   labeledTracker.init();
   for (size_t step = 0; step < labeledTracker.nrSteps(); ++step) {
     labeledTracker.finishedStep();
-    BOOST_CHECK(labeledTracker.nrFinishedSteps() == step + 1);
+    BOOST_TEST(labeledTracker.nrFinishedSteps() == step + 1);
     result = "task   ";
-    BOOST_CHECK(stream.str().substr(0, labeledTracker.labelWidth() + 1) == result);
+    BOOST_TEST(stream.str().substr(0, labeledTracker.labelWidth() + 1) == result);
   }
 
-  BOOST_CHECK(labeledTracker.nrFinishedSteps() == 15);
-  BOOST_CHECK(labeledTracker.finished());
+  BOOST_TEST(labeledTracker.nrFinishedSteps() == 15);
+  BOOST_TEST(labeledTracker.finished());
 }

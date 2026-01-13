@@ -13,11 +13,11 @@ BOOST_AUTO_TEST_CASE(temp_directory_name)
 
   PathInfo const pi(pn);
 
-  BOOST_CHECK(!pn.isEmpty());
-  BOOST_CHECK(pi.isDirectory());
+  BOOST_TEST(!pn.isEmpty());
+  BOOST_TEST(pi.isDirectory());
   // there is nothing in tempDirectoryName
   // that garantuees this:
-  // BOOST_CHECK(pi.isWritable());
+  // BOOST_TEST(pi.isWritable());
 }
 
 BOOST_AUTO_TEST_CASE(exists)
@@ -31,12 +31,12 @@ BOOST_AUTO_TEST_CASE(exists)
   pn = "relative";
   pn += "relative";
   pi = PathInfo(pn);
-  BOOST_CHECK(!pi.exists());
+  BOOST_TEST(!pi.exists());
 
   // pi_file does exist.
   pn = "pi_file";
   pi = PathInfo(pn);
-  BOOST_CHECK(pi.exists());
+  BOOST_TEST(pi.exists());
 
 #ifdef WIN32
   pn = "\\\\P4\\bin\\ls";
@@ -56,25 +56,25 @@ BOOST_AUTO_TEST_CASE(is_directory)
   // Current directory is a directory.
   pn = currentWorkingDirectory();
   pi = PathInfo(pn);
-  BOOST_CHECK(pi.isDirectory());
+  BOOST_TEST(pi.isDirectory());
 
   // foo/bar is not a directory (is doesn't even exist).
   pn = "foo";
   pn += "bar";
   pi = PathInfo(pn);
-  BOOST_CHECK(!pi.isDirectory());
+  BOOST_TEST(!pi.isDirectory());
 
-  BOOST_CHECK(PathInfo("pi_dir").isDirectory());
-  BOOST_CHECK(!PathInfo("pi_file").isDirectory());
-  BOOST_CHECK(!PathInfo("pi_not_existent_file").isDirectory());
+  BOOST_TEST(PathInfo("pi_dir").isDirectory());
+  BOOST_TEST(!PathInfo("pi_file").isDirectory());
+  BOOST_TEST(!PathInfo("pi_not_existent_file").isDirectory());
 }
 
 BOOST_AUTO_TEST_CASE(is_file)
 {
   using namespace com;
 
-  BOOST_CHECK(PathInfo("pi_file").isFile());
-  BOOST_CHECK(!PathInfo("pi_not_existent_file").isFile());
+  BOOST_TEST(PathInfo("pi_file").isFile());
+  BOOST_TEST(!PathInfo("pi_not_existent_file").isFile());
 #ifdef WIN32
   bool reimplementIsFileOnWin32 = false;
   BOOST_TEST_WARN(reimplementIsFileOnWin32);
@@ -85,26 +85,26 @@ BOOST_AUTO_TEST_CASE(is_readable)
 {
   using namespace com;
 
-  BOOST_CHECK(!PathInfo("pi_not_existent_file").isReadable());
+  BOOST_TEST(!PathInfo("pi_not_existent_file").isReadable());
 #ifdef WIN32
   BOOST_TEST_WARN(!PathInfo("if_notreadable").isReadable());  // WindowsPerm Bugzilla #284
 #else
-  BOOST_CHECK(!PathInfo("if_notreadable").isReadable());
+  BOOST_TEST(!PathInfo("if_notreadable").isReadable());
 #endif
-  BOOST_CHECK(PathInfo("if_okreadable").isReadable());
+  BOOST_TEST(PathInfo("if_okreadable").isReadable());
 }
 
 BOOST_AUTO_TEST_CASE(is_writable)
 {
   using namespace com;
 
-  BOOST_CHECK(!PathInfo("pi_not_existent_file").isWritable());
+  BOOST_TEST(!PathInfo("pi_not_existent_file").isWritable());
 #ifdef WIN32
   BOOST_TEST_WARN(!PathInfo("if_notwritable").isWritable());  // WindowsPerm Bugzilla #284
 #else
-  BOOST_CHECK(!PathInfo("if_notwritable").isWritable());
+  BOOST_TEST(!PathInfo("if_notwritable").isWritable());
 #endif
-  BOOST_CHECK(PathInfo("if_okwritable").isWritable());
+  BOOST_TEST(PathInfo("if_okwritable").isWritable());
 }
 
 BOOST_AUTO_TEST_CASE(case_sensitive_name)
@@ -116,63 +116,63 @@ BOOST_AUTO_TEST_CASE(case_sensitive_name)
   try {
     {
       PathInfo const pi(nativePathName("if_UpcaseDirectory/readableFile"));
-      BOOST_CHECK(pi.exists());
+      BOOST_TEST(pi.exists());
       pi.testCaseSensitiveName();
     }
   } catch (const com::Exception & /*e*/) {
     noExcep = false;
   }
-  BOOST_CHECK(noExcep);
+  BOOST_TEST(noExcep);
 
   try {
     {
       PathInfo const pi(nativePathName("../pcrcom/if_UpcaseDirectory/readableFile"));
-      BOOST_CHECK(pi.exists());
+      BOOST_TEST(pi.exists());
       pi.testCaseSensitiveName();
     }
   } catch (const com::Exception & /*e*/) {
     noExcep = false;
   }
-  BOOST_CHECK(noExcep);
+  BOOST_TEST(noExcep);
 
   try {
     {
       PathInfo const pi(nativePathName("./if_UpcaseDirectory/readableFile"));
-      BOOST_CHECK(pi.exists());
+      BOOST_TEST(pi.exists());
       pi.testCaseSensitiveName();
     }
   } catch (const com::Exception & /*e*/) {
     noExcep = false;
   }
-  BOOST_CHECK(noExcep);
+  BOOST_TEST(noExcep);
 
 #ifdef WIN32
   bool excep(false);
   try {
     {
       PathInfo pi(nativePathName("if_upcasedirectory/readableFile"));
-      BOOST_CHECK(pi.exists());
+      BOOST_TEST(pi.exists());
       pi.testCaseSensitiveName();
     }
   } catch (const com::Exception &e) {
     excep = true;
     // mixed case message
-    BOOST_CHECK(e.messages().find("ixed") != std::string::npos);
+    BOOST_TEST(e.messages().find("ixed") != std::string::npos);
   }
-  BOOST_CHECK(excep);
+  BOOST_TEST(excep);
 
   try {
     {
       PathInfo pi(nativePathName("if_UpcaseDirectory/readablefile"));
-      BOOST_CHECK(pi.exists());
+      BOOST_TEST(pi.exists());
       pi.testCaseSensitiveName();
     }
   } catch (const com::Exception &e) {
     excep = true;
     // mixed case message
-    BOOST_CHECK(e.messages().find("ixed") != std::string::npos);
+    BOOST_TEST(e.messages().find("ixed") != std::string::npos);
   }
-  BOOST_CHECK(excep);
+  BOOST_TEST(excep);
 #endif
 }
 
@@ -186,5 +186,5 @@ BOOST_AUTO_TEST_CASE(change_working_directory)
   PathInfo const pi("readableFile");
   bool const found(pi.exists());
   changeWorkingDirectory("..");
-  BOOST_CHECK(found);
+  BOOST_TEST(found);
 }

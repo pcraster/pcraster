@@ -12,7 +12,7 @@ BOOST_AUTO_TEST_CASE(mv_cast)
 
   addValue(to, to + 3, from);
 
-  BOOST_CHECK(to[0] == MV_UINT1);
+  BOOST_TEST(to[0] == MV_UINT1);
 }
 
 BOOST_AUTO_TEST_CASE(divide)
@@ -24,12 +24,12 @@ BOOST_AUTO_TEST_CASE(divide)
 
   divideByRange(to, to + 3, from);
 
-  BOOST_CHECK(to[0] == 5.0);
-  BOOST_CHECK(to[1] == 4.0);
-  BOOST_CHECK(to[2] == 10.0);
+  BOOST_TEST(to[0] == 5.0);
+  BOOST_TEST(to[1] == 4.0);
+  BOOST_TEST(to[2] == 10.0);
 
   divideByValue(to, to + 3, 2.0);
-  BOOST_CHECK(to[0] == 2.5);
-  BOOST_CHECK(to[1] == 2.0);
-  BOOST_CHECK(to[2] == 5.0);
+  BOOST_TEST(to[0] == 2.5);
+  BOOST_TEST(to[1] == 2.0);
+  BOOST_TEST(to[2] == 5.0);
 }

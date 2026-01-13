@@ -36,13 +36,13 @@ BOOST_AUTO_TEST_CASE(test)
   FilterEngine<UINT1, REAL8> engine(source, filter, destination);
   engine.calc();
 
-  BOOST_CHECK(dal::comparable(destination.cell(0), 2.0 / 4.0));
-  BOOST_CHECK(dal::comparable(destination.cell(1), 2.0 / 5.0));
-  BOOST_CHECK(dal::comparable(destination.cell(2), 1.0 / 3.0));
-  BOOST_CHECK(dal::comparable(destination.cell(3), 2.0 / 6.0));
-  BOOST_CHECK(dal::comparable(destination.cell(4), 3.0 / 8.0));
-  BOOST_CHECK(destination.isMV(5));
-  BOOST_CHECK(dal::comparable(destination.cell(6), 1.0 / 4.0));
-  BOOST_CHECK(dal::comparable(destination.cell(7), 2.0 / 5.0));
-  BOOST_CHECK(dal::comparable(destination.cell(8), 2.0 / 3.0));
+  BOOST_TEST(dal::comparable(destination.cell(0), 2.0 / 4.0));
+  BOOST_TEST(dal::comparable(destination.cell(1), 2.0 / 5.0));
+  BOOST_TEST(dal::comparable(destination.cell(2), 1.0 / 3.0));
+  BOOST_TEST(dal::comparable(destination.cell(3), 2.0 / 6.0));
+  BOOST_TEST(dal::comparable(destination.cell(4), 3.0 / 8.0));
+  BOOST_TEST(destination.isMV(5));
+  BOOST_TEST(dal::comparable(destination.cell(6), 1.0 / 4.0));
+  BOOST_TEST(dal::comparable(destination.cell(7), 2.0 / 5.0));
+  BOOST_TEST(dal::comparable(destination.cell(8), 2.0 / 3.0));
 }

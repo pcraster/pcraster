@@ -5,7 +5,7 @@ BOOST_AUTO_TEST_CASE(cell)
 {
   // using namespace geo;
 
-  BOOST_CHECK(true);
+  BOOST_TEST(true);
 }
 
 //------------------------------------------------------------------------------

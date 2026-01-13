@@ -87,9 +87,9 @@ BOOST_AUTO_TEST_CASE(visit_non_mv)
     UINT1 d[] = {1, 4, MV_UINT1};
     mvGenericTest::UP up;
     up = forEachNonMV(d, d + 3, up);
-    BOOST_CHECK(up.sum == 5);
-    BOOST_CHECK(std::accumulate(d, d + 3, 0) == 260);
-    BOOST_CHECK((std::accumulate<UINT1 *, UINT1>(d, d + 3, 0)) == 4);
+    BOOST_TEST(up.sum == 5);
+    BOOST_TEST(std::accumulate(d, d + 3, 0) == 260);
+    BOOST_TEST((std::accumulate<UINT1 *, UINT1>(d, d + 3, 0)) == 4);
   }
   {
     UINT1 d[] = {1, 4, MV_UINT1, 1, 4, 1, 4};
@@ -99,8 +99,8 @@ BOOST_AUTO_TEST_CASE(visit_non_mv)
     //  1) default ctor up
     //  2) pass by value
     //  3) return by value
-    BOOST_CHECK(mvGenericTest::UPC::copyCount == 3);
-    BOOST_CHECK(up.sum == 15);
+    BOOST_TEST(mvGenericTest::UPC::copyCount == 3);
+    BOOST_TEST(up.sum == 15);
   }
 }
 
@@ -114,16 +114,16 @@ BOOST_AUTO_TEST_CASE(iterator)
 
   size_t n = 0;
   for (NSC::const_iterator i = c.begin(); i != c.end(); ++i) {
-    BOOST_CHECK(c[n] == 12);
+    BOOST_TEST(c[n] == 12);
     n++;
-    BOOST_CHECK(*i == 12);
+    BOOST_TEST(*i == 12);
   }
-  BOOST_CHECK(n == 5);
+  BOOST_TEST(n == 5);
 
   mvGenericTest::UPC up;
   up = forEachNonMV(c.begin(), c.end(), up);
-  BOOST_CHECK(mvGenericTest::UPC::copyCount == 6);
-  BOOST_CHECK(up.sum == 60);
+  BOOST_TEST(mvGenericTest::UPC::copyCount == 6);
+  BOOST_TEST(up.sum == 60);
 
   INT4 cs[5] = {1, 0, MV_INT4, 1, 0};
 
@@ -131,16 +131,16 @@ BOOST_AUTO_TEST_CASE(iterator)
   mvGenericTest::MulSumOp mso;
   mso = forEachNonMV(cs, c, 5, MSO());
 
-  BOOST_CHECK(mso.sum == 24);
+  BOOST_TEST(mso.sum == 24);
 
   mso = forEachNonMV(cs, cs, 5, MSO());
-  BOOST_CHECK(mso.sum == 2);
+  BOOST_TEST(mso.sum == 2);
 
   mso = forEachNonMV(c, cs, 5, MSO());
-  BOOST_CHECK(mso.sum == 24);
+  BOOST_TEST(mso.sum == 24);
 
   mso = forEachNonMV(c, c, 5, MSO());
-  BOOST_CHECK(mso.sum == (5 * 12 * 12));
+  BOOST_TEST(mso.sum == (5 * 12 * 12));
 }
 
 BOOST_AUTO_TEST_CASE(spatial_non_spatial_iterate)
@@ -154,16 +154,16 @@ BOOST_AUTO_TEST_CASE(spatial_non_spatial_iterate)
     typedef mvGenericTest::MulSumOp MSO;
     mvGenericTest::MulSumOp mso;
     mso = iterateNonMV2(cs, 5, c, 1, mso);
-    BOOST_CHECK(mso.sum == 24);
+    BOOST_TEST(mso.sum == 24);
 
     mso = iterateNonMV2(cs, 5, cs, 5, MSO());
-    BOOST_CHECK(mso.sum == 2);
+    BOOST_TEST(mso.sum == 2);
 
     mso = iterateNonMV2(c, 1, cs, 5, MSO());
-    BOOST_CHECK(mso.sum == 24);
+    BOOST_TEST(mso.sum == 24);
 
     mso = iterateNonMV2(c, 1, c, 1, MSO());
-    BOOST_CHECK(mso.sum == (12 * 12));
+    BOOST_TEST(mso.sum == (12 * 12));
   }
   {
     UINT1 c[1] = {12};
@@ -172,16 +172,16 @@ BOOST_AUTO_TEST_CASE(spatial_non_spatial_iterate)
     typedef mvGenericTest::MulSumOp MSO;
     mvGenericTest::MulSumOp mso;
     mso = iterateNonMV2(cs, 5, c, 1, mso);
-    BOOST_CHECK(mso.sum == 24);
+    BOOST_TEST(mso.sum == 24);
 
     mso = iterateNonMV2(cs, 5, cs, 5, MSO());
-    BOOST_CHECK(mso.sum == 2);
+    BOOST_TEST(mso.sum == 2);
 
     mso = iterateNonMV2(c, 1, cs, 5, MSO());
-    BOOST_CHECK(mso.sum == 24);
+    BOOST_TEST(mso.sum == 24);
 
     mso = iterateNonMV2(c, 1, c, 1, MSO());
-    BOOST_CHECK(mso.sum == (12 * 12));
+    BOOST_TEST(mso.sum == (12 * 12));
   }
 }
 
@@ -197,6 +197,6 @@ BOOST_AUTO_TEST_CASE(spatial_non_spatial_for_each)
 
     SS ss;
     ss = forEachNonMV2(cs, 5, c, 1, ss);
-    BOOST_CHECK(std::equal(cs, cs + 5, res));
+    BOOST_TEST(std::equal(cs, cs + 5, res));
   }
 }

@@ -36,14 +36,14 @@ BOOST_AUTO_TEST_CASE(step_map)
     /// BOOST_CHECK_EQUAL(dimension.value<size_t>(1), size_t(80));
     /// BOOST_CHECK_EQUAL(dimension.value<size_t>(2), size_t(1));
 
-    /// BOOST_CHECK(comparable(mapper.sourceFirstStep(), 1.0));
-    /// BOOST_CHECK(comparable(mapper.sourceLastStep(), 80.0));
-    /// BOOST_CHECK(comparable(mapper.destinationFirstStep(), 182145.0));
-    /// BOOST_CHECK(comparable(mapper.destinationLastStep(), 182935.0));
+    /// BOOST_TEST(comparable(mapper.sourceFirstStep(), 1.0));
+    /// BOOST_TEST(comparable(mapper.sourceLastStep(), 80.0));
+    /// BOOST_TEST(comparable(mapper.destinationFirstStep(), 182145.0));
+    /// BOOST_TEST(comparable(mapper.destinationLastStep(), 182935.0));
 
     /// BOOST_CHECK_EQUAL(stepMappers.size(), size_t(1));
-    /// BOOST_CHECK(comparable(stepMappers[0].destination(1.0), 1.0));
-    /// BOOST_CHECK(comparable(stepMappers[0].destination(80.0), 80.0));
+    /// BOOST_TEST(comparable(stepMappers[0].destination(1.0), 1.0));
+    /// BOOST_TEST(comparable(stepMappers[0].destination(80.0), 80.0));
 
     /// // Ad the same mapping again. Should give equal results.
     /// mappings.push_back(mappings.front());
@@ -61,16 +61,16 @@ BOOST_AUTO_TEST_CASE(step_map)
     /// BOOST_CHECK_EQUAL(dimension.value<size_t>(1), size_t(80));
     /// BOOST_CHECK_EQUAL(dimension.value<size_t>(2), size_t(1));
 
-    /// BOOST_CHECK(comparable(mapper.sourceFirstStep(), 1.0));
-    /// BOOST_CHECK(comparable(mapper.sourceLastStep(), 80.0));
-    /// BOOST_CHECK(comparable(mapper.destinationFirstStep(), 182145.0));
-    /// BOOST_CHECK(comparable(mapper.destinationLastStep(), 182935.0));
+    /// BOOST_TEST(comparable(mapper.sourceFirstStep(), 1.0));
+    /// BOOST_TEST(comparable(mapper.sourceLastStep(), 80.0));
+    /// BOOST_TEST(comparable(mapper.destinationFirstStep(), 182145.0));
+    /// BOOST_TEST(comparable(mapper.destinationLastStep(), 182935.0));
 
     /// BOOST_CHECK_EQUAL(stepMappers.size(), size_t(2));
-    /// BOOST_CHECK(comparable(stepMappers[0].destination(1.0), 1.0));
-    /// BOOST_CHECK(comparable(stepMappers[0].destination(80.0), 80.0));
-    /// BOOST_CHECK(comparable(stepMappers[1].destination(1.0), 1.0));
-    /// BOOST_CHECK(comparable(stepMappers[1].destination(80.0), 80.0));
+    /// BOOST_TEST(comparable(stepMappers[0].destination(1.0), 1.0));
+    /// BOOST_TEST(comparable(stepMappers[0].destination(80.0), 80.0));
+    /// BOOST_TEST(comparable(stepMappers[1].destination(1.0), 1.0));
+    /// BOOST_TEST(comparable(stepMappers[1].destination(80.0), 80.0));
   }
 
   // {
@@ -102,16 +102,16 @@ BOOST_AUTO_TEST_CASE(step_map)
   //   BOOST_CHECK_EQUAL(dimension.value<size_t>(1), size_t(100));
   //   BOOST_CHECK_EQUAL(dimension.value<size_t>(2), size_t(1));
 
-  //   BOOST_CHECK(comparable(mapper.sourceFirstStep(), 1.0));
-  //   BOOST_CHECK(comparable(mapper.sourceLastStep(), 100.0));
-  //   BOOST_CHECK(comparable(mapper.destinationFirstStep(), 327875.0));
-  //   BOOST_CHECK(comparable(mapper.destinationLastStep(), 326885.0));
+  //   BOOST_TEST(comparable(mapper.sourceFirstStep(), 1.0));
+  //   BOOST_TEST(comparable(mapper.sourceLastStep(), 100.0));
+  //   BOOST_TEST(comparable(mapper.destinationFirstStep(), 327875.0));
+  //   BOOST_TEST(comparable(mapper.destinationLastStep(), 326885.0));
 
   //   BOOST_CHECK_EQUAL(stepMappers.size(), size_t(2));
-  //   BOOST_CHECK(comparable(stepMappers[0].destination(1.0), 1.0));
-  //   BOOST_CHECK(comparable(stepMappers[0].destination(100.0), 100.0));
-  //   BOOST_CHECK(comparable(stepMappers[1].destination(1.0), 1.0));
-  //   BOOST_CHECK(comparable(stepMappers[1].destination(100.0), 100.0));
+  //   BOOST_TEST(comparable(stepMappers[0].destination(1.0), 1.0));
+  //   BOOST_TEST(comparable(stepMappers[0].destination(100.0), 100.0));
+  //   BOOST_TEST(comparable(stepMappers[1].destination(1.0), 1.0));
+  //   BOOST_TEST(comparable(stepMappers[1].destination(100.0), 100.0));
   // }
 }
 
@@ -167,19 +167,19 @@ BOOST_AUTO_TEST_CASE(step_map)
 //     BOOST_CHECK_EQUAL(dimension.value<size_t>(1), size_t(365));
 //     BOOST_CHECK_EQUAL(dimension.value<size_t>(2), size_t(1));
 // 
-//     BOOST_CHECK(comparable(mapper.index(), 1.0));
-//     BOOST_CHECK(mapper.time() ==
+//     BOOST_TEST(comparable(mapper.index(), 1.0));
+//     BOOST_TEST(mapper.time() ==
 //          bp::ptime(bg::date(2006, boost::gregorian::Jan, 1),
 //                    bp::time_duration(0, 0, 0, 0)));
-//     BOOST_CHECK(mapper.duration() == bp::time_duration(24, 0, 0, 0));
+//     BOOST_TEST(mapper.duration() == bp::time_duration(24, 0, 0, 0));
 // 
 //     BOOST_CHECK_EQUAL(stepMappers.size(), size_t(2));
-//     BOOST_CHECK(comparable(stepMappers[0].destination(1.0), -30.0));
-//     BOOST_CHECK(comparable(stepMappers[0].destination(32.0), 1.0));
-//     BOOST_CHECK(comparable(stepMappers[0].destination(59.0), 28.0));
+//     BOOST_TEST(comparable(stepMappers[0].destination(1.0), -30.0));
+//     BOOST_TEST(comparable(stepMappers[0].destination(32.0), 1.0));
+//     BOOST_TEST(comparable(stepMappers[0].destination(59.0), 28.0));
 // 
-//     BOOST_CHECK(comparable(stepMappers[1].destination(1.0), 1.0));
-//     BOOST_CHECK(comparable(stepMappers[1].destination(365.0), 365.0));
+//     BOOST_TEST(comparable(stepMappers[1].destination(1.0), 1.0));
+//     BOOST_TEST(comparable(stepMappers[1].destination(365.0), 365.0));
 //   }
 // 
 //   {
@@ -229,19 +229,19 @@ BOOST_AUTO_TEST_CASE(step_map)
 //     BOOST_CHECK_EQUAL(dimension.value<size_t>(1), size_t(40));
 //     BOOST_CHECK_EQUAL(dimension.value<size_t>(2), size_t(1));
 // 
-//     BOOST_CHECK(comparable(mapper.index(), 1.0));
-//     BOOST_CHECK(mapper.time() ==
+//     BOOST_TEST(comparable(mapper.index(), 1.0));
+//     BOOST_TEST(mapper.time() ==
 //          bp::ptime(bg::date(2005, boost::gregorian::Feb, 10),
 //                    bp::time_duration(6, 0, 0, 0)));
-//     BOOST_CHECK(mapper.duration() == bp::time_duration(6, 0, 0, 0));
+//     BOOST_TEST(mapper.duration() == bp::time_duration(6, 0, 0, 0));
 // 
 //     BOOST_CHECK_EQUAL(stepMappers.size(), size_t(2));
-//     BOOST_CHECK(comparable(stepMappers[0].destination( 1.0),  0.25));
-//     BOOST_CHECK(comparable(stepMappers[0].destination( 4.0),  1.0));
-//     BOOST_CHECK(comparable(stepMappers[0].destination(40.0), 10.0));
+//     BOOST_TEST(comparable(stepMappers[0].destination( 1.0),  0.25));
+//     BOOST_TEST(comparable(stepMappers[0].destination( 4.0),  1.0));
+//     BOOST_TEST(comparable(stepMappers[0].destination(40.0), 10.0));
 // 
-//     BOOST_CHECK(comparable(stepMappers[1].destination( 1.0),  1.0));
-//     BOOST_CHECK(comparable(stepMappers[1].destination(40.0), 40.0));
+//     BOOST_TEST(comparable(stepMappers[1].destination( 1.0),  1.0));
+//     BOOST_TEST(comparable(stepMappers[1].destination(40.0), 40.0));
 //   }
 // 
 //   {
@@ -280,16 +280,16 @@ BOOST_AUTO_TEST_CASE(step_map)
 //     BOOST_CHECK_EQUAL(dimension.value<size_t>(1), size_t(131));
 //     BOOST_CHECK_EQUAL(dimension.value<size_t>(2), size_t(1));
 // 
-//     BOOST_CHECK(comparable(mapper.index(), 1.0));
-//     BOOST_CHECK(mapper.time() ==
+//     BOOST_TEST(comparable(mapper.index(), 1.0));
+//     BOOST_TEST(mapper.time() ==
 //          bp::ptime(bg::date(2006, boost::gregorian::Jan, 1),
 //                    bp::time_duration(0, 0, 0, 0)));
-//     BOOST_CHECK(mapper.duration() == bp::time_duration(24, 0, 0, 0));
+//     BOOST_TEST(mapper.duration() == bp::time_duration(24, 0, 0, 0));
 // 
 //     BOOST_CHECK_EQUAL(stepMappers.size(), size_t(2));
-//     BOOST_CHECK(comparable(stepMappers[0].destination(  1.0),   1.0));
-//     BOOST_CHECK(comparable(stepMappers[0].destination(100.0), 100.0));
+//     BOOST_TEST(comparable(stepMappers[0].destination(  1.0),   1.0));
+//     BOOST_TEST(comparable(stepMappers[0].destination(100.0), 100.0));
 // 
-//     BOOST_CHECK(comparable(stepMappers[1].destination(32.0),  1.0));
+//     BOOST_TEST(comparable(stepMappers[1].destination(32.0),  1.0));
 //   }
 // }

@@ -15,29 +15,29 @@ BOOST_AUTO_TEST_CASE(constructor_destructor)
 
   {  // as empty dir
     TempDirectory td("pcrcalcSwap");
-    BOOST_CHECK(fs::exists(td.name()));
+    BOOST_TEST(fs::exists(td.name()));
     td.remove();
-    BOOST_CHECK(!fs::exists(td.name()));
+    BOOST_TEST(!fs::exists(td.name()));
   }
   {  // dtor remove
     fs::path dir;
     {
       TempDirectory const td("pcrcalcSwap");
       dir = td.name();
-      BOOST_CHECK(fs::exists(dir));
+      BOOST_TEST(fs::exists(dir));
     }
-    BOOST_CHECK(!fs::exists(dir));
+    BOOST_TEST(!fs::exists(dir));
   }
   {  // as non-empty dir
     TempDirectory td("pcrcalcSwap");
-    BOOST_CHECK(fs::exists(td.name()));
+    BOOST_TEST(fs::exists(td.name()));
 
     fs::path const pete = td.memberPath("pete");
     fs::create_directory(pete);
-    BOOST_CHECK(fs::exists(pete));
+    BOOST_TEST(fs::exists(pete));
 
     td.remove();
-    BOOST_CHECK(!fs::exists(td.name()));
+    BOOST_TEST(!fs::exists(td.name()));
   }
 }
 
@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_CASE(remove_failure)
 
   std::ofstream bofs{toOpenForWriting};
 
-  BOOST_CHECK(bofs.is_open());
+  BOOST_TEST(bofs.is_open());
 
 #ifdef WIN32
   bool catched = false;
@@ -58,7 +58,7 @@ BOOST_AUTO_TEST_CASE(remove_failure)
   try {
     td.remove();
   } catch (const com::Exception &e) {
-    BOOST_CHECK(e.messages().find("pcrcalcSwap") != std::string::npos);
+    BOOST_TEST(e.messages().find("pcrcalcSwap") != std::string::npos);
 #ifdef WIN32
     catched = true;
 #endif
@@ -66,6 +66,6 @@ BOOST_AUTO_TEST_CASE(remove_failure)
 #ifdef WIN32
   // linux just throws the file away, should do something
   // with chmod I think, to simulate this error
-  BOOST_CHECK(catched);
+  BOOST_TEST(catched);
 #endif
 }

@@ -61,9 +61,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
     resample<INT4>(newSediment, sediment);
     resample<REAL4>(newConcentration, concentration);
 
-    BOOST_CHECK(pcr::isMV(newSand.cell(0)[0]));
-    BOOST_CHECK(pcr::isMV(newSediment.cell(0)[0]));
-    BOOST_CHECK(pcr::isMV(newConcentration.cell(0)[0]));
+    BOOST_TEST(pcr::isMV(newSand.cell(0)[0]));
+    BOOST_TEST(pcr::isMV(newSediment.cell(0)[0]));
+    BOOST_TEST(pcr::isMV(newConcentration.cell(0)[0]));
   }
 
   //----------------------------------------------------------------------------
@@ -97,9 +97,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
     resample<INT4>(newSediment, sediment);
     resample<REAL4>(newConcentration, concentration);
 
-    BOOST_CHECK(pcr::isMV(newSand.cell(0)[0]));
-    BOOST_CHECK(pcr::isMV(newSediment.cell(0)[0]));
-    BOOST_CHECK(pcr::isMV(newConcentration.cell(0)[0]));
+    BOOST_TEST(pcr::isMV(newSand.cell(0)[0]));
+    BOOST_TEST(pcr::isMV(newSediment.cell(0)[0]));
+    BOOST_TEST(pcr::isMV(newConcentration.cell(0)[0]));
   }
 
   //----------------------------------------------------------------------------
@@ -129,9 +129,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
     resample<INT4>(newSediment, sediment);
     resample<REAL4>(newConcentration, concentration);
 
-    BOOST_CHECK(pcr::isMV(newSand.cell(0)[0]));
-    BOOST_CHECK(pcr::isMV(newSediment.cell(0)[0]));
-    BOOST_CHECK(pcr::isMV(newConcentration.cell(0)[0]));
+    BOOST_TEST(pcr::isMV(newSand.cell(0)[0]));
+    BOOST_TEST(pcr::isMV(newSediment.cell(0)[0]));
+    BOOST_TEST(pcr::isMV(newConcentration.cell(0)[0]));
   }
 
   //----------------------------------------------------------------------------
@@ -161,9 +161,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
     resample<INT4>(newSediment, sediment);
     resample<REAL4>(newConcentration, concentration);
 
-    BOOST_CHECK(pcr::isMV(newSand.cell(0)[0]));
-    BOOST_CHECK(pcr::isMV(newSediment.cell(0)[0]));
-    BOOST_CHECK(pcr::isMV(newConcentration.cell(0)[0]));
+    BOOST_TEST(pcr::isMV(newSand.cell(0)[0]));
+    BOOST_TEST(pcr::isMV(newSediment.cell(0)[0]));
+    BOOST_TEST(pcr::isMV(newConcentration.cell(0)[0]));
   }
 
   //----------------------------------------------------------------------------
@@ -191,9 +191,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
     resample<INT4>(newSediment, sediment);
     resample<REAL4>(newConcentration, concentration);
 
-    BOOST_CHECK(pcr::isMV(newSand.cell(0)[0]));
-    BOOST_CHECK(pcr::isMV(newSediment.cell(0)[0]));
-    BOOST_CHECK(pcr::isMV(newConcentration.cell(0)[0]));
+    BOOST_TEST(pcr::isMV(newSand.cell(0)[0]));
+    BOOST_TEST(pcr::isMV(newSediment.cell(0)[0]));
+    BOOST_TEST(pcr::isMV(newConcentration.cell(0)[0]));
   }
 
   //----------------------------------------------------------------------------
@@ -223,9 +223,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
     resample<INT4>(newSediment, sediment);
     resample<REAL4>(newConcentration, concentration);
 
-    BOOST_CHECK(newSand.cell(0).empty());
-    BOOST_CHECK(newSediment.cell(0).empty());
-    BOOST_CHECK(newConcentration.cell(0).empty());
+    BOOST_TEST(newSand.cell(0).empty());
+    BOOST_TEST(newSediment.cell(0).empty());
+    BOOST_TEST(newConcentration.cell(0).empty());
   }
 
   //----------------------------------------------------------------------------
@@ -255,9 +255,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
     resample<INT4>(newSediment, sediment);
     resample<REAL4>(newConcentration, concentration);
 
-    BOOST_CHECK(newSand.cell(0).empty());
-    BOOST_CHECK(newSediment.cell(0).empty());
-    BOOST_CHECK(newConcentration.cell(0).empty());
+    BOOST_TEST(newSand.cell(0).empty());
+    BOOST_TEST(newSediment.cell(0).empty());
+    BOOST_TEST(newConcentration.cell(0).empty());
   }
 
   //----------------------------------------------------------------------------
@@ -285,9 +285,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
     resample<INT4>(newSediment, sediment);
     resample<REAL4>(newConcentration, concentration);
 
-    BOOST_CHECK(newSand.cell(0).empty());
-    BOOST_CHECK(newSediment.cell(0).empty());
-    BOOST_CHECK(newConcentration.cell(0).empty());
+    BOOST_TEST(newSand.cell(0).empty());
+    BOOST_TEST(newSediment.cell(0).empty());
+    BOOST_TEST(newConcentration.cell(0).empty());
   }
 
   //////////////////////////////////////////////////////////////////////////////
@@ -321,9 +321,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
     resample<INT4>(newSediment, sediment);
     resample<REAL4>(newConcentration, concentration);
 
-    BOOST_CHECK(dal::comparable(newSand.cell(0)[0], UINT1(0)));
-    BOOST_CHECK(dal::comparable(newSediment.cell(0)[0], INT4(3)));
-    BOOST_CHECK(dal::comparable(newConcentration.cell(0)[0], REAL4(0.5)));
+    BOOST_TEST(dal::comparable(newSand.cell(0)[0], UINT1(0)));
+    BOOST_TEST(dal::comparable(newSediment.cell(0)[0], INT4(3)));
+    BOOST_TEST(dal::comparable(newConcentration.cell(0)[0], REAL4(0.5)));
   }
 
   //----------------------------------------------------------------------------
@@ -359,9 +359,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
     resample<INT4>(newSediment, sediment);
     resample<REAL4>(newConcentration, concentration);
 
-    BOOST_CHECK(dal::comparable(newSand.cell(0)[0], UINT1(0)));
-    BOOST_CHECK(dal::comparable(newSediment.cell(0)[0], INT4(4)));
-    BOOST_CHECK(dal::comparable(newConcentration.cell(0)[0], REAL4(1.5)));
+    BOOST_TEST(dal::comparable(newSand.cell(0)[0], UINT1(0)));
+    BOOST_TEST(dal::comparable(newSediment.cell(0)[0], INT4(4)));
+    BOOST_TEST(dal::comparable(newConcentration.cell(0)[0], REAL4(1.5)));
   }
 
   //----------------------------------------------------------------------------
@@ -396,9 +396,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
     resample<INT4>(newSediment, sediment);
     resample<REAL4>(newConcentration, concentration);
 
-    BOOST_CHECK(dal::comparable(newSand.cell(0)[0], UINT1(1)));
-    BOOST_CHECK(dal::comparable(newSediment.cell(0)[0], INT4(5)));
-    BOOST_CHECK(dal::comparable(newConcentration.cell(0)[0], REAL4(6.0)));
+    BOOST_TEST(dal::comparable(newSand.cell(0)[0], UINT1(1)));
+    BOOST_TEST(dal::comparable(newSediment.cell(0)[0], INT4(5)));
+    BOOST_TEST(dal::comparable(newConcentration.cell(0)[0], REAL4(6.0)));
   }
 
   //----------------------------------------------------------------------------
@@ -429,9 +429,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
     resample<INT4>(newSediment, sediment);
     resample<REAL4>(newConcentration, concentration);
 
-    BOOST_CHECK(dal::comparable(newSand.cell(0)[0], UINT1(0)));
-    BOOST_CHECK(dal::comparable(newSediment.cell(0)[0], INT4(21)));
-    BOOST_CHECK(dal::comparable(newConcentration.cell(0)[0], REAL4(5.0)));
+    BOOST_TEST(dal::comparable(newSand.cell(0)[0], UINT1(0)));
+    BOOST_TEST(dal::comparable(newSediment.cell(0)[0], INT4(21)));
+    BOOST_TEST(dal::comparable(newConcentration.cell(0)[0], REAL4(5.0)));
   }
 
   //----------------------------------------------------------------------------
@@ -462,9 +462,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
     resample<INT4>(newSediment, sediment);
     resample<REAL4>(newConcentration, concentration);
 
-    BOOST_CHECK(dal::comparable(newSand.cell(0)[0], UINT1(1)));
-    BOOST_CHECK(dal::comparable(newSediment.cell(0)[0], INT4(23)));
-    BOOST_CHECK(dal::comparable(newConcentration.cell(0)[0], REAL4(9.0)));
+    BOOST_TEST(dal::comparable(newSand.cell(0)[0], UINT1(1)));
+    BOOST_TEST(dal::comparable(newSediment.cell(0)[0], INT4(23)));
+    BOOST_TEST(dal::comparable(newConcentration.cell(0)[0], REAL4(9.0)));
   }
 
   //----------------------------------------------------------------------------
@@ -499,9 +499,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
     resample<INT4>(newSediment, sediment);
     resample<REAL4>(newConcentration, concentration);
 
-    BOOST_CHECK(pcr::isMV(newSand.cell(0)[0]));
-    BOOST_CHECK(pcr::isMV(newSediment.cell(0)[0]));
-    BOOST_CHECK(pcr::isMV(newConcentration.cell(0)[0]));
+    BOOST_TEST(pcr::isMV(newSand.cell(0)[0]));
+    BOOST_TEST(pcr::isMV(newSediment.cell(0)[0]));
+    BOOST_TEST(pcr::isMV(newConcentration.cell(0)[0]));
   }
 
   //----------------------------------------------------------------------------
@@ -534,9 +534,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
     resample<INT4>(newSediment, sediment);
     resample<REAL4>(newConcentration, concentration);
 
-    BOOST_CHECK(dal::comparable(newSand.cell(0)[0], UINT1(0)));
-    BOOST_CHECK(dal::comparable(newSediment.cell(0)[0], INT4(44)));
-    BOOST_CHECK(dal::comparable(newConcentration.cell(0)[0], REAL4(7.0)));
+    BOOST_TEST(dal::comparable(newSand.cell(0)[0], UINT1(0)));
+    BOOST_TEST(dal::comparable(newSediment.cell(0)[0], INT4(44)));
+    BOOST_TEST(dal::comparable(newConcentration.cell(0)[0], REAL4(7.0)));
   }
 
   //----------------------------------------------------------------------------
@@ -571,9 +571,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
     resample<INT4>(newSediment, sediment);
     resample<REAL4>(newConcentration, concentration);
 
-    BOOST_CHECK(pcr::isMV(newSand.cell(0)[0]));
-    BOOST_CHECK(pcr::isMV(newSediment.cell(0)[0]));
-    BOOST_CHECK(pcr::isMV(newConcentration.cell(0)[0]));
+    BOOST_TEST(pcr::isMV(newSand.cell(0)[0]));
+    BOOST_TEST(pcr::isMV(newSediment.cell(0)[0]));
+    BOOST_TEST(pcr::isMV(newConcentration.cell(0)[0]));
   }
 
   //----------------------------------------------------------------------------
@@ -606,9 +606,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
     resample<INT4>(newSediment, sediment);
     resample<REAL4>(newConcentration, concentration);
 
-    BOOST_CHECK(dal::comparable(newSand.cell(0)[0], UINT1(1)));
-    BOOST_CHECK(dal::comparable(newSediment.cell(0)[0], INT4(66)));
-    BOOST_CHECK(dal::comparable(newConcentration.cell(0)[0], REAL4(12.0)));
+    BOOST_TEST(dal::comparable(newSand.cell(0)[0], UINT1(1)));
+    BOOST_TEST(dal::comparable(newSediment.cell(0)[0], INT4(66)));
+    BOOST_TEST(dal::comparable(newConcentration.cell(0)[0], REAL4(12.0)));
   }
 
   //----------------------------------------------------------------------------
@@ -644,9 +644,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
     resample<INT4>(newSediment, sediment);
     resample<REAL4>(newConcentration, concentration);
 
-    BOOST_CHECK(pcr::isMV(newSand.cell(0)[0]));
-    BOOST_CHECK(pcr::isMV(newSediment.cell(0)[0]));
-    BOOST_CHECK(pcr::isMV(newConcentration.cell(0)[0]));
+    BOOST_TEST(pcr::isMV(newSand.cell(0)[0]));
+    BOOST_TEST(pcr::isMV(newSediment.cell(0)[0]));
+    BOOST_TEST(pcr::isMV(newConcentration.cell(0)[0]));
   }
 
   //----------------------------------------------------------------------------
@@ -682,9 +682,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
     resample<INT4>(newSediment, sediment);
     resample<REAL4>(newConcentration, concentration);
 
-    BOOST_CHECK(dal::comparable(newSand.cell(0)[0], UINT1(1)));
-    BOOST_CHECK(dal::comparable(newSediment.cell(0)[0], INT4(88)));
-    BOOST_CHECK(dal::comparable(newConcentration.cell(0)[0], REAL4(4.0)));
+    BOOST_TEST(dal::comparable(newSand.cell(0)[0], UINT1(1)));
+    BOOST_TEST(dal::comparable(newSediment.cell(0)[0], INT4(88)));
+    BOOST_TEST(dal::comparable(newConcentration.cell(0)[0], REAL4(4.0)));
   }
 
   //////////////////////////////////////////////////////////////////////////////
@@ -709,11 +709,11 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
 
   // block.resample(newBlock.space());
 
-  // BOOST_CHECK(block.space() == newBlock.space());
+  // BOOST_TEST(block.space() == newBlock.space());
 
   // for(ScalarAttribute::const_iterator it = scalarAttr->begin();
   //                  it != scalarAttr->end(); ++it) {
   //   PRECOND((*it).size() == 1);
-  //   BOOST_CHECK((*it)[0] == 4.0);
+  //   BOOST_TEST((*it)[0] == 4.0);
   // }
 }

@@ -18,17 +18,17 @@ BOOST_AUTO_TEST_CASE(test_)
 
   AnyPointers pointers;
 
-  BOOST_CHECK(pointers.empty());
-  BOOST_CHECK(pointers.size() == 0);
+  BOOST_TEST(pointers.empty());
+  BOOST_TEST(pointers.size() == 0);
 
   typedef std::vector<double> Doubles;
 
   Doubles doubles;
-  BOOST_CHECK(pointers.size<Doubles>() == 0);
+  BOOST_TEST(pointers.size<Doubles>() == 0);
   size_t const idDoubles = pointers.insert(&doubles);
-  BOOST_CHECK(!pointers.empty());
-  BOOST_CHECK(pointers.size() == 1);
-  BOOST_CHECK(pointers.size<Doubles>() == 1);
+  BOOST_TEST(!pointers.empty());
+  BOOST_TEST(pointers.size() == 1);
+  BOOST_TEST(pointers.size<Doubles>() == 1);
 
   Doubles *doublesPointer = nullptr;
 
@@ -36,11 +36,11 @@ BOOST_AUTO_TEST_CASE(test_)
     doublesPointer = pointers.pointer<Doubles>(idDoubles);
   } catch (std::bad_any_cast &) {
     bool const bad_any_cast = false;
-    BOOST_CHECK(bad_any_cast);
+    BOOST_TEST(bad_any_cast);
   }
 
-  BOOST_CHECK(doublesPointer);
-  BOOST_CHECK(doublesPointer->empty());
+  BOOST_TEST(doublesPointer);
+  BOOST_TEST(doublesPointer->empty());
 
   // Change doubles collections through pointer.
   doublesPointer->push_back(5.5);
@@ -50,27 +50,27 @@ BOOST_AUTO_TEST_CASE(test_)
     doublesPointer = pointers.pointer<Doubles>(idDoubles);
   } catch (std::bad_any_cast &) {
     bool const bad_any_cast = false;
-    BOOST_CHECK(bad_any_cast);
+    BOOST_TEST(bad_any_cast);
   }
 
-  BOOST_CHECK(doublesPointer);
-  BOOST_CHECK(!doublesPointer->empty());
-  BOOST_CHECK((*doublesPointer)[0] = 5.5);
+  BOOST_TEST(doublesPointer);
+  BOOST_TEST(!doublesPointer->empty());
+  BOOST_TEST((*doublesPointer)[0] = 5.5);
 
   typedef std::vector<int> Integers;
   Integers integers;
-  BOOST_CHECK(pointers.size<Integers>() == 0);
+  BOOST_TEST(pointers.size<Integers>() == 0);
   size_t const idIntegers = pointers.insert(&integers);
-  BOOST_CHECK(pointers.size<Integers>() == 1);
+  BOOST_TEST(pointers.size<Integers>() == 1);
 
-  BOOST_CHECK(idDoubles != idIntegers);
+  BOOST_TEST(idDoubles != idIntegers);
 
   pointers.erase<Integers>(idIntegers);
-  BOOST_CHECK(pointers.size<Integers>() == 0);
+  BOOST_TEST(pointers.size<Integers>() == 0);
 
   // Check that the id of the previously stored version is returned.
   size_t idIntegers2 = pointers.insert(&integers);
-  BOOST_CHECK(idIntegers2 = idIntegers);
+  BOOST_TEST(idIntegers2 = idIntegers);
 
   // Add a data set with an id of our choice and make sure it succeeded.
   {
@@ -84,11 +84,11 @@ BOOST_AUTO_TEST_CASE(test_)
       integersPointer = pointers.pointer<Integers>(idIntegers2);
     } catch (std::bad_any_cast &) {
       bool const bad_any_cast = false;
-      BOOST_CHECK(bad_any_cast);
+      BOOST_TEST(bad_any_cast);
     }
 
-    BOOST_CHECK(integersPointer);
-    BOOST_CHECK(integersPointer == &integers2);
+    BOOST_TEST(integersPointer);
+    BOOST_TEST(integersPointer == &integers2);
   }
 
   {
@@ -98,10 +98,10 @@ BOOST_AUTO_TEST_CASE(test_)
     pointers.insert<A>(&a);
     pointers.insert<B>(&b);
 
-    BOOST_CHECK(pointers.size<A>() == 1);
-    BOOST_CHECK(pointers.size<B>() == 1);
-    BOOST_CHECK(pointers.size<Base>() == 0);
-    BOOST_CHECK(pointers.size() == 2);
+    BOOST_TEST(pointers.size<A>() == 1);
+    BOOST_TEST(pointers.size<B>() == 1);
+    BOOST_TEST(pointers.size<Base>() == 0);
+    BOOST_TEST(pointers.size() == 2);
   }
 
   {
@@ -111,22 +111,22 @@ BOOST_AUTO_TEST_CASE(test_)
     pointers.insert(static_cast<Base *>(&a));
     pointers.insert(static_cast<Base *>(&b));
 
-    BOOST_CHECK(pointers.size<A>() == 0);
-    BOOST_CHECK(pointers.size<B>() == 0);
-    BOOST_CHECK(pointers.size<Base>() == 2);
+    BOOST_TEST(pointers.size<A>() == 0);
+    BOOST_TEST(pointers.size<B>() == 0);
+    BOOST_TEST(pointers.size<Base>() == 2);
   }
 
   {
     AnyPointers pointers;
     A a;
     size_t const id = pointers.insert(&a);
-    BOOST_CHECK(pointers.size<A>() == 1);
+    BOOST_TEST(pointers.size<A>() == 1);
 
     try {
       /* A const* pointer = */ ((AnyPointers const &)pointers).pointer<A>(id);
     } catch (std::bad_any_cast &) {
       bool const bad_any_cast = false;
-      BOOST_CHECK(bad_any_cast);
+      BOOST_TEST(bad_any_cast);
     }
   }
 }

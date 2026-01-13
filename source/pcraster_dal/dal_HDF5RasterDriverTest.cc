@@ -92,11 +92,11 @@ void HDF5RasterDriverTest::testEmptyDataSpace()
 
   // Write a single raster.
   driver.remove(name, DataSpace());
-  BOOST_CHECK(!driver.exists(name));
-  BOOST_CHECK(!driver.open(name));
+  BOOST_TEST(!driver.exists(name));
+  BOOST_TEST(!driver.open(name));
   driver.write(raster, DataSpace(), DataSpaceAddress(), name)
-  BOOST_CHECK(driver.exists(name, DataSpace(), DataSpaceAddress()));
-  BOOST_CHECK(driver.open(name, DataSpace(), DataSpaceAddress()));
+  BOOST_TEST(driver.exists(name, DataSpace(), DataSpaceAddress()));
+  BOOST_TEST(driver.open(name, DataSpace(), DataSpaceAddress()));
   */
 
 /*

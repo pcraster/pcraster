@@ -83,9 +83,9 @@ void com::CommandLineTest::tearDown()
 void com::CommandLineTest::testConstructor()
 {
   setUp();
-  BOOST_CHECK(d_commandLine->name() == "Application");
-  BOOST_CHECK(d_commandLine->version() == "version");
-  BOOST_CHECK(d_commandLine->command() == "app");
+  BOOST_TEST(d_commandLine->name() == "Application");
+  BOOST_TEST(d_commandLine->version() == "version");
+  BOOST_TEST(d_commandLine->command() == "app");
   tearDown();
 }
 
@@ -99,7 +99,7 @@ void com::CommandLineTest::testPositionalValue()
     char const *const argv[] = {"app", "5"};
     const size_t argc = ARRAY_SIZE(argv);
     d_commandLine->parse(argc - 1, argv + 1);
-    BOOST_CHECK(intValue.isParsed());
+    BOOST_TEST(intValue.isParsed());
   }
 
   {
@@ -111,13 +111,13 @@ void com::CommandLineTest::testPositionalValue()
     try {
       d_commandLine->parse(argc - 1, argv + 1);
     } catch (CommandLineException const &exception) {
-      BOOST_CHECK(exception.size() == 4);
-      BOOST_CHECK(exception[0] == "Command line argument 'five': Error");
-      BOOST_CHECK(exception[1] == "Can not parse value:");
-      BOOST_CHECK(exception[2] == "five");
-      BOOST_CHECK(exception[3] == "^");
+      BOOST_TEST(exception.size() == 4);
+      BOOST_TEST(exception[0] == "Command line argument 'five': Error");
+      BOOST_TEST(exception[1] == "Can not parse value:");
+      BOOST_TEST(exception[2] == "five");
+      BOOST_TEST(exception[3] == "^");
     }
-    BOOST_CHECK(!intValue.isParsed());
+    BOOST_TEST(!intValue.isParsed());
   }
   tearDown();
 }

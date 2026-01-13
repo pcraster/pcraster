@@ -21,12 +21,12 @@ BOOST_AUTO_TEST_CASE(create_)
   elevation.cell(2) = REAL4(3.0);
 
   std::unique_ptr<discr::Block> block(create(&elevation));
-  BOOST_CHECK(block->cell(0).empty());
-  BOOST_CHECK(dal::comparable(block->cell(0).baseElevation(), elevation.cell(0)));
-  BOOST_CHECK(block->cell(1).empty());
-  BOOST_CHECK(block->cell(1).isMV());
-  BOOST_CHECK(block->cell(2).empty());
-  BOOST_CHECK(dal::comparable(block->cell(2).baseElevation(), elevation.cell(2)));
+  BOOST_TEST(block->cell(0).empty());
+  BOOST_TEST(dal::comparable(block->cell(0).baseElevation(), elevation.cell(0)));
+  BOOST_TEST(block->cell(1).empty());
+  BOOST_TEST(block->cell(1).isMV());
+  BOOST_TEST(block->cell(2).empty());
+  BOOST_TEST(dal::comparable(block->cell(2).baseElevation(), elevation.cell(2)));
 }
 
 
@@ -47,11 +47,11 @@ BOOST_AUTO_TEST_CASE(base_elevation)
     baseElevation(result, block);
 
 
-    BOOST_CHECK(!pcr::isMV(result.cell(0)));
-    BOOST_CHECK(dal::comparable(result.cell(0), T(3.0)));
-    BOOST_CHECK( pcr::isMV(result.cell(1)));
-    BOOST_CHECK(!pcr::isMV(result.cell(2)));
-    BOOST_CHECK(dal::comparable(result.cell(2), T(2.2)));
+    BOOST_TEST(!pcr::isMV(result.cell(0)));
+    BOOST_TEST(dal::comparable(result.cell(0), T(3.0)));
+    BOOST_TEST( pcr::isMV(result.cell(1)));
+    BOOST_TEST(!pcr::isMV(result.cell(2)));
+    BOOST_TEST(dal::comparable(result.cell(2), T(2.2)));
   }
 }
 
@@ -72,20 +72,20 @@ BOOST_AUTO_TEST_CASE(surface_elevation)
     discr::RasterData<REAL4> result(&raster);
     surfaceElevation(result, block);
 
-    BOOST_CHECK(!pcr::isMV(result.cell(0)));
-    BOOST_CHECK(dal::comparable(result.cell(0), T(3.0)));
-    BOOST_CHECK( pcr::isMV(result.cell(1)));
-    BOOST_CHECK(!pcr::isMV(result.cell(2)));
-    BOOST_CHECK(dal::comparable(result.cell(2), T(2.2)));
+    BOOST_TEST(!pcr::isMV(result.cell(0)));
+    BOOST_TEST(dal::comparable(result.cell(0), T(3.0)));
+    BOOST_TEST( pcr::isMV(result.cell(1)));
+    BOOST_TEST(!pcr::isMV(result.cell(2)));
+    BOOST_TEST(dal::comparable(result.cell(2), T(2.2)));
 
     block.addVoxels(2, 5.0);
 
     surfaceElevation(result, block);
-    BOOST_CHECK(!pcr::isMV(result.cell(0)));
-    BOOST_CHECK(dal::comparable(result.cell(0), T(13.0)));
-    BOOST_CHECK( pcr::isMV(result.cell(1)));
-    BOOST_CHECK(!pcr::isMV(result.cell(2)));
-    BOOST_CHECK(dal::comparable(result.cell(2), T(12.2)));
+    BOOST_TEST(!pcr::isMV(result.cell(0)));
+    BOOST_TEST(dal::comparable(result.cell(0), T(13.0)));
+    BOOST_TEST( pcr::isMV(result.cell(1)));
+    BOOST_TEST(!pcr::isMV(result.cell(2)));
+    BOOST_TEST(dal::comparable(result.cell(2), T(12.2)));
   }
 }
 
@@ -106,16 +106,16 @@ BOOST_AUTO_TEST_CASE(set_default_value)
     discr::BlockData<INT4> sediment(&block);
 
     block.addVoxels(1, REAL4(2.3));
-    BOOST_CHECK(!block.cell(0).isMV());
-    BOOST_CHECK(sediment.cell(0).size() == 1);
-    BOOST_CHECK(pcr::isMV(sediment.cell(0)[0]));
+    BOOST_TEST(!block.cell(0).isMV());
+    BOOST_TEST(sediment.cell(0).size() == 1);
+    BOOST_TEST(pcr::isMV(sediment.cell(0)[0]));
 
-    BOOST_CHECK( block.cell(1).isMV());
-    BOOST_CHECK(sediment.cell(1).empty());
+    BOOST_TEST( block.cell(1).isMV());
+    BOOST_TEST(sediment.cell(1).empty());
 
-    BOOST_CHECK(!block.cell(2).isMV());
-    BOOST_CHECK(sediment.cell(2).size() == 1);
-    BOOST_CHECK(pcr::isMV(sediment.cell(2)[0]));
+    BOOST_TEST(!block.cell(2).isMV());
+    BOOST_TEST(sediment.cell(2).size() == 1);
+    BOOST_TEST(pcr::isMV(sediment.cell(2)[0]));
 
     discr::RasterData<INT4> values(&raster);
     values.cell(0) = 5;
@@ -126,18 +126,18 @@ BOOST_AUTO_TEST_CASE(set_default_value)
 
     block.addVoxels(1, REAL4(2.3));
 
-    BOOST_CHECK(!block.cell(0).isMV());
-    BOOST_CHECK(sediment.cell(0).size() == 2);
-    BOOST_CHECK( pcr::isMV(sediment.cell(0)[0]));
-    BOOST_CHECK(!pcr::isMV(sediment.cell(0)[1]));
-    BOOST_CHECK(sediment.cell(0)[1] == 5);
+    BOOST_TEST(!block.cell(0).isMV());
+    BOOST_TEST(sediment.cell(0).size() == 2);
+    BOOST_TEST( pcr::isMV(sediment.cell(0)[0]));
+    BOOST_TEST(!pcr::isMV(sediment.cell(0)[1]));
+    BOOST_TEST(sediment.cell(0)[1] == 5);
 
-    BOOST_CHECK( block.cell(1).isMV());
-    BOOST_CHECK(sediment.cell(1).empty());
+    BOOST_TEST( block.cell(1).isMV());
+    BOOST_TEST(sediment.cell(1).empty());
 
-    BOOST_CHECK(!block.cell(2).isMV());
-    BOOST_CHECK(sediment.cell(2).size() == 2);
-    BOOST_CHECK( pcr::isMV(sediment.cell(2)[0]));
-    BOOST_CHECK( pcr::isMV(sediment.cell(2)[1]));
+    BOOST_TEST(!block.cell(2).isMV());
+    BOOST_TEST(sediment.cell(2).size() == 2);
+    BOOST_TEST( pcr::isMV(sediment.cell(2)[0]));
+    BOOST_TEST( pcr::isMV(sediment.cell(2)[1]));
   }
 }

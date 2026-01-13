@@ -78,17 +78,17 @@ void PaletteTest::test()
 
     palette.insert(palette.begin(), colors.begin(), colors.end());
     BOOST_CHECK_EQUAL(palette.size(), 3u);
-    BOOST_CHECK(palette[0] == Qt::red);
-    BOOST_CHECK(palette[1] == Qt::white);
-    BOOST_CHECK(palette[2] == Qt::blue);
+    BOOST_TEST(palette[0] == Qt::red);
+    BOOST_TEST(palette[1] == Qt::white);
+    BOOST_TEST(palette[2] == Qt::blue);
   }
 
   {
     Palette palette(colors.begin(), colors.end());
     BOOST_CHECK_EQUAL(palette.size(), 3u);
-    BOOST_CHECK(palette[0] == Qt::red);
-    BOOST_CHECK(palette[1] == Qt::white);
-    BOOST_CHECK(palette[2] == Qt::blue);
+    BOOST_TEST(palette[0] == Qt::red);
+    BOOST_TEST(palette[1] == Qt::white);
+    BOOST_TEST(palette[2] == Qt::blue);
   }
 }
 
@@ -106,9 +106,9 @@ void PaletteTest::testCopy()
     Palette palette2(palette1);
 
     BOOST_CHECK_EQUAL(palette2.size(), 3u);
-    BOOST_CHECK(palette2[0] == Qt::red);
-    BOOST_CHECK(palette2[1] == Qt::white);
-    BOOST_CHECK(palette2[2] == Qt::blue);
+    BOOST_TEST(palette2[0] == Qt::red);
+    BOOST_TEST(palette2[1] == Qt::white);
+    BOOST_TEST(palette2[2] == Qt::blue);
   }
 }
 

@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_CASE(constructor)
   using namespace com;
 
   com::PathName const pn("../messagestest.xml");
-  BOOST_CHECK(!pn.isAbsolute());
+  BOOST_TEST(!pn.isAbsolute());
 
   try {
     PathName const pn1(std::string("todoHaatQuoteInNaam.map\""));
@@ -305,17 +305,17 @@ BOOST_AUTO_TEST_CASE(is_empty)
   using namespace com;
 
   PathName pn;
-  BOOST_CHECK(pn.isEmpty());
+  BOOST_TEST(pn.isEmpty());
 
   pn = PathName(d_slash);
-  BOOST_CHECK(!pn.isEmpty());
+  BOOST_TEST(!pn.isEmpty());
 
   pn = PathName("bla");
-  BOOST_CHECK(!pn.isEmpty());
+  BOOST_TEST(!pn.isEmpty());
 
 #ifdef WIN32
   pn = PathName("c:");
-  BOOST_CHECK(!pn.isEmpty());
+  BOOST_TEST(!pn.isEmpty());
 #endif
 }
 
@@ -327,54 +327,54 @@ BOOST_AUTO_TEST_CASE(is_relative)
 
   // ""
   pn = PathName("");
-  BOOST_CHECK(pn.isRelative());
+  BOOST_TEST(pn.isRelative());
 
   // "foo"
   pn = PathName("foo");
-  BOOST_CHECK(pn.isRelative());
+  BOOST_TEST(pn.isRelative());
 
   // "foo/bar"
   pn = PathName("foo" + d_slash + "bar");
-  BOOST_CHECK(pn.isRelative());
+  BOOST_TEST(pn.isRelative());
 
   // "/"
   pn = PathName(d_slash);
 #ifdef WIN32
   // On windows this is relative to the current drive.
-  BOOST_CHECK(pn.isRelative());
+  BOOST_TEST(pn.isRelative());
 #else
   // On unix this is the root dir.
-  BOOST_CHECK(!pn.isRelative());
+  BOOST_TEST(!pn.isRelative());
 #endif
 
   // "c:\"
 #ifdef WIN32
   pn = PathName("c:" + d_slash);
-  BOOST_CHECK(!pn.isRelative());
+  BOOST_TEST(!pn.isRelative());
 #endif
 
   // "/foo"
   pn = PathName(d_slash + "foo");
 #ifdef WIN32
-  BOOST_CHECK(pn.isRelative());
+  BOOST_TEST(pn.isRelative());
 #else
-  BOOST_CHECK(!pn.isRelative());
+  BOOST_TEST(!pn.isRelative());
 #endif
 
   // "/foo/bar"
   pn = PathName(d_slash + "foo" + d_slash + "bar");
 #ifdef WIN32
-  BOOST_CHECK(pn.isRelative());
+  BOOST_TEST(pn.isRelative());
 #else
-  BOOST_CHECK(!pn.isRelative());
+  BOOST_TEST(!pn.isRelative());
 #endif
 
   // "/foo/bar/"
   pn = PathName(d_slash + "foo" + d_slash + "bar" + d_slash);
 #ifdef WIN32
-  BOOST_CHECK(pn.isRelative());
+  BOOST_TEST(pn.isRelative());
 #else
-  BOOST_CHECK(!pn.isRelative());
+  BOOST_TEST(!pn.isRelative());
 #endif
 }
 
@@ -385,9 +385,9 @@ BOOST_AUTO_TEST_CASE(make_absolute)
   PathName pathName;
 
   pathName = PathName("bla");
-  BOOST_CHECK(pathName.isRelative());
+  BOOST_TEST(pathName.isRelative());
   pathName.makeAbsolute();
-  BOOST_CHECK(pathName.isAbsolute());
+  BOOST_TEST(pathName.isAbsolute());
 }
 
 BOOST_AUTO_TEST_CASE(extension)
@@ -395,59 +395,59 @@ BOOST_AUTO_TEST_CASE(extension)
   using namespace com;
 
   PathName pn("bla.txt");
-  BOOST_CHECK(pn.hasExtension());
+  BOOST_TEST(pn.hasExtension());
   BOOST_CHECK_EQUAL(pn.extension(), "txt");
   {
     PathName const pn("bla.mpeg");
-    BOOST_CHECK(pn.hasExtension());
+    BOOST_TEST(pn.hasExtension());
     BOOST_CHECK_EQUAL(pn.extension(), "mpeg");
   }
 
   pn = PathName("bla");
-  BOOST_CHECK(!pn.hasExtension());
+  BOOST_TEST(!pn.hasExtension());
   BOOST_CHECK_EQUAL(pn.extension(), "");
 
   pn = PathName("");
-  BOOST_CHECK(!pn.hasExtension());
+  BOOST_TEST(!pn.hasExtension());
 
   pn = PathName("bla");
   pn.addExtension("txt");
-  BOOST_CHECK(pn.hasExtension());
+  BOOST_TEST(pn.hasExtension());
   BOOST_CHECK_EQUAL(pn.extension(), "txt");
 
   pn = PathName("bla");
   pn.addExtension("");
-  BOOST_CHECK(!pn.hasExtension());
-  BOOST_CHECK(pn == PathName("bla"));
+  BOOST_TEST(!pn.hasExtension());
+  BOOST_TEST(pn == PathName("bla"));
 
   {
     PathName pn("blx.mpeg");
-    BOOST_CHECK(pn.hasExtension());
+    BOOST_TEST(pn.hasExtension());
     pn.addExtension("gif");
     BOOST_CHECK_EQUAL(pn.extension(), "gif");
     BOOST_CHECK_EQUAL(pn, PathName("blx.mpeg.gif"));
   }
   {
     PathName pn("bla.mpeg");
-    BOOST_CHECK(pn.hasExtension());
+    BOOST_TEST(pn.hasExtension());
     pn.setExtension("gif");
     BOOST_CHECK_EQUAL(pn.extension(), "gif");
-    BOOST_CHECK(pn == PathName("bla.gif"));
+    BOOST_TEST(pn == PathName("bla.gif"));
   }
   {
     PathName pn("bla.prefix1.mpeg");
-    BOOST_CHECK(pn.hasExtension());
+    BOOST_TEST(pn.hasExtension());
     pn.setExtension("gif");
     BOOST_CHECK_EQUAL(pn.extension(), "gif");
-    BOOST_CHECK(pn == PathName("bla.prefix1.gif"));
+    BOOST_TEST(pn == PathName("bla.prefix1.gif"));
   }
   {
     PathName pn("validated/windowdiversity.Result3.omap");
-    BOOST_CHECK(pn.hasExtension());
+    BOOST_TEST(pn.hasExtension());
     BOOST_CHECK_EQUAL(pn.extension(), "omap");
     pn.setExtension("map");
     BOOST_CHECK_EQUAL(pn.extension(), "map");
-    BOOST_CHECK(pn == PathName("validated/windowdiversity.Result3.map"));
+    BOOST_TEST(pn == PathName("validated/windowdiversity.Result3.map"));
   }
 
 #ifdef WIN32
@@ -461,10 +461,10 @@ BOOST_AUTO_TEST_CASE(extension)
 #else
   pn = PathName("bla.");
 #endif
-  BOOST_CHECK(!pn.hasExtension());
+  BOOST_TEST(!pn.hasExtension());
   pn.addExtension("txt");
   BOOST_CHECK_EQUAL(pn.extension(), "txt");
-  BOOST_CHECK(pn == PathName("bla.txt"));
+  BOOST_TEST(pn == PathName("bla.txt"));
 }
 
 BOOST_AUTO_TEST_CASE(remove_extension)
@@ -475,21 +475,21 @@ BOOST_AUTO_TEST_CASE(remove_extension)
     PathName pn("bla");
     pn.addExtension("txt");
     pn.removeExtension();
-    BOOST_CHECK(!pn.hasExtension());
+    BOOST_TEST(!pn.hasExtension());
     BOOST_CHECK_EQUAL(pn.extension(), "");
   }
   {
     PathName pn("dataset1.dt2d");
     BOOST_CHECK_EQUAL(pn.extension(), "dt2d");
     pn.removeExtension();
-    BOOST_CHECK(!pn.hasExtension());
+    BOOST_TEST(!pn.hasExtension());
     BOOST_CHECK_EQUAL(pn.toString(), "dataset1");
   }
   {  // did crash wrong ass to d_path in removeExtension
     PathName pn("d:/habitat/maps/sample1.bil");
     BOOST_CHECK_EQUAL(pn.extension(), "bil");
     pn.removeExtension();
-    BOOST_CHECK(!pn.hasExtension());
+    BOOST_TEST(!pn.hasExtension());
 
     BOOST_CHECK_EQUAL(pn.toString(), "d:/habitat/maps/sample1");
   }
@@ -546,12 +546,12 @@ BOOST_AUTO_TEST_CASE(add)
   // "/" + "bla"
   pn = PathName(d_slash) + PathName("bla");
   result = d_slash + "bla";
-  BOOST_CHECK(pn == result);
+  BOOST_TEST(pn == result);
 
   // "bla" + "bli"
   pn = PathName("bla") + PathName("bli");
   result = "bla" + d_slash + "bli";
-  BOOST_CHECK(pn == result);
+  BOOST_TEST(pn == result);
 
   // "bla" + "/bli"
   pn = PathName("bla") + PathName(d_slash + "bli");
@@ -561,7 +561,7 @@ BOOST_AUTO_TEST_CASE(add)
   // "bla/" + "bli"
   pn = PathName("bla" + d_slash) + PathName("bli");
   result = "bla" + d_slash + "bli";
-  BOOST_CHECK(pn == result);
+  BOOST_TEST(pn == result);
 
   // "bla/" + "/bli"
   pn = PathName("bla" + d_slash) + PathName(d_slash + "bli");
@@ -571,7 +571,7 @@ BOOST_AUTO_TEST_CASE(add)
   // "/bla" + "bli"
   pn = PathName(d_slash + "bla") + PathName("bli");
   result = d_slash + "bla" + d_slash + "bli";
-  BOOST_CHECK(pn == result);
+  BOOST_TEST(pn == result);
 
   // "bla" + "/bli"
   pn = PathName("bla") + PathName(d_slash + "bli");
@@ -588,7 +588,7 @@ BOOST_AUTO_TEST_CASE(add)
   // "" + "c:"
   pn = PathName("") + PathName("c:");
   result = "c:";
-  BOOST_CHECK(pn == result);
+  BOOST_TEST(pn == result);
 
   // "bla" + "c:"
   pn = PathName("bla") + PathName("c:");
@@ -607,17 +607,17 @@ BOOST_AUTO_TEST_CASE(add)
   // "c:" + "bla"
   pn = PathName("c:") + PathName("bla");
   result = "c:bla";
-  BOOST_CHECK(pn == result);
+  BOOST_TEST(pn == result);
 
   // "c:" + "/bla"
   pn = PathName("c:") + PathName(d_slash + "bla");
   result = "c:" + d_slash + "bla";
-  BOOST_CHECK(pn == result);
+  BOOST_TEST(pn == result);
 
   // "c:/" + "bla"
   pn = PathName("c:" + d_slash) + PathName("bla");
   result = "c:" + d_slash + "bla";
-  BOOST_CHECK(pn == result);
+  BOOST_TEST(pn == result);
 
 #endif
 }
@@ -633,13 +633,13 @@ BOOST_AUTO_TEST_CASE(up)
   pn = PathName("");
   pn.up();
   result = "";
-  BOOST_CHECK(pn == result);
+  BOOST_TEST(pn == result);
 
   // "foo" -> ""
   pn = "foo";
   pn.up();
   result = "";
-  BOOST_CHECK(pn == result);
+  BOOST_TEST(pn == result);
 
   // "/" -> ""
   pn = PathName(d_slash);
@@ -652,20 +652,20 @@ BOOST_AUTO_TEST_CASE(up)
   pn = PathName(d_slash + "foo");
   pn.up();
   result = d_slash;
-  BOOST_CHECK(pn == result);
+  BOOST_TEST(pn == result);
 
   // "foo/bar" -> "foo"
   pn = "foo";
   pn += "bar";
   pn.up();
   result = "foo";
-  BOOST_CHECK(pn == result);
+  BOOST_TEST(pn == result);
 
   // "/foo/bar" -> "/foo"
   pn = PathName(d_slash + "foo" + d_slash + "bar");
   pn.up();
   result = d_slash + "foo";
-  BOOST_CHECK(pn == result);
+  BOOST_TEST(pn == result);
 
 #ifdef WIN32
 
@@ -686,7 +686,7 @@ BOOST_AUTO_TEST_CASE(up)
   pn = PathName("c:bla");
   pn.up();
   result = "c:";
-  BOOST_CHECK(pn == result);
+  BOOST_TEST(pn == result);
 
   pn = PathName("c:bla" + d_slash);
   pn.up();
@@ -731,7 +731,7 @@ BOOST_AUTO_TEST_CASE(make_native)
   pn.makeNative();
   result = "usr" + d_slash + "local" + d_slash + "bin";
 
-  BOOST_CHECK(pn == result);
+  BOOST_TEST(pn == result);
 }
 
 BOOST_AUTO_TEST_CASE(compare)
@@ -745,13 +745,13 @@ BOOST_AUTO_TEST_CASE(compare)
   PathName const path5("abc2");
 
 
-  BOOST_CHECK(path1.compare(path2) < 0);
-  BOOST_CHECK(path4.compare(path5) < 0);
+  BOOST_TEST(path1.compare(path2) < 0);
+  BOOST_TEST(path4.compare(path5) < 0);
 
 #ifdef WIN32
-  BOOST_CHECK(path2.compare(path3) == 0);
+  BOOST_TEST(path2.compare(path3) == 0);
 #else
-  BOOST_CHECK(path2.compare(path3) > 0);
+  BOOST_TEST(path2.compare(path3) > 0);
 #endif
 }
 
@@ -764,9 +764,9 @@ BOOST_AUTO_TEST_CASE(clear)
 #else
   PathName pn("/home/cees/pcrtree/apps/pcrcalc/testdir");
 #endif
-  BOOST_CHECK(!pn.isEmpty());
+  BOOST_TEST(!pn.isEmpty());
   pn.clear();
-  BOOST_CHECK(pn.isEmpty());
+  BOOST_TEST(pn.isEmpty());
 }
 
 BOOST_AUTO_TEST_CASE(equals)
@@ -783,13 +783,13 @@ BOOST_AUTO_TEST_CASE(equals)
 
   // Since the constructor of PathName tries not to edit the input string
   // both paths above are not equal.
-  BOOST_CHECK(!dirEndSlash.equals(dirNoEndSlash));
+  BOOST_TEST(!dirEndSlash.equals(dirNoEndSlash));
 
   PathName const cd(currentWorkingDirectory());
   PathName travel(cd);
   travel += "sub1";
   travel.up();
-  BOOST_CHECK(cd.equals(travel));
+  BOOST_TEST(cd.equals(travel));
 }
 
 BOOST_AUTO_TEST_CASE(unc)

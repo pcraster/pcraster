@@ -90,17 +90,17 @@ void com::CommandLineArgumentsTest::testOptions()
     arguments.add(&arg1);
     arguments.add(&arg2);
 
-    BOOST_CHECK(!arg1.isParsed());
-    BOOST_CHECK(!arg2.isParsed());
-    BOOST_CHECK(arg1.isRequired());
-    BOOST_CHECK(arg2.isRequired());
+    BOOST_TEST(!arg1.isParsed());
+    BOOST_TEST(!arg2.isParsed());
+    BOOST_TEST(arg1.isRequired());
+    BOOST_TEST(arg2.isRequired());
 
     arguments.parse(argc - 1, argv + 1);
 
-    BOOST_CHECK(arg1.isParsed());
-    BOOST_CHECK(arg2.isParsed());
-    BOOST_CHECK(arg1.isRequired());
-    BOOST_CHECK(arg2.isRequired());
+    BOOST_TEST(arg1.isParsed());
+    BOOST_TEST(arg2.isParsed());
+    BOOST_TEST(arg1.isRequired());
+    BOOST_TEST(arg2.isRequired());
   }
 
   // Terse mode.
@@ -118,17 +118,17 @@ void com::CommandLineArgumentsTest::testOptions()
     arguments.add(&arg1);
     arguments.add(&arg2);
 
-    BOOST_CHECK(!arg1.isParsed());
-    BOOST_CHECK(!arg2.isParsed());
-    BOOST_CHECK(arg1.isRequired());
-    BOOST_CHECK(arg2.isRequired());
+    BOOST_TEST(!arg1.isParsed());
+    BOOST_TEST(!arg2.isParsed());
+    BOOST_TEST(arg1.isRequired());
+    BOOST_TEST(arg2.isRequired());
 
     arguments.parse(argc - 1, argv + 1);
 
-    BOOST_CHECK(arg1.isParsed());
-    BOOST_CHECK(arg2.isParsed());
-    BOOST_CHECK(arg1.isRequired());
-    BOOST_CHECK(arg2.isRequired());
+    BOOST_TEST(arg1.isParsed());
+    BOOST_TEST(arg2.isParsed());
+    BOOST_TEST(arg1.isRequired());
+    BOOST_TEST(arg2.isRequired());
   }
   // OptionValues
   {
@@ -146,17 +146,17 @@ void com::CommandLineArgumentsTest::testOptions()
     arguments.add(&arg1);
     arguments.add(&arg2);
 
-    BOOST_CHECK(!arg1.isParsed());
-    BOOST_CHECK(!arg2.isParsed());
-    BOOST_CHECK(arg1.isRequired());
-    BOOST_CHECK(arg2.isRequired());
+    BOOST_TEST(!arg1.isParsed());
+    BOOST_TEST(!arg2.isParsed());
+    BOOST_TEST(arg1.isRequired());
+    BOOST_TEST(arg2.isRequired());
 
     arguments.parse(argc - 1, argv + 1);
 
-    BOOST_CHECK(arg1.isParsed());
-    BOOST_CHECK(arg2.isParsed());
-    BOOST_CHECK(arg2.value() == "bla");
-    BOOST_CHECK(arg1.isRequired());
-    BOOST_CHECK(arg2.isRequired());
+    BOOST_TEST(arg1.isParsed());
+    BOOST_TEST(arg2.isParsed());
+    BOOST_TEST(arg2.value() == "bla");
+    BOOST_TEST(arg1.isRequired());
+    BOOST_TEST(arg2.isRequired());
   }
 }

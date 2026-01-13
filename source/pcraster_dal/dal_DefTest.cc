@@ -34,34 +34,34 @@ BOOST_AUTO_TEST_CASE(type_sizes)
   {
     PCR_INT8 v=1;
     // test the non type safe macros that never should be used in the code
-    BOOST_CHECK(! IS_MV_INT8(&v));
+    BOOST_TEST(! IS_MV_INT8(&v));
     SET_MV_INT8(&v);
     BOOST_CHECK_EQUAL(v,MV_INT8);
-    BOOST_CHECK(IS_MV_INT8(&v));
+    BOOST_TEST(IS_MV_INT8(&v));
   }
   {
     PCR_UINT8 v=1;
     // test the non type safe macros that never should be used in the code
-    BOOST_CHECK(! IS_MV_UINT8(&v));
+    BOOST_TEST(! IS_MV_UINT8(&v));
     SET_MV_UINT8(&v);
     BOOST_CHECK_EQUAL(v,MV_UINT8);
-    BOOST_CHECK(IS_MV_UINT8(&v));
+    BOOST_TEST(IS_MV_UINT8(&v));
   }
 
   {
     PCR_INT8 v=1;
     // test the type safe templates
-    BOOST_CHECK(! pcr::isMV(v));
+    BOOST_TEST(! pcr::isMV(v));
     pcr::setMV(v);
     BOOST_CHECK_EQUAL(v,MV_INT8);
-    BOOST_CHECK(pcr::isMV(v));
+    BOOST_TEST(pcr::isMV(v));
   }
   {
     PCR_UINT8 v=1;
     // test the type safe templates
-    BOOST_CHECK(! pcr::isMV(v));
+    BOOST_TEST(! pcr::isMV(v));
     pcr::setMV(v);
     BOOST_CHECK_EQUAL(v,MV_UINT8);
-    BOOST_CHECK(pcr::isMV(v));
+    BOOST_TEST(pcr::isMV(v));
   }
 }

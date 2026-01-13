@@ -77,9 +77,9 @@ BOOST_AUTO_TEST_CASE(test_)
     }
 
     // Some points outside of the polygon.
-    BOOST_CHECK(!featureLayer.geometry(0.0, 0.0));
-    BOOST_CHECK(!featureLayer.geometry(1.5, 0.5));
-    BOOST_CHECK(!featureLayer.geometry(-1.5, -0.5));
+    BOOST_TEST(!featureLayer.geometry(0.0, 0.0));
+    BOOST_TEST(!featureLayer.geometry(1.5, 0.5));
+    BOOST_TEST(!featureLayer.geometry(-1.5, -0.5));
 
     // The points that make up the polygon.
     // TODO Doesn't work. The implementation uses 'Contains' which apparently
@@ -88,9 +88,9 @@ BOOST_AUTO_TEST_CASE(test_)
     BOOST_TEST_WARN(featureLayer.geometry(3.0, 1.0));
     BOOST_TEST_WARN(featureLayer.geometry(2.0, 3.0));
 
-    BOOST_CHECK(Client::library().geometriesCache().contains("bla"));
+    BOOST_TEST(Client::library().geometriesCache().contains("bla"));
   }
 
-  BOOST_CHECK(!Client::library().geometriesCache().contains("bla"));
-  BOOST_CHECK(Client::library().geometriesCache().empty());
+  BOOST_TEST(!Client::library().geometriesCache().contains("bla"));
+  BOOST_TEST(Client::library().geometriesCache().empty());
 }

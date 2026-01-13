@@ -12,12 +12,12 @@ BOOST_AUTO_TEST_CASE(all)
 
   // test start condition
   CellLocVisitor start(nrRows, nrCols);
-  BOOST_CHECK(start.row() == 0 && start.col() == 0);
+  BOOST_TEST((start.row() == 0 && start.col() == 0));
   for (int i = 0; i < 6; i++) {
-    BOOST_CHECK(start.valid());
+    BOOST_TEST(start.valid());
     ++start;
   }
-  BOOST_CHECK(!start.valid());
+  BOOST_TEST(!start.valid());
 
   // visit old and new way and compare
   std::vector<CellLoc> thisOrder;
@@ -29,10 +29,10 @@ BOOST_AUTO_TEST_CASE(all)
 
   int j = 0;
   for (CellLocVisitor c(nrRows, nrCols); c.valid(); ++c) {
-    BOOST_CHECK(*c == thisOrder[j]);
+    BOOST_TEST(*c == thisOrder[j]);
     j++;
   }
-  BOOST_CHECK(j == 6);
+  BOOST_TEST(j == 6);
 }
 
 BOOST_AUTO_TEST_CASE(down_stream)
@@ -43,15 +43,15 @@ BOOST_AUTO_TEST_CASE(down_stream)
     CellLocVisitor const cv(1, 1);
     for (size_t l = 1; l <= 9; l++) {
       CellLoc c = cv.downstream(l);
-      BOOST_CHECK(l == 5 || !cv.downstream(c, l));
+      BOOST_TEST((l == 5 || !cv.downstream(c, l)));
     }
   }
 
   CellLocVisitor cv(2, 2);
   ++cv;
-  BOOST_CHECK(cv.row() == 0 && cv.col() == 1);
+  BOOST_TEST((cv.row() == 0 && cv.col() == 1));
   for (size_t l = 1; l <= 9; l++) {
     CellLoc c = cv.downstream(l);
-    BOOST_CHECK((l > 5 || l == 3) || cv.downstream(c, l));
+    BOOST_TEST(((l > 5 || l == 3) || cv.downstream(c, l)));
   }
 }

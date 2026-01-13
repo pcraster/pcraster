@@ -22,12 +22,12 @@ BOOST_AUTO_TEST_CASE(unexisting)
   bool exceptionCaught = false;
 
   // Exists.
-  BOOST_CHECK(!dynamic_cast<ConstantDriver const&>(driver).exists(filename));
+  BOOST_TEST(!dynamic_cast<ConstantDriver const&>(driver).exists(filename));
 
   // Open.
   Constant* constant =
          dynamic_cast<ConstantDriver const&>(driver).open(filename);
-  BOOST_CHECK(!constant);
+  BOOST_TEST(!constant);
 
   // Read.
   try {
@@ -39,5 +39,5 @@ BOOST_AUTO_TEST_CASE(unexisting)
        "Data source " + filename + "(constant):\ncannot be opened");
     exceptionCaught = true;
   }
-  BOOST_CHECK(exceptionCaught);
+  BOOST_TEST(exceptionCaught);
 }

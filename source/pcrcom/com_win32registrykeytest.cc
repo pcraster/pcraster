@@ -17,7 +17,7 @@ BOOST_AUTO_TEST_CASE(win32_setting)
   WIN32_defineSet = true;
 #endif
 #endif
-  BOOST_CHECK(WIN32_defineSet);
+  BOOST_TEST(WIN32_defineSet);
 }
 
 //! whole roundtrip
@@ -31,12 +31,12 @@ BOOST_AUTO_TEST_CASE(cycle)
   k.remove();
 
   // the cycle
-  BOOST_CHECK(!k.exists());
-  BOOST_CHECK(k.value() == "");
-  BOOST_CHECK(k.set("test"));
-  BOOST_CHECK(k.exists());
-  BOOST_CHECK(k.value() == "test");
-  BOOST_CHECK(k.remove());
+  BOOST_TEST(!k.exists());
+  BOOST_TEST(k.value() == "");
+  BOOST_TEST(k.set("test"));
+  BOOST_TEST(k.exists());
+  BOOST_TEST(k.value() == "test");
+  BOOST_TEST(k.remove());
 
-  BOOST_CHECK(k.set("fuck"));
+  BOOST_TEST(k.set("fuck"));
 }

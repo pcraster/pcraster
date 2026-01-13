@@ -14,12 +14,12 @@ BOOST_AUTO_TEST_CASE(reset_clone)
     E *dest = new E(4);
     E *src(nullptr);
     resetClone(dest, src);
-    BOOST_CHECK(dest == nullptr);
+    BOOST_TEST(dest == nullptr);
 
     dest = new E(8);
-    BOOST_CHECK(dest->min() == 8);
+    BOOST_TEST(dest->min() == 8);
     resetClone(dest, new E(2));
-    BOOST_CHECK(dest->min() == 2);
+    BOOST_TEST(dest->min() == 2);
 
     delete dest;
   }

@@ -84,7 +84,7 @@ BOOST_AUTO_TEST_CASE(error)
 //
 //   // TODO Bug? Legend detection seems wrong.
 //   CSFMap map("d83.map");
-//   BOOST_CHECK(map.hasLegend());
+//   BOOST_TEST(map.hasLegend());
 //   Table legend(map.legend());
 //   BOOST_CHECK_EQUAL(legend.title(), "");
 //   BOOST_CHECK_EQUAL(legend.nrRecs(), size_t(2));

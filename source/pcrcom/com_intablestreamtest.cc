@@ -88,13 +88,13 @@ void com::InTableStreamTest::testRead()
   const char *files[2] = {"zinc.unix.eas", "zinc.dos.eas"};
   for (size_t i = 0; i < 2; i++) {
     InTableStream tab(files[i]);
-    BOOST_CHECK(tab.layout() == InTableStream::GEO_EAS);
+    BOOST_TEST(tab.layout() == InTableStream::GEO_EAS);
     std::vector<double> d;
     tab >> d;
-    BOOST_CHECK(d.size() == 3);
-    BOOST_CHECK(d[0] == 181072);
-    BOOST_CHECK(d[1] == 333611);
-    BOOST_CHECK(d[2] == 1022);
+    BOOST_TEST(d.size() == 3);
+    BOOST_TEST(d[0] == 181072);
+    BOOST_TEST(d[1] == 333611);
+    BOOST_TEST(d[2] == 1022);
   }
 
   PathName pn("inTableStream.txt");
@@ -107,49 +107,49 @@ void com::InTableStreamTest::testRead()
   for (size_t i = 0; i < 3; i++) {
     write(testSimples[i], pn);
     InTableStream tab(pn);
-    BOOST_CHECK(tab.layout() == InTableStream::PLAIN_TXT);
+    BOOST_TEST(tab.layout() == InTableStream::PLAIN_TXT);
     size_t v = 1;
     while (tab >> d) {
-      BOOST_CHECK(d.size() == 1);
-      BOOST_CHECK(d[0] == v++);
+      BOOST_TEST(d.size() == 1);
+      BOOST_TEST(d[0] == v++);
     }
-    BOOST_CHECK(i < 2 ? v == 4 : v == 5);
+    BOOST_TEST(i < 2 ? v == 4 : v == 5);
   }
   {
     write("\n2\n\n0", pn);
     InTableStream tab(pn);
-    BOOST_CHECK(tab.lineNrStartLastRead() == 0);
-    BOOST_CHECK(tab.layout() == InTableStream::PLAIN_TXT);
-    BOOST_CHECK(tab.nrColumns() == 1);
-    BOOST_CHECK(tab >> d);
-    BOOST_CHECK(tab.lineNrStartLastRead() == 2);
-    BOOST_CHECK(d.size() == 1 && d[0] == 2);
-    BOOST_CHECK(tab >> d);
-    BOOST_CHECK(tab.lineNrStartLastRead() == 4);
-    BOOST_CHECK(d.size() == 1 && d[0] == 0);
-    BOOST_CHECK(!(tab >> d));
+    BOOST_TEST(tab.lineNrStartLastRead() == 0);
+    BOOST_TEST(tab.layout() == InTableStream::PLAIN_TXT);
+    BOOST_TEST(tab.nrColumns() == 1);
+    BOOST_TEST(tab >> d);
+    BOOST_TEST(tab.lineNrStartLastRead() == 2);
+    BOOST_TEST(d.size() == 1 && d[0] == 2);
+    BOOST_TEST(tab >> d);
+    BOOST_TEST(tab.lineNrStartLastRead() == 4);
+    BOOST_TEST(d.size() == 1 && d[0] == 0);
+    BOOST_TEST(!(tab >> d));
   }
   {  // geo eas with no data
     write("\n2\n\ntitle2 ", pn);
     InTableStream tab(pn);
-    BOOST_CHECK(tab.layout() == InTableStream::GEO_EAS);
-    BOOST_CHECK(tab.nrColumns() == 2);
-    BOOST_CHECK(tab.columnNames()[0].empty());
-    BOOST_CHECK(tab.columnNames()[1] == "title2");
-    BOOST_CHECK(!(tab >> d));
-    BOOST_CHECK(d.empty());
+    BOOST_TEST(tab.layout() == InTableStream::GEO_EAS);
+    BOOST_TEST(tab.nrColumns() == 2);
+    BOOST_TEST(tab.columnNames()[0].empty());
+    BOOST_TEST(tab.columnNames()[1] == "title2");
+    BOOST_TEST(!(tab >> d));
+    BOOST_TEST(d.empty());
   }
   {  // geo eas with numeric descriptions and a single line of data
     write("1\n2\n0\n0\n2 3", pn);
     InTableStream tab(pn);
-    BOOST_CHECK(tab.layout() == InTableStream::GEO_EAS);
-    BOOST_CHECK(tab.nrColumns() == 2);
-    BOOST_CHECK(tab.columnNames()[0] == "0");
-    BOOST_CHECK(tab.columnNames()[1] == "0");
-    BOOST_CHECK(tab >> d);
-    BOOST_CHECK(tab.lineNrStartLastRead() == 5);
-    BOOST_CHECK(d.size() == 2 && d[0] == 2 && d[1] == 3);
-    BOOST_CHECK(!(tab >> d));
+    BOOST_TEST(tab.layout() == InTableStream::GEO_EAS);
+    BOOST_TEST(tab.nrColumns() == 2);
+    BOOST_TEST(tab.columnNames()[0] == "0");
+    BOOST_TEST(tab.columnNames()[1] == "0");
+    BOOST_TEST(tab >> d);
+    BOOST_TEST(tab.lineNrStartLastRead() == 5);
+    BOOST_TEST(d.size() == 2 && d[0] == 2 && d[1] == 3);
+    BOOST_TEST(!(tab >> d));
   }
 }
 
@@ -160,53 +160,53 @@ void com::InTableStreamTest::testRead2()
   {  // text with single line of data
     write("0", pn);
     InTableStream tab(pn);
-    BOOST_CHECK(tab.layout() == InTableStream::PLAIN_TXT);
-    BOOST_CHECK(tab.nrColumns() == 1);
-    BOOST_CHECK(tab.columnNames()[0].empty());
-    BOOST_CHECK(tab >> d);
-    BOOST_CHECK(tab.lineNrStartLastRead() == 1);
-    BOOST_CHECK(d.size() == 1 && d[0] == 0);
-    BOOST_CHECK(!(tab >> d));
+    BOOST_TEST(tab.layout() == InTableStream::PLAIN_TXT);
+    BOOST_TEST(tab.nrColumns() == 1);
+    BOOST_TEST(tab.columnNames()[0].empty());
+    BOOST_TEST(tab >> d);
+    BOOST_TEST(tab.lineNrStartLastRead() == 1);
+    BOOST_TEST(d.size() == 1 && d[0] == 0);
+    BOOST_TEST(!(tab >> d));
   }
   {  // text with 2 lines of data but irregular
     write("0\n1 2", pn);
     InTableStream tab(pn);
-    BOOST_CHECK(tab.layout() == InTableStream::PLAIN_TXT);
-    BOOST_CHECK(tab >> d);
-    BOOST_CHECK(d.size() == 1 && d[0] == 0);
-    BOOST_CHECK(tab >> d);
-    BOOST_CHECK(d.size() == 2 && d[0] == 1 && d[1] == 2);
-    BOOST_CHECK(!(tab >> d));
+    BOOST_TEST(tab.layout() == InTableStream::PLAIN_TXT);
+    BOOST_TEST(tab >> d);
+    BOOST_TEST(d.size() == 1 && d[0] == 0);
+    BOOST_TEST(tab >> d);
+    BOOST_TEST(d.size() == 2 && d[0] == 1 && d[1] == 2);
+    BOOST_TEST(!(tab >> d));
   }
   {  // file with only space
     write(" \t \n  ", pn);
     InTableStream tab(pn);
-    BOOST_CHECK(tab.layout() == InTableStream::EMPTY);
-    BOOST_CHECK(tab.nrColumns() == 0);
-    BOOST_CHECK(!(tab >> d));
+    BOOST_TEST(tab.layout() == InTableStream::EMPTY);
+    BOOST_TEST(tab.nrColumns() == 0);
+    BOOST_TEST(!(tab >> d));
     // pretty useles and incorrect:
-    // BOOST_CHECK(tab.lineNrStartLastRead()==1);
-    BOOST_CHECK(d.empty());
+    // BOOST_TEST(tab.lineNrStartLastRead()==1);
+    BOOST_TEST(d.empty());
   }
   {  // empty file, 0 bytes
     write("", pn);
-    BOOST_CHECK(size(pn) == 0);
+    BOOST_TEST(size(pn) == 0);
     InTableStream tab(pn);
-    BOOST_CHECK(tab.layout() == InTableStream::EMPTY);
-    BOOST_CHECK(tab.nrColumns() == 0);
-    BOOST_CHECK(!(tab >> d));
-    BOOST_CHECK(d.empty());
+    BOOST_TEST(tab.layout() == InTableStream::EMPTY);
+    BOOST_TEST(tab.nrColumns() == 0);
+    BOOST_TEST(!(tab >> d));
+    BOOST_TEST(d.empty());
   }
   {  // geoEas with incorrect data (1 record too long)
     com::write("geoEas d\n2\nt1\nt2\n1 2 3\n4 5 \n", pn);
     InTableStream tab(pn);
-    BOOST_CHECK(tab.layout() == TableInfo::GEO_EAS);
-    BOOST_CHECK(tab.nrColumns() == 2);
-    BOOST_CHECK(tab >> d);
-    BOOST_CHECK(d.size() == 3);
-    BOOST_CHECK(tab >> d);
-    BOOST_CHECK(d.size() == 2);
-    BOOST_CHECK(!(tab >> d));
+    BOOST_TEST(tab.layout() == TableInfo::GEO_EAS);
+    BOOST_TEST(tab.nrColumns() == 2);
+    BOOST_TEST(tab >> d);
+    BOOST_TEST(d.size() == 3);
+    BOOST_TEST(tab >> d);
+    BOOST_TEST(d.size() == 2);
+    BOOST_TEST(!(tab >> d));
   }
 }
 
@@ -219,10 +219,10 @@ void com::InTableStreamTest::testFormatErrors()
       InTableStream tab(pn);
     } catch (const FileFormatError &e) {
 
-      BOOST_CHECK(e.messages().find("Format of file") != std::string::npos);
+      BOOST_TEST(e.messages().find("Format of file") != std::string::npos);
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
   PathName pn("inTableStream.txt");
 
@@ -232,27 +232,27 @@ void com::InTableStreamTest::testFormatErrors()
     try {
       InTableStream tab(pn);
     } catch (const FileFormatError &e) {
-      BOOST_CHECK(e.messages().find("Format of file") != std::string::npos);
+      BOOST_TEST(e.messages().find("Format of file") != std::string::npos);
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
 
   {  // illegal format
     write("1\n2\n3\n4\n ac\n3\n", pn);
     InTableStream tab(pn);
-    BOOST_CHECK(tab.layout() == InTableStream::PLAIN_TXT);
+    BOOST_TEST(tab.layout() == InTableStream::PLAIN_TXT);
     std::vector<double> d;
     bool catched(false);
     try {
       while (tab >> d)
         ;
     } catch (const FilePositionError &e) {
-      BOOST_CHECK(e.messages().find("ac") != std::string::npos);
-      BOOST_CHECK(e.lineNr() == 5);
-      BOOST_CHECK(e.columnNr() == 2);
+      BOOST_TEST(e.messages().find("ac") != std::string::npos);
+      BOOST_TEST(e.lineNr() == 5);
+      BOOST_TEST(e.columnNr() == 2);
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
 }

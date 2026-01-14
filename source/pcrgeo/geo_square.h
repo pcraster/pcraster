@@ -213,15 +213,14 @@ template<class T, size_t n, typename B>
 // FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-
-
-} // namespace geo
-
 template<class T, size_t n, typename B>
 std::ostream &operator<<(std::ostream &s, const geo::Square<T, n,B> &sq)
 {
   s << "c:" << sq.centre() << " hw:" << sq.halfWidth() << " " << B::name();
   return s;
 }
+
+
+} // namespace geo
 
 #endif

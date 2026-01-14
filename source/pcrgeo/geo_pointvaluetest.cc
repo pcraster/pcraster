@@ -15,15 +15,15 @@ BOOST_AUTO_TEST_CASE(test)
     Value value(5.5);
 
     PointValue<Point, Value> height(point, value);
-    BOOST_CHECK(height.point() == point);
-    BOOST_CHECK(height.value() == value);
+    BOOST_TEST(height.point() == point);
+    BOOST_TEST(height.value() == value);
 
     point += 8.8;
     height.setPoint(point);
-    BOOST_CHECK(height.point() == point);
+    BOOST_TEST(height.point() == point);
 
     value += 9.9;
     height.setValue(value);
-    BOOST_CHECK(height.value() == value);
+    BOOST_TEST(height.value() == value);
   }
 }

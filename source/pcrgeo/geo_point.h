@@ -710,11 +710,6 @@ Point<T, n> operator/(const Point<T, n> &lhs,
 //------------------------------------------------------------------------------
 
 
-
-} // namespace geo
-
-
-
 template<class T, size_t n>
 std::ostream &operator<<(std::ostream &stream, const geo::Point<T, n> &point)
 {
@@ -728,5 +723,6 @@ std::ostream &operator<<(std::ostream &stream, const geo::Point<T, n> &point)
 }
 
 
+} // namespace geo
 
 #endif

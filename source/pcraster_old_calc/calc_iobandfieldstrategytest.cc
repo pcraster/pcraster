@@ -120,7 +120,7 @@ void calc::IoBandFieldStrategyTest::testCheckClone()
   } catch (...) {
     succes = false;
   }
-  BOOST_CHECK(succes);
+  BOOST_TEST(succes);
 
   bool failure = false;
   try {
@@ -129,7 +129,7 @@ void calc::IoBandFieldStrategyTest::testCheckClone()
   } catch (...) {
     failure = true;
   }
-  BOOST_CHECK(failure);
+  BOOST_TEST(failure);
 }
 
 void calc::IoBandFieldStrategyTest::testCheckInputMap()
@@ -143,18 +143,18 @@ void calc::IoBandFieldStrategyTest::testCheckInputMap()
   } catch (...) {
     succes = false;
   }
-  BOOST_CHECK(succes);
-  BOOST_CHECK(vs == VS_BNO);
-  BOOST_CHECK(&s == r);
+  BOOST_TEST(succes);
+  BOOST_TEST(vs == VS_BNO);
+  BOOST_TEST(&s == r);
 
   try {
     r = s.checkInputMap(vs, "diffLocAttr");
   } catch (...) {
     succes = false;
   }
-  BOOST_CHECK(succes);
-  BOOST_CHECK(vs == VS_BNO);
-  BOOST_CHECK(&s == r);
+  BOOST_TEST(succes);
+  BOOST_TEST(vs == VS_BNO);
+  BOOST_TEST(&s == r);
 
   bool failure = false;
   try {
@@ -162,7 +162,7 @@ void calc::IoBandFieldStrategyTest::testCheckInputMap()
   } catch (...) {
     failure = true;
   }
-  BOOST_CHECK(failure);
+  BOOST_TEST(failure);
 }
 
 void calc::IoBandFieldStrategyTest::testCreateMap()
@@ -178,13 +178,13 @@ void calc::IoBandFieldStrategyTest::testCreateMap()
     delete gm;
 
     geo::BandMap bm("uint1Bool");
-    BOOST_CHECK(bm.nrCells() == 20);
-    BOOST_CHECK(bm.rasterSpace() == clone.rasterSpace());
-    BOOST_CHECK(bm.cellRepr() == CR_UINT1);
+    BOOST_TEST(bm.nrCells() == 20);
+    BOOST_TEST(bm.rasterSpace() == clone.rasterSpace());
+    BOOST_TEST(bm.cellRepr() == CR_UINT1);
     UINT1 cells[20];
     bm.getCellsRaw(cells);
-    BOOST_CHECK(cells[0] == 3);
-    BOOST_CHECK(cells[17] == 3);
+    BOOST_TEST(cells[0] == 3);
+    BOOST_TEST(cells[17] == 3);
   }
 
   {
@@ -194,13 +194,13 @@ void calc::IoBandFieldStrategyTest::testCreateMap()
     delete gm;
 
     geo::BandMap bm("int4");
-    BOOST_CHECK(bm.nrCells() == 20);
-    BOOST_CHECK(bm.rasterSpace() == clone.rasterSpace());
-    BOOST_CHECK(bm.cellRepr() == CR_INT2);
+    BOOST_TEST(bm.nrCells() == 20);
+    BOOST_TEST(bm.rasterSpace() == clone.rasterSpace());
+    BOOST_TEST(bm.cellRepr() == CR_INT2);
     INT4 cells[20];
     bm.getCellsAsINT4(cells);
-    BOOST_CHECK(cells[0] == 3);
-    BOOST_CHECK(cells[17] == 3);
+    BOOST_TEST(cells[0] == 3);
+    BOOST_TEST(cells[17] == 3);
   }
 
   {
@@ -210,13 +210,13 @@ void calc::IoBandFieldStrategyTest::testCreateMap()
     delete gm;
 
     geo::BandMap bm("real4");
-    BOOST_CHECK(bm.nrCells() == 20);
-    BOOST_CHECK(bm.rasterSpace() == clone.rasterSpace());
-    BOOST_CHECK(bm.cellRepr() == CR_REAL4);
+    BOOST_TEST(bm.nrCells() == 20);
+    BOOST_TEST(bm.rasterSpace() == clone.rasterSpace());
+    BOOST_TEST(bm.cellRepr() == CR_REAL4);
     REAL4 cells[20];
     bm.getCellsAsREAL4(cells);
-    BOOST_CHECK(cells[0] == 3);
-    BOOST_CHECK(cells[17] == 3);
+    BOOST_TEST(cells[0] == 3);
+    BOOST_TEST(cells[17] == 3);
   }
 
   {  // assume the largest
@@ -226,12 +226,12 @@ void calc::IoBandFieldStrategyTest::testCreateMap()
     delete gm;
 
     geo::BandMap bm("real4");
-    BOOST_CHECK(bm.nrCells() == 20);
-    BOOST_CHECK(bm.rasterSpace() == clone.rasterSpace());
-    BOOST_CHECK(bm.cellRepr() == CR_REAL4);
+    BOOST_TEST(bm.nrCells() == 20);
+    BOOST_TEST(bm.rasterSpace() == clone.rasterSpace());
+    BOOST_TEST(bm.cellRepr() == CR_REAL4);
     REAL4 cells[20];
     bm.getCellsAsREAL4(cells);
-    BOOST_CHECK(cells[0] == 3);
-    BOOST_CHECK(cells[17] == 3);
+    BOOST_TEST(cells[0] == 3);
+    BOOST_TEST(cells[17] == 3);
   }
 }

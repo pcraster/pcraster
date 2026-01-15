@@ -58,15 +58,15 @@ BOOST_AUTO_TEST_CASE(testExpr)
 
   {
     ASTCFGTester const e(sp.createExpr("a"));
-    BOOST_CHECK(dynamic_cast<ASTPar *>(e.ast()));
+    BOOST_TEST(dynamic_cast<ASTPar *>(e.ast()));
 
     CFGNode *c(e.cfg());
-    BOOST_CHECK(c->node() == e.ast());
+    BOOST_TEST(c->node() == e.ast());
   }
 
   {
     ASTCFGTester const e(sp.createExpr("a*b"));
-    BOOST_CHECK(dynamic_cast<ASTExpr *>(e.ast()));
+    BOOST_TEST(dynamic_cast<ASTExpr *>(e.ast()));
 
     CFGNode *c(e.cfg());
     size_t ic(0);
@@ -75,22 +75,22 @@ BOOST_AUTO_TEST_CASE(testExpr)
       switch (ic) {
         case 0: {
           auto *p(dynamic_cast<ASTPar *>(i->node()));
-          BOOST_CHECK(p);
-          BOOST_CHECK(p->name() == "a");
+          BOOST_TEST(p);
+          BOOST_TEST(p->name() == "a");
         } break;
         case 1: {
           auto *p(dynamic_cast<ASTPar *>(i->node()));
-          BOOST_CHECK(p);
-          BOOST_CHECK(p->name() == "b");
+          BOOST_TEST(p);
+          BOOST_TEST(p->name() == "b");
         } break;
         case 2: {
           auto *en(dynamic_cast<ASTExpr *>(i->node()));
-          BOOST_CHECK(en);
-          BOOST_CHECK(en->name() == "*");
-          BOOST_CHECK(en == e.ast());
+          BOOST_TEST(en);
+          BOOST_TEST(en->name() == "*");
+          BOOST_TEST(en == e.ast());
         } break;
         default:
-          BOOST_CHECK(false);
+          BOOST_TEST(false);
       }
       i = i->succ(0);
       ic++;
@@ -98,7 +98,7 @@ BOOST_AUTO_TEST_CASE(testExpr)
   }
   {
     ASTCFGTester const e(sp.createExpr("((1+2)*(3-4))/5"));
-    BOOST_CHECK(dynamic_cast<ASTExpr *>(e.ast()));
+    BOOST_TEST(dynamic_cast<ASTExpr *>(e.ast()));
 
     CFGNode *c(e.cfg());
     const char *names[] = {"1", "2", "+", "3", "4", "-", "*", "5", "/"};
@@ -106,24 +106,24 @@ BOOST_AUTO_TEST_CASE(testExpr)
     const CFGNode *i = c;
     const CFGNode *last = nullptr;
     do {
-      BOOST_CHECK(ic < ARRAY_SIZE(names));
+      BOOST_TEST(ic < ARRAY_SIZE(names));
       cfgCreatorTest::CmpNode const cn(names[ic], i);
-      BOOST_CHECK(cn.validASTNode());
-      BOOST_CHECK(cn.equal());
+      BOOST_TEST(cn.validASTNode());
+      BOOST_TEST(cn.equal());
       last = i;
       i = i->succ(0);
       ic++;
     } while (i != nullptr);
-    BOOST_CHECK(ic == ARRAY_SIZE(names));
+    BOOST_TEST(ic == ARRAY_SIZE(names));
     // test pred
     while (last != nullptr) {
       --ic;
       cfgCreatorTest::CmpNode const cn(names[ic], last);
-      BOOST_CHECK(cn.validASTNode());
-      BOOST_CHECK(cn.equal());
+      BOOST_TEST(cn.validASTNode());
+      BOOST_TEST(cn.equal());
       last = last->pred();
     }
-    BOOST_CHECK(!ic);  // all checked
+    BOOST_TEST(!ic);  // all checked
   }
 }
 
@@ -133,7 +133,7 @@ BOOST_AUTO_TEST_CASE(testStatementList)
 
   {
     ASTCFGTester const l(sp.createStatementList("a=(1+2)*3;b=a/5"));
-    BOOST_CHECK(dynamic_cast<ASTNodeList *>(l.ast()));
+    BOOST_TEST(dynamic_cast<ASTNodeList *>(l.ast()));
 
     CFGNode *c(l.cfg());
     const char *names[] = {"stat-start", "1",          "2", "+", "3", "*",
@@ -143,25 +143,25 @@ BOOST_AUTO_TEST_CASE(testStatementList)
     const CFGNode *last = nullptr;
     // forward test
     do {
-      BOOST_CHECK(ic < ARRAY_SIZE(names));
+      BOOST_TEST(ic < ARRAY_SIZE(names));
       cfgCreatorTest::CmpNode const cn(names[ic], i);
-      BOOST_CHECK(cn.validASTNode());
-      BOOST_CHECK(cn.equal());
+      BOOST_TEST(cn.validASTNode());
+      BOOST_TEST(cn.equal());
       last = i;
       i = i->succ(0);
       ic++;
     } while (i != nullptr);
-    BOOST_CHECK(ic == ARRAY_SIZE(names));
+    BOOST_TEST(ic == ARRAY_SIZE(names));
     // test pred
     // backward test
     while (last != nullptr) {
       --ic;
       cfgCreatorTest::CmpNode const cn(names[ic], last);
-      BOOST_CHECK(cn.validASTNode());
-      BOOST_CHECK(cn.equal());
+      BOOST_TEST(cn.validASTNode());
+      BOOST_TEST(cn.equal());
       last = last->pred();
     }
-    BOOST_CHECK(!ic);  // all checked
+    BOOST_TEST(!ic);  // all checked
   }
 }
 
@@ -173,7 +173,7 @@ BOOST_AUTO_TEST_CASE(testStatementList)
 //   using namespace calc;
 //
 //     ASTCFGTester l(sp.createStatementList("p=timeoutput(a,b)"));
-//     BOOST_CHECK(dynamic_cast<ASTNodeList *>(l.ast()));
+//     BOOST_TEST(dynamic_cast<ASTNodeList *>(l.ast()));
 //
 //     CFGNode* c(l.cfg());
 //     const char *names[]={ "stat-start",
@@ -182,22 +182,22 @@ BOOST_AUTO_TEST_CASE(testStatementList)
 //     const CFGNode* i=c;
 //     const CFGNode* last;
 //     do {
-//       BOOST_CHECK(ic < ARRAY_SIZE(names));
+//       BOOST_TEST(ic < ARRAY_SIZE(names));
 //       cfgCreatorTest::CmpNode cn(names[ic], i);
-//       BOOST_CHECK(cn.validASTNode());
-//       BOOST_CHECK(cn.equal());
+//       BOOST_TEST(cn.validASTNode());
+//       BOOST_TEST(cn.equal());
 //       last=i;
 //       i=i->succ(0);
 //       ic++;
 //     } while(i);
-//     BOOST_CHECK(ic==ARRAY_SIZE(names));
+//     BOOST_TEST(ic==ARRAY_SIZE(names));
 //     // test pred
 //     while(last) {
 //       --ic;
 //       cfgCreatorTest::CmpNode cn(names[ic], last);
-//       BOOST_CHECK(cn.validASTNode());
-//       BOOST_CHECK(cn.equal());
+//       BOOST_TEST(cn.validASTNode());
+//       BOOST_TEST(cn.equal());
 //       last=last->pred();
 //     }
-//     BOOST_CHECK(!ic); // all checked
+//     BOOST_TEST(!ic); // all checked
 // }

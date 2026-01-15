@@ -18,8 +18,8 @@ BOOST_AUTO_TEST_CASE(testA)
     UINT1 id[1] = {1};
     REAL4 val[1] = {8};
     ao.apply(val, id, 1);
-    BOOST_CHECK(ao.d_map.size() == 1);
-    BOOST_CHECK(val[0] == 8);
+    BOOST_TEST(ao.d_map.size() == 1);
+    BOOST_TEST(val[0] == 8);
   }
   {
     AreaTotalOperation ao;
@@ -31,16 +31,16 @@ BOOST_AUTO_TEST_CASE(testA)
     pcr::setMV(res[2]);
 
     ao.apply(val, id, 4);
-    BOOST_CHECK(ao.d_map.size() == 2);
-    BOOST_CHECK(ao.d_map[1].nr() == 2);
-    BOOST_CHECK(ao.d_map[2].nr() == 1);
-    BOOST_CHECK(ao.d_map[1].sum() == 16);
-    BOOST_CHECK(ao.d_map[2].sum() == 10);
+    BOOST_TEST(ao.d_map.size() == 2);
+    BOOST_TEST(ao.d_map[1].nr() == 2);
+    BOOST_TEST(ao.d_map[2].nr() == 1);
+    BOOST_TEST(ao.d_map[1].sum() == 16);
+    BOOST_TEST(ao.d_map[2].sum() == 10);
 
-    BOOST_CHECK(val[0] == 16);
-    BOOST_CHECK(val[1] == 16);
-    BOOST_CHECK(pcr::isMV(val[2]));
-    BOOST_CHECK(val[3] == 10);
+    BOOST_TEST(val[0] == 16);
+    BOOST_TEST(val[1] == 16);
+    BOOST_TEST(pcr::isMV(val[2]));
+    BOOST_TEST(val[3] == 10);
   }
   /*
   {
@@ -48,13 +48,13 @@ BOOST_AUTO_TEST_CASE(testA)
    UINT1 id[4]  = { 1, 1, MV_UINT1, 2 };
    REAL4 val[4] = { 8, 4, 4,        1 };
    ao.apply(id,4,val,4);
-   BOOST_CHECK(ao.d_map.size()==2);
-   BOOST_CHECK(ao.d_map[1].nr()==2);
-   BOOST_CHECK(ao.d_map[2].nr()==1);
+   BOOST_TEST(ao.d_map.size()==2);
+   BOOST_TEST(ao.d_map[1].nr()==2);
+   BOOST_TEST(ao.d_map[2].nr()==1);
    double res[2]={-1,-1};
    ao.setResults(res,2);
-   BOOST_CHECK(res[0]==6);
-   BOOST_CHECK(res[1]==1);
+   BOOST_TEST(res[0]==6);
+   BOOST_TEST(res[1]==1);
   }
 */
 }
@@ -76,8 +76,8 @@ BOOST_AUTO_TEST_CASE(testAreaOrder)
   areaOrderOperation(result, expr, areaClass, 9);
 
   for (size_t i = 0; i < 7; ++i) {
-    BOOST_CHECK(expectedV[i] == result[i]);
+    BOOST_TEST(expectedV[i] == result[i]);
   }
-  BOOST_CHECK(pcr::isMV(result[7]));
-  BOOST_CHECK(pcr::isMV(result[8]));
+  BOOST_TEST(pcr::isMV(result[7]));
+  BOOST_TEST(pcr::isMV(result[8]));
 }

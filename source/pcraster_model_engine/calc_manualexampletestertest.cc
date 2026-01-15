@@ -30,7 +30,7 @@ BOOST_AUTO_TEST_CASE(testTest)
       mte.test();
     } catch (...) {
       bool const bilRelatedIGuess = false;
-      BOOST_CHECK(bilRelatedIGuess);
+      BOOST_TEST(bilRelatedIGuess);
     }
   }
   {
@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_CASE(testTest)
     } catch (const com::Exception &) {
       catchError = true;
     }
-    BOOST_CHECK(catchError);
+    BOOST_TEST(catchError);
   }
   {
     bool catchError(false);
@@ -51,10 +51,10 @@ BOOST_AUTO_TEST_CASE(testTest)
     try {
       mte.test();
     } catch (const com::Exception &e) {
-      BOOST_CHECK(e.messages().find("Not equal") != std::string::npos);
+      BOOST_TEST(e.messages().find("Not equal") != std::string::npos);
       catchError = true;
     }
-    BOOST_CHECK(catchError);
+    BOOST_TEST(catchError);
   }
 }
 
@@ -69,7 +69,7 @@ BOOST_AUTO_TEST_CASE(testOption)
     try {
       mte.test();
     } catch (...) {
-      BOOST_CHECK(false);
+      BOOST_TEST(false);
     }
   }
 }
@@ -86,10 +86,10 @@ BOOST_AUTO_TEST_CASE(testClone)
     try {
       mte.test();
     } catch (const com::Exception &e) {
-      BOOST_CHECK(e.messages().find("cloneNotSet"));
+      BOOST_TEST(e.messages().find("cloneNotSet"));
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
   {  // set and needed
     ManualExampleTester mte("#! --unitcell\n"
@@ -99,7 +99,7 @@ BOOST_AUTO_TEST_CASE(testClone)
     try {
       mte.test();
     } catch (...) {
-      BOOST_CHECK(false);
+      BOOST_TEST(false);
     }
   }
 }

@@ -120,53 +120,53 @@ void calc::ClientInterfaceTest::testCapi()
 
   {  // NULL pointer to pcr_createScript
     PcrScript *s = pcr_createScript(0);
-    BOOST_CHECK(s);
-    BOOST_CHECK(pcr_ScriptError(s));
+    BOOST_TEST(s);
+    BOOST_TEST(pcr_ScriptError(s));
     std::string msg(pcr_ScriptErrorMessage(s));
-    BOOST_CHECK(msg.find("pcr_createScript") != std::string::npos);
+    BOOST_TEST(msg.find("pcr_createScript") != std::string::npos);
     pcr_destroyScript(s);
   }
 
   {  // file not found
     const char *f = "failureExpectedNotExistant";
     PcrScript *s = pcr_createScript(f);
-    BOOST_CHECK(s);
-    BOOST_CHECK(pcr_ScriptError(s));
+    BOOST_TEST(s);
+    BOOST_TEST(pcr_ScriptError(s));
     std::string msg(pcr_ScriptErrorMessage(s));
-    BOOST_CHECK(msg.find(f) != std::string::npos);
+    BOOST_TEST(msg.find(f) != std::string::npos);
     pcr_destroyScript(s);
   }
 
   {  // some input not found
     com::write("piet.map = not_existant.map * 2;", "pcrscripttest.mod");
     PcrScript *s = pcr_createScript("pcrscripttest.mod");
-    BOOST_CHECK(s);
+    BOOST_TEST(s);
     pcr_ScriptExecute(s);
-    BOOST_CHECK(pcr_ScriptError(s));
+    BOOST_TEST(pcr_ScriptError(s));
     std::string msg(pcr_ScriptErrorMessage(s));
-    BOOST_CHECK(msg.find("not_existant.map") != std::string::npos);
+    BOOST_TEST(msg.find("not_existant.map") != std::string::npos);
     pcr_destroyScript(s);
   }
 
   {  // execute
     com::write("piet.map = inp1s.map * 2;", "pcrscripttest.mod");
     PcrScript *s = pcr_createScript("pcrscripttest.mod");
-    BOOST_CHECK(s);
+    BOOST_TEST(s);
     pcr_ScriptExecute(s);
-    BOOST_CHECK(!pcr_ScriptError(s));
+    BOOST_TEST(!pcr_ScriptError(s));
     pcr_destroyScript(s);
-    BOOST_CHECK(com::pathExists("piet.map"));
+    BOOST_TEST(com::pathExists("piet.map"));
   }
 
   {  // execute again
     com::write("piet2.map = inp1s.map * 3;", "pcrscripttest.mod");
     PcrScript *s = pcr_createScript("pcrscripttest.mod");
-    BOOST_CHECK(s);
+    BOOST_TEST(s);
     if (!s)
       foo();  // supress not used message
     pcr_ScriptExecute(s);
-    BOOST_CHECK(!pcr_ScriptError(s));
+    BOOST_TEST(!pcr_ScriptError(s));
     pcr_destroyScript(s);
-    BOOST_CHECK(com::pathExists("piet2.map"));
+    BOOST_TEST(com::pathExists("piet2.map"));
   }
 }

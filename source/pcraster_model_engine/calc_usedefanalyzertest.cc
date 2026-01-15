@@ -111,53 +111,53 @@ BOOST_AUTO_TEST_CASE(testLinear)
   // rewriting in CFG as is the case with min/max/cover
   {
     UDA_TEST(test("a=lookupscalar(b);"));
-    BOOST_CHECK(test.lhs(0, true));
+    BOOST_TEST(test.lhs(0, true));
     JumpNode *j = test.jump("C/}");
-    BOOST_CHECK(j);
-    BOOST_CHECK(j->deletesOnForward().empty());
-    BOOST_CHECK(test.rhs(0, true));
+    BOOST_TEST(j);
+    BOOST_TEST(j->deletesOnForward().empty());
+    BOOST_TEST(test.rhs(0, true));
   }
   {
     UDA_TEST(test("a=lookupscalar(b);a=lookupscalar(b)"));
-    BOOST_CHECK(test.lhs(0, true));
-    BOOST_CHECK(test.rhs(0, false));
+    BOOST_TEST(test.lhs(0, true));
+    BOOST_TEST(test.rhs(0, false));
 
-    BOOST_CHECK(test.lhs(1, true));
-    BOOST_CHECK(test.rhs(1, true));
+    BOOST_TEST(test.lhs(1, true));
+    BOOST_TEST(test.rhs(1, true));
   }
   {
     UDA_TEST(test("a=lookupscalar(b,c,b);"));
-    BOOST_CHECK(test.lhs(0, true));
-    BOOST_CHECK(test.rhs(0, true, 0));
-    BOOST_CHECK(test.rhs(0, true, 1));
-    BOOST_CHECK(test.rhs(0, false, 2));
+    BOOST_TEST(test.lhs(0, true));
+    BOOST_TEST(test.rhs(0, true, 0));
+    BOOST_TEST(test.rhs(0, true, 1));
+    BOOST_TEST(test.rhs(0, false, 2));
   }
   {
     UDA_TEST(test("a=lookupscalar(b,c,b);"));
-    BOOST_CHECK(test.lhs(0, true));
-    BOOST_CHECK(test.rhs(0, true, 0));
-    BOOST_CHECK(test.rhs(0, true, 1));
-    BOOST_CHECK(test.rhs(0, false, 2));
+    BOOST_TEST(test.lhs(0, true));
+    BOOST_TEST(test.rhs(0, true, 0));
+    BOOST_TEST(test.rhs(0, true, 1));
+    BOOST_TEST(test.rhs(0, false, 2));
   }
   {
     UDA_TEST(test("a=lookupscalar(b,c,b);a=lookupscalar(b)"));
-    BOOST_CHECK(test.lhs(0, true));
-    BOOST_CHECK(test.rhs(0, false, 0));
-    BOOST_CHECK(test.rhs(0, true, 1));
-    BOOST_CHECK(test.rhs(0, false, 2));
+    BOOST_TEST(test.lhs(0, true));
+    BOOST_TEST(test.rhs(0, false, 0));
+    BOOST_TEST(test.rhs(0, true, 1));
+    BOOST_TEST(test.rhs(0, false, 2));
 
-    BOOST_CHECK(test.lhs(0, true));
-    BOOST_CHECK(test.rhs(1, true));
+    BOOST_TEST(test.lhs(0, true));
+    BOOST_TEST(test.rhs(1, true));
   }
   {
     UDA_TEST(test("a=lookupscalar(b,c,b);a=lookupscalar(a)"));
-    BOOST_CHECK(test.lhs(0, false));
-    BOOST_CHECK(test.rhs(0, true, 0));
-    BOOST_CHECK(test.rhs(0, true, 1));
-    BOOST_CHECK(test.rhs(0, false, 2));
+    BOOST_TEST(test.lhs(0, false));
+    BOOST_TEST(test.rhs(0, true, 0));
+    BOOST_TEST(test.rhs(0, true, 1));
+    BOOST_TEST(test.rhs(0, false, 2));
 
-    BOOST_CHECK(test.lhs(1, true));
-    BOOST_CHECK(test.rhs(1, true));
+    BOOST_TEST(test.lhs(1, true));
+    BOOST_TEST(test.rhs(1, true));
   }
 }
 
@@ -179,25 +179,25 @@ BOOST_AUTO_TEST_CASE(testLoops)
     UDA_TEST(test(code));
 
     // a 1
-    BOOST_CHECK(test.par("C/b/0/a/</p", false));
+    BOOST_TEST(test.par("C/b/0/a/</p", false));
     // a 2
-    BOOST_CHECK(test.par("C/b/1/b/0/a/>/,/0/p", true));
+    BOOST_TEST(test.par("C/b/1/b/0/a/>/,/0/p", true));
     // a 3
-    BOOST_CHECK(test.par("C/b/1/b/1/a/</p", false));
+    BOOST_TEST(test.par("C/b/1/b/1/a/</p", false));
     // a 4
-    BOOST_CHECK(test.par("C/b/2/a/>/,/0/p", true));
+    BOOST_TEST(test.par("C/b/2/a/>/,/0/p", true));
 
     // b 1
-    BOOST_CHECK(test.par("C/b/1/b/0/a/</p", false));
+    BOOST_TEST(test.par("C/b/1/b/0/a/</p", false));
 
     // b 2
-    BOOST_CHECK(test.par("C/b/1/b/1/a/>/,/0/p", true));
+    BOOST_TEST(test.par("C/b/1/b/1/a/>/,/0/p", true));
 
     // b 3
-    BOOST_CHECK(test.par("C/b/2/a/<//p", true));
+    BOOST_TEST(test.par("C/b/2/a/<//p", true));
 
     JumpNode *j = test.jump("C/b/1/}");
-    BOOST_CHECK(j->deletesOnForward().empty());
+    BOOST_TEST(j->deletesOnForward().empty());
   }
 
   {  // no use of a AFTER repeat
@@ -211,22 +211,22 @@ BOOST_AUTO_TEST_CASE(testLoops)
     UDA_TEST(test(code));
 
     // a 1
-    BOOST_CHECK(test.par("C/b/0/a/</p", false));
+    BOOST_TEST(test.par("C/b/0/a/</p", false));
     // a 2
-    BOOST_CHECK(test.par("C/b/1/b/0/a/>/,/0/p", true));
+    BOOST_TEST(test.par("C/b/1/b/0/a/>/,/0/p", true));
     // a 3
-    BOOST_CHECK(test.par("C/b/1/b/1/a/</p", false));
+    BOOST_TEST(test.par("C/b/1/b/1/a/</p", false));
 
     // b 1
-    BOOST_CHECK(test.par("C/b/1/b/0/a/</p", false));
+    BOOST_TEST(test.par("C/b/1/b/0/a/</p", false));
 
     // b 2
-    BOOST_CHECK(test.par("C/b/1/b/1/a/>/,/0/p", true));
+    BOOST_TEST(test.par("C/b/1/b/1/a/>/,/0/p", true));
 
     JumpNode *j = test.jump("C/b/1/}");
     // should have only a (not b)
-    BOOST_CHECK(j->deletesOnForward().count("a"));
-    BOOST_CHECK(!j->deletesOnForward().count("b"));
+    BOOST_TEST(j->deletesOnForward().count("a"));
+    BOOST_TEST(!j->deletesOnForward().count("b"));
   }
 }
 
@@ -243,14 +243,14 @@ BOOST_AUTO_TEST_CASE(testBugs)
     Set i;
     i.insert("inp1s.map");
     i.insert("inp5s.map");
-    BOOST_CHECK(test.input(i));
+    BOOST_TEST(test.input(i));
   }
   {
     // Is until condition properly cleaned
     const char *code = "CF=inp1s.map;\n"
                        "repeat { report tmpUseDef.res=CF+4*(2-CF); } until (CF);\n";
     UDA_TEST(test(code));
-    BOOST_CHECK(test.par("C/b/1/r/c/p", false));
+    BOOST_TEST(test.par("C/b/1/r/c/p", false));
   }
   {
     const char *code = "timer 1 2 1; \n "
@@ -264,33 +264,33 @@ BOOST_AUTO_TEST_CASE(testBugs)
     UDA_TEST(test(code));
     // should delete when Dynamic is ready
     JumpNode *j = test.jump("C/b/l/1/}");
-    BOOST_CHECK(j);
-    BOOST_CHECK(j->deletesOnForward().count("inpldd.map"));
-    BOOST_CHECK(!j->deletesOnForward().count("tmp.res"));
+    BOOST_TEST(j);
+    BOOST_TEST(j->deletesOnForward().count("inpldd.map"));
+    BOOST_TEST(!j->deletesOnForward().count("tmp.res"));
   }
   {
     const char *code = " timer 1 3 1; initial tmp.res=1; dynamic tmp.res = accuflux(inpldd.map,1); \n";
     UDA_TEST(test(code));
     // should delete when DynamicSection is ready
     JumpNode *ds = test.jump("C/b/l/1/}");
-    BOOST_CHECK(ds);
-    BOOST_CHECK(ds->deletesOnForward().count("inpldd.map"));
+    BOOST_TEST(ds);
+    BOOST_TEST(ds->deletesOnForward().count("inpldd.map"));
     // hence not in Code "exit"
     JumpNode *cs = test.jump("C/}");
-    BOOST_CHECK(cs);
-    BOOST_CHECK(!cs->deletesOnForward().count("inpldd.map"));
+    BOOST_TEST(cs);
+    BOOST_TEST(!cs->deletesOnForward().count("inpldd.map"));
   }
   {
     const char *code = "timer 1 3 1; dynamic report tmp.res=time();";
     UDA_TEST(test(code));
     JumpNode *ds = test.jump("C/b/0}");
-    BOOST_CHECK(ds);
-    BOOST_CHECK(!ds->deletesOnForward().count("tmp.res"));
+    BOOST_TEST(ds);
+    BOOST_TEST(!ds->deletesOnForward().count("tmp.res"));
     JumpNode *j = test.jump("C/b/0}");
-    BOOST_CHECK(!j->deletesOnForward().count("tmp.res"));
+    BOOST_TEST(!j->deletesOnForward().count("tmp.res"));
     auto *p = test.cast<ASTPar>("C/b/0/b/l/0/a/</p");
-    BOOST_CHECK(p);
-    BOOST_CHECK(p->lastUse());
+    BOOST_TEST(p);
+    BOOST_TEST(p->lastUse());
   }
 }
 
@@ -312,11 +312,11 @@ BOOST_AUTO_TEST_CASE(testXMLReflection)
                        " until m le 0;";
     UDA_TEST(test(code));
     JumpNode *dynamicJump = test.jump("C/b/0/}");
-    BOOST_CHECK(dynamicJump);
-    BOOST_CHECK(dynamicJump->deletesOnForward() == mz);
+    BOOST_TEST(dynamicJump);
+    BOOST_TEST(dynamicJump->deletesOnForward() == mz);
     JumpNode *repeatJump = test.jump("C/b/0/b/l/0/}");
-    BOOST_CHECK(repeatJump);
-    BOOST_CHECK(repeatJump->deletesOnForward().empty());
+    BOOST_TEST(repeatJump);
+    BOOST_TEST(repeatJump->deletesOnForward().empty());
   }
 
   {
@@ -327,8 +327,8 @@ BOOST_AUTO_TEST_CASE(testXMLReflection)
                        " until m le 0;";
     UDA_TEST(test(code));
     JumpNode *jump = test.jump("C/b/0/}");
-    BOOST_CHECK(jump);
-    BOOST_CHECK(jump->deletesOnForward() == mz);
+    BOOST_TEST(jump);
+    BOOST_TEST(jump->deletesOnForward() == mz);
   }
 }
 
@@ -339,19 +339,19 @@ BOOST_AUTO_TEST_CASE(testIOTypes)
   {
     ASTCFGTester const test(StringParser::createCodeAsNode("a=0"));
     std::map<std::string, IOType> r = ioTypes(test.cfg());
-    BOOST_CHECK(r.count("a"));
-    BOOST_CHECK(r["a"].input() == pcrxml::ModelInputType::None);
-    BOOST_CHECK(r["a"].output() == pcrxml::ModelOutputType::Initial);
+    BOOST_TEST(r.count("a"));
+    BOOST_TEST(r["a"].input() == pcrxml::ModelInputType::None);
+    BOOST_TEST(r["a"].output() == pcrxml::ModelOutputType::Initial);
   }
   {
     ASTCFGTester const test(StringParser::createCodeAsNode("a=b"));
     std::map<std::string, IOType> r = ioTypes(test.cfg());
-    BOOST_CHECK(r.count("a"));
-    BOOST_CHECK(r["a"].input() == pcrxml::ModelInputType::None);
-    BOOST_CHECK(r["a"].output() == pcrxml::ModelOutputType::Initial);
-    BOOST_CHECK(r.count("b"));
-    BOOST_CHECK(r["b"].input() == pcrxml::ModelInputType::Initial);
-    BOOST_CHECK(r["b"].output() == pcrxml::ModelOutputType::Fixed);
+    BOOST_TEST(r.count("a"));
+    BOOST_TEST(r["a"].input() == pcrxml::ModelInputType::None);
+    BOOST_TEST(r["a"].output() == pcrxml::ModelOutputType::Initial);
+    BOOST_TEST(r.count("b"));
+    BOOST_TEST(r["b"].input() == pcrxml::ModelInputType::Initial);
+    BOOST_TEST(r["b"].output() == pcrxml::ModelOutputType::Fixed);
   }
   {
     ASTCFGTester const test(StringParser::createCodeAsNode("a=0;         \n"
@@ -359,42 +359,42 @@ BOOST_AUTO_TEST_CASE(testIOTypes)
                                                            "a=b*2;       \n"
                                                            "} until (1); \n"));
     std::map<std::string, IOType> r = ioTypes(test.cfg());
-    BOOST_CHECK(r.count("a"));
-    BOOST_CHECK(r["a"].input() == pcrxml::ModelInputType::None);
-    BOOST_CHECK(r["a"].output() == pcrxml::ModelOutputType::Initial);
-    BOOST_CHECK(r.count("b"));
-    BOOST_CHECK(r["b"].input() == pcrxml::ModelInputType::Initial);
-    BOOST_CHECK(r["b"].output() == pcrxml::ModelOutputType::Fixed);
+    BOOST_TEST(r.count("a"));
+    BOOST_TEST(r["a"].input() == pcrxml::ModelInputType::None);
+    BOOST_TEST(r["a"].output() == pcrxml::ModelOutputType::Initial);
+    BOOST_TEST(r.count("b"));
+    BOOST_TEST(r["b"].input() == pcrxml::ModelInputType::Initial);
+    BOOST_TEST(r["b"].output() == pcrxml::ModelOutputType::Fixed);
   }
   {
     ASTCFGTester const test(StringParser::createCodeAsNode("initial  dynamic a=b"));
     std::map<std::string, IOType> r = ioTypes(test.cfg());
-    BOOST_CHECK(r.count("a"));
-    BOOST_CHECK(r["a"].input() == pcrxml::ModelInputType::None);
-    BOOST_CHECK(r["a"].output() == pcrxml::ModelOutputType::Dynamic);
-    BOOST_CHECK(r.count("b"));
-    BOOST_CHECK(r["b"].input() == pcrxml::ModelInputType::Dynamic);
-    BOOST_CHECK(r["b"].output() == pcrxml::ModelOutputType::Fixed);
+    BOOST_TEST(r.count("a"));
+    BOOST_TEST(r["a"].input() == pcrxml::ModelInputType::None);
+    BOOST_TEST(r["a"].output() == pcrxml::ModelOutputType::Dynamic);
+    BOOST_TEST(r.count("b"));
+    BOOST_TEST(r["b"].input() == pcrxml::ModelInputType::Dynamic);
+    BOOST_TEST(r["b"].output() == pcrxml::ModelOutputType::Fixed);
   }
   {
     ASTCFGTester const test(StringParser::createCodeAsNode("initial  dynamic a=b; b=sqrt(a);"));
     std::map<std::string, IOType> r = ioTypes(test.cfg());
-    BOOST_CHECK(r.count("a"));
-    BOOST_CHECK(r["a"].input() == pcrxml::ModelInputType::None);
-    BOOST_CHECK(r["a"].output() == pcrxml::ModelOutputType::Dynamic);
-    BOOST_CHECK(r.count("b"));
-    BOOST_CHECK(r["b"].input() == pcrxml::ModelInputType::Initial);
-    BOOST_CHECK(r["b"].output() == pcrxml::ModelOutputType::Dynamic);
+    BOOST_TEST(r.count("a"));
+    BOOST_TEST(r["a"].input() == pcrxml::ModelInputType::None);
+    BOOST_TEST(r["a"].output() == pcrxml::ModelOutputType::Dynamic);
+    BOOST_TEST(r.count("b"));
+    BOOST_TEST(r["b"].input() == pcrxml::ModelInputType::Initial);
+    BOOST_TEST(r["b"].output() == pcrxml::ModelOutputType::Dynamic);
   }
   {
     ASTCFGTester const test(StringParser::createCodeAsNode("initial b=3;  dynamic a=b;"));
     std::map<std::string, IOType> r = ioTypes(test.cfg());
-    BOOST_CHECK(r.count("a"));
-    BOOST_CHECK(r["a"].input() == pcrxml::ModelInputType::None);
-    BOOST_CHECK(r["a"].output() == pcrxml::ModelOutputType::Dynamic);
-    BOOST_CHECK(r.count("b"));
-    BOOST_CHECK(r["b"].input() == pcrxml::ModelInputType::None);
-    BOOST_CHECK(r["b"].output() == pcrxml::ModelOutputType::Initial);
+    BOOST_TEST(r.count("a"));
+    BOOST_TEST(r["a"].input() == pcrxml::ModelInputType::None);
+    BOOST_TEST(r["a"].output() == pcrxml::ModelOutputType::Dynamic);
+    BOOST_TEST(r.count("b"));
+    BOOST_TEST(r["b"].input() == pcrxml::ModelInputType::None);
+    BOOST_TEST(r["b"].output() == pcrxml::ModelOutputType::Initial);
   }
   {
     //ASTNode *e=StringParser::createExpr("a+a"); WORKS!

@@ -14,15 +14,15 @@ BOOST_AUTO_TEST_CASE(testDefault)
 
   RunDirectory r;
   const std::string s1("fileName");
-  BOOST_CHECK(s1 == r.inPath(found, s1));
-  BOOST_CHECK(!found);
+  BOOST_TEST(s1 == r.inPath(found, s1));
+  BOOST_TEST(!found);
   r.setRunDirectory("", "");
-  BOOST_CHECK(s1 == r.inPath(found, s1));
-  BOOST_CHECK(!found);
+  BOOST_TEST(s1 == r.inPath(found, s1));
+  BOOST_TEST(!found);
 
   const std::string s2("mayContainDirPartInDefaultScheme/fileName");
-  BOOST_CHECK(s2 == r.inPath(found, s2));
-  BOOST_CHECK(!found);
+  BOOST_TEST(s2 == r.inPath(found, s2));
+  BOOST_TEST(!found);
 
   // test abs path in as outPath is allowed
   com::PathName af("absFile");
@@ -40,11 +40,11 @@ BOOST_AUTO_TEST_CASE(testRunDir)
 
   /*
   bool found;
-  BOOST_CHECK(s1 == r.inPath(found,s1));
-  BOOST_CHECK(!found);
+  BOOST_TEST(s1 == r.inPath(found,s1));
+  BOOST_TEST(!found);
   com::PathName o1(dir);
   o1+=s1;
-  BOOST_CHECK(o1.toString() == r.outPath(s1));
+  BOOST_TEST(o1.toString() == r.outPath(s1));
 */
 }
 
@@ -75,12 +75,12 @@ BOOST_AUTO_TEST_CASE(testSearchPath)
   pnFf.makeAbsolute();
   com::create(pnFf);
 
-  BOOST_CHECK(pnFf.toString() == r.inPath(found, "inFile"));
-  BOOST_CHECK(found);
+  BOOST_TEST(pnFf.toString() == r.inPath(found, "inFile"));
+  BOOST_TEST(found);
 
   std::string const fne("inFileNotExistant");
-  BOOST_CHECK(fne == r.inPath(found, fne));
-  BOOST_CHECK(!found);
+  BOOST_TEST(fne == r.inPath(found, fne));
+  BOOST_TEST(!found);
 }
 
 BOOST_AUTO_TEST_CASE(testOutputFilePath)
@@ -90,7 +90,7 @@ BOOST_AUTO_TEST_CASE(testOutputFilePath)
   const std::string s1("fileName");
   {
     RunDirectory const rd;
-    BOOST_CHECK(s1 == rd.outputFilePath(s1));
+    BOOST_TEST(s1 == rd.outputFilePath(s1));
   }
 
   {
@@ -98,43 +98,43 @@ BOOST_AUTO_TEST_CASE(testOutputFilePath)
     std::string const dir("rundir_baseOfRunDirNotExistantIsOk");
     RunDirectory const rd(dir);
     com::PathName o1(dir);
-    BOOST_CHECK(!com::exists(dir));
+    BOOST_TEST(!com::exists(dir));
     o1 += s1;
-    BOOST_CHECK(o1.toString() == rd.outputFilePath(s1));
-    BOOST_CHECK(com::exists(dir));
+    BOOST_TEST(o1.toString() == rd.outputFilePath(s1));
+    BOOST_TEST(com::exists(dir));
     com::PathInfo const pi(dir);
-    BOOST_CHECK(pi.isDirectory());
+    BOOST_TEST(pi.isDirectory());
 
     com::create(rd.outputFilePath(s1));
-    BOOST_CHECK(com::PathInfo(o1).isFile());
+    BOOST_TEST(com::PathInfo(o1).isFile());
 
     // test abs path as outputFilePath is allowed
     // NOT in -r ?
     com::PathName af("absFile");
     af.makeAbsolute();
 
-    BOOST_CHECK(af.toString() == rd.outputFilePath(af.toString()));
+    BOOST_TEST(af.toString() == rd.outputFilePath(af.toString()));
   }
   /*
  *try {
  *   r.outputFilePath(af.toString());
- *   BOOST_CHECK(exceptionCatched);
+ *   BOOST_TEST(exceptionCatched);
  *} catch (const com::Exception& e) {
  *   exceptionCatched=true;
- *  // BOOST_CHECK(e.messages().find("-r") != std::string::npos);
- *  // BOOST_CHECK(e.messages().find("part") != std::string::npos);
+ *  // BOOST_TEST(e.messages().find("-r") != std::string::npos);
+ *  // BOOST_TEST(e.messages().find("part") != std::string::npos);
  *}
 */
   bool exceptionCatched = false;
   try {
     RunDirectory const rd("NonBasePartOfRunDirMustExist/base");
     std::string const s = rd.outputFilePath("failureExpected");
-    BOOST_CHECK(exceptionCatched);
+    BOOST_TEST(exceptionCatched);
   } catch (const com::Exception & /*e*/) {
     exceptionCatched = true;
-    //BOOST_CHECK(e.messages().find("-r") != std::string::npos);
+    //BOOST_TEST(e.messages().find("-r") != std::string::npos);
   }
-  BOOST_CHECK(exceptionCatched);
+  BOOST_TEST(exceptionCatched);
 }
 
 /*

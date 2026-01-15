@@ -88,61 +88,61 @@ BOOST_AUTO_TEST_CASE(test)
     // a = 0
 
     // a=0 only assignments, not a block
-    BOOST_CHECK(astCast<ASTStat>(test.ast(), "C/b/l/0"));
+    BOOST_TEST(astCast<ASTStat>(test.ast(), "C/b/l/0"));
     auto *p(astCast<ASTPar>(test.ast(), "C/b/l/0/a/<"));
-    BOOST_CHECK(p);
-    BOOST_CHECK(p->name() == "a");
-    BOOST_CHECK(!p->lastUse());
+    BOOST_TEST(p);
+    BOOST_TEST(p->name() == "a");
+    BOOST_TEST(!p->lastUse());
 
     // a=maptotal(g)+3;
-    BOOST_CHECK(astCast<ASTStat>(test.ast(), "C/b/l/3"));
+    BOOST_TEST(astCast<ASTStat>(test.ast(), "C/b/l/3"));
     // y=z only assignments
-    BOOST_CHECK(astCast<ASTStat>(test.ast(), "C/b/l/6"));
+    BOOST_TEST(astCast<ASTStat>(test.ast(), "C/b/l/6"));
 
     // P0
     b = test.block("C/b/l/1/r/b/0/P");
-    BOOST_CHECK(b->rangeText() == "BLOCK [line '5:1',line '6:1']");
-    BOOST_CHECK(b->d_size == 2);
-    BOOST_CHECK(b->input() == aS);
-    BOOST_CHECK(b->local() == xS);
+    BOOST_TEST(b->rangeText() == "BLOCK [line '5:1',line '6:1']");
+    BOOST_TEST(b->d_size == 2);
+    BOOST_TEST(b->input() == aS);
+    BOOST_TEST(b->local() == xS);
     // a = x*2
     p = astCast<ASTPar>(b, "P/R/b/l/1/a/<");
-    BOOST_CHECK(p);
-    BOOST_CHECK(p->name() == "a");
-    BOOST_CHECK(!p->lastUse());
-    BOOST_CHECK(b->output() == aS);
+    BOOST_TEST(p);
+    BOOST_TEST(p->name() == "a");
+    BOOST_TEST(!p->lastUse());
+    BOOST_TEST(b->output() == aS);
 
     // P1
     b = test.block("C/b/l/2/P");
     //std::cout << "P1 " << *b << std::endl;
-    BOOST_CHECK(b->rangeText() == "BLOCK [line '8:1',line '8:1']");
-    BOOST_CHECK(b->d_size == 1);
-    BOOST_CHECK(b->input() == abS);
-    BOOST_CHECK(b->local() == emptyS);
-    BOOST_CHECK(b->output() == emptyS);  // since a is redefined after this block
+    BOOST_TEST(b->rangeText() == "BLOCK [line '8:1',line '8:1']");
+    BOOST_TEST(b->d_size == 1);
+    BOOST_TEST(b->input() == abS);
+    BOOST_TEST(b->local() == emptyS);
+    BOOST_TEST(b->output() == emptyS);  // since a is redefined after this block
 
     // P2
     b = test.block("C/b/l/4/P");
     //std::cout << "P2 " << *b << std::endl;
-    BOOST_CHECK(b->rangeText() == "BLOCK [line '10:1',line '12:1']");
-    BOOST_CHECK(b->d_size == 3);
-    BOOST_CHECK(b->input() == eS);
-    BOOST_CHECK(b->local() == emptyS);
-    BOOST_CHECK(b->output() == dS);
+    BOOST_TEST(b->rangeText() == "BLOCK [line '10:1',line '12:1']");
+    BOOST_TEST(b->d_size == 3);
+    BOOST_TEST(b->input() == eS);
+    BOOST_TEST(b->local() == emptyS);
+    BOOST_TEST(b->output() == dS);
   }
   {
     const char *code = "a=maptotal(b)+3;";
     CASE(test(code));
-    BOOST_CHECK(astCast<ASTStat>(test.ast(), "C/b/l/0"));
+    BOOST_TEST(astCast<ASTStat>(test.ast(), "C/b/l/0"));
   }
   {
     const char *code = "a=b*2-a;z=maptotal(a)";
     CASE(test(code));
     b = test.block("C/b/l/0/P");
-    BOOST_CHECK(b->rangeText() == "BLOCK [line '1:1',line '1:1']");
-    BOOST_CHECK(b->d_size == 1);
-    BOOST_CHECK(b->input() == abS);
-    BOOST_CHECK(b->local() == emptyS);
-    BOOST_CHECK(b->output() == aS);
+    BOOST_TEST(b->rangeText() == "BLOCK [line '1:1',line '1:1']");
+    BOOST_TEST(b->d_size == 1);
+    BOOST_TEST(b->input() == abS);
+    BOOST_TEST(b->local() == emptyS);
+    BOOST_TEST(b->output() == aS);
   }
 }

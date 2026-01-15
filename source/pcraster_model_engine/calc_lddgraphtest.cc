@@ -36,14 +36,14 @@ BOOST_AUTO_TEST_CASE(testSimple)
   for (auto &i : conv) {
     LddGraph ld(lddField, *i);
 
-    BOOST_CHECK(ld.d_catchments.size() == 1);
-    BOOST_CHECK(ld.d_catchments[0].d_pitId == 1);
+    BOOST_TEST(ld.d_catchments.size() == 1);
+    BOOST_TEST(ld.d_catchments[0].d_pitId == 1);
 
-    BOOST_CHECK(ld.d_edge.size() == 2);
-    BOOST_CHECK(ld.d_edge[1].source() == 2);
-    BOOST_CHECK(ld.d_edge[1].target() == 1);
-    BOOST_CHECK(ld.d_edge[0].source() == 0);
-    BOOST_CHECK(ld.d_edge[0].target() == 1);
+    BOOST_TEST(ld.d_edge.size() == 2);
+    BOOST_TEST(ld.d_edge[1].source() == 2);
+    BOOST_TEST(ld.d_edge[1].target() == 1);
+    BOOST_TEST(ld.d_edge[0].source() == 0);
+    BOOST_TEST(ld.d_edge[0].target() == 1);
   }
 }
 
@@ -60,14 +60,14 @@ BOOST_AUTO_TEST_CASE(testUpstream)
   REAL4 resultC[8] = {9, 9, 9, 9, 9, 9, 9, 9};
   LddGraph ld(lddField, aip);
 
-  BOOST_CHECK(ld.d_edge.size() == 7);
-  BOOST_CHECK(ld.d_catchments.size() == 1);
+  BOOST_TEST(ld.d_edge.size() == 7);
+  BOOST_TEST(ld.d_catchments.size() == 1);
 
   resultC[ld.d_catchments[0].d_pitId] = 0;
   for (auto i = ld.upBegin(); i != ld.upEnd(); ++i) {
     resultC[i->up()] = resultC[i->down()] + 1;
   }
-  BOOST_CHECK(std::equal(resultC, resultC + 8, resultR));
+  BOOST_TEST(std::equal(resultC, resultC + 8, resultR));
 }
 
 BOOST_AUTO_TEST_CASE(testDownstreamIterator)
@@ -84,14 +84,14 @@ BOOST_AUTO_TEST_CASE(testDownstreamIterator)
   REAL4 resultC[8] = {0, 0, 0, 0, 0, 0, 0, 0};
   LddGraph ld(lddField, aip);
 
-  BOOST_CHECK(ld.d_edge.size() == 7);
-  BOOST_CHECK(ld.d_catchments.size() == 1);
+  BOOST_TEST(ld.d_edge.size() == 7);
+  BOOST_TEST(ld.d_catchments.size() == 1);
 
   resultC[ld.d_catchments[0].d_pitId] = 0;
   for (auto i = ld.downBegin(); i != ld.downEnd(); ++i) {
     resultC[i->down()] += resultC[i->up()] + 1;
   }
-  BOOST_CHECK(std::equal(resultC, resultC + 8, resultR));
+  BOOST_TEST(std::equal(resultC, resultC + 8, resultR));
 }
 
 //! \todo should go into RasterGraphTest
@@ -108,10 +108,10 @@ BOOST_AUTO_TEST_CASE(testInitField)
   LddGraph const ld(lddField, aip);
 
   ld.initField<REAL4>(result, 4.0);
-  BOOST_CHECK(result[0] == 4);
-  BOOST_CHECK(result[3] == 4);
-  BOOST_CHECK(result[6] == 4);
-  BOOST_CHECK(pcr::isMV(result[4]));
+  BOOST_TEST(result[0] == 4);
+  BOOST_TEST(result[3] == 4);
+  BOOST_TEST(result[6] == 4);
+  BOOST_TEST(pcr::isMV(result[4]));
 }
 
 BOOST_AUTO_TEST_CASE(testFieldIdToPitId)
@@ -126,12 +126,12 @@ BOOST_AUTO_TEST_CASE(testFieldIdToPitId)
     // downstream traversal
     LddGraph ld(lddField,aip);
 
-    BOOST_CHECK(ld.d_edge.size()        ==7);
-    BOOST_CHECK(ld.d_catchments.size() ==1);
-    BOOST_CHECK(ld.d_catchments[0].d_pitId=2);
+    BOOST_TEST(ld.d_edge.size()        ==7);
+    BOOST_TEST(ld.d_catchments.size() ==1);
+    BOOST_TEST(ld.d_catchments[0].d_pitId=2);
 
     for(size_t i =0; i < 8; ++i)
-      BOOST_CHECK(ld.d_fieldIdToPitId[i] == 0);
+      BOOST_TEST(ld.d_fieldIdToPitId[i] == 0);
   }
 
   {
@@ -143,19 +143,19 @@ BOOST_AUTO_TEST_CASE(testFieldIdToPitId)
     // downstream traversal
     LddGraph ld(lddField,aip);
 
-    BOOST_CHECK(ld.d_edge.size()          ==5);
-    BOOST_CHECK(ld.d_catchments.size()    ==2);
-    BOOST_CHECK(ld.d_catchments[0].d_pitId ==2);
-    BOOST_CHECK(ld.d_catchments[1].d_pitId ==5);
+    BOOST_TEST(ld.d_edge.size()          ==5);
+    BOOST_TEST(ld.d_catchments.size()    ==2);
+    BOOST_TEST(ld.d_catchments[0].d_pitId ==2);
+    BOOST_TEST(ld.d_catchments[1].d_pitId ==5);
 
-    BOOST_CHECK(ld.d_fieldIdToPitId(0) >= 2);
-    BOOST_CHECK(ld.d_fieldIdToPitId(1) == 0);
-    BOOST_CHECK(ld.d_fieldIdToPitId(2) == 0);
-    BOOST_CHECK(ld.d_fieldIdToPitId(3) == 0);
-    BOOST_CHECK(ld.d_fieldIdToPitId(4) == 1);
-    BOOST_CHECK(ld.d_fieldIdToPitId(5) == 1);
-    BOOST_CHECK(ld.d_fieldIdToPitId(6) == 0);
-    BOOST_CHECK(ld.d_fieldIdToPitId(7) == 0);
+    BOOST_TEST(ld.d_fieldIdToPitId(0) >= 2);
+    BOOST_TEST(ld.d_fieldIdToPitId(1) == 0);
+    BOOST_TEST(ld.d_fieldIdToPitId(2) == 0);
+    BOOST_TEST(ld.d_fieldIdToPitId(3) == 0);
+    BOOST_TEST(ld.d_fieldIdToPitId(4) == 1);
+    BOOST_TEST(ld.d_fieldIdToPitId(5) == 1);
+    BOOST_TEST(ld.d_fieldIdToPitId(6) == 0);
+    BOOST_TEST(ld.d_fieldIdToPitId(7) == 0);
   }
 */
 }
@@ -171,8 +171,8 @@ BOOST_AUTO_TEST_CASE(testDownstream)
                                      // 0, 1, 2, 3,
                                      // 4, 5, 6, 7
   LddGraph const ld(lddField, aip);
-  BOOST_CHECK(ld.d_edge.size() == 7);
-  BOOST_CHECK(ld.d_catchments.size() == 1);
+  BOOST_TEST(ld.d_edge.size() == 7);
+  BOOST_TEST(ld.d_catchments.size() == 1);
 }
 
 BOOST_AUTO_TEST_CASE(testUnsound)
@@ -188,7 +188,7 @@ BOOST_AUTO_TEST_CASE(testUnsound)
   } catch (const LddGraph::Unsound &) {
     catched = true;
   }
-  BOOST_CHECK(catched);
+  BOOST_TEST(catched);
 }
 
 namespace calc
@@ -226,15 +226,15 @@ struct DownstreamVisitorTester : public DownstreamVisitor {
 
   void finishVertex(size_t v) override
   {
-    BOOST_CHECK(d_v.size() > d_vertexCount);
-    BOOST_CHECK(d_v[d_vertexCount] == v);
+    BOOST_TEST(d_v.size() > d_vertexCount);
+    BOOST_TEST(d_v[d_vertexCount] == v);
     d_vertexCount++;
 
     // must be set
-    BOOST_CHECK(d_pitIdOfCurrentCatchment != 10);
+    BOOST_TEST(d_pitIdOfCurrentCatchment != 10);
 
     // set only once
-    BOOST_CHECK(d_pitOfMyCatchment[v] == 10);
+    BOOST_TEST(d_pitOfMyCatchment[v] == 10);
 
     // set
     d_pitOfMyCatchment[v] = d_pitIdOfCurrentCatchment;
@@ -242,10 +242,10 @@ struct DownstreamVisitorTester : public DownstreamVisitor {
 
   void visitEdge(size_t up, size_t down) override
   {
-    BOOST_CHECK(d_up.size() > d_edgeCount);
-    BOOST_CHECK(d_up[d_edgeCount] == up);
-    BOOST_CHECK(d_down.size() > d_edgeCount);
-    BOOST_CHECK(d_down[d_edgeCount] == down);
+    BOOST_TEST(d_up.size() > d_edgeCount);
+    BOOST_TEST(d_up[d_edgeCount] == up);
+    BOOST_TEST(d_down.size() > d_edgeCount);
+    BOOST_TEST(d_down[d_edgeCount] == down);
     d_edgeCount++;
   }
 
@@ -273,38 +273,38 @@ BOOST_AUTO_TEST_CASE(testMVCtor)
                        MV_UINT1, 6, 6, 8};  // .  ->->|^
                                             //        4,5,6,7
   LddGraph in(lddField, aip);
-  BOOST_CHECK(in.d_catchments.size() == 1);
-  BOOST_CHECK(in.d_catchments[0].d_pitId == 2);
+  BOOST_TEST(in.d_catchments.size() == 1);
+  BOOST_TEST(in.d_catchments[0].d_pitId == 2);
 
-  BOOST_CHECK(in.d_edge.size() == 6);
+  BOOST_TEST(in.d_edge.size() == 6);
   // upstream order, breadth first
-  BOOST_CHECK(in.d_edge[0].source() == 1);
-  BOOST_CHECK(in.d_edge[0].target() == 2);
-  BOOST_CHECK(in.d_edge[1].source() == 3);
-  BOOST_CHECK(in.d_edge[1].target() == 2);
-  BOOST_CHECK(in.d_edge[4].source() == 5);
-  BOOST_CHECK(in.d_edge[4].target() == 6);
-  BOOST_CHECK(in.d_edge[5].source() == 0);
-  BOOST_CHECK(in.d_edge[5].target() == 1);
+  BOOST_TEST(in.d_edge[0].source() == 1);
+  BOOST_TEST(in.d_edge[0].target() == 2);
+  BOOST_TEST(in.d_edge[1].source() == 3);
+  BOOST_TEST(in.d_edge[1].target() == 2);
+  BOOST_TEST(in.d_edge[4].source() == 5);
+  BOOST_TEST(in.d_edge[4].target() == 6);
+  BOOST_TEST(in.d_edge[5].source() == 0);
+  BOOST_TEST(in.d_edge[5].target() == 1);
 
-  BOOST_CHECK(in.d_mv.size() == 1);
-  BOOST_CHECK(in.d_mv[0] == 4);
+  BOOST_TEST(in.d_mv.size() == 1);
+  BOOST_TEST(in.d_mv[0] == 4);
 
   {
     boost::dynamic_bitset<> isMV(8);
     // all init to 0
-    BOOST_CHECK(isMV.none());
+    BOOST_TEST(isMV.none());
     isMV[5] = 1;
     LddGraph l(in, isMV, true);
 
-    BOOST_CHECK(l.d_edge.size() == 2);
+    BOOST_TEST(l.d_edge.size() == 2);
     // upstream order
-    BOOST_CHECK(l.d_edge[0].source() == 1);
-    BOOST_CHECK(l.d_edge[0].target() == 2);
-    BOOST_CHECK(l.d_edge[1].source() == 0);
-    BOOST_CHECK(l.d_edge[1].target() == 1);
+    BOOST_TEST(l.d_edge[0].source() == 1);
+    BOOST_TEST(l.d_edge[0].target() == 2);
+    BOOST_TEST(l.d_edge[1].source() == 0);
+    BOOST_TEST(l.d_edge[1].target() == 1);
 
-    BOOST_CHECK(l.d_mv.size() == 5);
+    BOOST_TEST(l.d_mv.size() == 5);
   }
   {  // remove only the pit
     boost::dynamic_bitset<> isMV(8);
@@ -313,23 +313,23 @@ BOOST_AUTO_TEST_CASE(testMVCtor)
     LddGraph l1(in, isMV, true);
 
     // - minus the 2 edges to the pit
-    BOOST_CHECK(l1.d_edge.size() == in.d_edge.size() - 2);
+    BOOST_TEST(l1.d_edge.size() == in.d_edge.size() - 2);
     // catchment with invalid pidId
-    BOOST_CHECK(!l1.d_catchments.empty());
-    BOOST_CHECK(l1.invalid(l1.d_catchments[0].d_pitId));
-    BOOST_CHECK(l1.d_mv.size() == 2);
-    BOOST_CHECK(l1.d_mv[0] == 4);
-    BOOST_CHECK(l1.d_mv[1] == 2);
+    BOOST_TEST(!l1.d_catchments.empty());
+    BOOST_TEST(l1.invalid(l1.d_catchments[0].d_pitId));
+    BOOST_TEST(l1.d_mv.size() == 2);
+    BOOST_TEST(l1.d_mv[0] == 4);
+    BOOST_TEST(l1.d_mv[1] == 2);
 
     LddGraph l2(l1, isMV, true);
     // - minus the 2 edges to the pit
-    BOOST_CHECK(l2.d_edge.size() == in.d_edge.size() - 2);
+    BOOST_TEST(l2.d_edge.size() == in.d_edge.size() - 2);
     // catchment with invalid pidId
-    BOOST_CHECK(!l2.d_catchments.empty());
-    BOOST_CHECK(l2.invalid(l2.d_catchments[0].d_pitId));
-    BOOST_CHECK(l2.d_mv.size() == 2);
-    BOOST_CHECK(l2.d_mv[0] == 4);
-    BOOST_CHECK(l2.d_mv[1] == 2);
+    BOOST_TEST(!l2.d_catchments.empty());
+    BOOST_TEST(l2.invalid(l2.d_catchments[0].d_pitId));
+    BOOST_TEST(l2.d_mv.size() == 2);
+    BOOST_TEST(l2.d_mv[0] == 4);
+    BOOST_TEST(l2.d_mv[1] == 2);
   }
   {  // remove all
     boost::dynamic_bitset<> isMV(8);
@@ -337,9 +337,9 @@ BOOST_AUTO_TEST_CASE(testMVCtor)
 
     LddGraph l1(in, isMV, true);
 
-    BOOST_CHECK(l1.d_catchments.empty());
-    BOOST_CHECK(l1.d_edge.empty());
-    BOOST_CHECK(l1.d_mv.size() == 8);
+    BOOST_TEST(l1.d_catchments.empty());
+    BOOST_TEST(l1.d_edge.empty());
+    BOOST_TEST(l1.d_mv.size() == 8);
   }
 }
 
@@ -358,15 +358,15 @@ BOOST_AUTO_TEST_CASE(testVisitor)
 
   LddGraph ld(lddField, aip);
 
-  BOOST_CHECK(ld.d_catchments.size() == 4);
-  BOOST_CHECK(ld.d_catchments[0].d_pitId == 3);
-  BOOST_CHECK(ld.d_catchments[0].d_beginEdge->up() == 1);
-  BOOST_CHECK(ld.d_catchments[0].d_beginEdge->down() == 3);
-  BOOST_CHECK(ld.d_catchments[1].d_pitId == 6);
-  BOOST_CHECK(ld.d_catchments[1].d_beginEdge->up() == 4);
-  BOOST_CHECK(ld.d_catchments[1].d_beginEdge->down() == 6);
-  BOOST_CHECK((ld.d_catchments[1].d_endEdge - 1)->up() == 2);
-  BOOST_CHECK((ld.d_catchments[1].d_endEdge - 1)->down() == 4);
+  BOOST_TEST(ld.d_catchments.size() == 4);
+  BOOST_TEST(ld.d_catchments[0].d_pitId == 3);
+  BOOST_TEST(ld.d_catchments[0].d_beginEdge->up() == 1);
+  BOOST_TEST(ld.d_catchments[0].d_beginEdge->down() == 3);
+  BOOST_TEST(ld.d_catchments[1].d_pitId == 6);
+  BOOST_TEST(ld.d_catchments[1].d_beginEdge->up() == 4);
+  BOOST_TEST(ld.d_catchments[1].d_beginEdge->down() == 6);
+  BOOST_TEST((ld.d_catchments[1].d_endEdge - 1)->up() == 2);
+  BOOST_TEST((ld.d_catchments[1].d_endEdge - 1)->down() == 4);
 
   {
     DownstreamVisitorTester dsv(ld);
@@ -377,7 +377,7 @@ BOOST_AUTO_TEST_CASE(testVisitor)
         6,  7, 8   // 6,7,8
     };
     std::vector<size_t> expectV(pitOfMyCatchment, pitOfMyCatchment + 9);
-    BOOST_CHECK(dsv.d_pitOfMyCatchment == expectV);
+    BOOST_TEST(dsv.d_pitOfMyCatchment == expectV);
   }
 
   boost::dynamic_bitset<> isMV(9);
@@ -393,10 +393,10 @@ BOOST_AUTO_TEST_CASE(testVisitor)
 
   LddGraph ldMasked(ld, isMV, true);
 
-  BOOST_CHECK(ldMasked.d_catchments.size() == 2);
+  BOOST_TEST(ldMasked.d_catchments.size() == 2);
 
   // only edge deleted, pit intact
-  BOOST_CHECK(ldMasked.d_catchments[0].d_pitId == 3);
+  BOOST_TEST(ldMasked.d_catchments[0].d_pitId == 3);
 #if !defined(NDEBUG) && defined(_MSC_VER)
   // In debug builds, the VS STL validates iterators. The LddGraph code
   // juggles with containers and iterators. So much that VS's STL thinks
@@ -404,22 +404,22 @@ BOOST_AUTO_TEST_CASE(testVisitor)
   // right points in the code, they aren't, but only we know that.
   // Not sure what to test instead.
 #else
-  BOOST_CHECK(ldMasked.d_catchments[0].d_beginEdge == ldMasked.d_catchments[0].d_endEdge);
+  BOOST_TEST(ldMasked.d_catchments[0].d_beginEdge == ldMasked.d_catchments[0].d_endEdge);
 #endif
 
   // pit deleted + plus edge to pit deleted
   // only one edge remaining
-  BOOST_CHECK(ldMasked.d_catchments[1].d_pitId == 9);
-  BOOST_CHECK(ldMasked.invalid(ldMasked.d_catchments[1].d_pitId));
-  BOOST_CHECK((ldMasked.d_catchments[1].d_endEdge - ldMasked.d_catchments[1].d_beginEdge) == 1);
-  BOOST_CHECK(ldMasked.d_catchments[1].d_beginEdge->up() == 2);
-  BOOST_CHECK(ldMasked.d_catchments[1].d_beginEdge->down() == 4);
+  BOOST_TEST(ldMasked.d_catchments[1].d_pitId == 9);
+  BOOST_TEST(ldMasked.invalid(ldMasked.d_catchments[1].d_pitId));
+  BOOST_TEST((ldMasked.d_catchments[1].d_endEdge - ldMasked.d_catchments[1].d_beginEdge) == 1);
+  BOOST_TEST(ldMasked.d_catchments[1].d_beginEdge->up() == 2);
+  BOOST_TEST(ldMasked.d_catchments[1].d_beginEdge->down() == 4);
 
   /*
   // pit invalid, the single edge kep
-  BOOST_CHECK(ldMasked.d_catchments[2].d_pitId==9);
-  BOOST_CHECK(ldMasked.invalid(ldMasked.d_catchments[2].d_pitId));
-  BOOST_CHECK((ldMasked.d_catchments[2].d_endEdge==
+  BOOST_TEST(ldMasked.d_catchments[2].d_pitId==9);
+  BOOST_TEST(ldMasked.invalid(ldMasked.d_catchments[2].d_pitId));
+  BOOST_TEST((ldMasked.d_catchments[2].d_endEdge==
             ldMasked.d_catchments[2].d_beginEdge));
 */
 }
@@ -510,7 +510,7 @@ BOOST_AUTO_TEST_CASE(testTimeSliceVisitor)
                                 0,   128, 64,   // 3,4,5  X 0 1
                                 128, 64,  32};  // 6,7,8  0 1 2
     std::vector<REAL4> expectV(expect, expect + FIELD_SIZE);
-    BOOST_CHECK(t.catchmentSliceInSecs == expectV);
+    BOOST_TEST(t.catchmentSliceInSecs == expectV);
   }
   {
     size_t expect[FIELD_SIZE] = {           //          id's   catchment-id
@@ -518,8 +518,8 @@ BOOST_AUTO_TEST_CASE(testTimeSliceVisitor)
                                  0, 1, 2,   // 3,4,5  X 0 1
                                  1, 2, 4};  // 6,7,8  0 1 2
     std::vector<size_t> expectV(expect, expect + FIELD_SIZE);
-    BOOST_CHECK(t.nrInitVertexCalls == expectV);
-    BOOST_CHECK(t.nrFinishVertexCalls == expectV);
+    BOOST_TEST(t.nrInitVertexCalls == expectV);
+    BOOST_TEST(t.nrFinishVertexCalls == expectV);
   }
 #undef FIELD_SIZE
 }

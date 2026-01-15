@@ -21,7 +21,7 @@
 // // //   ModelBuilder mb;
 // // //   mb.addStatement("ModelBuildertestSS.res = inp1s.map + 4;");
 // // //   mb.execute();
-// // //   BOOST_CHECK(mt.equalTo("inp5s.map",false));
+// // //   BOOST_TEST(mt.equalTo("inp5s.map",false));
 // // // }
 
 
@@ -35,7 +35,7 @@
 // // //   ASTExpr* e= mb.addASTExpr("inp1s.map + 4;");
 // // //   mb.addFieldAssignment("ModelBuildertestFE.res",e,true);
 // // //   mb.execute();
-// // //   BOOST_CHECK(mt.equalTo("inp5s.map",false));
+// // //   BOOST_TEST(mt.equalTo("inp5s.map",false));
 // // //   } catch (const com::Exception& e) {
 // // //     std::cerr << e.messages() << "\n";
 // // //   } catch (const std::exception& e) {
@@ -51,15 +51,15 @@
 // // //   geo::FileCreateTester mt("ModelBuildertestMS.res");
 // // //   ModelBuilder mb;
 // // //   // test order by dependency, and selective report!
-// // //   BOOST_CHECK(!com::pathExists("ModelBuildertestMS4.res"));
+// // //   BOOST_TEST(!com::pathExists("ModelBuildertestMS4.res"));
 // // //   // do not write this one
 // // //   mb.addStatement("ModelBuildertestMS4.res = 3+inp1s.map;",false);
 // // //   mb.addStatement("ModelBuildertestMS.res = ModelBuildertestMS4.res + 1;");
 // // //   mb.execute();
-// // //   BOOST_CHECK(mt.equalTo("inp5s.map",false));
-// // //   BOOST_CHECK(!com::pathExists("ModelBuildertestMS4.res"));
+// // //   BOOST_TEST(mt.equalTo("inp5s.map",false));
+// // //   BOOST_TEST(!com::pathExists("ModelBuildertestMS4.res"));
 // // //   } catch (...) {
-// // //     BOOST_CHECK(false);
+// // //     BOOST_TEST(false);
 // // //   }
 // // // }
 
@@ -76,11 +76,11 @@
 // // //   mb.addStatement("ModelBuilderBind.res = 3+Inp1s;");
 // // //   mb.addStatement("Result= ModelBuilderBind.res + 1;");
 // // //   mb.execute();
-// // //   BOOST_CHECK( com::pathExists("ModelBuilderBind.res"));
-// // //   BOOST_CHECK( com::pathExists("ModelBuilderBind5.res"));
-// // //   BOOST_CHECK(mt.equalTo("inp5s.map",false));
+// // //   BOOST_TEST( com::pathExists("ModelBuilderBind.res"));
+// // //   BOOST_TEST( com::pathExists("ModelBuilderBind5.res"));
+// // //   BOOST_TEST(mt.equalTo("inp5s.map",false));
 // // //   } catch (...) {
-// // //     BOOST_CHECK(false);
+// // //     BOOST_TEST(false);
 // // //   }
 // // // }
 
@@ -97,14 +97,14 @@
 // // //   mb.addStatement("ModelBuildertestMS4.res = 3+1");
 // // //   mb.addStatement("ModelBuildertestMS.res = failureExpectedNotExistant + 1");
 // // //   mb.execute();
-// // //   BOOST_CHECK( com::pathExists("ModelBuildertestMS4.res"));
-// // //   BOOST_CHECK(mt.equalTo("inp5s.map",false));
+// // //   BOOST_TEST( com::pathExists("ModelBuildertestMS4.res"));
+// // //   BOOST_TEST(mt.equalTo("inp5s.map",false));
 // // //   } catch (const calc::PosException& e) {
 // // //     failure=true;
-// // //     BOOST_CHECK(e.messages().find("failureExpectedNotExistant")
+// // //     BOOST_TEST(e.messages().find("failureExpectedNotExistant")
 // // //               != std::string::npos);
 // // //   }
-// // //   BOOST_CHECK(failure);
+// // //   BOOST_TEST(failure);
 // // // }
 
 // // // BOOST_AUTO_TEST_CASE(testSetValuescale)
@@ -118,21 +118,21 @@
 // // //       mb.addStatement("ModelBuilderVsUnknown.res = if (inp1b.map, 1);");
 // // //       mb.execute();
 // // //       } catch (const calc::PosException& e) {
-// // //         BOOST_CHECK(e.messages().find("ModelBuilderVsUnknown.res")
+// // //         BOOST_TEST(e.messages().find("ModelBuilderVsUnknown.res")
 // // //                   != std::string::npos);
-// // //         BOOST_CHECK(e.messages().find("conversion")
+// // //         BOOST_TEST(e.messages().find("conversion")
 // // //                   != std::string::npos);
 // // //         failure=true;
 // // //       }
-// // //       BOOST_CHECK(failure);
+// // //       BOOST_TEST(failure);
 // // //   }
 // // //   { // solve simple
 // // //     geo::FileCreateTester mt("ModelBuilderVsUnknown.res");
 // // //     ModelBuilder mb;
 // // //     mb.addStatement("ModelBuilderVsUnknown.res = if (inp1b.map, scalar(1));");
 // // //     mb.execute();
-// // //     BOOST_CHECK( com::pathExists("ModelBuilderVsUnknown.res"));
-// // //     BOOST_CHECK(mt.equalTo("inp1s.map",false));
+// // //     BOOST_TEST( com::pathExists("ModelBuilderVsUnknown.res"));
+// // //     BOOST_TEST(mt.equalTo("inp1s.map",false));
 // // //   }
 // // //   { // TODO  solve by setting
 // // //     try {
@@ -141,11 +141,11 @@
 // // //     // anders
 // // //     mb.addStatement("ModelBuilderVsUnknown.res = scalar(1);");
 // // //     mb.execute();
-// // //     BOOST_CHECK( com::pathExists("ModelBuilderVsok.res"));
-// // //     BOOST_CHECK( com::pathExists("ModelBuilderVsUnknown.res"));
-// // //     BOOST_CHECK(mt.equalTo("inp1s.map",false));
+// // //     BOOST_TEST( com::pathExists("ModelBuilderVsok.res"));
+// // //     BOOST_TEST( com::pathExists("ModelBuilderVsUnknown.res"));
+// // //     BOOST_TEST(mt.equalTo("inp1s.map",false));
 // // //     } catch (...) {
-// // //       ; // BOOST_CHECK(false);
+// // //       ; // BOOST_TEST(false);
 // // //     }
 // // //   }
 // // // }
@@ -175,6 +175,6 @@
 // // //   mb.addFieldAssignment("ModelBuildertestAddLT.res",e,true);
 // // //   mb.execute();
 // // //
-// // //   BOOST_CHECK(mt.equalTo("inp5s.map",false));
+// // //   BOOST_TEST(mt.equalTo("inp5s.map",false));
 // // //
 // // // }

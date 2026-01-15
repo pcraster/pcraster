@@ -13,18 +13,18 @@ BOOST_AUTO_TEST_CASE(testReportDefault)
   {
     Report r = Report::reportDefault();
     r.update(t1to3);
-    BOOST_CHECK(r.atInt(1));
-    BOOST_CHECK(r.atInt(2));
-    BOOST_CHECK(r.atInt(3));
+    BOOST_TEST(r.atInt(1));
+    BOOST_TEST(r.atInt(2));
+    BOOST_TEST(r.atInt(3));
   }
   {
     ReportTable rt;
 
     rt.update(t1to3);
 
-    BOOST_CHECK(rt.reportDefault()->atInt(1));
-    BOOST_CHECK(rt.reportDefault()->atInt(2));
-    BOOST_CHECK(rt.reportDefault()->atInt(3));
+    BOOST_TEST(rt.reportDefault()->atInt(1));
+    BOOST_TEST(rt.reportDefault()->atInt(2));
+    BOOST_TEST(rt.reportDefault()->atInt(3));
 
     std::vector<ParsReportMoment> list;
     ParsReportMoment const m = {1, +2, -1};
@@ -34,12 +34,12 @@ BOOST_AUTO_TEST_CASE(testReportDefault)
 
     rt.update(t1to3);
 
-    BOOST_CHECK(rt.reportDefault()->atInt(1));
-    BOOST_CHECK(!rt.reportDefault()->atInt(2));
-    BOOST_CHECK(rt.reportDefault()->atInt(3));
+    BOOST_TEST(rt.reportDefault()->atInt(1));
+    BOOST_TEST(!rt.reportDefault()->atInt(2));
+    BOOST_TEST(rt.reportDefault()->atInt(3));
 
-    BOOST_CHECK(rt.find(id)->atInt(1));
-    BOOST_CHECK(!rt.find(id)->atInt(2));
-    BOOST_CHECK(rt.find(id)->atInt(3));
+    BOOST_TEST(rt.find(id)->atInt(1));
+    BOOST_TEST(!rt.find(id)->atInt(2));
+    BOOST_TEST(rt.find(id)->atInt(3));
   }
 }

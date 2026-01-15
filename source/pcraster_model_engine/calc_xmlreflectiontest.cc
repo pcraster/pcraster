@@ -43,16 +43,16 @@ BOOST_AUTO_TEST_CASE(testXMLReflection)
     boost::algorithm::replace_all(string, "\n\n", "\n");
 
     com::write(string, "pcrcalc510a.xml");
-    BOOST_CHECK(compareFileWithValidated("pcrcalc510a.xml"));
+    BOOST_TEST(compareFileWithValidated("pcrcalc510a.xml"));
     /*
 *   std::string xmlStr=s->xmlReflection();
 
 *   pcrxml::Document dom(xmlStr.c_str());
 *   pcrxml::ExchangeModel em(dom.documentElement());
 *   XMLReflection xml(em);
-*   BOOST_CHECK(xml.inputs().size()==1);
-*   BOOST_CHECK(xml.outputs().size()==1);
-*   BOOST_CHECK(0 == em.areaMapDTD);
+*   BOOST_TEST(xml.inputs().size()==1);
+*   BOOST_TEST(xml.outputs().size()==1);
+*   BOOST_TEST(0 == em.areaMapDTD);
 */
   }
   {
@@ -73,41 +73,41 @@ BOOST_AUTO_TEST_CASE(testXMLReflection)
  *  ASTScript *s=ASTTestFactory::createFromIdOrStr("pcrcalc509");
  *  s->analyzeNoContext();
  *  std::string xmlStr=s->xmlReflection();
- *  BOOST_CHECK(!xmlStr.empty());
+ *  BOOST_TEST(!xmlStr.empty());
 
  *  pcrxml::Document dom(xmlStr.c_str());
  *  pcrxml::ExchangeModel em(dom.documentElement());
 
  *  XMLReflection xml(em);
- *  BOOST_CHECK(xml.inputs().size()==1);
+ *  BOOST_TEST(xml.inputs().size()==1);
  *  // output
- *  BOOST_CHECK(xml.outputs().empty()==true);
+ *  BOOST_TEST(xml.outputs().empty()==true);
 
- *  BOOST_CHECK(0 == em.areaMapDTD);
+ *  BOOST_TEST(0 == em.areaMapDTD);
 
- *  BOOST_CHECK(em.id()=="PCRaster/OpenMI TEST");
- *  BOOST_CHECK(em.exchangeItem.size()==1);
- *  BOOST_CHECK(em.exchangeItem[0]->index()==0);
- *  BOOST_CHECK(em.exchangeItem[0]->exchangeDirection()==
+ *  BOOST_TEST(em.id()=="PCRaster/OpenMI TEST");
+ *  BOOST_TEST(em.exchangeItem.size()==1);
+ *  BOOST_TEST(em.exchangeItem[0]->index()==0);
+ *  BOOST_TEST(em.exchangeItem[0]->exchangeDirection()==
  *      pcrxml::ExchangeDirection::Input);
 
- *  BOOST_CHECK(0  ==xml.inputs()[0].index);
- *  BOOST_CHECK("Q"==xml.inputs()[0].id);
+ *  BOOST_TEST(0  ==xml.inputs()[0].index);
+ *  BOOST_TEST("Q"==xml.inputs()[0].id);
 
- *  BOOST_CHECK(em.exchangeItem[0]->variable->id()=="Q");
- *  BOOST_CHECK(em.exchangeItem[0]->variable->input() ==pcrxml::ModelInputType::Initial);
- *  BOOST_CHECK(em.exchangeItem[0]->variable->output()==pcrxml::ModelOutputType::Fixed);
- *  BOOST_CHECK(em.exchangeItem[0]->variable->spatial()==
+ *  BOOST_TEST(em.exchangeItem[0]->variable->id()=="Q");
+ *  BOOST_TEST(em.exchangeItem[0]->variable->input() ==pcrxml::ModelInputType::Initial);
+ *  BOOST_TEST(em.exchangeItem[0]->variable->output()==pcrxml::ModelOutputType::Fixed);
+ *  BOOST_TEST(em.exchangeItem[0]->variable->spatial()==
  *      pcrxml::Spatial::Either);
- *  BOOST_CHECK(em.exchangeItem[0]->variable->description()=="water discharge");
- *  BOOST_CHECK(em.exchangeItem[0]->variable->dataTypeDTD[0]->value() ==
+ *  BOOST_TEST(em.exchangeItem[0]->variable->description()=="water discharge");
+ *  BOOST_TEST(em.exchangeItem[0]->variable->dataTypeDTD[0]->value() ==
  *            pcrxml::DataTypeEnum::Scalar);
- *  BOOST_CHECK(em.exchangeItem[0]->variable->dataTypeDTD[0]->dimension.size()==2);
- *  BOOST_CHECK(em.exchangeItem[0]->variable->dataTypeDTD[0]->dimension[0]->base()== pcrxml::DimensionBaseEnum::Length);
- *  BOOST_CHECK(em.exchangeItem[0]->variable->dataTypeDTD[0]->dimension[0]->power()==3);
+ *  BOOST_TEST(em.exchangeItem[0]->variable->dataTypeDTD[0]->dimension.size()==2);
+ *  BOOST_TEST(em.exchangeItem[0]->variable->dataTypeDTD[0]->dimension[0]->base()== pcrxml::DimensionBaseEnum::Length);
+ *  BOOST_TEST(em.exchangeItem[0]->variable->dataTypeDTD[0]->dimension[0]->power()==3);
 
- *  BOOST_CHECK(em.exchangeItem[0]->variable->dataTypeDTD[0]->dimension[1]->base()== pcrxml::DimensionBaseEnum::Time);
- *  BOOST_CHECK(em.exchangeItem[0]->variable->dataTypeDTD[0]->dimension[1]->power()==-1);
+ *  BOOST_TEST(em.exchangeItem[0]->variable->dataTypeDTD[0]->dimension[1]->base()== pcrxml::DimensionBaseEnum::Time);
+ *  BOOST_TEST(em.exchangeItem[0]->variable->dataTypeDTD[0]->dimension[1]->power()==-1);
  *  delete s;
  *}
 
@@ -115,61 +115,61 @@ BOOST_AUTO_TEST_CASE(testXMLReflection)
  *  std::auto_ptr<ASTScript>s(ASTTestFactory::createFromIdOrStr("pcrcalc517"));
  *  s->analyzeNoContext();
  *  std::string xmlStr=s->xmlReflection();
- *  BOOST_CHECK(!xmlStr.empty());
+ *  BOOST_TEST(!xmlStr.empty());
 
  *  pcrxml::Document dom(xmlStr.c_str());
  *  pcrxml::ExchangeModel em(dom.documentElement());
  *  XMLReflection xml(em);
 
- *  BOOST_CHECK(1==xml.inputs().size());
- *  BOOST_CHECK(1==xml.outputs().size());
+ *  BOOST_TEST(1==xml.inputs().size());
+ *  BOOST_TEST(1==xml.outputs().size());
 
  *  bool areaMapReadingForIOConfigurable=false;
  *  BOOST_TEST_WARN(areaMapReadingForIOConfigurable);
 
- *  BOOST_CHECK(em.areaMapDTD);
- *  BOOST_CHECK(5 == em.areaMapDTD->rasterSpace->nrRows());
- *  BOOST_CHECK(5 == em.areaMapDTD->rasterSpace->nrCols());
- *  BOOST_CHECK(50== em.areaMapDTD->rasterSpace->cellSize());
- *  BOOST_CHECK(200 == em.areaMapDTD->rasterSpace->xLowerLeftCorner());
- *  BOOST_CHECK(-50 == em.areaMapDTD->rasterSpace->yLowerLeftCorner());
- *  BOOST_CHECK(0 == em.areaMapDTD->rasterMask);
+ *  BOOST_TEST(em.areaMapDTD);
+ *  BOOST_TEST(5 == em.areaMapDTD->rasterSpace->nrRows());
+ *  BOOST_TEST(5 == em.areaMapDTD->rasterSpace->nrCols());
+ *  BOOST_TEST(50== em.areaMapDTD->rasterSpace->cellSize());
+ *  BOOST_TEST(200 == em.areaMapDTD->rasterSpace->xLowerLeftCorner());
+ *  BOOST_TEST(-50 == em.areaMapDTD->rasterSpace->yLowerLeftCorner());
+ *  BOOST_TEST(0 == em.areaMapDTD->rasterMask);
 
- *  BOOST_CHECK(em.id()=="PCRaster/OpenMI TEST");
- *  BOOST_CHECK(em.exchangeItem.size()==2);
- *  BOOST_CHECK(em.exchangeItem[0]->index()==0);
- *  BOOST_CHECK(em.exchangeItem[0]->exchangeDirection()==
+ *  BOOST_TEST(em.id()=="PCRaster/OpenMI TEST");
+ *  BOOST_TEST(em.exchangeItem.size()==2);
+ *  BOOST_TEST(em.exchangeItem[0]->index()==0);
+ *  BOOST_TEST(em.exchangeItem[0]->exchangeDirection()==
  *      pcrxml::ExchangeDirection::Input);
- *  BOOST_CHECK(0==xml.inputs()[0].index);
- *  BOOST_CHECK(em.exchangeItem[1]->index()==1);
- *  BOOST_CHECK(em.exchangeItem[1]->exchangeDirection()==
+ *  BOOST_TEST(0==xml.inputs()[0].index);
+ *  BOOST_TEST(em.exchangeItem[1]->index()==1);
+ *  BOOST_TEST(em.exchangeItem[1]->exchangeDirection()==
  *      pcrxml::ExchangeDirection::Output);
- *  BOOST_CHECK(1==xml.outputs()[0].index);
+ *  BOOST_TEST(1==xml.outputs()[0].index);
 
  *  pcrxml::Variable *v= em.exchangeItem[0]->variable;
- *  BOOST_CHECK(v);
+ *  BOOST_TEST(v);
 
- *  BOOST_CHECK(v->id()     =="inputMap");
- *  BOOST_CHECK(v->input()  == pcrxml::ModelInputType::Dynamic);
- *  BOOST_CHECK(v->output() == pcrxml::ModelOutputType::Fixed);
- *  BOOST_CHECK(v->spatial()== pcrxml::Spatial::Either);
- *  BOOST_CHECK(v->description()==
+ *  BOOST_TEST(v->id()     =="inputMap");
+ *  BOOST_TEST(v->input()  == pcrxml::ModelInputType::Dynamic);
+ *  BOOST_TEST(v->output() == pcrxml::ModelOutputType::Fixed);
+ *  BOOST_TEST(v->spatial()== pcrxml::Spatial::Either);
+ *  BOOST_TEST(v->description()==
  *   "Provide any input map here for this algorithm");
- *  BOOST_CHECK(v->dataTypeDTD[0]->value() == pcrxml::DataTypeEnum::Scalar);
- *  BOOST_CHECK(v->dataTypeDTD[0]->dimension.size()==0);
+ *  BOOST_TEST(v->dataTypeDTD[0]->value() == pcrxml::DataTypeEnum::Scalar);
+ *  BOOST_TEST(v->dataTypeDTD[0]->dimension.size()==0);
 
  *  v= em.exchangeItem[1]->variable;
- *  BOOST_CHECK(v);
- *  BOOST_CHECK(v->id()     =="outputMap");
- *  BOOST_CHECK(v->input()  == pcrxml::ModelInputType::None);
- *  BOOST_CHECK(v->output() == pcrxml::ModelOutputType::Dynamic);
- *  BOOST_CHECK(v->spatial()== pcrxml::Spatial::Either);
- *  BOOST_CHECK(v->dataTypeDTD[0]->value() == pcrxml::DataTypeEnum::Scalar);
- *  BOOST_CHECK(v->dataTypeDTD[0]->dimension.size()==2);
- *  BOOST_CHECK(v->dataTypeDTD[0]->dimension[0]->base()== pcrxml::DimensionBaseEnum::Length);
- *  BOOST_CHECK(v->dataTypeDTD[0]->dimension[0]->power()==3);
- *  BOOST_CHECK(v->dataTypeDTD[0]->dimension[1]->base()== pcrxml::DimensionBaseEnum::Time);
- *  BOOST_CHECK(v->dataTypeDTD[0]->dimension[1]->power()==-1);
+ *  BOOST_TEST(v);
+ *  BOOST_TEST(v->id()     =="outputMap");
+ *  BOOST_TEST(v->input()  == pcrxml::ModelInputType::None);
+ *  BOOST_TEST(v->output() == pcrxml::ModelOutputType::Dynamic);
+ *  BOOST_TEST(v->spatial()== pcrxml::Spatial::Either);
+ *  BOOST_TEST(v->dataTypeDTD[0]->value() == pcrxml::DataTypeEnum::Scalar);
+ *  BOOST_TEST(v->dataTypeDTD[0]->dimension.size()==2);
+ *  BOOST_TEST(v->dataTypeDTD[0]->dimension[0]->base()== pcrxml::DimensionBaseEnum::Length);
+ *  BOOST_TEST(v->dataTypeDTD[0]->dimension[0]->power()==3);
+ *  BOOST_TEST(v->dataTypeDTD[0]->dimension[1]->base()== pcrxml::DimensionBaseEnum::Time);
+ *  BOOST_TEST(v->dataTypeDTD[0]->dimension[1]->power()==-1);
  *}
  */
 }
@@ -186,11 +186,11 @@ BOOST_AUTO_TEST_CASE(testXMLReflection)
     XMLReflection xr(xmlStr);
 
     // not in the script
-    BOOST_CHECK(xr["notExistant"]==0);
+    BOOST_TEST(xr["notExistant"]==0);
     // in the script
-    BOOST_CHECK(xr["lookupTable"]!=0);
+    BOOST_TEST(xr["lookupTable"]!=0);
     // in the script, but not exposed
-    BOOST_CHECK(xr["a"]          ==0);
+    BOOST_TEST(xr["a"]          ==0);
 
     // com::write(xmlStr,"esri.xml");
   }
@@ -200,12 +200,12 @@ BOOST_AUTO_TEST_CASE(testXMLReflection)
     s->analyzeNoContext();
     std::string xmlStr=s->xmlReflection();
     XMLReflection xr(xmlStr);
-    BOOST_CHECK(xr["outputMap"]!=0);
-    BOOST_CHECK(xr["memInput"]!=0);
-    BOOST_CHECK(xr.inputs().size()==1);
-    BOOST_CHECK(xr.inputs()[0].id=="memInput");
-    BOOST_CHECK(xr.outputs().size()==1);
-    BOOST_CHECK(xr.outputs()[0].id=="outputMap");
+    BOOST_TEST(xr["outputMap"]!=0);
+    BOOST_TEST(xr["memInput"]!=0);
+    BOOST_TEST(xr.inputs().size()==1);
+    BOOST_TEST(xr.inputs()[0].id=="memInput");
+    BOOST_TEST(xr.outputs().size()==1);
+    BOOST_TEST(xr.outputs()[0].id=="outputMap");
   }
 */
 //}

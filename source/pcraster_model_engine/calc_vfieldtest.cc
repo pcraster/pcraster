@@ -11,40 +11,40 @@ BOOST_AUTO_TEST_CASE(test)
   {
     int const ns = 3;
     VField<int> const vf(ns, 5);
-    BOOST_CHECK(!vf.spatial());
-    BOOST_CHECK(vf.size() == 5);
-    BOOST_CHECK(vf[0] == 3);
-    BOOST_CHECK(vf[2] == 3);
-    BOOST_CHECK(vf[4] == 3);
+    BOOST_TEST(!vf.spatial());
+    BOOST_TEST(vf.size() == 5);
+    BOOST_TEST(vf[0] == 3);
+    BOOST_TEST(vf[2] == 3);
+    BOOST_TEST(vf[4] == 3);
   }
   {
     int s[5] = {10, 11, 12, 13, 14};
     VField<int> const vf(s, 5);
-    BOOST_CHECK(vf.spatial());
-    BOOST_CHECK(vf.size() == 5);
-    BOOST_CHECK(vf[0] == 10);
-    BOOST_CHECK(vf[2] == 12);
-    BOOST_CHECK(vf[4] == 14);
+    BOOST_TEST(vf.spatial());
+    BOOST_TEST(vf.size() == 5);
+    BOOST_TEST(vf[0] == 10);
+    BOOST_TEST(vf[2] == 12);
+    BOOST_TEST(vf[4] == 14);
   }
   {
     Field *f(new NonSpatial(VS_N, 3));
     VField<INT4> const vf(f, 5);
-    BOOST_CHECK(!vf.spatial());
-    BOOST_CHECK(vf.size() == 5);
-    BOOST_CHECK(vf[0] == 3);
-    BOOST_CHECK(vf[2] == 3);
-    BOOST_CHECK(vf[4] == 3);
+    BOOST_TEST(!vf.spatial());
+    BOOST_TEST(vf.size() == 5);
+    BOOST_TEST(vf[0] == 3);
+    BOOST_TEST(vf[2] == 3);
+    BOOST_TEST(vf[4] == 3);
   }
   {
     INT4 data[5] = {10, 11, 12, 13, 14};
     Field *f(new Spatial(VS_N, data, 5));
 
     VField<INT4> const vf(f, 5);
-    BOOST_CHECK(vf.spatial());
-    BOOST_CHECK(vf.size() == 5);
-    BOOST_CHECK(vf[0] == 10);
-    BOOST_CHECK(vf[2] == 12);
-    BOOST_CHECK(vf[4] == 14);
+    BOOST_TEST(vf.spatial());
+    BOOST_TEST(vf.size() == 5);
+    BOOST_TEST(vf[0] == 10);
+    BOOST_TEST(vf[2] == 12);
+    BOOST_TEST(vf[4] == 14);
   }
 }
 
@@ -53,30 +53,30 @@ BOOST_AUTO_TEST_CASE(testUpdateMV)
   using namespace calc;
 
   BitField bf(5);
-  BOOST_CHECK(bf.none());
+  BOOST_TEST(bf.none());
 
   {
     INT4 s[5] = {10, 11, MV_INT4, 13, 14};
     VField<INT4> const vf(s, 5);
     vf.updateMVField(bf);
-    BOOST_CHECK(bf.count() == 1);
-    BOOST_CHECK(bf[2] == 1);
+    BOOST_TEST(bf.count() == 1);
+    BOOST_TEST(bf[2] == 1);
   }
 
   {
     UINT1 s[5] = {10, 11, 13, 14, MV_UINT1};
     VField<UINT1> const vf(s, 5);
     vf.updateMVField(bf);
-    BOOST_CHECK(bf.count() == 2);
-    BOOST_CHECK(bf[2] == 1);
-    BOOST_CHECK(bf[4] == 1);
+    BOOST_TEST(bf.count() == 2);
+    BOOST_TEST(bf[2] == 1);
+    BOOST_TEST(bf[4] == 1);
   }
 
   {
     Field *f(new NonSpatial(VS_N, 3));
     VField<INT4> const vf(f, 5);
-    BOOST_CHECK(bf.count() == 2);
-    BOOST_CHECK(bf[2] == 1);
-    BOOST_CHECK(bf[4] == 1);
+    BOOST_TEST(bf.count() == 2);
+    BOOST_TEST(bf[2] == 1);
+    BOOST_TEST(bf[4] == 1);
   }
 }

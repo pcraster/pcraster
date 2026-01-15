@@ -14,11 +14,11 @@ BOOST_AUTO_TEST_CASE(testSetAndGetCell)
     try {
       double v = NAN;
       n.setCell(8, 3);
-      BOOST_CHECK(n.getCell(v, 3));
-      BOOST_CHECK(v == 8);
+      BOOST_TEST(n.getCell(v, 3));
+      BOOST_TEST(v == 8);
     } catch (...) {
       bool const success = false;
-      BOOST_CHECK(success);
+      BOOST_TEST(success);
     }
   }
 
@@ -27,11 +27,11 @@ BOOST_AUTO_TEST_CASE(testSetAndGetCell)
     try {
       double v = NAN;
       n.setCell(1, 3);
-      BOOST_CHECK(n.getCell(v, 3));
-      BOOST_CHECK(v == 1);
+      BOOST_TEST(n.getCell(v, 3));
+      BOOST_TEST(v == 1);
     } catch (...) {
       bool const success = false;
-      BOOST_CHECK(success);
+      BOOST_TEST(success);
     }
   }
   {  // set a cell nominal INT4
@@ -39,11 +39,11 @@ BOOST_AUTO_TEST_CASE(testSetAndGetCell)
     try {
       double v = NAN;
       n.setCell(-2, 3);
-      BOOST_CHECK(n.getCell(v, 3));
-      BOOST_CHECK(v == -2);
+      BOOST_TEST(n.getCell(v, 3));
+      BOOST_TEST(v == -2);
     } catch (...) {
       bool const success = false;
-      BOOST_CHECK(success);
+      BOOST_TEST(success);
     }
   }
 
@@ -53,7 +53,7 @@ BOOST_AUTO_TEST_CASE(testSetAndGetCell)
     pcr::setMV(v);
     n.setCell(v, 3);
     double r = 4;
-    BOOST_CHECK(!n.getCell(r, 3));
-    BOOST_CHECK(pcr::isMV(r));
+    BOOST_TEST(!n.getCell(r, 3));
+    BOOST_TEST(pcr::isMV(r));
   }
 }

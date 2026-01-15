@@ -30,31 +30,31 @@ BOOST_AUTO_TEST_CASE(testReportDefault)
   {
     REAL4 r = -999;
     _ifthenelse<>(r, MV_UINT1, (REAL4)1.0, (REAL4)2.0);
-    BOOST_CHECK(pcr::isMV(r));
+    BOOST_TEST(pcr::isMV(r));
   }
   {
     REAL4 r = -999;
     _ifthenelse<>(r, 0, (REAL4)1.0, (REAL4)2.0);
-    BOOST_CHECK(r == 2);
+    BOOST_TEST(r == 2);
   }
   {
     REAL4 r = -999;
     REAL4 arg2 = NAN;
     pcr::setMV(arg2);
     _ifthenelse<>(r, 0, (REAL4)1.0, arg2);
-    BOOST_CHECK(pcr::isMV(r));
+    BOOST_TEST(pcr::isMV(r));
   }
   {
     REAL4 r = -999;
     _ifthenelse<>(r, 1, (REAL4)1.0, (REAL4)2.0);
-    BOOST_CHECK(r == 1);
+    BOOST_TEST(r == 1);
   }
   {
     REAL4 r = -999;
     REAL4 arg1 = NAN;
     pcr::setMV(arg1);
     _ifthenelse<>(r, 1, arg1, (REAL4)2);
-    BOOST_CHECK(pcr::isMV(r));
+    BOOST_TEST(pcr::isMV(r));
   }
 }
 
@@ -62,22 +62,22 @@ BOOST_AUTO_TEST_CASE(test_f)
 {
   {
     // SameUn
-    BOOST_CHECK(_f<point::sqrt<REAL4>>(4.0) == 2.0);
+    BOOST_TEST(_f<point::sqrt<REAL4>>(4.0) == 2.0);
   }
   {
     // SameBin
-    BOOST_CHECK(_f<point::badd<REAL4>>(4.0, 4.0) == 8.0);
+    BOOST_TEST(_f<point::badd<REAL4>>(4.0, 4.0) == 8.0);
   }
 
   {  // DiffUn
     bool const t1(_f<point::nodirection<UINT1, REAL4>>(-1) == 1);
-    BOOST_CHECK(t1);
+    BOOST_TEST(t1);
     bool const t2(_f<point::nodirection<UINT1, REAL4>>(1) == 0);
-    BOOST_CHECK(t2);
+    BOOST_TEST(t2);
   }
   {  // DiffBin
-    BOOST_CHECK(_f<point::eq<REAL4>>(-1, -1) == 1);
-    BOOST_CHECK(_f<point::ne<REAL4>>(-1, -1) == 0);
+    BOOST_TEST(_f<point::eq<REAL4>>(-1, -1) == 1);
+    BOOST_TEST(_f<point::ne<REAL4>>(-1, -1) == 0);
   }
 }
 
@@ -99,7 +99,7 @@ BOOST_AUTO_TEST_CASE(testCompile)
   {
     geo::FileCreateTester const fct("tmp.res");
     P5StackC("tmp = inp1s.map*0+5-inp5s.map+1*1; report tmp.res=tmp");
-    BOOST_CHECK(fct.equalTo("inp1s.map", false));
+    BOOST_TEST(fct.equalTo("inp1s.map", false));
   }
   {
     geo::FileCreateTester const fct("tmp.res");
@@ -107,7 +107,7 @@ BOOST_AUTO_TEST_CASE(testCompile)
              "tmp = 1*if(inp1s.map gt 4,inp1s.map*0,tmp+1*1);"
              "tmp = tmp * 1 + 0;"
              "report tmp.res=tmp");
-    BOOST_CHECK(fct.equalTo("inp1s.map", false));
+    BOOST_TEST(fct.equalTo("inp1s.map", false));
   }
 #endif
   /*! 1) test stack order

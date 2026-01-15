@@ -44,23 +44,23 @@ BOOST_AUTO_TEST_CASE(testPos)
   {  // explicit report, first reported
     M const m("report p=inp1s.map+0;p=p+2;", false);
     //   1245678901234567890123456
-    BOOST_CHECK(m.d_rps.count("p"));
-    BOOST_CHECK(m.posEqual("p", "line '1:8'"));
+    BOOST_TEST(m.d_rps.count("p"));
+    BOOST_TEST(m.posEqual("p", "line '1:8'"));
   }
   {  // explicit report BUT last ass reported
     M const m("report p=inp1s.map+0;p=p+2;", true);
     //   12345678901234567890123456
-    BOOST_CHECK(m.d_rps.count("p"));
-    BOOST_CHECK(m.posEqual("p", "line '1:22'"));
+    BOOST_TEST(m.d_rps.count("p"));
+    BOOST_TEST(m.posEqual("p", "line '1:22'"));
   }
   {  // no explicit set, and No  last ass reported
     M const m("p=inp1s.map+0;p=p+2;", false);
-    BOOST_CHECK(!m.d_rps.count("p"));
+    BOOST_TEST(!m.d_rps.count("p"));
   }
   {  // no explicit set, but last ass reported
     M const m("p=inp1s.map+0;p=p+2;", true);
     //   1234567890123456
-    BOOST_CHECK(m.d_rps.count("p"));
-    BOOST_CHECK(m.posEqual("p", "line '1:15'"));
+    BOOST_TEST(m.d_rps.count("p"));
+    BOOST_TEST(m.posEqual("p", "line '1:15'"));
   }
 }

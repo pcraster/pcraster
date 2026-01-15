@@ -44,17 +44,17 @@ BOOST_AUTO_TEST_CASE(testSetStep)
     Executor e(s->cfgCode(), s->rteSettings(), s->symbols());
 
     e.startStepWise();
-    BOOST_CHECK(0 == e.runTimeEnv().timer().currentInt());
+    BOOST_TEST(0 == e.runTimeEnv().timer().currentInt());
     e.execInitialSection();
-    BOOST_CHECK(1 == e.runTimeEnv().timer().currentInt());
+    BOOST_TEST(1 == e.runTimeEnv().timer().currentInt());
     size_t t = 1;
     do {
-      BOOST_CHECK(e.runTimeEnv().timer().currentInt() == t);
+      BOOST_TEST(e.runTimeEnv().timer().currentInt() == t);
       t++;
     } while (!e.execDynamicSectionOnce());
-    BOOST_CHECK(t == 3);
+    BOOST_TEST(t == 3);
     e.finishStepWise();
-    BOOST_CHECK(ASTTestFactory::fileVerify("pcrcalc249", "tmp.res"));
+    BOOST_TEST(ASTTestFactory::fileVerify("pcrcalc249", "tmp.res"));
   }
   {  // 1: only dynamic
     const char *code = " timer 1 2 1; \
@@ -66,20 +66,20 @@ BOOST_AUTO_TEST_CASE(testSetStep)
     Executor e(s->cfgCode(), s->rteSettings(), s->symbols());
 
     e.startStepWise();
-    BOOST_CHECK(0 == e.runTimeEnv().timer().currentInt());
+    BOOST_TEST(0 == e.runTimeEnv().timer().currentInt());
     e.execInitialSection();  // does not exec anything
-    BOOST_CHECK(1 == e.runTimeEnv().timer().currentInt());
+    BOOST_TEST(1 == e.runTimeEnv().timer().currentInt());
     size_t t = 1;
     do {
-      BOOST_CHECK(e.runTimeEnv().timer().currentInt() == t);
+      BOOST_TEST(e.runTimeEnv().timer().currentInt() == t);
       t++;
     } while (!e.execDynamicSectionOnce());
-    BOOST_CHECK(3 == t);
+    BOOST_TEST(3 == t);
     // will do nothing
-    BOOST_CHECK(e.execDynamicSectionOnce());
-    BOOST_CHECK(2 == e.runTimeEnv().timer().currentInt());
+    BOOST_TEST(e.execDynamicSectionOnce());
+    BOOST_TEST(2 == e.runTimeEnv().timer().currentInt());
     e.finishStepWise();
-    BOOST_CHECK(ASTTestFactory::fileVerify("pcrcalc249", "tmp.res"));
+    BOOST_TEST(ASTTestFactory::fileVerify("pcrcalc249", "tmp.res"));
   }
 
   {  // 1: only initial
@@ -91,15 +91,15 @@ BOOST_AUTO_TEST_CASE(testSetStep)
     geo::FileCreateTester const fct("tmp.res");
 
     e.startStepWise();
-    BOOST_CHECK(0 == e.runTimeEnv().timer().currentInt());
+    BOOST_TEST(0 == e.runTimeEnv().timer().currentInt());
     e.execInitialSection();  // does exec everything
-    BOOST_CHECK(0 == e.runTimeEnv().timer().currentInt());
-    BOOST_CHECK(e.execDynamicSectionOnce());
-    BOOST_CHECK(0 == e.runTimeEnv().timer().currentInt());
-    BOOST_CHECK(e.execDynamicSectionOnce());
+    BOOST_TEST(0 == e.runTimeEnv().timer().currentInt());
+    BOOST_TEST(e.execDynamicSectionOnce());
+    BOOST_TEST(0 == e.runTimeEnv().timer().currentInt());
+    BOOST_TEST(e.execDynamicSectionOnce());
 
     e.finishStepWise();
-    BOOST_CHECK(fct.equalTo("inp5s.map", false));
+    BOOST_TEST(fct.equalTo("inp5s.map", false));
   }
 }
 
@@ -262,15 +262,15 @@ BOOST_AUTO_TEST_CASE(testBugs)
   Executor e(s->cfgCode(), s->rteSettings(), s->symbols());
 
   e.startStepWise();
-  BOOST_CHECK(0 == e.runTimeEnv().timer().currentInt());
+  BOOST_TEST(0 == e.runTimeEnv().timer().currentInt());
   e.execInitialSection();
-  BOOST_CHECK(1 == e.runTimeEnv().timer().currentInt());
+  BOOST_TEST(1 == e.runTimeEnv().timer().currentInt());
   size_t t = 1;
   do {
-    BOOST_CHECK(e.runTimeEnv().timer().currentInt() == t);
+    BOOST_TEST(e.runTimeEnv().timer().currentInt() == t);
     t++;
   } while (!e.execDynamicSectionOnce());
-  BOOST_CHECK(6 == t);
+  BOOST_TEST(6 == t);
   e.finishStepWise();
 
 
@@ -295,17 +295,17 @@ BOOST_AUTO_TEST_CASE(testExpr)
   {
     P5Stack const e("inp1s.map+inp5s.map");
     DVAutoPtr<Field> f(e.popResult());
-    BOOST_CHECK(P5Stack::equal(f.get(), 6));
+    BOOST_TEST(P5Stack::equal(f.get(), 6));
   }
   {  // test with multiple reference to the same Par
     P5Stack const e("inp1s.map+inp1s.map+inp1s.map");
     DVAutoPtr<Field> f(e.popResult());
-    BOOST_CHECK(P5Stack::equal(f.get(), 3));
+    BOOST_TEST(P5Stack::equal(f.get(), 3));
   }
   {  // ASTNumber
     P5Stack const e("inp1s.map+5");
     DVAutoPtr<Field> f(e.popResult());
-    BOOST_CHECK(P5Stack::equal(f.get(), 6));
+    BOOST_TEST(P5Stack::equal(f.get(), 6));
   }
 }
 
@@ -317,18 +317,18 @@ BOOST_AUTO_TEST_CASE(testLookup)
     P5Stack const e("lookupnominal(inp_1.tbl,inp5s.map,8,10)");
 
     DVAutoPtr<Field> f(e.popResult());
-    BOOST_CHECK(P5Stack::equal(f.get(), 1, VS_N));
+    BOOST_TEST(P5Stack::equal(f.get(), 1, VS_N));
   }
   {
     P5Stack const e("lookupnominal(inp_1.tbl,5,8,10)");
     DVAutoPtr<Field> f(e.popResult());
-    BOOST_CHECK(P5Stack::equal(f.get(), 1, VS_N, false));
+    BOOST_TEST(P5Stack::equal(f.get(), 1, VS_N, false));
   }
   {
     TestAsciiResult t;
     com::write("1 1\n5 5\n", "tmp369.tbl");
     execTest("pcrcalc369");
-    BOOST_CHECK(t.equals("pcrcalc369"));
+    BOOST_TEST(t.equals("pcrcalc369"));
   }
 }
 
@@ -346,10 +346,10 @@ BOOST_AUTO_TEST_CASE(testAss)
     geo::FileCreateTester const fct("A");
     P5Stack e("A=inp1s.map*testAss.map");
 
-    BOOST_CHECK(e.contains("A"));
-    BOOST_CHECK(e.equal("A", 5));
+    BOOST_TEST(e.contains("A"));
+    BOOST_TEST(e.equal("A", 5));
 
-    BOOST_CHECK(fct.equalTo("inp5s.map", true));
+    BOOST_TEST(fct.equalTo("inp5s.map", true));
   }
   {
     geo::FileCreateTester const fct("A");
@@ -357,10 +357,10 @@ BOOST_AUTO_TEST_CASE(testAss)
     // test re-assignment of same parameter
     P5Stack e("A=4*inp1s.map;A=A+1");
 
-    BOOST_CHECK(e.contains("A"));
-    BOOST_CHECK(e.equal("A", 5));
+    BOOST_TEST(e.contains("A"));
+    BOOST_TEST(e.equal("A", 5));
 
-    BOOST_CHECK(fct.equalTo("inp5s.map", false));
+    BOOST_TEST(fct.equalTo("inp5s.map", false));
   }
   {  // pcrcalc11
      // double assigment
@@ -372,21 +372,21 @@ BOOST_AUTO_TEST_CASE(testAss)
     com::copy("inp1b.map", "testTwice.map");
     P5Stack e("Z,D=spreadzone,spread(inp1b.map==testTwice.map,0,1);");
 
-    BOOST_CHECK(e.contains("D"));
-    BOOST_CHECK(e.equal("D", 0));
+    BOOST_TEST(e.contains("D"));
+    BOOST_TEST(e.equal("D", 0));
 
-    BOOST_CHECK(e.contains("Z"));
-    BOOST_CHECK(e.equal("Z", 1, VS_B));
+    BOOST_TEST(e.contains("Z"));
+    BOOST_TEST(e.equal("Z", 1, VS_B));
   }
   {  // pcrcalc11  / reversed
      // double assigment
     P5Stack e("D,Z=spread,spreadzone(inp1b.map,3,1);");
 
-    BOOST_CHECK(e.contains("D"));
-    BOOST_CHECK(e.equal("D", 3));
+    BOOST_TEST(e.contains("D"));
+    BOOST_TEST(e.equal("D", 3));
 
-    BOOST_CHECK(e.contains("Z"));
-    BOOST_CHECK(e.equal("Z", 1, VS_B));
+    BOOST_TEST(e.contains("Z"));
+    BOOST_TEST(e.equal("Z", 1, VS_B));
   }
   {
     execTest("pcrcalc519");
@@ -402,60 +402,60 @@ BOOST_AUTO_TEST_CASE(testModel)
     // test/pcrcalc5b clone as areamap
     execTest("areamap inp1s.map; initial tmp.res = 5*1;");
 
-    BOOST_CHECK(fct.equalTo("inp5s_all.map", false));
+    BOOST_TEST(fct.equalTo("inp5s_all.map", false));
   }
   {  // check if binding creates the constant parameters
     geo::FileCreateTester const fct("tmp.res");
     // test/pcrcalc5b clone as areamap
     execTest("binding constantNr=1;areamap inp1s.map; initial tmp.res = 5*constantNr;");
 
-    BOOST_CHECK(fct.equalTo("inp5s_all.map", false));
+    BOOST_TEST(fct.equalTo("inp5s_all.map", false));
   }
   {  // check if binding see input map
     geo::FileCreateTester const fct("tmp.res");
     // test/pcrcalc5b clone as areamap
     execTest("binding inpBinding=inp1s.map; initial tmp.res = 5*inpBinding;");
 
-    BOOST_CHECK(fct.equalTo("inp5s.map", false));
+    BOOST_TEST(fct.equalTo("inp5s.map", false));
   }
   {  // check if binding makes output map
     geo::FileCreateTester const fct("tmp.res");
     // test/pcrcalc5b clone as areamap
     execTest("binding outBinding=tmp.res; initial outBinding = 5*inp1s.map;");
 
-    BOOST_CHECK(fct.equalTo("inp5s.map", false));
+    BOOST_TEST(fct.equalTo("inp5s.map", false));
   }
   {  // simpler then pcrcalc380, but same problem in DataTable::DTE::resetValue -> deref
     // UseDef analysis must keep inp1s.map alive
     geo::FileCreateTester const fct("tmp.res");
     execTest("tmp.res=inp1s.map;tmp.res+=inp1s.map*0;");
-    BOOST_CHECK(fct.equalTo("inp1s.map", false));
+    BOOST_TEST(fct.equalTo("inp1s.map", false));
   }
 
   {  // pcrcalc380
     // UseDef analysis must keep inp1s.map alive
     geo::FileCreateTester const fct("tmp.res");
     execTest("tmp.res=inp1s.map;repeat{tmp.res+=inp1s.map;}until tmp.res eq 5;");
-    BOOST_CHECK(fct.equalTo("inp5s.map", false));
+    BOOST_TEST(fct.equalTo("inp5s.map", false));
   }
   {  // pcrcalc379
     // exec repeat once
     geo::FileCreateTester const fct("tmp.res");
     execTest("pcrcalc379");
-    BOOST_CHECK(fct.equalTo("inp5s_all.map", false));
+    BOOST_TEST(fct.equalTo("inp5s_all.map", false));
   }
   {  // pcrcalc557
     // cast UINT1 to INT4
     geo::FileCreateTester const fct("tmp557.res");
     execTest("pcrcalc557");
-    BOOST_CHECK(fct.equalTo("inp1n.map", false));
+    BOOST_TEST(fct.equalTo("inp1n.map", false));
   }
   {  // min max on stack bug
     geo::FileCreateTester const fct1("tmp56000.001");
     geo::FileCreateTester const fct2("tmp56000.002");
     execTest("pcrcalc560");
-    BOOST_CHECK(fct1.equalTo("res56000.001", false));
-    BOOST_CHECK(fct2.equalTo("res56000.002", false));
+    BOOST_TEST(fct1.equalTo("res56000.001", false));
+    BOOST_TEST(fct2.equalTo("res56000.002", false));
   }
   // bugzilla #52
   {  // lddcreate
@@ -494,8 +494,8 @@ BOOST_AUTO_TEST_CASE(testRunDirectory)
     execTest("pcrcalc353");
 
     // not present in cwd
-    BOOST_CHECK(!com::exists(res));
-    BOOST_CHECK(fct.equalTo("inp5s.map", true));
+    BOOST_TEST(!com::exists(res));
+    BOOST_TEST(fct.equalTo("inp5s.map", true));
   }
   {  //  areamap must adhere to -r
     //  -d will force searching for areamap
@@ -506,17 +506,17 @@ BOOST_AUTO_TEST_CASE(testRunDirectory)
     geo::FileCreateTester const fct(rd + "tmp.res");
 
     com::PathName const areamap(rd + "findit.map");
-    BOOST_CHECK(!areamap.isEmpty());
+    BOOST_TEST(!areamap.isEmpty());
     com::copy("inp1b.map", areamap);
 
     execTest("pcrcalc357a");
-    BOOST_CHECK(fct.equalTo("inp5s_all.map", false));
+    BOOST_TEST(fct.equalTo("inp5s_all.map", false));
   }
   {
     // write to new dir
     com::PathName const rd("tmpdirNewTestRunDirectory");
 
-    BOOST_CHECK(!com::exists(rd));
+    BOOST_TEST(!com::exists(rd));
 
     com::PathName const res("tmp.res");
     com::PathName const resDir(rd + res);
@@ -527,10 +527,10 @@ BOOST_AUTO_TEST_CASE(testRunDirectory)
 
     execTest("pcrcalc354");
 
-    BOOST_CHECK(fct.equalTo("inp5s.map", false));
+    BOOST_TEST(fct.equalTo("inp5s.map", false));
 
     // not present in cwd
-    BOOST_CHECK(!com::exists(res));
+    BOOST_TEST(!com::exists(res));
   }
 
 #ifndef DEBUG_DEVELOP
@@ -541,10 +541,10 @@ BOOST_AUTO_TEST_CASE(testRunDirectory)
     try {
       execTest("pcrcalc524");
     } catch (const com::Exception &e) {
-      BOOST_CHECK(e.messages().find("IoFieldStrategy::createField") != std::string::npos);
+      BOOST_TEST(e.messages().find("IoFieldStrategy::createField") != std::string::npos);
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
 #endif
 }
@@ -560,14 +560,14 @@ BOOST_AUTO_TEST_CASE(testDynamic)
     // - non spatial report dynamic yields NSTssWriter tss
     TestAsciiResult res;
     execTest("binding e=3; areamap inp1b.map; timer 1 e 1; dynamic report tmp.res=time();");
-    BOOST_CHECK(res.equals("pcrcalc47"));
+    BOOST_TEST(res.equals("pcrcalc47"));
   }
   {
     // pcrcalc47
     // - test loop feed back
     TestAsciiResult res;
     execTest("areamap inp1b.map; timer 1 3 1;initial tmp.res=0;dynamic report tmp.res+=1;");
-    BOOST_CHECK(res.equals("pcrcalc47"));
+    BOOST_TEST(res.equals("pcrcalc47"));
   }
   {
     // pcrcalc214a
@@ -578,9 +578,9 @@ BOOST_AUTO_TEST_CASE(testDynamic)
      */
     execTest("pcrcalc214a");
 
-    BOOST_CHECK(s1.equalTo("inp5s.map", false));
-    BOOST_CHECK(s2.equalTo("inp5s.map", false));
-    BOOST_CHECK(s3.equalTo("inp5s.map", false));
+    BOOST_TEST(s1.equalTo("inp5s.map", false));
+    BOOST_TEST(s2.equalTo("inp5s.map", false));
+    BOOST_TEST(s3.equalTo("inp5s.map", false));
   }
   {
     // pcrcalc214b
@@ -591,16 +591,16 @@ BOOST_AUTO_TEST_CASE(testDynamic)
      */
     execTest("pcrcalc214b");
 
-    BOOST_CHECK(!com::exists("tmpStack.001"));
-    BOOST_CHECK(!com::exists("tmpStack.002"));
-    BOOST_CHECK(s3.equalTo("inp5s.map", false));
+    BOOST_TEST(!com::exists("tmpStack.001"));
+    BOOST_TEST(!com::exists("tmpStack.002"));
+    BOOST_TEST(s3.equalTo("inp5s.map", false));
   }
   {
     // pcrcalc214c
     geo::FileCreateTester const s("tmp.res");
     execTest("pcrcalc214c");
 
-    BOOST_CHECK(s.equalTo("inp5s.map", false));
+    BOOST_TEST(s.equalTo("inp5s.map", false));
   }
   {
     com::remove("tmpStack");
@@ -614,34 +614,34 @@ BOOST_AUTO_TEST_CASE(testDynamic)
      */
     execTest("pcrcalc214");
 
-    BOOST_CHECK(s1.equalTo("inp5s_all.map", false));
-    BOOST_CHECK(s2.equalTo("inp5s_all.map", false));
-    BOOST_CHECK(s3.equalTo("inp5s_all.map", false));
+    BOOST_TEST(s1.equalTo("inp5s_all.map", false));
+    BOOST_TEST(s2.equalTo("inp5s_all.map", false));
+    BOOST_TEST(s3.equalTo("inp5s_all.map", false));
   }
 
   {  // timeoutput statement
     TestAsciiResult res;
     execTest("pcrcalc249");
-    BOOST_CHECK(res.equals("pcrcalc249"));
+    BOOST_TEST(res.equals("pcrcalc249"));
   }
   {  // timeinput statement
     TestAsciiResult res;
     execTest("pcrcalc37d");
-    BOOST_CHECK(res.equals("pcrcalc37d"));
+    BOOST_TEST(res.equals("pcrcalc37d"));
   }
   {
     TestAsciiResult res;
     com::ScopedCopy const s2("inp5s.map", "tmp_s000.001");
     com::ScopedCopy const s1("inp1s.map", "tmp_s000.002");
     execTest("pcrcalc250b");
-    BOOST_CHECK(res.equals("pcrcalc250b"));
+    BOOST_TEST(res.equals("pcrcalc250b"));
   }
   {
     TestAsciiResult res;
     com::ScopedCopy const s1("inp5s.map", "tmp_s000.004");
     com::ScopedCopy const s2("inp1s.map", "tmp_s000.006");
     execTest("pcrcalc250d");
-    BOOST_CHECK(res.equals("pcrcalc250d"));
+    BOOST_TEST(res.equals("pcrcalc250d"));
   }
   {
     TestAsciiResult res;
@@ -649,12 +649,12 @@ BOOST_AUTO_TEST_CASE(testDynamic)
     com::ScopedCopy const s2("inp0s.map", "tmp_tim0.002");
     com::ScopedCopy const s3("inp1s.map", "tmp_tim0.003");
     execTest("pcrcalc537");
-    BOOST_CHECK(res.equals("pcrcalc537"));
+    BOOST_TEST(res.equals("pcrcalc537"));
   }
   {
     TestAsciiResult res;
     execTest("pcrcalc68a");
-    BOOST_CHECK(res.equals("pcrcalc68a"));
+    BOOST_TEST(res.equals("pcrcalc68a"));
   }
   {
     // test ICachedObject
@@ -663,32 +663,32 @@ BOOST_AUTO_TEST_CASE(testDynamic)
   {
     TestAsciiResult res;
     execTest("pcrcalc518");
-    BOOST_CHECK(res.equals("pcrcalc518"));
+    BOOST_TEST(res.equals("pcrcalc518"));
   }
   {  // d_readOnlyReferenceBug case 1
     geo::FileCreateTester const fct("tmp.res");
     execTest("tmp.res = inp1s.map * inp1s.map;");
-    BOOST_CHECK(fct.equalTo("inp1s.map", false));
+    BOOST_TEST(fct.equalTo("inp1s.map", false));
   }
   {  // d_readOnlyReferenceBug case 2
     geo::FileCreateTester const fct("tmp.res");
     execTest("tmp.res = areamajority(inp1b.map,inp1b.map);");
-    BOOST_CHECK(fct.equalTo("inp1b.map", false));
+    BOOST_TEST(fct.equalTo("inp1b.map", false));
   }
   {
     TestAsciiResult res;
     execTest("pcrcalc317");
-    BOOST_CHECK(res.equals("pcrcalc317"));
+    BOOST_TEST(res.equals("pcrcalc317"));
   }
   {
     TestAsciiResult res;
     execTest("pcrcalc13c");
-    BOOST_CHECK(res.equals("pcrcalc13c"));
+    BOOST_TEST(res.equals("pcrcalc13c"));
   }
   {
     TestAsciiResult res;
     execTest("pcrcalc13d");
-    BOOST_CHECK(res.equals("pcrcalc13d"));
+    BOOST_TEST(res.equals("pcrcalc13d"));
   }
 
   bool const SeriousBindingClosureProblemPlusNovJrcReport = false;
@@ -709,8 +709,8 @@ BOOST_AUTO_TEST_CASE(testUseDiskStorage)
     Spatial::resetBPC();
     TestAsciiResult res;
     execTest("pcrcalc544");
-    BOOST_CHECK(res.equals("pcrcalc544"));
-    BOOST_CHECK(Spatial::maxBPC() == 8);
+    BOOST_TEST(res.equals("pcrcalc544"));
+    BOOST_TEST(Spatial::maxBPC() == 8);
   } catch (...) {
   }
 }
@@ -724,7 +724,7 @@ BOOST_AUTO_TEST_CASE(testUseDef)
     geo::FileCreateTester const fct("tmpUseDef.res");
     execTest("tmpUseDef.res=inp1s.map+4*(2-inp1s.map);\n");
     // 1 + 4*(2-1) = 5
-    BOOST_CHECK(fct.equalTo("inp5s.map", false));
+    BOOST_TEST(fct.equalTo("inp5s.map", false));
   }
   {
     // Due to field re-use this fails when lastUse's are set
@@ -732,7 +732,7 @@ BOOST_AUTO_TEST_CASE(testUseDef)
     execTest("CF=inp1s.map;\n"
              "tmpUseDef.res=CF+4*(2-CF);\n");
     // 1 + 4*(2-1) = 5
-    BOOST_CHECK(fct.equalTo("inp5s.map", false));
+    BOOST_TEST(fct.equalTo("inp5s.map", false));
   }
   {
     // Is until condition properly cleaned
@@ -740,7 +740,7 @@ BOOST_AUTO_TEST_CASE(testUseDef)
     execTest("CF=inp1s.map;\n"
              "repeat { report tmpUseDef.res=CF+4*(2-CF); } until (CF==1);\n");
     // 1 + 4*(2-1) = 5
-    BOOST_CHECK(fct.equalTo("inp5s.map", false));
+    BOOST_TEST(fct.equalTo("inp5s.map", false));
   }
 }
 
@@ -753,7 +753,7 @@ BOOST_AUTO_TEST_CASE(testExternalBindings)
     geo::FileCreateTester const fct("tmp.res");
     com::write("Mul = 1;Result= tmp.res;", pn);
     execTest("pcrcalc371");
-    BOOST_CHECK(fct.equalTo("inp1s.map", false));
+    BOOST_TEST(fct.equalTo("inp1s.map", false));
   }
   {
     com::write("Mul = 1;Input=failureExpected372.map", pn);
@@ -767,16 +767,16 @@ BOOST_AUTO_TEST_CASE(testExternalBindings)
     geo::FileCreateTester const fct("tmp.res");
     com::write("Mul = inp5s.map;Result= tmp.res;", pn);
     execTest("pcrcalc373");
-    BOOST_CHECK(fct.equalTo("inp5s.map", false));
+    BOOST_TEST(fct.equalTo("inp5s.map", false));
   }
   {
     com::remove("failureExpected.map");
     geo::FileCreateTester const fct("tmp.res");
     com::write("Mul = 5;", pn);
     execTest("pcrcalc374");
-    BOOST_CHECK(fct.equalTo("inp5s.map", false));
+    BOOST_TEST(fct.equalTo("inp5s.map", false));
     // debug map not written
-    BOOST_CHECK(!com::exists("failureExpected.map"));
+    BOOST_TEST(!com::exists("failureExpected.map"));
   }
   {
     // pcrcalc 375
@@ -784,7 +784,7 @@ BOOST_AUTO_TEST_CASE(testExternalBindings)
     geo::FileCreateTester const fct("tmp.res");
     com::write("Mul=0;Mul = 5;", pn);
     execTest("pcrcalc374");
-    BOOST_CHECK(fct.equalTo("inp5s.map", false));
+    BOOST_TEST(fct.equalTo("inp5s.map", false));
   }
 }
 
@@ -797,28 +797,28 @@ BOOST_AUTO_TEST_CASE(testTimeStepHack)
     TestAsciiResult res;
     execTest("pcrcalc528");
     // all stack
-    BOOST_CHECK(com::exists("tmp52800.006"));
-    BOOST_CHECK(com::exists("tmp52800.005"));
-    BOOST_CHECK(com::exists("tmp52800.004"));
-    BOOST_CHECK(com::exists("tmp52800.003"));
-    BOOST_CHECK(!com::exists("tmp52800.002"));
-    BOOST_CHECK(!com::exists("tmp52800.001"));
+    BOOST_TEST(com::exists("tmp52800.006"));
+    BOOST_TEST(com::exists("tmp52800.005"));
+    BOOST_TEST(com::exists("tmp52800.004"));
+    BOOST_TEST(com::exists("tmp52800.003"));
+    BOOST_TEST(!com::exists("tmp52800.002"));
+    BOOST_TEST(!com::exists("tmp52800.001"));
     // endTime
-    BOOST_CHECK(com::exists("tmpL5280.006"));
-    BOOST_CHECK(!com::exists("tmpL5280.005"));
-    BOOST_CHECK(!com::exists("tmpL5280.004"));
-    BOOST_CHECK(!com::exists("tmpL5280.003"));
-    BOOST_CHECK(!com::exists("tmpL5280.002"));
-    BOOST_CHECK(!com::exists("tmpL5280.001"));
+    BOOST_TEST(com::exists("tmpL5280.006"));
+    BOOST_TEST(!com::exists("tmpL5280.005"));
+    BOOST_TEST(!com::exists("tmpL5280.004"));
+    BOOST_TEST(!com::exists("tmpL5280.003"));
+    BOOST_TEST(!com::exists("tmpL5280.002"));
+    BOOST_TEST(!com::exists("tmpL5280.001"));
     // 4,5
-    BOOST_CHECK(!com::exists("tmp45528.006"));
-    BOOST_CHECK(com::exists("tmp45528.005"));
-    BOOST_CHECK(com::exists("tmp45528.004"));
-    BOOST_CHECK(!com::exists("tmp45528.003"));
-    BOOST_CHECK(!com::exists("tmp45528.002"));
-    BOOST_CHECK(!com::exists("tmp45528.001"));
+    BOOST_TEST(!com::exists("tmp45528.006"));
+    BOOST_TEST(com::exists("tmp45528.005"));
+    BOOST_TEST(com::exists("tmp45528.004"));
+    BOOST_TEST(!com::exists("tmp45528.003"));
+    BOOST_TEST(!com::exists("tmp45528.002"));
+    BOOST_TEST(!com::exists("tmp45528.001"));
     // tss:
-    BOOST_CHECK(res.equals("pcrcalc528"));
+    BOOST_TEST(res.equals("pcrcalc528"));
   }
   {  // check only for availability of part used
     com::copy("inp1s.map", "tmp52900.003");
@@ -827,17 +827,17 @@ BOOST_AUTO_TEST_CASE(testTimeStepHack)
 
     TestAsciiResult res;
     execTest("pcrcalc529");
-    BOOST_CHECK(res.equals("pcrcalc529"));
+    BOOST_TEST(res.equals("pcrcalc529"));
   }
   {
     TestAsciiResult res;
     execTest("pcrcalc530");
-    BOOST_CHECK(res.equals("pcrcalc530"));
+    BOOST_TEST(res.equals("pcrcalc530"));
   }
   {
     TestAsciiResult const res;
     execTest("pcrcalc531");
-    // TO LONG BOOST_CHECK(res.equals("pcrcalc531"));
+    // TO LONG BOOST_TEST(res.equals("pcrcalc531"));
   }
 }
 
@@ -850,14 +850,14 @@ BOOST_AUTO_TEST_CASE(testLinkInLibrary)
     try {
       execTest("pcrcalc526");
     } catch (com::Exception const &e) {
-      BOOST_CHECK(e.messages().find("noCodeLinkIn") != std::string::npos);
+      BOOST_TEST(e.messages().find("noCodeLinkIn") != std::string::npos);
 #ifdef WIN32
-      BOOST_CHECK(e.messages().find("The specified module could not be found.") != std::string::npos);
+      BOOST_TEST(e.messages().find("The specified module could not be found.") != std::string::npos);
 #elif __APPLE__
-      BOOST_CHECK((e.messages().find("image not found") != std::string::npos) ||
+      BOOST_TEST((e.messages().find("image not found") != std::string::npos) ||
                   (e.messages().find("(no such file)") != std::string::npos));
 #else
-      BOOST_CHECK(e.messages().find("cannot open shared object file") != std::string::npos);
+      BOOST_TEST(e.messages().find("cannot open shared object file") != std::string::npos);
 #endif
     }
   }
@@ -867,7 +867,7 @@ BOOST_AUTO_TEST_CASE(testLinkInLibrary)
       execTest("pcrcalc551");
     } catch (com::Exception const &e) {
       // Message: unable to open primary document entity '*/noXMLLinkIn'
-      BOOST_CHECK(e.messages().find("noXMLLinkIn") != std::string::npos);
+      BOOST_TEST(e.messages().find("noXMLLinkIn") != std::string::npos);
     }
   }
   {
@@ -881,11 +881,11 @@ BOOST_AUTO_TEST_CASE(testLinkInLibrary)
   {
     geo::FileCreateTester const fct("tmp.res");
     execTest("pcrcalc554");
-    BOOST_CHECK(fct.equalTo("inp5s.map", false));
+    BOOST_TEST(fct.equalTo("inp5s.map", false));
   }
   {
     geo::FileCreateTester const fct("tmp556.res");
     execTest("pcrcalc556");
-    BOOST_CHECK(fct.equalTo("inp5s.map", false));
+    BOOST_TEST(fct.equalTo("inp5s.map", false));
   }
 }

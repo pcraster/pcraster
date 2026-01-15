@@ -9,31 +9,31 @@ BOOST_AUTO_TEST_CASE(testOpName2op)
 
   {
     const Operator *op(opName2op("max"));
-    BOOST_CHECK(op);
-    BOOST_CHECK(op->opCode() == OP_MAX);
+    BOOST_TEST(op);
+    BOOST_TEST(op->opCode() == OP_MAX);
   }
   {
     const Operator *op(opName2op("xxxxxxxxxxxxxxxxxxxxxxx"));
-    BOOST_CHECK(!op);
+    BOOST_TEST(!op);
   }
   {
     const Operator *op(opName2op("*"));
-    BOOST_CHECK(op);
-    BOOST_CHECK(op->opCode() == OP_MUL);
+    BOOST_TEST(op);
+    BOOST_TEST(op->opCode() == OP_MUL);
   }
   {
     const Operator *op(opName2op("+"));
-    BOOST_CHECK(op);
-    BOOST_CHECK(op->opCode() == OP_BADD);
+    BOOST_TEST(op);
+    BOOST_TEST(op->opCode() == OP_BADD);
   }
   {
     const Operator *op(opName2op("+", 1));
-    BOOST_CHECK(op);
-    BOOST_CHECK(op->opCode() == OP_UADD);
+    BOOST_TEST(op);
+    BOOST_TEST(op->opCode() == OP_UADD);
   }
   {  // MRF inserted correct
     const Operator *op(opName2op("spread"));
-    BOOST_CHECK(op);
-    BOOST_CHECK(op->opCode() == OP_SPREAD);
+    BOOST_TEST(op);
+    BOOST_TEST(op->opCode() == OP_SPREAD);
   }
 }

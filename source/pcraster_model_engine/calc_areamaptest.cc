@@ -19,6 +19,6 @@ BOOST_AUTO_TEST_CASE(testInit)
   // not possible anymore pcrxml::AreaMap != pcrxml::AreaMapScript
   // AreaMap amOut2(cc->areaMap().get());
 
-  BOOST_CHECK(in == amOut1.rasterSpace());
-  // BOOST_CHECK(in == amOut2.rasterSpace());
+  BOOST_TEST(in == amOut1.rasterSpace());
+  // BOOST_TEST(in == amOut2.rasterSpace());
 }

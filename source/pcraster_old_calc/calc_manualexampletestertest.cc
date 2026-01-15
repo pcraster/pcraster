@@ -13,7 +13,7 @@ BOOST_AUTO_TEST_CASE(test)
     try {
       mte.test();
     } catch (...) {
-      BOOST_CHECK(false);
+      BOOST_TEST(false);
     }
   }
   {
@@ -25,7 +25,7 @@ BOOST_AUTO_TEST_CASE(test)
     } catch (const com::Exception &) {
       catchError = true;
     }
-    BOOST_CHECK(catchError);
+    BOOST_TEST(catchError);
   }
   {
     bool catchError(false);
@@ -34,10 +34,10 @@ BOOST_AUTO_TEST_CASE(test)
     try {
       mte.test();
     } catch (const com::Exception &e) {
-      BOOST_CHECK(e.messages().find("Not equal") != std::string::npos);
+      BOOST_TEST(e.messages().find("Not equal") != std::string::npos);
       catchError = true;
     }
-    BOOST_CHECK(catchError);
+    BOOST_TEST(catchError);
   }
 }
 
@@ -52,7 +52,7 @@ BOOST_AUTO_TEST_CASE(test_option)
     try {
       mte.test();
     } catch (...) {
-      BOOST_CHECK(false);
+      BOOST_TEST(false);
     }
   }
 }
@@ -69,10 +69,10 @@ BOOST_AUTO_TEST_CASE(clone_)
     try {
       mte.test();
     } catch (const com::Exception &e) {
-      BOOST_CHECK(e.messages().find("cloneNotSet"));
+      BOOST_TEST(e.messages().find("cloneNotSet"));
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
   {  // set and needed
     ManualExampleTester mte("cellarea()*5");
@@ -82,7 +82,7 @@ BOOST_AUTO_TEST_CASE(clone_)
     try {
       mte.test();
     } catch (...) {
-      BOOST_CHECK(false);
+      BOOST_TEST(false);
     }
   }
 }

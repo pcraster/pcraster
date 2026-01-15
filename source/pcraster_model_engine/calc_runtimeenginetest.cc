@@ -24,21 +24,21 @@ BOOST_AUTO_TEST_CASE(testPopField)
     REAL4 zData[4] = {1, 1, 1, 1};
     auto *in = new Spatial(VS_S, zData, 4);
 
-    BOOST_CHECK(!in->readOnlyReference());
-    BOOST_CHECK(in->pcrmeManaged());
+    BOOST_TEST(!in->readOnlyReference());
+    BOOST_TEST(in->pcrmeManaged());
 
     rte.pushField(in);
 
     Field *out = rte.releasePopField();
-    BOOST_CHECK(in != out);
+    BOOST_TEST(in != out);
 
-    BOOST_CHECK(in->vs() == VS_S);
-    BOOST_CHECK(in->src_f()[0] == 1);
-    BOOST_CHECK(in->src_f()[3] == 1);
+    BOOST_TEST(in->vs() == VS_S);
+    BOOST_TEST(in->src_f()[0] == 1);
+    BOOST_TEST(in->src_f()[3] == 1);
 
-    BOOST_CHECK(out->vs() == VS_S);
-    BOOST_CHECK(out->src_f()[0] == 1);
-    BOOST_CHECK(out->src_f()[3] == 1);
+    BOOST_TEST(out->vs() == VS_S);
+    BOOST_TEST(out->src_f()[0] == 1);
+    BOOST_TEST(out->src_f()[3] == 1);
 
     delete in;
     delete out;
@@ -56,10 +56,10 @@ BOOST_AUTO_TEST_CASE(testCloneSet)
     const Operator *o = major2op(OP_NOT_);
     rtTypeCheck(*o, rte.d_rte, 0);
   } catch (const com::Exception &e) {
-    BOOST_CHECK(e.messages().find("no clone or area map specified") != std::string::npos);
+    BOOST_TEST(e.messages().find("no clone or area map specified") != std::string::npos);
     catched = true;
   }
-  BOOST_CHECK(catched);
+  BOOST_TEST(catched);
 }
 
 BOOST_AUTO_TEST_CASE(testCloneDiffer)
@@ -76,11 +76,11 @@ BOOST_AUTO_TEST_CASE(testCloneDiffer)
     rtTypeCheck(*o, rte.d_rte, 1);
 
   } catch (const com::Exception &e) {
-    BOOST_CHECK(e.messages().find("Number of cells is different than clone or previous argument") !=
+    BOOST_TEST(e.messages().find("Number of cells is different than clone or previous argument") !=
                 std::string::npos);
     catched = true;
   }
-  BOOST_CHECK(catched);
+  BOOST_TEST(catched);
 }
 
 BOOST_AUTO_TEST_CASE(testNrArgs)
@@ -95,10 +95,10 @@ BOOST_AUTO_TEST_CASE(testNrArgs)
     rtTypeCheck(*o, rte.d_rte, 0);
 
   } catch (const com::Exception &e) {
-    BOOST_CHECK(e.messages().find("operator 'not' not enough arguments specified") != std::string::npos);
+    BOOST_TEST(e.messages().find("operator 'not' not enough arguments specified") != std::string::npos);
     catched = true;
   }
-  BOOST_CHECK(catched);
+  BOOST_TEST(catched);
 }
 
 BOOST_AUTO_TEST_CASE(testTypeCheck)
@@ -110,13 +110,13 @@ BOOST_AUTO_TEST_CASE(testTypeCheck)
     const Operator *o = major2op(OP_SCALAR);
     REAL4 const bData = 1.0;
     auto *ns = new NonSpatial(VS_SD, bData);
-    BOOST_CHECK(ns->vs() == VS_SD);
+    BOOST_TEST(ns->vs() == VS_SD);
     rte.pushField(ns);
 
     rte.checkAndExec(*o, 1);
 
     Field *f = rte.releasePopField();
-    BOOST_CHECK(f->vs() == VS_S);
+    BOOST_TEST(f->vs() == VS_S);
     delete f;
     delete ns;
   }
@@ -131,7 +131,7 @@ BOOST_AUTO_TEST_CASE(testTypeCheck)
     rte.checkAndExec(*o, 3);
     Field *f = rte.releasePopField();
 
-    BOOST_CHECK(f->vs() == VS_S);
+    BOOST_TEST(f->vs() == VS_S);
     delete f;
   }
   {
@@ -145,7 +145,7 @@ BOOST_AUTO_TEST_CASE(testTypeCheck)
     rte.checkAndExec(*o, 3);
     Field *f = rte.releasePopField();
 
-    BOOST_CHECK(f->vs() == VS_N);
+    BOOST_TEST(f->vs() == VS_N);
     delete f;
   }
   {
@@ -158,7 +158,7 @@ BOOST_AUTO_TEST_CASE(testTypeCheck)
     rte.checkAndExec(*o, 2);
     Field *f = rte.releasePopField();
 
-    BOOST_CHECK(f->vs() == VS_B);
+    BOOST_TEST(f->vs() == VS_B);
     delete f;
   }
 }
@@ -177,7 +177,7 @@ BOOST_AUTO_TEST_CASE(testResetVs)
     rte.checkAndExec(*o, 2);
     Field *f = rte.releasePopField();
 
-    BOOST_CHECK(f->vs() == VS_L);
+    BOOST_TEST(f->vs() == VS_L);
     delete f;
   }
   {  // was a resetVS issue
@@ -190,7 +190,7 @@ BOOST_AUTO_TEST_CASE(testResetVs)
     rte.checkAndExec(*o, 1);
     Field *f = rte.releasePopField();
 
-    BOOST_CHECK(f->vs() == VS_N);
+    BOOST_TEST(f->vs() == VS_N);
     delete f;
   }
 }
@@ -213,9 +213,9 @@ BOOST_AUTO_TEST_CASE(testBuildExpr)
  *  o->checkAndExec(&rte,3);
  *  Field *f= rte.releasePopField();
  *
- *  BOOST_CHECK(f->vs() == VS_S);
- *  BOOST_CHECK(f->src_f()[0] == 8);
- *  BOOST_CHECK(f->src_f()[3] == 8);
+ *  BOOST_TEST(f->vs() == VS_S);
+ *  BOOST_TEST(f->src_f()[0] == 8);
+ *  BOOST_TEST(f->src_f()[3] == 8);
  *  delete f;
  */
 }
@@ -259,9 +259,9 @@ BOOST_AUTO_TEST_CASE(testLoadByStorageId)
     {                         // nonspatial result original pcrcalc9 test
       Field *r = rte.releasePopField();
 
-      BOOST_CHECK(!r->isSpatial());
-      BOOST_CHECK(r->vs() == VS_N);
-      BOOST_CHECK(r->src_4()[0] == 1);
+      BOOST_TEST(!r->isSpatial());
+      BOOST_TEST(r->vs() == VS_N);
+      BOOST_TEST(r->src_4()[0] == 1);
       delete r;
     }
   }
@@ -282,9 +282,9 @@ BOOST_AUTO_TEST_CASE(testLoadByStorageId)
       Field *r = rte.releasePopField();
 
       INT4 vbRes[NR6] = {1, 0, 0, 1, MV_INT4, MV_INT4};
-      BOOST_CHECK(r->isSpatial());
-      BOOST_CHECK(r->vs() == VS_N);
-      BOOST_CHECK(std::equal(vbRes, vbRes + NR6, r->src_4()));
+      BOOST_TEST(r->isSpatial());
+      BOOST_TEST(r->vs() == VS_N);
+      BOOST_TEST(std::equal(vbRes, vbRes + NR6, r->src_4()));
       delete r;
     }
   }
@@ -303,11 +303,11 @@ BOOST_AUTO_TEST_CASE(testLoadByStorageId)
     try {
       rte.checkAndExec(*a, 3);  // 2 fields but 3+1 column  table
     } catch (const com::Exception &e) {
-      BOOST_CHECK(e.messages().find("tmp.tbl: used as table with 4 columns, but has 3 columns") !=
+      BOOST_TEST(e.messages().find("tmp.tbl: used as table with 4 columns, but has 3 columns") !=
                   std::string::npos);
       tableClash = true;
     }
-    BOOST_CHECK(tableClash);
+    BOOST_TEST(tableClash);
   }
   {  // one column wrong
     DataStorageId const id("tmp.tbl");
@@ -324,10 +324,10 @@ BOOST_AUTO_TEST_CASE(testLoadByStorageId)
     try {
       rte.checkAndExec(*a, 4);  // VS_S instead of VS_O
     } catch (const com::Exception &e) {
-      BOOST_CHECK(e.messages().find("column '2' used as scalar type, but has ordinal type") !=
+      BOOST_TEST(e.messages().find("column '2' used as scalar type, but has ordinal type") !=
                   std::string::npos);
       tableClash = true;
     }
-    BOOST_CHECK(tableClash);
+    BOOST_TEST(tableClash);
   }
 }

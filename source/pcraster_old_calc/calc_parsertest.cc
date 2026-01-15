@@ -10,5 +10,5 @@ BOOST_AUTO_TEST_CASE(model_parser)
 
   geo::FileCreateTester const mt("parsertest.res");
   runScriptString("parsertest.res = inp1s.map + 4;");
-  BOOST_CHECK(mt.equalTo("inp5s.map", false));
+  BOOST_TEST(mt.equalTo("inp5s.map", false));
 }

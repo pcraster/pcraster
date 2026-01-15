@@ -29,27 +29,27 @@ BOOST_AUTO_TEST_CASE(compressor)
       std::generate_n(values, 6, com::SeqInc<REAL4>(1));
       // 1,2,3,4,5,6
 
-      BOOST_CHECK(c->nrCellsCompressed() == 6);
-      BOOST_CHECK(c->toDecompressedIndex(0) == 0);
-      BOOST_CHECK(c->toDecompressedIndex(2) == 2);
-      BOOST_CHECK(c->toDecompressedIndex(5) == 5);
+      BOOST_TEST(c->nrCellsCompressed() == 6);
+      BOOST_TEST(c->toDecompressedIndex(0) == 0);
+      BOOST_TEST(c->toDecompressedIndex(2) == 2);
+      BOOST_TEST(c->toDecompressedIndex(5) == 5);
 
       CompressionInput ci(VS_S, values, *c);
       Spatial *s = c->createSpatial(ci);
-      BOOST_CHECK(s->nrValues() == c->nrCellsCompressed());
+      BOOST_TEST(s->nrValues() == c->nrCellsCompressed());
       ci.detachData();  // do not call [] delete => stack data
       auto *compressed = (REAL4 *)const_cast<void *>(s->srcValue());
-      BOOST_CHECK(compressed[0] == 1);
-      BOOST_CHECK(compressed[2] == 3);
-      BOOST_CHECK(compressed[5] == 6);
+      BOOST_TEST(compressed[0] == 1);
+      BOOST_TEST(compressed[2] == 3);
+      BOOST_TEST(compressed[5] == 6);
 
       DecompressedData dd(VS_S);
       c->decompress(dd, s->srcValue());
       auto *dCopy = (REAL4 *)const_cast<void *>(dd.decompressed());
-      BOOST_CHECK(dCopy[0] == 1);
-      BOOST_CHECK(dCopy[2] == 3);
-      BOOST_CHECK(dCopy[4] == 5);
-      BOOST_CHECK(dCopy[5] == 6);
+      BOOST_TEST(dCopy[0] == 1);
+      BOOST_TEST(dCopy[2] == 3);
+      BOOST_TEST(dCopy[4] == 5);
+      BOOST_TEST(dCopy[5] == 6);
 
       delete s;
     }
@@ -60,27 +60,27 @@ BOOST_AUTO_TEST_CASE(compressor)
     REAL4 values[6] = {1, 2, 3, 4, 5, 6};
     MaskCompressor const mc(rs, mask);
 
-    BOOST_CHECK(mc.nrCellsCompressed() == 4);
-    BOOST_CHECK(mc.toDecompressedIndex(0) == 0);
-    BOOST_CHECK(mc.toDecompressedIndex(2) == 3);
-    BOOST_CHECK(mc.toDecompressedIndex(3) == 5);
+    BOOST_TEST(mc.nrCellsCompressed() == 4);
+    BOOST_TEST(mc.toDecompressedIndex(0) == 0);
+    BOOST_TEST(mc.toDecompressedIndex(2) == 3);
+    BOOST_TEST(mc.toDecompressedIndex(3) == 5);
 
     CompressionInput ci(VS_S, values, mc);
     Spatial *s = mc.createSpatial(ci);
-    BOOST_CHECK(s->nrValues() == mc.nrCellsCompressed());
+    BOOST_TEST(s->nrValues() == mc.nrCellsCompressed());
     ci.detachData();  // do not call [] delete => stack data
     auto *compressed = (REAL4 *)const_cast<void *>(s->srcValue());
-    BOOST_CHECK(compressed[0] == 1);
-    BOOST_CHECK(compressed[2] == 4);
-    BOOST_CHECK(compressed[3] == 6);
+    BOOST_TEST(compressed[0] == 1);
+    BOOST_TEST(compressed[2] == 4);
+    BOOST_TEST(compressed[3] == 6);
 
     DecompressedData dd(VS_S);
     mc.decompress(dd, s->srcValue());
     auto *dCopy = (REAL4 *)const_cast<void *>(dd.decompressed());
-    BOOST_CHECK(dCopy[0] == 1);
-    BOOST_CHECK(pcr::isMV(dCopy[2]));
-    BOOST_CHECK(pcr::isMV(dCopy[4]));
-    BOOST_CHECK(dCopy[5] == 6);
+    BOOST_TEST(dCopy[0] == 1);
+    BOOST_TEST(pcr::isMV(dCopy[2]));
+    BOOST_TEST(pcr::isMV(dCopy[4]));
+    BOOST_TEST(dCopy[5] == 6);
 
     delete s;
   }
@@ -141,14 +141,14 @@ BOOST_AUTO_TEST_CASE(script)
 
     mb.execute();
 
-    BOOST_CHECK(mt.equalTo("mvComprResult.map", false));
-    BOOST_CHECK(ma.equalTo("mvComprArea.map", false));
+    BOOST_TEST(mt.equalTo("mvComprResult.map", false));
+    BOOST_TEST(ma.equalTo("mvComprArea.map", false));
 
   } catch (const com::Exception &e) {
     std::cerr << e.messages();
     succes = false;
   }
-  BOOST_CHECK(succes);
+  BOOST_TEST(succes);
 
   com::delete2d<UINT1>(mask);
   com::delete2d<REAL4>(result);
@@ -198,11 +198,11 @@ BOOST_AUTO_TEST_CASE(_0_option)
 
     mb.execute();
 
-    BOOST_CHECK(mt.equalTo("zeroComprResult.map", true));
+    BOOST_TEST(mt.equalTo("zeroComprResult.map", true));
 
   } catch (const com::Exception &e) {
     std::cerr << e.messages();
     succes = false;
   }
-  BOOST_CHECK(succes);
+  BOOST_TEST(succes);
 }

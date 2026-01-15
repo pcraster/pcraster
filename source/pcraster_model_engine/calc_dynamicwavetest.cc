@@ -66,8 +66,8 @@ BOOST_AUTO_TEST_CASE(testSimpleInput)
           % "5" % "1==1").str());
     execTest(testCmd);
 
-    BOOST_CHECK(flux.equalTo("inp0s.map",false));
-    BOOST_CHECK(state.equalTo("inp5s.map",false));
+    BOOST_TEST(flux.equalTo("inp0s.map",false));
+    BOOST_TEST(state.equalTo("inp5s.map",false));
   }
   { // state == distance ==> drop in the network
     geo::FileCreateTester  res("tmp.res");
@@ -77,7 +77,7 @@ BOOST_AUTO_TEST_CASE(testSimpleInput)
           ).str());
     execTest(testCmd);
 
-    BOOST_CHECK(res.equalTo("inp1b.map",false));
+    BOOST_TEST(res.equalTo("inp1b.map",false));
   }
   { // state == 300-distance ==> only uphill
     geo::FileCreateTester  res("tmp.res");
@@ -87,7 +87,7 @@ BOOST_AUTO_TEST_CASE(testSimpleInput)
      ).str());
     execTest(testCmd);
 
-    BOOST_CHECK(res.equalTo("inp1b.map",false));
+    BOOST_TEST(res.equalTo("inp1b.map",false));
   }
 
   { // state == 100000, to generate DomainError
@@ -98,7 +98,7 @@ BOOST_AUTO_TEST_CASE(testSimpleInput)
     TRY_TEST_MSG {
       execTest(testCmd);
     } CATCH_TEST_MSG("pcrcalc508");
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
 */
 }

@@ -15,33 +15,33 @@ BOOST_AUTO_TEST_CASE(testSetAndGetCell)
     try {
       double v = NAN;
       n.getCell(v, 81);
-      BOOST_CHECK(v == 4);
+      BOOST_TEST(v == 4);
       n.setCell(8, 88);
       n.getCell(v, 79);
-      BOOST_CHECK(v == 8);
+      BOOST_TEST(v == 8);
     } catch (...) {
       bool const success = false;
-      BOOST_CHECK(success);
+      BOOST_TEST(success);
     }
-    BOOST_CHECK(n.getValue() == 8);
+    BOOST_TEST(n.getValue() == 8);
   }
 
   {  // set a value boolean UINT1
     UINT1 const v = 0;
     NonSpatial n(VS_B, v);
-    BOOST_CHECK(n.cri() == CRI_1);
+    BOOST_TEST(n.cri() == CRI_1);
     try {
       double v = NAN;
       n.getCell(v, 81);
-      BOOST_CHECK(v == 0);
+      BOOST_TEST(v == 0);
       n.setCell(1, 88);
       n.getCell(v, 79);
-      BOOST_CHECK(v == 1);
+      BOOST_TEST(v == 1);
     } catch (...) {
       bool const success = false;
-      BOOST_CHECK(success);
+      BOOST_TEST(success);
     }
-    BOOST_CHECK(n.getValue() == 1);
+    BOOST_TEST(n.getValue() == 1);
   }
   {  // set a value nominal INT4
     // setCell only used in lookup
@@ -49,17 +49,17 @@ BOOST_AUTO_TEST_CASE(testSetAndGetCell)
     try {
       double v = NAN;
       n.getCell(v, 81);
-      BOOST_CHECK(v == 4);
+      BOOST_TEST(v == 4);
       // set some cell index
       n.setCell(-2, 88);
       // get some cell index
       n.getCell(v, 79);
-      BOOST_CHECK(v == -2);
+      BOOST_TEST(v == -2);
     } catch (...) {
       bool const success = false;
-      BOOST_CHECK(success);
+      BOOST_TEST(success);
     }
-    BOOST_CHECK(n.getValue() == -2);
+    BOOST_TEST(n.getValue() == -2);
   }
 
   {  // set a MV
@@ -73,7 +73,7 @@ BOOST_AUTO_TEST_CASE(testSetAndGetCell)
       catched = true;
       ;
     }
-    BOOST_CHECK(catched);
-    BOOST_CHECK(n.getValue() == 8);
+    BOOST_TEST(catched);
+    BOOST_TEST(n.getValue() == 8);
   }
 }

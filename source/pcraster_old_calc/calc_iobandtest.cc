@@ -126,28 +126,28 @@ void calc::IoBandTest::test1()
   {  // execute correctly
     com::write("dummy = boolean(clone); report piet = uniqueid(1);", "script.mod");
     PcrScript *s = pcr_createScript("script.mod");
-    BOOST_CHECK(s);
+    BOOST_TEST(s);
     appIOstrategy = APP_IO_BANDMAP;
     execBand(s);
     if (pcr_ScriptError(s)) {
       std::cerr << "HECK " << pcr_ScriptErrorMessage(s) << "\n";
     }
-    BOOST_CHECK(!pcr_ScriptError(s));
+    BOOST_TEST(!pcr_ScriptError(s));
     pcr_destroyScript(s);
     // what should not be created
-    BOOST_CHECK(!com::pathExists("dummy"));
-    BOOST_CHECK(!com::pathExists("dummy.bil"));
-    BOOST_CHECK(!com::pathExists("dummy.hdr"));
-    BOOST_CHECK(!com::pathExists("piet"));
+    BOOST_TEST(!com::pathExists("dummy"));
+    BOOST_TEST(!com::pathExists("dummy.bil"));
+    BOOST_TEST(!com::pathExists("dummy.hdr"));
+    BOOST_TEST(!com::pathExists("piet"));
 
     // what must be created
     geo::BandMap rm("piet");
-    BOOST_CHECK(rm.rasterSpace() == geo::BandMap("clone").rasterSpace());
-    BOOST_CHECK(rm.cellRepr() == CR_REAL4);
+    BOOST_TEST(rm.rasterSpace() == geo::BandMap("clone").rasterSpace());
+    BOOST_TEST(rm.cellRepr() == CR_REAL4);
     REAL4 buf[NR_CELLS];
     rm.getCellsAsREAL4(buf);
-    BOOST_CHECK(buf[0] == 1);
-    BOOST_CHECK(buf[19] == 20);
+    BOOST_TEST(buf[0] == 1);
+    BOOST_TEST(buf[19] == 20);
   }
 }
 
@@ -155,10 +155,10 @@ void calc::IoBandTest::test2()
 {  // dunno output type
   com::write("dummy = boolean(clone); report piet = 1;", "script.mod");
   PcrScript *s = pcr_createScript("script.mod");
-  BOOST_CHECK(s);
+  BOOST_TEST(s);
   execBand(s);
-  BOOST_CHECK(pcr_ScriptError(s));
-  BOOST_CHECK(pcr_ScriptErrorMessage(s).find("conversion") != std::string::npos);
+  BOOST_TEST(pcr_ScriptError(s));
+  BOOST_TEST(pcr_ScriptErrorMessage(s).find("conversion") != std::string::npos);
   pcr_destroyScript(s);
 }
 
@@ -167,23 +167,23 @@ void calc::IoBandTest::test3()
   {  // execute correctly, reading UINT1 as REAL4
     com::write("report piet = clone*1+0.5;", "script.mod");
     PcrScript *s = pcr_createScript("script.mod");
-    BOOST_CHECK(s);
+    BOOST_TEST(s);
     execBand(s);
-    BOOST_CHECK(pcr_ScriptError(s));
+    BOOST_TEST(pcr_ScriptError(s));
     const char *msg =
         "left operand of operator '*': type is one of (nominal,ordinal,boolean), legal type is scalar";
-    BOOST_CHECK(pcr_ScriptErrorMessage(s).find(msg) != std::string::npos);
+    BOOST_TEST(pcr_ScriptErrorMessage(s).find(msg) != std::string::npos);
     pcr_destroyScript(s);
 
     /* NOT CREATED
     // what must be created
     geo::BandMap rm("piet");
-    BOOST_CHECK(rm.rasterSpace() == geo::BandMap("clone").rasterSpace());
-    BOOST_CHECK(rm.cellRepr() == CR_REAL4);
+    BOOST_TEST(rm.rasterSpace() == geo::BandMap("clone").rasterSpace());
+    BOOST_TEST(rm.cellRepr() == CR_REAL4);
     REAL4 buf[NR_CELLS];
     rm.getCellsAsREAL4(buf);
-    BOOST_CHECK(buf[0]==0.5);
-    BOOST_CHECK(buf[19]==19.5);
+    BOOST_TEST(buf[0]==0.5);
+    BOOST_TEST(buf[19]==19.5);
     */
   }
 }
@@ -193,10 +193,10 @@ void calc::IoBandTest::testTypeChecking()
   {  // execute correctly, reading UINT1 as REAL4
     com::write("report piet = areatotal(spatial(3),v1_32b)", "script.mod");
     PcrScript *s = pcr_createScript("script.mod");
-    BOOST_CHECK(s);
+    BOOST_TEST(s);
     execBand(s);
-    BOOST_CHECK(pcr_ScriptError(s));
-    BOOST_CHECK(pcr_ScriptErrorMessage(s).find("legal type") != std::string::npos);
+    BOOST_TEST(pcr_ScriptError(s));
+    BOOST_TEST(pcr_ScriptErrorMessage(s).find("legal type") != std::string::npos);
     pcr_destroyScript(s);
   }
 }

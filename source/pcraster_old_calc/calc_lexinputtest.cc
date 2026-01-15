@@ -17,14 +17,14 @@ BOOST_AUTO_TEST_CASE(install_string_script)
     r += (char)c;
   }
   // need for an additonal newline
-  BOOST_CHECK(r == (s + '\n'));
+  BOOST_TEST(r == (s + '\n'));
 
   // test piece of code from calc_lexinputsource.cc:
   // erase sealed contents from memory
   std::string contents("pietpaal");
   contents.replace(contents.begin(), contents.end(), contents.size(), 0);
-  BOOST_CHECK(contents.size() == 8);
+  BOOST_TEST(contents.size() == 8);
   for (char const content : contents) {
-    BOOST_CHECK(content == 0);
+    BOOST_TEST(content == 0);
   }
 }

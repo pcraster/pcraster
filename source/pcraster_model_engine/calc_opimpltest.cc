@@ -50,11 +50,11 @@ BOOST_AUTO_TEST_CASE(testSameBin)
     execAll(rte, a);
     DVAutoPtr<Field> r(rte.popField());
     double v = NAN;
-    BOOST_CHECK(r->getCell(v, 0));
-    BOOST_CHECK(v == 4);
-    BOOST_CHECK(!r->getCell(v, 1));
-    BOOST_CHECK(r->getCell(v, 2));
-    BOOST_CHECK(v == 12);
+    BOOST_TEST(r->getCell(v, 0));
+    BOOST_TEST(v == 4);
+    BOOST_TEST(!r->getCell(v, 1));
+    BOOST_TEST(r->getCell(v, 2));
+    BOOST_TEST(v == 12);
   }
 
   {  // NS  - SN
@@ -72,14 +72,14 @@ BOOST_AUTO_TEST_CASE(testSameBin)
 
       execAll(rte, a);
       DVAutoPtr<Field> r(rte.popField());
-      BOOST_CHECK(r->isSpatial());
-      BOOST_CHECK(r->vs() == VS_S);
+      BOOST_TEST(r->isSpatial());
+      BOOST_TEST(r->vs() == VS_S);
       double v = NAN;
-      BOOST_CHECK(r->getCell(v, 0));
-      BOOST_CHECK(v == 3);
-      BOOST_CHECK(!r->getCell(v, 1));
-      BOOST_CHECK(r->getCell(v, 2));
-      BOOST_CHECK(v == 7);
+      BOOST_TEST(r->getCell(v, 0));
+      BOOST_TEST(v == 3);
+      BOOST_TEST(!r->getCell(v, 1));
+      BOOST_TEST(r->getCell(v, 2));
+      BOOST_TEST(v == 7);
     }
   }
   {  // NN as SS
@@ -91,10 +91,10 @@ BOOST_AUTO_TEST_CASE(testSameBin)
     execAll(rte, a);
     DVAutoPtr<Field> r(rte.popField());
 
-    BOOST_CHECK(!r->isSpatial());
+    BOOST_TEST(!r->isSpatial());
     double v = NAN;
-    BOOST_CHECK(r->getCell(v, 0));
-    BOOST_CHECK(v == 2);
+    BOOST_TEST(r->getCell(v, 0));
+    BOOST_TEST(v == 2);
   }
 }
 
@@ -120,10 +120,10 @@ BOOST_AUTO_TEST_CASE(testCover)
 
     execAll(rte, a);
     DVAutoPtr<Field> r(rte.popField());
-    BOOST_CHECK(r->isSpatial());
-    BOOST_CHECK(r->vs() == VS_S);
+    BOOST_TEST(r->isSpatial());
+    BOOST_TEST(r->vs() == VS_S);
     REAL4 res[NR] = {2, -1, 6};
-    BOOST_CHECK(std::equal(res, res + NR, r->src_f()));
+    BOOST_TEST(std::equal(res, res + NR, r->src_f()));
   }
   {  // NS  - SN
     RunTimeEnv rte(rs);
@@ -140,14 +140,14 @@ BOOST_AUTO_TEST_CASE(testCover)
 
       execAll(rte, a);
       DVAutoPtr<Field> r(rte.popField());
-      BOOST_CHECK(r->isSpatial());
-      BOOST_CHECK(r->vs() == VS_S);
+      BOOST_TEST(r->isSpatial());
+      BOOST_TEST(r->vs() == VS_S);
       if (i != 0u) {
         REAL4 res[NR] = {1, 1, 1};
-        BOOST_CHECK(std::equal(res, res + NR, r->src_f()));
+        BOOST_TEST(std::equal(res, res + NR, r->src_f()));
       } else {
         REAL4 res[NR] = {2, 1, 6};
-        BOOST_CHECK(std::equal(res, res + NR, r->src_f()));
+        BOOST_TEST(std::equal(res, res + NR, r->src_f()));
       }
     }
   }
@@ -160,10 +160,10 @@ BOOST_AUTO_TEST_CASE(testCover)
     execAll(rte, a);
     DVAutoPtr<Field> r(rte.popField());
 
-    BOOST_CHECK(!r->isSpatial());
+    BOOST_TEST(!r->isSpatial());
     double v = NAN;
-    BOOST_CHECK(r->getCell(v, 0));
-    BOOST_CHECK(v == 1);
+    BOOST_TEST(r->getCell(v, 0));
+    BOOST_TEST(v == 1);
   }
 }
 
@@ -187,12 +187,12 @@ BOOST_AUTO_TEST_CASE(testSameUn)
 
     execAll(rte, a);
     DVAutoPtr<Field> r(rte.popField());
-    BOOST_CHECK(r->isSpatial());
-    BOOST_CHECK(r->vs() == VS_S);
+    BOOST_TEST(r->isSpatial());
+    BOOST_TEST(r->vs() == VS_S);
 
-    BOOST_CHECK(r->src_f()[0] == 2);
-    BOOST_CHECK(pcr::isMV(r->src_f()[1]));
-    BOOST_CHECK(pcr::isMV(r->src_f()[2]));  // domain error
+    BOOST_TEST(r->src_f()[0] == 2);
+    BOOST_TEST(pcr::isMV(r->src_f()[1]));
+    BOOST_TEST(pcr::isMV(r->src_f()[2]));  // domain error
   }
 
   {  // N
@@ -203,9 +203,9 @@ BOOST_AUTO_TEST_CASE(testSameUn)
     execAll(rte, a);
     DVAutoPtr<Field> r(rte.popField());
 
-    BOOST_CHECK(!r->isSpatial());
-    BOOST_CHECK(r->vs() == VS_S);
-    BOOST_CHECK(r->src_f()[0] == 1);
+    BOOST_TEST(!r->isSpatial());
+    BOOST_TEST(r->vs() == VS_S);
+    BOOST_TEST(r->src_f()[0] == 1);
   }
 }
 
@@ -229,7 +229,7 @@ BOOST_AUTO_TEST_CASE(testDomainError)
     } catch (const calc::DomainError &) {
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
   {  // SN
     RunTimeEnv rte(rs);
@@ -250,7 +250,7 @@ BOOST_AUTO_TEST_CASE(testDomainError)
     } catch (const calc::DomainError &) {
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
   {  // NN
     RunTimeEnv rte(rs);
@@ -266,7 +266,7 @@ BOOST_AUTO_TEST_CASE(testDomainError)
     } catch (const calc::DomainError &) {
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
   {  // NN  -0.047**1.5; test pcrcalc337a
     RunTimeEnv rte(rs);
@@ -283,7 +283,7 @@ BOOST_AUTO_TEST_CASE(testDomainError)
     } catch (const calc::DomainError &) {
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
 }
 
@@ -308,11 +308,11 @@ BOOST_AUTO_TEST_CASE(testDiffUn)
     execAll(rte, a);
     DVAutoPtr<Field> r(rte.popField());
 
-    BOOST_CHECK(!r->isSpatial());
-    BOOST_CHECK(r->vs() == VS_O);
+    BOOST_TEST(!r->isSpatial());
+    BOOST_TEST(r->vs() == VS_O);
     double v = NAN;
-    BOOST_CHECK(r->getCell(v, 0));
-    BOOST_CHECK(v == 2);
+    BOOST_TEST(r->getCell(v, 0));
+    BOOST_TEST(v == 2);
   }
   {  // Spatial
     RunTimeEnv rte(rs);
@@ -327,9 +327,9 @@ BOOST_AUTO_TEST_CASE(testDiffUn)
     {  // nop
       DVAutoPtr<Field> r(rte.popField());
 
-      BOOST_CHECK(r->isSpatial());
-      BOOST_CHECK(r->vs() == VS_O);
-      BOOST_CHECK(std::equal(vb, vb + 3, r->src_4()));
+      BOOST_TEST(r->isSpatial());
+      BOOST_TEST(r->vs() == VS_O);
+      BOOST_TEST(std::equal(vb, vb + 3, r->src_4()));
     }
 
     rte.pushField(createNonSpatial<INT4>(VS_O, 4));
@@ -337,9 +337,9 @@ BOOST_AUTO_TEST_CASE(testDiffUn)
     {  // did it
       INT4 vb4[NR] = {4, 4, 4};
       DVAutoPtr<Field> r(rte.popField());
-      BOOST_CHECK(r->isSpatial());
-      BOOST_CHECK(r->vs() == VS_O);
-      BOOST_CHECK(std::equal(vb4, vb4 + 3, r->src_4()));
+      BOOST_TEST(r->isSpatial());
+      BOOST_TEST(r->vs() == VS_O);
+      BOOST_TEST(std::equal(vb4, vb4 + 3, r->src_4()));
     }
   }
   {  // Generated DiffUn
@@ -353,15 +353,15 @@ BOOST_AUTO_TEST_CASE(testDiffUn)
     execAll(rte, a);
 
     DVAutoPtr<Field> r(rte.popField());
-    BOOST_CHECK(r->isSpatial());
-    BOOST_CHECK(r->vs() == VS_B);
+    BOOST_TEST(r->isSpatial());
+    BOOST_TEST(r->vs() == VS_B);
 
     double v = NAN;
-    BOOST_CHECK(r->getCell(v, 0));
-    BOOST_CHECK(v == 0);
-    BOOST_CHECK(!r->getCell(v, 1));
-    BOOST_CHECK(r->getCell(v, 2));
-    BOOST_CHECK(v == 1);
+    BOOST_TEST(r->getCell(v, 0));
+    BOOST_TEST(v == 0);
+    BOOST_TEST(!r->getCell(v, 1));
+    BOOST_TEST(r->getCell(v, 2));
+    BOOST_TEST(v == 1);
   }
 }
 
@@ -387,11 +387,11 @@ BOOST_AUTO_TEST_CASE(testCompare)
     execAll(rte, a);
     DVAutoPtr<Field> r(rte.popField());
 
-    BOOST_CHECK(r->isSpatial());
-    BOOST_CHECK(r->vs() == VS_B);
-    BOOST_CHECK(r->src_1()[0] == 0);
-    BOOST_CHECK(r->src_1()[1] == MV_UINT1);
-    BOOST_CHECK(r->src_1()[2] == 0);
+    BOOST_TEST(r->isSpatial());
+    BOOST_TEST(r->vs() == VS_B);
+    BOOST_TEST(r->src_1()[0] == 0);
+    BOOST_TEST(r->src_1()[1] == MV_UINT1);
+    BOOST_TEST(r->src_1()[2] == 0);
   }
   {  // NS  - SN
     RunTimeEnv rte(rs);
@@ -409,11 +409,11 @@ BOOST_AUTO_TEST_CASE(testCompare)
       execAll(rte, a);
       DVAutoPtr<Field> r(rte.popField());
 
-      BOOST_CHECK(r->isSpatial());
-      BOOST_CHECK(r->vs() == VS_B);
-      BOOST_CHECK(r->src_1()[0] == i);
-      BOOST_CHECK(r->src_1()[1] == MV_UINT1);
-      BOOST_CHECK(r->src_1()[2] == i);
+      BOOST_TEST(r->isSpatial());
+      BOOST_TEST(r->vs() == VS_B);
+      BOOST_TEST(r->src_1()[0] == i);
+      BOOST_TEST(r->src_1()[1] == MV_UINT1);
+      BOOST_TEST(r->src_1()[2] == i);
     }
   }
   {  // NN as SS
@@ -425,9 +425,9 @@ BOOST_AUTO_TEST_CASE(testCompare)
     execAll(rte, a);
     DVAutoPtr<Field> r(rte.popField());
 
-    BOOST_CHECK(!r->isSpatial());
-    BOOST_CHECK(r->vs() == VS_B);
-    BOOST_CHECK(r->src_1()[0] == 0);
+    BOOST_TEST(!r->isSpatial());
+    BOOST_TEST(r->vs() == VS_B);
+    BOOST_TEST(r->src_1()[0] == 0);
   }
 }
 
@@ -453,11 +453,11 @@ BOOST_AUTO_TEST_CASE(testIfThen)
     execAll(rte, a);
     DVAutoPtr<Field> r(rte.popField());
 
-    BOOST_CHECK(r->isSpatial());
-    BOOST_CHECK(r->vs() == VS_S);
-    BOOST_CHECK(r->src_f()[0] == 2);
-    BOOST_CHECK(pcr::isMV(r->src_f()[1]));
-    BOOST_CHECK(pcr::isMV(r->src_f()[2]));
+    BOOST_TEST(r->isSpatial());
+    BOOST_TEST(r->vs() == VS_S);
+    BOOST_TEST(r->src_f()[0] == 2);
+    BOOST_TEST(pcr::isMV(r->src_f()[1]));
+    BOOST_TEST(pcr::isMV(r->src_f()[2]));
   }
   {  // NS
     RunTimeEnv rte(rs);
@@ -468,11 +468,11 @@ BOOST_AUTO_TEST_CASE(testIfThen)
     execAll(rte, a);
     DVAutoPtr<Field> r(rte.popField());
 
-    BOOST_CHECK(r->isSpatial());
-    BOOST_CHECK(r->vs() == VS_S);
-    BOOST_CHECK(pcr::isMV(r->src_f()[0]));
-    BOOST_CHECK(pcr::isMV(r->src_f()[1]));
-    BOOST_CHECK(pcr::isMV(r->src_f()[2]));
+    BOOST_TEST(r->isSpatial());
+    BOOST_TEST(r->vs() == VS_S);
+    BOOST_TEST(pcr::isMV(r->src_f()[0]));
+    BOOST_TEST(pcr::isMV(r->src_f()[1]));
+    BOOST_TEST(pcr::isMV(r->src_f()[2]));
   }
   {  // SN
     RunTimeEnv rte(rs);
@@ -483,11 +483,11 @@ BOOST_AUTO_TEST_CASE(testIfThen)
     execAll(rte, a);
     DVAutoPtr<Field> r(rte.popField());
 
-    BOOST_CHECK(r->isSpatial());
-    BOOST_CHECK(r->vs() == VS_S);
-    BOOST_CHECK(r->src_f()[0] == 7);
-    BOOST_CHECK(r->src_f()[1] == 7);
-    BOOST_CHECK(pcr::isMV(r->src_f()[2]));
+    BOOST_TEST(r->isSpatial());
+    BOOST_TEST(r->vs() == VS_S);
+    BOOST_TEST(r->src_f()[0] == 7);
+    BOOST_TEST(r->src_f()[1] == 7);
+    BOOST_TEST(pcr::isMV(r->src_f()[2]));
   }
 }
 
@@ -517,11 +517,11 @@ BOOST_AUTO_TEST_CASE(testIfThenElse)
     execAll(rte, a);
     DVAutoPtr<Field> r(rte.popField());
 
-    BOOST_CHECK(r->isSpatial());
-    BOOST_CHECK(r->vs() == VS_S);
-    BOOST_CHECK(r->src_f()[0] == 2);
-    BOOST_CHECK(pcr::isMV(r->src_f()[1]));
-    BOOST_CHECK(r->src_f()[2] == 8);
+    BOOST_TEST(r->isSpatial());
+    BOOST_TEST(r->vs() == VS_S);
+    BOOST_TEST(r->src_f()[0] == 2);
+    BOOST_TEST(pcr::isMV(r->src_f()[1]));
+    BOOST_TEST(r->src_f()[2] == 8);
   }
   {  // NNS cond false
     RunTimeEnv rte(rs);
@@ -533,11 +533,11 @@ BOOST_AUTO_TEST_CASE(testIfThenElse)
     execAll(rte, a);
     DVAutoPtr<Field> r(rte.popField());
 
-    BOOST_CHECK(r->isSpatial());
-    BOOST_CHECK(r->vs() == VS_S);
-    BOOST_CHECK(r->src_f()[0] == 7);
-    BOOST_CHECK(r->src_f()[1] == 7);
-    BOOST_CHECK(r->src_f()[2] == 7);
+    BOOST_TEST(r->isSpatial());
+    BOOST_TEST(r->vs() == VS_S);
+    BOOST_TEST(r->src_f()[0] == 7);
+    BOOST_TEST(r->src_f()[1] == 7);
+    BOOST_TEST(r->src_f()[2] == 7);
   }
   {  // NNS cond true
     RunTimeEnv rte(rs);
@@ -549,11 +549,11 @@ BOOST_AUTO_TEST_CASE(testIfThenElse)
     execAll(rte, a);
     DVAutoPtr<Field> r(rte.popField());
 
-    BOOST_CHECK(r->isSpatial());
-    BOOST_CHECK(r->vs() == VS_S);
-    BOOST_CHECK(r->src_f()[0] == 2);
-    BOOST_CHECK(pcr::isMV(r->src_f()[1]));
-    BOOST_CHECK(r->src_f()[2] == 6);
+    BOOST_TEST(r->isSpatial());
+    BOOST_TEST(r->vs() == VS_S);
+    BOOST_TEST(r->src_f()[0] == 2);
+    BOOST_TEST(pcr::isMV(r->src_f()[1]));
+    BOOST_TEST(r->src_f()[2] == 6);
   }
 }
 
@@ -574,11 +574,11 @@ BOOST_AUTO_TEST_CASE(testGen)
     execAll(rte, a);
     DVAutoPtr<Field> r(rte.popField());
 
-    BOOST_CHECK(!r->isSpatial());
-    BOOST_CHECK(r->vs() == VS_S);
+    BOOST_TEST(!r->isSpatial());
+    BOOST_TEST(r->vs() == VS_S);
     double v = NAN;
-    BOOST_CHECK(r->getCell(v, 0));
-    BOOST_CHECK(v == 1);
+    BOOST_TEST(r->getCell(v, 0));
+    BOOST_TEST(v == 1);
   }
 }
 
@@ -606,9 +606,9 @@ BOOST_AUTO_TEST_CASE(testGlobal)
     execAll(rte, a);
     DVAutoPtr<Field> r(rte.popField());
 
-    BOOST_CHECK(r->isSpatial());
-    BOOST_CHECK(r->vs() == VS_N);
-    BOOST_CHECK(std::equal(vbRes, vbRes + 6, r->src_4()));
+    BOOST_TEST(r->isSpatial());
+    BOOST_TEST(r->vs() == VS_N);
+    BOOST_TEST(std::equal(vbRes, vbRes + 6, r->src_4()));
   }
   {
     RunTimeEnv rte(rs);
@@ -623,9 +623,9 @@ BOOST_AUTO_TEST_CASE(testGlobal)
     execAll(rte, a);
     DVAutoPtr<Field> r(rte.popField());
 
-    BOOST_CHECK(r->isSpatial());
-    BOOST_CHECK(r->vs() == VS_B);
-    BOOST_CHECK(std::equal(vbRes, vbRes + 6, r->src_1()));
+    BOOST_TEST(r->isSpatial());
+    BOOST_TEST(r->vs() == VS_B);
+    BOOST_TEST(std::equal(vbRes, vbRes + 6, r->src_1()));
   }
   {
     RunTimeEnv rte(rs);
@@ -640,9 +640,9 @@ BOOST_AUTO_TEST_CASE(testGlobal)
     execAll(rte, a);
     DVAutoPtr<Field> r(rte.popField());
 
-    BOOST_CHECK(r->isSpatial());
-    BOOST_CHECK(r->vs() == VS_B);
-    BOOST_CHECK(std::equal(vbRes, vbRes + 6, r->src_1()));
+    BOOST_TEST(r->isSpatial());
+    BOOST_TEST(r->vs() == VS_B);
+    BOOST_TEST(std::equal(vbRes, vbRes + 6, r->src_1()));
   }
 #ifdef NDEBUG
   {
@@ -660,7 +660,7 @@ BOOST_AUTO_TEST_CASE(testGlobal)
     } catch (const DomainError &) {
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
 #else
   // OLS: I think this test never worked in Debug mode
@@ -695,14 +695,14 @@ BOOST_AUTO_TEST_CASE(testMRF)
     execAll(rte, a);
 
     DVAutoPtr<Field> r1(rte.popField());
-    BOOST_CHECK(r1->isSpatial());
-    BOOST_CHECK(r1->vs() == VS_S);
-    BOOST_CHECK(std::equal(vbCost, vbCost + 6, r1->src_f()));
+    BOOST_TEST(r1->isSpatial());
+    BOOST_TEST(r1->vs() == VS_S);
+    BOOST_TEST(std::equal(vbCost, vbCost + 6, r1->src_f()));
 
     DVAutoPtr<Field> r2(rte.popField());
-    BOOST_CHECK(r2->isSpatial());
-    BOOST_CHECK(r2->vs() == VS_B);
-    BOOST_CHECK(std::equal(vbZone, vbZone + 6, r2->src_1()));
+    BOOST_TEST(r2->isSpatial());
+    BOOST_TEST(r2->vs() == VS_B);
+    BOOST_TEST(std::equal(vbZone, vbZone + 6, r2->src_1()));
   }
   {  // spread only
     RunTimeEnv rte(rs);
@@ -715,11 +715,11 @@ BOOST_AUTO_TEST_CASE(testMRF)
     execAll(rte, a);
 
     DVAutoPtr<Field> r2(rte.popField());
-    BOOST_CHECK(r2->isSpatial());
-    BOOST_CHECK(r2->vs() == VS_S);
-    BOOST_CHECK(std::equal(vbCost, vbCost + 6, r2->src_f()));
+    BOOST_TEST(r2->isSpatial());
+    BOOST_TEST(r2->vs() == VS_S);
+    BOOST_TEST(std::equal(vbCost, vbCost + 6, r2->src_f()));
 
-    BOOST_CHECK(rte.stackSize() == 0);
+    BOOST_TEST(rte.stackSize() == 0);
   }
   {  // spreadzone only
     RunTimeEnv rte(rs);
@@ -732,11 +732,11 @@ BOOST_AUTO_TEST_CASE(testMRF)
     execAll(rte, a);
 
     DVAutoPtr<Field> r1(rte.popField());
-    BOOST_CHECK(r1->isSpatial());
-    BOOST_CHECK(r1->vs() == VS_B);
-    BOOST_CHECK(std::equal(vbZone, vbZone + 6, r1->src_1()));
+    BOOST_TEST(r1->isSpatial());
+    BOOST_TEST(r1->vs() == VS_B);
+    BOOST_TEST(std::equal(vbZone, vbZone + 6, r1->src_1()));
 
-    BOOST_CHECK(rte.stackSize() == 0);
+    BOOST_TEST(rte.stackSize() == 0);
   }
 }
 
@@ -765,12 +765,12 @@ BOOST_AUTO_TEST_CASE(testConversion)
     execAll(rte, a);
 
     DVAutoPtr<Field> r(rte.popField());
-    BOOST_CHECK(r->isSpatial());
-    BOOST_CHECK(r->vs() == VS_S);
-    BOOST_CHECK(std::equal(vbIn, vbIn + 6, r->src_f()));
+    BOOST_TEST(r->isSpatial());
+    BOOST_TEST(r->vs() == VS_S);
+    BOOST_TEST(std::equal(vbIn, vbIn + 6, r->src_f()));
 
     //  assert A NO_OP
-    BOOST_CHECK(r.get() == f);
+    BOOST_TEST(r.get() == f);
   }
   {
     RunTimeEnv rte(rs);
@@ -782,9 +782,9 @@ BOOST_AUTO_TEST_CASE(testConversion)
     execAll(rte, a);
 
     DVAutoPtr<Field> r(rte.popField());
-    BOOST_CHECK(r->isSpatial());
-    BOOST_CHECK(r->vs() == VS_N);
-    BOOST_CHECK(std::equal(vbNom, vbNom + 6, r->src_4()));
+    BOOST_TEST(r->isSpatial());
+    BOOST_TEST(r->vs() == VS_N);
+    BOOST_TEST(std::equal(vbNom, vbNom + 6, r->src_4()));
   }
   {
     RunTimeEnv rte(rs);
@@ -796,9 +796,9 @@ BOOST_AUTO_TEST_CASE(testConversion)
     execAll(rte, a);
 
     DVAutoPtr<Field> r(rte.popField());
-    BOOST_CHECK(r->isSpatial());
-    BOOST_CHECK(r->vs() == VS_B);
-    BOOST_CHECK(std::equal(vbBol, vbBol + 6, r->src_1()));
+    BOOST_TEST(r->isSpatial());
+    BOOST_TEST(r->vs() == VS_B);
+    BOOST_TEST(std::equal(vbBol, vbBol + 6, r->src_1()));
   }
 }
 
@@ -839,9 +839,9 @@ BOOST_AUTO_TEST_CASE(testLookup)
     {                  // nonspatial result original pcrcalc9 test
       DVAutoPtr<Field> r(rte.popField());
 
-      BOOST_CHECK(!r->isSpatial());
-      BOOST_CHECK(r->vs() == VS_N);
-      BOOST_CHECK(r->src_4()[0] == 1);
+      BOOST_TEST(!r->isSpatial());
+      BOOST_TEST(r->vs() == VS_N);
+      BOOST_TEST(r->src_4()[0] == 1);
     }
   }
   {
@@ -860,9 +860,9 @@ BOOST_AUTO_TEST_CASE(testLookup)
       DVAutoPtr<Field> r(rte.popField());
 
       INT4 vbRes[NR6] = {1, 0, 0, 1, MV_INT4, MV_INT4};
-      BOOST_CHECK(r->isSpatial());
-      BOOST_CHECK(r->vs() == VS_N);
-      BOOST_CHECK(std::equal(vbRes, vbRes + NR6, r->src_4()));
+      BOOST_TEST(r->isSpatial());
+      BOOST_TEST(r->vs() == VS_N);
+      BOOST_TEST(std::equal(vbRes, vbRes + NR6, r->src_4()));
     }
   }
   deleteAlways(l);
@@ -906,9 +906,9 @@ BOOST_AUTO_TEST_CASE(testTimeinputTssOp)
     {                  // nonspatial result
       DVAutoPtr<Field> r(rte.popField());
 
-      BOOST_CHECK(!r->isSpatial());
-      BOOST_CHECK(r->vs() == VS_O);
-      BOOST_CHECK(r->src_4()[0] == 200);
+      BOOST_TEST(!r->isSpatial());
+      BOOST_TEST(r->vs() == VS_O);
+      BOOST_TEST(r->src_4()[0] == 200);
     }
   }
 
@@ -926,9 +926,9 @@ BOOST_AUTO_TEST_CASE(testTimeinputTssOp)
     {
       DVAutoPtr<Field> r(rte.popField());
 
-      BOOST_CHECK(r->isSpatial());
-      BOOST_CHECK(r->vs() == VS_O);
-      BOOST_CHECK(std::equal(vbRes, vbRes + NR6, r->src_4()));
+      BOOST_TEST(r->isSpatial());
+      BOOST_TEST(r->vs() == VS_O);
+      BOOST_TEST(std::equal(vbRes, vbRes + NR6, r->src_4()));
     }
 
     // also test too short of timesteps, can happen runtime
@@ -942,7 +942,7 @@ BOOST_AUTO_TEST_CASE(testTimeinputTssOp)
     } catch (const DomainError &) {
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
   deleteAlways(l);
 }

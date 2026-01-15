@@ -43,17 +43,17 @@ BOOST_AUTO_TEST_CASE(testExpr)
 
   {
     E const e(sp.createExpr("a"));
-    BOOST_CHECK(dynamic_cast<ASTPar *>(e.get()));
+    BOOST_TEST(dynamic_cast<ASTPar *>(e.get()));
   }
 
   {
     E const e(sp.createExpr("a*b"));
-    BOOST_CHECK(dynamic_cast<ASTExpr *>(e.get()));
+    BOOST_TEST(dynamic_cast<ASTExpr *>(e.get()));
   }
 
   {
     E const e(sp.createExpr("a and b"));
-    BOOST_CHECK(dynamic_cast<ASTExpr *>(e.get()));
+    BOOST_TEST(dynamic_cast<ASTExpr *>(e.get()));
   }
   {  // test ASTExpr::transferFunctionArgs()
      // rewrite  f(a0,a1,a2,a3,a4)
@@ -66,17 +66,17 @@ BOOST_AUTO_TEST_CASE(testExpr)
     auto *e = dynamic_cast<ASTExpr *>(eAutoPtr.get());
 
     for (size_t a = 0; a < 4; ++a) {
-      BOOST_CHECK(e);
-      BOOST_CHECK(e->nrArgs() == 2);
+      BOOST_TEST(e);
+      BOOST_TEST(e->nrArgs() == 2);
       auto *n(dynamic_cast<ASTNumber *>(e->arg(1)));
-      BOOST_CHECK(n);
+      BOOST_TEST(n);
 
-      BOOST_CHECK(n->value() == 4 - a);
+      BOOST_TEST(n->value() == 4 - a);
       auto *nextE = dynamic_cast<ASTExpr *>(e->arg(0));
       if (a == 3) {  // last most inner
-        BOOST_CHECK(!nextE);
+        BOOST_TEST(!nextE);
         auto *n(dynamic_cast<ASTNumber *>(e->arg(0)));
-        BOOST_CHECK(n->value() == 0);
+        BOOST_TEST(n->value() == 0);
       }
       e = nextE;
     }
@@ -90,24 +90,24 @@ BOOST_AUTO_TEST_CASE(testAssignment)
   typedef std::unique_ptr<ASTAss> A;
   {
     A a(sp.createAssignment("a=3*5;"));
-    BOOST_CHECK(a->nrPars() == 1);
-    BOOST_CHECK(a->par(0)->name() == "a");
+    BOOST_TEST(a->nrPars() == 1);
+    BOOST_TEST(a->par(0)->name() == "a");
   }
 
   {
     // eof is terminator
     A a(sp.createAssignment("a=3*5"));
-    BOOST_CHECK(a->nrPars() == 1);
+    BOOST_TEST(a->nrPars() == 1);
   }
 
   {
     A a(sp.createAssignment("p1,p2,p3=abs()"));
-    BOOST_CHECK(a->nrPars() == 3);
+    BOOST_TEST(a->nrPars() == 3);
   }
 
   {
     A a(sp.createAssignment("k=a and b"));
-    BOOST_CHECK(a->nrPars() == 1);
+    BOOST_TEST(a->nrPars() == 1);
   }
 }
 
@@ -118,7 +118,7 @@ BOOST_AUTO_TEST_CASE(testStatementList)
   {
     typedef std::unique_ptr<ASTNodeList> S;
     S s(sp.createStatementList(parsertest::model("pcrcalc11pre")));
-    BOOST_CHECK(s->size() == 2);
+    BOOST_TEST(s->size() == 2);
   }
   {  // repeat
     typedef std::unique_ptr<ASTNodeList> S;
@@ -126,7 +126,7 @@ BOOST_AUTO_TEST_CASE(testStatementList)
     BOOST_REQUIRE_EQUAL(s->size(), 2U);
     ASTNodeList::const_iterator n(s->begin());
     n++;
-    BOOST_CHECK(dynamic_cast<RepeatUntil *>(*n));
+    BOOST_TEST(dynamic_cast<RepeatUntil *>(*n));
   }
 }
 
@@ -151,11 +151,11 @@ BOOST_AUTO_TEST_CASE(testCode)
     BOOST_CHECK_EQUAL(l->size(), 2U);
     ASTNodeList::const_iterator n(l->begin());
     if (n != l->end()) {
-      BOOST_CHECK(dynamic_cast<ASTNodeList *>(*n));  // initial section
+      BOOST_TEST(dynamic_cast<ASTNodeList *>(*n));  // initial section
     }
     n++;
     if (n != l->end()) {
-      BOOST_CHECK(dynamic_cast<DynamicSection *>(*n));
+      BOOST_TEST(dynamic_cast<DynamicSection *>(*n));
     }
   }
 }
@@ -169,35 +169,35 @@ BOOST_AUTO_TEST_CASE(testStatement)
     /*
  * typedef std::auto_ptr<ASTStat> S;
  * S s(sp.createStatement(model("pcrcalc9")));
- * BOOST_CHECK(dynamic_cast<ASTExpr *>(s->stat()));
- * BOOST_CHECK(!s->reportParsed());
- * BOOST_CHECK( s->reportById().empty());
- * BOOST_CHECK(!s->reportInSitu());
+ * BOOST_TEST(dynamic_cast<ASTExpr *>(s->stat()));
+ * BOOST_TEST(!s->reportParsed());
+ * BOOST_TEST( s->reportById().empty());
+ * BOOST_TEST(!s->reportInSitu());
  */
   }
   {  // a report clause
     typedef std::unique_ptr<ASTStat> S;
     S s(sp.createStatement(parsertest::model("pcrcalc301b")));
-    BOOST_CHECK(dynamic_cast<ASTAss *>(s->stat()));
-    BOOST_CHECK(s->reportParsed());
-    BOOST_CHECK(s->reportById().empty());
-    BOOST_CHECK(!s->reportInSitu());
+    BOOST_TEST(dynamic_cast<ASTAss *>(s->stat()));
+    BOOST_TEST(s->reportParsed());
+    BOOST_TEST(s->reportById().empty());
+    BOOST_TEST(!s->reportInSitu());
   }
   {  // a report clause with id
     typedef std::unique_ptr<ASTStat> S;
     S s(sp.createStatement("report(rep2) tmp.res= if(inp1b.map, ldd(5));"));
-    BOOST_CHECK(dynamic_cast<ASTAss *>(s->stat()));
-    BOOST_CHECK(s->reportParsed());
-    BOOST_CHECK(s->reportById().name() == "rep2");
-    BOOST_CHECK(!s->reportInSitu());
+    BOOST_TEST(dynamic_cast<ASTAss *>(s->stat()));
+    BOOST_TEST(s->reportParsed());
+    BOOST_TEST(s->reportById().name() == "rep2");
+    BOOST_TEST(!s->reportInSitu());
   }
   {  // a report clause with insitu report
     typedef std::unique_ptr<ASTStat> S;
     S s(sp.createStatement("report(1,3,5,10) tmp.res= if(inp1b.map, ldd(5));"));
-    BOOST_CHECK(dynamic_cast<ASTAss *>(s->stat()));
-    BOOST_CHECK(s->reportParsed());
-    BOOST_CHECK(s->reportById().empty());
-    BOOST_CHECK(s->reportInSitu());
+    BOOST_TEST(dynamic_cast<ASTAss *>(s->stat()));
+    BOOST_TEST(s->reportParsed());
+    BOOST_TEST(s->reportById().empty());
+    BOOST_TEST(s->reportInSitu());
   }
 }
 
@@ -208,7 +208,7 @@ BOOST_AUTO_TEST_CASE(testCheckAndRewriteParsedAST)
   {  // implicit report on timeoutput fixed in checkAndRewriteParsedAST()
     typedef std::unique_ptr<ASTStat> S;
     S s(sp.createStatement("s = timeoutput(inp1b.map,1);"));
-    BOOST_CHECK(s->reportParsed());
+    BOOST_TEST(s->reportParsed());
   }
   MODEL_ERROR_TEST(pcrcalc37);
 }
@@ -227,7 +227,7 @@ BOOST_AUTO_TEST_CASE(testParseErrors)
   } catch (const PosException &) {
     catched = true;
   }
-  BOOST_CHECK(catched);
+  BOOST_TEST(catched);
 
   catched = false;
   try {
@@ -235,7 +235,7 @@ BOOST_AUTO_TEST_CASE(testParseErrors)
   } catch (const PosException &) {
     catched = true;
   }
-  BOOST_CHECK(catched);
+  BOOST_TEST(catched);
 
   catched = false;
   try {
@@ -253,7 +253,7 @@ BOOST_AUTO_TEST_CASE(testParseErrors)
   } catch (const PosException &) {
     catched = true;
   }
-  BOOST_CHECK(catched);
+  BOOST_TEST(catched);
 
   MODEL_ERROR_TEST(pcrcalc514);
   MODEL_ERROR_TEST(pcrcalc520);
@@ -265,10 +265,10 @@ BOOST_AUTO_TEST_CASE(testParseErrors)
       CompleteParser<ASTScript, com::PathName> cp(empty);
       std::unique_ptr<ASTScript> const s(cp.parseScript());
     } catch (const com::Exception &e) {
-      BOOST_CHECK(e.messages().find("script contains no code") != std::string::npos);
+      BOOST_TEST(e.messages().find("script contains no code") != std::string::npos);
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
 }
 
@@ -288,15 +288,15 @@ BOOST_AUTO_TEST_CASE(testModel)
 
   {
     M const m(parsertest::model("pcrcalc256"));
-    BOOST_CHECK(m.cfgCode);
+    BOOST_TEST(m.cfgCode);
   }
   {
     M const m(parsertest::model("pcrcalc0"));
-    BOOST_CHECK(m.cfgCode);
+    BOOST_TEST(m.cfgCode);
   }
   {  // simple statement list
     M const m("p=1+0;p=p+2;");
-    BOOST_CHECK(m.cfgCode);
+    BOOST_TEST(m.cfgCode);
   }
   MODEL_ERROR_TEST(pcrcalc510);
   MODEL_ERROR_TEST(pcrcalc511);
@@ -305,7 +305,7 @@ BOOST_AUTO_TEST_CASE(testModel)
   MODEL_ERROR_TEST(pcrcalc516);
   {
     M const m(parsertest::model("pcrcalc509"));
-    BOOST_CHECK(m.cfgCode);
+    BOOST_TEST(m.cfgCode);
   }
   MODEL_ERROR_TEST(pcrcalc555);
 }
@@ -335,7 +335,7 @@ BOOST_AUTO_TEST_CASE(testExternalBindings)
   } catch (calc::PosException &) {
     catched = true;
   }
-  BOOST_CHECK(catched);
+  BOOST_TEST(catched);
 
   // CORRECT
   {
@@ -345,26 +345,26 @@ BOOST_AUTO_TEST_CASE(testExternalBindings)
 
     // jan = 3.5 overwritten by jan = xx file.txt
 
-    BOOST_CHECK(rs.size() == 2);  // 2 out of 3 bindings kept
+    BOOST_TEST(rs.size() == 2);  // 2 out of 3 bindings kept
 
     {
       auto *a = dynamic_cast<ASTAss *>(rs[0]);
-      BOOST_CHECK(a);
-      BOOST_CHECK(a->par()->name() == "jan");
+      BOOST_TEST(a);
+      BOOST_TEST(a->par()->name() == "jan");
 
       auto *v = dynamic_cast<ASTId *>(a->rhs());
-      BOOST_CHECK(v);
-      BOOST_CHECK(v->name() == "xx file.txt");
+      BOOST_TEST(v);
+      BOOST_TEST(v->name() == "xx file.txt");
     }
 
     {
       auto *a = dynamic_cast<ASTAss *>(rs[1]);
-      BOOST_CHECK(a);
-      BOOST_CHECK(a->par()->name() == "n");
+      BOOST_TEST(a);
+      BOOST_TEST(a->par()->name() == "n");
 
       auto *v = dynamic_cast<ASTNumber *>(a->rhs());
-      BOOST_CHECK(v);
-      BOOST_CHECK(v->value() == 4);
+      BOOST_TEST(v);
+      BOOST_TEST(v->value() == 4);
     }
   }
 }
@@ -385,10 +385,10 @@ BOOST_AUTO_TEST_CASE(testNonAsciiScript)
       std::unique_ptr<ASTScript> s(cp.parseScript());
       s->analyzeAndResolve();
     } catch (const com::Exception &e) {
-      BOOST_CHECK(e.messages().find("cropf_cover.map") != std::string::npos);
+      BOOST_TEST(e.messages().find("cropf_cover.map") != std::string::npos);
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
 
   {

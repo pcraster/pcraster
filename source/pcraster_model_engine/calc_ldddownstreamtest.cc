@@ -24,14 +24,14 @@ BOOST_AUTO_TEST_CASE(testSimple)
   for (size_t i = 0; i < 2; ++i) {
     LddDownstream ld(lddField, *conv[i]);
 
-    BOOST_CHECK(ld.d_pit.size() == 1);
-    BOOST_CHECK(ld.d_pit[0] == 1);
+    BOOST_TEST(ld.d_pit.size() == 1);
+    BOOST_TEST(ld.d_pit[0] == 1);
 
-    BOOST_CHECK(ld.d_edge.size() == 2);
-    BOOST_CHECK(ld.d_edge[1].source() == 2);
-    BOOST_CHECK(ld.d_edge[1].target() == 1);
-    BOOST_CHECK(ld.d_edge[0].source() == 0);
-    BOOST_CHECK(ld.d_edge[0].target() == 1);
+    BOOST_TEST(ld.d_edge.size() == 2);
+    BOOST_TEST(ld.d_edge[1].source() == 2);
+    BOOST_TEST(ld.d_edge[1].target() == 1);
+    BOOST_TEST(ld.d_edge[0].source() == 0);
+    BOOST_TEST(ld.d_edge[0].target() == 1);
   }
 }
 
@@ -48,13 +48,13 @@ BOOST_AUTO_TEST_CASE(testUpstream)
   REAL4 resultC[8] = {9, 9, 9, 9, 9, 9, 9, 9};
   LddDownstream ld(lddField, aip);
 
-  BOOST_CHECK(ld.d_edge.size() == 7);
-  BOOST_CHECK(ld.d_pit.size() == 1);
+  BOOST_TEST(ld.d_edge.size() == 7);
+  BOOST_TEST(ld.d_pit.size() == 1);
 
   resultC[ld.d_pit[0]] = 0;
   for (LddDownstream::upIterator i = ld.upBegin(); i != ld.upEnd(); ++i)
     resultC[i->up()] = resultC[i->down()] + 1;
-  BOOST_CHECK(std::equal(resultC, resultC + 8, resultR));
+  BOOST_TEST(std::equal(resultC, resultC + 8, resultR));
 }
 
 BOOST_AUTO_TEST_CASE(testDownstream)
@@ -71,13 +71,13 @@ BOOST_AUTO_TEST_CASE(testDownstream)
   REAL4 resultC[8] = {0, 0, 0, 0, 0, 0, 0, 0};
   LddDownstream ld(lddField, aip);
 
-  BOOST_CHECK(ld.d_edge.size() == 7);
-  BOOST_CHECK(ld.d_pit.size() == 1);
+  BOOST_TEST(ld.d_edge.size() == 7);
+  BOOST_TEST(ld.d_pit.size() == 1);
 
   resultC[ld.d_pit[0]] = 0;
   for (LddDownstream::downIterator i = ld.downBegin(); i != ld.downEnd(); ++i)
     resultC[i->down()] += resultC[i->up()] + 1;
-  BOOST_CHECK(std::equal(resultC, resultC + 8, resultR));
+  BOOST_TEST(std::equal(resultC, resultC + 8, resultR));
 }
 
 BOOST_AUTO_TEST_CASE(testDiagonal)
@@ -92,14 +92,14 @@ BOOST_AUTO_TEST_CASE(testDiagonal)
   // downstream traversal
   LddDownstream ld(lddField, aip);
 
-  BOOST_CHECK(ld.d_edge.size() == 7);
-  BOOST_CHECK(ld.d_pit.size() == 1);
+  BOOST_TEST(ld.d_edge.size() == 7);
+  BOOST_TEST(ld.d_pit.size() == 1);
   /*
  * TODO translate iterators to index
   resultC[ld.d_pit[0]]=0;
   for(LddDownstream::reverse_iterator i=ld.rbegin();i!=ld.rend();++i)
     resultC[i->down()] += resultC[i->up()]+1;
-  BOOST_CHECK(std::equal(resultC,resultC+8,resultR));
+  BOOST_TEST(std::equal(resultC,resultC+8,resultR));
 */
 }
 
@@ -116,5 +116,5 @@ BOOST_AUTO_TEST_CASE(testUnsound)
   } catch (const LddDownstream::Unsound &u) {
     catched = true;
   }
-  BOOST_CHECK(catched);
+  BOOST_TEST(catched);
 }

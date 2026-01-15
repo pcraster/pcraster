@@ -12,7 +12,7 @@ BOOST_AUTO_TEST_CASE(testArgOrderAL)
     INT4 result[1] = {-1};
     std::vector<ArgOrderIdInfo> args;
     ArgOrderAndAddArea::argOrderAreaLimited(args, result, 1);
-    BOOST_CHECK(result[0] == 0);
+    BOOST_TEST(result[0] == 0);
   }
   {  // ALL MV
     REAL4 chance1[1] = {-1};
@@ -21,7 +21,7 @@ BOOST_AUTO_TEST_CASE(testArgOrderAL)
     std::vector<ArgOrderIdInfo> args;
     args.push_back(ArgOrderIdInfo(chance1, 2, 2.4));
     ArgOrderAndAddArea::argOrderAreaLimited(args, result, 1);
-    BOOST_CHECK(result[0] == MV_INT4);
+    BOOST_TEST(result[0] == MV_INT4);
   }
   {
     REAL4 chance1[5] = {0.1F, 0.2F, 0.3F, 0.4F, 0.5F};
@@ -29,11 +29,11 @@ BOOST_AUTO_TEST_CASE(testArgOrderAL)
     std::vector<ArgOrderIdInfo> args;
     args.push_back(ArgOrderIdInfo(chance1, 2, 2.4));
     ArgOrderAndAddArea::argOrderAreaLimited(args, result, 5);
-    BOOST_CHECK(result[0] == 0);
-    BOOST_CHECK(result[1] == 0);
-    BOOST_CHECK(result[2] == 0);
-    BOOST_CHECK(result[3] == 2);
-    BOOST_CHECK(result[4] == 2);
+    BOOST_TEST(result[0] == 0);
+    BOOST_TEST(result[1] == 0);
+    BOOST_TEST(result[2] == 0);
+    BOOST_TEST(result[3] == 2);
+    BOOST_TEST(result[4] == 2);
   }
   {  // some MV
     REAL4 chance1[5] = {0.1F, 0.2F, 0.3F, 0.4F, 0.5F};
@@ -42,11 +42,11 @@ BOOST_AUTO_TEST_CASE(testArgOrderAL)
     std::vector<ArgOrderIdInfo> args;
     args.push_back(ArgOrderIdInfo(chance1, 2, 2.4));
     ArgOrderAndAddArea::argOrderAreaLimited(args, result, 5);
-    BOOST_CHECK(result[0] == 0);
-    BOOST_CHECK(result[1] == 0);
-    BOOST_CHECK(result[2] == 2);
-    BOOST_CHECK(result[3] == MV_INT4);
-    BOOST_CHECK(result[4] == 2);
+    BOOST_TEST(result[0] == 0);
+    BOOST_TEST(result[1] == 0);
+    BOOST_TEST(result[2] == 2);
+    BOOST_TEST(result[3] == MV_INT4);
+    BOOST_TEST(result[4] == 2);
   }
   {  // some MV, 2 lists
     REAL4 chance1[9] = {0.1F, 0.2F, 0.3F, 0.4F, 0.5F, 0.6F, 0.0F, 0.0F, 0.0F};
@@ -58,15 +58,15 @@ BOOST_AUTO_TEST_CASE(testArgOrderAL)
     args.push_back(ArgOrderIdInfo(chance1, 11, 2));
     args.push_back(ArgOrderIdInfo(chance2, 12, 2));
     ArgOrderAndAddArea::argOrderAreaLimited(args, result, 9);
-    BOOST_CHECK(result[0] == 11);
-    BOOST_CHECK(result[1] == MV_INT4);
-    BOOST_CHECK(result[2] == 12);
-    BOOST_CHECK(result[3] == MV_INT4);
-    BOOST_CHECK(result[4] == 12);
-    BOOST_CHECK(result[5] == 11);  // stride take first
-    BOOST_CHECK(result[6] == 0);
-    BOOST_CHECK(result[7] == 0);
-    BOOST_CHECK(result[8] == 0);
+    BOOST_TEST(result[0] == 11);
+    BOOST_TEST(result[1] == MV_INT4);
+    BOOST_TEST(result[2] == 12);
+    BOOST_TEST(result[3] == MV_INT4);
+    BOOST_TEST(result[4] == 12);
+    BOOST_TEST(result[5] == 11);  // stride take first
+    BOOST_TEST(result[6] == 0);
+    BOOST_TEST(result[7] == 0);
+    BOOST_TEST(result[8] == 0);
   }
 }
 
@@ -79,7 +79,7 @@ BOOST_AUTO_TEST_CASE(testArgOrder)
     INT4 result[1] = {-1};
     std::vector<ArgOrderIdInfo> const args;
     ArgOrderAndAddArea::argOrder(args, result, 1);
-    BOOST_CHECK(result[0] == MV_INT4);
+    BOOST_TEST(result[0] == MV_INT4);
   }
   {  // ALL MV
     REAL4 chance1[1] = {-1};
@@ -88,7 +88,7 @@ BOOST_AUTO_TEST_CASE(testArgOrder)
     std::vector<ArgOrderIdInfo> args;
     args.push_back(ArgOrderIdInfo(chance1, 2));
     ArgOrderAndAddArea::argOrder(args, result, 1);
-    BOOST_CHECK(result[0] == MV_INT4);
+    BOOST_TEST(result[0] == MV_INT4);
   }
   {  // some MV, 2 lists
     REAL4 chance1[9] = {0.1F, 0.2F, 0.3F, 0.4F, 0.5F, 0.6F, 0.0F, 0.0F, 0.0F};
@@ -102,15 +102,15 @@ BOOST_AUTO_TEST_CASE(testArgOrder)
 
     ArgOrderAndAddArea::argOrder(args, result, 9);
 
-    BOOST_CHECK(result[0] == 11);
-    BOOST_CHECK(result[1] == MV_INT4);
-    BOOST_CHECK(result[2] == 12);
-    BOOST_CHECK(result[3] == MV_INT4);
-    BOOST_CHECK(result[4] == 12);
-    BOOST_CHECK(result[5] == 11);  // stride take first
-    BOOST_CHECK(result[6] == 11);
-    BOOST_CHECK(result[7] == 11);
-    BOOST_CHECK(result[8] == 11);
+    BOOST_TEST(result[0] == 11);
+    BOOST_TEST(result[1] == MV_INT4);
+    BOOST_TEST(result[2] == 12);
+    BOOST_TEST(result[3] == MV_INT4);
+    BOOST_TEST(result[4] == 12);
+    BOOST_TEST(result[5] == 11);  // stride take first
+    BOOST_TEST(result[6] == 11);
+    BOOST_TEST(result[7] == 11);
+    BOOST_TEST(result[8] == 11);
   }
 }
 
@@ -134,14 +134,14 @@ BOOST_AUTO_TEST_CASE(testAddArea)
   args.push_back(ArgOrderIdInfo(chance2, 2, 4));
 
   ArgOrderAndAddArea::argOrderAddAreaLimited(args, currentId, result, 8);
-  BOOST_CHECK(result[0] == 1);
-  BOOST_CHECK(result[1] == 2);
-  BOOST_CHECK(result[2] == 1);
-  BOOST_CHECK(result[3] == 2);
-  BOOST_CHECK(result[4] == 2);
-  BOOST_CHECK(result[5] == 1);
-  BOOST_CHECK(result[6] == 2);
-  BOOST_CHECK(result[7] == 0);
+  BOOST_TEST(result[0] == 1);
+  BOOST_TEST(result[1] == 2);
+  BOOST_TEST(result[2] == 1);
+  BOOST_TEST(result[3] == 2);
+  BOOST_TEST(result[4] == 2);
+  BOOST_TEST(result[5] == 1);
+  BOOST_TEST(result[6] == 2);
+  BOOST_TEST(result[7] == 0);
 }
 
 /*

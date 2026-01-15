@@ -9,41 +9,41 @@ BOOST_AUTO_TEST_CASE(testCtor)
 
   {
     DataType const dt;
-    BOOST_CHECK(dt.vs() == VS_ANYTHING);
-    BOOST_CHECK(!dt.stNonSpatial());
-    BOOST_CHECK(!dt.stSpatial());
-    BOOST_CHECK(!dt.stEither());
-    BOOST_CHECK(dt.st() == ST_ALL);
+    BOOST_TEST(dt.vs() == VS_ANYTHING);
+    BOOST_TEST(!dt.stNonSpatial());
+    BOOST_TEST(!dt.stSpatial());
+    BOOST_TEST(!dt.stEither());
+    BOOST_TEST(dt.st() == ST_ALL);
   }
   {
     double const v = 4.56;
     DataType const dt(v);
-    BOOST_CHECK(dt.vs() == VS_SD);
-    BOOST_CHECK(dt.stNonSpatial());
-    BOOST_CHECK(!dt.stSpatial());
-    BOOST_CHECK(!dt.stEither());
+    BOOST_TEST(dt.vs() == VS_SD);
+    BOOST_TEST(dt.stNonSpatial());
+    BOOST_TEST(!dt.stSpatial());
+    BOOST_TEST(!dt.stEither());
   }
   {
     DataType const dt(VS_SD, ST_NONSPATIAL);
-    BOOST_CHECK(dt.vs() == VS_SD);
-    BOOST_CHECK(dt.stNonSpatial());
-    BOOST_CHECK(!dt.stSpatial());
-    BOOST_CHECK(!dt.stEither());
+    BOOST_TEST(dt.vs() == VS_SD);
+    BOOST_TEST(dt.stNonSpatial());
+    BOOST_TEST(!dt.stSpatial());
+    BOOST_TEST(!dt.stEither());
   }
   {
     DataType const dt(VS_SD, false);
-    BOOST_CHECK(dt.vs() == VS_SD);
-    BOOST_CHECK(dt.stNonSpatial());
-    BOOST_CHECK(!dt.stSpatial());
-    BOOST_CHECK(!dt.stEither());
+    BOOST_TEST(dt.vs() == VS_SD);
+    BOOST_TEST(dt.stNonSpatial());
+    BOOST_TEST(!dt.stSpatial());
+    BOOST_TEST(!dt.stEither());
   }
   {
     DataType const dt(VS_TSS);
-    BOOST_CHECK(dt.vs() == VS_TSS);
-    BOOST_CHECK(!dt.stNonSpatial());
-    BOOST_CHECK(!dt.stSpatial());
-    BOOST_CHECK(!dt.stEither());
-    BOOST_CHECK(dt.st() == ST_NON);
+    BOOST_TEST(dt.vs() == VS_TSS);
+    BOOST_TEST(!dt.stNonSpatial());
+    BOOST_TEST(!dt.stSpatial());
+    BOOST_TEST(!dt.stEither());
+    BOOST_TEST(dt.st() == ST_NON);
   }
 }
 
@@ -59,24 +59,24 @@ BOOST_AUTO_TEST_CASE(testRestrict)
     try {
       dt.restrict(VS_N);
     } catch (const VSClash &c) {
-      BOOST_CHECK(c.isOneOf() == VS_S);
-      BOOST_CHECK(c.mustBeOneOf() == VS_N);
+      BOOST_TEST(c.isOneOf() == VS_S);
+      BOOST_TEST(c.mustBeOneOf() == VS_N);
       catched = true;
     }
-    BOOST_CHECK(catched);
-    BOOST_CHECK(dt.vs() == VS_S);
+    BOOST_TEST(catched);
+    BOOST_TEST(dt.vs() == VS_S);
 
     // DataType
     catched = false;
     try {
       dt.restrict(DataType(VS_N, ST_DERIVED));
     } catch (const VSClash &c) {
-      BOOST_CHECK(c.isOneOf() == VS_S);
-      BOOST_CHECK(c.mustBeOneOf() == VS_N);
+      BOOST_TEST(c.isOneOf() == VS_S);
+      BOOST_TEST(c.mustBeOneOf() == VS_N);
       catched = true;
     }
-    BOOST_CHECK(catched);
-    BOOST_CHECK(dt.vs() == VS_S);
+    BOOST_TEST(catched);
+    BOOST_TEST(dt.vs() == VS_S);
   }
   {
     DataType dt(VS_TABLE);
@@ -86,36 +86,36 @@ BOOST_AUTO_TEST_CASE(testRestrict)
     r.setTableColTypes(colTypes);
 
     // dt has no colTypes
-    BOOST_CHECK(r != dt);
-    BOOST_CHECK(dt != r);
-    BOOST_CHECK(dt.tableColTypes().size() == 0);
+    BOOST_TEST(r != dt);
+    BOOST_TEST(dt != r);
+    BOOST_TEST(dt.tableColTypes().size() == 0);
     dt.restrict(r);
     // dt now has identical colTypes
-    BOOST_CHECK(dt.tableColTypes().size() == 2);
-    BOOST_CHECK(r == dt);
-    BOOST_CHECK(dt == r);
+    BOOST_TEST(dt.tableColTypes().size() == 2);
+    BOOST_TEST(r == dt);
+    BOOST_TEST(dt == r);
     dt.restrict(r);
-    BOOST_CHECK(r == dt);
+    BOOST_TEST(r == dt);
 
     bool catched = false;
     colTypes.push_back(VS_N);
     DataType r1(VS_TABLE);
     r1.setTableColTypes(colTypes);
-    BOOST_CHECK(r1 != dt);  // test eq
+    BOOST_TEST(r1 != dt);  // test eq
     try {
       dt.restrict(r1);
     } catch (TableClash) {
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
   {
     DataType r(VS_OBJECT);
     DataType dt(VS_OBJECT, ST_NON);
-    BOOST_CHECK(r == dt);
+    BOOST_TEST(r == dt);
     dt.restrict(r);
-    BOOST_CHECK(r == dt);
+    BOOST_TEST(r == dt);
     r.restrict(dt);
-    BOOST_CHECK(r == dt);
+    BOOST_TEST(r == dt);
   }
 }

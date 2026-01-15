@@ -102,8 +102,8 @@ BOOST_AUTO_TEST_CASE(testPar)
     btv.visit();
 
     DataType const btvRes(n.ast()->returnDataType());
-    BOOST_CHECK(btvRes.vs() == VS_S);
-    BOOST_CHECK(btvRes.stSpatial());
+    BOOST_TEST(btvRes.vs() == VS_S);
+    BOOST_TEST(btvRes.stSpatial());
   }
 
   {  // restrict type
@@ -120,11 +120,11 @@ BOOST_AUTO_TEST_CASE(testPar)
       btv.visit();
       n.ast()->returnDataType().restrict(DataType(VS_N, ST_DERIVED));
     } catch (const VSClash &c) {
-      BOOST_CHECK(c.isOneOf() == VS_S);
-      BOOST_CHECK(c.mustBeOneOf() == VS_N);
+      BOOST_TEST(c.isOneOf() == VS_S);
+      BOOST_TEST(c.mustBeOneOf() == VS_N);
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
 
   {  // par can be anything
@@ -133,7 +133,7 @@ BOOST_AUTO_TEST_CASE(testPar)
 
     btv.visit();
     DataType const btvRes(n.ast()->returnDataType());
-    BOOST_CHECK(btvRes.vs() == VS_ANYTHING);
+    BOOST_TEST(btvRes.vs() == VS_ANYTHING);
   }
 }
 
@@ -148,8 +148,8 @@ BOOST_AUTO_TEST_CASE(testNumber)
   {
     btv.visit();
     DataType const btvRes(n.ast()->returnDataType());
-    BOOST_CHECK(btvRes.vs() == VS_SD);
-    BOOST_CHECK(btvRes.stNonSpatial());
+    BOOST_TEST(btvRes.vs() == VS_SD);
+    BOOST_TEST(btvRes.stNonSpatial());
   }
 
   {
@@ -158,11 +158,11 @@ BOOST_AUTO_TEST_CASE(testNumber)
       btv.visit();
       n.ast()->returnDataType().restrict(DataType(VS_N, ST_DERIVED));
     } catch (const VSClash &c) {
-      BOOST_CHECK(c.isOneOf() == VS_SD);
-      BOOST_CHECK(c.mustBeOneOf() == VS_N);
+      BOOST_TEST(c.isOneOf() == VS_SD);
+      BOOST_TEST(c.mustBeOneOf() == VS_N);
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
 }
 
@@ -176,20 +176,20 @@ BOOST_AUTO_TEST_CASE(testModel)
     ASTCFGTester const n(tmp_ast.createFromId("pcrcalc376"));
     BuildTypesVisitor const btv(n.cfg());
     // no visit no dynamic section found
-    BOOST_CHECK(!btv.containsDynamicSection());
+    BOOST_TEST(!btv.containsDynamicSection());
   }
   {  // this is not the error message test for 376
     ASTCFGTester const n(tmp_ast.createFromId("pcrcalc376"));
     BuildTypesVisitor btv(n.cfg());
     // visit, dynamic section found
     btv.visit();
-    BOOST_CHECK(btv.containsDynamicSection());
+    BOOST_TEST(btv.containsDynamicSection());
   }
   {
     ASTCFGTester const n(tmp_ast.createFromId("pcrcalc60"));
     BuildTypesVisitor btv(n.cfg());
     btv.visit();
-    BOOST_CHECK(!btv.containsDynamicSection());
+    BOOST_TEST(!btv.containsDynamicSection());
   }
   {
     ASTCFGTester const n(tmp_ast.createFromId("pcrcalc505"));
@@ -208,18 +208,18 @@ BOOST_AUTO_TEST_CASE(testModel)
 
     auto *l0 = astCast<ASTPar>(n.ast(), "C/b/0/a/<");
     auto *l1 = astCast<ASTPar>(n.ast(), "C/b/1/a/<");
-    BOOST_CHECK(l0->name() == "a");
-    BOOST_CHECK(l1->name() == "a");
-    BOOST_CHECK(btv.table()["a"].d_firstAss == l0);
+    BOOST_TEST(l0->name() == "a");
+    BOOST_TEST(l1->name() == "a");
+    BOOST_TEST(btv.table()["a"].d_firstAss == l0);
   }
   {  // test setFirstAss
     N_BTV_VISIT(StringParser::createCodeAsNode("p=a;a=2"));
 
     auto *l0 = astCast<ASTPar>(n.ast(), "C/b/0/a/>/p");
     auto *l1 = astCast<ASTPar>(n.ast(), "C/b/1/a/<");
-    BOOST_CHECK(l0->name() == "a");
-    BOOST_CHECK(l1->name() == "a");
-    BOOST_CHECK(btv.table()["a"].d_firstAss == l1);
+    BOOST_TEST(l0->name() == "a");
+    BOOST_TEST(l1->name() == "a");
+    BOOST_TEST(btv.table()["a"].d_firstAss == l1);
   }
   {
     ASTCFGTester const n(tmp_ast.createFromId("pcrcalc532"));
@@ -255,8 +255,8 @@ BOOST_AUTO_TEST_CASE(testExpr)
     DEFAULT_BTV;
     btv.visit();
     DataType const btvRes(n.ast()->returnDataType());
-    BOOST_CHECK(btvRes.vs() == VS_S);
-    BOOST_CHECK(btvRes.stSpatial());
+    BOOST_TEST(btvRes.vs() == VS_S);
+    BOOST_TEST(btvRes.stSpatial());
   }
   {  // no arguments
     ASTCFGTester const n(tmp_ast.createCode("<e v='mapuniform'> \
@@ -265,8 +265,8 @@ BOOST_AUTO_TEST_CASE(testExpr)
     DEFAULT_BTV;
     btv.visit();
     DataType const btvRes(n.ast()->returnDataType());
-    BOOST_CHECK(btvRes.vs() == VS_S);
-    BOOST_CHECK(btvRes.stNonSpatial());
+    BOOST_TEST(btvRes.vs() == VS_S);
+    BOOST_TEST(btvRes.stNonSpatial());
   }
   {  // poly arguments
     // st can be both
@@ -277,15 +277,15 @@ BOOST_AUTO_TEST_CASE(testExpr)
     DEFAULT_BTV;
     btv.visit();
     DataType const btvRes(n.ast()->returnDataType());
-    BOOST_CHECK(btvRes.vs() == VS_S);
-    BOOST_CHECK(btvRes.stNonSpatial());
+    BOOST_TEST(btvRes.vs() == VS_S);
+    BOOST_TEST(btvRes.stNonSpatial());
 
     // force st to nonspatial
     btv.visit();
     {
       DataType const btvRes(n.ast()->returnDataType());
-      BOOST_CHECK(btvRes.vs() == VS_S);
-      BOOST_CHECK(btvRes.stNonSpatial());
+      BOOST_TEST(btvRes.vs() == VS_S);
+      BOOST_TEST(btvRes.stNonSpatial());
     }
 
     bool catched(false);
@@ -294,10 +294,10 @@ BOOST_AUTO_TEST_CASE(testExpr)
       // force st to spatial but it is not
       n.ast()->returnDataType().restrict(DataType(VS_FIELD, ST_SPATIAL));
     } catch (const STClash &s) {
-      BOOST_CHECK(!s.spatialFound());
+      BOOST_TEST(!s.spatialFound());
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
   {
     ASTCFGTester const n(tmp_ast.createCode("<e v='spreadzone' p='8'>   \
@@ -308,8 +308,8 @@ BOOST_AUTO_TEST_CASE(testExpr)
     DEFAULT_BTV;
     btv.visit();
     DataType const btvRes(n.ast()->returnDataType());
-    BOOST_CHECK(btvRes.vs() == VS_B);
-    BOOST_CHECK(btvRes.stSpatial());
+    BOOST_TEST(btvRes.vs() == VS_B);
+    BOOST_TEST(btvRes.stSpatial());
   }
   {
     ASTCFGTester const n(tmp_ast.createCode("<e v='nodirection'>       \
@@ -318,8 +318,8 @@ BOOST_AUTO_TEST_CASE(testExpr)
     DEFAULT_BTV;
     btv.visit();
     DataType const btvRes(n.ast()->returnDataType());
-    BOOST_CHECK(btvRes.vs() == VS_B);
-    BOOST_CHECK(btvRes.stSpatial());
+    BOOST_TEST(btvRes.vs() == VS_B);
+    BOOST_TEST(btvRes.stSpatial());
   }
   {
     ASTCFGTester const n(tmp_ast.createCode("<e v='nodirection'>       \
@@ -328,8 +328,8 @@ BOOST_AUTO_TEST_CASE(testExpr)
     DEFAULT_BTV;
     btv.visit();
     DataType const btvRes(n.ast()->returnDataType());
-    BOOST_CHECK(btvRes.vs() == VS_B);
-    BOOST_CHECK(btvRes.stNonSpatial());
+    BOOST_TEST(btvRes.vs() == VS_B);
+    BOOST_TEST(btvRes.stNonSpatial());
   }
   {
     const char s[] = "succ(4) eq if(e , a , if ( e2 , b , c))";
@@ -337,8 +337,8 @@ BOOST_AUTO_TEST_CASE(testExpr)
     DEFAULT_BTV;
     btv.visit();
     DataType const btvRes(n.ast()->returnDataType());
-    BOOST_CHECK(btvRes.vs() == VS_B);
-    BOOST_CHECK(btvRes.stEither());
+    BOOST_TEST(btvRes.vs() == VS_B);
+    BOOST_TEST(btvRes.stEither());
   }
 }
 
@@ -349,12 +349,12 @@ BOOST_AUTO_TEST_CASE(testReportParsed)
   {
     const char s[] = "foo = succ(4); bar = if(e , a , if ( e2 , b , c));";
     N_BTV_VISIT(StringParser::createCodeAsNode(s));
-    BOOST_CHECK(!btv.hasStatementWithReportKeyword());
+    BOOST_TEST(!btv.hasStatementWithReportKeyword());
   }
   {
     const char s[] = "foo = succ(4); report bar = if(e , a , if ( e2 , b , c));";
     N_BTV_VISIT(StringParser::createCodeAsNode(s));
-    BOOST_CHECK(btv.hasStatementWithReportKeyword());
+    BOOST_TEST(btv.hasStatementWithReportKeyword());
   }
 }
 
@@ -543,10 +543,10 @@ BOOST_AUTO_TEST_CASE(testTopDownExprRestrictor)
     ASTCFGTester const n(StringParser::createCodeAsNode(code));
     DEFAULT_BTV;
     btv.visit();
-    BOOST_CHECK(btv.table().contains("stackA"));
+    BOOST_TEST(btv.table().contains("stackA"));
     DataType const dt(btv.table()["stackA"].dataType());
-    BOOST_CHECK(dt.vs() == VS_MAPSTACK);
-    BOOST_CHECK(dt.resultType() == VS_S);
+    BOOST_TEST(dt.vs() == VS_MAPSTACK);
+    BOOST_TEST(dt.resultType() == VS_S);
   }
   {
     const char *code = "t=1*(if(e,a,if(e2,b,c)))";
@@ -560,12 +560,12 @@ BOOST_AUTO_TEST_CASE(testTopDownExprRestrictor)
 
     const char *v[3] = {"a", "b", "c"};
     for (auto &i : v) {
-      BOOST_CHECK(btv.table().contains(i));
-      BOOST_CHECK(btv.table()[i].dataType().vs() == VS_S);
+      BOOST_TEST(btv.table().contains(i));
+      BOOST_TEST(btv.table()[i].dataType().vs() == VS_S);
     }
-    BOOST_CHECK(btv.table().contains("t"));
-    BOOST_CHECK(btv.table()["t"].dataType().vs() == VS_S);
-    BOOST_CHECK(btv.table()["t"].dataType().stEither());
+    BOOST_TEST(btv.table().contains("t"));
+    BOOST_TEST(btv.table()["t"].dataType().vs() == VS_S);
+    BOOST_TEST(btv.table()["t"].dataType().stEither());
   }
   {
     const char s[] = "t= succ(4) eq if(e , a , if ( e2 , b , c))";
@@ -574,35 +574,35 @@ BOOST_AUTO_TEST_CASE(testTopDownExprRestrictor)
     btv.visit();
     const char *v[3] = {"a", "b", "c"};
     for (auto &i : v) {
-      BOOST_CHECK(btv.table().contains(i));
-      BOOST_CHECK(btv.table()[i].dataType().vs() == VS_O);
-      BOOST_CHECK(btv.table()[i].dataType().stEither());
+      BOOST_TEST(btv.table().contains(i));
+      BOOST_TEST(btv.table()[i].dataType().vs() == VS_O);
+      BOOST_TEST(btv.table()[i].dataType().stEither());
     }
-    BOOST_CHECK(btv.table().contains("t"));
-    BOOST_CHECK(btv.table()["t"].dataType().vs() == VS_B);
-    BOOST_CHECK(btv.table()["t"].dataType().stEither());
+    BOOST_TEST(btv.table().contains("t"));
+    BOOST_TEST(btv.table()["t"].dataType().vs() == VS_B);
+    BOOST_TEST(btv.table()["t"].dataType().stEither());
   }
   {  // succ(4) is VS_O, push  down VS_O to s
     const char s[] = "timer 1 1 1; dynamic t= succ(4) eq if(e , a , if ( e2 , b , timeinput(s)))";
     ASTCFGTester const n(StringParser::createCodeAsNode(s));
     DEFAULT_BTV;
     btv.visit();
-    BOOST_CHECK(btv.table().contains("s"));
+    BOOST_TEST(btv.table().contains("s"));
     DataType const dt(btv.table()["s"].dataType());
-    BOOST_CHECK(dt.vs() == VS_MAPSTACK);
-    BOOST_CHECK(dt.resultType() == VS_O);
+    BOOST_TEST(dt.vs() == VS_MAPSTACK);
+    BOOST_TEST(dt.resultType() == VS_O);
   }
   {  // setKeyTypes test
     ASTCFGTester const n(StringParser::createExpr("lookupscalar(A,1*4,max(1,0))"));
     DEFAULT_BTV;
     btv.visit();
-    BOOST_CHECK(btv.table().contains("A"));
+    BOOST_TEST(btv.table().contains("A"));
     DataType const dt(btv.table()["A"].dataType());
-    BOOST_CHECK(dt.vs() == VS_TABLE);
-    BOOST_CHECK(dt.tableColTypes().size() == 3);
-    BOOST_CHECK(dt.tableColTypes()[0] == VS_S);
-    BOOST_CHECK(dt.tableColTypes()[1] == VS_OS);
-    BOOST_CHECK(dt.tableColTypes()[2] == VS_S);
+    BOOST_TEST(dt.vs() == VS_TABLE);
+    BOOST_TEST(dt.tableColTypes().size() == 3);
+    BOOST_TEST(dt.tableColTypes()[0] == VS_S);
+    BOOST_TEST(dt.tableColTypes()[1] == VS_OS);
+    BOOST_TEST(dt.tableColTypes()[2] == VS_S);
   }
 }
 
@@ -625,30 +625,30 @@ BOOST_AUTO_TEST_CASE(testMultipleVisits)
     try {
       btv.visit();
     } catch (const DataTypeClash &) {
-      BOOST_CHECK(false);
+      BOOST_TEST(false);
     }
     const ASTSymbolTable &t(btv.table());
-    BOOST_CHECK(t.contains("DSt"));
-    BOOST_CHECK(t.contains("DSt0"));
+    BOOST_TEST(t.contains("DSt"));
+    BOOST_TEST(t.contains("DSt0"));
 
     switch (nrLoops) {
       case 0:
-        BOOST_CHECK(t["DSt"].dataType().st() == ST_NONSPATIAL);
-        BOOST_CHECK(t["DSt0"].dataType().st() == ST_NONSPATIAL);
+        BOOST_TEST(t["DSt"].dataType().st() == ST_NONSPATIAL);
+        BOOST_TEST(t["DSt0"].dataType().st() == ST_NONSPATIAL);
         break;
       case 1:
-        BOOST_CHECK(t["DSt"].dataType().st() == ST_SPATIAL);
-        BOOST_CHECK(t["DSt0"].dataType().st() == ST_NONSPATIAL);
+        BOOST_TEST(t["DSt"].dataType().st() == ST_SPATIAL);
+        BOOST_TEST(t["DSt0"].dataType().st() == ST_NONSPATIAL);
         break;
       case 2:
       case 3:
-        BOOST_CHECK(t["DSt"].dataType().st() == ST_SPATIAL);
-        BOOST_CHECK(t["DSt0"].dataType().st() == ST_SPATIAL);
+        BOOST_TEST(t["DSt"].dataType().st() == ST_SPATIAL);
+        BOOST_TEST(t["DSt0"].dataType().st() == ST_SPATIAL);
         break;
     }
     nrLoops++;
   } while ((nrChanges != btv.nrChanges() || nrLoops <= 1) && nrLoops < 8);  // MUST TERMINATE!
-  BOOST_CHECK(nrLoops == 4);
+  BOOST_TEST(nrLoops == 4);
 }
 
 /*
@@ -664,7 +664,7 @@ BOOST_AUTO_TEST_CASE(testNumberTyping)
 
   {  // BuildTypesVisitor does alter ASTNumber::d_vs
     ASTNumber *nr = tmp_ast.createNumber("1");
-    BOOST_CHECK(nr->vs() == VS_FIELD);
+    BOOST_TEST(nr->vs() == VS_FIELD);
     ASTExpr *e = tmp_ast.createExpr("+");
     e->transferArg(tmp_ast.createPar("inp1s.map"));
     e->transferArg(nr);
@@ -672,20 +672,20 @@ BOOST_AUTO_TEST_CASE(testNumberTyping)
     ASTCFGTester const n(e);
     DEFAULT_BTV;
     btv.visit();
-    BOOST_CHECK(nr->vs() == VS_S);
+    BOOST_TEST(nr->vs() == VS_S);
   }
   {
     std::string const msgId("pcrcalc214c");
     ASTCFGTester const n(tmp_ast.createFromId(msgId));
     BuildTypesVisitor btv(n.cfg());
     auto *nr = astCast<ASTNumber>(n.ast(), "C/b/0/a/>/,/1/n");
-    BOOST_CHECK(nr->value() == 5);
+    BOOST_TEST(nr->value() == 5);
 
     btv.visit();
-    BOOST_CHECK(nr->vs() != VS_S);
+    BOOST_TEST(nr->vs() != VS_S);
 
     btv.visit();
-    BOOST_CHECK(nr->vs() == VS_S);
+    BOOST_TEST(nr->vs() == VS_S);
   }
 }
 
@@ -703,10 +703,10 @@ BOOST_AUTO_TEST_CASE(testDoubleFuncRelic)
       DEFAULT_BTV;
       btv.visit();
     } catch (const com::Exception &s) {
-      BOOST_CHECK(tmp_ast.msgVerify(msgId, s));
+      BOOST_TEST(tmp_ast.msgVerify(msgId, s));
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
   {
     std::string const msgId("pcrcalc11c");
@@ -716,10 +716,10 @@ BOOST_AUTO_TEST_CASE(testDoubleFuncRelic)
       DEFAULT_BTV;
       btv.visit();
     } catch (const com::Exception &s) {
-      BOOST_CHECK(tmp_ast.msgVerify(msgId, s));
+      BOOST_TEST(tmp_ast.msgVerify(msgId, s));
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
   {
     bool catched = false;
@@ -729,10 +729,10 @@ BOOST_AUTO_TEST_CASE(testDoubleFuncRelic)
       DEFAULT_BTV;
       btv.visit();
     } catch (const com::Exception &s) {
-      BOOST_CHECK(tmp_ast.msgVerify(msgId, s));
+      BOOST_TEST(tmp_ast.msgVerify(msgId, s));
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
   {  // pcrcalc11
     ASTCFGTester const n(StringParser::createCodeAsNode("D,Z=spread,spreadzone(inp1b.map,0,1);"));
@@ -740,17 +740,17 @@ BOOST_AUTO_TEST_CASE(testDoubleFuncRelic)
     btv.visit();
 
     const ASTSymbolTable &t(btv.table());
-    BOOST_CHECK(t.contains("inp1b.map"));
-    BOOST_CHECK(t.contains("D"));
-    BOOST_CHECK(t["D"].dataType().st() == ST_SPATIAL);
-    BOOST_CHECK(t["D"].dataType().vs() == VS_S);
-    BOOST_CHECK(btv.table().contains("Z"));
-    BOOST_CHECK(t["Z"].dataType().st() == ST_SPATIAL);
-    BOOST_CHECK(t["Z"].dataType().vs() == VS_B);
+    BOOST_TEST(t.contains("inp1b.map"));
+    BOOST_TEST(t.contains("D"));
+    BOOST_TEST(t["D"].dataType().st() == ST_SPATIAL);
+    BOOST_TEST(t["D"].dataType().vs() == VS_S);
+    BOOST_TEST(btv.table().contains("Z"));
+    BOOST_TEST(t["Z"].dataType().st() == ST_SPATIAL);
+    BOOST_TEST(t["Z"].dataType().vs() == VS_B);
 
     // test if it ever apear left hand side
-    BOOST_CHECK(t["Z"].d_firstAss);
-    BOOST_CHECK(!t["inp1b.map"].d_firstAss);
+    BOOST_TEST(t["Z"].d_firstAss);
+    BOOST_TEST(!t["inp1b.map"].d_firstAss);
   }
   {  // pcrcalc11
     ASTCFGTester const n(StringParser::createCodeAsNode("Z,D=spreadzone,spread(inp1b.map,0,1);"));
@@ -758,13 +758,13 @@ BOOST_AUTO_TEST_CASE(testDoubleFuncRelic)
     btv.visit();
 
     const ASTSymbolTable &t(btv.table());
-    BOOST_CHECK(t.contains("inp1b.map"));
-    BOOST_CHECK(t.contains("D"));
-    BOOST_CHECK(t["D"].dataType().st() == ST_SPATIAL);
-    BOOST_CHECK(t["D"].dataType().vs() == VS_S);
-    BOOST_CHECK(btv.table().contains("Z"));
-    BOOST_CHECK(t["Z"].dataType().st() == ST_SPATIAL);
-    BOOST_CHECK(t["Z"].dataType().vs() == VS_B);
+    BOOST_TEST(t.contains("inp1b.map"));
+    BOOST_TEST(t.contains("D"));
+    BOOST_TEST(t["D"].dataType().st() == ST_SPATIAL);
+    BOOST_TEST(t["D"].dataType().vs() == VS_S);
+    BOOST_TEST(btv.table().contains("Z"));
+    BOOST_TEST(t["Z"].dataType().st() == ST_SPATIAL);
+    BOOST_TEST(t["Z"].dataType().vs() == VS_B);
   }
   {  // dynwave
     ASTTestFactory tmp_ast;
@@ -775,14 +775,14 @@ BOOST_AUTO_TEST_CASE(testDoubleFuncRelic)
     btv.visit();
 
     const ASTSymbolTable &t(btv.table());
-    BOOST_CHECK(t.contains("tmp507.tbl"));
+    BOOST_TEST(t.contains("tmp507.tbl"));
     DataType const dt(t["tmp507.tbl"].dataType());
-    BOOST_CHECK(dt.vs() == VS_TABLE);
-    BOOST_CHECK(dt.tableColTypes().size() == 4);
-    BOOST_CHECK(dt.tableColTypes()[0] == VS_NO);
-    BOOST_CHECK(dt.tableColTypes()[1] == VS_S);
-    BOOST_CHECK(dt.tableColTypes()[2] == VS_S);
-    BOOST_CHECK(dt.tableColTypes()[3] == VS_S);
+    BOOST_TEST(dt.vs() == VS_TABLE);
+    BOOST_TEST(dt.tableColTypes().size() == 4);
+    BOOST_TEST(dt.tableColTypes()[0] == VS_NO);
+    BOOST_TEST(dt.tableColTypes()[1] == VS_S);
+    BOOST_TEST(dt.tableColTypes()[2] == VS_S);
+    BOOST_TEST(dt.tableColTypes()[3] == VS_S);
   }
 }
 

@@ -33,22 +33,22 @@ BOOST_AUTO_TEST_CASE(testGetStackReaderDefault)
     std::string const stackName("tmp");
     std::string const sr = s.inPathStack(rd, stackName, 1);
     std::string const result("tmp00000.001");
-    BOOST_CHECK(s.makeStackItemName(stackName, 1) == result);
-    BOOST_CHECK(sr == stackName);
+    BOOST_TEST(s.makeStackItemName(stackName, 1) == result);
+    BOOST_TEST(sr == stackName);
   }
 
   {
     IoFieldStrategy s(APP_IO_PCRASTER);
     RunDirectory const rd;
     std::string const stackName("./stackReader/tmp00000.001");
-    BOOST_CHECK(com::pathExists(stackName));
+    BOOST_TEST(com::pathExists(stackName));
     std::string const sr = s.inPathStack(rd, stackName, 1);
     com::PathName result("./stackReader/tmp00000.001");
     result.makeNative();
 
-    BOOST_CHECK(s.makeStackItemName(stackName, 1) == result.toString());
+    BOOST_TEST(s.makeStackItemName(stackName, 1) == result.toString());
 
-    BOOST_CHECK(sr == result.toString());
+    BOOST_TEST(sr == result.toString());
   }
 }
 
@@ -65,9 +65,9 @@ BOOST_AUTO_TEST_CASE(testGetStackReaderPath)
   std::string const stackName("tmp");
   std::string const sr = s.inPathStack(rd, stackName, 1);
   std::string const item1("tmp00000.001");
-  BOOST_CHECK(s.makeStackItemName(stackName, 1) == item1);
+  BOOST_TEST(s.makeStackItemName(stackName, 1) == item1);
   com::PathName const result(path + stackName);
-  BOOST_CHECK(sr == result.toString());
+  BOOST_TEST(sr == result.toString());
 }
 
 BOOST_AUTO_TEST_CASE(testGridMap)
@@ -76,29 +76,29 @@ BOOST_AUTO_TEST_CASE(testGridMap)
 
   {
     GridMapIn g("inp5s.map");
-    BOOST_CHECK(g.nrRows() == 5);
-    BOOST_CHECK(g.nrCols() == 5);
-    BOOST_CHECK(g.vs() == VS_S);
+    BOOST_TEST(g.nrRows() == 5);
+    BOOST_TEST(g.nrCols() == 5);
+    BOOST_TEST(g.vs() == VS_S);
     REAL4 data[25];
     data[0] = 8;
     data[24] = 8;
     g.createSpatial(data, VS_S);
-    BOOST_CHECK(pcr::isMV(data[0]));
-    BOOST_CHECK(data[1] == 5);
-    BOOST_CHECK(data[24] == 5);
+    BOOST_TEST(pcr::isMV(data[0]));
+    BOOST_TEST(data[1] == 5);
+    BOOST_TEST(data[24] == 5);
   }
   {
     GridMapIn g("all1_float.bil");
-    BOOST_CHECK(g.nrRows() == 4);
-    BOOST_CHECK(g.nrCols() == 4);
-    BOOST_CHECK(g.vs() == VS_S);
+    BOOST_TEST(g.nrRows() == 4);
+    BOOST_TEST(g.nrCols() == 4);
+    BOOST_TEST(g.vs() == VS_S);
     REAL4 data[16];
     data[0] = 8;
     data[15] = 8;
     g.createSpatial(data, VS_S);
-    BOOST_CHECK(pcr::isMV(data[0]));
-    BOOST_CHECK(data[1] == 1.0f);
-    BOOST_CHECK(data[14] == 1.0f);
+    BOOST_TEST(pcr::isMV(data[0]));
+    BOOST_TEST(data[1] == 1.0f);
+    BOOST_TEST(data[14] == 1.0f);
   }
 }
 

@@ -33,34 +33,34 @@ BOOST_AUTO_TEST_CASE(test)
   ASTNode *a(aPtr.get());
   {
     ASTNode *l = path(a, "l");
-    BOOST_CHECK(dynamic_cast<ASTNodeList *>(l));
+    BOOST_TEST(dynamic_cast<ASTNodeList *>(l));
   }
   {
     ASTNode *l = path(a, "l/0");
-    BOOST_CHECK(dynamic_cast<ASTStat *>(l));
+    BOOST_TEST(dynamic_cast<ASTStat *>(l));
   }
   {
     ASTNode *l = path(a, "l/0/a");
-    BOOST_CHECK(dynamic_cast<ASTAss *>(l));
+    BOOST_TEST(dynamic_cast<ASTAss *>(l));
   }
   {
     ASTNode *l = path(a, "l/1/r");
-    BOOST_CHECK(dynamic_cast<RepeatUntil *>(l));
-    BOOST_CHECK(astCast<RepeatUntil>(a, "l/1/r"));
+    BOOST_TEST(dynamic_cast<RepeatUntil *>(l));
+    BOOST_TEST(astCast<RepeatUntil>(a, "l/1/r"));
   }
   {
     auto *p = astCast<ASTPar>(a, "l/2/a/<");
-    BOOST_CHECK(p->name() == "f");
+    BOOST_TEST(p->name() == "f");
   }
   {
     auto *e = astCast<ASTExpr>(a, "l/2/a/>/e");
-    BOOST_CHECK(e->name() == "+");
+    BOOST_TEST(e->name() == "+");
   }
   {  // shortened removing what can be deduced
      //  0-9 implies a prefix l
      //  ,   implies a prefix e
     auto *p = astCast<ASTPar>(a, "2/a/>/,/0/p");
-    BOOST_CHECK(p->name() == "g");
+    BOOST_TEST(p->name() == "g");
   }
   {
     bool catched = false;
@@ -69,7 +69,7 @@ BOOST_AUTO_TEST_CASE(test)
     } catch (const std::runtime_error &) {
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
   {
     bool catched = false;
@@ -78,6 +78,6 @@ BOOST_AUTO_TEST_CASE(test)
     } catch (const std::runtime_error &) {
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
 }

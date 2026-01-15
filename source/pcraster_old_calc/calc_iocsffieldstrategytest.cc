@@ -16,9 +16,9 @@
 //   std::string stackName("tmp");
 //   const StackReader *sr = s.createStackReader(rd,stackName);
 //   std::string result("tmp00000.001");
-//   BOOST_CHECK(s.makeStackItemName(stackName,1) == result);
-//   BOOST_CHECK(sr->itemName(1) == result);
-//   BOOST_CHECK(sr->stackName() == stackName);
+//   BOOST_TEST(s.makeStackItemName(stackName,1) == result);
+//   BOOST_TEST(sr->itemName(1) == result);
+//   BOOST_TEST(sr->stackName() == stackName);
 //   delete sr;
 //  }
 //
@@ -26,12 +26,12 @@
 //   IoCsfFieldStrategy s;
 //   RunDirectory rd;
 //   com::PathName stackName("./stackReader/tmp00000.001");
-//   BOOST_CHECK(com::pathExists(stackName.toString()));
+//   BOOST_TEST(com::pathExists(stackName.toString()));
 //   const StackReader *sr = s.createStackReader(rd,stackName.toString());
 //   com::PathName result("./stackReader/tmp00000.001");
-//   BOOST_CHECK(s.makeStackItemName(stackName.toString(),1) == result.toString());
-//   BOOST_CHECK(sr->itemName(1) == result);
-//   BOOST_CHECK(sr->stackName() == stackName.toString());
+//   BOOST_TEST(s.makeStackItemName(stackName.toString(),1) == result.toString());
+//   BOOST_TEST(sr->itemName(1) == result);
+//   BOOST_TEST(sr->stackName() == stackName.toString());
 //   delete sr;
 //  }
 // }
@@ -51,13 +51,13 @@ BOOST_AUTO_TEST_CASE(get_stack_reader_path)
   const StackReader *sr = s.createStackReader(rd, stackName);
   std::string const item1("tmp00000.001");
   com::PathName const result(path + item1);
-  BOOST_CHECK(s.makeStackItemName(stackName, 1) == item1);
+  BOOST_TEST(s.makeStackItemName(stackName, 1) == item1);
 //PRINT_VAR(sr->itemName(1))
 //PRINT_VAR(result.toString());
 #ifdef WIN32
   bool onWin32 = true;
   BOOST_TEST_WARN((onWin32 && sr->itemName(1) == result.toString()));
-  BOOST_CHECK((onWin32 && sr->stackName() == (path + stackName)));
+  BOOST_TEST((onWin32 && sr->stackName() == (path + stackName)));
 #endif
 
   delete sr;

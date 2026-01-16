@@ -8,17 +8,17 @@ BOOST_AUTO_TEST_CASE(encoding)
 
   {
     BinDoubleLE const v(0);
-    BOOST_CHECK(v.attrValueStr() == "0000000000000000");
+    BOOST_TEST(v.attrValueStr() == "0000000000000000");
   }
   {
     BinDoubleLE const v(1234.34);
     double const cmpV = v();
-    BOOST_CHECK(cmpV == BinDoubleLE::hexToDouble(v.attrValueStr()));
+    BOOST_TEST(cmpV == BinDoubleLE::hexToDouble(v.attrValueStr()));
   }
   {
     BinDoubleLE const v(0.001);
     double const cmpV = v();
-    BOOST_CHECK(cmpV == BinDoubleLE::hexToDouble(v.attrValueStr()));
-    BOOST_CHECK(cmpV == 0.001);
+    BOOST_TEST(cmpV == BinDoubleLE::hexToDouble(v.attrValueStr()));
+    BOOST_TEST(cmpV == 0.001);
   }
 }

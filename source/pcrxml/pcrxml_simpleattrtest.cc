@@ -15,9 +15,9 @@ BOOST_AUTO_TEST_CASE(it)
                      "dataTypeDTD='Scalar' "
                      "stackEnd='3' />");
   DirectoryStackInfo const d(doc.documentElement());
-  BOOST_CHECK(!d.allMissingValue());
-  BOOST_CHECK(d.minimumValue() == 1.45);
-  BOOST_CHECK(d.maximumValue() == 2.67);
-  BOOST_CHECK(d.dataTypeDTD() == DataTypeEnum::Scalar);
-  BOOST_CHECK(d.stackEnd() == 3);
+  BOOST_TEST(!d.allMissingValue());
+  BOOST_TEST(d.minimumValue() == 1.45);
+  BOOST_TEST(d.maximumValue() == 2.67);
+  BOOST_TEST(d.dataTypeDTD() == DataTypeEnum::Scalar);
+  BOOST_TEST(d.stackEnd() == 3);
 }

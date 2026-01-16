@@ -47,23 +47,23 @@ BOOST_AUTO_TEST_CASE(to_boost_posix_time)
 
   {
     boost::posix_time::ptime const p1 = toPosixTime(makeDateTime("2005-02-10T18:15:00"));
-    BOOST_CHECK(p1.date().year() == 2005);
-    BOOST_CHECK(p1.date().month() == 2);
-    BOOST_CHECK(p1.date().day() == 10);
-    BOOST_CHECK(p1.time_of_day().hours() == 18);
-    BOOST_CHECK(p1.time_of_day().minutes() == 15);
-    BOOST_CHECK(p1.time_of_day().seconds() == 0);
-    BOOST_CHECK(p1.time_of_day().fractional_seconds() == 0);
+    BOOST_TEST(p1.date().year() == 2005);
+    BOOST_TEST(p1.date().month() == 2);
+    BOOST_TEST(p1.date().day() == 10);
+    BOOST_TEST(p1.time_of_day().hours() == 18);
+    BOOST_TEST(p1.time_of_day().minutes() == 15);
+    BOOST_TEST(p1.time_of_day().seconds() == 0);
+    BOOST_TEST(p1.time_of_day().fractional_seconds() == 0);
   }
 
   {
     boost::posix_time::ptime const p1 = toPosixTime(makeDateTime("2005-02-10T18:15:00.345"));
-    BOOST_CHECK(p1.date().year() == 2005);
-    BOOST_CHECK(p1.date().month() == 2);
-    BOOST_CHECK(p1.date().day() == 10);
-    BOOST_CHECK(p1.time_of_day().hours() == 18);
-    BOOST_CHECK(p1.time_of_day().minutes() == 15);
-    BOOST_CHECK(p1.time_of_day().seconds() == 0);
+    BOOST_TEST(p1.date().year() == 2005);
+    BOOST_TEST(p1.date().month() == 2);
+    BOOST_TEST(p1.date().day() == 10);
+    BOOST_TEST(p1.time_of_day().hours() == 18);
+    BOOST_TEST(p1.time_of_day().minutes() == 15);
+    BOOST_TEST(p1.time_of_day().seconds() == 0);
     // fractional_seconds not supported:
     // BOOST_CHECK_EQUAL(p1.time_of_day().fractional_seconds(), 345000);
   }
@@ -93,13 +93,13 @@ BOOST_AUTO_TEST_CASE(time_duration_assumption)
     time_duration const duration(4098, 0, 0, 0);
     time += duration;
 
-    BOOST_CHECK(time.date().year() == 2006);
-    BOOST_CHECK(time.date().month() == 7);
-    BOOST_CHECK(time.date().day() == 21);
-    BOOST_CHECK(time.time_of_day().hours() == 18);
-    BOOST_CHECK(time.time_of_day().minutes() == 0);
-    BOOST_CHECK(time.time_of_day().seconds() == 0);
-    BOOST_CHECK(time.time_of_day().fractional_seconds() == 0);
+    BOOST_TEST(time.date().year() == 2006);
+    BOOST_TEST(time.date().month() == 7);
+    BOOST_TEST(time.date().day() == 21);
+    BOOST_TEST(time.time_of_day().hours() == 18);
+    BOOST_TEST(time.time_of_day().minutes() == 0);
+    BOOST_TEST(time.time_of_day().seconds() == 0);
+    BOOST_TEST(time.time_of_day().fractional_seconds() == 0);
   }
 
   {
@@ -108,13 +108,13 @@ BOOST_AUTO_TEST_CASE(time_duration_assumption)
     time_duration const duration(0, static_cast<time_duration::min_type>(4098 * 60), 0, 0);
     time += duration;
 
-    BOOST_CHECK(time.date().year() == 2006);
-    BOOST_CHECK(time.date().month() == 7);
-    BOOST_CHECK(time.date().day() == 21);
-    BOOST_CHECK(time.time_of_day().hours() == 18);
-    BOOST_CHECK(time.time_of_day().minutes() == 0);
-    BOOST_CHECK(time.time_of_day().seconds() == 0);
-    BOOST_CHECK(time.time_of_day().fractional_seconds() == 0);
+    BOOST_TEST(time.date().year() == 2006);
+    BOOST_TEST(time.date().month() == 7);
+    BOOST_TEST(time.date().day() == 21);
+    BOOST_TEST(time.time_of_day().hours() == 18);
+    BOOST_TEST(time.time_of_day().minutes() == 0);
+    BOOST_TEST(time.time_of_day().seconds() == 0);
+    BOOST_TEST(time.time_of_day().fractional_seconds() == 0);
   }
 }
 
@@ -125,24 +125,24 @@ BOOST_AUTO_TEST_CASE(time_duration)
   {
     boost::posix_time::time_duration const p =
         toPosixTimeDuration(makeTimeDuration("<pcr:hours>10</pcr:hours>"));
-    BOOST_CHECK(p.hours() == 10);
+    BOOST_TEST(p.hours() == 10);
   }
 
   {
     boost::posix_time::time_duration const p =
         toPosixTimeDuration(makeTimeDuration("<pcr:minutes>10</pcr:minutes>"));
-    BOOST_CHECK(p.minutes() == 10);
+    BOOST_TEST(p.minutes() == 10);
   }
   {
     boost::posix_time::time_duration const p =
         toPosixTimeDuration(makeTimeDuration("<pcr:minutes>100</pcr:minutes>"));
-    BOOST_CHECK(p.hours() == 1);
-    BOOST_CHECK(p.minutes() == 40);
+    BOOST_TEST(p.hours() == 1);
+    BOOST_TEST(p.minutes() == 40);
   }
   {
     boost::posix_time::time_duration const p =
         toPosixTimeDuration(makeTimeDuration("<pcr:seconds>100</pcr:seconds>"));
-    BOOST_CHECK(p.minutes() == 1);
-    BOOST_CHECK(p.seconds() == 40);
+    BOOST_TEST(p.minutes() == 1);
+    BOOST_TEST(p.seconds() == 40);
   }
 }

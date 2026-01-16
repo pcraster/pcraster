@@ -26,15 +26,15 @@ BOOST_AUTO_TEST_CASE(xml_to_class)
   std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(s));
 
   std::string const name(d->name());
-  BOOST_CHECK(d->name() == name);
-  BOOST_CHECK(!d->name().empty());
+  BOOST_TEST(d->name() == name);
+  BOOST_TEST(!d->name().empty());
 
-  BOOST_CHECK(!d->field());
-  BOOST_CHECK(!d->relation());
+  BOOST_TEST(!d->field());
+  BOOST_TEST(!d->relation());
 
-  BOOST_CHECK(d->description());
+  BOOST_TEST(d->description());
   std::string const des(d->description()->text());
-  BOOST_CHECK(des == "Haskell sucks");
+  BOOST_TEST(des == "Haskell sucks");
 }
 
 BOOST_AUTO_TEST_CASE(class_to_xml)
@@ -46,7 +46,7 @@ BOOST_AUTO_TEST_CASE(class_to_xml)
 
   std::ostringstream s;
   pcrxml::definition(s, d, pcrxsd::namespaceInfoMap("PCRaster.xsd"));
-  BOOST_CHECK(true);
+  BOOST_TEST(true);
 }
 
 BOOST_AUTO_TEST_CASE(validation)
@@ -60,7 +60,7 @@ BOOST_AUTO_TEST_CASE(validation)
             xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'           \
             xsi:schemaLocation='http://www.pcraster.nl/pcrxml PCRaster.xsd'/>");
   std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(s));
-  BOOST_CHECK(d->name() == "a");
+  BOOST_TEST(d->name() == "a");
 
   try {
     pcrxml::definition("fullNs.xml");
@@ -96,8 +96,8 @@ BOOST_AUTO_TEST_CASE(no_schema)
     try {
       std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(*ip.document()));
       std::string const name("a");
-      BOOST_CHECK(d->name() == name);
-      BOOST_CHECK(!d->name().empty());
+      BOOST_TEST(d->name() == name);
+      BOOST_TEST(!d->name().empty());
     } catch (Exception const &e) {
       // should not fail
       BOOST_CHECK_MESSAGE(false, e.msg());
@@ -112,8 +112,8 @@ BOOST_AUTO_TEST_CASE(no_schema)
     std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(s, xml_schema::flags::dont_validate));
 
     std::string const name("a");
-    BOOST_CHECK(d->name() == name);
-    BOOST_CHECK(!d->name().empty());
+    BOOST_TEST(d->name() == name);
+    BOOST_TEST(!d->name().empty());
   }
   {  /// no validate
     // no schemaLocation
@@ -123,8 +123,8 @@ BOOST_AUTO_TEST_CASE(no_schema)
     std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(s, xml_schema::flags::dont_validate));
 
     std::string const name("a");
-    BOOST_CHECK(d->name() == name);
-    BOOST_CHECK(!d->name().empty());
+    BOOST_TEST(d->name() == name);
+    BOOST_TEST(!d->name().empty());
   }
   {  // validate, but do not find any schema, no xsd file
     std::istringstream s("<definition name='a'                                   \
@@ -137,7 +137,7 @@ BOOST_AUTO_TEST_CASE(no_schema)
     } catch (...) {
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
   {  // validate, find schema by property
     std::istringstream s("<definition name='a'                                   \
@@ -157,12 +157,12 @@ BOOST_AUTO_TEST_CASE(no_schema)
     try {
       std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(s, 0, props));
       std::string const name("a");
-      BOOST_CHECK(d->name() == name);
-      BOOST_CHECK(!d->name().empty());
+      BOOST_TEST(d->name() == name);
+      BOOST_TEST(!d->name().empty());
     } catch (xml_schema::exception const &) {
       noException = true;
     }
-    BOOST_CHECK(noException);
+    BOOST_TEST(noException);
   }
   /*
  {// validate, but do not find any schema, no xsd file
@@ -177,11 +177,11 @@ BOOST_AUTO_TEST_CASE(no_schema)
   bool noException=true;
   try {
    std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(*ip.document()));
-   BOOST_CHECK(d->name()=="a");
+   BOOST_TEST(d->name()=="a");
   } catch(...) {
     noException=false;
   }
-  BOOST_CHECK(noException);
+  BOOST_TEST(noException);
  }
 */
 }

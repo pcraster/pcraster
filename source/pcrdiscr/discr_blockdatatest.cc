@@ -22,10 +22,10 @@ BOOST_AUTO_TEST_CASE(constructor)
     BlockData<INT4> sediment(&block);
 
     for(size_t i = 0; i < sediment.block()->nrCells(); ++i) {
-      BOOST_CHECK(sediment.cell(i).size() == 0);
-      BOOST_CHECK(!sediment.block()->cell(i).isMV());
-      BOOST_CHECK(sediment.block()->cell(i).size() == 0);
-      BOOST_CHECK(pcr::isMV(sediment.defaultValue().cell(i)));
+      BOOST_TEST(sediment.cell(i).size() == 0);
+      BOOST_TEST(!sediment.block()->cell(i).isMV());
+      BOOST_TEST(sediment.block()->cell(i).size() == 0);
+      BOOST_TEST(pcr::isMV(sediment.defaultValue().cell(i)));
     }
   }
 
@@ -34,10 +34,10 @@ BOOST_AUTO_TEST_CASE(constructor)
     BlockData<INT4> sediment(&block, 3);
 
     for(size_t i = 0; i < sediment.block()->nrCells(); ++i) {
-      BOOST_CHECK(sediment.cell(i).size() == 0);
-      BOOST_CHECK(!sediment.block()->cell(i).isMV());
-      BOOST_CHECK(sediment.block()->cell(i).size() == 0);
-      BOOST_CHECK(sediment.defaultValue().cell(i) == 3);
+      BOOST_TEST(sediment.cell(i).size() == 0);
+      BOOST_TEST(!sediment.block()->cell(i).isMV());
+      BOOST_TEST(sediment.block()->cell(i).size() == 0);
+      BOOST_TEST(sediment.defaultValue().cell(i) == 3);
     }
   }
 
@@ -49,13 +49,13 @@ BOOST_AUTO_TEST_CASE(constructor)
     BlockData<INT4> sediment(&block, defaultValues);
 
     for(size_t i = 0; i < sediment.block()->nrCells(); ++i) {
-      BOOST_CHECK(sediment.cell(i).size() == 0);
-      BOOST_CHECK(!sediment.block()->cell(i).isMV());
-      BOOST_CHECK(sediment.block()->cell(i).size() == 0);
+      BOOST_TEST(sediment.cell(i).size() == 0);
+      BOOST_TEST(!sediment.block()->cell(i).isMV());
+      BOOST_TEST(sediment.block()->cell(i).size() == 0);
     }
 
-    BOOST_CHECK(sediment.defaultValue().cell(0) == 3);
-    BOOST_CHECK(sediment.defaultValue().cell(1) == 5);
+    BOOST_TEST(sediment.defaultValue().cell(0) == 3);
+    BOOST_TEST(sediment.defaultValue().cell(1) == 5);
   }
 }
 
@@ -73,8 +73,8 @@ BOOST_AUTO_TEST_CASE(set_default_value)
     sediment.setDefaultValue(4);
 
     for(size_t i = 0; i < block.nrCells(); ++i) {
-      BOOST_CHECK(!sediment.block()->cell(i).isMV());
-      BOOST_CHECK(sediment.defaultValue().cell(i) == 4);
+      BOOST_TEST(!sediment.block()->cell(i).isMV());
+      BOOST_TEST(sediment.defaultValue().cell(i) == 4);
     }
   }
 }
@@ -89,11 +89,11 @@ BOOST_AUTO_TEST_CASE(add_voxels)
   {
     Block block(raster, 5.0);
     BlockData<INT4> sediment(&block, 3);
-    BOOST_CHECK(sediment.cell(0).empty());
+    BOOST_TEST(sediment.cell(0).empty());
 
     block.addVoxels(1, 2.0);
-    BOOST_CHECK(sediment.cell(0).size() == 1);
-    BOOST_CHECK(sediment.cell(0)[0] == 3);
+    BOOST_TEST(sediment.cell(0).size() == 1);
+    BOOST_TEST(sediment.cell(0)[0] == 3);
   }
 
   {
@@ -102,13 +102,13 @@ BOOST_AUTO_TEST_CASE(add_voxels)
     pcr::setMV(defaultValues.cell(0));
     defaultValues.cell(1) = 7;
     BlockData<INT4> sediment(&block, defaultValues);
-    BOOST_CHECK(sediment.cell(0).empty());
+    BOOST_TEST(sediment.cell(0).empty());
 
     block.addVoxels(1, 2.0);
-    BOOST_CHECK(sediment.cell(0).size() == 1);
-    BOOST_CHECK(pcr::isMV(sediment.cell(0)[0]));
-    BOOST_CHECK(sediment.cell(1).size() == 1);
-    BOOST_CHECK(sediment.cell(1)[0] == 7);
+    BOOST_TEST(sediment.cell(0).size() == 1);
+    BOOST_TEST(pcr::isMV(sediment.cell(0)[0]));
+    BOOST_TEST(sediment.cell(1).size() == 1);
+    BOOST_TEST(sediment.cell(1)[0] == 7);
   }
 }
 

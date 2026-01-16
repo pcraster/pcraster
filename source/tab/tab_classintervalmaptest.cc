@@ -28,20 +28,20 @@ BOOST_AUTO_TEST_CASE(class_interval_map)
 
    size_t c=0;
    for(auto i=m.begin();i!=m.end();++i) {
-     BOOST_CHECK(i->second.size()==2); // < 4  and > 4
+     BOOST_TEST(i->second.size()==2); // < 4  and > 4
      switch(c) {
        case 0:
-         BOOST_CHECK(i->first==1);
-         BOOST_CHECK(i->second.outside().nr()==1);
-         BOOST_CHECK(i->second.outside().maximum()==4);
+         BOOST_TEST(i->first==1);
+         BOOST_TEST(i->second.outside().nr()==1);
+         BOOST_TEST(i->second.outside().maximum()==4);
          break;
        case 1:
-         BOOST_CHECK(i->first==2);
-         BOOST_CHECK(i->second.outside().nr()==0);
+         BOOST_TEST(i->first==2);
+         BOOST_TEST(i->second.outside().nr()==0);
          break;
        case 2:
-         BOOST_CHECK(i->first==3);
-         BOOST_CHECK(i->second.outside().nr()==0);
+         BOOST_TEST(i->first==3);
+         BOOST_TEST(i->second.outside().nr()==0);
          break;
      }
      c++;
@@ -63,20 +63,20 @@ BOOST_AUTO_TEST_CASE(class_interval_map)
 
    size_t c=0;
    for(auto i=m.begin();i!=m.end();++i) {
-     BOOST_CHECK(i->second.size()==3); // < 4, > 4 > 4.5
+     BOOST_TEST(i->second.size()==3); // < 4, > 4 > 4.5
      switch(c) {
        case 0:
-         BOOST_CHECK(i->first==1);
-         BOOST_CHECK(i->second.outside().nr()==1);
-         BOOST_CHECK(i->second.outside().maximum()==4);
+         BOOST_TEST(i->first==1);
+         BOOST_TEST(i->second.outside().nr()==1);
+         BOOST_TEST(i->second.outside().maximum()==4);
          break;
        case 1:
-         BOOST_CHECK(i->first==2);
-         BOOST_CHECK(i->second.outside().nr()==0);
+         BOOST_TEST(i->first==2);
+         BOOST_TEST(i->second.outside().nr()==0);
          break;
        case 2:
-         BOOST_CHECK(i->first==3);
-         BOOST_CHECK(i->second.outside().nr()==0);
+         BOOST_TEST(i->first==3);
+         BOOST_TEST(i->second.outside().nr()==0);
          break;
      }
      c++;

@@ -78,26 +78,26 @@ BOOST_AUTO_TEST_CASE(test)
     v.doc = new Document("<!DOCTYPE dataEnvelop> "
                          " <dataEnvelop encoding='text'><![CDATA[x &><\"' bla x]]></dataEnvelop> ");
     v.create();
-    BOOST_CHECK(v.testContents());
-    BOOST_CHECK(v.testText());
-    BOOST_CHECK(v.testCDATA());
+    BOOST_TEST(v.testContents());
+    BOOST_TEST(v.testText());
+    BOOST_TEST(v.testCDATA());
   }
   {  // itself is correct xml
     Verify v;
     v.str = v.expected();
     v.create();
-    BOOST_CHECK(v.testContents());
-    BOOST_CHECK(v.testText());
-    BOOST_CHECK(v.testCDATA());
+    BOOST_TEST(v.testContents());
+    BOOST_TEST(v.testText());
+    BOOST_TEST(v.testCDATA());
   }
   {  // inner CDATA section
     Verify v;
     v.doc = new Document("<!DOCTYPE dataEnvelop> "
                          " <dataEnvelop encoding='text'>x <![CDATA[&><\"' bla x]]></dataEnvelop> ");
     v.create();
-    BOOST_CHECK(v.testContents());
-    BOOST_CHECK(v.testText());
-    BOOST_CHECK(v.testCDATA());
+    BOOST_TEST(v.testContents());
+    BOOST_TEST(v.testText());
+    BOOST_TEST(v.testCDATA());
   }
   {  // inner CDATA section, some entitity encoding
     Verify v;
@@ -105,9 +105,9 @@ BOOST_AUTO_TEST_CASE(test)
         new Document("<!DOCTYPE dataEnvelop> "
                      " <dataEnvelop encoding='text'>x &amp;>&lt;<![CDATA[\"' bla x]]></dataEnvelop> ");
     v.create();
-    BOOST_CHECK(v.testContents());
-    BOOST_CHECK(v.testText());
-    BOOST_CHECK(v.testCDATA());
+    BOOST_TEST(v.testContents());
+    BOOST_TEST(v.testText());
+    BOOST_TEST(v.testCDATA());
   }
   {  // all entitity encoding
     Verify v;
@@ -115,16 +115,16 @@ BOOST_AUTO_TEST_CASE(test)
         new Document("<!DOCTYPE dataEnvelop> "
                      " <dataEnvelop encoding='text'>x &amp;&gt;&lt;&quot;&apos; bla x</dataEnvelop> ");
     v.create();
-    BOOST_CHECK(v.testContents());
-    BOOST_CHECK(v.testText());
-    BOOST_CHECK(v.testCDATA());
+    BOOST_TEST(v.testContents());
+    BOOST_TEST(v.testText());
+    BOOST_TEST(v.testCDATA());
   }
   {  // empty ok
     Verify v;
     v.doc = new Document("<!DOCTYPE dataEnvelop> "
                          " <dataEnvelop encoding='text'/> ");
     v.create();
-    BOOST_CHECK(v.s->contents().empty());
+    BOOST_TEST(v.s->contents().empty());
   }
   {  // mixed content model not allowed
     bool catchedExpectedException(false);
@@ -136,6 +136,6 @@ BOOST_AUTO_TEST_CASE(test)
     } catch (const com::BadStreamFormat &) {
       catchedExpectedException = true;
     }
-    BOOST_CHECK(catchedExpectedException);
+    BOOST_TEST(catchedExpectedException);
   }
 }

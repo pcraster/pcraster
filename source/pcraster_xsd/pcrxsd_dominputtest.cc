@@ -25,7 +25,7 @@ BOOST_AUTO_TEST_CASE(validate)
     } catch (Exception const &) {
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
   {
     DOMInput di;
@@ -71,7 +71,7 @@ BOOST_AUTO_TEST_CASE(entity_resolver)
     try {
       di.document();
     } catch (Exception const &e) {
-      BOOST_CHECK(e.msg().find("namexxx") != std::string::npos);
+      BOOST_TEST(e.msg().find("namexxx") != std::string::npos);
     }
   }
 }
@@ -89,5 +89,5 @@ BOOST_AUTO_TEST_CASE(not_well_formed)
   } catch (Exception const &) {
     catched = true;
   }
-  BOOST_CHECK(catched);
+  BOOST_TEST(catched);
 }

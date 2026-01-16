@@ -93,7 +93,7 @@ BOOST_AUTO_TEST_CASE(for_each_node)
     DOMDocument *doc(sdi.document());
     BOOST_TEST_REQUIRE(doc);
     pcrxml::forEachNode(doc->getDocumentElement(), ca);
-    BOOST_CHECK(ca.val == "Texta1a2a3");
+    BOOST_TEST(ca.val == "Texta1a2a3");
   }
 }
 
@@ -104,27 +104,27 @@ BOOST_AUTO_TEST_CASE(for_each_node)
 //
 //  CountNodeAttrs ca;
 //  forEachElement(doc->getDocumentElement(), ca);
-//  BOOST_CHECK(ca.nr==0);
+//  BOOST_TEST(ca.nr==0);
 //
 //  CountAttrsOfElement cae;
 //  forEachElement(doc->getDocumentElement(), cae);
-//  BOOST_CHECK(cae.nr==2);
+//  BOOST_TEST(cae.nr==2);
 //
 //  ChangeTagName  ctn("S1","SX");
 //  forEachElement(doc->getDocumentElement(), ctn);
-//  BOOST_CHECK(ctn.nr==2);
-//  BOOST_CHECK(doc->getDocumentElement().tagName()=="Main");
+//  BOOST_TEST(ctn.nr==2);
+//  BOOST_TEST(doc->getDocumentElement().tagName()=="Main");
 //  ChangeTagName  ctnAgain("S1","SX");
 //  forEachElement(doc->getDocumentElement(), ctnAgain);
-//  BOOST_CHECK(ctnAgain.nr==0);
+//  BOOST_TEST(ctnAgain.nr==0);
 //
 //  ChangeTagName  ctnMain("Main","SX");
 //  forEachElement(doc->getDocumentElement(), ctnMain);
-//  BOOST_CHECK(ctnMain.nr==1);
-//  BOOST_CHECK(doc->getDocumentElement().tagName()=="SX");
+//  BOOST_TEST(ctnMain.nr==1);
+//  BOOST_TEST(doc->getDocumentElement().tagName()=="SX");
 //
 //  // the PI and the document element
-//  BOOST_CHECK(doc.childNodes().count() == 2);
+//  BOOST_TEST(doc.childNodes().count() == 2);
 // */
 // }
 
@@ -135,12 +135,12 @@ BOOST_AUTO_TEST_CASE(for_each_node)
 //  CountNodeAttrs ca;
 //  Document doc("<S1 b='notCountedAsChild'><S1 /><S2 b='a2'/><S3><S1 a='a2NotCountedAsChild' /></S3></S1>");
 //  forEachChildElement(doc->getDocumentElement(), ca);
-//  BOOST_CHECK(ca.nr==0);
+//  BOOST_TEST(ca.nr==0);
 //
 //  // only S2 childs of root has attr
 //  CountAttrsOfElement ca2;
 //  forEachChildElement(doc->getDocumentElement(), ca2);
-//  BOOST_CHECK(ca2.nr==1);
+//  BOOST_TEST(ca2.nr==1);
 //
 // // NOT SUPPORTED
 // //  // test changing
@@ -148,9 +148,9 @@ BOOST_AUTO_TEST_CASE(for_each_node)
 // //
 // //  DOMElement* e(doc->getDocumentElement());
 // //  forEachChildElement(e, ctn);
-// //  BOOST_CHECK(ctn.nr==1);
-// //  BOOST_CHECK(e.tagName()=="S1");
+// //  BOOST_TEST(ctn.nr==1);
+// //  BOOST_TEST(e.tagName()=="S1");
 // //  forEachChildElement(e, ctn);
-// //  BOOST_CHECK(ctn.nr==1);
+// //  BOOST_TEST(ctn.nr==1);
 // */
 // }

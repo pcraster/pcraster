@@ -53,10 +53,10 @@ BOOST_AUTO_TEST_CASE(required)
       Document const head("<Data/>");
       pcrxml::Data const dt(head.documentElement());
     } catch (const com::Exception &e) {
-      BOOST_CHECK(e.messages().find("ttribute 'name' as part of element Data") != std::string::npos);
+      BOOST_TEST(e.messages().find("ttribute 'name' as part of element Data") != std::string::npos);
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
   {  // wrong enum/NMTOKEN
     bool catched(false);
@@ -64,19 +64,19 @@ BOOST_AUTO_TEST_CASE(required)
       Document const head("<Data name='x' ioType='y' />");
       pcrxml::Data const dt(head.documentElement());
     } catch (const com::Exception &e) {
-      BOOST_CHECK(e.messages().find("attribute ioType: y is not a defined NMTOKEN value") !=
+      BOOST_TEST(e.messages().find("attribute ioType: y is not a defined NMTOKEN value") !=
                   std::string::npos);
       catched = true;
     }
-    BOOST_CHECK(catched);
+    BOOST_TEST(catched);
   }
   {
     pcrxml::Data const dt;
     // dt.name not present while required
-    BOOST_CHECK(!dt.name.present());
+    BOOST_TEST(!dt.name.present());
 
     const pcrxml::Data &dtCopy(dt);
-    BOOST_CHECK(!dtCopy.name.present());
+    BOOST_TEST(!dtCopy.name.present());
   }
   {  // Can skip unknown attrs, what we know see as
      // a feature to hack up Schema support
@@ -86,10 +86,10 @@ BOOST_AUTO_TEST_CASE(required)
                           "xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' "
                           "name='x' ioType='Input' />");
       pcrxml::Data const dt(head.documentElement());
-      BOOST_CHECK(dt.name() == "x");
+      BOOST_TEST(dt.name() == "x");
     } catch (const com::Exception &e) {
       PRINT_VAR(e.messages());
-      BOOST_CHECK(e.messages().find("BLA BLA") != std::string::npos);
+      BOOST_TEST(e.messages().find("BLA BLA") != std::string::npos);
     }
   }
   {  // misses required element (Map|...|Table)
@@ -99,7 +99,7 @@ BOOST_AUTO_TEST_CASE(required)
       pcrxml::Data const dt(head.documentElement());
     } catch (const com::Exception &e) {
       PRINT_VAR(e.messages());
-      BOOST_CHECK(e.messages().find("BLA BLA") != std::string::npos);
+      BOOST_TEST(e.messages().find("BLA BLA") != std::string::npos);
       doesNotTellRequiredChoiseIsMissing = true;
     }
     BOOST_TEST_WARN(doesNotTellRequiredChoiseIsMissing);

@@ -53,7 +53,7 @@ FeaturePath::FeaturePath(
          std::string const& path,
          ParseStrategy strategy)
 
-   
+
 
 {
   std::string string(path);
@@ -208,7 +208,6 @@ bool operator!=(
 
 
 
-#ifdef DEBUG
 std::ostream& operator<<(
          std::ostream& stream,
          FeaturePath const& path)
@@ -222,7 +221,6 @@ std::ostream& operator<<(
     ;
   return stream;
 }
-#endif
 
 
 

@@ -1,10 +1,7 @@
 #ifndef INCLUDED_DAL_FEATUREPATH
 #define INCLUDED_DAL_FEATUREPATH
 
-#ifdef DEBUG
-  #include <iostream>
-#endif
-
+#include <iostream>
 #include <string>
 
 
@@ -31,9 +28,7 @@ class FeaturePath
   friend class FeaturePathTest;
   friend bool operator==(FeaturePath const&, FeaturePath const&);
   friend bool operator!=(FeaturePath const&, FeaturePath const&);
-#ifdef DEBUG
   friend std::ostream& operator<<(std::ostream&, FeaturePath const&);
-#endif
 
 private:
 
@@ -114,11 +109,8 @@ bool               operator==          (FeaturePath const& lhs,
 bool               operator!=          (FeaturePath const& lhs,
                                         FeaturePath const& rhs);
 
-#ifdef DEBUG
 std::ostream&      operator<<          (std::ostream& stream,
                                         FeaturePath const& path);
-#endif
-
 
 
 //------------------------------------------------------------------------------

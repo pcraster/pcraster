@@ -209,7 +209,7 @@ void Dataset::setExtremes(std::any const &min, std::any const &max)
 bool Dataset::allMV() const
 {
   assert((!_min.has_value() && !_max.has_value()) || (_min.has_value() && _max.has_value()));
-  return _min.has_value();
+  return !_min.has_value();
 }
 
 //------------------------------------------------------------------------------

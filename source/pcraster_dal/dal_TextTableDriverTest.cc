@@ -9,7 +9,7 @@ BOOST_AUTO_TEST_CASE(description)
   using namespace dal;
 
   TextTableDriver const driver;
-  BOOST_CHECK_EQUAL(driver.description(), "Text table file format");
+  BOOST_TEST(driver.description() == "Text table file format");
 }
 
 
@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
     table = dynamic_cast<TableDriver const&>(driver).read(filename);
   }
   catch(Exception& exception) {
-    BOOST_CHECK_EQUAL(exception.message(),
+    BOOST_TEST(exception.message() ==
        "Data source " + filename + "(table):\ncannot be opened");
     exceptionCaught = true;
   }
@@ -53,7 +53,7 @@ BOOST_AUTO_TEST_CASE(empty)
     table = dynamic_cast<TableDriver&>(driver).read(filename);
   }
   catch(Exception& exception) {
-    BOOST_CHECK_EQUAL(exception.message(),
+    BOOST_TEST(exception.message() ==
        "Data source " + filename + "(table):\ncannot be opened");
     exceptionCaught = true;
   }
@@ -81,10 +81,10 @@ BOOST_AUTO_TEST_CASE(invalid_grammar)
   }
   catch(Exception& exception) {
 // #ifdef WIN32
-//     BOOST_CHECK_EQUAL(exception.message(),
+//     BOOST_TEST(exception.message() ==
 //        "Pathname '" + filename + "': Not valid on the current platform");
 // #else
-    BOOST_CHECK_EQUAL(exception.message(),
+    BOOST_TEST(exception.message() ==
        "Data source " + filename + "(table):\ncannot be opened");
 // #endif
     exceptionCaught = true;
@@ -104,52 +104,52 @@ BOOST_AUTO_TEST_CASE(table1)
   {
     table = driver.open(std::filesystem::path(filename));
     BOOST_TEST(table);
-    BOOST_CHECK_EQUAL(table->nrCols(), size_t(3));
+    BOOST_TEST(table->nrCols() == size_t(3));
 
-    BOOST_CHECK_EQUAL(table->typeId(0), TI_UINT1);
-    BOOST_CHECK_EQUAL(table->typeId(1), TI_INT1);
-    BOOST_CHECK_EQUAL(table->typeId(2), TI_REAL4);
+    BOOST_TEST(table->typeId(0) == TI_UINT1);
+    BOOST_TEST(table->typeId(1) == TI_INT1);
+    BOOST_TEST(table->typeId(2) == TI_REAL4);
 
     table->createCols();
     dynamic_cast<TableDriver&>(driver).read(*table, filename);
-    BOOST_CHECK_EQUAL(table->nrRecs(), size_t(6));
+    BOOST_TEST(table->nrRecs() == size_t(6));
 
     Array<UINT1>& col1 = table->col<UINT1>(0);
     Array<INT1>& col2 = table->col<INT1>(1);
     Array<REAL4>& col3 = table->col<REAL4>(2);
 
-    BOOST_CHECK_EQUAL(col1[0],  1);
-    BOOST_CHECK_EQUAL(col1[1],  4);
-    BOOST_CHECK_EQUAL(col1[2],  7);
-    BOOST_CHECK_EQUAL(col1[3], 10);
-    BOOST_CHECK_EQUAL(col1[4], 13);
-    BOOST_CHECK_EQUAL(col1[5], 16);
+    BOOST_TEST(col1[0] ==  1);
+    BOOST_TEST(col1[1] ==  4);
+    BOOST_TEST(col1[2] ==  7);
+    BOOST_TEST(col1[3] == 10);
+    BOOST_TEST(col1[4] == 13);
+    BOOST_TEST(col1[5] == 16);
 
-    BOOST_CHECK_EQUAL(col2[0],  2);
-    BOOST_CHECK_EQUAL(col2[1], -5);
-    BOOST_CHECK_EQUAL(col2[2],  8);
-    BOOST_CHECK_EQUAL(col2[3], 11);
-    BOOST_CHECK_EQUAL(col2[4], 14);
-    BOOST_CHECK_EQUAL(col2[5], 17);
+    BOOST_TEST(col2[0] ==  2);
+    BOOST_TEST(col2[1] == -5);
+    BOOST_TEST(col2[2] ==  8);
+    BOOST_TEST(col2[3] == 11);
+    BOOST_TEST(col2[4] == 14);
+    BOOST_TEST(col2[5] == 17);
 
-    BOOST_CHECK_EQUAL(col3[0],  3.0);
-    BOOST_CHECK_EQUAL(col3[1],  6.0);
-    BOOST_CHECK_EQUAL(col3[2],  9.0);
-    BOOST_CHECK_EQUAL(col3[3], 12.0);
-    BOOST_CHECK_EQUAL(col3[4], 15.5);
-    BOOST_CHECK_EQUAL(col3[5], 18.0);
+    BOOST_TEST(col3[0] ==  3.0);
+    BOOST_TEST(col3[1] ==  6.0);
+    BOOST_TEST(col3[2] ==  9.0);
+    BOOST_TEST(col3[3] == 12.0);
+    BOOST_TEST(col3[4] == 15.5);
+    BOOST_TEST(col3[5] == 18.0);
 
     delete table;
   }
 
   DataSpace dataSpace(dynamic_cast<Driver&>(driver).dataSpace(filename));
-  BOOST_CHECK_EQUAL(dataSpace.rank(), size_t(1));
+  BOOST_TEST(dataSpace.rank() == size_t(1));
   BOOST_TEST(dataSpace.hasTime());
 
   Dimension const& dimension(dataSpace.dimension(0));
-  BOOST_CHECK_EQUAL(dimension.value<size_t>(0), size_t(1));
-  BOOST_CHECK_EQUAL(dimension.value<size_t>(1), size_t(16));
-  BOOST_CHECK_EQUAL(dimension.value<size_t>(2), size_t(3));
+  BOOST_TEST(dimension.value<size_t>(0) == size_t(1));
+  BOOST_TEST(dimension.value<size_t>(1) == size_t(16));
+  BOOST_TEST(dimension.value<size_t>(2) == size_t(3));
 }
 
 
@@ -184,40 +184,40 @@ BOOST_AUTO_TEST_CASE(table2)
   Array<INT1>&  col2 = table->col<INT1>(1);
   Array<REAL4>& col3 = table->col<REAL4>(2);
 
-  BOOST_CHECK_EQUAL(table->title(0), "cola");
-  BOOST_CHECK_EQUAL(col1[0],  1);
-  BOOST_CHECK_EQUAL(col1[1],  4);
-  BOOST_CHECK_EQUAL(col1[2],  7);
-  BOOST_CHECK_EQUAL(col1[3], 10);
-  BOOST_CHECK_EQUAL(col1[4], 13);
-  BOOST_CHECK_EQUAL(col1[5], 16);
+  BOOST_TEST(table->title(0) == "cola");
+  BOOST_TEST(col1[0] ==  1);
+  BOOST_TEST(col1[1] ==  4);
+  BOOST_TEST(col1[2] ==  7);
+  BOOST_TEST(col1[3] == 10);
+  BOOST_TEST(col1[4] == 13);
+  BOOST_TEST(col1[5] == 16);
 
-  BOOST_CHECK_EQUAL(table->title(1), "colb");
-  BOOST_CHECK_EQUAL(col2[0],  2);
-  BOOST_CHECK_EQUAL(col2[1], -5);
-  BOOST_CHECK_EQUAL(col2[2],  8);
-  BOOST_CHECK_EQUAL(col2[3], 11);
-  BOOST_CHECK_EQUAL(col2[4], 14);
-  BOOST_CHECK_EQUAL(col2[5], 17);
+  BOOST_TEST(table->title(1) == "colb");
+  BOOST_TEST(col2[0] ==  2);
+  BOOST_TEST(col2[1] == -5);
+  BOOST_TEST(col2[2] ==  8);
+  BOOST_TEST(col2[3] == 11);
+  BOOST_TEST(col2[4] == 14);
+  BOOST_TEST(col2[5] == 17);
 
-  BOOST_CHECK_EQUAL(table->title(2), "colc");
-  BOOST_CHECK_EQUAL(col3[0],  3.0);
-  BOOST_CHECK_EQUAL(col3[1],  6.0);
-  BOOST_CHECK_EQUAL(col3[2],  9.0);
-  BOOST_CHECK_EQUAL(col3[3], 12.0);
-  BOOST_CHECK_EQUAL(col3[4], 15.5);
-  BOOST_CHECK_EQUAL(col3[5], 18.0);
+  BOOST_TEST(table->title(2) == "colc");
+  BOOST_TEST(col3[0] ==  3.0);
+  BOOST_TEST(col3[1] ==  6.0);
+  BOOST_TEST(col3[2] ==  9.0);
+  BOOST_TEST(col3[3] == 12.0);
+  BOOST_TEST(col3[4] == 15.5);
+  BOOST_TEST(col3[5] == 18.0);
 
   delete table;
 
   DataSpace dataSpace(dynamic_cast<Driver&>(driver).dataSpace(filename));
-  BOOST_CHECK_EQUAL(dataSpace.rank(), size_t(1));
+  BOOST_TEST(dataSpace.rank() == size_t(1));
   BOOST_TEST(dataSpace.hasTime());
 
   Dimension const& dimension(dataSpace.dimension(0));
-  BOOST_CHECK_EQUAL(dimension.value<size_t>(0), size_t(1));
-  BOOST_CHECK_EQUAL(dimension.value<size_t>(1), size_t(16));
-  BOOST_CHECK_EQUAL(dimension.value<size_t>(2), size_t(3));
+  BOOST_TEST(dimension.value<size_t>(0) == size_t(1));
+  BOOST_TEST(dimension.value<size_t>(1) == size_t(16));
+  BOOST_TEST(dimension.value<size_t>(2) == size_t(3));
 }
 
 
@@ -234,16 +234,16 @@ BOOST_AUTO_TEST_CASE(table5)
     table = driver.open(std::filesystem::path(filename));
 
     BOOST_TEST(table);
-    BOOST_CHECK_EQUAL(table->nrCols(), size_t(5));
-    BOOST_CHECK_EQUAL(table->typeId(0), TI_UINT1);
-    BOOST_CHECK_EQUAL(table->typeId(1), TI_UINT1);
-    BOOST_CHECK_EQUAL(table->typeId(2), TI_UINT1);
-    BOOST_CHECK_EQUAL(table->typeId(3), TI_UINT1);
-    BOOST_CHECK_EQUAL(table->typeId(4), TI_UINT1);
+    BOOST_TEST(table->nrCols() == size_t(5));
+    BOOST_TEST(table->typeId(0) == TI_UINT1);
+    BOOST_TEST(table->typeId(1) == TI_UINT1);
+    BOOST_TEST(table->typeId(2) == TI_UINT1);
+    BOOST_TEST(table->typeId(3) == TI_UINT1);
+    BOOST_TEST(table->typeId(4) == TI_UINT1);
 
     table->createCols();
     dynamic_cast<TableDriver&>(driver).read(*table, filename);
-    BOOST_CHECK_EQUAL(table->nrRecs(), size_t(1));
+    BOOST_TEST(table->nrRecs() == size_t(1));
 
     Array<UINT1>& col1 = table->col<UINT1>(0);
     Array<UINT1>& col2 = table->col<UINT1>(1);
@@ -251,11 +251,11 @@ BOOST_AUTO_TEST_CASE(table5)
     Array<UINT1>& col4 = table->col<UINT1>(3);
     Array<UINT1>& col5 = table->col<UINT1>(4);
 
-    BOOST_CHECK_EQUAL(col1[0],  1);
-    BOOST_CHECK_EQUAL(col2[0],  2);
-    BOOST_CHECK_EQUAL(col3[0],  3);
-    BOOST_CHECK_EQUAL(col4[0],  4);
-    BOOST_CHECK_EQUAL(col5[0],  5);
+    BOOST_TEST(col1[0] ==  1);
+    BOOST_TEST(col2[0] ==  2);
+    BOOST_TEST(col3[0] ==  3);
+    BOOST_TEST(col4[0] ==  4);
+    BOOST_TEST(col5[0] ==  5);
 
     delete table;
   }
@@ -265,16 +265,16 @@ BOOST_AUTO_TEST_CASE(table5)
     table = driver.open(std::filesystem::path(filename));
 
     BOOST_TEST(table);
-    BOOST_CHECK_EQUAL(table->nrCols(), size_t(5));
-    BOOST_CHECK_EQUAL(table->typeId(0), TI_UINT1);
-    BOOST_CHECK_EQUAL(table->typeId(1), TI_UINT1);
-    BOOST_CHECK_EQUAL(table->typeId(2), TI_UINT1);
-    BOOST_CHECK_EQUAL(table->typeId(3), TI_UINT1);
-    BOOST_CHECK_EQUAL(table->typeId(4), TI_UINT1);
+    BOOST_TEST(table->nrCols() == size_t(5));
+    BOOST_TEST(table->typeId(0) == TI_UINT1);
+    BOOST_TEST(table->typeId(1) == TI_UINT1);
+    BOOST_TEST(table->typeId(2) == TI_UINT1);
+    BOOST_TEST(table->typeId(3) == TI_UINT1);
+    BOOST_TEST(table->typeId(4) == TI_UINT1);
 
     table->createCols();
     dynamic_cast<TableDriver&>(driver).read(*table, filename);
-    BOOST_CHECK_EQUAL(table->nrRecs(), size_t(1));
+    BOOST_TEST(table->nrRecs() == size_t(1));
 
     Array<UINT1>& col1 = table->col<UINT1>(0);
     Array<UINT1>& col2 = table->col<UINT1>(1);
@@ -282,11 +282,11 @@ BOOST_AUTO_TEST_CASE(table5)
     Array<UINT1>& col4 = table->col<UINT1>(3);
     Array<UINT1>& col5 = table->col<UINT1>(4);
 
-    BOOST_CHECK_EQUAL(col1[0],  1);
-    BOOST_CHECK_EQUAL(col2[0],  2);
-    BOOST_CHECK_EQUAL(col3[0],  3);
-    BOOST_CHECK_EQUAL(col4[0],  4);
-    BOOST_CHECK_EQUAL(col5[0],  5);
+    BOOST_TEST(col1[0] ==  1);
+    BOOST_TEST(col2[0] ==  2);
+    BOOST_TEST(col3[0] ==  3);
+    BOOST_TEST(col4[0] ==  4);
+    BOOST_TEST(col5[0] ==  5);
 
     delete table;
   }
@@ -296,19 +296,19 @@ BOOST_AUTO_TEST_CASE(table5)
     table = driver.open(std::filesystem::path(filename));
 
     BOOST_TEST(table);
-    BOOST_CHECK_EQUAL(table->nrCols(), size_t(5));
-    BOOST_CHECK_EQUAL(table->typeId(0), TI_NR_TYPES);
-    BOOST_CHECK_EQUAL(table->typeId(1), TI_NR_TYPES);
-    BOOST_CHECK_EQUAL(table->typeId(2), TI_NR_TYPES);
-    BOOST_CHECK_EQUAL(table->typeId(3), TI_NR_TYPES);
-    BOOST_CHECK_EQUAL(table->typeId(4), TI_NR_TYPES);
+    BOOST_TEST(table->nrCols() == size_t(5));
+    BOOST_TEST(table->typeId(0) == TI_NR_TYPES);
+    BOOST_TEST(table->typeId(1) == TI_NR_TYPES);
+    BOOST_TEST(table->typeId(2) == TI_NR_TYPES);
+    BOOST_TEST(table->typeId(3) == TI_NR_TYPES);
+    BOOST_TEST(table->typeId(4) == TI_NR_TYPES);
 
-    BOOST_CHECK_EQUAL(table->nrRecs(), size_t(0));
-    BOOST_CHECK_EQUAL(table->title(0), "1");
-    BOOST_CHECK_EQUAL(table->title(1), "2");
-    BOOST_CHECK_EQUAL(table->title(2), "3");
-    BOOST_CHECK_EQUAL(table->title(3), "4");
-    BOOST_CHECK_EQUAL(table->title(4), "5");
+    BOOST_TEST(table->nrRecs() == size_t(0));
+    BOOST_TEST(table->title(0) == "1");
+    BOOST_TEST(table->title(1) == "2");
+    BOOST_TEST(table->title(2) == "3");
+    BOOST_TEST(table->title(3) == "4");
+    BOOST_TEST(table->title(4) == "5");
 
     // Fails because the type id's of the columns are invalid.
     // driver.read(filename, *table);
@@ -330,52 +330,52 @@ BOOST_AUTO_TEST_CASE(table6)
     filename = "table6.col";
     table = driver.open(std::filesystem::path(filename));
     BOOST_TEST(table);
-    BOOST_CHECK_EQUAL(table->nrCols(), size_t(3));
+    BOOST_TEST(table->nrCols() == size_t(3));
 
-    BOOST_CHECK_EQUAL(table->typeId(0), TI_UINT1);
-    BOOST_CHECK_EQUAL(table->typeId(1), TI_INT1);
-    BOOST_CHECK_EQUAL(table->typeId(2), TI_REAL4);
+    BOOST_TEST(table->typeId(0) == TI_UINT1);
+    BOOST_TEST(table->typeId(1) == TI_INT1);
+    BOOST_TEST(table->typeId(2) == TI_REAL4);
 
     table->createCols();
     dynamic_cast<TableDriver&>(driver).read(*table, filename);
-    BOOST_CHECK_EQUAL(table->nrRecs(), size_t(6));
+    BOOST_TEST(table->nrRecs() == size_t(6));
 
     Array<UINT1>& col1 = table->col<UINT1>(0);
     Array<INT1>& col2 = table->col<INT1>(1);
     Array<REAL4>& col3 = table->col<REAL4>(2);
 
-    BOOST_CHECK_EQUAL(col1[0],  1);
-    BOOST_CHECK_EQUAL(col1[1],  4);
-    BOOST_CHECK_EQUAL(col1[2],  7);
-    BOOST_CHECK_EQUAL(col1[3], 10);
-    BOOST_CHECK_EQUAL(col1[4], 13);
-    BOOST_CHECK_EQUAL(col1[5], 16);
+    BOOST_TEST(col1[0] ==  1);
+    BOOST_TEST(col1[1] ==  4);
+    BOOST_TEST(col1[2] ==  7);
+    BOOST_TEST(col1[3] == 10);
+    BOOST_TEST(col1[4] == 13);
+    BOOST_TEST(col1[5] == 16);
 
-    BOOST_CHECK_EQUAL(col2[0],  2);
-    BOOST_CHECK_EQUAL(col2[1], -5);
-    BOOST_CHECK_EQUAL(col2[2],  8);
-    BOOST_CHECK_EQUAL(col2[3], 11);
-    BOOST_CHECK_EQUAL(col2[4], 14);
-    BOOST_CHECK_EQUAL(col2[5], 17);
+    BOOST_TEST(col2[0] ==  2);
+    BOOST_TEST(col2[1] == -5);
+    BOOST_TEST(col2[2] ==  8);
+    BOOST_TEST(col2[3] == 11);
+    BOOST_TEST(col2[4] == 14);
+    BOOST_TEST(col2[5] == 17);
 
-    BOOST_CHECK_EQUAL(col3[0],  3.0);
-    BOOST_CHECK_EQUAL(col3[1],  6.0);
-    BOOST_CHECK_EQUAL(col3[2],  9.0);
-    BOOST_CHECK_EQUAL(col3[3], 12.0);
-    BOOST_CHECK_EQUAL(col3[4], 15.5);
-    BOOST_CHECK_EQUAL(col3[5], 18.0);
+    BOOST_TEST(col3[0] ==  3.0);
+    BOOST_TEST(col3[1] ==  6.0);
+    BOOST_TEST(col3[2] ==  9.0);
+    BOOST_TEST(col3[3] == 12.0);
+    BOOST_TEST(col3[4] == 15.5);
+    BOOST_TEST(col3[5] == 18.0);
 
     delete table;
   }
 
   DataSpace dataSpace(dynamic_cast<Driver&>(driver).dataSpace(filename));
-  BOOST_CHECK_EQUAL(dataSpace.rank(), size_t(1));
+  BOOST_TEST(dataSpace.rank() == size_t(1));
   BOOST_TEST(dataSpace.hasTime());
 
   Dimension const& dimension(dataSpace.dimension(0));
-  BOOST_CHECK_EQUAL(dimension.value<size_t>(0), size_t(1));
-  BOOST_CHECK_EQUAL(dimension.value<size_t>(1), size_t(16));
-  BOOST_CHECK_EQUAL(dimension.value<size_t>(2), size_t(3));
+  BOOST_TEST(dimension.value<size_t>(0) == size_t(1));
+  BOOST_TEST(dimension.value<size_t>(1) == size_t(16));
+  BOOST_TEST(dimension.value<size_t>(2) == size_t(3));
 }
 
 
@@ -396,7 +396,7 @@ BOOST_AUTO_TEST_CASE(table2_eas)
     table.reset(dynamic_cast<TableDriver&>(driver).read(filename));
   }
   catch(Exception& exception) {
-    BOOST_CHECK_EQUAL(exception.message(),
+    BOOST_TEST(exception.message() ==
        "Data source " + filename + "(table):\ncannot be opened");
     exceptionCaught = true;
   }
@@ -425,8 +425,8 @@ BOOST_AUTO_TEST_CASE(dos_formatted)
   std::shared_ptr<Table> const table(driver.open(
     std::filesystem::path(filename)));
   BOOST_TEST_REQUIRE(table);
-  BOOST_CHECK_EQUAL(table->nrCols(), size_t(9));
-  BOOST_CHECK_EQUAL(table->title(4), "KANTOREN");
+  BOOST_TEST(table->nrCols() == size_t(9));
+  BOOST_TEST(table->title(4) == "KANTOREN");
 
   table->setTypeId(0, TI_INT4);
   table->setTypeId(1, TI_INT4);
@@ -439,13 +439,13 @@ BOOST_AUTO_TEST_CASE(dos_formatted)
   table->setTypeId(8, TI_REAL4);
   table->createCols();
   dynamic_cast<TableDriver&>(driver).read(*table, filename);
-  BOOST_CHECK_EQUAL(table->nrRecs(), size_t(10));
+  BOOST_TEST(table->nrRecs() == size_t(10));
 
   Array<INT4>& col1 = table->col<INT4>(0);
-  BOOST_CHECK_EQUAL(col1[0], 1);
-  BOOST_CHECK_EQUAL(col1[1], 2);
-  BOOST_CHECK_EQUAL(col1[2], 3);
-  BOOST_CHECK_EQUAL(col1[3], 4);
+  BOOST_TEST(col1[0] == 1);
+  BOOST_TEST(col1[1] == 2);
+  BOOST_TEST(col1[2] == 3);
+  BOOST_TEST(col1[3] == 4);
 }
 
 
@@ -470,8 +470,8 @@ BOOST_AUTO_TEST_CASE(column_with_quite_some_zeros)
   std::shared_ptr<Table> const table(driver.open(
     std::filesystem::path(filename)));
   BOOST_TEST_REQUIRE(table);
-  BOOST_CHECK_EQUAL(table->nrCols(), size_t(2));
+  BOOST_TEST(table->nrCols() == size_t(2));
 
-  BOOST_CHECK_EQUAL(table->typeId(0), TI_UINT1);
-  BOOST_CHECK_EQUAL(table->typeId(1), TI_REAL4);
+  BOOST_TEST(table->typeId(0) == TI_UINT1);
+  BOOST_TEST(table->typeId(1) == TI_REAL4);
 }

@@ -106,7 +106,7 @@ BOOST_AUTO_TEST_CASE(boost_options)
   //      apo.configuration().visualisationGroup());
   // pcrxml::VisualisationGroup::view_sequence const& views(group.view());
 
-  // BOOST_CHECK_EQUAL(views.size(), size_t(2));
+  // BOOST_TEST(views.size() == size_t(2));
   // BOOST_TEST(views[0].map().present());
   // BOOST_TEST(views[1].map().present());
 }
@@ -208,7 +208,7 @@ BOOST_AUTO_TEST_CASE(drape_syntax)
     char *argv[] = {c1, c2, c3, c4};
 
     AguilaProgramOptions const apo(4, argv);
-    BOOST_CHECK_EQUAL(apo.configuration().visualisationGroup().view().size(), size_t(1));
+    BOOST_TEST(apo.configuration().visualisationGroup().view().size() == size_t(1));
   }
 
   {
@@ -221,7 +221,7 @@ BOOST_AUTO_TEST_CASE(drape_syntax)
     char *argv[] = {c1, c2, c3, c4, c5};
 
     AguilaProgramOptions const apo(5, argv);
-    BOOST_CHECK_EQUAL(apo.configuration().visualisationGroup().view().size(), size_t(1));
+    BOOST_TEST(apo.configuration().visualisationGroup().view().size() == size_t(1));
   }
 
   /*
@@ -279,20 +279,20 @@ BOOST_AUTO_TEST_CASE(multiple_views)
   //   pcrxml::VisualisationGroup const& group(
   //        apo.configuration().visualisationGroup());
   //   pcrxml::VisualisationGroup::view_sequence const& views(group.view());
-  //   BOOST_CHECK_EQUAL(views.size(), size_t(2));
+  //   BOOST_TEST(views.size() == size_t(2));
   //   // Two names in the map view.
   //   BOOST_TEST(views[0].map().present());
-  //   BOOST_CHECK_EQUAL(views[0].map().get().item().size(), size_t(2));
+  //   BOOST_TEST(views[0].map().get().item().size() == size_t(2));
   //   // One name in the time graph view.
   //   BOOST_TEST(views[1].timeGraph().present());
-  //   BOOST_CHECK_EQUAL(views[1].timeGraph().get().item().size(), size_t(1));
+  //   BOOST_TEST(views[1].timeGraph().get().item().size() == size_t(1));
 
   //   BOOST_TEST(group.searchSpace().present());
   //   pcrxml::DataSpace const& space(group.searchSpace().get());
-  //   BOOST_CHECK_EQUAL(space.timesteps().size(), size_t(1));
+  //   BOOST_TEST(space.timesteps().size() == size_t(1));
   //   BOOST_TEST(space.timesteps()[0].range().present());
-  //   BOOST_CHECK_EQUAL(space.timesteps()[0].range()->begin(), size_t(1));
-  //   BOOST_CHECK_EQUAL(space.timesteps()[0].range()->end(), size_t(250));
-  //   BOOST_CHECK_EQUAL(space.timesteps()[0].range()->increment(), size_t(1));
+  //   BOOST_TEST(space.timesteps()[0].range()->begin() == size_t(1));
+  //   BOOST_TEST(space.timesteps()[0].range()->end() == size_t(250));
+  //   BOOST_TEST(space.timesteps()[0].range()->increment() == size_t(1));
   // }
 }

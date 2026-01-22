@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE(test)
     std::string const name = "table1.eas";
     TableDal dal;
     BOOST_TEST(dal.hasDriverByName("Geo-EAS"));
-    BOOST_CHECK_EQUAL(dal.driverByName("Geo-EAS")->datasetType(), TABLE);
+    BOOST_TEST(dal.driverByName("Geo-EAS")->datasetType() == TABLE);
     std::shared_ptr<Table> table;
     std::tie(table, std::ignore) = dal.open(name);
     BOOST_TEST(table.get());

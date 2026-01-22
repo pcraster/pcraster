@@ -10,54 +10,54 @@ BOOST_AUTO_TEST_CASE(id)
 
   {
     Uint1Type const type;
-    BOOST_CHECK_EQUAL(type.id(), TI_UINT1);
+    BOOST_TEST(type.id() == TI_UINT1);
   }
 
   {
     Uint2Type const type;
-    BOOST_CHECK_EQUAL(type.id(), TI_UINT2);
+    BOOST_TEST(type.id() == TI_UINT2);
   }
 
   {
     Uint4Type const type;
-    BOOST_CHECK_EQUAL(type.id(), TI_UINT4);
+    BOOST_TEST(type.id() == TI_UINT4);
   }
 
   {
     Int1Type const type;
-    BOOST_CHECK_EQUAL(type.id(), TI_INT1);
+    BOOST_TEST(type.id() == TI_INT1);
   }
 
   {
     Int2Type const type;
-    BOOST_CHECK_EQUAL(type.id(), TI_INT2);
+    BOOST_TEST(type.id() == TI_INT2);
   }
 
   {
     Int4Type const type;
-    BOOST_CHECK_EQUAL(type.id(), TI_INT4);
+    BOOST_TEST(type.id() == TI_INT4);
   }
 
   {
     Real4Type const type;
-    BOOST_CHECK_EQUAL(type.id(), TI_REAL4);
+    BOOST_TEST(type.id() == TI_REAL4);
   }
 
   {
     Real8Type const type;
-    BOOST_CHECK_EQUAL(type.id(), TI_REAL8);
+    BOOST_TEST(type.id() == TI_REAL8);
   }
 
   /*
-* BOOST_CHECK_EQUAL(TypeTraits<UINT1>::id, TI_UINT1);
-* BOOST_CHECK_EQUAL(TypeTraits<UINT2>::id, TI_UINT2);
-* BOOST_CHECK_EQUAL(TypeTraits<UINT4>::id, TI_UINT4);
-* BOOST_CHECK_EQUAL(TypeTraits<INT1>::id, TI_INT1);
-* BOOST_CHECK_EQUAL(TypeTraits<INT2>::id, TI_INT2);
-* BOOST_CHECK_EQUAL(TypeTraits<INT4>::id, TI_INT4);
-* BOOST_CHECK_EQUAL(TypeTraits<REAL4>::id, TI_REAL4);
-* BOOST_CHECK_EQUAL(TypeTraits<REAL8>::id, TI_REAL8);
-* BOOST_CHECK_EQUAL(TypeTraits<std::string>::id, TI_STRING);
+* BOOST_TEST(TypeTraits<UINT1>::id == TI_UINT1);
+* BOOST_TEST(TypeTraits<UINT2>::id == TI_UINT2);
+* BOOST_TEST(TypeTraits<UINT4>::id == TI_UINT4);
+* BOOST_TEST(TypeTraits<INT1>::id == TI_INT1);
+* BOOST_TEST(TypeTraits<INT2>::id == TI_INT2);
+* BOOST_TEST(TypeTraits<INT4>::id == TI_INT4);
+* BOOST_TEST(TypeTraits<REAL4>::id == TI_REAL4);
+* BOOST_TEST(TypeTraits<REAL8>::id == TI_REAL8);
+* BOOST_TEST(TypeTraits<std::string>::id == TI_STRING);
   */
 }
 
@@ -92,7 +92,7 @@ BOOST_AUTO_TEST_CASE(can_parse_uint1)
 
 
 /*
-* BOOST_CHECK_EQUAL(TypeTraits<UINT1>::id, TI_UINT1);
+* BOOST_TEST(TypeTraits<UINT1>::id == TI_UINT1);
 * BOOST_TEST(TypeTraits<UINT1>::canParse("0"));
 * BOOST_TEST(TypeTraits<UINT1>::canParse("1"));
 * BOOST_TEST(TypeTraits<UINT1>::canParse("255"));
@@ -284,13 +284,13 @@ BOOST_AUTO_TEST_CASE(type_traits)
 {
   using namespace dal;
 
-  BOOST_CHECK_EQUAL(TypeTraits<UINT1>::typeId, TI_UINT1);
-  BOOST_CHECK_EQUAL(TypeTraits<UINT1>::csfCr, CR_UINT1);
+  BOOST_TEST(TypeTraits<UINT1>::typeId == TI_UINT1);
+  BOOST_TEST(TypeTraits<UINT1>::csfCr == CR_UINT1);
   BOOST_TEST(TypeTraits<std::string>::typeId != TI_UINT1);
-  BOOST_CHECK_EQUAL(TypeTraits<std::string>::typeId, TI_STRING);
+  BOOST_TEST(TypeTraits<std::string>::typeId == TI_STRING);
 
   TypeOfTypeId<TI_UINT1> const v;
-  BOOST_CHECK_EQUAL(sizeof(v), size_t(1));
+  BOOST_TEST(sizeof(v) == size_t(1));
 }
 
 
@@ -299,7 +299,7 @@ BOOST_AUTO_TEST_CASE(basic_type)
   using namespace dal;
 
   Type const& i2(Type::get(TI_INT2));
-  BOOST_CHECK_EQUAL(i2.size(), size_t(2));
-  BOOST_CHECK_EQUAL(i2.id(), TI_INT2);
+  BOOST_TEST(i2.size() == size_t(2));
+  BOOST_TEST(i2.id() == TI_INT2);
   BOOST_TEST(i2.hasTrivialCopy());
 }

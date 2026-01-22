@@ -102,7 +102,7 @@ void HDF5RasterDriverTest::testEmptyDataSpace()
 /*
   // Get and check dataSpace.
   DataSpace space(driver.dataSpace(name, DataSpace(), DataSpaceAddress()));
-  BOOST_CHECK_EQUAL(space.rank(), 2);
+  BOOST_TEST(space.rank() == 2);
   ...
 
   // Read the raster, check whether values are correct.

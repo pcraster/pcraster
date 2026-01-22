@@ -128,44 +128,44 @@ BOOST_AUTO_TEST_CASE(area_dimensions)
   {
     RasterDimensions const raster(3, 4, 5.0, 1.0, 2.0);
     RasterDimensions const area(raster.areaDimensions(1.0, 2.0, 1.0, 2.0));
-    BOOST_CHECK_EQUAL(area.nrRows(), size_t(0));
-    BOOST_CHECK_EQUAL(area.nrCols(), size_t(0));
-    BOOST_CHECK_EQUAL(area.cellSize(), raster.cellSize());
-    BOOST_CHECK_EQUAL(area.west(), raster.west());
-    BOOST_CHECK_EQUAL(area.north(), raster.north());
+    BOOST_TEST(area.nrRows() == size_t(0));
+    BOOST_TEST(area.nrCols() == size_t(0));
+    BOOST_TEST(area.cellSize() == raster.cellSize());
+    BOOST_TEST(area.west() == raster.west());
+    BOOST_TEST(area.north() == raster.north());
   }
 
   // Small area.
   {
     RasterDimensions const raster(3, 4, 5.0, 1.0, 2.0);
     RasterDimensions const area(raster.areaDimensions(1.0, 2.0, 1.1, 1.9));
-    BOOST_CHECK_EQUAL(area.nrRows(), size_t(1));
-    BOOST_CHECK_EQUAL(area.nrCols(), size_t(1));
-    BOOST_CHECK_EQUAL(area.cellSize(), raster.cellSize());
-    BOOST_CHECK_EQUAL(area.west(), raster.west());
-    BOOST_CHECK_EQUAL(area.north(), raster.north());
+    BOOST_TEST(area.nrRows() == size_t(1));
+    BOOST_TEST(area.nrCols() == size_t(1));
+    BOOST_TEST(area.cellSize() == raster.cellSize());
+    BOOST_TEST(area.west() == raster.west());
+    BOOST_TEST(area.north() == raster.north());
   }
 
   // Area on cell border.
   {
     RasterDimensions const raster(3, 4, 5.0, 1.0, 2.0);
     RasterDimensions const area(raster.areaDimensions(1.0, 2.0, 6.0, -3.0));
-    BOOST_CHECK_EQUAL(area.nrRows(), size_t(1));
-    BOOST_CHECK_EQUAL(area.nrCols(), size_t(1));
-    BOOST_CHECK_EQUAL(area.cellSize(), raster.cellSize());
-    BOOST_CHECK_EQUAL(area.west(), raster.west());
-    BOOST_CHECK_EQUAL(area.north(), raster.north());
+    BOOST_TEST(area.nrRows() == size_t(1));
+    BOOST_TEST(area.nrCols() == size_t(1));
+    BOOST_TEST(area.cellSize() == raster.cellSize());
+    BOOST_TEST(area.west() == raster.west());
+    BOOST_TEST(area.north() == raster.north());
   }
 
   // Area just over cell border.
   {
     RasterDimensions const raster(3, 4, 5.0, 1.0, 2.0);
     RasterDimensions const area(raster.areaDimensions(1.0, 2.0, 6.1, -3.1));
-    BOOST_CHECK_EQUAL(area.nrRows(), size_t(2));
-    BOOST_CHECK_EQUAL(area.nrCols(), size_t(2));
-    BOOST_CHECK_EQUAL(area.cellSize(), raster.cellSize());
-    BOOST_CHECK_EQUAL(area.west(), raster.west());
-    BOOST_CHECK_EQUAL(area.north(), raster.north());
+    BOOST_TEST(area.nrRows() == size_t(2));
+    BOOST_TEST(area.nrCols() == size_t(2));
+    BOOST_TEST(area.cellSize() == raster.cellSize());
+    BOOST_TEST(area.west() == raster.west());
+    BOOST_TEST(area.north() == raster.north());
   }
 }
 
@@ -182,8 +182,8 @@ BOOST_AUTO_TEST_CASE(overlap)
     RasterDimensions const raster(size_t(0), size_t(0));
 
     std::tie(area1, area2) = RasterDimensions::overlap(raster, raster);
-    BOOST_CHECK_EQUAL(area1.nrRows(), size_t(0));
-    BOOST_CHECK_EQUAL(area1.nrCols(), size_t(0));
+    BOOST_TEST(area1.nrRows() == size_t(0));
+    BOOST_TEST(area1.nrCols() == size_t(0));
     BOOST_CHECK(area1 == area2);
   }
 
@@ -193,29 +193,29 @@ BOOST_AUTO_TEST_CASE(overlap)
     RasterDimensions const raster2(3, 4, 5.0, 1.0, 2.0);
 
     std::tie(area1, area2) = RasterDimensions::overlap(raster1, raster2);
-    BOOST_CHECK_EQUAL(area1.nrRows(), size_t(0));
-    BOOST_CHECK_EQUAL(area1.nrCols(), size_t(0));
-    BOOST_CHECK_EQUAL(area1.cellSize(), raster1.cellSize());
-    BOOST_CHECK_EQUAL(area1.west(), raster1.west());
-    BOOST_CHECK_EQUAL(area1.north(), raster1.north());
-    BOOST_CHECK_EQUAL(area2.nrRows(), size_t(0));
-    BOOST_CHECK_EQUAL(area2.nrCols(), size_t(0));
-    BOOST_CHECK_EQUAL(area2.cellSize(), raster2.cellSize());
-    BOOST_CHECK_EQUAL(area2.west(), raster2.west());
-    BOOST_CHECK_EQUAL(area2.north(), raster2.north());
+    BOOST_TEST(area1.nrRows() == size_t(0));
+    BOOST_TEST(area1.nrCols() == size_t(0));
+    BOOST_TEST(area1.cellSize() == raster1.cellSize());
+    BOOST_TEST(area1.west() == raster1.west());
+    BOOST_TEST(area1.north() == raster1.north());
+    BOOST_TEST(area2.nrRows() == size_t(0));
+    BOOST_TEST(area2.nrCols() == size_t(0));
+    BOOST_TEST(area2.cellSize() == raster2.cellSize());
+    BOOST_TEST(area2.west() == raster2.west());
+    BOOST_TEST(area2.north() == raster2.north());
 
     // Switch arguments.
     std::tie(area2, area1) = RasterDimensions::overlap(raster2, raster1);
-    BOOST_CHECK_EQUAL(area2.nrRows(), size_t(0));
-    BOOST_CHECK_EQUAL(area2.nrCols(), size_t(0));
-    BOOST_CHECK_EQUAL(area2.cellSize(), raster2.cellSize());
-    BOOST_CHECK_EQUAL(area2.west(), raster2.west());
-    BOOST_CHECK_EQUAL(area2.north(), raster2.north());
-    BOOST_CHECK_EQUAL(area1.nrRows(), size_t(0));
-    BOOST_CHECK_EQUAL(area1.nrCols(), size_t(0));
-    BOOST_CHECK_EQUAL(area1.cellSize(), raster1.cellSize());
-    BOOST_CHECK_EQUAL(area1.west(), raster1.west());
-    BOOST_CHECK_EQUAL(area1.north(), raster1.north());
+    BOOST_TEST(area2.nrRows() == size_t(0));
+    BOOST_TEST(area2.nrCols() == size_t(0));
+    BOOST_TEST(area2.cellSize() == raster2.cellSize());
+    BOOST_TEST(area2.west() == raster2.west());
+    BOOST_TEST(area2.north() == raster2.north());
+    BOOST_TEST(area1.nrRows() == size_t(0));
+    BOOST_TEST(area1.nrCols() == size_t(0));
+    BOOST_TEST(area1.cellSize() == raster1.cellSize());
+    BOOST_TEST(area1.west() == raster1.west());
+    BOOST_TEST(area1.north() == raster1.north());
   }
 
   // Non-overlapping raster dimensions.
@@ -224,16 +224,16 @@ BOOST_AUTO_TEST_CASE(overlap)
     RasterDimensions const raster2(3, 4, 5.0, 22, -14.0);
 
     std::tie(area1, area2) = RasterDimensions::overlap(raster1, raster2);
-    BOOST_CHECK_EQUAL(area1.nrRows(), size_t(0));
-    BOOST_CHECK_EQUAL(area1.nrCols(), size_t(0));
-    BOOST_CHECK_EQUAL(area1.cellSize(), raster1.cellSize());
-    BOOST_CHECK_EQUAL(area1.west(), raster1.west());
-    BOOST_CHECK_EQUAL(area1.north(), raster1.north());
-    BOOST_CHECK_EQUAL(area2.nrRows(), size_t(0));
-    BOOST_CHECK_EQUAL(area2.nrCols(), size_t(0));
-    BOOST_CHECK_EQUAL(area2.cellSize(), raster2.cellSize());
-    BOOST_CHECK_EQUAL(area2.west(), raster2.west());
-    BOOST_CHECK_EQUAL(area2.north(), raster2.north());
+    BOOST_TEST(area1.nrRows() == size_t(0));
+    BOOST_TEST(area1.nrCols() == size_t(0));
+    BOOST_TEST(area1.cellSize() == raster1.cellSize());
+    BOOST_TEST(area1.west() == raster1.west());
+    BOOST_TEST(area1.north() == raster1.north());
+    BOOST_TEST(area2.nrRows() == size_t(0));
+    BOOST_TEST(area2.nrCols() == size_t(0));
+    BOOST_TEST(area2.cellSize() == raster2.cellSize());
+    BOOST_TEST(area2.west() == raster2.west());
+    BOOST_TEST(area2.north() == raster2.north());
   }
 
   // Equal raster dimensions.
@@ -255,11 +255,11 @@ BOOST_AUTO_TEST_CASE(overlap)
       RasterDimensions const raster2(3, 4, 5.0, 6.0, -3.0);
 
       std::tie(area1, area2) = RasterDimensions::overlap(raster1, raster2);
-      BOOST_CHECK_EQUAL(area1.nrRows(), size_t(2));
-      BOOST_CHECK_EQUAL(area1.nrCols(), size_t(3));
-      BOOST_CHECK_EQUAL(area1.cellSize(), raster1.cellSize());
-      BOOST_CHECK_EQUAL(area1.west(), 6.0);
-      BOOST_CHECK_EQUAL(area1.north(), -3.0);
+      BOOST_TEST(area1.nrRows() == size_t(2));
+      BOOST_TEST(area1.nrCols() == size_t(3));
+      BOOST_TEST(area1.cellSize() == raster1.cellSize());
+      BOOST_TEST(area1.west() == 6.0);
+      BOOST_TEST(area1.north() == -3.0);
       BOOST_CHECK(area2 == area1);
     }
 
@@ -269,11 +269,11 @@ BOOST_AUTO_TEST_CASE(overlap)
       RasterDimensions const raster2(3, 4, 5.0, -4.0, 7.0);
 
       std::tie(area1, area2) = RasterDimensions::overlap(raster1, raster2);
-      BOOST_CHECK_EQUAL(area1.nrRows(), size_t(2));
-      BOOST_CHECK_EQUAL(area1.nrCols(), size_t(3));
-      BOOST_CHECK_EQUAL(area1.cellSize(), raster1.cellSize());
-      BOOST_CHECK_EQUAL(area1.west(), 1.0);
-      BOOST_CHECK_EQUAL(area1.north(), 2.0);
+      BOOST_TEST(area1.nrRows() == size_t(2));
+      BOOST_TEST(area1.nrCols() == size_t(3));
+      BOOST_TEST(area1.cellSize() == raster1.cellSize());
+      BOOST_TEST(area1.west() == 1.0);
+      BOOST_TEST(area1.north() == 2.0);
       BOOST_CHECK(area2 == area1);
     }
   }

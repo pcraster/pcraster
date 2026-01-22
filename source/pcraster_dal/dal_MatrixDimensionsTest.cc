@@ -11,18 +11,18 @@ BOOST_AUTO_TEST_CASE(test_)
   {
     MatrixDimensions const matrix;
 
-    BOOST_CHECK_EQUAL(matrix.nrRows(), size_t(1));
-    BOOST_CHECK_EQUAL(matrix.nrCols(), size_t(1));
-    BOOST_CHECK_EQUAL(matrix.nrCells(), size_t(1));
+    BOOST_TEST(matrix.nrRows() == size_t(1));
+    BOOST_TEST(matrix.nrCols() == size_t(1));
+    BOOST_TEST(matrix.nrCells() == size_t(1));
   }
 
   // Non-default.
   {
     MatrixDimensions const matrix(3, 4);
 
-    BOOST_CHECK_EQUAL(matrix.nrRows(), size_t(3));
-    BOOST_CHECK_EQUAL(matrix.nrCols(), size_t(4));
-    BOOST_CHECK_EQUAL(matrix.nrCells(), size_t(12));
+    BOOST_TEST(matrix.nrRows() == size_t(3));
+    BOOST_TEST(matrix.nrCols() == size_t(4));
+    BOOST_TEST(matrix.nrCells() == size_t(12));
   }
 
   // Copy.
@@ -30,12 +30,12 @@ BOOST_AUTO_TEST_CASE(test_)
     MatrixDimensions const matrix1(3, 4);
 
     const MatrixDimensions& matrix2(matrix1);
-    BOOST_CHECK_EQUAL(matrix2.nrRows(), size_t(3));
-    BOOST_CHECK_EQUAL(matrix2.nrCols(), size_t(4));
+    BOOST_TEST(matrix2.nrRows() == size_t(3));
+    BOOST_TEST(matrix2.nrCols() == size_t(4));
 
     const MatrixDimensions& matrix3 = matrix1;
-    BOOST_CHECK_EQUAL(matrix3.nrRows(), size_t(3));
-    BOOST_CHECK_EQUAL(matrix3.nrCols(), size_t(4));
+    BOOST_TEST(matrix3.nrRows() == size_t(3));
+    BOOST_TEST(matrix3.nrCols() == size_t(4));
   }
 
   // Equality.

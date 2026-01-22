@@ -30,184 +30,184 @@ BOOST_AUTO_TEST_CASE(test_)
   {
     ConnectionInfo const info(user + "(348uk)@colossal:randstad/households");
     BOOST_TEST(info.isValid());
-    BOOST_CHECK_EQUAL(info.user(), user);
-    BOOST_CHECK_EQUAL(info.password(), "348uk");
-    BOOST_CHECK_EQUAL(info.host(), "colossal");
-    BOOST_CHECK_EQUAL(info.database(), "randstad");
-    BOOST_CHECK_EQUAL(info.table(), "households");
+    BOOST_TEST(info.user() == user);
+    BOOST_TEST(info.password() == "348uk");
+    BOOST_TEST(info.host() == "colossal");
+    BOOST_TEST(info.database() == "randstad");
+    BOOST_TEST(info.table() == "households");
     BOOST_TEST(info.fields().empty());
-    BOOST_CHECK_EQUAL(info.name(), user + "(348uk)@colossal:randstad/households");
+    BOOST_TEST(info.name() == user + "(348uk)@colossal:randstad/households");
   }
 
   {
     ConnectionInfo const info(user + "()@colossal:randstad/households");
     BOOST_TEST(info.isValid());
-    BOOST_CHECK_EQUAL(info.user(), user);
-    BOOST_CHECK_EQUAL(info.password(), "");
-    BOOST_CHECK_EQUAL(info.host(), "colossal");
-    BOOST_CHECK_EQUAL(info.database(), "randstad");
-    BOOST_CHECK_EQUAL(info.table(), "households");
+    BOOST_TEST(info.user() == user);
+    BOOST_TEST(info.password() == "");
+    BOOST_TEST(info.host() == "colossal");
+    BOOST_TEST(info.database() == "randstad");
+    BOOST_TEST(info.table() == "households");
     BOOST_TEST(info.fields().empty());
-    BOOST_CHECK_EQUAL(info.name(), user + "@colossal:randstad/households");
+    BOOST_TEST(info.name() == user + "@colossal:randstad/households");
   }
 
   {
     ConnectionInfo const info(user + "@colossal:randstad/households");
     BOOST_TEST(info.isValid());
-    BOOST_CHECK_EQUAL(info.user(), user);
-    BOOST_CHECK_EQUAL(info.password(), "");
-    BOOST_CHECK_EQUAL(info.host(), "colossal");
-    BOOST_CHECK_EQUAL(info.database(), "randstad");
-    BOOST_CHECK_EQUAL(info.table(), "households");
+    BOOST_TEST(info.user() == user);
+    BOOST_TEST(info.password() == "");
+    BOOST_TEST(info.host() == "colossal");
+    BOOST_TEST(info.database() == "randstad");
+    BOOST_TEST(info.table() == "households");
     BOOST_TEST(info.fields().empty());
-    BOOST_CHECK_EQUAL(info.name(), user + "@colossal:randstad/households");
+    BOOST_TEST(info.name() == user + "@colossal:randstad/households");
   }
 
   {
     ConnectionInfo const info(user + "(348uk):randstad/households");
     BOOST_TEST(info.isValid());
-    BOOST_CHECK_EQUAL(info.user(), user);
-    BOOST_CHECK_EQUAL(info.password(), "348uk");
-    BOOST_CHECK_EQUAL(info.host(), "");
-    BOOST_CHECK_EQUAL(info.database(), "randstad");
-    BOOST_CHECK_EQUAL(info.table(), "households");
+    BOOST_TEST(info.user() == user);
+    BOOST_TEST(info.password() == "348uk");
+    BOOST_TEST(info.host() == "");
+    BOOST_TEST(info.database() == "randstad");
+    BOOST_TEST(info.table() == "households");
     BOOST_TEST(info.fields().empty());
-    BOOST_CHECK_EQUAL(info.name(), user + "(348uk):randstad/households");
+    BOOST_TEST(info.name() == user + "(348uk):randstad/households");
   }
 
   {
     ConnectionInfo const info(user + "():randstad/households");
     BOOST_TEST(info.isValid());
-    BOOST_CHECK_EQUAL(info.user(), user);
-    BOOST_CHECK_EQUAL(info.password(), "");
-    BOOST_CHECK_EQUAL(info.host(), "");
-    BOOST_CHECK_EQUAL(info.database(), "randstad");
-    BOOST_CHECK_EQUAL(info.table(), "households");
+    BOOST_TEST(info.user() == user);
+    BOOST_TEST(info.password() == "");
+    BOOST_TEST(info.host() == "");
+    BOOST_TEST(info.database() == "randstad");
+    BOOST_TEST(info.table() == "households");
     BOOST_TEST(info.fields().empty());
-    BOOST_CHECK_EQUAL(info.name(), user + ":randstad/households");
+    BOOST_TEST(info.name() == user + ":randstad/households");
   }
 
   {
     ConnectionInfo const info(user + ":randstad/households");
     BOOST_TEST(info.isValid());
-    BOOST_CHECK_EQUAL(info.user(), user);
-    BOOST_CHECK_EQUAL(info.password(), "");
-    BOOST_CHECK_EQUAL(info.host(), "");
-    BOOST_CHECK_EQUAL(info.database(), "randstad");
-    BOOST_CHECK_EQUAL(info.table(), "households");
+    BOOST_TEST(info.user() == user);
+    BOOST_TEST(info.password() == "");
+    BOOST_TEST(info.host() == "");
+    BOOST_TEST(info.database() == "randstad");
+    BOOST_TEST(info.table() == "households");
     BOOST_TEST(info.fields().empty());
-    BOOST_CHECK_EQUAL(info.name(), user + ":randstad/households");
+    BOOST_TEST(info.name() == user + ":randstad/households");
   }
 
   {
     ConnectionInfo const info("@colossal:randstad/households");
     BOOST_TEST(info.isValid());
-    BOOST_CHECK_EQUAL(info.user(), "");
-    BOOST_CHECK_EQUAL(info.password(), "");
-    BOOST_CHECK_EQUAL(info.host(), "colossal");
-    BOOST_CHECK_EQUAL(info.database(), "randstad");
-    BOOST_CHECK_EQUAL(info.table(), "households");
+    BOOST_TEST(info.user() == "");
+    BOOST_TEST(info.password() == "");
+    BOOST_TEST(info.host() == "colossal");
+    BOOST_TEST(info.database() == "randstad");
+    BOOST_TEST(info.table() == "households");
     BOOST_TEST(info.fields().empty());
-    BOOST_CHECK_EQUAL(info.name(), "@colossal:randstad/households");
+    BOOST_TEST(info.name() == "@colossal:randstad/households");
   }
 
   {
     ConnectionInfo const info("randstad/households");
     BOOST_TEST(info.isValid());
-    BOOST_CHECK_EQUAL(info.user(), "");
-    BOOST_CHECK_EQUAL(info.password(), "");
-    BOOST_CHECK_EQUAL(info.host(), "");
-    BOOST_CHECK_EQUAL(info.database(), "randstad");
-    BOOST_CHECK_EQUAL(info.table(), "households");
+    BOOST_TEST(info.user() == "");
+    BOOST_TEST(info.password() == "");
+    BOOST_TEST(info.host() == "");
+    BOOST_TEST(info.database() == "randstad");
+    BOOST_TEST(info.table() == "households");
     BOOST_TEST(info.fields().empty());
-    BOOST_CHECK_EQUAL(info.name(), "randstad/households");
+    BOOST_TEST(info.name() == "randstad/households");
   }
 
   {
     ConnectionInfo const info("randstad");
     BOOST_TEST(info.isValid());
-    BOOST_CHECK_EQUAL(info.user(), "");
-    BOOST_CHECK_EQUAL(info.password(), "");
-    BOOST_CHECK_EQUAL(info.host(), "");
-    BOOST_CHECK_EQUAL(info.database(), "randstad");
-    BOOST_CHECK_EQUAL(info.table(), "");
+    BOOST_TEST(info.user() == "");
+    BOOST_TEST(info.password() == "");
+    BOOST_TEST(info.host() == "");
+    BOOST_TEST(info.database() == "randstad");
+    BOOST_TEST(info.table() == "");
     BOOST_TEST(info.fields().empty());
-    BOOST_CHECK_EQUAL(info.name(), "randstad");
+    BOOST_TEST(info.name() == "randstad");
   }
 
   {
     ConnectionInfo const info("extensiontest.sql3");
     BOOST_TEST(info.isValid());
-    BOOST_CHECK_EQUAL(info.user(), "");
-    BOOST_CHECK_EQUAL(info.password(), "");
-    BOOST_CHECK_EQUAL(info.host(), "");
-    BOOST_CHECK_EQUAL(info.database(), "extensiontest.sql3");
-    BOOST_CHECK_EQUAL(info.table(), "");
+    BOOST_TEST(info.user() == "");
+    BOOST_TEST(info.password() == "");
+    BOOST_TEST(info.host() == "");
+    BOOST_TEST(info.database() == "extensiontest.sql3");
+    BOOST_TEST(info.table() == "");
     BOOST_TEST(info.fields().empty());
-    BOOST_CHECK_EQUAL(info.name(), "extensiontest.sql3");
+    BOOST_TEST(info.name() == "extensiontest.sql3");
   }
 
   {
     ConnectionInfo const info(user + ":randstad1995/grid_info");
     BOOST_TEST(info.isValid());
-    BOOST_CHECK_EQUAL(info.user(), user);
-    BOOST_CHECK_EQUAL(info.password(), "");
-    BOOST_CHECK_EQUAL(info.host(), "");
-    BOOST_CHECK_EQUAL(info.database(), "randstad1995");
-    BOOST_CHECK_EQUAL(info.table(), "grid_info");
+    BOOST_TEST(info.user() == user);
+    BOOST_TEST(info.password() == "");
+    BOOST_TEST(info.host() == "");
+    BOOST_TEST(info.database() == "randstad1995");
+    BOOST_TEST(info.table() == "grid_info");
     BOOST_TEST(info.fields().empty());
-    BOOST_CHECK_EQUAL(info.name(), user + ":randstad1995/grid_info");
+    BOOST_TEST(info.name() == user + ":randstad1995/grid_info");
   }
 
   {
     ConnectionInfo const info(user + "@randstad");
     BOOST_TEST(info.isValid());
-    BOOST_CHECK_EQUAL(info.user(), "");
-    BOOST_CHECK_EQUAL(info.password(), "");
-    BOOST_CHECK_EQUAL(info.host(), "");
-    BOOST_CHECK_EQUAL(info.database(), user + "@randstad");
-    BOOST_CHECK_EQUAL(info.table(), "");
+    BOOST_TEST(info.user() == "");
+    BOOST_TEST(info.password() == "");
+    BOOST_TEST(info.host() == "");
+    BOOST_TEST(info.database() == user + "@randstad");
+    BOOST_TEST(info.table() == "");
     BOOST_TEST(info.fields().empty());
-    BOOST_CHECK_EQUAL(info.name(), user + "@randstad");
+    BOOST_TEST(info.name() == user + "@randstad");
   }
 
   {
     ConnectionInfo const info(user + "@");
     BOOST_TEST(info.isValid());
-    BOOST_CHECK_EQUAL(info.user(), "");
-    BOOST_CHECK_EQUAL(info.password(), "");
-    BOOST_CHECK_EQUAL(info.host(), "");
-    BOOST_CHECK_EQUAL(info.database(), user + "@");
-    BOOST_CHECK_EQUAL(info.table(), "");
+    BOOST_TEST(info.user() == "");
+    BOOST_TEST(info.password() == "");
+    BOOST_TEST(info.host() == "");
+    BOOST_TEST(info.database() == user + "@");
+    BOOST_TEST(info.table() == "");
     BOOST_TEST(info.fields().empty());
-    BOOST_CHECK_EQUAL(info.name(), user + "@");
+    BOOST_TEST(info.name() == user + "@");
   }
 
   {
     ConnectionInfo const info("temporal/co2/co2");
     BOOST_TEST(info.isValid());
-    BOOST_CHECK_EQUAL(info.user(), "");
-    BOOST_CHECK_EQUAL(info.password(), "");
-    BOOST_CHECK_EQUAL(info.host(), "");
-    BOOST_CHECK_EQUAL(info.database(), "temporal");
-    BOOST_CHECK_EQUAL(info.table(), "co2");
+    BOOST_TEST(info.user() == "");
+    BOOST_TEST(info.password() == "");
+    BOOST_TEST(info.host() == "");
+    BOOST_TEST(info.database() == "temporal");
+    BOOST_TEST(info.table() == "co2");
     BOOST_REQUIRE_EQUAL(info.fields().size(), size_t(1));
-    BOOST_CHECK_EQUAL(info.fields()[0], "co2");
-    BOOST_CHECK_EQUAL(info.name(), "temporal/co2");
+    BOOST_TEST(info.fields()[0] == "co2");
+    BOOST_TEST(info.name() == "temporal/co2");
   }
 
   {
     ConnectionInfo const info("temporal/co2/{fid,co2}");
     BOOST_TEST(info.isValid());
-    BOOST_CHECK_EQUAL(info.user(), "");
-    BOOST_CHECK_EQUAL(info.password(), "");
-    BOOST_CHECK_EQUAL(info.host(), "");
-    BOOST_CHECK_EQUAL(info.database(), "temporal");
-    BOOST_CHECK_EQUAL(info.table(), "co2");
+    BOOST_TEST(info.user() == "");
+    BOOST_TEST(info.password() == "");
+    BOOST_TEST(info.host() == "");
+    BOOST_TEST(info.database() == "temporal");
+    BOOST_TEST(info.table() == "co2");
     BOOST_REQUIRE_EQUAL(info.fields().size(), size_t(2));
-    BOOST_CHECK_EQUAL(info.fields()[0], "fid");
-    BOOST_CHECK_EQUAL(info.fields()[1], "co2");
-    BOOST_CHECK_EQUAL(info.name(), "temporal/co2");
+    BOOST_TEST(info.fields()[0] == "fid");
+    BOOST_TEST(info.fields()[1] == "co2");
+    BOOST_TEST(info.name() == "temporal/co2");
   }
 
   // Invalid examples ----------------------------------------------------------

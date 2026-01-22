@@ -17,8 +17,8 @@
 //    return res;
 // }
 
-// BOOST_CHECK_EQUAL(asStr<T>(fr.debugBits()), std::string("11111111"));
-// BOOST_CHECK_EQUAL(asStr<T>(R(f).debugBits()),std::string("11111111"));
+// BOOST_TEST(asStr<T>(fr.debugBits()) == std::string("11111111"));
+// BOOST_TEST(asStr<T>(R(f).debugBits()) ==std::string("11111111"));
 
 
 template <typename T> void test_assignment()
@@ -39,7 +39,7 @@ template <typename T> void test_add()
     T argument2 = 4;
     auto result = com::add<T>(argument1, argument2);
     BOOST_TEST(!pcr::isMV(result));
-    BOOST_CHECK_EQUAL(result, 7);
+    BOOST_TEST(result == 7);
   }
 
   // mv + 4
@@ -79,7 +79,7 @@ template <typename T> void test_inplace_add()
     T argument2 = 4;
     com::inplace_add<T>(argument1, argument2);
     BOOST_TEST(!pcr::isMV(argument1));
-    BOOST_CHECK_EQUAL(argument1, 7);
+    BOOST_TEST(argument1 == 7);
   }
 
   // mv += 4
@@ -119,7 +119,7 @@ template <typename T> void test_subtract()
     T argument2 = 4;
     auto result = com::subtract<T>(argument1, argument2);
     BOOST_TEST(!pcr::isMV(result));
-    BOOST_CHECK_EQUAL(result, -1);
+    BOOST_TEST(result == -1);
   }
 
   // mv - 4
@@ -159,7 +159,7 @@ template <typename T> void test_inplace_subtract()
     T argument2 = 4;
     com::inplace_subtract<T>(argument1, argument2);
     BOOST_TEST(!pcr::isMV(argument1));
-    BOOST_CHECK_EQUAL(argument1, -1);
+    BOOST_TEST(argument1 == -1);
   }
 
   // mv -= 4

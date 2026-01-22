@@ -14,7 +14,7 @@ BOOST_AUTO_TEST_CASE(test_)
     Dimension const dimension(Scenarios, scenarios);
 
     // Scenario names are exact.
-    BOOST_CHECK_EQUAL(dimension.discretisation(), ExactDiscretisation);
+    BOOST_TEST(dimension.discretisation() == ExactDiscretisation);
 
     BOOST_TEST(!dimension.isWide());
   }
@@ -129,7 +129,7 @@ BOOST_AUTO_TEST_CASE(index_of_value_of)
   BOOST_REQUIRE_EQUAL(dimension.nrCoordinates(), size_t(99));
 
   for(size_t i = 0; i < dimension.nrCoordinates(); ++i) {
-    BOOST_CHECK_EQUAL(dimension.indexOf<float>(first + i * interval), i);
+    BOOST_TEST(dimension.indexOf<float>(first + i * interval) == i);
     BOOST_TEST(comparable<float>(dimension.coordinate<float>(i),
          first + i * interval));
   }
@@ -158,10 +158,10 @@ BOOST_AUTO_TEST_CASE(merge)
     dimension |= Dimension(Time, values2);
 
     // 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-    BOOST_CHECK_EQUAL(dimension.value<size_t>(0), size_t(1));
-    BOOST_CHECK_EQUAL(dimension.value<size_t>(1), size_t(10));
-    BOOST_CHECK_EQUAL(dimension.value<size_t>(2), size_t(1));
-    BOOST_CHECK_EQUAL(dimension.nrCoordinates(), size_t(10));
+    BOOST_TEST(dimension.value<size_t>(0) == size_t(1));
+    BOOST_TEST(dimension.value<size_t>(1) == size_t(10));
+    BOOST_TEST(dimension.value<size_t>(2) == size_t(1));
+    BOOST_TEST(dimension.nrCoordinates() == size_t(10));
   }
 
   {
@@ -178,7 +178,7 @@ BOOST_AUTO_TEST_CASE(merge)
     Dimension const dimension2(CumulativeProbabilities, quantiles);
 
     dimension1 |= dimension2;
-    BOOST_CHECK_EQUAL(dimension1.nrValues(), size_t(3));
+    BOOST_TEST(dimension1.nrValues() == size_t(3));
     BOOST_TEST(comparable<float>(dimension1.value<float>(2), 0.01f));
   }
 
@@ -241,7 +241,7 @@ BOOST_AUTO_TEST_CASE(nr_coordinates)
   {
     RasterDimensions const dimensions(3, 4, 1.5);
     Dimension const dimension(Space, RegularDiscretisation, dimensions);
-    BOOST_CHECK_EQUAL(dimension.nrCoordinates(), size_t(12));
+    BOOST_TEST(dimension.nrCoordinates() == size_t(12));
   }
 
   {
@@ -254,7 +254,7 @@ BOOST_AUTO_TEST_CASE(nr_coordinates)
     values.push_back(last);
     values.push_back(interval);
     Dimension const dimension(CumulativeProbabilities, values);
-    BOOST_CHECK_EQUAL(dimension.nrCoordinates(), size_t(99));
+    BOOST_TEST(dimension.nrCoordinates() == size_t(99));
   }
 }
 

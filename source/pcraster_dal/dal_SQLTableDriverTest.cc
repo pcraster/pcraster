@@ -180,26 +180,26 @@ struct Fixture
         ///   inputTable.reset(dynamic_cast<TableDriver&>(driver).read(name));
         /// )
         /// BOOST_TEST_REQUIRE(inputTable);
-        /// BOOST_CHECK_EQUAL(inputTable->nrCols(), size_t(4));
-        /// BOOST_CHECK_EQUAL(inputTable->nrRecs(), size_t(3));
+        /// BOOST_TEST(inputTable->nrCols() == size_t(4));
+        /// BOOST_TEST(inputTable->nrRecs() == size_t(3));
 
         /// Array<std::string> const* col1 = 0;
         /// BOOST_REQUIRE_NO_THROW(col1 = &inputTable->col<std::string>(0));
-        /// BOOST_CHECK_EQUAL((*col1)[0], "Piet-Jaapje");
-        /// BOOST_CHECK_EQUAL((*col1)[1], "Fritz");
-        /// BOOST_CHECK_EQUAL((*col1)[2], "Reus");
+        /// BOOST_TEST((*col1)[0] == "Piet-Jaapje");
+        /// BOOST_TEST((*col1)[1] == "Fritz");
+        /// BOOST_TEST((*col1)[2] == "Reus");
 
         /// Array<INT4> const* col2 = 0;
         /// BOOST_REQUIRE_NO_THROW(col2 = &inputTable->col<INT4>(1));
-        /// BOOST_CHECK_EQUAL((*col2)[0], 0);
-        /// BOOST_CHECK_EQUAL((*col2)[1], 50);
-        /// BOOST_CHECK_EQUAL((*col2)[2], 2);
+        /// BOOST_TEST((*col2)[0] == 0);
+        /// BOOST_TEST((*col2)[1] == 50);
+        /// BOOST_TEST((*col2)[2] == 2);
 
         /// Array<INT4> const* col3 = 0;
         /// BOOST_REQUIRE_NO_THROW(col3 = &inputTable->col<INT4>(2));
-        /// BOOST_CHECK_EQUAL((*col3)[0], 1);
-        /// BOOST_CHECK_EQUAL((*col3)[1], 2);
-        /// BOOST_CHECK_EQUAL((*col3)[2], 5);
+        /// BOOST_TEST((*col3)[0] == 1);
+        /// BOOST_TEST((*col3)[1] == 2);
+        /// BOOST_TEST((*col3)[2] == 5);
 
         /// Array<REAL8> const* col4 = 0;
         /// BOOST_REQUIRE_NO_THROW(col4 = &inputTable->col<REAL8>(3));
@@ -219,7 +219,7 @@ struct Fixture
         // table->setTypeId(1, TI_NR_TYPES);
         // table->createCols();
         // dynamic_cast<TableDriver&>(driver).read(*table, name);
-        // BOOST_CHECK_EQUAL(table->nrRecs(), size_t(3));
+        // BOOST_TEST(table->nrRecs() == size_t(3));
 
         // // Second column is not available.
         // BOOST_CHECK_THROW(table->col<INT4>(1), boost::bad_any_cast);
@@ -227,15 +227,15 @@ struct Fixture
         // // Other columns are.
         // Array<std::string> const* col1 = 0;
         // BOOST_REQUIRE_NO_THROW(col1 = &table->col<std::string>(0));
-        // BOOST_CHECK_EQUAL((*col1)[0], "Piet-Jaapje");
-        // BOOST_CHECK_EQUAL((*col1)[1], "Fritz");
-        // BOOST_CHECK_EQUAL((*col1)[2], "Reus");
+        // BOOST_TEST((*col1)[0] == "Piet-Jaapje");
+        // BOOST_TEST((*col1)[1] == "Fritz");
+        // BOOST_TEST((*col1)[2] == "Reus");
 
         // Array<INT4> const* col3 = 0;
         // BOOST_REQUIRE_NO_THROW(col3 = &table->col<INT4>(2));
-        // BOOST_CHECK_EQUAL((*col3)[0], 1);
-        // BOOST_CHECK_EQUAL((*col3)[1], 2);
-        // BOOST_CHECK_EQUAL((*col3)[2], 5);
+        // BOOST_TEST((*col3)[0] == 1);
+        // BOOST_TEST((*col3)[1] == 2);
+        // BOOST_TEST((*col3)[2] == 5);
 
         // Array<REAL8> const* col4 = 0;
         // BOOST_REQUIRE_NO_THROW(col4 = &table->col<REAL8>(3));
@@ -267,28 +267,28 @@ struct Fixture
         // Read all.
         table.reset(driver.open(name, space, address));
         BOOST_TEST_REQUIRE(table);
-        BOOST_CHECK_EQUAL(table->nrCols(), size_t(2));
-        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(0));
+        BOOST_TEST(table->nrCols() == size_t(2));
+        BOOST_TEST(table->nrRecs() == size_t(0));
 
         dateId = table->indexOf("date");
         BOOST_TEST_REQUIRE(dateId < table->nrCols());
-        BOOST_CHECK_EQUAL(table->typeId(dateId), TI_INT4);
-        BOOST_CHECK_EQUAL(table->title(dateId), "date");
+        BOOST_TEST(table->typeId(dateId) == TI_INT4);
+        BOOST_TEST(table->title(dateId) == "date");
 
         attrId = table->indexOf("co2");
         BOOST_TEST_REQUIRE(attrId < table->nrCols());
-        BOOST_CHECK_EQUAL(table->typeId(attrId), TI_REAL4);
-        BOOST_CHECK_EQUAL(table->title(attrId), "co2");
+        BOOST_TEST(table->typeId(attrId) == TI_REAL4);
+        BOOST_TEST(table->title(attrId) == "co2");
 
         BOOST_REQUIRE_NO_THROW(
           driver.read(*table, name, space, address);
         )
 
-        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(3));
+        BOOST_TEST(table->nrRecs() == size_t(3));
 
-        BOOST_CHECK_EQUAL(table->col<INT4>(dateId)[0], INT4(1));
-        BOOST_CHECK_EQUAL(table->col<INT4>(dateId)[1], INT4(2));
-        BOOST_CHECK_EQUAL(table->col<INT4>(dateId)[2], INT4(3));
+        BOOST_TEST(table->col<INT4>(dateId)[0] == INT4(1));
+        BOOST_TEST(table->col<INT4>(dateId)[1] == INT4(2));
+        BOOST_TEST(table->col<INT4>(dateId)[2] == INT4(3));
 
         BOOST_CHECK_CLOSE(table->col<REAL4>(attrId)[0], REAL4(1.11), REAL4(0.001));
         BOOST_CHECK_CLOSE(table->col<REAL4>(attrId)[1], REAL4(2.22), REAL4(0.001));
@@ -303,7 +303,7 @@ struct Fixture
           table.reset(driver.read(name, space, address));
         )
 
-        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(1));
+        BOOST_TEST(table->nrRecs() == size_t(1));
         BOOST_CHECK_CLOSE(table->col<REAL4>(1)[0], REAL4(2.22), REAL4(0.001));
       }
     }
@@ -337,36 +337,36 @@ struct Fixture
 
         table.reset(driver.open(name, space, address));
         BOOST_TEST_REQUIRE(table);
-        BOOST_CHECK_EQUAL(table->nrCols(), size_t(2));
-        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(0));
+        BOOST_TEST(table->nrCols() == size_t(2));
+        BOOST_TEST(table->nrRecs() == size_t(0));
 
         quantileId = table->indexOf("quantile");
         BOOST_TEST_REQUIRE(quantileId < table->nrCols());
-        BOOST_CHECK_EQUAL(table->typeId(quantileId), TI_REAL4);
-        BOOST_CHECK_EQUAL(table->title(quantileId), "quantile");
+        BOOST_TEST(table->typeId(quantileId) == TI_REAL4);
+        BOOST_TEST(table->title(quantileId) == "quantile");
 
         attrId = table->indexOf("co2");
         BOOST_TEST_REQUIRE(attrId < table->nrCols());
-        BOOST_CHECK_EQUAL(table->typeId(attrId), TI_REAL4);
-        BOOST_CHECK_EQUAL(table->title(attrId), "co2");
+        BOOST_TEST(table->typeId(attrId) == TI_REAL4);
+        BOOST_TEST(table->title(attrId) == "co2");
 
         BOOST_REQUIRE_NO_THROW(
           driver.read(*table, name, space, address);
         )
 
-        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(5));
+        BOOST_TEST(table->nrRecs() == size_t(5));
 
-        BOOST_CHECK_EQUAL(table->col<REAL4>(quantileId)[0], REAL4(0.01));
-        BOOST_CHECK_EQUAL(table->col<REAL4>(quantileId)[1], REAL4(0.05));
-        BOOST_CHECK_EQUAL(table->col<REAL4>(quantileId)[2], REAL4(0.50));
-        BOOST_CHECK_EQUAL(table->col<REAL4>(quantileId)[3], REAL4(0.95));
-        BOOST_CHECK_EQUAL(table->col<REAL4>(quantileId)[4], REAL4(0.99));
+        BOOST_TEST(table->col<REAL4>(quantileId)[0] == REAL4(0.01));
+        BOOST_TEST(table->col<REAL4>(quantileId)[1] == REAL4(0.05));
+        BOOST_TEST(table->col<REAL4>(quantileId)[2] == REAL4(0.50));
+        BOOST_TEST(table->col<REAL4>(quantileId)[3] == REAL4(0.95));
+        BOOST_TEST(table->col<REAL4>(quantileId)[4] == REAL4(0.99));
 
-        BOOST_CHECK_EQUAL(table->col<REAL4>(attrId)[0], REAL4(1.01));
-        BOOST_CHECK_EQUAL(table->col<REAL4>(attrId)[1], REAL4(1.05));
-        BOOST_CHECK_EQUAL(table->col<REAL4>(attrId)[2], REAL4(1.50));
-        BOOST_CHECK_EQUAL(table->col<REAL4>(attrId)[3], REAL4(1.95));
-        BOOST_CHECK_EQUAL(table->col<REAL4>(attrId)[4], REAL4(1.99));
+        BOOST_TEST(table->col<REAL4>(attrId)[0] == REAL4(1.01));
+        BOOST_TEST(table->col<REAL4>(attrId)[1] == REAL4(1.05));
+        BOOST_TEST(table->col<REAL4>(attrId)[2] == REAL4(1.50));
+        BOOST_TEST(table->col<REAL4>(attrId)[3] == REAL4(1.95));
+        BOOST_TEST(table->col<REAL4>(attrId)[4] == REAL4(1.99));
 
         // Read selection.
         space.addDimension(Dimension(CumulativeProbabilities, float(0.01),
@@ -376,24 +376,24 @@ struct Fixture
 
         table.reset(driver.open(name, space, address));
         BOOST_TEST_REQUIRE(table);
-        BOOST_CHECK_EQUAL(table->nrCols(), size_t(2));
-        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(0));
+        BOOST_TEST(table->nrCols() == size_t(2));
+        BOOST_TEST(table->nrRecs() == size_t(0));
 
         quantileId = table->indexOf("quantile");
         BOOST_TEST_REQUIRE(quantileId < table->nrCols());
-        BOOST_CHECK_EQUAL(table->typeId(quantileId), TI_REAL4);
-        BOOST_CHECK_EQUAL(table->title(quantileId), "quantile");
+        BOOST_TEST(table->typeId(quantileId) == TI_REAL4);
+        BOOST_TEST(table->title(quantileId) == "quantile");
 
         attrId = table->indexOf("co2");
         BOOST_TEST_REQUIRE(attrId < table->nrCols());
-        BOOST_CHECK_EQUAL(table->typeId(attrId), TI_REAL4);
-        BOOST_CHECK_EQUAL(table->title(attrId), "co2");
+        BOOST_TEST(table->typeId(attrId) == TI_REAL4);
+        BOOST_TEST(table->title(attrId) == "co2");
 
         BOOST_REQUIRE_NO_THROW(
           driver.read(*table, name, space, address);
         )
 
-        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(1));
+        BOOST_TEST(table->nrRecs() == size_t(1));
         BOOST_CHECK_CLOSE(table->col<REAL4>(attrId)[0], REAL4(1.95), REAL4(0.001));
       }
     }
@@ -421,31 +421,31 @@ struct Fixture
         // Read all.
         table.reset(driver.open(name, space, address));
         BOOST_TEST_REQUIRE(table);
-        BOOST_CHECK_EQUAL(table->nrCols(), size_t(2));
-        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(0));
+        BOOST_TEST(table->nrCols() == size_t(2));
+        BOOST_TEST(table->nrRecs() == size_t(0));
 
         scenarioId = table->indexOf("scenario");
         BOOST_TEST_REQUIRE(scenarioId < table->nrCols());
-        BOOST_CHECK_EQUAL(table->typeId(scenarioId), TI_STRING);
-        BOOST_CHECK_EQUAL(table->title(scenarioId), "scenario");
+        BOOST_TEST(table->typeId(scenarioId) == TI_STRING);
+        BOOST_TEST(table->title(scenarioId) == "scenario");
 
         attrId = table->indexOf("co2");
         BOOST_TEST_REQUIRE(attrId < table->nrCols());
-        BOOST_CHECK_EQUAL(table->typeId(attrId), TI_REAL4);
-        BOOST_CHECK_EQUAL(table->title(attrId), "co2");
+        BOOST_TEST(table->typeId(attrId) == TI_REAL4);
+        BOOST_TEST(table->title(attrId) == "co2");
 
         BOOST_REQUIRE_NO_THROW(
           table.reset(driver.read(name, space, address));
         )
 
-        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(2));
-        BOOST_CHECK_EQUAL(table->col<std::string>(scenarioId)[0],
+        BOOST_TEST(table->nrRecs() == size_t(2));
+        BOOST_TEST(table->col<std::string>(scenarioId)[0] ==
              std::string("aap"));
-        BOOST_CHECK_EQUAL(table->col<std::string>(scenarioId)[1],
+        BOOST_TEST(table->col<std::string>(scenarioId)[1] ==
              std::string("noot"));
 
-        BOOST_CHECK_EQUAL(table->col<REAL4>(attrId)[0], REAL4(-1.11));
-        BOOST_CHECK_EQUAL(table->col<REAL4>(attrId)[1], REAL4(-2.22));
+        BOOST_TEST(table->col<REAL4>(attrId)[0] == REAL4(-1.11));
+        BOOST_TEST(table->col<REAL4>(attrId)[1] == REAL4(-2.22));
 
         // Read selection.
         std::set<std::string> scenarios;
@@ -460,7 +460,7 @@ struct Fixture
           table.reset(driver.read(name, space, address));
         )
 
-        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(1));
+        BOOST_TEST(table->nrRecs() == size_t(1));
         BOOST_CHECK_CLOSE(table->col<REAL4>(1)[0], REAL4(-2.22), REAL4(0.001));
       }
     }
@@ -523,29 +523,29 @@ struct Fixture
         // Read one time step from one scenario.
         table.reset(driver.open(name, space, address));
         BOOST_TEST_REQUIRE(table);
-        BOOST_CHECK_EQUAL(table->nrCols(), size_t(3));
-        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(0));
+        BOOST_TEST(table->nrCols() == size_t(3));
+        BOOST_TEST(table->nrRecs() == size_t(0));
 
         scenarioId = table->indexOf("scenario");
         BOOST_TEST_REQUIRE(scenarioId < table->nrCols());
-        BOOST_CHECK_EQUAL(table->typeId(scenarioId), TI_STRING);
-        BOOST_CHECK_EQUAL(table->title(scenarioId), "scenario");
+        BOOST_TEST(table->typeId(scenarioId) == TI_STRING);
+        BOOST_TEST(table->title(scenarioId) == "scenario");
 
         dateId = table->indexOf("date");
         BOOST_TEST_REQUIRE(dateId < table->nrCols());
-        BOOST_CHECK_EQUAL(table->typeId(dateId), TI_INT4);
-        BOOST_CHECK_EQUAL(table->title(dateId), "date");
+        BOOST_TEST(table->typeId(dateId) == TI_INT4);
+        BOOST_TEST(table->title(dateId) == "date");
 
         attrId = table->indexOf("co2");
         BOOST_TEST_REQUIRE(attrId < table->nrCols());
-        BOOST_CHECK_EQUAL(table->typeId(attrId), TI_REAL4);
-        BOOST_CHECK_EQUAL(table->title(attrId), "co2");
+        BOOST_TEST(table->typeId(attrId) == TI_REAL4);
+        BOOST_TEST(table->title(attrId) == "co2");
 
         BOOST_REQUIRE_NO_THROW(
           driver.read(*table, name, space, address);
         )
 
-        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(1));
+        BOOST_TEST(table->nrRecs() == size_t(1));
         BOOST_CHECK_CLOSE(table->col<REAL4>(2)[0], REAL4(2.02), REAL4(0.001));
 
         // Read selection.
@@ -554,32 +554,32 @@ struct Fixture
 
         table.reset(driver.open(name, space, address));
         BOOST_TEST_REQUIRE(table);
-        BOOST_CHECK_EQUAL(table->nrCols(), size_t(3));
-        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(0));
+        BOOST_TEST(table->nrCols() == size_t(3));
+        BOOST_TEST(table->nrRecs() == size_t(0));
 
         scenarioId = table->indexOf("scenario");
         BOOST_TEST_REQUIRE(scenarioId < table->nrCols());
-        BOOST_CHECK_EQUAL(table->typeId(scenarioId), TI_STRING);
-        BOOST_CHECK_EQUAL(table->title(scenarioId), "scenario");
+        BOOST_TEST(table->typeId(scenarioId) == TI_STRING);
+        BOOST_TEST(table->title(scenarioId) == "scenario");
 
         dateId = table->indexOf("date");
         BOOST_TEST_REQUIRE(dateId < table->nrCols());
-        BOOST_CHECK_EQUAL(table->typeId(dateId), TI_INT4);
-        BOOST_CHECK_EQUAL(table->title(dateId), "date");
+        BOOST_TEST(table->typeId(dateId) == TI_INT4);
+        BOOST_TEST(table->title(dateId) == "date");
 
         attrId = table->indexOf("co2");
         BOOST_TEST_REQUIRE(attrId < table->nrCols());
-        BOOST_CHECK_EQUAL(table->typeId(attrId), TI_REAL4);
-        BOOST_CHECK_EQUAL(table->title(attrId), "co2");
+        BOOST_TEST(table->typeId(attrId) == TI_REAL4);
+        BOOST_TEST(table->title(attrId) == "co2");
 
         BOOST_REQUIRE_NO_THROW(
           driver.read(*table, name, space, address);
         )
 
-        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(2));
+        BOOST_TEST(table->nrRecs() == size_t(2));
 
-        BOOST_CHECK_EQUAL(table->col<std::string>(scenarioId)[0], "aap");
-        BOOST_CHECK_EQUAL(table->col<std::string>(scenarioId)[1], "noot");
+        BOOST_TEST(table->col<std::string>(scenarioId)[0] == "aap");
+        BOOST_TEST(table->col<std::string>(scenarioId)[1] == "noot");
 
         BOOST_CHECK_CLOSE(table->col<REAL4>(attrId)[0], REAL4(2.01), REAL4(0.001));
         BOOST_CHECK_CLOSE(table->col<REAL4>(attrId)[1], REAL4(2.02), REAL4(0.001));
@@ -591,32 +591,32 @@ struct Fixture
 
         table.reset(driver.open(name, space, address));
         BOOST_TEST_REQUIRE(table);
-        BOOST_CHECK_EQUAL(table->nrCols(), size_t(3));
-        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(0));
+        BOOST_TEST(table->nrCols() == size_t(3));
+        BOOST_TEST(table->nrRecs() == size_t(0));
 
         scenarioId = table->indexOf("scenario");
         BOOST_TEST_REQUIRE(scenarioId < table->nrCols());
-        BOOST_CHECK_EQUAL(table->typeId(scenarioId), TI_STRING);
-        BOOST_CHECK_EQUAL(table->title(scenarioId), "scenario");
+        BOOST_TEST(table->typeId(scenarioId) == TI_STRING);
+        BOOST_TEST(table->title(scenarioId) == "scenario");
 
         dateId = table->indexOf("date");
         BOOST_TEST_REQUIRE(dateId < table->nrCols());
-        BOOST_CHECK_EQUAL(table->typeId(dateId), TI_INT4);
-        BOOST_CHECK_EQUAL(table->title(dateId), "date");
+        BOOST_TEST(table->typeId(dateId) == TI_INT4);
+        BOOST_TEST(table->title(dateId) == "date");
 
         attrId = table->indexOf("co2");
         BOOST_TEST_REQUIRE(attrId < table->nrCols());
-        BOOST_CHECK_EQUAL(table->typeId(attrId), TI_REAL4);
-        BOOST_CHECK_EQUAL(table->title(attrId), "co2");
+        BOOST_TEST(table->typeId(attrId) == TI_REAL4);
+        BOOST_TEST(table->title(attrId) == "co2");
 
         BOOST_REQUIRE_NO_THROW(
           driver.read(*table, name, space, address);
         )
 
-        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(2));
+        BOOST_TEST(table->nrRecs() == size_t(2));
 
-        BOOST_CHECK_EQUAL(table->col<INT4>(dateId)[0], 1);
-        BOOST_CHECK_EQUAL(table->col<INT4>(dateId)[1], 2);
+        BOOST_TEST(table->col<INT4>(dateId)[0] == 1);
+        BOOST_TEST(table->col<INT4>(dateId)[1] == 2);
 
         BOOST_CHECK_CLOSE(table->col<REAL4>(attrId)[0], REAL4(1.02), REAL4(0.001));
         BOOST_CHECK_CLOSE(table->col<REAL4>(attrId)[1], REAL4(2.02), REAL4(0.001));
@@ -709,7 +709,7 @@ BOOST_AUTO_TEST_CASE(constructor)
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
-    BOOST_CHECK_EQUAL(exception.message(),
+    BOOST_TEST(exception.message() ==
          "SQL table driver for bla: Not available");
   }
 
@@ -768,11 +768,11 @@ BOOST_AUTO_TEST_CASE(sqlite)
 
     DataSpace space = dynamic_cast<Driver const&>(driver).dataSpace(name);
     BOOST_REQUIRE_EQUAL(space.rank(), 1u);
-    BOOST_CHECK_EQUAL(space.dimension(0).meaning(), Time);
+    BOOST_TEST(space.dimension(0).meaning() == Time);
     BOOST_REQUIRE_EQUAL(space.dimension(0).nrValues(), 3u);
-    BOOST_CHECK_EQUAL(space.dimension(0).value<size_t>(0), 1u);
-    BOOST_CHECK_EQUAL(space.dimension(0).value<size_t>(1), 3u);
-    BOOST_CHECK_EQUAL(space.dimension(0).value<size_t>(2), 1u);
+    BOOST_TEST(space.dimension(0).value<size_t>(0) == 1u);
+    BOOST_TEST(space.dimension(0).value<size_t>(1) == 3u);
+    BOOST_TEST(space.dimension(0).value<size_t>(2) == 1u);
 
     std::shared_ptr<Dataset> dataset(dynamic_cast<Driver const&>(
          driver).open(name));
@@ -780,24 +780,24 @@ BOOST_AUTO_TEST_CASE(sqlite)
 
     Table* table = dynamic_cast<Table*>(dataset.get());
     BOOST_TEST_REQUIRE(table);
-    BOOST_CHECK_EQUAL(table->nrCols(), 2u);
-    BOOST_CHECK_EQUAL(table->title(0), "date");
-    BOOST_CHECK_EQUAL(table->title(1), "co2");
-    BOOST_CHECK_EQUAL(table->typeId(0), TI_INT4);
-    BOOST_CHECK_EQUAL(table->typeId(1), TI_REAL4);
+    BOOST_TEST(table->nrCols() == 2u);
+    BOOST_TEST(table->title(0) == "date");
+    BOOST_TEST(table->title(1) == "co2");
+    BOOST_TEST(table->typeId(0) == TI_INT4);
+    BOOST_TEST(table->typeId(1) == TI_REAL4);
 
     BOOST_CHECK_NO_THROW(dynamic_cast<TableDriver const&>(driver).read(
          *table, name));
 
     Array<INT4> const& date(table->col<INT4>(0));
-    BOOST_CHECK_EQUAL(date.size(), 3u);
+    BOOST_TEST(date.size() == 3u);
 
     Array<REAL4> const& co2(table->col<REAL4>(1));
-    BOOST_CHECK_EQUAL(co2.size(), 3u);
+    BOOST_TEST(co2.size() == 3u);
 
-    BOOST_CHECK_EQUAL(date[0], 1);
-    BOOST_CHECK_EQUAL(date[1], 2);
-    BOOST_CHECK_EQUAL(date[2], 3);
+    BOOST_TEST(date[0] == 1);
+    BOOST_TEST(date[1] == 2);
+    BOOST_TEST(date[2] == 3);
 
     BOOST_CHECK_CLOSE(co2[0], REAL4(1.1), REAL4(0.001));
     BOOST_CHECK_CLOSE(co2[1], REAL4(2.2), REAL4(0.001));
@@ -813,7 +813,7 @@ BOOST_AUTO_TEST_CASE(sqlite)
 
     DataSpace space = dynamic_cast<Driver const&>(driver).dataSpace(name);
     BOOST_REQUIRE_EQUAL(space.rank(), 1u);
-    BOOST_CHECK_EQUAL(space.dimension(0).meaning(), CumulativeProbabilities);
+    BOOST_TEST(space.dimension(0).meaning() == CumulativeProbabilities);
     BOOST_REQUIRE_EQUAL(space.dimension(0).nrValues(), 3u);
     BOOST_CHECK_CLOSE(space.dimension(0).value<REAL4>(0), REAL4(0.10),
          REAL4(0.01));
@@ -828,20 +828,20 @@ BOOST_AUTO_TEST_CASE(sqlite)
 
     Table* table = dynamic_cast<Table*>(dataset.get());
     BOOST_TEST_REQUIRE(table);
-    BOOST_CHECK_EQUAL(table->nrCols(), 2u);
-    BOOST_CHECK_EQUAL(table->title(0), "quantile");
-    BOOST_CHECK_EQUAL(table->title(1), "co2");
-    BOOST_CHECK_EQUAL(table->typeId(0), TI_REAL4);
-    BOOST_CHECK_EQUAL(table->typeId(1), TI_REAL4);
+    BOOST_TEST(table->nrCols() == 2u);
+    BOOST_TEST(table->title(0) == "quantile");
+    BOOST_TEST(table->title(1) == "co2");
+    BOOST_TEST(table->typeId(0) == TI_REAL4);
+    BOOST_TEST(table->typeId(1) == TI_REAL4);
 
     BOOST_CHECK_NO_THROW(dynamic_cast<TableDriver const&>(driver).read(
          *table, name));
 
     Array<REAL4> const& quantile(table->col<REAL4>(0));
-    BOOST_CHECK_EQUAL(quantile.size(), 5u);
+    BOOST_TEST(quantile.size() == 5u);
 
     Array<REAL4> const& co2(table->col<REAL4>(1));
-    BOOST_CHECK_EQUAL(co2.size(), 5u);
+    BOOST_TEST(co2.size() == 5u);
 
     BOOST_CHECK_CLOSE(quantile[0], REAL4(0.10), REAL4(0.01));
     BOOST_CHECK_CLOSE(quantile[1], REAL4(0.25), REAL4(0.01));

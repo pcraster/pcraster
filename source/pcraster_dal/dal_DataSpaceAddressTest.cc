@@ -10,34 +10,34 @@ BOOST_AUTO_TEST_CASE(test_)
 
   {
     DataSpaceAddress address(1);
-    BOOST_CHECK_EQUAL(address.size(), size_t(1));
+    BOOST_TEST(address.size() == size_t(1));
     address.setCoordinate<int>(0, 5);
-    BOOST_CHECK_EQUAL(address.coordinate<int>(0), 5);
+    BOOST_TEST(address.coordinate<int>(0) == 5);
 
     // Change type in place.
     address.setCoordinate<double>(0, 5.5);
-    BOOST_CHECK_EQUAL(address.size(), size_t(1));
-    BOOST_CHECK_EQUAL(address.coordinate<double>(0), 5.5);
+    BOOST_TEST(address.size() == size_t(1));
+    BOOST_TEST(address.coordinate<double>(0) == 5.5);
 
     // Add a type.
     address.addCoordinate<std::string>("vijf");
-    BOOST_CHECK_EQUAL(address.size(), size_t(2));
-    BOOST_CHECK_EQUAL(address.coordinate<std::string>(1), "vijf");
+    BOOST_TEST(address.size() == size_t(2));
+    BOOST_TEST(address.coordinate<std::string>(1) == "vijf");
   }
 
   {
     // scenario / time / space / space
     DataSpaceAddress address(4);
-    BOOST_CHECK_EQUAL(address.size(), size_t(4));
+    BOOST_TEST(address.size() == size_t(4));
     address.setCoordinate<std::string>(0, "aap");
     address.setCoordinate<size_t>(1, 50);
     address.setCoordinate<size_t>(2, 4);
     address.setCoordinate<size_t>(3, 5);
 
-    BOOST_CHECK_EQUAL(address.coordinate<std::string>(0), "aap");
-    BOOST_CHECK_EQUAL(address.coordinate<size_t>(1), size_t(50));
-    BOOST_CHECK_EQUAL(address.coordinate<size_t>(2), size_t(4));
-    BOOST_CHECK_EQUAL(address.coordinate<size_t>(3), size_t(5));
+    BOOST_TEST(address.coordinate<std::string>(0) == "aap");
+    BOOST_TEST(address.coordinate<size_t>(1) == size_t(50));
+    BOOST_TEST(address.coordinate<size_t>(2) == size_t(4));
+    BOOST_TEST(address.coordinate<size_t>(3) == size_t(5));
   }
 }
 

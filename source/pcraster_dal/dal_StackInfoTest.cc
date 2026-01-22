@@ -13,29 +13,29 @@ BOOST_AUTO_TEST_CASE(constructor)
   {
     // Static stack in current dir.
     StackInfo const info("soil.csf");
-    BOOST_CHECK_EQUAL(info.name(), "soil.csf");
+    BOOST_TEST(info.name() == "soil.csf");
     BOOST_CHECK(!info.isDynamic());
-    BOOST_CHECK_EQUAL(info.filename().string(), "soil.csf");
+    BOOST_TEST(info.filename().string() == "soil.csf");
   }
 
   {
     // Static stack in current dir. No extension.
     StackInfo const info("soil");
-    BOOST_CHECK_EQUAL(info.name(), "soil");
+    BOOST_TEST(info.name() == "soil");
     BOOST_CHECK(!info.isDynamic());
-    BOOST_CHECK_EQUAL(info.filename().string(), "soil");
+    BOOST_TEST(info.filename().string() == "soil");
   }
 
   {
     // Dynamic stack in current dir.
     StackInfo const info("soil0000.010+100");
-    BOOST_CHECK_EQUAL(info.name(), "soil0000");
+    BOOST_TEST(info.name() == "soil0000");
     BOOST_CHECK(info.isDynamic());
     BOOST_CHECK(info.isScanned());
-    BOOST_CHECK_EQUAL(info.size(), size_t(91));
-    BOOST_CHECK_EQUAL(info.filename(1).string(), "soil0000.001");
-    BOOST_CHECK_EQUAL(info.filename(10).string(), "soil0000.010");
-    BOOST_CHECK_EQUAL(info.filename(100).string(), "soil0000.100");
+    BOOST_TEST(info.size() == size_t(91));
+    BOOST_TEST(info.filename(1).string() == "soil0000.001");
+    BOOST_TEST(info.filename(10).string() == "soil0000.010");
+    BOOST_TEST(info.filename(100).string() == "soil0000.100");
     BOOST_CHECK(info.contains(10));
     BOOST_CHECK(!info.contains(0));
     BOOST_CHECK(!info.contains(1));
@@ -45,8 +45,8 @@ BOOST_AUTO_TEST_CASE(constructor)
     BOOST_CHECK(info.contains(100));
     BOOST_CHECK(!info.contains(101));
     BOOST_CHECK(info.begin() != info.end());
-    BOOST_CHECK_EQUAL(*info.begin(), size_t(10));
-    BOOST_CHECK_EQUAL(*(info.end() - 1), size_t(100));
+    BOOST_TEST(*info.begin() == size_t(10));
+    BOOST_TEST(*(info.end() - 1) == size_t(100));
   }
 
   //  {
@@ -55,10 +55,10 @@ BOOST_AUTO_TEST_CASE(constructor)
   //         boost::filesystem::no_check).string());
   //    BOOST_CHECK(info.isDynamic());
   //    BOOST_CHECK(info.isScanned());
-  //    BOOST_CHECK_EQUAL(info.size(), size_t(91));
-  //    BOOST_CHECK_EQUAL(info.filename(1).string(), "soil0000.001");
-  //    BOOST_CHECK_EQUAL(info.filename(10).string(), "soil0000.010");
-  //    BOOST_CHECK_EQUAL(info.filename(100).string(), "soil0000.100");
+  //    BOOST_TEST(info.size() == size_t(91));
+  //    BOOST_TEST(info.filename(1).string() == "soil0000.001");
+  //    BOOST_TEST(info.filename(10).string() == "soil0000.010");
+  //    BOOST_TEST(info.filename(100).string() == "soil0000.100");
   //    BOOST_CHECK(info.contains(10));
   //    BOOST_CHECK(!info.contains(0));
   //    BOOST_CHECK(!info.contains(1));
@@ -68,19 +68,19 @@ BOOST_AUTO_TEST_CASE(constructor)
   //    BOOST_CHECK(info.contains(100));
   //    BOOST_CHECK(!info.contains(101));
   //    BOOST_CHECK(info.begin() != info.end());
-  //    BOOST_CHECK_EQUAL(*info.begin(), size_t(10));
-  //    BOOST_CHECK_EQUAL(*(info.end() - 1), size_t(100));
+  //    BOOST_TEST(*info.begin() == size_t(10));
+  //    BOOST_TEST(*(info.end() - 1) == size_t(100));
   //  }
 
   {
     StackInfo const info("soilsoil.010+100");
-    BOOST_CHECK_EQUAL(info.name(), "soilsoil");
+    BOOST_TEST(info.name() == "soilsoil");
     BOOST_CHECK(info.isDynamic());
     BOOST_CHECK(info.isScanned());
-    BOOST_CHECK_EQUAL(info.size(), size_t(0));
-    BOOST_CHECK_EQUAL(info.filename(1).string(), "soilsoil.001");
-    BOOST_CHECK_EQUAL(info.filename(10).string(), "soilsoil.010");
-    BOOST_CHECK_EQUAL(info.filename(100).string(), "soilsoil.100");
+    BOOST_TEST(info.size() == size_t(0));
+    BOOST_TEST(info.filename(1).string() == "soilsoil.001");
+    BOOST_TEST(info.filename(10).string() == "soilsoil.010");
+    BOOST_TEST(info.filename(100).string() == "soilsoil.100");
   }
 
   //  {
@@ -89,21 +89,21 @@ BOOST_AUTO_TEST_CASE(constructor)
   //         boost::filesystem::no_check).string());
   //    BOOST_CHECK(info.isDynamic());
   //    BOOST_CHECK(info.isScanned());
-  //    BOOST_CHECK_EQUAL(info.size(), size_t(0));
-  //    BOOST_CHECK_EQUAL(info.filename(1).string(), "soilsoil.001");
-  //    BOOST_CHECK_EQUAL(info.filename(10).string(), "soilsoil.010");
-  //    BOOST_CHECK_EQUAL(info.filename(100).string(), "soilsoil.100");
+  //    BOOST_TEST(info.size() == size_t(0));
+  //    BOOST_TEST(info.filename(1).string() == "soilsoil.001");
+  //    BOOST_TEST(info.filename(10).string() == "soilsoil.010");
+  //    BOOST_TEST(info.filename(100).string() == "soilsoil.100");
   //  }
 
   {
     StackInfo const info("soilsoil.s10+100");
-    BOOST_CHECK_EQUAL(info.name(), "soilsoil.s");
+    BOOST_TEST(info.name() == "soilsoil.s");
     BOOST_CHECK(info.isDynamic());
     BOOST_CHECK(info.isScanned());
-    BOOST_CHECK_EQUAL(info.size(), size_t(0));
-    BOOST_CHECK_EQUAL(info.filename(1).string(), "soilsoil.s01");
-    BOOST_CHECK_EQUAL(info.filename(10).string(), "soilsoil.s10");
-    BOOST_CHECK_EQUAL(info.filename(99).string(), "soilsoil.s99");
+    BOOST_TEST(info.size() == size_t(0));
+    BOOST_TEST(info.filename(1).string() == "soilsoil.s01");
+    BOOST_TEST(info.filename(10).string() == "soilsoil.s10");
+    BOOST_TEST(info.filename(99).string() == "soilsoil.s99");
   }
 
   //  {
@@ -112,44 +112,44 @@ BOOST_AUTO_TEST_CASE(constructor)
   //         boost::filesystem::no_check).string());
   //    BOOST_CHECK(info.isDynamic());
   //    BOOST_CHECK(info.isScanned());
-  //    BOOST_CHECK_EQUAL(info.size(), size_t(0));
-  //    BOOST_CHECK_EQUAL(info.filename(1).string(), "soilsoil.s01");
-  //    BOOST_CHECK_EQUAL(info.filename(10).string(), "soilsoil.s10");
-  //    BOOST_CHECK_EQUAL(info.filename(99).string(), "soilsoil.s99");
+  //    BOOST_TEST(info.size() == size_t(0));
+  //    BOOST_TEST(info.filename(1).string() == "soilsoil.s01");
+  //    BOOST_TEST(info.filename(10).string() == "soilsoil.s10");
+  //    BOOST_TEST(info.filename(99).string() == "soilsoil.s99");
   //  }
 
   {
     // Dynamic stack in current dir.
     StackInfo const info("soil0000.010");
-    BOOST_CHECK_EQUAL(info.name(), "soil0000.0");
+    BOOST_TEST(info.name() == "soil0000.0");
     BOOST_CHECK(info.isDynamic());
     BOOST_CHECK(info.isScanned());
-    BOOST_CHECK_EQUAL(info.size(), size_t(1));
-    BOOST_CHECK_EQUAL(info.filename(10).string(), "soil0000.010");
+    BOOST_TEST(info.size() == size_t(1));
+    BOOST_TEST(info.filename(10).string() == "soil0000.010");
     BOOST_CHECK(info.contains(10));
     BOOST_CHECK(!info.contains(0));
     BOOST_CHECK(!info.contains(1));
     BOOST_CHECK(!info.contains(9));
     BOOST_CHECK(!info.contains(11));
     BOOST_CHECK(info.begin() != info.end());
-    BOOST_CHECK_EQUAL(*info.begin(), size_t(10));
+    BOOST_TEST(*info.begin() == size_t(10));
     BOOST_CHECK(++info.begin() == info.end());
   }
 
   {
     StackInfo const info("soil0000.010+10");
-    BOOST_CHECK_EQUAL(info.name(), "soil0000.0");
+    BOOST_TEST(info.name() == "soil0000.0");
     BOOST_CHECK(info.isDynamic());
     BOOST_CHECK(info.isScanned());
-    BOOST_CHECK_EQUAL(info.size(), size_t(1));
-    BOOST_CHECK_EQUAL(info.filename(10).string(), "soil0000.010");
+    BOOST_TEST(info.size() == size_t(1));
+    BOOST_TEST(info.filename(10).string() == "soil0000.010");
     BOOST_CHECK(info.contains(10));
     BOOST_CHECK(!info.contains(0));
     BOOST_CHECK(!info.contains(1));
     BOOST_CHECK(!info.contains(9));
     BOOST_CHECK(!info.contains(11));
     BOOST_CHECK(info.begin() != info.end());
-    BOOST_CHECK_EQUAL(*info.begin(), size_t(10));
+    BOOST_TEST(*info.begin() == size_t(10));
     BOOST_CHECK(++info.begin() == info.end());
   }
 
@@ -159,15 +159,15 @@ BOOST_AUTO_TEST_CASE(constructor)
   //         boost::filesystem::no_check).string());
   //    BOOST_CHECK(info.isDynamic());
   //    BOOST_CHECK(info.isScanned());
-  //    BOOST_CHECK_EQUAL(info.size(), size_t(1));
-  //    BOOST_CHECK_EQUAL(info.filename(10).string(), "soil0000.010");
+  //    BOOST_TEST(info.size() == size_t(1));
+  //    BOOST_TEST(info.filename(10).string() == "soil0000.010");
   //    BOOST_CHECK(info.contains(10));
   //    BOOST_CHECK(!info.contains(0));
   //    BOOST_CHECK(!info.contains(1));
   //    BOOST_CHECK(!info.contains(9));
   //    BOOST_CHECK(!info.contains(11));
   //    BOOST_CHECK(info.begin() != info.end());
-  //    BOOST_CHECK_EQUAL(*info.begin(), size_t(10));
+  //    BOOST_TEST(*info.begin() == size_t(10));
   //    BOOST_CHECK(++info.begin() == info.end());
   //  }
 
@@ -175,11 +175,11 @@ BOOST_AUTO_TEST_CASE(constructor)
     // Dynamic stack in current dir. Last step number is bigger than possible
     // according to space in the name (999 is max possible).
     StackInfo const info("XXXeight.001+20000");
-    BOOST_CHECK_EQUAL(info.name(), "XXXeight");
+    BOOST_TEST(info.name() == "XXXeight");
     BOOST_CHECK(info.isDynamic());
     BOOST_CHECK(info.isScanned());
-    BOOST_CHECK_EQUAL(info.size(), size_t(0));
-    BOOST_CHECK_EQUAL(info.filename(10).string(), "XXXeight.010");
+    BOOST_TEST(info.size() == size_t(0));
+    BOOST_TEST(info.filename(10).string() == "XXXeight.010");
   }
 
   //  {
@@ -188,18 +188,18 @@ BOOST_AUTO_TEST_CASE(constructor)
   //         boost::filesystem::no_check).string());
   //    BOOST_CHECK(info.isDynamic());
   //    BOOST_CHECK(info.isScanned());
-  //    BOOST_CHECK_EQUAL(info.size(), size_t(0));
-  //    BOOST_CHECK_EQUAL(info.filename(10).string(), "XXXeight.010");
+  //    BOOST_TEST(info.size() == size_t(0));
+  //    BOOST_TEST(info.filename(10).string() == "XXXeight.010");
   //  }
 
   {
     // Name ends with numeric digits.
     StackInfo const info("XXXX9700.001+30");
-    BOOST_CHECK_EQUAL(info.name(), "XXXX9700.0");
+    BOOST_TEST(info.name() == "XXXX9700.0");
     BOOST_CHECK(info.isDynamic());
     BOOST_CHECK(info.isScanned());
-    BOOST_CHECK_EQUAL(info.size(), size_t(0));
-    BOOST_CHECK_EQUAL(info.filename(10).string(), "XXXX9700.010");
+    BOOST_TEST(info.size() == size_t(0));
+    BOOST_TEST(info.filename(10).string() == "XXXX9700.010");
   }
 
   //  {
@@ -208,8 +208,8 @@ BOOST_AUTO_TEST_CASE(constructor)
   //         boost::filesystem::no_check).string());
   //    BOOST_CHECK(info.isDynamic());
   //    BOOST_CHECK(info.isScanned());
-  //    BOOST_CHECK_EQUAL(info.size(), size_t(0));
-  //    BOOST_CHECK_EQUAL(info.filename(10).string(), "XXXX9700.010");
+  //    BOOST_TEST(info.size() == size_t(0));
+  //    BOOST_TEST(info.filename(10).string() == "XXXX9700.010");
   //  }
 
   {
@@ -217,11 +217,11 @@ BOOST_AUTO_TEST_CASE(constructor)
     // first time step are determined. In this case, 9700 cannot be part of the
     // timestep and thus is part of the basename.
     StackInfo const info("lisw9700.001+999");
-    BOOST_CHECK_EQUAL(info.name(), "lisw9700");
+    BOOST_TEST(info.name() == "lisw9700");
     BOOST_CHECK(info.isDynamic());
     BOOST_CHECK(info.isScanned());
-    BOOST_CHECK_EQUAL(info.size(), size_t(0));
-    BOOST_CHECK_EQUAL(info.filename(10).string(), "lisw9700.010");
+    BOOST_TEST(info.size() == size_t(0));
+    BOOST_TEST(info.filename(10).string() == "lisw9700.010");
   }
 
   //  {
@@ -230,8 +230,8 @@ BOOST_AUTO_TEST_CASE(constructor)
   //         boost::filesystem::no_check).string());
   //    BOOST_CHECK(info.isDynamic());
   //    BOOST_CHECK(info.isScanned());
-  //    BOOST_CHECK_EQUAL(info.size(), size_t(0));
-  //    BOOST_CHECK_EQUAL(info.filename(10).string(), "lisw9700.010");
+  //    BOOST_TEST(info.size() == size_t(0));
+  //    BOOST_TEST(info.filename(10).string() == "lisw9700.010");
   //  }
 
   // pcrcalc has a trick that if the extension
@@ -240,11 +240,11 @@ BOOST_AUTO_TEST_CASE(constructor)
   {
     // CW wanted to use this one in pcrcalc
     StackInfo const info("tmp.res");
-    BOOST_CHECK_EQUAL(info.name(), "tmp.res");
+    BOOST_TEST(info.name() == "tmp.res");
     BOOST_CHECK(!info.isDynamic());
-    BOOST_CHECK_EQUAL(info.filename(1).string(), "tmp.res");
-    BOOST_CHECK_EQUAL(info.filename(10).string(), "tmp.res");
-    BOOST_CHECK_EQUAL(info.filename(300).string(), "tmp.res");
+    BOOST_TEST(info.filename(1).string() == "tmp.res");
+    BOOST_TEST(info.filename(10).string() == "tmp.res");
+    BOOST_TEST(info.filename(300).string() == "tmp.res");
   }
 
   // Throw!
@@ -252,8 +252,8 @@ BOOST_AUTO_TEST_CASE(constructor)
   //    // and not this one in pcrcalc
   //    dal::StackInfo info("tmp.res", 1, 1000);
   //    BOOST_CHECK(info.isDynamic());
-  //    BOOST_CHECK_EQUAL(info.filename(1), "tmp.res");
-  //    BOOST_CHECK_EQUAL(info.filename(300), "tmp.res");
+  //    BOOST_TEST(info.filename(1) == "tmp.res");
+  //    BOOST_TEST(info.filename(300) == "tmp.res");
   //  }
 
   //  {
@@ -264,10 +264,10 @@ BOOST_AUTO_TEST_CASE(constructor)
   //         boost::filesystem::no_check).string());
   //    BOOST_CHECK(info.isDynamic());
   //    BOOST_CHECK(info.isScanned());
-  //    BOOST_CHECK_EQUAL(info.size(), size_t(91));
-  //    BOOST_CHECK_EQUAL(info.filename(1).string(), "soil0000.001");
-  //    BOOST_CHECK_EQUAL(info.filename(10).string(), "soil0000.010");
-  //    BOOST_CHECK_EQUAL(info.filename(100).string(), "soil0000.100");
+  //    BOOST_TEST(info.size() == size_t(91));
+  //    BOOST_TEST(info.filename(1).string() == "soil0000.001");
+  //    BOOST_TEST(info.filename(10).string() == "soil0000.010");
+  //    BOOST_TEST(info.filename(100).string() == "soil0000.100");
   //    BOOST_CHECK(info.contains(10));
   //    BOOST_CHECK(!info.contains(0));
   //    BOOST_CHECK(!info.contains(1));
@@ -277,8 +277,8 @@ BOOST_AUTO_TEST_CASE(constructor)
   //    BOOST_CHECK(info.contains(100));
   //    BOOST_CHECK(!info.contains(101));
   //    BOOST_CHECK(info.begin() != info.end());
-  //    BOOST_CHECK_EQUAL(*info.begin(), size_t(10));
-  //    BOOST_CHECK_EQUAL(*(info.end() - 1), size_t(100));
+  //    BOOST_TEST(*info.begin() == size_t(10));
+  //    BOOST_TEST(*(info.end() - 1) == size_t(100));
   //  }
 
   //  {
@@ -287,8 +287,8 @@ BOOST_AUTO_TEST_CASE(constructor)
 
   //    BOOST_CHECK_EQUAL(info.name().string(), boost::filesystem::path("soil0000",
   //         boost::filesystem::no_check).string());
-  //    BOOST_CHECK_EQUAL(info.size(), size_t(5));
-  //    BOOST_CHECK_EQUAL(info.filename(10).string(), "soil0000.010");
+  //    BOOST_TEST(info.size() == size_t(5));
+  //    BOOST_TEST(info.filename(10).string() == "soil0000.010");
   //    BOOST_CHECK(!info.contains(9));
   //    BOOST_CHECK( info.contains(10));
   //    BOOST_CHECK(!info.contains(11));
@@ -302,8 +302,8 @@ BOOST_AUTO_TEST_CASE(constructor)
   //    BOOST_CHECK(!info.contains(19));
   //    BOOST_CHECK( info.contains(20));
   //    BOOST_CHECK(!info.contains(21));
-  //    BOOST_CHECK_EQUAL(*info.begin(), size_t(10));
-  //    BOOST_CHECK_EQUAL(*(info.end() - 1), size_t(20));
+  //    BOOST_TEST(*info.begin() == size_t(10));
+  //    BOOST_TEST(*(info.end() - 1) == size_t(20));
   //  }
 
   // Directories.
@@ -312,9 +312,9 @@ BOOST_AUTO_TEST_CASE(constructor)
     std::filesystem::path path(".");
     path /= "soil.csf";
     StackInfo const info(path.string());
-    BOOST_CHECK_EQUAL(info.name(), path.string());
+    BOOST_TEST(info.name() == path.string());
     BOOST_CHECK(!info.isDynamic());
-    BOOST_CHECK_EQUAL(info.filename(), path);
+    BOOST_TEST(info.filename() == path);
   }
 
   {
@@ -322,9 +322,9 @@ BOOST_AUTO_TEST_CASE(constructor)
     std::filesystem::path path("..");
     path /= "soil.csf";
     StackInfo const info(path.string());
-    BOOST_CHECK_EQUAL(info.name(), path.string());
+    BOOST_TEST(info.name() == path.string());
     BOOST_CHECK(!info.isDynamic());
-    BOOST_CHECK_EQUAL(info.filename(), path);
+    BOOST_TEST(info.filename() == path);
   }
 
   {
@@ -332,9 +332,9 @@ BOOST_AUTO_TEST_CASE(constructor)
     std::filesystem::path path("bla");
     path /= "soil.csf";
     StackInfo const info(path.string());
-    BOOST_CHECK_EQUAL(info.name(), path.string());
+    BOOST_TEST(info.name() == path.string());
     BOOST_CHECK(!info.isDynamic());
-    BOOST_CHECK_EQUAL(info.filename(), path);
+    BOOST_TEST(info.filename() == path);
   }
 
   {
@@ -342,9 +342,9 @@ BOOST_AUTO_TEST_CASE(constructor)
     std::filesystem::path path("/");
     path /= "soil.csf";
     StackInfo const info(path.string());
-    BOOST_CHECK_EQUAL(info.name(), path.string());
+    BOOST_TEST(info.name() == path.string());
     BOOST_CHECK(!info.isDynamic());
-    BOOST_CHECK_EQUAL(info.filename(), path);
+    BOOST_TEST(info.filename() == path);
   }
 
   {
@@ -353,9 +353,9 @@ BOOST_AUTO_TEST_CASE(constructor)
     path /= "bla";
     path /= "soil.csf";
     StackInfo const info(path.string());
-    BOOST_CHECK_EQUAL(info.name(), path.string());
+    BOOST_TEST(info.name() == path.string());
     BOOST_CHECK(!info.isDynamic());
-    BOOST_CHECK_EQUAL(info.filename(), path);
+    BOOST_TEST(info.filename() == path);
   }
 
   // {
@@ -363,40 +363,40 @@ BOOST_AUTO_TEST_CASE(constructor)
   //   BOOST_CHECK_EQUAL(info.name().string(), boost::filesystem::path("soilsoi.",
   //        boost::filesystem::no_check).string());
   //   BOOST_CHECK(info.isDynamic());
-  //   BOOST_CHECK_EQUAL(info.filename(10).string(), "soilsoi..010");
+  //   BOOST_TEST(info.filename(10).string() == "soilsoi..010");
   // }
 
   {
     StackInfo const info("soilsoi0.000");
-    BOOST_CHECK_EQUAL(info.name(), std::filesystem::path("soilsoi0.000").string());
+    BOOST_TEST(info.name() == std::filesystem::path("soilsoi0.000").string());
     BOOST_CHECK(!info.isDynamic());
-    BOOST_CHECK_EQUAL(info.filename().string(), "soilsoi0.000");
+    BOOST_TEST(info.filename().string() == "soilsoi0.000");
   }
 
   {
     StackInfo const info("soilsoil.000");
-    BOOST_CHECK_EQUAL(info.name(), std::filesystem::path("soilsoil.000").string());
+    BOOST_TEST(info.name() == std::filesystem::path("soilsoil.000").string());
     BOOST_CHECK(!info.isDynamic());
-    BOOST_CHECK_EQUAL(info.filename().string(), "soilsoil.000");
+    BOOST_TEST(info.filename().string() == "soilsoil.000");
   }
 
   {
     StackInfo const info("5");
-    BOOST_CHECK_EQUAL(info.name(), std::filesystem::path("5").string());
+    BOOST_TEST(info.name() == std::filesystem::path("5").string());
     BOOST_CHECK(!info.isDynamic());
-    BOOST_CHECK_EQUAL(info.filename().string(), "5");
+    BOOST_TEST(info.filename().string() == "5");
   }
 
 #ifdef WIN32
   {
     StackInfo info("../bla.map", false);
-    BOOST_CHECK_EQUAL(info.name(),
+    BOOST_TEST(info.name() ==
          std::filesystem::path("../bla.map").string());
   }
 #else
   {
     StackInfo const info("volcano/volcano0.090+volcano/lava0000.090", false);
-    BOOST_CHECK_EQUAL(info.name(), std::filesystem::path(
+    BOOST_TEST(info.name() == std::filesystem::path(
          "volcano/volcano0.090+volcano/lava0000.0").string());
   }
 #endif
@@ -465,7 +465,7 @@ BOOST_AUTO_TEST_CASE(bad_formats)
   //   BOOST_CHECK_EQUAL(info.name().string(), boost::filesystem::path("+",
   //        boost::filesystem::no_check).string());
   //   BOOST_CHECK(!info.isDynamic());
-  //   BOOST_CHECK_EQUAL(info.filename().string(), "+");
+  //   BOOST_TEST(info.filename().string() == "+");
   // }
 
   // {
@@ -473,7 +473,7 @@ BOOST_AUTO_TEST_CASE(bad_formats)
   //   BOOST_CHECK_EQUAL(info.name().string(), boost::filesystem::path("+100",
   //        boost::filesystem::no_check).string());
   //   BOOST_CHECK(!info.isDynamic());
-  //   BOOST_CHECK_EQUAL(info.filename().string(), "+100");
+  //   BOOST_TEST(info.filename().string() == "+100");
   // }
 
   // {
@@ -481,7 +481,7 @@ BOOST_AUTO_TEST_CASE(bad_formats)
   //   BOOST_CHECK_EQUAL(info.name().string(), boost::filesystem::path("100+",
   //        boost::filesystem::no_check).string());
   //   BOOST_CHECK(!info.isDynamic());
-  //   BOOST_CHECK_EQUAL(info.filename().string(), "100+");
+  //   BOOST_TEST(info.filename().string() == "100+");
   // }
 
   // {
@@ -489,7 +489,7 @@ BOOST_AUTO_TEST_CASE(bad_formats)
   //   BOOST_CHECK_EQUAL(info.name().string(), boost::filesystem::path("100+100",
   //        boost::filesystem::no_check).string());
   //   BOOST_CHECK(!info.isDynamic());
-  //   BOOST_CHECK_EQUAL(info.filename().string(), "100+100");
+  //   BOOST_TEST(info.filename().string() == "100+100");
   // }
 
   // {
@@ -497,7 +497,7 @@ BOOST_AUTO_TEST_CASE(bad_formats)
   //   BOOST_CHECK_EQUAL(info.name().string(), boost::filesystem::path("a100+100",
   //        boost::filesystem::no_check).string());
   //   BOOST_CHECK(!info.isDynamic());
-  //   BOOST_CHECK_EQUAL(info.filename().string(), "a100+100");
+  //   BOOST_TEST(info.filename().string() == "a100+100");
   // }
 }
 
@@ -508,28 +508,28 @@ BOOST_AUTO_TEST_CASE(to_string)
 
   {
     StackInfo const info("blabla", false);
-    BOOST_CHECK_EQUAL(info.toString(), "blabla");
+    BOOST_TEST(info.toString() == "blabla");
   }
 
   {
     StackInfo const info("blabla.bla", false);
-    BOOST_CHECK_EQUAL(info.toString(), "blabla.bla");
+    BOOST_TEST(info.toString() == "blabla.bla");
   }
 
   {
     StackInfo const info("blabla00.001+100");
-    BOOST_CHECK_EQUAL(info.toString(), "blabla00.001+100");
+    BOOST_TEST(info.toString() == "blabla00.001+100");
   }
 
   /*
   {
     StackInfo info("blabla", 1, 100, false);
-    BOOST_CHECK_EQUAL(info.toString(), "blabla00.001+100");
+    BOOST_TEST(info.toString() == "blabla00.001+100");
   }
 
   {
     StackInfo info("blablabl.a", 1, 100, false);
-    BOOST_CHECK_EQUAL(info.toString(), "blablabl.a01+99");
+    BOOST_TEST(info.toString() == "blablabl.a01+99");
   }
   */
 }
@@ -543,13 +543,13 @@ BOOST_AUTO_TEST_CASE(copy)
     StackInfo const info("soil.csf");
     StackInfo copy(info);
 
-    BOOST_CHECK_EQUAL(copy.name(), std::filesystem::path("soil.csf").string());
+    BOOST_TEST(copy.name() == std::filesystem::path("soil.csf").string());
     BOOST_CHECK(!copy.isDynamic());
-    BOOST_CHECK_EQUAL(copy.filename().string(), "soil.csf");
+    BOOST_TEST(copy.filename().string() == "soil.csf");
 
     copy = info;
-    BOOST_CHECK_EQUAL(copy.name(), std::filesystem::path("soil.csf").string());
+    BOOST_TEST(copy.name() == std::filesystem::path("soil.csf").string());
     BOOST_CHECK(!copy.isDynamic());
-    BOOST_CHECK_EQUAL(copy.filename().string(), "soil.csf");
+    BOOST_TEST(copy.filename().string() == "soil.csf");
   }
 }

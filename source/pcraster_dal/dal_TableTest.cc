@@ -57,8 +57,8 @@ struct Fixture
     {
       using namespace dal;
 
-      BOOST_CHECK_EQUAL(table.nrCols(), size_t(0));
-      BOOST_CHECK_EQUAL(table.nrRecs(), size_t(0));
+      BOOST_TEST(table.nrCols() == size_t(0));
+      BOOST_TEST(table.nrRecs() == size_t(0));
       BOOST_TEST(table.title().empty());
     }
 
@@ -68,17 +68,17 @@ struct Fixture
     {
       using namespace dal;
 
-      BOOST_CHECK_EQUAL(table.nrCols(), size_t(4));
-      BOOST_CHECK_EQUAL(table.nrRecs(), size_t(3));
-      BOOST_CHECK_EQUAL(table.title(), "Table1");
-      BOOST_CHECK_EQUAL(table.typeId(0), TI_UINT1);
-      BOOST_CHECK_EQUAL(table.typeId(1), TI_INT4);
-      BOOST_CHECK_EQUAL(table.typeId(2), TI_NR_TYPES);
-      BOOST_CHECK_EQUAL(table.typeId(3), TI_REAL4);
-      BOOST_CHECK_EQUAL(table.title(0), "UINT1");
-      BOOST_CHECK_EQUAL(table.title(1), "INT4");
-      BOOST_CHECK_EQUAL(table.title(2), "NR_TYPES");
-      BOOST_CHECK_EQUAL(table.title(3), "REAL4");
+      BOOST_TEST(table.nrCols() == size_t(4));
+      BOOST_TEST(table.nrRecs() == size_t(3));
+      BOOST_TEST(table.title() == "Table1");
+      BOOST_TEST(table.typeId(0) == TI_UINT1);
+      BOOST_TEST(table.typeId(1) == TI_INT4);
+      BOOST_TEST(table.typeId(2) == TI_NR_TYPES);
+      BOOST_TEST(table.typeId(3) == TI_REAL4);
+      BOOST_TEST(table.title(0) == "UINT1");
+      BOOST_TEST(table.title(1) == "INT4");
+      BOOST_TEST(table.title(2) == "NR_TYPES");
+      BOOST_TEST(table.title(3) == "REAL4");
 
       Array<UINT1> const& col1(table.col<UINT1>(0));
       BOOST_TEST(dal::comparable(col1[0], UINT1(1)));
@@ -204,11 +204,11 @@ BOOST_AUTO_TEST_CASE(assign)
 
     table1.assign(colToWrite, joinFrom, table2, colToRead, joinTo);
 
-    BOOST_CHECK_EQUAL(values1[0], 3);
+    BOOST_TEST(values1[0] == 3);
     BOOST_TEST(pcr::isMV(values1[1]));
-    BOOST_CHECK_EQUAL(values1[2], 1);
-    BOOST_CHECK_EQUAL(values1[3], 2);
-    BOOST_CHECK_EQUAL(values1[4], 4);
+    BOOST_TEST(values1[2] == 1);
+    BOOST_TEST(values1[3] == 2);
+    BOOST_TEST(values1[4] == 4);
   }
 }
 

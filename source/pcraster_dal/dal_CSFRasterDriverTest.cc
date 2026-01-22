@@ -37,7 +37,7 @@ BOOST_AUTO_TEST_CASE(description)
   using namespace dal;
 
   CSFRasterDriver const driver;
-  BOOST_CHECK_EQUAL(driver.description(), "CSF-2.0 raster file format");
+  BOOST_TEST(driver.description() == "CSF-2.0 raster file format");
 }
 
 
@@ -60,7 +60,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
     raster = dynamic_cast<RasterDriver&>(driver).read(filename);
   }
   catch(Exception& exception) {
-    BOOST_CHECK_EQUAL(exception.message(),
+    BOOST_TEST(exception.message() ==
        "Data source " + filename + "(raster):\ncannot be opened");
     exceptionCaught = true;
   }
@@ -85,7 +85,7 @@ BOOST_AUTO_TEST_CASE(empty)
     raster = dynamic_cast<RasterDriver&>(driver).read(filename);
   }
   catch(Exception& exception) {
-    BOOST_CHECK_EQUAL(exception.message(),
+    BOOST_TEST(exception.message() ==
        "Data source " + filename + "(raster):\ncannot be opened");
     exceptionCaught = true;
   }
@@ -106,23 +106,23 @@ BOOST_AUTO_TEST_CASE(dtm_small)
          dynamic_cast<Driver&>(driver).open(filename));
     BOOST_TEST(raster);
 
-    // BOOST_CHECK_EQUAL(raster->name(), std::string("dtmsmall.map"));
-    BOOST_CHECK_EQUAL(raster->nrRows(), size_t(4));
-    BOOST_CHECK_EQUAL(raster->nrCols(), size_t(4));
-    BOOST_CHECK_EQUAL(raster->cellSize(), 1.0);
-    BOOST_CHECK_EQUAL(raster->west(), 0.0);
-    BOOST_CHECK_EQUAL(raster->north(), 0.0);
-    BOOST_CHECK_EQUAL(raster->typeId(), TI_REAL4);
+    // BOOST_TEST(raster->name() == std::string("dtmsmall.map"));
+    BOOST_TEST(raster->nrRows() == size_t(4));
+    BOOST_TEST(raster->nrCols() == size_t(4));
+    BOOST_TEST(raster->cellSize() == 1.0);
+    BOOST_TEST(raster->west() == 0.0);
+    BOOST_TEST(raster->north() == 0.0);
+    BOOST_TEST(raster->typeId() == TI_REAL4);
 
     BOOST_TEST(raster->properties().hasValue(DAL_CSF_ANGLE));
-    BOOST_CHECK_EQUAL(raster->properties().value<REAL8>(DAL_CSF_ANGLE), 0.0);
+    BOOST_TEST(raster->properties().value<REAL8>(DAL_CSF_ANGLE) == 0.0);
 
     BOOST_TEST(raster->properties().hasValue(DAL_CSF_VALUESCALE));
-    BOOST_CHECK_EQUAL(raster->properties().value<CSF_VS>(DAL_CSF_VALUESCALE),
+    BOOST_TEST(raster->properties().value<CSF_VS>(DAL_CSF_VALUESCALE) ==
          VS_SCALAR);
 
     BOOST_TEST(raster->properties().hasValue(DAL_CSF_PROJECTION));
-    BOOST_CHECK_EQUAL(raster->properties().value<CSF_PT>(DAL_CSF_PROJECTION),
+    BOOST_TEST(raster->properties().value<CSF_PT>(DAL_CSF_PROJECTION) ==
          PT_YINCT2B);
 
     delete raster;
@@ -131,7 +131,7 @@ BOOST_AUTO_TEST_CASE(dtm_small)
   {
     DataSpace const dataSpace =
          dynamic_cast<Driver const&>(driver).dataSpace(filename);
-    BOOST_CHECK_EQUAL(dataSpace.rank(), size_t(1));
+    BOOST_TEST(dataSpace.rank() == size_t(1));
     BOOST_TEST(dataSpace.isSpatial());
     BOOST_TEST(dataSpace.hasRaster());
     BOOST_TEST(!dataSpace.hasTime());
@@ -145,9 +145,9 @@ BOOST_AUTO_TEST_CASE(dtm_small)
     for(size_t row = 0; row < raster->nrRows(); ++row) {
       size_t const index = row * raster->nrCols();
       BOOST_TEST(pcr::isMV(cells[index + 0]));
-      BOOST_CHECK_EQUAL(cells[index + 1], 1.0);
-      BOOST_CHECK_EQUAL(cells[index + 2], 1.0);
-      BOOST_CHECK_EQUAL(cells[index + 3], 1.0);
+      BOOST_TEST(cells[index + 1] == 1.0);
+      BOOST_TEST(cells[index + 2] == 1.0);
+      BOOST_TEST(cells[index + 3] == 1.0);
     }
 
     delete raster;
@@ -167,23 +167,23 @@ BOOST_AUTO_TEST_CASE(accu_ldd_i_map)
     raster = dynamic_cast<Raster*>(
          dynamic_cast<Driver&>(driver).open(filename));
     BOOST_TEST(raster);
-    BOOST_CHECK_EQUAL(raster->nrRows(), size_t(5));
-    BOOST_CHECK_EQUAL(raster->nrCols(), size_t(5));
-    BOOST_CHECK_EQUAL(raster->cellSize(), 1.0);
-    BOOST_CHECK_EQUAL(raster->west() , 0.0);
-    BOOST_CHECK_EQUAL(raster->north(), 0.0);
-    BOOST_CHECK_EQUAL(raster->south(), -5.0);
-    BOOST_CHECK_EQUAL(raster->east() , 5.0);
-    BOOST_CHECK_EQUAL(raster->typeId(), TI_UINT1);
+    BOOST_TEST(raster->nrRows() == size_t(5));
+    BOOST_TEST(raster->nrCols() == size_t(5));
+    BOOST_TEST(raster->cellSize() == 1.0);
+    BOOST_TEST(raster->west()  == 0.0);
+    BOOST_TEST(raster->north() == 0.0);
+    BOOST_TEST(raster->south() == -5.0);
+    BOOST_TEST(raster->east()  == 5.0);
+    BOOST_TEST(raster->typeId() == TI_UINT1);
 
     BOOST_TEST(raster->properties().hasValue(DAL_CSF_ANGLE));
-    BOOST_CHECK_EQUAL(raster->properties().value<REAL8>(DAL_CSF_ANGLE), 0.0);
+    BOOST_TEST(raster->properties().value<REAL8>(DAL_CSF_ANGLE) == 0.0);
 
     BOOST_TEST(raster->properties().hasValue(DAL_CSF_VALUESCALE));
-    BOOST_CHECK_EQUAL(raster->properties().value<CSF_VS>(DAL_CSF_VALUESCALE), VS_LDD);
+    BOOST_TEST(raster->properties().value<CSF_VS>(DAL_CSF_VALUESCALE) == VS_LDD);
 
     BOOST_TEST(raster->properties().hasValue(DAL_CSF_PROJECTION));
-    BOOST_CHECK_EQUAL(raster->properties().value<CSF_PT>(DAL_CSF_PROJECTION), PT_YINCT2B);
+    BOOST_TEST(raster->properties().value<CSF_PT>(DAL_CSF_PROJECTION) == PT_YINCT2B);
 
     delete raster;
   }
@@ -194,35 +194,35 @@ BOOST_AUTO_TEST_CASE(accu_ldd_i_map)
 
     assert(cells);
 
-    BOOST_CHECK_EQUAL(cells[0], 2);
-    BOOST_CHECK_EQUAL(cells[1], 2);
-    BOOST_CHECK_EQUAL(cells[2], 2);
-    BOOST_CHECK_EQUAL(cells[3], 1);
-    BOOST_CHECK_EQUAL(cells[4], 1);
+    BOOST_TEST(cells[0] == 2);
+    BOOST_TEST(cells[1] == 2);
+    BOOST_TEST(cells[2] == 2);
+    BOOST_TEST(cells[3] == 1);
+    BOOST_TEST(cells[4] == 1);
 
-    BOOST_CHECK_EQUAL(cells[5], 2);
-    BOOST_CHECK_EQUAL(cells[6], 2);
-    BOOST_CHECK_EQUAL(cells[7], 1);
-    BOOST_CHECK_EQUAL(cells[8], 1);
-    BOOST_CHECK_EQUAL(cells[9], 1);
+    BOOST_TEST(cells[5] == 2);
+    BOOST_TEST(cells[6] == 2);
+    BOOST_TEST(cells[7] == 1);
+    BOOST_TEST(cells[8] == 1);
+    BOOST_TEST(cells[9] == 1);
 
-    BOOST_CHECK_EQUAL(cells[10], 3);
-    BOOST_CHECK_EQUAL(cells[11], 2);
-    BOOST_CHECK_EQUAL(cells[12], 1);
-    BOOST_CHECK_EQUAL(cells[13], 4);
-    BOOST_CHECK_EQUAL(cells[14], 1);
+    BOOST_TEST(cells[10] == 3);
+    BOOST_TEST(cells[11] == 2);
+    BOOST_TEST(cells[12] == 1);
+    BOOST_TEST(cells[13] == 4);
+    BOOST_TEST(cells[14] == 1);
 
-    BOOST_CHECK_EQUAL(cells[15], 3);
-    BOOST_CHECK_EQUAL(cells[16], 2);
-    BOOST_CHECK_EQUAL(cells[17], 1);
-    BOOST_CHECK_EQUAL(cells[18], 4);
-    BOOST_CHECK_EQUAL(cells[19], 4);
+    BOOST_TEST(cells[15] == 3);
+    BOOST_TEST(cells[16] == 2);
+    BOOST_TEST(cells[17] == 1);
+    BOOST_TEST(cells[18] == 4);
+    BOOST_TEST(cells[19] == 4);
 
-    BOOST_CHECK_EQUAL(cells[20], 6);
-    BOOST_CHECK_EQUAL(cells[21], 5);
-    BOOST_CHECK_EQUAL(cells[22], 4);
-    BOOST_CHECK_EQUAL(cells[23], 4);
-    BOOST_CHECK_EQUAL(cells[24], 4);
+    BOOST_TEST(cells[20] == 6);
+    BOOST_TEST(cells[21] == 5);
+    BOOST_TEST(cells[22] == 4);
+    BOOST_TEST(cells[23] == 4);
+    BOOST_TEST(cells[24] == 4);
 
     delete raster;
   }
@@ -241,21 +241,21 @@ BOOST_AUTO_TEST_CASE(names)
     raster = dynamic_cast<Raster*>(
          dynamic_cast<Driver&>(driver).open(filename));
     BOOST_TEST(raster);
-    BOOST_CHECK_EQUAL(raster->nrRows(), size_t(3));
-    BOOST_CHECK_EQUAL(raster->nrCols(), size_t(2));
-    BOOST_CHECK_EQUAL(raster->cellSize(), 50.0);
-    BOOST_CHECK_EQUAL(raster->west() , 100000);
-    BOOST_CHECK_EQUAL(raster->north(), 200000);
-    BOOST_CHECK_EQUAL(raster->typeId(), TI_INT4);
+    BOOST_TEST(raster->nrRows() == size_t(3));
+    BOOST_TEST(raster->nrCols() == size_t(2));
+    BOOST_TEST(raster->cellSize() == 50.0);
+    BOOST_TEST(raster->west()  == 100000);
+    BOOST_TEST(raster->north() == 200000);
+    BOOST_TEST(raster->typeId() == TI_INT4);
 
     BOOST_TEST(raster->properties().hasValue(DAL_CSF_ANGLE));
-    BOOST_CHECK_EQUAL(raster->properties().value<REAL8>(DAL_CSF_ANGLE), 0.0);
+    BOOST_TEST(raster->properties().value<REAL8>(DAL_CSF_ANGLE) == 0.0);
 
     BOOST_TEST(raster->properties().hasValue(DAL_CSF_VALUESCALE));
-    BOOST_CHECK_EQUAL(raster->properties().value<CSF_VS>(DAL_CSF_VALUESCALE), VS_NOMINAL);
+    BOOST_TEST(raster->properties().value<CSF_VS>(DAL_CSF_VALUESCALE) == VS_NOMINAL);
 
     BOOST_TEST(raster->properties().hasValue(DAL_CSF_PROJECTION));
-    BOOST_CHECK_EQUAL(raster->properties().value<CSF_PT>(DAL_CSF_PROJECTION), PT_YDECT2B);
+    BOOST_TEST(raster->properties().value<CSF_PT>(DAL_CSF_PROJECTION) == PT_YDECT2B);
 
     delete raster;
   }
@@ -266,21 +266,21 @@ BOOST_AUTO_TEST_CASE(names)
     raster = dynamic_cast<Raster*>(
          dynamic_cast<Driver&>(driver).open(filename));
     BOOST_TEST(raster);
-    BOOST_CHECK_EQUAL(raster->nrRows(), size_t(3));
-    BOOST_CHECK_EQUAL(raster->nrCols(), size_t(2));
-    BOOST_CHECK_EQUAL(raster->cellSize(), 50.0);
-    BOOST_CHECK_EQUAL(raster->west() , 100000);
-    BOOST_CHECK_EQUAL(raster->north(), 200000);
-    BOOST_CHECK_EQUAL(raster->typeId(), TI_INT4);
+    BOOST_TEST(raster->nrRows() == size_t(3));
+    BOOST_TEST(raster->nrCols() == size_t(2));
+    BOOST_TEST(raster->cellSize() == 50.0);
+    BOOST_TEST(raster->west()  == 100000);
+    BOOST_TEST(raster->north() == 200000);
+    BOOST_TEST(raster->typeId() == TI_INT4);
 
     BOOST_TEST(raster->properties().hasValue(DAL_CSF_ANGLE));
-    BOOST_CHECK_EQUAL(raster->properties().value<REAL8>(DAL_CSF_ANGLE), 0.0);
+    BOOST_TEST(raster->properties().value<REAL8>(DAL_CSF_ANGLE) == 0.0);
 
     BOOST_TEST(raster->properties().hasValue(DAL_CSF_VALUESCALE));
-    BOOST_CHECK_EQUAL(raster->properties().value<CSF_VS>(DAL_CSF_VALUESCALE), VS_ORDINAL);
+    BOOST_TEST(raster->properties().value<CSF_VS>(DAL_CSF_VALUESCALE) == VS_ORDINAL);
 
     BOOST_TEST(raster->properties().hasValue(DAL_CSF_PROJECTION));
-    BOOST_CHECK_EQUAL(raster->properties().value<CSF_PT>(DAL_CSF_PROJECTION), PT_YDECT2B);
+    BOOST_TEST(raster->properties().value<CSF_PT>(DAL_CSF_PROJECTION) == PT_YDECT2B);
 
     delete raster;
   }
@@ -344,7 +344,7 @@ BOOST_AUTO_TEST_CASE(properties)
     BOOST_TEST(raster->properties().hasValue(DAL_LEGEND));
     BOOST_TEST(!raster->properties().hasValue(DAL_DEFAULT_EXTENSION));
     // If not, add more tests.
-    BOOST_CHECK_EQUAL(raster->properties().size(), size_t(4));
+    BOOST_TEST(raster->properties().size() == size_t(4));
 
     // This test is only useful in case a raster from a dynamic stack is read.
     // Driver properties.
@@ -352,7 +352,7 @@ BOOST_AUTO_TEST_CASE(properties)
     // Properties const& properties(driver.properties().value<Properties>(name));
     // BOOST_TEST(properties.hasValue(DAL_FILENAME_CONVENTION));
     // If not, add more tests.
-    // BOOST_CHECK_EQUAL(properties.size(), 1);
+    // BOOST_TEST(properties.size() == 1);
   }
 
   {
@@ -369,7 +369,7 @@ BOOST_AUTO_TEST_CASE(properties)
     BOOST_TEST(raster->properties().hasValue(DAL_LEGEND));
     BOOST_TEST(!raster->properties().hasValue(DAL_DEFAULT_EXTENSION));
     // If not, add more tests.
-    BOOST_CHECK_EQUAL(raster->properties().size(), size_t(4));
+    BOOST_TEST(raster->properties().size() == size_t(4));
   }
 
   {
@@ -411,19 +411,19 @@ BOOST_AUTO_TEST_CASE(query)
     BOOST_TEST(space.hasTime());
 
     Dimension const& dimension(space.dimension(Time));
-    BOOST_CHECK_EQUAL(dimension.discretisation(), RegularDiscretisation);
-    BOOST_CHECK_EQUAL(dimension.nrValues(), size_t(3));
-    BOOST_CHECK_EQUAL(dimension.nrCoordinates(), size_t(6));
-    BOOST_CHECK_EQUAL(dimension.coordinate<size_t>(0), size_t(10));
-    BOOST_CHECK_EQUAL(dimension.coordinate<size_t>(1), size_t(11));
-    BOOST_CHECK_EQUAL(dimension.coordinate<size_t>(2), size_t(12));
-    BOOST_CHECK_EQUAL(dimension.coordinate<size_t>(3), size_t(13));
-    BOOST_CHECK_EQUAL(dimension.coordinate<size_t>(4), size_t(14));
-    BOOST_CHECK_EQUAL(dimension.coordinate<size_t>(5), size_t(15));
+    BOOST_TEST(dimension.discretisation() == RegularDiscretisation);
+    BOOST_TEST(dimension.nrValues() == size_t(3));
+    BOOST_TEST(dimension.nrCoordinates() == size_t(6));
+    BOOST_TEST(dimension.coordinate<size_t>(0) == size_t(10));
+    BOOST_TEST(dimension.coordinate<size_t>(1) == size_t(11));
+    BOOST_TEST(dimension.coordinate<size_t>(2) == size_t(12));
+    BOOST_TEST(dimension.coordinate<size_t>(3) == size_t(13));
+    BOOST_TEST(dimension.coordinate<size_t>(4) == size_t(14));
+    BOOST_TEST(dimension.coordinate<size_t>(5) == size_t(15));
 
     DataSpaceAddress const& address(result.address());
     BOOST_TEST(space.isValid(address));
 
-    BOOST_CHECK_EQUAL(address.coordinate<size_t>(0), size_t(10));
+    BOOST_TEST(address.coordinate<size_t>(0) == size_t(10));
   }
 }

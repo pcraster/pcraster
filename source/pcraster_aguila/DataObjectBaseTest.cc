@@ -31,21 +31,21 @@ BOOST_AUTO_TEST_CASE(test)
   space.addDimension(dal::Dimension(dal::Time, size_t(10), size_t(20), size_t(1)));
 
   RasterDataSources dataSources;
-  BOOST_CHECK_EQUAL(dataSources.size(), size_t(0));
+  BOOST_TEST(dataSources.size() == size_t(0));
   BOOST_TEST(dataSources.empty());
 
   DataGuide const guide1 = dataSources.add(name, space);
-  BOOST_CHECK_EQUAL(dataSources.size(), size_t(1));
+  BOOST_TEST(dataSources.size() == size_t(1));
   BOOST_TEST(!dataSources.empty());
 
   DataGuide const guide2 = dataSources.add(name, space);
-  BOOST_CHECK_EQUAL(dataSources.size(), size_t(1));
+  BOOST_TEST(dataSources.size() == size_t(1));
   BOOST_TEST(!dataSources.empty());
 
-  // BOOST_CHECK_EQUAL(dataSources._manager.size(), size_t(1));
+  // BOOST_TEST(dataSources._manager.size() == size_t(1));
 
   dataSources.clear();
-  BOOST_CHECK_EQUAL(dataSources.size(), size_t(0));
+  BOOST_TEST(dataSources.size() == size_t(0));
   BOOST_TEST(dataSources.empty());
 
   // BOOST_TEST(dataSources._manager.empty());

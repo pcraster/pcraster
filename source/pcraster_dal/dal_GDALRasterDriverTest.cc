@@ -29,27 +29,27 @@ void testUInt1Raster1(
   // Open.
   raster.reset(driver.open(name));
   BOOST_TEST_REQUIRE(raster);
-  BOOST_CHECK_EQUAL(raster->nrRows(), size_t(3));
-  BOOST_CHECK_EQUAL(raster->nrCols(), size_t(3));
-  BOOST_CHECK_EQUAL(raster->cellSize(), 1.0);
-  BOOST_CHECK_EQUAL(raster->west(), 0.0);
-  BOOST_CHECK_EQUAL(raster->south(), -3.0);
-  BOOST_CHECK_EQUAL(raster->typeId(), dal::TI_UINT1);
+  BOOST_TEST(raster->nrRows() == size_t(3));
+  BOOST_TEST(raster->nrCols() == size_t(3));
+  BOOST_TEST(raster->cellSize() == 1.0);
+  BOOST_TEST(raster->west() == 0.0);
+  BOOST_TEST(raster->south() == -3.0);
+  BOOST_TEST(raster->typeId() == dal::TI_UINT1);
 
   // Read.
   raster.reset(driver.read(name));
   BOOST_TEST_REQUIRE(raster);
   auto const* cells = static_cast<UINT1 const*>(raster->cells());
   BOOST_TEST_REQUIRE(cells);
-  BOOST_CHECK_EQUAL(cells[0], 1);
-  BOOST_CHECK_EQUAL(cells[1], 0);
-  BOOST_CHECK_EQUAL(cells[2], 1);
+  BOOST_TEST(cells[0] == 1);
+  BOOST_TEST(cells[1] == 0);
+  BOOST_TEST(cells[2] == 1);
   BOOST_TEST(pcr::isMV(cells[3]));
-  BOOST_CHECK_EQUAL(cells[4], 1);
-  BOOST_CHECK_EQUAL(cells[5], 1);
-  BOOST_CHECK_EQUAL(cells[6], 1);
-  BOOST_CHECK_EQUAL(cells[7], 1);
-  BOOST_CHECK_EQUAL(cells[8], 0);
+  BOOST_TEST(cells[4] == 1);
+  BOOST_TEST(cells[5] == 1);
+  BOOST_TEST(cells[6] == 1);
+  BOOST_TEST(cells[7] == 1);
+  BOOST_TEST(cells[8] == 0);
 }
 
 
@@ -62,43 +62,43 @@ void testInt4Raster1(
   // Open.
   raster.reset(driver.open(name));
   BOOST_TEST_REQUIRE(raster);
-  BOOST_CHECK_EQUAL(raster->nrRows(), size_t(5));
-  BOOST_CHECK_EQUAL(raster->nrCols(), size_t(5));
-  BOOST_CHECK_EQUAL(raster->cellSize(), 2.0);
-  BOOST_CHECK_EQUAL(raster->west(), 0.0);
-  BOOST_CHECK_EQUAL(raster->south(), -10.0);
-  BOOST_CHECK_EQUAL(raster->typeId(), dal::TI_INT4);
+  BOOST_TEST(raster->nrRows() == size_t(5));
+  BOOST_TEST(raster->nrCols() == size_t(5));
+  BOOST_TEST(raster->cellSize() == 2.0);
+  BOOST_TEST(raster->west() == 0.0);
+  BOOST_TEST(raster->south() == -10.0);
+  BOOST_TEST(raster->typeId() == dal::TI_INT4);
 
   // Read.
   raster.reset(driver.read(name));
   BOOST_TEST_REQUIRE(raster);
   INT4 const* cells = static_cast<INT4 const*>(raster->cells());
   BOOST_TEST_REQUIRE(cells);
-  BOOST_CHECK_EQUAL(cells[0], 2);
-  BOOST_CHECK_EQUAL(cells[1], 6);
-  BOOST_CHECK_EQUAL(cells[2], 2);
-  BOOST_CHECK_EQUAL(cells[3], 2);
+  BOOST_TEST(cells[0] == 2);
+  BOOST_TEST(cells[1] == 6);
+  BOOST_TEST(cells[2] == 2);
+  BOOST_TEST(cells[3] == 2);
   BOOST_TEST(pcr::isMV(cells[4]));
-  BOOST_CHECK_EQUAL(cells[5], 6);
-  BOOST_CHECK_EQUAL(cells[6], 6);
-  BOOST_CHECK_EQUAL(cells[7], 2);
-  BOOST_CHECK_EQUAL(cells[8], 2);
-  BOOST_CHECK_EQUAL(cells[9], 2);
-  BOOST_CHECK_EQUAL(cells[10], 6);
-  BOOST_CHECK_EQUAL(cells[11], 6);
-  BOOST_CHECK_EQUAL(cells[12], 0);
-  BOOST_CHECK_EQUAL(cells[13], 0);
-  BOOST_CHECK_EQUAL(cells[14], 0);
-  BOOST_CHECK_EQUAL(cells[15], 6);
-  BOOST_CHECK_EQUAL(cells[16], 6);
-  BOOST_CHECK_EQUAL(cells[17], 0);
-  BOOST_CHECK_EQUAL(cells[18], 0);
-  BOOST_CHECK_EQUAL(cells[19], 0);
-  BOOST_CHECK_EQUAL(cells[20], 6);
-  BOOST_CHECK_EQUAL(cells[21], 3);
-  BOOST_CHECK_EQUAL(cells[22], 3);
-  BOOST_CHECK_EQUAL(cells[23], 4);
-  BOOST_CHECK_EQUAL(cells[24], 4);
+  BOOST_TEST(cells[5] == 6);
+  BOOST_TEST(cells[6] == 6);
+  BOOST_TEST(cells[7] == 2);
+  BOOST_TEST(cells[8] == 2);
+  BOOST_TEST(cells[9] == 2);
+  BOOST_TEST(cells[10] == 6);
+  BOOST_TEST(cells[11] == 6);
+  BOOST_TEST(cells[12] == 0);
+  BOOST_TEST(cells[13] == 0);
+  BOOST_TEST(cells[14] == 0);
+  BOOST_TEST(cells[15] == 6);
+  BOOST_TEST(cells[16] == 6);
+  BOOST_TEST(cells[17] == 0);
+  BOOST_TEST(cells[18] == 0);
+  BOOST_TEST(cells[19] == 0);
+  BOOST_TEST(cells[20] == 6);
+  BOOST_TEST(cells[21] == 3);
+  BOOST_TEST(cells[22] == 3);
+  BOOST_TEST(cells[23] == 4);
+  BOOST_TEST(cells[24] == 4);
 }
 
 
@@ -111,27 +111,27 @@ void testInt4Raster2(
   // Open.
   raster.reset(driver.open(name));
   BOOST_TEST_REQUIRE(raster);
-  BOOST_CHECK_EQUAL(raster->nrRows(), size_t(3));
-  BOOST_CHECK_EQUAL(raster->nrCols(), size_t(3));
-  BOOST_CHECK_EQUAL(raster->cellSize(), 4.0);
-  BOOST_CHECK_EQUAL(raster->west(), 10.0);
-  BOOST_CHECK_EQUAL(raster->south(), -2.0);
-  BOOST_CHECK_EQUAL(raster->typeId(), dal::TI_INT4);
+  BOOST_TEST(raster->nrRows() == size_t(3));
+  BOOST_TEST(raster->nrCols() == size_t(3));
+  BOOST_TEST(raster->cellSize() == 4.0);
+  BOOST_TEST(raster->west() == 10.0);
+  BOOST_TEST(raster->south() == -2.0);
+  BOOST_TEST(raster->typeId() == dal::TI_INT4);
 
   // Read.
   raster.reset(driver.read(name));
   BOOST_TEST_REQUIRE(raster);
   INT4 const* cells = static_cast<INT4 const*>(raster->cells());
   BOOST_TEST_REQUIRE(cells);
-  BOOST_CHECK_EQUAL(cells[0], 1);
-  BOOST_CHECK_EQUAL(cells[1], 2);
-  BOOST_CHECK_EQUAL(cells[2], 3);
-  BOOST_CHECK_EQUAL(cells[3], 4);
-  BOOST_CHECK_EQUAL(cells[4], 5);
-  BOOST_CHECK_EQUAL(cells[5], 6);
-  BOOST_CHECK_EQUAL(cells[6], 7);
+  BOOST_TEST(cells[0] == 1);
+  BOOST_TEST(cells[1] == 2);
+  BOOST_TEST(cells[2] == 3);
+  BOOST_TEST(cells[3] == 4);
+  BOOST_TEST(cells[4] == 5);
+  BOOST_TEST(cells[5] == 6);
+  BOOST_TEST(cells[6] == 7);
   BOOST_TEST(pcr::isMV(cells[7]));
-  BOOST_CHECK_EQUAL(cells[8], 9);
+  BOOST_TEST(cells[8] == 9);
 }
 
 
@@ -144,27 +144,27 @@ void testReal4Raster1(
   // Open.
   raster.reset(driver.open(name));
   BOOST_TEST_REQUIRE(raster);
-  BOOST_CHECK_EQUAL(raster->nrRows(), size_t(3));
-  BOOST_CHECK_EQUAL(raster->nrCols(), size_t(3));
-  BOOST_CHECK_EQUAL(raster->cellSize(), 1.0);
-  BOOST_CHECK_EQUAL(raster->west(), 0.0);
-  BOOST_CHECK_EQUAL(raster->south(), -3.0);
-  BOOST_CHECK_EQUAL(raster->typeId(), dal::TI_REAL4);
+  BOOST_TEST(raster->nrRows() == size_t(3));
+  BOOST_TEST(raster->nrCols() == size_t(3));
+  BOOST_TEST(raster->cellSize() == 1.0);
+  BOOST_TEST(raster->west() == 0.0);
+  BOOST_TEST(raster->south() == -3.0);
+  BOOST_TEST(raster->typeId() == dal::TI_REAL4);
 
   // Read.
   raster.reset(driver.read(name));
   BOOST_TEST_REQUIRE(raster);
   auto const* cells = static_cast<REAL4 const*>(raster->cells());
   BOOST_TEST_REQUIRE(cells);
-  BOOST_CHECK_EQUAL(cells[0], REAL4(2));
-  BOOST_CHECK_EQUAL(cells[1], REAL4(-7));
-  BOOST_CHECK_EQUAL(cells[2], REAL4(3.5));
-  BOOST_CHECK_EQUAL(cells[3], REAL4(-8.5));
-  BOOST_CHECK_EQUAL(cells[4], REAL4(3.6));
+  BOOST_TEST(cells[0] == REAL4(2));
+  BOOST_TEST(cells[1] == REAL4(-7));
+  BOOST_TEST(cells[2] == REAL4(3.5));
+  BOOST_TEST(cells[3] == REAL4(-8.5));
+  BOOST_TEST(cells[4] == REAL4(3.6));
   BOOST_TEST(pcr::isMV(cells[5]));
-  BOOST_CHECK_EQUAL(cells[6], REAL4(0.0));
-  BOOST_CHECK_EQUAL(cells[7], REAL4(14));
-  BOOST_CHECK_EQUAL(cells[8], REAL4(-0.8));
+  BOOST_TEST(cells[6] == REAL4(0.0));
+  BOOST_TEST(cells[7] == REAL4(14));
+  BOOST_TEST(cells[8] == REAL4(-0.8));
 }
 
 
@@ -177,12 +177,12 @@ void testReal4Raster2(
   // Open.
   raster.reset(driver.open(name));
   BOOST_TEST_REQUIRE(raster);
-  BOOST_CHECK_EQUAL(raster->nrRows(), size_t(3));
-  BOOST_CHECK_EQUAL(raster->nrCols(), size_t(3));
-  BOOST_CHECK_EQUAL(raster->cellSize(), 1.0);
-  BOOST_CHECK_EQUAL(raster->west(), 0.0);
-  BOOST_CHECK_EQUAL(raster->south(), -3.0);
-  BOOST_CHECK_EQUAL(raster->typeId(), dal::TI_REAL4);
+  BOOST_TEST(raster->nrRows() == size_t(3));
+  BOOST_TEST(raster->nrCols() == size_t(3));
+  BOOST_TEST(raster->cellSize() == 1.0);
+  BOOST_TEST(raster->west() == 0.0);
+  BOOST_TEST(raster->south() == -3.0);
+  BOOST_TEST(raster->typeId() == dal::TI_REAL4);
 
   // Read.
   raster.reset(driver.read(name));
@@ -211,47 +211,47 @@ void testUInt1Raster2(
   // Open.
   raster.reset(driver.open(name));
   BOOST_TEST_REQUIRE(raster);
-  BOOST_CHECK_EQUAL(raster->nrRows(), size_t(5));
-  BOOST_CHECK_EQUAL(raster->nrCols(), size_t(5));
-  BOOST_CHECK_EQUAL(raster->cellSize(), 1.0);
-  BOOST_CHECK_EQUAL(raster->west(), 0.0);
-  BOOST_CHECK_EQUAL(raster->south(), -5.0);
-  BOOST_CHECK_EQUAL(raster->typeId(), dal::TI_UINT1);
+  BOOST_TEST(raster->nrRows() == size_t(5));
+  BOOST_TEST(raster->nrCols() == size_t(5));
+  BOOST_TEST(raster->cellSize() == 1.0);
+  BOOST_TEST(raster->west() == 0.0);
+  BOOST_TEST(raster->south() == -5.0);
+  BOOST_TEST(raster->typeId() == dal::TI_UINT1);
 
   // Read.
   raster.reset(driver.read(name));
   BOOST_TEST_REQUIRE(raster);
   auto const* cells = static_cast<UINT1 const*>(raster->cells());
   BOOST_TEST_REQUIRE(cells);
-  BOOST_CHECK_EQUAL(cells[0], 2);
-  BOOST_CHECK_EQUAL(cells[1], 2);
-  BOOST_CHECK_EQUAL(cells[2], 2);
-  BOOST_CHECK_EQUAL(cells[3], 1);
-  BOOST_CHECK_EQUAL(cells[4], 1);
+  BOOST_TEST(cells[0] == 2);
+  BOOST_TEST(cells[1] == 2);
+  BOOST_TEST(cells[2] == 2);
+  BOOST_TEST(cells[3] == 1);
+  BOOST_TEST(cells[4] == 1);
 
-  BOOST_CHECK_EQUAL(cells[5], 2);
-  BOOST_CHECK_EQUAL(cells[6], 2);
-  BOOST_CHECK_EQUAL(cells[7], 1);
-  BOOST_CHECK_EQUAL(cells[8], 1);
-  BOOST_CHECK_EQUAL(cells[9], 1);
+  BOOST_TEST(cells[5] == 2);
+  BOOST_TEST(cells[6] == 2);
+  BOOST_TEST(cells[7] == 1);
+  BOOST_TEST(cells[8] == 1);
+  BOOST_TEST(cells[9] == 1);
 
-  BOOST_CHECK_EQUAL(cells[10], 3);
-  BOOST_CHECK_EQUAL(cells[11], 2);
-  BOOST_CHECK_EQUAL(cells[12], 1);
-  BOOST_CHECK_EQUAL(cells[13], 4);
-  BOOST_CHECK_EQUAL(cells[14], 1);
+  BOOST_TEST(cells[10] == 3);
+  BOOST_TEST(cells[11] == 2);
+  BOOST_TEST(cells[12] == 1);
+  BOOST_TEST(cells[13] == 4);
+  BOOST_TEST(cells[14] == 1);
 
-  BOOST_CHECK_EQUAL(cells[15], 3);
-  BOOST_CHECK_EQUAL(cells[16], 2);
-  BOOST_CHECK_EQUAL(cells[17], 1);
-  BOOST_CHECK_EQUAL(cells[18], 4);
-  BOOST_CHECK_EQUAL(cells[19], 4);
+  BOOST_TEST(cells[15] == 3);
+  BOOST_TEST(cells[16] == 2);
+  BOOST_TEST(cells[17] == 1);
+  BOOST_TEST(cells[18] == 4);
+  BOOST_TEST(cells[19] == 4);
 
-  BOOST_CHECK_EQUAL(cells[20], 6);
-  BOOST_CHECK_EQUAL(cells[21], 5);
-  BOOST_CHECK_EQUAL(cells[22], 4);
-  BOOST_CHECK_EQUAL(cells[23], 4);
-  BOOST_CHECK_EQUAL(cells[24], 4);
+  BOOST_TEST(cells[20] == 6);
+  BOOST_TEST(cells[21] == 5);
+  BOOST_TEST(cells[22] == 4);
+  BOOST_TEST(cells[23] == 4);
+  BOOST_TEST(cells[24] == 4);
 }
 
 
@@ -264,12 +264,12 @@ void testAllMVRaster(
   // Open.
   raster.reset(driver.open(name));
   BOOST_TEST_REQUIRE(raster);
-  BOOST_CHECK_EQUAL(raster->nrRows(), size_t(3));
-  BOOST_CHECK_EQUAL(raster->nrCols(), size_t(2));
-  BOOST_CHECK_EQUAL(raster->cellSize(), 50.0);
-  BOOST_CHECK_EQUAL(raster->west(), 100000.0);
-  BOOST_CHECK_EQUAL(raster->south(), 199850.0);
-  BOOST_CHECK_EQUAL(raster->typeId(), dal::TI_UINT1);
+  BOOST_TEST(raster->nrRows() == size_t(3));
+  BOOST_TEST(raster->nrCols() == size_t(2));
+  BOOST_TEST(raster->cellSize() == 50.0);
+  BOOST_TEST(raster->west() == 100000.0);
+  BOOST_TEST(raster->south() == 199850.0);
+  BOOST_TEST(raster->typeId() == dal::TI_UINT1);
 
   raster.reset(driver.read(name));
   BOOST_TEST_REQUIRE(raster);
@@ -307,16 +307,16 @@ void testTemporalRaster(
          queryResult.address())));
 
   BOOST_TEST_REQUIRE(raster);
-  BOOST_CHECK_EQUAL(raster->nrRows(), size_t(3));
-  BOOST_CHECK_EQUAL(raster->nrCols(), size_t(2));
-  BOOST_CHECK_EQUAL(raster->cellSize(), 50.0);
-  BOOST_CHECK_EQUAL(raster->west(), 100000.0);
-  BOOST_CHECK_EQUAL(raster->south(), 199850.0);
-  BOOST_CHECK_EQUAL(raster->typeId(), dal::TI_INT4);
+  BOOST_TEST(raster->nrRows() == size_t(3));
+  BOOST_TEST(raster->nrCols() == size_t(2));
+  BOOST_TEST(raster->cellSize() == 50.0);
+  BOOST_TEST(raster->west() == 100000.0);
+  BOOST_TEST(raster->south() == 199850.0);
+  BOOST_TEST(raster->typeId() == dal::TI_INT4);
 
   const dal::DataSpaceAddress& address(queryResult.address());
   BOOST_REQUIRE_EQUAL(address.size(), size_t(1));
-  BOOST_CHECK_EQUAL(address.coordinate<size_t>(0), size_t(10));
+  BOOST_TEST(address.coordinate<size_t>(0) == size_t(10));
 }
 
 } // namespace detail
@@ -353,7 +353,7 @@ BOOST_AUTO_TEST_CASE(description)
   GDALDriver* gdalDriver = manager->GetDriver(0);
 
   GDALRasterDriver const driver(gdalDriver);
-  BOOST_CHECK_EQUAL(driver.description(),
+  BOOST_TEST(driver.description() ==
          std::string("GDAL raster driver for ") + gdalDriver->GetDescription());
 }
 
@@ -375,7 +375,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
     raster = dynamic_cast<RasterDriver&>(driver).read(filename);
   }
   catch(Exception& exception) {
-    BOOST_CHECK_EQUAL(exception.message(),
+    BOOST_TEST(exception.message() ==
          "Data source " + filename + "(raster):\ncannot be opened");
     exceptionCaught = true;
   }
@@ -400,7 +400,7 @@ BOOST_AUTO_TEST_CASE(empty)
     raster = dynamic_cast<RasterDriver&>(driver).read(filename);
   }
   catch(Exception& exception) {
-    BOOST_CHECK_EQUAL(exception.message(),
+    BOOST_TEST(exception.message() ==
         "Data source " + filename + "(raster):\ncannot be opened");
     exceptionCaught = true;
   }
@@ -496,14 +496,14 @@ BOOST_AUTO_TEST_CASE(esri_ascii_grid1)
            dynamic_cast<Driver&>(driver).open(filename));
     BOOST_TEST(raster);
 
-    // BOOST_CHECK_EQUAL(raster->name(), std::string("esriasciigrid1.asc"));
-    BOOST_CHECK_EQUAL(raster->nrRows(), size_t(4));
-    BOOST_CHECK_EQUAL(raster->nrCols(), size_t(3));
-    BOOST_CHECK_EQUAL(raster->cellSize(), 10.0);
-    BOOST_CHECK_EQUAL(raster->west(), 3.0);
-    BOOST_CHECK_EQUAL(raster->south(), 4.0);
-    // BOOST_CHECK_EQUAL(raster->projection(), YINCRS2N);
-    // BOOST_CHECK_EQUAL(raster->angle(), 0.0);
+    // BOOST_TEST(raster->name() == std::string("esriasciigrid1.asc"));
+    BOOST_TEST(raster->nrRows() == size_t(4));
+    BOOST_TEST(raster->nrCols() == size_t(3));
+    BOOST_TEST(raster->cellSize() == 10.0);
+    BOOST_TEST(raster->west() == 3.0);
+    BOOST_TEST(raster->south() == 4.0);
+    // BOOST_TEST(raster->projection() == YINCRS2N);
+    // BOOST_TEST(raster->angle() == 0.0);
     BOOST_REQUIRE_EQUAL(raster->typeId(), TI_INT4);
 
     delete raster;
@@ -515,18 +515,18 @@ BOOST_AUTO_TEST_CASE(esri_ascii_grid1)
     INT4 const* cells = static_cast<INT4 const*>(raster->cells());
     BOOST_TEST(cells);
 
-    BOOST_CHECK_EQUAL(cells[0], 1);
-    BOOST_CHECK_EQUAL(cells[1], 2);
-    BOOST_CHECK_EQUAL(cells[2], 3);
-    BOOST_CHECK_EQUAL(cells[3], 4);
+    BOOST_TEST(cells[0] == 1);
+    BOOST_TEST(cells[1] == 2);
+    BOOST_TEST(cells[2] == 3);
+    BOOST_TEST(cells[3] == 4);
     BOOST_TEST(pcr::isMV(cells[4]));
-    BOOST_CHECK_EQUAL(cells[5], 6);
-    BOOST_CHECK_EQUAL(cells[6], 7);
-    BOOST_CHECK_EQUAL(cells[7], 8);
-    BOOST_CHECK_EQUAL(cells[8], 9);
-    BOOST_CHECK_EQUAL(cells[9], 10);
-    BOOST_CHECK_EQUAL(cells[10], 11);
-    BOOST_CHECK_EQUAL(cells[11], 12);
+    BOOST_TEST(cells[5] == 6);
+    BOOST_TEST(cells[6] == 7);
+    BOOST_TEST(cells[7] == 8);
+    BOOST_TEST(cells[8] == 9);
+    BOOST_TEST(cells[9] == 10);
+    BOOST_TEST(cells[10] == 11);
+    BOOST_TEST(cells[11] == 12);
 
     delete raster;
   }
@@ -569,12 +569,12 @@ BOOST_AUTO_TEST_CASE(default_extension)
            dynamic_cast<Driver&>(driver).open(filename));
     BOOST_TEST(raster);
 
-    BOOST_CHECK_EQUAL(raster->nrRows(), size_t(4));
-    BOOST_CHECK_EQUAL(raster->nrCols(), size_t(3));
-    BOOST_CHECK_EQUAL(raster->cellSize(), 10.0);
-    BOOST_CHECK_EQUAL(raster->west(), 3.0);
-    BOOST_CHECK_EQUAL(raster->south(), 4.0);
-    BOOST_CHECK_EQUAL(raster->typeId(), TI_INT4);
+    BOOST_TEST(raster->nrRows() == size_t(4));
+    BOOST_TEST(raster->nrCols() == size_t(3));
+    BOOST_TEST(raster->cellSize() == 10.0);
+    BOOST_TEST(raster->west() == 3.0);
+    BOOST_TEST(raster->south() == 4.0);
+    BOOST_TEST(raster->typeId() == TI_INT4);
 
     delete raster;
   }

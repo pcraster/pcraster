@@ -11,34 +11,34 @@ BOOST_AUTO_TEST_CASE(read_)
   using namespace dal;
 
   CSFMap map("inp1b.map");
-  BOOST_CHECK_EQUAL(map.nrRows(), size_t(5));
-  BOOST_CHECK_EQUAL(map.nrCols(), size_t(5));
-  BOOST_CHECK_EQUAL(map.cellSize(), 50);
+  BOOST_TEST(map.nrRows() == size_t(5));
+  BOOST_TEST(map.nrCols() == size_t(5));
+  BOOST_TEST(map.cellSize() == 50);
   {
     UINT1 data[25];
     map.getCells(0, 25, data);
     BOOST_TEST(pcr::isMV(data[0]));
-    BOOST_CHECK_EQUAL(data[1], 1);
-    BOOST_CHECK_EQUAL(map.fileTypeId(), TI_UINT1);
-    BOOST_CHECK_EQUAL(map.useTypeId(), TI_UINT1);
+    BOOST_TEST(data[1] == 1);
+    BOOST_TEST(map.fileTypeId() == TI_UINT1);
+    BOOST_TEST(map.useTypeId() == TI_UINT1);
 
     auto min = std::any_cast<UINT1>(map.min());
-    BOOST_CHECK_EQUAL(min, 1);
+    BOOST_TEST(min == 1);
   }
   {
     map.useAs(TI_REAL4);
-    BOOST_CHECK_EQUAL(map.fileTypeId(), TI_UINT1);
-    BOOST_CHECK_EQUAL(map.useTypeId(), TI_REAL4);
+    BOOST_TEST(map.fileTypeId() == TI_UINT1);
+    BOOST_TEST(map.useTypeId() == TI_REAL4);
     map.useAs(TI_REAL4);
     REAL4 data[25];
     map.getCells(0, 25, data);
     BOOST_TEST(pcr::isMV(data[0]));
-    BOOST_CHECK_EQUAL(data[1], 1);
+    BOOST_TEST(data[1] == 1);
 
     BOOST_CHECK_THROW(std::any_cast<UINT1>(map.min()), std::bad_any_cast);
 
     auto min = std::any_cast<REAL4>(map.min());
-    BOOST_CHECK_EQUAL(min, 1);
+    BOOST_TEST(min == 1);
   }
 }
 
@@ -53,9 +53,9 @@ BOOST_AUTO_TEST_CASE(create)
   }
   {
    CSFMap const map("csfMapTestCreate.map");
-   BOOST_CHECK_EQUAL(map.nrRows(), size_t(5));
-   BOOST_CHECK_EQUAL(map.nrCols(), size_t(5));
-   BOOST_CHECK_EQUAL(map.cellSize(), 30);
+   BOOST_TEST(map.nrRows() == size_t(5));
+   BOOST_TEST(map.nrCols() == size_t(5));
+   BOOST_TEST(map.cellSize() == 30);
   }
 }
 
@@ -86,13 +86,13 @@ BOOST_AUTO_TEST_CASE(error)
 //   CSFMap map("d83.map");
 //   BOOST_TEST(map.hasLegend());
 //   Table legend(map.legend());
-//   BOOST_CHECK_EQUAL(legend.title(), "");
-//   BOOST_CHECK_EQUAL(legend.nrRecs(), size_t(2));
-//   BOOST_CHECK_EQUAL(legend.nrCols(), size_t(2));
-//   BOOST_CHECK_EQUAL(legend.typeId(0), TI_INT4);
-//   BOOST_CHECK_EQUAL(legend.typeId(1), TI_STRING);
-//   BOOST_CHECK_EQUAL(legend.col<INT4>(0)[0], 0);
-//   BOOST_CHECK_EQUAL(legend.col<std::string>(1)[0], "no dump");
-//   BOOST_CHECK_EQUAL(legend.col<INT4>(0)[1], 1);
-//   BOOST_CHECK_EQUAL(legend.col<std::string>(1)[1], "dump");
+//   BOOST_TEST(legend.title() == "");
+//   BOOST_TEST(legend.nrRecs() == size_t(2));
+//   BOOST_TEST(legend.nrCols() == size_t(2));
+//   BOOST_TEST(legend.typeId(0) == TI_INT4);
+//   BOOST_TEST(legend.typeId(1) == TI_STRING);
+//   BOOST_TEST(legend.col<INT4>(0)[0] == 0);
+//   BOOST_TEST(legend.col<std::string>(1)[0] == "no dump");
+//   BOOST_TEST(legend.col<INT4>(0)[1] == 1);
+//   BOOST_TEST(legend.col<std::string>(1)[1] == "dump");
 // }

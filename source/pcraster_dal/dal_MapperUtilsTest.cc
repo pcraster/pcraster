@@ -28,20 +28,20 @@ BOOST_AUTO_TEST_CASE(step_map)
 
     /// stepMap(mappings, &dimension, &mapper, &stepMappers);
 
-    /// BOOST_CHECK_EQUAL(dimension.meaning(), Space);
-    /// BOOST_CHECK_EQUAL(dimension.coordinateType(), NumericalCoordinates);
-    /// BOOST_CHECK_EQUAL(dimension.discretisation(), RegularDiscretisation);
-    /// BOOST_CHECK_EQUAL(dimension.nrValues(), size_t(3));
-    /// BOOST_CHECK_EQUAL(dimension.value<size_t>(0), size_t(1));
-    /// BOOST_CHECK_EQUAL(dimension.value<size_t>(1), size_t(80));
-    /// BOOST_CHECK_EQUAL(dimension.value<size_t>(2), size_t(1));
+    /// BOOST_TEST(dimension.meaning() == Space);
+    /// BOOST_TEST(dimension.coordinateType() == NumericalCoordinates);
+    /// BOOST_TEST(dimension.discretisation() == RegularDiscretisation);
+    /// BOOST_TEST(dimension.nrValues() == size_t(3));
+    /// BOOST_TEST(dimension.value<size_t>(0) == size_t(1));
+    /// BOOST_TEST(dimension.value<size_t>(1) == size_t(80));
+    /// BOOST_TEST(dimension.value<size_t>(2) == size_t(1));
 
     /// BOOST_TEST(comparable(mapper.sourceFirstStep(), 1.0));
     /// BOOST_TEST(comparable(mapper.sourceLastStep(), 80.0));
     /// BOOST_TEST(comparable(mapper.destinationFirstStep(), 182145.0));
     /// BOOST_TEST(comparable(mapper.destinationLastStep(), 182935.0));
 
-    /// BOOST_CHECK_EQUAL(stepMappers.size(), size_t(1));
+    /// BOOST_TEST(stepMappers.size() == size_t(1));
     /// BOOST_TEST(comparable(stepMappers[0].destination(1.0), 1.0));
     /// BOOST_TEST(comparable(stepMappers[0].destination(80.0), 80.0));
 
@@ -53,20 +53,20 @@ BOOST_AUTO_TEST_CASE(step_map)
     /// mappings.push_back(DimensionStepMapping(
     ///      Dimension(Space, values), &aMapper));
 
-    /// BOOST_CHECK_EQUAL(dimension.meaning(), Space);
-    /// BOOST_CHECK_EQUAL(dimension.discretisation(), RegularDiscretisation);
-    /// BOOST_CHECK_EQUAL(dimension.coordinateType(), NumericalCoordinates);
-    /// BOOST_CHECK_EQUAL(dimension.nrValues(), size_t(3));
-    /// BOOST_CHECK_EQUAL(dimension.value<size_t>(0), size_t(1));
-    /// BOOST_CHECK_EQUAL(dimension.value<size_t>(1), size_t(80));
-    /// BOOST_CHECK_EQUAL(dimension.value<size_t>(2), size_t(1));
+    /// BOOST_TEST(dimension.meaning() == Space);
+    /// BOOST_TEST(dimension.discretisation() == RegularDiscretisation);
+    /// BOOST_TEST(dimension.coordinateType() == NumericalCoordinates);
+    /// BOOST_TEST(dimension.nrValues() == size_t(3));
+    /// BOOST_TEST(dimension.value<size_t>(0) == size_t(1));
+    /// BOOST_TEST(dimension.value<size_t>(1) == size_t(80));
+    /// BOOST_TEST(dimension.value<size_t>(2) == size_t(1));
 
     /// BOOST_TEST(comparable(mapper.sourceFirstStep(), 1.0));
     /// BOOST_TEST(comparable(mapper.sourceLastStep(), 80.0));
     /// BOOST_TEST(comparable(mapper.destinationFirstStep(), 182145.0));
     /// BOOST_TEST(comparable(mapper.destinationLastStep(), 182935.0));
 
-    /// BOOST_CHECK_EQUAL(stepMappers.size(), size_t(2));
+    /// BOOST_TEST(stepMappers.size() == size_t(2));
     /// BOOST_TEST(comparable(stepMappers[0].destination(1.0), 1.0));
     /// BOOST_TEST(comparable(stepMappers[0].destination(80.0), 80.0));
     /// BOOST_TEST(comparable(stepMappers[1].destination(1.0), 1.0));
@@ -94,20 +94,20 @@ BOOST_AUTO_TEST_CASE(step_map)
 
   //   stepMap(mappings, &dimension, &mapper, &stepMappers);
 
-  //   BOOST_CHECK_EQUAL(dimension.meaning(), Space);
-  //   BOOST_CHECK_EQUAL(dimension.discretisation(), RegularDiscretisation);
-  //   BOOST_CHECK_EQUAL(dimension.coordinateType(), NumericalCoordinates);
-  //   BOOST_CHECK_EQUAL(dimension.nrValues(), size_t(3));
-  //   BOOST_CHECK_EQUAL(dimension.value<size_t>(0), size_t(1));
-  //   BOOST_CHECK_EQUAL(dimension.value<size_t>(1), size_t(100));
-  //   BOOST_CHECK_EQUAL(dimension.value<size_t>(2), size_t(1));
+  //   BOOST_TEST(dimension.meaning() == Space);
+  //   BOOST_TEST(dimension.discretisation() == RegularDiscretisation);
+  //   BOOST_TEST(dimension.coordinateType() == NumericalCoordinates);
+  //   BOOST_TEST(dimension.nrValues() == size_t(3));
+  //   BOOST_TEST(dimension.value<size_t>(0) == size_t(1));
+  //   BOOST_TEST(dimension.value<size_t>(1) == size_t(100));
+  //   BOOST_TEST(dimension.value<size_t>(2) == size_t(1));
 
   //   BOOST_TEST(comparable(mapper.sourceFirstStep(), 1.0));
   //   BOOST_TEST(comparable(mapper.sourceLastStep(), 100.0));
   //   BOOST_TEST(comparable(mapper.destinationFirstStep(), 327875.0));
   //   BOOST_TEST(comparable(mapper.destinationLastStep(), 326885.0));
 
-  //   BOOST_CHECK_EQUAL(stepMappers.size(), size_t(2));
+  //   BOOST_TEST(stepMappers.size() == size_t(2));
   //   BOOST_TEST(comparable(stepMappers[0].destination(1.0), 1.0));
   //   BOOST_TEST(comparable(stepMappers[0].destination(100.0), 100.0));
   //   BOOST_TEST(comparable(stepMappers[1].destination(1.0), 1.0));
@@ -159,13 +159,13 @@ BOOST_AUTO_TEST_CASE(step_map)
 // 
 //     timeStepMap(mappings, &dimension, &mapper, &stepMappers);
 // 
-//     BOOST_CHECK_EQUAL(dimension.meaning(), Time);
-//     BOOST_CHECK_EQUAL(dimension.coordinateType(), NumericalCoordinates);
-//     BOOST_CHECK_EQUAL(dimension.discretisation(), RegularDiscretisation);
-//     BOOST_CHECK_EQUAL(dimension.nrValues(), size_t(3));
-//     BOOST_CHECK_EQUAL(dimension.value<size_t>(0), size_t(1));
-//     BOOST_CHECK_EQUAL(dimension.value<size_t>(1), size_t(365));
-//     BOOST_CHECK_EQUAL(dimension.value<size_t>(2), size_t(1));
+//     BOOST_TEST(dimension.meaning() == Time);
+//     BOOST_TEST(dimension.coordinateType() == NumericalCoordinates);
+//     BOOST_TEST(dimension.discretisation() == RegularDiscretisation);
+//     BOOST_TEST(dimension.nrValues() == size_t(3));
+//     BOOST_TEST(dimension.value<size_t>(0) == size_t(1));
+//     BOOST_TEST(dimension.value<size_t>(1) == size_t(365));
+//     BOOST_TEST(dimension.value<size_t>(2) == size_t(1));
 // 
 //     BOOST_TEST(comparable(mapper.index(), 1.0));
 //     BOOST_TEST(mapper.time() ==
@@ -173,7 +173,7 @@ BOOST_AUTO_TEST_CASE(step_map)
 //                    bp::time_duration(0, 0, 0, 0)));
 //     BOOST_TEST(mapper.duration() == bp::time_duration(24, 0, 0, 0));
 // 
-//     BOOST_CHECK_EQUAL(stepMappers.size(), size_t(2));
+//     BOOST_TEST(stepMappers.size() == size_t(2));
 //     BOOST_TEST(comparable(stepMappers[0].destination(1.0), -30.0));
 //     BOOST_TEST(comparable(stepMappers[0].destination(32.0), 1.0));
 //     BOOST_TEST(comparable(stepMappers[0].destination(59.0), 28.0));
@@ -221,13 +221,13 @@ BOOST_AUTO_TEST_CASE(step_map)
 // 
 //     timeStepMap(mappings, &dimension, &mapper, &stepMappers);
 // 
-//     BOOST_CHECK_EQUAL(dimension.meaning(), Time);
-//     BOOST_CHECK_EQUAL(dimension.coordinateType(), NumericalCoordinates);
-//     BOOST_CHECK_EQUAL(dimension.discretisation(), RegularDiscretisation);
-//     BOOST_CHECK_EQUAL(dimension.nrValues(), size_t(3));
-//     BOOST_CHECK_EQUAL(dimension.value<size_t>(0), size_t(1));
-//     BOOST_CHECK_EQUAL(dimension.value<size_t>(1), size_t(40));
-//     BOOST_CHECK_EQUAL(dimension.value<size_t>(2), size_t(1));
+//     BOOST_TEST(dimension.meaning() == Time);
+//     BOOST_TEST(dimension.coordinateType() == NumericalCoordinates);
+//     BOOST_TEST(dimension.discretisation() == RegularDiscretisation);
+//     BOOST_TEST(dimension.nrValues() == size_t(3));
+//     BOOST_TEST(dimension.value<size_t>(0) == size_t(1));
+//     BOOST_TEST(dimension.value<size_t>(1) == size_t(40));
+//     BOOST_TEST(dimension.value<size_t>(2) == size_t(1));
 // 
 //     BOOST_TEST(comparable(mapper.index(), 1.0));
 //     BOOST_TEST(mapper.time() ==
@@ -235,7 +235,7 @@ BOOST_AUTO_TEST_CASE(step_map)
 //                    bp::time_duration(6, 0, 0, 0)));
 //     BOOST_TEST(mapper.duration() == bp::time_duration(6, 0, 0, 0));
 // 
-//     BOOST_CHECK_EQUAL(stepMappers.size(), size_t(2));
+//     BOOST_TEST(stepMappers.size() == size_t(2));
 //     BOOST_TEST(comparable(stepMappers[0].destination( 1.0),  0.25));
 //     BOOST_TEST(comparable(stepMappers[0].destination( 4.0),  1.0));
 //     BOOST_TEST(comparable(stepMappers[0].destination(40.0), 10.0));
@@ -272,13 +272,13 @@ BOOST_AUTO_TEST_CASE(step_map)
 // 
 //     timeStepMap(mappings, &dimension, &mapper, &stepMappers);
 // 
-//     BOOST_CHECK_EQUAL(dimension.meaning(), Time);
-//     BOOST_CHECK_EQUAL(dimension.coordinateType(), NumericalCoordinates);
-//     BOOST_CHECK_EQUAL(dimension.discretisation(), RegularDiscretisation);
-//     BOOST_CHECK_EQUAL(dimension.nrValues(), size_t(3));
-//     BOOST_CHECK_EQUAL(dimension.value<size_t>(0), size_t(1));
-//     BOOST_CHECK_EQUAL(dimension.value<size_t>(1), size_t(131));
-//     BOOST_CHECK_EQUAL(dimension.value<size_t>(2), size_t(1));
+//     BOOST_TEST(dimension.meaning() == Time);
+//     BOOST_TEST(dimension.coordinateType() == NumericalCoordinates);
+//     BOOST_TEST(dimension.discretisation() == RegularDiscretisation);
+//     BOOST_TEST(dimension.nrValues() == size_t(3));
+//     BOOST_TEST(dimension.value<size_t>(0) == size_t(1));
+//     BOOST_TEST(dimension.value<size_t>(1) == size_t(131));
+//     BOOST_TEST(dimension.value<size_t>(2) == size_t(1));
 // 
 //     BOOST_TEST(comparable(mapper.index(), 1.0));
 //     BOOST_TEST(mapper.time() ==
@@ -286,7 +286,7 @@ BOOST_AUTO_TEST_CASE(step_map)
 //                    bp::time_duration(0, 0, 0, 0)));
 //     BOOST_TEST(mapper.duration() == bp::time_duration(24, 0, 0, 0));
 // 
-//     BOOST_CHECK_EQUAL(stepMappers.size(), size_t(2));
+//     BOOST_TEST(stepMappers.size() == size_t(2));
 //     BOOST_TEST(comparable(stepMappers[0].destination(  1.0),   1.0));
 //     BOOST_TEST(comparable(stepMappers[0].destination(100.0), 100.0));
 // 

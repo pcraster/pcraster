@@ -122,9 +122,9 @@ BOOST_AUTO_TEST_CASE(is_regular_increasing_range)
     int interval = 0;
     BOOST_TEST(isRegularIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
-    BOOST_CHECK_EQUAL(first, 1);
-    BOOST_CHECK_EQUAL(last, 5);
-    BOOST_CHECK_EQUAL(interval, 1);
+    BOOST_TEST(first == 1);
+    BOOST_TEST(last == 5);
+    BOOST_TEST(interval == 1);
   }
 
   {
@@ -137,9 +137,9 @@ BOOST_AUTO_TEST_CASE(is_regular_increasing_range)
     size_t interval = 0;
     BOOST_TEST(isRegularIncreasingRange(first, last, interval,
          steps.begin(), steps.end()));
-    BOOST_CHECK_EQUAL(first, size_t(1));
-    BOOST_CHECK_EQUAL(last, size_t(3));
-    BOOST_CHECK_EQUAL(interval, size_t(1));
+    BOOST_TEST(first == size_t(1));
+    BOOST_TEST(last == size_t(3));
+    BOOST_TEST(interval == size_t(1));
   }
 
   {
@@ -167,9 +167,9 @@ BOOST_AUTO_TEST_CASE(is_regular_increasing_range)
     int interval = 0;
     BOOST_TEST(isRegularIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
-    BOOST_CHECK_EQUAL(first, 5);
-    BOOST_CHECK_EQUAL(last, 6);
-    BOOST_CHECK_EQUAL(interval, 1);
+    BOOST_TEST(first == 5);
+    BOOST_TEST(last == 6);
+    BOOST_TEST(interval == 1);
   }
 
   {
@@ -179,9 +179,9 @@ BOOST_AUTO_TEST_CASE(is_regular_increasing_range)
     int interval = 0;
     BOOST_TEST(isRegularIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
-    BOOST_CHECK_EQUAL(first, 1);
-    BOOST_CHECK_EQUAL(last, 5);
-    BOOST_CHECK_EQUAL(interval, 2);
+    BOOST_TEST(first == 1);
+    BOOST_TEST(last == 5);
+    BOOST_TEST(interval == 2);
   }
 
   {
@@ -209,9 +209,9 @@ BOOST_AUTO_TEST_CASE(is_regular_increasing_range)
     int interval = 0;
     BOOST_TEST(isRegularIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
-    BOOST_CHECK_EQUAL(first, 46);
-    BOOST_CHECK_EQUAL(last, 50);
-    BOOST_CHECK_EQUAL(interval, 1);
+    BOOST_TEST(first == 46);
+    BOOST_TEST(last == 50);
+    BOOST_TEST(interval == 1);
   }
 }
 
@@ -227,9 +227,9 @@ BOOST_AUTO_TEST_CASE(is_increasing_range)
     int interval = 0;
     BOOST_TEST(isIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
-    BOOST_CHECK_EQUAL(first   , 1);
-    BOOST_CHECK_EQUAL(last    , 5);
-    BOOST_CHECK_EQUAL(interval, 1);
+    BOOST_TEST(first    == 1);
+    BOOST_TEST(last     == 5);
+    BOOST_TEST(interval == 1);
   }
 
   {
@@ -239,9 +239,9 @@ BOOST_AUTO_TEST_CASE(is_increasing_range)
     int interval = 0;
     BOOST_TEST(isIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
-    BOOST_CHECK_EQUAL(first   , 2);
-    BOOST_CHECK_EQUAL(last    , 6);
-    BOOST_CHECK_EQUAL(interval, 2);
+    BOOST_TEST(first    == 2);
+    BOOST_TEST(last     == 6);
+    BOOST_TEST(interval == 2);
   }
 
   {
@@ -251,9 +251,9 @@ BOOST_AUTO_TEST_CASE(is_increasing_range)
     int interval = 0;
     BOOST_TEST(isIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
-    BOOST_CHECK_EQUAL(first   , 2);
-    BOOST_CHECK_EQUAL(last    , 7);
-    BOOST_CHECK_EQUAL(interval, 1);
+    BOOST_TEST(first    == 2);
+    BOOST_TEST(last     == 7);
+    BOOST_TEST(interval == 1);
   }
 
   {
@@ -266,9 +266,9 @@ BOOST_AUTO_TEST_CASE(is_increasing_range)
     size_t interval = 0;
     BOOST_TEST(isIncreasingRange(first, last, interval,
          steps.begin(), steps.end()));
-    BOOST_CHECK_EQUAL(first   , size_t(1));
-    BOOST_CHECK_EQUAL(last    , size_t(3));
-    BOOST_CHECK_EQUAL(interval, size_t(1));
+    BOOST_TEST(first    == size_t(1));
+    BOOST_TEST(last     == size_t(3));
+    BOOST_TEST(interval == size_t(1));
   }
 
   {
@@ -296,9 +296,9 @@ BOOST_AUTO_TEST_CASE(is_increasing_range)
     int interval = 0;
     BOOST_TEST(isIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
-    BOOST_CHECK_EQUAL(first   , 5);
-    BOOST_CHECK_EQUAL(last    , 6);
-    BOOST_CHECK_EQUAL(interval, 1);
+    BOOST_TEST(first    == 5);
+    BOOST_TEST(last     == 6);
+    BOOST_TEST(interval == 1);
   }
 
   {
@@ -308,9 +308,9 @@ BOOST_AUTO_TEST_CASE(is_increasing_range)
     int interval = 0;
     BOOST_TEST(isIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
-    BOOST_CHECK_EQUAL(first   , 1);
-    BOOST_CHECK_EQUAL(last    , 5);
-    BOOST_CHECK_EQUAL(interval, 2);
+    BOOST_TEST(first    == 1);
+    BOOST_TEST(last     == 5);
+    BOOST_TEST(interval == 2);
   }
 
   {
@@ -320,9 +320,9 @@ BOOST_AUTO_TEST_CASE(is_increasing_range)
     int interval = 0;
     BOOST_TEST(isIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
-    BOOST_CHECK_EQUAL(first   , 1);
-    BOOST_CHECK_EQUAL(last    , 5);
-    BOOST_CHECK_EQUAL(interval, 1);
+    BOOST_TEST(first    == 1);
+    BOOST_TEST(last     == 5);
+    BOOST_TEST(interval == 1);
   }
 
   {
@@ -332,9 +332,9 @@ BOOST_AUTO_TEST_CASE(is_increasing_range)
     int interval = 0;
     BOOST_TEST(isIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
-    BOOST_CHECK_EQUAL(first   , 1);
-    BOOST_CHECK_EQUAL(last    , 5);
-    BOOST_CHECK_EQUAL(interval, 1);
+    BOOST_TEST(first    == 1);
+    BOOST_TEST(last     == 5);
+    BOOST_TEST(interval == 1);
   }
 
   {
@@ -344,9 +344,9 @@ BOOST_AUTO_TEST_CASE(is_increasing_range)
     int interval = 0;
     BOOST_TEST(isIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
-    BOOST_CHECK_EQUAL(first   , 46);
-    BOOST_CHECK_EQUAL(last    , 50);
-    BOOST_CHECK_EQUAL(interval, 1);
+    BOOST_TEST(first    == 46);
+    BOOST_TEST(last     == 50);
+    BOOST_TEST(interval == 1);
   }
 
   {
@@ -465,9 +465,9 @@ BOOST_AUTO_TEST_CASE(merge_ranges)
       step = 2;
       mergeRanges<size_t>(first, last, step, 1, 10, 2);
 
-      BOOST_CHECK_EQUAL(first, size_t(1));
-      BOOST_CHECK_EQUAL(last, size_t(10));
-      BOOST_CHECK_EQUAL(step, size_t(2));
+      BOOST_TEST(first == size_t(1));
+      BOOST_TEST(last == size_t(10));
+      BOOST_TEST(step == size_t(2));
     }
 
     {
@@ -476,9 +476,9 @@ BOOST_AUTO_TEST_CASE(merge_ranges)
       step = 2;
       mergeRanges<size_t>(first, last, step, 2, 10, 2);
 
-      BOOST_CHECK_EQUAL(first, size_t(1));
-      BOOST_CHECK_EQUAL(last, size_t(10));
-      BOOST_CHECK_EQUAL(step, size_t(1));
+      BOOST_TEST(first == size_t(1));
+      BOOST_TEST(last == size_t(10));
+      BOOST_TEST(step == size_t(1));
     }
 
     {
@@ -487,9 +487,9 @@ BOOST_AUTO_TEST_CASE(merge_ranges)
       step = 2;
       mergeRanges<size_t>(first, last, step, 4, 10, 2);
 
-      BOOST_CHECK_EQUAL(first, size_t(1));
-      BOOST_CHECK_EQUAL(last, size_t(10));
-      BOOST_CHECK_EQUAL(step, size_t(1));
+      BOOST_TEST(first == size_t(1));
+      BOOST_TEST(last == size_t(10));
+      BOOST_TEST(step == size_t(1));
     }
 
     {
@@ -498,9 +498,9 @@ BOOST_AUTO_TEST_CASE(merge_ranges)
       step = 2;
       mergeRanges<size_t>(first, last, step, 1, 10, 2);
 
-      BOOST_CHECK_EQUAL(first, size_t(1));
-      BOOST_CHECK_EQUAL(last, size_t(10));
-      BOOST_CHECK_EQUAL(step, size_t(2));
+      BOOST_TEST(first == size_t(1));
+      BOOST_TEST(last == size_t(10));
+      BOOST_TEST(step == size_t(2));
     }
 
     {
@@ -509,9 +509,9 @@ BOOST_AUTO_TEST_CASE(merge_ranges)
       step = 2;
       mergeRanges<size_t>(first, last, step, 1, 1, 1);
 
-      BOOST_CHECK_EQUAL(first, size_t(1));
-      BOOST_CHECK_EQUAL(last, size_t(10));
-      BOOST_CHECK_EQUAL(step, size_t(2));
+      BOOST_TEST(first == size_t(1));
+      BOOST_TEST(last == size_t(10));
+      BOOST_TEST(step == size_t(2));
     }
 
     {
@@ -520,9 +520,9 @@ BOOST_AUTO_TEST_CASE(merge_ranges)
       step = 2;
       mergeRanges<size_t>(first, last, step, 2, 2, 2);
 
-      BOOST_CHECK_EQUAL(first, size_t(1));
-      BOOST_CHECK_EQUAL(last, size_t(10));
-      BOOST_CHECK_EQUAL(step, size_t(1));
+      BOOST_TEST(first == size_t(1));
+      BOOST_TEST(last == size_t(10));
+      BOOST_TEST(step == size_t(1));
     }
 
     {
@@ -531,9 +531,9 @@ BOOST_AUTO_TEST_CASE(merge_ranges)
       step = 2;
       mergeRanges<size_t>(first, last, step, 15, 16, 2);
 
-      BOOST_CHECK_EQUAL(first, size_t(1));
-      BOOST_CHECK_EQUAL(last, size_t(16));
-      BOOST_CHECK_EQUAL(step, size_t(2));
+      BOOST_TEST(first == size_t(1));
+      BOOST_TEST(last == size_t(16));
+      BOOST_TEST(step == size_t(2));
     }
 
     {
@@ -542,9 +542,9 @@ BOOST_AUTO_TEST_CASE(merge_ranges)
       step = 2;
       mergeRanges<size_t>(first, last, step, 16, 17, 1);
 
-      BOOST_CHECK_EQUAL(first, size_t(1));
-      BOOST_CHECK_EQUAL(last, size_t(17));
-      BOOST_CHECK_EQUAL(step, size_t(1));
+      BOOST_TEST(first == size_t(1));
+      BOOST_TEST(last == size_t(17));
+      BOOST_TEST(step == size_t(1));
     }
     {
       first = 1;

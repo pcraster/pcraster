@@ -14,6 +14,6 @@ BOOST_AUTO_TEST_CASE(test)
   classifier.setCutoffs(5, 5);
   classifier.classify();
 
-  BOOST_CHECK_EQUAL(classifier.nrClasses(), size_t(0));
-  BOOST_CHECK_EQUAL(classifier.nrBorders(), size_t(0));
+  BOOST_TEST(classifier.nrClasses() == size_t(0));
+  BOOST_TEST(classifier.nrBorders() == size_t(0));
 }

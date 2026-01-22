@@ -9,7 +9,7 @@ BOOST_AUTO_TEST_CASE(description)
   using namespace dal;
 
   TextConstantDriver const driver;
-  BOOST_CHECK_EQUAL(driver.description(), "Text constant file format");
+  BOOST_TEST(driver.description() == "Text constant file format");
 }
 
 
@@ -35,7 +35,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
     constant = dynamic_cast<ConstantDriver const&>(driver).read(filename);
   }
   catch(Exception& exception) {
-    BOOST_CHECK_EQUAL(exception.message(),
+    BOOST_TEST(exception.message() ==
        "Data source " + filename + "(constant):\ncannot be opened");
     exceptionCaught = true;
   }

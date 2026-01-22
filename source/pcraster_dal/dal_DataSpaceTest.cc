@@ -27,11 +27,11 @@ BOOST_AUTO_TEST_CASE(test_)
     space.addDimension(Dimension(Time, timeSteps));
     space.addDimension(Dimension(Space, RegularDiscretisation,
          rasterDimensions));
-    BOOST_CHECK_EQUAL(space.rank(), size_t(3));
+    BOOST_TEST(space.rank() == size_t(3));
     BOOST_CHECK(space.isSpatial());
     BOOST_CHECK(space.hasRaster());
     BOOST_CHECK(space.hasTime());
-    BOOST_CHECK_EQUAL(space.nrWideDimensions(), size_t(2));
+    BOOST_TEST(space.nrWideDimensions() == size_t(2));
 
     DataSpaceAddress address = space.address();
     address.setCoordinate<std::string>(0, "aap");
@@ -39,24 +39,24 @@ BOOST_AUTO_TEST_CASE(test_)
     address.setCoordinate<SpatialCoordinate>(2, SpatialCoordinate(44.4, -55.5));
 
     DataSpace space2(space, address);
-    BOOST_CHECK_EQUAL(space2.size(), space.size());
-    BOOST_CHECK_EQUAL(space2.nrWideDimensions(), size_t(0));
+    BOOST_TEST(space2.size() == space.size());
+    BOOST_TEST(space2.nrWideDimensions() == size_t(0));
 
     for(size_t i = 0; i < space2.size(); ++i) {
-      BOOST_CHECK_EQUAL(space2.dimension(i).coordinateType(),
+      BOOST_TEST(space2.dimension(i).coordinateType() ==
          space.dimension(i).coordinateType());
-      BOOST_CHECK_EQUAL(space2.dimension(i).meaning(),
+      BOOST_TEST(space2.dimension(i).meaning() ==
          space.dimension(i).meaning());
-      BOOST_CHECK_EQUAL(space2.dimension(i).discretisation(),
+      BOOST_TEST(space2.dimension(i).discretisation() ==
          space.dimension(i).discretisation());
     }
 
-    BOOST_CHECK_EQUAL(space2.dimension(0).nrValues(), size_t(1));
-    BOOST_CHECK_EQUAL(space2.dimension(0).value<std::string>(0), "aap");
-    BOOST_CHECK_EQUAL(space2.dimension(1).nrValues(), size_t(3));
-    BOOST_CHECK_EQUAL(space2.dimension(1).value<size_t>(0), size_t(50));
-    BOOST_CHECK_EQUAL(space2.dimension(1).value<size_t>(1), size_t(50));
-    BOOST_CHECK_EQUAL(space2.dimension(1).value<size_t>(2), size_t(1));
+    BOOST_TEST(space2.dimension(0).nrValues() == size_t(1));
+    BOOST_TEST(space2.dimension(0).value<std::string>(0) == "aap");
+    BOOST_TEST(space2.dimension(1).nrValues() == size_t(3));
+    BOOST_TEST(space2.dimension(1).value<size_t>(0) == size_t(50));
+    BOOST_TEST(space2.dimension(1).value<size_t>(1) == size_t(50));
+    BOOST_TEST(space2.dimension(1).value<size_t>(2) == size_t(1));
     BOOST_CHECK(space2.dimension(2).value<RasterDimensions>(0) ==
          RasterDimensions(1, 1, 1.0, 44.0, -55.0));
   }
@@ -92,7 +92,7 @@ BOOST_AUTO_TEST_CASE(merge)
     BOOST_CHECK(space3.isEmpty());
 
     space2 |= space1;
-    BOOST_CHECK_EQUAL(space2.rank(), size_t(3));
+    BOOST_TEST(space2.rank() == size_t(3));
     BOOST_CHECK(space2.hasScenarios());
     BOOST_CHECK(space2.hasTime());
     BOOST_CHECK(space2.isSpatial());
@@ -101,7 +101,7 @@ BOOST_AUTO_TEST_CASE(merge)
 
     // Again.
     space2 |= space1;
-    BOOST_CHECK_EQUAL(space2.rank(), size_t(3));
+    BOOST_TEST(space2.rank() == size_t(3));
     BOOST_CHECK(space2.hasScenarios());
     BOOST_CHECK(space2.hasTime());
     BOOST_CHECK(space2.isSpatial());
@@ -110,7 +110,7 @@ BOOST_AUTO_TEST_CASE(merge)
 
     // Other way around.
     space1 |= space2;
-    BOOST_CHECK_EQUAL(space1.rank(), size_t(3));
+    BOOST_TEST(space1.rank() == size_t(3));
     BOOST_CHECK(space1.hasScenarios());
     BOOST_CHECK(space1.hasTime());
     BOOST_CHECK(space1.isSpatial());
@@ -120,7 +120,7 @@ BOOST_AUTO_TEST_CASE(merge)
     // Merge with empty space.
     space1 |= space3;
     BOOST_CHECK(space3.isEmpty());
-    BOOST_CHECK_EQUAL(space1.rank(), size_t(3));
+    BOOST_TEST(space1.rank() == size_t(3));
     BOOST_CHECK(space1.hasScenarios());
     BOOST_CHECK(space1.hasTime());
     BOOST_CHECK(space1.isSpatial());
@@ -140,8 +140,8 @@ BOOST_AUTO_TEST_CASE(merge)
     space2.addDimension(spaceDimension);
 
     space1 |= space2;
-    BOOST_CHECK_EQUAL(space1.dimension(0).meaning(), Time);
-    BOOST_CHECK_EQUAL(space1.dimension(1).meaning(), Space);
+    BOOST_TEST(space1.dimension(0).meaning() == Time);
+    BOOST_TEST(space1.dimension(1).meaning() == Space);
     BOOST_CHECK(space1.dimension(1).value<RasterDimensions>(0) ==
          rasterDimensions);
 
@@ -150,8 +150,8 @@ BOOST_AUTO_TEST_CASE(merge)
     space1.addDimension(timeDimension);
 
     space2 |= space1;
-    BOOST_CHECK_EQUAL(space2.dimension(0).meaning(), Time);
-    BOOST_CHECK_EQUAL(space2.dimension(1).meaning(), Space);
+    BOOST_TEST(space2.dimension(0).meaning() == Time);
+    BOOST_TEST(space2.dimension(1).meaning() == Space);
     BOOST_CHECK(space2.dimension(1).value<RasterDimensions>(0) ==
          rasterDimensions);
   }
@@ -168,15 +168,15 @@ BOOST_AUTO_TEST_CASE(merge)
     space2.addDimension(timeDimension);
 
     space1 |= space2;
-    BOOST_CHECK_EQUAL(space1.dimension(0).meaning(), Scenarios);
-    BOOST_CHECK_EQUAL(space1.dimension(1).meaning(), Time);
+    BOOST_TEST(space1.dimension(0).meaning() == Scenarios);
+    BOOST_TEST(space1.dimension(1).meaning() == Time);
 
     space1.clear();
     space1.addDimension(scenariosDimension);
 
     space2 |= space1;
-    BOOST_CHECK_EQUAL(space2.dimension(0).meaning(), Scenarios);
-    BOOST_CHECK_EQUAL(space2.dimension(1).meaning(), Time);
+    BOOST_TEST(space2.dimension(0).meaning() == Scenarios);
+    BOOST_TEST(space2.dimension(1).meaning() == Time);
   }
 
   // With Samples.
@@ -193,37 +193,37 @@ BOOST_AUTO_TEST_CASE(merge)
     space3.addDimension(timeDimension);
 
     space1 |= space2;
-    BOOST_CHECK_EQUAL(space1.dimension(0).meaning(), Scenarios);
-    BOOST_CHECK_EQUAL(space1.dimension(1).meaning(), Samples);
+    BOOST_TEST(space1.dimension(0).meaning() == Scenarios);
+    BOOST_TEST(space1.dimension(1).meaning() == Samples);
 
     space1 |= space3;
-    BOOST_CHECK_EQUAL(space1.dimension(0).meaning(), Scenarios);
-    BOOST_CHECK_EQUAL(space1.dimension(1).meaning(), Samples);
-    BOOST_CHECK_EQUAL(space1.dimension(2).meaning(), Time);
+    BOOST_TEST(space1.dimension(0).meaning() == Scenarios);
+    BOOST_TEST(space1.dimension(1).meaning() == Samples);
+    BOOST_TEST(space1.dimension(2).meaning() == Time);
 
     space1.clear();
     space1.addDimension(scenariosDimension);
 
     space2 |= space1;
-    BOOST_CHECK_EQUAL(space2.dimension(0).meaning(), Scenarios);
-    BOOST_CHECK_EQUAL(space2.dimension(1).meaning(), Samples);
+    BOOST_TEST(space2.dimension(0).meaning() == Scenarios);
+    BOOST_TEST(space2.dimension(1).meaning() == Samples);
 
     space2 |= space3;
-    BOOST_CHECK_EQUAL(space2.dimension(0).meaning(), Scenarios);
-    BOOST_CHECK_EQUAL(space2.dimension(1).meaning(), Samples);
-    BOOST_CHECK_EQUAL(space2.dimension(2).meaning(), Time);
+    BOOST_TEST(space2.dimension(0).meaning() == Scenarios);
+    BOOST_TEST(space2.dimension(1).meaning() == Samples);
+    BOOST_TEST(space2.dimension(2).meaning() == Time);
 
     space2.clear();
     space2.addDimension(samplesDimension);
 
     space3 |= space1;
-    BOOST_CHECK_EQUAL(space3.dimension(0).meaning(), Scenarios);
-    BOOST_CHECK_EQUAL(space3.dimension(1).meaning(), Time);
+    BOOST_TEST(space3.dimension(0).meaning() == Scenarios);
+    BOOST_TEST(space3.dimension(1).meaning() == Time);
 
     space3 |= space2;
-    BOOST_CHECK_EQUAL(space3.dimension(0).meaning(), Scenarios);
-    BOOST_CHECK_EQUAL(space3.dimension(1).meaning(), Samples);
-    BOOST_CHECK_EQUAL(space3.dimension(2).meaning(), Time);
+    BOOST_TEST(space3.dimension(0).meaning() == Scenarios);
+    BOOST_TEST(space3.dimension(1).meaning() == Samples);
+    BOOST_TEST(space3.dimension(2).meaning() == Time);
   }
 
   // With CumulativeProbabilities.
@@ -240,37 +240,37 @@ BOOST_AUTO_TEST_CASE(merge)
     space3.addDimension(cummulativeProbabilitiesDimension);
 
     space1 |= space2;
-    BOOST_CHECK_EQUAL(space1.dimension(0).meaning(), Scenarios);
-    BOOST_CHECK_EQUAL(space1.dimension(1).meaning(), Time);
+    BOOST_TEST(space1.dimension(0).meaning() == Scenarios);
+    BOOST_TEST(space1.dimension(1).meaning() == Time);
 
     space1 |= space3;
-    BOOST_CHECK_EQUAL(space1.dimension(0).meaning(), Scenarios);
-    BOOST_CHECK_EQUAL(space1.dimension(1).meaning(), Time);
-    BOOST_CHECK_EQUAL(space1.dimension(2).meaning(), CumulativeProbabilities);
+    BOOST_TEST(space1.dimension(0).meaning() == Scenarios);
+    BOOST_TEST(space1.dimension(1).meaning() == Time);
+    BOOST_TEST(space1.dimension(2).meaning() == CumulativeProbabilities);
 
     space1.clear();
     space1.addDimension(scenariosDimension);
 
     space2 |= space1;
-    BOOST_CHECK_EQUAL(space2.dimension(0).meaning(), Scenarios);
-    BOOST_CHECK_EQUAL(space2.dimension(1).meaning(), Time);
+    BOOST_TEST(space2.dimension(0).meaning() == Scenarios);
+    BOOST_TEST(space2.dimension(1).meaning() == Time);
 
     space2 |= space3;
-    BOOST_CHECK_EQUAL(space2.dimension(0).meaning(), Scenarios);
-    BOOST_CHECK_EQUAL(space2.dimension(1).meaning(), Time);
-    BOOST_CHECK_EQUAL(space2.dimension(2).meaning(), CumulativeProbabilities);
+    BOOST_TEST(space2.dimension(0).meaning() == Scenarios);
+    BOOST_TEST(space2.dimension(1).meaning() == Time);
+    BOOST_TEST(space2.dimension(2).meaning() == CumulativeProbabilities);
 
     space2.clear();
     space2.addDimension(timeDimension);
 
     space3 |= space1;
-    BOOST_CHECK_EQUAL(space3.dimension(0).meaning(), Scenarios);
-    BOOST_CHECK_EQUAL(space3.dimension(1).meaning(), CumulativeProbabilities);
+    BOOST_TEST(space3.dimension(0).meaning() == Scenarios);
+    BOOST_TEST(space3.dimension(1).meaning() == CumulativeProbabilities);
 
     space3 |= space2;
-    BOOST_CHECK_EQUAL(space3.dimension(0).meaning(), Scenarios);
-    BOOST_CHECK_EQUAL(space3.dimension(1).meaning(), Time);
-    BOOST_CHECK_EQUAL(space3.dimension(2).meaning(), CumulativeProbabilities);
+    BOOST_TEST(space3.dimension(0).meaning() == Scenarios);
+    BOOST_TEST(space3.dimension(1).meaning() == Time);
+    BOOST_TEST(space3.dimension(2).meaning() == CumulativeProbabilities);
   }
 
   {
@@ -318,8 +318,8 @@ BOOST_AUTO_TEST_CASE(merge)
          rasterDimensions));
 
     space1 |= space2;
-    BOOST_CHECK_EQUAL(space1.size(), size_t(4));
-    BOOST_CHECK_EQUAL(space1.dimension(2).nrValues(), size_t(3));
+    BOOST_TEST(space1.size() == size_t(4));
+    BOOST_TEST(space1.dimension(2).nrValues() == size_t(3));
     BOOST_CHECK(comparable<float>(space1.dimension(2).value<float>(2), 0.01f));
   }
 
@@ -342,7 +342,7 @@ BOOST_AUTO_TEST_CASE(merge)
 
     {
       resultSpace = rasterSpace | vectorSpace;
-      BOOST_CHECK_EQUAL(resultSpace.size(), size_t(2));
+      BOOST_TEST(resultSpace.size() == size_t(2));
       BOOST_CHECK(resultSpace.dimension(0).value<RasterDimensions>(0) ==
          rasterDimensions);
       BOOST_CHECK(resultSpace.dimension(1).value<SpaceDimensions>(0) ==
@@ -351,7 +351,7 @@ BOOST_AUTO_TEST_CASE(merge)
 
     {
       resultSpace = vectorSpace | rasterSpace;
-      BOOST_CHECK_EQUAL(resultSpace.size(), size_t(2));
+      BOOST_TEST(resultSpace.size() == size_t(2));
       BOOST_CHECK(resultSpace.dimension(0).value<RasterDimensions>(0) ==
          rasterDimensions);
       BOOST_CHECK(resultSpace.dimension(1).value<SpaceDimensions>(0) ==
@@ -395,31 +395,31 @@ BOOST_AUTO_TEST_CASE(merge)
 
     resultSpace = space1 | space2;
 
-    BOOST_CHECK_EQUAL(resultSpace.size(), size_t(5));
-    BOOST_CHECK_EQUAL(resultSpace.dimension(0).meaning(), Scenarios);
-    BOOST_CHECK_EQUAL(resultSpace.dimension(1).meaning(), Time);
-    BOOST_CHECK_EQUAL(resultSpace.dimension(2).meaning(),
+    BOOST_TEST(resultSpace.size() == size_t(5));
+    BOOST_TEST(resultSpace.dimension(0).meaning() == Scenarios);
+    BOOST_TEST(resultSpace.dimension(1).meaning() == Time);
+    BOOST_TEST(resultSpace.dimension(2).meaning() ==
          CumulativeProbabilities);
-    BOOST_CHECK_EQUAL(resultSpace.dimension(3).meaning(), Space);
-    BOOST_CHECK_EQUAL(resultSpace.dimension(3).discretisation(),
+    BOOST_TEST(resultSpace.dimension(3).meaning() == Space);
+    BOOST_TEST(resultSpace.dimension(3).discretisation() ==
          RegularDiscretisation);
-    BOOST_CHECK_EQUAL(resultSpace.dimension(4).meaning(), Space);
-    BOOST_CHECK_EQUAL(resultSpace.dimension(4).discretisation(),
+    BOOST_TEST(resultSpace.dimension(4).meaning() == Space);
+    BOOST_TEST(resultSpace.dimension(4).discretisation() ==
          BorderedDiscretisation);
 
     // And the other way around.
     resultSpace = space2 | space1;
 
-    BOOST_CHECK_EQUAL(resultSpace.size(), size_t(5));
-    BOOST_CHECK_EQUAL(resultSpace.dimension(0).meaning(), Scenarios);
-    BOOST_CHECK_EQUAL(resultSpace.dimension(1).meaning(), Time);
-    BOOST_CHECK_EQUAL(resultSpace.dimension(2).meaning(),
+    BOOST_TEST(resultSpace.size() == size_t(5));
+    BOOST_TEST(resultSpace.dimension(0).meaning() == Scenarios);
+    BOOST_TEST(resultSpace.dimension(1).meaning() == Time);
+    BOOST_TEST(resultSpace.dimension(2).meaning() ==
          CumulativeProbabilities);
-    BOOST_CHECK_EQUAL(resultSpace.dimension(3).meaning(), Space);
-    BOOST_CHECK_EQUAL(resultSpace.dimension(3).discretisation(),
+    BOOST_TEST(resultSpace.dimension(3).meaning() == Space);
+    BOOST_TEST(resultSpace.dimension(3).discretisation() ==
          RegularDiscretisation);
-    BOOST_CHECK_EQUAL(resultSpace.dimension(4).meaning(), Space);
-    BOOST_CHECK_EQUAL(resultSpace.dimension(4).discretisation(),
+    BOOST_TEST(resultSpace.dimension(4).meaning() == Space);
+    BOOST_TEST(resultSpace.dimension(4).discretisation() ==
          BorderedDiscretisation);
   }
 }
@@ -500,8 +500,8 @@ BOOST_AUTO_TEST_CASE(intersect)
     space2.addDimension(Dimension(Scenarios, scenarios));
 
     space1 &= space2;
-    BOOST_CHECK_EQUAL(space1.size(), size_t(1));
-    BOOST_CHECK_EQUAL(space1.dimension(0).meaning(), Scenarios);
+    BOOST_TEST(space1.size() == size_t(1));
+    BOOST_TEST(space1.dimension(0).meaning() == Scenarios);
   }
 
   {
@@ -516,8 +516,8 @@ BOOST_AUTO_TEST_CASE(intersect)
     space2.addDimension(Dimension(Time, timeSteps));
 
     space1 &= space2;
-    BOOST_CHECK_EQUAL(space1.size(), size_t(1));
-    BOOST_CHECK_EQUAL(space1.dimension(0).meaning(), Time);
+    BOOST_TEST(space1.size() == size_t(1));
+    BOOST_TEST(space1.dimension(0).meaning() == Time);
   }
 
   {
@@ -533,8 +533,8 @@ BOOST_AUTO_TEST_CASE(intersect)
          rasterDimensions));
 
     space1 &= space2;
-    BOOST_CHECK_EQUAL(space1.size(), size_t(1));
-    BOOST_CHECK_EQUAL(space1.dimension(0).meaning(), Space);
+    BOOST_TEST(space1.size() == size_t(1));
+    BOOST_TEST(space1.dimension(0).meaning() == Space);
   }
 
   // 
@@ -578,7 +578,7 @@ BOOST_AUTO_TEST_CASE(trim)
     address.setCoordinate<SpatialCoordinate>(2, SpatialCoordinate(5.5, 6.6));
 
     address = dataSpace.trim(appSpace, address);
-    BOOST_CHECK_EQUAL(address.size(), size_t(1));
+    BOOST_TEST(address.size() == size_t(1));
     BOOST_CHECK(address.coordinate<SpatialCoordinate>(0) ==
          SpatialCoordinate(5.5, 6.6));
   }
@@ -604,9 +604,9 @@ BOOST_AUTO_TEST_CASE(trim)
     address.setCoordinate<SpatialCoordinate>(2, SpatialCoordinate(5.5, 6.6));
 
     address = dataSpace.trim(appSpace, address);
-    BOOST_CHECK_EQUAL(address.size(), size_t(2));
-    BOOST_CHECK_EQUAL(address.coordinate<std::string>(0), "aap");
-    BOOST_CHECK_EQUAL(address.coordinate<size_t>(1), size_t(5));
+    BOOST_TEST(address.size() == size_t(2));
+    BOOST_TEST(address.coordinate<std::string>(0) == "aap");
+    BOOST_TEST(address.coordinate<size_t>(1) == size_t(5));
   }
 
   {
@@ -627,8 +627,8 @@ BOOST_AUTO_TEST_CASE(trim)
     address.setCoordinate<SpatialCoordinate>(2, SpatialCoordinate(5.5, 6.6));
 
     address = dataSpace.trim(appSpace, address);
-    BOOST_CHECK_EQUAL(address.size(), size_t(1));
-    BOOST_CHECK_EQUAL(address.coordinate<size_t>(0), size_t(5));
+    BOOST_TEST(address.size() == size_t(1));
+    BOOST_TEST(address.coordinate<size_t>(0) == size_t(5));
   }
 
   {
@@ -654,10 +654,10 @@ BOOST_AUTO_TEST_CASE(trim)
     address.setCoordinate<size_t>(0, 9);
     address.setCoordinate<SpatialCoordinate>(1, SpatialCoordinate(5.5, 6.6));
     address = toSpace.trim(fromSpace, address);
-    BOOST_CHECK_EQUAL(address.size(), size_t(1));
+    BOOST_TEST(address.size() == size_t(1));
 
     BOOST_CHECK(address.isValid(0));
-    BOOST_CHECK_EQUAL(address.coordinate<size_t>(0), size_t(9));
+    BOOST_TEST(address.coordinate<size_t>(0) == size_t(9));
   }
 
   {
@@ -719,7 +719,7 @@ BOOST_AUTO_TEST_CASE(trim)
     address = toSpace.trim(fromSpace, address);
 
     BOOST_TEST_REQUIRE(toSpace.isValid(address));
-    BOOST_CHECK_EQUAL(address.size(), size_t(1));
+    BOOST_TEST(address.size() == size_t(1));
     BOOST_TEST_REQUIRE(address.isValid(0));
     BOOST_CHECK(address.coordinate<SpatialCoordinate>(0) ==
          SpatialCoordinate(5.5, 6.6));
@@ -752,7 +752,7 @@ BOOST_AUTO_TEST_CASE(trim)
     address = toSpace.trim(fromSpace, address);
 
     BOOST_TEST_REQUIRE(toSpace.isValid(address));
-    BOOST_CHECK_EQUAL(address.size(), size_t(1));
+    BOOST_TEST(address.size() == size_t(1));
     BOOST_TEST_REQUIRE(address.isValid(0));
     BOOST_CHECK(address.coordinate<SpatialCoordinate>(0) ==
          SpatialCoordinate(464260.0, 5687057.0));
@@ -773,7 +773,7 @@ BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
     BOOST_CHECK(space.isValid(address));
     address = space.initialiseInvalidCoordinates(address);
     BOOST_CHECK(space.isValid(address));
-    BOOST_CHECK_EQUAL(address.size(), size_t(0));
+    BOOST_TEST(address.size() == size_t(0));
   }
 
   std::set<std::string> scenarios;
@@ -785,15 +785,15 @@ BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
   {
     // One scenario dimension added.
     address = space.address();
-    BOOST_CHECK_EQUAL(address.size(), size_t(1));
+    BOOST_TEST(address.size() == size_t(1));
     BOOST_CHECK(!space.isValid(address));
     BOOST_CHECK(!address.isValid(0));
 
     address = space.initialiseInvalidCoordinates(address);
-    BOOST_CHECK_EQUAL(address.size(), size_t(1));
+    BOOST_TEST(address.size() == size_t(1));
     BOOST_CHECK(space.isValid(address));
     BOOST_CHECK(address.isValid(0));
-    BOOST_CHECK_EQUAL(address.coordinate<std::string>(0), "aap");
+    BOOST_TEST(address.coordinate<std::string>(0) == "aap");
   }
 
   std::vector<size_t> samples;
@@ -805,18 +805,18 @@ BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
   {
     // One samples dimension added.
     address = space.address();
-    BOOST_CHECK_EQUAL(address.size(), size_t(2));
+    BOOST_TEST(address.size() == size_t(2));
     BOOST_CHECK(!space.isValid(address));
     BOOST_CHECK(!address.isValid(0));
     BOOST_CHECK(!address.isValid(1));
 
     address = space.initialiseInvalidCoordinates(address);
-    BOOST_CHECK_EQUAL(address.size(), size_t(2));
+    BOOST_TEST(address.size() == size_t(2));
     BOOST_CHECK(space.isValid(address));
     BOOST_CHECK(address.isValid(0));
     BOOST_CHECK(address.isValid(1));
-    BOOST_CHECK_EQUAL(address.coordinate<std::string>(0), "aap");
-    BOOST_CHECK_EQUAL(address.coordinate<size_t>(1), size_t(3));
+    BOOST_TEST(address.coordinate<std::string>(0) == "aap");
+    BOOST_TEST(address.coordinate<size_t>(1) == size_t(3));
   }
 
   std::vector<size_t> timeSteps;
@@ -828,21 +828,21 @@ BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
   {
     // One time dimension added.
     address = space.address();
-    BOOST_CHECK_EQUAL(address.size(), size_t(3));
+    BOOST_TEST(address.size() == size_t(3));
     BOOST_CHECK(!space.isValid(address));
     BOOST_CHECK(!address.isValid(0));
     BOOST_CHECK(!address.isValid(1));
     BOOST_CHECK(!address.isValid(2));
 
     address = space.initialiseInvalidCoordinates(address);
-    BOOST_CHECK_EQUAL(address.size(), size_t(3));
+    BOOST_TEST(address.size() == size_t(3));
     BOOST_CHECK(space.isValid(address));
     BOOST_CHECK(address.isValid(0));
     BOOST_CHECK(address.isValid(1));
     BOOST_CHECK(address.isValid(2));
-    BOOST_CHECK_EQUAL(address.coordinate<std::string>(0), "aap");
-    BOOST_CHECK_EQUAL(address.coordinate<size_t>(1), size_t(3));
-    BOOST_CHECK_EQUAL(address.coordinate<size_t>(2), size_t(1));
+    BOOST_TEST(address.coordinate<std::string>(0) == "aap");
+    BOOST_TEST(address.coordinate<size_t>(1) == size_t(3));
+    BOOST_TEST(address.coordinate<size_t>(2) == size_t(1));
   }
 
   space.eraseDimension(Samples);
@@ -856,20 +856,20 @@ BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
   {
     // One cumulative probability dimension added.
     address = space.address();
-    BOOST_CHECK_EQUAL(address.size(), size_t(3));
+    BOOST_TEST(address.size() == size_t(3));
     BOOST_CHECK(!space.isValid(address));
     BOOST_CHECK(!address.isValid(0));
     BOOST_CHECK(!address.isValid(1));
     BOOST_CHECK(!address.isValid(2));
 
     address = space.initialiseInvalidCoordinates(address);
-    BOOST_CHECK_EQUAL(address.size(), size_t(3));
+    BOOST_TEST(address.size() == size_t(3));
     BOOST_CHECK(space.isValid(address));
     BOOST_CHECK(address.isValid(0));
     BOOST_CHECK(address.isValid(1));
     BOOST_CHECK(address.isValid(2));
-    BOOST_CHECK_EQUAL(address.coordinate<std::string>(0), "aap");
-    BOOST_CHECK_EQUAL(address.coordinate<size_t>(1), size_t(1));
+    BOOST_TEST(address.coordinate<std::string>(0) == "aap");
+    BOOST_TEST(address.coordinate<size_t>(1) == size_t(1));
     BOOST_CHECK_CLOSE(address.coordinate<float>(2), float(0.50), 0.001f);
   }
 
@@ -879,7 +879,7 @@ BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
   {
     // One space dimension added.
     address = space.address();
-    BOOST_CHECK_EQUAL(address.size(), size_t(4));
+    BOOST_TEST(address.size() == size_t(4));
     BOOST_CHECK(!space.isValid(address));
     BOOST_CHECK(!address.isValid(0));
     BOOST_CHECK(!address.isValid(1));
@@ -887,14 +887,14 @@ BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
     BOOST_CHECK(!address.isValid(3));
 
     address = space.initialiseInvalidCoordinates(address);
-    BOOST_CHECK_EQUAL(address.size(), size_t(4));
+    BOOST_TEST(address.size() == size_t(4));
     BOOST_CHECK(space.isValid(address));
     BOOST_CHECK(address.isValid(0));
     BOOST_CHECK(address.isValid(1));
     BOOST_CHECK(address.isValid(2));
     BOOST_CHECK(address.isValid(3));
-    BOOST_CHECK_EQUAL(address.coordinate<std::string>(0), "aap");
-    BOOST_CHECK_EQUAL(address.coordinate<size_t>(1), size_t(1));
+    BOOST_TEST(address.coordinate<std::string>(0) == "aap");
+    BOOST_TEST(address.coordinate<size_t>(1) == size_t(1));
     BOOST_CHECK_CLOSE(address.coordinate<float>(2), float(0.50), 0.001f);
     BOOST_CHECK(address.coordinate<SpatialCoordinate>(3) ==
          SpatialCoordinate(5.5, 6.6));
@@ -911,10 +911,10 @@ BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
 
     address = space.address();
     address = space.initialiseInvalidCoordinates(address);
-    BOOST_CHECK_EQUAL(address.size(), size_t(1));
+    BOOST_TEST(address.size() == size_t(1));
     BOOST_CHECK(space.isValid(address));
     BOOST_CHECK(address.isValid(0));
-    BOOST_CHECK_EQUAL(address.coordinate<float>(0), float(0.90));
+    BOOST_TEST(address.coordinate<float>(0) == float(0.90));
   }
 
   {
@@ -928,7 +928,7 @@ BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
 
     address = space.address();
     address = space.initialiseInvalidCoordinates(address);
-    BOOST_CHECK_EQUAL(address.size(), size_t(1));
+    BOOST_TEST(address.size() == size_t(1));
     BOOST_CHECK(space.isValid(address));
     BOOST_CHECK(address.isValid(0));
     BOOST_CHECK_CLOSE(address.coordinate<float>(0), float(0.5), 0.001f);
@@ -969,13 +969,13 @@ BOOST_AUTO_TEST_CASE(replace_dimension)
   timeSteps.push_back(100);
   timeSteps.push_back(1);
   space.addDimension(Dimension(Time, timeSteps));
-  BOOST_CHECK_EQUAL(space.dimension(0).meaning(), Time);
+  BOOST_TEST(space.dimension(0).meaning() == Time);
 
   RasterDimensions const rasterDimensions(96, 95, 3.0, 5.5, 6.6);
   space.replaceDimension(0,
          Dimension(Space, RegularDiscretisation, rasterDimensions));
 
-  BOOST_CHECK_EQUAL(space.dimension(0).meaning(), Space);
+  BOOST_TEST(space.dimension(0).meaning() == Space);
 }
 
 
@@ -997,7 +997,7 @@ BOOST_AUTO_TEST_CASE(contains)
          rasterDimensions));
 
     DataSpaceAddress address(space.address());
-    BOOST_CHECK_EQUAL(address.size(), size_t(2));
+    BOOST_TEST(address.size() == size_t(2));
     BOOST_CHECK(!space.contains(address));
 
     address.setCoordinate<size_t>(0, 9);

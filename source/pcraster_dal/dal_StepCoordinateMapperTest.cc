@@ -61,31 +61,31 @@ BOOST_AUTO_TEST_CASE(test)
 
     address.setCoordinate<size_t>(0, 1);
     mapper.mapToDestination(space, address, 0);
-    BOOST_CHECK_EQUAL(address.coordinate<size_t>(0),  size_t(1));
+    BOOST_TEST(address.coordinate<size_t>(0) ==  size_t(1));
 
     address.setCoordinate<size_t>(0, 2);
     mapper.mapToDestination(space, address, 0);
-    BOOST_CHECK_EQUAL(address.coordinate<size_t>(0),  size_t(1));
+    BOOST_TEST(address.coordinate<size_t>(0) ==  size_t(1));
 
     address.setCoordinate<size_t>(0, 3);
     mapper.mapToDestination(space, address, 0);
-    BOOST_CHECK_EQUAL(address.coordinate<size_t>(0),  size_t(1));
+    BOOST_TEST(address.coordinate<size_t>(0) ==  size_t(1));
 
     address.setCoordinate<size_t>(0, 4);
     mapper.mapToDestination(space, address, 0);
-    BOOST_CHECK_EQUAL(address.coordinate<size_t>(0),  size_t(1));
+    BOOST_TEST(address.coordinate<size_t>(0) ==  size_t(1));
 
     address.setCoordinate<size_t>(0, 5);
     mapper.mapToDestination(space, address, 0);
-    BOOST_CHECK_EQUAL(address.coordinate<size_t>(0),  size_t(2));
+    BOOST_TEST(address.coordinate<size_t>(0) ==  size_t(2));
 
     address.setCoordinate<size_t>(0, 8);
     mapper.mapToDestination(space, address, 0);
-    BOOST_CHECK_EQUAL(address.coordinate<size_t>(0),  size_t(2));
+    BOOST_TEST(address.coordinate<size_t>(0) ==  size_t(2));
 
     address.setCoordinate<size_t>(0, 9);
     mapper.mapToDestination(space, address, 0);
-    BOOST_CHECK_EQUAL(address.coordinate<size_t>(0),  size_t(3));
+    BOOST_TEST(address.coordinate<size_t>(0) ==  size_t(3));
   }
 
   {
@@ -107,18 +107,18 @@ BOOST_AUTO_TEST_CASE(test)
 
     address.setCoordinate<size_t>(0, 5);
     mapper.mapToDestination(space, address, 0);
-    BOOST_CHECK_EQUAL(address.coordinate<size_t>(0),  size_t(1));
+    BOOST_TEST(address.coordinate<size_t>(0) ==  size_t(1));
 
     address.setCoordinate<size_t>(0, 6);
     mapper.mapToDestination(space, address, 0);
-    BOOST_CHECK_EQUAL(address.coordinate<size_t>(0),  size_t(2));
+    BOOST_TEST(address.coordinate<size_t>(0) ==  size_t(2));
 
     address.setCoordinate<size_t>(0, 7);
     mapper.mapToDestination(space, address, 0);
-    BOOST_CHECK_EQUAL(address.coordinate<size_t>(0),  size_t(3));
+    BOOST_TEST(address.coordinate<size_t>(0) ==  size_t(3));
 
     address.setCoordinate<size_t>(0, 13);
     mapper.mapToDestination(space, address, 0);
-    BOOST_CHECK_EQUAL(address.coordinate<size_t>(0),  size_t(9));
+    BOOST_TEST(address.coordinate<size_t>(0) ==  size_t(9));
   }
 }

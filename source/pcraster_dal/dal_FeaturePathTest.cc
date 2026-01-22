@@ -26,24 +26,24 @@ BOOST_AUTO_TEST_CASE(test_)
   {
     FeaturePath const path("source/layer", FeaturePath::WithoutAttribute);
     BOOST_TEST(path.isValid());
-    BOOST_CHECK_EQUAL(path.source(), "source");
-    BOOST_CHECK_EQUAL(path.layer(), "layer");
+    BOOST_TEST(path.source() == "source");
+    BOOST_TEST(path.layer() == "layer");
     BOOST_TEST(path.attribute().empty());
   }
 
   {
     FeaturePath const path("source/layer/attribute", FeaturePath::WithAttribute);
     BOOST_TEST(path.isValid());
-    BOOST_CHECK_EQUAL(path.source(), "source");
-    BOOST_CHECK_EQUAL(path.layer(), "layer");
-    BOOST_CHECK_EQUAL(path.attribute(), "attribute");
+    BOOST_TEST(path.source() == "source");
+    BOOST_TEST(path.layer() == "layer");
+    BOOST_TEST(path.attribute() == "attribute");
   }
 
   {
     FeaturePath const path("blabla/source/layer", FeaturePath::WithoutAttribute);
     BOOST_TEST(path.isValid());
-    BOOST_CHECK_EQUAL(path.source(), "blabla/source");
-    BOOST_CHECK_EQUAL(path.layer(), "layer");
+    BOOST_TEST(path.source() == "blabla/source");
+    BOOST_TEST(path.layer() == "layer");
     BOOST_TEST(path.attribute().empty());
   }
 
@@ -55,8 +55,8 @@ BOOST_AUTO_TEST_CASE(test_)
   {
     FeaturePath const path("source/layer/", FeaturePath::WithoutAttribute);
     BOOST_TEST_REQUIRE(path.isValid());
-    BOOST_CHECK_EQUAL(path.source(), "source");
-    BOOST_CHECK_EQUAL(path.layer(), "layer");
+    BOOST_TEST(path.source() == "source");
+    BOOST_TEST(path.layer() == "layer");
     BOOST_TEST(path.attribute().empty());
   }
 
@@ -64,17 +64,17 @@ BOOST_AUTO_TEST_CASE(test_)
     FeaturePath const path("c:/Program Files/source/layer/attribute",
          FeaturePath::WithAttribute);
     BOOST_TEST(path.isValid());
-    BOOST_CHECK_EQUAL(path.source(), "c:/Program Files/source");
-    BOOST_CHECK_EQUAL(path.layer(), "layer");
-    BOOST_CHECK_EQUAL(path.attribute(), "attribute");
+    BOOST_TEST(path.source() == "c:/Program Files/source");
+    BOOST_TEST(path.layer() == "layer");
+    BOOST_TEST(path.attribute() == "attribute");
   }
 
   {
     FeaturePath const path("c:/Program Files/source/layer",
          FeaturePath::WithoutAttribute);
     BOOST_TEST(path.isValid());
-    BOOST_CHECK_EQUAL(path.source(), "c:/Program Files/source");
-    BOOST_CHECK_EQUAL(path.layer(), "layer");
+    BOOST_TEST(path.source() == "c:/Program Files/source");
+    BOOST_TEST(path.layer() == "layer");
     BOOST_TEST(path.attribute().empty());
   }
 
@@ -82,8 +82,8 @@ BOOST_AUTO_TEST_CASE(test_)
     FeaturePath const path("./lines",
          FeaturePath::WithoutAttribute);
     BOOST_TEST(path.isValid());
-    BOOST_CHECK_EQUAL(path.source(), ".");
-    BOOST_CHECK_EQUAL(path.layer(), "lines");
+    BOOST_TEST(path.source() == ".");
+    BOOST_TEST(path.layer() == "lines");
     BOOST_TEST(path.attribute().empty());
   }
 
@@ -91,9 +91,9 @@ BOOST_AUTO_TEST_CASE(test_)
     FeaturePath const path("./lines/attribute",
          FeaturePath::WithAttribute);
     BOOST_TEST(path.isValid());
-    BOOST_CHECK_EQUAL(path.source(), ".");
-    BOOST_CHECK_EQUAL(path.layer(), "lines");
-    BOOST_CHECK_EQUAL(path.attribute(), "attribute");
+    BOOST_TEST(path.source() == ".");
+    BOOST_TEST(path.layer() == "lines");
+    BOOST_TEST(path.attribute() == "attribute");
   }
 }
 

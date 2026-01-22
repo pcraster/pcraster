@@ -153,10 +153,10 @@ BOOST_AUTO_TEST_CASE(exists)
 ///     name = "points.shp/points";
 ///     layer.reset(dynamic_cast<FeatureLayer*>(
 ///            dynamic_cast<Driver&>(driver).open(name)));
-///     BOOST_CHECK_EQUAL(Client::library().geometriesCache().size(), size_t(1));
+///     BOOST_TEST(Client::library().geometriesCache().size() == size_t(1));
 ///     BOOST_TEST_REQUIRE(layer);
 ///     BOOST_TEST(!layer->hasAttribute());
-///     BOOST_CHECK_EQUAL(layer->typeId(), TI_NR_TYPES);
+///     BOOST_TEST(layer->typeId() == TI_NR_TYPES);
 ///
 ///     BOOST_CHECK_CLOSE(layer->dimensions().west(), -0.900337, 0.001);
 ///     BOOST_CHECK_CLOSE(layer->dimensions().south(), 0.382997, 0.001);
@@ -171,7 +171,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///            dynamic_cast<Driver&>(driver).open(name)));
 ///     BOOST_TEST_REQUIRE(layer);
 ///     BOOST_TEST(layer->hasAttribute());
-///     BOOST_CHECK_EQUAL(layer->typeId(), TI_INT4);
+///     BOOST_TEST(layer->typeId() == TI_INT4);
 ///   }
 ///
 ///   {
@@ -181,7 +181,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///            dynamic_cast<Driver&>(driver).open(name)));
 ///     BOOST_TEST_REQUIRE(layer);
 ///     BOOST_TEST(layer->hasAttribute());
-///     BOOST_CHECK_EQUAL(layer->typeId(), TI_STRING);
+///     BOOST_TEST(layer->typeId() == TI_STRING);
 ///   }
 ///
 ///   {
@@ -191,7 +191,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///            dynamic_cast<Driver&>(driver).open(name)));
 ///     BOOST_TEST_REQUIRE(layer);
 ///     BOOST_TEST(layer->hasAttribute());
-///     BOOST_CHECK_EQUAL(layer->typeId(), TI_REAL8);
+///     BOOST_TEST(layer->typeId() == TI_REAL8);
 ///   }
 /// }
 ///
@@ -211,13 +211,13 @@ BOOST_AUTO_TEST_CASE(exists)
 ///     BOOST_REQUIRE_NO_THROW(
 ///       space = dynamic_cast<Driver&>(driver).dataSpace(name);
 ///     )
-///     BOOST_CHECK_EQUAL(space.size(), size_t(1));
+///     BOOST_TEST(space.size() == size_t(1));
 ///
 ///     Dimension dimension(space.dimension(0));
-///     BOOST_CHECK_EQUAL(dimension.meaning(), Space);
-///     BOOST_CHECK_EQUAL(dimension.nrValues(), size_t(1));
-///     BOOST_CHECK_EQUAL(dimension.coordinateType(), NumericalCoordinates);
-///     BOOST_CHECK_EQUAL(dimension.discretisation(), BorderedDiscretisation);
+///     BOOST_TEST(dimension.meaning() == Space);
+///     BOOST_TEST(dimension.nrValues() == size_t(1));
+///     BOOST_TEST(dimension.coordinateType() == NumericalCoordinates);
+///     BOOST_TEST(dimension.discretisation() == BorderedDiscretisation);
 ///
 ///     SpaceDimensions const& spaceDimensions(
 ///          space.dimension(0).value<SpaceDimensions>(0));
@@ -247,7 +247,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///       layer.reset(dynamic_cast<FeatureDriver&>(driver).read(name));
 ///     }
 ///     catch(Exception& exception) {
-///       BOOST_CHECK_EQUAL(exception.message(),
+///       BOOST_TEST(exception.message() ==
 ///            "Data source " + name + "(feature):\ncannot be opened");
 ///       exceptionCaught = true;
 ///     }
@@ -263,14 +263,14 @@ BOOST_AUTO_TEST_CASE(exists)
 ///     );
 ///
 ///     BOOST_TEST_REQUIRE(layer);
-///     BOOST_CHECK_EQUAL(layer->nrGeometries(), size_t(3));
+///     BOOST_TEST(layer->nrGeometries() == size_t(3));
 ///
 ///     std::vector<long int> featureIds;
 ///     layer->featureIds(std::back_inserter(featureIds));
 ///
 ///     BOOST_FOREACH(long int featureId, featureIds) {
 ///       OGRGeometry const& geometry(layer->geometry(featureId));
-///       BOOST_CHECK_EQUAL(geometry.getGeometryType(), wkbPoint);
+///       BOOST_TEST(geometry.getGeometryType() == wkbPoint);
 ///     }
 ///   }
 ///
@@ -282,14 +282,14 @@ BOOST_AUTO_TEST_CASE(exists)
 ///     );
 ///
 ///     BOOST_TEST_REQUIRE(layer);
-///     BOOST_CHECK_EQUAL(layer->nrGeometries(), size_t(3));
+///     BOOST_TEST(layer->nrGeometries() == size_t(3));
 ///
 ///     std::vector<long int> featureIds;
 ///     layer->featureIds(std::back_inserter(featureIds));
 ///
 ///     BOOST_FOREACH(long int featureId, featureIds) {
 ///       OGRGeometry const& geometry(layer->geometry(featureId));
-///       BOOST_CHECK_EQUAL(geometry.getGeometryType(), wkbPoint);
+///       BOOST_TEST(geometry.getGeometryType() == wkbPoint);
 ///     }
 ///   }
 /// }
@@ -338,9 +338,9 @@ BOOST_AUTO_TEST_CASE(exists)
 ///
 ///   BOOST_TEST_REQUIRE(layer);
 ///   BOOST_TEST_REQUIRE(layer->hasAttribute());
-///   BOOST_CHECK_EQUAL(layer->name(), "id");
-///   BOOST_CHECK_EQUAL(layer->typeId(), TI_INT4);
-///   BOOST_CHECK_EQUAL(layer->nrGeometries(), size_t(2));
+///   BOOST_TEST(layer->name() == "id");
+///   BOOST_TEST(layer->typeId() == TI_INT4);
+///   BOOST_TEST(layer->nrGeometries() == size_t(2));
 ///
 ///   INT4 value;
 ///
@@ -349,10 +349,10 @@ BOOST_AUTO_TEST_CASE(exists)
 ///
 ///   BOOST_FOREACH(long int featureId, featureIds) {
 ///     OGRGeometry const& geometry(layer->geometry(featureId));
-///     BOOST_CHECK_EQUAL(geometry.getGeometryType(), wkbPolygon);
+///     BOOST_TEST(geometry.getGeometryType() == wkbPolygon);
 ///
 ///     layer->value<INT4>(featureId, value);
-///     BOOST_CHECK_EQUAL(value, featureId);
+///     BOOST_TEST(value == featureId);
 ///   }
 /// }
 ///
@@ -375,8 +375,8 @@ BOOST_AUTO_TEST_CASE(exists)
 ///
 ///   BOOST_TEST_REQUIRE(layer);
 ///   BOOST_TEST_REQUIRE(layer->hasAttribute());
-///   BOOST_CHECK_EQUAL(layer->name(), "attribute1");
-///   BOOST_CHECK_EQUAL(layer->nrGeometries(), size_t(2));
+///   BOOST_TEST(layer->name() == "attribute1");
+///   BOOST_TEST(layer->nrGeometries() == size_t(2));
 ///
 ///   BOOST_REQUIRE_EQUAL(layer->typeId(), TI_REAL8);
 ///   REAL8 value;
@@ -416,8 +416,8 @@ BOOST_AUTO_TEST_CASE(exists)
 ///
 ///   // BOOST_TEST_REQUIRE(layer);
 ///   // BOOST_TEST_REQUIRE(layer->hasAttribute());
-///   // BOOST_CHECK_EQUAL(layer->name(), "attribute1");
-///   // BOOST_CHECK_EQUAL(layer->nrGeometries(), size_t(2));
+///   // BOOST_TEST(layer->name() == "attribute1");
+///   // BOOST_TEST(layer->nrGeometries() == size_t(2));
 ///
 ///   // REAL8 value;
 ///
@@ -435,8 +435,8 @@ BOOST_AUTO_TEST_CASE(exists)
 ///   // )
 ///
 ///   // BOOST_TEST_REQUIRE(layer->hasAttribute());
-///   // BOOST_CHECK_EQUAL(layer->name(), "attribute1");
-///   // BOOST_CHECK_EQUAL(layer->nrGeometries(), size_t(2));
+///   // BOOST_TEST(layer->name() == "attribute1");
+///   // BOOST_TEST(layer->nrGeometries() == size_t(2));
 ///
 ///   // layer->value<REAL8>(1, value);
 ///   // BOOST_CHECK_CLOSE(value, REAL8(11.2), 0.001);
@@ -485,8 +485,8 @@ BOOST_AUTO_TEST_CASE(exists)
 ///
 ///   /// BOOST_TEST_REQUIRE(layer);
 ///   /// BOOST_TEST_REQUIRE(layer->hasAttribute());
-///   /// BOOST_CHECK_EQUAL(layer->name(), "attribute1");
-///   /// BOOST_CHECK_EQUAL(layer->nrGeometries(), size_t(2));
+///   /// BOOST_TEST(layer->name() == "attribute1");
+///   /// BOOST_TEST(layer->nrGeometries() == size_t(2));
 ///
 ///   /// REAL8 value;
 ///
@@ -504,8 +504,8 @@ BOOST_AUTO_TEST_CASE(exists)
 ///   /// )
 ///
 ///   /// BOOST_TEST_REQUIRE(layer->hasAttribute());
-///   /// BOOST_CHECK_EQUAL(layer->name(), "attribute1");
-///   /// BOOST_CHECK_EQUAL(layer->nrGeometries(), size_t(2));
+///   /// BOOST_TEST(layer->name() == "attribute1");
+///   /// BOOST_TEST(layer->nrGeometries() == size_t(2));
 ///
 ///   /// layer->value<REAL8>(1, value);
 ///   /// BOOST_CHECK_CLOSE(value, REAL8(10.3), 0.001);
@@ -561,8 +561,8 @@ BOOST_AUTO_TEST_CASE(exists)
 ///
 ///   /// BOOST_TEST_REQUIRE(layer);
 ///   /// BOOST_TEST_REQUIRE(layer->hasAttribute());
-///   /// BOOST_CHECK_EQUAL(layer->name(), "attribute1");
-///   /// BOOST_CHECK_EQUAL(layer->nrGeometries(), size_t(2));
+///   /// BOOST_TEST(layer->name() == "attribute1");
+///   /// BOOST_TEST(layer->nrGeometries() == size_t(2));
 ///
 ///   /// REAL8 value;
 ///
@@ -580,8 +580,8 @@ BOOST_AUTO_TEST_CASE(exists)
 ///   /// )
 ///
 ///   /// BOOST_TEST_REQUIRE(layer->hasAttribute());
-///   /// BOOST_CHECK_EQUAL(layer->name(), "attribute1");
-///   /// BOOST_CHECK_EQUAL(layer->nrGeometries(), size_t(2));
+///   /// BOOST_TEST(layer->name() == "attribute1");
+///   /// BOOST_TEST(layer->nrGeometries() == size_t(2));
 ///
 ///   /// layer->value<REAL8>(1, value);
 ///   /// BOOST_CHECK_CLOSE(value, REAL8(110.3), 0.001);
@@ -606,8 +606,8 @@ BOOST_AUTO_TEST_CASE(exists)
 ///   /// )
 ///
 ///   /// BOOST_TEST_REQUIRE(layer->hasAttribute());
-///   /// BOOST_CHECK_EQUAL(layer->name(), "attribute1");
-///   /// BOOST_CHECK_EQUAL(layer->nrGeometries(), size_t(2));
+///   /// BOOST_TEST(layer->name() == "attribute1");
+///   /// BOOST_TEST(layer->nrGeometries() == size_t(2));
 ///
 ///   /// layer->value<REAL8>(1, value);
 ///   /// BOOST_CHECK_CLOSE(value, REAL8(210.3), 0.001);

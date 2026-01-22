@@ -68,12 +68,12 @@ BOOST_AUTO_TEST_CASE(test_)
       featureLayer.insert(3, polygon);
 
       // TODO Move to test for featurelayergeometries
-      // BOOST_CHECK_EQUAL(featureLayer.featureId(polygon), 3);
+      // BOOST_TEST(featureLayer.featureId(polygon) == 3);
 
       OGRGeometry const* geometry = featureLayer.geometry(2.0, 2.0);
       BOOST_TEST_REQUIRE(geometry);
 
-      BOOST_CHECK_EQUAL(geometry->getGeometryType(), wkbPolygon);
+      BOOST_TEST(geometry->getGeometryType() == wkbPolygon);
     }
 
     // Some points outside of the polygon.

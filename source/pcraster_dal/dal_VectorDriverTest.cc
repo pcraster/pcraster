@@ -91,12 +91,12 @@ BOOST_AUTO_TEST_CASE(open)
          dynamic_cast<Driver&>(driver).open("vector")));
     BOOST_TEST_REQUIRE(vector);
 
-    BOOST_CHECK_EQUAL(vector->nrRows(), size_t(3));
-    BOOST_CHECK_EQUAL(vector->nrCols(), size_t(2));
-    BOOST_CHECK_EQUAL(vector->cellSize(), 50.0);
-    BOOST_CHECK_EQUAL(vector->west(), 100000.0);
-    BOOST_CHECK_EQUAL(vector->south(), 199850.0);
-    BOOST_CHECK_EQUAL(vector->typeId(), TI_REAL4);
+    BOOST_TEST(vector->nrRows() == size_t(3));
+    BOOST_TEST(vector->nrCols() == size_t(2));
+    BOOST_TEST(vector->cellSize() == 50.0);
+    BOOST_TEST(vector->west() == 100000.0);
+    BOOST_TEST(vector->south() == 199850.0);
+    BOOST_TEST(vector->typeId() == TI_REAL4);
     BOOST_TEST(!vector->hasExtremes());
 
     vector.reset();
@@ -113,12 +113,12 @@ BOOST_AUTO_TEST_CASE(open)
          dynamic_cast<Driver&>(driver).open("vector", space, address)));
     BOOST_TEST_REQUIRE(vector);
 
-    BOOST_CHECK_EQUAL(vector->nrRows(), size_t(3));
-    BOOST_CHECK_EQUAL(vector->nrCols(), size_t(2));
-    BOOST_CHECK_EQUAL(vector->cellSize(), 50.0);
-    BOOST_CHECK_EQUAL(vector->west(), 100000.0);
-    BOOST_CHECK_EQUAL(vector->south(), 199850.0);
-    BOOST_CHECK_EQUAL(vector->typeId(), TI_REAL4);
+    BOOST_TEST(vector->nrRows() == size_t(3));
+    BOOST_TEST(vector->nrCols() == size_t(2));
+    BOOST_TEST(vector->cellSize() == 50.0);
+    BOOST_TEST(vector->west() == 100000.0);
+    BOOST_TEST(vector->south() == 199850.0);
+    BOOST_TEST(vector->typeId() == TI_REAL4);
     BOOST_TEST(!vector->hasExtremes());
 
     vector.reset();
@@ -139,19 +139,19 @@ BOOST_AUTO_TEST_CASE(data_space)
       space = dynamic_cast<Driver&>(driver).dataSpace("vector");
     );
 
-    BOOST_CHECK_EQUAL(space.size(), size_t(1));
+    BOOST_TEST(space.size() == size_t(1));
 
     Dimension const dimension(space.dimension(0));
-    BOOST_CHECK_EQUAL(dimension.meaning(), Space);
-    BOOST_CHECK_EQUAL(dimension.nrValues(), size_t(1));
-    BOOST_CHECK_EQUAL(dimension.coordinateType(), NumericalCoordinates);
-    BOOST_CHECK_EQUAL(dimension.discretisation(), RegularDiscretisation);
+    BOOST_TEST(dimension.meaning() == Space);
+    BOOST_TEST(dimension.nrValues() == size_t(1));
+    BOOST_TEST(dimension.coordinateType() == NumericalCoordinates);
+    BOOST_TEST(dimension.discretisation() == RegularDiscretisation);
 
     RasterDimensions const& rasterDimensions(
          space.dimension(0).value<RasterDimensions>(0));
 
-    BOOST_CHECK_EQUAL(rasterDimensions.nrRows(), size_t(3));
-    BOOST_CHECK_EQUAL(rasterDimensions.nrCols(), size_t(2));
+    BOOST_TEST(rasterDimensions.nrRows() == size_t(3));
+    BOOST_TEST(rasterDimensions.nrCols() == size_t(2));
     BOOST_CHECK_CLOSE(rasterDimensions.cellSize(), 50.0, 0.001);
     BOOST_CHECK_CLOSE(rasterDimensions.west(), 100000.0, 0.001);
     BOOST_CHECK_CLOSE(rasterDimensions.south(), 199850.0, 0.001);
@@ -169,19 +169,19 @@ BOOST_AUTO_TEST_CASE(data_space)
       space = dynamic_cast<Driver&>(driver).dataSpace("vector", space, address);
     );
 
-    BOOST_CHECK_EQUAL(space.size(), size_t(1));
+    BOOST_TEST(space.size() == size_t(1));
 
     Dimension const dimension(space.dimension(0));
-    BOOST_CHECK_EQUAL(dimension.meaning(), Space);
-    BOOST_CHECK_EQUAL(dimension.nrValues(), size_t(1));
-    BOOST_CHECK_EQUAL(dimension.coordinateType(), NumericalCoordinates);
-    BOOST_CHECK_EQUAL(dimension.discretisation(), RegularDiscretisation);
+    BOOST_TEST(dimension.meaning() == Space);
+    BOOST_TEST(dimension.nrValues() == size_t(1));
+    BOOST_TEST(dimension.coordinateType() == NumericalCoordinates);
+    BOOST_TEST(dimension.discretisation() == RegularDiscretisation);
 
     RasterDimensions const& rasterDimensions(
          space.dimension(0).value<RasterDimensions>(0));
 
-    BOOST_CHECK_EQUAL(rasterDimensions.nrRows(), size_t(3));
-    BOOST_CHECK_EQUAL(rasterDimensions.nrCols(), size_t(2));
+    BOOST_TEST(rasterDimensions.nrRows() == size_t(3));
+    BOOST_TEST(rasterDimensions.nrCols() == size_t(2));
     BOOST_CHECK_CLOSE(rasterDimensions.cellSize(), 50.0, 0.001);
     BOOST_CHECK_CLOSE(rasterDimensions.west(), 100000.0, 0.001);
     BOOST_CHECK_CLOSE(rasterDimensions.south(), 199850.0, 0.001);
@@ -205,12 +205,12 @@ BOOST_AUTO_TEST_CASE(read_)
 
     BOOST_TEST_REQUIRE(vector);
 
-    BOOST_CHECK_EQUAL(vector->nrRows(), size_t(3));
-    BOOST_CHECK_EQUAL(vector->nrCols(), size_t(2));
-    BOOST_CHECK_EQUAL(vector->cellSize(), 50.0);
-    BOOST_CHECK_EQUAL(vector->west(), 100000.0);
-    BOOST_CHECK_EQUAL(vector->south(), 199850.0);
-    BOOST_CHECK_EQUAL(vector->typeId(), TI_REAL4);
+    BOOST_TEST(vector->nrRows() == size_t(3));
+    BOOST_TEST(vector->nrCols() == size_t(2));
+    BOOST_TEST(vector->cellSize() == 50.0);
+    BOOST_TEST(vector->west() == 100000.0);
+    BOOST_TEST(vector->south() == 199850.0);
+    BOOST_TEST(vector->typeId() == TI_REAL4);
 
     BOOST_CHECK_CLOSE(vector->x<REAL4>(0, 0), REAL4( 1.1), REAL4(0.001));
     BOOST_CHECK_CLOSE(vector->x<REAL4>(0, 1), REAL4( 0.0), REAL4(0.001));
@@ -239,12 +239,12 @@ BOOST_AUTO_TEST_CASE(read_)
       driver.read(*vector, "vector", DataSpace(), DataSpaceAddress());
     );
 
-    BOOST_CHECK_EQUAL(vector->nrRows(), size_t(3));
-    BOOST_CHECK_EQUAL(vector->nrCols(), size_t(2));
-    BOOST_CHECK_EQUAL(vector->cellSize(), 50.0);
-    BOOST_CHECK_EQUAL(vector->west(), 100000.0);
-    BOOST_CHECK_EQUAL(vector->south(), 199850.0);
-    BOOST_CHECK_EQUAL(vector->typeId(), TI_REAL4);
+    BOOST_TEST(vector->nrRows() == size_t(3));
+    BOOST_TEST(vector->nrCols() == size_t(2));
+    BOOST_TEST(vector->cellSize() == 50.0);
+    BOOST_TEST(vector->west() == 100000.0);
+    BOOST_TEST(vector->south() == 199850.0);
+    BOOST_TEST(vector->typeId() == TI_REAL4);
 
     BOOST_CHECK_CLOSE(vector->x<REAL4>(0, 0), REAL4( 1.1), REAL4(0.001));
     BOOST_CHECK_CLOSE(vector->x<REAL4>(0, 1), REAL4( 0.0), REAL4(0.001));
@@ -272,7 +272,7 @@ BOOST_AUTO_TEST_CASE(read_)
       dynamic_cast<Driver const&>(driver).read("DoesNotExist");
     }
     catch(Exception& exception) {
-      BOOST_CHECK_EQUAL(exception.message(),
+      BOOST_TEST(exception.message() ==
           "Data source DoesNotExist(vector):\ncannot be opened");
       exceptionCaught = true;
     }

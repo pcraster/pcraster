@@ -22,6 +22,6 @@ BOOST_AUTO_TEST_CASE(test)
   {
     nrClasses = 5;
     selection = mapEqualInterval(palette, nrClasses);
-    BOOST_CHECK_EQUAL(selection.size(), nrClasses);
+    BOOST_TEST(selection.size() == nrClasses);
   }
 }

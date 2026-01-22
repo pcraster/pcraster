@@ -75,113 +75,113 @@ void testTimeStepPathVariant(
   {
     std::filesystem::path path("n");
     path = variant(path, 5);
-    BOOST_CHECK_EQUAL(path.string(), "n0000000.005");
+    BOOST_TEST(path.string() == "n0000000.005");
   }
 
   {
     std::filesystem::path path("n");
     path = variant(path, 50);
-    BOOST_CHECK_EQUAL(path.string(), "n0000000.050");
+    BOOST_TEST(path.string() == "n0000000.050");
   }
 
   {
     std::filesystem::path path("n");
     path = variant(path, 500);
-    BOOST_CHECK_EQUAL(path.string(), "n0000000.500");
+    BOOST_TEST(path.string() == "n0000000.500");
   }
 
   {
     std::filesystem::path path("n");
     path = variant(path, 5000);
-    BOOST_CHECK_EQUAL(path.string(), "n0000005.000");
+    BOOST_TEST(path.string() == "n0000005.000");
   }
 
   {
     std::filesystem::path path("n");
     path = variant(path, 50000);
-    BOOST_CHECK_EQUAL(path.string(), "n0000050.000");
+    BOOST_TEST(path.string() == "n0000050.000");
   }
   {
     std::filesystem::path path("name");
     path = variant(path, 50000000);
-    BOOST_CHECK_EQUAL(path.string(), "name0000.000");
+    BOOST_TEST(path.string() == "name0000.000");
   }
 
   {
     std::filesystem::path path("name");
     path = variant(path, 5);
-    BOOST_CHECK_EQUAL(path.string(), "name0000.005");
+    BOOST_TEST(path.string() == "name0000.005");
   }
 
   {
     std::filesystem::path path("name.nam");
     path = variant(path, 5);
-    BOOST_CHECK_EQUAL(path.string(), "name.nam");
+    BOOST_TEST(path.string() == "name.nam");
   }
 
   {
     std::filesystem::path path("namename");
     path = variant(path, 5);
-    BOOST_CHECK_EQUAL(path.string(), "namename.005");
+    BOOST_TEST(path.string() == "namename.005");
   }
 
   {
     std::filesystem::path path("namename.n");
     path = variant(path, 5);
-    BOOST_CHECK_EQUAL(path.string(), "namename.n05");
+    BOOST_TEST(path.string() == "namename.n05");
   }
 
   {
     std::filesystem::path path("namename.na");
     path = variant(path, 5);
-    BOOST_CHECK_EQUAL(path.string(), "namename.na5");
+    BOOST_TEST(path.string() == "namename.na5");
   }
 
   {
     std::filesystem::path path("namename.nam");
     path = variant(path, 5);
-    BOOST_CHECK_EQUAL(path.string(), "namename.nam");
+    BOOST_TEST(path.string() == "namename.nam");
   }
 
   {
     std::filesystem::path path("namename.name");
     path = variant(path, 5);
-    BOOST_CHECK_EQUAL(path.string(), "namename.name");
+    BOOST_TEST(path.string() == "namename.name");
   }
 
   {
     std::filesystem::path path("namenamename");
     path = variant(path, 5);
-    BOOST_CHECK_EQUAL(path.string(), "namenamename");
+    BOOST_TEST(path.string() == "namenamename");
   }
 
   {
     std::filesystem::path path("namenamename.nam");
     path = variant(path, 5);
-    BOOST_CHECK_EQUAL(path.string(), "namenamename.nam");
+    BOOST_TEST(path.string() == "namenamename.nam");
   }
 
   {
     std::filesystem::path path("n.amenamename.nam");
     path = variant(path, 5);
-    BOOST_CHECK_EQUAL(path.string(), "n.amenamename.nam");
+    BOOST_TEST(path.string() == "n.amenamename.nam");
   }
 
 #ifdef WIN32
   {
     std::filesystem::path path("C:\\elev");
     path = variant(path, 5);
-    BOOST_CHECK_EQUAL(path.string(), "C:\\elev0000.005");
+    BOOST_TEST(path.string() == "C:\\elev0000.005");
   }
   {
     std::filesystem::path path("adirname\\tmp_s");
     path = variant(path, 5);
-    BOOST_CHECK_EQUAL(path.string(), "adirname\\tmp_s000.005");
+    BOOST_TEST(path.string() == "adirname\\tmp_s000.005");
   }
   {
     std::filesystem::path path("adirname/tmp_s");
     path = variant(path, 5);
-    BOOST_CHECK_EQUAL(path.string(), "adirname\\tmp_s000.005");
+    BOOST_TEST(path.string() == "adirname\\tmp_s000.005");
   }
 #endif
   {
@@ -228,15 +228,15 @@ BOOST_AUTO_TEST_CASE(time_step_path)
 
     // Default.
     path = timeStepPath("kor", date);
-    BOOST_CHECK_EQUAL(path.string(), "kor_19710417");
+    BOOST_TEST(path.string() == "kor_19710417");
 
     // DAL.
     path = timeStepPath("kor", date, DALConvention);
-    BOOST_CHECK_EQUAL(path.string(), "kor_19710417");
+    BOOST_TEST(path.string() == "kor_19710417");
 
     // PCR.
     path = timeStepPath("kor", date, PCRConvention);
-    BOOST_CHECK_EQUAL(path.string(), "kor19710.417");
+    BOOST_TEST(path.string() == "kor19710.417");
   }
 
   {
@@ -244,11 +244,11 @@ BOOST_AUTO_TEST_CASE(time_step_path)
 
     // DAL.
     path = timeStepPath("name", date, DALConvention);
-    BOOST_CHECK_EQUAL(path.string(), "name_19710417");
+    BOOST_TEST(path.string() == "name_19710417");
 
     // PCR, one character of the timestep is sacreficed in favor of the name.
     path = timeStepPath("name", date, PCRConvention);
-    BOOST_CHECK_EQUAL(path.string(), "name9710.417");
+    BOOST_TEST(path.string() == "name9710.417");
   }
 
   {
@@ -277,7 +277,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_quantile_sample_time)
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
-    BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
+    BOOST_TEST(exception.message() == "Pathname '': Empty");
   }
 
   BOOST_TEST(exceptionThrown);
@@ -304,7 +304,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_quantile_sample)
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
-    BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
+    BOOST_TEST(exception.message() == "Pathname '': Empty");
   }
 
   BOOST_TEST(exceptionThrown);
@@ -331,7 +331,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_quantile_time)
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
-    BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
+    BOOST_TEST(exception.message() == "Pathname '': Empty");
   }
 
   BOOST_TEST(exceptionThrown);
@@ -358,7 +358,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_quantile)
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
-    BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
+    BOOST_TEST(exception.message() == "Pathname '': Empty");
   }
 
   BOOST_TEST(exceptionThrown);
@@ -385,7 +385,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_sample_time)
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
-    BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
+    BOOST_TEST(exception.message() == "Pathname '': Empty");
   }
 
   BOOST_TEST(exceptionThrown);
@@ -412,7 +412,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_sample)
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
-    BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
+    BOOST_TEST(exception.message() == "Pathname '': Empty");
   }
 
   BOOST_TEST(exceptionThrown);
@@ -439,7 +439,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_time)
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
-    BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
+    BOOST_TEST(exception.message() == "Pathname '': Empty");
   }
 
   BOOST_TEST(exceptionThrown);
@@ -466,7 +466,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario)
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
-    BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
+    BOOST_TEST(exception.message() == "Pathname '': Empty");
   }
 
   BOOST_TEST(exceptionThrown);
@@ -478,7 +478,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario)
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
-    BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
+    BOOST_TEST(exception.message() == "Pathname '': Empty");
   }
 
   BOOST_TEST(exceptionThrown);
@@ -519,7 +519,7 @@ BOOST_AUTO_TEST_CASE(path_for_quantile_sample_time)
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
-    BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
+    BOOST_TEST(exception.message() == "Pathname '': Empty");
   }
 
   BOOST_TEST(exceptionThrown);
@@ -546,7 +546,7 @@ BOOST_AUTO_TEST_CASE(path_for_quantile_sample)
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
-    BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
+    BOOST_TEST(exception.message() == "Pathname '': Empty");
   }
 
   BOOST_TEST(exceptionThrown);
@@ -576,7 +576,7 @@ BOOST_AUTO_TEST_CASE(path_for_quantile_time)
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
-    BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
+    BOOST_TEST(exception.message() == "Pathname '': Empty");
   }
 
   BOOST_TEST(exceptionThrown);
@@ -603,7 +603,7 @@ BOOST_AUTO_TEST_CASE(path_for_quantile)
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
-    BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
+    BOOST_TEST(exception.message() == "Pathname '': Empty");
   }
 
   BOOST_TEST(exceptionThrown);
@@ -630,7 +630,7 @@ BOOST_AUTO_TEST_CASE(path_for_sample_time)
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
-    BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
+    BOOST_TEST(exception.message() == "Pathname '': Empty");
   }
 
   BOOST_TEST(exceptionThrown);
@@ -659,7 +659,7 @@ BOOST_AUTO_TEST_CASE(path_for_sample)
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
-    BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
+    BOOST_TEST(exception.message() == "Pathname '': Empty");
   }
 
   BOOST_TEST(exceptionThrown);
@@ -756,7 +756,7 @@ BOOST_AUTO_TEST_CASE(path_for_time)
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
-    BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
+    BOOST_TEST(exception.message() == "Pathname '': Empty");
   }
 
   BOOST_TEST(exceptionThrown);
@@ -784,7 +784,7 @@ BOOST_AUTO_TEST_CASE(path_for)
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
-    BOOST_CHECK_EQUAL(exception.message(), "Pathname '': Empty");
+    BOOST_TEST(exception.message() == "Pathname '': Empty");
   }
 
   BOOST_TEST(exceptionThrown);
@@ -795,7 +795,7 @@ BOOST_AUTO_TEST_CASE(path_for)
   // }
   // catch(Exception const& exception) {
   //   exceptionThrown = true;
-  //   BOOST_CHECK_EQUAL(exception.message(), "Pathname '...': Not valid on the current platform");
+  //   BOOST_TEST(exception.message() == "Pathname '...': Not valid on the current platform");
   // }
 
   // BOOST_TEST(exceptionThrown);
@@ -972,7 +972,7 @@ BOOST_AUTO_TEST_CASE(add_extension_if_needed)
     name = "name";
     extension = ".extension";
     path = addExtensionIfNeeded(name, extension);
-    BOOST_CHECK_EQUAL(path.string(), "name.extension");
+    BOOST_TEST(path.string() == "name.extension");
   }
 
 #ifndef WIN32
@@ -982,7 +982,7 @@ BOOST_AUTO_TEST_CASE(add_extension_if_needed)
     name = "name.";
     extension = ".extension";
     path = addExtensionIfNeeded(name, extension);
-    BOOST_CHECK_EQUAL(path.string(), "name.extension");
+    BOOST_TEST(path.string() == "name.extension");
   }
 #endif
 
@@ -991,7 +991,7 @@ BOOST_AUTO_TEST_CASE(add_extension_if_needed)
     name = "name.bla";
     extension = ".extension";
     path = addExtensionIfNeeded(name, extension);
-    BOOST_CHECK_EQUAL(path.string(), "name.bla");
+    BOOST_TEST(path.string() == "name.bla");
   }
 
   {
@@ -1000,7 +1000,7 @@ BOOST_AUTO_TEST_CASE(add_extension_if_needed)
     // name = ".";
     // extension = ".eas";
     // path = addExtensionIfNeeded(name, extension);
-    // BOOST_CHECK_EQUAL(path.string(), ".eas");
+    // BOOST_TEST(path.string() == ".eas");
   }
 }
 
@@ -1016,15 +1016,15 @@ BOOST_AUTO_TEST_CASE(old_stack_name_2_name_space_tuple)
   {
     name = "..\\dem.map";
     result = oldStackName2NameSpaceTuple(name);
-    BOOST_CHECK_EQUAL(std::get<0>(result), name);
-    BOOST_CHECK_EQUAL(std::get<1>(result).rank(), 0);
+    BOOST_TEST(std::get<0>(result) == name);
+    BOOST_TEST(std::get<1>(result).rank() == 0);
   }
 
   {
     name = "..\\data\\dem.map";
     result = oldStackName2NameSpaceTuple(name);
-    BOOST_CHECK_EQUAL(std::get<0>(result), name);
-    BOOST_CHECK_EQUAL(std::get<1>(result).rank(), 0);
+    BOOST_TEST(std::get<0>(result) == name);
+    BOOST_TEST(std::get<1>(result).rank() == 0);
   }
 #endif
 }

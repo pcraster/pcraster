@@ -61,7 +61,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
       DataSource const source(name);
     }
     catch(Exception& exception) {
-      BOOST_CHECK_EQUAL(exception.message(),
+      BOOST_TEST(exception.message() ==
          "Data source " + name + ":\ncannot be opened");
       exceptionCaught = true;
     }
@@ -78,7 +78,7 @@ BOOST_AUTO_TEST_CASE(test_)
 
   {
     DataSource const source(name);
-    BOOST_CHECK_EQUAL(source.name(), name);
+    BOOST_TEST(source.name() == name);
 
     const DataSpace& dataSpace = source.dataSpace();
     BOOST_CHECK(dataSpace.hasRaster());
@@ -121,7 +121,7 @@ BOOST_AUTO_TEST_CASE(soil)
     space.addDimension(Dimension(Time, timeSteps));
 
     DataSource const source(name, space);
-    BOOST_CHECK_EQUAL(source.name(), info.name());
+    BOOST_TEST(source.name() == info.name());
 
     const DataSpace& dataSpace = source.dataSpace();
     BOOST_CHECK(dataSpace.hasTime());
@@ -152,7 +152,7 @@ BOOST_AUTO_TEST_CASE(soil)
     //     raster.reset(source.raster(address));
     //   }
     //   catch(Exception& exception) {
-    //     BOOST_CHECK_EQUAL(exception.message(),
+    //     BOOST_TEST(exception.message() ==
     //           "Data source soil0000(raster) at /time[1, 110, 1](101):\ncannot be opened");
     //     exceptionCaught = true;
     //   }
@@ -173,13 +173,13 @@ BOOST_AUTO_TEST_CASE(unique_values)
     DataSource const source(name);
     std::set<INT4> values;
     source.uniqueValues(values);
-    BOOST_CHECK_EQUAL(values.size(), size_t(5));
+    BOOST_TEST(values.size() == size_t(5));
     auto it = values.begin();
-    BOOST_CHECK_EQUAL(*it++, 1);
-    BOOST_CHECK_EQUAL(*it++, 2);
-    BOOST_CHECK_EQUAL(*it++, 4);
-    BOOST_CHECK_EQUAL(*it++, 7);
-    BOOST_CHECK_EQUAL(*it++, 8);
+    BOOST_TEST(*it++ == 1);
+    BOOST_TEST(*it++ == 2);
+    BOOST_TEST(*it++ == 4);
+    BOOST_TEST(*it++ == 7);
+    BOOST_TEST(*it++ == 8);
     BOOST_CHECK(it == values.end());
   }
 
@@ -196,15 +196,15 @@ BOOST_AUTO_TEST_CASE(unique_values)
     DataSource const source(name, space);
     std::set<INT4> values;
     source.uniqueValues(values);
-    BOOST_CHECK_EQUAL(values.size(), size_t(94));
+    BOOST_TEST(values.size() == size_t(94));
     auto it = values.begin();
-    BOOST_CHECK_EQUAL(*it++, 1);
-    BOOST_CHECK_EQUAL(*it++, 2);
-    BOOST_CHECK_EQUAL(*it++, 3);
-    BOOST_CHECK_EQUAL(*it++, 10);
-    BOOST_CHECK_EQUAL(*it++, 11);
+    BOOST_TEST(*it++ == 1);
+    BOOST_TEST(*it++ == 2);
+    BOOST_TEST(*it++ == 3);
+    BOOST_TEST(*it++ == 10);
+    BOOST_TEST(*it++ == 11);
     it = --values.end();
-    BOOST_CHECK_EQUAL(*it++, 100);
+    BOOST_TEST(*it++ == 100);
   }
 }
 
@@ -471,7 +471,7 @@ BOOST_AUTO_TEST_CASE(dataset_1)
 
     DataSource source(datasetName, space);
 
-    BOOST_CHECK_EQUAL(source.name(), datasetName);
+    BOOST_TEST(source.name() == datasetName);
 
     {
       DataSpace realSpace;
@@ -483,7 +483,7 @@ BOOST_AUTO_TEST_CASE(dataset_1)
       BOOST_CHECK(source.enclosingDataSpace() == realSpace);
     }
 
-    BOOST_CHECK_EQUAL(source.unitDataSpace().rank(), size_t(1));
+    BOOST_TEST(source.unitDataSpace().rank() == size_t(1));
     BOOST_CHECK(source.unitDataSpace().hasRaster());
 
     // -------------------------------------------------------------------------
@@ -618,7 +618,7 @@ BOOST_AUTO_TEST_CASE(dataset_1)
 
       source.read(table, iterSpace, address);
 
-      BOOST_CHECK_EQUAL(table.nrRecs(), size_t(9));
+      BOOST_TEST(table.nrRecs() == size_t(9));
 
       for(size_t i = 11; i <= 14; ++i) {
         BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[i - 11]));
@@ -746,7 +746,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
     space.addDimension(Dimension(CumulativeProbabilities, quantiles));
 
     DataSource source(datasetName, space);
-    BOOST_CHECK_EQUAL(source.name(), datasetName);
+    BOOST_TEST(source.name() == datasetName);
 
     {
       DataSpace realSpace;
@@ -758,7 +758,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       BOOST_CHECK(source.enclosingDataSpace() == realSpace);
     }
 
-    BOOST_CHECK_EQUAL(source.unitDataSpace().rank(), size_t(1));
+    BOOST_TEST(source.unitDataSpace().rank() == size_t(1));
     BOOST_CHECK(source.unitDataSpace().hasRaster());
 
     // -------------------------------------------------------------------------
@@ -862,7 +862,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
 
       source.read(table, iterSpace, address);
 
-      BOOST_CHECK_EQUAL(table.nrRecs(), size_t(81));
+      BOOST_TEST(table.nrRecs() == size_t(81));
       BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[0]));
       BOOST_CHECK(comparable(table.col<REAL4>(0)[0], REAL4(0.0)));
       BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[15]));
@@ -899,7 +899,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
     space.addDimension(Dimension(CumulativeProbabilities, quantiles));
 
     DataSource source(datasetName, space);
-    BOOST_CHECK_EQUAL(source.name(), datasetName);
+    BOOST_TEST(source.name() == datasetName);
 
     {
       DataSpace realSpace;
@@ -915,7 +915,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       realSpace.addDimension(Dimension(CumulativeProbabilities, quantiles));
     }
 
-    BOOST_CHECK_EQUAL(source.unitDataSpace().rank(), size_t(1));
+    BOOST_TEST(source.unitDataSpace().rank() == size_t(1));
     BOOST_CHECK(source.unitDataSpace().hasRaster());
 
     // -------------------------------------------------------------------------
@@ -1035,7 +1035,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       iterSpace.dimension(1) = source.dataSpace().dimension(1);
       source.read(table, iterSpace, address);
 
-      BOOST_CHECK_EQUAL(table.nrRecs(), size_t(81));
+      BOOST_TEST(table.nrRecs() == size_t(81));
       BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[0]));
       BOOST_CHECK(comparable(table.col<REAL4>(0)[0], REAL4(1.0)));
       BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[15]));
@@ -1056,7 +1056,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       address.setCoordinate<size_t>(0, 14);
       source.read(table, iterSpace, address);
 
-      BOOST_CHECK_EQUAL(table.nrRecs(), size_t(81));
+      BOOST_TEST(table.nrRecs() == size_t(81));
       BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[0]));
       BOOST_CHECK(comparable(table.col<REAL4>(0)[0], REAL4(0.0)));
       BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[15]));
@@ -1076,7 +1076,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       address.setCoordinate<size_t>(0, 21);
       source.read(table, iterSpace, address);
 
-      BOOST_CHECK_EQUAL(table.nrRecs(), size_t(81));
+      BOOST_TEST(table.nrRecs() == size_t(81));
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[0]));
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[15]));
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[40]));
@@ -1088,7 +1088,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       address.setCoordinate<size_t>(0, 9);
       source.read(table, iterSpace, address);
 
-      BOOST_CHECK_EQUAL(table.nrRecs(), size_t(81));
+      BOOST_TEST(table.nrRecs() == size_t(81));
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[0]));
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[15]));
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[40]));
@@ -1112,7 +1112,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       iterSpace.dimension(0) = source.dataSpace().dimension(0);
       source.read(table, iterSpace, address);
 
-      BOOST_CHECK_EQUAL(table.nrRecs(), size_t(11));
+      BOOST_TEST(table.nrRecs() == size_t(11));
       BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[0]));
       BOOST_CHECK(comparable(table.col<REAL4>(0)[0], REAL4(6.0)));
       BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[1]));
@@ -1131,7 +1131,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       address.setCoordinate<float>(1, 0.60f);
       source.read(table, iterSpace, address);
 
-      BOOST_CHECK_EQUAL(table.nrRecs(), size_t(11));
+      BOOST_TEST(table.nrRecs() == size_t(11));
       REAL4 value = NAN;
       BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[0]));
       interpolate(value, REAL4(5.0), REAL4(0.1), REAL4(6.0), REAL4(0.15));
@@ -1158,7 +1158,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       table.clear();
       source.read(table, iterSpace, address);
 
-      BOOST_CHECK_EQUAL(table.nrRecs(), size_t(11));
+      BOOST_TEST(table.nrRecs() == size_t(11));
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[0]));
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[1]));
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[2]));
@@ -1174,7 +1174,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       address.setCoordinate<float>(1, 0.91f);
       source.read(table, iterSpace, address);
 
-      BOOST_CHECK_EQUAL(table.nrRecs(), size_t(11));
+      BOOST_TEST(table.nrRecs() == size_t(11));
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[0]));
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[1]));
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[2]));
@@ -1191,7 +1191,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       address.unsetCoordinate(1);
       source.read<float>(table, 5.0f, address);
 
-      BOOST_CHECK_EQUAL(table.nrRecs(), size_t(11));
+      BOOST_TEST(table.nrRecs() == size_t(11));
 
       BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[0]));
       BOOST_CHECK(comparable(table.col<REAL4>(0)[0], REAL4(0.5)));
@@ -1247,7 +1247,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
     space.addDimension(Dimension(CumulativeProbabilities, quantiles));
 
     DataSource source(datasetName, space);
-    BOOST_CHECK_EQUAL(source.name(), datasetName);
+    BOOST_TEST(source.name() == datasetName);
 
     {
       std::set<std::string> scenarios;
@@ -1275,7 +1275,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       BOOST_CHECK(source.enclosingDataSpace() == realSpace);
     }
 
-    BOOST_CHECK_EQUAL(source.unitDataSpace().rank(), size_t(1));
+    BOOST_TEST(source.unitDataSpace().rank() == size_t(1));
     BOOST_CHECK(source.unitDataSpace().hasRaster());
 
     // -------------------------------------------------------------------------
@@ -1366,7 +1366,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       iterSpace.dimension(2) = source.dataSpace().dimension(2);
       source.read(table, iterSpace, address);
 
-      BOOST_CHECK_EQUAL(table.nrRecs(), size_t(81));
+      BOOST_TEST(table.nrRecs() == size_t(81));
       BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[0]));
       BOOST_CHECK(comparable(table.col<REAL4>(0)[0], REAL4(1.0)));
       BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[15]));
@@ -1387,7 +1387,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       address.setCoordinate<size_t>(1, 14);
       source.read(table, iterSpace, address);
 
-      BOOST_CHECK_EQUAL(table.nrRecs(), size_t(81));
+      BOOST_TEST(table.nrRecs() == size_t(81));
       BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[0]));
       BOOST_CHECK(comparable(table.col<REAL4>(0)[0], REAL4(0.0)));
       BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[15]));
@@ -1409,7 +1409,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       address.setCoordinate<size_t>(1, 21);
       source.read(table, iterSpace, address);
 
-      BOOST_CHECK_EQUAL(table.nrRecs(), size_t(81));
+      BOOST_TEST(table.nrRecs() == size_t(81));
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[0]));
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[15]));
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[40]));
@@ -1421,7 +1421,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       address.setCoordinate<size_t>(1, 9);
       source.read(table, iterSpace, address);
 
-      BOOST_CHECK_EQUAL(table.nrRecs(), size_t(81));
+      BOOST_TEST(table.nrRecs() == size_t(81));
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[0]));
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[15]));
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[40]));
@@ -1446,7 +1446,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       iterSpace.dimension(1) = source.dataSpace().dimension(1);
       source.read(table, iterSpace, address);
 
-      BOOST_CHECK_EQUAL(table.nrRecs(), size_t(11));
+      BOOST_TEST(table.nrRecs() == size_t(11));
       BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[0]));
       BOOST_CHECK(comparable(table.col<REAL4>(0)[0], REAL4(26.0)));
       BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[1]));
@@ -1465,7 +1465,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       address.setCoordinate<float>(2, 0.60f);
       source.read(table, iterSpace, address);
 
-      BOOST_CHECK_EQUAL(table.nrRecs(), size_t(11));
+      BOOST_TEST(table.nrRecs() == size_t(11));
       REAL4 value = NAN;
       BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[0]));
       interpolate(value, REAL4(25.0), REAL4(0.1), REAL4(26.0), REAL4(0.15));
@@ -1487,7 +1487,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       address.setCoordinate<float>(2, 0.09f);
       source.read(table, iterSpace, address);
 
-      BOOST_CHECK_EQUAL(table.nrRecs(), size_t(11));
+      BOOST_TEST(table.nrRecs() == size_t(11));
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[0]));
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[1]));
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[2]));
@@ -1503,7 +1503,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       address.setCoordinate<float>(2, 0.91f);
       source.read(table, iterSpace, address);
 
-      BOOST_CHECK_EQUAL(table.nrRecs(), size_t(11));
+      BOOST_TEST(table.nrRecs() == size_t(11));
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[0]));
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[1]));
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[2]));

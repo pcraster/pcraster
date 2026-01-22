@@ -36,26 +36,26 @@ BOOST_AUTO_TEST_CASE(test)
   DataInfo<Raster> const data(&raster, VS_SCALAR);
 
   DataManager<Raster> manager(geo::STACK);
-  BOOST_CHECK_EQUAL(manager.size(), size_t(0));
+  BOOST_TEST(manager.size() == size_t(0));
   BOOST_CHECK(manager.empty());
 
   DataGuide const guide1 = manager.add(data);
-  BOOST_CHECK_EQUAL(manager.size(), size_t(1));
+  BOOST_TEST(manager.size() == size_t(1));
   BOOST_CHECK(!manager.empty());
 
   // 2nd guide is pointing to the same data as the first.
   DataGuide const guide2 = manager.add(data);
-  BOOST_CHECK_EQUAL(manager.size(), size_t(1));
+  BOOST_TEST(manager.size() == size_t(1));
   BOOST_CHECK(!manager.empty());
 
   BOOST_CHECK(guide1 == guide2);
 
   BOOST_CHECK(manager.isValid(guide1));
   BOOST_CHECK(manager.exists(&raster));
-  BOOST_CHECK_EQUAL(&manager.data(guide1), &raster);
+  BOOST_TEST(&manager.data(guide1) == &raster);
 
   manager.remove(guide1);
 
-  BOOST_CHECK_EQUAL(manager.size(), size_t(0));
+  BOOST_TEST(manager.size() == size_t(0));
   BOOST_CHECK(manager.empty());
 }

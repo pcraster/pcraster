@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_CASE(dataset_type)
     // TODO
     // Default extension is not added currently.
     // type = dal.datasetType(name);           // Finds soil.map.
-    // BOOST_CHECK_EQUAL(type, RASTER);
+    // BOOST_TEST(type == RASTER);
 
     std::vector<size_t> timeSteps;
     timeSteps.push_back(size_t(1));
@@ -61,7 +61,7 @@ BOOST_AUTO_TEST_CASE(dataset_type)
     BOOST_TEST(space.hasTime());
 
     type = dal.datasetType(name, space);    // Finds soil0000.010.
-    BOOST_CHECK_EQUAL(type, RASTER);
+    BOOST_TEST(type == RASTER);
   }
 
   dal.remove(driver);
@@ -78,11 +78,11 @@ BOOST_AUTO_TEST_CASE(split_name_and_selection)
     std::tuple<std::string, std::vector<std::string> > tuple =
            splitNameAndSelection(name);
 
-    BOOST_CHECK_EQUAL(std::get<0>(tuple), "table");
-    BOOST_CHECK_EQUAL(std::get<1>(tuple).size(), size_t(3));
-    BOOST_CHECK_EQUAL(std::get<1>(tuple)[0], "1");
-    BOOST_CHECK_EQUAL(std::get<1>(tuple)[1], "3");
-    BOOST_CHECK_EQUAL(std::get<1>(tuple)[2], "q");
+    BOOST_TEST(std::get<0>(tuple) == "table");
+    BOOST_TEST(std::get<1>(tuple).size() == size_t(3));
+    BOOST_TEST(std::get<1>(tuple)[0] == "1");
+    BOOST_TEST(std::get<1>(tuple)[1] == "3");
+    BOOST_TEST(std::get<1>(tuple)[2] == "q");
   }
 
   {
@@ -90,8 +90,8 @@ BOOST_AUTO_TEST_CASE(split_name_and_selection)
     std::tuple<std::string, std::vector<std::string> > tuple =
            splitNameAndSelection(name);
 
-    BOOST_CHECK_EQUAL(std::get<0>(tuple), "table");
-    BOOST_CHECK_EQUAL(std::get<1>(tuple).size(), size_t(0));
+    BOOST_TEST(std::get<0>(tuple) == "table");
+    BOOST_TEST(std::get<1>(tuple).size() == size_t(0));
   }
 
   {
@@ -99,9 +99,9 @@ BOOST_AUTO_TEST_CASE(split_name_and_selection)
     std::tuple<std::string, std::vector<std::string> > tuple =
            splitNameAndSelection(name);
 
-    BOOST_CHECK_EQUAL(std::get<0>(tuple), "table");
-    BOOST_CHECK_EQUAL(std::get<1>(tuple).size(), size_t(1));
-    BOOST_CHECK_EQUAL(std::get<1>(tuple)[0], "1");
+    BOOST_TEST(std::get<0>(tuple) == "table");
+    BOOST_TEST(std::get<1>(tuple).size() == size_t(1));
+    BOOST_TEST(std::get<1>(tuple)[0] == "1");
   }
 
   {
@@ -109,10 +109,10 @@ BOOST_AUTO_TEST_CASE(split_name_and_selection)
     std::tuple<std::string, std::vector<std::string> > tuple =
            splitNameAndSelection(name);
 
-    BOOST_CHECK_EQUAL(std::get<0>(tuple), "table");
-    BOOST_CHECK_EQUAL(std::get<1>(tuple).size(), size_t(2));
-    BOOST_CHECK_EQUAL(std::get<1>(tuple)[0], "1");
-    BOOST_CHECK_EQUAL(std::get<1>(tuple)[1], "2");
+    BOOST_TEST(std::get<0>(tuple) == "table");
+    BOOST_TEST(std::get<1>(tuple).size() == size_t(2));
+    BOOST_TEST(std::get<1>(tuple)[0] == "1");
+    BOOST_TEST(std::get<1>(tuple)[1] == "2");
   }
 
   {
@@ -120,10 +120,10 @@ BOOST_AUTO_TEST_CASE(split_name_and_selection)
     std::tuple<std::string, std::vector<std::string> > tuple =
            splitNameAndSelection(name);
 
-    BOOST_CHECK_EQUAL(std::get<0>(tuple), "table");
-    BOOST_CHECK_EQUAL(std::get<1>(tuple).size(), size_t(2));
-    BOOST_CHECK_EQUAL(std::get<1>(tuple)[0], "1");
-    BOOST_CHECK_EQUAL(std::get<1>(tuple)[1], "2");
+    BOOST_TEST(std::get<0>(tuple) == "table");
+    BOOST_TEST(std::get<1>(tuple).size() == size_t(2));
+    BOOST_TEST(std::get<1>(tuple)[0] == "1");
+    BOOST_TEST(std::get<1>(tuple)[1] == "2");
   }
 
   {
@@ -131,10 +131,10 @@ BOOST_AUTO_TEST_CASE(split_name_and_selection)
     std::tuple<std::string, std::vector<std::string> > tuple =
            splitNameAndSelection(name);
 
-    BOOST_CHECK_EQUAL(std::get<0>(tuple), "table ");
-    BOOST_CHECK_EQUAL(std::get<1>(tuple).size(), size_t(2));
-    BOOST_CHECK_EQUAL(std::get<1>(tuple)[0], "1");
-    BOOST_CHECK_EQUAL(std::get<1>(tuple)[1], "2");
+    BOOST_TEST(std::get<0>(tuple) == "table ");
+    BOOST_TEST(std::get<1>(tuple).size() == size_t(2));
+    BOOST_TEST(std::get<1>(tuple)[0] == "1");
+    BOOST_TEST(std::get<1>(tuple)[1] == "2");
   }
 
   {
@@ -143,8 +143,8 @@ BOOST_AUTO_TEST_CASE(split_name_and_selection)
     std::tuple<std::string, std::vector<std::string> > tuple =
            splitNameAndSelection(name);
 
-    BOOST_CHECK_EQUAL(std::get<0>(tuple), name);
-    BOOST_CHECK_EQUAL(std::get<1>(tuple).size(), size_t(0));
+    BOOST_TEST(std::get<0>(tuple) == name);
+    BOOST_TEST(std::get<1>(tuple).size() == size_t(0));
   }
 }
 

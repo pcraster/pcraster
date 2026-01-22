@@ -83,11 +83,11 @@ void NetCDFRasterDriverTest::tearDown()
 void NetCDFRasterDriverTest::testDefaultExtension()
 {
   NetCDFRasterDriver driver;
-  BOOST_CHECK_EQUAL(driver.format().name(), "NetCDF");
-  BOOST_CHECK_EQUAL(driver.format().description(), "NetCDF raster file format");
-  BOOST_CHECK_EQUAL(driver.format().datasetType(), RASTER);
+  BOOST_TEST(driver.format().name() == "NetCDF");
+  BOOST_TEST(driver.format().description() == "NetCDF raster file format");
+  BOOST_TEST(driver.format().datasetType() == RASTER);
   BOOST_TEST(driver.format().isFileBased());
-  BOOST_CHECK_EQUAL(driver.format().extension(), "nc");
+  BOOST_TEST(driver.format().extension() == "nc");
 }
 
 
@@ -115,7 +115,7 @@ void NetCDFRasterDriverTest::testEmptyDataSpace()
 /*
   // Get and check dataSpace.
   DataSpace space(driver.dataSpace(name, DataSpace(), DataSpaceAddress()));
-  BOOST_CHECK_EQUAL(space.rank(), 2);
+  BOOST_TEST(space.rank() == 2);
   ...
 
   // Read the raster, check whether values are correct.

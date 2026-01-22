@@ -35,10 +35,10 @@ BOOST_AUTO_TEST_CASE(test_)
     address.setCoordinate<size_t>(2, 12);
     address.setCoordinate<size_t>(3, 13);
 
-    BOOST_CHECK_EQUAL(mapper.toString(address, 0), "aap");
-    BOOST_CHECK_EQUAL(mapper.toString(address, 1), "50");
-    BOOST_CHECK_EQUAL(mapper.toString(address, 2), "12");
-    BOOST_CHECK_EQUAL(mapper.toString(address, 3), "13");
-    BOOST_CHECK_EQUAL(mapper.toString(address), "/aap/50/12/13");
+    BOOST_TEST(mapper.toString(address, 0) == "aap");
+    BOOST_TEST(mapper.toString(address, 1) == "50");
+    BOOST_TEST(mapper.toString(address, 2) == "12");
+    BOOST_TEST(mapper.toString(address, 3) == "13");
+    BOOST_TEST(mapper.toString(address) == "/aap/50/12/13");
   }
 }

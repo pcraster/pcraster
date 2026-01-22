@@ -73,12 +73,12 @@ BOOST_AUTO_TEST_CASE(esri_ascii_grid1)
   {
     std::tie(raster, std::ignore) = dal.open(filename);
     BOOST_TEST_REQUIRE(raster);
-    BOOST_CHECK_EQUAL(raster->nrRows(), size_t(4));
-    BOOST_CHECK_EQUAL(raster->nrCols(), size_t(3));
-    BOOST_CHECK_EQUAL(raster->cellSize(), 10.0);
-    BOOST_CHECK_EQUAL(raster->west(), 3.0);
-    BOOST_CHECK_EQUAL(raster->south(), 4.0);
-    BOOST_CHECK_EQUAL(raster->typeId(), TI_INT4);
+    BOOST_TEST(raster->nrRows() == size_t(4));
+    BOOST_TEST(raster->nrCols() == size_t(3));
+    BOOST_TEST(raster->cellSize() == 10.0);
+    BOOST_TEST(raster->west() == 3.0);
+    BOOST_TEST(raster->south() == 4.0);
+    BOOST_TEST(raster->typeId() == TI_INT4);
   }
 
   {
@@ -87,18 +87,18 @@ BOOST_AUTO_TEST_CASE(esri_ascii_grid1)
     INT4 const* cells = static_cast<INT4 const*>(raster->cells());
     BOOST_TEST_REQUIRE(cells);
 
-    BOOST_CHECK_EQUAL(cells[0], 1);
-    BOOST_CHECK_EQUAL(cells[1], 2);
-    BOOST_CHECK_EQUAL(cells[2], 3);
-    BOOST_CHECK_EQUAL(cells[3], 4);
+    BOOST_TEST(cells[0] == 1);
+    BOOST_TEST(cells[1] == 2);
+    BOOST_TEST(cells[2] == 3);
+    BOOST_TEST(cells[3] == 4);
     BOOST_TEST(pcr::isMV(cells[4]));
-    BOOST_CHECK_EQUAL(cells[5], 6);
-    BOOST_CHECK_EQUAL(cells[6], 7);
-    BOOST_CHECK_EQUAL(cells[7], 8);
-    BOOST_CHECK_EQUAL(cells[8], 9);
-    BOOST_CHECK_EQUAL(cells[9], 10);
-    BOOST_CHECK_EQUAL(cells[10], 11);
-    BOOST_CHECK_EQUAL(cells[11], 12);
+    BOOST_TEST(cells[5] == 6);
+    BOOST_TEST(cells[6] == 7);
+    BOOST_TEST(cells[7] == 8);
+    BOOST_TEST(cells[8] == 9);
+    BOOST_TEST(cells[9] == 10);
+    BOOST_TEST(cells[10] == 11);
+    BOOST_TEST(cells[11] == 12);
   }
 }
 

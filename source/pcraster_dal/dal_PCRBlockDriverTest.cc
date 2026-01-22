@@ -82,8 +82,8 @@ BOOST_AUTO_TEST_CASE(open)
          dynamic_cast<Driver&>(driver).open("discretisation.pcrblock"));
 
     BOOST_TEST(block);
-    BOOST_CHECK_EQUAL(block->nrRows(), size_t(3));
-    BOOST_CHECK_EQUAL(block->nrCols(), size_t(2));
+    BOOST_TEST(block->nrRows() == size_t(3));
+    BOOST_TEST(block->nrCols() == size_t(2));
     BOOST_TEST(dal::comparable(block->cellSize(), 1.0));
     BOOST_TEST(dal::comparable(block->west(), 4.0));
     BOOST_TEST(dal::comparable(block->north(), 5.0));
@@ -110,7 +110,7 @@ BOOST_AUTO_TEST_CASE(read_)
     }
     catch(Exception const& exception) {
       exceptionCaught = true;
-      BOOST_CHECK_EQUAL(exception.message(),
+      BOOST_TEST(exception.message() ==
          "Data source notexisting(block):\ncannot be opened");
     }
 
@@ -123,8 +123,8 @@ BOOST_AUTO_TEST_CASE(read_)
     block = static_cast<BlockDriver&>(driver).read("discretisation.pcrblock");
     BOOST_TEST(block);
 
-    BOOST_CHECK_EQUAL(block->nrRows(), size_t(3));
-    BOOST_CHECK_EQUAL(block->nrCols(), size_t(2));
+    BOOST_TEST(block->nrRows() == size_t(3));
+    BOOST_TEST(block->nrCols() == size_t(2));
     BOOST_TEST(dal::comparable(block->cellSize(), 1.0));
     BOOST_TEST(dal::comparable(block->west(), 4.0));
     BOOST_TEST(dal::comparable(block->north(), 5.0));
@@ -140,7 +140,7 @@ BOOST_AUTO_TEST_CASE(read_)
 
       auto& stack(block->cell<REAL4_VECTOR>(i));
 
-      BOOST_CHECK_EQUAL(stack.size(), i);
+      BOOST_TEST(stack.size() == i);
 
       for(float  const& j : stack) {
         BOOST_TEST(dal::comparable(j, REAL4(i)));

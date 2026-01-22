@@ -54,13 +54,13 @@ BOOST_AUTO_TEST_CASE(test1)
   std::shared_ptr<dal::Raster> pcrMap;
   std::tie(pcrMap, std::ignore) = rasterDal.open("soil.map");
   BOOST_TEST_REQUIRE(pcrMap);
-  BOOST_CHECK_EQUAL(pcrMap->typeId(), dal::TI_INT4);
+  BOOST_TEST(pcrMap->typeId() == dal::TI_INT4);
 
   {
   std::shared_ptr<dal::Raster> bilMap;
   std::tie(bilMap, std::ignore) = rasterDal.open("inp14_gl.bil");
   BOOST_TEST_REQUIRE(bilMap);
-  BOOST_CHECK_EQUAL(bilMap->typeId(), dal::TI_REAL4);
+  BOOST_TEST(bilMap->typeId() == dal::TI_REAL4);
   }
 
   // remainder assume avtutor dataset for Spatial Analyst existing
@@ -78,7 +78,7 @@ BOOST_AUTO_TEST_CASE(test1)
   std::tie(esriMap, std::ignore) = rasterDal.open(
                     "c:/esri/av_gis30/avtutor/spatial/dem");
   BOOST_TEST(esriMap);
-  BOOST_CHECK_EQUAL(esriMap->typeId(), dal::TI_REAL4);
+  BOOST_TEST(esriMap->typeId() == dal::TI_REAL4);
   }
 
   {
@@ -86,7 +86,7 @@ BOOST_AUTO_TEST_CASE(test1)
   std::tie(esriMap, std::ignore) = rasterDal.open(
                    "c:/esri/av_gis30/avtutor/spatial/elevgrd");
   BOOST_TEST(esriMap);
-  BOOST_CHECK_EQUAL(esriMap->typeId(), dal::TI_REAL4);
+  BOOST_TEST(esriMap->typeId() == dal::TI_REAL4);
   }
 
   {
@@ -94,7 +94,7 @@ BOOST_AUTO_TEST_CASE(test1)
   std::tie(esriMap, std::ignore) = rasterDal.open(
                    "c:/esri/av_gis30/avtutor/spatial/hillshd");
   BOOST_TEST(esriMap);
-  BOOST_CHECK_EQUAL(esriMap->typeId(), dal::TI_UINT1);
+  BOOST_TEST(esriMap->typeId() == dal::TI_UINT1);
   bool const arcCatalogSaysSignedIntegerPixelDept16=false;
   BOOST_TEST_WARN(arcCatalogSaysSignedIntegerPixelDept16);
   }
@@ -116,14 +116,14 @@ BOOST_AUTO_TEST_CASE(bil_format)
     map = rasterDal.read("all1_float.bil", dal::TI_REAL4);
     BOOST_TEST_REQUIRE(map);
 
-    BOOST_CHECK_EQUAL(map->typeId(), dal::TI_REAL4);
-    BOOST_CHECK_EQUAL(map->nrRows(), size_t(4));
-    BOOST_CHECK_EQUAL(map->nrCols(), size_t(4));
+    BOOST_TEST(map->typeId() == dal::TI_REAL4);
+    BOOST_TEST(map->nrRows() == size_t(4));
+    BOOST_TEST(map->nrCols() == size_t(4));
 
     REAL4 const* cells = map->cells<REAL4>();
     // PRINT_VAR(cells[0]); wil print nan OK!, no throw
-    BOOST_CHECK_EQUAL(cells[1], 1.0f);
-    BOOST_CHECK_EQUAL(cells[15], 1.0f);
+    BOOST_TEST(cells[1] == 1.0f);
+    BOOST_TEST(cells[15] == 1.0f);
   }
 /*
 *  { // create a  4*5 TI_INT2 map with first and last cell a MV of 0
@@ -141,7 +141,7 @@ BOOST_AUTO_TEST_CASE(bil_format)
    std::shared_ptr<dal::Raster> map;
    std::tie(map, std::ignore) = rasterDal.open("int2mv0.bil");
    BOOST_TEST_REQUIRE(map);
-   BOOST_CHECK_EQUAL(map->typeId(), dal::TI_INT2);
+   BOOST_TEST(map->typeId() == dal::TI_INT2);
   }
 
   { // a  4*5 TI_INT2 map with first and last cell a MV of 0
@@ -149,13 +149,13 @@ BOOST_AUTO_TEST_CASE(bil_format)
    std::shared_ptr<dal::Raster> const map(rasterDal.read("int2mv0.bil",
       dal::TI_INT2));
    BOOST_TEST_REQUIRE(map);
-   BOOST_CHECK_EQUAL(map->typeId(), dal::TI_INT2);
-   BOOST_CHECK_EQUAL(map->cellSize(), 10);
+   BOOST_TEST(map->typeId() == dal::TI_INT2);
+   BOOST_TEST(map->cellSize() == 10);
 
    INT2 const* cells = map->cells<INT2>();
    BOOST_TEST(pcr::isMV(cells[0]));
-   BOOST_CHECK_EQUAL(cells[1], 1);
-   BOOST_CHECK_EQUAL(cells[9], 9);
+   BOOST_TEST(cells[1] == 1);
+   BOOST_TEST(cells[9] == 9);
    BOOST_TEST(pcr::isMV(cells[19]));
   }
 
@@ -163,13 +163,13 @@ BOOST_AUTO_TEST_CASE(bil_format)
  * { // same and autoconver to INT4
  *  std::shared_ptr<dal::Raster> map(rasterDal.read("int2mv0.bil",dal::TI_INT4));
  *  BOOST_TEST(map);
- *  BOOST_CHECK_EQUAL(map->typeId(), dal::TI_INT4);
- *  BOOST_CHECK_EQUAL(map->cellSize(), 10);
+ *  BOOST_TEST(map->typeId() == dal::TI_INT4);
+ *  BOOST_TEST(map->cellSize() == 10);
 
  *  INT4 const* cells = map->cells<INT4>();
  *  BOOST_TEST(pcr::isMV(cells[0]));
- *  BOOST_CHECK_EQUAL(cells[1], 1);
- *  BOOST_CHECK_EQUAL(cells[9], 9);
+ *  BOOST_TEST(cells[1] == 1);
+ *  BOOST_TEST(cells[9] == 9);
  *  BOOST_TEST(pcr::isMV(cells[19]));
  * }
  */
@@ -201,15 +201,15 @@ BOOST_AUTO_TEST_CASE(bil_format)
 *  TI_UINT1 *buf=0;;
 *  try {
 *   BandMap bm("uint1minimal");
-*   BOOST_CHECK_EQUAL(bm.nrRows(), size_t(4));
-*   BOOST_CHECK_EQUAL(bm.nrCols(), size_t(5));
-*   BOOST_CHECK_EQUAL(bm.nrCells(), 20);
-*   BOOST_CHECK_EQUAL(size(com::PathName("uint1minimal.bil")), bm.nrCells());
+*   BOOST_TEST(bm.nrRows() == size_t(4));
+*   BOOST_TEST(bm.nrCols() == size_t(5));
+*   BOOST_TEST(bm.nrCells() == 20);
+*   BOOST_TEST(size(com::PathName("uint1minimal.bil")) == bm.nrCells());
 *   buf = new TI_UINT1[bm.nrCells()];
-*   BOOST_CHECK_EQUAL(bm.cellSize(), 1); // default
+*   BOOST_TEST(bm.cellSize() == 1); // default
 *   bm.getCellsAsUINT1(buf);
 *   BOOST_TEST(!bm.mvIsSet());
-*   BOOST_CHECK_EQUAL(buf[12], 12);
+*   BOOST_TEST(buf[12] == 12);
 *
 *   createBil("uint1minimalcpy.bil",bm.rasterSpace(), buf);
 *   BOOST_TEST(com::filesExistsAndEqual("uint1minimalcpy.bil","uint1minimal.bil"));
@@ -239,38 +239,38 @@ BOOST_AUTO_TEST_CASE(bil_format)
 * BandMap bm("mband");
 * TI_REAL4 *REAL4 = new TI_REAL4[bm.nrCells()];
 * bm.getCellsAsREAL4(REAL4);
-* BOOST_CHECK_EQUAL(REAL4[0], 0);
-* BOOST_CHECK_EQUAL(REAL4[10], 30);
-* BOOST_CHECK_EQUAL(REAL4[20], 60);
-* BOOST_CHECK_EQUAL(REAL4[39], 99);
+* BOOST_TEST(REAL4[0] == 0);
+* BOOST_TEST(REAL4[10] == 30);
+* BOOST_TEST(REAL4[20] == 60);
+* BOOST_TEST(REAL4[39] == 99);
 * delete [] REAL4;
 *}
 *
 *void geo::BandMapTest::testOpen2()
 *{
 * BandMap bm("int2mv0");
-* BOOST_CHECK_EQUAL( bm.nrRows(), size_t(4));
-* BOOST_CHECK_EQUAL( bm.nrCols(), size_t(5));
+* BOOST_TEST( bm.nrRows() == size_t(4));
+* BOOST_TEST( bm.nrCols() == size_t(5));
 * BOOST_TEST( bm.mvIsSet());
-* BOOST_CHECK_EQUAL( bm.mvValue(), 0);
-* BOOST_CHECK_EQUAL( bm.cellRepr(), CR_INT2);
+* BOOST_TEST( bm.mvValue() == 0);
+* BOOST_TEST( bm.cellRepr() == CR_INT2);
 *
 * TI_INT2 *bufi2 = new TI_INT2[bm.nrCells()];
 *
 * bm.getCellsRaw(bufi2);
-* BOOST_CHECK_EQUAL(bufi2[0], 0);
-* BOOST_CHECK_EQUAL(bufi2[11], 11);
+* BOOST_TEST(bufi2[0] == 0);
+* BOOST_TEST(bufi2[11] == 11);
 *
 * TI_INT4 *bufi4 = new TI_INT4[bm.nrCells()];
 * bm.getCellsAsINT4(bufi4);
-* BOOST_CHECK_EQUAL(bufi4[19], MV_INT4);
-* BOOST_CHECK_EQUAL(bufi4[0], MV_INT4);
-* BOOST_CHECK_EQUAL(bufi4[11], 11);
+* BOOST_TEST(bufi4[19] == MV_INT4);
+* BOOST_TEST(bufi4[0] == MV_INT4);
+* BOOST_TEST(bufi4[11] == 11);
 *
 * TI_REAL4 *REAL4 = new TI_REAL4[bm.nrCells()];
 * bm.getCellsAsREAL4(REAL4);
 * BOOST_TEST(pcr::isMV(REAL4[0]));
-* BOOST_CHECK_EQUAL(REAL4[11], 11.0);
+* BOOST_TEST(REAL4[11] == 11.0);
 *
 * delete [] bufi4;
 * delete [] bufi2;
@@ -291,24 +291,24 @@ BOOST_AUTO_TEST_CASE(bil_format)
 *
 *   BandMap  out("inp1b");
 *
-*   BOOST_CHECK_EQUAL(out.nrRows(), in.nrRows());
-*   BOOST_CHECK_EQUAL(out.nrCols(), in.nrCols());
-*   BOOST_CHECK_EQUAL(out.cellSize(), in.cellSize());
-*   BOOST_CHECK_EQUAL(out.cellRepr(), in.cellRepr());
+*   BOOST_TEST(out.nrRows() == in.nrRows());
+*   BOOST_TEST(out.nrCols() == in.nrCols());
+*   BOOST_TEST(out.cellSize() == in.cellSize());
+*   BOOST_TEST(out.cellRepr() == in.cellRepr());
 *
 *   in.getCells(buf);
-*   BOOST_CHECK_EQUAL(buf[0], MV_UINT1);
-*   BOOST_CHECK_EQUAL(buf[1], 1);
-*   BOOST_CHECK_EQUAL(buf[24], 1);
+*   BOOST_TEST(buf[0] == MV_UINT1);
+*   BOOST_TEST(buf[1] == 1);
+*   BOOST_TEST(buf[24] == 1);
 *
-*   BOOST_CHECK_EQUAL(size(com::PathName("inp1b.bil")), in.nrCells());
+*   BOOST_TEST(size(com::PathName("inp1b.bil")) == in.nrCells());
 *
 *   BandMap asInt4("inp1b");
 *   TI_INT4 *bufI4 = new TI_INT4[in.nrCells()];
 *   asInt4.getCellsAsINT4(bufI4);
-*   BOOST_CHECK_EQUAL(bufI4[0], MV_INT4);
-*   BOOST_CHECK_EQUAL(bufI4[1], 1);
-*   BOOST_CHECK_EQUAL(bufI4[24], 1);
+*   BOOST_TEST(bufI4[0] == MV_INT4);
+*   BOOST_TEST(bufI4[1] == 1);
+*   BOOST_TEST(bufI4[24] == 1);
 *
 *   delete [] bufI4;
 *
@@ -329,15 +329,15 @@ BOOST_AUTO_TEST_CASE(bil_format)
 *  bm.putCellsAsINT4(createBuf);
 *
 *  BandMap     readBm("testPutCellsputINT4");
-*  BOOST_CHECK_EQUAL(readBm.cellRepr(), CR_INT2);
-*  BOOST_CHECK_EQUAL(readBm.nrRows(), size_t(4));
-*  BOOST_CHECK_EQUAL(readBm.nrCols(), size_t(5));
+*  BOOST_TEST(readBm.cellRepr() == CR_INT2);
+*  BOOST_TEST(readBm.nrRows() == size_t(4));
+*  BOOST_TEST(readBm.nrCols() == size_t(5));
 *  TI_INT4 readBuf[20];
 *  readBm.getCellsAsINT4(readBuf);
-*  BOOST_CHECK_EQUAL(readBuf[0], MV_INT4);
-*  BOOST_CHECK_EQUAL(readBuf[2], 2);
+*  BOOST_TEST(readBuf[0] == MV_INT4);
+*  BOOST_TEST(readBuf[2] == 2);
 *  // test truncation/sign wrap due to TI_INT2 storage
-*  BOOST_CHECK_EQUAL(readBuf[10], INT2_MIN-1+99);
+*  BOOST_TEST(readBuf[10] == INT2_MIN-1+99);
 * }
 * {
 *  RasterSpace rs(4,5);
@@ -349,25 +349,25 @@ BOOST_AUTO_TEST_CASE(bil_format)
 *  bm.putCellsAsREAL4(createBuf);
 *
 *  BandMap     readBm("testPutCellsputREAL4");
-*  BOOST_CHECK_EQUAL(readBm.cellRepr(), CR_REAL4);
-*  BOOST_CHECK_EQUAL(readBm.nrRows(), size_t(4));
-*  BOOST_CHECK_EQUAL(readBm.nrCols(), size_t(5));
+*  BOOST_TEST(readBm.cellRepr() == CR_REAL4);
+*  BOOST_TEST(readBm.nrRows() == size_t(4));
+*  BOOST_TEST(readBm.nrCols() == size_t(5));
 *  TI_REAL4 readBuf[20];
 *
 *  readBm.getCellsRaw(readBuf);
-*  BOOST_CHECK_EQUAL(readBuf[0], -999);
-*  BOOST_CHECK_EQUAL(readBuf[2], 2);
+*  BOOST_TEST(readBuf[0] == -999);
+*  BOOST_TEST(readBuf[2] == 2);
 *
 *  TI_REAL4 readBuf2[20];
 *  readBm.getCellsAsREAL4(readBuf2);
 *  BOOST_TEST(pcr::isMV(readBuf2[0]));
-*  BOOST_CHECK_EQUAL(readBuf2[2], 2);
+*  BOOST_TEST(readBuf2[2] == 2);
 *
 *  // test stx
 *  com::PathName stx("testPutCellsputREAL4.stx");
 *  std::string stxContents;
 *  com::read(stxContents,stx);
-*  BOOST_CHECK_EQUAL(stxContents, "1 1 19\n");
+*  BOOST_TEST(stxContents == "1 1 19\n");
 * }
 *}
 *
@@ -415,14 +415,14 @@ BOOST_AUTO_TEST_CASE(bil_format)
 *    // if both dim are set, then ok
 *    com::write("NROWS 4\nNCOLS 5\nXDIM 0.5\nYDIM 0.5", pn);
 *    BandMap bm("headertest");
-*    BOOST_CHECK_EQUAL(bm.cellSize(), 0.5); // as set
+*    BOOST_TEST(bm.cellSize() == 0.5); // as set
 *  }
 *
 *  {
 *    // if only one dim then the default is set
 *    com::write("NROWS 4\nNCOLS 5\nXDIM 0.5\n", pn);
 *    BandMap bm("headertest");
-*    BOOST_CHECK_EQUAL(bm.cellSize(), 1); // the default
+*    BOOST_TEST(bm.cellSize() == 1); // the default
 *  }
 *
 *  // if both DIM set they must be equal

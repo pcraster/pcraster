@@ -252,8 +252,8 @@ BOOST_AUTO_TEST_CASE(time_step_path)
   }
 
   {
-    BOOST_CHECK_EQUAL(timeStepPath("bla.png", 3).string(), "bla_3.png");
-    BOOST_CHECK_EQUAL(timeStepPath("bla.png", 3, DALConvention).string(), "bla_3.png");
+    BOOST_TEST(timeStepPath("bla.png", 3).string() == "bla_3.png");
+    BOOST_TEST(timeStepPath("bla.png", 3, DALConvention).string() == "bla_3.png");
   }
 
   // See first lines of this function.
@@ -485,15 +485,15 @@ BOOST_AUTO_TEST_CASE(path_for_scenario)
 
   // Directories.
   {
-    BOOST_CHECK_EQUAL(pathForScenario("./flow", "aap").generic_string(),
+    BOOST_TEST(pathForScenario("./flow", "aap").generic_string() ==
          "./aap/flow");
-    BOOST_CHECK_EQUAL(pathForScenario("/flow", "aap").generic_string(),
+    BOOST_TEST(pathForScenario("/flow", "aap").generic_string() ==
          "/aap/flow");
-    BOOST_CHECK_EQUAL(pathForScenario("dira/flow", "aap").generic_string(),
+    BOOST_TEST(pathForScenario("dira/flow", "aap").generic_string() ==
          "dira/aap/flow");
-    BOOST_CHECK_EQUAL(pathForScenario("./dira/flow", "aap").generic_string(),
+    BOOST_TEST(pathForScenario("./dira/flow", "aap").generic_string() ==
          "./dira/aap/flow");
-    BOOST_CHECK_EQUAL(pathForScenario("../flow", "aap").generic_string(),
+    BOOST_TEST(pathForScenario("../flow", "aap").generic_string() ==
          "../aap/flow");
   }
 
@@ -564,7 +564,7 @@ BOOST_AUTO_TEST_CASE(path_for_quantile_time)
 
   // typedef boost::filesystem::path path;
 
-  BOOST_CHECK_EQUAL(pathForQuantileTime("bla", 0.75f, 5).string(),
+  BOOST_TEST(pathForQuantileTime("bla", 0.75f, 5).string() ==
          "bla_5_0.75");
 
   bool exceptionThrown = false;
@@ -666,15 +666,15 @@ BOOST_AUTO_TEST_CASE(path_for_sample)
 
   // Directories.
   {
-    BOOST_CHECK_EQUAL(pathForSample("./flow", 5).generic_string(),
+    BOOST_TEST(pathForSample("./flow", 5).generic_string() ==
          "./5/flow");
-    BOOST_CHECK_EQUAL(pathForSample("/flow", 5).generic_string(),
+    BOOST_TEST(pathForSample("/flow", 5).generic_string() ==
          "/5/flow");
-    BOOST_CHECK_EQUAL(pathForSample("dira/flow", 5).generic_string(),
+    BOOST_TEST(pathForSample("dira/flow", 5).generic_string() ==
          "dira/5/flow");
-    BOOST_CHECK_EQUAL(pathForSample("./dira/flow", 5).generic_string(),
+    BOOST_TEST(pathForSample("./dira/flow", 5).generic_string() ==
          "./dira/5/flow");
-    BOOST_CHECK_EQUAL(pathForSample("../flow", 5).generic_string(),
+    BOOST_TEST(pathForSample("../flow", 5).generic_string() ==
          "../5/flow");
   }
 
@@ -953,8 +953,8 @@ BOOST_AUTO_TEST_CASE(path_for_data_space_address)
     space.addDimension(Dimension(Time, timeSteps));
     DataSpaceAddress address = space.address();
     address.setCoordinate<size_t>(0, 10);
-    BOOST_CHECK_EQUAL(pathForDataSpaceAddress(
-         name, space, address, PCRConvention).string(),
+    BOOST_TEST(pathForDataSpaceAddress(
+         name, space, address, PCRConvention).string() ==
          "soil0000.010");
   }
 }

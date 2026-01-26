@@ -160,7 +160,7 @@ BOOST_AUTO_TEST_CASE(data_space_to_string)
   timeSteps.push_back(1);
   space.addDimension(Dimension(Time, timeSteps));
 
-  BOOST_CHECK_EQUAL(dataSpaceToString(space), "/time[1, 10, 1]");
+  BOOST_TEST(dataSpaceToString(space) == "/time[1, 10, 1]");
 }
 
 
@@ -260,8 +260,8 @@ BOOST_AUTO_TEST_CASE(data_space_address_to_sql_query)
   Dimension const uncertainty(CumulativeProbabilities, quantiles);
 
   {
-    BOOST_CHECK_EQUAL(dataSpaceAddressToSqlQuery(space, address, tableName,
-         fieldName),
+    BOOST_TEST(dataSpaceAddressToSqlQuery(space, address, tableName,
+         fieldName) ==
          "SELECT Co2 FROM MyTable");
   }
 
@@ -270,14 +270,14 @@ BOOST_AUTO_TEST_CASE(data_space_address_to_sql_query)
     space.addDimension(scenario);
     address = space.address();
 
-    BOOST_CHECK_EQUAL(dataSpaceAddressToSqlQuery(space, address, tableName,
-         fieldName),
+    BOOST_TEST(dataSpaceAddressToSqlQuery(space, address, tableName,
+         fieldName) ==
          "SELECT scenario,Co2 FROM MyTable");
 
     address.setCoordinate<std::string>(0, "aap");
 
-    BOOST_CHECK_EQUAL(dataSpaceAddressToSqlQuery(space, address, tableName,
-         fieldName),
+    BOOST_TEST(dataSpaceAddressToSqlQuery(space, address, tableName,
+         fieldName) ==
          "SELECT scenario,Co2 FROM MyTable WHERE scenario='aap'");
   }
 
@@ -286,14 +286,14 @@ BOOST_AUTO_TEST_CASE(data_space_address_to_sql_query)
     space.addDimension(uncertainty);
     address = space.address();
 
-    BOOST_CHECK_EQUAL(dataSpaceAddressToSqlQuery(space, address, tableName,
-         fieldName),
+    BOOST_TEST(dataSpaceAddressToSqlQuery(space, address, tableName,
+         fieldName) ==
          "SELECT quantile,Co2 FROM MyTable");
 
     address.setCoordinate<float>(0, 0.5);
 
-    BOOST_CHECK_EQUAL(dataSpaceAddressToSqlQuery(space, address, tableName,
-         fieldName),
+    BOOST_TEST(dataSpaceAddressToSqlQuery(space, address, tableName,
+         fieldName) ==
          "SELECT quantile,Co2 FROM MyTable WHERE quantile=0.5");
   }
 
@@ -302,14 +302,14 @@ BOOST_AUTO_TEST_CASE(data_space_address_to_sql_query)
     space.addDimension(time);
     address = space.address();
 
-    BOOST_CHECK_EQUAL(dataSpaceAddressToSqlQuery(space, address, tableName,
-         fieldName),
+    BOOST_TEST(dataSpaceAddressToSqlQuery(space, address, tableName,
+         fieldName) ==
          "SELECT date,Co2 FROM MyTable");
 
     address.setCoordinate<size_t>(0, 3);
 
-    BOOST_CHECK_EQUAL(dataSpaceAddressToSqlQuery(space, address, tableName,
-         fieldName),
+    BOOST_TEST(dataSpaceAddressToSqlQuery(space, address, tableName,
+         fieldName) ==
          "SELECT date,Co2 FROM MyTable WHERE date=3");
   }
 

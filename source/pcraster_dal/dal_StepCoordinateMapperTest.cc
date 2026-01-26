@@ -27,10 +27,10 @@ BOOST_AUTO_TEST_CASE(test)
     DataSpaceAddress address = space.address();
 
     address.setCoordinate<size_t>(0, 1);
-    BOOST_CHECK_EQUAL(mapper.toString(space, address, 0),  "182145");
+    BOOST_TEST(mapper.toString(space, address, 0) == "182145");
 
     address.setCoordinate<size_t>(0, nrCols);
-    BOOST_CHECK_EQUAL(mapper.toString(space, address, 0),  "182935");
+    BOOST_TEST(mapper.toString(space, address, 0) == "182935");
   }
 
   //  1 "10-2-2005, 18:15: volcano_1"

@@ -11,45 +11,45 @@ BOOST_AUTO_TEST_CASE(test)
   {
     // Empty stack does not return true.
     VoxelAtHeight f(5.0, 5.0);
-    BOOST_CHECK(!(f(0.0)));
-    BOOST_CHECK( (f(1.0)));
+    BOOST_TEST(!(f(0.0)));
+    BOOST_TEST( (f(1.0)));
   }
 
   {
     VoxelAtHeight f(5.0, 6.0);
-    BOOST_CHECK(!(f(0.0)));
-    BOOST_CHECK(!(f(0.5)));
-    BOOST_CHECK(!(f(0.5)));
-    BOOST_CHECK( (f(0.001)));
+    BOOST_TEST(!(f(0.0)));
+    BOOST_TEST(!(f(0.5)));
+    BOOST_TEST(!(f(0.5)));
+    BOOST_TEST( (f(0.001)));
   }
 
   {
     VoxelAtHeight f(5.0, 9.0);
-    BOOST_CHECK(!(f(0.0)));
-    BOOST_CHECK(!(f(1.0)));
-    BOOST_CHECK(!(f(1.0)));
-    BOOST_CHECK(!(f(2.0)));
-    BOOST_CHECK( (f(2.0)));
+    BOOST_TEST(!(f(0.0)));
+    BOOST_TEST(!(f(1.0)));
+    BOOST_TEST(!(f(1.0)));
+    BOOST_TEST(!(f(2.0)));
+    BOOST_TEST( (f(2.0)));
   }
 
   {
     VoxelAtHeight f(0.0, 4.0);
-    BOOST_CHECK(!f(0.0));
-    BOOST_CHECK(!f(1.0));
-    BOOST_CHECK(!f(1.0));
-    BOOST_CHECK(!f(1.0));
+    BOOST_TEST(!f(0.0));
+    BOOST_TEST(!f(1.0));
+    BOOST_TEST(!f(1.0));
+    BOOST_TEST(!f(1.0));
 
     // Top of the voxel does not return true here.
-    BOOST_CHECK(!f(1.0));
-    BOOST_CHECK(f(0.001));
+    BOOST_TEST(!f(1.0));
+    BOOST_TEST(f(0.001));
   }
 
   {
     VoxelAtHeight f(-1.0, 1.0);
-    BOOST_CHECK(!f(0.0));
-    BOOST_CHECK(!f(1.0));
-    BOOST_CHECK(!f(1.0));
-    BOOST_CHECK(f(0.001));
+    BOOST_TEST(!f(0.0));
+    BOOST_TEST(!f(1.0));
+    BOOST_TEST(!f(1.0));
+    BOOST_TEST(f(0.001));
   }
 
   {

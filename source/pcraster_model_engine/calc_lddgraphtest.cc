@@ -503,7 +503,7 @@ BOOST_AUTO_TEST_CASE(testTimeSliceVisitor)
 
   // 3 all catchments once
   // 1,2,4 per slice for each cachment
-  BOOST_CHECK_EQUAL(t.nrInitPerCatchmentSliceCalls, ((size_t)(3 + 1 + 2 + 4)));
+  BOOST_TEST(t.nrInitPerCatchmentSliceCalls == ((size_t)(3 + 1 + 2 + 4)));
   {
     REAL4 expect[FIELD_SIZE] = {                //           id's     catchment-id
                                 0,   128, 128,  // 0,1,2  X 0 0

@@ -17,66 +17,66 @@ BOOST_AUTO_TEST_CASE(clamp_)
     first = 5;
     last = 10;
     interval = 1;
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 0), size_t(5));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 1), size_t(5));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 4), size_t(5));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 5), size_t(5));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 6), size_t(6));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 9), size_t(9));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 10), size_t(10));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 11), size_t(10));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 12), size_t(10));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 0) == size_t(5));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 1) == size_t(5));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 4) == size_t(5));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 5) == size_t(5));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 6) == size_t(6));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 9) == size_t(9));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 10) == size_t(10));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 11) == size_t(10));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 12) == size_t(10));
   }
 
   {
     first = 5;
     last = 5;
     interval = 1;
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 3), size_t(5));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 4), size_t(5));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 5), size_t(5));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 6), size_t(5));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 7), size_t(5));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 3) == size_t(5));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 4) == size_t(5));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 5) == size_t(5));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 6) == size_t(5));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 7) == size_t(5));
   }
 
   {
     first = 5;
     last = 6;
     interval = 1;
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 3), size_t(5));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 4), size_t(5));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 5), size_t(5));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 6), size_t(6));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 7), size_t(6));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 8), size_t(6));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 3) == size_t(5));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 4) == size_t(5));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 5) == size_t(5));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 6) == size_t(6));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 7) == size_t(6));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 8) == size_t(6));
   }
 
   {
     first = 5;
     last = 10;
     interval = 2;
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 0), size_t(5));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 1), size_t(5));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 4), size_t(5));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 5), size_t(5));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 6), size_t(7));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 7), size_t(7));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 8), size_t(9));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 9), size_t(9));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 10), size_t(9));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 11), size_t(9));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 12), size_t(9));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 13), size_t(9));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 0) == size_t(5));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 1) == size_t(5));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 4) == size_t(5));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 5) == size_t(5));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 6) == size_t(7));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 7) == size_t(7));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 8) == size_t(9));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 9) == size_t(9));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 10) == size_t(9));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 11) == size_t(9));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 12) == size_t(9));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 13) == size_t(9));
   }
 
   {
     first = 1;
     last = 100;
     interval = 2;
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 99), size_t(99));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 100), size_t(99));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 101), size_t(99));
-    BOOST_CHECK_EQUAL(clamp<size_t>(first, last, interval, 102), size_t(99));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 99) == size_t(99));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 100) == size_t(99));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 101) == size_t(99));
+    BOOST_TEST(clamp<size_t>(first, last, interval, 102) == size_t(99));
   }
 
   {
@@ -559,8 +559,8 @@ BOOST_AUTO_TEST_CASE(merge_ranges)
   }
 
   // test made to discover gcdFloat bugs in _MSC_VER release mode
-  BOOST_CHECK_EQUAL(gcd<size_t>(2, 2), size_t(2));
-  BOOST_CHECK_EQUAL(gcd<size_t>(18, 12), size_t(6));
+  BOOST_TEST(gcd<size_t>(2, 2) == size_t(2));
+  BOOST_TEST(gcd<size_t>(18, 12) == size_t(6));
   BOOST_TEST(comparable<double>(gcd<double>(0.2, 0.2), 0.2));
   BOOST_TEST(comparable<float>(gcd<float>(0.2f, 0.2f), 0.2f));
   BOOST_TEST(comparable<float>(gcd<float>(0.18f, 0.12f), 0.06f));
@@ -670,24 +670,24 @@ BOOST_AUTO_TEST_CASE(merge_ranges)
 BOOST_AUTO_TEST_CASE(round_)
 {
 
-  BOOST_CHECK_EQUAL((dal::round<float, int>(0.0f )), 0);
-  BOOST_CHECK_EQUAL((dal::round<float, int>(0.4f )), 0);
-  BOOST_CHECK_EQUAL((dal::round<float, int>(0.5f )), 0);
-  BOOST_CHECK_EQUAL((dal::round<float, int>(0.51f)), 1);
-  BOOST_CHECK_EQUAL((dal::round<float, int>(0.6f )), 1);
+  BOOST_TEST((dal::round<float, int>(0.0f )) == 0);
+  BOOST_TEST((dal::round<float, int>(0.4f )) == 0);
+  BOOST_TEST((dal::round<float, int>(0.5f )) == 0);
+  BOOST_TEST((dal::round<float, int>(0.51f)) == 1);
+  BOOST_TEST((dal::round<float, int>(0.6f )) == 1);
 
-  BOOST_CHECK_EQUAL((dal::round<float, int>(-0.4f )),  0);
-  BOOST_CHECK_EQUAL((dal::round<float, int>(-0.5f )),  0);
-  BOOST_CHECK_EQUAL((dal::round<float, int>(-0.51f)), -1);
-  BOOST_CHECK_EQUAL((dal::round<float, int>(-0.6f )), -1);
+  BOOST_TEST((dal::round<float, int>(-0.4f )) ==  0);
+  BOOST_TEST((dal::round<float, int>(-0.5f )) ==  0);
+  BOOST_TEST((dal::round<float, int>(-0.51f)) == -1);
+  BOOST_TEST((dal::round<float, int>(-0.6f )) == -1);
 
-  BOOST_CHECK_EQUAL((dal::round<float, size_t>(0.0f )), size_t(0));
-  BOOST_CHECK_EQUAL((dal::round<float, size_t>(0.4f )), size_t(0));
-  BOOST_CHECK_EQUAL((dal::round<float, size_t>(0.5f )), size_t(0));
-  BOOST_CHECK_EQUAL((dal::round<float, size_t>(0.51f)), size_t(1));
-  BOOST_CHECK_EQUAL((dal::round<float, size_t>(0.6f )), size_t(1));
+  BOOST_TEST((dal::round<float, size_t>(0.0f )) == size_t(0));
+  BOOST_TEST((dal::round<float, size_t>(0.4f )) == size_t(0));
+  BOOST_TEST((dal::round<float, size_t>(0.5f )) == size_t(0));
+  BOOST_TEST((dal::round<float, size_t>(0.51f)) == size_t(1));
+  BOOST_TEST((dal::round<float, size_t>(0.6f )) == size_t(1));
 
-  BOOST_CHECK_EQUAL((dal::round<float, size_t>(-0.4f )), size_t(0));
+  BOOST_TEST((dal::round<float, size_t>(-0.4f )) == size_t(0));
   BOOST_CHECK_THROW((dal::round<float, size_t>(-0.51f )), std::bad_cast);
 }
 

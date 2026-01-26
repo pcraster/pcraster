@@ -140,7 +140,7 @@ BOOST_AUTO_TEST_CASE(testCode)
     auto *d(astCast<DynamicSection>(l.get(), "C/b/0"));
     BOOST_TEST_REQUIRE(d);
     auto *s(dynamic_cast<ASTNodeList *>(d->statements()));
-    BOOST_CHECK_EQUAL(s->size(), 2U);
+    BOOST_TEST(s->size() == 2U);
   }
   {  // initial plus dynamic
     typedef std::unique_ptr<ASTNode> B;
@@ -148,7 +148,7 @@ BOOST_AUTO_TEST_CASE(testCode)
     auto *l(astCast<ASTNodeList>(b.get(), "C/b"));
     BOOST_TEST_REQUIRE(l);
 
-    BOOST_CHECK_EQUAL(l->size(), 2U);
+    BOOST_TEST(l->size() == 2U);
     ASTNodeList::const_iterator n(l->begin());
     if (n != l->end()) {
       BOOST_TEST(dynamic_cast<ASTNodeList *>(*n));  // initial section

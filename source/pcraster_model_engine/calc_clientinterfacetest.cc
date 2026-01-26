@@ -152,7 +152,7 @@ BOOST_AUTO_TEST_CASE(testCapi)
     // should trigger error: since file is not there
     // this messes up VS2005:
     const void *result = pcr_ScriptXMLReflection(s);
-    BOOST_CHECK_EQUAL(result, (const void *)nullptr);
+    BOOST_TEST(result == (const void *)nullptr);
 
     BOOST_TEST(pcr_ScriptError(s));
     std::string const msg(pcr_ScriptErrorMessage(s));
@@ -217,7 +217,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
      // find  input data as files
     PcrScript *s = pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_1.xml");
     int const r(pcr_ScriptExecuteInitialStepMemory(s, data0));
-    BOOST_CHECK_EQUAL(r, -1);
+    BOOST_TEST(r == -1);
     BOOST_TEST(pcr_ScriptError(s));
 
     BOOST_TEST(pcr_ScriptError(s));
@@ -258,7 +258,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
     //    since cover accepts both
     PcrScript *s = pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_6.xml");
     int const r(pcr_ScriptExecuteInitialStepMemory(s, data0));
-    BOOST_CHECK_EQUAL(r, -1);
+    BOOST_TEST(r == -1);
     BOOST_CHECK_MESSAGE_ErrorMessage(
         s, "ERROR: memInput: spatialType undecided (specify by field.spatialType");
     pcr_destroyScript(s);
@@ -267,7 +267,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
     PcrScript *s = pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_7.xml");
     BOOST_TEST(!pcr_ScriptError(s));
     int const r(pcr_ScriptExecuteInitialStepMemory(s, data0));
-    BOOST_CHECK_EQUAL(r, -1);
+    BOOST_TEST(r == -1);
     BOOST_TEST(pcr_ScriptError(s));
     BOOST_CHECK_MESSAGE_ErrorMessage(s, "?:1:13:ERROR: memInput: 0-ptr data input buffer passed");
     pcr_destroyScript(s);
@@ -280,13 +280,13 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
     BOOST_TEST(!pcr_ScriptError(s));
     void *data[2] = {input, nullptr};  // output 0, means allocate by API
     int const r(pcr_ScriptExecuteInitialStepMemory(s, data));
-    BOOST_CHECK_EQUAL(r, 0);
+    BOOST_TEST(r == 0);
     BOOST_TEST(!pcr_ScriptError(s));
 
     BOOST_TEST(data[1]);
     const auto *output = (const float *)data[1];
-    BOOST_CHECK_EQUAL(output[1], 7.5F);
-    BOOST_CHECK_EQUAL(output[24], 7.5F);
+    BOOST_TEST(output[1] == 7.5F);
+    BOOST_TEST(output[24] == 7.5F);
     pcr_destroyScript(s);
   }
 
@@ -298,15 +298,15 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
     BOOST_TEST(!pcr_ScriptError(s));
 
     int const r(pcr_ScriptExecuteInitialStepMemory(s, data));
-    BOOST_CHECK_EQUAL(r, 0);
+    BOOST_TEST(r == 0);
     BOOST_TEST(!pcr_ScriptError(s));
 
     calc::ASTScript const &is(pcr_internalScript(s));
     BOOST_TEST(!is.containsDynamicSection());
     BOOST_TEST(is.symbols()["memOutput"].report() != nullptr);
 
-    BOOST_CHECK_EQUAL(output[1], 7.5F);
-    BOOST_CHECK_EQUAL(output[24], 7.5F);
+    BOOST_TEST(output[1] == 7.5F);
+    BOOST_TEST(output[24] == 7.5F);
     pcr_destroyScript(s);
   }
   {  // return statistics as table
@@ -322,8 +322,8 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
     BOOST_CHECK_MESSAGE(!pcr_ScriptError(s), pcr_ScriptErrorMessage(s));
     BOOST_REQUIRE_EQUAL(r, 0);
 
-    BOOST_CHECK_EQUAL(output[1], 7.5F);
-    BOOST_CHECK_EQUAL(output[24], 7.5F);
+    BOOST_TEST(output[1] == 7.5F);
+    BOOST_TEST(output[24] == 7.5F);
 
     calc::ASTScript const &is(pcr_internalScript(s));
     BOOST_TEST(is.symbols().contains("memInput"));
@@ -334,7 +334,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
     BOOST_TEST(data[2]);  // allocated
     if (data[2] != nullptr) {
       std::string const statTable((const char *)data[2]);
-      BOOST_CHECK_EQUAL(statTable, std::string("	memInput\n"
+      BOOST_TEST(statTable == std::string("	memInput\n"
                                                "area	2500\n"
                                                "sum	112.5\n"
                                                "minimum	4.5\n"
@@ -346,7 +346,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
     BOOST_TEST(data[3]);  // allocated
     if (data[3] != nullptr) {
       std::string const statTable((const char *)data[3]);
-      BOOST_CHECK_EQUAL(statTable, std::string("	memOutMap\n"
+      BOOST_TEST(statTable == std::string("	memOutMap\n"
                                                "area	2500\n"
                                                "sum	187.5\n"
                                                "minimum	7.5\n"
@@ -507,18 +507,18 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
     BOOST_TEST(!pcr_ScriptError(s));
 
     int const r(pcr_ScriptExecuteInitialStepMemory(s, data));
-    BOOST_CHECK_EQUAL(r, 1);
+    BOOST_TEST(r == 1);
     BOOST_TEST_REQUIRE(!pcr_ScriptError(s));
 
-    BOOST_CHECK_EQUAL(memOutputInitial[0], 5.0F);
+    BOOST_TEST(memOutputInitial[0] == 5.0F);
 
     // memOutputDynamic is not assigned in initial
     // see \bug tag in API documentation of pcr_ScriptExecuteInitialStepMemory
     // bugzilla #104
     bool const todoMemAssignInStatic = false;
     BOOST_TEST_WARN(todoMemAssignInStatic);
-    BOOST_CHECK_EQUAL(memOutputDynamic[1], -1.0F);   // should NOT be -1 !!!
-    BOOST_CHECK_EQUAL(memOutputDynamic[24], -1.0F);  // should NOT be -1 !!!
+    BOOST_TEST(memOutputDynamic[1] == -1.0F);   // should NOT be -1 !!!
+    BOOST_TEST(memOutputDynamic[24] == -1.0F);  // should NOT be -1 !!!
 
     UINT4 valueLookup[3] = {1, 1, 10};
     INT4 *value = (INT4 *)(valueLookup + 2);
@@ -535,14 +535,14 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
     BOOST_TEST(is.symbols()["memOutputDynamic"].report() != nullptr);
 
     pcr_ScriptExecuteNextTimeStepMemory(s, data);
-    BOOST_CHECK_EQUAL(memOutputDynamic[1], 13.5F);
-    BOOST_CHECK_EQUAL(memOutputDynamic[24], 13.5F);
+    BOOST_TEST(memOutputDynamic[1] == 13.5F);
+    BOOST_TEST(memOutputDynamic[24] == 13.5F);
 
     *value = 100;
     std::fill(dynamicInput, dynamicInput + 25, 8.0F);
 
     pcr_ScriptExecuteNextTimeStepMemory(s, data);
-    BOOST_CHECK_EQUAL(memOutputDynamic[1], 106.0F);
+    BOOST_TEST(memOutputDynamic[1] == 106.0F);
 
     pcr_destroyScript(s);
   }
@@ -579,13 +579,13 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
 
     BOOST_TEST(!data[MemOutputInitial]);
     int const r(pcr_ScriptExecuteInitialStepMemory(s, data));
-    BOOST_CHECK_EQUAL(r, 1);
+    BOOST_TEST(r == 1);
     BOOST_TEST_REQUIRE(!pcr_ScriptError(s));
 
     BOOST_TEST(data[MemOutputInitial]);
     auto *allocatedMemOutputInitial = (float *)data[MemOutputInitial];
     if (allocatedMemOutputInitial != nullptr) {
-      BOOST_CHECK_EQUAL(allocatedMemOutputInitial[0], 5.0F);
+      BOOST_TEST(allocatedMemOutputInitial[0] == 5.0F);
     }
 
     BOOST_TEST(!data[MemOutputDynamic]);
@@ -593,9 +593,9 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
     auto *allocatedMemOutputDynamic = (float *)data[MemOutputDynamic];
     BOOST_TEST(allocatedMemOutputDynamic);
     if (allocatedMemOutputDynamic != nullptr) {
-      BOOST_CHECK_EQUAL(allocatedMemOutputDynamic[1], 13.5F);
-      BOOST_CHECK_EQUAL(allocatedMemOutputDynamic[1], 13.5F);
-      BOOST_CHECK_EQUAL(allocatedMemOutputDynamic[24], 13.5F);
+      BOOST_TEST(allocatedMemOutputDynamic[1] == 13.5F);
+      BOOST_TEST(allocatedMemOutputDynamic[1] == 13.5F);
+      BOOST_TEST(allocatedMemOutputDynamic[24] == 13.5F);
     }
 
     *value = 100;
@@ -607,9 +607,9 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
     BOOST_TEST(allocatedMemOutputDynamic);
 
     if (allocatedMemOutputDynamic != nullptr) {
-      BOOST_CHECK_EQUAL(allocatedMemOutputDynamic[1], 106.0F);
-      BOOST_CHECK_EQUAL(allocatedMemOutputDynamic[1], 106.0F);
-      BOOST_CHECK_EQUAL(allocatedMemOutputDynamic[24], 106.0F);
+      BOOST_TEST(allocatedMemOutputDynamic[1] == 106.0F);
+      BOOST_TEST(allocatedMemOutputDynamic[1] == 106.0F);
+      BOOST_TEST(allocatedMemOutputDynamic[24] == 106.0F);
     }
 
     pcr_destroyScript(s);
@@ -622,7 +622,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
     PcrScript *s = pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_8.xml");
 
     int const r(pcr_ScriptExecuteInitialStepMemory(s, data));
-    BOOST_CHECK_EQUAL(r, -1);
+    BOOST_TEST(r == -1);
     BOOST_TEST(pcr_ScriptError(s));
 
     BOOST_CHECK_MESSAGE_ErrorMessage(s, "?:9:59:ERROR: memInputRelation: Only 1 dimension supported");
@@ -637,7 +637,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
 
     // no error since array is not used in initial section
     int const r(pcr_ScriptExecuteInitialStepMemory(s, data));
-    BOOST_CHECK_EQUAL(r, 1);
+    BOOST_TEST(r == 1);
     BOOST_TEST(!pcr_ScriptError(s));
 
     // error in timestep 1 since array is used then
@@ -656,10 +656,10 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
     PcrScript *s = pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_8.xml");
 
     int r(pcr_ScriptExecuteInitialStepMemory(s, data));
-    BOOST_CHECK_EQUAL(r, 1);
+    BOOST_TEST(r == 1);
     BOOST_TEST(!pcr_ScriptError(s));
     r = pcr_ScriptExecuteInitialStepMemory(s, data);
-    BOOST_CHECK_EQUAL(r, -1);
+    BOOST_TEST(r == -1);
     BOOST_TEST(pcr_ScriptError(s));
     BOOST_CHECK_MESSAGE_ErrorMessage(s, "pcr_ScriptExecuteInitialStepMemory called twice");
   }
@@ -671,7 +671,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
     PcrScript *s = pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_8.xml");
 
     int const r = pcr_ScriptExecuteNextTimeStepMemory(s, data);
-    BOOST_CHECK_EQUAL(r, -1);
+    BOOST_TEST(r == -1);
     BOOST_TEST(pcr_ScriptError(s));
     BOOST_CHECK_MESSAGE_ErrorMessage(s, "pcr_ScriptExecuteNextTimeStepMemory called with no prior call "
                                         "to pcr_ScriptExecuteInitialStepMemory");
@@ -701,51 +701,51 @@ BOOST_AUTO_TEST_CASE(testIOMemoryTimeoutput)
     BOOST_TEST(!pcr_ScriptError(s));
 
     int r(pcr_ScriptExecuteInitialStepMemory(s, data));
-    BOOST_CHECK_EQUAL(r, 1);
+    BOOST_TEST(r == 1);
     BOOST_TEST(!pcr_ScriptError(s));
     BOOST_TEST(!data[0]);
 
     r = pcr_ScriptExecuteNextTimeStepMemory(s, data);
-    BOOST_CHECK_EQUAL(r, 1);
+    BOOST_TEST(r == 1);
     BOOST_TEST_REQUIRE(!pcr_ScriptError(s));
     BOOST_TEST(data[0]);
     if (data[0] != nullptr) {
       const auto *header = (const UINT4 *)data[0];
-      BOOST_CHECK_EQUAL(header[0], (UINT4)1);         // id
-      BOOST_CHECK_EQUAL(header[1], (UINT4)CR_REAL4);  // value type
-      BOOST_CHECK_EQUAL(header[2], (UINT4)1);         // nrDim
-      BOOST_CHECK_EQUAL(header[3], (UINT4)5);         // lenDim1
+      BOOST_TEST(header[0] == (UINT4)1);         // id
+      BOOST_TEST(header[1] == (UINT4)CR_REAL4);  // value type
+      BOOST_TEST(header[2] == (UINT4)1);         // nrDim
+      BOOST_TEST(header[3] == (UINT4)5);         // lenDim1
 
       const auto *tss = (const float *)(header + 4);
-      BOOST_CHECK_EQUAL(tss[0], 1);
-      BOOST_CHECK_EQUAL(tss[1], 2);
-      BOOST_CHECK_EQUAL(tss[2], 3);
-      BOOST_CHECK_EQUAL(tss[3], 4);
-      BOOST_CHECK_EQUAL(tss[4], 5);
+      BOOST_TEST(tss[0] == 1);
+      BOOST_TEST(tss[1] == 2);
+      BOOST_TEST(tss[2] == 3);
+      BOOST_TEST(tss[3] == 4);
+      BOOST_TEST(tss[4] == 5);
     }
     data[0] = nullptr;
     r = pcr_ScriptExecuteNextTimeStepMemory(s, data);
-    BOOST_CHECK_EQUAL(r, 0);
+    BOOST_TEST(r == 0);
     BOOST_TEST_REQUIRE(!pcr_ScriptError(s));
     BOOST_TEST(data[0]);
     if (data[0] != nullptr) {
       const auto *header = (const UINT4 *)data[0];
-      BOOST_CHECK_EQUAL(header[0], (UINT4)1);         // id
-      BOOST_CHECK_EQUAL(header[1], (UINT4)CR_REAL4);  // value type
-      BOOST_CHECK_EQUAL(header[2], (UINT4)1);         // nrDim
-      BOOST_CHECK_EQUAL(header[3], (UINT4)5);         // lenDim1
+      BOOST_TEST(header[0] == (UINT4)1);         // id
+      BOOST_TEST(header[1] == (UINT4)CR_REAL4);  // value type
+      BOOST_TEST(header[2] == (UINT4)1);         // nrDim
+      BOOST_TEST(header[3] == (UINT4)5);         // lenDim1
 
       const auto *tss = (const float *)(header + 4);
-      BOOST_CHECK_EQUAL(tss[0], 2);
-      BOOST_CHECK_EQUAL(tss[1], 4);
-      BOOST_CHECK_EQUAL(tss[2], 6);
-      BOOST_CHECK_EQUAL(tss[3], 8);
-      BOOST_CHECK_EQUAL(tss[4], 10);
+      BOOST_TEST(tss[0] == 2);
+      BOOST_TEST(tss[1] == 4);
+      BOOST_TEST(tss[2] == 6);
+      BOOST_TEST(tss[3] == 8);
+      BOOST_TEST(tss[4] == 10);
     }
 
     // extra should not do anthing
     r = pcr_ScriptExecuteNextTimeStepMemory(s, data);
-    BOOST_CHECK_EQUAL(r, 0);
+    BOOST_TEST(r == 0);
 
     pcr_destroyScript(s);
   }
@@ -769,10 +769,10 @@ BOOST_AUTO_TEST_CASE(testXMLSettings)
     pcr_ScriptExecuteInitialStepMemory(s, data);
     BOOST_TEST(!pcr_ScriptError(s));
 
-    BOOST_CHECK_EQUAL(output[0], 1);
-    BOOST_CHECK_EQUAL(output[1], 2);
-    BOOST_CHECK_EQUAL(output[2], 3);
-    BOOST_CHECK_EQUAL(output[3], 4);
+    BOOST_TEST(output[0] == 1);
+    BOOST_TEST(output[1] == 2);
+    BOOST_TEST(output[2] == 3);
+    BOOST_TEST(output[3] == 4);
     pcr_destroyScript(s);
   }
   {  // not set in the XML (default)
@@ -782,10 +782,10 @@ BOOST_AUTO_TEST_CASE(testXMLSettings)
     pcr_ScriptExecuteInitialStepMemory(s, data);
     BOOST_TEST(!pcr_ScriptError(s));
 
-    BOOST_CHECK_EQUAL(output[0], 1);
-    BOOST_CHECK_EQUAL(output[1], 2);
-    BOOST_CHECK_EQUAL(output[2], 2);
-    BOOST_CHECK_EQUAL(output[3], 1);
+    BOOST_TEST(output[0] == 1);
+    BOOST_TEST(output[1] == 2);
+    BOOST_TEST(output[2] == 2);
+    BOOST_TEST(output[3] == 1);
     pcr_destroyScript(s);
   }
   {  // set in XML
@@ -796,10 +796,10 @@ BOOST_AUTO_TEST_CASE(testXMLSettings)
     pcr_ScriptExecuteInitialStepMemory(s, data);
     BOOST_TEST(!pcr_ScriptError(s));
 
-    BOOST_CHECK_EQUAL(output[0], 1);
-    BOOST_CHECK_EQUAL(output[1], 2);
-    BOOST_CHECK_EQUAL(output[2], 2);
-    BOOST_CHECK_EQUAL(output[3], 1);
+    BOOST_TEST(output[0] == 1);
+    BOOST_TEST(output[1] == 2);
+    BOOST_TEST(output[2] == 2);
+    BOOST_TEST(output[3] == 1);
     pcr_destroyScript(s);
   }
 }

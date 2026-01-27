@@ -5,6 +5,18 @@
 #include "block_compactors.h"
 
 
+namespace boost::test_tools::tt_detail {
+
+  template <>
+  struct print_log_value<block::DeHaanCompactor> {
+    void operator()(std::ostream &os, const block::DeHaanCompactor &/*rhs*/) {
+      os << "implement operator<<";
+    }
+  };
+
+}  // namespace boost::test_tools::tt_detail
+
+
 BOOST_AUTO_TEST_CASE(test)
 {
   using namespace block;
@@ -16,7 +28,7 @@ BOOST_AUTO_TEST_CASE(test)
 
   DeHaanCompactor const compactor(1.0, 2.0, 3.0);
   compactors.setCompactor(3, compactor);
-  BOOST_CHECK(compactors.size() == 1);
+  BOOST_TEST(compactors.size() == 1);
   BOOST_TEST(compactors.hasCompactor(3));
-  BOOST_CHECK(compactors.compactor(3) == compactor);
+  BOOST_TEST(compactors.compactor(3) == compactor);
 }

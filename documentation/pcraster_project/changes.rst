@@ -9,6 +9,7 @@ The most relevant updates for users:
 * We added support for Qt version 6, which is now used by default. Qt 5.15 still can be selected when configuring and building time. But further support of Qt5 in upcoming releases is unlikely, and we stop testing builds with Qt5.
 * This is the last release for x86_64-based macOS systems. We no longer build, test and support the x86_64 (Intel) macOS architecture in upcoming releases.
 * We modernised the Python code of the ``pcraster`` package and fixed multiple deprecation and syntax warnings.
+* Source packages are from now on provided using XZ compression instead of BZip2 compression.
 
 .. * aguila contour
 ..

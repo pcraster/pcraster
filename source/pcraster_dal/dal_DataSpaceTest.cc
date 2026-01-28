@@ -28,9 +28,9 @@ BOOST_AUTO_TEST_CASE(test_)
     space.addDimension(Dimension(Space, RegularDiscretisation,
          rasterDimensions));
     BOOST_TEST(space.rank() == size_t(3));
-    BOOST_CHECK(space.isSpatial());
-    BOOST_CHECK(space.hasRaster());
-    BOOST_CHECK(space.hasTime());
+    BOOST_TEST(space.isSpatial());
+    BOOST_TEST(space.hasRaster());
+    BOOST_TEST(space.hasTime());
     BOOST_TEST(space.nrWideDimensions() == size_t(2));
 
     DataSpaceAddress address = space.address();
@@ -88,43 +88,43 @@ BOOST_AUTO_TEST_CASE(merge)
     space1.addDimension(timeDimension);
     space1.addDimension(spaceDimension);
 
-    BOOST_CHECK(space2.isEmpty());
-    BOOST_CHECK(space3.isEmpty());
+    BOOST_TEST(space2.isEmpty());
+    BOOST_TEST(space3.isEmpty());
 
     space2 |= space1;
     BOOST_TEST(space2.rank() == size_t(3));
-    BOOST_CHECK(space2.hasScenarios());
-    BOOST_CHECK(space2.hasTime());
-    BOOST_CHECK(space2.isSpatial());
-    BOOST_CHECK(space2.hasRaster());
+    BOOST_TEST(space2.hasScenarios());
+    BOOST_TEST(space2.hasTime());
+    BOOST_TEST(space2.isSpatial());
+    BOOST_TEST(space2.hasRaster());
     BOOST_CHECK(space2 == space1);
 
     // Again.
     space2 |= space1;
     BOOST_TEST(space2.rank() == size_t(3));
-    BOOST_CHECK(space2.hasScenarios());
-    BOOST_CHECK(space2.hasTime());
-    BOOST_CHECK(space2.isSpatial());
-    BOOST_CHECK(space2.hasRaster());
+    BOOST_TEST(space2.hasScenarios());
+    BOOST_TEST(space2.hasTime());
+    BOOST_TEST(space2.isSpatial());
+    BOOST_TEST(space2.hasRaster());
     BOOST_CHECK(space2 == space1);
 
     // Other way around.
     space1 |= space2;
     BOOST_TEST(space1.rank() == size_t(3));
-    BOOST_CHECK(space1.hasScenarios());
-    BOOST_CHECK(space1.hasTime());
-    BOOST_CHECK(space1.isSpatial());
-    BOOST_CHECK(space1.hasRaster());
+    BOOST_TEST(space1.hasScenarios());
+    BOOST_TEST(space1.hasTime());
+    BOOST_TEST(space1.isSpatial());
+    BOOST_TEST(space1.hasRaster());
     BOOST_CHECK(space1 == space2);
 
     // Merge with empty space.
     space1 |= space3;
-    BOOST_CHECK(space3.isEmpty());
+    BOOST_TEST(space3.isEmpty());
     BOOST_TEST(space1.rank() == size_t(3));
-    BOOST_CHECK(space1.hasScenarios());
-    BOOST_CHECK(space1.hasTime());
-    BOOST_CHECK(space1.isSpatial());
-    BOOST_CHECK(space1.hasRaster());
+    BOOST_TEST(space1.hasScenarios());
+    BOOST_TEST(space1.hasTime());
+    BOOST_TEST(space1.isSpatial());
+    BOOST_TEST(space1.hasRaster());
     BOOST_CHECK(space1 == space2);
   }
 
@@ -320,7 +320,7 @@ BOOST_AUTO_TEST_CASE(merge)
     space1 |= space2;
     BOOST_TEST(space1.size() == size_t(4));
     BOOST_TEST(space1.dimension(2).nrValues() == size_t(3));
-    BOOST_CHECK(comparable<float>(space1.dimension(2).value<float>(2), 0.01f));
+    BOOST_TEST(comparable<float>(space1.dimension(2).value<float>(2), 0.01f));
   }
 
   // Merge space with different discretizations (raster and vector).
@@ -447,7 +447,7 @@ BOOST_AUTO_TEST_CASE(intersect)
     DataSpace space1;
     DataSpace space2;
     space1 &= space2;
-    BOOST_CHECK(space1.isEmpty());
+    BOOST_TEST(space1.isEmpty());
 
     space2.addDimension(Dimension(Scenarios, scenarios));
     space2.addDimension(Dimension(Time, timeSteps));
@@ -455,7 +455,7 @@ BOOST_AUTO_TEST_CASE(intersect)
          rasterDimensions));
 
     space1 &= space2;
-    BOOST_CHECK(space1.isEmpty());
+    BOOST_TEST(space1.isEmpty());
   }
 
   // Result of intersecting whatever space with an empty space is the
@@ -470,7 +470,7 @@ BOOST_AUTO_TEST_CASE(intersect)
          rasterDimensions));
 
     space1 &= space2;
-    BOOST_CHECK(space1.isEmpty());
+    BOOST_TEST(space1.isEmpty());
   }
 
   // Result of intersecting two spaces with different dimensions is an
@@ -483,7 +483,7 @@ BOOST_AUTO_TEST_CASE(intersect)
     space2.addDimension(Dimension(Time, timeSteps));
 
     space1 &= space2;
-    BOOST_CHECK(space1.isEmpty());
+    BOOST_TEST(space1.isEmpty());
   }
 
   // Result of intersecting two space with the same dimensions is this
@@ -537,7 +537,7 @@ BOOST_AUTO_TEST_CASE(intersect)
     BOOST_TEST(space1.dimension(0).meaning() == Space);
   }
 
-  // 
+  //
   {
   }
 }
@@ -656,7 +656,7 @@ BOOST_AUTO_TEST_CASE(trim)
     address = toSpace.trim(fromSpace, address);
     BOOST_TEST(address.size() == size_t(1));
 
-    BOOST_CHECK(address.isValid(0));
+    BOOST_TEST(address.isValid(0));
     BOOST_TEST(address.coordinate<size_t>(0) == size_t(9));
   }
 
@@ -770,9 +770,9 @@ BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
   {
     // Empty space.
     address = space.address();
-    BOOST_CHECK(space.isValid(address));
+    BOOST_TEST(space.isValid(address));
     address = space.initialiseInvalidCoordinates(address);
-    BOOST_CHECK(space.isValid(address));
+    BOOST_TEST(space.isValid(address));
     BOOST_TEST(address.size() == size_t(0));
   }
 
@@ -786,13 +786,13 @@ BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
     // One scenario dimension added.
     address = space.address();
     BOOST_TEST(address.size() == size_t(1));
-    BOOST_CHECK(!space.isValid(address));
-    BOOST_CHECK(!address.isValid(0));
+    BOOST_TEST(!space.isValid(address));
+    BOOST_TEST(!address.isValid(0));
 
     address = space.initialiseInvalidCoordinates(address);
     BOOST_TEST(address.size() == size_t(1));
-    BOOST_CHECK(space.isValid(address));
-    BOOST_CHECK(address.isValid(0));
+    BOOST_TEST(space.isValid(address));
+    BOOST_TEST(address.isValid(0));
     BOOST_TEST(address.coordinate<std::string>(0) == "aap");
   }
 
@@ -806,15 +806,15 @@ BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
     // One samples dimension added.
     address = space.address();
     BOOST_TEST(address.size() == size_t(2));
-    BOOST_CHECK(!space.isValid(address));
-    BOOST_CHECK(!address.isValid(0));
-    BOOST_CHECK(!address.isValid(1));
+    BOOST_TEST(!space.isValid(address));
+    BOOST_TEST(!address.isValid(0));
+    BOOST_TEST(!address.isValid(1));
 
     address = space.initialiseInvalidCoordinates(address);
     BOOST_TEST(address.size() == size_t(2));
-    BOOST_CHECK(space.isValid(address));
-    BOOST_CHECK(address.isValid(0));
-    BOOST_CHECK(address.isValid(1));
+    BOOST_TEST(space.isValid(address));
+    BOOST_TEST(address.isValid(0));
+    BOOST_TEST(address.isValid(1));
     BOOST_TEST(address.coordinate<std::string>(0) == "aap");
     BOOST_TEST(address.coordinate<size_t>(1) == size_t(3));
   }
@@ -829,17 +829,17 @@ BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
     // One time dimension added.
     address = space.address();
     BOOST_TEST(address.size() == size_t(3));
-    BOOST_CHECK(!space.isValid(address));
-    BOOST_CHECK(!address.isValid(0));
-    BOOST_CHECK(!address.isValid(1));
-    BOOST_CHECK(!address.isValid(2));
+    BOOST_TEST(!space.isValid(address));
+    BOOST_TEST(!address.isValid(0));
+    BOOST_TEST(!address.isValid(1));
+    BOOST_TEST(!address.isValid(2));
 
     address = space.initialiseInvalidCoordinates(address);
     BOOST_TEST(address.size() == size_t(3));
-    BOOST_CHECK(space.isValid(address));
-    BOOST_CHECK(address.isValid(0));
-    BOOST_CHECK(address.isValid(1));
-    BOOST_CHECK(address.isValid(2));
+    BOOST_TEST(space.isValid(address));
+    BOOST_TEST(address.isValid(0));
+    BOOST_TEST(address.isValid(1));
+    BOOST_TEST(address.isValid(2));
     BOOST_TEST(address.coordinate<std::string>(0) == "aap");
     BOOST_TEST(address.coordinate<size_t>(1) == size_t(3));
     BOOST_TEST(address.coordinate<size_t>(2) == size_t(1));
@@ -857,17 +857,17 @@ BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
     // One cumulative probability dimension added.
     address = space.address();
     BOOST_TEST(address.size() == size_t(3));
-    BOOST_CHECK(!space.isValid(address));
-    BOOST_CHECK(!address.isValid(0));
-    BOOST_CHECK(!address.isValid(1));
-    BOOST_CHECK(!address.isValid(2));
+    BOOST_TEST(!space.isValid(address));
+    BOOST_TEST(!address.isValid(0));
+    BOOST_TEST(!address.isValid(1));
+    BOOST_TEST(!address.isValid(2));
 
     address = space.initialiseInvalidCoordinates(address);
     BOOST_TEST(address.size() == size_t(3));
-    BOOST_CHECK(space.isValid(address));
-    BOOST_CHECK(address.isValid(0));
-    BOOST_CHECK(address.isValid(1));
-    BOOST_CHECK(address.isValid(2));
+    BOOST_TEST(space.isValid(address));
+    BOOST_TEST(address.isValid(0));
+    BOOST_TEST(address.isValid(1));
+    BOOST_TEST(address.isValid(2));
     BOOST_TEST(address.coordinate<std::string>(0) == "aap");
     BOOST_TEST(address.coordinate<size_t>(1) == size_t(1));
     BOOST_CHECK_CLOSE(address.coordinate<float>(2), float(0.50), 0.001f);
@@ -880,19 +880,19 @@ BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
     // One space dimension added.
     address = space.address();
     BOOST_TEST(address.size() == size_t(4));
-    BOOST_CHECK(!space.isValid(address));
-    BOOST_CHECK(!address.isValid(0));
-    BOOST_CHECK(!address.isValid(1));
-    BOOST_CHECK(!address.isValid(2));
-    BOOST_CHECK(!address.isValid(3));
+    BOOST_TEST(!space.isValid(address));
+    BOOST_TEST(!address.isValid(0));
+    BOOST_TEST(!address.isValid(1));
+    BOOST_TEST(!address.isValid(2));
+    BOOST_TEST(!address.isValid(3));
 
     address = space.initialiseInvalidCoordinates(address);
     BOOST_TEST(address.size() == size_t(4));
-    BOOST_CHECK(space.isValid(address));
-    BOOST_CHECK(address.isValid(0));
-    BOOST_CHECK(address.isValid(1));
-    BOOST_CHECK(address.isValid(2));
-    BOOST_CHECK(address.isValid(3));
+    BOOST_TEST(space.isValid(address));
+    BOOST_TEST(address.isValid(0));
+    BOOST_TEST(address.isValid(1));
+    BOOST_TEST(address.isValid(2));
+    BOOST_TEST(address.isValid(3));
     BOOST_TEST(address.coordinate<std::string>(0) == "aap");
     BOOST_TEST(address.coordinate<size_t>(1) == size_t(1));
     BOOST_CHECK_CLOSE(address.coordinate<float>(2), float(0.50), 0.001f);
@@ -912,8 +912,8 @@ BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
     address = space.address();
     address = space.initialiseInvalidCoordinates(address);
     BOOST_TEST(address.size() == size_t(1));
-    BOOST_CHECK(space.isValid(address));
-    BOOST_CHECK(address.isValid(0));
+    BOOST_TEST(space.isValid(address));
+    BOOST_TEST(address.isValid(0));
     BOOST_TEST(address.coordinate<float>(0) == float(0.90));
   }
 
@@ -929,8 +929,8 @@ BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
     address = space.address();
     address = space.initialiseInvalidCoordinates(address);
     BOOST_TEST(address.size() == size_t(1));
-    BOOST_CHECK(space.isValid(address));
-    BOOST_CHECK(address.isValid(0));
+    BOOST_TEST(space.isValid(address));
+    BOOST_TEST(address.isValid(0));
     BOOST_CHECK_CLOSE(address.coordinate<float>(0), float(0.5), 0.001f);
   }
 }
@@ -998,31 +998,31 @@ BOOST_AUTO_TEST_CASE(contains)
 
     DataSpaceAddress address(space.address());
     BOOST_TEST(address.size() == size_t(2));
-    BOOST_CHECK(!space.contains(address));
+    BOOST_TEST(!space.contains(address));
 
     address.setCoordinate<size_t>(0, 9);
-    BOOST_CHECK(!space.contains(address));
+    BOOST_TEST(!space.contains(address));
 
     // North west corner.
     address.setCoordinate<SpatialCoordinate>(1, SpatialCoordinate(0.0, 0.0));
-    BOOST_CHECK(space.contains(address));
+    BOOST_TEST(space.contains(address));
 
     // South east corner.
     address.setCoordinate<SpatialCoordinate>(1, SpatialCoordinate(6.0, -9.0));
-    BOOST_CHECK(space.contains(address));
+    BOOST_TEST(space.contains(address));
 
     // Outside of area.
     address.setCoordinate<SpatialCoordinate>(1, SpatialCoordinate(-1.0, -1.0));
-    BOOST_CHECK(!space.contains(address));
+    BOOST_TEST(!space.contains(address));
 
     address.setCoordinate<SpatialCoordinate>(1, SpatialCoordinate(0.0, 0.0));
-    BOOST_CHECK(space.contains(address));
+    BOOST_TEST(space.contains(address));
 
     address.setCoordinate<size_t>(0, 8);
-    BOOST_CHECK(!space.contains(address));
+    BOOST_TEST(!space.contains(address));
 
     address.setCoordinate<size_t>(0, 11);
-    BOOST_CHECK(space.contains(address));
+    BOOST_TEST(space.contains(address));
   }
 
   {
@@ -1036,16 +1036,16 @@ BOOST_AUTO_TEST_CASE(contains)
     space.addDimension(Dimension(Time, timeSteps));
 
     DataSpaceAddress address(space.address());
-    BOOST_CHECK(!space.contains(address));
+    BOOST_TEST(!space.contains(address));
 
     address.setCoordinate<size_t>(0, 9);
-    BOOST_CHECK(space.contains(address));
+    BOOST_TEST(space.contains(address));
 
     address.setCoordinate<size_t>(0, 10);
-    BOOST_CHECK(!space.contains(address));
+    BOOST_TEST(!space.contains(address));
 
     address.setCoordinate<size_t>(0, 11);
-    BOOST_CHECK(space.contains(address));
+    BOOST_TEST(space.contains(address));
   }
 
   {
@@ -1057,9 +1057,9 @@ BOOST_AUTO_TEST_CASE(contains)
     space.addDimension(Dimension(CumulativeProbabilities, quantiles));
 
     DataSpaceAddress address(space.address());
-    BOOST_CHECK(!space.contains(address));
+    BOOST_TEST(!space.contains(address));
 
     address.setCoordinate<float>(0, 0.1f);
-    BOOST_CHECK(space.contains(address));
+    BOOST_TEST(space.contains(address));
   }
 }

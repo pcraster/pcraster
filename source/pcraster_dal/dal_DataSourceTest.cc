@@ -65,7 +65,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
          "Data source " + name + ":\ncannot be opened");
       exceptionCaught = true;
     }
-    BOOST_CHECK(exceptionCaught);
+    BOOST_TEST(exceptionCaught);
   }
 }
 
@@ -81,11 +81,11 @@ BOOST_AUTO_TEST_CASE(test_)
     BOOST_TEST(source.name() == name);
 
     const DataSpace& dataSpace = source.dataSpace();
-    BOOST_CHECK(dataSpace.hasRaster());
-    BOOST_CHECK(!dataSpace.hasTime());
+    BOOST_TEST(dataSpace.hasRaster());
+    BOOST_TEST(!dataSpace.hasTime());
 
     std::shared_ptr<Raster> const raster(source.raster());
-    BOOST_CHECK(raster);
+    BOOST_TEST(raster);
   }
 }
 
@@ -108,7 +108,7 @@ BOOST_AUTO_TEST_CASE(soil)
   {
     name = "soil0000.001+110";
     StackInfo const info(name, false);
-    BOOST_CHECK(info.isDynamic());
+    BOOST_TEST(info.isDynamic());
 
     name = info.name();
 
@@ -124,22 +124,22 @@ BOOST_AUTO_TEST_CASE(soil)
     BOOST_TEST(source.name() == info.name());
 
     const DataSpace& dataSpace = source.dataSpace();
-    BOOST_CHECK(dataSpace.hasTime());
-    BOOST_CHECK(dataSpace.hasRaster());
+    BOOST_TEST(dataSpace.hasTime());
+    BOOST_TEST(dataSpace.hasRaster());
 
     DataSpaceAddress address(1);
 
     address.setCoordinate<size_t>(0, 10);
     std::shared_ptr<Raster> raster(source.raster(address));
-    BOOST_CHECK(raster);
+    BOOST_TEST(raster);
 
     address.setCoordinate<size_t>(0, 50);
     raster.reset(source.raster(address));
-    BOOST_CHECK(raster);
+    BOOST_TEST(raster);
 
     address.setCoordinate<size_t>(0, 100);
     raster.reset(source.raster(address));
-    BOOST_CHECK(raster);
+    BOOST_TEST(raster);
 
     // No, address lies outside of the data source's data space, which is
     // illegal.
@@ -233,55 +233,55 @@ BOOST_AUTO_TEST_CASE(raster)
     // Address is at the first address in the data space. This one happens
     // to exist.
     source.read(*raster, address);
-    BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(1.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(1), REAL4(1.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(2), REAL4(1.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(3), REAL4(1.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(4), REAL4(1.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(5), REAL4(1.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(1.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(1), REAL4(1.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(2), REAL4(1.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(3), REAL4(1.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(4), REAL4(1.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(5), REAL4(1.0)));
 
     // Address is at the second address in the data space. This one does
     // not exist. Allong the time dimension data is searched for at previous
     // time steps. In this case, 10.
     address.setCoordinate<size_t>(0, 11);
     source.read(*raster, address);
-    BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(1.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(1), REAL4(1.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(2), REAL4(1.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(3), REAL4(1.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(4), REAL4(1.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(5), REAL4(1.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(1.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(1), REAL4(1.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(2), REAL4(1.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(3), REAL4(1.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(4), REAL4(1.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(5), REAL4(1.0)));
 
     // Address is at the sixth address in the data space. This one exists.
     address.setCoordinate<size_t>(0, 15);
     source.read(*raster, address);
-    BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(6.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(1), REAL4(6.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(2), REAL4(6.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(3), REAL4(6.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(4), REAL4(6.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(5), REAL4(6.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(6.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(1), REAL4(6.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(2), REAL4(6.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(3), REAL4(6.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(4), REAL4(6.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(5), REAL4(6.0)));
 
     // Address is at the seventh address in the data space. This one does
     // not exist.
     address.setCoordinate<size_t>(0, 16);
     source.read(*raster, address);
-    BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(6.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(1), REAL4(6.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(2), REAL4(6.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(3), REAL4(6.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(4), REAL4(6.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(5), REAL4(6.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(6.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(1), REAL4(6.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(2), REAL4(6.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(3), REAL4(6.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(4), REAL4(6.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(5), REAL4(6.0)));
 
     // Address is at the 11th address in the data space. This one exists.
     address.setCoordinate<size_t>(0, 20);
     source.read(*raster, address);
-    BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(11.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(1), REAL4(11.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(2), REAL4(11.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(3), REAL4(11.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(4), REAL4(11.0)));
-    BOOST_CHECK(comparable(raster->cell<REAL4>(5), REAL4(11.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(11.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(1), REAL4(11.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(2), REAL4(11.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(3), REAL4(11.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(4), REAL4(11.0)));
+    BOOST_TEST(comparable(raster->cell<REAL4>(5), REAL4(11.0)));
 
     // // -------------------------------------------------------------------------
     // // Turn on interpolation and check returned values again.
@@ -484,13 +484,13 @@ BOOST_AUTO_TEST_CASE(dataset_1)
     }
 
     BOOST_TEST(source.unitDataSpace().rank() == size_t(1));
-    BOOST_CHECK(source.unitDataSpace().hasRaster());
+    BOOST_TEST(source.unitDataSpace().hasRaster());
 
     // -------------------------------------------------------------------------
     // Read data in raster.
     {
       std::shared_ptr<Raster> const raster(source.open<Raster>());
-      BOOST_CHECK(raster);
+      BOOST_TEST(raster);
       raster->createCells();
 
       DataSpaceAddress address(1);
@@ -498,34 +498,34 @@ BOOST_AUTO_TEST_CASE(dataset_1)
       // Outside data source's data space.
       address.setCoordinate<size_t>(0, 9);
       source.read(*raster, address);
-      BOOST_CHECK(raster->allMV());
+      BOOST_TEST(raster->allMV());
 
       // These time steps all exist.
       for(size_t i = 10; i <= 14; ++i) {
         address.setCoordinate<size_t>(0, i);
         source.read(*raster, address);
-        BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-        BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(i)));
+        BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+        BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(i)));
       }
 
       // 15 does not, fall back in time to previous time step.
       address.setCoordinate<size_t>(0, 15);
       source.read(*raster, address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(14.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(14.0)));
 
       // These time steps all exist.
       for(size_t i = 16; i <= 20; ++i) {
         address.setCoordinate<size_t>(0, i);
         source.read(*raster, address);
-        BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-        BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(i)));
+        BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+        BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(i)));
       }
 
       // Outside data source's data space.
       address.setCoordinate<size_t>(0, 21);
       source.read(*raster, address);
-      BOOST_CHECK(raster->allMV());
+      BOOST_TEST(raster->allMV());
     }
 
     // -------------------------------------------------------------------------
@@ -545,16 +545,16 @@ BOOST_AUTO_TEST_CASE(dataset_1)
       BOOST_REQUIRE_EQUAL(table.nrRecs(), size_t(11));
 
       for(size_t i = 10; i <= 14; ++i) {
-        BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[i - 10]));
-        BOOST_CHECK(comparable(table.col<REAL4>(0)[i - 10], REAL4(i)));
+        BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[i - 10]));
+        BOOST_TEST(comparable(table.col<REAL4>(0)[i - 10], REAL4(i)));
       }
 
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[15 - 10]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[15 - 10], REAL4(14.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[15 - 10]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[15 - 10], REAL4(14.0)));
 
       for(size_t i = 16; i <= 20; ++i) {
-        BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[i - 10]));
-        BOOST_CHECK(comparable(table.col<REAL4>(0)[i - 10], REAL4(i)));
+        BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[i - 10]));
+        BOOST_TEST(comparable(table.col<REAL4>(0)[i - 10], REAL4(i)));
       }
     }
   }
@@ -576,7 +576,7 @@ BOOST_AUTO_TEST_CASE(dataset_1)
     // Read data in raster.
     {
       std::shared_ptr<Raster> const raster(source.open<Raster>());
-      BOOST_CHECK(raster);
+      BOOST_TEST(raster);
       raster->createCells();
 
       DataSpaceAddress address(1);
@@ -585,22 +585,22 @@ BOOST_AUTO_TEST_CASE(dataset_1)
       for(size_t i = 11; i <= 14; ++i) {
         address.setCoordinate<size_t>(0, i);
         source.read(*raster, address);
-        BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-        BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(i)));
+        BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+        BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(i)));
       }
 
       // 15 does not, fall back in time to previous time step.
       address.setCoordinate<size_t>(0, 15);
       source.read(*raster, address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(14.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(14.0)));
 
       // These time steps all exist.
       for(size_t i = 16; i <= 19; ++i) {
         address.setCoordinate<size_t>(0, i);
         source.read(*raster, address);
-        BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-        BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(i)));
+        BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+        BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(i)));
       }
     }
 
@@ -621,16 +621,16 @@ BOOST_AUTO_TEST_CASE(dataset_1)
       BOOST_TEST(table.nrRecs() == size_t(9));
 
       for(size_t i = 11; i <= 14; ++i) {
-        BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[i - 11]));
-        BOOST_CHECK(comparable(table.col<REAL4>(0)[i - 11], REAL4(i)));
+        BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[i - 11]));
+        BOOST_TEST(comparable(table.col<REAL4>(0)[i - 11], REAL4(i)));
       }
 
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[15 - 11]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[15 - 11], REAL4(14)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[15 - 11]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[15 - 11], REAL4(14)));
 
       for(size_t i = 16; i <= 19; ++i) {
-        BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[i - 11]));
-        BOOST_CHECK(comparable(table.col<REAL4>(0)[i - 11], REAL4(i)));
+        BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[i - 11]));
+        BOOST_TEST(comparable(table.col<REAL4>(0)[i - 11], REAL4(i)));
       }
     }
   }
@@ -652,7 +652,7 @@ BOOST_AUTO_TEST_CASE(dataset_1)
     // Read data in raster.
     {
       std::shared_ptr<Raster> const raster(source.open<Raster>());
-      BOOST_CHECK(raster);
+      BOOST_TEST(raster);
       raster->createCells();
 
       DataSpaceAddress address(1);
@@ -660,35 +660,35 @@ BOOST_AUTO_TEST_CASE(dataset_1)
       // Outside of data source's data space.
       address.setCoordinate<size_t>(0, 9);
       source.read(*raster, address);
-      BOOST_CHECK(raster->allMV());
+      BOOST_TEST(raster->allMV());
 
       // These time steps all exist.
       for(size_t i = 11; i <= 13; i += 2) {
         address.setCoordinate<size_t>(0, i);
         source.read(*raster, address);
-        BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-        BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(i)));
+        BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+        BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(i)));
       }
 
       // Fall back in time to previous time step (which is 13 given the
       // interval).
       address.setCoordinate<size_t>(0, 15);
       source.read(*raster, address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(13.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(13.0)));
 
       // These time steps all exist.
       for(size_t i = 17; i <= 19; i += 2) {
         address.setCoordinate<size_t>(0, i);
         source.read(*raster, address);
-        BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-        BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(i)));
+        BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+        BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(i)));
       }
 
       // Outside of data source's data space.
       address.setCoordinate<size_t>(0, 21);
       source.read(*raster, address);
-      BOOST_CHECK(raster->allMV());
+      BOOST_TEST(raster->allMV());
     }
 
     // -------------------------------------------------------------------------
@@ -707,20 +707,20 @@ BOOST_AUTO_TEST_CASE(dataset_1)
 
       BOOST_REQUIRE_EQUAL(table.nrRecs(), size_t(5));
 
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[0]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[0], REAL4(11.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[0]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[0], REAL4(11.0)));
 
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[1]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[1], REAL4(13.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[1]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[1], REAL4(13.0)));
 
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[2]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[2], REAL4(13.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[2]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[2], REAL4(13.0)));
 
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[3]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[3], REAL4(17.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[3]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[3], REAL4(17.0)));
 
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[4]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[4], REAL4(19.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[4]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[4], REAL4(19.0)));
     }
   }
 
@@ -759,93 +759,93 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
     }
 
     BOOST_TEST(source.unitDataSpace().rank() == size_t(1));
-    BOOST_CHECK(source.unitDataSpace().hasRaster());
+    BOOST_TEST(source.unitDataSpace().hasRaster());
 
     // -------------------------------------------------------------------------
     // Read data in raster.
     {
       std::shared_ptr<Raster> const raster(source.open<Raster>());
-      BOOST_CHECK(raster);
+      BOOST_TEST(raster);
       raster->createCells();
 
       DataSpaceAddress address(1);
 
       address.setCoordinate<float>(0, 0.1f);
       source.read(*raster, address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(0.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.0)));
 
       address.setCoordinate<float>(0, 0.25f);
       source.read(*raster, address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(4.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(4.0)));
 
       address.setCoordinate<float>(0, 0.5f);
       source.read(*raster, address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(5.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(5.0)));
 
       address.setCoordinate<float>(0, 0.75f);
       source.read(*raster, address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(6.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(6.0)));
 
       address.setCoordinate<float>(0, 0.9f);
       source.read(*raster, address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(10.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(10.0)));
 
       // Quantile does not exist. Outside valid range.
       address.setCoordinate<float>(0, 0.09f);
       source.read(*raster, address);
-      BOOST_CHECK(raster->allMV());
+      BOOST_TEST(raster->allMV());
 
       // Quantile does not exist. Outside valid range.
       address.setCoordinate<float>(0, 0.91f);
       source.read(*raster, address);
-      BOOST_CHECK(raster->allMV());
+      BOOST_TEST(raster->allMV());
 
       // Quantile does not exist. Inside valid range.
       address.setCoordinate<float>(0, 0.2f);
       source.read(*raster, address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       REAL4 value = NAN;
       interpolate(value, REAL4(0.0), REAL4(0.1), REAL4(4.0), REAL4(0.05));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), value));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), value));
 
       // Test the retrieval of quantiles given a data value.
       address.unsetCoordinate(0);
       source.read(*raster, REAL4(5.0), address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(0.5)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.5)));
 
       source.read(*raster, REAL4(4.0), address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(0.25)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.25)));
 
       source.read(*raster, REAL4(0.0), address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(0.1)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.1)));
 
       source.read(*raster, REAL4(10.0), address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(0.9)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.9)));
 
       // Data value not present, within data range, must be interpolated.
       source.read(*raster, REAL4(3.0), address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       interpolate(value, REAL4(0.25), REAL4(1), REAL4(0.1), REAL4(3.0));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), value));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), value));
 
       // Outside data range. Left tail: 0.0
       source.read(*raster, REAL4(-1.0), address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(0.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.0)));
 
       // Outside data range. Right tail: 1.0
       source.read(*raster, REAL4(10.1), address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(1.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(1.0)));
     }
 
     // -------------------------------------------------------------------------
@@ -863,21 +863,21 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       source.read(table, iterSpace, address);
 
       BOOST_TEST(table.nrRecs() == size_t(81));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[0]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[0], REAL4(0.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[15]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[15], REAL4(4.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[40]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[40], REAL4(5.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[65]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[65], REAL4(6.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[80]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[80], REAL4(10.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[0]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[0], REAL4(0.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[15]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[15], REAL4(4.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[40]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[40], REAL4(5.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[65]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[65], REAL4(6.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[80]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[80], REAL4(10.0)));
 
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[10]));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[10]));
       REAL4 value = NAN;
       interpolate(value, REAL4(0.0), REAL4(0.1), REAL4(4.0), REAL4(0.05));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[10], value));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[10], value));
     }
   }
 
@@ -916,13 +916,13 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
     }
 
     BOOST_TEST(source.unitDataSpace().rank() == size_t(1));
-    BOOST_CHECK(source.unitDataSpace().hasRaster());
+    BOOST_TEST(source.unitDataSpace().hasRaster());
 
     // -------------------------------------------------------------------------
     // Read data in raster.
     {
       std::shared_ptr<Raster> const raster(source.open<Raster>());
-      BOOST_CHECK(raster);
+      BOOST_TEST(raster);
       raster->createCells();
 
       DataSpaceAddress address(2);
@@ -930,94 +930,94 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       address.setCoordinate<size_t>(0, 10);
       address.setCoordinate<float>(1, 0.1f);
       source.read(*raster, address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(0.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.0)));
 
       address.setCoordinate<size_t>(0, 15);
       source.read(*raster, address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(1.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(1.0)));
 
       address.setCoordinate<size_t>(0, 20);
       source.read(*raster, address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(2.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(2.0)));
 
       address.setCoordinate<float>(1, 0.25f);
       source.read(*raster, address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(6.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(6.0)));
 
       address.setCoordinate<size_t>(0, 15);
       address.setCoordinate<float>(1, 0.5f);
       source.read(*raster, address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(6.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(6.0)));
 
       address.setCoordinate<float>(1, 0.6f);
       source.read(*raster, address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       REAL4 value = NAN;
       interpolate(value, REAL4(6.0), REAL4(0.1), REAL4(7.0), REAL4(0.15));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), value));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), value));
 
       address.setCoordinate<size_t>(0, 16);
       address.setCoordinate<float>(1, 0.5f);
       source.read(*raster, address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(6.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(6.0)));
 
       address.setCoordinate<size_t>(0, 14);
       address.setCoordinate<float>(1, 0.5f);
       source.read(*raster, address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(5.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(5.0)));
 
       // Test the retrieval of quantiles given a data value.
       address.setCoordinate<size_t>(0, 15);
       address.unsetCoordinate(1);
       source.read(*raster, REAL4(5.0), address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(0.25)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.25)));
 
       source.read(*raster, REAL4(1.0), address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(0.1)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.1)));
 
       source.read(*raster, REAL4(11.0), address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(0.9)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.9)));
 
       address.setCoordinate<size_t>(0, 14);
       source.read(*raster, REAL4(5.0), address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(0.5)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.5)));
 
       address.setCoordinate<size_t>(0, 21);
       source.read(*raster, REAL4(6.0), address);
-      BOOST_CHECK(pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(pcr::isMV(raster->cell<REAL4>(0)));
       // BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
       // BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(0.25)));
 
       address.setCoordinate<size_t>(0, 9);
       source.read(*raster, REAL4(6.0), address);
-      BOOST_CHECK(pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(pcr::isMV(raster->cell<REAL4>(0)));
 
       address.setCoordinate<size_t>(0, 15);
       source.read(*raster, REAL4(8.0), address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       interpolate(value, REAL4(0.75), REAL4(1.0), REAL4(0.9), REAL4(3.0));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), value));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), value));
 
       // Outside data range. Left tail: 0.0
       source.read(*raster, REAL4(-1.0), address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(0.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.0)));
 
       // Outside data range. Right tail: 1.0
       source.read(*raster, REAL4(11.1), address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(1.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(1.0)));
     }
 
     // -------------------------------------------------------------------------
@@ -1036,65 +1036,65 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       source.read(table, iterSpace, address);
 
       BOOST_TEST(table.nrRecs() == size_t(81));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[0]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[0], REAL4(1.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[15]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[15], REAL4(5.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[40]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[40], REAL4(6.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[65]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[65], REAL4(7.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[80]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[80], REAL4(11.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[0]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[0], REAL4(1.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[15]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[15], REAL4(5.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[40]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[40], REAL4(6.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[65]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[65], REAL4(7.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[80]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[80], REAL4(11.0)));
 
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[10]));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[10]));
       REAL4 value = NAN;
       interpolate(value, REAL4(1.0), REAL4(0.1), REAL4(5.0), REAL4(0.05));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[10], value));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[10], value));
 
       // Data for this time step does not exist, fall back to previous one.
       address.setCoordinate<size_t>(0, 14);
       source.read(table, iterSpace, address);
 
       BOOST_TEST(table.nrRecs() == size_t(81));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[0]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[0], REAL4(0.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[15]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[15], REAL4(4.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[40]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[40], REAL4(5.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[65]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[65], REAL4(6.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[80]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[80], REAL4(10.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[0]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[0], REAL4(0.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[15]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[15], REAL4(4.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[40]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[40], REAL4(5.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[65]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[65], REAL4(6.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[80]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[80], REAL4(10.0)));
 
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[10]));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[10]));
       interpolate(value, REAL4(0.0), REAL4(0.1), REAL4(4.0), REAL4(0.05));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[10], value));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[10], value));
 
       // Data for this time step does not exist, fall back to previous one.
       address.setCoordinate<size_t>(0, 21);
       source.read(table, iterSpace, address);
 
       BOOST_TEST(table.nrRecs() == size_t(81));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[0]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[15]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[40]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[65]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[80]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[10]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[0]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[15]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[40]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[65]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[80]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[10]));
 
       // Data for this time step does not exist.
       address.setCoordinate<size_t>(0, 9);
       source.read(table, iterSpace, address);
 
       BOOST_TEST(table.nrRecs() == size_t(81));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[0]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[15]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[40]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[65]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[80]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[10]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[0]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[15]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[40]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[65]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[80]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[10]));
     }
 
     // -------------------------------------------------------------------------
@@ -1113,79 +1113,79 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       source.read(table, iterSpace, address);
 
       BOOST_TEST(table.nrRecs() == size_t(11));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[0]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[0], REAL4(6.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[1]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[1], REAL4(6.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[4]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[4], REAL4(6.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[5]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[5], REAL4(7.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[6]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[6], REAL4(7.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[9]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[9], REAL4(7.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[10]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[10], REAL4(8.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[0]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[0], REAL4(6.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[1]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[1], REAL4(6.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[4]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[4], REAL4(6.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[5]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[5], REAL4(7.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[6]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[6], REAL4(7.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[9]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[9], REAL4(7.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[10]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[10], REAL4(8.0)));
 
       address.setCoordinate<float>(1, 0.60f);
       source.read(table, iterSpace, address);
 
       BOOST_TEST(table.nrRecs() == size_t(11));
       REAL4 value = NAN;
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[0]));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[0]));
       interpolate(value, REAL4(5.0), REAL4(0.1), REAL4(6.0), REAL4(0.15));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[0], value));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[0], value));
 
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[1]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[1], value));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[1]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[1], value));
 
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[4]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[4], value));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[4]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[4], value));
 
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[5]));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[5]));
       interpolate(value, REAL4(6.0), REAL4(0.1), REAL4(7.0), REAL4(0.15));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[5], value));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[5], value));
 
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[9]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[9], value));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[9]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[9], value));
 
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[10]));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[10]));
       interpolate(value, REAL4(7.0), REAL4(0.1), REAL4(8.0), REAL4(0.15));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[10], value));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[10], value));
 
       address.setCoordinate<float>(1, 0.09f);
       table.clear();
       source.read(table, iterSpace, address);
 
       BOOST_TEST(table.nrRecs() == size_t(11));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[0]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[1]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[2]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[3]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[4]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[5]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[6]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[7]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[8]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[9]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[10]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[0]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[1]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[2]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[3]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[4]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[5]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[6]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[7]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[8]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[9]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[10]));
 
       address.setCoordinate<float>(1, 0.91f);
       source.read(table, iterSpace, address);
 
       BOOST_TEST(table.nrRecs() == size_t(11));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[0]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[1]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[2]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[3]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[4]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[5]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[6]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[7]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[8]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[9]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[10]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[0]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[1]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[2]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[3]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[4]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[5]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[6]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[7]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[8]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[9]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[10]));
 
       // Test the retrieval of quantiles given a data value.
       address.unsetCoordinate(1);
@@ -1193,25 +1193,25 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
 
       BOOST_TEST(table.nrRecs() == size_t(11));
 
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[0]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[0], REAL4(0.5)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[0]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[0], REAL4(0.5)));
 
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[1]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[2]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[3]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[4]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[1]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[2]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[3]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[4]));
 
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[5]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[5], REAL4(0.25)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[5]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[5], REAL4(0.25)));
 
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[6]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[7]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[8]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[9]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[6]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[7]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[8]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[9]));
 
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[10]));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[10]));
       interpolate(value, REAL4(0.1), REAL4(3.0), REAL4(0.25), REAL4(1.0));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[10], value));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[10], value));
     }
   }
 
@@ -1276,13 +1276,13 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
     }
 
     BOOST_TEST(source.unitDataSpace().rank() == size_t(1));
-    BOOST_CHECK(source.unitDataSpace().hasRaster());
+    BOOST_TEST(source.unitDataSpace().hasRaster());
 
     // -------------------------------------------------------------------------
     // Read data in raster.
     {
       std::shared_ptr<Raster> const raster(source.open<Raster>());
-      BOOST_CHECK(raster);
+      BOOST_TEST(raster);
       raster->createCells();
 
       DataSpaceAddress address(3);
@@ -1291,63 +1291,63 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       address.setCoordinate<size_t>(1, 15);
       address.setCoordinate<float>(2, 0.5f);
       source.read(*raster, address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(16.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(16.0)));
 
       address.setCoordinate<std::string>(0, mies);
       source.read(*raster, address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(26.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(26.0)));
 
       address.setCoordinate<size_t>(1, 19);
       source.read(*raster, address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(26.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(26.0)));
 
       address.setCoordinate<size_t>(1, 20);
       source.read(*raster, address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(27.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(27.0)));
 
       address.setCoordinate<size_t>(1, 21);
       source.read(*raster, address);
-      BOOST_CHECK(pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(pcr::isMV(raster->cell<REAL4>(0)));
 
       address.setCoordinate<size_t>(1, 9);
       source.read(*raster, address);
-      BOOST_CHECK(pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(pcr::isMV(raster->cell<REAL4>(0)));
 
       address.setCoordinate<size_t>(1, 10);
       address.setCoordinate<float>(2, 0.6f);
       source.read(*raster, address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       REAL4 value = NAN;
       interpolate(value, REAL4(25.0), REAL4(0.1), REAL4(26.0), REAL4(0.15));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), value));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), value));
 
       // Test the retrieval of quantiles given a data value.
       address.setCoordinate<std::string>(0, mies);
       address.setCoordinate<size_t>(1, 20);
       address.unsetCoordinate(2);
       source.read(*raster, REAL4(28.0), address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(0.75)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.75)));
 
       source.read(*raster, REAL4(22.0), address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(0.1)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.1)));
 
       source.read(*raster, REAL4(32.0), address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(0.9)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.9)));
 
       source.read(*raster, REAL4(21.0), address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(0.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.0)));
 
       source.read(*raster, REAL4(33.0), address);
-      BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(1.0)));
+      BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
+      BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(1.0)));
     }
 
     // -------------------------------------------------------------------------
@@ -1367,41 +1367,41 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       source.read(table, iterSpace, address);
 
       BOOST_TEST(table.nrRecs() == size_t(81));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[0]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[0], REAL4(1.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[15]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[15], REAL4(5.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[40]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[40], REAL4(6.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[65]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[65], REAL4(7.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[80]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[80], REAL4(11.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[0]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[0], REAL4(1.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[15]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[15], REAL4(5.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[40]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[40], REAL4(6.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[65]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[65], REAL4(7.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[80]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[80], REAL4(11.0)));
 
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[10]));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[10]));
       REAL4 value = NAN;
       interpolate(value, REAL4(1.0), REAL4(0.1), REAL4(5.0), REAL4(0.05));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[10], value));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[10], value));
 
       // Data for this time step does not exist, fall back to previous one.
       address.setCoordinate<size_t>(1, 14);
       source.read(table, iterSpace, address);
 
       BOOST_TEST(table.nrRecs() == size_t(81));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[0]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[0], REAL4(0.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[15]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[15], REAL4(4.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[40]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[40], REAL4(5.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[65]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[65], REAL4(6.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[80]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[80], REAL4(10.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[0]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[0], REAL4(0.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[15]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[15], REAL4(4.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[40]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[40], REAL4(5.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[65]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[65], REAL4(6.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[80]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[80], REAL4(10.0)));
 
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[10]));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[10]));
       interpolate(value, REAL4(0.0), REAL4(0.1), REAL4(4.0), REAL4(0.05));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[10], value));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[10], value));
 
       // Time step outside of data space. All missing values.
       iterSpace.dimension(0).setValue<std::string>(noot);
@@ -1410,24 +1410,24 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       source.read(table, iterSpace, address);
 
       BOOST_TEST(table.nrRecs() == size_t(81));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[0]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[15]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[40]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[65]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[80]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[10]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[0]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[15]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[40]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[65]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[80]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[10]));
 
       // Data for this time step does not exist.
       address.setCoordinate<size_t>(1, 9);
       source.read(table, iterSpace, address);
 
       BOOST_TEST(table.nrRecs() == size_t(81));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[0]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[15]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[40]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[65]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[80]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[10]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[0]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[15]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[40]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[65]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[80]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[10]));
     }
 
     // -------------------------------------------------------------------------
@@ -1447,36 +1447,36 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       source.read(table, iterSpace, address);
 
       BOOST_TEST(table.nrRecs() == size_t(11));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[0]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[0], REAL4(26.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[1]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[1], REAL4(26.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[4]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[4], REAL4(26.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[5]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[5], REAL4(27.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[6]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[6], REAL4(27.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[9]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[9], REAL4(27.0)));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[10]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[10], REAL4(28.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[0]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[0], REAL4(26.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[1]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[1], REAL4(26.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[4]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[4], REAL4(26.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[5]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[5], REAL4(27.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[6]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[6], REAL4(27.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[9]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[9], REAL4(27.0)));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[10]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[10], REAL4(28.0)));
 
       address.setCoordinate<float>(2, 0.60f);
       source.read(table, iterSpace, address);
 
       BOOST_TEST(table.nrRecs() == size_t(11));
       REAL4 value = NAN;
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[0]));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[0]));
       interpolate(value, REAL4(25.0), REAL4(0.1), REAL4(26.0), REAL4(0.15));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[0], value));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[1]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[1], value));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[4]));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[4], value));
-      BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[5]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[0], value));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[1]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[1], value));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[4]));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[4], value));
+      BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[5]));
       interpolate(value, REAL4(26.0), REAL4(0.1), REAL4(27.0), REAL4(0.15));
-      BOOST_CHECK(comparable(table.col<REAL4>(0)[5], value));
+      BOOST_TEST(comparable(table.col<REAL4>(0)[5], value));
 
       // BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[12]));
       // interpolate(value, REAL4(27.0), REAL4(0.1), REAL4(28.0), REAL4(0.15));
@@ -1488,33 +1488,33 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       source.read(table, iterSpace, address);
 
       BOOST_TEST(table.nrRecs() == size_t(11));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[0]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[1]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[2]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[3]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[4]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[5]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[6]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[7]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[8]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[9]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[10]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[0]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[1]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[2]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[3]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[4]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[5]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[6]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[7]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[8]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[9]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[10]));
 
       address.setCoordinate<float>(2, 0.91f);
       source.read(table, iterSpace, address);
 
       BOOST_TEST(table.nrRecs() == size_t(11));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[0]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[1]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[2]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[3]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[4]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[5]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[6]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[7]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[8]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[9]));
-      BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[10]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[0]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[1]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[2]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[3]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[4]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[5]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[6]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[7]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[8]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[9]));
+      BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[10]));
     }
   }
 }

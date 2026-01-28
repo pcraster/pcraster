@@ -87,15 +87,15 @@ BOOST_AUTO_TEST_CASE(scenarios)
   address = d_space.address();
 
   address.setCoordinate<std::string>(0, "aap");
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<std::string>(0, "mies");
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<std::string>(0, "noot");
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   BOOST_CHECK(it == d_space.end());
@@ -105,15 +105,15 @@ BOOST_AUTO_TEST_CASE(scenarios)
 
   --it;
   address.setCoordinate<std::string>(0, "noot");
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<std::string>(0, "mies");
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<std::string>(0, "aap");
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
   BOOST_CHECK(it == d_space.begin());
   BOOST_CHECK(it != d_space.end());
 }
@@ -138,7 +138,7 @@ BOOST_AUTO_TEST_CASE(range_of_cum_probabilities)
   } // 0.9
 
   address.setCoordinate<float>(0, 0.9f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   while(it != d_space.end()) {
     ++it;
@@ -149,7 +149,7 @@ BOOST_AUTO_TEST_CASE(range_of_cum_probabilities)
 
   --it;
   address.setCoordinate<float>(0, 0.99f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 }
 
 
@@ -168,19 +168,19 @@ BOOST_AUTO_TEST_CASE(samples)
   address = d_space.address();
 
   address.setCoordinate<size_t>(0, 3);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<size_t>(0, 5);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<size_t>(0, 7);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<size_t>(0, 9);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   BOOST_CHECK(it == d_space.end());
@@ -188,19 +188,19 @@ BOOST_AUTO_TEST_CASE(samples)
 
   --it;
   address.setCoordinate<size_t>(0, 9);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<size_t>(0, 7);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<size_t>(0, 5);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<size_t>(0, 3);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
   BOOST_CHECK(it == d_space.begin());
   BOOST_CHECK(it != d_space.end());
 }
@@ -221,43 +221,43 @@ BOOST_AUTO_TEST_CASE(time)
   address = d_space.address();
 
   address.setCoordinate<size_t>(0, 1);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<size_t>(0, 2);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<size_t>(0, 3);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<size_t>(0, 4);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<size_t>(0, 5);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<size_t>(0, 6);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<size_t>(0, 7);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<size_t>(0, 8);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<size_t>(0, 9);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<size_t>(0, 10);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   BOOST_CHECK(it == d_space.end());
@@ -267,43 +267,43 @@ BOOST_AUTO_TEST_CASE(time)
 
   --it;
   address.setCoordinate<size_t>(0, 10);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<size_t>(0, 9);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<size_t>(0, 8);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<size_t>(0, 7);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<size_t>(0, 6);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<size_t>(0, 5);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<size_t>(0, 4);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<size_t>(0, 3);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<size_t>(0, 2);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<size_t>(0, 1);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
   BOOST_CHECK(it == d_space.begin());
   BOOST_CHECK(it != d_space.end());
 }
@@ -325,29 +325,29 @@ BOOST_AUTO_TEST_CASE(space)
 
   // First row.
   address.setCoordinate<SpatialCoordinate>(0, SpatialCoordinate(0.5, -0.5));
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<SpatialCoordinate>(0, SpatialCoordinate(1.5, -0.5));
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   // Second row.
   ++it;
   address.setCoordinate<SpatialCoordinate>(0, SpatialCoordinate(0.5, -1.5));
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<SpatialCoordinate>(0, SpatialCoordinate(1.5, -1.5));
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   // Third row.
   ++it;
   address.setCoordinate<SpatialCoordinate>(0, SpatialCoordinate(0.5, -2.5));
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<SpatialCoordinate>(0, SpatialCoordinate(1.5, -2.5));
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   BOOST_CHECK(it == d_space.end());
@@ -358,29 +358,29 @@ BOOST_AUTO_TEST_CASE(space)
   // Third row.
   --it;
   address.setCoordinate<SpatialCoordinate>(0, SpatialCoordinate(1.5, -2.5));
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<SpatialCoordinate>(0, SpatialCoordinate(0.5, -2.5));
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   // Second row.
   --it;
   address.setCoordinate<SpatialCoordinate>(0, SpatialCoordinate(1.5, -1.5));
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<SpatialCoordinate>(0, SpatialCoordinate(0.5, -1.5));
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   // First row.
   --it;
   address.setCoordinate<SpatialCoordinate>(0, SpatialCoordinate(1.5, -0.5));
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<SpatialCoordinate>(0, SpatialCoordinate(0.5, -0.5));
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
   BOOST_CHECK(it == d_space.begin());
   BOOST_CHECK(it != d_space.end());
 }
@@ -401,14 +401,14 @@ BOOST_AUTO_TEST_CASE(feature_space)
   address = d_space.address();
 
   address.setCoordinate<SpatialCoordinate>(0, SpatialCoordinate(6.6, -5.5));
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   BOOST_CHECK(it == d_space.end());
   BOOST_CHECK(it != d_space.begin());
 
   --it;
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
   BOOST_CHECK(it == d_space.begin());
   BOOST_CHECK(it != d_space.end());
 }
@@ -431,53 +431,53 @@ BOOST_AUTO_TEST_CASE(scenarios_samples)
 
   address.setCoordinate<std::string>(0, "aap");
   address.setCoordinate<size_t>(1, 3);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<size_t>(1, 5);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<size_t>(1, 7);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<size_t>(1, 9);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<std::string>(0, "mies");
   address.setCoordinate<size_t>(1, 3);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<size_t>(1, 5);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<size_t>(1, 7);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<size_t>(1, 9);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<std::string>(0, "noot");
   address.setCoordinate<size_t>(1, 3);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<size_t>(1, 5);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<size_t>(1, 7);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<size_t>(1, 9);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   BOOST_CHECK(it == d_space.end());
@@ -488,53 +488,53 @@ BOOST_AUTO_TEST_CASE(scenarios_samples)
   --it;
   address.setCoordinate<std::string>(0, "noot");
   address.setCoordinate<size_t>(1, 9);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<size_t>(1, 7);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<size_t>(1, 5);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<size_t>(1, 3);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<std::string>(0, "mies");
   address.setCoordinate<size_t>(1, 9);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<size_t>(1, 7);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<size_t>(1, 5);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<size_t>(1, 3);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<std::string>(0, "aap");
   address.setCoordinate<size_t>(1, 9);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<size_t>(1, 7);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<size_t>(1, 5);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<size_t>(1, 3);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
   BOOST_CHECK(it == d_space.begin());
   BOOST_CHECK(it != d_space.end());
 }
@@ -557,62 +557,62 @@ BOOST_AUTO_TEST_CASE(scenario_cum_probabilities)
 
   address.setCoordinate<std::string>(0, "aap");
   address.setCoordinate<float>(1, 0.01f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<float>(1, 0.02f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<float>(1, 0.03f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   for(size_t i = 0; i < 96; ++i) {
     ++it;
   }
 
   address.setCoordinate<float>(1, 0.99f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<std::string>(0, "mies");
   address.setCoordinate<float>(1, 0.01f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<float>(1, 0.02f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<float>(1, 0.03f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   for(size_t i = 0; i < 96; ++i) {
     ++it;
   }
 
   address.setCoordinate<float>(1, 0.99f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<std::string>(0, "noot");
   address.setCoordinate<float>(1, 0.01f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<float>(1, 0.02f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   address.setCoordinate<float>(1, 0.03f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   for(size_t i = 0; i < 96; ++i) {
     ++it;
   }
 
   address.setCoordinate<float>(1, 0.99f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   ++it;
   BOOST_CHECK(it == d_space.end());
@@ -623,62 +623,62 @@ BOOST_AUTO_TEST_CASE(scenario_cum_probabilities)
   --it;
   address.setCoordinate<std::string>(0, "noot");
   address.setCoordinate<float>(1, 0.99f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<float>(1, 0.98f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<float>(1, 0.97f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   for(size_t i = 0; i < 96; ++i) {
     --it;
   }
 
   address.setCoordinate<float>(1, 0.01f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<std::string>(0, "mies");
   address.setCoordinate<float>(1, 0.99f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<float>(1, 0.98f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<float>(1, 0.97f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   for(size_t i = 0; i < 96; ++i) {
     --it;
   }
 
   address.setCoordinate<float>(1, 0.01f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<std::string>(0, "aap");
   address.setCoordinate<float>(1, 0.99f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<float>(1, 0.98f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   --it;
   address.setCoordinate<float>(1, 0.97f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
 
   for(size_t i = 0; i < 96; ++i) {
     --it;
   }
 
   address.setCoordinate<float>(1, 0.01f);
-  BOOST_CHECK(d_space.equal(*it, address));
+  BOOST_TEST(d_space.equal(*it, address));
   BOOST_CHECK(it == d_space.begin());
   BOOST_CHECK(it != d_space.end());
 }

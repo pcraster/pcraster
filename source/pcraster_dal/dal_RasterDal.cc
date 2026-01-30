@@ -8,7 +8,7 @@
 #include "dal_RasterDriver.h"
 #include "dal_Utils.h"
 
-#include "gdal_priv.h"
+#include <gdal_priv.h>
 
 
 /*!

@@ -8,7 +8,7 @@
 #endif
 #include "dal_RasterDimensions.h"
 
-#include "gdal_priv.h"
+#include <gdal_priv.h>
 #include <cpl_string.h> // CSLFetchBoolean
 
 #include <cmath>

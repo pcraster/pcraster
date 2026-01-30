@@ -14,32 +14,32 @@ BOOST_AUTO_TEST_CASE(test_)
   {
     RasterDimensions const raster;
 
-    BOOST_CHECK(dal::comparable(raster.cellSize(), 1.0));
-    BOOST_CHECK(dal::comparable(raster.west(), 0.0));
-    BOOST_CHECK(dal::comparable(raster.north(), 0.0));
-    BOOST_CHECK(dal::comparable(raster.east(), 1.0));
-    BOOST_CHECK(dal::comparable(raster.south(), -1.0));
+    BOOST_TEST(dal::comparable(raster.cellSize(), 1.0));
+    BOOST_TEST(dal::comparable(raster.west(), 0.0));
+    BOOST_TEST(dal::comparable(raster.north(), 0.0));
+    BOOST_TEST(dal::comparable(raster.east(), 1.0));
+    BOOST_TEST(dal::comparable(raster.south(), -1.0));
   }
 
   // Non-default.
   {
     RasterDimensions const raster(3, 4);
 
-    BOOST_CHECK(dal::comparable(raster.cellSize(), 1.0));
-    BOOST_CHECK(dal::comparable(raster.west(), 0.0));
-    BOOST_CHECK(dal::comparable(raster.north(), 0.0));
-    BOOST_CHECK(dal::comparable(raster.east(), 4.0));
-    BOOST_CHECK(dal::comparable(raster.south(), -3.0));
+    BOOST_TEST(dal::comparable(raster.cellSize(), 1.0));
+    BOOST_TEST(dal::comparable(raster.west(), 0.0));
+    BOOST_TEST(dal::comparable(raster.north(), 0.0));
+    BOOST_TEST(dal::comparable(raster.east(), 4.0));
+    BOOST_TEST(dal::comparable(raster.south(), -3.0));
   }
 
   {
     RasterDimensions const raster(3, 4, 5.0, 1.0, 2.0);
 
-    BOOST_CHECK(dal::comparable(raster.cellSize(), 5.0));
-    BOOST_CHECK(dal::comparable(raster.west(), 1.0));
-    BOOST_CHECK(dal::comparable(raster.north(), 2.0));
-    BOOST_CHECK(dal::comparable(raster.east(), 21.0));
-    BOOST_CHECK(dal::comparable(raster.south(), -13.0));
+    BOOST_TEST(dal::comparable(raster.cellSize(), 5.0));
+    BOOST_TEST(dal::comparable(raster.west(), 1.0));
+    BOOST_TEST(dal::comparable(raster.north(), 2.0));
+    BOOST_TEST(dal::comparable(raster.east(), 21.0));
+    BOOST_TEST(dal::comparable(raster.south(), -13.0));
   }
 
   // Copy.
@@ -88,14 +88,14 @@ BOOST_AUTO_TEST_CASE(index_)
   {
     RasterDimensions const raster(3, 4, 5.0, 1.0, 2.0);
 
-    BOOST_CHECK_EQUAL(raster.index(size_t(0), size_t(0)), size_t(0));
-    BOOST_CHECK_EQUAL(raster.index(size_t(0), size_t(1)), size_t(1));
-    BOOST_CHECK_EQUAL(raster.index(size_t(1), size_t(0)), raster.nrCols());
+    BOOST_TEST(raster.index(size_t(0), size_t(0)) == size_t(0));
+    BOOST_TEST(raster.index(size_t(0), size_t(1)) == size_t(1));
+    BOOST_TEST(raster.index(size_t(1), size_t(0)) == raster.nrCols());
 
-    BOOST_CHECK_EQUAL(raster.index(1.0, 2.0), size_t(0));
-    BOOST_CHECK_EQUAL(raster.index(20.9, 2.0), size_t(3));
-    BOOST_CHECK_EQUAL(raster.index(1.0, -12.9), size_t(8));
-    BOOST_CHECK_EQUAL(raster.index(20.9, -12.9), size_t(11));
+    BOOST_TEST(raster.index(1.0, 2.0) == size_t(0));
+    BOOST_TEST(raster.index(20.9, 2.0) == size_t(3));
+    BOOST_TEST(raster.index(1.0, -12.9) == size_t(8));
+    BOOST_TEST(raster.index(20.9, -12.9) == size_t(11));
   }
 }
 

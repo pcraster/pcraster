@@ -320,16 +320,16 @@ BOOST_AUTO_TEST_CASE(data_space_address_to_sql_query)
     space.addDimension(uncertainty);
     address = space.address();
 
-    BOOST_CHECK_EQUAL(dataSpaceAddressToSqlQuery(space, address, tableName,
-         fieldName),
+    BOOST_TEST(dataSpaceAddressToSqlQuery(space, address, tableName,
+         fieldName) ==
          "SELECT scenario,date,quantile,Co2 FROM MyTable");
 
     address.setCoordinate<std::string>(0, "aap");
     address.setCoordinate<size_t>(1, 3);
     address.setCoordinate<float>(2, 0.5);
 
-    BOOST_CHECK_EQUAL(dataSpaceAddressToSqlQuery(space, address, tableName,
-         fieldName),
+    BOOST_TEST(dataSpaceAddressToSqlQuery(space, address, tableName,
+         fieldName) ==
          "SELECT scenario,date,quantile,Co2 FROM MyTable "
               "WHERE scenario='aap' AND date=3 AND quantile=0.5");
   }

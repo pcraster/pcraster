@@ -44,7 +44,7 @@ BOOST_AUTO_TEST_CASE(id_of_largest_type)
   using namespace dal;
 
   Types const types;
-  BOOST_CHECK_EQUAL(types.idOfLargestType(TI_UINT1, TI_UINT2), TI_UINT2);
+  BOOST_TEST(types.idOfLargestType(TI_UINT1, TI_UINT2) == TI_UINT2);
 
   bool const idOfLargestTypeImplemented = false;
   BOOST_TEST_WARN(idOfLargestTypeImplemented);

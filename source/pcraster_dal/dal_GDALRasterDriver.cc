@@ -8,7 +8,15 @@
 #endif
 #include "dal_RasterDimensions.h"
 
-#include <gdal_priv.h>
+
+#include <gdal_version.h>
+
+#if GDAL_VERSION_NUM >= GDAL_COMPUTE_VERSION(3, 12, 0)
+  #include <gdal_raster_cpp.h>
+#else
+  #include <gdal_priv.h>
+#endif
+
 #include <cpl_string.h> // CSLFetchBoolean
 
 #include <cmath>
@@ -237,7 +245,12 @@ RasterDimensions rasterDimensions(
 
   // Note that some formats don't support transformation to projection
   // coordinates. In those cases geoTransform is set to (0,1,0,0,0,1).
+
+#if GDAL_VERSION_NUM >= GDAL_COMPUTE_VERSION(3, 12, 0)
+  GDALGeoTransform geoTransform{};
+#else
   double geoTransform[6];
+#endif
 
   if(gdalDataset.GetGeoTransform(geoTransform) == CE_Failure) {
     // According to the docs at least, but doesn't seem to work (for png's) so

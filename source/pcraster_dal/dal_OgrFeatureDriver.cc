@@ -9,7 +9,14 @@
 
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/function.hpp>
-#include <ogrsf_frmts.h>
+
+#include <gdal_version.h>
+
+#if GDAL_VERSION_NUM >= GDAL_COMPUTE_VERSION(3, 12, 0)
+  #include <gdal_vector_cpp.h>
+#else
+  #include <ogrsf_frmts.h>
+#endif
 
 #include <filesystem>
 #include <format>

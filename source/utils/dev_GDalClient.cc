@@ -1,8 +1,12 @@
 #include "dev_GDalClient.h"
 
-#include <gdal_priv.h>
-#include <ogr_api.h>
-#include <ogrsf_frmts.h>
+#include <gdal_version.h>
+
+#if GDAL_VERSION_NUM >= GDAL_COMPUTE_VERSION(3, 12, 0)
+  #include <gdal_raster_cpp.h>
+#else
+  #include <gdal_priv.h>
+#endif
 
 #include <cassert>
 
@@ -66,12 +70,13 @@ GDalClient::~GDalClient()
     // Last GDalClient object is being destructed.
     if(_weInitializedGdal) {
       // We initialized the GDal library, so we need to clean up again.
-      for(int i = 0; i < GetGDALDriverManager()->GetDriverCount(); ++i) {
-        auto* driver = GetGDALDriverManager()->GetDriver(i);
+      int driver_count = GetGDALDriverManager()->GetDriverCount();
+      for(int i = 0; i < driver_count; ++i) {
+        auto* driver = GetGDALDriverManager()->GetDriver(0);
         GDALDeregisterDriver(driver);
       }
-      // GDALDestroyDriverManager();
       _weInitializedGdal = false;
+      assert(GetGDALDriverManager()->GetDriverCount() == 0);
     }
   }
   --_count;

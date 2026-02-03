@@ -1,10 +1,16 @@
 #define BOOST_TEST_MODULE pcraster dal feature_layer
 #include <boost/test/unit_test.hpp>
-#include <ogr_feature.h>
 #include "dal_Library.h"
 #include "dal_FeatureLayer.h"
 #include "dal_Client.h"
 
+#include <gdal_version.h>
+
+#if GDAL_VERSION_NUM >= GDAL_COMPUTE_VERSION(3, 12, 0)
+  #include <gdal_vector_cpp.h>
+#else
+  #include <ogr_feature.h>
+#endif
 
 class ClientWrapper : public dal::Client {
 public:

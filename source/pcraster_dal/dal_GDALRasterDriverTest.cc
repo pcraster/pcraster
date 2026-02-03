@@ -1,12 +1,21 @@
 #define BOOST_TEST_MODULE pcraster dal gdal_raster_driver
 #include <boost/test/unit_test.hpp>
-#include <gdal_priv.h>
 #include "dev_GDalClient.h"
 #include "dal_Exception.h"
 #include "dal_GDALRasterDriver.h"
 #include "dal_Utils.h"
 #include "dal_Client.h"
+
+#include <gdal_version.h>
+
+#if GDAL_VERSION_NUM >= GDAL_COMPUTE_VERSION(3, 12, 0)
+  #include <gdal_raster_cpp.h>
+#else
+  #include <gdal_priv.h>
+#endif
+
 #include <numbers>
+
 
 class ClientWrapper : public dal::Client {
 public:

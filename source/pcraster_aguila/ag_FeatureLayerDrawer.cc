@@ -11,8 +11,15 @@
 #include <QPainterPath>
 #include <boost/geometry.hpp>
 #include <ogr_core.h>
-#include <ogr_feature.h>
-#include <ogr_geometry.h>
+
+#include <gdal_version.h>
+
+#if GDAL_VERSION_NUM >= GDAL_COMPUTE_VERSION(3, 12, 0)
+  #include <gdal_vector_cpp.h>
+#else
+  #include <ogr_feature.h>
+  #include <ogr_geometry.h>
+#endif
 
 #include <cmath>
 

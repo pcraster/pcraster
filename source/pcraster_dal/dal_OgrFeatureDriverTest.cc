@@ -1,12 +1,18 @@
 #define BOOST_TEST_MODULE pcraster dal ogr_feature_driver
 #include <boost/test/unit_test.hpp>
-#include <ogr_geometry.h>
 #include "dal_Exception.h"
 #include "dal_Library.h"
 #include "dal_OgrFeatureDriver.h"
 #include "dev_GDalClient.h"
 #include "dal_Client.h"
 
+#include <gdal_version.h>
+
+#if GDAL_VERSION_NUM >= GDAL_COMPUTE_VERSION(3, 12, 0)
+  #include <gdal_vector_cpp.h>
+#else
+  #include <ogr_geometry.h>
+#endif
 
 class ClientWrapper : public dal::Client {
 public:

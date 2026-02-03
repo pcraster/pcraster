@@ -8,7 +8,13 @@
 #include "dal_RasterDriver.h"
 #include "dal_Utils.h"
 
-#include <gdal_priv.h>
+#include <gdal_version.h>
+
+#if GDAL_VERSION_NUM >= GDAL_COMPUTE_VERSION(3, 12, 0)
+  #include <gdal_raster_cpp.h>
+#else
+  #include <gdal_priv.h>
+#endif
 
 
 /*!

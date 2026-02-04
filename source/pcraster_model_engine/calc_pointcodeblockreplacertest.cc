@@ -103,32 +103,32 @@ BOOST_AUTO_TEST_CASE(test)
     b = test.block("C/b/l/1/r/b/0/P");
     BOOST_TEST(b->rangeText() == "BLOCK [line '5:1',line '6:1']");
     BOOST_TEST(b->d_size == 2);
-    BOOST_TEST(b->input() == aS);
-    BOOST_TEST(b->local() == xS);
+    BOOST_TEST((b->input() == aS));
+    BOOST_TEST((b->local() == xS));
     // a = x*2
     p = astCast<ASTPar>(b, "P/R/b/l/1/a/<");
     BOOST_TEST(p);
     BOOST_TEST(p->name() == "a");
     BOOST_TEST(!p->lastUse());
-    BOOST_TEST(b->output() == aS);
+    BOOST_TEST((b->output() == aS));
 
     // P1
     b = test.block("C/b/l/2/P");
     //std::cout << "P1 " << *b << std::endl;
     BOOST_TEST(b->rangeText() == "BLOCK [line '8:1',line '8:1']");
     BOOST_TEST(b->d_size == 1);
-    BOOST_TEST(b->input() == abS);
-    BOOST_TEST(b->local() == emptyS);
-    BOOST_TEST(b->output() == emptyS);  // since a is redefined after this block
+    BOOST_TEST((b->input() == abS));
+    BOOST_TEST((b->local() == emptyS));
+    BOOST_TEST((b->output() == emptyS));  // since a is redefined after this block
 
     // P2
     b = test.block("C/b/l/4/P");
     //std::cout << "P2 " << *b << std::endl;
     BOOST_TEST(b->rangeText() == "BLOCK [line '10:1',line '12:1']");
     BOOST_TEST(b->d_size == 3);
-    BOOST_TEST(b->input() == eS);
-    BOOST_TEST(b->local() == emptyS);
-    BOOST_TEST(b->output() == dS);
+    BOOST_TEST((b->input() == eS));
+    BOOST_TEST((b->local() == emptyS));
+    BOOST_TEST((b->output() == dS));
   }
   {
     const char *code = "a=maptotal(b)+3;";
@@ -141,8 +141,8 @@ BOOST_AUTO_TEST_CASE(test)
     b = test.block("C/b/l/0/P");
     BOOST_TEST(b->rangeText() == "BLOCK [line '1:1',line '1:1']");
     BOOST_TEST(b->d_size == 1);
-    BOOST_TEST(b->input() == abS);
-    BOOST_TEST(b->local() == emptyS);
-    BOOST_TEST(b->output() == aS);
+    BOOST_TEST((b->input() == abS));
+    BOOST_TEST((b->local() == emptyS));
+    BOOST_TEST((b->output() == aS));
   }
 }

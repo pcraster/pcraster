@@ -202,7 +202,7 @@ target_include_directories(pcraster_aguila_objects
 if (${Qt5_VERSION}${Qt6_VERSION} VERSION_LESS 6)
     set(QtOpenGLWidgets "")
 else()
-    set(QtOpenGLWidgets "Qt::OpenGLWidgets")
+    set(QtOpenGLWidgets "Qt${QT_VERSION_MAJOR}::OpenGLWidgets")
 endif()
 
 # add_dependencies(pcraster_aguila_objects
@@ -221,9 +221,9 @@ if(PCRASTER_WITH_OPENGL)
         PRIVATE
             pcraster::xsd
             Boost::headers
-            Qt::Widgets
-            Qt::OpenGL
-            Qt::Xml
+            Qt${QT_VERSION_MAJOR}::Widgets
+            Qt${QT_VERSION_MAJOR}::OpenGL
+            Qt${QT_VERSION_MAJOR}::Xml
             GDAL::GDAL
             ${QtOpenGLWidgets}
     )
@@ -232,8 +232,8 @@ else()
         PRIVATE
             pcraster::xsd
             Boost::headers
-            Qt::Widgets
-            Qt::Xml
+            Qt${QT_VERSION_MAJOR}::Widgets
+            Qt${QT_VERSION_MAJOR}::Xml
             GDAL::GDAL
     )
 endif()
@@ -276,11 +276,11 @@ if(PCRASTER_WITH_OPENGL)
         PUBLIC
             pcraster::dal
             pcraster::xsd
-            Qt::Gui
-            Qt::Widgets
-            Qt::Xml
-            Qt::Charts
-            Qt::OpenGL
+            Qt${QT_VERSION_MAJOR}::Gui
+            Qt${QT_VERSION_MAJOR}::Widgets
+            Qt${QT_VERSION_MAJOR}::Xml
+            Qt${QT_VERSION_MAJOR}::Charts
+            Qt${QT_VERSION_MAJOR}::OpenGL
             OpenGL::GL
     )
 else()
@@ -288,10 +288,10 @@ else()
         PUBLIC
             pcraster::dal
             pcraster::xsd
-            Qt::Gui
-            Qt::Widgets
-            Qt::Xml
-            Qt::Charts
+            Qt${QT_VERSION_MAJOR}::Gui
+            Qt${QT_VERSION_MAJOR}::Widgets
+            Qt${QT_VERSION_MAJOR}::Xml
+            Qt${QT_VERSION_MAJOR}::Charts
     )
 endif()
 

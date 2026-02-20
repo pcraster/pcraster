@@ -306,7 +306,7 @@ target_link_libraries(pcraster_model_engine_objects
     PRIVATE
         pcraster::xsd
         Boost::headers
-        Qt::Core
+        Qt${QT_VERSION_MAJOR}::Core
         GDAL::GDAL
 )
 
@@ -391,7 +391,7 @@ if(PCRASTER_BUILD_TEST)
 
     target_link_libraries(pcraster_model_engine_unit_test_utils
         PRIVATE
-            Qt::Xml
+            Qt${QT_VERSION_MAJOR}::Xml
             pcraster::xsd
             Boost::headers
     )

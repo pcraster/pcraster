@@ -111,7 +111,7 @@ target_include_directories(pcrxml
 target_link_libraries(pcrxml
     PUBLIC
         pcraster::pcrcom
-        Qt::Xml
+        Qt${QT_VERSION_MAJOR}::Xml
 )
 
 if(PCRASTER_BUILD_TEST)

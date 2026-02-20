@@ -163,8 +163,10 @@ endif()
 
 if(PCRASTER_WITH_QT5)
     find_package(Qt5 5.15 REQUIRED COMPONENTS ${PCR_QT_COMPONENTS} CONFIG)
+    set(QT_VERSION_MAJOR 5)
 else()
     find_package(Qt6 REQUIRED COMPONENTS ${PCR_QT_COMPONENTS} CONFIG)
+    set(QT_VERSION_MAJOR 6)
 endif()
 
 message(STATUS "Found Qt: ")

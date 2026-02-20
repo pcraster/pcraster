@@ -93,7 +93,7 @@ target_link_libraries(pcraster_dal_objects
     PRIVATE
         Boost::headers
         GDAL::GDAL
-        Qt::Sql
+        Qt${QT_VERSION_MAJOR}::Sql
 )
 
 target_include_directories(pcraster_dal_objects
@@ -143,7 +143,7 @@ target_link_libraries(pcraster_dal
     PUBLIC
         pcraster::raster_format
         pcraster::utils
-        Qt::Sql
+        Qt${QT_VERSION_MAJOR}::Sql
         GDAL::GDAL
 )
 

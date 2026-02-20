@@ -196,7 +196,7 @@ target_compile_definitions(pcraster_old_calc_objects
 if(NOT WIN32)
     target_link_libraries(pcraster_old_calc_objects
         PUBLIC
-            Qt::Core
+            Qt${QT_VERSION_MAJOR}::Core
         PRIVATE
             Boost::headers
     )

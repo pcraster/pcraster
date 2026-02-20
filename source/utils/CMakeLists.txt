@@ -43,7 +43,7 @@ if(PCRASTER_BUILD_TEST)
             dev_UtilsTest.cc
         LINK_LIBRARIES
             pcraster::utils
-            Qt::Core
+            Qt${QT_VERSION_MAJOR}::Core
             Clipp::Clipp
     )
 endif()

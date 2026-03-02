@@ -5,7 +5,7 @@
 #include "ag_DataObject.h"
 #include "ag_VisGroup.h"
 
-#include <QtXml>
+#include <QDomElement>
 #include <QObject>
 
 #include <memory>
@@ -170,30 +170,30 @@ public:
 
 public Q_SLOTS:
 
-  Map2DWindow*     addMap2DWindow      (ag::VisGroup* g);
+  ag::Map2DWindow* addMap2DWindow      (ag::VisGroup* g);
 
-  Map2DWindow*     addMap2DWindow      (ag::VisualisationWindow* v);
+  ag::Map2DWindow* addMap2DWindow      (ag::VisualisationWindow* v);
 
-  MultiMap2DWindow* addMultiMap2DWindow(ag::VisGroup* group,
+  ag::MultiMap2DWindow* addMultiMap2DWindow(ag::VisGroup* group,
                                               size_t nrRows,
                                               size_t nrCols);
 #ifdef AGUILA_WITH_OPENGL
-  Map3DWindow*     addMap3DWindow      (ag::VisGroup* g);
+  ag::Map3DWindow* addMap3DWindow      (ag::VisGroup* g);
 
-  Map3DWindow*     addMap3DWindow      (ag::VisualisationWindow* v);
+  ag::Map3DWindow* addMap3DWindow      (ag::VisualisationWindow* v);
 
-  Map3DWindow*     addMap3DWindow      (ag::VisGroup* g,
+  ag::Map3DWindow* addMap3DWindow      (ag::VisGroup* g,
                                         ag::VisualisationWindow* v);
 #endif
-  TimePlotWindow*  addTimePlotWindow   (ag::VisGroup* visGroup);
+  ag::TimePlotWindow* addTimePlotWindow(ag::VisGroup* visGroup);
 
-  TimePlotWindow*  addTimePlotWindow   (ag::VisualisationWindow* visualisation);
+  ag::TimePlotWindow* addTimePlotWindow(ag::VisualisationWindow* visualisation);
 
-  TimePlotWindow*  addTimePlotWindow   (ag::VisGroup* visGroup,
+  ag::TimePlotWindow* addTimePlotWindow(ag::VisGroup* visGroup,
                                         ag::VisualisationWindow* visualisation);
 
-  CumDistributionFunctionWindow* addProbabilityGraphWindow(
-                                        VisGroup* group);
+  ag::CumDistributionFunctionWindow* addProbabilityGraphWindow(
+                                        ag::VisGroup* group);
 
   // ag::DataPropertiesDialog* addDataPropertiesDialog(
   //                                       ag::DataObject& dataObject,
@@ -205,7 +205,7 @@ public Q_SLOTS:
 
   void             newTimePlotWindow   (ag::VisualisationWindow *visualisation);
 
-  CursorWindow*    addCursorWindow     (ag::VisGroup* group);
+  ag::CursorWindow* addCursorWindow    (ag::VisGroup* group);
 
   void             close               ();
 

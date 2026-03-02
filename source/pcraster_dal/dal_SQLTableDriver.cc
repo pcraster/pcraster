@@ -5,7 +5,13 @@
 #include "dal_Utils.h"
 
 #include <boost/function.hpp>
-#include <QtSql>
+#include <QSqlDatabase>
+#include <QSqlField>
+#include <QSqlError>
+#include <QSqlIndex>
+#include <QSqlQuery>
+#include <QSqlRecord>
+#include <QString>
 #include <QStringList>
 
 #include <cmath>

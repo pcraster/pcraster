@@ -1,6 +1,6 @@
 #include "ag_LineMarker.h"
 
-#include <QtGui/QPainter>
+#include <QPainter>
 
 #include <iostream>
 

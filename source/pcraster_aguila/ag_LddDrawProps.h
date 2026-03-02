@@ -6,7 +6,7 @@
 #include "ag_ClassDrawProps.h"
 
 #ifdef AGUILA_WITH_OPENGL
-  #include <QtOpenGL>
+  #include <QOpenGLFunctions>
 #endif
 
 #ifndef AGUILA_WITH_OPENGL

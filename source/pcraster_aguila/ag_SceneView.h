@@ -4,7 +4,7 @@
 #include "csf.h"
 
 #include <QOpenGLWidget>
-#include <QtOpenGL>
+#include <QOpenGLFunctions>
 
 
 

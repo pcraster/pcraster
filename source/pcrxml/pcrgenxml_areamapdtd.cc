@@ -5,7 +5,6 @@ Do not edit, generated from libs/pcrxml/generate.py
 #include "stddefx.h"
 #include "pcrgenxml_areamapdtd.h"
 #include "pcrxml_childelementvisitor.h"
-#include <QtXml>
 
 const std::string pcrxml::AreaMapDTD::d_elementName("areaMapDTD");
 

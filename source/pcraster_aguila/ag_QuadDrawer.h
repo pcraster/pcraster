@@ -6,7 +6,7 @@
 #include "com_rawpalette.h"
 #include "ag_Raster.h"
 
-#include <QtOpenGL>
+#include <QOpenGLFunctions>
 
 
 class QImage;

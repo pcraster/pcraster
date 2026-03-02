@@ -1,7 +1,7 @@
 #ifndef INCLUDED_AG_QUATERNION
 #define INCLUDED_AG_QUATERNION
 
-#include <QtOpenGL>
+#include <QOpenGLFunctions>
 
 
 

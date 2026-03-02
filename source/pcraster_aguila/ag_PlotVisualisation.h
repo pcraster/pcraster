@@ -8,7 +8,7 @@
 #include <QtCharts/QChartView>
 #include <QtCharts/QLineSeries>
 #include <QtCharts/QValueAxis>
-#include <QtWidgets/QGraphicsView>
+#include <QGraphicsView>
 
 #include <map>
 

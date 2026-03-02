@@ -3,7 +3,7 @@
 
 #include "ag_Configure.h"
 
-#include <QtXml>
+#include <QDomElement>
 
 #include <string>
 

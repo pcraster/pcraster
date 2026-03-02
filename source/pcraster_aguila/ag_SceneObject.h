@@ -3,7 +3,7 @@
 
 #include "ag_Quaternion.h"
 
-#include <QtOpenGL>
+#include <QOpenGLFunctions>
 
 
 

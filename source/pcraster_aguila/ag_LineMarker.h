@@ -2,7 +2,7 @@
 #define INCLUDED_AG_LINEMARKER
 
 #include <QGraphicsSceneHoverEvent>
-#include <QtWidgets/QGraphicsItem>
+#include <QGraphicsItem>
 #include <QtCharts/QChart>
 
 

@@ -6,6 +6,7 @@
 #include "ag_SceneView.h"
 
 #include <QEvent>
+#include <QKeyEvent>
 
 #include <cmath>
 

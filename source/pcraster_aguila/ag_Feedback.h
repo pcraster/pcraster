@@ -1,7 +1,7 @@
 #ifndef INCLUDED_AG_FEEDBACK
 #define INCLUDED_AG_FEEDBACK
 
-#include <QtOpenGL>
+#include <QOpenGLFunctions>
 
 
 

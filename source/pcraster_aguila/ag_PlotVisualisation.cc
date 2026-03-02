@@ -7,7 +7,7 @@
 #include <QApplication>
 #include <QPainter>
 #include <QtCharts/QLineSeries>
-#include <QtGui/QMouseEvent>
+#include <QMouseEvent>
 
 /*!
   \file

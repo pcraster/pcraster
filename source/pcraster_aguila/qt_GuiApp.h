@@ -37,6 +37,8 @@ class PCR_AG_DECL GuiApp: public QObject,
 
 private:
 
+  Q_OBJECT
+
   //! File name of lock file.
   std::filesystem::path d_lockFilename;
 

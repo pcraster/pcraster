@@ -28,6 +28,8 @@ class SceneView: public QOpenGLWidget
 
 private:
 
+  Q_OBJECT
+
   //! Calcs angle of the FOV based on size \a s and distance \a d.
   static GLfloat   calcFOV             (double s,
                                         double d);

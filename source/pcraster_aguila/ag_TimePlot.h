@@ -30,6 +30,8 @@ class TimePlot: public Visualisation<>
 
 private:
 
+  Q_OBJECT
+
   QSplitter*       _splitter{};
 
   PlotView*        _plotView{nullptr};

@@ -29,6 +29,8 @@ class MultiMap2DWindow: public MapWindow
 
 private:
 
+  Q_OBJECT
+
   std::vector<VisEngine*> d_engines;
 
   MultiMap2D*      d_map{nullptr};

@@ -30,6 +30,8 @@ class GeometryLegendBody: public LegendBody
 
 private:
 
+  Q_OBJECT
+
 protected:
 
 public:

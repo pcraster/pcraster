@@ -32,6 +32,8 @@ class Legend: public QWidget,
 
 private:
 
+  Q_OBJECT
+
   //! Legend title.
   QLabel*          d_title;
 

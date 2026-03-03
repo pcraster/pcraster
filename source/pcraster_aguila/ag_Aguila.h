@@ -36,6 +36,8 @@ class PCR_AG_DECL Aguila: public qt::GuiApp,
 
 private:
 
+  Q_OBJECT
+
   pcrxsd::Library* d_xsdLib;
 
   int&             d_argc;

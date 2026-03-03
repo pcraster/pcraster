@@ -26,6 +26,8 @@ class Map: public Visualisation<>
 
 private:
 
+  Q_OBJECT
+
   //! Assignment operator. NOT IMPLEMENTED.
   Map&             operator=           (Map const& rhs);
 

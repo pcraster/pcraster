@@ -27,7 +27,7 @@ class QApplication: public ::QApplication
 
 private:
 
-  // Q_OBJECT;
+  Q_OBJECT;
 
   std::string      _name;
 

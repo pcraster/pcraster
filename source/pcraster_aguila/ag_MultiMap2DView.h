@@ -34,6 +34,8 @@ class MultiMap2DView: public Visualisation<>
 
 private:
 
+  Q_OBJECT
+
   size_t           d_nrRows;
 
   size_t           d_nrCols;

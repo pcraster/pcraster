@@ -30,6 +30,8 @@ class Map3DView: public ag::GLVisualisation
 
 private:
 
+  Q_OBJECT
+
   Map3DViewPrivate *d_data;
 
   //! Assignment operator. NOT IMPLEMENTED.

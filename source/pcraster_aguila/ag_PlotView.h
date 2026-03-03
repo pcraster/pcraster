@@ -25,6 +25,8 @@ class PlotView: public PlotVisualisation
 
 private:
 
+  Q_OBJECT
+
   // void             selected            (QPointF const& point);
 
   void             appended            (QPointF const& point) override;

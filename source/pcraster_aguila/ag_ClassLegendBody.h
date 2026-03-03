@@ -26,6 +26,8 @@ class ClassLegendBody: public LegendBody
 
 private:
 
+  Q_OBJECT
+
   //! Space between keys.
   static const int d_keyOffset;
 

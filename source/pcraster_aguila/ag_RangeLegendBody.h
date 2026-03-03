@@ -25,6 +25,8 @@ class RangeLegendBody: public LegendBody
 
 private:
 
+  Q_OBJECT
+
   //! Nr of objects created.
   static size_t    _nrCreated;
 

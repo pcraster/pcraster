@@ -31,6 +31,8 @@ class CumDistributionFunction: public Visualisation<>
 
 private:
 
+  Q_OBJECT
+
   QSplitter*       d_splitter{};
 
   CumDistributionFunctionView* d_plotView{nullptr};

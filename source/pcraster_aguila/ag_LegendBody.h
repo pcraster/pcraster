@@ -19,6 +19,8 @@ class LegendBody: public QWidget
 
 private:
 
+  Q_OBJECT
+
   //! Length of a tic.
   static int       d_ticLength;
 

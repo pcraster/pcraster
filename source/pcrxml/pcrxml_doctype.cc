@@ -1,11 +1,5 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_PCRXML_DOCTYPE
 #include "pcrxml_doctype.h"
-#endif
 
 
 /*!

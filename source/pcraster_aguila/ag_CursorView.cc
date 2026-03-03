@@ -197,8 +197,8 @@ void CursorView::createInterface()
         gridLayout->addWidget(value, i, 1);
       } else {
         edit = new DimensionCoordinateEdit(&dimension, dimensionEditGroupBox);
-        connect(edit, SIGNAL(coordinateSet(const dal::Dimension *, size_t)), this,
-                SLOT(updateCoordinate(const dal::Dimension *, size_t)));
+        connect(edit, SIGNAL(coordinateSet(const dal::Dimension*,size_t)), this,
+                SLOT(updateCoordinate(const dal::Dimension*,size_t)));
         gridLayout->addWidget(edit, i, 1);
 
         value = new QLabel(QString(

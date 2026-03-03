@@ -57,11 +57,11 @@ TableVisualisation::TableVisualisation(DataObject *object, std::string const &vi
   setEditTriggers(NoEditTriggers);
   setContextMenuPolicy(Qt::CustomContextMenu);
 
-  connect(selectionModel(), SIGNAL(selectionChanged(QItemSelection const &, QItemSelection const &)),
-          this, SLOT(handleChangedSelection(QItemSelection const &, QItemSelection const &)));
-  connect(this, SIGNAL(cellDoubleClicked(int, int)), this, SLOT(handleDoubleClickedCell(int, int)));
-  connect(this, SIGNAL(customContextMenuRequested(QPoint const &)), this,
-          SLOT(handleRequestedCustomContextMenu(QPoint const &)));
+  connect(selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+          this, SLOT(handleChangedSelection(QItemSelection,QItemSelection)));
+  connect(this, SIGNAL(cellDoubleClicked(int,int)), this, SLOT(handleDoubleClickedCell(int,int)));
+  connect(this, SIGNAL(customContextMenuRequested(QPoint)), this,
+          SLOT(handleRequestedCustomContextMenu(QPoint)));
 }
 
 //! Destructor.

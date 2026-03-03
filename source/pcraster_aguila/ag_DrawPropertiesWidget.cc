@@ -88,8 +88,8 @@ void ag::DrawPropertiesWidget::createPaletteInterface()
 
   d_data->d_paletteDialog = new qtd::SelectPalette(this);
 
-  connect(d_data->d_paletteBar, SIGNAL(mousePressed(qtw::PaletteBar *, QMouseEvent *)), this,
-          SLOT(paletteBarClicked(qtw::PaletteBar *, QMouseEvent *)));
+  connect(d_data->d_paletteBar, SIGNAL(mousePressed(qtw::PaletteBar*,QMouseEvent*)), this,
+          SLOT(paletteBarClicked(qtw::PaletteBar*,QMouseEvent*)));
 
   configurePaletteInterface();
 }

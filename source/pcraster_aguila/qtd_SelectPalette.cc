@@ -135,8 +135,8 @@ void qtd::SelectPalette::addPalette(const com::RawPalette *p)
   assert(p);
 
   auto *pb = new qtw::PaletteBar(p, d_cw);
-  connect(pb, SIGNAL(mousePressed(qtw::PaletteBar *, QMouseEvent *)), this,
-          SLOT(selectPaletteBar(qtw::PaletteBar *, QMouseEvent *)));
+  connect(pb, SIGNAL(mousePressed(qtw::PaletteBar*,QMouseEvent*)), this,
+          SLOT(selectPaletteBar(qtw::PaletteBar*,QMouseEvent*)));
   d_cw->addPalette(pb);
 }
 

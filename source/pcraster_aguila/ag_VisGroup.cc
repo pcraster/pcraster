@@ -216,14 +216,14 @@ ag::VisGroup::~VisGroup()
 void ag::VisGroup::connectVisSignals(VisualisationWindow *visualisation)
 {
   // Logic for new visualisations. Uses the VisGroupManager object.
-  connect(visualisation, SIGNAL(newMap2DWindow(ag::VisualisationWindow *)), d_data->d_manager,
-          SLOT(newMap2DWindow(ag::VisualisationWindow *)));
+  connect(visualisation, SIGNAL(newMap2DWindow(ag::VisualisationWindow*)), d_data->d_manager,
+          SLOT(newMap2DWindow(ag::VisualisationWindow*)));
 #ifdef AGUILA_WITH_OPENGL
-  connect(visualisation, SIGNAL(newMap3DWindow(ag::VisualisationWindow *)), d_data->d_manager,
-          SLOT(newMap3DWindow(ag::VisualisationWindow *)));
+  connect(visualisation, SIGNAL(newMap3DWindow(ag::VisualisationWindow*)), d_data->d_manager,
+          SLOT(newMap3DWindow(ag::VisualisationWindow*)));
 #endif
-  connect(visualisation, SIGNAL(newTimePlotWindow(ag::VisualisationWindow *)), d_data->d_manager,
-          SLOT(newTimePlotWindow(ag::VisualisationWindow *)));
+  connect(visualisation, SIGNAL(newTimePlotWindow(ag::VisualisationWindow*)), d_data->d_manager,
+          SLOT(newTimePlotWindow(ag::VisualisationWindow*)));
 
   connect(visualisation, SIGNAL(closeAll()), d_data->d_manager, SLOT(close()));
 
@@ -233,14 +233,14 @@ void ag::VisGroup::connectVisSignals(VisualisationWindow *visualisation)
 */
 
   // Logic for adding visualisations to the group. Through manager.
-  connect(visualisation, SIGNAL(addMap2DWindow(ag::VisualisationWindow *)), d_data->d_manager,
-          SLOT(addMap2DWindow(ag::VisualisationWindow *)));
+  connect(visualisation, SIGNAL(addMap2DWindow(ag::VisualisationWindow*)), d_data->d_manager,
+          SLOT(addMap2DWindow(ag::VisualisationWindow*)));
 #ifdef AGUILA_WITH_OPENGL
-  connect(visualisation, SIGNAL(addMap3DWindow(ag::VisualisationWindow *)), d_data->d_manager,
-          SLOT(addMap3DWindow(ag::VisualisationWindow *)));
+  connect(visualisation, SIGNAL(addMap3DWindow(ag::VisualisationWindow*)), d_data->d_manager,
+          SLOT(addMap3DWindow(ag::VisualisationWindow*)));
 #endif
-  connect(visualisation, SIGNAL(addTimePlotWindow(ag::VisualisationWindow *)), d_data->d_manager,
-          SLOT(addTimePlotWindow(ag::VisualisationWindow *)));
+  connect(visualisation, SIGNAL(addTimePlotWindow(ag::VisualisationWindow*)), d_data->d_manager,
+          SLOT(addTimePlotWindow(ag::VisualisationWindow*)));
   /*
   connect(visualisation, SIGNAL(addDataPropertiesDialog(ag::DataObject&,
          const ag::DataGuide&)),

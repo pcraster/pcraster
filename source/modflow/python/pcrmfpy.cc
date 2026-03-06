@@ -21,7 +21,6 @@
 #include <pybind11/pybind11.h>
 
 
-using namespace pybind11::literals;
 
 
 // Module headers.
@@ -144,17 +143,23 @@ void (mf::PCRModflowPython::*setCondPy)(size_t, const calc::Field *, const calc:
 
 
 PYBIND11_MODULE(_pcraster_modflow, module){
+
+  namespace pb = pybind11;
+
+  using namespace pybind11::literals;
+
+
   // disables the C++ signatures in docstrings
-  pybind11::options options;
+  pb::options options;
   options.disable_function_signatures();
 
   // Desired methods in module documentation
   // are enforced by empty docstrings. Ugly, but fttb...
 
 
-  pybind11::class_<mf::PCRModflowPython>(module, "initialise")
-    .def(pybind11::init<geo::RasterSpace const&>())
-    .def("run", &mf::PCRModflowPython::runModflow, pybind11::arg("working_directory")="", R"(
+  pb::class_<mf::PCRModflowPython, pb::smart_holder>(module, "initialise")
+    .def(pb::init<geo::RasterSpace const&>())
+    .def("run", &mf::PCRModflowPython::runModflow, pb::arg("working_directory")="", R"(
 
     )")
     .def("converged", &mf::PCRModflowPython::converged, R"(

@@ -65,9 +65,9 @@ PCR_OPERATOR_TEMPLATES(divide)
 
 PYBIND11_MODULE(_pcraster_block_python, module)
 {
-  using namespace pybind11;
+  namespace pb = pybind11;
 
-  register_exception_translator([](std::exception_ptr p) {
+  pb::register_exception_translator([](std::exception_ptr p) {
     try {
       if (p) {
         std::rethrow_exception(p);
@@ -78,63 +78,63 @@ PYBIND11_MODULE(_pcraster_block_python, module)
     }
   });
 
-  class_<discr::Raster>(module, "Raster")
+  pb::class_<discr::Raster, pb::smart_holder>(module, "Raster")
          // init<size_t, size_t, double, double, double>())
          ;
-  class_<discr::RasterData<UINT1>>(module, "UINT1RasterData")
+  pb::class_<discr::RasterData<UINT1>, pb::smart_holder>(module, "UINT1RasterData")
          // init<discr::Raster*, UINT1>())
          ;
-  class_<discr::RasterData<INT4>>(module, "INT4RasterData")
+  pb::class_<discr::RasterData<INT4>, pb::smart_holder>(module, "INT4RasterData")
          // init<discr::Raster*, INT4>())
          ;
-  class_<discr::RasterData<REAL4>>(module, "REAL4RasterData")
+  pb::class_<discr::RasterData<REAL4>, pb::smart_holder>(module, "REAL4RasterData")
          // init<discr::Raster*, REAL4>())
          ;
 
-  class_<discr::Block>(module, "Block")
+  pb::class_<discr::Block, pb::smart_holder>(module, "Block")
   //        // init<discr::RasterData<REAL4> const&>())
   //        .def("nrCells", &discr::Block::nrCells)
   //        .def("cell", cell,
   //          return_value_policy<reference_existing_object>())
          ;
-  class_<discr::BlockData<UINT1>>(module, "UINT1BlockData")
+  pb::class_<discr::BlockData<UINT1>, pb::smart_holder>(module, "UINT1BlockData")
          // init<discr::Block*, UINT1>())
          // .def("setDefaultValue", &discr::BlockData<UINT1>::setDefaultValue)
          ;
-  class_<discr::BlockData<INT4>>(module, "INT4BlockData")
+  pb::class_<discr::BlockData<INT4>, pb::smart_holder>(module, "INT4BlockData")
          // init<discr::Block*, INT4>())
          // .def("setDefaultValue", &discr::BlockData<INT4>::setDefaultValue)
          ;
-  class_<discr::BlockData<REAL4>>(module, "REAL4BlockData")
+  pb::class_<discr::BlockData<REAL4>, pb::smart_holder>(module, "REAL4BlockData")
          // init<discr::Block*, REAL4>())
          // .def("setDefaultValue", &discr::BlockData<REAL4>::setDefaultValue)
          ;
-  class_<discr::VoxelStack>(module, "VoxelStack")
+  pb::class_<discr::VoxelStack, pb::smart_holder>(module, "VoxelStack")
          // .def(vector_indexing_suite<discr::VoxelStack>())
          // .def("thickness", &discr::VoxelStack::thickness)
          ;
-  class_<std::vector<UINT1>>(module, "UINT4VoxelStackData")
+  pb::class_<std::vector<UINT1>, pb::smart_holder>(module, "UINT4VoxelStackData")
          ;
-  class_<std::vector<INT4>>(module, "INT4VoxelStackData")
+  pb::class_<std::vector<INT4>, pb::smart_holder>(module, "INT4VoxelStackData")
          ;
-  class_<std::vector<REAL4>>(module, "REAL4VoxelStackData")
+  pb::class_<std::vector<REAL4>, pb::smart_holder>(module, "REAL4VoxelStackData")
          ;
-  class_<block::Compactors<block::MackeyBridgeCompactor>>(module, "Compactors")
+  pb::class_<block::Compactors<block::MackeyBridgeCompactor>, pb::smart_holder>(module, "Compactors")
          .def("setCompactor", &block::Compactors<block::MackeyBridgeCompactor>::setCompactor)
          ;
-  class_<block::SandCompactor>(module, "SandCompactor")
+  pb::class_<block::SandCompactor, pb::smart_holder>(module, "SandCompactor")
          ;
-  class_<block::ClayCompactor>(module, "ClayCompactor")
+  pb::class_<block::ClayCompactor, pb::smart_holder>(module, "ClayCompactor")
          ;
-  class_<block::DummyCompactor>(module, "DummyCompactor")
+  pb::class_<block::DummyCompactor, pb::smart_holder>(module, "DummyCompactor")
          ;
 
-  class_<block::Compactors<block::DeHaanCompactor>>(module, "DeHaanCompactors")
+  pb::class_<block::Compactors<block::DeHaanCompactor>, pb::smart_holder>(module, "DeHaanCompactors")
          .def("setCompactor", &block::Compactors<block::DeHaanCompactor>::setCompactor)
          ;
 
-  class_<block::DeHaanCompactor>(module, "DeHaanCompactor")
-         .def(init<double, double, double>())
+  pb::class_<block::DeHaanCompactor, pb::smart_holder>(module, "DeHaanCompactor")
+         .def(pb::init<double, double, double>())
          ;
 
   // implicitly_convertible<block::DummyCompactor, block::Compactors<block::MackeyBridgeCompactor>::Compactor>();

@@ -4,11 +4,11 @@
 
 
 PYBIND11_MODULE(_pcraster_moc, module) {
-  namespace py = pybind11;
+  namespace pb = pybind11;
   namespace mp = moc::python;
 
-  py::class_<mp::Moc>(module, "initialise")
-    .def(py::init<geo::RasterSpace const&, double, UINT4, calc::Field const*,
+  pb::class_<mp::Moc, pb::smart_holder>(module, "initialise")
+    .def(pb::init<geo::RasterSpace const&, double, UINT4, calc::Field const*,
               calc::Field const*, calc::Field const*>())
     .def("transport", &mp::Moc::transport)
     .def("adjust", &mp::Moc::adjust)

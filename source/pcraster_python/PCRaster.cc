@@ -1,5 +1,6 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl/filesystem.h>
+#include <pybind11/native_enum.h>
 
 #include "stddefx.h"
 #include "csf.h"
@@ -903,7 +904,7 @@ calc::Field* maptotal(calc::Field const & field)
 
 PYBIND11_MODULE(_pcraster, module)
 {
-  using namespace pybind11;
+  namespace pb = pybind11;
   namespace pp = pcraster::python;
 
 #ifndef NDEBUG
@@ -921,7 +922,7 @@ PYBIND11_MODULE(_pcraster, module)
   }
 #endif
 
-  pybind11::register_exception_translator([](std::exception_ptr p) {
+  pb::register_exception_translator([](std::exception_ptr p) {
     try {
       if (p) {
         std::rethrow_exception(p);
@@ -950,9 +951,9 @@ PYBIND11_MODULE(_pcraster, module)
 
   module.def("_initGlobals", &pp::initGlobals);
 
-  module.def("clone", &pp::cloneSpace, return_value_policy::reference, "Returns the clone RasterSpace object");
+  module.def("clone", &pp::cloneSpace, pb::return_value_policy::reference, "Returns the clone RasterSpace object");
 
-  module.def("_rte", &pp::rte, return_value_policy::reference);
+  module.def("_rte", &pp::rte, pb::return_value_policy::reference);
 
   module.def("setclone", &pp::setCloneSpaceFromFilename, R"(
    Set the clone properties from an existing raster. Only the PCRaster file format is supported as input argument.
@@ -982,10 +983,10 @@ PYBIND11_MODULE(_pcraster, module)
    seed -- An integer value >= 0. If the seed is 0 then the seed is taken
            from the current time.
      )",
-      arg("seed")
+      pb::arg("seed")
   );
 
-  class_<geo::RasterSpace>(module, "RasterSpace")
+  pb::class_<geo::RasterSpace, pb::smart_holder>(module, "RasterSpace")
     .def("nrRows", &geo::RasterSpace::nrRows, "Returns number of rows")
     .def("nrCols", &geo::RasterSpace::nrCols, "Returns number of columns")
     .def("north", &geo::RasterSpace::north, "Returns north coordinate")
@@ -996,7 +997,8 @@ PYBIND11_MODULE(_pcraster, module)
 
   // The shared_ptr argument is here, so functions can return in smart Field
   // pointers to pass/share ownership of the Field instance.
-  class_<calc::Field, std::shared_ptr<calc::Field>>(module, "Field")
+  // pb::class_<calc::Field, std::shared_ptr<calc::Field>>(module, "Field")
+  pb::class_<calc::Field, pb::smart_holder>(module, "Field")
     .def("isSpatial", &calc::Field::isSpatial)
     .def("_setCell", &calc::Field::setCell)
     .def("dataType", &calc::Field::vs)
@@ -1015,29 +1017,29 @@ PYBIND11_MODULE(_pcraster, module)
     ;
 
   // implicitly_convertible<discr::RasterData<REAL4>, calc::Spatial>();
-  class_<calc::DataStorageId>(module, "DataStorageId")
-      .def(init<std::string const&>())
+  pb::class_<calc::DataStorageId, pb::smart_holder>(module, "DataStorageId")
+      .def(pb::init<std::string const&>())
       ;
 
-  class_<calc::ObjectLink>(module, "ObjectLink");
+  pb::class_<calc::ObjectLink, pb::smart_holder>(module, "ObjectLink");
 
-  class_<calc::RunTimeEngine>(module, "RunTimeEngine")
+  pb::class_<calc::RunTimeEngine, pb::smart_holder>(module, "RunTimeEngine")
     // the push method's have a check in PCRasterModelEngine for passing in 0/None
     //  such that type error messages are nice
-    .def(init<geo::RasterSpace const&>())
+    .def(pb::init<geo::RasterSpace const&>())
     .def("pushField",         &calc::RunTimeEngine::pushField)
     .def("pushObjectLink",    &calc::RunTimeEngine::pushObjectLink)
     .def("pushDataStorageId", &calc::RunTimeEngine::pushDataStorageId)
     .def("releasePopField",       &calc::RunTimeEngine::releasePopField,
-         return_value_policy::automatic)
+         pb::return_value_policy::automatic)
     .def("releasePopObjectLink",  &calc::RunTimeEngine::releasePopObjectLink,
-         return_value_policy::automatic)
+         pb::return_value_policy::automatic)
     .def("setNrTimeSteps", &calc::RunTimeEngine::setNrTimeSteps)
     .def("setCurrentTimeStep", &calc::RunTimeEngine::setCurrentTimeStep)
     .def("checkAndExec", &calc::RunTimeEngine::checkAndExec)
     ;
 
-  enum_<PCR_VS>(module, "VALUESCALE")
+  pb::native_enum<PCR_VS>(module, "VALUESCALE", "enum.Enum")
     .value("Boolean", VS_B)
     .value("Nominal", VS_N)
     .value("Ordinal", VS_O)
@@ -1045,6 +1047,7 @@ PYBIND11_MODULE(_pcraster, module)
     .value("Directional", VS_D)
     .value("Ldd", VS_L)
     .export_values()
+    .finalize()
     ;
 
 // #ifdef DEBUG_DEVELOP
@@ -1069,24 +1072,24 @@ PYBIND11_MODULE(_pcraster, module)
 //     ;
 // #endif
 
-  class_<calc::Operator>(module, "Operator");
+  pb::class_<calc::Operator, pb::smart_holder>(module, "Operator");
 
   module.def("_loadCalcLib", &calc::loadCalcLib);
   module.def("_major2op", &calc::major2op,
-    return_value_policy::reference);
+    pb::return_value_policy::reference);
   module.def("_opName2op", &calc::opName2op,
-    return_value_policy::reference);
+    pb::return_value_policy::reference);
 
 
   module.def("readFieldCell", pp::readFieldCell);
   module.def("_newScalarField", pp::newScalarField,
-         return_value_policy::automatic);
+         pb::return_value_policy::automatic);
   module.def("_newNonSpatialField", pp::newNonSpatialFloatField,
-         return_value_policy::automatic);
+         pb::return_value_policy::automatic);
   module.def("_newNonSpatialField", pp::newNonSpatialIntegralField,
-         return_value_policy::automatic);
+         pb::return_value_policy::automatic);
   module.def("_closeAtTolerance", pp::closeAtTolerance,
-         return_value_policy::automatic);
+         pb::return_value_policy::automatic);
 
 
   // User functions. -----------------------------------------------------------
@@ -1114,7 +1117,7 @@ PYBIND11_MODULE(_pcraster, module)
   );
 
   module.def("readmap", pp::readField,
-         return_value_policy::automatic, R"(
+         pb::return_value_policy::automatic, R"(
   Read a map.
 
   filename -- Filename of a PCRaster map to read.
@@ -1135,7 +1138,7 @@ PYBIND11_MODULE(_pcraster, module)
 
   module.def("pcr2numpy", pp::field_to_array);
   module.def("numpy2pcr", pp::array_to_field,
-    return_value_policy::automatic);
+    pb::return_value_policy::automatic);
   module.def("pcr_as_numpy", pp::field_as_array);
 
   module.def("cellvalue", pp::fieldGetCellIndex, R"(
@@ -1152,7 +1155,7 @@ PYBIND11_MODULE(_pcraster, module)
 
    See also: cellvalue(map, row, col)
     )",
-    arg("map"), arg("index")
+    pb::arg("map"), pb::arg("index")
   );
 
   module.def("cellvalue", pp::fieldGetCellRowCol, R"(
@@ -1171,7 +1174,7 @@ PYBIND11_MODULE(_pcraster, module)
 
    See also: cellvalue(map, index)
     )",
-    arg("map"), arg("row"), arg("col")
+    pb::arg("map"), pb::arg("row"), pb::arg("col")
   );
 
   module.def("cellvalue_by_index", pp::cellvalue_by_index, R"(
@@ -1188,7 +1191,7 @@ PYBIND11_MODULE(_pcraster, module)
 
    .. versionadded:: 4.3
     )",
-    arg("map"), arg("index")
+    pb::arg("map"), pb::arg("index")
   );
 
 
@@ -1207,7 +1210,7 @@ PYBIND11_MODULE(_pcraster, module)
 
    .. versionadded:: 4.3
     )",
-    arg("map"), arg("row"), arg("col")
+    pb::arg("map"), pb::arg("row"), pb::arg("col")
   );
 
 
@@ -1228,7 +1231,7 @@ PYBIND11_MODULE(_pcraster, module)
 
    .. versionadded:: 4.3
     )",
-    arg("map"), arg("xcoordinate"), arg("ycoordinate")
+    pb::arg("map"), pb::arg("xcoordinate"), pb::arg("ycoordinate")
   );
 
   module.def("version_tuple", [] () {

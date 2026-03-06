@@ -7,10 +7,11 @@
 
 
 PYBIND11_MODULE(_pcraster_mldd, module){
+  namespace pb = pybind11;
   namespace mp = mldd::python;
 
-  pybind11::class_<mp::Mldd>(module, "initialise")
-    .def(pybind11::init<geo::RasterSpace const&>())
+  pb::class_<mp::Mldd, pb::smart_holder>(module, "initialise")
+    .def(pb::init<geo::RasterSpace const&>())
     .def("setDem", &mp::Mldd::setDem)
     .def("getDem", &mp::Mldd::getDem)
     .def("addStream", &mp::Mldd::addStream)

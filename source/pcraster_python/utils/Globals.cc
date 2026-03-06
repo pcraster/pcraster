@@ -2,7 +2,7 @@
 #include "dal_RasterDal.h"
 #include "calc_globallibdefs.h"
 #include "calc_runtimeengine.h"
-#include "ppu_exception.h"
+#include "com_exception.h"
 
 
 /*!
@@ -86,7 +86,7 @@ geo::RasterSpace const& Globals::cloneSpace()
 calc::RunTimeEngine& Globals::rte()
 {
   if(_rte == nullptr){
-    throw PyUtilsException("no clone or area map specified, use setclone()");
+    throw com::Exception("no clone or area map specified, use setclone()");
   }
   return *_rte;
 }

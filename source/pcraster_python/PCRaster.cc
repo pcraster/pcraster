@@ -21,7 +21,6 @@
 #include "Globals.h"
 #include "numpy_conversion.h"
 #include "pickle.h"
-#include "ppu_exception.h"
 #include "pcraster_version.h"
 
 #include <boost/test/tools/floating_point_comparison.hpp>
@@ -935,9 +934,6 @@ PYBIND11_MODULE(_pcraster, module)
       PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
     }
     catch (calc::Exception const& exception) {
-      PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
-    }
-    catch (pp::PyUtilsException const& exception) {
       PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
     }
     catch (com::Exception const& exception) {

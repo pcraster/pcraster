@@ -12,7 +12,7 @@
 ###     )
 ### ENDIF()
 
-add_library(pcrcom
+add_library(pcrcom STATIC
     com_appargs.cc
     # mam/puma only
     # com_app.cc

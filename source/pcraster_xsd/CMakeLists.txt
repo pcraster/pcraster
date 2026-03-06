@@ -188,7 +188,7 @@ SET_SOURCE_FILES_PROPERTIES(pcrxsd_supportedschema.cc
     COMPILE_FLAGS "${_COMPILE_FLAGS}"
 )
 
-ADD_LIBRARY(pcraster_xsd STATIC
+add_library(pcraster_xsd STATIC
     ${SOURCES}
 )
 

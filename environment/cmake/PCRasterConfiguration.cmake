@@ -77,6 +77,10 @@ option(
     PCRASTER_WITH_QT5
     "Use Qt5"
     OFF)
+option(
+    PCRASTER_WITH_INTERNAL_PYBIND11
+    "Download pybind11 instead of using system version"
+    OFF)
 
 
 if(NOT PCRASTER_PYTHON_INSTALL_DIR)
@@ -214,8 +218,19 @@ message(STATUS "  NumPy:" )
 message(STATUS "    version:      " ${Python_NumPy_VERSION})
 message(STATUS "    includes:     " ${Python_NumPy_INCLUDE_DIRS})
 
-# Find Python before pybind11...
-find_package(pybind11 REQUIRED CONFIG)
+# Find Python before pybind11!
+# We need pybind11 version 3
+if(PCRASTER_WITH_INTERNAL_PYBIND11)
+    FetchContent_Declare(pybind11
+        GIT_REPOSITORY https://github.com/pybind/pybind11.git
+        GIT_TAG 45fab4087eaaff234227a10cf7845e8b07f28a98  # v3.0.2
+        SYSTEM
+        FIND_PACKAGE_ARGS 3.0.2 CONFIG
+    )
+    FetchContent_MakeAvailable(pybind11)
+else()
+    find_package(pybind11 REQUIRED CONFIG)
+endif()
 
 if(UNIX)
     set(CURSES_NEED_NCURSES TRUE)

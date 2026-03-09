@@ -58,6 +58,7 @@ jobs:
                   -D PCRASTER_BUILD_DOCUMENTATION=ON \
                   -D PCRASTER_WITH_FLAGS_IPO=OFF \
                   -D PCRASTER_WITH_QT5=${{ matrix.qt5 }} \
+                  -D PCRASTER_WITH_INTERNAL_PYBIND11=ON \
                   -D CMAKE_INSTALL_PREFIX=package
 
         - name: Build release
@@ -132,6 +133,7 @@ jobs:
                   -D PCRASTER_BUILD_DOCUMENTATION=OFF \
                   -D PCRASTER_WITH_FLAGS_IPO=OFF \
                   -D PCRASTER_WITH_QT5=${{ matrix.qt5 }} \
+                  -D PCRASTER_WITH_INTERNAL_PYBIND11=ON \
                   -D CMAKE_INSTALL_PREFIX=package
 
         - name: Build debug

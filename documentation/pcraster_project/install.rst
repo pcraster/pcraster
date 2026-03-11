@@ -25,7 +25,7 @@ For installing PCRaster including additional software packages used in our `on-s
 
 .. code-block:: console
 
-   conda create --name pcraster -c conda-forge --override-channels -y pcraster campo lue spyder spyder-terminal spotpy qgis
+   conda create --name pcraster -c conda-forge --override-channels -y pcraster campo=0.3.5 lue spyder spyder-terminal spotpy qgis
 
 Always use the conda-forge channel when installing further packages into your PCRaster environment.
 
@@ -94,7 +94,7 @@ The usage information will be shown:
 .. code-block:: console
 
    (pcraster) $ pcrcalc
-   pcrcalc 4.4.1 (linux/x86_64)
+   pcrcalc 4.4.2 (linux/x86_64)
     USAGE: pcrcalc [options] "expression"
     or     pcrcalc [options] -f scriptFile
      ( or #!: pcrcalc -F [options]+)
@@ -116,6 +116,18 @@ The usage information will be shown:
 
 Troubleshooting
 ---------------
+
+pcr2numpy raises ValueError: resize only works on single-segment arrays
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you get messages like
+
+.. code-block:: console
+
+   ValueError: resize only works on single-segment arrays
+
+you most likely use older PCRaster versions (4.4.1 or earlier) and NumPy version 2.
+If so, upgrade to the latest PCRaster version to get a functional conversion to and from NumPy.
 
 zsh: no matches found
 ~~~~~~~~~~~~~~~~~~~~~

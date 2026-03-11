@@ -15,6 +15,4 @@ To use the framework you need to install `Python`_ and `NumPy`_. To generate the
 .. _NumPy: https://numpy.org/
 .. _Graphviz: https://www.graphviz.org
 
-Furthermore the framework directory must be added to the `PYTHONPATH` environment variable.
-
 The examples in the demo directory require the PCRaster Python extension.

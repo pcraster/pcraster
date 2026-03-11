@@ -31,3 +31,5 @@ Welcome to the PCRaster documentation!
    pcraster_project/applications
 
    PCRaster project website <https://pcraster.geo.uu.nl/>
+
+   Computational Geography website <https://www.computationalgeography.org/>

@@ -19,17 +19,17 @@ You can start using PCRaster Python by importing the main module in your Python 
 .. code-block:: python
 
    # Python
-   import pcraster
+   import pcraster as pcr
 
 This will put all PCRaster functions into the pcraster namespace. Here is an example of how you can use the ``slope`` function to calculate the slope of a digital elevation model:
 
 .. code-block:: python
 
    # Python
-   import pcraster
+   import pcraster as pcr
 
-   gradient = pcraster.slope("dem.map")
-   pcraster.report(gradient, "gradient.map")
+   gradient = pcr.slope("dem.map")
+   pcr.report(gradient, "gradient.map")
 
 This is equivalent to the PCRcalc script
 
@@ -50,15 +50,15 @@ The resulting gradient calculated above can be used as input to another function
 .. code-block:: python
 
    # Python
-   import pcraster
+   import pcraster as pcr
 
-   gradient = pcraster.slope("dem.map")
-   smoothGradient = pcraster.windowaverage(gradient, 3)
-   pcraster.report(smoothGradient, "smoothGradient.map")
+   gradient = pcr.slope("dem.map")
+   smoothGradient = pcr.windowaverage(gradient, 3)
+   pcr.report(smoothGradient, "smoothGradient.map")
 
 By combining functions like this environmental models can be created.
 
-In the examples given so far we had to explicitly state the module which the PCRaster functions are part of (``pcraster``). We can do better by importing all symbols from the ``pcraster`` module into the current scope. This way our script will become shorter and easier to read:
+In the examples given so far we had to explicitly state the module which the PCRaster functions are part of (``pcraster``). We can also import all symbols from the ``pcraster`` module into the current scope. This way our script will become shorter and easier to read:
 
 .. code-block:: python
 

@@ -18,7 +18,8 @@
 #include "calc_lookuplinear.h"
 #include "calc_stattable.h"
 
-#include <QtGlobal>
+#include <QDomElement>
+#include <QString>
 
 #include <iostream>
 #include <map>

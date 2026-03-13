@@ -1,6 +1,8 @@
 #include "ag_DataManager.h"
 #include "dev_Algorithm.h"
 
+#include <iterator>
+
 /*!
   \file
   This file contains the implementation of the DataManager class.

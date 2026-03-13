@@ -4,6 +4,7 @@
 #include "pcrtypes.h"
 #include "dal_Def.h"
 
+#include <algorithm>
 #include <cassert>
 #include <cstring>
 

@@ -11,11 +11,9 @@ add_library(pcraster_moc_objects OBJECT
 target_include_directories(pcraster_moc_objects
     PRIVATE
         $<TARGET_PROPERTY:pcraster::old_calc,INTERFACE_INCLUDE_DIRECTORIES>
-)
-
-target_include_directories(pcraster_moc_objects
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
 )
 
 add_library(pcraster_moc SHARED
@@ -23,6 +21,15 @@ add_library(pcraster_moc SHARED
 )
 
 add_library(pcraster::moc ALIAS pcraster_moc)
+
+generate_export_header(pcraster_moc
+    BASE_NAME pcraster_moc
+)
+
+target_compile_definitions(pcraster_moc_objects
+    PRIVATE
+        pcraster_moc_EXPORTS
+)
 
 target_include_directories(pcraster_moc
     PUBLIC

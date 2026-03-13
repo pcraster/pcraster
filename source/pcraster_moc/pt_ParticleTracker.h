@@ -5,8 +5,8 @@
 #include "geo_griddedpoints.h"
 #include "geo_pointvalue.h"
 #include "geo_rasterboundaries.h"
-#include "pcrdll.h"
 #include "pt_Particle.h"
+#include "pcraster_moc_export.h"
 
 
 
@@ -23,7 +23,7 @@ namespace pt {
 //! This class implements the MOC way to track particles.
 /*!
 */
-class PCR_DLL_CLASS ParticleTracker
+class ParticleTracker
 {
 
 private:
@@ -316,7 +316,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-                   ParticleTracker     (const geo::RasterSpace& space,
+  PCRASTER_MOC_EXPORT ParticleTracker  (const geo::RasterSpace& space,
                                         double timeIncrement,
                                         UINT4 nrParticles,
                                         REAL4 const* iniConc,
@@ -331,13 +331,13 @@ public:
                              const geo::SimpleRaster<double>& effPorosity,
                              const geo::SimpleRaster<double>& storageCoef);
 
-  /* virtual */    ~ParticleTracker    ();
+ PCRASTER_MOC_EXPORT ~ParticleTracker    ();
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  void             calculateConcentration(
+  PCRASTER_MOC_EXPORT void calculateConcentration(
                              const geo::SimpleRaster<double>& flux,
                              const geo::SimpleRaster<double>& xVeloc,
                              const geo::SimpleRaster<double>& yVeloc,
@@ -346,7 +346,7 @@ public:
                              const geo::SimpleRaster<double>& head,
                              const geo::SimpleRaster<double>& satThickness);
 
-  void             adjustConcentration (
+  PCRASTER_MOC_EXPORT void adjustConcentration (
                              const geo::SimpleRaster<double>& deltaConc);
 
   //----------------------------------------------------------------------------
@@ -355,13 +355,13 @@ public:
 
   geo::RasterSpace const& space        () const;
 
-  size_t           nrRows              () const;
+  PCRASTER_MOC_EXPORT size_t           nrRows              () const;
 
-  size_t           nrCols              () const;
+  PCRASTER_MOC_EXPORT size_t           nrCols              () const;
 
-  void             concentration       (geo::SimpleRaster<double>& conc) const;
+  PCRASTER_MOC_EXPORT void             concentration       (geo::SimpleRaster<double>& conc) const;
 
-  void             nrParticles         (geo::SimpleRaster<UINT4>& nrParticles);
+  PCRASTER_MOC_EXPORT void             nrParticles         (geo::SimpleRaster<UINT4>& nrParticles);
 
 };
 

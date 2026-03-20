@@ -176,7 +176,7 @@ namespace xsd
           conf->setParameter (XMLUni::fgXercesUserAdoptsDOMDocument, true);
 
 
-          // Transfer properies if any.
+          // Transfer properties if any.
           //
 
           if (!prop.schema_location ().empty ())
@@ -321,7 +321,7 @@ namespace xsd
           conf->setParameter (XMLUni::fgXercesUserAdoptsDOMDocument, true);
 
 
-          // Transfer properies if any.
+          // Transfer properties if any.
           //
 
           if (!prop.schema_location ().empty ())

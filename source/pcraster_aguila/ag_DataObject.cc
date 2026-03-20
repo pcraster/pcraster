@@ -760,7 +760,7 @@ DataGuide DataObject::add(std::string const &name, dal::DataSpace const &space)
   }
 
   // Data has just been added. It might be that data has been added for a
-  // dimension which had an invalid coordinate untill now, for example because
+  // dimension which had an invalid coordinate until now, for example because
   // a time dimension was set up but no dynamic data was added yet. Let the
   // space object assign a valid initial coordinate in those cases. Valid
   // coordinates retain their value.
@@ -1211,7 +1211,7 @@ size_t DataObject::nrClasses(DataGuide const &guide) const
  * all yet defined pcrxml::DrawProperties sub elements are supported, except
  * for those listed in this method's todo section
  *
- * \todo pallette
+ * \todo palette
  * \todo confidenceLevel (of colourAssignment)
  */
 void DataObject::setXML(DataGuide const &guide, pcrxml::DrawProperties const &dp, bool notify)

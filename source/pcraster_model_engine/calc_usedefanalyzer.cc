@@ -139,7 +139,7 @@ public:
     } while (jumpBackHasChanged);
   }
 
-  //! return the first Use or 0 if a Def preceeds the first Use
+  //! return the first Use or 0 if a Def precedes the first Use
   ASTPar *firstUse(const ASTPar *dummy) const
   {
     for (auto e = beginRealRef(dummy); e != end(); ++e) {
@@ -361,7 +361,7 @@ public:
 
     /*
       there is always an enclosing block.
-      if this fails, the UseDefAnalyzer may be accidently
+      if this fails, the UseDefAnalyzer may be accidentally
       initialized by a non BasicBlock-Node see precondition of
       UseDefAnalyzer ctor.
       */
@@ -369,7 +369,7 @@ public:
 
     EventChain prologue(d_currentBlockNesting);
 
-    // preceed with all enclosing Enter's since all Jump's
+    // proceed with all enclosing Enter's since all Jump's
     // will also be added
     if (d_prefixFirstUseByDef && e.use()) {
       // insert dummy above Enter'ing the most outer block

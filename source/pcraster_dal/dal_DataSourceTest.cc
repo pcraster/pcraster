@@ -241,7 +241,7 @@ BOOST_AUTO_TEST_CASE(raster)
     BOOST_TEST(comparable(raster->cell<REAL4>(5), REAL4(1.0)));
 
     // Address is at the second address in the data space. This one does
-    // not exist. Allong the time dimension data is searched for at previous
+    // not exist. Along the time dimension data is searched for at previous
     // time steps. In this case, 10.
     address.setCoordinate<size_t>(0, 11);
     source.read(*raster, address);

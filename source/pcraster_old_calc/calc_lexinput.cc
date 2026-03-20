@@ -269,12 +269,12 @@ void calc::LexInput::parseShellParamUse()
   // - in argument 0 and 1 we want space stripped
   std::vector<std::string> args(com::split(d_expInBuf, ','));
   // - the wrapper arg # 3 may contain , chars
-  // jus tput them back in the wrapper arg
+  // just put them back in the wrapper arg
   for (size_t i = 4; i < args.size(); i++) {
     args[3] += "," + args[i];
   }
 
-  // expansion with seperator and wrapper, since we have ','
+  // expansion with separator and wrapper, since we have ','
   // in the string
   PRECOND(args.size() > 0);
   com::removeAllSpace(args[0]);
@@ -296,9 +296,9 @@ void calc::LexInput::parseShellParamUse()
     return;  // finished, quitly ignore mess
   }
 
-  std::string seperator(",");
+  std::string separator(",");
   if (args.size() > 2) {
-    seperator = args[2];
+    separator = args[2];
   }
   std::string wrapper("$");
   if (args.size() > 3) {
@@ -307,7 +307,7 @@ void calc::LexInput::parseShellParamUse()
   for (int i = startPar - 1; i <= endPar - 1; i++) {
     d_expOutBuf += com::replaceCharByStr(wrapper, '$', d_shellArgs[i]);
     if (i != endPar - 1) {
-      d_expOutBuf += seperator;
+      d_expOutBuf += separator;
     }
   }
 }

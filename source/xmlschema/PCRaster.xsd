@@ -10,7 +10,7 @@
     - all names are CamelCased
     - element names start with a lower case
     - type names start with an upper case and end with the type
-    - element names are choosen such that their semantics are global
+    - element names are chosen such that their semantics are global
       unique. e.g. textStatisticsSubject is only a local child of textStatistics,
       so subject as name might suffice, but not if in the future the subject
       part is made global
@@ -23,7 +23,7 @@
         document element
     - improve on EmptyElement, placeholder for further extension
     - see if ID does the job in keeping things unique.
-       Currenly the collection of name-attrs of all definition 
+       Currently the collection of name-attrs of all definition 
        and textStatistics elements can not contain duplicates
     -  Alle attributen  en elementen moeten een name en type attribute hebben.
     - scoping (default NO)
@@ -468,7 +468,7 @@
     <xs:complexType name="FieldValueOrType">
         <xs:annotation>
             <xs:documentation>
-                Specifiy a (constant, NonSpatial) value by number or specify the
+                Specify a (constant, NonSpatial) value by number or specify the
                 type (DataType plus SpatialType) allowed
             </xs:documentation>
         </xs:annotation>
@@ -757,7 +757,7 @@
            Start and end are equal to the pcrcalc script timer as in
              timer start end 1;
            The step is fixed to 1.
-           start is required, if end is ommitted the model will run indefinitely
+           start is required, if end is omitted the model will run indefinitely
           </xs:documentation>
          </xs:annotation>
       <xs:sequence>

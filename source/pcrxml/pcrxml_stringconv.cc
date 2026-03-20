@@ -36,7 +36,7 @@ std::string pcrxml::asString(const XMLCh *s)
 {
     // Copied from xerces memparse sample
    //  This is a simple way that lets us do easy (though not terribly efficient)
-   //  trancoding of XMLCh data to local code page for display.
+   //  transcoding of XMLCh data to local code page for display.
    // Call the private transcoding method
    char *fLocalForm = XMLString::transcode(s);
    std::string str(fLocalForm);

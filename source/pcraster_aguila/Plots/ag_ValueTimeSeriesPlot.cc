@@ -361,7 +361,7 @@ void ValueTimeSeriesPlot::moved(
          QwtDoublePoint const& point)
 {
   if(markerEnabled(xMarker())) {
-    // Stop the animation if it is running. It is anoying to keep it running.
+    // Stop the animation if it is running. It is annoying to keep it running.
     // The user wants to select a certain date.
     dataObject().animationManager().stop();
 

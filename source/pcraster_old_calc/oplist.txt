@@ -234,7 +234,7 @@ ldd   SYNTAX_FUNC  VS_L ST_DERIVED 1 EXEC_CONV CG_PLAIN
  VS_NOSDL ST_DERIVED
 directional SYNTAX_FUNC VS_D ST_DERIVED 1 EXEC_CONV CG_PLAIN
  VS_FIELD ST_DERIVED
-#dirty ones, or neccessary for numbers:
+#dirty ones, or necessary for numbers:
 scalar SYNTAX_FUNC VS_S ST_DERIVED 1 EXEC_CONV CG_PLAIN
  VS_FIELD ST_DERIVED
 boolean SYNTAX_FUNC VS_B ST_DERIVED 1 EXEC_CONV CG_PLAIN
@@ -453,7 +453,7 @@ inversedistance SYNTAX_FUNC VS_S ST_SPATIAL 5 EXEC_GLOBAL CG_PLAIN
  VS_S ST_SPATIAL
  VS_S ST_DERIVED # power
  VS_S ST_DERIVED # max. search radius (unit-cell)
- VS_S ST_DERIVED # max. points in neigbourhood
+ VS_S ST_DERIVED # max. points in neighbourhood
 spread  SYNTAX_FUNC VS_S ST_SPATIAL 3 EXEC_DOUBLE CG_PLAIN|0
  VS_BNO ST_SPATIAL # points
  VS_S ST_DERIVED # initial costs

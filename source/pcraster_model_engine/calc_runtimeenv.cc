@@ -110,7 +110,7 @@ calc::RunTimeEnv::~RunTimeEnv()
 void calc::RunTimeEnv::checkConstraints(const RunTimeEnvSettings & /*s*/) const
 {
   // The CSF rasterformat uses INT4 to store the number of rows or the number of columns
-  // the maximum value should not exeed signed int32
+  // the maximum value should not exceed signed int32
   // bug/sf648
   size_t const MAX_ROW_COL = 2147483647;  // (2 ^ 31) - 1;
 
@@ -119,7 +119,7 @@ void calc::RunTimeEnv::checkConstraints(const RunTimeEnvSettings & /*s*/) const
   }
 
   if (d_ioStrategy->rasterSpace().nrCols() > MAX_ROW_COL) {
-    throw com::Exception("pcrcalc does not support maps holding more than 2^31 - 1 colums");
+    throw com::Exception("pcrcalc does not support maps holding more than 2^31 - 1 columns");
   }
 }
 
@@ -387,7 +387,7 @@ void calc::RunTimeEnv::transferIfCached(const void *fieldSrcValue, const ICached
   // multiple delete problem
   auto pos = d_cache.find(fieldSrcValue);
   if (pos != d_cache.end()) {
-    // a previous update may already toke place
+    // a previous update may already took place
     if (pos->second == obj) {
       return;
     }

@@ -85,7 +85,7 @@ def processFiles(dir, func):
     for f in os.listdir(dir):
         p = os.path.join(dir, f)
         # somehow some links do not exists
-        # try without this exist claus .. in your
+        # try without this exist clause .. in your
         # home directory
         if not (os.path.exists(p)):
             continue
@@ -150,7 +150,7 @@ def replaceCase(caseTypes, str, wordToReplace, replaceWithWord):
 
 # remove all trailing and leading space and
 # change all in between space to a single space
-# change all occurences of 1 or more newlines
+# change all occurrences of 1 or more newlines
 # to nl string, default is a newline
 
 
@@ -337,7 +337,7 @@ else:
                 sErr.close()
         return PopenWrapperReturn(cmd, bufferSize)
 
-    # expecte one line of stdout and strip it
+    # expected one line of stdout and strip it
     def executeOneLine(cmd):
         return string.strip(execute(cmd)[0])
 
@@ -498,7 +498,7 @@ def findExecutable(fileName):
 
     return ''
 
-# Replaces all occurences of certain strings in file with name fileName.
+# Replaces all occurrences of certain strings in file with name fileName.
 # Returns new string.
 
 
@@ -509,7 +509,7 @@ def replaceFromFile(fileName, searchStrings, replaceStrings):
         result += replaceFromString(line, searchStrings, replaceStrings)
     return result
 
-# Replaces all occurences of certain strings in sourceString. Returns new
+# Replaces all occurrences of certain strings in sourceString. Returns new
 # string.
 
 
@@ -520,7 +520,7 @@ def replaceFromString(sourceString, searchStrings, replaceStrings):
         result = result.replace(searchStrings[i], replaceStrings[i])
     return result
 
-# Removes duplicate occurences in list. Returns new list.
+# Removes duplicate occurrences in list. Returns new list.
 
 
 def removeDuplicates(oldList):

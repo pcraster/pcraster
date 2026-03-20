@@ -50,7 +50,7 @@
 typedef void *LinkInTransferArray[];
 
 /*!
- * \brief recieve the run context prior to each pcr_LinkInExecute() call.
+ * \brief receive the run context prior to each pcr_LinkInExecute() call.
  *
  * If the library defines this function then prior to each pcr_LinkInExecute() call, this
  * function is called. It enables a library programmer to store the information passed
@@ -77,7 +77,7 @@ typedef void *LinkInTransferArray[];
   \brief perform typecheck for the pcrxml::callPoint found in \a xml
 
   This function can check a callPoint on its actual type information. Based on the
-  type information feeded it can generate the possible types of the results and
+  type information fed it can generate the possible types of the results and
   arguments. Note that this function may be called multiple times for the same 
   pcrxml::callPoint, before actual execution (pcr_LinkInExecute()).
 
@@ -103,8 +103,8 @@ Note: pcrxml::context is currently always empty. pcr_LinkInExecute() will have p
 
    \param xml  description of call, pcrxml::linkInExecuteInput root-element
    \param linkInTransferArray inputs and results
-   \returns 0 if no error occured, pointer to C-string with error message if error
-            occured. buffer space of pointer should be allocated by the LinkIn library
+   \returns 0 if no error occurred, pointer to C-string with error message if error
+            occurred. buffer space of pointer should be allocated by the LinkIn library
             and should be kept. If the library defines pcr_LinkInRunContext (Simple Mode) then the
             string contents is expected to be a text-string (no XML) otherwise the buffer
             should contain an XML string with pcrxml::linkInExecuteResult as root-element.

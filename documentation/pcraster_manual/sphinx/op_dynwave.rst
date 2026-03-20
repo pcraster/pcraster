@@ -66,7 +66,7 @@ dynwavestate,dynwaveflux,lookuppotential,lookupstate
 +------------------------+---------------+-------------------------------------------------------+
 |Argument                | Type          | [Units] Remarks                                       |
 +========================+===============+=======================================================+
-|DynWaveProfileTable     |ascii table    | chanel profile table, described in text below         |
+|DynWaveProfileTable     |ascii table    | channel profile table, described in text below        |
 +------------------------+---------------+-------------------------------------------------------+
 |sectionID               |spatial,       |                                                       |
 |                        |nominal,       | section IDs of the channels                           |
@@ -103,7 +103,7 @@ dynwavestate,dynwaveflux,lookuppotential,lookupstate
 
 Global options:
 
-The algortithm is influenced by the options :literal:`--manning` (default) or :literal:`--chezy`, to select the dynamic flow equation (see below for these equations).
+The algorithm is influenced by the options :literal:`--manning` (default) or :literal:`--chezy`, to select the dynamic flow equation (see below for these equations).
 
 
 Operation
@@ -167,7 +167,7 @@ characterised as a diffusion wave formulation. The equations are solved as
 an explicit, finite forward-difference scheme. A straightforward iteration
 using an Euler solution scheme is used to solve these equations. These
 characteristics can not guarantee a stable solution (if the number of
-iterations is choosen too low, results may show oscillations), but are
+iterations is chosen too low, results may show oscillations), but are
 relatively fast and can be used to maintain a closed water balance.
 
 Pits are considered by the dynamic wave as a closed boundary. Pits will

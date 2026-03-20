@@ -41,11 +41,11 @@ Options
 
 Operation
 =========
-For each cell and for each direction this function determines the distance untill a cell with a different value than the current cell value is encountered. For each cell these distances are summed. To calculate the average distance, divide the result by the number of distances. This average extent of view can be used as an indicator for the openness of the landscape, for example.
+For each cell and for each direction this function determines the distance until a cell with a different value than the current cell value is encountered. For each cell these distances are summed. To calculate the average distance, divide the result by the number of distances. This average extent of view can be used as an indicator for the openness of the landscape, for example.
 
 Group
 =====
-This operation belongs to the group of  Neigbourhood operator; operators for visibility analysis 
+This operation belongs to the group of  Neighbourhood operator; operators for visibility analysis 
 
 Examples
 ========

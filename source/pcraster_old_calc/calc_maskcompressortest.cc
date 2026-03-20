@@ -127,7 +127,7 @@ BOOST_AUTO_TEST_CASE(script)
     mFile.putCells(area[0]);
   }
 
-  bool succes = true;
+  bool success = true;
   try {
 
     geo::FileCreateTester const mt("resultMvComprScript.map");
@@ -146,9 +146,9 @@ BOOST_AUTO_TEST_CASE(script)
 
   } catch (const com::Exception &e) {
     std::cerr << e.messages();
-    succes = false;
+    success = false;
   }
-  BOOST_TEST(succes);
+  BOOST_TEST(success);
 
   com::delete2d<UINT1>(mask);
   com::delete2d<REAL4>(result);
@@ -184,7 +184,7 @@ BOOST_AUTO_TEST_CASE(_0_option)
     com::delete2d<REAL4>(result);
   }
 
-  bool succes = true;
+  bool success = true;
   try {
 
     geo::FileCreateTester const mt("zeroCompr.map");
@@ -202,7 +202,7 @@ BOOST_AUTO_TEST_CASE(_0_option)
 
   } catch (const com::Exception &e) {
     std::cerr << e.messages();
-    succes = false;
+    success = false;
   }
-  BOOST_TEST(succes);
+  BOOST_TEST(success);
 }

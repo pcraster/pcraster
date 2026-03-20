@@ -68,7 +68,7 @@ int Slope(MAP_REAL8 *slope,     /* Read-write slope output map  */
   return 0;
 }
 
-/* calculate sum of 4 neigbours
+/* calculate sum of 4 neighbours
  * return 0
  */
 int Window4total(MAP_REAL8 *out,      /* Read-write output map  */

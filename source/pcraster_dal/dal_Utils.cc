@@ -1108,7 +1108,7 @@ PCR_DAL_DECL size_t timeStep<size_t>(
              specification will be returned and the returned vector will be
              empty.
 
-  A selection specification is a collection of words seperated by comma's and
+  A selection specification is a collection of words separated by comma's and
   optional whitespace and enclosed by curly braces. The closing brace must be
   the last character in \a name, otherwise the whole name is regarded as a
   dataset name without a selection specification.
@@ -1359,7 +1359,7 @@ void eraseDimension(
   \param     space Data space to return field names for.
   \return    Set of field names.
 
-  The folowing field names are returned for each type of supported dimension:
+  The following field names are returned for each type of supported dimension:
   - scenarios: scenario
   - time: date
   - cumulative probability: quantile

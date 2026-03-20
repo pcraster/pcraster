@@ -74,7 +74,7 @@ com::ProgressTracker::~ProgressTracker()
   \return    Number of steps to be performed.
   \sa        nrFinishedSteps(), setNrSteps(size_t)
 
-  The number returned is garanteed to be larger or equal to nrFinishedSteps().
+  The number returned is guaranteed to be larger or equal to nrFinishedSteps().
 */
 size_t com::ProgressTracker::nrSteps() const
 {
@@ -89,7 +89,7 @@ size_t com::ProgressTracker::nrSteps() const
   \sa        nrSteps(), setNrFinishedSteps(size_t), finishedStep(),
              finishedSteps(size_t), finishedSteps()
 
-  The number returned is garanteed to be smaller or equal to nrSteps().
+  The number returned is guaranteed to be smaller or equal to nrSteps().
 */
 size_t com::ProgressTracker::nrFinishedSteps() const
 {

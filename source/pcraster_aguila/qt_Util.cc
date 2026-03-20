@@ -112,7 +112,7 @@ std::string qt::getOpenFileName(const std::vector<com::FileFormatInfo> &fileForm
 
       filter += ")";
 
-      // Seperator between the filters.
+      // Separator between the filters.
       filter += ";;";
     }
   }

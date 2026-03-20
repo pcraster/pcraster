@@ -61,7 +61,7 @@ static double Weight(int pw,    /* half pixel window size */
                      double bw) /* border weight */
 {
   REAL8 w = 1;
-  if (bw > 0) { /* determine border weigths */
+  if (bw > 0) { /* determine border weights */
     if (abs(r) == pw) {
       w *= bw;
     }
@@ -188,7 +188,7 @@ int EllipseAverage(MAP_REAL8 *average,      /* write-only output average map  */
         int rWin = 0;
         int cWin = 0;
         int pw = 0;
-        REAL8 bw = NAN; /* border weigth */
+        REAL8 bw = NAN; /* border weight */
 
         BuildCircle(fabs(xmajorV));
         return 0;

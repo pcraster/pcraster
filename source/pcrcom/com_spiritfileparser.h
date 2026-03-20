@@ -27,7 +27,7 @@ namespace com {
  *
  * Implementation is with com::FileMap, using
  * file_iterator<> on win32 is unacceptable slow, however file
- * mapping is limitted to 512 Mb files or smaller to prevent
+ * mapping is limited to 512 Mb files or smaller to prevent
  * memory exhausting
  *
  * commented implementation is the file_iterator version

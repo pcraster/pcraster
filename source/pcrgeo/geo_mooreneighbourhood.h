@@ -16,7 +16,7 @@ namespace geo {
 
 
 
-//! Implemenation of the extended Moore neighbourhood.
+//! Implementation of the extended Moore neighbourhood.
 /*!
   This class implements the extended Moore Neighbourhood: radius can be
   larger than 1.
@@ -58,7 +58,7 @@ public:
 
 };
 
-//! Untill this class is renamed this typedef.
+//! Until this class is renamed this typedef.
 typedef MooreNeighbourhood SquareNeighbourhood;
 
 

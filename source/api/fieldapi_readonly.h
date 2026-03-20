@@ -49,7 +49,7 @@ public:
   //! checked access on MV and indices
   /*!
       \returns
-        false if Indeces out of range or value is MV
+        false if Indices out of range or value is MV
         true  otherwise
    */
   virtual bool get(UseAsT& value, int rowIndex, int colIndex) const=0;
@@ -87,7 +87,7 @@ public:
 };
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

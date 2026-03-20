@@ -39,7 +39,7 @@ qt::EventFilterSubject::EventFilterSubject(QObject *filterSubject)
 //! Destructor.
 /*!
   If a filter object is installed, we remove ourselves from it here. (This is
-  not realy needed since qt will do it for us.)
+  not really needed since qt will do it for us.)
 */
 qt::EventFilterSubject::~EventFilterSubject()
 {

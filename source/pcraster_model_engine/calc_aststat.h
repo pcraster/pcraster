@@ -20,7 +20,7 @@ namespace calc {
 //! AST Statement
 /*
   A PCRaster statement is every thing between between 2 statements
-  seperators (;). Most statements have the form of an optional report
+  separators (;). Most statements have the form of an optional report
   clauses followed by an assignment of the form p = expr (see ASTAss).
   Other possible constructs are:
   <ul>

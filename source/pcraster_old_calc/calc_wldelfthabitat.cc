@@ -61,7 +61,7 @@ static std::string expectAttr(const QDomElement &e, const QString &attrName)
   return std::string(value.toLatin1());
 }
 
-/*! return atttribute value of attribute valueOf of first
+/*! return attribute value of attribute valueOf of first
    * matching descendant element with tagName \a tag
    */
 static std::string value(const QDomElement &e)
@@ -69,7 +69,7 @@ static std::string value(const QDomElement &e)
   return expectAttr(e, "value");
 }
 
-/*! return atttribute value of attribute \a attrName of
+/*! return attribute value of attribute \a attrName of
    * first sibling of the first matching descendant element with
    * tagName \a subTagName
    * <pre>
@@ -102,7 +102,7 @@ static std::string attrOfSubMatch(const QDomElement &tree, const QString &subTag
   return expectAttr(subMatch, attrName);
 }
 
-/*! return atttribute value of attribute valueOf of first
+/*! return attribute value of attribute valueOf of first
    * matching descendant element with tagName \a tag
    */
 static std::string valueOfSubMatch(const QDomElement &e, const QString &tagName)
@@ -122,7 +122,7 @@ static double numericValueOfSubMatch(const QDomElement &e, const QString &tagNam
   }
 }
 
-/*! return atttribute value of attribute value of only
+/*! return attribute value of attribute value of only
    *  sub element with an identical tag as e
    */
 static std::string subValue(const QDomElement &e)

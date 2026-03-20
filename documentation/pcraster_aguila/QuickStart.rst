@@ -108,7 +108,7 @@ Some options take a range or a set of values as an argument. The syntax for a *r
 
 .. warning::
 
-  The range and set notations can lead to suprising effects when used in a Unix (or Cygwin) shell (eg: bash). If you use such a shell, you must escape the ``{``, ``}``, ``[`` and ``]`` characters, because these have special meaning to the shell interpreter. Or you may quote the whole argument::
+  The range and set notations can lead to surprising effects when used in a Unix (or Cygwin) shell (eg: bash). If you use such a shell, you must escape the ``{``, ``}``, ``[`` and ``]`` characters, because these have special meaning to the shell interpreter. Or you may quote the whole argument::
 
     aguila --scenarios \{a,b,c\} concentration
     aguila --scenarios "{a, b, c}" concentration

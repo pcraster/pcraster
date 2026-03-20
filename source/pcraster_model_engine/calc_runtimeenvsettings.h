@@ -30,7 +30,7 @@ public:
     LAST_VAL,
     //! -E option
     EXIT_ON_0,
-    //! just 0 on succes (default)
+    //! just 0 on success (default)
     ALWAYS_0
   } ExitValueType;
 

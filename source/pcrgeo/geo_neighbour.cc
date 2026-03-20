@@ -74,7 +74,7 @@ geo::CellLoc geo::LDD::target(const geo::CellLoc &from, LDD::Code dir)
   return {from.row() + lddDirection[dir].deltaRow, from.col() + lddDirection[dir].deltaCol};
 }
 
-//! return cell location of neigbour
+//! return cell location of neighbour
 geo::CellLoc geo::NB::target(const geo::CellLoc &from, NB::Code dir)
 {
   return {from.row() + lddNBCode[dir].deltaRow, from.col() + lddNBCode[dir].deltaCol};
@@ -122,7 +122,7 @@ geo::CellLoc geo::UpstreamNeighbourVisitor::nb() const
 //------------------------------------------------------------------------------
 
 /* how to translate a ldd value to which bit nr of the receiving
- * cell; the recieving cells encodes its incoming neigbours
+ * cell; the receiving cells encodes its incoming neighbours
  */
 /*
 static size_t lddVal2InflowNBCodes[10] = { 0,
@@ -156,9 +156,9 @@ namespace geo
 {
 /*!
  * \return
- *    d, the result, neigbour downstream cell or
+ *    d, the result, neighbour downstream cell or
  *       std::limits<LinearLoc>::max()
- *       if neigbour is outside of map
+ *       if neighbour is outside of map
  *
  * \todo
  *   measure if outOfRange should be done full or short circuit
@@ -205,9 +205,9 @@ static inline LinearLoc adjLinearLoc(LinearLoc s, /* source */
 
 /*!
  * \return
- *    d, the result, neigbour downstream cell or
+ *    d, the result, neighbour downstream cell or
  *       std::limits<LinearLoc>::max()
- *       if neigbour is outside of map
+ *       if neighbour is outside of map
  */
 geo::LinearLoc geo::LDD::target(LinearLoc s, /* source */
                                 NB::Code l, size_t nrCells, size_t nrCols)
@@ -217,9 +217,9 @@ geo::LinearLoc geo::LDD::target(LinearLoc s, /* source */
 
 /*!
  * \return
- *    d, the result, neigbour downstream cell or
+ *    d, the result, neighbour downstream cell or
  *       std::limits<LinearLoc>::max()
- *       if neigbour is outside of map
+ *       if neighbour is outside of map
  */
 geo::LinearLoc geo::NB::target(LinearLoc s, /* source */
                                NB::Code l, size_t nrCells, size_t nrCols)
@@ -244,7 +244,7 @@ geo::NB::Code geo::NB::code(const CellLoc &from, const CellLoc &to)
   return delta[deltaRow + 1][deltaCol + 1];
 }
 
-//! check if 2 neighbours \a from and \a to are diagonal neighours
+//! check if 2 neighbours \a from and \a to are diagonal neighbours
 /*!
  * \pre
  *   to != from, to and from are neighbours

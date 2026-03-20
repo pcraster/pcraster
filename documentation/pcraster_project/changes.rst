@@ -198,7 +198,7 @@ We also took measures to improve the code quality and the build system to ensure
 
 PCRaster 4.1.0
 --------------
-* On Windows, shared libraries are now installed in a seperate directory called ``lib``, just like on the other platforms. The path to this directory does not have to be listed in the ``$PATH`` environment variable. This has the advantage that the shared libraries shipped with PCRaster will never conflict with shared libraries shipped with other software, and visa versa.
+* On Windows, shared libraries are now installed in a separate directory called ``lib``, just like on the other platforms. The path to this directory does not have to be listed in the ``$PATH`` environment variable. This has the advantage that the shared libraries shipped with PCRaster will never conflict with shared libraries shipped with other software, and visa versa.
 
 Aguila
 ^^^^^^

@@ -31,7 +31,7 @@ private:
   //! Clone.
   geo::RasterSpace _cloneSpace;
 
-  //! Runtime enginge.
+  //! Runtime engine.
   calc::RunTimeEngine* _rte{nullptr};
 
   dal::RasterDal* _rasterDal{nullptr};

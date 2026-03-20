@@ -103,7 +103,7 @@ BOOST_AUTO_TEST_CASE(time_duration_assumption)
   }
 
   {
-    // can expess the same in minutes
+    // can express the same in minutes
     ptime time = ptime(bg::date(2006, boost::gregorian::Feb, 1), time_duration(0, 0, 0, 0));
     time_duration const duration(0, static_cast<time_duration::min_type>(4098 * 60), 0, 0);
     time += duration;

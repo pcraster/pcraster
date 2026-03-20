@@ -41,10 +41,10 @@ private:
 
   Q_OBJECT
 
-  //! all menus accesible by derived classes
+  //! all menus accessible by derived classes
   QMenu            *d_fileMenu{nullptr}, *d_editMenu{nullptr}, *d_viewMenu{nullptr}, *d_helpMenu{nullptr};
 
-  //! all toolbars accesible by derived classes
+  //! all toolbars accessible by derived classes
   QToolBar*        d_toolBar{nullptr};
 
   QAction*         d_animateAction{nullptr};

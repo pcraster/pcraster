@@ -507,7 +507,7 @@ FeaturePath OgrFeatureDriver::featurePathFor(
     // Geometry is stored as a layer in a single feature data set.
     // Data space and address are not relevant at this point.
 
-    // A function to determine wheter a dataset exists.
+    // A function to determine whether a dataset exists.
     auto callBack = [&](std::string const& name) {
         auto dataset = GDALOpenEx(name.c_str(), GDAL_OF_VECTOR,
             this->_driver_names, nullptr, nullptr);
@@ -1192,7 +1192,7 @@ void OgrFeatureDriver::read(
     OGRwkbGeometryType const geometryType = featureDefinition->GetGeomType();
 
     if(geometryType == wkbNone || geometryType == wkbUnknown) {
-      // FEATURE  Unknow geometry type.
+      // FEATURE  Unknown geometry type.
       throwCannotBeOpened(name, FEATURE, space, address);
     }
 

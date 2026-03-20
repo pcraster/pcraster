@@ -73,7 +73,7 @@ if option -D is set; --degrees of --radians
 -m :emphasis:`nodatavalue`
 
 
-   :emphasis:`nodatavalue` is the value in :emphasis:`columnfile` which is converted to a missing value on PCRresult. It can be one ascii character (letters, figures, symbols) or a string of ascii charaters. For instance: -m -99 -98. or -m j83s0w. Default, if this option is not set, 1e31 is recognized as a missing value.
+   :emphasis:`nodatavalue` is the value in :emphasis:`columnfile` which is converted to a missing value on PCRresult. It can be one ascii character (letters, figures, symbols) or a string of ascii characters. For instance: -m -99 -98. or -m j83s0w. Default, if this option is not set, 1e31 is recognized as a missing value.
 
 
 

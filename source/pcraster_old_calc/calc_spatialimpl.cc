@@ -7,7 +7,7 @@
 #include <stdexcept>
 
 //! used for initialization of computed (new) parameter
-/*! will recieve value on assignment
+/*! will receive value on assignment
  */
 calc::SpatialImpl::SpatialImpl(const FieldParameter &p, size_t index) : FieldValue(p, index)
 {

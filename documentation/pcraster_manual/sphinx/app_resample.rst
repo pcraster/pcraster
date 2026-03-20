@@ -153,7 +153,7 @@ This functionality of resample is meant for changing the cell size of the first 
 
 
 It is quite unlikely that you want to specify more than one map, so
-first the operation with one map is explained. Result will have the projection, angle, x\ :sub:`UL`, y\ :sub:`UL` coordinate of the input map Map1. The cell length of the input map is changed according to the option -r :emphasis:`factor` and this length is assigned to Result. The area covered by the input map is filled up with cells of the new cell size, starting at x\ :sub:`UL`,y\ :sub:`UL`. If this results in a fractional number of rows and columns the map is somewhat (less than one new cell length) expanded (default) or contracted until a whole number of columns and rows is reached. This number of rows and collumns is assigned to Result.
+first the operation with one map is explained. Result will have the projection, angle, x\ :sub:`UL`, y\ :sub:`UL` coordinate of the input map Map1. The cell length of the input map is changed according to the option -r :emphasis:`factor` and this length is assigned to Result. The area covered by the input map is filled up with cells of the new cell size, starting at x\ :sub:`UL`,y\ :sub:`UL`. If this results in a fractional number of rows and columns the map is somewhat (less than one new cell length) expanded (default) or contracted until a whole number of columns and rows is reached. This number of rows and columns is assigned to Result.
 
 
 If more than one input map is given the operation performed corresponds

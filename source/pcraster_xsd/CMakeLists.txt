@@ -219,7 +219,7 @@ target_link_libraries(pcraster_xsd
 # ------------------------------------------------------------------------------
 IF(PCRTREE2_BUILD)
     if(PCRASTER_BUILD_TEST)
-        # TODO allmost all test depend on PCRasterXSD they have to
+        # TODO almost all test depend on PCRasterXSD they have to
         # be rewritten...................
 
 # OLS: this is still required in case we need to regenerate files

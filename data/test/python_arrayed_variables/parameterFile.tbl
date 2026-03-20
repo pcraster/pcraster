@@ -2,7 +2,7 @@
 # SG - ShortGass # another one
 
 # initial cover, can be a spatial
-Cvr    TG     maps\CvrTG.imp # some other commment
+Cvr    TG     maps\CvrTG.imp # some other comment
 Cvr    SG     "maps\CvrSG.imp"
 #Cvr    SG     "maps\CvrTG.imp"
 
@@ -20,7 +20,7 @@ QMax1   TG     10000.
 QMax1   SG     11000.
 QMax1   TG       15000.                 # double TG
 
-Cvr2    TG     maps\CvrTG.imp # some other commment
+Cvr2    TG     maps\CvrTG.imp # some other comment
 Cvr2    SG     "maps\Cvr withSpaceSG.imp"
 QMax2   TG     10000.
 QMax2   sG     11000.

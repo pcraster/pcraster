@@ -25,7 +25,7 @@ would type
 
 \\lapdog\q\windows\ping.exe
 
-infact you could do the same thing from the machine named lapdog and it
+in fact you could do the same thing from the machine named lapdog and it
 would work equally well.
 
 so from the lapdog machine the following would be equivalent

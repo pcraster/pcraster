@@ -16,7 +16,7 @@ namespace com {
 
 /*!
   \file
-  This file includes cmath and cstdlib and a number of convenience funtions
+  This file includes cmath and cstdlib and a number of convenience functions
 */
 
 

@@ -19,7 +19,7 @@ class BlockPosition {
 	BlockPosition();
 	//! constructor for child, incr parent's nrChildren
 	BlockPosition(BlockPosition& parent);
-	// ACCESORS
+	// ACCESSORS
 	//! compute the grade of the common ancestor.
 	/*! e.g. 0 means I am the common,
 	 *  1 means parent is com. ancestor

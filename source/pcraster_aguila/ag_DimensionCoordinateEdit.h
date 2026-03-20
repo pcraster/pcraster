@@ -19,13 +19,13 @@ namespace ag {
 
 
 
-//! The DimensionCoordinateEdit widget provides widgets for editting the coordinate value of a dal::Dimension.
+//! The DimensionCoordinateEdit widget provides widgets for editing the coordinate value of a dal::Dimension.
 /*!
   This widget enables the user to select a new coordinate along a dimensions.
-  All dimensions can be editted with this widget, it selects convenient
+  All dimensions can be edited with this widget, it selects convenient
   widgets depending on the dimension type.
 
-  A dimension with a dal::ExactDiscretisation discretisation can be editted with
+  A dimension with a dal::ExactDiscretisation discretisation can be edited with
   a combo box and a dimension with a dal::RegularDiscretisation discretisation
   with a slider.
 */

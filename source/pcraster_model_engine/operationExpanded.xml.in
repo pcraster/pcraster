@@ -1428,7 +1428,7 @@
       </Field>
     </Input>
   </Operation>
-  <!-- #dirty ones, or neccessary for numbers: -->
+  <!-- #dirty ones, or necessary for numbers: -->
   <Operation name="scalar" exec="CONV" syntax="Function" commutative="false" inputTailRepeat="0">
     <Manual/>
     <Result>
@@ -1617,7 +1617,7 @@
     </Input>
   </Operation>
   <Operation name="tan" exec="TRIG" syntax="Function" commutative="false" inputTailRepeat="0">
-    <!-- flat, 90 or 180 degrees, rounded problem conver from degrees to radians -->
+    <!-- flat, 90 or 180 degrees, rounded problem convert from degrees to radians -->
     <SameUn onlyDomainIll="(v==-1||com::equal_epsilon(M_PI*0.5,(double)v)||com::equal_epsilon(M_PI*1.5,(double)v))" function="std::tan(v)" foTypes="f"/>
     <Result>
       <Field spatial="Either">
@@ -3001,7 +3001,7 @@
         <DataType value="Scalar"/>
       </Field>
     </Input>
-    <Input contextName="max. points in neigbourhood" repeat="false">
+    <Input contextName="max. points in neighbourhood" repeat="false">
       <Field spatial="Either">
         <DataType value="Scalar"/>
       </Field>

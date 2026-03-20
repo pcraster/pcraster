@@ -42,12 +42,12 @@
 
   The name of a static stack is restricted only by the rules of the platform.
 
-  The name of a dynamic stack name must obey the folowing naming rules:
+  The name of a dynamic stack name must obey the following naming rules:
   <ol>
     <li> The name of each map (stack item) should obey the naming conventions
          of DOS: 8 chars, period, 3 chars.
     <li> Structure: base name + first timestep + '+' + last timestep.<p>
-         eg: dem00000.001+1000 for a stack with timestep 1 untill and
+         eg: dem00000.001+1000 for a stack with timestep 1 until and
          including timestep 1000 possibly available.
          This means a stack comprised of possibly 1000 maps, named
          dem00000.001, dem00000.002 up to dem00001.000
@@ -220,7 +220,7 @@ dal::StackInfo::~StackInfo()
 
 //! Throws an exception if the first step set is larger than the last.
 /*!
-  \exception Exception If the first step set is larget than the last.
+  \exception Exception If the first step set is largest than the last.
   \todo      Improved message.
 */
 void dal::StackInfo::checkFirstLastOrder() const
@@ -255,7 +255,7 @@ void dal::StackInfo::wrongFormatIf(bool test) const
   \sa        scan()
 
   The decision is based upon the whether the filename of \a path starts with the
-  same filename of the layered name of the stack and whether the folowing
+  same filename of the layered name of the stack and whether the following
   characters are all digits.
 */
 bool dal::StackInfo::isMemberOfStack(std::filesystem::path const& path) const

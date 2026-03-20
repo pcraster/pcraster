@@ -1,6 +1,6 @@
 PCRaster Modflow Python
 =======================
-This chapter describes the usage of the PCRasterModflow extension within Python scrips. Using the extension requires the specification of the geographic extents and the creation of an extension object:
+This chapter describes the usage of the PCRasterModflow extension within Python scripts. Using the extension requires the specification of the geographic extents and the creation of an extension object:
 
 .. code-block:: python
 

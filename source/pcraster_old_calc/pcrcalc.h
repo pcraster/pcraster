@@ -4,7 +4,7 @@
 #include "pcrdll.h"
 
 /*
- * All rights reserverd bla bla bla bla
+ * All rights reserved bla bla bla bla
  * you should have a license bla bla bla
  * bla bla bla bla bla bla bla bla bla bla
  */

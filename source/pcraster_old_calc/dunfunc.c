@@ -57,7 +57,7 @@ void Do_4_2_b(UINT1 *r, const INT4 *v, size_t n)
 }
 
 /* the ?to? are only used if an expr has multiple
- * types, therefor they msut fall in the range
+ * types, therefore they msut fall in the range
  */
 void Do_4to1(UINT1 *r, const INT4 *v, size_t n)
 {

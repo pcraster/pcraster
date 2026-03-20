@@ -65,7 +65,7 @@ namespace calc {
       end time situations:
         document this in xsd IntegerTimer
        - fixed in XML elements
-       - there are external ascii timeseries files, minumum of those is taken.
+       - there are external ascii timeseries files, minimum of those is taken.
        - unknown at start is done by omitting end step in XML elements internally end is set as max integer.
 
    \section parsing
@@ -89,7 +89,7 @@ namespace calc {
    TODO 
     - error messages are not passed:
       a)  schema-not found yields no error, but garbage maps as results
-      b)  unknow operation like "div123" is also not messaged to user
+      b)  unknown operation like "div123" is also not messaged to user
     - test "void" methods
     - sequence nrs in callPoint to register order of calls
     - variable number of arguments
@@ -103,8 +103,8 @@ namespace calc {
     - check to objectLink Symbol (ASTSymbolInfo)is only ctor'ed at one spot
     - pcr_LinkInExecute with a constructor may be called multiple time
       for a unique instanceName, if ctor in dynamic section:
-       as such the ctor for the succesive instance should implement the dtor
-       of the previuous instance.
+       as such the ctor for the successive instance should implement the dtor
+       of the previous instance.
     - add contextName to results and args with [] syntax for C++ link
     - kijk of we on the fly operator configs kunnen doen,
        d.m.v string argument
@@ -162,7 +162,7 @@ Simpelste voorbeeld:
 
      In addition information is stored in the ASTSymbolInfo items of ASTSymbolTable as returned by BuildTypesVisitor::table().
 
-     Note that ASTSymbolInfo does contain ptrs (e.g ASTSymbolInfo::d_reportPar, etc) into the AST. Therefor the AST cannot be altered or copied when analysing has started (use ASTNode::createClone() with care).
+     Note that ASTSymbolInfo does contain ptrs (e.g ASTSymbolInfo::d_reportPar, etc) into the AST. Therefore the AST cannot be altered or copied when analysing has started (use ASTNode::createClone() with care).
 
     Phase 2: ASTScript::resolve(): The requirements generated in phase 1 are 
     checked by looking at the inputs. The inputs are external files or
@@ -274,7 +274,7 @@ BUG! lookup intervals als float, kan dat ook large integers aan?
    - test if bil, esri and csf are read.
    - what exception are thrown in case of:
       - not an existing file/directory
-      - unsupport format
+      - unsupported format
   test 2:
    - as test 1, check if we get value-scales
   test 3:
@@ -296,7 +296,7 @@ BUG! lookup intervals als float, kan dat ook large integers aan?
 - EsriGrid stacks in dal
 
 - get StackInput into IOStrategy
-   IOFiles::ioFieldStrategy()), should be made redunant
+   IOFiles::ioFieldStrategy()), should be made redundant
     only used by StackInput
 
 \section t timeoutputmodulo
@@ -351,7 +351,7 @@ load before execution: DataTable::insert
 IOMixed: public IOStrategy
   propose for openMi, see what we have or
   configure by xml
-  remainder to be passed throug memory.
+  remainder to be passed through memory.
 
 Phases:
  1: void calc::ASTScript::analyzeNoContext()
@@ -521,7 +521,7 @@ RF1 tag
  remove void calc::BuildTypesVisitorTest::testIOTypes()
  was een slecht idee
 
-  TEST IT by puttin stuff in BuildTypesVisitor and the
+  TEST IT by putting stuff in BuildTypesVisitor and the
    comment out ioTypes call in calc_astscript.cc
 
 end RF1
@@ -531,7 +531,7 @@ end RF1
 
 - probleem: meerdere hacks all: zie vip d_readOnlyReferenceBug
 - calc::IoCsfFieldStrategy::createField() // DEBUG_DEVELOP PART:
-                       multiple read bug trough binding, (and areamap?)
+                       multiple read bug through binding, (and areamap?)
 - calc::ExecutorTest::testBugs()  DEBUG_DEVELOP PART
 - calc::RunTimeEnv::transferIfCached() // multiple delete problem
    see /home/userModels/lisfloodMar2005  runapp pcrcalc -mf *.mod
@@ -601,7 +601,7 @@ table refactoring:
 <dd>
  - setPriority lijkt niet meer nodig, maar vervangen door setErrorPosition, punt in external binding of in script? was t.b.v external bindings.
  - RunDirectory, beslis of met -r geen absolute paden gegeven mogen worden.
- -  binding.ipcr hierachy later doen (d_runSettings.addNewOnly(mrsElement))
+ -  binding.ipcr hierarchy later doen (d_runSettings.addNewOnly(mrsElement))
 </dd>
 <dt>BuildTypesVisitor</dt>
 <dd>
@@ -752,12 +752,12 @@ with MV
 
   For all types of collections a value for these items can be chosen, they are not all sensible but will
   create a running system. For example, points have a location, choosing the value 1 for area and length, will
-  make areaarea a sort of point counting operation, and ldddist a non sensable operation.
+  make areaarea a sort of point counting operation, and ldddist a non sensible operation.
  
   \section misc miscNotes
   \verbatim
 
-Opimizer:
+Optimizer:
   - RAM saving: write each item in the data table to disk meteen.  zet een tainted bit in the data-table, als input en niet tainted dan hoeven we hem niet weg te schrijven: het origineel kan opnieuw gelezen worden.  Als het geheugen in de knel komt, dan dingen uit de datatable wegschrijven.  wegschrijven: als item ge-report meot worden dan onder originele naam anders een tijdelijke naam ofzo (switch RAM saving set "swap" directory naam?". In welke volgorde wegscrhijven?: 
         - simple fifo
         - beter:  elke par-node heeft d.m.v. last-use algorithm een next-use distance schrijf degene weg die het verst weg is van het huidige punt.
@@ -778,7 +778,7 @@ Optimilisaties:
     if (!prevMV)
       r = a[1]..
  - void calc::PointCodeBlockDll::compile() const  creating
-    libraray using com::DynamicLibrary::nativeLibName()
+    library using com::DynamicLibrary::nativeLibName()
  - ifthenelse wordt niet geinlined!
     mischien expliciete instantie for UINT1/INT4/REAL4?
     see -finline-limit=n (default 600)
@@ -800,7 +800,7 @@ Optimilisaties:
      -ffast-math
      is OK,
      -march=pentium4
-     breaks setMV code in com_csfcelltest.cc (allignment
+     breaks setMV code in com_csfcelltest.cc (alignment
          in combo with sse?)
      alles compileren met float-allign 16 byte?
      and break Kinemati code in LF feb 2004
@@ -812,7 +812,7 @@ Optimilisaties:
   - check gcc manual on vector operations, see C99 restrict keyword
     __restrict__ ( ook in calc_fopointimpl.h  / calc_opimpl.cc )
   - check of f() in point space geen runtime penalty geeft
-    performanc of valarray in gcc
+    performance of valarray in gcc
     -strict aliasing  type-running  
     "Non stop" IEEE 
     -funsafe-math-optimizations zou kunnen want dat checken
@@ -940,7 +940,7 @@ NOTE
 
    Thus, some types have <B>sub</B> types, all others are <B>end</B> types.<BR>
     All types are dynamically build during the parsing and type building phases. This happens
-    by repetive restrictment. On each involvement of the data item in these phases, more is known
+    by repetitive restrictment. On each involvement of the data item in these phases, more is known
     from it's context.
 
 */
@@ -1062,7 +1062,7 @@ http://www.jlab.org/~edwards/qcdapi/code/level2/qdp++/include/qdp_scalarvecsite_
 http://www.jlab.org/~edwards/(qcdapi/)
 
      for marking non-shadowd ptrs.
-     Intel C++, has 2 refs into linuxjournal (16 byte allignment):
+     Intel C++, has 2 refs into linuxjournal (16 byte alignment):
      http://www.linuxjournal.com/article.php?sid=6766
 
 SSE support for valgrind:
@@ -1145,6 +1145,7 @@ Evaluate Intel Math kernel library
       --> yep, reimplement posError for a bindedSymbol!
 
 !  bij refactoren van pcrcalc, als Pos meer flexibel is dan foutmelding altijd
+!  bij refactoren van pcrcalc, als Pos meer flexible is dan foutmelding altijd
 !  op de externe binding, die is voor de gebruiker zichtbaar
 
    - context in ModelBuilder kan ook xml file zijn
@@ -1264,10 +1265,10 @@ struct GraphConcept : public RasterGraph {
   A per cell iterator with maximal 8 values, but MV's and
   borders are already discarded, so some have less than 8.
 
-  Islands (with MV's around) are all processed indepent.
+  Islands (with MV's around) are all processed independent.
 
   Multi-pass algorithms (like spread) may "intersect" the topology with
-  the topology of its parameters (like fraction) befor the
+  the topology of its parameters (like fraction) before the
   algorithm starts, so no MV checking on any parameters is needed within the
   algorithm!
 
@@ -1323,12 +1324,12 @@ class AggregateOC:
     public GroupedOC{};
 
 /*! data/operands must have knowledge how to navigate to a particular
- *  neigbour. the operation needs the whole collection.</dd>
+ *  neighbour. the operation needs the whole collection.</dd>
  */
 class NeigbourOC:
     public OrderOC{};
 /*!
- *  need access to whole 8-cell neigbour topology, e.g spread/clump, e.g.
+ *  need access to whole 8-cell neighbour topology, e.g spread/clump, e.g.
  *  the map. Writing to output also belongs to this category!
  *  Random access iterator, no knowledge how to access.
  */
@@ -1384,14 +1385,14 @@ class TopologicalSortOC:
       - extension:  no fixed extension, .map is de facto, .pcr is beter
       - format/API: Csf lib misc wrappers within pcrtree
    - BIL
-      - description: part of BandMap familly: BIL,BIP,BSQ etc.
+      - description: part of BandMap family: BIL,BIP,BSQ etc.
       - extension: .bil, with .hdr companion file
       - format/API: apps/pcrcalc, pcrgeo/geo_bandmap.cc (WL flavor), Gdal
       - mapstack: zie par 2.4 Demis Mapper 5 manual: in single BIL file all maps are stored, WL/DEMIS specific?
-     in .hdr additonal nBlocks parameter for the number of time blocks.
+     in .hdr additional nBlocks parameter for the number of time blocks.
    - ESRI
       - extension: none, name is directory, containing a  number of *.adf files.
-      - format/API: apps/pcrcalc, Gdal, user needs Spatial Analyste license, a{vi}gridio.dll.
+      - format/API: apps/pcrcalc, Gdal, user needs Spatial Analyst license, a{vi}gridio.dll.
       - mapstack: PCRaster invented a mapstack for ESRI data, tracking analyst does not support mapstacks.
    - IDRISI
       - extension: data/header pairs: rst/rdc, img/doc
@@ -1431,7 +1432,7 @@ class TopologicalSortOC:
    If no format (as global option or in binding) is specified, pcrcalc 
    has the following behaviour:
     - All input and output maps are expected to be in the PCRaster format.
-    - When writing, no .map is implictly appended to the result file.
+    - When writing, no .map is implicitly appended to the result file.
     - search at input for all supported formats is disabled.
     - selection of output format by extension is disabled.
 
@@ -1476,7 +1477,7 @@ class TopologicalSortOC:
 
    \subsection VariableCharacteristics
    Characteristics of the Variable's role in a Model can be expressed
-   in both input and output (IOType). The role's are identified solely by the type of use of the variable in the script. Wether a variable is really dynamic
+   in both input and output (IOType). The role's are identified solely by the type of use of the variable in the script. Whether a variable is really dynamic
    or static is defined at model instance with data.
    - output: All variable's are possible output.
       - Fixed: the model does not assign a new value by computation

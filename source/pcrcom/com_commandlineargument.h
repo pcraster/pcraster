@@ -123,7 +123,7 @@ public:
 
   //! Returns true if the argument was parsed successfully.
   /*!
-    \return    true if parsed succesfully.
+    \return    true if parsed successfully.
   */
   virtual bool     isParsed            () const = 0;
 
@@ -735,7 +735,7 @@ public:
 
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 //! Constructor.

@@ -50,7 +50,7 @@ void TimeSliceVisitor::visitPerCachmentSlice()
     if (!graph().invalid(fieldId)) {
       csi.nrTimeSlices = d_nrTimeSlicesField[fieldId];
       if (csi.nrTimeSlices == MV_INT4 || csi.nrTimeSlices < 1) {
-        csi.nrTimeSlices = 1;  // supress domain error
+        csi.nrTimeSlices = 1;  // suppress domain error
       }
     }
     csi.sliceInSecs = d_timestepInSecs / (double)csi.nrTimeSlices;

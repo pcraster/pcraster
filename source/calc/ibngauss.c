@@ -60,8 +60,8 @@
    <li> Since this function deploys an gaussian distribution using a random number generator, subsequent calls to the function will yield different results, except if the -s option of pcrcalc is used.
    </ol>
 
-The package argument allows you to package large amounts of units into a limited number of packages. ibngauss treads each package as a seperate entity which is distributed according to the described mechanism, and after being distributed unpackages the package. This is especially useful if you have a large number of units to be distributed.
-The size of each package distributed as seperate entity contains Units/Packages units with some packages having 1 unit more, to distribute the possible remainder after the integer division of Units by packages.  Thus the total sum of all package sizes equals the Units parameter.
+The package argument allows you to package large amounts of units into a limited number of packages. ibngauss treads each package as a separate entity which is distributed according to the described mechanism, and after being distributed unpackages the package. This is especially useful if you have a large number of units to be distributed.
+The size of each package distributed as separate entity contains Units/Packages units with some packages having 1 unit more, to distribute the possible remainder after the integer division of Units by packages.  Thus the total sum of all package sizes equals the Units parameter.
 A Package parameter larger than Units or a Package parameter of 0 acts like a Package parameter equal to Units; each Unit is distributed on its own.
 Non-integer values for the Package parameter are rounded to the nearest integer neighbour
 

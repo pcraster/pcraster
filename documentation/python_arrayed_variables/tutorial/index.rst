@@ -77,7 +77,7 @@ This will create a variable ``Interaction`` holding a 2-dimensional collection. 
   Interaction[Herbivores.Species1, PlantSpecies.Plant1] = scalar(2.5)
   # repeat initialisation for the remaining Herbivore-PlantSpecies combinations
 
-Again, the variable can be initialised from a parameter file insetead::
+Again, the variable can be initialised from a parameter file instead::
 
   Interaction = VariableCollection([Herbivores, PlantSpecies], value=ValueFromParameterTable("Interaction", "interaction.tbl", dataType=Scalar))
 

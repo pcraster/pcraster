@@ -71,7 +71,7 @@ MemoryTableData::MemoryTableData(
   \sa        clear()
 
   The layered (pointer to the) data is not deleted. The user of this class is
-  responible for resource management.
+  responsible for resource management.
 */
 MemoryTableData::~MemoryTableData()
 {

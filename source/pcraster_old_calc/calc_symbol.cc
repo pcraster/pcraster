@@ -4,7 +4,7 @@
 #include "lextoken.h"
 #include "com_strconv.h"
 
-//! emtpy ctor
+//! empty ctor
 calc::Symbol::Symbol() : Element()
 {
 }

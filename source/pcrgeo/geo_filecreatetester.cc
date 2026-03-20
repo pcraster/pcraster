@@ -148,7 +148,7 @@ public:
  *  \param eqTo
  *  \param throwWhatDifferent if true (default) compareTo never returns on false but
  *                            throws a com::FileException specifying what does differ.
- *  \todo Rcompare call here is actuall a == on RasterSpace objects
+ *  \todo Rcompare call here is actual a == on RasterSpace objects
  */
 bool geo::FileCreateTester::equalTo(const com::PathName &eqTo, bool throwWhatDifferent) const
 {

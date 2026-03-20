@@ -37,7 +37,7 @@ calc::LexInputSource::~LexInputSource()
 }
 
 //! Install script given as option (-f)
-/*! tests wether it is a plain script
+/*! tests whether it is a plain script
  */
 calc::LexInputSource *calc::createLexInputSourceFromFile(const com::PathName &pn)
 {

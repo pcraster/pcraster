@@ -271,7 +271,7 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
             H = pickle.load(file)
             file.close()
         else:
-            # or use the identiy matrix
+            # or use the identity matrix
             H = numpy.eye(sizeObservedVector, sizeStateVector, dtype=float)
 
         assert H.shape == (sizeObservedVector, sizeStateVector), "Shape of provided matrix H %s does not match (%s, %s)" % (H.shape, sizeObservedVector, sizeStateVector)

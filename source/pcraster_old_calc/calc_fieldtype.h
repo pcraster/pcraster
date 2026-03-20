@@ -28,7 +28,7 @@ namespace calc {
   </LI>
         <LI>Tss (short for timeseries)
     <UL><LI>having a sub <B>type</B><BR>
-    The only subtypes currently used is Field, with 3 possible occurences:
+    The only subtypes currently used is Field, with 3 possible occurrences:
     <OL><LI>Tss NonSpatial<BR>
             A timeseries with 1 column</LI>
         <LI>Tss Spatial<BR>
@@ -55,7 +55,7 @@ namespace calc {
     <P>
     Thus, some types have <B>sub</B> types, all others are <B>end</B> types.<BR>
     All types are dynamically build during the parsing and type building phases. This happens
-    by repetive restrictment. On each involvement of the data item in these phases, more is known
+    by repetitive restrictment. On each involvement of the data item in these phases, more is known
     from it's context.
 */
 
@@ -92,7 +92,7 @@ class Operator;
     - promotion from NS to S is possible while building script
     - an operation can require NS (only foreach ascendingby), thus forbid S
       ; record that point in script, since this error shows up later
-    - if promotion happend when building, the types have to build again
+    - if promotion happened when building, the types have to build again
       --> a second type building phase
     </PRE>
 */

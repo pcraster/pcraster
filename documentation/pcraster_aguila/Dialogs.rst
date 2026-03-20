@@ -32,7 +32,7 @@ Number of colours
 Maximum cutoff
   This value will set the upper range used in the colour assignment. Data values above this value are drawn using the same colour as the one used for the maximum cutoff value. ``Reset`` will set this back to the default case of the data maximum.
 Minimum cutoff
-  This value will set the lower range used in the colour assignment. Data values below this value are drawn using the same colour as the one used for the mimimum cutoff value. ``Reset`` will set this back to the default case of the data minimum.
+  This value will set the lower range used in the colour assignment. Data values below this value are drawn using the same colour as the one used for the minimum cutoff value. ``Reset`` will set this back to the default case of the data minimum.
 Colour assignment
   Mode of how colours are assigned by dividing the data range in ``Number of colours`` intervals. The per colour interval size can be fixed (linear) or increasing from small to large (logarithmic).
 Draw mode
@@ -41,7 +41,7 @@ Draw mode
   ``Contour``
     Draw as contours.
 
-For an uncertain attribute, the folowing options are also available:
+For an uncertain attribute, the following options are also available:
 
 Colour assignment
   If a value is selected in the probability graph, an additional colour assignment mode is available: ``Confidence interval``.

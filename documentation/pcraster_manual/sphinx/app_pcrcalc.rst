@@ -67,7 +67,7 @@ priority over binding section found in the script itself. As
 such one can overwrite binding from the script.
 
 The syntax is identical to the binding section of a model
-script including the ability to add comments, but the exernal
+script including the ability to add comments, but the external
 binding file has also the the following features: 
 
 - The semi-colon (;) is optional 

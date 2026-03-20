@@ -170,11 +170,11 @@ int AreaMin(
 
 int AreaUniform(
      MAP_REAL8 *result,      /* write output map  */
-     const MAP_INT4 *classMap);    /* classses map  */
+     const MAP_INT4 *classMap);    /* classes map  */
 
 int AreaNormal(
      MAP_REAL8 *result,      /* write output map  */
-     const MAP_INT4 *classMap);    /* classses map  */
+     const MAP_INT4 *classMap);    /* classes map  */
 
 int AreaMax(
      MAP_REAL8 *max,      /* Read-write output map  */
@@ -286,7 +286,7 @@ int Order(
 typedef struct TIME_TABLE{
   CSF_VS vs;    /* value scale */
   int nrSteps;    /* number of steps in table */
-  int nrCols;    /* number of colums of table
+  int nrCols;    /* number of columns of table
                            * with time-index in column 0!
                            */
   REAL8 **vals;    /* values in table */

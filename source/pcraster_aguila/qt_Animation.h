@@ -24,7 +24,7 @@ namespace qt {
   Animation a(1, 1000, 1000);
 
   // Start the manager. This will take 1 sec * 1000 steps = 1000 sec to finish.
-  // 1000 process() signals will be emitted, folowed by a stopped() signal.
+  // 1000 process() signals will be emitted, followed by a stopped() signal.
   a.start();
   \endcode
 
@@ -39,7 +39,7 @@ namespace qt {
   a.addStep(1000);
 
   // Start the manager. This will take 1 sec * 3 steps = 3 sec to finish.
-  // 3 process() signals will be emitted, folowed by a stopped() signal.
+  // 3 process() signals will be emitted, followed by a stopped() signal.
   a.start();
   \endcode
 */
@@ -209,7 +209,7 @@ Q_SIGNALS:
 
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

@@ -371,7 +371,7 @@ static void PrintSelectMsgBox(const char *otherMsg)
 }
 
 /* Puts radio select window on screen and makes it possible to select item.
- * The bar is scrolled when arrows used, bar is alway visible.
+ * The bar is scrolled when arrows used, bar is always visible.
  * Writes item if selected, key otherwise.
  * Returns 1 if item was selected, 0 if key was used.
  */
@@ -428,7 +428,7 @@ static bool CurrSelectItem(int *itemOrKey,     /* write-only selected item or ke
 }
 
 /* Puts radio select window on screen and makes it possible to select item.
- * The bar is scrolled when arrows used, bar is alway visible.
+ * The bar is scrolled when arrows used, bar is always visible.
  * Writes item if selected, key otherwise.
  * Returns TRUE if item was selected, FALSE if key was used.
  *
@@ -553,7 +553,7 @@ int CurrScreenCols(void)
  */
 void CurrInitScreen(void)
 {
-  /* EXAMPLES * so examples/currisenter.tr DISBALED */
+  /* EXAMPLES * so examples/currisenter.tr DISABLED */
   initscr();
   /*   nonl();   additional screen optimization */
   cbreak();                   /* return unnecessary */
@@ -667,7 +667,7 @@ static void PrintGetRadioSelection(void)
   wrefresh(msgBox);
 }
 
-/* Gets selection from user, untill return is given.
+/* Gets selection from user, until return is given.
  * Before a return is given, the a number of possible
  * values can be selected
  * RETURNS selected item or 0 if canceled (0 is
@@ -728,7 +728,7 @@ int CurrGetRadioSelection(const char **values, /* array of possible values
   return i;
 }
 
-/* Gets input from user, untill return is given.
+/* Gets input from user, until return is given.
  * Before a return is given, the input can be modified using
  * backspace, delete, insert etc.
  * If first key, that user presses is printable, the already
@@ -829,7 +829,7 @@ bool CurrGetString(char *input, /* read-write string to get */
   return TRUE;
 }
 
-/* Gets input from user, untill return is given, and verifying input.
+/* Gets input from user, until return is given, and verifying input.
  * Before a return is given, the input can be modified using
  * backspace, delete, insert etc.
  * If first key, that user presses is printable, the already

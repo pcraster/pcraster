@@ -46,7 +46,7 @@ static NODE *AddToList(NODE *list, /* write-only original list */
 {
   NODE *c = NULL;
 #ifdef NEVER
-  if (InList(list, row, col)) /* CW not neccessary when 
+  if (InList(list, row, col)) /* CW not necessary when 
                                  * building initial list
                                  */
     return list;
@@ -268,7 +268,7 @@ int SpreadMax(MAP_REAL8 *outCost,        /* read-write output map  */
   if (PerformSpread(outCost, outId, coordList, friction, maxCost)) {
     return 1;
   }
-  /* cost is not computed for ouside maxCost rangge set to 0  */
+  /* cost is not computed for outside maxCost rangge set to 0  */
   for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       if (points->Get(&pointVal, r, c, points) &&

@@ -164,7 +164,7 @@ BOOST_AUTO_TEST_CASE(downstream_visit)
 }
 
 
-BOOST_AUTO_TEST_CASE(cylcle)
+BOOST_AUTO_TEST_CASE(cycle)
 {
   using namespace mldd;
 

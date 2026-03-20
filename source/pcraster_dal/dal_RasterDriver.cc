@@ -197,7 +197,7 @@ Raster* RasterDriver::open(
   \overload
   \warning   In case the raster contains no cells, an empty DataSpace object is returned.
 
-  This function assumes that the dataset consists of seperate files that don't
+  This function assumes that the dataset consists of separate files that don't
   contain information about the overall dataspace. It probes one specific
   raster for information about the number of rows and columns.
 

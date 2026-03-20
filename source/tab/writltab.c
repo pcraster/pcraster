@@ -155,7 +155,7 @@ static LOOK_UP_KEY *ConvDir(const LOOK_UP_KEY *key, CSF_VS vs)
 /* write a lookup or cross table to a file
  * if (t->records[r][t->nrKeys].t == TEST_NOKEY) then record r is not written
  * returns
- * 0 if succesfull, 1 if failure
+ * 0 if successful, 1 if failure
  */
 int WriteLookupTable(const char *fileName, const LOOK_UP_TABLE *table)
 {

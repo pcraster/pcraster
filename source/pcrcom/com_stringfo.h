@@ -17,7 +17,7 @@
 namespace com {
 
 /*!
- * For an alternative aproach read:
+ * For an alternative approach read:
  * "Easily write and format ranges and containers in C++"
  * at http://builder.com.com/article.jhtml?id=u00220020805gcn01.htm&fromtm=e601-2
  */
@@ -31,11 +31,11 @@ public:
 
   //! Constructor.
   /*!
-    \param delim Delimeter string. Empty string result in no
-                 delimeter. Default Delimeter is a single space
+    \param delim Delimiter string. Empty string result in no
+                 delimiter. Default Delimiter is a single space
   */
   Concatenate(const std::string& delim): d_delim(delim) { }
-  //! Constructor with single space as Default Delimeter
+  //! Constructor with single space as Default Delimiter
   Concatenate(): d_delim(" ") { }
 
   //! Function operator.

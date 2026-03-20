@@ -10,7 +10,7 @@ BOOST_AUTO_TEST_CASE(non_mv)
   using namespace fieldapi;
 
   // 1st row all nonMV
-  // 2nd row allways some MV
+  // 2nd row always some MV
   UINT1 l1[] = {0, 1, 2, 3, MV_UINT1, 5};
   UINT1 l2[] = {0, 1, 2, 3, MV_UINT1, MV_UINT1};
   REAL4 l3[] = {0, 1, 2, 3, 70, 80};

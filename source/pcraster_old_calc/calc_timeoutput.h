@@ -17,7 +17,7 @@ class IndexSelected;
 
 /*!
  * \todo
- *   try recognizing and warn on constucts as:
+ *   try recognizing and warn on constructs as:
  *    timeoutput(1,maptotal(.....)/(maparea(Rain)/(DX*DX)));
  */
 class Timeoutput : public FieldArgs, public Statement {

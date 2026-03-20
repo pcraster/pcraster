@@ -19,7 +19,7 @@ Prerequisites (http://pcraster.sourceforge.net and http://sourceforge.net/projec
 
 Make sure these projects are configured and built.
 
-Make sure the folowing 3rd party libraries and tools are installed (see DevEnv's `configuration/Versions.sh` for verion information):
+Make sure the following 3rd party libraries and tools are installed (see DevEnv's `configuration/Versions.sh` for version information):
 
 * Boost
 * Gdal

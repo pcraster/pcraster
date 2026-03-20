@@ -39,7 +39,7 @@ protected:
 protected:
   //! implement here what to call in run();
   /*!
-      \returns preffered 'exit' code
+      \returns preferred 'exit' code
    */
   virtual int execute()=0;
 
@@ -76,7 +76,7 @@ public:
 
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

@@ -231,7 +231,7 @@ void SplitFilePathName(const char *fullPathName, /* the full path name */
   }
 }
 
-/* change directory seperators in-situ
+/* change directory separators in-situ
  * This function changes all occurenses of '\' or '/' to
  * delimiting character '/' or '\' on the current platform.
  * returns

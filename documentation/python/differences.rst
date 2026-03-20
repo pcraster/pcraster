@@ -258,7 +258,7 @@ The following example script demonstrates the usage of the conversion functions:
 
    a = numpy.array([[12,5,21],[9,7,3],[20,8,2],[5,6,-3]])
 
-   # conver a to a PCRaster Python map
+   # convert a to a PCRaster Python map
    # with the value 20 indicating a 'missing value' cell
    n2p = numpy2pcr(Nominal, a, 20)
    print "cellvalue:", cellvalue(n2p, 2, 3)[0]
@@ -308,7 +308,7 @@ Do not use PCRaster objects in context of Python boolean operations.
 
 This means that PCRaster objects will always be interpreted as true when used in the above mentioned cases.
 
-When the PCRaster (field) objects are used in a Python boolean context you will recieve the error::
+When the PCRaster (field) objects are used in a Python boolean context you will receive the error::
 
    The truth value for PCRaster spatial data types is ambiguous.
    See the section Boolean operations in the PCRaster Python manual.

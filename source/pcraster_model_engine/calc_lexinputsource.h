@@ -42,7 +42,7 @@ LexInputSource *createLexInputSourceFromFile(const com::PathName& fileName);
 
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

@@ -1624,7 +1624,7 @@ int CCFD_MG_eval(r_vector* r2_ptr, r_vector* r1_ptr, void* A_ptr)
 }
 
 /*
- *  CCFD prolongation is natrual embedding.  Three-dimensional
+ *  CCFD prolongation is natural embedding.  Three-dimensional
  *  prolongation is implemented as a series of two-dimensional 
  *  prolongations that in turn are implemented as a series of
  *  one-dimensional prolongations.

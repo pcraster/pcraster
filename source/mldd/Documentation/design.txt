@@ -20,7 +20,7 @@ edges in een mldd.
 
 Een 2D kaart heeft geo::RasterSpace:  rs2D
 Een EdgeList heeft geo::RasterSpace:  rsEL
- rsEL heeft nr. edges collumns en 1 row.
+ rsEL heeft nr. edges columns en 1 row.
 
 alleen punt operaties zijn zinnig op rsEL kaarten. Maar
 FTTB hoeft dit niet gechecked te worden.

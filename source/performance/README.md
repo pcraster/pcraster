@@ -25,13 +25,13 @@ The requirements for the measurement scripts and process are:
 - Performance measurements must be stored in a database. Each new measurement must result in a new, timestamped record in the database.
 - Measurements on different platforms (OS and hardware) must be stored in different databases.
 - The results of the performance measurements must be easy to interpret. They must be visualized as graphs and tables.
-- There must be a single script which does everything needed to perform all performance measurements. By default, it must store the results in a platform-specific database, named after the OS and archicture.
+- There must be a single script which does everything needed to perform all performance measurements. By default, it must store the results in a platform-specific database, named after the OS and architecture.
 - The platform-specific database must be stored in a safe place. This is not a file we want to risk losing. Its historic contents cannot be reproduced.
 - For each performance measurement, it must be known what version of PCRaster was used, including the Git commit-id.
 
 
 ## Requirements
-The code requires the folowing packages:
+The code requires the following packages:
 - [Performance analyst](https://github.com/pcraster/performance_analyst) (≥ 0.0.13)
 - GDAL 2.x Python package
 - Numpy Python package

@@ -46,7 +46,7 @@ void calc::DefPar::initError(const com::Exception &msg) const
     the index table itself is also  added to the symbol table
 
     \throws
-       com::Exception if error occured
+       com::Exception if error occurred
     \return
       the created parameter
  */

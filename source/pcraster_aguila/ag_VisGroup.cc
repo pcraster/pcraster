@@ -284,7 +284,7 @@ ag::Map2D *ag::VisGroup::addMap2D(QWidget *parent)
 */
 ag::Map2DWindow *ag::VisGroup::addMap2DWindow()
 {
-  //  1. A visualisation is automagicaly deleted from memory if it is closed.
+  //  1. A visualisation is automagically deleted from memory if it is closed.
   //     Have a look at qt::AppWindow's constructor.
   //  2. Let's make a deal: the data object will notify us if it changes its
   //     state.
@@ -323,7 +323,7 @@ ag::MultiMap2DWindow *ag::VisGroup::addMultiMap2DWindow(size_t nrRows, size_t nr
 */
 ag::Map3DWindow *ag::VisGroup::addMap3DWindow()
 {
-  //  1. A visualisation is automagicaly deleted from memory if it is closed.
+  //  1. A visualisation is automagically deleted from memory if it is closed.
   //     Have a look at qt::AppWindow's constructor.
   //  2. Let's make a deal: the data object will notify us if it changes its
   //     state.
@@ -690,7 +690,7 @@ void ag::VisGroup::sync()
   // Check if group has an invalid cursor.
   if(!dataObject().cursorPos().isValid()) {
 
-    // Inititialize the cursor position. This will also load needed data and
+    // Initialize the cursor position. This will also load needed data and
     // notify all visualisations in the group.
     dataObject().setCursorPos(CursorPos(0.0, 0.0, 0.0,
                    dataObject().firstTimeStep()));

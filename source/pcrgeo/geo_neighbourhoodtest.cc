@@ -16,7 +16,7 @@ BOOST_AUTO_TEST_CASE(random_cell_locations)
 
   {
     // If the number of cells we request equals the number of non zero values
-    // in the neighbourhood, than we excpect to get all cells within the
+    // in the neighbourhood, than we expect to get all cells within the
     // neighbourhood back.
     std::vector<LinearLoc> locations;
     RasterDim const space(3, 3);               // 3x3 raster
@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_CASE(random_cell_locations)
     randomCellLocations(locations, neighbourhood.nrCells(), space, neighbourhood, cell);
     BOOST_TEST(locations.size() == neighbourhood.nrCells());
 
-    // Neigbourhood with one zero.
+    // Neighbourhood with one zero.
     locations.clear();
     neighbourhood.fill(1.0);
     neighbourhood.cell(0, 0) = 0.0;
@@ -37,7 +37,7 @@ BOOST_AUTO_TEST_CASE(random_cell_locations)
     randomCellLocations(locations, neighbourhood.nrCells(), space, neighbourhood, cell);
     BOOST_TEST(locations.size() == neighbourhood.nrCells() - 1);
 
-    // Neigbourhood with only zero's.
+    // Neighbourhood with only zero's.
     locations.clear();
     neighbourhood.fill(0.0);
 

@@ -20,7 +20,7 @@ namespace calc {
 
 //! builds up and check types for an CFGNode graph
 /*!
-    - type info is updated and syncronized between the graph and an ASTSymbolTable
+    - type info is updated and synchronized between the graph and an ASTSymbolTable
     - resulting table is in table() after the visit
     - the graph features  containsDynamicSection() and
       hasStatementWithReportKeyword() are deduced in the visit

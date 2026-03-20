@@ -74,7 +74,7 @@ void calc::Options::printUsage()
           // "         (Experimental and incomplete)\n"
           // "  e    : return as exit code the last fileoutput expression\n"
           // "  E    : quit if a fileoutput expression evaluates to 0 \n"
-          // "          exit code is timestep when quitted\n"
+          // "          exit code is timestep when quit\n"
           //X"  C    : optimize by using C compiler\n"
   );
 }

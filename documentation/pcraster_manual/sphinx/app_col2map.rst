@@ -112,10 +112,10 @@ Each cell on PCRresult is assigned the cell value on columnfile which has x,y co
 :literal:`--coorcentre`, :literal:`--coorul` or :literal:`--coorlr`
 
 :literal:`--coorcentre` (default) or :literal:`--coorul`
-   values in columnfile that have x,y coordinates at the upper and left margins of a cell come into that cell, values at the bottom and right margins come into neighbouring cells. So, cell values with x, y coordinates at vertexes of cells come into the cell at the lower right side of the vertex.
+   values in columnfile that have x,y coordinates at the upper and left margins of a cell come into that cell, values at the bottom and right margins come into neighbouring cells. So, cell values with x, y coordinates at vertices of cells come into the cell at the lower right side of the vertex.
 
 :literal:`--coorlr`
-   values in columnfile that have x, y coordinates at the bottom and right margins of a cell come into that cell, values at the upper and left margins come into neighbouring cells. So, cell values with x, y coordinates at vertexes of cells come into the cell at the upper left side of the vertex.
+   values in columnfile that have x, y coordinates at the bottom and right margins of a cell come into that cell, values at the upper and left margins come into neighbouring cells. So, cell values with x, y coordinates at vertices of cells come into the cell at the upper left side of the vertex.
 
 
 
@@ -130,7 +130,7 @@ columnfile are found which all come into the same cell on PCRresult:
    average value of the values found within the cell is assigned (default for scalar and directional data; for directional data and assignment of records without a direction, see notes)
 
 -h
-   highest score: most occuring value found for the cell is assigned; if two values are found the same (largest) number of times, the highest value of these values is assigned, this is called a majority conflict (default for boolean, nominal, ordinal and ldd data)
+   highest score: most occurring value found for the cell is assigned; if two values are found the same (largest) number of times, the highest value of these values is assigned, this is called a majority conflict (default for boolean, nominal, ordinal and ldd data)
 
 -l
    lowest score: least occurring value found for the cell is assigned (option for nominal, ordinal, boolean, ldd data); if two values are found the same (smallest) number of times, the smallest value of these values is assigned, this is called a minority conflict.

@@ -36,7 +36,7 @@ public:
           FieldExprArgs& args);
    ~ModelLinkMethodExpr() override;
 
-  //! buids its own types and call for sub-expression
+  //! builds its own types and call for sub-expression
   void buildTypesRecursive(VS resultVsSet) override;
 
   FieldType& restrictType() override;

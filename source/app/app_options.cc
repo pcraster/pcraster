@@ -41,7 +41,7 @@
 
 
 /*!
- * in need of pcrcalc/test224a, repetive use of strtok was no good!
+ * in need of pcrcalc/test224a, repetitive use of strtok was no good!
  */
 extern "C" bool app_setDynamicLibraries(
   const char *flag)

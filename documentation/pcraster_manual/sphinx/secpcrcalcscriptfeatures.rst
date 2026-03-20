@@ -72,10 +72,10 @@ are executed until no cells in BooleanCondition are false(0). In other words
 execution of the loop is stopped if all cells are true(1) or missing value.
 Note that the execution is not stopped at a per cell base, but when ALL cells
 meet the specified condition. In theory, stopping at a per cell base might
-decrease execution time, but the additonal bookkeeping of which cells needs one
+decrease execution time, but the additional bookkeeping of which cells needs one
 iteration more at each loop will neutralise this gain.
 A more realistic example is an iteration to fit a certain function, with a
-series of succesive estimates that will stop if the next estimate only differs
+series of successive estimates that will stop if the next estimate only differs
 a certain small epsilon value.
 
 ::
@@ -122,7 +122,7 @@ This feature consists of the following extensions to the modelling language:
 
 - Defining a sequence of report moments in the timer section of the script by a symbolic name reportName.
 - Using that symbolic name in the report statement in the dynamic section: report(reportName).
-- Definining a sequence of report moments in the report statement in the dynamic section: report(reportMoments).
+- Defining a sequence of report moments in the report statement in the dynamic section: report(reportMoments).
 - Introduction of the keyword endtime as the symbolic name for the last timestep.
 - Introduction of the keyword reportdefault as the symbolic name for the reports without an explicit definition of the report moments.
 - Note that selective reports only apply for map stacks, when writing to a timeseries file they are ignored, a timeseries file will always contains data for all timesteps except if the option :ref:`----noheader <noheader>` is specified.
@@ -154,7 +154,7 @@ definitions in the timer sections and apply them to the reports:
    report(rep1) stack1_ = input.map;
    report(rep2) stack2_ = input.map;
 
-Different moments in a report moment definition are seperated by ',' as in
+Different moments in a report moment definition are separated by ',' as in
 1,10,900,endtime that defines 4 moments. A range of moments can be given by the
 syntax start+step..end. Step increases the moments up and including end. In the
 example above stack2\_ will be reported at timestep 5,10,15,25, etc. until 1000.
@@ -252,7 +252,7 @@ Additional notes:
 
  - comments (#) are not allowed within a substitution
  - Note that ${n} denotes the last argument, while $n means an environment variable named n.
- - Note that is an extra substitution level, so one needs to give $$1 in an UNIX shell, if the command line expression is enclosed in "-symbols. This is not neccessary if it is enclosed in '-symbols.
+ - Note that is an extra substitution level, so one needs to give $$1 in an UNIX shell, if the command line expression is enclosed in "-symbols. This is not necessary if it is enclosed in '-symbols.
  - If you are trying $-constructs and you get the message: ERROR: parse error near line '?' near symbol '?' Then two errors are frequent:
 
    - you forgot the delimit the expression and the arguments by ;;

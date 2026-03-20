@@ -7,7 +7,7 @@
 
 namespace calc {
 
-//! concret class for calc::IClientInterface
+//! concrete class for calc::IClientInterface
 class ClientInterface: public DllCalc
 {
 

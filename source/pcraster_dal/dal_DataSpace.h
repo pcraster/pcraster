@@ -31,9 +31,9 @@ namespace dal {
 
   There is a fixed number of combinations of dimensions which can be
   combined to a valid data space. For example, it is valid to have a data
-  space with one scenario dimension folowed by two space dimensions. This
+  space with one scenario dimension followed by two space dimensions. This
   is a static raster. It is not valid to have a data space with a space
-  dimension folowed by a scenario dimension. This would be a raster with
+  dimension followed by a scenario dimension. This would be a raster with
   per cell different values per scenario.
 
   The order of dimensions matters when iterating over a data space. The
@@ -66,7 +66,7 @@ namespace dal {
   - Scenarios/Time/CumulativeProbabilities
   - Scenarios/Time/CumulativeProbabilities/Space(/Space)
 
-  The folowing holds for a valid data space:
+  The following holds for a valid data space:
   - Scenarios always at the beginning
   - Space always at the end
   - Samples OR CumulativeProbabilities dimension

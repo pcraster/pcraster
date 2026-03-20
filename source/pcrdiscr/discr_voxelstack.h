@@ -25,7 +25,7 @@ namespace discr {
   by the elevation of the bottom of the lowest voxel (the base elevation) and
   the thicknesses of the voxels stacked on top of each other.
 
-  The stack is implemented by inheriting from std::vector (not aparent from the
+  The stack is implemented by inheriting from std::vector (not apparent from the
   doxygen docs) and layering the base elevation.
 
   Missing values are handled using the base elevation. A missing value

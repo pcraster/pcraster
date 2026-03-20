@@ -42,7 +42,7 @@ private:
   //! mutable is for minMax hack
   mutable int d_chanId;
 
-  //! empty if none set, for exising map it is searched for
+  //! empty if none set, for existing map it is searched for
   std::string d_prjFile;
 
   //! class for windowing

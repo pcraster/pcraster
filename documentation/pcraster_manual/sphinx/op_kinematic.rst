@@ -107,7 +107,7 @@ Notes
 
 This is an experimental implementation of the numerical solutions of the
 kinematic wave equations. The stability and accuracy of the equations
-can not be gauranteed under all circumstances.
+can not be guaranteed under all circumstances.
 
 
 

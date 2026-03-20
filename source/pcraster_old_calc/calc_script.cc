@@ -203,7 +203,7 @@ void calc::Script::addBinding(const Symbol &left, const Symbol &right, VS vs)
   d_bindingTable.add(left, right, vs);
 }
 
-/*! evaluate current bindings and move to those attched to a
+/*! evaluate current bindings and move to those attached to a
     (constant) number to a parameter
  */
 void calc::Script::evaluateBindings()

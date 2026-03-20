@@ -31,9 +31,9 @@ namespace geo {
   size_t, size_t, size_t) function needs to be implemented. The arguments of
   this function mark the area with valid cells from the source raster.
 
-  The calc.. functions garantee that if the center value of the kernel has a
+  The calc.. functions guarantee that if the center value of the kernel has a
   missing value in the source raster, a missing value is returned for the
-  destination raster. They also garantee that the result() function is only
+  destination raster. They also guarantee that the result() function is only
   called when this center value in the source raster doesn't have a missing
   value.
 
@@ -402,7 +402,7 @@ DstType Filter<SrcType, DstType>::calcBottom(const SimpleRaster<SrcType>&
   }
 }
 
-//! Calculates a result for a cell in the left collumn of the source.
+//! Calculates a result for a cell in the left column of the source.
 /*!
   \param     source Source raster.
   \return    Result value.
@@ -435,7 +435,7 @@ DstType Filter<SrcType, DstType>::calcLeft(const SimpleRaster<SrcType>& source,
   }
 }
 
-//! Calculates a result for a cell in the right collumn of the source.
+//! Calculates a result for a cell in the right column of the source.
 /*!
   \param     source Source raster.
   \return    Result value.

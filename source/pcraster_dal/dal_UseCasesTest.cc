@@ -380,14 +380,14 @@ BOOST_AUTO_TEST_CASE(bil_format)
 *
 *  // comments are allowed
 *  // unknown keys are discarded
-*  bool succes=true;
+*  bool success=true;
 *  try {
 *    com::write("NROWS 4 A COMMENT\nNCOLS 5\nUNKNOWNKEY 5\n",pn);
 *    BandMap bm("headertest");
 *  } catch(...) {
-*    succes=false;
+*    success=false;
 *  }
-*  BOOST_TEST(succes);
+*  BOOST_TEST(success);
 *
 *  // NROWS and NCOLS are required
 *  bool failure=false;
@@ -401,15 +401,15 @@ BOOST_AUTO_TEST_CASE(bil_format)
 *  }
 *  BOOST_TEST(failure);
 *
-*  // allow ommision of last new line
-*  succes=true;
+*  // allow omission of last new line
+*  success=true;
 *  try {
 *    com::write("NROWS 4\nNCOLS 5",pn);
 *    BandMap bm("headertest");
 *  } catch(...) {
-*    succes=false;
+*    success=false;
 *  }
-*  BOOST_TEST(succes);
+*  BOOST_TEST(success);
 *
 *  {
 *    // if both dim are set, then ok

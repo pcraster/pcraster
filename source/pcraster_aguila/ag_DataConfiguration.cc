@@ -298,7 +298,7 @@ void DataConfiguration::add(std::string const &name, const dal::DataSpace &space
           name, DataItemInformation(space, configuration, d_group->addData(name, space))));
     } else {
       // Name is not a selection, but an "alias" for all columns
-      // Create for each colum, a selection specification:
+      // Create for each column, a selection specification:
       //   name{1,n}, name{1,n-1}, ...,name{1,2}
       dal::Driver const *driver(dal::Client::dal().driverByDataset(name, space));
       assert(driver);
@@ -459,8 +459,8 @@ DataConfiguration::guidesOfView2(pcrxml::AguilaView const &view) const
 //       // name IS A selection
 //       ts.push_back(name);
 //     } else {
-//       // name IS not a selection, but "alias" for all collumns
-//       // create for each colum, a selection specification:
+//       // name IS not a selection, but "alias" for all columns
+//       // create for each column, a selection specification:
 //       //    name{1,n}, name{1,n-1}, ...,name{1,2}
 //       for(size_t i = table->nrCols(); i > 1; --i) {
 //         std::string colName = (boost::format("%1%{1, %2%}") % (name) % i).str();

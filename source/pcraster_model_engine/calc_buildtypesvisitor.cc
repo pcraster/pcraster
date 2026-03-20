@@ -258,7 +258,7 @@ public:
     POSTCOND(d_table.contains(p));
 
     OVS const ovs(op.argType(0).vs());
-    // restiction on data type of Arg0
+    // restriction on data type of Arg0
     DataType reqArg0(ovs);
 
     switch (ovs) {
@@ -386,7 +386,7 @@ void calc::BuildTypesVisitor::checkOnTimeinput(BaseExpr *o)
  *  also do like updateDynamicOperation for index? operations only in binding
  * \todo
  *  most of the body should be refactored into calc::Operator,
- *   then EXEC_* enums can dissapear into OpImpl
+ *   then EXEC_* enums can disappear into OpImpl
  */
 void calc::BuildTypesVisitor::visitExpr(BaseExpr *o)
 {
@@ -525,7 +525,7 @@ void calc::BuildTypesVisitor::singleAss(ASTPar *p, const DataType &dtExpr)
     }
 
     try {
-      // combine types with possible assigment spatial-cast
+      // combine types with possible assignment spatial-cast
       // this happens if parameter is multiple times assigned pcrcalc2
 
       DataType r(dtExpr);

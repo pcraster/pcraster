@@ -36,7 +36,7 @@ static char timeBuf[16];
 /* format time
  * StrTime formats a time, expressed in seconds.
  * Returns pointer to static buffer in format h:mm:ss.
- * Houres are printed in %2d-format.
+ * Hours are printed in %2d-format.
  * Minutes and seconds are printed in %02d-format.
  */
 static const char *StrTime(long t) /* time in seconds */

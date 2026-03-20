@@ -39,7 +39,7 @@
  * triangular matrix U. 
  * .BR
  * Adapted from NUMERICAL RECIPES 1st edition.                                        
- * returns  0 if succes, not 0 if matrix is singular 
+ * returns  0 if success, not 0 if matrix is singular 
  */
 int Ludcmp(double **a,   /* Read-write. Input matrix, on output the upper and lower
                           * left triangle 
@@ -142,7 +142,7 @@ int Ludcmp(double **a,   /* Read-write. Input matrix, on output the upper and lo
 /* Cholesky decomposition of symmetric positive definite matrix 
  * .BR
  * Adapted from NUMERICAL RECIPES 1st edition.                                        
- * returns 0 if succesfull, -1 if failure due to singularity, 1 if failure 
+ * returns 0 if successful, -1 if failure due to singularity, 1 if failure 
  * because the matrix is not positive definite.
  */
 int Cholesky(const double **a, /* Matrix (n*n elements) to be decomposed */
@@ -246,7 +246,7 @@ double **MltSqrMm(double **result,  /* Write-only, resulting matrix of A*B */
 double *MltSqrMv(double *result,   /* Write-only. Resulting vector of A*V */
                  const double **A, /* first operand */
                  const double *V,  /* second operand */
-                 size_t n)         /* dimension of matrix, length of vetor */
+                 size_t n)         /* dimension of matrix, length of vector */
 {
   size_t i = 0;
   size_t k = 0;

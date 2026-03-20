@@ -9,8 +9,8 @@ Maak animation controle/dialoog onder File menu.
 
 still strange:
  - open tss in map view yields error messages
- - open map in tss view is silently ingnored
- - open 2nd tss in tss view is silently ingnored
+ - open map in tss view is silently ignored
+ - open 2nd tss in tss view is silently ignored
 BETTER?: open new view for incompatible, in
      general the user wants to see that data!
 
@@ -18,7 +18,7 @@ Suggestie) tss zwart/wit flippen, zucht
  Save as PNG for timeplot aangepaste, saved echter nog
   niet het juiste.
 
-* incosistent use of name such as contains and exists as method!
+* inconsistent use of name such as contains and exists as method!
 
 * zie al het gebruik van std::find, std::find_if and com::hasElement!
    dit ruikt naar std::set en multiset i.p.v. std::vector !!!

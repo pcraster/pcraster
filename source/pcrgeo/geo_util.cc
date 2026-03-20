@@ -456,7 +456,7 @@ std::string geo::valueScaleToStr(const CSF_VS &vs)
 
     default:
       PRECOND(false);
-      str = "UNKOWN";  // Never reached.
+      str = "UNKNOWN";  // Never reached.
       break;
   }
 
@@ -495,7 +495,7 @@ std::string geo::valueScaleToStr(const CSF_VS &vs)
 //
 //     default:
 //       PRECOND(false);
-//       str = "UNKOWN";        // Never reached.
+//       str = "UNKNOWN";        // Never reached.
 //       break;
 //
 //   }
@@ -631,7 +631,7 @@ void geo::raster2Boundaries(const SimpleRaster<T> &raster, RasterBoundaries<T> &
   //    boundaries missed during this run: the top boundaries of the first
   //    row.
   // 3. Calculate values for all missed boundaries.
-  // 4. Handle pecularities of this strategy.
+  // 4. Handle peculiarities of this strategy.
 
   // Raster for intermediate results.
   SimpleRaster<double> dummy(raster.nrRows(), raster.nrCols());

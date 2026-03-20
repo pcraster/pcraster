@@ -58,7 +58,7 @@ namespace geo {
 
   // std::string      dataTypeToStr       (const DataType& dataType);
 
-  //! get cell representation belongin to a value scale
+  //! get cell representation belonging to a value scale
   class ValueScale2CellRepr {
     private:
     CSF_VS d_vs;

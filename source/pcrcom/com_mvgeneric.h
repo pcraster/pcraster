@@ -31,7 +31,7 @@ namespace com {
                  zie GDAL.
      input alleen in termen van iterators (geo::SimpleRaster heeft al meer;
       de notie van een grid):
-       generic algoritm types:
+       generic algorithm types:
        - for_each/transform etc. die MV skippen
        - zoiets als minimum in com_functions.h die eerst een geldige waarde zoekt.
      begin in com_mvgeneric gemaakt.

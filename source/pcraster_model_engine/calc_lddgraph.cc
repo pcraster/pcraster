@@ -63,7 +63,7 @@ void calc::LddGraph::initPitIds()
 
 /*!
  * \todo
- *   downConstIterators most used, is there a perfomance penalty in
+ *   downConstIterators most used, is there a performance penalty in
  *   using reverse_iterator's instead of iterator's? If so, uncomment
  *   reverse operations and swap iterator type for up and down.
  */
@@ -186,7 +186,7 @@ calc::LddGraph::LddGraph(const UINT1 *lddField, const IFieldRDConversion &conv)
  *
  *  \pre propagateDownstream must be true FTTB, upstream not yet implemented
  *
- *  No optimzation is considered, this code should only be executed in the
+ *  No optimization is considered, this code should only be executed in the
  *  case where users go wrong and introduce MV's in arguments of an 
  *  ldd traversal algorithm
  *

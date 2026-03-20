@@ -76,7 +76,7 @@ const calc::FieldType &calc::FieldParameter::fieldType() const
     \todo  IMPORTANT
            parameter that is first input and then output makes
            a mess of a number things (pcrcalc/test358): See
-           if seperating in two pars, different lifespan/scope makes better code
+           if separating in two pars, different lifespan/scope makes better code
            IDEA: First entry of symbol table (is input) can be replace by second
                  (new) entry when it is outputted
  */
@@ -98,7 +98,7 @@ void calc::FieldParameter::finalCheck()
       posError("with use of -r: " + quote(userName()) + " cannot be both input and output");
     }
   }
-  // if it apears in dynamic, e.g. there is at least one node
+  // if it appears in dynamic, e.g. there is at least one node
   // of the chain in the dynamic, then the last node points
   // to that node, if d_firstChainNodeInDynamic may be 0 if
   // there is no use in the dynamic
@@ -149,7 +149,7 @@ double calc::FieldParameter::initialValue() const
 /*!
   \todo
     if a par like  A = 4; is never used it gets a multiple
-    vs wich is hack here into UNKNOWN, warn never used?
+    vs which is hack here into UNKNOWN, warn never used?
  */
 void calc::FieldParameter::setDataSubType(pcrxml::Data *d) const
 {

@@ -214,8 +214,8 @@ void CursorWindow::saveToText(std::filesystem::path const &path)
           }
         }
 
-        globalCursorStream << "cummulative probability = " << address.coordinate<float>(i);
-        worldCursorStream << "cummulative probability = "
+        globalCursorStream << "cumulative probability = " << address.coordinate<float>(i);
+        worldCursorStream << "cumulative probability = "
                           << dataObject.globalToWorldMapper().toString(address, i) << '\n';
 
         break;
@@ -406,8 +406,8 @@ void CursorWindow::appendToCursorValueMonitorFile()
           }
         }
 
-        globalCursorStream << "cummulative probability = " << address.coordinate<float>(i);
-        worldCursorStream << "cummulative probability = "
+        globalCursorStream << "cumulative probability = " << address.coordinate<float>(i);
+        worldCursorStream << "cumulative probability = "
                           << dataObject.globalToWorldMapper().toString(address, i) << '\n';
 
         break;
@@ -474,7 +474,7 @@ void CursorWindow::appendToCursorValueMonitorFile()
         // real time
         std::string const rt(dataObject.globalToWorldMapper().toString(address, i));
         // if not iso format then there is no real mapper
-        // iso format has T seperator for date and time part
+        // iso format has T separator for date and time part
         if (rt.find('T') != std::string::npos) {
           // TODO XSD acv.cursor()->date(rt);
         }

@@ -72,6 +72,6 @@ void calc::RepeatUntil::print(InfoScript &i) const
 //! this will delete condition
 void calc::RepeatUntil::addCondition(FieldExpr *condition)
 {
-  PRECOND(!d_condition);  // only calle once
+  PRECOND(!d_condition);  // only called once
   d_condition = condition;
 }

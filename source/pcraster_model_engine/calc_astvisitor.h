@@ -64,7 +64,7 @@ public:
 
   //! a default visit all
   /*! The ASTVisitor always visits \a e before it visit its arguments.
-   *  The CFGVisitor always vists \a e after it visit its arguments
+   *  The CFGVisitor always visits \a e after it visit its arguments
    */
   virtual void visitExpr          (BaseExpr   *e);
 

@@ -595,7 +595,7 @@ Parser::interfaceSection(int *_retsignal, calc::ASTScript *script )
 			zzmatch_wsig(TOK_LC, _handler);
 			
 #line 483 "calcparser.g"
-			// define here, to create new one each repition:
+			// define here, to create new one each repetition:
 			ASTDefinition ib;
 			ib.setName(genId(id));
  consume();

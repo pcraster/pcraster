@@ -47,7 +47,7 @@ public:
   //----------------------------------------------------------------------------
 
 
-  //! find atttribute named \name in \a owningElement and return C++ enum \a EnumType
+  //! find attribute named \name in \a owningElement and return C++ enum \a EnumType
   /*!
       attribute must be present
    */
@@ -80,7 +80,7 @@ public:
 
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

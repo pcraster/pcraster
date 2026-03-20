@@ -345,7 +345,7 @@ public:
     }
 
     // Handle no-flow conditions on the borders of the area. The value of head
-    // along the fictious column reflects across the border.
+    // along the fictitious column reflects across the border.
 
 
     // Process borders of raster.
@@ -677,7 +677,7 @@ extern "C" int Transient(void **out, const void **in, int nrArgs)
     }
   }
 
-  // Inititalize...
+  // Initialize...
   double oldValue = NAN;
   double const tolerance = toleranceInterface.value(0, 0);
   double difference = NAN;
@@ -705,7 +705,7 @@ extern "C" int Transient(void **out, const void **in, int nrArgs)
   // std::cout << std::endl;
 
   // Algorithm...
-  // Loop over all cells in the raster untill the maximum difference between
+  // Loop over all cells in the raster until the maximum difference between
   // the current elevation and the new elevation is smaller than the tolerance.
   do {
     maxDifference = 0.0;

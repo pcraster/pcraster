@@ -164,4 +164,4 @@ report	ae.tss		= timeoutput(AfvoerID,accuflux(RiverLDD,AE)/ups);
 	runoff		= kwikFlo + sloFlo + OverlandFlow;
 report	discharge.tss = timeoutput(AfvoerID,accuflux(RiverLDD,runoff)/ups);
 
-# in addition dpv and dpt are reported seperate
+# in addition dpv and dpt are reported separate

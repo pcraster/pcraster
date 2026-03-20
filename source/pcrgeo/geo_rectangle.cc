@@ -163,7 +163,7 @@ geo_Rectangle &geo_Rectangle::operator*=(REAL8 i)
 }
 
 /*!
-  Devide x- and y-coordinates of upper left and lower right coordinates of
+  Divide x- and y-coordinates of upper left and lower right coordinates of
   the rectangle by i.
 */
 geo_Rectangle &geo_Rectangle::operator/=(int i)
@@ -174,7 +174,7 @@ geo_Rectangle &geo_Rectangle::operator/=(int i)
 }
 
 /*!
-  Devide x- and y-coordinates of upper left and lower right coordinates of
+  Divide x- and y-coordinates of upper left and lower right coordinates of
   the rectangle by i.
 */
 geo_Rectangle &geo_Rectangle::operator/=(REAL8 i)
@@ -344,7 +344,7 @@ geo_Rectangle operator*(const geo_Rectangle &rectangle, REAL8 i)
 
 /*!
   \relates geo_Rectangle
-  Devide the rectangle by i and return the resulting point.
+  Divide the rectangle by i and return the resulting point.
 */
 geo_Rectangle operator/(const geo_Rectangle &rectangle, int i)
 {
@@ -354,7 +354,7 @@ geo_Rectangle operator/(const geo_Rectangle &rectangle, int i)
 
 /*!
   \relates geo_Rectangle
-  Devide the rectangle by i and return the resulting point.
+  Divide the rectangle by i and return the resulting point.
 */
 geo_Rectangle operator/(const geo_Rectangle &rectangle, REAL8 i)
 {

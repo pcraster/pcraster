@@ -349,12 +349,12 @@ namespace xsd
         bool
         serialize (xercesc::XMLFormatTarget& target,
                    const xercesc::DOMDocument& doc,
-                   const std::basic_string<C>& enconding,
+                   const std::basic_string<C>& encoding,
                    error_handler<C>& eh,
                    unsigned long flags)
         {
           bits::error_handler_proxy<C> ehp (eh);
-          return serialize (target, doc, enconding, ehp, flags);
+          return serialize (target, doc, encoding, ehp, flags);
         }
       }
     }

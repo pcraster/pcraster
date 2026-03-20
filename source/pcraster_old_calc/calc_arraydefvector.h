@@ -19,7 +19,7 @@ private:
   std::vector<const ArrayDefinition* > d_vector;
   std::map<std::vector<size_t>,size_t> d_map2flatIndex;
 public:
-  //! single index elemement
+  //! single index element
   typedef std::vector<const class IndexParameterConstant *> Index;
 
 

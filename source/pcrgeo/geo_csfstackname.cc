@@ -150,10 +150,10 @@ std::string geo::CSFStackName::asAguilaArgument(const std::string &stackName, in
 
   The name of a static stack is restricted only by the rules of the shell.
 
-  The name of a dynamic stack name must obey the folowing naming rules:
+  The name of a dynamic stack name must obey the following naming rules:
   <ol>
     <li> Structure: base name + first timestep + '+' + last timestep.<p>
-         eg: dem00000.001+1000 for a stack with timestep 1 untill and
+         eg: dem00000.001+1000 for a stack with timestep 1 until and
          including timestep 1000 possibly available.
          This means a stack comprised of possibly 1000 maps, named
          dem00000.001, dem00000.002 up to dem00001.000
@@ -485,7 +485,7 @@ void geo::CSFStackName::availableTimeSteps(std::vector<com::PathName> &pool,
   // The idea:
   // Search for file names in pool. During the search the pool of interesting
   // file names gets smaller and smaller. This is because we search in an
-  // orderly fasion in an ordered pool, and every time we find something we
+  // orderly fashion in an ordered pool, and every time we find something we
   // can discard all file names which are before and including the found one,
   // before we start searching for a new stack name. Also, before we start
   // the search, we can determine if the search will be hopeful. If not,
@@ -512,12 +512,12 @@ void geo::CSFStackName::availableTimeSteps(std::vector<com::PathName> &pool,
            operation. Only call this function the first time or if you think
            that timesteps have been added/deleted to/from the stack.
 
-  This function inspects the filesystem for the existance of files with names
+  This function inspects the filesystem for the existence of files with names
   based on the name given to the constructor.
 
   For example, if soil0000.001+100 is given to the constructor, this function
   will check soil0000.001, soil0000.002, ... soil0000.099 and soil0000.100 for
-  existance.
+  existence.
 */
 void geo::CSFStackName::scan()
 {

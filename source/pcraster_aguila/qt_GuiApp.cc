@@ -113,7 +113,7 @@ qt::GuiApp::~GuiApp()
   This function calls the subclass' setup() function and after that it starts
   the event loop of the qt-application.
 
-  This function returns 0 if everything went well. If an error occured, than
+  This function returns 0 if everything went well. If an error occurred, than
   1 is returned.
 
   No exception leaves this function.

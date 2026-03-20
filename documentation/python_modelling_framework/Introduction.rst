@@ -1,7 +1,7 @@
 ************
 Introduction
 ************
-The framework supports static models without a time component and temporals models wich simulate a dynamic processes. Both types can be used for Monte Carlo (:ref:`Doucet2001 <Doucet2001>`), particle filter (:ref:`Weerts2006 <Weerts2006>`) or Ensemble Kalman filter (:ref:`Evensen1994 <Evensen1994>`) simulations. With the PCRaster Python extension (:ref:`pcraster2008 <pcraster2008>`, :ref:`Karssenberg2007 <Karssenberg2007>`) models can be extended by a spatial component.
+The framework supports static models without a time component and temporals models which simulate a dynamic processes. Both types can be used for Monte Carlo (:ref:`Doucet2001 <Doucet2001>`), particle filter (:ref:`Weerts2006 <Weerts2006>`) or Ensemble Kalman filter (:ref:`Evensen1994 <Evensen1994>`) simulations. With the PCRaster Python extension (:ref:`pcraster2008 <pcraster2008>`, :ref:`Karssenberg2007 <Karssenberg2007>`) models can be extended by a spatial component.
 
 Two steps in the model development cycle are the conversion of the conceptual model structure into computer code and the assimilation or calibration of the model with observational data (:ref:`Karssenberg2006 <Karssenberg2006>`. This framework combines the tasks of model construction and optimisation in a single framework.
 

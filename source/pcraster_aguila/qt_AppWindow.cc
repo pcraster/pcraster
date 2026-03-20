@@ -99,7 +99,7 @@ void qt::AppWindow::showWarning(QWidget *p, const std::string &caption, const st
   \return    true if Ok is pressed, falsed on Cancel.
 
   \a explainConsequence must explain what will happen when Ok or Cancel
-     is pressed. Cancel is the default, and the Esc key will triggger Cancel.
+     is pressed. Cancel is the default, and the Esc key will trigger Cancel.
      Make sure the operation is modelled as such, that Cancel is the least
      or non destructive option to choose from.
 

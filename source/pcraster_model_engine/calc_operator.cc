@@ -162,7 +162,7 @@ const std::string &calc::Operator::implName() const
  */
 std::string calc::Operator::syntax() const
 {
-  // if then (else) apear as a function to the user
+  // if then (else) appear as a function to the user
   if (d_syntax == SYNTAX_FUNC || d_major == OP_IFTHEN || d_major == OP_IFTHENELSE) {
     return "function";
   }

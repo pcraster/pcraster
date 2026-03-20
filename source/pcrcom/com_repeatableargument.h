@@ -23,7 +23,7 @@ namespace com {
 //! RepeatableArgument object can parse a sequence of equal arguments.
 /*!
   This class is for command line arguments which can be repeated on the
-  command line. The parse() function continues parsing untill it finds
+  command line. The parse() function continues parsing until it finds
   encounters an argument it cannot parse or all arguments are parsed.
 
   Parsed arguments are written to an external collection through a

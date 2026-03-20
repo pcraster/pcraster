@@ -12,7 +12,7 @@ namespace pcrxml {
 //! XML Schema compliant double
 /*!
     \todo
-      carefull: i18n decides how to use '.' and ',' !
+      careful: i18n decides how to use '.' and ',' !
  */
 typedef SimpleAttr<double>   Double;
 

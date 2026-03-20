@@ -62,7 +62,7 @@ void (*errorHandler)(const char *msg) = printStderr;
  * ErrorNested() buffers messages that will be printed in
  * reverse order if Error() is called.
  * All leading and trailing isspace() characters are removed
- * and messages are indended for each call to ErrorNested().
+ * and messages are intended for each call to ErrorNested().
  *
  * IMPORTANT
  * Global (not static) functions that use ErrorNested() should have

@@ -243,7 +243,7 @@ namespace com
   \return  A reference to stream \a s.
   \sa      operator>>(std::istream &, BasicTable &)
 
-  A BasicTable object will be written in the folowing format:
+  A BasicTable object will be written in the following format:
   \code
   1 2 3
   4 5 6

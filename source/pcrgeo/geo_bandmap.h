@@ -24,9 +24,9 @@ class RasterSpace;
 
   The format describes 2 files: the .BIL file with the data and
   the .HDR file with ASCII formatted header information.
-  The header file is case insensitive, all capitals seems preffered.
+  The header file is case insensitive, all capitals seems preferred.
 
-  example header, in preffered order:
+  example header, in preferred order:
   <pre>
   BYTEORDER      M
   LAYOUT       BIL
@@ -47,7 +47,7 @@ class RasterSpace;
   the standard missing value. If that value is present in the data file a  real
   value (not the NODATA) then it is still regarded as the MV.
 
-  Note that acoording to JJ some apps do write a NODATA as min and max to the .stx
+  Note that according to JJ some apps do write a NODATA as min and max to the .stx
   file, even though the maps do contains other NODATA values.
 
   The format has a standard projection of geo::Projection::YIncrB2T, no other projection
@@ -261,7 +261,7 @@ public:
 };
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------

@@ -68,14 +68,14 @@ copy the legend of the first map to the other maps
 
 
 store the legend labels in an ascii formatted legend file
-   -w :emphasis:`outputlegendfile`: One or more PCRmap1,PCRmap2,...PCRmapN may be specifed. The cell values of these maps with the labels are stored in the ascii formatted :emphasis:`outputlegendfile`. For each cell value, the label is stored of the PCRmapI (I is 1...N) with the lowest I that contains the cell value under consideration. The layout of the legend file :emphasis:`outputlegendfile` is given below.
+   -w :emphasis:`outputlegendfile`: One or more PCRmap1,PCRmap2,...PCRmapN may be specified. The cell values of these maps with the labels are stored in the ascii formatted :emphasis:`outputlegendfile`. For each cell value, the label is stored of the PCRmapI (I is 1...N) with the lowest I that contains the cell value under consideration. The layout of the legend file :emphasis:`outputlegendfile` is given below.
 
 read the legend labels for the maps from an ascii formatted legend file
    -f :emphasis:`inputlegendfile`: One or more PCRmap1,PCRmap2,...PCRmapN may be specified. The labels given in the :emphasis:`inputlegendfile` are assigned to the legend of these maps. A cell value on an input map that does not occur in the :emphasis:`inputlegendfile` is assigned a label. The layout of the legend file :emphasis:`inputlegendfile` is given below.
 
 
 The general layout of a legend file is as follows. The ascii formatted
-file constists of two columns, separated by one or more whitespace
+file consists of two columns, separated by one or more whitespace
 characters (space(s), tab(s)). The cell values are in the first column,
 the labels are in the second column. The first row contains in the first
 column the field -0 and in the second column the title of the legend.

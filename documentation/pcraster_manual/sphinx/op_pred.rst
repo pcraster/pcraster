@@ -27,7 +27,7 @@ Operation
 =========
 
 
-The result of the operation depends on wheter expression has a legend or not. If expression has a legend, the legend determines the domain of expression: the domain consists of the ordinal numbers linked to the classes in the legend. This domain with these ordinal classes is also assigned to Result. Cells on Result may have values in this domain. For each expression cell value the first lower ordinal number which is in the domain is determined. This is assigned to the corresponding cell on Result.   
+The result of the operation depends on whether expression has a legend or not. If expression has a legend, the legend determines the domain of expression: the domain consists of the ordinal numbers linked to the classes in the legend. This domain with these ordinal classes is also assigned to Result. Cells on Result may have values in this domain. For each expression cell value the first lower ordinal number which is in the domain is determined. This is assigned to the corresponding cell on Result.   
 
 
 

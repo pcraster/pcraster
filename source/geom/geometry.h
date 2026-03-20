@@ -17,10 +17,10 @@ typedef struct POINT2D /* a point */
 
 typedef POINT2D POLYGON;
 /* POLYGON  is an array of points
-        if N points are neccessary to describe an polygon
+        if N points are necessary to describe an polygon
   then the polygon array is N+1 elements long.
   By storing point 0 again as point N makes it easier to
-  adrress all cords of the polygon
+  address all cords of the polygon
   So a polygon described by N points, has an array of N+1 
    elements where element 0 equals element N+1
 */

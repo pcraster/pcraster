@@ -454,7 +454,7 @@ BOOST_AUTO_TEST_CASE(column_with_empty_values)
   using namespace dal;
 
   // For example, columns separated by tabs, some values given, some absent.
-  // Should be possible, by splitting the record on the seperator. Empty value
+  // Should be possible, by splitting the record on the separator. Empty value
   // is a missing value.
   bool const testImplemented = false;
   BOOST_TEST_WARN(testImplemented);

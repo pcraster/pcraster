@@ -17,7 +17,7 @@
          a continuous range of data values.
 
   This class implements an classification algorithm. A continuous range of data
-  values is devided into classes of equal width.
+  values is divided into classes of equal width.
 */
 //       1         2         3         4         5         6         7         8
 template<class T>
@@ -61,7 +61,7 @@ public:
 
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

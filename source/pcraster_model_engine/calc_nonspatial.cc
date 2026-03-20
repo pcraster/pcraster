@@ -5,7 +5,7 @@
 
 //! constructor
 /*! default to zero, if we do not init later,
-    is now needed for the skipped exection of an if branch,
+    is now needed for the skipped execution of an if branch,
     because the impls. will test on not-MV of a nonspatial
  */
 calc::NonSpatial::NonSpatial(VS vs, double value) : Field(vs, CRI_X)

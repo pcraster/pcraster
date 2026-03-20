@@ -14,7 +14,7 @@ Introduction
 
 Dynamic modelling is modelling of processes over time. In dynamic
 modelling new attributes are computed as a function of attribute changes
-over time. After the general concepts (:ref:`secseqcon`) are explained, each part of the script will be described, from the structure in the seperate sections of the program (script) for a dynamic model (:ref:`secseqscr` to  some special contents of a dynamic modelling script (timeinput, report) and the running of a script (:ref:`secseqbla`). Finally, some examples of dynamic models are given (:ref:`secseqhow`). 
+over time. After the general concepts (:ref:`secseqcon`) are explained, each part of the script will be described, from the structure in the separate sections of the program (script) for a dynamic model (:ref:`secseqscr` to  some special contents of a dynamic modelling script (timeinput, report) and the running of a script (:ref:`secseqbla`). Finally, some examples of dynamic models are given (:ref:`secseqhow`). 
 
 
 
@@ -32,7 +32,7 @@ Introduction
 In a dynamic model, for each timestep a series of pcrcalc operations is consecutively performed using the resulting maps from the previous timestep and/or external data that define the value of an attribute for that timestep. This is done for all timesteps of a model run. Thus a dynamic model can be seen as a temporal sequence of static changes in the state of cells on map(s), each representing the change in the state of the modelled process over the timestep. 
 
 
-In the PCRaster database, the :emphasis:`time series` covers spatial data that vary over time. For each time step, it contains a set of map cell values that is input or output at that timestep. The format of  time series will be described later on (:ref:`secdatbasetimeform`). Other data used in Dynamic Modelling are the same as used for Cartographic Modelling: the :emphasis:`PCRaster map` and the table. In a dynamic model a PCRaster map is a variable that may have a different set of cell values for each time step: it is a map that changes in time. A table is used in dynamic modelling to define certain relations between maps. The table must be available in the PCRaster database before a model is run; a table cannot be changed or generated during a model run. The general  concept and format of the time series, the PCRaster map en the table has been dicussed earlier (:ref:`secdatbase`). 
+In the PCRaster database, the :emphasis:`time series` covers spatial data that vary over time. For each time step, it contains a set of map cell values that is input or output at that timestep. The format of  time series will be described later on (:ref:`secdatbasetimeform`). Other data used in Dynamic Modelling are the same as used for Cartographic Modelling: the :emphasis:`PCRaster map` and the table. In a dynamic model a PCRaster map is a variable that may have a different set of cell values for each time step: it is a map that changes in time. A table is used in dynamic modelling to define certain relations between maps. The table must be available in the PCRaster database before a model is run; a table cannot be changed or generated during a model run. The general  concept and format of the time series, the PCRaster map en the table has been discussed earlier (:ref:`secdatbase`). 
 
 
 

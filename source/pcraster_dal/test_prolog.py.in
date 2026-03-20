@@ -91,7 +91,7 @@ with open(os.path.join(dest_dir, "table5.col"), "w") as f:
     f.write("""1 2 3 4 5"""
     )
 
-# Values seperated by tabs.
+# Values separated by tabs.
 with open(os.path.join(dest_dir, "table6.col"), "w") as f:
     f.write(""" 1\t2\t3
  4\t-5\t6

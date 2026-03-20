@@ -16,7 +16,7 @@ namespace tab {
 
 namespace tab {
 
-//! count class occurence using std::map
+//! count class occurrence using std::map
 template<typename Class=int>
 class ClassCountMap : public std::map<Class,size_t>
 {

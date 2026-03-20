@@ -23,7 +23,7 @@
 //! ctor, get input from argument vector
 /*!
  * \param nrArgv size of \a argv
- * \param argv   arguments making up the input, if concatenated with space as delimeter
+ * \param argv   arguments making up the input, if concatenated with space as delimiter
  *               last element may contain ;;
  */
 calc::LexInputSourceString::LexInputSourceString(int nrArgv, const char **argv) : LexInputSource("?")

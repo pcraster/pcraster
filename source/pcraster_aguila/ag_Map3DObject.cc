@@ -494,7 +494,7 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject &dataObject, const a
           // Draw the quad.
           // For efficiency we look for the top attribute which fills the quad
           // and start calling that drawer and the ones after it (possibly an
-          // ldd which doesnt fill the quad). This results in less drawn quads
+          // ldd which doesn't fill the quad). This results in less drawn quads
           // and prevends the situation that only the first filled quad is
           // visible.
           for (rdraw_it = drawers.rbegin(); rdraw_it != drawers.rend(); ++rdraw_it) {

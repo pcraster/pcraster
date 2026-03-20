@@ -4,7 +4,7 @@
 
     TODO:
       - check if I disabled polymorphism on types. I should not
-         support passsing UINT1, INT4 and float in one argument
+         support passing UINT1, INT4 and float in one argument
       - linux compile as did for zengtoa
          gcc -I../include -olibexamples1.so -I../include -shared
 
@@ -71,7 +71,7 @@ The API allows for two use modes:
 
 The API presented in this document is a new API to be used with the 2006 and more recent versions of pcrcalc (not oldcalc.exe) and is not compatible with the C-API used in oldcalc.exe ( http://pcraster.geog.uu.nl/pcrcalcapi.html).
 
-The new LinkIn API is very much work in progress. Therefor this documentation and the code samples are not yet part of the PCRaster distribution.
+The new LinkIn API is very much work in progress. Therefore this documentation and the code samples are not yet part of the PCRaster distribution.
 
 As a final product a layered architecture is envisioned:
  - Protocol layer

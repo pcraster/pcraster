@@ -1969,7 +1969,7 @@ using noprefix = prefix_not;
 /*************************************************************************//**
  *
  * @brief predicate that returns true if the length of the input string
- *        is wihtin a given interval
+ *        is within a given interval
  *
  *****************************************************************************/
 class length {
@@ -3306,7 +3306,7 @@ public:
 
     //---------------------------------------------------------------
     /** @brief turns explicit scoping on or off
-     *         operators , & | and other combinating functions will
+     *         operators , & | and other combining functions will
      *         not merge groups that are marked as scoped
      */
     group& scoped(bool yes) {
@@ -3314,7 +3314,7 @@ public:
         return *this;
     }
 
-    /** @brief returns true if operators , & | and other combinating functions
+    /** @brief returns true if operators , & | and other combining functions
      *         will merge groups and false otherwise
      */
     bool scoped() const noexcept

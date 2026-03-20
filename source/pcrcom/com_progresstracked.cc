@@ -103,7 +103,7 @@ template <typename ProgressTracker> void com::ProgressTracked<ProgressTracker>::
 //! Calls ProgressTracker::setNrSteps(size_t).
 /*!
   \param     nrSteps Number of actions to be performed.
-  \warning   Nothing happends if a tracker is not set.
+  \warning   Nothing happens if a tracker is not set.
   \sa        setProgress(ProgressTracker*)
 */
 template <typename ProgressTracker>
@@ -116,7 +116,7 @@ void com::ProgressTracked<ProgressTracker>::setNrSteps(size_t nrSteps)
 
 //! Calls ProgressTracker::finishedStep().
 /*!
-  \warning   Nothing happends if a tracker is not set.
+  \warning   Nothing happens if a tracker is not set.
   \sa        setProgress(ProgressTracker*)
 */
 template <typename ProgressTracker> void com::ProgressTracked<ProgressTracker>::finishedStep()
@@ -128,7 +128,7 @@ template <typename ProgressTracker> void com::ProgressTracked<ProgressTracker>::
 
 //! Calls ProgressTracker::finishedSteps().
 /*!
-  \warning   Nothing happends if a tracker is not set.
+  \warning   Nothing happens if a tracker is not set.
   \sa        setProgress(ProgressTracker*)
 */
 template <typename ProgressTracker> void com::ProgressTracked<ProgressTracker>::finishedSteps()
@@ -140,7 +140,7 @@ template <typename ProgressTracker> void com::ProgressTracked<ProgressTracker>::
 
 //! Calls ProgressTracker::finishedSteps(size_t).
 /*!
-  \warning   Nothing happends if a tracker is not set.
+  \warning   Nothing happens if a tracker is not set.
   \sa        setProgress(ProgressTracker*)
 */
 template <typename ProgressTracker>

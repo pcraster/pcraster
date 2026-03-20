@@ -67,7 +67,7 @@ calc::DataValue::DataValue(const DataValue& rhs):
 */
 
 /*! load the object if needed
- *  This method can do anything the object deems neccessary be ready
+ *  This method can do anything the object deems necessary be ready
  *  for execution.
  */
 calc::DataValue *calc::DataValue::load()

@@ -133,7 +133,7 @@ BOOST_AUTO_TEST_CASE(for_each_child_element)
   forEachChildElement(doc.documentElement(), ca);
   BOOST_CHECK(ca.nr == 0);
 
-  // only S2 childs of root has attr
+  // only S2 children of root has attr
   CountAttrsOfElement ca2;
   forEachChildElement(doc.documentElement(), ca2);
   BOOST_CHECK(ca2.nr == 1);

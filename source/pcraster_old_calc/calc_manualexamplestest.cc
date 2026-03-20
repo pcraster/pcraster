@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE(all)
     }
   }
   if (nrFailures != 0) {
-    std::cerr << "Note order.Result.omap will fail, new algoritm in newcalc \n";
+    std::cerr << "Note order.Result.omap will fail, new algorithm in newcalc \n";
     std::cerr << nrFailures << " failures out of " << et.size() << "\n";
   }
   BOOST_TEST_WARN((nrFailures <= 3));

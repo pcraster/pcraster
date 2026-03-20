@@ -14,7 +14,7 @@ namespace com {
 
 
 
-//! The BitVector class is for arbitrarely long vectors of bits.
+//! The BitVector class is for arbitrarily long vectors of bits.
 /*!
   Vectors of bits can be used as a set for a (sparse) range of integers.
 
@@ -72,7 +72,7 @@ public:
 
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

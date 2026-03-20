@@ -59,7 +59,7 @@ namespace xsd
 
       // Iterator adapter for complex types. It expects I to point to
       // a smart pointer-like object that has operator*() that returns
-      // a refernce to a type static_cast'able to T and get() that
+      // a reference to a type static_cast'able to T and get() that
       // returns a pointer to a type static_cast'able to T.
       //
 

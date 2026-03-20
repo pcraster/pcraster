@@ -132,7 +132,7 @@ void calc::IoCsfFieldStrategy::setStackInfo(const StackInfo &s) const
         geo::CSFMap m(s.d_fileWriter->mapFileName(t), true);
         m.setMinMax(s.d_min, s.d_max);
       } catch (const com::OpenFileError & /* e */) {
-        // ignore if file has disapeared
+        // ignore if file has disappeared
       }
     }
   }

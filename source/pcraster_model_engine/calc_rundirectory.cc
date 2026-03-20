@@ -44,7 +44,7 @@ calc::RunDirectory::~RunDirectory()
 
    \param runDirectory must be a valid name for a directory to
    write all output to. If empty then the output directory and search
-   paths are set to default, none. all path delimeters are accepted.
+   paths are set to default, none. all path delimiters are accepted.
    \param externalBindingsFile file path set from pcrcalc -b option, empty
    if not set
  */

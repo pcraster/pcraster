@@ -28,7 +28,7 @@
 /* IMPLEMENTATION */
 /******************/
 
-/* checks confict on set of input and output files
+/* checks conflict on set of input and output files
  * CheckFileSets checks if the set of output files
  * contains different names and that if an output
  * file is also in the input file set.

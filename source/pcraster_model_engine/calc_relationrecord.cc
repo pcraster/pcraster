@@ -48,7 +48,7 @@ calc::RelationRecord::RelationRecord()
 {
 }
 
-//! constuct from old style
+//! construct from old style
 calc::RelationRecord::RelationRecord(const LOOK_UP_KEY *keys, size_t nrKeys)
 {
   reserve(nrKeys);
@@ -151,7 +151,7 @@ calc::RelationRecord::~RelationRecord()
 }
 
 //! predicate if RelationRecord matches
-/*! key.size() <= size(), the comparision is on the first key.size() intervals.
+/*! key.size() <= size(), the comparison is on the first key.size() intervals.
  */
 bool calc::RelationRecord::match(const Key &key) const
 {

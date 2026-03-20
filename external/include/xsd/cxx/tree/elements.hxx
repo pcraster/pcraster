@@ -1789,7 +1789,7 @@ namespace xsd
         T x_;
       };
 
-      // While thse operators are not normally necessary, they
+      // While these operators are not normally necessary, they
       // help resolve ambiguities between implicit conversion and
       // construction.
       //

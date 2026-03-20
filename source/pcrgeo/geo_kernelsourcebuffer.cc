@@ -60,7 +60,7 @@ geo::KernelSourceBuffer<T, U>::KernelSourceBuffer(const SimpleRaster<T> &raster,
               2 * static_cast<int>(d_radius) >
           0);
 
-  // yepyep: The pure virtual version of update gets called and not the overide.
+  // yepyep: The pure virtual version of update gets called and not the override.
   // yepyep: Moved this call to the specialisation. Why can't we call a pure
   // yepyep: virtual function from the base's constructor? Link problem?
   // update(0, 0, nrCols() - 1, 2 * d_radius + 1);

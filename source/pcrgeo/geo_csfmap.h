@@ -216,7 +216,7 @@ public:
 };
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 
@@ -230,7 +230,7 @@ inline CSFMap::operator const MAP *() const
 /*!
   \fn        geo::CSFMap::operator MAP *()
   \return    Writable version of the MAP file pointer.
-  \warning   Be carefull with it! It's probably better to extend this class
+  \warning   Be careful with it! It's probably better to extend this class
              to contain the functionality you're writing right now.
 */
 inline CSFMap::operator MAP *()

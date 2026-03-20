@@ -17,7 +17,7 @@ namespace calc {
    key issues:
    <ol>
    <li>to set the RasterSpace features from an ESRI input
-   grid if that is avaialable. Only if there is no ESRI format input then
+   grid if that is available. Only if there is no ESRI format input then
    one can set the features from another (CSF) format. This is to
    the changes that ESRI grids input and output do not match on the features
    exactly.
@@ -113,7 +113,7 @@ public:
 
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

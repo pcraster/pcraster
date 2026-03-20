@@ -376,7 +376,7 @@ void PDC_scr_free(void)
     SetConsoleCtrlHandler(_ctrl_break, FALSE);
 }
 
-/* open the physical screen -- allocate SP, miscellaneous intialization,
+/* open the physical screen -- allocate SP, miscellaneous initialization,
    and may save the existing screen for later restoration */
 
 int PDC_scr_open(int argc, char **argv)
@@ -505,7 +505,7 @@ int PDC_scr_open(int argc, char **argv)
 }
 
  /* Calls SetConsoleWindowInfo with the given parameters, but fits them
-    if a scoll bar shrinks the maximum possible value. The rectangle
+    if a scroll bar shrinks the maximum possible value. The rectangle
     must at least fit in a half-sized window. */
 
 static BOOL _fit_console_window(HANDLE con_out, CONST SMALL_RECT *rect)

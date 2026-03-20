@@ -41,7 +41,7 @@ static void remove(
     if(stack.empty()) {
 
       // There're no voxels left but still stuff to erode. Here we lower
-      // the base level with the remaining thicknes.
+      // the base level with the remaining thickness.
       stack.setBaseElevation(stack.baseElevation() - thickness);
     }
     else {

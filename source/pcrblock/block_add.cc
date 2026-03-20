@@ -136,7 +136,7 @@ static void mackeyBridgeAdd(
       else {
 
         // The current top voxel will be buried with other material.
-        // We fill it untill its maximum original thickness is reached
+        // We fill it until its maximum original thickness is reached
         // and compact it.
         DEVELOP_PRECOND(thickness > maxVoxelThickness);
         originalThickness[i] = maxVoxelThickness;
@@ -160,13 +160,13 @@ static void mackeyBridgeAdd(
     }
   }
 
-  // Check if there's accomodation space left to fill.
+  // Check if there's accommodation space left to fill.
   if(thickness > REAL4(0.0)) {
 
     // ------------------
     // PROCESS NEW VOXELS
     // ------------------
-    // Add and compact new voxels from bottom to top. Continue untill
+    // Add and compact new voxels from bottom to top. Continue until
     // the available space left is less than the height of one
     // uncompacted voxel.
     voxelThickness = maxVoxelThickness;

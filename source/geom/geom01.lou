@@ -60,7 +60,7 @@ typedef struct LINE
 "}" LINE;
 }
 
-A line is described by it's intersection point trough the Y or X axis
+A line is described by it's intersection point through the Y or X axis
 and it's slope. Normally the intersection with the Y axis is stored in
 the field @Code yInt, except if the line is parallel to the Y axis. The
 boolean field @Code parY is true (nonzero) if the line is parallel to

@@ -29,7 +29,7 @@ namespace mldd {
   };
 
 
-//! Neighbouring Raster cells connected as one ore more Directed Acyclic Graph (DAG)'s
+//! Neighbouring Raster cells connected as one or more Directed Acyclic Graph (DAG)'s
 /*!
  *  This DAG connect neighbour cells. The acyclicity is a condition that must
  *  be validated on the configuration.

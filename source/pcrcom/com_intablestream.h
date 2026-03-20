@@ -26,7 +26,7 @@ namespace com {
  *  Source and tests are now no longer
  *  compiled. Also the support classes SpiritFileLineParser and TableInfo.
  *
- * inherit from TableInfo is very convenient, altough an InTableStream need to
+ * inherit from TableInfo is very convenient, although an InTableStream need to
  * HAVE a TableInfo while it IS NOT a TableInfo?
  *
  * \todo

@@ -16,7 +16,7 @@
 
 #include <xercesc/sax/InputSource.hpp>
 
-#include <xsd/cxx/xml/elements.hxx>      // properies
+#include <xsd/cxx/xml/elements.hxx>      // properties
 #include <xsd/cxx/xml/error-handler.hxx>
 #include <xsd/cxx/xml/dom/auto-ptr.hxx>
 #include <xsd/cxx/xml/dom/elements.hxx>  // name

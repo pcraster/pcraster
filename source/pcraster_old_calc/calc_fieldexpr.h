@@ -24,7 +24,7 @@ public:
   ~FieldExpr() override;
   // MANIPULATORS
 
-  //! buids its own types and call for sub-expression
+  //! builds its own types and call for sub-expression
   virtual void buildTypesRecursive(VS resultVsSet)=0;
 
   //! returns FieldType for further type restrictment

@@ -24,7 +24,7 @@ namespace calc {
 /*!  as an id (like ASTPar) or a compound element (like ASTExpr)
     The Abstract Syntax Tree (AST) is a collection of nodes that are
     "single-referenced". All nodes that make the tree are only pointed
-    to by a single parent. Therefor each pointer to a node is known to be an unique
+    to by a single parent. Therefore each pointer to a node is known to be an unique
     point/position in the script.
 
     Each node may return 0 or more data items: returnDataType()

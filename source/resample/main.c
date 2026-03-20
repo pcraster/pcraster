@@ -63,7 +63,7 @@ extern int nrSearchTables;
   " R   same as -r 1\n"                                                                                 \
   " a   contract map when rounding to cells\n"                                                          \
   " x   expand map when rounding to cells (default)\n"                                                  \
-  " k   keep minumum and maximum of input \n"                                                           \
+  " k   keep minimum and maximum of input \n"                                                           \
   " --clone clone.map resample to this size\n"
 
 /**********************/

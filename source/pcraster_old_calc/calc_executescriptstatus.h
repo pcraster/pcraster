@@ -15,13 +15,13 @@ namespace calc {
 //! status of executeScriptStatus()
 /*!
  *  a script is either running or is terminated
- *  on some condition. ExecuteScriptStatus enumarates
+ *  on some condition. ExecuteScriptStatus enumerates
  *  these conditions plus the running condition.
  *  \todo
  *    make IsRunningExecScript the 0 case
  */
 typedef enum ExecuteScriptStatus  {
-     ErrorExecScript=0,  /*!< syntax or runtime error occured */
+     ErrorExecScript=0,  /*!< syntax or runtime error occurred */
      FinishedExecScript, /*!< script finished normally */
      FileOutputValueExecScript, /*!< -e was set, and and expr eval'ed to 0 */
      CanceledExecScript, /*!< user requested cancel, by a ProgressCallBack */

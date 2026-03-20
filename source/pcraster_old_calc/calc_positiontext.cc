@@ -46,7 +46,7 @@ void calc::PositionText::throwError(const std::string &inMsg) const
   msg += '\n';
 
 #ifdef DEBUG_DEVELOP
-  /* only automic initizialization does this
+  /* only automatic initizialization does this
    * meaning, we have an program generated
    * symbol, not an user symbol
    * So this indicates a programming error

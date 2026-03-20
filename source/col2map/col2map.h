@@ -1,7 +1,7 @@
 #ifndef INCLUDED_COL2MAP_COL2MAP
 #define INCLUDED_COL2MAP_COL2MAP
 
-typedef enum COMP_CELL {                  /* how to compute cell if mutiple records */
+typedef enum COMP_CELL {                  /* how to compute cell if multiple records */
                          AVERAGE = 0,     /* average value */
                          DIR_AVERAGE = 1, /* directional average value */
                          HIGHEST = 2,     /* highest value */

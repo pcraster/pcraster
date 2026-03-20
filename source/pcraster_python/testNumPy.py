@@ -243,7 +243,7 @@ class TestNumPy(testcase.TestCase):
       array2[0][0] = 5.0
       self.assertEqual(pcraster.pcr2numpy(raster, 999.0)[0][0], 5.0)
 
-      # Replace exising raster and verify the array still behaves.
+      # Replace existing raster and verify the array still behaves.
       raster += 1.0
       self.assertEqual(array2[0][0], 5.0)
 

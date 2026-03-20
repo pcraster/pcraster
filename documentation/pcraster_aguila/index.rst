@@ -14,7 +14,7 @@ In short, Aguila:
 * runs at least on the major operating systems,
 * is licensed under the GPL.
 
-Aguila is part of the `PCRaster Open Source Tools`__ collection and is distributed as part of the main PCRaster installation package and as a seperate installation package.
+Aguila is part of the `PCRaster Open Source Tools`__ collection and is distributed as part of the main PCRaster installation package and as a separate installation package.
 
 __ http://pcraster.sourceforge.net
 

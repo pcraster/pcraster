@@ -89,7 +89,7 @@ inline void arithmeticOperator(
   \param     op Binary operator to apply.
   \param     lhs Vector of first arguments.
   \param     rhs Vector of second arguments.
-  \warning   The length of \a lhs must be equal to the lengt of \a rhs.
+  \warning   The length of \a lhs must be equal to the length of \a rhs.
 
   The result of applying \a op is stored in \a lhs. \a op is not applied when
   \a lhs and/or \a rhs contains a missing value.

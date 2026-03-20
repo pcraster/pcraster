@@ -36,7 +36,7 @@ int StrNCaseEq(const char *s1, /* first string */
   l2 = strlen(s2);
   if (count > MIN(l1, l2) && l1 != l2) {
     /* compare more chars then avail and not the same length */
-    return 0; /* not the same lenght is not equal */
+    return 0; /* not the same length is not equal */
   }
 
   count = MIN(count, MIN(l1, l2));
@@ -244,7 +244,7 @@ char *LeftRightTrim(char *str) /* String to be modified */
 
 /* Trim string and replace space by single space.
  * Removes leading and trailing isspace() characters and 
- * substitutes sequences of isspace() chararacters with one  
+ * substitutes sequences of isspace() characters with one  
  * space (that is ' ' not '\t').
  * Returns modified string.
  */
@@ -283,7 +283,7 @@ char *LeftRightTabTrim(char *str) /* String to be modified */
 
 /* Trim string and replace space by single space, and count tokens.
  * Removes leading and trailing isspace() characters and 
- * substitutes sequences of isspace() chararacters with one  
+ * substitutes sequences of isspace() characters with one  
  * space (that is ' ' not '\t').
  * A token is a string of non-isspace() characters terminated by a space
  * or '\0'
@@ -323,7 +323,7 @@ int TokenSpaceTrim(char *s) /* read-write. String to be modified and counted */
 } /* TokenSpaceTrim */
 
 /* Check if character is in [a-zA-Z0-9_] 
- * Checks if c is an alpabetic, numerical or underscore
+ * Checks if c is an alphabetic, numerical or underscore
  * returns
  *
  *  0 if not

@@ -163,7 +163,7 @@ void calc::ClientInterfaceTest::testCapi()
     PcrScript *s = pcr_createScript("pcrscripttest.mod");
     BOOST_TEST(s);
     if (!s)
-      foo();  // supress not used message
+      foo();  // suppress not used message
     pcr_ScriptExecute(s);
     BOOST_TEST(!pcr_ScriptError(s));
     pcr_destroyScript(s);

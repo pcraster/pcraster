@@ -99,7 +99,7 @@ BOOST_AUTO_TEST_CASE(test)
     BOOST_TEST(v.testText());
     BOOST_TEST(v.testCDATA());
   }
-  {  // inner CDATA section, some entitity encoding
+  {  // inner CDATA section, some entity encoding
     Verify v;
     v.doc =
         new Document("<!DOCTYPE dataEnvelop> "
@@ -109,7 +109,7 @@ BOOST_AUTO_TEST_CASE(test)
     BOOST_TEST(v.testText());
     BOOST_TEST(v.testCDATA());
   }
-  {  // all entitity encoding
+  {  // all entity encoding
     Verify v;
     v.doc =
         new Document("<!DOCTYPE dataEnvelop> "

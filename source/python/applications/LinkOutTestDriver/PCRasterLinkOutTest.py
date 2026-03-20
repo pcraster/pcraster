@@ -64,7 +64,7 @@ class PCRasterLinkOutTest(unittest.TestCase):
     data[1] = ctypes.cast(dynamicInput,ctypes.c_void_p)
 
     # buffer 2: the indexedArray for memInputRelation
-    # 1 dimension of lenght 2
+    # 1 dimension of length 2
     class indexedArrayType(ctypes.Structure):
       _fields_ = [ ("nrDims", ctypes.c_uint32),
                    ("lengthOfDimension1", ctypes.c_uint32),

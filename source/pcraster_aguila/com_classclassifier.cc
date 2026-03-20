@@ -132,7 +132,7 @@ template <class T> size_t com_ClassClassifier<T>::nrClasses() const
 template <class T> size_t com_ClassClassifier<T>::index(T v) const
 {
   //   // Doesn't work with msvs-8.0
-  //   // Find first occurance of v in d_classes.
+  //   // Find first occurrence of v in d_classes.
   //   const_iterator it = std::lower_bound(d_classes.begin(), d_classes.end(), v,
   //                                        ::compClass<T>());
   //

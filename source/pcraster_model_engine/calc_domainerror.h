@@ -17,7 +17,7 @@ namespace calc {
 
 
 
-//! marks an eror in operation inputs
+//! marks an error in operation inputs
 class PCR_ME_EXPORT DomainError : public com::Exception
 {
 

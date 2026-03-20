@@ -206,7 +206,7 @@ int ClassLegendBody::height() const
     case VS_ORDINAL: {
       if (d_drawProperties.nrClasses() != 0u) {
         result =
-            // n keys + space inbetween
+            // n keys + space in between
             ((d_drawProperties.nrClasses() - 1) * (keySize().height() + keyOffset())) +
             keySize().height() +
             // We need an additional row of pixels.

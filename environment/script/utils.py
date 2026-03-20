@@ -76,7 +76,7 @@ def nativePath(
 
     The path is normalized.
 
-    TODO base this on the characteristics of the python interperter, not on
+    TODO base this on the characteristics of the python interpreter, not on
          platform. If cygwin's python is used, the path should be different
          than when window's python is used. Does platform take that into account?
     """

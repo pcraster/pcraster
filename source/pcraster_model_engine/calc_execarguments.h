@@ -54,7 +54,7 @@ protected:
   // d_readOnlyReferenceBug hack
   std::set<Field*>     d_doNotDelete;
 
-  //! index in d_fields in case d_result is a src resuse, or >= d_fields.size() otherwise
+  //! index in d_fields in case d_result is a src reuse, or >= d_fields.size() otherwise
   size_t               d_resultIsField;
   DataValue           *d_firstNonFieldInput{nullptr};
 

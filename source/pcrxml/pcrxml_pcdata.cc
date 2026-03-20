@@ -7,7 +7,7 @@
 /*!
   \file
   This file contains the implementation of the (#PCDATA) element
-  convertors to types such as int, size_t and strings
+  converters to types such as int, size_t and strings
 */
 
 //! convert contents of \a n which is of type (#PCDATA)

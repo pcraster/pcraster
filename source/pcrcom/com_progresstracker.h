@@ -92,7 +92,7 @@ public:
     implementations layer each other and need to call update on each other.
 
     \warning This function might be called zillion of times so check whether
-             the visualisation actualy needs an update.
+             the visualisation actually needs an update.
   */
   virtual void     update              () = 0;
 

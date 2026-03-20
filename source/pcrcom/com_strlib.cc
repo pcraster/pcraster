@@ -166,7 +166,7 @@ std::string com::doubleToStr(double n)
 /*!
  *
  *  \bug
- *     seach google discussions on  keywords:
+ *     search google discussions on  keywords:
  *       std::setprecision gcc 4096
  *     it tells that fixed is missing
  *     At least write good tests
@@ -222,10 +222,10 @@ std::vector<std::string> com::split(const std::string &s)
   return t;
 }
 
-//! join all strings in \a s into a string delimeted by \a delim
+//! join all strings in \a s into a string delimited by \a delim
 /*!
  * \param s vector of strings
- * \param delim delimeter if empty then no delimeters is used
+ * \param delim delimiter if empty then no delimiters is used
  * \sa    split(const std::string&)
  */
 std::string com::join(const std::vector<std::string> &s, const std::string &delim)
@@ -233,7 +233,7 @@ std::string com::join(const std::vector<std::string> &s, const std::string &deli
   return com::forWhole(s, Concatenate(delim));
 }
 
-//! Splits a string into tokens at occurences of \a aCharacter.
+//! Splits a string into tokens at occurrences of \a aCharacter.
 /*!
   \param     aString String to split.
   \param     aCharacter Character to use for splitting at.
@@ -354,7 +354,7 @@ void com::removeAllSpace(std::string &str)
   str = newStr;
 }
 
-//! Removes all occurences of \a c from the start and the end of \a str.
+//! Removes all occurrences of \a c from the start and the end of \a str.
 /*!
   \param     str String to edit.
   \param     c Characters to remove.
@@ -377,7 +377,7 @@ void com::removeFrontEndChar(std::string &str, char c)
   str.erase(str.length() - (rit - str.rbegin()), str.length() - (str.length() - (rit - str.rbegin())));
 }
 
-//! Removes all occurences of \a strToRemove from the start and the end of \a str.
+//! Removes all occurrences of \a strToRemove from the start and the end of \a str.
 /*!
   \param     str String to edit.
   \param     strToRemove String to remove.
@@ -496,7 +496,7 @@ void com::replaceChars(std::string &str, char resultChar, const std::string &cha
 
 /*!
  * \brief
- *   replace each occurence of character \a c in \a str with the
+ *   replace each occurrence of character \a c in \a str with the
  *   \a with argument
  *
  *   \code
@@ -520,7 +520,7 @@ std::string com::replaceCharByStr(const std::string &str, char c, const std::str
 
 /*!
  * \brief
- *   replace each occurence of \a subStr in \a str with the
+ *   replace each occurrence of \a subStr in \a str with the
  *   \a newSubStr argument
  *
  *   \code

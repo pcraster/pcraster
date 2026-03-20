@@ -64,7 +64,7 @@ static MAP **ReadMaps(const char **mapArgs, size_t nrMaps)
 {
   size_t i = 0;
   /* calloc, NULL identifies maps not yet open
-     *  neccessary for FreeMaps
+     *  necessary for FreeMaps
      */
   MAP **in = (MAP **)ChkCalloc(nrMaps, sizeof(MAP *));
   if (in == NULL) {

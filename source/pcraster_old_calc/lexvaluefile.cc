@@ -457,7 +457,7 @@ using std::cout;
 */
 /* a quote followed by 1 or more characters
 and ended by a quote */
-/* expontential part of float */
+/* exponential part of float */
 #line 512 "<stdout>"
 
 enum {

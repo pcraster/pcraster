@@ -6,7 +6,7 @@
 /* By Hubert Holin (Hubert.Holin@Bigfoot.com), 1998.		*/
 /*															*/
 /* This is completely free stuff, do whatever you want with	*/
-/* it (but then, I will take no responsability for whatever	*/
+/* it (but then, I will take no responsibility for whatever	*/
 /* may happen if you do either... caveat emptor!).			*/
 /*															*/
 /************************************************************/
@@ -29,7 +29,7 @@ PCCTS_NAMESPACE_STD
 //
 //			It would have been so much nicer for nextChar()
 //			to throw (of for the DLGInputStream to change status)
-//			upon hiting EOF than to return an "int"...
+//			upon hitting EOF than to return an "int"...
 
 template	<
 				class E,

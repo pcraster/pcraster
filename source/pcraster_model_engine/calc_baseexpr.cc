@@ -44,7 +44,7 @@ public:
 
 /*!
  * \param opNameAsParsed the name of the operator as parsed, like the operator
- *   in the user preffered syntax (or,|| etc).
+ *   in the user preferred syntax (or,|| etc).
  * \param op the operator
  */
 calc::BaseExpr::BaseExpr(const std::string &opNameAsParsed)
@@ -119,7 +119,7 @@ std::vector<calc::DataType> calc::BaseExpr::dataTypeArgs() const
  * transferArg or transferFunctionArgs must NEVER be called after this call
  * since we do some rewriting for cover/min/max
  *
- * \param al is transfered upon return
+ * \param al is transferred upon return
  */
 void calc::BaseExpr::transferFunctionArgs(ASTNodeVector *al)
 {

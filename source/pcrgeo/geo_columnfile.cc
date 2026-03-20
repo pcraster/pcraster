@@ -305,7 +305,7 @@ bool geo_ColumnFile::geoEasFormat() const
 */
 bool geo_ColumnFile::geoEasFormat(std::ifstream &fs) const
 {
-  // We asume that a file has the geo-eas format, if the second line of the
+  // We assume that a file has the geo-eas format, if the second line of the
   // file contains one integer.
 
   // Ignore the first line.

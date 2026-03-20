@@ -51,7 +51,7 @@ both allocation functions perform the following algorithm:
   "}"
   "/* else some memory released, try again in loop */"
  "}"
- succes, return ptr 
+ success, return ptr 
 }
 
 @PP
@@ -71,7 +71,7 @@ calls @Code Error with the message: Not enough memory.
 de-allocation and associated error handling.
 All memory allocated through @Code ChkTmpMalloc is automatically freed in
 a failing call to @Code{ChkMalloc, ChkRealloc or ChkTmpMalloc}. In normal
-cases meory allocated by @Code ChkTmpMalloc must be freed by ChkTmpFree.
+cases memory allocated by @Code ChkTmpMalloc must be freed by ChkTmpFree.
 
 } # section memory allocation 
 
@@ -80,7 +80,7 @@ cases meory allocated by @Code ChkTmpMalloc must be freed by ChkTmpFree.
 {@PP
 
 @Code Error and @Code ErrorNested can be used to collect all information
-neccessary for a descriptive error message. @Code Error only exits
+necessary for a descriptive error message. @Code Error only exits
 if the external integer variable @Code exitOnError is set to non-zero.
 
 @TaggedList

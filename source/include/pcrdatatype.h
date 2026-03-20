@@ -60,7 +60,7 @@ typedef enum PCR_VS {
  */
   VS_CLAS= VS_B|VS_N|VS_O|VS_L,  /* classified */
   VS_CONT= VS_S                  /* continuous */
-  /* altough direction is a sub-type of continuous
+  /* although direction is a sub-type of continuous
    * it is not possible to default to that since
    * continuous (v1.0) has no knowledge on the new flat definition
    */

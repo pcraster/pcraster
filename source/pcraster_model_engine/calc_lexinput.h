@@ -20,8 +20,8 @@ class Position;
  *  either an input (script) file or a statement from the command line.
  *  It also implements the shell-$ substitution
  *  <BR>Still to do<UL>
- *  <LI>Make InstallCommandLineScript and InstallScript ctor's to elimnate d_from
- *      that could now be intialized more then once
+ *  <LI>Make InstallCommandLineScript and InstallScript ctor's to eliminate d_from
+ *      that could now be initialized more then once
  *  <LI>rewrite shell subst.
  *  </UL>
  *  \warning

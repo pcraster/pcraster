@@ -24,7 +24,7 @@ void calc::RunTimeStack::clean()
     // OK
     deleteFromPcrme(d_stack.top());
     d_stack.pop();
-    // WRONG, must supress load() in cleaning
+    // WRONG, must suppress load() in cleaning
     // up stack in exceptional case
     // WRONG: DataValue *dv=pop();
     // WRONG: deleteFromPcrme(dv);

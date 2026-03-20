@@ -78,7 +78,7 @@ static int IdentifyFromPit(MAP_INT4 *out, int r, int c, const MAP_UINT1 *ldd, co
 }
 
 /* implementation of catchment function
- * Works allright even if out and points are the same map, PitRem() depends
+ * Works alright even if out and points are the same map, PitRem() depends
  * on this feature when calling Catch().
  * In case of an unsound ldd, some cells on out are not initialized
  * Returns 0 if termination is successful, non-zero otherwise 

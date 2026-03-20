@@ -65,12 +65,12 @@
          'ABCDEFGHIJKLMNOPQRSTUVWXYZ')"/>
 </xsl:template>
 
-<!-- Depricated -->
+<!-- Deprecated -->
 <xsl:template name="pcr-toupper">
   <xsl:param name="str"/>
 
   <xsl:message>
-    <xsl:text>pcr-toupper is depricated, use upper template</xsl:text>
+    <xsl:text>pcr-toupper is deprecated, use upper template</xsl:text>
   </xsl:message>
 
   <xsl:value-of select="translate($str,

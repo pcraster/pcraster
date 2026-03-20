@@ -277,7 +277,7 @@ size_t qt::Animation::interval() const
 
 /*!
   \return  Number of timesteps to process.
-  \warning Make shure you understand the difference between the *number* of
+  \warning Make sure you understand the difference between the *number* of
            timesteps and the *span* in time. These two values mean different
            things.
   \sa      timeSpan()
@@ -314,7 +314,7 @@ size_t qt::Animation::nrSteps() const
 //! Returns the time span between the first and the last step.
 /*!
   \return  The span in time between last() and first().
-  \warning Make shure you understand the difference between the *number* of
+  \warning Make sure you understand the difference between the *number* of
            timesteps and the *span* in time. These two values mean different
            things.
   \sa      nrSteps()
@@ -342,7 +342,7 @@ bool qt::Animation::isRunning() const
   If so, it continuous to wait for a time time interval. If not, it calls
   stop().
 
-  The new timestep to process depends on wether timesteps are added with
+  The new timestep to process depends on whether timesteps are added with
   addStep() or not. If so, than the next higher timestep is searched in the
   collection with added timesteps. If not, than d_stepInterval is added to the
   current timestep.
@@ -375,7 +375,7 @@ size_t qt::Animation::prevTimeStep() const
 
   if (!d_steps.empty()) {
 
-    // Whe have a fixed set of steps.
+    // We have a fixed set of steps.
     auto it = d_steps.find(d_current);
 
     if (it != d_steps.begin()) {

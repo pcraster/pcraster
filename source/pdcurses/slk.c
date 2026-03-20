@@ -38,7 +38,7 @@ slk
    These functions manipulate a window that contain Soft Label Keys
    (SLK). To use the SLK functions, a call to slk_init() must be made
    BEFORE initscr() or newterm(). slk_init() removes 1 or 2 lines from
-   the useable screen, depending on the format selected.
+   the usable screen, depending on the format selected.
 
    The line(s) removed from the screen are used as a separate window, in
    which SLKs are displayed.

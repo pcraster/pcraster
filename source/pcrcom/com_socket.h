@@ -32,7 +32,7 @@ class com_InSockAddr;
 
   Com_Socket objects live in the internet domain (AF_INET).
 
-  To setup a qt-application as a server the folowing code can be used:
+  To setup a qt-application as a server the following code can be used:
   \code
     com_InsockAddr   address("localhost", 8015); // Create internet address.
     com_Socket       socket("tcp");              // Create socket.

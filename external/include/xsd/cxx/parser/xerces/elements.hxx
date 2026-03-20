@@ -112,7 +112,7 @@ namespace xsd
 
         public:
           // Parse URI or a local file. We have to overload it for const C*
-          // bacause xercesc::InputSource has an implicit constructor that
+          // because xercesc::InputSource has an implicit constructor that
           // takes const char*.
           //
           void

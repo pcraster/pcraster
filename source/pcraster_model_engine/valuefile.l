@@ -53,7 +53,7 @@ reference  \"[^\"]+\"
                  /* a quote followed by 1 or more characters
         and ended by a quote */
 Exp      [Ee][+-]?{digit}+  
-      /* expontential part of float */
+      /* exponential part of float */
 
 %%
 

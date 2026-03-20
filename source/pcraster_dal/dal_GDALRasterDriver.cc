@@ -269,7 +269,7 @@ RasterDimensions rasterDimensions(
   // We only support rasters with equal cell width and height.
   if(!dal::comparable(cellWidth, cellHeight)) {
     throw Exception(
-         "Only raster with equal cell width and hight are supported");
+         "Only raster with equal cell width and height are supported");
   }
 
   double const cellSize = cellWidth;

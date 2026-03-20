@@ -26,7 +26,7 @@ namespace com {
          names.
 
   The Table class is an extension of the com::BasicTable class. It adds
-  a description and names for the colummns.
+  a description and names for the columns.
 */
 class Table: public BasicTable
 {
@@ -98,7 +98,7 @@ public:
 
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

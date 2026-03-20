@@ -166,17 +166,17 @@ void calc::EffectiveBindings::overwrite(const ASTNodeVector &e)
   addLastDefinition(l);
 }
 
-//! copy the last definitions occuring in \a l
-/*! \a l has a series of definitions, the last occuring
+//! copy the last definitions occurring in \a l
+/*! \a l has a series of definitions, the last occurring
  *  definition for a certain symbol must be copied into
- *  this, while retaining the order occurence
+ *  this, while retaining the order occurrence
  *
  *  addLastDefinition is in support of the external bindings
  *  file definitions, (see RunSettings ctor)
  */
 void calc::BindingTable::addLastDefinition(const ASTNodeVector &l)
 {
-  // do keep order of occurences
+  // do keep order of occurrences
 
   std::set<std::string> names;
   std::vector<ASTAss *> add;

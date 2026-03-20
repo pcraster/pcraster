@@ -1632,7 +1632,7 @@ void pt::ParticleTracker::adjustConcentration(
       if(_iniConc.cell(*visitor) > conc1.cell(*visitor)) {
         // PRECOND(concentration <= _iniConc.cell(*visitor));
         if(concentration > _iniConc.cell(*visitor)) {
-          // TODO: increase precission
+          // TODO: increase precision
           Warning("New concentration in source (%g) should be <= source concentration (%g)",
               concentration, _iniConc.cell(*visitor));
         }
@@ -1640,7 +1640,7 @@ void pt::ParticleTracker::adjustConcentration(
       else if(_iniConc.cell(*visitor) < conc1.cell(*visitor)) {
         // PRECOND(concentration >= _iniConc.cell(*visitor));
         if(concentration < _iniConc.cell(*visitor)) {
-          // TODO: increase precission
+          // TODO: increase precision
           Warning("New concentration in source (%g) should be >= source concentration (%g)",
               concentration, _iniConc.cell(*visitor));
         }
@@ -1675,7 +1675,7 @@ void pt::ParticleTracker::adjustConcentration(
         if(conc2.cell(*visitor) == 0.0) {
           // If conc2 == 0.0 all concentrations in _particles are 0.0 so we
           // cannot lower them.
-          // TODO: increase precission
+          // TODO: increase precision
           Warning("decrease in C (%g) due to dispersion while C* == 0.0, clamping delta C to 0.0",
               deltaConc.cell(*visitor));
 
@@ -1841,7 +1841,7 @@ void pt::ParticleTracker::moveParticles(
             if(!inAquifer(xParticleNew, yParticleNew)) {
               // This happens when the new location of the particle is either
               // to the ul, ur, lr or ll of the current cell and the particle
-              // is reflected to a adjecent cell which also is not in the
+              // is reflected to a adjacent cell which also is not in the
               // aquifer. By reflecting these particles a second time they are
               // reflected into the current cell.
               reflect(row, col, xParticleNew, yParticleNew);
@@ -2034,7 +2034,7 @@ void pt::ParticleTracker::calculateConcentration(
 
     moveParticles(xVeloc, yVeloc, flux, timeIncrement);
 
-    // Generate new particles or remove old particles at appropiate boundaries.
+    // Generate new particles or remove old particles at appropriate boundaries.
     // ...
 
     // Compute average concentration in each finite difference cell.
@@ -2232,7 +2232,7 @@ double pt::ParticleTracker::changeInMass(
   \return    Percent error.
 
   When the influx equals the outflux this measure equals the percentage change
-  in mass relative to the initial situation (positive value meens los of mass).
+  in mass relative to the initial situation (positive value means los of mass).
   When this value becomes constant no mass is lost or generated.
 */
 double pt::ParticleTracker::percentageMassError3(double timeIncrement,
@@ -2305,7 +2305,7 @@ void pt::ParticleTracker::adjustConcentration(const geo::CellLoc& loc,
     if(conc == 0.0) {
       // If conc == 0.0 all concentrations in _particles are 0.0 so we
       // cannot lower them.
-      // TODO: increase precission
+      // TODO: increase precision
       Warning("decrease in C (%g) while C == 0.0, discarding delta C",
          deltaConc);
 

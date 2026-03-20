@@ -159,7 +159,7 @@ bool calc::Executor::execInitialSection()
 /*! a call to execInitialSection() must precede execDynamicSectionOnce.
  *  If the cfg contains no DynamicSection or all timesteps are
  *  done, nothing is done.
- *  \returns wether all timesteps (if any) are done.
+ *  \returns whether all timesteps (if any) are done.
  */
 bool calc::Executor::execDynamicSectionOnce()
 {

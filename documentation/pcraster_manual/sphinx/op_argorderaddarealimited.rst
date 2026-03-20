@@ -46,7 +46,7 @@ Operation
 =========
 
 Operation is like the :ref:`argorderarealimited` variant except that the areaLimit argument has been replaced by the areaAdded argument.
-The operation will extend the area with the size of areadAdded on base of "maximum likelyhood".
+The operation will extend the area with the size of areadAdded on base of "maximum likelihood".
 
 
 Notes

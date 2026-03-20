@@ -47,7 +47,7 @@ static const char *colName[3] = {"x", "y", "value"};
 static double **allRecList = NULL;
 static size_t nrAllRecords = 0;   /* number of records actually filled */
 static size_t nrAllRecList = 0;   /* number of records allocated */
-static size_t nrColsinAllRec = 0; /* nr of collumns in a record */
+static size_t nrColsinAllRec = 0; /* nr of columns in a record */
 
 /******************/
 /* IMPLEMENTATION */

@@ -114,7 +114,7 @@ void com::InTableStream::throwForLastRead(const std::string &msg) const
  *
  * \param record  is assigned all values read
  * \returns
- *    wether \a record is not empty
+ *    whether \a record is not empty
  * \throws
  *    com::FilePositionError if not all data read is convertible to a double
  *

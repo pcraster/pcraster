@@ -73,7 +73,7 @@ static int IllegalState(LOOK_UP_KEY *k, int token, const char *legals) /* number
 /* Parses a key, checks whether or not it is legal.
  * Returns
  * 1 if the key is illegal (a nested error message is printed)
- * , 0 if succesfull.
+ * , 0 if successful.
  */
 static int ParseKey(LOOK_UP_KEY *k, /* write-only key, if k->t == TEST_NOKEY
                    * then the end of file is reached

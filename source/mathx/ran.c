@@ -287,7 +287,7 @@ double TausComb(void)
   return ((I1 ^ (I2 << P1mP2)) * Norm);
 }
 
-try SetRan(815219806), the 9th number will be neagtive
+try SetRan(815219806), the 9th number will be negative
 
 #define MBIG 1000000000L
 #define MSEED 161803398L
@@ -382,7 +382,7 @@ static unsigned int collapse(int anyint, unsigned int size)
  * This procedure initialises the state table u for a lagged 
  * Fibonacci sequence generator, filling it with random bits 
  * from a small multiplicative congruential sequence.
- * The auxilliaries c, ni, and nj are also initialized.
+ * The auxiliaries c, ni, and nj are also initialized.
  * The seeds are transformed into an initial state in such a way that
  * identical results are guaranteed across a wide variety of machines.
  */

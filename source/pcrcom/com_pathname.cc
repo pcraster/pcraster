@@ -202,7 +202,7 @@ void com::PathName::makeNative()
 #endif
 }
 
-//! Makes the path name an absulute path name.
+//! Makes the path name an absolute path name.
 /*!
   \relates   com::currentWorkingDirectory()
 

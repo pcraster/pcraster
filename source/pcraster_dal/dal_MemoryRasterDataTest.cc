@@ -9,7 +9,7 @@ BOOST_AUTO_TEST_CASE(test_)
 {
   using namespace dal;
 
-  // Doesn't work anymore after getting rid for suppor of ExactDiscretisation
+  // Doesn't work anymore after getting rid for support of ExactDiscretisation
   // for quantiles.
   BOOST_TEST_WARN(false);
   return;

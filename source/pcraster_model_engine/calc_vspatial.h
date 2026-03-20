@@ -53,7 +53,7 @@ public:
   virtual bool    isMV                    (size_t i) const=0;
   /*!
    \warning can not return a MV correctly under all circumstances
-            always use isMV() explictly
+            always use isMV() explicitly
   */
   virtual OutType operator[]              (size_t i) const=0;
 

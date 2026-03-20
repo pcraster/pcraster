@@ -19,7 +19,7 @@ class SpatialPacking;
 class ApiMap;
 class Field;
 
-//! Result (ouput) of global operations that need to create MAP_* structs
+//! Result (output) of global operations that need to create MAP_* structs
 class GlobResult
 {
 

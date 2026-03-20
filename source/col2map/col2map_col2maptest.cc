@@ -32,7 +32,7 @@ BOOST_AUTO_TEST_CASE(NaN)
   // Test whether a NaN on the input is converted to a missing value on the
   // output.
   // Status not yet correct: also test under DIFFERENT compilers if the file
-  // reading already detets a string nan as a NAN, seems not standarized
+  // reading already detects a string nan as a NAN, seems not standardized
 //  #ifdef _MSC_VER
 //    BOOST_WARN_MESSAGE( 0, "MSC does not read Nan (std? or gcc non-std)?");
 //  #else

@@ -41,14 +41,14 @@ ConnectionInfo::ConnectionInfo()
 /*!
   \param     name Name with the database connection information.
 
-  Database connection information consists of the folowing items:
+  Database connection information consists of the following items:
   \li User name (optional).
   \li Password (optional).
   \li Hostname (optional).
   \li Databasename (required).
   \li Tablename (optional).
 
-  This information should be present in \a name and layout in the folowing
+  This information should be present in \a name and layout in the following
   manner: user(password)\@hostname:databasename/tablename.
 
   Valid examples are:
@@ -281,7 +281,7 @@ std::string ConnectionInfo::dataSource() const
   \return    Name.
 
   The name of the connection is a string formatted according the the layout
-  rules described in the documention of the constructor. There is no garantee
+  rules described in the documentation of the constructor. There is no guarantee
   that the string returned here equals the constructor argument given when
   the object was created. However, a ConnectionInfo object created with the
   name returned here will equal this object, except for the column selection.

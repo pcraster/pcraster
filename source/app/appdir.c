@@ -29,7 +29,7 @@
 
 
 /* Converts degrees to radians or performs mod(2pi) on radians.
- * When opion --radians is set, all radian values are converted to
+ * When option --radians is set, all radian values are converted to
  * the domain: [0, 2pi>.
  * When the option --degrees is used, all values are converted to
  * radians in the same domain. Note that the flat (-1) IS NOT detected

@@ -1,7 +1,7 @@
 PCRaster Arrayed Variables
 ==========================
 
-This document contains informations about the Python implementation of the Arrayed variables concept in oldcalc.
+This document contains information about the Python implementation of the Arrayed variables concept in oldcalc.
 
 Note: The collection module is under development, interfaces may change!
 

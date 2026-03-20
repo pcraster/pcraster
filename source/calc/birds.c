@@ -120,7 +120,7 @@ int BirdsSpread(MAP_UINT1 *occupied,        /* read-write output map  */
                 const MAP_REAL8 *cost,      /* initial costs */
                 const MAP_REAL8 *friction,  /* friction of each cell */
                 const MAP_REAL8 *maxRange,  /* maximum range birds can fly */
-                const MAP_REAL8 *dispRange, /* range par in prob formuala  */
+                const MAP_REAL8 *dispRange, /* range par in prob formula  */
                 const MAP_REAL8 *habQual)   /* habitat quality [0,1] */
 {
   REAL8 nrBirdsVal = NAN;

@@ -125,7 +125,7 @@ DID I solve this already?
 - NrOfValues(), branchexprimpl.cc too many LoadExternals
 - check warning never used
 - remove dummy CreateResultField in IfThen?
-  altough it is allocated but never paged ??
+  although it is allocated but never paged ??
 - optimize if ( Temp gt 0 , etc... )
     if Temp is last use we may piggyback a REAL4 to an UINT1
 - use a derived or new class for "not initialized" in runtime_error.
@@ -388,7 +388,7 @@ definition:
   ldd,dummy = lddcreateNew(dem,a1,a2,a3);
  }
 
-This aproach is equally efficient as the current, since variables that
+This approach is equally efficient as the current, since variables that
 are never referenced (dummy) are optimized out immediately.
 Thus users can write generic functions with outputs X1,...,XN and make
 special functions that call the generic functions to get only some
@@ -407,7 +407,7 @@ PCRaster modelling language. For example by means of an MS-Windows-DLL.
 
 There should be no distinction in the use of an external function or
 a function supplied by pcrcalc. 
-Therefor an external function must provide: 
+Therefore an external function must provide: 
 - type information
 - polymorphic behaviour: spatial <-> nonspatial, return of datatypes
 
@@ -421,5 +421,5 @@ what we need is:
 
 rules:
  name must be uniq, e.g. must be different (CHECKED)
- name must be an indentifier, not $% and other shit
+ name must be an identifier, not $% and other shit
   NOT CHECKED, but you are unable to call the function

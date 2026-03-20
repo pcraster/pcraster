@@ -172,7 +172,7 @@ int BndCellRead (ConstCstr grdnam, double *box);
  *
  * A Cell Layer is a raster layer defined
  * by a grid name and optionally an item name in the VAT.
- * The CLYRIO module allows an aplication program to
+ * The CLYRIO module allows an application program to
  * create, open and close cell layers and 
  * to read and write data from and
  * to cell layers. 
@@ -188,7 +188,7 @@ int BndCellRead (ConstCstr grdnam, double *box);
  *
  * The I/O units used by the application program are  
  * the Window-Row spanning the width of the window, the Window-Band consisting
- * of a set of contiguos rows, the Window-Rectangle consisting of a 2D rectangle
+ * of a set of contiguous rows, the Window-Rectangle consisting of a 2D rectangle
  * contained in the window and, the Window-Cell consisting of a single cell
  * specified by its window row and column coordinates.
  * All cell data is automatically resampled to the window cell size on retrieval
@@ -300,7 +300,7 @@ int CellLyrDelete (ConstCstr clyr_name);
 /*
  * AcessDepth 
  *
- * CLYRIO mantains an internal cache of block buffers for each opened grid.
+ * CLYRIO maintains an internal cache of block buffers for each opened grid.
  *
  * The process of performing IO on a cell layer involves
  * mapping data between client buffers and cache buffers
@@ -443,7 +443,7 @@ void CFree3(char ***ptr, int nlyrs, int nrows);
  *                Client must ensure that the type of the input buffer
  *                (32 bit int or float) is the type of the layer being written to.  
  *
- * The following band access functions retrieve contiguos sets of
+ * The following band access functions retrieve contiguous sets of
  * rows into a two dimensional buffer.
  *               
  * GetWindowBand - Get a band of rows spanning the window for a layer.

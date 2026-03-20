@@ -1,6 +1,6 @@
 Usage in PCRCalc
 ================
-This chapter describes the usage of the PCRaster Modflow extension. The first step is to create one single extension object in the script's inital section:
+This chapter describes the usage of the PCRaster Modflow extension. The first step is to create one single extension object in the script's initial section:
 
 .. code-block:: c
 
@@ -21,7 +21,7 @@ The next step is the grid specification using the operations described in the DI
 The DIS, BAS, BCF and a solver package must be set in the initial section of a script. Stress packages (RIV, DRN, RCH and WEL) can be activated and modified in the dynamic section.
 
 
-The differences of Python operations to the PCRcalc syntax is minimal and therefor only brief explained: The Python extension operations have the same name and take the same arguments as the PCRcalc operations. Setting for example boundary values in Python is done by
+The differences of Python operations to the PCRcalc syntax is minimal and therefore only brief explained: The Python extension operations have the same name and take the same arguments as the PCRcalc operations. Setting for example boundary values in Python is done by
 
 .. code-block:: python
 

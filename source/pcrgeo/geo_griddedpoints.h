@@ -174,7 +174,7 @@ public:
 
   template<class Location>
   void             points              (const Location& point,
-                                        const Neighbourhood& neigbourhood,
+                                        const Neighbourhood& neighbourhood,
                                         std::vector<Point>& points) const;
 
   void             points              (const CellLoc& loc,
@@ -182,11 +182,11 @@ public:
                                         std::vector<Point>& points) const;
 
   void             points              (const CellLoc& loc,
-                                        const Neighbourhood& neigbourhood,
+                                        const Neighbourhood& neighbourhood,
                                         std::vector<Point>& points) const;
 
   void             points              (const CellLoc& loc,
-                                        const Neighbourhood& neigbourhood,
+                                        const Neighbourhood& neighbourhood,
                                         std::vector<Point*>& points);
 
   void             points              (const CellLoc& loc,

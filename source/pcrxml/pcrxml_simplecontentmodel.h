@@ -14,7 +14,7 @@ namespace pcrxml {
 typedef PCDATAElement SimpleContentModel;
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

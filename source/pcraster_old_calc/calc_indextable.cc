@@ -27,7 +27,7 @@ public:
 };
 }  // namespace calc
 
-/*! throws calc::IndexTable::AddRecord expections
+/*! throws calc::IndexTable::AddRecord exceptions
  */
 void calc::LexIndexTable::processLine(const Line &line, int lineNr)
 {

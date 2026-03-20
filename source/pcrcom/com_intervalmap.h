@@ -360,7 +360,7 @@ private:
     return intervalMap::insertIntervals(*this,v);
   }
 
-  //! T is a function object, call () for all T's maching \a v
+  //! T is a function object, call () for all T's matching \a v
   /*! if none are matching the d_outside is called
    */
   void visit(IT k,IT v) {
@@ -377,7 +377,7 @@ private:
         }
   }
 
-  //! T is a function object, call visit() for all T's maching \a v
+  //! T is a function object, call visit() for all T's matching \a v
   /*! if none are matching the d_outside is called
    */
   void visit2(IT k,IT v) {

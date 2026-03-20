@@ -363,7 +363,7 @@ BOOST_AUTO_TEST_CASE(testAss)
     BOOST_TEST(fct.equalTo("inp5s.map", false));
   }
   {  // pcrcalc11
-     // double assigment
+     // double assignment
     // Release build issue:
     /// using inp1b.map in the expr twice fails
     //  hence a copy.
@@ -379,7 +379,7 @@ BOOST_AUTO_TEST_CASE(testAss)
     BOOST_TEST(e.equal("Z", 1, VS_B));
   }
   {  // pcrcalc11  / reversed
-     // double assigment
+     // double assignment
     P5Stack e("D,Z=spread,spreadzone(inp1b.map,3,1);");
 
     BOOST_TEST(e.contains("D"));

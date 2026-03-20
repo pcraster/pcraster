@@ -35,7 +35,7 @@ Constant data
 
 
 Table layout
-Apart from the attribute field there must be at least one of the folowing fields present:
+Apart from the attribute field there must be at least one of the following fields present:
 - temporal data
   - field name: 'date'
   - field type: integer

@@ -91,7 +91,7 @@ std::string dataTypeToStr(const DataType &dataType)
     }
     default: {
       assert(false);
-      result = "UNKOWN";  // Never reached.
+      result = "UNKNOWN";  // Never reached.
       break;
     }
   }

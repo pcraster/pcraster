@@ -74,7 +74,7 @@ void Map2D::createInterface()
 void Map2D::showEvent(QShowEvent* event)
 {
   if(!event->spontaneous()) {
-    // We are shown on purpose. Since we have been sleeping untill now we must
+    // We are shown on purpose. Since we have been sleeping until now we must
     // rescan to find out what we should do.
 
     // If this is the first time the map view is configured with data, than

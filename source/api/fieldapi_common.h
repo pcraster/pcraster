@@ -49,7 +49,7 @@ public:
  *        size_t  nrRows()     const { return d_nrRows;};
  * //! nr of rows as int value
  *        int     nrRowsInt()  const { return static_cast<int>(d_nrRows);};
- * //! nr of collumns
+ * //! nr of columns
  *        size_t  nrCols()     const { return d_nrCols;};
  * //! nr of cols as int value
  *        int     nrColsInt()  const { return static_cast<int>(d_nrCols);};
@@ -57,7 +57,7 @@ public:
   //! global cell Length depending on --unitcell/--unittrue setting
   static double  cellLength();
 
-  //! check if indeces are out of range
+  //! check if indices are out of range
   bool outOfRange(int row, int col) const
   {
     return !intContains(row,col);
@@ -70,7 +70,7 @@ public:
 
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

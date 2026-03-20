@@ -27,7 +27,7 @@ namespace dal {
   functions allow for setting, testing and retrieving property values.
   Properties are key referenced by name and can have any type.
 
-  For convience a number of keys are predefined in \file dal_PropertyKeys.h
+  For convenience a number of keys are predefined in \file dal_PropertyKeys.h
 
   \todo Afdwingen dat spullen die in d_values komen copyable zijn. Voor copy
         constructor.

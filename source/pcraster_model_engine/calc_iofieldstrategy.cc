@@ -89,7 +89,7 @@ void calc::IoFieldStrategy::throwCloneDiffers(const std::string &map1, const std
 
 //! Remove an output object to ensure proper re-creation.
 /*! This method ensures that an object with name \a objName can
-    can be created after calling this methode.
+    can be created after calling this method.
     In normal Csf output it does not do anything,
     since the map and tss creation routines will simply create single
     files, destroying old ones under that name.
@@ -237,7 +237,7 @@ void calc::IoFieldStrategy::setStackInfo(const StackInfo &s) const
         geo::CSFMap m(makeStackItemName(s.stackName(), t), true);
         m.setMinMax(s.d_min, s.d_max);
       } catch (const com::Exception &) {
-        // ignore if file has disapeared or other disaster;
+        // ignore if file has disappeared or other disaster;
       }
     }
   }

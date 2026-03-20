@@ -37,7 +37,7 @@ def _get_field(arg):
 
 
 def _all_python_pod(*arguments):
-    # Helper function used to determine wheter we can call
+    # Helper function used to determine whether we can call
     # builtin functions or the overloaded PCRaster ones
     for argument in arguments:
         if isinstance(argument, _pcraster.Field):

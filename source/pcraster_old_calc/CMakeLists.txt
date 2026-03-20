@@ -358,7 +358,7 @@ endif()
 #  * enzo.
 #  * For all types of collections a value for these items can be chosen, they are not all sensible but will
 #  * create a running system. For example, points have a location, choosing the value 1 for area and length, will
-#  * make areaarea a sort of point counting operation, and ldddist a non sensable operation.
+#  * make areaarea a sort of point counting operation, and ldddist a non sensible operation.
 #  *
 #  * Legends doorerven (sub-classing, Nominal, ordinal, boolean)
 #  * <H1>Andere punten</H1>

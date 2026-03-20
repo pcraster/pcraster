@@ -748,7 +748,7 @@ BOOST_AUTO_TEST_CASE(testDoubleFuncRelic)
     BOOST_TEST(t["Z"].dataType().st() == ST_SPATIAL);
     BOOST_TEST(t["Z"].dataType().vs() == VS_B);
 
-    // test if it ever apear left hand side
+    // test if it ever appear left hand side
     BOOST_TEST(t["Z"].d_firstAss);
     BOOST_TEST(!t["inp1b.map"].d_firstAss);
   }

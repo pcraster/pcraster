@@ -22,7 +22,7 @@ namespace dal {
   - One dataset per attribute.
   - Once a dataset is created for a specific dataspace, only slices that fit
     in the dataspace can be written to it / read from it.
-  - Upon creation the dataset is layed out to contain the full amount of data
+  - Upon creation the dataset is laid out to contain the full amount of data
     that can fit in it.
   - Upon writing only one slice of data is written to the dataset,
     possibly overwriting existing data. To fill it the write method can
@@ -44,7 +44,7 @@ namespace dal {
   - Handle quantiles.
   - Document specifics of the dataset layout so other can read and write it
     too. Conventions used.
-  - Create a convertion tool to convert rasters in other formats to HDF5 files.
+  - Create a conversion tool to convert rasters in other formats to HDF5 files.
   - Rethink the design, is it good for all uses (large files, ...)? Optional
     multi file strategy?
 

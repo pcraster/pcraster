@@ -13,7 +13,7 @@ namespace geo {
 
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 
@@ -51,7 +51,7 @@ struct NB {
     DEVELOP_PRECOND(valid(c));
     return 7-c;
   }
-  // one of the 8 neigbours
+  // one of the 8 neighbours
   static CellLoc   target(const CellLoc& from, Code dir);
   static Code      code  (const CellLoc& from, const CellLoc& to);
   static bool      diagonal(const CellLoc& from, const CellLoc& to);
@@ -84,7 +84,7 @@ struct LDD {
   //! the reverse code
   /*!
    * if a cell has and outflow code of nbCode
-   * then the recieving cell has an inflow code
+   * then the receiving cell has an inflow code
    * of nrRevCode(nbCode) and vice versa.
    */
   static  Code reverse(Code c) {
@@ -102,7 +102,7 @@ struct LDD {
                           size_t     nrCells,
                           size_t     nrCols);
 
-  // one of the 8 neigbours or cell itself (pit)
+  // one of the 8 neighbours or cell itself (pit)
   static CellLoc downstreamCell(const CellLoc& from, Code dir) {
     return target(from,dir);
   }
@@ -114,7 +114,7 @@ struct LDD {
   }
   static NB::Code toNB(Code c) {
     DEVELOP_PRECOND(valid(c));
-    DEVELOP_PRECOND(c!=5); // cannnot convert pit
+    DEVELOP_PRECOND(c!=5); // cannot convert pit
     return c-1-static_cast<Code>(c>5);
   }
 };

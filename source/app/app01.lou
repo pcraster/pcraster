@@ -27,7 +27,7 @@ functions implement the command line parser:
 @TaggedList
 @DTI{@Code{InstallArgs}} {Parses the command line with options, arguments and file names.}
 @DTI{@Code{GetOpt}} {Get options one by one}
-@DTI{@Code{OptArg}} {Contains pointer for paramater of option}
+@DTI{@Code{OptArg}} {Contains pointer for parameter of option}
 @DTI{@Code{ArgArguments}} {Gives the arguments left over after GetOpt processing.}
 @DTI{@Code{AppArgCountCheck}} {check if the application has enough arguments}
 @DTI{@Code{AppEnd}} {Cleans up copies of argument lists allocated.}

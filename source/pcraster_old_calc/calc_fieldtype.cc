@@ -108,7 +108,7 @@ void calc::FieldType::restrictSystem(VS vsNewPossible, bool spatialByArgs)
   }
 }
 
-//! return true is spatial promotion occured
+//! return true is spatial promotion occurred
 // only called on assignment!
 bool calc::FieldType::restrictUser(VS vsNewPossible, bool spatialByAssignment)
 {

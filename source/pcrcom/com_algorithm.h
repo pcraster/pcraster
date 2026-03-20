@@ -10,7 +10,7 @@
 
 /*!
   \file
-  This file includes and extends <algorithm> with usefull templates
+  This file includes and extends <algorithm> with useful templates
 */
 
 

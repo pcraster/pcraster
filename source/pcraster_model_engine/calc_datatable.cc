@@ -193,7 +193,7 @@ void calc::DataTable::print(std::ostream &s) const
 //! do all assignable data items hold no value?
 /*!
  * this is the normal case for a ManagedScript, setLastUse
- * calc::setLastUse(cfg,false) will anotate a CFG use as such
+ * calc::setLastUse(cfg,false) will annotate a CFG use as such
  * that after execution everything is deleted except the constants
  */
 bool calc::DataTable::allNoValue() const

@@ -41,7 +41,7 @@ A cell with a missing value on elevation is assigned a missing value on Result. 
 
 Group
 =====
-This operation belongs to the group of  Neigbourhood operator; operators for visibility analysis 
+This operation belongs to the group of  Neighbourhood operator; operators for visibility analysis 
 
 Examples
 ========

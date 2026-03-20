@@ -17,7 +17,7 @@ void calc::File::validateOutputName() const
 //! check if name is valid, and the file exists
 /*! \exception com::OpenFileError with description of problem
  * \bug
- *   if -c generates errror then Pos is the invocation not the
+ *   if -c generates error then Pos is the invocation not the
  *   point of the binding.
  */
 void calc::File::validateExisting() const

@@ -22,8 +22,8 @@ typedef boost::dynamic_bitset<> BitField;
 /*!
     Unifies read only runtime access of a ISpatial or NonSpatial.
     This interface can be used in algorithms where it is not known
-    until runtime wether a NonSpatial or Spatial is used as input,
-    while instantiating the algoritm at compile time for each case (such
+    until runtime whether a NonSpatial or Spatial is used as input,
+    while instantiating the algorithm at compile time for each case (such
     as com::forEachNonMV2 does) will bloath code size exponentially,
     e.g. too many arguments.
 

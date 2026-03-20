@@ -446,14 +446,14 @@ static int RemPit(MAP_UINT1 *ldd,           /* read-write ldd map */
   ReversePath(ldd, outflowRow, outflowCol, outflowConRow, outflowConCol);
 
   /* do cutting after pit removal
-     * removed pit is now a path trough the connection cell
+     * removed pit is now a path through the connection cell
      * into another catchment
      */
   if (appLddDemModifier == APP_LDDDEMCUT) {
     CutDem(dem, pitr, pitc, pitLevel, ldd);
   }
 
-  return 0; /* pit succesfully removed */
+  return 0; /* pit successfully removed */
 }
 
 /* sort with high first in array

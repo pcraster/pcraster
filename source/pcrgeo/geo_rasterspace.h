@@ -120,22 +120,22 @@ public:
   //! Returns the bottom coordinate of the raster.
   double           south               () const;
 
-  //! Returns the left coordinate of the raster. DEPRICATED
+  //! Returns the left coordinate of the raster. DEPRECATED
   double           left                () const;
 
-  //! Returns the right coordinate of the raster. DEPRICATED
+  //! Returns the right coordinate of the raster. DEPRECATED
   double           right               () const;
 
-  //! Returns the top coordinate of the raster. DEPRICATED
+  //! Returns the top coordinate of the raster. DEPRECATED
   double           top                 () const;
 
-  //! Returns the bottom coordinate of the raster. DEPRICATED
+  //! Returns the bottom coordinate of the raster. DEPRECATED
   double           bottom              () const;
 
-  //! Returns the back coordinate of the raster. DEPRICATED
+  //! Returns the back coordinate of the raster. DEPRECATED
   double           back                () const;
 
-  //! Returns the front coordinate of the raster. DEPRICATED
+  //! Returns the front coordinate of the raster. DEPRECATED
   double           front               () const;
 
   //! Returns the width of the raster.
@@ -207,7 +207,7 @@ public:
 };
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 inline double geo::RasterSpace::cellSize() const

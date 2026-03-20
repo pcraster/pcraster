@@ -45,7 +45,7 @@ public:
 
 /*!
  * \param opNameAsParsed the name of the operator as parsed, like the operator
- *   in the user preffered syntax (or,|| etc).
+ *   in the user preferred syntax (or,|| etc).
  * \param op the operator
  */
 calc::ASTExpr::ASTExpr(const std::string &opNameAsParsed, const Operator &op)
@@ -98,12 +98,12 @@ void calc::ASTExpr::exec(RunTimeEnv *rte) const
  * transferArg or transferFunctionArgs must NEVER be called after this call
  * since we do some rewriting for cover/min/max
  *
- * \param al is transfered upon return
+ * \param al is transferred upon return
  */
 void calc::ASTExpr::transferFunctionArgs(ASTNodeVector *al)
 {
   // variable number of arguments in point operations
-  // by AST rewritting
+  // by AST rewriting
 
   bool rewrite = false;
   switch (op().opCode()) {

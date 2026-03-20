@@ -96,7 +96,7 @@ void com::TableInfoTest::testAvailable()
   BOOST_TEST(catched);
 }
 
-/*! detect file format, nr columsn etc.
+/*! detect file format, nr columns etc.
  */
 void com::TableInfoTest::testDetect()
 {

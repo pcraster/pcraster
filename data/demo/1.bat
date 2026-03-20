@@ -1,5 +1,5 @@
 @echo off
-echo Display the digitial elevation map, the rainstation map and the soil map.
+echo Display the digital elevation map, the rainstation map and the soil map.
 echo.
 echo Press any key to execute:
 echo.

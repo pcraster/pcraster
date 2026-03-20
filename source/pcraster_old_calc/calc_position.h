@@ -20,7 +20,7 @@ namespace calc {
 
 //! denotes a position of a symbol where it is found
 /*!
-   in the simple case is give a fileName, line nr and charachter position
+   in the simple case is give a fileName, line nr and character position
 */
 class Position
 {

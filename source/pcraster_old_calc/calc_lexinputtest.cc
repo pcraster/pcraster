@@ -16,7 +16,7 @@ BOOST_AUTO_TEST_CASE(install_string_script)
   while ((c = li.getChar()) != EOF) {
     r += (char)c;
   }
-  // need for an additonal newline
+  // need for an additional newline
   BOOST_TEST(r == (s + '\n'));
 
   // test piece of code from calc_lexinputsource.cc:

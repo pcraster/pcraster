@@ -45,7 +45,7 @@ namespace com {
 
 //! check if one of the arguments is a MV
 /*!
- * bitwise or | (not ||) to minize jumps:
+ * bitwise or | (not ||) to minimize jumps:
  * full evaluation instead of short circuit ||
  */
 template<typename T1,

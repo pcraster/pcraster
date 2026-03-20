@@ -1,7 +1,7 @@
 /*
  * patch file flex.skl by cees@pcraster.nl
  * modified version of stock flex 2.5.4 version to get it to work with Ansi C++
- * the two things I rememember changing is: 
+ * the two things I remember changing is: 
  *  - appending the std:: namespace 
  *    IMHO, these patch could even maybe be macrofied?
  *  - array deletes delete [] a, instead of delete a where needed

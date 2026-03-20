@@ -133,7 +133,7 @@ inline T resampleMajority(
     }
   }
 
-  T result{};                     // Most occuring value.
+  T result{};                     // Most occurring value.
 
   // Calculate result.
   if(mvThickness > valueThickness || valueThickness < (0.5 * thickness)) {
@@ -230,7 +230,7 @@ inline T resampleAverage(
 
 
 /*
-   CW no need for templates of resample if fucntion selection
+   CW no need for templates of resample if function selection
       works by argument type lookup
  */
 
@@ -362,7 +362,7 @@ static void resample(
       DEVELOP_POSTCOND(newIt != newStack.end());
       size_t const index = newIt - newStack.begin();
 
-      // Set all new attribute values untill this voxel to MV.
+      // Set all new attribute values until this voxel to MV.
       pcr::setMV(&(*result.begin()), index);
 
       curItFirst = currentStack.begin();

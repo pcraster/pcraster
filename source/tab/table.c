@@ -51,7 +51,7 @@ static void *InsertSorted(const void *key, /* key to be inserted */
                       * base
                       */
                           size_t width,    /* sizeof element */
-                          QSORT_CMP cmp)   /* comparisson function */
+                          QSORT_CMP cmp)   /* comparison function */
 {
   size_t x = 0; /* num == 0 case */
   int c = 0;

@@ -231,7 +231,7 @@ StaticFramework or DynamicFramework"
                     os.remove(dirname)
                     os.mkdir(dirname)
                 else:
-                    # remove existing and create emtpy directories
+                    # remove existing and create empty directories
                     shutil.rmtree(dirname)
                     os.mkdir(dirname)
 

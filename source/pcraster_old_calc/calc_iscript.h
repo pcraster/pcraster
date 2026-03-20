@@ -77,7 +77,7 @@ class IScript {
   virtual const Symbol      *findBinding(const std::string& name) const=0;
 
   //! find symbol, message user if symbol is not like expected
-  /*! typesExpected is a set of types allowd
+  /*! typesExpected is a set of types allowed
    *  return 0 if not exist and mustExist is false
    */
   virtual class UserSymbol *findSymbol(const class Symbol* sym,

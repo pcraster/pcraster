@@ -530,7 +530,7 @@ size_t com::ListArgument<ValueType, ValueParser>::parseArguments(size_t argc, ch
 {
   size_t nrTokensParsed = 0;
 
-  // Continue parsing untill an argument is not a value.
+  // Continue parsing until an argument is not a value.
   for (size_t i = 0; i < argc; ++i) {
     if (!CommandLineArgument::isValue(argv[i])) {
       break;

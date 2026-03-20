@@ -80,7 +80,7 @@ void calc::Calc::setRunDirectory(const com::PathName &rd)
 
 //! process arguments
 /*!
- * Process arguments in comand line style and perfrom relevant
+ * Process arguments in command line style and perform relevant
  * actions associated with the arguments
  *  \return false if no other action is needed, true otherwise
  */

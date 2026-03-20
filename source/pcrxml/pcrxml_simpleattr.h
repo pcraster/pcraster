@@ -58,7 +58,7 @@ typedef SimpleAttr<size_t> PositiveInteger;
 typedef SimpleAttr<double> Double;
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

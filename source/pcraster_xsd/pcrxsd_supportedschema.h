@@ -16,12 +16,12 @@ namespace pcrxsd {
 
 //! Schema supported by pcrxsd
 /*!
-   pcrxsd explictly support a number of schema files (entities) residing
+   pcrxsd explicitly support a number of schema files (entities) residing
    in $PCRTREE/template/xml. For each such schema a SupportedSchema object
    exists.
 
    \warning SupportedSchemaMap will create SupportedSchema object in
-   a static structure, therefor all members of SupportedSchema should
+   a static structure, therefore all members of SupportedSchema should
    have constructors who do NOT depend on significant runtime
    initialization.
 */

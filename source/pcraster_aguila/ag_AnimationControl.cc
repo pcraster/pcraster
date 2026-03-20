@@ -189,7 +189,7 @@ void AnimationControl::createInterface()
   //----------------------------------------------------------------------------
   d_data->d_loop = new QCheckBox("Loop animation", widget);
   connect(d_data->d_loop, SIGNAL(toggled(bool)), this, SLOT(loop(bool)));
-  d_data->d_loop->setToolTip("Select looping if you want continous animation");
+  d_data->d_loop->setToolTip("Select looping if you want continuous animation");
   top->addWidget(d_data->d_loop);
 
   QLabel *label = nullptr;

@@ -256,7 +256,7 @@ bool com::filesEqual(const std::string &fileName1, const std::string &fileName2,
   return i1.eof() && i2.eof();
 }
 
-//! test two files on existance and identical contents contents
+//! test two files on existence and identical contents contents
 /*! return true if both existant and contents is equal.
     \sa bool  com::filesEqual ( const std::string& fileName1, const std::string& fileName2, std::ios::openmode cmpMode);
  */

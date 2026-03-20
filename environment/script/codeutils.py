@@ -35,7 +35,7 @@ def setDefaultsEnvSettingsAndSourceDotDevenv():
    # stated in
    # http://www.cmake.org/Wiki/CMake_FAQ#Is_there_a_way_to_skip_checking_of_dependent_libraries_when_compiling.3F
    # but alas, not all targets support a fast variant
-   # therefore we also need to set replaceAllTarget to make cmakeFast usefull
+   # therefore we also need to set replaceAllTarget to make cmakeFast useful
    # with 'make all' which is our default F8 vi binding
    'cmakeFast' : False,
 
@@ -59,7 +59,7 @@ def setDefaultsEnvSettingsAndSourceDotDevenv():
    #  valgrind as debugger value also works
    'debugger' : "gdb",
 
-   # number paralel compiles from make
+   # number parallel compiles from make
    'makeNrOfJobs' : int(4),
 
    # call something else instead of
@@ -185,7 +185,7 @@ def guessNamespace(
       # result = os.popen("make namespace").readlines()[-1][:-1]
       #    [-1] -> last of make output, in case of pre-depencies
       #    [:-1]  slice off newline
-      # but get's tricky (infinite recursion) if I am already called
+      # but gets tricky (infinite recursion) if I am already called
       #   from Makefile
       # 2n idea grep NAMESPACE=namespace
       namespaceDef = ""
@@ -316,7 +316,7 @@ def _findCasedFilename(
 
 
 
-## Seaches for the name of a header file for class \a name in namespace \a namespace.
+## Searches for the name of a header file for class \a name in namespace \a namespace.
 #
 # \param     namespace Namespace of class \a name.
 # \param     name Class name.
@@ -653,7 +653,7 @@ def filenameHeader(
          name):
   """
   Returns the name of a header file based on our conventions. These are:
-    - If a namespace is used the name starts with the namespace folowed
+    - If a namespace is used the name starts with the namespace followed
       by an underscore.
     - The name passed in is appended verbatim, without changing its case.
     - The .h extension is appended.
@@ -678,7 +678,7 @@ def filenameModule(
          name):
   """
   Returns the name of a module file based on our conventions. These are:
-    - If a namespace is used the name starts with the namespace folowed
+    - If a namespace is used the name starts with the namespace followed
       by an underscore.
     - The name passed in is appended verbatim, without changing its case.
     - The .cc extension is appended.
@@ -1062,7 +1062,7 @@ def _runUnitTests(
     status = utils.call("bash %s" % (prolog))
     assert status == 0
 
-  # other usefull options
+  # other useful options
   #  --build_info=yes  gives stuff we can use for dashboard
   # see http://www.boost.org/doc/libs/1_35_0/libs/test/doc/components/utf/parameters/index.html for all options
   if _devenvSettings["debugUnittest"]:
@@ -1350,7 +1350,7 @@ def fixOldStylePrototypes(
   typePattern = r"[\w*]+(?:[ \t]+[\w*]+)*"
   regex = re.compile(r"""
 # Optional return type, consisting of one or more tokens. Assume the
-# return type is seperated from the function name by one or more spaces
+# return type is separated from the function name by one or more spaces
 # or tabs (no newlines!).
 (?:(?P<returnType>%s)[ \t]+)?
 
@@ -1426,7 +1426,7 @@ def rename(
 
 class FunctionCallMatches(list):
   """
-  Class that stores info about the occurences of a function call in one source
+  Class that stores info about the occurrences of a function call in one source
   file.
   """
   def __init__(self,
@@ -1444,7 +1444,7 @@ class FunctionCallMatches(list):
 
 class FunctionCallInfo(list):
   """
-  Class that stores info about the occurences of a function call in source
+  Class that stores info about the occurrences of a function call in source
   files.
   """
   def __init__(self,
@@ -1478,7 +1478,7 @@ def functionCallMatches(
          name,
          source):
   """
-  Find and store function call occurences of one function call in one source
+  Find and store function call occurrences of one function call in one source
   string.
   """
   result = []

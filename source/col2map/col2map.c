@@ -273,7 +273,7 @@ static int CalcTotal(REAL8 *val, /* write only */
   return 0;
 }
 
-/* Calculates the minumum value of the record values that fall in cell.
+/* Calculates the minimum value of the record values that fall in cell.
  * Returns 1 in case of failed memory allocation, 0 otherwise.
  */
 static int CalcMin(REAL8 *val, /* write only */

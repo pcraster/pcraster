@@ -132,12 +132,12 @@ Raster* CSFRasterDriver::open(
     detail::configureRaster(*raster, map);
   }
   catch(...) {
-    // An error occured, we must make sure 0 is returned below.
+    // An error occurred, we must make sure 0 is returned below.
     delete raster;
     raster = nullptr;
   }
 
-  // 0 in case an error occured.
+  // 0 in case an error occurred.
   return raster;
 }
 

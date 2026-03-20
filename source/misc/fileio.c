@@ -163,7 +163,7 @@ long FileSize(FILE *f) /* the file */
  * returns:
  * -1 in case of error, Error() is called.
  * 1 in case of end of file
- * 0 in case of succes
+ * 0 in case of success
  */
 
 int FileGetString(char *s,  /* buffer to fill */

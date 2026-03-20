@@ -42,7 +42,7 @@ mouse
    would check for a KEY_MOUSE return from getch(). If found, it would
    call request_mouse_pos() to get the current mouse status.
 
-   mouse_set(), mouse_on() and mouse_off() are analagous to attrset(),
+   mouse_set(), mouse_on() and mouse_off() are analogous to attrset(),
    attron() and attroff(). These functions set the mouse button events
    to trap. The button masks used in these functions are defined in
    curses.h and can be or'ed together. They are the group of masks
@@ -106,7 +106,7 @@ mouse
    This is equivalent to ncurses' getmouse(), renamed to avoid conflict
    with PDCurses' getmouse(). But if you define PDC_NCMOUSE before
    including curses.h, it defines getmouse() to nc_getmouse(), along
-   with a few other redefintions needed for compatibility with ncurses
+   with a few other redefinitions needed for compatibility with ncurses
    code. nc_getmouse() calls request_mouse_pos(), which (not getmouse())
    is the classic equivalent.
 

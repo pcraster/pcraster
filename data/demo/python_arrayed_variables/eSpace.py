@@ -164,7 +164,7 @@ class ESpace(object):
     """
     returns collection of timeseries objects
     """
-    # for output purpose if some experimental design is used using a map. then ouput for each gridcell (see timeoutput in report section).
+    # for output purpose if some experimental design is used using a map. then output for each gridcell (see timeoutput in report section).
     classes = nominal(1)
     return VariableCollection([self.Plants], value=ValueTimeoutputTimeseries(variableName, self, idMap=classes, noHeader=False))
 
@@ -195,7 +195,7 @@ class ESpace(object):
 
       QRed = 1.-(1-self.fLeaf2Stalk[p])*VRel # reduction of quality, proportional to stalk fraction
 
-      # available, acceptable and accessable energy [J m-2]
+      # available, acceptable and accessible energy [J m-2]
       Q = self.QMax[p] * QRed  # [J g-1] conversion of DM to energy
       E_a = a * Q * self.V[p] # [J m-2]
 

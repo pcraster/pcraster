@@ -14,7 +14,7 @@ namespace mldd {
 
 //! removeStream implementation
 /*!
- * implementation is choosen such for performance, such that the 8 sized d_marks
+ * implementation is chosen such for performance, such that the 8 sized d_marks
  * vector is only accessed within the d_dag graph.
  */
 class RemoveStream : public DownstreamVisitor

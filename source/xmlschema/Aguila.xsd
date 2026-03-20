@@ -61,7 +61,7 @@
   <xs:element name="data"          type="pcr:AguilaData"
                                    minOccurs="0" maxOccurs="unbounded">
    <xs:annotation>
-     <xs:documentation>Explictly defined data sources
+     <xs:documentation>Explicitly defined data sources
      </xs:documentation>
    </xs:annotation>
   </xs:element>

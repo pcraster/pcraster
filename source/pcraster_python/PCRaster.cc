@@ -285,7 +285,7 @@ pybind11::object readFieldCell(
   \warning   .
   \sa        .
 
-  This function realy should be called writeField, but then boost.Python cannot
+  This function really should be called writeField, but then boost.Python cannot
   choose between de non-template version (which it should select) and this
   template version.
 */
@@ -1097,7 +1097,7 @@ PYBIND11_MODULE(_pcraster, module)
   //       no explicit user call is needed and a good book reference
   // def("tune", com::tune,
   // "Tune model execution\n\n"
-  // "Calling this funtion greatly improves memory management.\n"
+  // "Calling this function greatly improves memory management.\n"
   // "Drawback not very nice if small RAM and many processes.\n");
 
   module.def("report", pp::writeFilename, R"(

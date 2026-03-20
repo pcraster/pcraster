@@ -3066,7 +3066,7 @@ tmp.mod:4:1:ERROR: Syntax error at keyword 'binding'
 # 
 # pcrcalc1a: inp1b.map
 # # redefinition should work
-# # 4FEB96 makecode.c generated wrong assingment conversion code
+# # 4FEB96 makecode.c generated wrong assignment conversion code
 # 	rm -f tmp.res
 # 	echo 'model tmp.res = 1; report tmp.res = inp1b.map;' > tmp.mod
 # 	$(CALC_C) -f tmp.mod
@@ -3141,7 +3141,7 @@ tmp.mod:4:1:ERROR: Syntax error at keyword 'binding'
 # 	$(END_OF_TEST)
 # 
 # pcrcalc11aa: inp1b.map
-# # check double ass, singe func needed
+# # check double ass, single func needed
 # 	cp inp1b.map tmp1.map
 # 	$(CALC) 'tmp.res = spread(inp1b.map == tmp1.map, 0, 1);'
 # 	$(END_CHK_MRESULT)
@@ -3766,7 +3766,7 @@ tmp.mod:4:1:ERROR: Syntax error at keyword 'binding'
 # 	rm -rf adirname
 # 	$(END_CHK_ARESULT)
 # 
-# # now chekc if 8.3 trick for only last timestep
+# # now check if 8.3 trick for only last timestep
 # # still works! even in directory
 # # Tue Oct  7 10:04:25 MET DST 1997
 # pcrcalc219: m218.mod
@@ -3797,7 +3797,7 @@ tmp.mod:4:1:ERROR: Syntax error at keyword 'binding'
 # 	rm -rf adirname
 # 	$(END_CHK_ARESULT)
 # 
-# # now chekc if 8.3 trick for only last timestep
+# # now check if 8.3 trick for only last timestep
 # # still works! even in directory
 # # Tue Oct  7 10:04:25 MET DST 1997
 # pcrcalc220: m218.mod
@@ -3992,7 +3992,7 @@ tmp.mod:4:1:ERROR: Syntax error at keyword 'binding'
 # 	-$(CALC_C) -f tmp.mod 2> tmp.res
 # 	$(END_CHK_ARESULT)
 # 
-# # WAS catch invalid range even when it apears outside
+# # WAS catch invalid range even when it appears outside
 # # IS  report nothing after change as given 234b
 # #  make a tmp_sX so ls will not complain
 # pcrcalc240: inp5s.map
@@ -4148,7 +4148,7 @@ tmp.mod:4:1:ERROR: Syntax error at keyword 'binding'
 # 	-$(CALC_C) 'binding A = [a]; B=[b];initial C[b]=sin(2);C[b][a]=sin(2);'  2> tmp.res
 # 	$(END_CHK_ARESULT)
 # 
-# # unknwon on right
+# # unknown on right
 # pcrcalc269:
 # 	-$(CALC_C) 'binding A = [a]; B=[b];initial C[a]=sin(2);x=U[a];'  2> tmp.res
 # 	$(END_CHK_ARESULT)
@@ -4302,7 +4302,7 @@ tmp.mod:4:1:ERROR: Syntax error at keyword 'binding'
 # 	head tmpTSS* > tmp.res
 # 	$(END_CHK_ARESULT)
 # 
-# # check default order of foreach, indeces listed
+# # check default order of foreach, indices listed
 # pcrcalc290a: m290a.mod inp5s.map
 # 	rm -f tmpTSS*
 # 	$(CALC_C) -f m290a.mod
@@ -4407,7 +4407,7 @@ tmp.mod:4:1:ERROR: Syntax error at keyword 'binding'
 # 	ls tmpTSS* > tmp.res
 # 	$(END_CHK_ARESULT)
 # 
-# # cannot explictly address switched off idices
+# # cannot explicitly address switched off indices
 # pcrcalc305:
 # 	-$(CALC_C) 'binding A = [-a]; initial x[a] = sin(2);'  2> tmp.res
 # 	$(END_CHK_ARESULT)

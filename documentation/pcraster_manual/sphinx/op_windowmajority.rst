@@ -44,7 +44,7 @@ Operation
 
 
 For each cell a square window with the cell in its centre is defined by
-windowlength. The windowlength is the length of the window in horizontal and vertical directions. For each cell on expression, the most often occurring cell value within its window is determined and assigned to the corresponding cell on Result. Both cells on expression which are entirely in the window and cells which are partly in the window are considered. At a cell, if two or more values occur the same (largest) number of times in its window, the windowlength at that cell is increased with two times the celllength of expression. The most often occurring cell value in this enlarged window is assigned to the cell under consideration. If this enlarged window still does not result in one most often occurring value, the window is progressively enlarged (with steps of two times the cellsize of expression) until a most often occuring cell value is found in the window.  
+windowlength. The windowlength is the length of the window in horizontal and vertical directions. For each cell on expression, the most often occurring cell value within its window is determined and assigned to the corresponding cell on Result. Both cells on expression which are entirely in the window and cells which are partly in the window are considered. At a cell, if two or more values occur the same (largest) number of times in its window, the windowlength at that cell is increased with two times the celllength of expression. The most often occurring cell value in this enlarged window is assigned to the cell under consideration. If this enlarged window still does not result in one most often occurring value, the window is progressively enlarged (with steps of two times the cellsize of expression) until a most often occurring cell value is found in the window.  
 
 Notes
 =====
@@ -58,7 +58,7 @@ A cell on windowlength with a missing value results in a missing value on Result
 
 Group
 =====
-This operation belongs to the group of  Neigbourhood operators; window operators 
+This operation belongs to the group of  Neighbourhood operators; window operators 
 
 Examples
 ========

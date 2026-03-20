@@ -24,7 +24,7 @@ class ModelLinkInit : public Statement {
     //! parameter with name modelId
     UserModelLink *d_par;
 
-    //! for syntax check, postion of model in statement
+    //! for syntax check, position of model in statement
     const Element            d_posOfModelName;
     //! all field args, so not the strArg
     const FieldExprArgs       d_args;

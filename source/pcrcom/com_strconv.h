@@ -24,7 +24,7 @@ namespace com {
    *  see fromStringNotWorking for failed implementation. The trouble
    *  seems  to be in gcc (last check on gcc prior to 3.0).
    *
-   *  Therefor only the specializations for
+   *  Therefore only the specializations for
    *  int,double, size_t are implemented. If one needs another
    *  one write the tests!
    *

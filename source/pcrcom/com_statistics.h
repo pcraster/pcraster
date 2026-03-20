@@ -155,7 +155,7 @@ public:
 /*!
   This algorithm is taken from Press et al (Numerical Recipes in C, 2nd)
   and calculates the variance utilising the two-pass algorithm: it needs
-  the mean to start off for calculating differences. It encorporates a way to
+  the mean to start off for calculating differences. It incorporates a way to
   minimize roundoff errors.
 
   s^2 = (sumOfSquaredDifferences - (sumOfDifferences^2 / N)) / (N - 1)
@@ -233,7 +233,7 @@ public:
 /*!
   This algorithm is taken from John C. Davis (Statistics and data analysis in
   geology, second edition) and calculates an unbiased value for the variance
-  using the folowing formula:
+  using the following formula:
 
   s^2 = (n * sumOfSquaredValues - sumOfValues^2) / (n * (n - 1))
 

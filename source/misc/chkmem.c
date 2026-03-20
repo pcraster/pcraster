@@ -287,7 +287,7 @@ void StopLimitMalloc(void)
  * more allocation request are done then an allocation function will
  * fail. On exit() or StopLimitMalloc a check is done if all memory is
  * freed. This procedure is garantueed to work if all allocation request
- * are done through Chk-allocation function familly and deallocation
+ * are done through Chk-allocation function family and deallocation
  * with Free. Addionately alloc, realloc and free are renamed in misc.h to
  * ChkMalloc, ChkRealloc and Free if the application or library
  * is compiled with LIMITMALLOC defined
@@ -347,7 +347,7 @@ void *ChkTmpMalloc(size_t size) /* size in bytes, larger than 0 */
   }
 #endif
 
-  /* allocate block preceeded by a TMP_NODE structure
+  /* allocate block preceded by a TMP_NODE structure
      */
   b = (TMP_NODE *)ChkMalloc(sizeof(TMP_NODE) + size);
   if (b == NULL) {
@@ -436,7 +436,7 @@ void *ChkRealloc(void *ptr,   /* pointer to old block */
 /* reallocate block, and free in case of failure
  * ChkReallocFree reallocates a memory block and
  * frees the old block in case of an error.
- * RETURNS 1 if succesfull, 0 if a memory error occurred
+ * RETURNS 1 if successful, 0 if a memory error occurred
  */
 int ChkReallocFree(void **ptr, /*  read-write, ptr to address of
                                 *  block to be modified, set to NULL
@@ -504,7 +504,7 @@ void main(void)
 
 /*
  * piece of code t debug malloc/free issues on gcc
- * C++ new and delete are implemnted with malloc/free
+ * C++ new and delete are implemented with malloc/free
  */
 
 default_malloc_hook = __malloc_hook;

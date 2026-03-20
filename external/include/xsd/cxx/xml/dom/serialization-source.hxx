@@ -84,7 +84,7 @@ namespace xsd
         bool
         serialize (xercesc::XMLFormatTarget& target,
                    const xercesc::DOMDocument& doc,
-                   const std::basic_string<C>& enconding,
+                   const std::basic_string<C>& encoding,
                    error_handler<C>& eh,
                    unsigned long flags);
 
@@ -92,7 +92,7 @@ namespace xsd
         bool
         serialize (xercesc::XMLFormatTarget& target,
                    const xercesc::DOMDocument& doc,
-                   const std::basic_string<C>& enconding,
+                   const std::basic_string<C>& encoding,
                    xercesc::DOMErrorHandler& eh,
                    unsigned long flags);
 

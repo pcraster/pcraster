@@ -21,7 +21,7 @@ class  Symbol;
 //! Symbol external to the script
 /*!
  * A simple combination of a name (string) and a position
-   for example symbol defined in a seperate bindings file, that must be added to
+   for example symbol defined in a separate bindings file, that must be added to
    the script environment.
 */
 class ExtSym

@@ -1404,35 +1404,35 @@ def lookupldd(arg1, *arg2):
 
 
 def indexnominal(arg1):
-    raise RuntimeError("The indexnominal operation is not implemented. Only operations with map, table or timeseries arguments are currenly supported")
+    raise RuntimeError("The indexnominal operation is not implemented. Only operations with map, table or timeseries arguments are currently supported")
 
 
 def indexboolean(arg1):
-    raise RuntimeError("The indexboolean operation is not implemented. Only operations with map, table or timeseries arguments are currenly supported")
+    raise RuntimeError("The indexboolean operation is not implemented. Only operations with map, table or timeseries arguments are currently supported")
 
 
 def indexordinal(arg1):
-    raise RuntimeError("The indexordinal operation is not implemented. Only operations with map, table or timeseries arguments are currenly supported")
+    raise RuntimeError("The indexordinal operation is not implemented. Only operations with map, table or timeseries arguments are currently supported")
 
 
 def indexscalar(arg1):
-    raise RuntimeError("The indexscalar operation is not implemented. Only operations with map, table or timeseries arguments are currenly supported")
+    raise RuntimeError("The indexscalar operation is not implemented. Only operations with map, table or timeseries arguments are currently supported")
 
 
 def indexdirectional(arg1):
-    raise RuntimeError("The indexdirectional operation is not implemented. Only operations with map, table or timeseries arguments are currenly supported")
+    raise RuntimeError("The indexdirectional operation is not implemented. Only operations with map, table or timeseries arguments are currently supported")
 
 
 def indexldd(arg1):
-    raise RuntimeError("The indexldd operation is not implemented. Only operations with map, table or timeseries arguments are currenly supported")
+    raise RuntimeError("The indexldd operation is not implemented. Only operations with map, table or timeseries arguments are currently supported")
 
 
 def indextable(arg1):
-    raise RuntimeError("The indextable operation is not implemented. Only operations with map, table or timeseries arguments are currenly supported")
+    raise RuntimeError("The indextable operation is not implemented. Only operations with map, table or timeseries arguments are currently supported")
 
 
 def index(arg1):
-    raise RuntimeError("The index operation is not implemented. Only operations with map, table or timeseries arguments are currenly supported")
+    raise RuntimeError("The index operation is not implemented. Only operations with map, table or timeseries arguments are currently supported")
 
 
 def ldd(arg1):
@@ -3083,7 +3083,7 @@ def kinematic(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8):
 
 
 def timeoutput(arg1, arg2):
-    raise RuntimeError("The timeoutput operation is not implemented. Only operations with map results are currenly supported")
+    raise RuntimeError("The timeoutput operation is not implemented. Only operations with map results are currently supported")
 
 
 def mapand(arg1):

@@ -104,7 +104,7 @@ std::vector<QDomElement> pcrxml::childElements(const QDomElement &parent)
 }
 
 /*! change an attribute name of \a e from \a oldName to \a newName, while
- * remaing the same attribute value
+ * remaining the same attribute value
  * if \a e does not have an attribute with name \a oldName nothing
  * is done.
  */
@@ -120,7 +120,7 @@ void pcrxml::changeAttrName(QDomElement &e, const QString &oldName, const QStrin
 
 //! \a e is an element with only text (PCDATA)
 /*! e will be normalized and its contents is returned as string
- *  if the element is empy, an empty string is returned
+ *  if the element is empty, an empty string is returned
  * \pre
  *   e does not contains sub-elements or CDATA sections
  * \todo

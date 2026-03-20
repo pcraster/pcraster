@@ -63,7 +63,7 @@ void calc::BranchExprImpl::execute(calc::FieldStack &stack)
         throw std::runtime_error("range error");
 
 #ifdef BORLANDC
-      /* MINGW does suppot this see ~/SEH*txt for
+      /* MINGW does support this see ~/SEH*txt for
        some possible alternatives, or do signal/trap?
      */
     } __except (EXCEPTION_EXECUTE_HANDLER) {
@@ -306,7 +306,7 @@ void calc::BranchExprImpl::executeOperation(const calc::Operator &implOp, calc::
       PRECOND(n == 1);
       MAJOR_CODE const newOp = VsConvoperator(args[0]->vs(), vs());
       /* this can introduce OP_NOP if no conversion
-            * is neccessary
+            * is necessary
             */
       if (newOp == OP_NOP) {
         executeArgs(stack);
@@ -791,7 +791,7 @@ void calc::BranchExprImpl::execGlob(const Operator &implOp, FieldStack &stack)
   PRECOND(implOp.exec() == EXEC_GLOBAL);
 
   typedef int (*DO_GLOBAL)(void *out, const void **ins);
-  /* return 0 if everthing went well
+  /* return 0 if everything went well
    * non-zero otherwise
    */
   static const DO_GLOBAL jmpTableGlob[] = {

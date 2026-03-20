@@ -22,23 +22,23 @@ BOOST_AUTO_TEST_CASE(required)
   BOOST_TEST(catched);
 
   // Insert
-  bool succes = true;
+  bool success = true;
   try {
     kvt.add("key1", "2.2");
   } catch (KeyValueTable::IllegalValue & /*v*/) {
-    succes = false;
+    success = false;
   }
-  BOOST_TEST(succes);
+  BOOST_TEST(success);
   BOOST_TEST(kvd.value(kvt) == 2.2);
 
   // OK
-  succes = true;
+  success = true;
   try {
     kvt.checkRequired();
   } catch (...) {
-    succes = false;
+    success = false;
   }
-  BOOST_TEST(succes);
+  BOOST_TEST(success);
 }
 
 BOOST_AUTO_TEST_CASE(double_)
@@ -59,13 +59,13 @@ BOOST_AUTO_TEST_CASE(double_)
   BOOST_TEST(catched);
 
   // Ok
-  bool succes = true;
+  bool success = true;
   try {
     kvt.add("key1", "2.2");
   } catch (KeyValueTable::IllegalValue & /*v*/) {
-    succes = false;
+    success = false;
   }
-  BOOST_TEST(succes);
+  BOOST_TEST(success);
   BOOST_TEST(kvd.value(kvt) == 2.2);
 
   com::GreaterThan<> gt4(4);
@@ -82,13 +82,13 @@ BOOST_AUTO_TEST_CASE(double_)
   BOOST_TEST(catched);
 
   // ok
-  succes = true;
+  success = true;
   try {
     kvt.add("keyGt4", " 45 ");
   } catch (...) {
-    succes = false;
+    success = false;
   }
-  BOOST_TEST(succes);
+  BOOST_TEST(success);
   BOOST_TEST(kvgt4.value(kvt) == 45);
 }
 
@@ -133,13 +133,13 @@ BOOST_AUTO_TEST_CASE(integer_)
   BOOST_TEST(catched);
 
 
-  bool succes = true;
+  bool success = true;
   try {
     kvt.add("key1", " 45 ");
   } catch (...) {
-    succes = false;
+    success = false;
   }
-  BOOST_TEST(succes);
+  BOOST_TEST(success);
   BOOST_TEST(kvi.value(kvt) == 45);
 
   int i45 = 999;
@@ -160,13 +160,13 @@ BOOST_AUTO_TEST_CASE(integer_)
   BOOST_TEST(catched);
 
   // ok
-  succes = true;
+  success = true;
   try {
     kvt.add("keyGt4", " 45 ");
   } catch (...) {
-    succes = false;
+    success = false;
   }
-  BOOST_TEST(succes);
+  BOOST_TEST(success);
   BOOST_TEST(kvgt4.value(kvt) == 45);
 }
 
@@ -189,13 +189,13 @@ BOOST_AUTO_TEST_CASE(enum_)
   }
   BOOST_TEST(catched);
 
-  bool succes = true;
+  bool success = true;
   try {
     kvt.add("key1", "E1");
   } catch (...) {
-    succes = false;
+    success = false;
   }
-  BOOST_TEST(succes);
+  BOOST_TEST(success);
 
   BOOST_TEST(kve1.value(kvt) == "E1");
   BOOST_TEST(kve1.configValue(kvt) == "e1");
@@ -260,11 +260,11 @@ BOOST_AUTO_TEST_CASE(add)
   }
   BOOST_TEST(ignored);
 
-  bool succes = true;
+  bool success = true;
   try {
     kvt.checkRequired();
   } catch (...) {
-    succes = false;
+    success = false;
   }
-  BOOST_TEST(succes);
+  BOOST_TEST(success);
 }

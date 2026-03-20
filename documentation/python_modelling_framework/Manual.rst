@@ -8,7 +8,7 @@ Framework for Spatio-Temporal Modelling
 
    CW: since it is mentioned it is usable independent
    from PCRaster Python put a text book example of such
-   uses in a seperate chapter.
+   uses in a separate chapter.
    Maybe these simple non-spatial example you can copy from
    a text book on topics such kallman filtering.
 

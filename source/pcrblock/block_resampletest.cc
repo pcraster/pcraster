@@ -167,7 +167,7 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
   }
 
   //----------------------------------------------------------------------------
-  // Test  : New block at same hight as current block. Current block empty.
+  // Test  : New block at same height as current block. Current block empty.
   //
   //                      +-----+
   //                      |     |

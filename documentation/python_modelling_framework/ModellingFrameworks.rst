@@ -88,7 +88,7 @@ To run the model execute
 The script `runScript.py` creates an instance of the user model which is passed to the static framework afterwards. `staticModel.run()` executes the initial section of the user model.
 
 .. CW add: Note that this minimal setup does not do anything;
-.. <function>pass</function> is the Python stub for not doing anything. In reality there wil be modelling code at the spots of the <function>pass</function> statement.
+.. <function>pass</function> is the Python stub for not doing anything. In reality there will be modelling code at the spots of the <function>pass</function> statement.
 
 Example
 ^^^^^^^

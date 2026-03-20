@@ -480,7 +480,7 @@ bindingRHS[const calc::ASTPar& par]>[Parser::AP_ASTNode ret]:
 
 interfaceSection[calc::ASTScript *script]:
          (  id:TOK_ID TOK_LC
-            << // define here, to create new one each repition:
+            << // define here, to create new one each repetition:
                ASTDefinition ib;
                ib.setName(genId(id));
             >>
@@ -750,7 +750,7 @@ assignmentTail[const calc::ASTPar& lhs, bool& swap]>[Parser::AP_ASTNode ret]
              >>
            )|(TOK_IS (
              (fid1:TOK_ID TOK_COMMA fid2:TOK_ID
-                //  the awfull relic  m1,m2=fid1,fid2(.....)
+                //  the awful relic  m1,m2=fid1,fid2(.....)
                 //  for lddcreate, lddcreatedem etc. (old style MRF)
                 //   here we check for a needed swap to standardize
                 //    the order, as the new style MRF has a fixed order.

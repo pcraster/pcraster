@@ -32,7 +32,7 @@ struct Symbol {
 
   /*!
    * \todo
-   *   create Exception type that rememver first, as pointer
+   *   create Exception type that remember first, as pointer
    *   to offending position in case of error
    */
   template <typename IteratorType> void operator()(IteratorType first, IteratorType last) const

@@ -16,7 +16,7 @@ extern "C" void ResetError();
 
 namespace com {
 
-//! Translate old stle C error handling to throwing com::Exception's
+//! Translate old style C error handling to throwing com::Exception's
 /*!
   This class contains the implementation of to translate error handling
   done in the old PCRaster Ansi C libraries done in old code by calling
@@ -79,7 +79,7 @@ public:
 // INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
-//! clear state a fresh constucted ClibError object
+//! clear state a fresh constructed ClibError object
 void com::ClibError::reset()
 {
   d_libErrorStr.clear();

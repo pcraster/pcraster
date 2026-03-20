@@ -285,7 +285,7 @@ void ag::DirectionalQuadDrawer::draw(size_t r, size_t c) const
 // The bit pattern is 8 bits in size. All zero's means that no surrounding
 // cell drains into the current cell. All one's means that all surrounding
 // cells drain into the current cell. If a surrounding cell drains into the
-// current one, we set its bit to one as folows:
+// current one, we set its bit to one as follows:
 // pattern |= 1 << code_of_surrounding_cell
 // All surrounding cells have a unique code [1-8]:
 //

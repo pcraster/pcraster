@@ -29,7 +29,7 @@ extern const char DRIVE_DELIM;
   A path points to an entity in a file system (eg: a regular file, a directory, a link,
   disk, etc.).
 
-  This class has functionality for manipulating the name of a path. Wether the
+  This class has functionality for manipulating the name of a path. Whether the
   file actually exists or not is not important. Think of a PathName object as
   a <b>smart kind of string</b> with knowledge of the path name conventions of the
   OS platform and functionality to translate between platforms (makeNative()).
@@ -205,7 +205,7 @@ public:
 
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

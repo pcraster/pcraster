@@ -451,7 +451,7 @@ static double iterateToQnew(double Qin, double Qold, double q, double alpha, dou
    \sa $OLDPCRTREE/docs/pcrmanual/manual_updates/dynWaveRouting.doc
 
 The two kinematic variants (kinematic() and kinematicflux/kinematicstate()
-have been reworked considerable in two stages. Goal was to have them and dynamicwave working in constitently together, all three use comparable units for their inputs and outputs. The two work stages were:
+have been reworked considerable in two stages. Goal was to have them and dynamicwave working in consistently together, all three use comparable units for their inputs and outputs. The two work stages were:
   - As delivered to JRC May 2006 on base of WIllem March 22 2006 mail.
   - September 2007 (see mail Willem/JRC/Cees)
 

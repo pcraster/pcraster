@@ -22,7 +22,7 @@ namespace calc {
  * external users (e.g. clients of RunTimeEngine and ClientInterface).
  *
  * Some sort of reference counted ptr might be an alternative to the scheme
- * implemented. Backdraw is that such a templated ptr aproach add complexity
+ * implemented. Backdraw is that such a templated ptr approach add complexity
  * when the objects are created outside.
  *
  * Within PCRasterModelEngine deletion of DataValue-based objects (e.g. Field, etc.) must

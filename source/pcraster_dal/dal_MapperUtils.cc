@@ -130,12 +130,12 @@ PCR_DAL_DECL void spaceStepMap(
     double const firstIndex(mapper->source(lowestCoordinate));
     double const lastIndex(mapper->source(highestCoordinate));
 
-    // Here we test whether we get float results which are convertable to
+    // Here we test whether we get float results which are convertible to
     // integers without much loss. This should be the case.
     // Comparing floating point numbers happens by checking whether the
     // difference of two values is smaller than x percent. Because
     // fmod(index) computed below is normally very small, the call to comparable
-    // fails easely. Because of that, we add 1.0 to make this check pass in
+    // fails easily. Because of that, we add 1.0 to make this check pass in
     // these still valid cases.
     assert(comparable(std::fmod(firstIndex, 1.0) + 1.0, 0.0 + 1.0));
     assert(comparable(std::fmod(lastIndex, 1.0) + 1.0, 0.0 + 1.0));

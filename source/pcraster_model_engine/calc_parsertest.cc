@@ -247,7 +247,7 @@ BOOST_AUTO_TEST_CASE(testParseErrors)
   catched = false;
   try {
     // test that StringParser checks on more input
-    // then neeeded for parsing pcrcalc11pre is list of statements
+    // then needed for parsing pcrcalc11pre is list of statements
     // beginning with an assignment
     (void)sp.createAssignment(parsertest::model("pcrcalc11pre"));
   } catch (const PosException &) {

@@ -120,7 +120,7 @@ proc DassJmp { theFunc opName } {
   puts $dassJmp "\{\{$op1,$op2\},$theFunc\},"
 }
 
-# map code to implementor and index of implementor
+# map code to implementer and index of implementer
 proc AddToDoubleTable { opCode } {
  set dassCode $opCode
  set i -1
@@ -191,7 +191,7 @@ set nrPolys 0
 set nrTrigs 0
 
 # read on line from fd and put each item in list
-# assuming items on lines are seperated by space
+# assuming items on lines are separated by space
 # returns number of items, values put in listName
 proc GetList { fd listName { get3 0 } } {
   upvar $listName l
@@ -251,7 +251,7 @@ while { 1 } {
  puts "<Operation name='$descr(1)'"
  # if (NF == 8) then $1 is not a valid character string
  #   $8 is MNENOMIC
- #   that also means it is an implementor?
+ #   that also means it is an implementer?
  set op $descr(1)
  if { $nr == 8 } {
   puts "           implementationName='$descr(8)'"

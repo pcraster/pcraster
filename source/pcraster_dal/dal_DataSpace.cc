@@ -592,7 +592,7 @@ DataSpace& DataSpace::operator&=(
 
   If \a flags contains DontIntersectCoordinates the resulting space
   is equal to the original space with the dimensions not present in \a
-  space removed. Otherwise the coordinates of the dimensions occuring
+  space removed. Otherwise the coordinates of the dimensions occurring
   in both spaces will be intersected. This means that only coordinates
   present in both dimensions will be part of the resulting space.
 
@@ -833,7 +833,7 @@ size_t DataSpace::size() const
 
 
 
-//! Returns wheter the data space has no dimensions or whether all dimensions are empty.
+//! Returns whether the data space has no dimensions or whether all dimensions are empty.
 /*!
   \return    True or false
 
@@ -971,7 +971,7 @@ Dimension const& DataSpace::dimension(
 
 
 
-//! Returns the index of the first occurence of a dimension with meaning \a meaning.
+//! Returns the index of the first occurrence of a dimension with meaning \a meaning.
 /*!
   \param     meaning Meaning of dimension to search for.
   \return    Index or the number of dimensions when a relevant dimension could not be found.
@@ -1084,7 +1084,7 @@ bool DataSpace::isSpatial() const
 
 
 
-//! Returns whether the data space constains a scenarios dimension.
+//! Returns whether the data space contains a scenarios dimension.
 /*!
   \return    True or false
 */
@@ -1102,7 +1102,7 @@ bool DataSpace::hasCumProbabilities() const
 
 
 
-//! Returns whether the data space constains a samples dimension.
+//! Returns whether the data space contains a samples dimension.
 /*!
   \return    True or false
 */
@@ -1113,7 +1113,7 @@ bool DataSpace::hasSamples() const
 
 
 
-//! Returns whether the data space constains a time dimension.
+//! Returns whether the data space contains a time dimension.
 /*!
   \return    True or false
 */
@@ -1295,7 +1295,7 @@ DataSpaceAddress DataSpace::trim(
 
   // Loop over all dimensions in the source space.
   for(size_t s = 0; s < space.size() && t < size(); ++s) {
-    // Check wether current dimension in source space is compatible with
+    // Check whether current dimension in source space is compatible with
     // current dimension in target space.
     if(!space.dimension(s).isCompatible(dimension(t))) {
       // No, get rid of coordinate.

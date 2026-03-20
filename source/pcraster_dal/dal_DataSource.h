@@ -65,7 +65,7 @@ private:
 
   Driver*          d_reader{};
 
-  //! Driver for reading and writing the cache for tabels.
+  //! Driver for reading and writing the cache for tables.
   MemoryTableDriver* d_tableCacheDriver{};
 
   DataSourceProperties d_properties;
@@ -271,7 +271,7 @@ inline void DataSource::uniqueValues(
   std::shared_ptr<Raster> const raster(this->raster(/* space, */ address, typeId));
   assert(raster);
 
-  // Iterate over inidividual cells.
+  // Iterate over individual cells.
   T const* array = raster->template cells<T>();
   for(size_t i = 0; i < raster->nrCells(); ++i) {
     if(!pcr::isMV(array[i])) {

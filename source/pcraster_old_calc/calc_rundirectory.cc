@@ -191,7 +191,7 @@ calc::RunDirectory::~RunDirectory()
 
    \arg runDirectory must be a valid name for a directory to
    write all output to. If empty then the output directory and search
-   paths are set to default, none. all path delimeters are accepted.
+   paths are set to default, none. all path delimiters are accepted.
    \arg externalBindingsFile file path set from pcrcalc -b option, empty
    if not set
    \todo
@@ -228,7 +228,7 @@ void calc::RunDirectory::setupForExecution() const
    or return the absolute path of  d_outputDirectory concatenated with \a fileName
 
    Note that the exception that fileName cannot contain a directory name part
-   is an incompatability with running pcrcalc without -r.
+   is an incompatibility with running pcrcalc without -r.
  */
 std::string calc::RunDirectory::outputFilePath(const std::string &fileName) const
 {

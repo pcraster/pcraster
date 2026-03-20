@@ -88,7 +88,7 @@ static void Longest(MAP_REAL8 *out,            /* read-write output map */
  * filled with missing values.
  * .B
  * If the ldd map contains a cycle the program will not terminate.
- * Returns 0 if succesfull, non-zero otherwise
+ * Returns 0 if successful, non-zero otherwise
  */
 int Slopelength(MAP_REAL8 *out,            /* Read-write output map  */
                 const MAP_UINT1 *ldd,      /* ldd map */

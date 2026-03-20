@@ -356,7 +356,7 @@ static int ParseLocalFlags(int *locArgPtr, /* read-write local arg ptr */
       currFlag = currFlag->next;
     }
     currFlag->set = true;
-    if (GET_OPT_SYM(flagIndex) != OPT_SYM_NONE) { /* trailing argument neccessary
+    if (GET_OPT_SYM(flagIndex) != OPT_SYM_NONE) { /* trailing argument necessary
       */
       const char *flagArg = NULL;
       if (f[i + 1] != '\0') { /* it's in this string
@@ -648,7 +648,7 @@ int GetOpt(void)
  * The character (and parameter-symbols) can be followed a &-symbol
  * in the options argument to identify that the option can be passed more then
  * once to the program. If options are mutual exclusive they can be specified in
- * paranthesis for an extra check, e.g. (ef): the user is wrong if he gives both
+ * parenthesis for an extra check, e.g. (ef): the user is wrong if he gives both
  * the e and f option.
  * If appNumbersAreArguments is set to TRUE (default FALSE) then negative numbers
  * are not recognized as flags.
@@ -717,7 +717,7 @@ void AppSetGlobalArgsDefaults(void)
 }
 
 /* check if the app has enough arguments, print usage if none given
- * AppArgCountCheck generates error messages if nessary
+ * AppArgCountCheck generates error messages if necessary
  * and prints the usage string if argc is 1
  * return 0 if the nr. of arguments are ok, 1 if not
  */

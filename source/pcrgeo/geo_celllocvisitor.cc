@@ -34,7 +34,7 @@ static struct {
 
 /*! only done non-in-line to make bcc32 link work.
     If no single non-inline then bcc32 creates
-    a depency on the test module of cellLocVistor, 
+    a dependency on the test module of cellLocVistor, 
     which depends on the cppunit library
 */
 geo::CellLocVisitor::CellLocVisitor(size_t nrRows, size_t nrCols)

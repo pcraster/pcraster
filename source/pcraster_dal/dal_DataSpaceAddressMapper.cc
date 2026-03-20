@@ -242,7 +242,7 @@ std::string DataSpaceAddressMapper::toString(
   \return    string
 
   It is assumed that the coordinates of the \a address passed in are in
-  source dimensions ranges. The result will be a string represenation
+  source dimensions ranges. The result will be a string representation
   of the coordinate in the destination range.
 */
 std::string DataSpaceAddressMapper::toString(

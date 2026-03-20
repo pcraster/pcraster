@@ -548,7 +548,7 @@ void DataSpaceIterator::increment()
                 d_address.setCoordinate<SpatialCoordinate>(i - 1,
                    SpatialCoordinate(x, y));
 
-                // We moved, initialise folowing dimensions to first
+                // We moved, initialise following dimensions to first
                 // coordinates and stop.
                 initialiseOnFirst(i);
                 return;
@@ -669,7 +669,7 @@ void DataSpaceIterator::decrement()
                 d_address.setCoordinate<SpatialCoordinate>(i - 1,
                    SpatialCoordinate(x, y));
 
-                // We moved, initialise folowing dimensions to first
+                // We moved, initialise following dimensions to first
                 // coordinates and stop.
                 initialiseOnFirst(i);
                 return;

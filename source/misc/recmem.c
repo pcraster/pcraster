@@ -46,7 +46,7 @@ typedef struct RECMEM_LINK {
  *
  * Warning:
  * Use a sizeof(something) construct for the recSize argument to assure
- * proper allignment. (See malloc()).
+ * proper alignment. (See malloc()).
  */
 RECMEM_HEAP *
 NewRecMemHeap(size_t recSize,                       /* size of each record */
@@ -96,7 +96,7 @@ NewRecMemHeap(size_t recSize,                       /* size of each record */
  * Allocates the amount of space that is defined  when creating
  * the RECMEM_HEAP by calling NewRecMemHeap().
  * This space must be freed by calling FreeRecord().
- * returns pointer to space or NULL if an error occured.
+ * returns pointer to space or NULL if an error occurred.
  */
 void *NewRecord(RECMEM_HEAP *r) /* Abstract. RECMEM_HEAP to allocate from. Must be
                                  * created by NewRecMemHeap()
@@ -158,7 +158,7 @@ void FreeAllRecords(RECMEM_HEAP *r)
 }
 
 /*C the array of blocks is only modified/extended if the function
-    is succesfull */
+    is successful */
 static void *AddBlock(RECMEM_HEAP *r)
 {
   void **blockArray = NULL;

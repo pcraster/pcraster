@@ -1,5 +1,5 @@
 Solutions represent hardware and software platforms on which PCRaster
-can be built. The contents of each solution shows the folowing:
+can be built. The contents of each solution shows the following:
 - Proof that PCRaster can be built on a platform.
 - The minimal set of requirements that are needed to build PCRaster.
 

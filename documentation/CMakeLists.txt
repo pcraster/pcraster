@@ -1,5 +1,5 @@
 # Helper macro to return paths to rst files such that
-# the project documenation target can access them
+# the project documentation target can access them
 macro(prepare_pcraster_project_docs sources dirname output)
     foreach(item ${sources})
         set(${output} ${${output}} ${dirname}/${item})

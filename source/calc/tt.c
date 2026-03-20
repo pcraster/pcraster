@@ -214,7 +214,7 @@ static int Compute(int rPit,                  /* row of pit cell */
         cNB = CNeighbor(c, list->nextLddDir);
         if (amount->Get(&a, rNB, cNB, amount) && accumTT->Get(&a, rNB, cNB, amount) &&
             fraction->Get(&a, rNB, cNB, fraction) &&
-            /* above get's only for MV skipping */
+            /* above gets only for MV skipping */
             ldd->Get(&lddNBval, rNB, cNB, ldd) &&
             (10 - lddNBval) == list->nextLddDir) /* <- cell flows into this one */
         {

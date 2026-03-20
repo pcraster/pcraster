@@ -188,7 +188,7 @@ BOOST_AUTO_TEST_CASE(testCapi)
     PcrScript *s = pcr_createScriptFromTextFile("pcrscripttest.mod");
     BOOST_TEST(s);
     if (s == nullptr) {
-      foo();  // supress not used message of foo: the sample code
+      foo();  // suppress not used message of foo: the sample code
     }
     pcr_ScriptExecute(s);
     BOOST_TEST(!pcr_ScriptError(s));
@@ -231,7 +231,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
     BOOST_CHECK_MESSAGE_ErrorMessage(s, "no clone or area map specified");
     pcr_destroyScript(s);
   }
-  {  // 3) AreaMap set but result is ambiguos
+  {  // 3) AreaMap set but result is ambiguous
     PcrScript *s = pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_3.xml");
     pcr_ScriptExecuteInitialStepMemory(s, data0);
     BOOST_TEST(pcr_ScriptError(s));
@@ -743,7 +743,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryTimeoutput)
       BOOST_TEST(tss[4] == 10);
     }
 
-    // extra should not do anthing
+    // extra should not do anything
     r = pcr_ScriptExecuteNextTimeStepMemory(s, data);
     BOOST_TEST(r == 0);
 

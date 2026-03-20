@@ -2,7 +2,7 @@
 
 /*
  * simplex.c 
- * A simple lexical analyzer to get proccess numbers and
+ * A simple lexical analyzer to get process numbers and
  * special symbols.
  */
 

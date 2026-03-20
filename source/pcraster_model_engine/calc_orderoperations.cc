@@ -87,7 +87,7 @@ void calc::orderOperation(REAL4 *res, IVSpatial<double> const &val, size_t len)
   // maximum size to can be used:
   order.reserve(len);
 
-  // add non-MV indeces to order
+  // add non-MV indices to order
   for (size_t i = 0; i < len; ++i) {
     if (val.isMV(i)) {
       pcr::setMV(res[i]);
@@ -114,7 +114,7 @@ void calc::areaOrderOperation(REAL4 *res, IVSpatial<double> const &expr,
   // maximum size to can be used:
   order.reserve(len);
 
-  // add non-MV indeces to order
+  // add non-MV indices to order
   for (size_t i = 0; i < len; ++i) {
     if (expr.isMV(i) || areaClass.isMV(i)) {
       pcr::setMV(res[i]);

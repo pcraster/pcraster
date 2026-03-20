@@ -28,7 +28,7 @@ class IOStrategy;
 /*!
  * ASTScript has a number of set... and transfer.. methods to construct
  * a script yielding binding, areamap, code, timer, report-definitions
- * and possible some  RunTimeEnvSettings apearing in the script.
+ * and possible some  RunTimeEnvSettings appearing in the script.
  *
  * After construction the script can be analyzed and checked: analyzeNoContext(), analyzeAndResolve()
  *

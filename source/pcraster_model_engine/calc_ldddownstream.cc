@@ -70,7 +70,7 @@ public:
 
 /*!
  * \todo
- *   downIterators most used, is there a perfomance penalty in
+ *   downIterators most used, is there a performance penalty in
  *   using reverse_iterator's instead of iterator's? If so, uncomment
  *   reverse operations and swap iterator type for up and down.
  */

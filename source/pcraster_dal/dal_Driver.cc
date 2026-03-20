@@ -465,7 +465,7 @@ void Driver::read(
 
 
 
-//! Temporary implementation untill all drivers have an implementation of their own.
+//! Temporary implementation until all drivers have an implementation of their own.
 /*!
   \tparam    .
   \param     .

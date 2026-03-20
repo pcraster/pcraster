@@ -23,7 +23,7 @@ namespace calc {
 /*!
  * wrapped in pcrcalc.cc by calc::Pcrcalc
  *
- * Note: public method names are exactly as the names apearing in the C-api:
+ * Note: public method names are exactly as the names appearing in the C-api:
  *  e.g. pcr_ScriptXMLReflection instead of xmlReflection
  *
  * \todo

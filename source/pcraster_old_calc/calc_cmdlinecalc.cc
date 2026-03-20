@@ -144,7 +144,7 @@ static void printUsage()
                   "  1    : update timeseries files at end of each timestep\n"
                   "  e    : return as exit code the last fileoutput expression\n"
                   "  E    : quit if a fileoutput expression evaluates to 0 \n"
-                  "          exit code is timestep when quitted\n"
+                  "          exit code is timestep when quit\n"
                   "  s #  : set seed (integer > 0) for random generator\n"
                   "         default is based on current time\n"
                   "  c    : strict Case significant filename check (Unix portability)\n"

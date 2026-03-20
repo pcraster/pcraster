@@ -60,7 +60,7 @@ void calc::LookupExpr::print(InfoScript &si) const
    \todo
     further optimization by checking if LookupTable is fully
     ordered: sort on <, then check in reverse if each sibling
-    pair will hold on > comparision. Maybe remove last [,] key
+    pair will hold on > comparison. Maybe remove last [,] key
     first before doing that check. If that test hold bsearch can
     be done. DAT MOET al in de constructie van LookupTable kunnen!
     En dus niet bij elke execute.

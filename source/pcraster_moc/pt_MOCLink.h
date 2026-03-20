@@ -18,7 +18,7 @@ namespace pt {
 
 
 
-//! ModelLink to Method Of Characteristics partical tracking code.
+//! ModelLink to Method Of Characteristics particle tracking code.
 /*!
   This link adds functionality for particle tracking to PCRaster.
 
@@ -95,7 +95,7 @@ public:
 
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

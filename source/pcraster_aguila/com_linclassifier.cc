@@ -29,7 +29,7 @@ template <class T> com_LinClassifier<T>::~com_LinClassifier()
 }
 
 /*!
-  The algorithm devides the range \a min - \a max in \a n equaly sized classes
+  The algorithm divides the range \a min - \a max in \a n equally sized classes
   and stores the class borders in \a b:
 
   \code

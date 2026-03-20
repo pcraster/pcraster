@@ -26,7 +26,7 @@ Result type of SuffixMap
 Operation
 =========
 lookupmapstack read a stack item of map stack. The index argument is
-computed run time, and can therefor be the result of complicated
+computed run time, and can therefore be the result of complicated
 calculations such as a lookupordinal operation. The function does
 require that stack item with index 1 exists, even if it is not used at
 runtime. Stack item 1 is used to check the datatype of the resulting

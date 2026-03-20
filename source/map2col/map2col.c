@@ -221,7 +221,7 @@ static int DoAppendMode(const char *outputFile, const char *inputFile, INP_MAP *
       fprintf(out, "\n");
     }
 
-    /* write new column decription lines */
+    /* write new column description lines */
     for (c = 0; c < nrMaps; c++) {
       fprintf(out, "map2col append: %s\n", MgetFileName(maps[c].m));
     }
@@ -407,7 +407,7 @@ int Map2Col(INP_MAP *maps,                         /* list of map records */
             size_t nrMaps,                         /* array size of maps */
             size_t xcoord,                         /* pos. of x column, internal index */
             size_t ycoord,                         /* pos. of y column, internal index */
-            const char *mv, const char *separator, /* NULL if not used, use this as seperator */
+            const char *mv, const char *separator, /* NULL if not used, use this as separator */
             bool geoEas,                           /* geoEas output Y/N */
             bool colWise,                          /* order of output   */
             bool printMV,                          /* output records even if all input maps are

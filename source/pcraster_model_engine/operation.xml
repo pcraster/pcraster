@@ -566,7 +566,7 @@
  <Result><Field>&VS_D;</Field></Result>
  <Input><Field>&VS_FIELD;</Field></Input>
 </Operation>
-<!-- #dirty ones, or neccessary for numbers: -->
+<!-- #dirty ones, or necessary for numbers: -->
 <Operation name='scalar'
            exec='CONV'>
            <Manual/>
@@ -658,7 +658,7 @@
 </Operation>
 <Operation name='tan'
            exec='TRIG'>
- <!-- flat, 90 or 180 degrees, rounded problem conver from degrees to radians -->
+ <!-- flat, 90 or 180 degrees, rounded problem convert from degrees to radians -->
 <SameUn onlyDomainIll=
  "(v==-1||com::equal_epsilon(M_PI*0.5,(double)v)||com::equal_epsilon(M_PI*1.5,(double)v))"
          function="std::tan(v)" />

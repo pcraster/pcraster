@@ -54,7 +54,7 @@ calc::ExternalSymbols *calc::ExternalSymbols::instance()
   return d_instance;
 }
 
-//! Deletes the layered instance. Information about external symboles is lost.
+//! Deletes the layered instance. Information about external symbols is lost.
 /*!
 */
 void calc::ExternalSymbols::clear()
@@ -177,7 +177,7 @@ const calc::ModelLinkProxy *calc::ExternalSymbols::findModelLinkProxy(const std:
  * the library is kept open
  * there is no clean up code to close the library
  * return 1 in case of serious error
- * 0 if succesfull loaded or non serious error
+ * 0 if successful loaded or non serious error
  * \todo still uses libmisc Warning printing to stderr!
  */
 void calc::ExternalSymbols::loadDynamicLibrary(const std::string &extLibNoExt)

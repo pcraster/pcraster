@@ -3,7 +3,7 @@
 #include "calc_nonspatial.h"
 
 //! used for initialization of computed parameter
-/*! will recieve value on assignment
+/*! will receive value on assignment
  */
 calc::NonSpatialImpl::NonSpatialImpl(const calc::FieldParameter &p, size_t index)
     : calc::FieldValue(p, index)

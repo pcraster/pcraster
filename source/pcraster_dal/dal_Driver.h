@@ -39,7 +39,7 @@ namespace dal {
   Optional stuff read by a driver can be put in the properties of a dataset.
   Information about optional properties set (open(), read()) or needed
   (write()) by a driver must be documented in each relevant member function
-  of each driver! Use to folowing format in the driver documentation:
+  of each driver! Use to following format in the driver documentation:
 
   <table>
     <tr>
@@ -163,7 +163,7 @@ public:
     \return    true or false
     \exception .
     \warning   Only a quick check is performed. Even if this function returns
-               true there is no garantee that this driver can actually open
+               true there is no guarantee that this driver can actually open
                the data source.
   */
   virtual bool     exists              (std::string const& name,

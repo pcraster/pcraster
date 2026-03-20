@@ -46,7 +46,7 @@ If, instead of fixed variables, the available data are random variables (e.g. re
 
 Distribution values do not need to be symmetric; if much emphasis is put on the upper tail, the lower tail may be discretized by very few values (like, say, ``0.01``, ``0.5``, ``0.9``, ``0.91``, ``0.92``, ``0.93``, ...).
 
-The interface of Aguila assumes that all distribution values provided are part of a regular sequence. Both examples above are subsets of the sequence ``0.01``, ``0.02``, ``0.03``, ..., ``0.99``. Minimum, maximum, and step size need to be specified for a sequence. Aguila will read those values present, and will linearly interpolate inbetween them.
+The interface of Aguila assumes that all distribution values provided are part of a regular sequence. Both examples above are subsets of the sequence ``0.01``, ``0.02``, ``0.03``, ..., ``0.99``. Minimum, maximum, and step size need to be specified for a sequence. Aguila will read those values present, and will linearly interpolate in between them.
 
 .. _scenarios:
 
@@ -64,7 +64,7 @@ Data set types
 ==============
 As described above, Aguila supports data sets with various kinds of dimensions. Every unique combination of dimensions gives rise to a data set type.
 
-For some types of data sets, there are convenient data formats available, for example raster formats. For other data set types, we had to come up with some conventions to be able to store the values. There is, for example, no convenient data format availabe for storing uncertain spatio-temporal values.
+For some types of data sets, there are convenient data formats available, for example raster formats. For other data set types, we had to come up with some conventions to be able to store the values. There is, for example, no convenient data format available for storing uncertain spatio-temporal values.
 
 This section describes the various types of data sets, and the next section describes the formats for storing the attribute values and some naming conventions used. The grey nodes in the figure below show data set types are not implemented. They are drawn and mentioned in the text for completeness.
 
@@ -164,12 +164,12 @@ Temporal values vary in time, but they have no spatial variation or even spatial
 
 Examples:
 
-* Rainfall for a relatively small area and assumed te be constant for the whole area
+* Rainfall for a relatively small area and assumed to be constant for the whole area
 
 Aguila has support for reading temporal values from many `table data formats`_.
 
 ..
-  For temporal values the folowing fields must be present in the table:
+  For temporal values the following fields must be present in the table:
   * ``date``
   * <attribute name>
 
@@ -256,7 +256,7 @@ Aguila uses the value scale property to decide how to visualise an attribute. In
 
 __ https://gdal.org/user/raster_data_model.html
 
-The folowing values for the ``PCRASTER_VALUESCALE`` meta data item are recognized:
+The following values for the ``PCRASTER_VALUESCALE`` meta data item are recognized:
 
 - ``VS_BOOLEAN``: boolean attribute
 - ``VS_NOMINAL``: nominal attribute
@@ -265,7 +265,7 @@ The folowing values for the ``PCRASTER_VALUESCALE`` meta data item are recognize
 - ``VS_DIRECTION``: directional attribute
 - ``VS_LDD``: ldd attribute
 
-The folowing color interpretation values are recognized:
+The following color interpretation values are recognized:
 
 - ``GCI_GrayIndex``: scalar attribute
 
@@ -273,7 +273,7 @@ The folowing color interpretation values are recognized:
 
 Naming conventions
 ^^^^^^^^^^^^^^^^^^
-Raster formats store spatial data in seperate files. Each file contains spatial attribute values for one map. To add information about other dimensions Aguila supports the folowing naming conventions:
+Raster formats store spatial data in separate files. Each file contains spatial attribute values for one map. To add information about other dimensions Aguila supports the following naming conventions:
 
 .. table:: Raster file format conventions
 
@@ -298,7 +298,7 @@ Raster formats store spatial data in seperate files. Each file contains spatial 
 
 This means that, for example, a raster data source with scenarios ``simple`` and ``complex``, and temporal quantile levels has rasters named ``simple/co2_1_0.001.map`` and ``complex/co2_100_0.5.map``.
 
-The PCRaster convention for naming spatio-temporal raster data is also supported. PCRaster uses the 8.3 DOS convention where each member of a stack is named by its name, possibly 0's and a time step number. So, a PCRaster model might output ``dem00000.001``, ``dem00000.002``, etc. When the time dimension is set up right, the name (``dem`` in this case) can be used to name such a stack. Also supported is the (depricated) convention of naming a stack by the first member, folowed by a ``+``-sign and the last time step of the stack, ``dem00000.001+1000`` for example.
+The PCRaster convention for naming spatio-temporal raster data is also supported. PCRaster uses the 8.3 DOS convention where each member of a stack is named by its name, possibly 0's and a time step number. So, a PCRaster model might output ``dem00000.001``, ``dem00000.002``, etc. When the time dimension is set up right, the name (``dem`` in this case) can be used to name such a stack. Also supported is the (deprecated) convention of naming a stack by the first member, followed by a ``+``-sign and the last time step of the stack, ``dem00000.001+1000`` for example.
 
 .. _featureLayerFormats:
 
@@ -310,15 +310,15 @@ __ https://www.gdal.org/
 
 Naming conventions
 ^^^^^^^^^^^^^^^^^^
-Aguila visualises attributes, not whole data sources. Feature data sources contain one or more feature layers and each layer contains zero or more attributes. The folowing naming rule must be used to tell Aguila which attribute to visualize::
+Aguila visualises attributes, not whole data sources. Feature data sources contain one or more feature layers and each layer contains zero or more attributes. The following naming rule must be used to tell Aguila which attribute to visualize::
 
   datasource/layer{/attribute}
 
-When the attribute is not provided, Aguila will show the geometry of the layer. For example, given a ESRI Shapefile with information about countries, the folowing command will draw the country borders::
+When the attribute is not provided, Aguila will show the geometry of the layer. For example, given a ESRI Shapefile with information about countries, the following command will draw the country borders::
 
   aguila countries.shp/countries
 
-And the folowing command will draw each country's population::
+And the following command will draw each country's population::
 
   aguila countries.shp/countries/population
 
@@ -364,15 +364,15 @@ Naming conventions
 ^^^^^^^^^^^^^^^^^^^
 Naming a table data set depends on the format used to store the table in. For file formats the name of the data set is the name of the file it is stored in. For tables served by database management systems different conventions apply: ``myname(mypasswd)@myserver:mydatabase/mytable``. Some of the elements of this naming conventions might be optional, depending on the configuration of your database server. The server might, for example, grant read access to everybody, which means the account information in the name is redundant: ``myserver:mydatabase/mytable``. The database server might be your production machine, which means the server name is redundant: ``mydatabase/mytable``.
 
-.. Depending on the application, extra information about the columns to select from the table can be given in the name of the dataset. To select the first and fifth column from a dataset you can use: ``mytable{1,5}``. The selection specification consists of a list of column numbers, seperated by a comma and optional whitespace, and surrounded by curly braces.
+.. Depending on the application, extra information about the columns to select from the table can be given in the name of the dataset. To select the first and fifth column from a dataset you can use: ``mytable{1,5}``. The selection specification consists of a list of column numbers, separated by a comma and optional whitespace, and surrounded by curly braces.
 
 The table must contain a field named after the attribute. The values of this field will be visualized.
 
-.. TODO How about table formats without a header. Default take the first two columns? The default should make PCRaster's timeseries files useable. Get rid of the selection stuff in the above paragraph(?).
+.. TODO How about table formats without a header. Default take the first two columns? The default should make PCRaster's timeseries files usable. Get rid of the selection stuff in the above paragraph(?).
 
 .. TODO pick info from mail. Here, only info for joining the attribute. Info about the table layout can be described in the next section.
 
-Attribute variation for one or more dimensions must be stored using a primary key consisting of one or more of the folowing field names: ``scenario``, ``date``, ``quantile``. For each unique combination of these, an attribute value can be stored in the table.
+Attribute variation for one or more dimensions must be stored using a primary key consisting of one or more of the following field names: ``scenario``, ``date``, ``quantile``. For each unique combination of these, an attribute value can be stored in the table.
 
 .. note::
 

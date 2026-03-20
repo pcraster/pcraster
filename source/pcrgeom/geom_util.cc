@@ -33,7 +33,7 @@ geom_Size<int> geom_Util::adjustWidthOrHeight(const geom_Size<int> &maxSize,
 /*!
   This function returns a rectangle based on the size of \a size and the ratio
   of \a width and \a height. The new rectangle will have the same aspect as
-  \a widht and \a height. The size of \a size will be adjusted (enlarged) to
+  \a width and \a height. The size of \a size will be adjusted (enlarged) to
   meet these requirements.
 */
 geom::Rectangle<int> geom_Util::reAspect(const geom::Rectangle<int> &size,

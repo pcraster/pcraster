@@ -165,7 +165,7 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
 
                 if not currentPeriod == lastPeriod:
                     # update the weights
-                    # calling the "objective fuction" for each sample
+                    # calling the "objective function" for each sample
                     for sample in range(1, self._userModel().nrSamples() + 1):
                         self._userModel()._setCurrentSample(sample)
                         self._userModel()._d_inUpdateWeight = True

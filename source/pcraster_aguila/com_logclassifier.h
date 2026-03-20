@@ -17,7 +17,7 @@
          a continuous range of data values.
 
   This class implements an classification algorithm. A continuous range of data
-  values is devided into classes using the std::log10() function.
+  values is divided into classes using the std::log10() function.
 */
 //       1         2         3         4         5         6         7         8
 template<class T>
@@ -62,7 +62,7 @@ public:
 
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

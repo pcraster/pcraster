@@ -277,7 +277,7 @@ void DataProperties::addScalarTimeSeriesProperties(DataObject const &dataObject,
     _data->_rangeClassifiers.push_back(rawValueClassifier);
     rawValueClassifier->installLin();
 
-    // Determine min and max of dependant variables.
+    // Determine min and max of dependent variables.
     if (!table.allMV()) {
       auto min = table.min<REAL4>();
       auto max = table.max<REAL4>();

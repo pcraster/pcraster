@@ -35,7 +35,7 @@ extern void *STfindOrInsert(SEARCH_TABLE *t, const void *r);
 
 
 typedef enum LOOK_UP_TEST{
- /* code depends on particalur enum values
+ /* code depends on particular enum values
   * order is also important in ParseKey, WriteLookupTable and Lookup
   */
  TEST_ONE    =0,  /* single value  EqualTo           */

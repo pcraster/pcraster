@@ -251,7 +251,7 @@ template<typename T>
  */
 template<typename T>
  struct IfThenElseArray: public IIfThenElse {
-   //! Result, alway spatial here
+   //! Result, always spatial here
    typedef       T    * Result;
    //! always spatial here
    typedef const UINT1* Cond;
@@ -370,7 +370,7 @@ template<class O>
      }
  };
 
- /*! agregate ->return nonspatial
+ /*! aggregate ->return nonspatial
  *  kan als met state in point-code, is
  *  "cache-friendly" de state is relatief klein, net zoals pit functie
  */

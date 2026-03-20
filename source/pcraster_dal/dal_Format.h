@@ -24,7 +24,7 @@ namespace dal {
   Different data formats have different ways of storing data: files, databases,
   memory, etc.
 
-  \todo What about loosing the discretisation info?
+  \todo What about losing the discretisation info?
 */
 class PCR_DAL_DECL Format
 {

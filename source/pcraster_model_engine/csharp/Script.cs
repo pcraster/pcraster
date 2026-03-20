@@ -141,7 +141,7 @@ public class XMLReflection {
 /*
  * 
  * /// <summary>
- * /// Tiny engine capable of running model scripts. Convienence class that will wrap the non object oriented C API into a class. 
+ * /// Tiny engine capable of running model scripts. Convenience class that will wrap the non object oriented C API into a class. 
  * //// Current functionality is minimal, in development for OpenMI and ArcGIS 8+ interface.
  * /// </summary>
  * public class Script : API {

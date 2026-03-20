@@ -41,7 +41,7 @@ namespace ag
   \exception .
   \warning   .
   \sa        .
-  \todo      Add code to temporarely cache tables. Currently, tables with n
+  \todo      Add code to temporarily cache tables. Currently, tables with n
              attribute columns are read n times. Better is to read the whole
              table once, store it in the cache and let subsequent table reads
              pick up the cached table from the library::cacheDataPool() using

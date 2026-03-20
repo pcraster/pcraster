@@ -98,7 +98,7 @@ void calc::SubParameter::setReportPoint(const Position *writtenHere, const Write
 
 /*!
  * \todo
- *   bad, refactor completely out, doing ptr comparision is risky
+ *   bad, refactor completely out, doing ptr comparison is risky
  *   if changes by copying data
  */
 bool calc::SubParameter::writeHere(const Position *assignPoint) const

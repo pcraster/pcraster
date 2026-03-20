@@ -25,7 +25,7 @@ namespace com {
   a helper class, but you don't have access to the showWarning member of
   the com::App class. This is where AppHelper comes in handy: just let the
   application helper classes inherit from AppHelper and provide a pointer to
-  the one application object. This way the application object is alway nearby
+  the one application object. This way the application object is always nearby
   to call functions upon.
 */
 class AppHelper

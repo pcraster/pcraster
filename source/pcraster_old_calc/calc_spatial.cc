@@ -108,7 +108,7 @@ namespace calc
 template <typename CR,       // type operated on
           typename CR0 = CR  // for float not default, but an integral type that with
                              //  the same bit pattern will yield 0
-                             //  this is to prefent normalization issues (I think)
+                             //  this is to prevent normalization issues (I think)
           >
 class MaskChecker
 {
@@ -155,7 +155,7 @@ public:
  *  \note
  *     name is incorrect it is also used for -0 without -d
  *  \todo
- *    writting debug map more than once will crash
+ *    writing debug map more than once will crash
  */
 bool calc::Spatial::checkDebug(const calc::IScript &s, bool &allZero, size_t &bpc) const
 {

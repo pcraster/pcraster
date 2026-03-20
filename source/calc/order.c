@@ -203,7 +203,7 @@ static int QuickSort(INT4 partToSort, INT4 nrCells, const MAP_REAL8 *in, /* Read
 /* Gives unique numbers to values in the input map in ascending order.
  * The quicksort algorithm is used to determine the order of the
  * numbers in the output map.
- * quicksort algoritm copied from Paul S. Wang's An Introduction to
+ * quicksort algorithm copied from Paul S. Wang's An Introduction to
  * ANSI C on Unix, partitioning is written by Matthuschka adapted
  * from Sedgewick.
  * Returns 0 if termination is successful, 1 otherwise.
@@ -239,7 +239,7 @@ int Order(MAP_REAL8 *out,      /* Read-write output map  */
   /* Initialize the outBuf with ascending numbers.  
      * Since we already need this first sweep to get
      * indirection index map (tmp) we can also analyse
-     * in this sweep what sort algoritm is the best
+     * in this sweep what sort algorithm is the best
      */
   id = 0; /* id is linearized index 
              * for maps

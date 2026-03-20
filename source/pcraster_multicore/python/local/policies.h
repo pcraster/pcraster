@@ -47,7 +47,7 @@ public:
     Value remainder = std::remainder(value, fern::half_pi<Value>());
 
     if(remainder != Value(0)){
-      // Value is not divisable by a whole number of times 0.5 * pi.
+      // Value is not divisible by a whole number of times 0.5 * pi.
       return true;
     }
     else{

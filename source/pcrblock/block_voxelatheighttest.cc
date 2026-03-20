@@ -72,7 +72,7 @@ BOOST_AUTO_TEST_CASE(test)
            thicknesses.begin(), thicknesses.end(), VoxelAtHeight(0.0, 3.0));
     BOOST_CHECK(it == thicknesses.begin() + 3);
 
-    // Top of the voxel equals the requested heigth but does not return true.
+    // Top of the voxel equals the requested height but does not return true.
     it = std::find_if(
            thicknesses.begin(), thicknesses.end(), VoxelAtHeight(0.0, 5.0));
     BOOST_CHECK(it == thicknesses.end());

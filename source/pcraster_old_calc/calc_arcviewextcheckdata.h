@@ -24,7 +24,7 @@ typedef struct ArcViewExtCheckData {
 } ArcViewExtCheckData;
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

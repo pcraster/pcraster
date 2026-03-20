@@ -82,9 +82,9 @@ class DataFile(object):
       for l in contents:
         maxLength = max(maxLength,len(l))
       contents = [ l.ljust(maxLength," ") for l in contents ]
-      seperator = "="*maxLength
-      contents.insert(0,seperator)
-      contents.append(seperator)
+      separator = "="*maxLength
+      contents.insert(0,separator)
+      contents.append(separator)
       return contents
 
 
@@ -362,7 +362,7 @@ class Sample(object):
     #     for lineno in range(len(dataItems[0])):
     #         print "%s" %" "*(3-1),
     #         for data in dataItems:
-    #             # all equal lenght
+    #             # all equal length
     #             assert len(data) == len(dataItems[0])
     #             print data[lineno],
     #         print

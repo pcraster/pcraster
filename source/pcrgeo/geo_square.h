@@ -125,7 +125,7 @@ public:
 
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 /*!
@@ -164,7 +164,7 @@ template<class T, size_t n, typename B>
 //! check if intersects with other square
 /*!
  * \todo
- *  specialization for 1 and 2D that compute min distance requried
+ *  specialization for 1 and 2D that compute min distance required
  *  in each dimension for no intersection
  */
 template<class T, size_t n, typename B>
@@ -179,7 +179,7 @@ template<class T, size_t n, typename B>
      return true;
    }
   /* if one of the edges is within the other
-   * it intersects for boths partly
+   * it intersects for both partly
    */
   T const side[2]={1,-1};
   for(size_t s=0; s<(1<<n); ++s) {

@@ -48,7 +48,7 @@ double geomFittingRectangleStep = 16;
    hold better if the parameters are floats */
 
 #define Double(x) ((double)(x))
-/* put long double here if neccessary */
+/* put long double here if necessary */
 #define LDouble(x) ((double)(x))
 // #define LD(x) LDouble(x)
 
@@ -68,7 +68,7 @@ double geomFittingRectangleStep = 16;
  * void geom::PointTest::testPerpOnCord()
  * TODO
  *  make all this a C++ template class
- *   with types and a certains EPS approiate
+ *   with types and a certains EPS appropriate
  *     in certains conditions
  *  Below is the one DT2D uses
  */
@@ -78,7 +78,7 @@ static bool CompEps(double a, /* r- value to compare against b */
                     double b) /* r- value to compare against a */
 {
   /* void geom::PointTest::testPerpOnCord()
-   * really streches this one
+   * really stretches this one
    * found this code on the NET
    */
   double const d = std::max(1.0, std::max(fabs(a), fabs(b)));
@@ -939,7 +939,7 @@ int IntersectAllignedRectangles(POINT2D *pol,      /* intersecting rectangle sto
 
   // bug/sf463 and sf485
   // Test if rectangles R1 and R2 are adjacent.
-  // If so, do not create an intersection ploygon
+  // If so, do not create an intersection polygon
   // that represents the line between R1 and R2.
   // Such a line/polygon may incorrectly get a very
   // small area assigned due to floating point operations

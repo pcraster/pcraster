@@ -1,6 +1,6 @@
 #include "stddefx.h"
 
-/* algoritm is taken from
+/* algorithm is taken from
   *  Holub's compiler design in C (or something like that)
   *  Bentley's Programming Pearls (2nd ed. or vol. 2) also has
   * a few words on this one
@@ -209,7 +209,7 @@ int LastBitSet(const unsigned char *set, /* array of at least setSize bits */
       return (s * 8) + j;
     }
   }
-  /* now set s to first we will examin
+  /* now set s to first we will examine
      * depending on if there is a partial filled byte
      * already processed above
      */

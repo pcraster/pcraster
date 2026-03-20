@@ -94,7 +94,7 @@ table5.col:
 clean::
 	rm -f table5.col
 
-# Values seperated by tabs.
+# Values separated by tabs.
 table6.col:
 	echo -e " 1\t2\t3\n\
  4\t-5\t6\n\

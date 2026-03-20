@@ -166,7 +166,7 @@ fi
 # echo "timeGraphView  = rain.tss{1,2} + rain.tss{1,3}" >> t.cfg
 # echo two view:
 # echo "timeGraphView  = rain.tss{1,2}  rain.tss{1,3} " >> t.cfg
-# echo "MINOR choose Edit DrawProperties, choose logaritmic, nothing happens"
+# echo "MINOR choose Edit DrawProperties, choose logarithmic, nothing happens"
 # echo "BUG: HANGS!!!"
 # aguila -f t.cfg
 
@@ -312,13 +312,13 @@ runCommand \
 # 
 # # Fixed, KDJ 20060314
 # echo "Must have a time dimension configured [80, 90, 1]."
-# echo "Must show time coordinate 80 initialy."
+# echo "Must show time coordinate 80 initially."
 # cp volcano/dem00000.090 volcano/lava0000.080 .
 # aguila --mapView dem00000.090 lava0000.080
 # rm volcano/dem00000.090 volcano/lava0000.080
 # 
 # # Fixed, KDJ 20060314
-# echo Empty map, interface should work appropiate, no map, greyed out prop dial.
+# echo Empty map, interface should work appropriate, no map, greyed out prop dial.
 # aguila data/development/empty.map
 # 
 # # Fixed, KDJ 20060315

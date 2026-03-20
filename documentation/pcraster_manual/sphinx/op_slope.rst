@@ -39,7 +39,7 @@ Operation
 =========
 
 
-For each cell, calculates the slope on basis of the elevation dem of its eight nearest neighbours in a 3 x 3 cell window. The third-order finite difference method is used, proposed by :ref:`Horn <horn81>`, also used by :ref:`Skidmore <skidmore89>`. The slope on Result is given in dZ/dX, which is the increase in height (vertical direction dZ) per distance in horizontal direction (dX). This result value is often reffered to as a percentage. Thus if slope returns a value of 0.12, one says a slope value of 12 %.
+For each cell, calculates the slope on basis of the elevation dem of its eight nearest neighbours in a 3 x 3 cell window. The third-order finite difference method is used, proposed by :ref:`Horn <horn81>`, also used by :ref:`Skidmore <skidmore89>`. The slope on Result is given in dZ/dX, which is the increase in height (vertical direction dZ) per distance in horizontal direction (dX). This result value is often referred to as a percentage. Thus if slope returns a value of 0.12, one says a slope value of 12 %.
 
 Notes
 =====

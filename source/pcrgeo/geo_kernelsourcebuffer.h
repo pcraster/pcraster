@@ -44,8 +44,8 @@ namespace geo {
   operating the kernel on the buffer. In case of a neighbourhood operation,
   border is the radius of the neighbourhood to visit.
 
-  You can savely operate the kernel in processKernel(size_t, size_t, size_t,
-  size_t). All surrounding cells will have meaningfull values.
+  You can safely operate the kernel in processKernel(size_t, size_t, size_t,
+  size_t). All surrounding cells will have meaningful values.
 */
 // T: value type of original source raster.
 // U: value type of source raster for kernel operation.
@@ -139,7 +139,7 @@ public:
 
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

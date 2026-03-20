@@ -45,7 +45,7 @@ typedef struct DATA {
  * be analyzed
  */
 static int DetWindow(REAL8 *bw,     /* write-only, border weight, 0 if border pixel are
-                                     * compeltely covered by window
+                                     * completely covered by window
                                      */
                      REAL8 winSize) /* window size */
 {
@@ -71,7 +71,7 @@ static double Weight(int pw,    /* half pixel window size */
                      double bw) /* border weight */
 {
   REAL8 w = 1;
-  if (bw > 0) { /* determine border weigths */
+  if (bw > 0) { /* determine border weights */
     if (abs(r) == pw) {
       w *= bw;
     }
@@ -111,7 +111,7 @@ int WindowMin(MAP_REAL8 *min,           /* write-only output minimum map  */
         int rWin = 0;
         int cWin = 0;
         int pw = 0;
-        REAL8 bw = NAN; /* border weigth */
+        REAL8 bw = NAN; /* border weight */
 
         pw = DetWindow(&bw, winSize);
 
@@ -172,7 +172,7 @@ int WindowMax(MAP_REAL8 *max,           /* write-only output max map  */
         int rWin = 0;
         int cWin = 0;
         int pw = 0;
-        REAL8 bw = NAN; /* border weigth */
+        REAL8 bw = NAN; /* border weight */
 
         pw = DetWindow(&bw, winSize);
 
@@ -232,7 +232,7 @@ int WindowAverage(MAP_REAL8 *average,       /* write-only output average map  */
         int rWin = 0;
         int cWin = 0;
         int pw = 0;
-        REAL8 bw = NAN; /* border weigth */
+        REAL8 bw = NAN; /* border weight */
 
         pw = DetWindow(&bw, winSize);
 
@@ -289,7 +289,7 @@ int WindowTotal(MAP_REAL8 *total,         /* write-only output total map  */
         int rWin = 0;
         int cWin = 0;
         int pw = 0;
-        REAL8 bw = NAN; /* border weigth */
+        REAL8 bw = NAN; /* border weight */
         bool valSet = false;
 
         pw = DetWindow(&bw, winSize);
@@ -378,7 +378,7 @@ int WindowMajority(MAP_INT4 *majority,       /* write-only output majority map  
     for (c = 0; c < nrCols; c++) {
       if (winsize->Get(&winSize, r, c, winsize) && (0 < winSize)) {
         REAL8 prevMaxCount = -1;
-        REAL8 bw = NAN; /* border weigth */
+        REAL8 bw = NAN; /* border weight */
         INT4 outputValue = 0;
         int pw = DetWindow(&bw, winSize);
         maxCount = 0;

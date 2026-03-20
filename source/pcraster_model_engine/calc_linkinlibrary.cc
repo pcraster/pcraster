@@ -5,7 +5,7 @@
 #ifdef WIN32
 #include "com_win32.h"
 #include <windows.h>
-#include <excpt.h>
+#include <except.h>
 #endif
 #include "PCRasterXSD.h"
 #include "pcrxsd_dominput.h"
@@ -35,7 +35,7 @@ class LinkInLibraryPrivate
 #else
   // NOTE that WIN32 exception handler
   // can only be done in a context where
-  // obects needs unwinding.
+  // objects needs unwinding.
   // hence we always do in a wrapper
   void throwExcep(DWORD e) const
   {

@@ -118,7 +118,7 @@ BOOST_AUTO_TEST_CASE(testCompile)
 
   // 2) test with update (some input is output)
   // 3) test with some/only non-spatials
-  // 4) test that fails if non-spatial input/output are accumalted
+  // 4) test that fails if non-spatial input/output are accumulated
   //         repeat until
 }
 

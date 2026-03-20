@@ -33,7 +33,7 @@ typedef enum APP_HEADER {
 }APP_HEADER;
 typedef enum APP_LDDDEM_MOD{
     APP_LDDDEMFILL,    /* dem is filled, when ldd modified */
-    APP_LDDDEMCUT    /* dem is cut, when ldd modfied */
+    APP_LDDDEMCUT    /* dem is cut, when ldd modified */
 }APP_LDDDEM_MOD;
 
 typedef enum APP_IO_STRATEGY {

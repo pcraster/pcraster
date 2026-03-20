@@ -566,7 +566,7 @@ T& midpointCircle(Integral xCenter, Integral yCenter, size_t fromRadius,
       nrInnerPointsOctant -= 4;
     }
 
-    // Devide by 8 to get points per octant.
+    // Divide by 8 to get points per octant.
     PRECOND(nrInnerPointsOctant % 8 == 0.0);
     nrInnerPointsOctant = static_cast<size_t>(static_cast<double>(
          nrInnerPointsOctant) / 8.0);
@@ -595,7 +595,7 @@ T& midpointCircle(Integral xCenter, Integral yCenter, size_t fromRadius,
   //    op(xCenter, yCenter - radius);
   //    op(xCenter + radius, yCenter);
   //    op(xCenter - radius, yCenter);
-  // - Than n * 8 octants points untill x == y.
+  // - Than n * 8 octants points until x == y.
   // - In some cases 4 coordinates on x=y lines:
   //    op(xCenter + x, yCenter + y);
   //    op(xCenter + x, yCenter - y);

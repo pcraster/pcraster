@@ -235,7 +235,7 @@ static GET_TEST GetGetTestREAL8(const MAP_REAL8 *m)
 static int HintNrFastListREAL8(const MAP_REAL8 *m)
 {
 #ifdef DEBUG
-  PRECOND(CR_REAL8 != CR_REAL8); /* using on scalar is nonsens */
+  PRECOND(CR_REAL8 != CR_REAL8); /* using on scalar is nonsense */
 #endif
   return MIN(MAX_NR_FAST_LIST, m->maxVal);
 }
@@ -244,7 +244,7 @@ static REAL8 SideMap(const MAP_REAL8 *argNeverUsed)
 {
   (void)argNeverUsed;  // Shut up compiler
 #ifdef DEBUG_DEVELOP
-  /* supress not used warning */
+  /* suppress not used warning */
   DEVELOP_PRECOND(argNeverUsed);
 #endif
   return Side();
@@ -267,7 +267,7 @@ MAP_REAL8 *InitMapREAL8(size_t r,     /* number of rows */
 
   m->cr = (PCR_CR)CR_REAL8;
   m->vs = 0;
-  /* TEMPORAY CODE fix type */
+  /* TEMPORARY CODE fix type */
   if (inCr == CR_REAL8) {
     inCr = CR_REAL4;
   }

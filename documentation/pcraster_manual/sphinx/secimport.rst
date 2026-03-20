@@ -238,7 +238,7 @@ Point data column files: database management
 Introduction
 ------------
 
-The format of point data column files has been explained in the previous chapter (:ref:`secdatbasepointform`). Underneath (:ref:`secimportpointcrea`) the database management with point data column filess described.
+The format of point data column files has been explained in the previous chapter (:ref:`secdatbasepointform`). Underneath (:ref:`secimportpointcrea`) the database management with point data column files described.
 
 
 
@@ -348,7 +348,7 @@ To be fully compatible with the UNIX alternative interpreter notation, one needs
 
 In both cases the --lddfill option will be activated. Since pcrcalc scans the first line itself, these feature is also enabled on NON-UNIX OS's (MSDOS).
 
--F is only neccessary and can only be used if one wants to specify global options. If the goal is to only describe pcrcalc as the interpreter of the script then use -f. This is due to a limitation in the syntax of an alternative interpreter, only one option can be specified. For example, example2.mod:
+-F is only necessary and can only be used if one wants to specify global options. If the goal is to only describe pcrcalc as the interpreter of the script then use -f. This is due to a limitation in the syntax of an alternative interpreter, only one option can be specified. For example, example2.mod:
 
 .. parsed-literal::
 
@@ -441,7 +441,7 @@ global option for defining the format of timeseries output.
 Only use this option if the output format is
 not required to be compatible with PCRaster software
 components because the created timeseries can not be read back as
-a timeinput series nor can be vizualized by Aguila.
+a timeinput series nor can be visualized by Aguila.
 
 The option will affect timeseries as such that:
 

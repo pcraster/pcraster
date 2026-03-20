@@ -119,7 +119,7 @@ TIME_TABLE *ReadTimeInputTable(const char *fileName,   /* name of file to read *
   return t;
 }
 
-/* Create a time table strucure
+/* Create a time table structure
  * NewTimeTable only allocates the TIME_TABLE structure and NOT the
  * the space for the values. The vals pointer is set to NULL. Pcrcalc allocates the value space during the
  * first step.

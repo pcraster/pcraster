@@ -84,7 +84,7 @@ CountFilter<SrcType, DstType>::~CountFilter()
 {
 }
 
-//! Counts the number of occurences of a value within the filter.
+//! Counts the number of occurrences of a value within the filter.
 /*!
   The value to look for is the value given to the constructor. If the value
   is found in a cell within the filter the corresponding weighting factor is

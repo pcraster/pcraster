@@ -18,7 +18,7 @@ namespace calc {
 class FieldLeaf;
 class UseDefNode;
 
-//! paramater holding a Field
+//! parameter holding a Field
 class  FieldParameter : public SubParameter {
  private:
   //! type of parameter

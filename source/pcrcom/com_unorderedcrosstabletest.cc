@@ -19,7 +19,7 @@ BOOST_AUTO_TEST_CASE(simple_usage)
   BOOST_TEST(t.cell(1, 2) == 0);
   BOOST_TEST(t.cell(2, 2) == 0);
 
-  // Fill it as folows:
+  // Fill it as follows:
   //   6 5 4
   //   - 0 4
   //   - - 1
@@ -38,7 +38,7 @@ BOOST_AUTO_TEST_CASE(simple_usage)
   BOOST_TEST(t.cell(1, 2) == 4);
   BOOST_TEST(t.cell(2, 2) == 1);
 
-  // Fill it as folows:
+  // Fill it as follows:
   // 1 - -
   // 2 3 -
   // 4 5 6

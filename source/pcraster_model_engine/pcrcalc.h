@@ -204,7 +204,7 @@ typedef void *DataTransferArray[];
 #endif
   pcr_destroyScript(PcrScript *script);
 
-/*! check if an error has occured
+/*! check if an error has occurred
  * \param script  the script object
  *
  * Read \ref errorHandling on how errors are handled.
@@ -265,7 +265,7 @@ typedef void *DataTransferArray[];
   \param script  the script object
   \param dataTransferArray see  DataTransferArray
 
-   If the model is a static model, the entire model is executed. Repetive calls will
+   If the model is a static model, the entire model is executed. Repetitive calls will
    do nothing; for each script object the initial section can only be called once.
 
    Calling this function more than once will result in an error.

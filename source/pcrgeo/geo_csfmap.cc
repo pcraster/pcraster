@@ -361,7 +361,7 @@ size_t geo::CSFMap::nrCells() const
 /*!
   \param     buf Buffer large enough to contain all cell values in the in-app
              cell representation.
-  \exception com_FileError If an error occured while reading the cells.
+  \exception com_FileError If an error occurred while reading the cells.
   \sa        getCells(size_t, size_t, void *)
 */
 void geo::CSFMap::getCells(void *buf)
@@ -420,7 +420,7 @@ void geo::CSFMap::putNonSpatial(const void *buf)
   \param     nc Number of cells to read.
   \param     buf Buffer large enough to contain \a nc cell values in the in-app
              cell representation.
-  \exception com_FileError If an error occured while reading the cells.
+  \exception com_FileError If an error occurred while reading the cells.
   \sa        getCells(void *)
 */
 void geo::CSFMap::getCells(size_t off, size_t nc, void *buf)

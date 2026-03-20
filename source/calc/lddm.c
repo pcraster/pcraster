@@ -134,7 +134,7 @@ static void Lowest(int *rTo,             /* write-only flows to this one */
     PRECOND(nrBestDirs > 1);
     /* multiple outflow directions found */
     /* Check on multiple candidates */
-    /* CW change this! find bestDrop recursily */
+    /* CW change this! find bestDrop recursively */
     i = (int)floor(Ran() * nrBestDirs); /* CW make a ran [0.1> ! */
     i = MIN(i, nrBestDirs - 1);
     /* WAAL_CW

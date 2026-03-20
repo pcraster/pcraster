@@ -34,7 +34,7 @@ namespace dal {
   Here is an example of simple usage of this class:
 
   If your application supports all kinds of datasets the Dal library provides
-  you can use this class as folows:
+  you can use this class as follows:
 
   \code
   // Create the data abstraction layer. This call will automatically add all
@@ -89,7 +89,7 @@ namespace dal {
   // ...
   \endcode
 
-  Dal supports caching of expensive information found while perfoming I/O of
+  Dal supports caching of expensive information found while performing I/O of
   attributes. After a search for data, information found is stored, so a
   second search is not needed anymore.
 

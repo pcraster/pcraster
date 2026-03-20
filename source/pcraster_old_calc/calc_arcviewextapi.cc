@@ -179,7 +179,7 @@ static int runCmd(const char *cmdString)
  *  </ol>
  *
     \param cmdString is a string with all arguments, except argv0
-      space is used to seperate args, quoting to preserve space is
+      space is used to separate args, quoting to preserve space is
       not yet supported --nothing is prepended, nothing printed
       and errors message are catched and stored local, and can
       be retrieved by calling pcrCalcErrorResult()

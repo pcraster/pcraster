@@ -79,7 +79,7 @@ inopts
    ERR is returned immediately. If the delay is positive, the read
    blocks for the delay period; if the period expires, ERR is returned.
    The delay is given in milliseconds, but this is rounded down to 50ms
-   (1/20th sec) intervals, with a minimum of one interval if a postive
+   (1/20th sec) intervals, with a minimum of one interval if a positive
    delay is given; i.e., 1-99 will wait 50ms, 100-149 will wait 100ms,
    etc.
 

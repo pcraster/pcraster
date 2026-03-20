@@ -36,7 +36,7 @@ calc::ModelLinkMethodExpr::~ModelLinkMethodExpr()
   cleanUp(d_args);
 }
 
-//! buids its own types and call for sub-expression
+//! builds its own types and call for sub-expression
 void calc::ModelLinkMethodExpr::buildTypes()
 {
   PRECOND(d_args.size() == d_sig.d_input.size());
@@ -67,7 +67,7 @@ void calc::ModelLinkMethodExpr::buildTypes()
   a.restrictFieldArgs(d_sig.d_strArgGiven ? 1 : 0);
 }
 
-//! buids its own types and call for sub-expression
+//! builds its own types and call for sub-expression
 void calc::ModelLinkMethodExpr::buildTypesRecursive([[maybe_unused]] VS resultVsSet)
 {
   PRECOND(resultVsSet != VS_UNKNOWN);

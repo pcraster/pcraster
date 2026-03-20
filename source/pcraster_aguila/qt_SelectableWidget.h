@@ -17,7 +17,7 @@ namespace qt {
 
 //! The SelectableWidget class is for widget which are selectable.
 /*!
-  A selectable widget is a widget which visualy shows if it is selected.
+  A selectable widget is a widget which visually shows if it is selected.
   By looking at the widget you know it is selected or not.
 
   This class implements this by inheriting the QFrame class and drawing a
@@ -80,7 +80,7 @@ Q_SIGNALS:
 
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

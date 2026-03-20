@@ -209,9 +209,9 @@ bool calc::EsriGridIO::gridExists(const std::string &gridName)
 #define INCLUDED_COM_WIN32
 #endif
 
-static void checkWin32Error(bool succes = false)
+static void checkWin32Error(bool success = false)
 {
-  if (!succes)
+  if (!success)
     throw std::runtime_error(com::win32GetLastError());
 }
 
@@ -248,7 +248,7 @@ static void FixCancel()
   HANDLE hClose = CreateThread(NULL, 0, CloseDialog, NULL, 0, &closeId);
   checkWin32Error(hClose != NULL);
 
-  // wrap with a cach ArcGis does this not have AvExec I think
+  // wrap with a catch ArcGis does this not have AvExec I think
   try {
     com::DynamicLibrary avExec("avexec32");
     typedef char *(*T_AVExec)(const char *cmd);

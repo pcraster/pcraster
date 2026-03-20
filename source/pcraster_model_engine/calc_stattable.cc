@@ -604,7 +604,7 @@ void calc::StatComputation::scalarCrossHeader(std::ostream &d_out, int nrRowDesc
   crossHeader(d_out);
   d_out << d_subject.d_name;
   // print with intervening space
-  //  do not allow empty between tab seperators
+  //  do not allow empty between tab separators
   if (nrRowDescriptors != 0) {
     d_out << "\t";
   }

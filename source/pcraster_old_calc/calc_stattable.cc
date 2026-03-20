@@ -497,7 +497,7 @@ void calc::StatTable::scalarCrossHeader(std::ostream &out, int nrRowDescriptors)
   crossHeader(out);
   out << d_subject.d_name;
   // print with intervening space
-  //  do not allow empty between tab seperators
+  //  do not allow empty between tab separators
   if (nrRowDescriptors != 0) {
     out << "\t";
   }

@@ -115,7 +115,7 @@ void calc::PointCodeBlockDll::generateSource(const Blocks &l) const
 void calc::PointCodeBlockDll::compile() const
 {
 #ifdef WIN32
-  throw com::Exception("PointCodeBlockDll compile not implemted for WIN32");
+  throw com::Exception("PointCodeBlockDll compile not implemented for WIN32");
 #else
   const std::string dll("-o libdlltest.so -shared -rdynamic "
                         "-D_REENTRANT -fPIC -DPCR_DLL_TARGET ");

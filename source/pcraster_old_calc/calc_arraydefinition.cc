@@ -51,12 +51,12 @@ void calc::ArrayDefinition::addToSet(std::set<const calc::IndexParameter *> &lis
 
 void calc::ArrayDefinition::printSpecific(calc::InfoScript &is) const
 {
-  is.stream() << "Active Indeces: ";
+  is.stream() << "Active Indices: ";
   for (auto i : d_activeIndex) {
     is.parTag(i->name());
     is.stream() << " ";
   }
-  is.stream() << "Off Indeces: ";
+  is.stream() << "Off Indices: ";
   for (auto i : d_offIndex) {
     is.parTag(i->name());
     is.stream() << " ";

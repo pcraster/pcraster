@@ -5,7 +5,7 @@ pcraster.framework
 ******************
 The ``pcraster.framework`` package contains classes for various model types, and framework types.
 
-Model types are meant to be overriden by the user. By implementing these types, the user is certain that his model fulfills the requirements of the framework type used to execute the model. The goal is to enable the model to be as small as possible, containing hardly more than the statements making up the actual model.
+Model types are meant to be overridden by the user. By implementing these types, the user is certain that his model fulfills the requirements of the framework type used to execute the model. The goal is to enable the model to be as small as possible, containing hardly more than the statements making up the actual model.
 
 Supported model types are:
 

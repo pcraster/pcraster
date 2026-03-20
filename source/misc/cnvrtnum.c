@@ -105,7 +105,7 @@ bool CnvrtUINT1(UINT1 *result,   /* write-only. resulting number */
  * a string to an REAL8 number with domain checking. A string
  * may contain leading or trailing spaces. 
  * Returns TRUE if
- * number is a real number wtih an absolute value 
+ * number is a real number with an absolute value 
  * between REAL8_MIN and REAL8_MAX, FALSE
  * otherwise.
  * If FALSE is returned and errno is set to ERANGE then the conversion

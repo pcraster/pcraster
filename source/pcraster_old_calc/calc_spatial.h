@@ -46,7 +46,7 @@ private:
 
 protected:
   //! called to load data from outside (file) prior to returning value
-  /*! if nessecary this method is reimplemented
+  /*! if necessary this method is reimplemented
    */
   virtual void loadExternal() const;
 

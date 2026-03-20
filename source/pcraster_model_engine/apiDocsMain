@@ -22,7 +22,7 @@
  
     The calling conventions rationale and the PCR_DLL_FUNC macro are present in pcrdll.h
  
-    Note that all strings (char *) are currently encoded as C-strings whith ANSI encoding (1 byte per char) and are not UniCode (2 bytes per char).
+    Note that all strings (char *) are currently encoded as C-strings with ANSI encoding (1 byte per char) and are not UniCode (2 bytes per char).
  
     \section examples Api Examples
  
@@ -50,7 +50,7 @@
         }
       }
  
-     // change " within PCRasterLicense file to ' if neccesary
+     // change " within PCRasterLicense file to ' if necessary
      const char *licString =
      "<?xml version = '1.0' encoding = 'UTF-8'?>"\
      " <!DOCTYPE systemLicense PUBLIC '-//PCRaster//Generic' 'pcraster.dtd'>"\
@@ -106,7 +106,7 @@
  
     The examples in csharp/ScriptTest.cs uses the
      API "as-is" in respect to minimizing the use of C# language features. 
-    Therefor the code can be used as examples for other client languages
+    Therefore the code can be used as examples for other client languages
     such as Java, Delphi or Visual Basic.
  
  

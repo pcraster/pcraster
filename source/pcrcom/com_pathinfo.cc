@@ -81,7 +81,7 @@ com::PathName com::currentWorkingDirectory()
 //! Try to find the directory of executable
 /*!
   \pre On linux (not win32 FTTB) \a argv0 must be set to an absolute path.
-       Wether argv[0] of main() is absolute depends on how the app is called
+       Whether argv[0] of main() is absolute depends on how the app is called
        in the shell.
 
 
@@ -343,8 +343,8 @@ void com::PathInfo::testValidName() const
     the file for writing. (see pcrxml::Document::Document())
 
   \todo
-    fix above bug and test is with spawning seperate process?
-    in unit-test or is a stream opend twice also ok, check if
+    fix above bug and test is with spawning separate process?
+    in unit-test or is a stream opened twice also ok, check if
     difference with in- and out-of-process re-opening.
 */
 void com::PathInfo::testOpenForReading() const

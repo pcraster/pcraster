@@ -235,7 +235,7 @@ static GET_TEST GetGetTestUINT1(const MAP_UINT1 *m)
 static int HintNrFastListUINT1(const MAP_UINT1 *m)
 {
 #ifdef DEBUG
-  PRECOND(CR_UINT1 != CR_REAL8); /* using on scalar is nonsens */
+  PRECOND(CR_UINT1 != CR_REAL8); /* using on scalar is nonsense */
 #endif
   return MIN(MAX_NR_FAST_LIST, m->maxVal);
 }
@@ -244,7 +244,7 @@ static REAL8 SideMap(const MAP_UINT1 *argNeverUsed)
 {
   (void)argNeverUsed;  // Shut up compiler
 #ifdef DEBUG_DEVELOP
-  /* supress not used warning */
+  /* suppress not used warning */
   DEVELOP_PRECOND(argNeverUsed);
 #endif
   return Side();
@@ -267,7 +267,7 @@ MAP_UINT1 *InitMapUINT1(size_t r,     /* number of rows */
 
   m->cr = (PCR_CR)CR_UINT1;
   m->vs = 0;
-  /* TEMPORAY CODE fix type */
+  /* TEMPORARY CODE fix type */
   if (inCr == CR_REAL8) {
     inCr = CR_REAL4;
   }

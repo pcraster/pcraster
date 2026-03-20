@@ -45,7 +45,7 @@ void FreeLookupTable(LOOK_UP_TABLE *t) /* table to deallocate */
 
 /* allocates the records of a lookup tables
  * Allocates records as an array of nrRecords arrays of nrKeys+1 keys
- * return 0 on succes, non-zero on failure
+ * return 0 on success, non-zero on failure
  */
 int AllocLookupTable(LOOK_UP_TABLE *t) /* with nrRecords and nrKeys defined */
 {

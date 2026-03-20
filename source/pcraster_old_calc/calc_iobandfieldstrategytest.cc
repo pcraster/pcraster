@@ -107,20 +107,20 @@ void calc::IoBandFieldStrategyTest::tearDown()
 void calc::IoBandFieldStrategyTest::testCheckClone()
 {
   IoBandFieldStrategy s;
-  bool succes = true;
+  bool success = true;
   try {
     // nothing to test against
     s.checkClone("clone");
   } catch (...) {
-    succes = false;
+    success = false;
   }
   try {
     // the same is equal
     s.checkClone("clone");
   } catch (...) {
-    succes = false;
+    success = false;
   }
-  BOOST_TEST(succes);
+  BOOST_TEST(success);
 
   bool failure = false;
   try {
@@ -137,22 +137,22 @@ void calc::IoBandFieldStrategyTest::testCheckInputMap()
   VS vs;
   IoBandFieldStrategy s;
   IoFieldStrategy *r(0);
-  bool succes = true;
+  bool success = true;
   try {
     r = s.checkInputMap(vs, "clone");
   } catch (...) {
-    succes = false;
+    success = false;
   }
-  BOOST_TEST(succes);
+  BOOST_TEST(success);
   BOOST_TEST(vs == VS_BNO);
   BOOST_TEST(&s == r);
 
   try {
     r = s.checkInputMap(vs, "diffLocAttr");
   } catch (...) {
-    succes = false;
+    success = false;
   }
-  BOOST_TEST(succes);
+  BOOST_TEST(success);
   BOOST_TEST(vs == VS_BNO);
   BOOST_TEST(&s == r);
 

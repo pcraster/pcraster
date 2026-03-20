@@ -37,7 +37,7 @@ public:
     virtual int nextChar( void );
 
     // looks in stream and compares next l characters with s
-    // returns the result of comparision
+    // returns the result of comparison
 
     int lookahead( char* s );
 

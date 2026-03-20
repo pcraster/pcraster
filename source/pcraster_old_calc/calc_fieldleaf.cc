@@ -108,7 +108,7 @@ void calc::FieldLeaf::skipExecution()
     //  if d_overWriteVal is true
     calc::FieldHandle const f = d_par->value(d_index->select(), d_overWriteVal);
   } catch (const calc::Field::NotInitialized &) {
-    // not initialized, forget about it, no deletion neccessary
+    // not initialized, forget about it, no deletion necessary
   }
 }
 

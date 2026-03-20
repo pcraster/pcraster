@@ -42,7 +42,7 @@ Requirements
 
 Design
 ------
-From the requirements folows that the folowing graphical elements are part of the dialog:
+From the requirements follows that the following graphical elements are part of the dialog:
 
 - The location being browsed.
 - A means to change the browse location, eg:
@@ -50,7 +50,7 @@ From the requirements folows that the folowing graphical elements are part of th
   - Push button which starts a dialog for selecting a directory in the local filesystem.
   - Push button which starts a dialog for entering urls of WCS and WFS servers.
 
-- A push button to start the browse. In case chached data is used, this button may double as a 'Refresh' button.
+- A push button to start the browse. In case cached data is used, this button may double as a 'Refresh' button.
 - A push button to stop the browse.
 - A table with information about the attributes found:
 
@@ -61,9 +61,9 @@ From the requirements folows that the folowing graphical elements are part of th
 
 - A progress indicator. Probably a progressbar. Amount of work is equal to number of drivers used. Current progress equals the number of drivers finished.
 
-Implemenation
--------------
-- The dialog must run in a seperate thread.
+Implementation
+--------------
+- The dialog must run in a separate thread.
 - The attribute browser is a Widget which can be put in a dialog or in any other widget type.
 - When rebrowsing the a location another time, use the driver information of the previous browse to see whether that data can still be opened with it. Most probably it can. Drivers are tried in a sequence, and can be ordered based on previous experiences. Try to get a small set of files ASAP by using existing knowledge.
 

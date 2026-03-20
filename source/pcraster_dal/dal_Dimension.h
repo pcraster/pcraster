@@ -38,12 +38,12 @@ namespace dal {
 
   Examples of Dimension settings for different datasets.
 
-  A raster has one dimension with the folowing settings:
+  A raster has one dimension with the following settings:
   - coordinate type: NumericalCoordinates (rows, columns, world coordinates)
   - meaning: Space
   - discretisation: RegularDiscretisation
 
-  A vector has one dimension with the folowing settings:
+  A vector has one dimension with the following settings:
   - coordinate type: NumericalCoordinates (world coordinates)
   - meaning: Space
   - discretisation: BorderedDiscretisation
@@ -53,7 +53,7 @@ namespace dal {
   - meaning: Time
   - discretisation: RegularDiscretisation
 
-  A set of probabalistic distribution function rasters has the two dimensions
+  A set of probabilistic distribution function rasters has the two dimensions
   of rasters mentioned above including one dimension with settings:
   - coordinate type: NumericalCoordinates
   - meaning: CumulativeProbabilities

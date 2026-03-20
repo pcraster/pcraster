@@ -205,7 +205,7 @@ void calc::DataType::restrict(const DataType &req)
       if (d_tableColTypes.empty()) {
         d_tableColTypes = req.tableColTypes();
       }
-      // empty: no info to restict;
+      // empty: no info to restrict;
       if (req.tableColTypes().empty()) {
         break;
       }
@@ -228,7 +228,7 @@ void calc::DataType::restrict(const DataType &req)
         if (!req.allowPromotion()) {
           throw STClash(stSpatial());
         }
-        // else convert implict to spatial
+        // else convert implicit to spatial
         newSt = ST_SPATIAL;
       }
       d_st = newSt;

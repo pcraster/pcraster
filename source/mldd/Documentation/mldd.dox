@@ -62,8 +62,8 @@ Of:
 
 De bovenstaande 2 functies zetten de waarde van AttrField naar
 hun upstream of downstream 2D cell. Op die 2D cell kunnen dan meerder
-waarden aankomen: Dat is het idee van multi-ldd. De aggragator is
-dan de methode om tot 1 waarde te komen:  sum/total, maximum, minimun,
+waarden aankomen: Dat is het idee van multi-ldd. De aggregator is
+dan de methode om tot 1 waarde te komen:  sum/total, maximum, minimum,
 average, count.
 
 The current python Mldd class is renamed to MlddCore. MlddCore only implements

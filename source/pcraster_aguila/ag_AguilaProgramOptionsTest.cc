@@ -141,7 +141,7 @@ BOOST_AUTO_TEST_CASE(boost_options_to_xml)
     // should create 1 map view element:
     BOOST_TEST(apo.configuration().visualisationGroup().view().size() == 1);
     BOOST_TEST(apo.configuration().visualisationGroup().view()[0].drape().present());
-    // choice is mutally exclusive
+    // choice is mutually exclusive
     BOOST_TEST(!apo.configuration().visualisationGroup().view()[0].map().present());
   }
 }

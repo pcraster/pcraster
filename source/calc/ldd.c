@@ -38,7 +38,7 @@
  *  4 - 5 - 6
  *    / |  \
  *  1   2   3
- *  e.g. if a cell has a value 7, it flows TO its upper left neigbour
+ *  e.g. if a cell has a value 7, it flows TO its upper left neighbour
  */
 
 static struct {

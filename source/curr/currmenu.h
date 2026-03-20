@@ -17,7 +17,7 @@ typedef struct CURR_SELECT_BOX {
     int nrItems;          /* nr. items in list */
     int nrRulesVis;       /* nr. of lines visible in window */
     int currPosition;     /* position of cursor in items */
-    int firstItemVis;     /* first item visibles */
+    int firstItemVis;     /* first item visible */
     const int *otherKeys; /* other legal keys */
     int nrKeys;           /* number of keys */
     int posX;             /* start X position of window */
@@ -44,7 +44,7 @@ extern void CurrEndCurses(void);
 extern int CurrScreenCols(void);
 extern int CurrScreenLines(void);
 /* libs ext. <>, our ""  */
-/* currmenu.c contains a now obsolote
+/* currmenu.c contains a now obsolete
  * redefinition of this one
  * first we implemented wprintw
  * extern int Curr_wprintw(WINDOW *w, const char *fmt, ...);

@@ -9,7 +9,7 @@ namespace qt {
 
 //       1         2         3         4         5         6         7         8
 
-//! Funtion which operator new can call if it can't allocate enough memory.
+//! Function which operator new can call if it can't allocate enough memory.
 void               outOfMemoryHandler  ();
 
 } // namespace qt

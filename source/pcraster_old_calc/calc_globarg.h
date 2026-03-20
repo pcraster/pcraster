@@ -19,7 +19,7 @@ namespace calc {
 class Compressor;
 class ApiMap;
 
-//! Result (ouput) of global operations that need to create MAP_* structs
+//! Result (output) of global operations that need to create MAP_* structs
 class GlobArg
 {
 

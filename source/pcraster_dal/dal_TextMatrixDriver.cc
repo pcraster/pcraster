@@ -98,7 +98,7 @@ bool TextMatrixDriver::exists(
   \sa        .
   \todo      Implement for space and address setting.
 
-  The number of rows in \a name cannot be determined whithout reading the
+  The number of rows in \a name cannot be determined without reading the
   whole file and will be set to 0. Only after read(std::string const&) or
   similar has been called will the actual number of rows in \a name be known.
 

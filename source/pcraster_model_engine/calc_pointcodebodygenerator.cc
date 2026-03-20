@@ -287,7 +287,7 @@ std::string calc::PointCodeBodyGenerator::domainCheck(DomainIll d, const std::st
 std::string calc::PointCodeBodyGenerator::f(const BaseExpr *e) const
 {
   std::ostringstream f;
-  // _f< start at pos 0 is significat to filter in mvTest
+  // _f< start at pos 0 is significant to filter in mvTest
   f << "_f<" << templateArg(e) << ">(";
   switch (e->nrArgs()) {
     case 1:

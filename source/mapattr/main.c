@@ -150,7 +150,7 @@ static void DefaultAttr(ATTRIBUTES *a)
   SET_MV_REAL8(&(a->maxVal));
 }
 
-static int ReadAttr(ATTRIBUTES *a, MAP *m, bool readOnly) /* are the attribute only used for teh PRINT op
+static int ReadAttr(ATTRIBUTES *a, MAP *m, bool readOnly) /* are the attribute only used for the PRINT op
                        */
 {
   DefaultAttr(a);

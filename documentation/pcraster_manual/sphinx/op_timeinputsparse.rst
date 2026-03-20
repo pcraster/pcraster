@@ -24,7 +24,7 @@ Operation
 =========
 
 timeinputsparse performs the same as :ref:`timeinput` with the difference that timeinputsparse
-use the following algoritm if an input map is missing:
+use the following algorithm if an input map is missing:
 
 1. If the first input map is available at timestep A, then use this first map for the timestep 1 to A.
 2. If an input map is missing for timestep B, but a map is available for a prior timestep then use the prior map.

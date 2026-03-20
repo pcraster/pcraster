@@ -315,7 +315,7 @@ def projectDirectory(
 
 
 
-## Returns the base name of the project whos name is \a name.
+## Returns the base name of the project whose name is \a name.
 #
 # \para      Name of project to return base name of.
 

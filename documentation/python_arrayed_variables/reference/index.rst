@@ -12,7 +12,7 @@ Reference
 Parameter files
 ---------------
 
-Parameter values can be stored in external files. The syntax of the file contents is simliar to the one of oldcalc. The file must contain the following columns:
+Parameter values can be stored in external files. The syntax of the file contents is similar to the one of oldcalc. The file must contain the following columns:
 
 First column
   VarName:  the name of the collection used in the model script

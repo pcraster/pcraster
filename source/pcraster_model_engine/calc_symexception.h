@@ -19,7 +19,7 @@ class ASTPar;
 //! Error message on a certain symbol with a position
 /*!
  * The idea is that a SymException can be rewritten if there
- * is additonal info on symbolName, for example in ASTSymbolTable, where
+ * is additional info on symbolName, for example in ASTSymbolTable, where
  * the binding to the symbol lives. If not catched, it is handled by default
  * as a PosException (or com::Exception).
  */

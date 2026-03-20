@@ -19,7 +19,7 @@ class ASTPar;
 class Field;
 class RunTimeEnv;
 
-//! input/ouput Parameter of a PointCodeBlock::exec()
+//! input/output Parameter of a PointCodeBlock::exec()
 /*!
  * d_input and d_output's attributes (lastUse()) are significant!
  */

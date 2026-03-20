@@ -51,14 +51,14 @@ void geo::BandMap::initPathName()
  * \param rs description of file
  * \param cellRepr one of the supported types (CR_{UINT1,INT2,REAL4})
  *                 or CR_INT4, INT4 is converted to INT2, hence a
- *                 succesive call to cellRepr() will return CR_INT2!
+ *                 successive call to cellRepr() will return CR_INT2!
  * \param mvIsSet  is the \a mvValue argument set? If false then the
  *                 PCRaster CSF MV constants are used for the integer
  *                 types and -999 for the REAL4 type.
  * \param mvValue  the mvValue to write to the band map and set as
  *                 nodata value in the header.
  *
- * writes header file completely, a succesive call to one of the
+ * writes header file completely, a successive call to one of the
  * putCell functions will create the data file.
  * Note that this ctor will ALWAYS write a NODATA value, see discussion
  * of the \a mvIsSet argument
@@ -429,7 +429,7 @@ geo::RasterSpace geo::BandMap::rasterSpace() const
 }
 
 /*!  read all data as is, from data file
-     \exception com::FileError If an error occured while reading the cells.
+     \exception com::FileError If an error occurred while reading the cells.
  */
 void geo::BandMap::getCellsRaw(void *buf) const
 {

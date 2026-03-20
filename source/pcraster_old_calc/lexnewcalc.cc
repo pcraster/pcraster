@@ -516,7 +516,7 @@ T E    filename  ({doschar})*
 */
 /* a quote followed by 1 or more characters
 and ended by a quote */
-/* expontential part of float */
+/* exponential part of float */
 /* NB in next section:
  * C-code must start on same line as pattern
  * [\(\)\*\+\-\=\;\,\:\[\]\{\}] { RETURN_TOK(yytext[0]); }
@@ -1999,7 +1999,7 @@ void calc::LexGrammar::checkSortedTable()
 #endif /* DEBUG */
 
 /* Determine if something is a keyword or an id
- * PATH_SEPERATORS are in-situ changed to platform specifics
+ * PATH_SEPARATORS are in-situ changed to platform specifics
  * returns TOK_ID if it's an id or the appropriate
  * constant for the keyword (e.g. TOK_AND)
  */
@@ -2025,7 +2025,7 @@ ANTLRAbstractToken *calc::LexGrammar::idOrKeyWord()
 }
 
 /* parse id in a reference, allowing path names etcetera
- * PATH_SEPERATORS are in-situ changed to platform specifics
+ * PATH_SEPARATORS are in-situ changed to platform specifics
  */
 ANTLRAbstractToken *calc::LexGrammar::reference()
 {
@@ -2040,7 +2040,7 @@ ANTLRAbstractToken *calc::LexGrammar::reference()
   }
   yytext[i] = '\0';
 
-  // replace PATH_SEPERATORS
+  // replace PATH_SEPARATORS
   ReplaceDirPathDelimChar(yytext);
 
   return createToken(TOK_REFERENCE, OP_NOP, 2);
@@ -2096,7 +2096,7 @@ int calc::LexGrammar::LexerInput(char *buf, int /* max_size */)
 calc::LexToken *calc::LexGrammar::createToken(ANTLRTokenType type, MAJOR_CODE op, size_t snoopedChars)
 {
   // now snapshot where the token starts
-  // befor updating new position
+  // before updating new position
   Position *p = d_input.createPosition();
   // update new position
   d_input.incrCharNr(strlen(yytext) + snoopedChars);

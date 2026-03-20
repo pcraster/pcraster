@@ -28,7 +28,7 @@ huidige API's:
  SimpleRaster, RasterAPI (geo)
  RasterSpace
  ModelLink,ApiMap,Field   (pcrcalc)
- com::Matrix + geo::SimpleRaster : 1 classe
+ com::Matrix + geo::SimpleRaster : 1 class
 
 relaties:
  com::CSFCell    missing value spul

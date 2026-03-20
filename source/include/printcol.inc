@@ -51,7 +51,7 @@ static void MakeFmts(char *valFmt_s, char *mvStr_s, CSF_VS vs_s, /* set to scala
 }
 
 /* Determines the value of a cell and puts it in the output file.
- * Returns 1 in case of write error, 2 if mv occured, 0 otherwise.
+ * Returns 1 in case of write error, 2 if mv occurred, 0 otherwise.
  */
 static int PutCell(FILE *outputFile, /* write-only output file */
                    REAL8 *val,       /* read-write, value to put

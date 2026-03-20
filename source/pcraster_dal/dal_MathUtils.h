@@ -74,7 +74,7 @@ inline bool comparable(
   example:
 
   \code
-  assert(fmod(value, 1.0), 0.0);                 // Fails easely.
+  assert(fmod(value, 1.0), 0.0);                 // Fails easily.
   assert(fmod(value, 1.0) + 1.0, 0.0 + 1.0);     // Fails in much less cases.
   \endcode
 */

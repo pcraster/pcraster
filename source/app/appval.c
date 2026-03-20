@@ -44,7 +44,7 @@ bool AppIsClassified(CSF_VS vs) /* value scale to check */
 /* Checks a value on being valid for given valuescale and cellRepresentation.
  * The value is tested on being in the domain of the valueScale
  * and CellRepresentation. If valueScale equals VS_UNDEFINED then a test
- * is preformed whether it is a valid double.
+ * is performed whether it is a valid double.
  * Prints error message with ErrorNested call containing v and
  * the name of the valuescale.
  * Returns 1 in case of an illegal value for valueScale, 0 otherwise.
@@ -137,7 +137,7 @@ int AppCheckVal(const char *v,     /* token value to read */
 /* Checks a value on being valid for given valuescale and cellRepresentation.
  * The value is tested on being in the domain of the valueScale
  * and CellRepresentation. If valueScale equals VS_UNDEFINED then a test
- * is preformed whether it is a valid double.
+ * is performed whether it is a valid double.
  * Prints error message with ErrorNested call containing v and
  * the name of the valuescale.
  * Returns 1 in case of an illegal value for valueScale, 0 otherwise.

@@ -162,7 +162,7 @@ void VisEngine::rescan(DataObject const &object)
   if (object.dataSpace() != _data->_dataSpace) {
     // The whole data configuration changed, our address is not valid anymore.
     // TODO Make this more efficient by explicitly checking whether the
-    // TODO coordinates of the address realy changed.
+    // TODO coordinates of the address really changed.
     _data->_change |= CURSOR;
     _data->_change |= QUANTILE;
     _data->_change |= TIME;

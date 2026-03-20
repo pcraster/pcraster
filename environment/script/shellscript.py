@@ -87,7 +87,7 @@ class ShellScript(object):
     name = property(_getName)
 
     # Arguments property, read-only.
-    #  Note: usualy equals sys.argv[1:], so 1 less than sys.argv
+    #  Note: usually equals sys.argv[1:], so 1 less than sys.argv
     arguments = property(_getArguments)
 
     # Options property, read-only.
@@ -135,7 +135,7 @@ class ShellScript(object):
     #
     # \param     message Message to print.
     #
-    # The stream is flushed, so the output is imediately visible.
+    # The stream is flushed, so the output is immediately visible.
     def write(self, message):
         sys.stdout.write(message.strip())
         sys.stdout.flush()

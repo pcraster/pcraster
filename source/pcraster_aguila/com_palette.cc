@@ -51,7 +51,7 @@ com_Palette::const_iterator com_Palette::begin() const
 
 /*!
   \return  An iterator to the one-past-the-last colour in the palette.
-  \warning Don't folow this iterator; it points to an undefined value. Use
+  \warning Don't follow this iterator; it points to an undefined value. Use
            the returned iterator for loop control.
   \sa      begin(), rbegin(), rend()
 */
@@ -71,7 +71,7 @@ com_Palette::const_reverse_iterator com_Palette::rbegin() const
 
 /*!
   \return  A reverse iterator to the one-past-the-last colour in the palette.
-  \warning Don't folow this iterator; it points to an undefined value. Use
+  \warning Don't follow this iterator; it points to an undefined value. Use
            the returned iterator for loop control.
   \sa      rbegin(), begin(), end()
 */
@@ -92,7 +92,7 @@ com_Palette::iterator com_Palette::begin()
 
 /*!
   \return  An iterator to the one-past-the-last colour in the palette.
-  \warning Don't folow this iterator; it points to an undefined value. Use
+  \warning Don't follow this iterator; it points to an undefined value. Use
            the returned iterator for loop control.
   \sa      begin(), rbegin(), rend()
 */
@@ -112,7 +112,7 @@ com_Palette::reverse_iterator com_Palette::rbegin()
 
 /*!
   \return  A reverse iterator to the one-past-the-last colour in the palette.
-  \warning Don't folow this iterator; it points to an undefined value. Use
+  \warning Don't follow this iterator; it points to an undefined value. Use
            the returned iterator for loop control.
   \sa      rbegin(), begin(), end()
 */

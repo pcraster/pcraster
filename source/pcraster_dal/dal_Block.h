@@ -29,7 +29,7 @@ namespace dal {
 
   Block objects can be configured in three ways: to contain discretisation
   information, data or both. For each of these cases the member variables
-  are configured as folows:
+  are configured as follows:
 
   A block with only discretisation information:
   - base elevation: set

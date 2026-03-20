@@ -65,7 +65,7 @@ A cell on windowlength with a missing value results in a missing value on Result
 
 Group
 =====
-This operation belongs to the group of  Neigbourhood operators; window operators 
+This operation belongs to the group of  Neighbourhood operators; window operators 
 
 Examples
 ========

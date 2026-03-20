@@ -101,7 +101,7 @@ dynamicwave
 
 Global options:
 
-The algortithm is influenced by the options :literal:`--manning` (default) or :literal:`--chezy`, to select the dynamic flow equation (see below for these equations).
+The algorithm is influenced by the options :literal:`--manning` (default) or :literal:`--chezy`, to select the dynamic flow equation (see below for these equations).
 
 Operation
 =========

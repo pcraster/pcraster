@@ -305,11 +305,11 @@
     <xsl:choose>
       <xsl:when test="count($operation/Input[not(Field) and not(Table) and not(TimeSeries) and not(MapStack)])">
         <xsl:value-of select="$indentation"/>
-        <xsl:value-of select="concat('    raise RuntimeError(&quot;The ', $operationName, ' operation is not implemented. Only operations with map, table or timeseries arguments are currenly supported&quot;)&#xA;')"/>
+        <xsl:value-of select="concat('    raise RuntimeError(&quot;The ', $operationName, ' operation is not implemented. Only operations with map, table or timeseries arguments are currently supported&quot;)&#xA;')"/>
       </xsl:when>
       <xsl:when test="count($operation/Result[not(Field)])">
         <xsl:value-of select="$indentation"/>
-        <xsl:value-of select="concat('    raise RuntimeError(&quot;The ', $operationName, ' operation is not implemented. Only operations with map results are currenly supported&quot;)&#xA;')"/>
+        <xsl:value-of select="concat('    raise RuntimeError(&quot;The ', $operationName, ' operation is not implemented. Only operations with map results are currently supported&quot;)&#xA;')"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="concat($indentation, '    try:&#xA;')"/>
@@ -429,11 +429,11 @@
   <xsl:choose>
     <xsl:when test="count($operation/Input[not(Field)])">
       <xsl:value-of select="$indentation"/>
-        <xsl:value-of select="concat('  raise RuntimeError(&quot;The ', $operationName, ' operation is not implemented. Only operations with field arguments are currenly supported&quot;)&#xA;')"/>
+        <xsl:value-of select="concat('  raise RuntimeError(&quot;The ', $operationName, ' operation is not implemented. Only operations with field arguments are currently supported&quot;)&#xA;')"/>
     </xsl:when>
     <xsl:when test="count($operation/Result[not(Field)])">
       <xsl:value-of select="$indentation"/>
-        <xsl:value-of select="concat('  raise RuntimeError(&quot;The ', $operationName, ' operation is not implemented. Only operations with field results are currenly supported&quot;)&#xA;')"/>
+        <xsl:value-of select="concat('  raise RuntimeError(&quot;The ', $operationName, ' operation is not implemented. Only operations with field results are currently supported&quot;)&#xA;')"/>
     </xsl:when>
     <xsl:otherwise>
       <xsl:value-of select="concat($indentation, '  try:&#xA;')"/>

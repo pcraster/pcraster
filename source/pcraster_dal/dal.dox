@@ -144,7 +144,7 @@ if(dataset) {
 - Python bindings.
 - Let CSFMap and also gdal add "driver" specific message to error such as MstrError().
 - Refactor all throw functions from dal_utils to something "smaller" function objects? Make DataSourceError an object? See void dal::CSFMapTest::testError().
-- boost::any is an implementation detail (handy to store different types), try to remove all occurences from the interfaces from the classes.
+- boost::any is an implementation detail (handy to store different types), try to remove all occurrences from the interfaces from the classes.
 - Table moet met std::vector werken, dal::Array kwijtraken.
 - add bool Raster::geoReferenced() const; krijgt, true als cellsSize en north() expliciet uit formaat te halen zijn, false als ze defaults hebben. Rationale: Overigens zijn  cellSize(), norht(), west(),east(),south() en soort default props: hebben default een setting cellSize()=1,  (south,east)=(0,0) maar heeft het formaat het ook b.v. een gif file?  Nee, maar ik wil  een gif bij een csf kunnen optellen als nrRows en nrCols identiek zijn, maar als 2 fiels geoReferenced zijn dan wil ook checken op gelijke cellSize(0 en north().
 - lees legenda voor gdal rasters (char ** GDALRasterBand::GetCategoryNames()), schrijf legendas vanuit alle RasterDrivers,  GDALRasterAttributeTable *GetDefaultRAT()
@@ -155,7 +155,7 @@ if(dataset) {
 - Maak gebruik MemoryCache mogelijk en configureerbaar. Test met lezen grote tijdserie (veel kolommen) en met speedForMemory en memoryForSpeed opties.
 - Rename Dal and derived classes to DriverManager, RasterDriverManager, etc.
 - KDJ: Stuff from TableDriver, MatrixDriver, RasterDriver, BlockDriver can be moved up to Driver as template member functions I think.
-- Block data set class is created as seperate from Raster but ideally should be merged, block is a raster of voxels.
+- Block data set class is created as separate from Raster but ideally should be merged, block is a raster of voxels.
 */
 
 //------------------------------------------------------------------------------
@@ -185,13 +185,13 @@ Dataset names are of type std::string and contains a description how to access t
 \section misc Miscellaneous
 Indices always start with 0 and range until size - 1.
 
-A \b set of values is delimited by {curly braces}, whereas a \b rang of values is delimeted by [straight braces].
+A \b set of values is delimited by {curly braces}, whereas a \b rang of values is delimited by [straight braces].
 
 \section nameAndSpace Dataset name and data space
 A lot of functions in the library take a name and data space argument. Depending on the context the data space argument means different things.
 -> searchSpace and contextSpace
 
-\todo explain, move to seperate page.
+\todo explain, move to separate page.
 */
 
 //------------------------------------------------------------------------------
@@ -207,7 +207,7 @@ The key challenge is that scientific data is by nature highly multi dimensional.
 \subsection requirement Requirements
 
  - easy to use (nog meer open deuren?)
- - win32/unix compatible, self containing: DAL software code should be library with simple depencies,it should not pull in half of pcrtree.
+ - win32/unix compatible, self containing: DAL software code should be library with simple dependencies,it should not pull in half of pcrtree.
  - extendible, support added later for more formats, should be possible without recompiling client apps of DAL.
  - efficient, avoid copying data around if possible.
  - efficiency trade offs should always be made in favor of fast Raster access. Being a "raster gis", raster/gis are our most natural and often used data entity. E.g. operations should not get excessively slow on increasing raster dimensions (nr. of cells).
@@ -218,11 +218,11 @@ Limitations or false expectations are listed here. They may also be things not c
 
  - no interpolation, only indexing: if only t1 and t3 are available, and the client want a t2 value the return is "not available". No guess algorithms are part of DAL. Note that "not available" (may) differ from MV, if t2 is encoded as a MV, it means that index t2 is available but the value is encoded as MV. "not available" means there is no encoding at all.
  - no computation such as matrix algebra, timeseries analyses, etc.
- - DAL is not a database system, it has no SQL engine but data stored in a database may be made accessible trough DAL.
+ - DAL is not a database system, it has no SQL engine but data stored in a database may be made accessible through DAL.
 
 \subsection idea The idea
 
-Our assumption is that all basic data has some most logical way of expression by a collection of arrays, tables and/or graphs. These arrays, tables and graphs can be nested, e.g. a graph with at each node a table consisting of 2 arrays. In theory all three can be expressed in each other. But that is a very academic excercise, while DAL is meant to give us a class library of code that fits a pratical application domain.
+Our assumption is that all basic data has some most logical way of expression by a collection of arrays, tables and/or graphs. These arrays, tables and graphs can be nested, e.g. a graph with at each node a table consisting of 2 arrays. In theory all three can be expressed in each other. But that is a very academic exercise, while DAL is meant to give us a class library of code that fits a practical application domain.
 
 \subsection terminology Terminology
 
@@ -239,7 +239,7 @@ HDF5 files are organized in a hierarchical structure, with two primary structure
  - HDF5 \b group : a grouping structure containing instances of zero or more groups or datasets, together with supporting metadata. Groups provide a mechanism for organizing meaningful and extendible sets of datasets within an HDF5 file. Other definition: An HDF5 group is a structure containing zero or more HDF5 objects.  Objects are datatypes, datasets, dataspaces, etc.
  - HDF5 \b dataset : a multidimensional array of data elements, together with supporting metadata. Verderop in de DAL analyse wordt ik steeds ongelukkiger met de term dataset zoals in HDF5 gebruikt, omdat database tables iets anders zijn, wrls komen we uit op  dataset = HFD5-dataset of table. Hieronder blijven we echter voorlopig met dataset een HDF5 dataset bedoelen.
 
-Since group is a recursive definition (group of groups of ... of datasets), the first question rised is: why is a group set not a dimension, and thus why is a file not ONE big multidimensional array? The answer is that a dataset only has a single datatype, dataset A is a MDA of floats, dataset B is a MDA of bool. For example if a model writes float maps f1 and f2 and boolean map b1, we may choose to encode f1 and f2 in a single MDA/dataset (with f1,f2 being a dimension), code f1,f2,b1 in a single dataset is not possible. If such a choice is possible, data items in a single dataset or spreading data items in group, access patterns such be considered. If we anticipate never to make hyperslab selection that wil combine the data items in the selection result MDA we are better of putting them in groups since combining them in a dataset will yield larger strides when mapping the dataset to the selection result MDA.
+Since group is a recursive definition (group of groups of ... of datasets), the first question raised is: why is a group set not a dimension, and thus why is a file not ONE big multidimensional array? The answer is that a dataset only has a single datatype, dataset A is a MDA of floats, dataset B is a MDA of bool. For example if a model writes float maps f1 and f2 and boolean map b1, we may choose to encode f1 and f2 in a single MDA/dataset (with f1,f2 being a dimension), code f1,f2,b1 in a single dataset is not possible. If such a choice is possible, data items in a single dataset or spreading data items in group, access patterns such be considered. If we anticipate never to make hyperslab selection that wil combine the data items in the selection result MDA we are better of putting them in groups since combining them in a dataset will yield larger strides when mapping the dataset to the selection result MDA.
 
 
 Working with groups and group members is similar in many ways to working with directories and files in UNIX. As with UNIX directories and files, objects in an HDF5 file are often described by giving their full (or absolute) path names. The end node maybe either a dataset or a group, inner nodes are always groups. We define such a path a the \b datapath .
@@ -253,7 +253,7 @@ An interesting remark is that if we have a <b>fixed balanced data tree</b>, e.g.
 The fixed requirement may be relaxed, as long as the names remain unique.
 
 An often used tree in modelling applications is a tree with 3 levels: Model, Scenario, Parameters. For example a modelling database for the Rhineflow model, may have paths such as /rflow2/ukhi2050/discharge, /rflow2/reference/snowCover. A <b>data tree type</b> is a notation for a certain type of tree where each tree level/depth is denoted by a name. That notation of tree is derived from set theory using {} symbols. Reversed }{ symbols denote a set name. Thus the example tree type is named 
-/}Model{/}Scenario{/}Parameter{. A Rhineflow instance may have a tree instance written as /{rflow}/{ukhi2050,reference}/{discharge,snowcover}. Note that if inner nodes of a tree instance contains more than 1 element the sub-tree below must be "balanced fixed", all elements of the inner node must support/have the sub-tree below. Other notations are neccessary to define the other cases, e.g. rflow2 has some other parameters than rflow1. We might need to work with references there and the practical use of such trees needs more thought.
+/}Model{/}Scenario{/}Parameter{. A Rhineflow instance may have a tree instance written as /{rflow}/{ukhi2050,reference}/{discharge,snowcover}. Note that if inner nodes of a tree instance contains more than 1 element the sub-tree below must be "balanced fixed", all elements of the inner node must support/have the sub-tree below. Other notations are necessary to define the other cases, e.g. rflow2 has some other parameters than rflow1. We might need to work with references there and the practical use of such trees needs more thought.
 
 Inserting logical groups might be useful for categorizing purposes. For example
 /}Model{/}Scenario{/}IOType{}Parameter{ where IOType = {input,output}}.
@@ -266,7 +266,7 @@ Note: PES wrote the scenario manager that used a tree to manage scenarios. Requi
 
 
 [
-Any HDF5 group or dataset may have an associated attribute list. An HDF5 \b attribute is a user-defined HDF5 structure that provides extra information about an HDF5 object. They are in themselves small dataset with for example an integer to string pair to encode an enumeration. I think they are not imporant to us. Maybe reserver the term \b attribute for things we can tag to a dataset, for example name.
+Any HDF5 group or dataset may have an associated attribute list. An HDF5 \b attribute is a user-defined HDF5 structure that provides extra information about an HDF5 object. They are in themselves small dataset with for example an integer to string pair to encode an enumeration. I think they are not important to us. Maybe reserver the term \b attribute for things we can tag to a dataset, for example name.
 ]
 
 Among other things a HDF5 dataset has a datatype, a dataspace and a data array. The <b>data array</b> is the MDA of values, as in the C++ sense: <tt> float name[][]...[] </tt>. \b Datatype is the type of the \b value , e.g. integer,float, string or struct.
@@ -352,7 +352,7 @@ Functionality expected from DAL in terms of acting classes:
  - \b Detector : given some description (most likely a string) return information on possibly:
      - the physical format  (e.g CSF raster, Excel sheet, specific cell-range in spread sheet, etc.)
      - the dataspace.
-     - acces information: file permissions, read-only, writable/updatable, insertable (can I insert t2 bewteen exisiting t1 and t3), appendable as in stream, random access Y/N (is random access optimal?,see STL iterator classes)
+     - access information: file permissions, read-only, writable/updatable, insertable (can I insert t2 between existing t1 and t3), appendable as in stream, random access Y/N (is random access optimal?,see STL iterator classes)
  - \b Creator : create a dataset with specific layout, backed up Y/N by a physical format, etc.
  - \b Convertor : copy (parts of) datasets to other (parts of) datasets.
 
@@ -413,7 +413,7 @@ Feature is een attribuut met bepaald type, feature layer bevat collectie van geo
 Some notes regarding putting OGR lib in dal:
 
   - Use OGR only as I/O driver: OGRFeatureDriver which reads one feature from one datasource into a FeatureLayer. FeatureLayer is the Dataset subclass for vector data.
-  - Use CGAL for geometric types and algorithms. FeatureLayer contains objects typed by CGAL types and which can by analysed/querried by CGAL functions.
+  - Use CGAL for geometric types and algorithms. FeatureLayer contains objects typed by CGAL types and which can by analysed/queried by CGAL functions.
   - FeatureLayer -> VectorLayer? feature algemener, nodig?
 
 \section timeDimension TimeDimension / Clock Design only

@@ -190,7 +190,7 @@ class Closer {
 };
 
 //------------------------------------------------------------------------------
-// INLINE FUNCIONS
+// INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
 //! Default constructor.
@@ -210,7 +210,7 @@ inline Point<T, n>::Point()
   \param     c0 Value of first coordinate.
   \param     c1 Value of second coordinate.
   \todo      I guess n should have a fixed value of 2 here.
-             Point<T, 5>::Point(3, 4) for example doesn't seem usefull.
+             Point<T, 5>::Point(3, 4) for example doesn't seem useful.
 */
 template<class T, size_t n>
 inline Point<T, n>::Point(T c0, T c1)

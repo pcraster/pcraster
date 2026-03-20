@@ -43,7 +43,7 @@ ag::Map2DWindow::~Map2DWindow()
 
 /*!
  * \todo
- *   Inspect is a better term then the (techical) query
+ *   Inspect is a better term then the (technical) query
  */
 void ag::Map2DWindow::createInterface()
 {

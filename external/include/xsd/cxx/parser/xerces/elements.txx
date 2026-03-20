@@ -608,7 +608,7 @@ namespace xsd
             sax->setFeature (XMLUni::fgXercesSchemaFullChecking, false);
           }
 
-          // Transfer properies if any.
+          // Transfer properties if any.
           //
 
           if (!p.schema_location ().empty ())

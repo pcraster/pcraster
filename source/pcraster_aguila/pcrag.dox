@@ -2,6 +2,6 @@
 \page pcrag PCRaster Aguila
 
 \section intro Introduction
-The PCRaster Aguila libary is the main library for the Aguila application.
+The PCRaster Aguila library is the main library for the Aguila application.
 The code in the library is focussed on visualisation using Qt.
 */

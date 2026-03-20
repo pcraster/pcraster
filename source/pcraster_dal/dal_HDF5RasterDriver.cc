@@ -161,7 +161,7 @@ Raster* HDF5RasterDriver::open(
 
 /*!
   \overload
-  \warning   Since datasets writting by this driver contain all data from a
+  \warning   Since datasets writing by this driver contain all data from a
              dataspace, this function only returns something useful when
              \a space is empty. If not, an empty dataspace is returned.
 */

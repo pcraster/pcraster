@@ -77,7 +77,7 @@ public:
 
   // QToolButton*     d_fullScreenTB;
 
-  // Suported data types.
+  // Supported data types.
   std::vector<geo::DataType> d_supportedDataTypes;
 
   // Supported value scales.

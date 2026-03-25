@@ -97,7 +97,7 @@ endif()
 
 
 # Get required dependencies first...
-CPMAddPackage("gh:pcraster/rasterformat#cff814148151884a2bba4c6ea980c36045bd3bf5")
+CPMAddPackage("gh:pcraster/rasterformat#d461046182095d4587092bc8028e3508ff5cef36")
 
 add_library(Clipp::Clipp INTERFACE IMPORTED)
 set_target_properties(Clipp::Clipp

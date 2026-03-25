@@ -2325,6 +2325,7 @@ static const char compiled_Aguila[] = {
 0x6c , // l
 0x69 , // i
 0x63 , // c
+0x69 , // i
 0x74 , // t
 0x6c , // l
 0x79 , // y

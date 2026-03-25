@@ -394,7 +394,6 @@ static const char compiled_PCRaster[] = {
 0x63 , // c
 0x68 , // h
 0x6f , // o
-0x6f , // o
 0x73 , // s
 0x65 , // e
 0x6e , // n
@@ -1001,6 +1000,7 @@ static const char compiled_PCRaster[] = {
 0x72 , // r
 0x65 , // e
 0x6e , // n
+0x74 , // t
 0x6c , // l
 0x79 , // y
 0x20 , //  
@@ -18061,7 +18061,6 @@ static const char compiled_PCRaster[] = {
 0x63 , // c
 0x69 , // i
 0x66 , // f
-0x69 , // i
 0x79 , // y
 0x20 , //  
 0x61 , // a
@@ -30543,7 +30542,6 @@ static const char compiled_PCRaster[] = {
 0x73 , // s
 0x20 , //  
 0x6f , // o
-0x6d , // m
 0x6d , // m
 0x69 , // i
 0x74 , // t

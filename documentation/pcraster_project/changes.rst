@@ -10,6 +10,8 @@ The most relevant updates for users:
 * This is the last release for x86_64-based macOS systems. We no longer build, test and support the x86_64 (Intel) macOS architecture in upcoming releases.
 * We modernised the Python code of the ``pcraster`` package and fixed multiple deprecation and syntax warnings.
 * Source packages are from now on provided using XZ compression instead of BZip2 compression.
+* Numerous spelling errors were corrected, thanks to `mwtoews <https://github.com/mwtoews>`_
+
 
 .. * aguila contour
 ..

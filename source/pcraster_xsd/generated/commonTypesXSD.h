@@ -31,8 +31,8 @@
 // FLOSSE file.
 //
 
-#ifndef CXX_USERS_SCHMI109_GITHUB_PCRASTER_SOURCE_PCRASTER_XSD____XMLSCHEMA_COMMON_TYPES_XSD_H
-#define CXX_USERS_SCHMI109_GITHUB_PCRASTER_SOURCE_PCRASTER_XSD____XMLSCHEMA_COMMON_TYPES_XSD_H
+#ifndef CXX_PCRASTER_XSD_XMLSCHEMA_COMMON_TYPES_XSD_H
+#define CXX_PCRASTER_XSD_XMLSCHEMA_COMMON_TYPES_XSD_H
 
 #ifndef XSD_CXX11
 #define XSD_CXX11
@@ -321,7 +321,7 @@ namespace pcrxml
     operator= (const Non0UnsignedInt&) = default;
 #endif
 
-    virtual 
+    virtual
     ~Non0UnsignedInt ();
   };
 
@@ -358,7 +358,7 @@ namespace pcrxml
     operator= (const EmptyElement&) = default;
 #endif
 
-    virtual 
+    virtual
     ~EmptyElement ();
   };
 
@@ -438,7 +438,7 @@ namespace pcrxml
     TimeDuration&
     operator= (const TimeDuration& x);
 
-    virtual 
+    virtual
     ~TimeDuration ();
 
     // Implementation.
@@ -493,7 +493,7 @@ namespace pcrxml
     OneBasedIntegerSet&
     operator= (const OneBasedIntegerSet& x);
 
-    virtual 
+    virtual
     ~OneBasedIntegerSet ();
 
     // Implementation.
@@ -582,7 +582,7 @@ namespace pcrxml
     OneBasedIntegerRange&
     operator= (const OneBasedIntegerRange& x);
 
-    virtual 
+    virtual
     ~OneBasedIntegerRange ();
 
     // Implementation.
@@ -662,7 +662,7 @@ namespace pcrxml
     OneBasedIntegerRangeOrSet&
     operator= (const OneBasedIntegerRangeOrSet& x);
 
-    virtual 
+    virtual
     ~OneBasedIntegerRangeOrSet ();
 
     // Implementation.
@@ -716,7 +716,7 @@ namespace pcrxml
     StringSet&
     operator= (const StringSet& x);
 
-    virtual 
+    virtual
     ~StringSet ();
 
     // Implementation.
@@ -769,7 +769,7 @@ namespace pcrxml
     FloatSet&
     operator= (const FloatSet& x);
 
-    virtual 
+    virtual
     ~FloatSet ();
 
     // Implementation.
@@ -849,7 +849,7 @@ namespace pcrxml
     FloatRange&
     operator= (const FloatRange& x);
 
-    virtual 
+    virtual
     ~FloatRange ();
 
     // Implementation.
@@ -929,7 +929,7 @@ namespace pcrxml
     FloatRangeOrSet&
     operator= (const FloatRangeOrSet& x);
 
-    virtual 
+    virtual
     ~FloatRangeOrSet ();
 
     // Implementation.
@@ -1001,7 +1001,7 @@ namespace pcrxml
     NrRowsNrCols&
     operator= (const NrRowsNrCols& x);
 
-    virtual 
+    virtual
     ~NrRowsNrCols ();
 
     // Implementation.
@@ -1055,7 +1055,7 @@ namespace pcrxml
     operator= (const SpaceTrimmedToken&) = default;
 #endif
 
-    virtual 
+    virtual
     ~SpaceTrimmedToken ();
   };
 
@@ -1098,7 +1098,7 @@ namespace pcrxml
     operator= (const Identifier&) = default;
 #endif
 
-    virtual 
+    virtual
     ~Identifier ();
   };
 }
@@ -1331,14 +1331,14 @@ namespace pcrxml
 
   void
   unitTestOnlyDuration (::std::ostream& os,
-                        const ::pcrxml::TimeDuration& x, 
+                        const ::pcrxml::TimeDuration& x,
                         const ::xml_schema::namespace_infomap& m = ::xml_schema::namespace_infomap (),
                         const ::std::string& e = "UTF-8",
                         ::xml_schema::flags f = 0);
 
   void
   unitTestOnlyDuration (::std::ostream& os,
-                        const ::pcrxml::TimeDuration& x, 
+                        const ::pcrxml::TimeDuration& x,
                         ::xml_schema::error_handler& eh,
                         const ::xml_schema::namespace_infomap& m = ::xml_schema::namespace_infomap (),
                         const ::std::string& e = "UTF-8",
@@ -1346,7 +1346,7 @@ namespace pcrxml
 
   void
   unitTestOnlyDuration (::std::ostream& os,
-                        const ::pcrxml::TimeDuration& x, 
+                        const ::pcrxml::TimeDuration& x,
                         ::xercesc::DOMErrorHandler& eh,
                         const ::xml_schema::namespace_infomap& m = ::xml_schema::namespace_infomap (),
                         const ::std::string& e = "UTF-8",
@@ -1357,14 +1357,14 @@ namespace pcrxml
 
   void
   unitTestOnlyDuration (::xercesc::XMLFormatTarget& ft,
-                        const ::pcrxml::TimeDuration& x, 
+                        const ::pcrxml::TimeDuration& x,
                         const ::xml_schema::namespace_infomap& m = ::xml_schema::namespace_infomap (),
                         const ::std::string& e = "UTF-8",
                         ::xml_schema::flags f = 0);
 
   void
   unitTestOnlyDuration (::xercesc::XMLFormatTarget& ft,
-                        const ::pcrxml::TimeDuration& x, 
+                        const ::pcrxml::TimeDuration& x,
                         ::xml_schema::error_handler& eh,
                         const ::xml_schema::namespace_infomap& m = ::xml_schema::namespace_infomap (),
                         const ::std::string& e = "UTF-8",
@@ -1372,7 +1372,7 @@ namespace pcrxml
 
   void
   unitTestOnlyDuration (::xercesc::XMLFormatTarget& ft,
-                        const ::pcrxml::TimeDuration& x, 
+                        const ::pcrxml::TimeDuration& x,
                         ::xercesc::DOMErrorHandler& eh,
                         const ::xml_schema::namespace_infomap& m = ::xml_schema::namespace_infomap (),
                         const ::std::string& e = "UTF-8",
@@ -1390,7 +1390,7 @@ namespace pcrxml
   //
 
   ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument >
-  unitTestOnlyDuration (const ::pcrxml::TimeDuration& x, 
+  unitTestOnlyDuration (const ::pcrxml::TimeDuration& x,
                         const ::xml_schema::namespace_infomap& m = ::xml_schema::namespace_infomap (),
                         ::xml_schema::flags f = 0);
 }
@@ -1403,4 +1403,4 @@ namespace pcrxml
 //
 // End epilogue.
 
-#endif // CXX_USERS_SCHMI109_GITHUB_PCRASTER_SOURCE_PCRASTER_XSD____XMLSCHEMA_COMMON_TYPES_XSD_H
+#endif // CXX_PCRASTER_XSD_XMLSCHEMA_COMMON_TYPES_XSD_H

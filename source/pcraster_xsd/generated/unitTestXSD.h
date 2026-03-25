@@ -31,8 +31,8 @@
 // FLOSSE file.
 //
 
-#ifndef CXX___UNIT_TEST_XSD_H
-#define CXX___UNIT_TEST_XSD_H
+#ifndef CXX_PCRASTER_XSD_UNIT_TEST_XSD_H
+#define CXX_PCRASTER_XSD_UNIT_TEST_XSD_H
 
 #ifndef XSD_CXX11
 #define XSD_CXX11
@@ -400,14 +400,14 @@ namespace pcrxml
 
   void
   clock (::std::ostream& os,
-         const ::xml_schema::date_time& x, 
+         const ::xml_schema::date_time& x,
          const ::xml_schema::namespace_infomap& m = ::xml_schema::namespace_infomap (),
          const ::std::string& e = "UTF-8",
          ::xml_schema::flags f = 0);
 
   void
   clock (::std::ostream& os,
-         const ::xml_schema::date_time& x, 
+         const ::xml_schema::date_time& x,
          ::xml_schema::error_handler& eh,
          const ::xml_schema::namespace_infomap& m = ::xml_schema::namespace_infomap (),
          const ::std::string& e = "UTF-8",
@@ -415,7 +415,7 @@ namespace pcrxml
 
   void
   clock (::std::ostream& os,
-         const ::xml_schema::date_time& x, 
+         const ::xml_schema::date_time& x,
          ::xercesc::DOMErrorHandler& eh,
          const ::xml_schema::namespace_infomap& m = ::xml_schema::namespace_infomap (),
          const ::std::string& e = "UTF-8",
@@ -426,14 +426,14 @@ namespace pcrxml
 
   void
   clock (::xercesc::XMLFormatTarget& ft,
-         const ::xml_schema::date_time& x, 
+         const ::xml_schema::date_time& x,
          const ::xml_schema::namespace_infomap& m = ::xml_schema::namespace_infomap (),
          const ::std::string& e = "UTF-8",
          ::xml_schema::flags f = 0);
 
   void
   clock (::xercesc::XMLFormatTarget& ft,
-         const ::xml_schema::date_time& x, 
+         const ::xml_schema::date_time& x,
          ::xml_schema::error_handler& eh,
          const ::xml_schema::namespace_infomap& m = ::xml_schema::namespace_infomap (),
          const ::std::string& e = "UTF-8",
@@ -441,7 +441,7 @@ namespace pcrxml
 
   void
   clock (::xercesc::XMLFormatTarget& ft,
-         const ::xml_schema::date_time& x, 
+         const ::xml_schema::date_time& x,
          ::xercesc::DOMErrorHandler& eh,
          const ::xml_schema::namespace_infomap& m = ::xml_schema::namespace_infomap (),
          const ::std::string& e = "UTF-8",
@@ -459,7 +459,7 @@ namespace pcrxml
   //
 
   ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument >
-  clock (const ::xml_schema::date_time& x, 
+  clock (const ::xml_schema::date_time& x,
          const ::xml_schema::namespace_infomap& m = ::xml_schema::namespace_infomap (),
          ::xml_schema::flags f = 0);
 }
@@ -471,4 +471,4 @@ namespace pcrxml
 //
 // End epilogue.
 
-#endif // CXX___UNIT_TEST_XSD_H
+#endif // CXX_PCRASTER_XSD_UNIT_TEST_XSD_H

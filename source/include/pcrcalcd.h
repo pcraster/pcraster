@@ -6,20 +6,13 @@
 
 #include "csftypes.h"
 
-#ifndef  INCLUDED_PCRDLL
-#include "pcrdll.h"
-#define  INCLUDED_PCRDLL
-#endif
 
 #ifdef USE_IN_PCRCALC
 /* USE_IN_PCRCALC is defined
  * only in the pcrcalc sources
  */
 
-#ifndef INCLUDED_PCRDATATYPE
 #include "pcrdatatype.h"
-#define INCLUDED_PCRDATATYPE
-#endif
 
 typedef CSF_CR  PCR_CR;
 typedef OP_ARGS PCR_EXTERNAL_ARGUMENT;

@@ -24,7 +24,7 @@ static calc::PCR_EXTERNAL_MODELLINK_SYNOPSIS MOCSynopsis = {
 
 static calc::PCR_EXTERNAL_MODELLINK_LIST modelLinkList;
 
-extern "C" PCR_DLL_C calc::PCR_EXTERNAL_MODELLINK_LIST*  GetModelLinkList(void)
+extern "C" /*PCR_DLL_C*/ calc::PCR_EXTERNAL_MODELLINK_LIST*  GetModelLinkList(void)
 {
   modelLinkList.apiVersionNr = 0;
   modelLinkList.nrModelLinks = 1;

@@ -5,7 +5,6 @@
 #ifdef WIN32
 #include "com_win32.h"
 #include <windows.h>
-#include <except.h>
 #endif
 #include "PCRasterXSD.h"
 #include "pcrxsd_dominput.h"

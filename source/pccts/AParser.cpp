@@ -449,7 +449,7 @@ syn(_ANTLRTokenPtr /*tok MR23*/, ANTLRChar *egroup, SetWordType *eset,
 	}
 	/* MR23 */ printMessage(stderr, "line %d: syntax error at \"%s\"",
 					line, errorAt);
-	if ( (etok == 0u) && (eset == nullptr) ) {/* MR23 */ printMessage(stderr, "\n"); return;}
+	if ( (etok == 0U) && (eset == nullptr) ) {/* MR23 */ printMessage(stderr, "\n"); return;}
 	if ( k==1 ) /* MR23 */ printMessage(stderr, " missing");
 	else
 	{

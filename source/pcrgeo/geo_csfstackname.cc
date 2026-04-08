@@ -78,13 +78,13 @@ public:
             break;  // break on the character being end of stackname
           }
         }
-      } while (pos != 0u);
+      } while (pos != 0U);
       std::reverse(firstStr.begin(), firstStr.end());
       wrongFormatIf(firstStr.empty());
 
       // The code above might still result in a point at the end of the
       // pathname. Remove it if so.
-      if ((pos != 0u) && str[pos] == '.') {
+      if ((pos != 0U) && str[pos] == '.') {
         --pos;
       }
       d_path = str.substr(0, pos + 1);
@@ -608,7 +608,7 @@ com::PathName geo::CSFStackName::fileName() const
       size_t step = 0;
       firstAvailableTimeStep(pool, step);
 
-      if (step == 0u) {
+      if (step == 0U) {
         std::ostringstream s;
         s << "Stack '" << baseName().toString() << "': is empty";
         throw com::Exception(s.str());

@@ -255,7 +255,7 @@ namespace com
 */
 std::ostream &operator<<(std::ostream &s, const BasicTable &t)
 {
-  if (t.nrCols() != 0u) {
+  if (t.nrCols() != 0U) {
     size_t r = 0;
     size_t c = 0;
     for (r = 0; r < t.nrRecs(); r++) {

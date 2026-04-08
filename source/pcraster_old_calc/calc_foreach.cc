@@ -94,7 +94,7 @@ void calc::ForEach::executeBlock()
   // put in array in correct order
   for (size_t i = 0; i < d_loopedArray->activeIndexSize(); i++) {
     const calc::IndexParameterConstant *ipc = d_loopedArray->item(i);
-    if (loopSet.count(ipc) != 0u) {
+    if (loopSet.count(ipc) != 0U) {
       loop.push_back(ipc);
     }
   }

@@ -114,7 +114,7 @@ calc::IoFieldStrategy::createFieldMapInputParameter(const calc::ParsPar &par)
 void calc::IoFieldStrategy::setAndCheckCommon(const std::string &mapFileName,
                                               const geo::RasterSpace &mapRs)
 {
-  if (d_commonRS.nrRows() == 0u) {  // not yet initialized
+  if (d_commonRS.nrRows() == 0U) {  // not yet initialized
     d_cloneNameCommon = mapFileName;
     d_commonRS = mapRs;
   }

@@ -194,10 +194,10 @@ static inline LinearLoc adjLinearLoc(LinearLoc s, /* source */
       (result[0] >= nrCells) ||
       // on col decrement a source
       // on the left border will get out of range
-      (colDec && ((s % nrCols) == 0u)) ||
+      (colDec && ((s % nrCols) == 0U)) ||
       // on col increment a result
       // on the left border, indicates a row wrap
-      (colInc && ((result[0] % nrCols) == 0u));
+      (colInc && ((result[0] % nrCols) == 0U));
   return result[outOfRange];
 }
 

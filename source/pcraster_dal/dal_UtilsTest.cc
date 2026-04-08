@@ -178,7 +178,7 @@ BOOST_AUTO_TEST_CASE(data_space_to_field_names)
   Dimension const scenario(Scenarios, scenarios);
 
   Dimension const time(Time, size_t(1), size_t(10), size_t(1));
-  Dimension const uncertainty(CumulativeProbabilities, 0.01f, 0.99f, 0.01f);
+  Dimension const uncertainty(CumulativeProbabilities, 0.01F, 0.99F, 0.01F);
 
   {
     fieldNames.clear();
@@ -254,9 +254,9 @@ BOOST_AUTO_TEST_CASE(data_space_address_to_sql_query)
   Dimension const time(Time, timeSteps);
 
   std::vector<float> quantiles;
-  quantiles.push_back(0.01f);
-  quantiles.push_back(0.99f);
-  quantiles.push_back(0.01f);
+  quantiles.push_back(0.01F);
+  quantiles.push_back(0.99F);
+  quantiles.push_back(0.01F);
   Dimension const uncertainty(CumulativeProbabilities, quantiles);
 
   {

@@ -63,9 +63,9 @@ void glu_perspective(GLfloat fovy, GLfloat aspect, GLfloat znear, GLfloat zfar)
   GLfloat matrix[16] = {0};
 
   // Degrees to radians
-  GLfloat const fovy_radians = fovy * std::numbers::pi / 180.0f;
+  GLfloat const fovy_radians = fovy * std::numbers::pi / 180.0F;
   // Cotangent
-  GLfloat const f = 1.0f / std::tan(fovy_radians / 2.0f);
+  GLfloat const f = 1.0F / std::tan(fovy_radians / 2.0F);
   GLfloat const diff = znear - zfar;
 
   // matrix[0][0]
@@ -75,9 +75,9 @@ void glu_perspective(GLfloat fovy, GLfloat aspect, GLfloat znear, GLfloat zfar)
   // matrix[2][2]
   matrix[10] = (zfar + znear) / diff;
   // matrix[2][3]
-  matrix[11] = -1.0f;
+  matrix[11] = -1.0F;
   // matrix[3][2]
-  matrix[14] = (2.0f * zfar * znear) / diff;
+  matrix[14] = (2.0F * zfar * znear) / diff;
 
   glMultMatrixf(matrix);
 }
@@ -493,7 +493,7 @@ bool ag::SceneView::dirty() const
 
 void ag::SceneView::keyPressEvent(QKeyEvent *event)
 {
-  if (event->modifiers() & (Qt::ShiftModifier != 0u)) {
+  if (event->modifiers() & (Qt::ShiftModifier != 0U)) {
     switch (event->key()) {
       case Qt::Key_Up: {
         // Move camera to the front.
@@ -551,7 +551,7 @@ void ag::SceneView::keyPressEvent(QKeyEvent *event)
         break;
       }
     }
-  } else if (event->modifiers() & (Qt::ControlModifier != 0u)) {
+  } else if (event->modifiers() & (Qt::ControlModifier != 0U)) {
     switch (event->key()) {
       case Qt::Key_K: {
         // Move camera to the front.
@@ -766,7 +766,7 @@ void ag::SceneView::installCamera(Camera c)
       roll = 0.0;
     } else {
       assert(false);
-      x = y = z = yaw = pitch = roll = -99999.99999f;  // Never reached.
+      x = y = z = yaw = pitch = roll = -99999.99999F;  // Never reached.
     }
 
     if (d_data->d_staticCamera == nullptr) {

@@ -127,7 +127,7 @@ void MultiMap2D::rescan()
 
 void MultiMap2D::process()
 {
-  if ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0u) {
+  if ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0U) {
     if (!dataObject().backgroundColour().isValid()) {
       setPalette(QPalette());
     } else {
@@ -141,7 +141,7 @@ void MultiMap2D::process()
 void MultiMap2D::visualise()
 {
   // Done scanning, update stuff if needed.
-  if ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0u) {
+  if ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0U) {
     d_splitter->update();
   }
 

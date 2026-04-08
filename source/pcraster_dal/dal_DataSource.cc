@@ -706,7 +706,7 @@ void DataSource::read(
               lowerDistances[i] = 0.0;
               upperDistances[i] = 0.0;
             }
-            else if(dal::comparable(upperValues[i], T(1.0f))) {
+            else if(dal::comparable(upperValues[i], T(1.0F))) {
               // This test assumes that upperValues[i] has been set to the
               // default value of 1.0 above.
               // For the first time cells[i] has increased past value. Replace
@@ -863,7 +863,7 @@ void DataSource::read(
               lowerDistances[i] = 0.0;
               upperDistances[i] = 0.0;
             }
-            else if(dal::comparable(upperValues[i], T(1.0f))) {
+            else if(dal::comparable(upperValues[i], T(1.0F))) {
               // This test assumes that upperValues[i] has been set to the
               // default value of 1.0 above.
               // For the first time cells[i] has increased past value. Replace

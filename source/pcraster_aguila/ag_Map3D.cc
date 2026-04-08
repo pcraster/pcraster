@@ -114,7 +114,7 @@ void Map3D::rescan()
 
 void Map3D::process()
 {
-  if ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0u) {
+  if ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0U) {
     if (!dataObject().backgroundColour().isValid()) {
       setPalette(QPalette());
     } else {
@@ -128,7 +128,7 @@ void Map3D::process()
 void Map3D::visualise()
 {
   // Done scanning, update stuff if needed.
-  if ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0u) {
+  if ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0U) {
     d_splitter->update();
   }
 

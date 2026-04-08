@@ -108,12 +108,12 @@ private:
     double tmBottom(0);
 
     // Cell to the left.
-    if ((direction & Left) == 0u) {
+    if ((direction & Left) == 0U) {
       tmLeft = d_tmRight.cell(r, c - 1);
       d_args.d_h1 += tmLeft * d_elevation.value(r, c - 1);
       d_args.d_h2 += tmLeft * d_resultElevation.value(r, c - 1);
       ++d_args.d_nrCells;
-    } else if ((direction & Right) == 0u) {
+    } else if ((direction & Right) == 0U) {
       // Copy value from Right cell.
       tmLeft = d_tmRight.cell(r, c);
       d_args.d_h1 += tmLeft * d_elevation.value(r, c + 1);
@@ -122,12 +122,12 @@ private:
     }
 
     // Cell to the top.
-    if ((direction & Top) == 0u) {
+    if ((direction & Top) == 0U) {
       tmTop = d_tmBottom.cell(r - 1, c);
       d_args.d_h1 += tmTop * d_elevation.value(r - 1, c);
       d_args.d_h2 += tmTop * d_resultElevation.value(r - 1, c);
       ++d_args.d_nrCells;
-    } else if ((direction & Bottom) == 0u) {
+    } else if ((direction & Bottom) == 0U) {
       // Copy value from Bottom cell.
       tmTop = d_tmBottom.cell(r, c);
       d_args.d_h1 += tmTop * d_elevation.value(r + 1, c);
@@ -136,12 +136,12 @@ private:
     }
 
     // Cell to the right.
-    if ((direction & Right) == 0u) {
+    if ((direction & Right) == 0U) {
       tmRight = d_tmRight.cell(r, c);
       d_args.d_h1 += tmRight * d_elevation.value(r, c + 1);
       d_args.d_h2 += tmRight * d_resultElevation.value(r, c + 1);
       ++d_args.d_nrCells;
-    } else if ((direction & Left) == 0u) {
+    } else if ((direction & Left) == 0U) {
       // Copy value from Left cell.
       tmRight = d_tmRight.cell(r, c - 1);
       d_args.d_h1 += tmRight * d_elevation.value(r, c - 1);
@@ -150,12 +150,12 @@ private:
     }
 
     // Cell to the bottom.
-    if ((direction & Bottom) == 0u) {
+    if ((direction & Bottom) == 0U) {
       tmBottom = d_tmBottom.cell(r, c);
       d_args.d_h1 += tmBottom * d_elevation.value(r + 1, c);
       d_args.d_h2 += tmBottom * d_resultElevation.value(r + 1, c);
       ++d_args.d_nrCells;
-    } else if ((direction & Top) == 0u) {
+    } else if ((direction & Top) == 0U) {
       // Copy value from Top cell.
       tmBottom = d_tmBottom.cell(r - 1, c);
       d_args.d_h1 += tmBottom * d_elevation.value(r - 1, c);

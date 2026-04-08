@@ -355,7 +355,7 @@ public:
 
     // if we already have an EventChain
     // then no need to add prologue
-    if (count(e.name()) != 0u) {
+    if (count(e.name()) != 0U) {
       return;
     }
 

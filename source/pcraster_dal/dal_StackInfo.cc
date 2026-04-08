@@ -161,7 +161,7 @@ dal::StackInfo::StackInfo(
           // Break on the character being end of stack name.
           break;
         }
-      } while(pos != 0u);
+      } while(pos != 0U);
 
       std::reverse(firstStr.begin(), firstStr.end());
       wrongFormatIf(firstStr.empty());

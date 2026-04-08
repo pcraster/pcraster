@@ -71,15 +71,15 @@ void CumDistributionFunctionView::rescan()
 
 void CumDistributionFunctionView::process()
 {
-  if (((visualisationEngine().change() & VisEngine::OTHERATTRIB) != 0u) ||
-      ((visualisationEngine().change() & VisEngine::DRAWPROPS) != 0u) ||
-      ((visualisationEngine().change() & VisEngine::SELECTION) != 0u) ||
-      ((visualisationEngine().change() & VisEngine::TIME) != 0u) ||
-      ((visualisationEngine().change() & VisEngine::RASTER_CELL) != 0u)) {
+  if (((visualisationEngine().change() & VisEngine::OTHERATTRIB) != 0U) ||
+      ((visualisationEngine().change() & VisEngine::DRAWPROPS) != 0U) ||
+      ((visualisationEngine().change() & VisEngine::SELECTION) != 0U) ||
+      ((visualisationEngine().change() & VisEngine::TIME) != 0U) ||
+      ((visualisationEngine().change() & VisEngine::RASTER_CELL) != 0U)) {
     clearPlot();
     createPlot();
   } else {
-    if ((visualisationEngine().change() & VisEngine::QUANTILE) != 0u) {
+    if ((visualisationEngine().change() & VisEngine::QUANTILE) != 0U) {
       assert(!(visualisationEngine().change() & VisEngine::VALUE_SELECTION));
 
       dal::DataSpace const &space(dataObject().dataSpace());
@@ -91,7 +91,7 @@ void CumDistributionFunctionView::process()
 
         setYMarker(quantile);
       }
-    } else if ((visualisationEngine().change() & VisEngine::VALUE_SELECTION) != 0u) {
+    } else if ((visualisationEngine().change() & VisEngine::VALUE_SELECTION) != 0U) {
       assert(!(visualisationEngine().change() & VisEngine::QUANTILE));
       assert(dataObject().hasSelectedValue());
 
@@ -99,7 +99,7 @@ void CumDistributionFunctionView::process()
     }
   }
 
-  if ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0u) {
+  if ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0U) {
     if (!dataObject().backgroundColour().isValid()) {
       setPalette(QPalette());
     } else {
@@ -112,14 +112,14 @@ void CumDistributionFunctionView::process()
 
 void CumDistributionFunctionView::visualise()
 {
-  if (((visualisationEngine().change() & VisEngine::OTHERATTRIB) != 0u) ||
-      ((visualisationEngine().change() & VisEngine::DRAWPROPS) != 0u) ||
-      ((visualisationEngine().change() & VisEngine::VALUE_SELECTION) != 0u) ||
-      ((visualisationEngine().change() & VisEngine::SELECTION) != 0u) ||
-      ((visualisationEngine().change() & VisEngine::RASTER_CELL) != 0u) ||
-      ((visualisationEngine().change() & VisEngine::TIME) != 0u) ||
-      ((visualisationEngine().change() & VisEngine::QUANTILE) != 0u) ||
-      ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0u)) {
+  if (((visualisationEngine().change() & VisEngine::OTHERATTRIB) != 0U) ||
+      ((visualisationEngine().change() & VisEngine::DRAWPROPS) != 0U) ||
+      ((visualisationEngine().change() & VisEngine::VALUE_SELECTION) != 0U) ||
+      ((visualisationEngine().change() & VisEngine::SELECTION) != 0U) ||
+      ((visualisationEngine().change() & VisEngine::RASTER_CELL) != 0U) ||
+      ((visualisationEngine().change() & VisEngine::TIME) != 0U) ||
+      ((visualisationEngine().change() & VisEngine::QUANTILE) != 0U) ||
+      ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0U)) {
     update();
   }
 

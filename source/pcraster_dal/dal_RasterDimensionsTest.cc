@@ -109,11 +109,11 @@ BOOST_AUTO_TEST_CASE(coordinates)
     double x = NAN;
     double y = NAN;
 
-    raster.coordinates(0u, x, y);
+    raster.coordinates(0U, x, y);
     BOOST_CHECK_CLOSE(x, 3.5, 0.001);
     BOOST_CHECK_CLOSE(y, -0.5, 0.001);
 
-    raster.coordinates(11u, x, y);
+    raster.coordinates(11U, x, y);
     BOOST_CHECK_CLOSE(x, 18.5, 0.001);
     BOOST_CHECK_CLOSE(y, -10.5, 0.001);
   }

@@ -248,7 +248,7 @@ private:
   void printLineCommon(double area, std::ostream &d_out) const
   {
     d_out << "\t" << area * nr();
-    if (nr() != 0u) {
+    if (nr() != 0U) {
       d_out << "\t" << sum() << "\t" << minimum() << "\t" << maximum() << "\t" << average() << "\t"
             << sd() << "\t" << d_med;
     }
@@ -786,19 +786,19 @@ void calc::StatComputation::GGTable(const REAL4 *subject) const
       d_out << *k.first << "\t";
       i->second.printLine(*(i->first), area(1), d_out);
     }
-    if (k.second.outside().nr() != 0u) {
+    if (k.second.outside().nr() != 0U) {
       d_out << *k.first << "\t";
       k.second.outside().printLine("otherwise", area(1), d_out);
     }
   }
 
   const MapKey &mko(m.outside());
-  if (mko.nrVisits() != 0u) {
+  if (mko.nrVisits() != 0U) {
     for (const auto &i : mko) {
       d_out << "otherwise" << "\t";
       i.second.printLine(*(i.first), area(1), d_out);
     }
-    if (mko.outside().nr() != 0u) {
+    if (mko.outside().nr() != 0U) {
       d_out << "otherwise" << "\t";
       mko.outside().printLine("otherwise", area(1), d_out);
     }
@@ -852,7 +852,7 @@ void calc::StatComputation::scalarTable(const REAL4 *begin, const REAL4 *end) co
 
   d_out << "\t" << d_subject.d_name << "\n";
   d_out << "area\t" << area(s.nr()) << "\n";
-  if (s.nr() == 0u) {  // empty, skip
+  if (s.nr() == 0U) {  // empty, skip
     return;
   }
   d_out << "sum" << "\t" << s.sum() << "\n";
@@ -871,14 +871,14 @@ void calc::StatComputation::scalarTable(const REAL4 *beginS, const REAL4 *endS, 
 
   d_out << "\t" << d_subject.d_name << "\t" << d_cross.d_name << "\n";
   d_out << "area\t" << area(s.nr()) << "\t" << area(c.nr()) << "\n";
-  if ((s.nr() == 0u) && (c.nr() == 0u)) {  // empty, skip
+  if ((s.nr() == 0U) && (c.nr() == 0U)) {  // empty, skip
     return;
   }
   // just put 0 if one of two is empty
-  if (s.nr() == 0u) {
+  if (s.nr() == 0U) {
     s(0);  // init with 0
   }
-  if (c.nr() == 0u) {
+  if (c.nr() == 0U) {
     c(0);  // init with 0
   }
 

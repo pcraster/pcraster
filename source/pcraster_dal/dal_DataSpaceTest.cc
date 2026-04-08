@@ -297,9 +297,9 @@ BOOST_AUTO_TEST_CASE(merge)
     timeSteps.push_back(1986);
     timeSteps.push_back(2003);
     timeSteps.push_back(1);
-    quantiles.push_back(0.01f);
-    quantiles.push_back(0.99f);
-    quantiles.push_back(0.01f);
+    quantiles.push_back(0.01F);
+    quantiles.push_back(0.99F);
+    quantiles.push_back(0.01F);
 
     RasterDimensions const rasterDimensions(87, 55);
 
@@ -320,7 +320,7 @@ BOOST_AUTO_TEST_CASE(merge)
     space1 |= space2;
     BOOST_TEST(space1.size() == size_t(4));
     BOOST_TEST(space1.dimension(2).nrValues() == size_t(3));
-    BOOST_TEST(comparable<float>(space1.dimension(2).value<float>(2), 0.01f));
+    BOOST_TEST(comparable<float>(space1.dimension(2).value<float>(2), 0.01F));
   }
 
   // Merge space with different discretizations (raster and vector).
@@ -693,9 +693,9 @@ BOOST_AUTO_TEST_CASE(trim)
     timeSteps.push_back(1);
 
     std::vector<float>quantiles;
-    quantiles.push_back(0.01f);
-    quantiles.push_back(0.99f);
-    quantiles.push_back(0.01f);
+    quantiles.push_back(0.01F);
+    quantiles.push_back(0.99F);
+    quantiles.push_back(0.01F);
 
     RasterDimensions const rasterDimensions(87, 55);
 
@@ -714,7 +714,7 @@ BOOST_AUTO_TEST_CASE(trim)
     DataSpaceAddress address(4);
     address.setCoordinate<std::string>(0, "0");
     address.setCoordinate<size_t>(1, 1986);
-    address.setCoordinate<float>(2, 0.5f);
+    address.setCoordinate<float>(2, 0.5F);
     address.setCoordinate<SpatialCoordinate>(3, SpatialCoordinate(5.5, 6.6));
     address = toSpace.trim(fromSpace, address);
 
@@ -743,7 +743,7 @@ BOOST_AUTO_TEST_CASE(trim)
     address.resize(5);
     address.setCoordinate<std::string>(0, "0");
     address.setCoordinate<size_t>(1, 1986);
-    address.setCoordinate<float>(2, 0.5f);
+    address.setCoordinate<float>(2, 0.5F);
     address.setCoordinate<SpatialCoordinate>(3, SpatialCoordinate(464260.0,
          5687057.0));
     address.setCoordinate<SpatialCoordinate>(4, SpatialCoordinate(464260.0,
@@ -848,9 +848,9 @@ BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
   space.eraseDimension(Samples);
 
   std::vector<float> quantiles;
-  quantiles.push_back(0.01f);
-  quantiles.push_back(0.99f);
-  quantiles.push_back(0.01f);
+  quantiles.push_back(0.01F);
+  quantiles.push_back(0.99F);
+  quantiles.push_back(0.01F);
   space.addDimension(Dimension(CumulativeProbabilities, quantiles));
 
   {
@@ -870,7 +870,7 @@ BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
     BOOST_TEST(address.isValid(2));
     BOOST_TEST(address.coordinate<std::string>(0) == "aap");
     BOOST_TEST(address.coordinate<size_t>(1) == size_t(1));
-    BOOST_CHECK_CLOSE(address.coordinate<float>(2), float(0.50), 0.001f);
+    BOOST_CHECK_CLOSE(address.coordinate<float>(2), float(0.50), 0.001F);
   }
 
   RasterDimensions const rasterDimensions(96, 95, 3.0, 5.5, 6.6);
@@ -895,7 +895,7 @@ BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
     BOOST_TEST(address.isValid(3));
     BOOST_TEST(address.coordinate<std::string>(0) == "aap");
     BOOST_TEST(address.coordinate<size_t>(1) == size_t(1));
-    BOOST_CHECK_CLOSE(address.coordinate<float>(2), float(0.50), 0.001f);
+    BOOST_CHECK_CLOSE(address.coordinate<float>(2), float(0.50), 0.001F);
     BOOST_CHECK(address.coordinate<SpatialCoordinate>(3) ==
          SpatialCoordinate(5.5, 6.6));
   }
@@ -904,9 +904,9 @@ BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
     DataSpace space;
     DataSpaceAddress address;
     std::vector<float> quantiles;
-    quantiles.push_back(0.90f);
-    quantiles.push_back(0.95f);
-    quantiles.push_back(0.99f);
+    quantiles.push_back(0.90F);
+    quantiles.push_back(0.95F);
+    quantiles.push_back(0.99F);
     space.addDimension(Dimension(CumulativeProbabilities, quantiles));
 
     address = space.address();
@@ -921,9 +921,9 @@ BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
     DataSpace space;
     DataSpaceAddress address;
     std::vector<float> quantiles;
-    quantiles.push_back(0.01f);
-    quantiles.push_back(0.99f);
-    quantiles.push_back(0.01f);
+    quantiles.push_back(0.01F);
+    quantiles.push_back(0.99F);
+    quantiles.push_back(0.01F);
     space.addDimension(Dimension(CumulativeProbabilities, quantiles));
 
     address = space.address();
@@ -931,7 +931,7 @@ BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
     BOOST_TEST(address.size() == size_t(1));
     BOOST_TEST(space.isValid(address));
     BOOST_TEST(address.isValid(0));
-    BOOST_CHECK_CLOSE(address.coordinate<float>(0), float(0.5), 0.001f);
+    BOOST_CHECK_CLOSE(address.coordinate<float>(0), float(0.5), 0.001F);
   }
 }
 
@@ -1059,7 +1059,7 @@ BOOST_AUTO_TEST_CASE(contains)
     DataSpaceAddress address(space.address());
     BOOST_TEST(!space.contains(address));
 
-    address.setCoordinate<float>(0, 0.1f);
+    address.setCoordinate<float>(0, 0.1F);
     BOOST_TEST(space.contains(address));
   }
 }

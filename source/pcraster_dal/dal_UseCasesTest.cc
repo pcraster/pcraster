@@ -122,8 +122,8 @@ BOOST_AUTO_TEST_CASE(bil_format)
 
     REAL4 const* cells = map->cells<REAL4>();
     // PRINT_VAR(cells[0]); wil print nan OK!, no throw
-    BOOST_TEST(cells[1] == 1.0f);
-    BOOST_TEST(cells[15] == 1.0f);
+    BOOST_TEST(cells[1] == 1.0F);
+    BOOST_TEST(cells[15] == 1.0F);
   }
 /*
 *  { // create a  4*5 TI_INT2 map with first and last cell a MV of 0

@@ -123,7 +123,7 @@ static int MarkWhileSum(MAP_UINT1 *m_resultMap, const MAP_REAL8 *m_order, const 
   UINT1 mark = 1;
   for (auto &point : points) {
     geo::CellLoc const c(point.cellLoc());
-    if (mark != 0u) {
+    if (mark != 0U) {
       mark = static_cast<UINT1>(markCondition->mark(point.amount()));
     }
     // std::cout << c << " " << (int)mark << "\n";

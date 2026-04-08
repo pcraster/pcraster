@@ -27,7 +27,7 @@ calc::IndexSelectedVector::~IndexSelectedVector()
 
 int calc::IndexSelectedVector::select() const
 {
-  if (size() == 0u) {
+  if (size() == 0U) {
     return 0;
   }
   std::vector<size_t> ind(size());

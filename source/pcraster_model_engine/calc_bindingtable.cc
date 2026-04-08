@@ -77,7 +77,7 @@ void BindingToSymbol::visitAss(ASTAss *a)
         << i->second->par()->shortPosText();
     par->posError(msg);
   }
-  if (d_interfaceSyms.count(par->name()) != 0u) {
+  if (d_interfaceSyms.count(par->name()) != 0U) {
     par->symError("binding is obsolete when using an interface section");
   }
 
@@ -181,17 +181,17 @@ void calc::BindingTable::addLastDefinition(const ASTNodeVector &l)
   std::set<std::string> names;
   std::vector<ASTAss *> add;
   size_t i = l.size();
-  while (i != 0u) {
+  while (i != 0U) {
     --i;
     auto *a = dynamic_cast<ASTAss *>(l[i]);
     std::string const name(a->par()->name());
-    if (names.count(name) == 0u) {
+    if (names.count(name) == 0U) {
       add.push_back(new ASTAss(*a));
       names.insert(name);
     }
   }
   i = add.size();
-  while (i != 0u) {
+  while (i != 0U) {
     --i;
     transferPushBack(add[i]);
   }

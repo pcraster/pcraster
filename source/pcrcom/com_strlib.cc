@@ -488,7 +488,7 @@ void com::replaceChars(std::string &str, char resultChar, const std::string &cha
   std::set<char> replaceSet;
   com::insertTo(charsToBeReplaced, replaceSet);
   for (char &i : str) {
-    if (replaceSet.count(i) != 0u) {
+    if (replaceSet.count(i) != 0U) {
       i = resultChar;
     }
   }

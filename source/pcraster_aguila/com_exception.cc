@@ -286,7 +286,7 @@ std::string com::FilePositionError::makePositionDiagnose(size_t lineNr, size_t c
 {
   std::ostringstream s;
   s << "at line '" << lineNr << "'";
-  if (columnNr != 0u) {
+  if (columnNr != 0U) {
     s << " column '" << columnNr << "'";
   }
   s << ": " << msg;

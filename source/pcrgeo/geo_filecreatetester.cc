@@ -204,7 +204,7 @@ bool geo::FileCreateTester::equalToTss(const com::PathName &eqTo, bool throwWhat
             << v2 << "=" << diff << '\n';
         firstErrMsg = str.str();
       }
-      if (c != 0u) {  // skip time column
+      if (c != 0U) {  // skip time column
         if (diff != 0 && d_percentageDifference) {
           tss1.setValue(c, r, com::fractionDifference(v1, v2));
         } else {

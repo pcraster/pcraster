@@ -191,7 +191,7 @@ void calc::FileTimeoutput::finish()
   // if data left, write it otherwise not
   // the if prevent the case that we only
   // write a header and no data
-  if (d_step.size() != 0u) {
+  if (d_step.size() != 0U) {
     flushToFile();
   }
 }
@@ -214,7 +214,7 @@ double *calc::FileTimeoutput::setRow(size_t currentTimeStep)
   if (!reportTimeStep(currentTimeStep)) {
     return nullptr;
   }
-  if ((d_step.size() != 0u) && currentTimeStep == d_step.back()) {
+  if ((d_step.size() != 0U) && currentTimeStep == d_step.back()) {
     // pcrcalc/test317 writing a value twice in loop!
     return d_value[d_step.size() - 1];
   }
@@ -360,7 +360,7 @@ void calc::FileTimeoutput::timeoutput(const Field *id, const Field *expr, size_t
 calc::FileTimeoutput *calc::createFileTimeoutput(const StackInfo &stackInfo, const Field *id)
 {
   size_t const nrCols = detail::maxId(id);
-  if (nrCols != 0u) {
+  if (nrCols != 0U) {
     return new FileTimeoutput(stackInfo, nrCols);
   }
   return nullptr;

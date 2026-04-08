@@ -44,7 +44,7 @@ BOOST_AUTO_TEST_CASE(testAll)
   size_t const nrFailuresAllowed = 0;
 
   std::ostringstream msgs;
-  if (failMsgs.size() != 0u) {
+  if (failMsgs.size() != 0U) {
     // msgs << " compile mode:  " << compile[c] << "\n";
     for (size_t i = 0; i < failMsgs.size(); ++i) {
       msgs << "---- MANUAL EXAMPLE FAILURE # " << i << "---------------------------------" << "\n";

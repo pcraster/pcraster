@@ -77,7 +77,7 @@ calc::IoFieldStrategy *calc::IoEsriFieldStrategy::checkInputMap(VS &vs, const st
   try {
     EsriMap const grid(fName);
     // always prefer an esri grid prj file
-    if (grid.prjFile().size() != 0u) {
+    if (grid.prjFile().size() != 0U) {
       d_prjFile = grid.prjFile();
     }
     vs = grid.vs();
@@ -127,7 +127,7 @@ void calc::IoEsriFieldStrategy::checkClone(const std::string &mapFileName)
 
   setAndCheckCommon(mapFileName, mapRs);
 
-  if (d_rasterSpaceEsri.nrRows() == 0u) {  // not yet initialized
+  if (d_rasterSpaceEsri.nrRows() == 0U) {  // not yet initialized
     d_cloneNameEsri = mapFileName;
     d_rasterSpaceEsri = mapRs;
     map.bbox(d_bbox);
@@ -148,7 +148,7 @@ void calc::IoEsriFieldStrategy::checkClone(const std::string &mapFileName)
  */
 void calc::IoEsriFieldStrategy::setupFormatSpecificClone()
 {
-  if (d_rasterSpaceEsri.nrRows() == 0u) {
+  if (d_rasterSpaceEsri.nrRows() == 0U) {
     // Esri output wanted, but no Esri clone detected
     //  ESRI grid always cartesian yb2t
     PRECOND(rasterSpace().nrRows());
@@ -171,7 +171,7 @@ calc::GridMap *calc::IoEsriFieldStrategy::createMap(const std::string &fileName,
   removeOutputObject(pn.toString());
   auto *m = new EsriMap(pn.toString(), rasterSpace().nrRows(), rasterSpace().nrCols(),
                         rasterSpace().cellSize(), d_bbox, vs);
-  if (d_prjFile.size() != 0u) {
+  if (d_prjFile.size() != 0U) {
     m->setPrjFile(d_prjFile);
   }
   return m;

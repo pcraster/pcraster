@@ -37,7 +37,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent *e)
 {
   double d = NAN;  // A distance.
 
-  if (e->modifiers() & (Qt::ShiftModifier != 0u)) {
+  if (e->modifiers() & (Qt::ShiftModifier != 0U)) {
     switch (e->key()) {
       case Qt::Key_Up: {
         // Move camera to the front.
@@ -103,7 +103,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent *e)
         return true;
       }
     }
-  } else if (e->modifiers() & (Qt::ControlModifier != 0u)) {
+  } else if (e->modifiers() & (Qt::ControlModifier != 0U)) {
     switch (e->key()) {
       case Qt::Key_K: {
         // Move camera to the front.

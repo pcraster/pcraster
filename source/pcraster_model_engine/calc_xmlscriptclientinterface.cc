@@ -55,7 +55,7 @@ public:
   {
 
     std::string const name(pcrxsd::toString(s.name()));
-    if (d_nameStatTableMap.count(name) != 0u) {
+    if (d_nameStatTableMap.count(name) != 0U) {
       std::ostringstream is;
       is << "redefinition of textStatistics with name '" << name << "'" << '\n';
       throw com::Exception(is.str());
@@ -105,7 +105,7 @@ public:
   {
     for (NameStatTablePair const i : d_nameStatTableMap) {
       std::string const name(i.first);
-      if (d_table.count(name) != 0u) {
+      if (d_table.count(name) != 0U) {
         // force a type error on existing
         ASTSymbolInfo &sym(d_table[i.second->id()]);
         try {

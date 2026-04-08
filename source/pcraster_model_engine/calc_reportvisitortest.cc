@@ -32,7 +32,7 @@ BOOST_AUTO_TEST_CASE(testPos)
 
     bool posEqual(std::string const &name, std::string const &pos) const
     {
-      if (d_rps.count(name) == 0u) {
+      if (d_rps.count(name) == 0U) {
         return false;
       }
       auto i = d_rps.find(name);

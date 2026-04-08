@@ -55,9 +55,9 @@ BOOST_AUTO_TEST_CASE(test_)
   }
 
   std::vector<float> quantiles;
-  quantiles.push_back(0.1f);
-  quantiles.push_back(0.9f);
-  quantiles.push_back(0.1f);
+  quantiles.push_back(0.1F);
+  quantiles.push_back(0.9F);
+  quantiles.push_back(0.1F);
   space.addDimension(Dimension(CumulativeProbabilities, quantiles));
 
   typedef std::tuple<float, std::vector<std::any> > FloatTuple;
@@ -65,19 +65,19 @@ BOOST_AUTO_TEST_CASE(test_)
 
   std::vector<std::any> tmp;
   tmp.push_back(static_cast<REAL4*>(q1));
-  values.push_back(FloatTuple(0.1f, tmp));
+  values.push_back(FloatTuple(0.1F, tmp));
   tmp.clear();
   tmp.push_back((REAL4*)q5);
-  values.push_back(FloatTuple(0.5f, tmp));
+  values.push_back(FloatTuple(0.5F, tmp));
   tmp.clear();
   tmp.push_back((REAL4*)q9);
-  values.push_back(FloatTuple(0.9f, tmp));
+  values.push_back(FloatTuple(0.9F, tmp));
 
   {
     MemoryRasterData data(values, space, typeId, nrRows, nrCols, cellSize,
          north, west);
     DataSpaceAddress address(space.address());
-    address.setCoordinate<float>(0, 0.9f);
+    address.setCoordinate<float>(0, 0.9F);
     BOOST_TEST(data.exists(address));
     raster.reset(data.raster(address, MemoryRasterData::IncludingValues));
     BOOST_TEST(raster);

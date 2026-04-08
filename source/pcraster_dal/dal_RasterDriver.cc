@@ -723,7 +723,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
     }
   }
 
-  if((conventions & PCRConvention) != 0u) {
+  if((conventions & PCRConvention) != 0U) {
     // Temporal rasters.
     // 8.3 Dos convention.
     // <name><timestep>

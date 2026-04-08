@@ -92,7 +92,7 @@ void VectorDrawer::draw(QPainter &painter, QRect const &indices, QTransform cons
 
       // Stop in case of missing values or when both magnitudes are zero.
       if (!pcr::isMV(xMagnitude) && !pcr::isMV(yMagnitude) &&
-          (!(dal::comparable(xMagnitude, 0.0f) && dal::comparable(yMagnitude, 0.0f)))) {
+          (!(dal::comparable(xMagnitude, 0.0F) && dal::comparable(yMagnitude, 0.0F)))) {
 
         // An arrow consists of three lines whose lengths are proportional to
         // the magnitude.

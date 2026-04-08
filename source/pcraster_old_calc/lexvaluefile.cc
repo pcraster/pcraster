@@ -1679,7 +1679,7 @@ void calc::LexValueFile::process()
       }
       case 0:
       case '\n': {
-        if (line.size() == 0u) {  // nothing to process, empty line or eof with ending '\n'
+        if (line.size() == 0U) {  // nothing to process, empty line or eof with ending '\n'
           break;
         }
         processLine(line, currentLineNr);

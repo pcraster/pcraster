@@ -209,7 +209,7 @@ public:
     dtExpr.restrict(dtOp);
 
     // push down
-    if (!dtOp.singleVs() && /* WHY THIS CLAUSE?: */ (op.firstFieldInput() == 0u)) {
+    if (!dtOp.singleVs() && /* WHY THIS CLAUSE?: */ (op.firstFieldInput() == 0U)) {
       // push type down in poly types
       for (size_t i = op.firstPolyInput(); i < e->nrArgs() && op.isPolyInput(i); ++i) {
         DataType ftArg(op.argType(i));
@@ -223,7 +223,7 @@ public:
     d_dtc.restrict(e->returnDataType(0), dtExpr);
 
     // if 1st arg is not a field it is a DataStorage
-    if (op.firstFieldInput() != 0u) {
+    if (op.firstFieldInput() != 0U) {
       POSTCOND(op.firstFieldInput() == 1);
       auto *p = dynamic_cast<ASTPar *>(e->arg(0));
       if (p == nullptr) {  // can happen if arg is incorrect for operation
@@ -363,7 +363,7 @@ void calc::BuildTypesVisitor::init(const ASTSymbolTable &table)
 void calc::BuildTypesVisitor::checkOnTimeinput(BaseExpr *o)
 {
   // proceed only when first arg is VS_MAPSTACK
-  if ((o->nrArgs() == 0u) || o->op().argType(0).vs() != VS_MAPSTACK) {
+  if ((o->nrArgs() == 0U) || o->op().argType(0).vs() != VS_MAPSTACK) {
     return;
   }
 
@@ -446,7 +446,7 @@ void calc::BuildTypesVisitor::visitExpr(BaseExpr *o)
   //pcrcalc/test14
   std::string const msg(op.checkNrInputs(o->nrArgs()));
   if (!msg.empty()) {
-    if (o->nrArgs() != 0u) {
+    if (o->nrArgs() != 0U) {
       o->arg(0)->posError(msg);
     } else {  // pcrcalc/test252a
       o->posError(msg);

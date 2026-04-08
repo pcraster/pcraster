@@ -103,7 +103,7 @@ calc::DataTable::DTE calc::DataTable::dataLoad(const std::string &name)
  */
 void calc::DataTable::insert(const ASTSymbolInfo &i, size_t nrTimeStepsExpected, const IOStrategy &ios)
 {
-  if (d_table.count(i.name()) != 0u) {
+  if (d_table.count(i.name()) != 0U) {
     return;
   }
 

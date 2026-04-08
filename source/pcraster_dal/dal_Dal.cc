@@ -890,7 +890,7 @@ Formats Dal::readerFormats() const
     auto const& properties =
          driver->properties().value<DriverProperties>(DAL_DRIVER_GENERAL);
 
-    if((properties & Reader) != 0u) {
+    if((properties & Reader) != 0U) {
       result.push_back(driver->format());
     }
   }
@@ -925,7 +925,7 @@ Formats Dal::writerFormats(
       auto const& properties =
            driver->properties().value<DriverProperties>(DAL_DRIVER_GENERAL);
 
-      if((properties & Writer) != 0u) {
+      if((properties & Writer) != 0U) {
         result.push_back(driver->format());
       }
     }

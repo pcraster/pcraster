@@ -169,14 +169,14 @@ public:
     if (d_fd == -1) {
       throwError("open failed");
     }
-    if (len == 0u) {
+    if (len == 0U) {
       // compute length
       off_t const size = lseek(d_fd, 0, SEEK_END);
       if (size == -1) {
         throwError("lseek failed");
       }
       len = (size_t)size - offset;
-      if (len == 0u) {
+      if (len == 0U) {
         throwError("mmap does not support 0 sized files");
       }
     }

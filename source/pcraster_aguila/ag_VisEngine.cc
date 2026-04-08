@@ -209,7 +209,7 @@ void VisEngine::rescan(DataObject const &object)
   }
 
 #ifdef DEBUG_DEVELOP
-  if (((_data->_change & TIME) != 0u) || ((_data->_change & QUANTILE) != 0u) || ((_data->_change & RASTER_CELL) != 0u)) {
+  if (((_data->_change & TIME) != 0U) || ((_data->_change & QUANTILE) != 0U) || ((_data->_change & RASTER_CELL) != 0U)) {
     assert(_data->_change & CURSOR);
   }
 #endif
@@ -419,12 +419,12 @@ DataProperties &VisEngine::properties()
 
 bool VisEngine::cursorChanged() const
 {
-  return (_data->_change & CURSOR) != 0u;
+  return (_data->_change & CURSOR) != 0U;
 }
 
 bool VisEngine::timeChanged() const
 {
-  return (_data->_change & TIME) != 0u;
+  return (_data->_change & TIME) != 0U;
 }
 
 //! Sets the height stack to the stack pointed to by \a guide.
@@ -506,79 +506,79 @@ std::string VisEngine::changeToString() const
 {
   std::string result;
 
-  if ((_data->_change & CURSOR) != 0u) {
+  if ((_data->_change & CURSOR) != 0U) {
     if (!result.empty()) {
       result += "|";
     }
     result += "cursor";
   }
-  if ((_data->_change & QUANTILE) != 0u) {
+  if ((_data->_change & QUANTILE) != 0U) {
     if (!result.empty()) {
       result += "|";
     }
     result += "quantile";
   }
-  if ((_data->_change & TIME) != 0u) {
+  if ((_data->_change & TIME) != 0U) {
     if (!result.empty()) {
       result += "|";
     }
     result += "time";
   }
-  if ((_data->_change & SELECTION) != 0u) {
+  if ((_data->_change & SELECTION) != 0U) {
     if (!result.empty()) {
       result += "|";
     }
     result += "selection";
   }
-  if ((_data->_change & VISIBILITY) != 0u) {
+  if ((_data->_change & VISIBILITY) != 0U) {
     if (!result.empty()) {
       result += "|";
     }
     result += "visibility";
   }
-  if ((_data->_change & OTHERATTRIB) != 0u) {
+  if ((_data->_change & OTHERATTRIB) != 0U) {
     if (!result.empty()) {
       result += "|";
     }
     result += "otherattrib";
   }
-  if ((_data->_change & DRAWPROPS) != 0u) {
+  if ((_data->_change & DRAWPROPS) != 0U) {
     if (!result.empty()) {
       result += "|";
     }
     result += "drawprops";
   }
-  if ((_data->_change & MAP2DZOOM) != 0u) {
+  if ((_data->_change & MAP2DZOOM) != 0U) {
     if (!result.empty()) {
       result += "|";
     }
     result += "map2dzoom";
   }
-  if ((_data->_change & MAP2DSCALE) != 0u) {
+  if ((_data->_change & MAP2DSCALE) != 0U) {
     if (!result.empty()) {
       result += "|";
     }
     result += "map2dscale";
   }
-  if ((_data->_change & MAP2DMOVE) != 0u) {
+  if ((_data->_change & MAP2DMOVE) != 0U) {
     if (!result.empty()) {
       result += "|";
     }
     result += "map2dmove";
   }
-  if ((_data->_change & QUADLENGTH) != 0u) {
+  if ((_data->_change & QUADLENGTH) != 0U) {
     if (!result.empty()) {
       result += "|";
     }
     result += "quadlength";
   }
-  if ((_data->_change & MAP3DSCALE) != 0u) {
+  if ((_data->_change & MAP3DSCALE) != 0U) {
     if (!result.empty()) {
       result += "|";
     }
     result += "map3dscale";
   }
-  if ((_data->_change & OTHERHEIGHT) != 0u) {
+  if ((_data->_change & OTHERHEIGHT) != 0U) {
     if (!result.empty()) {
       result += "|";
     }
@@ -590,7 +590,7 @@ std::string VisEngine::changeToString() const
   ///   }
   ///   result += "map_action";
   /// }
-  if ((_data->_change & VALUE_SELECTION) != 0u) {
+  if ((_data->_change & VALUE_SELECTION) != 0U) {
     if (!result.empty()) {
       result += "|";
     }

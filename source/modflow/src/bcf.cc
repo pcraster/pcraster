@@ -243,9 +243,9 @@ void BCF::calcVCond(std::stringstream &aStream, size_t layer, const std::string 
   if (res == true) {
 
     for (size_t i = 0; i < d_mf->d_nrOfCells; ++i) {
-      float const thickUpper = 0.5f * d_mf->d_baseArea->cell(i)[layer];
+      float const thickUpper = 0.5F * d_mf->d_baseArea->cell(i)[layer];
       float const thickMid = d_mf->d_baseArea->cell(i)[layer - 1];
-      float const thickLower = 0.5f * d_mf->d_baseArea->cell(i)[layer - 2];
+      float const thickLower = 0.5F * d_mf->d_baseArea->cell(i)[layer - 2];
 
       float const denominator = (thickUpper / d_mf->d_vCond->cell(i)[layer]) +
                                 (thickMid / d_mf->d_vCond->cell(i)[layer - 1]) +
@@ -260,7 +260,7 @@ void BCF::calcVCond(std::stringstream &aStream, size_t layer, const std::string 
         d_mf->d_cmethods->error(stmp.str(), "run");
       }
 
-      float const vcond = 1.0f / denominator;
+      float const vcond = 1.0F / denominator;
 
       aStream << " " << vcond;
       if ((i % cols) == rowWrap) {
@@ -269,8 +269,8 @@ void BCF::calcVCond(std::stringstream &aStream, size_t layer, const std::string 
     }
   } else {
     for (size_t i = 0; i < d_mf->d_nrOfCells; i++) {
-      float const thickUpper = 0.5f * d_mf->d_baseArea->cell(i)[layer];
-      float const thickLower = 0.5f * d_mf->d_baseArea->cell(i)[layer - 1];
+      float const thickUpper = 0.5F * d_mf->d_baseArea->cell(i)[layer];
+      float const thickLower = 0.5F * d_mf->d_baseArea->cell(i)[layer - 1];
 
       float const denominator = (thickUpper / d_mf->d_vCond->cell(i)[layer]) +
                                 (thickLower / d_mf->d_vCond->cell(i)[layer - 1]);
@@ -284,7 +284,7 @@ void BCF::calcVCond(std::stringstream &aStream, size_t layer, const std::string 
         d_mf->d_cmethods->error(stmp.str(), "run");
       }
 
-      float const vcond = 1.0f / denominator;
+      float const vcond = 1.0F / denominator;
       aStream << " " << vcond;
       if ((i % cols) == rowWrap) {
         aStream << "\n";
@@ -963,9 +963,9 @@ void BCF::write_vcond(std::string const &path)
           float vcond = d_mf->d_vCond->cell(i)[blockLayer];
 
           if (calculate_cond()) {
-            float const thickUpper = 0.5f * d_mf->d_baseArea->cell(i)[blockLayer];
+            float const thickUpper = 0.5F * d_mf->d_baseArea->cell(i)[blockLayer];
             float const thickMid = d_mf->d_baseArea->cell(i)[blockLayer - 1];
-            float const thickLower = 0.5f * d_mf->d_baseArea->cell(i)[blockLayer - 2];
+            float const thickLower = 0.5F * d_mf->d_baseArea->cell(i)[blockLayer - 2];
 
             float const denominator = (thickUpper / d_mf->d_vCond->cell(i)[blockLayer]) +
                                       (thickMid / d_mf->d_vCond->cell(i)[blockLayer - 1]) +
@@ -980,7 +980,7 @@ void BCF::write_vcond(std::string const &path)
               d_mf->d_cmethods->error(stmp.str(), "run");
             }
 
-            vcond = 1.0f / denominator;
+            vcond = 1.0F / denominator;
           }
 
           content << " " << vcond;
@@ -994,8 +994,8 @@ void BCF::write_vcond(std::string const &path)
           float vcond = d_mf->d_vCond->cell(i)[blockLayer];
 
           if (calculate_cond()) {
-            float const thickUpper = 0.5f * d_mf->d_baseArea->cell(i)[blockLayer];
-            float const thickLower = 0.5f * d_mf->d_baseArea->cell(i)[blockLayer - 1];
+            float const thickUpper = 0.5F * d_mf->d_baseArea->cell(i)[blockLayer];
+            float const thickLower = 0.5F * d_mf->d_baseArea->cell(i)[blockLayer - 1];
 
             float const denominator = (thickUpper / d_mf->d_vCond->cell(i)[blockLayer]) +
                                       (thickLower / d_mf->d_vCond->cell(i)[blockLayer - 1]);
@@ -1009,7 +1009,7 @@ void BCF::write_vcond(std::string const &path)
               d_mf->d_cmethods->error(stmp.str(), "run");
             }
 
-            vcond = 1.0f / denominator;
+            vcond = 1.0F / denominator;
           }
           content << " " << vcond;
           if ((i % cols) == rowWrap) {

@@ -169,7 +169,7 @@ int ClassLegendBody::width() const
     case VS_BOOLEAN:
     case VS_NOMINAL:
     case VS_ORDINAL: {
-      if (d_drawProperties.nrClasses() != 0u) {
+      if (d_drawProperties.nrClasses() != 0U) {
         result += keySize().width();
         result += labelOffset().width();
         result += maxWidthLabel();
@@ -204,7 +204,7 @@ int ClassLegendBody::height() const
     case VS_BOOLEAN:
     case VS_NOMINAL:
     case VS_ORDINAL: {
-      if (d_drawProperties.nrClasses() != 0u) {
+      if (d_drawProperties.nrClasses() != 0U) {
         result =
             // n keys + space in between
             ((d_drawProperties.nrClasses() - 1) * (keySize().height() + keyOffset())) +

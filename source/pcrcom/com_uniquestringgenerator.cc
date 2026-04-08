@@ -71,7 +71,7 @@ std::string com::UniqueStringGenerator::generate()
   std::string n;
   do {
     n = d_prefix + com::intToStr(++i);
-  } while (count(n) != 0u);
+  } while (count(n) != 0U);
   insert(n);
   return n;
 }

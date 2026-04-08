@@ -115,7 +115,7 @@ calc::EsriMap::EsriMap(const std::string &fileName, size_t nrRows, size_t nrCols
 calc::EsriMap::~EsriMap()
 {
   close();
-  if (d_prjFile.size() != 0u) {
+  if (d_prjFile.size() != 0U) {
     com::copy(d_prjFile, prjFilePath());
   }
 }

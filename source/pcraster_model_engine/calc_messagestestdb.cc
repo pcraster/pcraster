@@ -114,7 +114,7 @@ class MessagesTestDBPrivate :
   {
     com::PathName pn(id);
     std::string contents(result);
-    if (contents.size() != 0u) {
+    if (contents.size() != 0U) {
       // reading in trims last end-of-line needed
       if (contents[contents.size() - 1] != '\n') {
         contents += "\n";

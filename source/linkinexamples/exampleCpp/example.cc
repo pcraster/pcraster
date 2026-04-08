@@ -124,7 +124,7 @@ static void checkerBoard(
     for(size_t c=0;c<nrCols; c++) {
       result[cell]=value;
       cell++;
-      value=static_cast<unsigned char>(value == 0u);
+      value=static_cast<unsigned char>(value == 0U);
     }
   }
 }

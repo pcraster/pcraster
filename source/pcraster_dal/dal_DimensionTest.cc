@@ -57,44 +57,44 @@ BOOST_AUTO_TEST_CASE(contains_value_in_range)
 
   {
     std::vector<float> values;
-    values.push_back(0.01f);
-    values.push_back(0.99f);
-    values.push_back(0.01f);
+    values.push_back(0.01F);
+    values.push_back(0.99F);
+    values.push_back(0.01F);
     Dimension const dimension(CumulativeProbabilities, values);
-    BOOST_TEST(!dimension.containsValueInRange<float>(0.00f));
-    BOOST_TEST( dimension.containsValueInRange<float>(0.01f));
-    BOOST_TEST( dimension.containsValueInRange<float>(0.02f));
-    BOOST_TEST( dimension.containsValueInRange<float>(0.03f));
-    BOOST_TEST( dimension.containsValueInRange<float>(0.04f));
-    BOOST_TEST( dimension.containsValueInRange<float>(0.05f));
-    BOOST_TEST( dimension.containsValueInRange<float>(0.50f));
-    BOOST_TEST( dimension.containsValueInRange<float>(0.95f));
-    BOOST_TEST( dimension.containsValueInRange<float>(0.96f));
-    BOOST_TEST( dimension.containsValueInRange<float>(0.97f));
-    BOOST_TEST( dimension.containsValueInRange<float>(0.98f));
-    BOOST_TEST( dimension.containsValueInRange<float>(0.99f));
-    BOOST_TEST(!dimension.containsValueInRange<float>(1.00f));
+    BOOST_TEST(!dimension.containsValueInRange<float>(0.00F));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.01F));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.02F));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.03F));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.04F));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.05F));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.50F));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.95F));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.96F));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.97F));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.98F));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.99F));
+    BOOST_TEST(!dimension.containsValueInRange<float>(1.00F));
   }
 
   {
     std::vector<float> values;
-    values.push_back(0.01f);
-    values.push_back(0.99f);
-    values.push_back(0.02f);
+    values.push_back(0.01F);
+    values.push_back(0.99F);
+    values.push_back(0.02F);
     Dimension const dimension(CumulativeProbabilities, values);
-    BOOST_TEST(!dimension.containsValueInRange<float>(0.00f));
-    BOOST_TEST( dimension.containsValueInRange<float>(0.01f));
-    BOOST_TEST(!dimension.containsValueInRange<float>(0.02f));
-    BOOST_TEST( dimension.containsValueInRange<float>(0.03f));
-    BOOST_TEST(!dimension.containsValueInRange<float>(0.04f));
-    BOOST_TEST( dimension.containsValueInRange<float>(0.05f));
-    BOOST_TEST(!dimension.containsValueInRange<float>(0.50f));
-    BOOST_TEST( dimension.containsValueInRange<float>(0.95f));
-    BOOST_TEST(!dimension.containsValueInRange<float>(0.96f));
-    BOOST_TEST( dimension.containsValueInRange<float>(0.97f));
-    BOOST_TEST(!dimension.containsValueInRange<float>(0.98f));
-    BOOST_TEST( dimension.containsValueInRange<float>(0.99f));
-    BOOST_TEST(!dimension.containsValueInRange<float>(1.00f));
+    BOOST_TEST(!dimension.containsValueInRange<float>(0.00F));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.01F));
+    BOOST_TEST(!dimension.containsValueInRange<float>(0.02F));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.03F));
+    BOOST_TEST(!dimension.containsValueInRange<float>(0.04F));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.05F));
+    BOOST_TEST(!dimension.containsValueInRange<float>(0.50F));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.95F));
+    BOOST_TEST(!dimension.containsValueInRange<float>(0.96F));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.97F));
+    BOOST_TEST(!dimension.containsValueInRange<float>(0.98F));
+    BOOST_TEST( dimension.containsValueInRange<float>(0.99F));
+    BOOST_TEST(!dimension.containsValueInRange<float>(1.00F));
   }
 }
 
@@ -104,11 +104,11 @@ BOOST_AUTO_TEST_CASE(clamp)
   using namespace dal;
 
   std::vector<float> values;
-  values.push_back(0.01f);
-  values.push_back(0.99f);
-  values.push_back(0.01f);
+  values.push_back(0.01F);
+  values.push_back(0.99F);
+  values.push_back(0.01F);
   Dimension const dimension(CumulativeProbabilities, values);
-  BOOST_TEST(dal::comparable<float>(dimension.clamp<float>(0.5), 0.5f));
+  BOOST_TEST(dal::comparable<float>(dimension.clamp<float>(0.5), 0.5F));
 }
 
 
@@ -116,9 +116,9 @@ BOOST_AUTO_TEST_CASE(index_of_value_of)
 {
   using namespace dal;
 
-  float const first = 0.01f;
-  float const last = 0.99f;
-  float const interval = 0.01f;
+  float const first = 0.01F;
+  float const last = 0.99F;
+  float const interval = 0.01F;
 
   std::vector<float> values;
   values.push_back(first);
@@ -170,16 +170,16 @@ BOOST_AUTO_TEST_CASE(merge)
     // dimension2: /cumulative probabilities[0.01, 0.99, 0.01]
     // result:     /cumulative probabilities[0.01, 0.99, -2.14748e-07]   <------
     std::vector<float>quantiles;
-    quantiles.push_back(0.01f);
-    quantiles.push_back(0.99f);
-    quantiles.push_back(0.01f);
+    quantiles.push_back(0.01F);
+    quantiles.push_back(0.99F);
+    quantiles.push_back(0.01F);
 
     Dimension dimension1(CumulativeProbabilities, quantiles);
     Dimension const dimension2(CumulativeProbabilities, quantiles);
 
     dimension1 |= dimension2;
     BOOST_TEST(dimension1.nrValues() == size_t(3));
-    BOOST_TEST(comparable<float>(dimension1.value<float>(2), 0.01f));
+    BOOST_TEST(comparable<float>(dimension1.value<float>(2), 0.01F));
   }
 
   {
@@ -245,9 +245,9 @@ BOOST_AUTO_TEST_CASE(nr_coordinates)
   }
 
   {
-    float const first = 0.01f;
-    float const last = 0.99f;
-    float const interval = 0.01f;
+    float const first = 0.01F;
+    float const last = 0.99F;
+    float const interval = 0.01F;
 
     std::vector<float> values;
     values.push_back(first);

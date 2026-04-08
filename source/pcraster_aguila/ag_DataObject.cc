@@ -119,12 +119,12 @@ DataObject::~DataObject()
 
 int DataObject::firstTimeStep() const
 {
-  return (d_data->d_animManager.nrSteps() != 0u) ? static_cast<int>(d_data->d_animManager.firstStep()) : -1;
+  return (d_data->d_animManager.nrSteps() != 0U) ? static_cast<int>(d_data->d_animManager.firstStep()) : -1;
 }
 
 int DataObject::lastTimeStep() const
 {
-  return (d_data->d_animManager.nrSteps() != 0u) ? static_cast<int>(d_data->d_animManager.lastStep()) : -1;
+  return (d_data->d_animManager.nrSteps() != 0U) ? static_cast<int>(d_data->d_animManager.lastStep()) : -1;
 }
 
 size_t DataObject::timeSpan() const
@@ -979,7 +979,7 @@ DataGuide DataObject::addVector(std::string const &name, dal::DataSpace const &s
 
 void DataObject::clear()
 {
-  if (nrDataSets() != 0u) {
+  if (nrDataSets() != 0U) {
     tableDataSources().clear();
     rasterDataSources().clear();
     featureDataSources().clear();

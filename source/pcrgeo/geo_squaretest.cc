@@ -140,7 +140,7 @@ BOOST_AUTO_TEST_CASE(intersects)
   }
   {  // debug case
     Kant const os(Punt(2, 20), 1);
-    Kant const is(Punt(0.78125f, 21.0938f), 0.78125f);
+    Kant const is(Punt(0.78125F, 21.0938F), 0.78125F);
     BOOST_TEST(os.intersects(is));
     BOOST_TEST(is.intersects(os));
   }

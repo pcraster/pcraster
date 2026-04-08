@@ -550,7 +550,7 @@ BOOST_AUTO_TEST_CASE(write_)
 
   Raster raster(2, 2, 10, 0.0, 0.0, TI_REAL4);
 
-  REAL4 cells[4] = { 3.4f, 1 /* MV */, 1, 0};
+  REAL4 cells[4] = { 3.4F, 1 /* MV */, 1, 0};
   pcr::setMV(cells[1]);
 
   raster.setCellsReference(cells);

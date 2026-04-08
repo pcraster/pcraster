@@ -443,8 +443,8 @@ BOOST_AUTO_TEST_CASE(round_error)
   }
   {                     // OK float instantiation
     typedef double CT;  // choose template
-    BOOST_TEST(!BetweenLimits<CT>(GreaterThan<CT>(0.2f), LessThanEqualTo<CT>(0.4f)).valid(vf));
-    BOOST_TEST(BetweenLimits<CT>(GreaterThan<CT>(0.0f), LessThanEqualTo<CT>(0.2f)).valid(vf));
+    BOOST_TEST(!BetweenLimits<CT>(GreaterThan<CT>(0.2F), LessThanEqualTo<CT>(0.4F)).valid(vf));
+    BOOST_TEST(BetweenLimits<CT>(GreaterThan<CT>(0.0F), LessThanEqualTo<CT>(0.2F)).valid(vf));
   }
   {
     // the solution, ctor argument must be a float if the valid argument is a float

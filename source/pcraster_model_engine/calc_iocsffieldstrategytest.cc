@@ -97,8 +97,8 @@ BOOST_AUTO_TEST_CASE(testGridMap)
     data[15] = 8;
     g.createSpatial(data, VS_S);
     BOOST_TEST(pcr::isMV(data[0]));
-    BOOST_TEST(data[1] == 1.0f);
-    BOOST_TEST(data[14] == 1.0f);
+    BOOST_TEST(data[1] == 1.0F);
+    BOOST_TEST(data[14] == 1.0F);
   }
 }
 

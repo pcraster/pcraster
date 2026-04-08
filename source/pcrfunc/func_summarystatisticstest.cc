@@ -10,7 +10,7 @@ BOOST_AUTO_TEST_CASE(mean_)
   using namespace func;
 
   {
-    float sources[] = { 100.0f, 200.0f, 300.0f };
+    float sources[] = { 100.0F, 200.0F, 300.0F };
 
     {
       double result = NAN;
@@ -23,15 +23,15 @@ BOOST_AUTO_TEST_CASE(mean_)
       float result = NAN;
 
       mean<float, float>(&sources[0], 3, result);
-      BOOST_TEST(dal::comparable<float>(result, 200.0f));
+      BOOST_TEST(dal::comparable<float>(result, 200.0F));
 
       pcr::setMV(sources[0]);
       mean<float, float>(&sources[0], 3, result);
-      BOOST_TEST(dal::comparable<float>(result, 250.0f));
+      BOOST_TEST(dal::comparable<float>(result, 250.0F));
 
       pcr::setMV(sources[1]);
       mean<float, float>(&sources[0], 3, result);
-      BOOST_TEST(dal::comparable<float>(result, 300.0f));
+      BOOST_TEST(dal::comparable<float>(result, 300.0F));
 
       pcr::setMV(sources[2]);
       mean<float, float>(&sources[0], 3, result);
@@ -41,9 +41,9 @@ BOOST_AUTO_TEST_CASE(mean_)
 
   {
     std::vector<float> sources;
-    sources.push_back(100.0f);
-    sources.push_back(200.0f);
-    sources.push_back(300.0f);
+    sources.push_back(100.0F);
+    sources.push_back(200.0F);
+    sources.push_back(300.0F);
 
     {
       double result = NAN;
@@ -58,17 +58,17 @@ BOOST_AUTO_TEST_CASE(mean_)
 
       mean<std::vector<float>::const_iterator, float>(
          sources.begin(), sources.end(), result);
-      BOOST_TEST(dal::comparable<float>(result, 200.0f));
+      BOOST_TEST(dal::comparable<float>(result, 200.0F));
 
       pcr::setMV(sources[0]);
       mean<std::vector<float>::const_iterator, float>(
          sources.begin(), sources.end(), result);
-      BOOST_TEST(dal::comparable<float>(result, 250.0f));
+      BOOST_TEST(dal::comparable<float>(result, 250.0F));
 
       pcr::setMV(sources[1]);
       mean<std::vector<float>::const_iterator, float>(
          sources.begin(), sources.end(), result);
-      BOOST_TEST(dal::comparable<float>(result, 300.0f));
+      BOOST_TEST(dal::comparable<float>(result, 300.0F));
 
       pcr::setMV(sources[2]);
       mean<std::vector<float>::const_iterator, float>(

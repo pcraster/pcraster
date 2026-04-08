@@ -86,18 +86,18 @@ void PlotView::rescan()
 
 bool PlotView::recreatePlotRequired() const
 {
-  return ((visualisationEngine().change() & VisEngine::OTHERATTRIB) != 0u) ||
-         ((visualisationEngine().change() & VisEngine::RASTER_CELL) != 0u) ||
-         ((visualisationEngine().change() & VisEngine::DRAWPROPS) != 0u) ||
-         ((visualisationEngine().change() & VisEngine::VALUE_SELECTION) != 0u) ||
-         ((visualisationEngine().change() & VisEngine::SELECTION) != 0u) ||
-         ((visualisationEngine().change() & VisEngine::QUANTILE) != 0u);
+  return ((visualisationEngine().change() & VisEngine::OTHERATTRIB) != 0U) ||
+         ((visualisationEngine().change() & VisEngine::RASTER_CELL) != 0U) ||
+         ((visualisationEngine().change() & VisEngine::DRAWPROPS) != 0U) ||
+         ((visualisationEngine().change() & VisEngine::VALUE_SELECTION) != 0U) ||
+         ((visualisationEngine().change() & VisEngine::SELECTION) != 0U) ||
+         ((visualisationEngine().change() & VisEngine::QUANTILE) != 0U);
 }
 
 bool PlotView::replotRequired() const
 {
-  return recreatePlotRequired() || ((visualisationEngine().change() & VisEngine::TIME) != 0u) ||
-         ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0u);
+  return recreatePlotRequired() || ((visualisationEngine().change() & VisEngine::TIME) != 0U) ||
+         ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0U);
 }
 
 void PlotView::process()
@@ -107,7 +107,7 @@ void PlotView::process()
     createPlot();
   }
 
-  if ((visualisationEngine().change() & VisEngine::TIME) != 0u) {
+  if ((visualisationEngine().change() & VisEngine::TIME) != 0U) {
     dal::DataSpace const &space(dataObject().dataSpace());
 
     if (space.hasTime()) {
@@ -119,7 +119,7 @@ void PlotView::process()
     }
   }
 
-  if ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0u) {
+  if ((visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) != 0U) {
     if (!dataObject().backgroundColour().isValid()) {
       setPalette(QPalette());
     } else {

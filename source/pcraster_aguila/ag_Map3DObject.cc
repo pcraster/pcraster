@@ -173,16 +173,16 @@ void ag::Map3DObject::createHeightScene(const ag::DataObject &o, const ag::DataG
           maxHeight - minHeight);
 
   // Calculate default scale.
-  if (height() != 0.0f) {
+  if (height() != 0.0F) {
     scale *= ((width() + depth()) / 8) / height();
   }
   dy *= scale;
   setSize(width(), depth(), height() * scale);
 
-  static GLfloat mat_diffuse[] = {0.75f, 0.75f, 0.75f, 1.0f};
-  static GLfloat mat_specular[] = {0.5f, 0.5f, 0.5f, 1.0f};
-  static GLfloat mat_shininess[] = {25.0f};
-  static GLfloat mat_emission[] = {0.1f, 0.1f, 0.1f, 1.0f};
+  static GLfloat mat_diffuse[] = {0.75F, 0.75F, 0.75F, 1.0F};
+  static GLfloat mat_specular[] = {0.5F, 0.5F, 0.5F, 1.0F};
+  static GLfloat mat_shininess[] = {25.0F};
+  static GLfloat mat_emission[] = {0.1F, 0.1F, 0.1F, 1.0F};
 
   //----------------------------------------------------------------------------
 
@@ -439,7 +439,7 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject &dataObject, const a
             heightRaster.dimensions().latitudinalExtent(), maxHeight - minHeight);
 
     // Calculate default scale.
-    if (height() != 0.0f) {
+    if (height() != 0.0F) {
       scale *= ((width() + depth()) / 8) / height();
     }
     dy *= scale;
@@ -454,10 +454,10 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject &dataObject, const a
     firstCol = d_quadLength + 1;
     lastCol = heightRaster.dimensions().nrCols() - (d_quadLength + 1);
 
-    static GLfloat mat_diffuse[] = {0.75f, 0.75f, 0.75f, 1.0f};
-    static GLfloat mat_specular[] = {0.5f, 0.5f, 0.5f, 1.0f};
-    static GLfloat mat_shininess[] = {25.0f};
-    static GLfloat mat_emission[] = {0.1f, 0.1f, 0.1f, 1.0f};
+    static GLfloat mat_diffuse[] = {0.75F, 0.75F, 0.75F, 1.0F};
+    static GLfloat mat_specular[] = {0.5F, 0.5F, 0.5F, 1.0F};
+    static GLfloat mat_shininess[] = {25.0F};
+    static GLfloat mat_emission[] = {0.1F, 0.1F, 0.1F, 1.0F};
 
     //--------------------------------------------------------------------------
 
@@ -593,8 +593,8 @@ GLfloat ag::Map3DObject::scale() const
 */
 void ag::Map3DObject::setScale(GLfloat s)
 {
-  s = std::min<GLfloat>(s, 10.0f);
-  s = std::max<GLfloat>(s, 0.1f);
+  s = std::min<GLfloat>(s, 10.0F);
+  s = std::max<GLfloat>(s, 0.1F);
   if (d_scale != s) {
     d_scale = s;
     setValid(false);

@@ -85,27 +85,27 @@ BOOST_AUTO_TEST_CASE(clamp_)
     float interval = NAN;
 
     {
-      first    = 0.01f;
-      last     = 0.99f;
-      interval = 0.01f;
+      first    = 0.01F;
+      last     = 0.99F;
+      interval = 0.01F;
 
       // Below interval.
-      BOOST_CHECK_CLOSE(clamp<float>(first, last, interval, 0.0f),
-         float(0.01), 0.001f);
+      BOOST_CHECK_CLOSE(clamp<float>(first, last, interval, 0.0F),
+         float(0.01), 0.001F);
 
       // Between two values in the interval.
-      BOOST_CHECK_CLOSE(clamp<float>(first, last, interval, 0.49f),
-         float(0.49), 0.001f);
-      BOOST_CHECK_CLOSE(clamp<float>(first, last, interval, 0.494f),
-         float(0.49), 0.001f);
-      BOOST_CHECK_CLOSE(clamp<float>(first, last, interval, 0.495f),
-         float(0.5), 0.001f);
-      BOOST_CHECK_CLOSE(clamp<float>(first, last, interval, 0.5f),
-         float(0.5), 0.001f);
+      BOOST_CHECK_CLOSE(clamp<float>(first, last, interval, 0.49F),
+         float(0.49), 0.001F);
+      BOOST_CHECK_CLOSE(clamp<float>(first, last, interval, 0.494F),
+         float(0.49), 0.001F);
+      BOOST_CHECK_CLOSE(clamp<float>(first, last, interval, 0.495F),
+         float(0.5), 0.001F);
+      BOOST_CHECK_CLOSE(clamp<float>(first, last, interval, 0.5F),
+         float(0.5), 0.001F);
 
       // Above interval.
-      BOOST_CHECK_CLOSE(clamp<float>(first, last, interval, 1.0f),
-         float(0.99), 0.001f);
+      BOOST_CHECK_CLOSE(clamp<float>(first, last, interval, 1.0F),
+         float(0.99), 0.001F);
     }
   }
 }
@@ -379,7 +379,7 @@ BOOST_AUTO_TEST_CASE(comparable_)
 {
   using namespace dal;
 
-  BOOST_TEST(comparable<float>(0.0f, 0.0f));
+  BOOST_TEST(comparable<float>(0.0F, 0.0F));
 }
 
 
@@ -562,9 +562,9 @@ BOOST_AUTO_TEST_CASE(merge_ranges)
   BOOST_TEST(gcd<size_t>(2, 2) == size_t(2));
   BOOST_TEST(gcd<size_t>(18, 12) == size_t(6));
   BOOST_TEST(comparable<double>(gcd<double>(0.2, 0.2), 0.2));
-  BOOST_TEST(comparable<float>(gcd<float>(0.2f, 0.2f), 0.2f));
-  BOOST_TEST(comparable<float>(gcd<float>(0.18f, 0.12f), 0.06f));
-  BOOST_TEST(comparable<float>(gcd<float>(0.01f, 0.01f), 0.01f));
+  BOOST_TEST(comparable<float>(gcd<float>(0.2F, 0.2F), 0.2F));
+  BOOST_TEST(comparable<float>(gcd<float>(0.18F, 0.12F), 0.06F));
+  BOOST_TEST(comparable<float>(gcd<float>(0.01F, 0.01F), 0.01F));
 
   {
     // Floating points tests.
@@ -575,93 +575,93 @@ BOOST_AUTO_TEST_CASE(merge_ranges)
     {
       // Because of bug, only in release mode.
       // result:     /cumulative probabilities[0.01, 0.99, -2.14748e-07]
-      first = 0.01f;
-      last = 0.99f;
-      step = 0.01f;
+      first = 0.01F;
+      last = 0.99F;
+      step = 0.01F;
 
-      mergeRanges<float>(first, last, step, 0.01f, 0.99f, 0.01f);
-      BOOST_TEST(comparable<float>(first, 0.01f));
-      BOOST_TEST(comparable<float>(last, 0.99f));
-      BOOST_TEST(comparable<float>(step, 0.01f));
+      mergeRanges<float>(first, last, step, 0.01F, 0.99F, 0.01F);
+      BOOST_TEST(comparable<float>(first, 0.01F));
+      BOOST_TEST(comparable<float>(last, 0.99F));
+      BOOST_TEST(comparable<float>(step, 0.01F));
     }
 
     {
-      first = 0.1f;
-      last =  0.9f;
-      step =  0.2f;
-      mergeRanges<float>(first, last, step, 0.1f, 0.9f, 0.2f);
+      first = 0.1F;
+      last =  0.9F;
+      step =  0.2F;
+      mergeRanges<float>(first, last, step, 0.1F, 0.9F, 0.2F);
 
-      BOOST_TEST(comparable<float>(first, 0.1f));
-      BOOST_TEST(comparable<float>(last, 0.9f));
-      BOOST_TEST(comparable<float>(step, 0.2f));
+      BOOST_TEST(comparable<float>(first, 0.1F));
+      BOOST_TEST(comparable<float>(last, 0.9F));
+      BOOST_TEST(comparable<float>(step, 0.2F));
     }
 
 
     {
-      first = 0.1f;
-      last =  0.9f;
-      step =  0.2f;
-      mergeRanges<float>(first, last, step, 0.1f, 0.1f, 0.2f);
+      first = 0.1F;
+      last =  0.9F;
+      step =  0.2F;
+      mergeRanges<float>(first, last, step, 0.1F, 0.1F, 0.2F);
 
-      BOOST_TEST(comparable<float>(first, 0.1f));
-      BOOST_TEST(comparable<float>(last, 0.9f));
-      BOOST_TEST(comparable<float>(step, 0.2f));
+      BOOST_TEST(comparable<float>(first, 0.1F));
+      BOOST_TEST(comparable<float>(last, 0.9F));
+      BOOST_TEST(comparable<float>(step, 0.2F));
     }
 
     {
-      first = 0.1f;
-      last =  0.9f;
-      step =  0.2f;
-      mergeRanges<float>(first, last, step, 0.2f, 0.2f, 0.2f);
+      first = 0.1F;
+      last =  0.9F;
+      step =  0.2F;
+      mergeRanges<float>(first, last, step, 0.2F, 0.2F, 0.2F);
 
-      BOOST_TEST(comparable<float>(first, 0.1f));
-      BOOST_TEST(comparable<float>(last, 0.9f));
-      BOOST_TEST(comparable<float>(step, 0.1f));
+      BOOST_TEST(comparable<float>(first, 0.1F));
+      BOOST_TEST(comparable<float>(last, 0.9F));
+      BOOST_TEST(comparable<float>(step, 0.1F));
     }
 
     {
-      first = 0.1f;
-      last =  0.9f;
-      step =  0.2f;
-      mergeRanges<float>(first, last, step, 0.01f, 0.99f, 0.01f);
+      first = 0.1F;
+      last =  0.9F;
+      step =  0.2F;
+      mergeRanges<float>(first, last, step, 0.01F, 0.99F, 0.01F);
 
-      BOOST_TEST(comparable<float>(first, 0.01f));
-      BOOST_TEST(comparable<float>(last, 0.99f));
-      BOOST_TEST(comparable<float>(step, 0.01f));
+      BOOST_TEST(comparable<float>(first, 0.01F));
+      BOOST_TEST(comparable<float>(last, 0.99F));
+      BOOST_TEST(comparable<float>(step, 0.01F));
     }
 
     {
-      first = 0.1f;
-      last =  0.9f;
-      step =  0.2f;
-      mergeRanges<float>(first, last, step, 0.01f, 0.01f, 0.01f);
+      first = 0.1F;
+      last =  0.9F;
+      step =  0.2F;
+      mergeRanges<float>(first, last, step, 0.01F, 0.01F, 0.01F);
 
-      BOOST_TEST(comparable<float>(first, 0.01f));
-      BOOST_TEST(comparable<float>(last, 0.9f));
-      BOOST_TEST(comparable<float>(step, 0.01f));
+      BOOST_TEST(comparable<float>(first, 0.01F));
+      BOOST_TEST(comparable<float>(last, 0.9F));
+      BOOST_TEST(comparable<float>(step, 0.01F));
     }
 
     {
-      first = 0.1f;
-      last =  0.9f;
-      step =  0.2f;
-      mergeRanges<float>(first, last, step, 0.99f, 0.99f, 0.01f);
+      first = 0.1F;
+      last =  0.9F;
+      step =  0.2F;
+      mergeRanges<float>(first, last, step, 0.99F, 0.99F, 0.01F);
 
-      BOOST_TEST(comparable<float>(first, 0.1f));
-      BOOST_TEST(comparable<float>(last, 0.99f));
-      BOOST_TEST(comparable<float>(step, 0.01f));
+      BOOST_TEST(comparable<float>(first, 0.1F));
+      BOOST_TEST(comparable<float>(last, 0.99F));
+      BOOST_TEST(comparable<float>(step, 0.01F));
     }
 
     {
-      first = 0.1f;
-      last =  0.9f;
-      step =  0.2f;
-      mergeRanges<float>(first, last, step, 0.9f, 0.9f, 0.01f);
+      first = 0.1F;
+      last =  0.9F;
+      step =  0.2F;
+      mergeRanges<float>(first, last, step, 0.9F, 0.9F, 0.01F);
 
-      BOOST_TEST(comparable<float>(first, 0.1f));
-      BOOST_TEST(comparable<float>(last, 0.9f));
+      BOOST_TEST(comparable<float>(first, 0.1F));
+      BOOST_TEST(comparable<float>(last, 0.9F));
       // Fails on windows only?
-      BOOST_TEST(comparable<float>(step, 0.2f));
+      BOOST_TEST(comparable<float>(step, 0.2F));
     }
   }
 }
@@ -670,25 +670,25 @@ BOOST_AUTO_TEST_CASE(merge_ranges)
 BOOST_AUTO_TEST_CASE(round_)
 {
 
-  BOOST_TEST((dal::round<float, int>(0.0f )) == 0);
-  BOOST_TEST((dal::round<float, int>(0.4f )) == 0);
-  BOOST_TEST((dal::round<float, int>(0.5f )) == 0);
-  BOOST_TEST((dal::round<float, int>(0.51f)) == 1);
-  BOOST_TEST((dal::round<float, int>(0.6f )) == 1);
+  BOOST_TEST((dal::round<float, int>(0.0F )) == 0);
+  BOOST_TEST((dal::round<float, int>(0.4F )) == 0);
+  BOOST_TEST((dal::round<float, int>(0.5F )) == 0);
+  BOOST_TEST((dal::round<float, int>(0.51F)) == 1);
+  BOOST_TEST((dal::round<float, int>(0.6F )) == 1);
 
-  BOOST_TEST((dal::round<float, int>(-0.4f )) ==  0);
-  BOOST_TEST((dal::round<float, int>(-0.5f )) ==  0);
-  BOOST_TEST((dal::round<float, int>(-0.51f)) == -1);
-  BOOST_TEST((dal::round<float, int>(-0.6f )) == -1);
+  BOOST_TEST((dal::round<float, int>(-0.4F )) ==  0);
+  BOOST_TEST((dal::round<float, int>(-0.5F )) ==  0);
+  BOOST_TEST((dal::round<float, int>(-0.51F)) == -1);
+  BOOST_TEST((dal::round<float, int>(-0.6F )) == -1);
 
-  BOOST_TEST((dal::round<float, size_t>(0.0f )) == size_t(0));
-  BOOST_TEST((dal::round<float, size_t>(0.4f )) == size_t(0));
-  BOOST_TEST((dal::round<float, size_t>(0.5f )) == size_t(0));
-  BOOST_TEST((dal::round<float, size_t>(0.51f)) == size_t(1));
-  BOOST_TEST((dal::round<float, size_t>(0.6f )) == size_t(1));
+  BOOST_TEST((dal::round<float, size_t>(0.0F )) == size_t(0));
+  BOOST_TEST((dal::round<float, size_t>(0.4F )) == size_t(0));
+  BOOST_TEST((dal::round<float, size_t>(0.5F )) == size_t(0));
+  BOOST_TEST((dal::round<float, size_t>(0.51F)) == size_t(1));
+  BOOST_TEST((dal::round<float, size_t>(0.6F )) == size_t(1));
 
-  BOOST_TEST((dal::round<float, size_t>(-0.4f )) == size_t(0));
-  BOOST_CHECK_THROW((dal::round<float, size_t>(-0.51f )), std::bad_cast);
+  BOOST_TEST((dal::round<float, size_t>(-0.4F )) == size_t(0));
+  BOOST_CHECK_THROW((dal::round<float, size_t>(-0.51F )), std::bad_cast);
 }
 
 
@@ -713,8 +713,8 @@ BOOST_AUTO_TEST_CASE(value_in_range)
   BOOST_TEST(valueInRange(0.0, 1.0, 0.2, 0.4));
   BOOST_TEST(!valueInRange(0.0, 1.0, 0.2, 0.5));
 
-  BOOST_TEST(valueInRange(0.0f, 1.0f, 0.2f, 0.4f));
-  BOOST_TEST(!valueInRange(0.0f, 1.0f, 0.2f, 0.5f));
+  BOOST_TEST(valueInRange(0.0F, 1.0F, 0.2F, 0.4F));
+  BOOST_TEST(!valueInRange(0.0F, 1.0F, 0.2F, 0.5F));
 }
 
 

@@ -770,43 +770,43 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
 
       DataSpaceAddress address(1);
 
-      address.setCoordinate<float>(0, 0.1f);
+      address.setCoordinate<float>(0, 0.1F);
       source.read(*raster, address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.0)));
 
-      address.setCoordinate<float>(0, 0.25f);
+      address.setCoordinate<float>(0, 0.25F);
       source.read(*raster, address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(4.0)));
 
-      address.setCoordinate<float>(0, 0.5f);
+      address.setCoordinate<float>(0, 0.5F);
       source.read(*raster, address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(5.0)));
 
-      address.setCoordinate<float>(0, 0.75f);
+      address.setCoordinate<float>(0, 0.75F);
       source.read(*raster, address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(6.0)));
 
-      address.setCoordinate<float>(0, 0.9f);
+      address.setCoordinate<float>(0, 0.9F);
       source.read(*raster, address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(10.0)));
 
       // Quantile does not exist. Outside valid range.
-      address.setCoordinate<float>(0, 0.09f);
+      address.setCoordinate<float>(0, 0.09F);
       source.read(*raster, address);
       BOOST_TEST(raster->allMV());
 
       // Quantile does not exist. Outside valid range.
-      address.setCoordinate<float>(0, 0.91f);
+      address.setCoordinate<float>(0, 0.91F);
       source.read(*raster, address);
       BOOST_TEST(raster->allMV());
 
       // Quantile does not exist. Inside valid range.
-      address.setCoordinate<float>(0, 0.2f);
+      address.setCoordinate<float>(0, 0.2F);
       source.read(*raster, address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       REAL4 value = NAN;
@@ -928,7 +928,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       DataSpaceAddress address(2);
 
       address.setCoordinate<size_t>(0, 10);
-      address.setCoordinate<float>(1, 0.1f);
+      address.setCoordinate<float>(1, 0.1F);
       source.read(*raster, address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.0)));
@@ -943,18 +943,18 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(2.0)));
 
-      address.setCoordinate<float>(1, 0.25f);
+      address.setCoordinate<float>(1, 0.25F);
       source.read(*raster, address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(6.0)));
 
       address.setCoordinate<size_t>(0, 15);
-      address.setCoordinate<float>(1, 0.5f);
+      address.setCoordinate<float>(1, 0.5F);
       source.read(*raster, address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(6.0)));
 
-      address.setCoordinate<float>(1, 0.6f);
+      address.setCoordinate<float>(1, 0.6F);
       source.read(*raster, address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       REAL4 value = NAN;
@@ -962,13 +962,13 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       BOOST_TEST(comparable(raster->cell<REAL4>(0), value));
 
       address.setCoordinate<size_t>(0, 16);
-      address.setCoordinate<float>(1, 0.5f);
+      address.setCoordinate<float>(1, 0.5F);
       source.read(*raster, address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(6.0)));
 
       address.setCoordinate<size_t>(0, 14);
-      address.setCoordinate<float>(1, 0.5f);
+      address.setCoordinate<float>(1, 0.5F);
       source.read(*raster, address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(5.0)));
@@ -1105,7 +1105,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
 
       // Wide time dimension.
       DataSpaceAddress address(3);
-      address.setCoordinate<float>(1, 0.75f);
+      address.setCoordinate<float>(1, 0.75F);
       address.setCoordinate<SpatialCoordinate>(2,
          SpatialCoordinate(100025.0, 199975.0));
       DataSpace iterSpace(source.dataSpace(), address);
@@ -1128,7 +1128,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[10]));
       BOOST_TEST(comparable(table.col<REAL4>(0)[10], REAL4(8.0)));
 
-      address.setCoordinate<float>(1, 0.60f);
+      address.setCoordinate<float>(1, 0.60F);
       source.read(table, iterSpace, address);
 
       BOOST_TEST(table.nrRecs() == size_t(11));
@@ -1154,7 +1154,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       interpolate(value, REAL4(7.0), REAL4(0.1), REAL4(8.0), REAL4(0.15));
       BOOST_TEST(comparable(table.col<REAL4>(0)[10], value));
 
-      address.setCoordinate<float>(1, 0.09f);
+      address.setCoordinate<float>(1, 0.09F);
       table.clear();
       source.read(table, iterSpace, address);
 
@@ -1171,7 +1171,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[9]));
       BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[10]));
 
-      address.setCoordinate<float>(1, 0.91f);
+      address.setCoordinate<float>(1, 0.91F);
       source.read(table, iterSpace, address);
 
       BOOST_TEST(table.nrRecs() == size_t(11));
@@ -1189,7 +1189,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
 
       // Test the retrieval of quantiles given a data value.
       address.unsetCoordinate(1);
-      source.read<float>(table, 5.0f, address);
+      source.read<float>(table, 5.0F, address);
 
       BOOST_TEST(table.nrRecs() == size_t(11));
 
@@ -1289,7 +1289,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
 
       address.setCoordinate<std::string>(0, noot);
       address.setCoordinate<size_t>(1, 15);
-      address.setCoordinate<float>(2, 0.5f);
+      address.setCoordinate<float>(2, 0.5F);
       source.read(*raster, address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(16.0)));
@@ -1318,7 +1318,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       BOOST_TEST(pcr::isMV(raster->cell<REAL4>(0)));
 
       address.setCoordinate<size_t>(1, 10);
-      address.setCoordinate<float>(2, 0.6f);
+      address.setCoordinate<float>(2, 0.6F);
       source.read(*raster, address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       REAL4 value = NAN;
@@ -1439,7 +1439,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       // Wide time dimension.
       DataSpaceAddress address(4);
       address.setCoordinate<std::string>(0, mies);
-      address.setCoordinate<float>(2, 0.75f);
+      address.setCoordinate<float>(2, 0.75F);
       address.setCoordinate<SpatialCoordinate>(3,
          SpatialCoordinate(100025.0, 199975.0));
       DataSpace iterSpace(source.dataSpace(), address);
@@ -1462,7 +1462,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[10]));
       BOOST_TEST(comparable(table.col<REAL4>(0)[10], REAL4(28.0)));
 
-      address.setCoordinate<float>(2, 0.60f);
+      address.setCoordinate<float>(2, 0.60F);
       source.read(table, iterSpace, address);
 
       BOOST_TEST(table.nrRecs() == size_t(11));
@@ -1484,7 +1484,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
 
       iterSpace.dimension(0).setValue<std::string>(aap);
       address.setCoordinate<std::string>(0, aap);
-      address.setCoordinate<float>(2, 0.09f);
+      address.setCoordinate<float>(2, 0.09F);
       source.read(table, iterSpace, address);
 
       BOOST_TEST(table.nrRecs() == size_t(11));
@@ -1500,7 +1500,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[9]));
       BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[10]));
 
-      address.setCoordinate<float>(2, 0.91f);
+      address.setCoordinate<float>(2, 0.91F);
       source.read(table, iterSpace, address);
 
       BOOST_TEST(table.nrRecs() == size_t(11));

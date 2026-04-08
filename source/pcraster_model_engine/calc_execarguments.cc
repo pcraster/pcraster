@@ -61,7 +61,7 @@ calc::ExecArguments::ExecArguments(const Operator &op, RunTimeEnv *rte, size_t n
   for (size_t i = 0; i < d_fields.size(); ++i) {
     d_fields[d_fields.size() - i - 1] = d_rte->popField();
   }
-  if (op.firstFieldInput() != 0u) {
+  if (op.firstFieldInput() != 0U) {
     d_firstNonFieldInput = rte->popDataValue();
   }
 }
@@ -98,7 +98,7 @@ calc::ExecArguments::ExecArguments(const ExecArguments& rhs):
 void calc::ExecArguments::clean()
 {
   for (size_t i = 0; i < d_fields.size(); ++i) {
-    if (i != d_resultIsField && (d_doNotDelete.count(d_fields[i]) == 0u)) {
+    if (i != d_resultIsField && (d_doNotDelete.count(d_fields[i]) == 0U)) {
       deleteFromPcrme(d_fields[i]);
       d_doNotDelete.insert(d_fields[i]);
     }

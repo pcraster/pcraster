@@ -273,7 +273,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_quantile_sample_time)
   // Empty dataset name.
   try {
     exceptionThrown = false;
-    pathForScenarioQuantileSampleTime("", "aap", 0.75f, 5, 33);
+    pathForScenarioQuantileSampleTime("", "aap", 0.75F, 5, 33);
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
@@ -300,7 +300,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_quantile_sample)
   // Empty dataset name.
   try {
     exceptionThrown = false;
-    pathForScenarioQuantileSample("", "aap", 0.75f, 5);
+    pathForScenarioQuantileSample("", "aap", 0.75F, 5);
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
@@ -327,7 +327,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_quantile_time)
   // Empty dataset name.
   try {
     exceptionThrown = false;
-    pathForScenarioQuantileTime("", "aap", 0.75f, 33);
+    pathForScenarioQuantileTime("", "aap", 0.75F, 33);
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
@@ -354,7 +354,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_quantile)
   // Empty dataset name.
   try {
     exceptionThrown = false;
-    pathForScenarioQuantile("", "aap", 0.75f);
+    pathForScenarioQuantile("", "aap", 0.75F);
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
@@ -515,7 +515,7 @@ BOOST_AUTO_TEST_CASE(path_for_quantile_sample_time)
   // Empty dataset name.
   try {
     exceptionThrown = false;
-    pathForQuantileSampleTime("", 0.75f, 5, 33);
+    pathForQuantileSampleTime("", 0.75F, 5, 33);
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
@@ -542,7 +542,7 @@ BOOST_AUTO_TEST_CASE(path_for_quantile_sample)
   // Empty dataset name.
   try {
     exceptionThrown = false;
-    pathForQuantileSample("", 0.75f, 5);
+    pathForQuantileSample("", 0.75F, 5);
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
@@ -564,7 +564,7 @@ BOOST_AUTO_TEST_CASE(path_for_quantile_time)
 
   // typedef boost::filesystem::path path;
 
-  BOOST_TEST(pathForQuantileTime("bla", 0.75f, 5).string() ==
+  BOOST_TEST(pathForQuantileTime("bla", 0.75F, 5).string() ==
          "bla_5_0.75");
 
   bool exceptionThrown = false;
@@ -572,7 +572,7 @@ BOOST_AUTO_TEST_CASE(path_for_quantile_time)
   // Empty dataset name.
   try {
     exceptionThrown = false;
-    pathForQuantileTime("", 0.75f, 33);
+    pathForQuantileTime("", 0.75F, 33);
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
@@ -599,7 +599,7 @@ BOOST_AUTO_TEST_CASE(path_for_quantile)
   // Empty dataset name.
   try {
     exceptionThrown = false;
-    pathForQuantile("", 0.75f);
+    pathForQuantile("", 0.75F);
   }
   catch(Exception const& exception) {
     exceptionThrown = true;
@@ -848,28 +848,28 @@ BOOST_AUTO_TEST_CASE(path_for_data_space_address)
   // Quantiles.
   {
     std::vector<float> quantiles;
-    quantiles.push_back(0.01f);
-    quantiles.push_back(0.99f);
-    quantiles.push_back(0.01f);
+    quantiles.push_back(0.01F);
+    quantiles.push_back(0.99F);
+    quantiles.push_back(0.01F);
     Dimension const cumProbabilities(CumulativeProbabilities, quantiles);
     DataSpace space;
     space.addDimension(cumProbabilities);
 
     DataSpaceAddress address = space.address();
 
-    address.setCoordinate<float>(0, 0.01f);
+    address.setCoordinate<float>(0, 0.01F);
     BOOST_TEST(pathForDataSpaceAddress("nox", space, address) ==
          path("nox_0.01"));
 
-    address.setCoordinate<float>(0, 0.09f);
+    address.setCoordinate<float>(0, 0.09F);
     BOOST_TEST(pathForDataSpaceAddress("nox", space, address) ==
          path("nox_0.09"));
 
-    address.setCoordinate<float>(0, 0.90f);
+    address.setCoordinate<float>(0, 0.90F);
     BOOST_TEST(pathForDataSpaceAddress("nox", space, address) ==
          path("nox_0.9"));
 
-    address.setCoordinate<float>(0, 0.99f);
+    address.setCoordinate<float>(0, 0.99F);
     BOOST_TEST(pathForDataSpaceAddress("nox", space, address) ==
          path("nox_0.99"));
   }
@@ -877,9 +877,9 @@ BOOST_AUTO_TEST_CASE(path_for_data_space_address)
   // Quantiles, timesteps.
   {
     std::vector<float> quantiles;
-    quantiles.push_back(0.01f);
-    quantiles.push_back(0.99f);
-    quantiles.push_back(0.01f);
+    quantiles.push_back(0.01F);
+    quantiles.push_back(0.99F);
+    quantiles.push_back(0.01F);
 
     std::vector<size_t> timeSteps;
     timeSteps.push_back(1);
@@ -893,7 +893,7 @@ BOOST_AUTO_TEST_CASE(path_for_data_space_address)
     DataSpaceAddress address = space.address();
 
     address.setCoordinate<size_t>(0, 1);
-    address.setCoordinate<float>(1, 0.01f);
+    address.setCoordinate<float>(1, 0.01F);
 
     BOOST_TEST(pathForDataSpaceAddress("nox", space, address, DALConvention) ==
          path("nox_1_0.01"));
@@ -915,9 +915,9 @@ BOOST_AUTO_TEST_CASE(path_for_data_space_address)
     scenarios.insert("/home/kor/notinbackup/apmosphere/postprocessed/uk");
 
     std::vector<float> quantiles;
-    quantiles.push_back(0.001f);
-    quantiles.push_back(0.999f);
-    quantiles.push_back(0.001f);
+    quantiles.push_back(0.001F);
+    quantiles.push_back(0.999F);
+    quantiles.push_back(0.001F);
 
     DataSpace space;
     space.addDimension(Dimension(Scenarios, scenarios));
@@ -926,7 +926,7 @@ BOOST_AUTO_TEST_CASE(path_for_data_space_address)
     DataSpaceAddress address = space.address();
     address.setCoordinate<std::string>(0,
          "/home/kor/notinbackup/apmosphere/postprocessed/ok");
-    address.setCoordinate<float>(1, 0.001f);
+    address.setCoordinate<float>(1, 0.001F);
 
     BOOST_TEST(
          pathForDataSpaceAddress("so2", space, address, DALConvention) ==

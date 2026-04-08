@@ -54,7 +54,7 @@ void calc::execObjectLinkMethod(const Operator &op, RunTimeEnv *rte, size_t nrFi
       std::reverse(data.begin() + op.nrResults(), data.end());
 
       ObjectLink *o(nullptr);
-      if (rte->stackSize() != 0u) {
+      if (rte->stackSize() != 0U) {
         o = dynamic_cast<ObjectLink *>(rte->popDataValue());
       }
       if (o == nullptr) {

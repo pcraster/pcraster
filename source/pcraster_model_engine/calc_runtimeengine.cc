@@ -169,7 +169,7 @@ void calc::RunTimeEngine::transferPushField(Field *f)
 void calc::RunTimeEngine::setNrTimeSteps(size_t nrTimeSteps)
 {
   Timer t = d_rte->timer();
-  if (nrTimeSteps != 0u) {  // dynamic model
+  if (nrTimeSteps != 0U) {  // dynamic model
     t.setLastInt(nrTimeSteps);
     t.setStartInt(1);
   }

@@ -40,7 +40,7 @@ public:
   std::string write(const Field *f, size_t timeStep) override
   {
     DEVELOP_PRECOND(!timeStep);
-    if (timeStep == 0u) {  // initial
+    if (timeStep == 0U) {  // initial
       d_fios.writeField(outputFilePath(), f);
       return outputFilePath();
     }

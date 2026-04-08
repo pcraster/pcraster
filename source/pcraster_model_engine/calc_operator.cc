@@ -206,7 +206,7 @@ size_t calc::Operator::nrResults() const
 calc::DataType calc::Operator::computeResultType(const ArgTypes &args, size_t r) const
 {
   DataType ft(resultType(r));
-  if (!ft.singleVs() && (firstFieldInput() == 0u)) {
+  if (!ft.singleVs() && (firstFieldInput() == 0U)) {
     // type derived from first arg with
     // multiple types in its arg definition
     // e.g. areaminimum
@@ -374,7 +374,7 @@ std::string calc::Operator::checkNrInputs(size_t actualNrInputs) const
       msg = "not enough arguments specified";
       break;
     case -1:
-      if (d_inputTailRepeat != 0u) {
+      if (d_inputTailRepeat != 0U) {
         break;
       }
       msg = "too many arguments specified";  //pcrcalc/test14

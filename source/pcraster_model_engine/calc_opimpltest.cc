@@ -61,7 +61,7 @@ BOOST_AUTO_TEST_CASE(testSameBin)
     RunTimeEnv rte(rs);
 
     for (size_t i = 0; i < 2; ++i) {
-      if (i != 0u) {
+      if (i != 0U) {
         // NS
         rte.pushField(new NonSpatial(VS_S, v1));
         rte.pushField(new Spatial(VS_S, vb, NR));
@@ -129,7 +129,7 @@ BOOST_AUTO_TEST_CASE(testCover)
     RunTimeEnv rte(rs);
 
     for (size_t i = 0; i < 2; ++i) {
-      if (i != 0u) {
+      if (i != 0U) {
         // NS
         rte.pushField(new NonSpatial(VS_S, v1));
         rte.pushField(new Spatial(VS_S, vb, NR));
@@ -142,7 +142,7 @@ BOOST_AUTO_TEST_CASE(testCover)
       DVAutoPtr<Field> r(rte.popField());
       BOOST_TEST(r->isSpatial());
       BOOST_TEST(r->vs() == VS_S);
-      if (i != 0u) {
+      if (i != 0U) {
         REAL4 res[NR] = {1, 1, 1};
         BOOST_TEST(std::equal(res, res + NR, r->src_f()));
       } else {
@@ -270,8 +270,8 @@ BOOST_AUTO_TEST_CASE(testDomainError)
   }
   {  // NN  -0.047**1.5; test pcrcalc337a
     RunTimeEnv rte(rs);
-    REAL4 const vMin = -0.047f;
-    REAL4 const vFrac = 1.5f;
+    REAL4 const vMin = -0.047F;
+    REAL4 const vFrac = 1.5F;
     rte.pushField(new NonSpatial(VS_S, vMin));
     rte.pushField(new NonSpatial(VS_S, vFrac));
 
@@ -397,7 +397,7 @@ BOOST_AUTO_TEST_CASE(testCompare)
     RunTimeEnv rte(rs);
 
     for (size_t i = 0; i < 2; ++i) {
-      if (i != 0u) {
+      if (i != 0U) {
         // NS  1 < ( 2,MV, 6) -> (1,MV,1)
         rte.pushField(new NonSpatial(VS_S, v1));
         rte.pushField(new Spatial(VS_S, vb, NR));
@@ -752,7 +752,7 @@ BOOST_AUTO_TEST_CASE(testConversion)
 
   UINT1 vbBol[NR6] = {1, 1, 0, 0, 1, 1};
   INT4 vbNom[NR6] = {3, 4, 0, 0, 7, 8};
-  REAL4 vbIn[NR6] = {3.3f, 4.8f, 0.0f, 0.0f, 7.0f, 8.0f};
+  REAL4 vbIn[NR6] = {3.3F, 4.8F, 0.0F, 0.0F, 7.0F, 8.0F};
 
   {
     RunTimeEnv rte(rs);

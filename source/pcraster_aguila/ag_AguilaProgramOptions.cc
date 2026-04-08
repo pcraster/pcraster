@@ -248,7 +248,7 @@ struct DataSpaceFromXML : public pcrxml::DataSpace {
 
   DataSpaceFromXML(variables_map &v, size_t stackStepStart, size_t stackStepEnd)
   {
-    if (v.count("scenarios") != 0u) {
+    if (v.count("scenarios") != 0U) {
       auto s = std::any_cast<VecOfStr>(v["scenarios"]);
 
       for (auto &i : s) {
@@ -259,7 +259,7 @@ struct DataSpaceFromXML : public pcrxml::DataSpace {
       }
       elementCount += scenarios().size();
     }
-    if (v.count("quantiles") != 0u) {
+    if (v.count("quantiles") != 0U) {
       auto s = std::any_cast<VecOfStr>(v["quantiles"]);
       for (auto &i : s) {
         if (i[0] == '=') {
@@ -270,7 +270,7 @@ struct DataSpaceFromXML : public pcrxml::DataSpace {
       elementCount += quantiles().size();
     }
 
-    if (v.count("timesteps") != 0u) {
+    if (v.count("timesteps") != 0U) {
       auto s = std::any_cast<VecOfStr>(v["timesteps"]);
       for (auto &i : s) {
         if (i[0] == '=') {
@@ -349,7 +349,7 @@ public:
 
     for (auto &optionName : optionNames) {
 
-      if (variables.count(optionName) != 0u) {
+      if (variables.count(optionName) != 0U) {
         std::vector<pcrxml::StringSet> stringSets(
             toStringSet(std::any_cast<VecOfStr>(variables[optionName])));
 
@@ -727,14 +727,14 @@ void AguilaProgramOptions::obtainProgramOptions(int argc, char **argv)
 
     detail::ViewsFromXML const xmlViews(variables);
 
-    if (xmlViews.elementCount != 0u) {
+    if (xmlViews.elementCount != 0U) {
       d_configuration->visualisationGroup().view(xmlViews);
     }
 
     detail::DataSpaceFromXML const xmlDataSpace(variables, xmlViews.stackStepStart,
                                                 xmlViews.stackStepEnd);
 
-    if (xmlDataSpace.elementCount != 0u) {
+    if (xmlDataSpace.elementCount != 0U) {
       d_configuration->visualisationGroup().searchSpace(xmlDataSpace);
     }
   } else {

@@ -125,22 +125,22 @@ BOOST_AUTO_TEST_CASE(test_)
   double const west = 0.0;
 
   std::vector<float> quantiles;
-  quantiles.push_back(0.1f);
-  quantiles.push_back(0.5f);
-  quantiles.push_back(0.9f);
+  quantiles.push_back(0.1F);
+  quantiles.push_back(0.5F);
+  quantiles.push_back(0.9F);
   space.addDimension(Dimension(CumulativeProbabilities, quantiles));
 
   typedef std::tuple<float, std::vector<std::any> > FloatTuple;
 
   std::vector<std::any> tmp;
   tmp.push_back(q1.get());
-  values.push_back(FloatTuple(0.1f, tmp));
+  values.push_back(FloatTuple(0.1F, tmp));
   tmp.clear();
   tmp.push_back(q5.get());
-  values.push_back(FloatTuple(0.5f, tmp));
+  values.push_back(FloatTuple(0.5F, tmp));
   tmp.clear();
   tmp.push_back(q9.get());
-  values.push_back(FloatTuple(0.9f, tmp));
+  values.push_back(FloatTuple(0.9F, tmp));
 
   MemoryRasterData const data(values, space, typeId, nrRows, nrCols, cellSize,
        west, north);
@@ -149,7 +149,7 @@ BOOST_AUTO_TEST_CASE(test_)
 
   // Before adding the data to the pool it cannot be found by the driver.
   DataSpaceAddress address(space.address());
-  address.setCoordinate<float>(0, 0.5f);
+  address.setCoordinate<float>(0, 0.5F);
   BOOST_TEST(!driver.exists("data1", space, address));
 
   library()->memoryDataPool().add("data1", data);

@@ -151,7 +151,7 @@ std::ostream &operator<<(std::ostream &s, const calc::Field &f)
   s << "data(";
   for (size_t i = 0; i < f.nrValues(); ++i) {
     double v = NAN;
-    if (i != 0u) {
+    if (i != 0U) {
       s << ",";
     }
     if (f.getCell(v, i)) {

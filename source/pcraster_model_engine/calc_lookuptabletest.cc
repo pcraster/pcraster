@@ -67,33 +67,33 @@ BOOST_AUTO_TEST_CASE(testOldStyleCtor)
     TestLookupCtor const t("[3 , 5 ] 2.4", colVs);
 
     r = -2;
-    BOOST_CHECK(t.find(r, makeKey(4.0f)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(t.find(r, makeKey(4.0F)));
+    BOOST_CHECK(r == 2.4F);
     r = -2;
-    BOOST_CHECK(t.find(r, makeKey(3.0f)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(t.find(r, makeKey(3.0F)));
+    BOOST_CHECK(r == 2.4F);
     r = -2;
-    BOOST_CHECK(t.find(r, makeKey(5.0f)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(t.find(r, makeKey(5.0F)));
+    BOOST_CHECK(r == 2.4F);
     r = -2;
-    BOOST_CHECK(!t.find(r, makeKey(0.0f)));
+    BOOST_CHECK(!t.find(r, makeKey(0.0F)));
     BOOST_CHECK(r == -2);
-    BOOST_CHECK(!t.find(r, makeKey(5.1f)));
+    BOOST_CHECK(!t.find(r, makeKey(5.1F)));
     BOOST_CHECK(r == -2);
 
     r = -2;
-    BOOST_CHECK(t.interpolate(r, makeKey(3.0f)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(t.interpolate(r, makeKey(3.0F)));
+    BOOST_CHECK(r == 2.4F);
     r = -2;
-    BOOST_CHECK(t.interpolate(r, makeKey(4.0f)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(t.interpolate(r, makeKey(4.0F)));
+    BOOST_CHECK(r == 2.4F);
     r = -2;
-    BOOST_CHECK(t.interpolate(r, makeKey(5.0f)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(t.interpolate(r, makeKey(5.0F)));
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(!t.interpolate(r, makeKey(0)));
     BOOST_CHECK(r == -2);
-    BOOST_CHECK(!t.interpolate(r, makeKey(5.1f)));
+    BOOST_CHECK(!t.interpolate(r, makeKey(5.1F)));
     BOOST_CHECK(r == -2);
   }
   {  // OK
@@ -103,7 +103,7 @@ BOOST_AUTO_TEST_CASE(testOldStyleCtor)
                            colVs);
 
     r = -2;
-    BOOST_CHECK(t.find(r, makeKey(0.2f)));
+    BOOST_CHECK(t.find(r, makeKey(0.2F)));
     BOOST_CHECK(r == 1);
     r = -2;
   }
@@ -134,9 +134,9 @@ BOOST_AUTO_TEST_CASE(testAllIntervals)
     r = -2;
     BOOST_CHECK(!t.find(r, makeKey(3)));
     BOOST_CHECK(t.find(r, makeKey(4)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
-    BOOST_CHECK(!t.find(r, makeKey(5.2f)));
+    BOOST_CHECK(!t.find(r, makeKey(5.2F)));
     BOOST_CHECK(r == -2);
     r = -2;
   }
@@ -145,13 +145,13 @@ BOOST_AUTO_TEST_CASE(testAllIntervals)
     TestLookupCtor const t("<,>  2.4");
     r = -2;
     BOOST_CHECK(t.find(r, makeKey(3)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(t.find(r, makeKey(4)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
-    BOOST_CHECK(t.find(r, makeKey(5.2f)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(t.find(r, makeKey(5.2F)));
+    BOOST_CHECK(r == 2.4F);
     r = -2;
   }
   {
@@ -162,10 +162,10 @@ BOOST_AUTO_TEST_CASE(testAllIntervals)
     BOOST_CHECK(!t.find(r, makeKey(2)));
     BOOST_CHECK(r == -2);
     BOOST_CHECK(t.find(r, makeKey(3)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(t.find(r, makeKey(5)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
   }
   {
@@ -178,7 +178,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervals)
     BOOST_CHECK(!t.find(r, makeKey(3)));
     BOOST_CHECK(r == -2);
     BOOST_CHECK(t.find(r, makeKey(5)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
   }
   {
@@ -187,10 +187,10 @@ BOOST_AUTO_TEST_CASE(testAllIntervals)
 
     r = -2;
     BOOST_CHECK(t.find(r, makeKey(2)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(t.find(r, makeKey(4)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(!t.find(r, makeKey(5)));
     BOOST_CHECK(r == -2);
@@ -201,7 +201,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervals)
 
     r = -2;
     BOOST_CHECK(t.find(r, makeKey(2)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(!t.find(r, makeKey(4)));
     BOOST_CHECK(r == -2);
@@ -218,13 +218,13 @@ BOOST_AUTO_TEST_CASE(testAllIntervals)
     BOOST_CHECK(!t.find(r, makeKey(2)));
     BOOST_CHECK(r == -2);
     BOOST_CHECK(t.find(r, makeKey(3)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(t.find(r, makeKey(4)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(t.find(r, makeKey(5)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(!t.find(r, makeKey(6)));
     BOOST_CHECK(r == -2);
@@ -241,10 +241,10 @@ BOOST_AUTO_TEST_CASE(testAllIntervals)
     BOOST_CHECK(!t.find(r, makeKey(3)));
     BOOST_CHECK(r == -2);
     BOOST_CHECK(t.find(r, makeKey(4)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(t.find(r, makeKey(5)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(!t.find(r, makeKey(6)));
     BOOST_CHECK(r == -2);
@@ -259,10 +259,10 @@ BOOST_AUTO_TEST_CASE(testAllIntervals)
     BOOST_CHECK(!t.find(r, makeKey(2)));
     BOOST_CHECK(r == -2);
     BOOST_CHECK(t.find(r, makeKey(3)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(t.find(r, makeKey(4)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(!t.find(r, makeKey(5)));
     BOOST_CHECK(r == -2);
@@ -281,7 +281,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervals)
     BOOST_CHECK(!t.find(r, makeKey(3)));
     BOOST_CHECK(r == -2);
     BOOST_CHECK(t.find(r, makeKey(4)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(!t.find(r, makeKey(5)));
     BOOST_CHECK(r == -2);
@@ -304,9 +304,9 @@ BOOST_AUTO_TEST_CASE(testAllIntervalsInterpolate)
     r = -2;
     BOOST_CHECK(!t.interpolate(r, makeKey(3)));
     BOOST_CHECK(t.interpolate(r, makeKey(4)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
-    BOOST_CHECK(!t.interpolate(r, makeKey(5.2f)));
+    BOOST_CHECK(!t.interpolate(r, makeKey(5.2F)));
     BOOST_CHECK(r == -2);
     r = -2;
   }
@@ -315,13 +315,13 @@ BOOST_AUTO_TEST_CASE(testAllIntervalsInterpolate)
     TestLookupCtor const t("<,>  2.4");
     r = -2;
     BOOST_CHECK(t.interpolate(r, makeKey(3)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(t.interpolate(r, makeKey(4)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
-    BOOST_CHECK(t.interpolate(r, makeKey(5.2f)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(t.interpolate(r, makeKey(5.2F)));
+    BOOST_CHECK(r == 2.4F);
     r = -2;
   }
   {
@@ -332,10 +332,10 @@ BOOST_AUTO_TEST_CASE(testAllIntervalsInterpolate)
     BOOST_CHECK(!t.interpolate(r, makeKey(2)));
     BOOST_CHECK(r == -2);
     BOOST_CHECK(t.interpolate(r, makeKey(3)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(t.interpolate(r, makeKey(5)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
   }
   {
@@ -348,7 +348,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervalsInterpolate)
     BOOST_CHECK(!t.interpolate(r, makeKey(3)));
     BOOST_CHECK(r == -2);
     BOOST_CHECK(t.interpolate(r, makeKey(5)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
   }
   {
@@ -357,10 +357,10 @@ BOOST_AUTO_TEST_CASE(testAllIntervalsInterpolate)
 
     r = -2;
     BOOST_CHECK(t.interpolate(r, makeKey(2)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(t.interpolate(r, makeKey(4)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(!t.interpolate(r, makeKey(5)));
     BOOST_CHECK(r == -2);
@@ -371,7 +371,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervalsInterpolate)
 
     r = -2;
     BOOST_CHECK(t.interpolate(r, makeKey(2)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(!t.interpolate(r, makeKey(4)));
     BOOST_CHECK(r == -2);
@@ -388,13 +388,13 @@ BOOST_AUTO_TEST_CASE(testAllIntervalsInterpolate)
     BOOST_CHECK(!t.interpolate(r, makeKey(2)));
     BOOST_CHECK(r == -2);
     BOOST_CHECK(t.interpolate(r, makeKey(3)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(t.interpolate(r, makeKey(4)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(t.interpolate(r, makeKey(5)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(!t.interpolate(r, makeKey(6)));
     BOOST_CHECK(r == -2);
@@ -411,10 +411,10 @@ BOOST_AUTO_TEST_CASE(testAllIntervalsInterpolate)
     BOOST_CHECK(!t.interpolate(r, makeKey(3)));
     BOOST_CHECK(r == -2);
     BOOST_CHECK(t.interpolate(r, makeKey(4)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(t.interpolate(r, makeKey(5)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(!t.interpolate(r, makeKey(6)));
     BOOST_CHECK(r == -2);
@@ -429,10 +429,10 @@ BOOST_AUTO_TEST_CASE(testAllIntervalsInterpolate)
     BOOST_CHECK(!t.interpolate(r, makeKey(2)));
     BOOST_CHECK(r == -2);
     BOOST_CHECK(t.interpolate(r, makeKey(3)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(t.interpolate(r, makeKey(4)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(!t.interpolate(r, makeKey(5)));
     BOOST_CHECK(r == -2);
@@ -451,7 +451,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervalsInterpolate)
     BOOST_CHECK(!t.interpolate(r, makeKey(3)));
     BOOST_CHECK(r == -2);
     BOOST_CHECK(t.interpolate(r, makeKey(4)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(!t.interpolate(r, makeKey(5)));
     BOOST_CHECK(r == -2);
@@ -470,13 +470,13 @@ BOOST_AUTO_TEST_CASE(testMultipleKeys)
 
   r = -2;
   BOOST_CHECK(t.find(r, makeKey(3, 8)));
-  BOOST_CHECK(r == 2.4f);
+  BOOST_CHECK(r == 2.4F);
   r = -2;
   BOOST_CHECK(t.find(r, makeKey(4, 8)));
-  BOOST_CHECK(r == 2.4f);
+  BOOST_CHECK(r == 2.4F);
   r = -2;
   BOOST_CHECK(t.find(r, makeKey(5, 8)));
-  BOOST_CHECK(r == 2.4f);
+  BOOST_CHECK(r == 2.4F);
   r = -2;
   BOOST_CHECK(!t.find(r, makeKey(8, 4)));
   BOOST_CHECK(r == -2);
@@ -497,12 +497,12 @@ BOOST_AUTO_TEST_CASE(testMultipleRecords)
 
   r = -2;
   BOOST_CHECK(t.find(r, makeKey(3, 8)));
-  BOOST_CHECK(r == 2.4f);
+  BOOST_CHECK(r == 2.4F);
   r = -2;
   BOOST_CHECK(t.find(r, makeKey(8, 8)));
-  BOOST_CHECK(r == 4.8f);
+  BOOST_CHECK(r == 4.8F);
   r = -2;
-  BOOST_CHECK(t.find(r, makeKey(-999999999.0f, 8)));
+  BOOST_CHECK(t.find(r, makeKey(-999999999.0F, 8)));
   BOOST_CHECK(r == 8);
   r = -2;
   BOOST_CHECK(!t.find(r, makeKey(2, 10)));
@@ -528,8 +528,8 @@ BOOST_AUTO_TEST_CASE(testInterpolate)
     BOOST_CHECK(ts.interpolate(r, makeKey(7)));
     BOOST_CHECK(r == 1);
     r = -2;
-    BOOST_CHECK(!ts.interpolate(r, makeKey(-999999999.0f)));
-    BOOST_CHECK(!ts.interpolate(r, makeKey(999999999.0f)));
+    BOOST_CHECK(!ts.interpolate(r, makeKey(-999999999.0F)));
+    BOOST_CHECK(!ts.interpolate(r, makeKey(999999999.0F)));
 
     BOOST_CHECK(ts.interpolate(r, makeKey(14)));
     BOOST_CHECK(r == 0);
@@ -545,15 +545,15 @@ BOOST_AUTO_TEST_CASE(testInterpolate)
                            " 8         4.8");
     r = -2;
     BOOST_CHECK(t.interpolate(r, makeKey(3)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(t.interpolate(r, makeKey(5)));
-    BOOST_CHECK(r == 2.4f);
+    BOOST_CHECK(r == 2.4F);
     r = -2;
     BOOST_CHECK(t.interpolate(r, makeKey(8)));
-    BOOST_CHECK(r == 4.8f);
+    BOOST_CHECK(r == 4.8F);
     r = -2;
-    BOOST_CHECK(!t.interpolate(r, makeKey(-999999999.0f)));
+    BOOST_CHECK(!t.interpolate(r, makeKey(-999999999.0F)));
     BOOST_CHECK(r == -2);
     BOOST_CHECK(t.interpolate(r, makeKey(6.5)));
     BOOST_CHECK(com::equal_epsilon(r, 3.6));

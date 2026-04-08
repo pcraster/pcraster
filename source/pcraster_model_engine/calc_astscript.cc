@@ -366,7 +366,7 @@ void calc::ASTScript::analyzeAndResolve()
 void calc::ASTScript::setReports()
 {
   Timer t = timer();
-  if (t.lastInt() == 0u) {
+  if (t.lastInt() == 0U) {
     t.setLastInt(1);
   }
 
@@ -518,7 +518,7 @@ calc::Timer calc::ASTScript::timer() const
   }
 
   // if not set by tss
-  if (timer.startInt() == 0u) {
+  if (timer.startInt() == 0U) {
 
     Private::Check c(d_symbols);
     timer.setStartInt(c(d_timerStartOrTss, "start time"));

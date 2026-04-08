@@ -614,7 +614,7 @@ DataSpace& DataSpace::intersect(
     }
     else if(rhsIndex >= space.size()) {
       // No more dimensions to intersect, handle remaining dimensions.
-      if((flags & KeepNonSharedDimensions) == 0u) {
+      if((flags & KeepNonSharedDimensions) == 0U) {
         while(lhsIndex < size()) {
           eraseDimension(lhsIndex);
         }
@@ -633,7 +633,7 @@ DataSpace& DataSpace::intersect(
       // Dimension on the left corresponds with current meaning.
       if(space.dimension(rhsIndex).meaning() == _meanings[i]) {
         // Dimension on the right corresponds with current meaning.
-        if((flags & DontIntersectCoordinates) == 0u) {
+        if((flags & DontIntersectCoordinates) == 0U) {
           // Intersect dimensions.
           dimension(lhsIndex) &= space.dimension(rhsIndex);
         }
@@ -645,7 +645,7 @@ DataSpace& DataSpace::intersect(
       else {
         // Dimension on the right does not correspond with current meaning.
         // Handle dimension on the left side.
-        if((flags & KeepNonSharedDimensions) == 0u) {
+        if((flags & KeepNonSharedDimensions) == 0U) {
           eraseDimension(lhsIndex);
         }
         else {

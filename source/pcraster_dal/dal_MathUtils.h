@@ -237,7 +237,7 @@ inline bool valueInRange(
      smallerOrComparable<float>(value, last)) {
 
     float const multiplier = comparable<float>(value, first)
-         ? 0.0f : (value - first) / step;
+         ? 0.0F : (value - first) / step;
 
     return comparable<float>(multiplier,
          static_cast<float>(round<float, int>(multiplier)));
@@ -431,7 +431,7 @@ inline float gcd(
 {
   // extern float gcdFloat(float a, float b);
 #ifdef DEBUG_DEVELOP
-  return gcdFloat(1e6f * a, 1e6f * b) / 1e6f;
+  return gcdFloat(1e6F * a, 1e6F * b) / 1e6F;
 #else
   return static_cast<float>(round<float, int>((
          gcdFloat(1e4f * a, 1e4f * b)))) / 1e4f;

@@ -377,7 +377,7 @@ void calc::PointCodeBodyGenerator::selectPart(const DataType &dt)
     newCurr = &d_ns;
   }
 
-  if (newCurr != d_curr && (d_args.size() == 0u)) {
+  if (newCurr != d_curr && (d_args.size() == 0U)) {
     /*! generate code for current stack (sub-expr)
      * always a transfer from d_ns -> d_loop
      */

@@ -607,7 +607,7 @@ PCR_DAL_DECL std::filesystem::path pathForDataSpaceAddress(
          : "";
   float const quantile = hasQuantile
          ? address.coordinate<float>(cumProbIndex)
-         : -1.0f;
+         : -1.0F;
   size_t const sampleNumber = hasSampleNumber
          ? address.coordinate<size_t>(samplesIndex)
          : 0;

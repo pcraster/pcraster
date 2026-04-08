@@ -65,8 +65,8 @@ void CursorView::process()
 
 void CursorView::visualise()
 {
-  if (((visualisationEngine().change() & VisEngine::CURSOR) != 0u) ||
-      ((visualisationEngine().change() & VisEngine::VALUE_SELECTION) != 0u)) {
+  if (((visualisationEngine().change() & VisEngine::CURSOR) != 0U) ||
+      ((visualisationEngine().change() & VisEngine::VALUE_SELECTION) != 0U)) {
     // Implement recreateInterface when needed (data added or removed).
     // Update assumes that the interface elements are still valid.
     updateCoordinates();

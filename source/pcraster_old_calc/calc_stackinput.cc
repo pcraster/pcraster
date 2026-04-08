@@ -28,7 +28,7 @@ calc::StackInput::StackInput(const Element &pos, const BindedSymbol &stackName, 
       }
 
       // item i exist, at this point in code
-      if (firstExisting == 0u) {
+      if (firstExisting == 0U) {
         firstExisting = i;
       }
 
@@ -50,7 +50,7 @@ calc::StackInput::StackInput(const Element &pos, const BindedSymbol &stackName, 
       }
     }  // eofor
     // at least 1 element needed
-    if (firstExisting == 0u) {
+    if (firstExisting == 0U) {
       // pcrcalc/test376
       stackName.posError(" on checking map-stack " + stackName.qName() + "\n not a single map found");
     }

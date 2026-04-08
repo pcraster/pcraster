@@ -80,7 +80,7 @@ SupportedSchema::SupportedSchema(const char *contents, const std::string &system
     : d_contents(contents), d_systemId(systemId), d_tag(tag)
 {
   assert(contents);
-  assert(systemId.size());
+  assert(!systemId.empty());
   assert(tag);
 }
 

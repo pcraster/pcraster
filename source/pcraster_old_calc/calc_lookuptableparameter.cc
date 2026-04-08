@@ -39,7 +39,7 @@ VS calc::LookupTableParameter::symbolType() const
 void calc::LookupTableParameter::loadValuesFromIndexTable(VS result, const std::vector<VS> &readKeys)
 {
   // already loaded
-  if (d_vals.size() > 0) {
+  if (!d_vals.empty()) {
     return;
   }
   PRECOND(d_table);

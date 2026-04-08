@@ -130,7 +130,7 @@ BOOST_AUTO_TEST_CASE(add_voxels)
     BOOST_CHECK( block.cell(0).size() == 3);
 
     BOOST_CHECK( block.cell(1).isMV());
-    BOOST_CHECK( block.cell(1).size() == 0);
+    BOOST_CHECK( block.cell(1).empty());
 
     BOOST_CHECK(dal::comparable(block.cell(0).thickness(), T(3.6)));
   }
@@ -187,14 +187,14 @@ BOOST_AUTO_TEST_CASE(remove_voxels)
     BOOST_CHECK(dal::comparable(block.cell(1).thickness(), T(1.2)));
 
     block.removeVoxels(0, 2);
-    BOOST_CHECK(block.cell(0).size() == 0);
+    BOOST_CHECK(block.cell(0).empty());
     BOOST_CHECK(block.cell(1).size() == 1);
     BOOST_CHECK(dal::comparable(block.cell(0).thickness(), T(0.0)));
     BOOST_CHECK(dal::comparable(block.cell(1).thickness(), T(1.2)));
 
     block.removeVoxels(1, 1);
-    BOOST_CHECK(block.cell(0).size() == 0);
-    BOOST_CHECK(block.cell(1).size() == 0);
+    BOOST_CHECK(block.cell(0).empty());
+    BOOST_CHECK(block.cell(1).empty());
     BOOST_CHECK(dal::comparable(block.cell(0).thickness(), T(0.0)));
     BOOST_CHECK(dal::comparable(block.cell(1).thickness(), T(0.0)));
   }
@@ -234,19 +234,19 @@ BOOST_AUTO_TEST_CASE(set_mv)
     BOOST_CHECK(!block.cell(0).isMV());
     BOOST_CHECK(!block.cell(1).isMV());
     BOOST_CHECK(block.cell(0).size() == 3);
-    BOOST_CHECK(block.cell(1).size() == 0);
+    BOOST_CHECK(block.cell(1).empty());
 
     block.setMV(0);
     BOOST_CHECK( block.cell(0).isMV());
     BOOST_CHECK(!block.cell(1).isMV());
-    BOOST_CHECK(block.cell(0).size() == 0);
-    BOOST_CHECK(block.cell(1).size() == 0);
+    BOOST_CHECK(block.cell(0).empty());
+    BOOST_CHECK(block.cell(1).empty());
 
     block.setMV(1);
     BOOST_CHECK( block.cell(0).isMV());
     BOOST_CHECK( block.cell(1).isMV());
-    BOOST_CHECK(block.cell(0).size() == 0);
-    BOOST_CHECK(block.cell(1).size() == 0);
+    BOOST_CHECK(block.cell(0).empty());
+    BOOST_CHECK(block.cell(1).empty());
   }
 }
 

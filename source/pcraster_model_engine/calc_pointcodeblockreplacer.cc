@@ -79,7 +79,7 @@ void calc::PointCodeBlockReplacer::visitPar(ASTPar *p)
 
 void calc::PointCodeBlockReplacer::visitAss(ASTAss *a)
 {
-  DEVELOP_PRECOND(d_info.size());
+  DEVELOP_PRECOND(!d_info.empty());
   info().d_allPoint = true;
   for (size_t i = 0; i < a->nrPars(); ++i) {
     ASTPar *p = a->par(i);

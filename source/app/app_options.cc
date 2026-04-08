@@ -47,7 +47,7 @@ extern "C" bool app_setDynamicLibraries(
   const char *flag)
 {
   std::vector<std::string> libList(com::split(flag,':'));
-  PRECOND(libList.size() >= 1);
+  PRECOND(!libList.empty());
   PRECOND(libList[0] == "dynamiclibraries");
   for (size_t i=1;i < libList.size(); i++) {
    if (nrDynamicLibraryNames == 64) {

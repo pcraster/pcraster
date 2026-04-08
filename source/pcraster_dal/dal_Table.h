@@ -554,7 +554,7 @@ inline void Table::setTitle(
 
 inline bool Table::colsAreCreated() const
 {
-  return d_typeIds.size() == 0 || d_cols.size() > 0;
+  return d_typeIds.empty() || !d_cols.empty();
 }
 
 //! Creates columns for the data values.
@@ -572,7 +572,7 @@ inline void Table::createCols()
   }
 
   assert(d_titles.size() == d_typeIds.size());
-  assert(d_cols.size() == 0);
+  assert(d_cols.empty());
 
   d_cols.resize(d_typeIds.size());
 

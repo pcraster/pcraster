@@ -59,7 +59,7 @@ int calc::LexInput::getParameterNr(const std::string &name, bool nIsShellArg)
     }
     return -1;
   }
-  if (nIsShellArg && name == "n" && d_shellArgs.size() >= 1) {
+  if (nIsShellArg && name == "n" && !d_shellArgs.empty()) {
     return d_shellArgs.size();
   }
   return 0;
@@ -283,7 +283,7 @@ void calc::LexInput::parseShellParamUse()
 
   // expansion with separator and wrapper, since we have ','
   // in the string
-  PRECOND(args.size() > 0);
+  PRECOND(!args.empty());
   com::removeAllSpace(args[0]);
   if (args[0].empty()) {
     throw com::Exception("Empty argument in substitution");

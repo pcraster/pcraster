@@ -100,7 +100,7 @@ std::string ag::Map2DWindow::windowName() const
 
 bool ag::Map2DWindow::dataVisualised() const
 {
-  return visualisationEngine().dataGuides().size() > 0;
+  return !visualisationEngine().dataGuides().empty();
 }
 
 void ag::Map2DWindow::saveAsPNG(std::filesystem::path const &path)

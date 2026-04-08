@@ -115,7 +115,7 @@ void com::Directory::create(bool makeParentDirectories)
     PathName pn(d_path);
     std::string dirPart(pn.directoryName());
 
-    while (dirPart != "") {
+    while (!dirPart.empty()) {
       dirs.push_back(pn.baseName());
       pn = dirPart;
       dirPart = pn.directoryName();

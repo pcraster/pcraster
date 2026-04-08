@@ -179,7 +179,7 @@ std::string calc::IoFieldStrategy::inPathStack(const RunDirectory &rd, const std
   pn += stackPrefix;
   pn.makeNative();
 
-  PRECOND(pn.toString().size() > 0);
+  PRECOND(!pn.toString().empty());
   return pn.toString();
 }
 

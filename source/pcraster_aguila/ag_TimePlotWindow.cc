@@ -80,7 +80,7 @@ std::string ag::TimePlotWindow::windowName() const
 
 bool ag::TimePlotWindow::dataVisualised() const
 {
-  return visualisationEngine().dataGuides().size() > 0;
+  return !visualisationEngine().dataGuides().empty();
 }
 
 void ag::TimePlotWindow::saveAsPNG(std::filesystem::path const &path)

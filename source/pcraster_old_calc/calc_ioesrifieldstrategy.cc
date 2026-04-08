@@ -77,7 +77,7 @@ calc::IoFieldStrategy *calc::IoEsriFieldStrategy::checkInputMap(VS &vs, const st
   try {
     EsriMap const grid(fName);
     // always prefer an esri grid prj file
-    if (grid.prjFile().size() != 0U) {
+    if (!grid.prjFile().empty()) {
       d_prjFile = grid.prjFile();
     }
     vs = grid.vs();
@@ -171,7 +171,7 @@ calc::GridMap *calc::IoEsriFieldStrategy::createMap(const std::string &fileName,
   removeOutputObject(pn.toString());
   auto *m = new EsriMap(pn.toString(), rasterSpace().nrRows(), rasterSpace().nrCols(),
                         rasterSpace().cellSize(), d_bbox, vs);
-  if (d_prjFile.size() != 0U) {
+  if (!d_prjFile.empty()) {
     m->setPrjFile(d_prjFile);
   }
   return m;

@@ -128,7 +128,7 @@ void calc::IndexTable::fieldNrValues(const calc::BindedSymbol &par, VS vs,
                                      std::vector<double> &vals) const
 {
   size_t const n = d_array.nrElements();
-  PRECOND(!vals.size());
+  PRECOND(vals.empty());
   vals.reserve(n);
   for (size_t i = 0; i < n; i++) {
     const Value &val = find(par.externalName(), i);
@@ -148,7 +148,7 @@ void calc::IndexTable::fieldNrValues(const calc::BindedSymbol &par, VS vs,
 VS calc::IndexTable::fieldMapValues(const calc::BindedSymbol &par, std::vector<std::string> &vals) const
 {
   size_t const n = d_array.nrElements();
-  PRECOND(!vals.size());
+  PRECOND(vals.empty());
   vals.reserve(n);
   VS mapVs = VS_FIELD;
   for (size_t i = 0; i < n; i++) {

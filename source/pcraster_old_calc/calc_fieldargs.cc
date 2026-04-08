@@ -53,7 +53,7 @@ void calc::FieldArgs::checkArgs()
       }
       break;  // pcrcalc/test14
   }
-  if (msg != "") {
+  if (!msg.empty()) {
     /* pcrcalc/test25[23] */
     std::string const str(op().syntax() + " " + quote(op().name()) + " " + msg);
     if (nrFieldArgs() != 0U) {

@@ -233,7 +233,7 @@ inline geo::Voxel &geo::VoxelStack::operator[](size_t i)
 inline const geo::Voxel &geo::VoxelStack::topVoxel() const
 {
 #ifdef DEBUG_DEVELOP
-  PRECOND(d_column.size() > 0);
+  PRECOND(!d_column.empty());
 #endif
 
   return d_column.back();
@@ -242,7 +242,7 @@ inline const geo::Voxel &geo::VoxelStack::topVoxel() const
 inline geo::Voxel &geo::VoxelStack::topVoxel()
 {
 #ifdef DEBUG_DEVELOP
-  PRECOND(d_column.size() > 0);
+  PRECOND(!d_column.empty());
 #endif
 
   return d_column.back();
@@ -251,7 +251,7 @@ inline geo::Voxel &geo::VoxelStack::topVoxel()
 inline const geo::Voxel &geo::VoxelStack::bottomVoxel() const
 {
 #ifdef DEBUG_DEVELOP
-  PRECOND(d_column.size() > 0);
+  PRECOND(!d_column.empty());
 #endif
 
   return d_column.front();
@@ -260,7 +260,7 @@ inline const geo::Voxel &geo::VoxelStack::bottomVoxel() const
 inline geo::Voxel &geo::VoxelStack::bottomVoxel()
 {
 #ifdef DEBUG_DEVELOP
-  PRECOND(d_column.size() > 0);
+  PRECOND(!d_column.empty());
 #endif
 
   return d_column.front();

@@ -160,7 +160,7 @@ std::string MultiMap2DWindow::windowName() const
 
 bool MultiMap2DWindow::dataVisualised() const
 {
-  return visualisationEngine().dataGuides().size() > 0;
+  return !visualisationEngine().dataGuides().empty();
 }
 
 void MultiMap2DWindow::saveAsPNG(std::filesystem::path const &path)

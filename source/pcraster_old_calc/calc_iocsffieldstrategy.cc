@@ -83,7 +83,7 @@ const calc::StackReader *calc::IoCsfFieldStrategy::createStackReader(const RunDi
   pn.up();  // strip baseName of first time step
   pn += stackPrefix;
 
-  PRECOND(pn.toString().size() > 0);
+  PRECOND(!pn.toString().empty());
   return new CsfStackReader(this, pn.toString());
 }
 

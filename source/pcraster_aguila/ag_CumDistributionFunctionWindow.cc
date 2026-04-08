@@ -126,7 +126,7 @@ std::string ag::CumDistributionFunctionWindow::windowName() const
 
 bool ag::CumDistributionFunctionWindow::dataVisualised() const
 {
-  return visualisationEngine().dataGuides().size() > 0;
+  return !visualisationEngine().dataGuides().empty();
 }
 
 void ag::CumDistributionFunctionWindow::toggleMarker()

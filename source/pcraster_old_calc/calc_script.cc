@@ -306,7 +306,7 @@ void calc::Script::buildScript()
 
   d_symTab->finalCheck();
 
-  if (d_stats.size() == 0) {
+  if (d_stats.empty()) {
     throw com::Exception("Empty model script, nothing to execute");
   }
 

@@ -391,7 +391,7 @@ void DIS::append_row_width(float width)
 void DIS::write_row_width(std::ostringstream &content) const
 {
 
-  if (d_row_width.size() == 0) {
+  if (d_row_width.empty()) {
     content << "CONSTANT " << d_mf->d_cellsize << "\n";
   } else {
     content << "INTERNAL   1.0 (FREE)    -1    DELC\n";
@@ -415,7 +415,7 @@ void DIS::append_col_width(float width)
 void DIS::write_col_width(std::ostringstream &content) const
 {
 
-  if (d_col_width.size() == 0) {
+  if (d_col_width.empty()) {
     content << "CONSTANT " << d_mf->d_cellsize << "\n";
   } else {
     content << "INTERNAL   1.0 (FREE)    -1    DELR\n";

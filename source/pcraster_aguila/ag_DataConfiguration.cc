@@ -182,11 +182,11 @@ DataConfiguration::DataConfiguration(
       // Data space stuff in data item takes precedence
       if (guide.type() == geo::STACK) {
         // TODO only supported for stacks at the moment.
-        if (configuration.dataSpace().present() && (configuration.dataSpace()->timesteps().size() != 0U) &&
+        if (configuration.dataSpace().present() && (!configuration.dataSpace()->timesteps().empty()) &&
             configuration.dataSpace()->timesteps()[0].dateMapper().present()) {
           d_group->dataObject().setDateMapper(
               guide, configuration.dataSpace()->timesteps()[0].dateMapper().get(), false);
-        } else if (xmlGroup.searchSpace().present() && (xmlGroup.searchSpace()->timesteps().size() != 0U) &&
+        } else if (xmlGroup.searchSpace().present() && (!xmlGroup.searchSpace()->timesteps().empty()) &&
                    xmlGroup.searchSpace()->timesteps()[0].dateMapper().present()) {
           d_group->dataObject().setDateMapper(
               guide, xmlGroup.searchSpace()->timesteps()[0].dateMapper().get(), false);

@@ -155,7 +155,7 @@ class TopDownExprRestrictor : public ASTVisitor
 
   DataType pop()
   {
-    PRECOND(d_dt.size());
+    PRECOND(!d_dt.empty());
     DataType const f = d_dt.top();
     d_dt.pop();
     return f;

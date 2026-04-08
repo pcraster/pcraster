@@ -340,7 +340,7 @@ public:
     // needs this order of stack evaluation
     // typedef std::vector<ASTPar *>::iterator I;
     for (size_t i = 0; i < n; ++i) {
-      PRECOND(d_stack.size());
+      PRECOND(!d_stack.empty());
       ASTPar *p = d_stack.top();
       d_stack.pop();
       if (p != nullptr) {

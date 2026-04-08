@@ -133,7 +133,7 @@ VisGroupManager &Viewer::manager()
  */
 void Viewer::createViews(pcrxml::Aguila const &cfg)
 {
-  if (cfg.visualisationGroup().view().size() == 0U) {
+  if (cfg.visualisationGroup().view().empty()) {
     com::Exception exception("Nothing to do!");
     exception.append("Use -h or --help for usage information");
     throw exception;

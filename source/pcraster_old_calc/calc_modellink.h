@@ -47,7 +47,7 @@ public:
   ModelLinkMethodSignature(
     const std::string& strArg,
     size_t nrInArg):
-      d_strArgGiven(strArg != ""),
+      d_strArgGiven(!strArg.empty()),
       d_strArg(strArg),
       d_input(nrInArg)
       {

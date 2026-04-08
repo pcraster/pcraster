@@ -51,7 +51,7 @@ BOOST_AUTO_TEST_CASE(update_order)
     dr.updateOrder();
     BOOST_CHECK(dr.nrVertices()==0);
     BOOST_CHECK(dr.nrEdges()==0);
-    BOOST_CHECK(dr.d_rto.size()==0);
+    BOOST_CHECK(dr.d_rto.empty());
   }
   { // Cycle
     DagRaster dr(geo::RasterDim(1,2));
@@ -87,7 +87,7 @@ BOOST_AUTO_TEST_CASE(update_order)
     dr.updateOrder();
     BOOST_CHECK(dr.nrVertices()==0);
     BOOST_CHECK(dr.nrEdges()==0);
-    BOOST_CHECK(dr.d_rto.size()==0);
+    BOOST_CHECK(dr.d_rto.empty());
   }
   { // 2 different directions/OUTSIDE TODO
     DagRaster dr(geo::RasterDim(1,2));
@@ -96,7 +96,7 @@ BOOST_AUTO_TEST_CASE(update_order)
     dr.updateOrder();
     BOOST_CHECK(dr.nrVertices()==0);
     BOOST_CHECK(dr.nrEdges()==0);
-    BOOST_CHECK(dr.d_rto.size()==0);
+    BOOST_CHECK(dr.d_rto.empty());
   }
 }
 

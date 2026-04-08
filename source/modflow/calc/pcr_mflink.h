@@ -30,7 +30,7 @@ class PCRMF_EXPORT ModflowLink {
     std::string const objName=std::string(l.callPoint().object()->objectName());
     auto i=objects.find(objName);
     // it is only allows to construct one modflow object
-    if(objects.size() > 0){
+    if(!objects.empty()){
       std::cout << "Warning: only one PCRasterModflow extension object should be used, found additional object '" << objName << "'. Previous object will be deleted." << '\n';
     }
     // instance already exists, constructing again means deleting the old one

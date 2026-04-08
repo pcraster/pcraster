@@ -622,13 +622,25 @@ void dal::CSFMap::setExtremes(
 {
   switch(useTypeId()) {
     case TI_UINT1:
-      return setExtremesImpl<UINT1>(d_map,min,max);
+    {
+      setExtremesImpl<UINT1>(d_map, min, max);
+      return;
+    }
     case TI_INT4:
-      return setExtremesImpl<INT4>(d_map,min,max);
+    {
+      setExtremesImpl<INT4>(d_map, min, max);
+      return;
+    }
     case TI_REAL4:
-      return setExtremesImpl<REAL4>(d_map,min,max);
+    {
+      setExtremesImpl<REAL4>(d_map, min, max);
+      return;
+    }
     case TI_REAL8:
-      return setExtremesImpl<REAL8>(d_map,min,max);
+    {
+      setExtremesImpl<REAL8>(d_map, min, max);
+      return;
+    }
     default: assert(false);
   }
 }

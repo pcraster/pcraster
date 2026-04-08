@@ -209,7 +209,7 @@ void calc::RunDirectory::setRunDirectory(const com::PathName &runDirectory,
  */
 void calc::RunDirectory::collectRunSettings()
 {
-  return d_data->collectRunSettings();
+  d_data->collectRunSettings();
 }
 
 //! prepare the run directory for execution

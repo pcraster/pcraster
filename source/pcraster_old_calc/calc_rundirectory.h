@@ -2,7 +2,6 @@
 #define INCLUDED_OLDCALC_RUNDIRECTORY
 
 #include "stddefx.h"
-#include "pcrdll.h"
 #include "calc_runsettings.h"
 
 

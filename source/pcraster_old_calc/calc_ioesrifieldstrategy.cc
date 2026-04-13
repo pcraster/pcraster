@@ -342,7 +342,6 @@ calc::Spatial *calc::IoEsriFieldStrategy::newInputMap(const std::string &mapName
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-#include "pcrdll.h"
 
 #include "pcrxml_document.h"
 
@@ -367,7 +366,7 @@ calc::Spatial *calc::IoEsriFieldStrategy::newInputMap(const std::string &mapName
  */
 extern bool esriArcView3Only;
 
-extern "C" PCR_DLL_FUNC(int)
+extern "C" int // PCR_DLL_FUNC(int)
     pcrReadEsriDirectoryStackInfo(const char *dirName, int *allMissingValue, double *minimumValue,
                                   double *maximumValue, int *stackEnd, char *dataType)
 {

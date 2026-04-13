@@ -153,7 +153,7 @@ void PcrScriptImpl::run()
 
 /*
  */
-extern "C" PCR_DLL_FUNC(PcrScriptImpl *) pcr_createScript(const char *scriptName)
+extern "C" /*PCR_DLL_FUNC(*/PcrScriptImpl */*)*/ pcr_createScript(const char *scriptName)
 {
   PcrScriptImpl *ps(nullptr);
   try {
@@ -168,7 +168,7 @@ extern "C" PCR_DLL_FUNC(PcrScriptImpl *) pcr_createScript(const char *scriptName
   return ps;
 }
 
-extern "C" PCR_DLL_FUNC(void) pcr_ScriptExecute(PcrScriptImpl *script)
+extern "C" void /*PCR_DLL_FUNC(void)*/ pcr_ScriptExecute(PcrScriptImpl *script)
 {
   if (script != nullptr) {
     script->run();
@@ -177,7 +177,7 @@ extern "C" PCR_DLL_FUNC(void) pcr_ScriptExecute(PcrScriptImpl *script)
 
 /*! size of error message, 0 if none
  */
-extern "C" PCR_DLL_FUNC(int) pcr_ScriptError(PcrScriptImpl *script)
+extern "C" int /*PCR_DLL_FUNC(int)*/ pcr_ScriptError(PcrScriptImpl *script)
 {
   if (script == nullptr) {
     return -1;  // BAD!
@@ -185,7 +185,7 @@ extern "C" PCR_DLL_FUNC(int) pcr_ScriptError(PcrScriptImpl *script)
   return script->errorMessage().size();
 }
 
-extern "C" PCR_DLL_FUNC(const char *) pcr_ScriptErrorMessage(PcrScriptImpl *script)
+extern "C" const char * /*PCR_DLL_FUNC(const char *)*/ pcr_ScriptErrorMessage(PcrScriptImpl *script)
 {
   if (script == nullptr) {
     return "Error: called pcr_ScriptErrorMessage with 0 ptr";
@@ -193,7 +193,7 @@ extern "C" PCR_DLL_FUNC(const char *) pcr_ScriptErrorMessage(PcrScriptImpl *scri
   return script->errorMessage().c_str();
 }
 
-extern "C" PCR_DLL_FUNC(void) pcr_destroyScript(PcrScriptImpl *script)
+extern "C" void /*PCR_DLL_FUNC(void)*/ pcr_destroyScript(PcrScriptImpl *script)
 {
   delete script;
 }

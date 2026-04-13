@@ -1,7 +1,6 @@
 #include "stddefx.h"
 #include "com_appargs.h"
 #include "appargs.h"
-#include "pcrdll.h"
 #ifdef WIN32
 #include "com_win32.h"
 #endif
@@ -50,7 +49,7 @@ extern bool esriArcView3Only;
 //------------------------------------------------------------------------------
 
 //! 0 if last call OF ANY CALLS LISTED BELOW was no error
-extern "C" PCR_DLL_FUNC(const char *) pcrCalcErrorResult()
+extern "C" /*PCR_DLL_FUNC(*/const char */*)*/ pcrCalcErrorResult()
 {
   esriArcView3Only = true;
   if (errStr.empty()) {
@@ -104,7 +103,7 @@ protected:
    \param name must point to buffer with minimum size of 2048
    \return the absolute path to a map or stack directory in name
  */
-extern "C" PCR_DLL_FUNC(void) pcrGetArcViewCheckDataItem(int itemNr, int *isStack, char *name)
+extern "C" void /*PCR_DLL_FUNC(void)*/ pcrGetArcViewCheckDataItem(int itemNr, int *isStack, char *name)
 {
   esriArcView3Only = true;
   if (itemNr < 0 || static_cast<size_t>(itemNr) >= calc::arcViewExtCheckData.size()) {
@@ -121,7 +120,7 @@ extern "C" PCR_DLL_FUNC(void) pcrGetArcViewCheckDataItem(int itemNr, int *isStac
     in case of error, pcrCalcErrorResult will return the message
    \returns -1 in case of error, nr of esri out grid names otherwise
  */
-extern "C" PCR_DLL_FUNC(int) pcrArcViewScriptVerify(const char *scriptName)
+extern "C" int /*PCR_DLL_FUNC(int)*/ pcrArcViewScriptVerify(const char *scriptName)
 {
   esriArcView3Only = true;
   initErrorResult();
@@ -187,13 +186,13 @@ static int runCmd(const char *cmdString)
    \returns exit code as defined by arguments
 
  */
-extern "C" PCR_DLL_FUNC(int) pcrCalcCmd(const char *cmdString)
+extern "C" int /*PCR_DLL_FUNC(int)*/ pcrCalcCmd(const char *cmdString)
 {
   esriArcView3Only = true;
   return runCmd(cmdString);
 }
 
-extern "C" PCR_DLL_FUNC(int) pcrCalcMBCmd(const char *cmdString)
+extern "C" int /*PCR_DLL_FUNC(int)*/ pcrCalcMBCmd(const char *cmdString)
 {
   esriArcView3Only = false;
   return runCmd(cmdString);

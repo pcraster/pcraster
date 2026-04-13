@@ -185,7 +185,7 @@ int calc::CmdLineCalc::execute()
   return script().exitVal();
 }
 
-extern "C" PCR_DLL_FUNC(int) executeCommandLine(int argc, char **argv)
+extern "C" int /*PCR_DLL_FUNC(int)*/ executeCommandLine(int argc, char **argv)
 {
   int r = 0;
   {

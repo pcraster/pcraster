@@ -167,6 +167,8 @@ target_include_directories(pcraster_old_calc_objects
         $<TARGET_PROPERTY:pcraster::calc,INTERFACE_INCLUDE_DIRECTORIES>
         $<TARGET_PROPERTY:pcraster::pcrxml,INTERFACE_INCLUDE_DIRECTORIES>
         $<TARGET_PROPERTY:pcraster::tab,INTERFACE_INCLUDE_DIRECTORIES>
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
 )
 
 # We do not care much about warnings when using ...
@@ -191,6 +193,7 @@ target_compile_definitions(pcraster_old_calc_objects
         YY_NO_UNISTD_H
         YY_NEVER_INTERACTIVE
         PCR_DAL_SHARED_LINK
+        pcraster_old_calc_EXPORTS
 )
 
 if(NOT WIN32)
@@ -207,6 +210,11 @@ add_library(pcraster_old_calc SHARED
 )
 
 add_library(pcraster::old_calc ALIAS pcraster_old_calc)
+
+
+generate_export_header(pcraster_old_calc
+    BASE_NAME pcraster_oldcalc
+)
 
 set_target_properties(pcraster_old_calc
     PROPERTIES

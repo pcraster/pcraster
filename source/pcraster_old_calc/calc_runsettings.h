@@ -2,7 +2,6 @@
 #define INCLUDED_OLDCALC_RUNSETTINGS
 
 #include "stddefx.h"
-#include "pcrdll.h"
 #include "calc_extsym.h"
 
 #include <string>

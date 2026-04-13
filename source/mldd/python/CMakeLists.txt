@@ -1,5 +1,5 @@
 # NO_EXTRAS required for success on macOS conda build
-pybind11_add_module(_pcraster_mldd_python MODULE NO_EXTRAS THIN_LTO
+pybind11_add_module(_pcraster_mldd_python MODULE # NO_EXTRAS THIN_LTO
     Extension.cc
     Mldd.cc
 )

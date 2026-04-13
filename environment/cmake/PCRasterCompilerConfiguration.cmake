@@ -7,11 +7,11 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS OFF)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-if(NOT CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+# if(NOT CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     set(CMAKE_C_VISIBILITY_PRESET hidden)
     set(CMAKE_CXX_VISIBILITY_PRESET hidden)
     set(CMAKE_VISIBILITY_INLINES_HIDDEN ON)
-endif()
+# endif()
 
 # On Linux/macOS we set the RPATH for our libraries/executables
 # From the CMake wiki:

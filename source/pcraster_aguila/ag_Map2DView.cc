@@ -622,8 +622,8 @@ void Map2DView::zoomByRectangle(QRect const &rectangle) const
   dataObject().map2DMoveBy(movement, false);
 
   // Zoom into the zoom rectangle.
-  double const scale = std::min(ABS(static_cast<double>(width()) / rectangle.width()),
-                                ABS(static_cast<double>(height()) / rectangle.height()));
+  double const scale = std::min(std::abs(static_cast<double>(width()) / rectangle.width()),
+                                std::abs(static_cast<double>(height()) / rectangle.height()));
   dataObject().map2DZoomBy(scale, false);
 
   dataObject().notify();

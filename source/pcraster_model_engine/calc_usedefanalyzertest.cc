@@ -14,9 +14,8 @@
 // NOTE use string failureExpected in files expected to fail, see style guide
 
 
-namespace calc
-{
-namespace useDefAnalyzerTest
+
+namespace calc::useDefAnalyzerTest
 {
 class Test
 {
@@ -98,8 +97,8 @@ public:
     str << ")" << '\n';
   }
 };
-}  // namespace useDefAnalyzerTest
-}  // namespace calc
+} // namespace calc::useDefAnalyzerTest
+
 
 #define UDA_TEST(C) useDefAnalyzerTest::Test C
 

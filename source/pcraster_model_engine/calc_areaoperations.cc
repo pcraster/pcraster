@@ -14,12 +14,10 @@
 //------------------------------------------------------------------------------
 
 
-namespace calc
-{
-namespace detail
-{
-}  // namespace detail
-}  // namespace calc
+
+
+
+
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC AREAOPERATIONS MEMBERS

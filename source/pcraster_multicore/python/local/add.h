@@ -6,8 +6,8 @@ namespace calc {
 }
 
 
-namespace pcraster_multicore {
-namespace python {
+
+namespace pcraster_multicore::python {
 
 
 calc::Field* add(
@@ -15,6 +15,6 @@ calc::Field* add(
          calc::Field* field_b);
 
 
-} // namespace python
-} // namespace pcraster_multicore
+} // namespace pcraster_multicore::python
+
 

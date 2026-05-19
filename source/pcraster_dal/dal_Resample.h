@@ -5,8 +5,8 @@
 
 
 
-namespace dal {
-namespace resample {
+
+namespace dal::resample {
 
 enum CellSelectionType {
   //! Whenever a source cell lies within the destination cell.
@@ -145,7 +145,7 @@ public:
 
 #undef AGGREGATE_CASE
 
-} // namespace resample
-} // namespace dal
+} // namespace dal::resample
+
 
 #endif

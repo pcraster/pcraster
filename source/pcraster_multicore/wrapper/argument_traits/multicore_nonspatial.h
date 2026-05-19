@@ -5,8 +5,8 @@
 #include "pcraster_multicore/wrapper/multicore_nonspatial_output_policy.h"
 #include "pcraster_multicore/wrapper/multicore_nonspatial.h"
 
-namespace fern {
-namespace algorithm {
+
+namespace fern::algorithm {
 
 template<class T>
 struct ArgumentTraits<multicore_field::Nonspatial<T>>
@@ -20,5 +20,5 @@ struct ArgumentTraits<multicore_field::Nonspatial<T>>
 
 };
 
-} // namespace algorithm
-} // namespace fern
+} // namespace fern::algorithm
+

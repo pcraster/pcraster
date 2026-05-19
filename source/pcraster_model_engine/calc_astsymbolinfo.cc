@@ -24,9 +24,8 @@
 //------------------------------------------------------------------------------
 
 
-namespace calc
-{
-namespace detail
+
+namespace calc::detail
 {
 
 static ASTPar parDefaultCtor("error_ASTSymbolInfoDefaultCtor");
@@ -39,8 +38,8 @@ static ASTPar parDefaultCtor("error_ASTSymbolInfoDefaultCtor");
    * }
    */
 
-}  // namespace detail
-}  // namespace calc
+} // namespace calc::detail
+
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC ASTSYMBOLINFO MEMBERS

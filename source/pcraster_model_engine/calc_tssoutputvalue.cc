@@ -23,9 +23,8 @@ extern template calc::ApiMapC<MAP_INT4>::DeleteInternal calc::ApiMapC<MAP_INT4>:
 
 const size_t calc::FileTimeoutput::maxCacheSize = 128;
 
-namespace calc
-{
-namespace detail
+
+namespace calc::detail
 {
 
 static int doTimeoutput(double *val, const Field *id, const Field *expr, size_t nrCols)
@@ -132,8 +131,8 @@ public:
   }
 };
 
-}  // namespace detail
-}  // namespace calc
+} // namespace calc::detail
+
 
 calc::TssOutputValue::TssOutputValue()
 {

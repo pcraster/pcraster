@@ -5,14 +5,14 @@
 #include "calc_field.h"
 
 
-namespace pcraster {
-namespace python {
+
+namespace pcraster::python {
 
   pybind11::tuple       getstate       (calc::Field const & field);
 
   calc::Field*          setstate       (pybind11::tuple const & state);
 
-} // namespace python
-} // namespace pcraster
+} // namespace pcraster::python
+
 
 #endif

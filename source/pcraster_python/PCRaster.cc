@@ -84,8 +84,8 @@ namespace calc {
 
 
 
-namespace pcraster {
-namespace python {
+
+namespace pcraster::python {
 
 
 //! Check an input pointer to be non 0
@@ -898,8 +898,8 @@ calc::Field* maptotal(calc::Field const & field)
   return result;
 }
 
-} // namespace python
-} // namespace pcraster
+} // namespace pcraster::python
+
 
 
 PYBIND11_MODULE(_pcraster, module)

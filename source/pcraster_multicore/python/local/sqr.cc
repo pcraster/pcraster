@@ -15,8 +15,8 @@
 #include "pcraster_multicore/python/local/pow.h"
 
 
-namespace pcraster_multicore {
-namespace python {
+
+namespace pcraster_multicore::python {
 namespace detail {
 
 
@@ -34,6 +34,6 @@ calc::Field* sqr(
   return power(field, two);
 }
 
-} // namespace python
-} // namespace pcraster_multicore
+} // namespace pcraster_multicore::python
+
 

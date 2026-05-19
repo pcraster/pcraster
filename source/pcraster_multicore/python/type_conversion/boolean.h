@@ -6,8 +6,8 @@ namespace calc {
 }
 
 
-namespace pcraster_multicore {
-namespace python {
+
+namespace pcraster_multicore::python {
 
 
 calc::Field* boolean(
@@ -18,6 +18,6 @@ calc::Field* safe_boolean(
          calc::Field* field);
 
 
-} // namespace python
-} // namespace pcraster_multicore
+} // namespace pcraster_multicore::python
+
 

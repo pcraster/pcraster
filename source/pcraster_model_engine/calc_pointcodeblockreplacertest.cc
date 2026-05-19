@@ -15,9 +15,8 @@
 // NOTE use string failureExpected in files expected to fail, see style guide
 
 
-namespace calc
-{
-namespace pointCodeBlockReplacerTest
+
+namespace calc::pointCodeBlockReplacerTest
 {
 class Test
 {
@@ -40,8 +39,8 @@ public:
     return astCast<PointCodeBlock>(d_a.ast(), path);
   }
 };
-}  // namespace pointCodeBlockReplacerTest
-}  // namespace calc
+} // namespace calc::pointCodeBlockReplacerTest
+
 
 #define CASE(C) pointCodeBlockReplacerTest::Test C
 

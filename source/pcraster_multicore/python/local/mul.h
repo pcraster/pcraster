@@ -15,8 +15,8 @@ namespace multicore_field{
 }
 
 
-namespace pcraster_multicore {
-namespace python {
+
+namespace pcraster_multicore::python {
 
 calc::Field* mul_number_number(
          const multicore_field::Nonspatial<REAL4>* arg1,
@@ -35,6 +35,6 @@ calc::Field* mul(
 
 
 
-} // namespace python
-} // namespace pcraster_multicore
+} // namespace pcraster_multicore::python
+
 

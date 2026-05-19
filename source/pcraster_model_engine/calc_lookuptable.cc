@@ -11,9 +11,8 @@
 #include <algorithm>
 #include <map>
 
-namespace calc
-{
-namespace detail
+
+namespace calc::detail
 {
 //! map: key->[begin,end)
 struct LookupTablePrefixMap
@@ -116,8 +115,8 @@ public:
     return d_values.empty();
   }
 };
-}  // namespace detail
-}  // namespace calc
+} // namespace calc::detail
+
 
 //! create with lookup table from table C-library
 LOOK_UP_TABLE *calc::LookupTable::createOldStyle(const std::string &fileName)

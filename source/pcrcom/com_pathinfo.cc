@@ -35,17 +35,16 @@
 */
 
 
-namespace com
-{
 
-namespace detail
+
+namespace com::detail
 {
 
 const size_t MAX_PATH_LENGTH = 2024;
 
-}  // namespace detail
+} // namespace com::detail
 
-}  // namespace com
+
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS

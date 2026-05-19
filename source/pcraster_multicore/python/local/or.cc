@@ -26,8 +26,8 @@
 namespace fa = fern::algorithm;
 
 
-namespace pcraster_multicore {
-namespace python {
+
+namespace pcraster_multicore::python {
 namespace detail {
 
 calc::Field* or_number_number(
@@ -133,6 +133,6 @@ calc::Field* _or(
 }
 
 
-} // namespace python
-} // namespace pcraster_multicore
+} // namespace pcraster_multicore::python
+
 

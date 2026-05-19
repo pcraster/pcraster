@@ -4,9 +4,8 @@
 #include "com_intervaltypes.h"
 #include "com_clone.h"
 
-namespace com
-{
-namespace intervalMapTest
+
+namespace com::intervalMapTest
 {
 struct UnarySimplest {
   typedef double argument_type;
@@ -17,12 +16,11 @@ struct UnarySimplest {
     return v;
   }
 };
-}  // namespace intervalMapTest
-}  // namespace com
+} // namespace com::intervalMapTest
 
-namespace com
-{
-namespace intervalMapTest
+
+
+namespace com::intervalMapTest
 {
 struct FO_MM {
   std::vector<double> data;
@@ -38,8 +36,8 @@ struct FO_MM {
     data.push_back(v);
   }
 };
-}  // namespace intervalMapTest
-}  // namespace com
+} // namespace com::intervalMapTest
+
 
 BOOST_AUTO_TEST_CASE(find)
 {

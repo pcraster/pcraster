@@ -10,8 +10,8 @@ namespace calc {
 }
 
 
-namespace pcraster_multicore {
-namespace python {
+
+namespace pcraster_multicore::python {
 namespace detail {
 
 
@@ -81,6 +81,6 @@ void scale_zero_to_2pi(
 }
 
 
-} // namespace python
-} // namespace pcraster_multicore
+} // namespace pcraster_multicore::python
+
 

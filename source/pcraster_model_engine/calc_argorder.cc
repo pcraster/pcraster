@@ -13,9 +13,8 @@
   This file contains the implementation of the ArgOrderAndAddArea class.
 */
 
-namespace calc
-{
-namespace detail
+
+namespace calc::detail
 {
 struct AreaClaimReached {
   typedef std::map<UINT4, ArgOrderIdInfo> State;
@@ -28,8 +27,8 @@ struct AreaClaimReached {
   {
   }
 };
-}  // namespace detail
-}  // namespace calc
+} // namespace calc::detail
+
 
 namespace calc
 {

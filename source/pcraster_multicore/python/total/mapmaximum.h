@@ -6,14 +6,14 @@ namespace calc {
 }
 
 
-namespace pcraster_multicore {
-namespace python {
+
+namespace pcraster_multicore::python {
 
 
 calc::Field* mapmaximum(
          calc::Field* field_a);
 
 
-} // namespace python
-} // namespace pcraster_multicore
+} // namespace pcraster_multicore::python
+
 

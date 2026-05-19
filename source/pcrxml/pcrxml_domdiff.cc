@@ -17,9 +17,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace pcrxml
-{
-namespace Private
+
+namespace pcrxml::Private
 {
 
 /*!
@@ -175,8 +174,8 @@ struct NodeList : public std::list<QDomNode> {
   }
 };
 
-}  // namespace Private
-}  // namespace pcrxml
+} // namespace pcrxml::Private
+
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC DOMDIFF MEMBERS

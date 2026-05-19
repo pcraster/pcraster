@@ -16,8 +16,8 @@ namespace {
 
 
 
-namespace pcraster {
-namespace python {
+
+namespace pcraster::python {
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC GLOBALS MEMBERS
@@ -111,6 +111,6 @@ dal::RasterDal& Globals::rasterDal()
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace python
-} // namespace pcraster
+} // namespace pcraster::python
+
 

@@ -17,10 +17,9 @@
 
 //------------------------------------------------------------------------------
 
-namespace calc
-{
 
-namespace dimensionParser
+
+namespace calc::dimensionParser
 {
 
 struct Symbol {
@@ -58,8 +57,8 @@ struct Power {
 };
 
 
-}  // namespace dimensionParser
-}  // namespace calc
+} // namespace calc::dimensionParser
+
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC DIMENSIONPARSER MEMBERS

@@ -6,8 +6,8 @@ namespace calc {
 }
 
 
-namespace pcraster_multicore {
-namespace python {
+
+namespace pcraster_multicore::python {
 
 
 calc::Field* windowtotal(
@@ -20,6 +20,6 @@ calc::Field* windowaverage(
          size_t radius);
 
 
-} // namespace python
-} // namespace pcraster_multicore
+} // namespace pcraster_multicore::python
+
 

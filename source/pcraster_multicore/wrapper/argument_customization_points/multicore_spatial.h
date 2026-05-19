@@ -3,8 +3,8 @@
 #include "pcraster_multicore/wrapper/multicore_spatial.h"
 #include "fern/algorithm/core/argument_customization_point.h"
 
-namespace fern {
-namespace algorithm {
+
+namespace fern::algorithm {
 
 template<typename T>
 inline multicore_field::Spatial<T>& mask(
@@ -12,5 +12,5 @@ inline multicore_field::Spatial<T>& mask(
     return argument;
 }
 
-} // namespace algorithm
-} // namespace fern
+} // namespace fern::algorithm
+

@@ -6,8 +6,8 @@ namespace calc {
 }
 
 
-namespace pcraster_multicore {
-namespace python {
+
+namespace pcraster_multicore::python {
 
 
 calc::Field* ifthen(
@@ -15,6 +15,6 @@ calc::Field* ifthen(
          calc::Field* field_a);
 
 
-} // namespace python
-} // namespace pcraster_multicore
+} // namespace pcraster_multicore::python
+
 

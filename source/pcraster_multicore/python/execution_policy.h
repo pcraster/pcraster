@@ -3,8 +3,8 @@
 #include "fern/algorithm/policy/execution_policy.h"
 
 
-namespace pcraster_multicore {
-namespace python {
+
+namespace pcraster_multicore::python {
 
 void               construct_execution_policy();
 
@@ -17,5 +17,5 @@ size_t             nr_worker_threads   ();
 fern::algorithm::ExecutionPolicy const&
                    execution_policy    ();
 
-} // namespace python
-} // namespace pcraster_multicore
+} // namespace pcraster_multicore::python
+

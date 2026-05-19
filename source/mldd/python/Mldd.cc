@@ -15,8 +15,8 @@
 
 
 
-namespace mldd {
-namespace python {
+
+namespace mldd::python {
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC MLDD MEMBERS
@@ -257,6 +257,6 @@ std::shared_ptr<calc::Field> Mldd::accuflux(
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace python
-} // namespace mldd
+} // namespace mldd::python
+
 

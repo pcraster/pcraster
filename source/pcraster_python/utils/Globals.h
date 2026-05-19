@@ -14,8 +14,8 @@ namespace calc {
 }
 
 
-namespace pcraster {
-namespace python {
+
+namespace pcraster::python {
 
 //! short_description_HORRIBLE_LONG_STRING_TO_NOTICE_THAT_IT_SHOULD_BE_REPLACED
 /*!
@@ -88,7 +88,7 @@ PCRASTER_PYTHON_UTILS_EXPORT extern Globals globals;
 // FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace python
-} // namespace pcraster
+} // namespace pcraster::python
+
 
 #endif

@@ -15,8 +15,8 @@ namespace multicore_field{
   class Nonspatial;
 }
 
-namespace pcraster_multicore {
-namespace python {
+
+namespace pcraster_multicore::python {
 
 
 size_t nr_rows();
@@ -59,6 +59,6 @@ calc::Field* to_scalar(calc::Field* nonspatial);
 calc::Field* to_boolean(calc::Field* nonspatial);
 calc::Field* to_ordinal(calc::Field* nonspatial);
 
-} // namespace python
-} // namespace pcraster_multicore
+} // namespace pcraster_multicore::python
+
 

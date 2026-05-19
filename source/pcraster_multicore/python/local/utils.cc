@@ -22,8 +22,8 @@
 
 namespace fa = fern::algorithm;
 
-namespace pcraster_multicore {
-namespace python {
+
+namespace pcraster_multicore::python {
 
 
 
@@ -216,6 +216,6 @@ calc::Field* to_ordinal(calc::Field* nonspatial){
 
 
 
-} // namespace python
-} // namespace pcraster_multicore
+} // namespace pcraster_multicore::python
+
 

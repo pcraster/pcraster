@@ -12,9 +12,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace pcrxml
-{
-namespace Private
+
+namespace pcrxml::Private
 {
 struct ChildrenByTagName {
   QString d_tagName;
@@ -32,8 +31,8 @@ struct ChildrenByTagName {
   }
 };
 
-}  // namespace Private
-}  // namespace pcrxml
+} // namespace pcrxml::Private
+
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS

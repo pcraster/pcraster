@@ -14,8 +14,8 @@ namespace calc {
 
 
 
-namespace mldd {
-namespace python {
+
+namespace mldd::python {
 
 //! Wrapper class to interface between mldd::Mldd and the Python extension.
 /*!
@@ -123,7 +123,7 @@ public:
 // FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace python
-} // namespace mldd
+} // namespace mldd::python
+
 
 #endif

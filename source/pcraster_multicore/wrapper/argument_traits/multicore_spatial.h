@@ -5,8 +5,8 @@
 #include "pcraster_multicore/wrapper/multicore_spatial_output_policy.h"
 #include "pcraster_multicore/wrapper/multicore_spatial.h"
 
-namespace fern {
-namespace algorithm {
+
+namespace fern::algorithm {
 
 template<class T>
 struct ArgumentTraits<multicore_field::Spatial<T>>
@@ -21,5 +21,5 @@ struct ArgumentTraits<multicore_field::Spatial<T>>
 };
 
 
-} // namespace algorithm
-} // namespace fern
+} // namespace fern::algorithm
+

@@ -26,8 +26,8 @@
 namespace fa = fern::algorithm;
 
 
-namespace pcraster_multicore {
-namespace python {
+
+namespace pcraster_multicore::python {
 
 
 calc::Field* slope(
@@ -66,6 +66,6 @@ calc::Field* slope(
 }
 
 
-} // namespace python
-} // namespace pcraster_multicore
+} // namespace pcraster_multicore::python
+
 

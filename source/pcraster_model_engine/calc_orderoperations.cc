@@ -5,9 +5,8 @@
 #include <vector>
 #include <cassert>
 
-namespace calc
-{
-namespace detail
+
+namespace calc::detail
 {
 
 class OrderSortFO
@@ -68,8 +67,8 @@ public:
     }
   }
 };
-}  // namespace detail
-}  // namespace calc
+} // namespace calc::detail
+
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS

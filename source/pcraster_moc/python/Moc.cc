@@ -79,8 +79,8 @@ void copy<double, REAL4>(
 
 
 
-namespace moc {
-namespace python {
+
+namespace moc::python {
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC MOC MEMBERS
@@ -285,6 +285,6 @@ std::shared_ptr<calc::Field> Moc::adjust(
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-} // namespace python
-} // namespace moc
+} // namespace moc::python
+
 

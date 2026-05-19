@@ -31,9 +31,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace calc
-{
-namespace Private
+
+namespace calc::Private
 {
 struct Check {
   const ASTSymbolTable &d_syms;
@@ -76,8 +75,8 @@ struct Check {
     return static_cast<size_t>(value);
   }
 };
-}  // namespace Private
-}  // namespace calc
+} // namespace calc::Private
+
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC ASTSCRIPT MEMBERS

@@ -14,8 +14,8 @@ namespace calc {
 
 
 
-namespace moc {
-namespace python {
+
+namespace moc::python {
 
 //! short_description_HORRIBLE_LONG_STRING_TO_NOTICE_THAT_IT_SHOULD_BE_REPLACED
 /*!
@@ -94,7 +94,7 @@ public:
 //------------------------------------------------------------------------------
 
 
-} // namespace python
-} // namespace moc
+} // namespace moc::python
+
 
 #endif

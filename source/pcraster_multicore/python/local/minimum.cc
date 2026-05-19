@@ -26,8 +26,8 @@
 namespace fa = fern::algorithm;
 
 
-namespace pcraster_multicore {
-namespace python {
+
+namespace pcraster_multicore::python {
 namespace detail {
 
 
@@ -183,6 +183,6 @@ calc::Field* minimum(pybind11::list const& arguments){
 }
 
 
-} // namespace python
-} // namespace pcraster_multicore
+} // namespace pcraster_multicore::python
+
 

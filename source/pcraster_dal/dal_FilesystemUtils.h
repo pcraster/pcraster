@@ -9,11 +9,11 @@
 
 
 
-namespace boost {
-  namespace gregorian {
+
+  namespace boost::gregorian {
     class date;
   }
-}
+
 namespace dal {
   class DataSpaceAddress;
 }

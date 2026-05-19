@@ -4,9 +4,8 @@
 #include <numeric>
 #include "com_mvgeneric.h"
 
-namespace com
-{
-namespace mvGenericTest
+
+namespace com::mvGenericTest
 {
 struct UP {
   int sum{0};
@@ -76,8 +75,8 @@ struct SetSum {
 };
 
 
-}  // namespace mvGenericTest
-}  // namespace com
+} // namespace com::mvGenericTest
+
 
 BOOST_AUTO_TEST_CASE(visit_non_mv)
 {

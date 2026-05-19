@@ -12,8 +12,8 @@
 
 
 
-namespace pcraster_multicore {
-namespace python {
+
+namespace pcraster_multicore::python {
 
 
 // the PCRaster newnonspatialfield return with multiple valuescales based on the input value
@@ -32,6 +32,6 @@ calc::Field* newNonSpatialBoolean(const bool value){
 }
 
 
-} // namespace python
-} // namespace pcraster_multicore
+} // namespace pcraster_multicore::python
+
 

@@ -19,9 +19,8 @@
 #include <filesystem>
 namespace fs = std::filesystem;
 
-namespace calc
-{
-namespace detail
+
+namespace calc::detail
 {
 static bool validateBil(std::string const &name)
 {
@@ -57,8 +56,8 @@ struct FakeDevLicense {
   }
 };
 
-}  // namespace detail
-}  // namespace calc
+} // namespace calc::detail
+
 
 struct Fixture {
 

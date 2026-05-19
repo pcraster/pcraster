@@ -4,8 +4,8 @@
 namespace fa = fern::algorithm;
 
 
-namespace pcraster_multicore {
-namespace python {
+
+namespace pcraster_multicore::python {
 
 std::unique_ptr<fa::ExecutionPolicy> _execution_policy;
 
@@ -61,5 +61,5 @@ size_t nr_worker_threads(){
 }
 
 
-} // namespace python
-} // namespace pcraster_multicore
+} // namespace pcraster_multicore::python
+

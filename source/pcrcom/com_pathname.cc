@@ -364,17 +364,16 @@ void com::PathName::setExtension(const std::string &e)
   addExtension(e);
 }
 
-namespace boost
-{
-namespace filesystem
+
+namespace boost::filesystem
 {
 int fooCeesBug()
 {
   std::cout << "fooCeesBug \n";
   return 0;
 }
-}  // namespace filesystem
-}  // namespace boost
+} // namespace boost::filesystem
+
 
 //! remove the extension, including the ".", if there is an extension
 /*!

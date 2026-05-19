@@ -24,8 +24,8 @@
 namespace fa = fern::algorithm;
 
 
-namespace pcraster_multicore {
-namespace python {
+
+namespace pcraster_multicore::python {
 namespace detail {
 calc::Field* div_number_number(
          const multicore_field::Nonspatial<REAL4>* arg1,
@@ -154,6 +154,6 @@ calc::Field* div(
 }
 
 
-} // namespace python
-} // namespace pcraster_multicore
+} // namespace pcraster_multicore::python
+
 

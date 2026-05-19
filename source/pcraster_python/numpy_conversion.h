@@ -15,8 +15,8 @@ namespace geo {
 }
 
 
-namespace pcraster {
-namespace python {
+
+namespace pcraster::python {
 
 
 
@@ -32,7 +32,7 @@ calc::Field*       array_to_field     (geo::RasterSpace const& space,
 pybind11::array    field_as_array     (geo::RasterSpace const& space,
                                        pybind11::object* field_object);
 
-} // namespace python
-} // namespace pcraster
+} // namespace pcraster::python
+
 
 #endif

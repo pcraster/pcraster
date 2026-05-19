@@ -11,8 +11,8 @@
 #include <sstream>
 
 
-namespace pcraster {
-namespace python {
+
+namespace pcraster::python {
 
 template<class T>
 void str_values(std::stringstream & content, calc::Field const & raster){
@@ -196,5 +196,5 @@ calc::Field* setstate(pybind11::tuple const & state) {
   return field;
 }
 
-} // namespace python
-} // namespace pcraster
+} // namespace pcraster::python
+

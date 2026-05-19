@@ -28,8 +28,8 @@
 // - version checks are handled by numpy.
 
 
-namespace pcraster {
-namespace python {
+
+namespace pcraster::python {
 namespace detail {
 
 template<typename T>
@@ -1023,5 +1023,5 @@ pybind11::array field_as_array(
     return nparray;
 }
 
-} // namespace python
-} // namespace pcraster
+} // namespace pcraster::python
+

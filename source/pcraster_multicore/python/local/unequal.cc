@@ -13,8 +13,8 @@
 
 
 
-namespace pcraster_multicore {
-namespace python {
+
+namespace pcraster_multicore::python {
 
 
 calc::Field* unequal(
@@ -28,6 +28,6 @@ calc::Field* unequal(
   return res;
 }
 
-} // namespace python
-} // namespace pcraster_multicore
+} // namespace pcraster_multicore::python
+
 

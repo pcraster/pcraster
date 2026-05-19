@@ -35,7 +35,14 @@ We further improved the code quality and the build system to ensure an ongoing c
 .. * gcc13 minimum
 .. * Set C standard to 17
 
+PCRaster 4.4.3
+--------------
 
+This is a maintenance release for 4.4.
+
+* We modernised some code to allow for compilation with the latest compilers, GDAL (thanks to Jürgen Fischer's `contribution<https://github.com/pcraster/pcraster/pull/424>`_) and Boost versions.
+
+For a list of solved issues see our `4.4.3 <https://github.com/pcraster/pcraster/milestone/14>`_ milestone.
 
 PCRaster 4.4.2
 --------------

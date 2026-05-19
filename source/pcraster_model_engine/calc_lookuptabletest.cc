@@ -1,6 +1,4 @@
 #define BOOST_TEST_MODULE pcraster model_engine lookuptable
-#include <math.h>
-
 #include <boost/test/unit_test.hpp>
 #include "com_pathname.h"
 #include "com_exception.h"
@@ -8,6 +6,8 @@
 #include "com_math.h"
 #include "calc_vs.h"
 #include "calc_globallibdefs.h"
+
+#include <cmath>
 
 #define private public
 #include "calc_lookuptable.h"

@@ -1,9 +1,9 @@
 #define BOOST_TEST_MODULE pcraster old_calc non_spatial
-#include <math.h>
-
 #include <boost/test/unit_test.hpp>
 #include "com_csfcell.h"
 #include "calc_nonspatial.h"
+
+#include <cmath>
 
 BOOST_AUTO_TEST_CASE(set_and_get_cell)
 {

@@ -1,10 +1,10 @@
 #define BOOST_TEST_MODULE pcraster model_engine nonspatial
-#include <math.h>
-
 #include <boost/test/unit_test.hpp>
 #include "com_csfcell.h"
 #include "calc_nonspatial.h"
 #include "calc_domainerror.h"
+
+#include <cmath>
 
 BOOST_AUTO_TEST_CASE(testSetAndGetCell)
 {

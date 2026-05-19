@@ -1,6 +1,4 @@
 #define BOOST_TEST_MODULE pcraster model_engine opimpl
-#include <math.h>
-
 #include <boost/test/unit_test.hpp>
 #include "geo_rasterspace.h"
 #include "com_file.h"
@@ -14,6 +12,8 @@
 #include "calc_timetable.h"
 #include "calc_domainerror.h"
 #include "calc_dvautoptr.h"
+
+#include <cmath>
 
 // NOTE use string failureExpected in files expected to fail, see style guide
 

@@ -1,6 +1,4 @@
 #define BOOST_TEST_MODULE pcraster old_calc lookup_table
-#include <math.h>
-
 #include <boost/test/unit_test.hpp>
 #include "com_pathname.h"
 #include "com_exception.h"
@@ -8,6 +6,8 @@
 #include "calc_lookuptable.h"
 #include "calc_vs.h"
 #include "calc_calc.h"  // globalInit()
+
+#include <cmath>
 
 void createTestTable(calc::LookupTable &t, const char *contents, const std::vector<VS> &inKeys)
 {

@@ -1,11 +1,11 @@
 #define BOOST_TEST_MODULE pcraster model_engine pointcodeblockdll
-#include <math.h>
-
 #include <boost/test/unit_test.hpp>
 #include "geo_filecreatetester.h"
 #include "calc_p5stack.h"
 #include "calc_pointcodedllheader.h"
 #include "calc_globallibdefs.h"
+
+#include <cmath>
 
 struct Fixture {
 

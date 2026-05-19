@@ -1,9 +1,8 @@
 #define BOOST_TEST_MODULE pcraster model_engine field
-#include <math.h>
-
 #include <boost/test/unit_test.hpp>
 #include "calc_nonspatial.h"
 #include "calc_spatial.h"
+
 #include <cmath>
 
 BOOST_AUTO_TEST_CASE(testCtorNonSpatial)

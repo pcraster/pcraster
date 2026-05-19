@@ -1,6 +1,4 @@
 #define BOOST_TEST_MODULE pcraster old_calc lookup_linear
-#include <math.h>
-
 #include <boost/test/unit_test.hpp>
 #include "com_pathname.h"
 #include "com_exception.h"
@@ -9,6 +7,8 @@
 #include "calc_lookuplinear.h"
 #include "calc_vs.h"
 #include "calc_calc.h"  // globalInit()
+
+#include <cmath>
 
 class LookupLinearCtor : public calc::LookupLinear
 {

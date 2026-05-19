@@ -400,7 +400,7 @@ void OgrFeatureDriver::init()
          DAL_DRIVER_GENERAL);
   properties |= Reader;
 
-  char** metadata = _driver->GetMetadata();
+  auto metadata = _driver->GetMetadata();
 
   // GDAL_DCAP_CREATECOPY?
   if(CSLFetchBoolean(metadata, ODrCCreateDataSource, FALSE) != 0) {

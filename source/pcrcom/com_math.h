@@ -202,7 +202,7 @@ template<typename T>
  struct NumericLimits : public std::numeric_limits<T> {
   //! smallest reprentable value
   static T minValue() noexcept {
-      BOOST_STATIC_ASSERT(std::numeric_limits<T>::is_integer);
+      static_assert(std::numeric_limits<T>::is_integer);
       return std::numeric_limits<T>::min();
   }
   //! largest reprentable value

@@ -33,7 +33,7 @@
 #include "ag_VectorDrawer.h"
 #include "ag_VisEngine.h"
 
-
+#include <cmath>
 
 /*!
   \file
@@ -747,9 +747,9 @@ void Map2DView::zoomByRectangle(
   dataObject().map2DMoveBy(movement, false);
 
   // Zoom into the zoom rectangle.
-  double scale = MIN(
-       ABS(static_cast<double>(width()) / rectangle.width()),
-       ABS(static_cast<double>(height()) / rectangle.height()));
+  double scale = std::min(
+       std::abs(static_cast<double>(width()) / rectangle.width()),
+       std::abs(static_cast<double>(height()) / rectangle.height()));
   dataObject().map2DZoomBy(scale, false);
 
   dataObject().notify();

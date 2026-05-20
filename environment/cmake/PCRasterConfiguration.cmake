@@ -176,7 +176,7 @@ if(PCRASTER_WITH_OPENGL)
     list(APPEND PCR_QT_COMPONENTS OpenGL)
 endif()
 
-find_package(Qt5 5.12 REQUIRED COMPONENTS ${PCR_QT_COMPONENTS})
+find_package(Qt5 5.12 REQUIRED COMPONENTS ${PCR_QT_COMPONENTS} CONFIG)
 message(STATUS "Found Qt5: ")
 message(STATUS "  version:   " ${Qt5_VERSION})
 
@@ -184,7 +184,7 @@ message(STATUS "  version:   " ${Qt5_VERSION})
 find_package(XercesC REQUIRED)
 
 
-find_package(GDAL 2.4 REQUIRED)
+find_package(GDAL 3 REQUIRED CONFIG)
 message(STATUS "Found GDAL: ")
 message(STATUS "  version:   " ${GDAL_VERSION})
 message(STATUS "  libraries: " ${GDAL_LIBRARIES})

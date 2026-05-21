@@ -7,7 +7,16 @@ jobs:
 
         strategy:
             matrix:
-                os: ["ubuntu-24.04"]
+                include:
+                  - os: ubuntu-24.04
+                    target-platform: linux-64
+                  - os: macos-15
+                    target-platform: osx-arm64
+                  - os: macos-15-intel
+                    target-platform: osx-64
+                  - os: windows-2025
+                    target-platform: win-64
+
             fail-fast: false
 
         runs-on: ${{ matrix.os }}
@@ -24,7 +33,7 @@ jobs:
 
 
         - name: Checkout PCRaster
-          uses: actions/checkout@v4
+          uses: actions/checkout@v6
 
         - uses: conda-incubator/setup-miniconda@v3
           with:
@@ -39,4 +48,4 @@ jobs:
         - name: Build
           shell: bash -l {0}
           run: |
-              conda mambabuild environment/configuration/receipe --channel conda-forge --override-channels
+              boa build environment/configuration/receipe --channel conda-forge --override-channels

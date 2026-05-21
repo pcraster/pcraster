@@ -5,11 +5,11 @@ set -e
 
 if [ $(uname) == Linux ]; then
   # Kindly guide to conda's OpenGL...
-  PLATFORM_OPTIONS="-D OPENGL_opengl_LIBRARY:PATH=${BUILD_PREFIX}/${HOST}/sysroot/usr/lib64/libGL.so \
-  -D OPENGL_gl_LIBRARY:PATH=${BUILD_PREFIX}/${HOST}/sysroot/usr/lib64/libGL.so \
-  -D OPENGL_glu_LIBRARY:PATH=${PREFIX}/lib/libGLU.so"
+  PLATFORM_OPTIONS="" #-D OPENGL_opengl_LIBRARY:PATH=${BUILD_PREFIX}/${HOST}/sysroot/usr/lib64/libGL.so \
+  #-D OPENGL_gl_LIBRARY:PATH=${BUILD_PREFIX}/${HOST}/sysroot/usr/lib64/libGL.so \
+  #-D OPENGL_glu_LIBRARY:PATH=${PREFIX}/lib/libGLU.so"
 else
-  PLATFORM_OPTIONS="-D GDAL_INCLUDE_DIR=${PREFIX}/include"
+  PLATFORM_OPTIONS="" #-D GDAL_INCLUDE_DIR=${PREFIX}/include"
   export TMPDIR=/tmp
 fi
 

@@ -215,8 +215,11 @@ if(PCRASTER_BUILD_TEST)
     endif()
 endif()
 
+find_package(Python3
+  REQUIRED COMPONENTS Interpreter Development NumPy
+  OPTIONAL_COMPONENTS Development.SABIModule
+)
 
-find_package(Python3 COMPONENTS Interpreter Development NumPy)
 message(STATUS "Found Python3:")
 message(STATUS "  Interpreter ID: " ${Python3_INTERPRETER_ID})
 message(STATUS "    version:      " ${Python3_VERSION})

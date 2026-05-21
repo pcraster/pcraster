@@ -30,17 +30,25 @@ jobs:
         - name: Checkout PCRaster
           uses: actions/checkout@v6
 
-        - uses: conda-incubator/setup-miniconda@v3
+        - uses: mamba-org/setup-micromamba@v2
           with:
-              miniforge-version: latest
-              auto-update-conda: false
-              conda-remove-defaults: true
-
-        - shell: bash -l {0}
-          run: |
-              mamba install boa -c conda-forge
+            environment-name: pcrbuild
+            create-args: >-
+              rattler-build
+            init-shell: >-
+              bash
+              powershell
 
         - name: Build
+          if: runner.os != 'Windows'
           shell: bash -l {0}
           run: |
-              boa build environment/configuration/receipe
+              cd ${{ runner.temp }}
+              rattler-build build --recipe ${{ github.workspace }}/environment/conda/recipe.yaml
+
+        - name: Build
+          if: runner.os == 'Windows'
+          shell: pwsh
+          run: |
+              cd ${{ runner.temp }}
+              rattler-build build --recipe ${{ github.workspace }}/environment/conda/recipe.yaml

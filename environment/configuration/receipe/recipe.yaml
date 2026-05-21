@@ -1,0 +1,99 @@
+context:
+  version: "d.e.v"
+
+package:
+  name: pcraster
+  version: ${{ version }}
+
+source:
+  path: ../../../
+
+build:
+  number: 0
+
+requirements:
+  ignore_run_exports:
+    from_package:
+      - libboost-devel
+
+  build:
+    - ${{ compiler('c') }}
+    - ${{ compiler('cxx') }}
+    - cmake
+    - ninja
+    - if: win
+      then:
+         - make
+    - ${{ "vs2022_win-64" if win }} # only in GitHub actions
+
+  host:
+    - python
+    - numpy
+    - psutil
+    - pybind11
+    - pybind11-abi
+    - xerces-c
+    - libboost-devel
+    - qt-main
+    - libgdal
+    - gdal
+    - if: linux
+      then:
+         - libgl-devel
+         - xorg-libxfixes
+         - libopengl-devel
+         - libglu
+    - if: not win
+      then:
+         - ncurses
+
+  run:
+    - python
+    - libgdal
+    - if: not win
+      then:
+         - ncurses
+    - if: linux
+      then:
+        - libglu
+
+tests:
+  - script:
+      interpreter: python
+      content: |
+        import pcraster
+  - script:
+        - asc2map
+        - col2map
+        - legend
+        - map2asc
+        - map2col
+        - mapattr
+        - oldcalc
+        - pcrcalc
+        - resample
+        - table
+  - script: run_test.py
+
+about:
+  homepage: http://www.pcraster.eu
+  license: GPL-3.0-only
+  license_file: LICENSE
+  summary: 'Environmental modelling software.'
+  description: |
+    PCRaster is a collection of tools and software libraries tailored to the
+    construction of spatio-temporal environmental models. Application domains
+    are amongst others hydrology (rainfall-runoff, global water balance,
+    groundwater (with Modflow)), ecology, or land use change.
+    PCRaster includes a rich set of spatial operations for manipulating and
+    analysing raster maps. A Python framework supports Monte Carlo simulations
+    and data assimilation (Ensemble Kalman Filter and Particle Filter). The
+    Aguila tool allows for the interactive visualisation of stochastic spatio-
+    temporal data.
+  documentation: https://pcraster.geo.uu.nl/pcraster/latest/documentation/index.html
+  repository: https://github.com/pcraster/pcraster
+
+extra:
+  recipe-maintainers:
+    - pcraster_devs
+~

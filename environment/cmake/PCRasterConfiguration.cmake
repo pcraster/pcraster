@@ -184,7 +184,7 @@ message(STATUS "  version:   " ${Qt5_VERSION})
 find_package(XercesC REQUIRED)
 
 
-find_package(GDAL 3 REQUIRED CONFIG)
+find_package(GDAL REQUIRED CONFIG)
 message(STATUS "Found GDAL: ")
 message(STATUS "  version:   " ${GDAL_VERSION})
 message(STATUS "  libraries: " ${GDAL_LIBRARIES})
@@ -192,6 +192,9 @@ message(STATUS "  includes:  " ${GDAL_INCLUDE_DIRS})
 find_program(GDAL_TRANSLATE gdal_translate
     HINTS ${GDAL_INCLUDE_DIRS}/../bin
 )
+
+get_target_property(LIBGDAL_INCLUDES GDAL::GDAL INTERFACE_INCLUDE_DIRECTORIES)
+
 if(EXISTS $ENV{GDAL_DATA})
     set(GDAL_DATA $ENV{GDAL_DATA})
 elseif(EXISTS "${GDAL_INCLUDE_DIRS}/../../share/gdal")
@@ -200,6 +203,8 @@ elseif(EXISTS "${GDAL_INCLUDE_DIRS}/../share/gdal")
     set(GDAL_DATA "${GDAL_INCLUDE_DIRS}/../share/gdal")
 elseif(EXISTS "${GDAL_BIN}/../share/gdal")
     set(GDAL_DATA "${GDAL_BIN}/../share/gdal")
+elseif(EXISTS "${LIBGDAL_INCLUDES}")
+    set(GDAL_DATA "${LIBGDAL_INCLUDES}")
 else()
     message(FATAL_ERROR "GDAL data dir not found")
 endif()

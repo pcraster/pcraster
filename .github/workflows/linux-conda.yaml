@@ -27,11 +27,6 @@ jobs:
 
         steps:
 
-        - name: Configure system
-          run: |
-              sudo apt install mesa-common-dev libglu1-mesa-dev libegl-dev libgl1-mesa-dri libglx-mesa0 libegl-mesa0
-
-
         - name: Checkout PCRaster
           uses: actions/checkout@v6
 

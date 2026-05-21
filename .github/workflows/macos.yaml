@@ -10,7 +10,7 @@ jobs:
     build:
         strategy:
             matrix:
-                os: [macos-13, macos-15]
+                os: [macos-15-intel, macos-15]
             fail-fast: false
 
         runs-on: ${{ matrix.os }}
@@ -22,7 +22,7 @@ jobs:
         steps:
 
         - name: Checkout PCRaster
-          uses: actions/checkout@v4
+          uses: actions/checkout@v6
 
         - name: Configure system
           run: |

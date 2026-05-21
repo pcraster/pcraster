@@ -48,4 +48,4 @@ jobs:
         - name: Build
           shell: bash -l {0}
           run: |
-              boa build environment/configuration/receipe --channel conda-forge --override-channels
+              boa build environment/configuration/receipe

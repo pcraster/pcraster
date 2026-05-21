@@ -49,7 +49,7 @@ jobs:
         - name: Configure PCRaster
           shell: cmd /C call {0}
           run: |
-              "${{ matrix.config.environment_script }}" && ^
+              "${{ matrix.config.activate_script }}" ${{ matrix.config.activate_version }} && ^
               cmake ^
                   -S . ^
                   -B build ^
@@ -64,17 +64,17 @@ jobs:
         - name: Build release
           shell: cmd /C call {0}
           run: |
-              "${{ matrix.config.environment_script }}" && ^
+              "${{ matrix.config.activate_script }}" ${{ matrix.config.activate_version }} && ^
               cmake --build build --config Release --target all
 
         - name: Install PCRaster
           shell: cmd /C call {0}
           run: |
-              "${{ matrix.config.environment_script }}" && ^
+              "${{ matrix.config.activate_script }}" ${{ matrix.config.activate_version }} && ^
               cmake --install build --config Release
 
         - name: Test release
           shell: cmd /C call {0}
           run: |
-              "${{ matrix.config.environment_script }}" && ^
+              "${{ matrix.config.activate_script }}" ${{ matrix.config.activate_version }} && ^
               ctest --test-dir build --output-on-failure --build-config Release

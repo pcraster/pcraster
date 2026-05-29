@@ -7,6 +7,7 @@
 #include <memory>
 #include <map>
 #include <set>
+#include <stdexcept>
 #include <string>
 
 
@@ -50,8 +51,9 @@ class ASTSymbolTable:
 
 public:
 
-  struct LinkInLibraryException {
+  struct LinkInLibraryException : public std::runtime_error {
     std::string message;
+    LinkInLibraryException() : std::runtime_error("LinkInLibraryException exception") {}
   };
 
 

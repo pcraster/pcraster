@@ -9,6 +9,7 @@
 #include "pcrcalcd.h"
 #include "csftypes.h"
 
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -19,12 +20,12 @@ namespace geo {
 
 namespace calc {
 
-class ModelLinkException {
+class ModelLinkException : public std::runtime_error {
   std::string d_msg;
 public:
   ModelLinkException(const std::string& msg):
-    d_msg(msg) {}
-  const std::string& what() const { return d_msg; }
+    d_msg(msg), std::runtime_error(msg) {}
+  const std::string& message() const { return d_msg; }
 };
 
 typedef struct ModelLinkArgSpec {

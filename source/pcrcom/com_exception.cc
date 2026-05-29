@@ -53,7 +53,7 @@ static const SystemMessages systemMessages;
   sensible, and non empty . The Exception formatter removes all
   leading and trailing spaces
 */
-com::Exception::Exception(const std::string &message)
+com::Exception::Exception(const std::string &message) : std::runtime_error(message)
 {
   add(message, true);
 }

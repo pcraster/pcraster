@@ -4,6 +4,7 @@
 // XERCES_CPP_NAMESPACE
 #include <xercesc/util/XercesVersion.hpp>
 
+#include <stdexcept>
 #include <string>
 
 
@@ -19,11 +20,11 @@ namespace XERCES_CPP_NAMESPACE {
 
 namespace pcrxsd {
 
-class Exception {
+class Exception : public std::runtime_error {
   std::string d_msg;
 public:
   Exception(std::string const& msg):
-    d_msg(msg)
+    d_msg(msg), std::runtime_error(msg)
   {
   }
   std::string const& msg() const {

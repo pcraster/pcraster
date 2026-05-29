@@ -4,6 +4,7 @@
 #include "stddefx.h"
 #include "calc_types.h"
 
+#include <stdexcept>
 #include <string>
 
 
@@ -16,7 +17,7 @@ namespace calc {
 namespace calc {
 
 //! base class for exceptions related to DataType clashes
-class DataTypeClash
+class DataTypeClash : public std::runtime_error
 {
 
 private:

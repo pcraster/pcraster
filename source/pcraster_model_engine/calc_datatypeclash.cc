@@ -42,7 +42,7 @@ public:
 // DEFINITION OF DATATYPECLASH MEMBERS
 //------------------------------------------------------------------------------
 
-calc::DataTypeClash::DataTypeClash()
+calc::DataTypeClash::DataTypeClash() : std::runtime_error("DataTypeClash exception")
 {
 }
 

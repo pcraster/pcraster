@@ -6,6 +6,7 @@
 #include "calc_datavalue.h"
 
 #include <vector>
+#include <stdexcept>
 #include <string>
 
 
@@ -43,7 +44,8 @@ private:
                    ObjectLink               (ObjectLink const& rhs);
 
 public:
-  struct UnknownMethod {
+  struct UnknownMethod  : public std::runtime_error {
+    UnknownMethod() : std::runtime_error("UnknownMethod exception") {}
   };
 
   //----------------------------------------------------------------------------

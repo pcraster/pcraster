@@ -3,6 +3,7 @@
 
 #include "stddefx.h"
 
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -35,7 +36,7 @@ enum Errno {
   \sa com_exception.cc for full details.
   \todo Help! can not get docs of com::Errno working
 */
-class Exception
+class Exception : public std::runtime_error
 {
 
 private:
@@ -54,7 +55,7 @@ protected:
    * In order to link cppunit with catching of all exception both ctor and dtor
    * must be inline
    */
-  Exception   ()
+  Exception   () : std::runtime_error("pcrcom exception")
    {}
 
 public:

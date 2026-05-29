@@ -8,6 +8,7 @@
 #include "mldd_outedgeiterator.h"
 
 #include <vector>
+#include <stdexcept>
 
 
 
@@ -25,7 +26,8 @@ namespace mldd {
   class DownstreamVisitor;
 
   //! throw if a cycle is detected
-  struct NotADag {
+  struct NotADag : public std::runtime_error {
+    NotADag() : std::runtime_error("NotADag exception") {}
   };
 
 

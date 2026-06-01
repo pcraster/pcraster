@@ -106,6 +106,8 @@ public:
     : d_strings(strings)
   {}
 
+                  PushBack            (PushBack const& rhs) = default;
+
   PushBack&       operator=           (PushBack const& rhs) = delete;
 
   //! This operator will be called by the parser.

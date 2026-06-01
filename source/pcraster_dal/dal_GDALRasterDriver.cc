@@ -1067,7 +1067,7 @@ void GDALRasterDriver::write(
   registerGDALDriverToUse();
 
 #ifdef DEBUG_DEVELOP
-  char **papszMetadata = d_driver->GetMetadata();
+  auto papszMetadata = d_driver->GetMetadata();
   assert(CSLFetchBoolean(papszMetadata, GDAL_DCAP_CREATE, TRUE));
 #endif
 

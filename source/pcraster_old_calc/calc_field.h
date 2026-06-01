@@ -5,6 +5,7 @@
 #include "calc_objcount.h"
 #include "calc_handle.h"
 
+#include <stdexcept>
 
 namespace calc {
 
@@ -26,11 +27,13 @@ protected:
 
 public:
   //! thrown by Handle&lt;Field&gt; FieldValue::value()
-  struct NotInitialized {
+  struct NotInitialized : public std::runtime_error {
+    NotInitialized() : std::runtime_error("NotInitialized exception") {}
   };
 
   //! thrown by NonSpatial::setCell()
-  struct SetNonSpatialToMV {
+  struct SetNonSpatialToMV : public std::runtime_error {
+    SetNonSpatialToMV() : std::runtime_error("SetNonSpatialToMV exception") {}
   };
 
 

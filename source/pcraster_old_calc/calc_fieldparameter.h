@@ -6,6 +6,7 @@
 #include "calc_field.h"
 
 #include <vector>
+#include <stdexcept>
 #include <string>
 
 
@@ -69,15 +70,15 @@ class  FieldParameter : public SubParameter {
   void printSubSpecific(InfoScript& is)const override;
 
   //! restrictUser may return this as an exception
-  class RestrictError {
+  class RestrictError : public std::runtime_error {
     //! message
     std::string d_msg;
     public:
     //! ctor
     RestrictError(const std::string& msg):
-        d_msg(msg) {}
+        std::runtime_error(msg), d_msg(msg) {}
     //! return message
-    const std::string& what() const {
+    const std::string& message() const {
         return d_msg;
     }
   };

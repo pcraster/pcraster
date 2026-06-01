@@ -24,7 +24,7 @@ class ModelLinkException : public std::runtime_error {
   std::string d_msg;
 public:
   ModelLinkException(const std::string& msg):
-    d_msg(msg), std::runtime_error(msg) {}
+    std::runtime_error(msg), d_msg(msg) {}
   const std::string& message() const { return d_msg; }
 };
 

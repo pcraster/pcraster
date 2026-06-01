@@ -6,7 +6,7 @@
 #include "calc_vs.h"
 #include <sstream>
 
-calc::SyntaxArgumentError::SyntaxArgumentError(const std::string &s) : d_s(s)
+calc::SyntaxArgumentError::SyntaxArgumentError(const std::string &s) : std::runtime_error(s), d_s(s)
 {
 }
 

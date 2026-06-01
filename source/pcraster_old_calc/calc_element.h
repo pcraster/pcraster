@@ -5,6 +5,7 @@
 #include "calc_quote.h"
 
 #include <sstream>
+#include <stdexcept>
 
 
 namespace calc {
@@ -47,7 +48,9 @@ public:
    *   checking in the parser
    */
   
-  struct SyntaxErrorBug{};
+  struct SyntaxErrorBug : public std::runtime_error {
+    SyntaxErrorBug() : std::runtime_error("SyntaxErrorBug exception") {}
+  };
 
   //----------------------------------------------------------------------------
   // CREATORS

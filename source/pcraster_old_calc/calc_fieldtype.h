@@ -3,6 +3,7 @@
 
 #include "calctypes.h"   // VS and ST
 
+#include <stdexcept>
 #include <string>
 
 
@@ -59,7 +60,7 @@ namespace calc {
     from it's context.
 */
 
-class SyntaxArgumentError {
+class SyntaxArgumentError : public std::runtime_error {
  public:
   std::string d_s;
   SyntaxArgumentError(const std::string& s);

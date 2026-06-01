@@ -48,9 +48,8 @@ void pcrxml::Map::clean()
 }
 
 //! copy ctor
-pcrxml::Map::Map(const Map &src) : pcrxml::Element(src)
+pcrxml::Map::Map(const Map &src) : pcrxml::Element(src), dataTypeDTD(new DataTypeDTD(*(src.dataTypeDTD)))
 {
-  dataTypeDTD = new DataTypeDTD(*(src.dataTypeDTD));
 }
 
 //! assignment operator

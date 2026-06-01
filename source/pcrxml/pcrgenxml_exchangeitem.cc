@@ -51,9 +51,8 @@ void pcrxml::ExchangeItem::clean()
 
 //! copy ctor
 pcrxml::ExchangeItem::ExchangeItem(const ExchangeItem &src)
-    : pcrxml::Element(src), exchangeDirection(src.exchangeDirection), index(src.index)
+    : pcrxml::Element(src), exchangeDirection(src.exchangeDirection), index(src.index), variable(new Variable(*(src.variable)))
 {
-  variable = new Variable(*(src.variable));
 }
 
 //! assignment operator

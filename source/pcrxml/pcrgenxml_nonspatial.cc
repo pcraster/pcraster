@@ -49,9 +49,8 @@ void pcrxml::NonSpatial::clean()
 }
 
 //! copy ctor
-pcrxml::NonSpatial::NonSpatial(const NonSpatial &src) : pcrxml::Element(src), value(src.value)
+pcrxml::NonSpatial::NonSpatial(const NonSpatial &src) : pcrxml::Element(src), value(src.value), dataTypeDTD(new DataTypeDTD(*(src.dataTypeDTD)))
 {
-  dataTypeDTD = new DataTypeDTD(*(src.dataTypeDTD));
 }
 
 //! assignment operator

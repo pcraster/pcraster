@@ -68,10 +68,8 @@ void pcrxml::Input::clean()
 //! copy ctor
 pcrxml::Input::Input(const Input &src)
     : pcrxml::Element(src), flipZ(src.flipZ), samplingInterval(src.samplingInterval),
-      migrDirection(src.migrDirection)
+      migrDirection(src.migrDirection), inputLodings(((src.inputLodings) != nullptr) ? new InputLodings(*(src.inputLodings)) : nullptr), inputPoints(((src.inputPoints) != nullptr) ? new InputPoints(*(src.inputPoints)) : nullptr)
 {
-  inputLodings = ((src.inputLodings) != nullptr) ? new InputLodings(*(src.inputLodings)) : nullptr;
-  inputPoints = ((src.inputPoints) != nullptr) ? new InputPoints(*(src.inputPoints)) : nullptr;
   for (auto i : src.inputFile) {
     inputFile.push_back(new InputFile(*i));
   }

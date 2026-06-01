@@ -54,10 +54,8 @@ void pcrxml::Stack::clean()
 }
 
 //! copy ctor
-pcrxml::Stack::Stack(const Stack &src) : pcrxml::Element(src)
+pcrxml::Stack::Stack(const Stack &src) : pcrxml::Element(src), dataTypeDTD(new DataTypeDTD(*(src.dataTypeDTD))), timestepRange(((src.timestepRange) != nullptr) ? new TimestepRange(*(src.timestepRange)) : nullptr)
 {
-  dataTypeDTD = new DataTypeDTD(*(src.dataTypeDTD));
-  timestepRange = ((src.timestepRange) != nullptr) ? new TimestepRange(*(src.timestepRange)) : nullptr;
 }
 
 //! assignment operator

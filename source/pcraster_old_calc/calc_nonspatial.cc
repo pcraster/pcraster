@@ -8,9 +8,8 @@
     is now needed for the skipped execution of an if branch,
     because the impls. will test on not-MV of a nonspatial
  */
-calc::NonSpatial::NonSpatial(VS vs, double value) : calc::Field(vs)
+calc::NonSpatial::NonSpatial(VS vs, double value) : calc::Field(vs), d_crVal(biggestCellRepr(vs))
 {
-  d_crVal = biggestCellRepr(vs);
   switch (d_crVal) {
     case CR_REAL4:
       d_vals = (REAL4)value;

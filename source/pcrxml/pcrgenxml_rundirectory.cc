@@ -55,10 +55,8 @@ void pcrxml::RunDirectory::clean()
 }
 
 //! copy ctor
-pcrxml::RunDirectory::RunDirectory(const RunDirectory &src) : pcrxml::Element(src)
+pcrxml::RunDirectory::RunDirectory(const RunDirectory &src) : pcrxml::Element(src), modelRunSettings(((src.modelRunSettings) != nullptr) ? new ModelRunSettings(*(src.modelRunSettings)) : nullptr), modelRunStatus(((src.modelRunStatus) != nullptr) ? new ModelRunStatus(*(src.modelRunStatus)) : nullptr)
 {
-  modelRunSettings = ((src.modelRunSettings) != nullptr) ? new ModelRunSettings(*(src.modelRunSettings)) : nullptr;
-  modelRunStatus = ((src.modelRunStatus) != nullptr) ? new ModelRunStatus(*(src.modelRunStatus)) : nullptr;
 }
 
 //! assignment operator

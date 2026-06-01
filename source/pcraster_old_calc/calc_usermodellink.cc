@@ -5,9 +5,8 @@
 #include "calc_modellink.h"
 
 //! ctor
-calc::UserModelLink::UserModelLink(const Symbol &parName, const Symbol &modelName) : UserSymbol(parName)
+calc::UserModelLink::UserModelLink(const Symbol &parName, const Symbol &modelName) : UserSymbol(parName), d_modelInstance(createModelLink(modelName.name()))
 {
-  d_modelInstance = createModelLink(modelName.name());
   if (d_modelInstance == nullptr) {
     // pcrcalc/test319
     modelName.posError(modelName.qName() + " No such modellink");
@@ -19,7 +18,7 @@ calc::UserModelLink::UserModelLink(const Symbol &parName, const Symbol &modelNam
 /*!
  *  \bug the delete crashes. Is the factored  deleted,
  *  after the library is closed?; making code not accessible?
- *  I (CW) think test/pcrcalc/test333 and test/pcrcalc/test330 suffer from that 
+ *  I (CW) think test/pcrcalc/test333 and test/pcrcalc/test330 suffer from that
  *  problem?????????
  *  on Win32
  */

@@ -48,9 +48,8 @@ void pcrxml::Table::clean()
 }
 
 //! copy ctor
-pcrxml::Table::Table(const Table &src) : pcrxml::Element(src)
+pcrxml::Table::Table(const Table &src) : pcrxml::Element(src), dataTypeDTD(new DataTypeDTD(*(src.dataTypeDTD)))
 {
-  dataTypeDTD = new DataTypeDTD(*(src.dataTypeDTD));
 }
 
 //! assignment operator

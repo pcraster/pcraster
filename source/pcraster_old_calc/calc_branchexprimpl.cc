@@ -157,9 +157,8 @@ class OpTimer
   }
 
 public:
-  OpTimer(const calc::Operator &o)
+  OpTimer(const calc::Operator &o) : d_timer(getTimer(o))
   {
-    d_timer = getTimer(o);
     // if (d_timer)
     //  startCpuCycleCounter(d_timer);
   }

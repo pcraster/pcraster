@@ -67,12 +67,8 @@ void pcrxml::DataSetConfiguration::clean()
 
 //! copy ctor
 pcrxml::DataSetConfiguration::DataSetConfiguration(const DataSetConfiguration &src)
-    : pcrxml::Element(src), version(src.version)
+    : pcrxml::Element(src), version(src.version), compute(new Compute(*(src.compute))), input(new Input(*(src.input))), interpolate(((src.interpolate) != nullptr) ? new Interpolate(*(src.interpolate)) : nullptr), lodings(((src.lodings) != nullptr) ? new Lodings(*(src.lodings)) : nullptr)
 {
-  input = new Input(*(src.input));
-  compute = new Compute(*(src.compute));
-  interpolate = ((src.interpolate) != nullptr) ? new Interpolate(*(src.interpolate)) : nullptr;
-  lodings = ((src.lodings) != nullptr) ? new Lodings(*(src.lodings)) : nullptr;
 }
 
 //! assignment operator

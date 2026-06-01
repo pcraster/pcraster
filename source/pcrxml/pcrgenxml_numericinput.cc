@@ -55,10 +55,8 @@ void pcrxml::NumericInput::clean()
 }
 
 //! copy ctor
-pcrxml::NumericInput::NumericInput(const NumericInput &src) : pcrxml::Element(src)
+pcrxml::NumericInput::NumericInput(const NumericInput &src) : pcrxml::Element(src), lowerLimit(((src.lowerLimit) != nullptr) ? new LowerLimit(*(src.lowerLimit)) : nullptr), upperLimit(((src.upperLimit) != nullptr) ? new UpperLimit(*(src.upperLimit)) : nullptr)
 {
-  lowerLimit = ((src.lowerLimit) != nullptr) ? new LowerLimit(*(src.lowerLimit)) : nullptr;
-  upperLimit = ((src.upperLimit) != nullptr) ? new UpperLimit(*(src.upperLimit)) : nullptr;
 }
 
 //! assignment operator

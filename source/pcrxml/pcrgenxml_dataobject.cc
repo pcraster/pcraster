@@ -56,9 +56,8 @@ void pcrxml::DataObject::clean()
 }
 
 //! copy ctor
-pcrxml::DataObject::DataObject(const DataObject &src) : pcrxml::Element(src)
+pcrxml::DataObject::DataObject(const DataObject &src) : pcrxml::Element(src), cursor(new Cursor(*(src.cursor)))
 {
-  cursor = new Cursor(*(src.cursor));
   for (auto i : src.data) {
     data.push_back(new Data(*i));
   }

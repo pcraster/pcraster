@@ -49,9 +49,8 @@ void pcrxml::TimeSeries::clean()
 }
 
 //! copy ctor
-pcrxml::TimeSeries::TimeSeries(const TimeSeries &src) : pcrxml::Element(src)
+pcrxml::TimeSeries::TimeSeries(const TimeSeries &src) : pcrxml::Element(src), dataTypeDTD(new DataTypeDTD(*(src.dataTypeDTD)))
 {
-  dataTypeDTD = new DataTypeDTD(*(src.dataTypeDTD));
 }
 
 //! assignment operator

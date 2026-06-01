@@ -58,10 +58,8 @@ void pcrxml::Script::clean()
 //! copy ctor
 pcrxml::Script::Script(const Script &src)
     : pcrxml::Element(src), scriptFileName(src.scriptFileName), scriptType(src.scriptType),
-      ioStrategy(src.ioStrategy)
+      ioStrategy(src.ioStrategy), integerTimer(((src.integerTimer) != nullptr) ? new IntegerTimer(*(src.integerTimer)) : nullptr), scriptData(new ScriptData(*(src.scriptData)))
 {
-  integerTimer = ((src.integerTimer) != nullptr) ? new IntegerTimer(*(src.integerTimer)) : nullptr;
-  scriptData = new ScriptData(*(src.scriptData));
 }
 
 //! assignment operator

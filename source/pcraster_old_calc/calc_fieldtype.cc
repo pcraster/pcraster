@@ -20,17 +20,15 @@ calc::SyntaxStClash::SyntaxStClash(const std::string &oldSt, const std::string &
 {
 }
 
-calc::FieldType::FieldType(VS vs, ST st) : d_vs(vs), d_stType(st)
+calc::FieldType::FieldType(VS vs, ST st) : d_vs(vs), d_stType(st), d_spatial(d_stType == ST_SPATIAL)
 //! can there be switched between spatial and non-spatial
 {
   // also in case of ST_DERIVED start with non-spatial state
-  d_spatial = (d_stType == ST_SPATIAL);
 }
 
-calc::FieldType::FieldType(const calc::Operator &o) : d_vs(o.vs()), d_stType(o.st())
+calc::FieldType::FieldType(const calc::Operator &o) : d_vs(o.vs()), d_stType(o.st()), d_spatial(d_stType == ST_SPATIAL)
 {
   // also in case of ST_DERIVED start with non-spatial state
-  d_spatial = (d_stType == ST_SPATIAL);
 }
 
 //! Set a new vs
@@ -76,7 +74,7 @@ static void argStError(const calc::Operator &o, int nr, /* wrong argument nr    
   /* SYNTAX_OPER never have a strict spatial type
      and table-types are already catched by the vs check
      so the only conflict possible is nonspatial vs. spatial
-     in functions 
+     in functions
    */
   if (o.argSt(nr) == ST_SPATIAL) {
     legal = "spatial";

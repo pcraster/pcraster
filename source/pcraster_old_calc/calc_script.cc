@@ -35,11 +35,9 @@ static ProgressCallBack defaultProgressCallBack;
  */
 calc::Script::Script()
     : StatementBlock(generatedSymbol("script", "script"), nullptr),
-      d_progressCallBack(&defaultProgressCallBack)
+      d_ioFieldStrategy(IoFieldStrategy::createOnGlobalOption()), d_progressCallBack(&defaultProgressCallBack), d_symTab(new SymbolTable(nullptr))
 
 {
-  d_ioFieldStrategy = IoFieldStrategy::createOnGlobalOption();
-  d_symTab = new SymbolTable(nullptr);
   // Make sure the singleton instance is clean.
   ExternalSymbols::clear();
 }

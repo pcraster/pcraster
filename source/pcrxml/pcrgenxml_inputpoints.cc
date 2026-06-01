@@ -58,11 +58,8 @@ void pcrxml::InputPoints::clean()
 
 //! copy ctor
 pcrxml::InputPoints::InputPoints(const InputPoints &src)
-    : pcrxml::Element(src), lodingDistance(src.lodingDistance), maxPointDeviation(src.maxPointDeviation)
+    : pcrxml::Element(src), lodingDistance(src.lodingDistance), maxPointDeviation(src.maxPointDeviation), computedRiverAxis(((src.computedRiverAxis) != nullptr) ? new ComputedRiverAxis(*(src.computedRiverAxis)) : nullptr), riverAxisFile(((src.riverAxisFile) != nullptr) ? new RiverAxisFile(*(src.riverAxisFile)) : nullptr)
 {
-  computedRiverAxis =
-      ((src.computedRiverAxis) != nullptr) ? new ComputedRiverAxis(*(src.computedRiverAxis)) : nullptr;
-  riverAxisFile = ((src.riverAxisFile) != nullptr) ? new RiverAxisFile(*(src.riverAxisFile)) : nullptr;
 }
 
 //! assignment operator

@@ -97,11 +97,10 @@ bool calc::EsriMap::remove(const std::string &gridName)
 
 calc::EsriMap::EsriMap(const std::string &fileName, size_t nrRows, size_t nrCols, double cellSize,
                        const double box[4], VS vs)
-    : calc::GridMap(fileName, nrRows, nrCols, vs)
-{
-  d_chanId = calc::EsriGridIO::cellLayerCreate(fileName, READWRITE, ROWIO,
+    : calc::GridMap(fileName, nrRows, nrCols, vs), d_cellSize(cellSize), d_chanId(calc::EsriGridIO::cellLayerCreate(fileName, READWRITE, ROWIO,
                                                (biggestCellRepr(vs) == CR_REAL4) ? CELLFLOAT : CELLINT,
-                                               cellSize, box);
+                                               cellSize, box))
+{
   d_box[0] = box[0];
   d_box[1] = box[1];
   d_box[2] = box[2];
@@ -109,7 +108,6 @@ calc::EsriMap::EsriMap(const std::string &fileName, size_t nrRows, size_t nrCols
   d_vs = vs;
   d_nrRows = nrRows;
   d_nrCols = nrCols;
-  d_cellSize = cellSize;
 }
 
 calc::EsriMap::~EsriMap()

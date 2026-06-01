@@ -16,9 +16,8 @@
 // DEFINITION OF REPORTTABLE MEMBERS
 //------------------------------------------------------------------------------
 
-calc::ReportTable::ReportTable()
+calc::ReportTable::ReportTable() : d_reportDefault(new ReportDefault())
 {
-  d_reportDefault = new ReportDefault();
 }
 
 calc::ReportTable::~ReportTable()

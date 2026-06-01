@@ -49,9 +49,8 @@ void pcrxml::VisualisationGroup::clean()
 }
 
 //! copy ctor
-pcrxml::VisualisationGroup::VisualisationGroup(const VisualisationGroup &src) : pcrxml::Element(src)
+pcrxml::VisualisationGroup::VisualisationGroup(const VisualisationGroup &src) : pcrxml::Element(src), dataObject(new DataObject(*(src.dataObject)))
 {
-  dataObject = new DataObject(*(src.dataObject));
 }
 
 //! assignment operator

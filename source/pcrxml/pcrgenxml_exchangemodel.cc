@@ -66,10 +66,8 @@ void pcrxml::ExchangeModel::clean()
 
 //! copy ctor
 pcrxml::ExchangeModel::ExchangeModel(const ExchangeModel &src)
-    : pcrxml::Element(src), id(src.id), ioStrategy(src.ioStrategy), description(src.description)
+    : pcrxml::Element(src), id(src.id), ioStrategy(src.ioStrategy), description(src.description), areaMapDTD(((src.areaMapDTD) != nullptr) ? new AreaMapDTD(*(src.areaMapDTD)) : nullptr), integerTimer(((src.integerTimer) != nullptr) ? new IntegerTimer(*(src.integerTimer)) : nullptr)
 {
-  integerTimer = ((src.integerTimer) != nullptr) ? new IntegerTimer(*(src.integerTimer)) : nullptr;
-  areaMapDTD = ((src.areaMapDTD) != nullptr) ? new AreaMapDTD(*(src.areaMapDTD)) : nullptr;
   for (auto i : src.exchangeItem) {
     exchangeItem.push_back(new ExchangeItem(*i));
   }

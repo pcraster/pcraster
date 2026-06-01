@@ -57,9 +57,8 @@ void pcrxml::Lodings::clean()
 }
 
 //! copy ctor
-pcrxml::Lodings::Lodings(const Lodings &src) : pcrxml::Element(src)
+pcrxml::Lodings::Lodings(const Lodings &src) : pcrxml::Element(src), dataExtend(new DataExtend(*(src.dataExtend)))
 {
-  dataExtend = new DataExtend(*(src.dataExtend));
   for (auto i : src.lodingName) {
     lodingName.push_back(new LodingName(*i));
   }

@@ -222,16 +222,14 @@ public:
 */
 template<class T>
 inline SimpleRaster<T>::SimpleRaster(size_t nr, size_t nc)
-  : RasterDim(nr,nc)
+  : RasterDim(nr,nc), d_values(new T[nrCells()])
 {
-  d_values = new T[nrCells()];
 }
 
 template<class T>
 inline SimpleRaster<T>::SimpleRaster(const RasterDim& rd)
-  : RasterDim(rd)
+  : RasterDim(rd), d_values(new T[nrCells()])
 {
-  d_values = new T[nrCells()];
 }
 
 
@@ -246,9 +244,8 @@ inline SimpleRaster<T>::SimpleRaster(const RasterDim& rd)
 */
 template<class T>
 inline SimpleRaster<T>::SimpleRaster(size_t nr, size_t nc, const T& v)
-  : RasterDim(nr,nc)
+  : RasterDim(nr,nc), d_values(new T[nrCells()])
 {
-  d_values = new T[nrCells()];
   fill(v);
 }
 
@@ -261,9 +258,8 @@ inline SimpleRaster<T>::SimpleRaster(size_t nr, size_t nc, const T& v)
 */
 template<class T>
 inline SimpleRaster<T>::SimpleRaster(const RasterDim& rd, const T& v)
-  : RasterDim(rd)
+  : RasterDim(rd), d_values(new T[nrCells()])
 {
-  d_values = new T[nrCells()];
   fill(v);
 }
 
@@ -280,16 +276,14 @@ inline SimpleRaster<T>::SimpleRaster(const RasterDim& rd, const T& v)
 */
 template<class T>
 inline SimpleRaster<T>::SimpleRaster(size_t nr, size_t nc, T* values)
-  : RasterDim(nr,nc)
+  : RasterDim(nr,nc), d_values(values)
 {
-  d_values = values;
 }
 
 template<class T>
 inline SimpleRaster<T>::SimpleRaster(const RasterDim& rd, T* values)
-  : RasterDim(rd)
+  : RasterDim(rd), d_values(values)
 {
-  d_values = values;
 }
 
 template<class T>
@@ -313,33 +307,29 @@ inline void SimpleRaster<T>::memCopy(SimpleRaster<T> const& r)
 
 template<>
 inline SimpleRaster<UINT1>::SimpleRaster(const SimpleRaster<UINT1>& r)
-  : RasterDim(r)
+  : RasterDim(r), d_values(new UINT1[nrCells()])
 {
-  d_values = new UINT1[nrCells()];
   memCopy(r);
 }
 
 template<>
 inline SimpleRaster<INT4>::SimpleRaster(const SimpleRaster<INT4>& r)
-  : RasterDim(r)
+  : RasterDim(r), d_values(new INT4[nrCells()])
 {
-  d_values = new INT4[nrCells()];
   memCopy(r);
 }
 
 template<>
 inline SimpleRaster<REAL4>::SimpleRaster(const SimpleRaster<REAL4>& r)
-  : RasterDim(r)
+  : RasterDim(r), d_values(new REAL4[nrCells()])
 {
-  d_values = new REAL4[nrCells()];
   memCopy(r);
 }
 
 template<class T>
 inline SimpleRaster<T>::SimpleRaster(const SimpleRaster<T>& r)
-  : RasterDim(r)
+  : RasterDim(r), d_values(new T[nrCells()])
 {
-  d_values = new T[nrCells()];
   copy(r);
 }
 

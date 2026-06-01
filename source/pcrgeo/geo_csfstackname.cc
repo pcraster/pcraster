@@ -232,12 +232,9 @@ geo::CSFStackName::CSFStackName(const com::PathName &pn, size_t f, size_t l, boo
 */
 geo::CSFStackName::CSFStackName(const geo::CSFStackName &n)
 
-    : d_data(nullptr)
+    : d_data(new CSFStackNamePrivate(*(n.d_data))), d_scanned(n.d_scanned), d_steps(n.d_steps)
 
 {
-  d_data = new CSFStackNamePrivate(*(n.d_data));
-  d_scanned = n.d_scanned;
-  d_steps = n.d_steps;
 }
 
 /*!

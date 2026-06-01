@@ -347,11 +347,8 @@ OgrFeatureDriver::OgrFeatureDriver(
 
   : FeatureDriver(Format(name, std::string("OGR feature driver for ") + name,
          FEATURE, Format::File, Format::Attribute)),
-    _driver(nullptr)
-
+    _driver(driverByName(name))
 {
-  _driver = driverByName(name);
-
   if(_driver == nullptr) {
     throw Exception(std::format(
          "OGR feature driver for %1%: Not available",
@@ -372,7 +369,6 @@ OgrFeatureDriver::OgrFeatureDriver(
          std::string("OGR feature driver for ") + driver->GetDescription(),
          FEATURE, Format::File, Format::Attribute)),
     _driver(driver)
-
 {
   assert(std::find(detail::drivers.begin(), detail::drivers.end(), driver) !=
          detail::drivers.end());

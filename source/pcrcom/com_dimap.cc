@@ -22,8 +22,6 @@ const double com::DiMap::logMax = 1.0e150;
   The double and integer intervals are both set to [0,1].
 */
 com::DiMap::DiMap()
-
-
 {
 }
 
@@ -36,9 +34,8 @@ com::DiMap::DiMap()
 
   Constructs a com::DiMap instance with initial integer and double intervals.
 */
-com::DiMap::DiMap(int i1, int i2, double d1, double d2, bool logarithmic)
+com::DiMap::DiMap(int i1, int i2, double d1, double d2, bool logarithmic) : d_log(logarithmic)
 {
-  d_log = logarithmic;
   setIntRange(i1, i2);
   setDblRange(d1, d2);
 }

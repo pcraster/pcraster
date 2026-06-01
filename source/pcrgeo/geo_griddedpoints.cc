@@ -87,11 +87,10 @@ GriddedPoints<Point>::GriddedPoints(const RasterSpace &space, const MVRaster &mi
 template <class Point>
 GriddedPoints<Point>::GriddedPoints(const GriddedPoints &rhs)
 
-    : d_space(rhs.d_space), d_points(static_cast<RasterDim const &>(rhs.d_points)),
+    : d_space(rhs.d_space), d_pointsrhs.d_points,
       d_missingValues(rhs.d_missingValues)
 
 {
-  d_points = rhs.d_points;
 }
 
 //! dtor

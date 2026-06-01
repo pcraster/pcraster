@@ -163,9 +163,8 @@ class FileMapPrivate
   }
 
 public:
-  FileMapPrivate(const char *fileName, bool update, size_t offset, size_t len) : d_fileName(fileName)
+  FileMapPrivate(const char *fileName, bool update, size_t offset, size_t len) : d_fileName(fileName), d_fd(::open(fileName, (update ? O_RDWR : O_RDONLY) | O_NONBLOCK, 0))
   {
-    d_fd = ::open(fileName, (update ? O_RDWR : O_RDONLY) | O_NONBLOCK, 0);
     if (d_fd == -1) {
       throwError("open failed");
     }

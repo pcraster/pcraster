@@ -206,10 +206,9 @@ inline Array<T>::Array(size_t size)
   All elements in the array are set to \a value.
 */
 template<typename T>
-inline Array<T>::Array(size_t size, T const& value)
+inline Array<T>::Array(size_t size, T const& value) : d_size(size)
 {
   reserve(size);
-  d_size = size;
   std::fill(begin(), end(), value);
 
   assert(d_capacity > 0);
@@ -223,11 +222,8 @@ inline Array<T>::Array(size_t size, T const& value)
              anymore.
 */
 template<typename T>
-inline Array<T>::Array(size_t size, T* values)
+inline Array<T>::Array(size_t size, T* values) : d_capacity(size), d_elements(values), d_size(size)
 {
-  d_capacity = size;
-  d_size = size;
-  d_elements = values;
 }
 
 //! Copy constructor.
@@ -235,12 +231,11 @@ inline Array<T>::Array(size_t size, T* values)
   \param     rhs Array to copy from.
 */
 template<typename T>
-inline Array<T>::Array(Array const& rhs)
+inline Array<T>::Array(Array const& rhs) : d_size(rhs.d_size)
 {
   reserve(rhs.d_capacity);
   std::memcpy(static_cast<void*>(d_elements),
          static_cast<void const*>(rhs.d_elements), rhs.d_size * sizeof(T));
-  d_size = rhs.d_size;
 
   assert(d_capacity > 0);
 }

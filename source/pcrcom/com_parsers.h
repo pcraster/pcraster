@@ -61,8 +61,7 @@ struct CommandLineArgumentGrammar: public boost::spirit::grammar<CommandLineArgu
 
     boost::spirit::rule<ScannerT> rule;
 
-    definition(CommandLineArgumentGrammar const& ) {
-      rule = '$' >> boost::spirit::digit_p;
+    definition(CommandLineArgumentGrammar const& ) : rule('$' >> boost::spirit::digit_p) {
     }
 
     boost::spirit::rule<ScannerT> const& start() const {
@@ -112,8 +111,7 @@ struct PureAlphabeticNameGrammar:
 
     boost::spirit::rule<ScannerT> rule;
 
-    definition(PureAlphabeticNameGrammar const& ) {
-      rule = +(boost::spirit::alpha_p);
+    definition(PureAlphabeticNameGrammar const& ) : rule(+(boost::spirit::alpha_p)) {
     }
 
     boost::spirit::rule<ScannerT> const& start() const {
@@ -128,8 +126,7 @@ struct NumberGrammar: public boost::spirit::grammar<NumberGrammar>
 
     boost::spirit::rule<ScannerT> rule;
 
-    definition(NumberGrammar const& ) {
-      rule = boost::spirit::real_p;
+    definition(NumberGrammar const& ) : rule(boost::spirit::real_p) {
     }
 
     boost::spirit::rule<ScannerT> const& start() const {

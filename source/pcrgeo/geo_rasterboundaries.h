@@ -223,9 +223,8 @@ inline RasterBoundaries<ValueType>::RasterBoundaries(
 template<typename ValueType>
 inline RasterBoundaries<ValueType>::RasterBoundaries(
          const RasterBoundaries& rhs)
-  : d_nrRows(rhs.nrRows()), d_nrCols(rhs.nrCols()), d_nrValues(rhs.nrValues())
+  : d_nrRows(rhs.nrRows()), d_nrCols(rhs.nrCols()), d_nrValues(rhs.nrValues()), d_values(new ValueType[nrValues()])
 {
-  d_values = new ValueType[nrValues()];
   copyValues(rhs);
 }
 

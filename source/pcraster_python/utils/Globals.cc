@@ -31,12 +31,10 @@ Globals globals;
 
 Globals::Globals()
 
-  : dal::Client("", false, false)
-
+  : dal::Client("", false, false), _rasterDal(new dal::RasterDal(true))
 
 {
   init();
-  _rasterDal = new dal::RasterDal(true);
 }
 
 

@@ -96,7 +96,39 @@ if(NOT PCRASTER_LIB_INSTALL_DIR)
 endif()
 
 
-# Get required dependencies first...
+if(PCRASTER_BUILD_MULTICORE)
+    # Bypass devbase... gh386
+    if("${CMAKE_OSX_ARCHITECTURES}" STREQUAL "arm64")
+        unset(CMAKE_OSX_ARCHITECTURES CACHE)
+    endif()
+    CPMAddPackage(
+        GITHUB_REPOSITORY geoneric/fern
+        GIT_TAG 70c9a14cc6751809521e48e827933f00e2e13a47
+        OPTIONS "FERN_BUILD_ALGORITHM ON" "FERN_BUILD_TEST ${PCRASTER_BUILD_TEST}" "DEVBASE_BUILD_TEST ${PCRASTER_BUILD_TEST}" "CMAKE_SKIP_INSTALL_RULES ON"
+    )
+
+    # Just recreate an empty file to install nothing from Fern when installing PCRaster
+    file(TOUCH ${CMAKE_CURRENT_BINARY_DIR}/_deps/fern-build/cmake_install.cmake)
+
+    # Make sure "patches" are only done once
+    # otherwise changing any CMakeLists.txt triggers continuous rebuild of most files
+    if(NOT EXISTS ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/core/unary_aggregate_operation.h.sentinel)
+        # Temporary fix for vs2022
+        file(READ ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/core/unary_aggregate_operation.h FERN_HEADER)
+        string(REPLACE "defined(_MSC_VER)" "_MSC_VER < 1930" FERN_HEADER "${FERN_HEADER}")
+        file(WRITE ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/core/unary_aggregate_operation.h "${FERN_HEADER}")
+        file(TOUCH ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/core/unary_aggregate_operation.h.sentinel)
+    endif()
+
+    if(NOT EXISTS ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/convolution/neighborhood/square.h.sentinel)
+        # Temporary fix for vs2026 18
+        file(READ ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/convolution/neighborhood/square.h FERN_HEADER)
+        string(REPLACE "defined(_MSC_VER)" "_MSC_VER < 1950" FERN_HEADER "${FERN_HEADER}")
+        file(WRITE ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/convolution/neighborhood/square.h "${FERN_HEADER}")
+        file(TOUCH ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/convolution/neighborhood/square.h.sentinel)
+    endif()
+endif()
+
 CPMAddPackage("gh:pcraster/rasterformat#d461046182095d4587092bc8028e3508ff5cef36")
 
 add_library(Clipp::Clipp INTERFACE IMPORTED)
@@ -110,7 +142,6 @@ set_target_properties(Xsd::Xsd
     PROPERTIES
         INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_SOURCE_DIR}/external/include/"
 )
-
 
 if(PCRASTER_BUILD_TEST)
     enable_testing()
@@ -127,32 +158,8 @@ if(${Boost_VERSION_STRING} VERSION_LESS_EQUAL "1.81.0")
     )
 endif()
 
-
-if(PCRASTER_BUILD_MULTICORE)
-    # Bypass devbase... gh386
-    if("${CMAKE_OSX_ARCHITECTURES}" STREQUAL "arm64")
-        unset(CMAKE_OSX_ARCHITECTURES CACHE)
-    endif()
-    CPMAddPackage(
-        GITHUB_REPOSITORY geoneric/fern
-        GIT_TAG 70c9a14cc6751809521e48e827933f00e2e13a47
-        OPTIONS "FERN_BUILD_ALGORITHM ON" "FERN_BUILD_TEST ${PCRASTER_BUILD_TEST}" "DEVBASE_BUILD_TEST ${PCRASTER_BUILD_TEST}" "CMAKE_SKIP_INSTALL_RULES ON"
-    )
-
-    # Just recreate an empty file to install nothing from Fern when installing PCRaster
-    file(TOUCH ${CMAKE_CURRENT_BINARY_DIR}/_deps/fern-build/cmake_install.cmake)
-
-    # Make sure patch is only done once
-    # otherwise changing any CMakeLists.txt triggers continuous rebuild of most files
-    if(NOT EXISTS ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/core/unary_aggregate_operation.h.sentinel)
-        # Temporary fix for vs2022
-        file(READ ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/core/unary_aggregate_operation.h FERN_HEADER)
-        string(REPLACE "MSC_VER" "NOMSC_VER" FERN_HEADER "${FERN_HEADER}")
-        file(WRITE ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/core/unary_aggregate_operation.h "${FERN_HEADER}")
-        file(TOUCH ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/core/unary_aggregate_operation.h.sentinel)
-    endif()
-endif()
-
+message(STATUS "Found Boost: ")
+message(STATUS "  version:   " ${Boost_VERSION_STRING})
 
 list(APPEND PCR_QT_COMPONENTS Core Sql Xml)
 
@@ -179,18 +186,23 @@ message(STATUS "  version:   " ${Qt5_VERSION}${Qt6_VERSION})
 
 find_package(XercesC REQUIRED)
 
+message(STATUS "Found XercesC: ")
+message(STATUS "  version:   " ${XercesC_VERSION})
 
 find_package(GDAL REQUIRED CONFIG)
 
-find_program(GDAL_TRANSLATE gdal_translate REQUIRED)
-
 message(STATUS "Found GDAL: ")
 message(STATUS "  version:        " ${GDAL_VERSION})
-message(STATUS "  gdal_translate: " ${GDAL_TRANSLATE})
 
 cmake_path(GET GDAL_TRANSLATE PARENT_PATH GDAL_BIN)
 
-if(EXISTS $ENV{GDAL_DATA})
+get_target_property(TMPLIBGDAL_INCLUDES GDAL::GDAL INTERFACE_INCLUDE_DIRECTORIES)
+
+if(EXISTS "${TMPLIBGDAL_INCLUDES}/../share/gdal")
+    set(GDAL_DATA "${TMPLIBGDAL_INCLUDES}/../share/gdal")
+elseif(EXISTS "${TMPLIBGDAL_INCLUDES}/../../share/gdal")
+    set(GDAL_DATA "${TMPLIBGDAL_INCLUDES}/../../share/gdal")
+elseif(EXISTS $ENV{GDAL_DATA})
     set(GDAL_DATA $ENV{GDAL_DATA})
 elseif(EXISTS "${GDAL_INCLUDE_DIRS}/../../share/gdal")
     set(GDAL_DATA "${GDAL_INCLUDE_DIRS}/../../share/gdal")
@@ -202,6 +214,7 @@ else()
     message(FATAL_ERROR "GDAL data dir not found")
 endif()
 
+unset(TMPLIBGDAL_INCLUDES)
 
 find_package(Python 3.8
   REQUIRED COMPONENTS Interpreter Development NumPy
@@ -250,6 +263,13 @@ if(UNIX)
     message(STATUS "  includes : " ${CURSES_INCLUDE_DIRS})
 endif()
 
+message(STATUS "Found: ")
+find_program(GDAL_TRANSLATE gdal_translate REQUIRED)
+message(STATUS "  gdal_translate: " ${GDAL_TRANSLATE})
+
+find_program(MAKE_EXECUTABLE NAMES make gmake REQUIRED)
+message(STATUS "  make:           " ${MAKE_EXECUTABLE})
+
 if(PCRASTER_BUILD_TEST)
 
     # sqlite executable is used by dal's testrun.prolog
@@ -263,6 +283,8 @@ if(PCRASTER_BUILD_TEST)
 
     if(NOT SQLITE3_EXECUTABLE)
         message(FATAL_ERROR "sqlite3 executable not found")
+    else()
+        message(STATUS "  sqlite3:        " ${SQLITE3_EXECUTABLE})
     endif()
 endif()
 
@@ -271,6 +293,8 @@ if(PCRASTER_BUILD_DOCUMENTATION)
     include(SphinxDoc)
     if(NOT SPHINX_BUILD_EXECUTABLE OR NOT SPHINX_APIDOC_EXECUTABLE)
         message(FATAL_ERROR "sphinx-build not found")
+    else()
+        message(STATUS "  sphinx-build:   " ${MAKE_EXECUTABLE})
     endif()
 
     set(SPHINX_HTML_THEME "pyramid")

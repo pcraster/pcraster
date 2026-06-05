@@ -101,7 +101,7 @@ jobs:
         steps:
 
         - name: Checkout PCRaster
-          uses: actions/checkout@v5
+          uses: actions/checkout@v6
 
         - name: Configure system
           run: |

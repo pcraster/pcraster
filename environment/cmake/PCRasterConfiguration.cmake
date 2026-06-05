@@ -115,7 +115,7 @@ if(PCRASTER_BUILD_MULTICORE)
     if(NOT EXISTS ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/core/unary_aggregate_operation.h.sentinel)
         # Temporary fix for vs2022
         file(READ ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/core/unary_aggregate_operation.h FERN_HEADER)
-        string(REPLACE "defined(_MSC_VER)" "_MSC_VER < 1930" FERN_HEADER "${FERN_HEADER}")
+        string(REPLACE "defined(_MSC_VER)" "defined(_MSC_VER) && _MSC_VER < 1930" FERN_HEADER "${FERN_HEADER}")
         file(WRITE ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/core/unary_aggregate_operation.h "${FERN_HEADER}")
         file(TOUCH ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/core/unary_aggregate_operation.h.sentinel)
     endif()
@@ -123,7 +123,7 @@ if(PCRASTER_BUILD_MULTICORE)
     if(NOT EXISTS ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/convolution/neighborhood/square.h.sentinel)
         # Temporary fix for vs2026 18
         file(READ ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/convolution/neighborhood/square.h FERN_HEADER)
-        string(REPLACE "defined(_MSC_VER)" "_MSC_VER < 1950" FERN_HEADER "${FERN_HEADER}")
+        string(REPLACE "defined(_MSC_VER)" "defined(_MSC_VER) && _MSC_VER < 1950" FERN_HEADER "${FERN_HEADER}")
         file(WRITE ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/convolution/neighborhood/square.h "${FERN_HEADER}")
         file(TOUCH ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/convolution/neighborhood/square.h.sentinel)
     endif()
@@ -132,7 +132,8 @@ endif()
 CPMAddPackage("gh:pcraster/rasterformat#d461046182095d4587092bc8028e3508ff5cef36")
 
 # Make sure that Clang and libc++ also have default visibility for some enums
-if(NOT WIN32)
+# also applies for Linux and libc++ but let's ignore that combo one for now...
+if(APPLE)
     # Make sure "patches" are only done once
     # otherwise changing any CMakeLists.txt triggers continuous rebuild of most files
     if(NOT EXISTS ${CMAKE_BINARY_DIR}/_deps/rasterformat-src/sources/pcraster_raster_format/csftypes.h.sentinel)

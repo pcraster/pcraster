@@ -33,13 +33,16 @@ jobs:
         - name: Checkout PCRaster
           uses: actions/checkout@v6
 
-        - uses: mamba-org/setup-micromamba@v3
+        - uses: conda-incubator/setup-miniconda@v4
           with:
-            environment-name: pcrbuild
-            create-args: >-
-              pybind11 numpy cmake ninja libboost-devel xerces-c libgdal gdal make qt6-main qt6-charts
-            init-shell: >-
-              powershell
+              miniforge-version: latest
+              auto-update-conda: false
+              conda-remove-defaults: true
+              python-version: 3.14
+
+        - shell: cmd /C call {0}
+          run: |
+              conda install pybind11 numpy cmake ninja libboost-devel xerces-c libgdal gdal make qt6-main qt6-charts
 
         - name: Configure PCRaster
           shell: cmd /C call {0}

@@ -131,6 +131,20 @@ endif()
 
 CPMAddPackage("gh:pcraster/rasterformat#d461046182095d4587092bc8028e3508ff5cef36")
 
+# Make sure that Clang and libc++ also have default visibility for some enums
+if(NOT WIN32)
+    # Make sure "patches" are only done once
+    # otherwise changing any CMakeLists.txt triggers continuous rebuild of most files
+    if(NOT EXISTS ${CMAKE_BINARY_DIR}/_deps/rasterformat-src/sources/pcraster_raster_format/csftypes.h.sentinel)
+        file(READ ${CMAKE_BINARY_DIR}/_deps/rasterformat-src/sources/pcraster_raster_format/csftypes.h CSF_HEADER)
+        string(REPLACE "enum CSF_VS" "enum __attribute((visibility(\"default\"))) CSF_VS" CSF_HEADER "${CSF_HEADER}")
+        string(REPLACE "enum CSF_PT" "enum __attribute((visibility(\"default\"))) CSF_PT" CSF_HEADER "${CSF_HEADER}")
+        file(WRITE ${CMAKE_BINARY_DIR}/_deps/rasterformat-src/sources/pcraster_raster_format/csftypes.h "${CSF_HEADER}")
+        file(TOUCH ${CMAKE_BINARY_DIR}/_deps/rasterformat-src/sources/pcraster_raster_format/csftypes.h.sentinel)
+    endif()
+endif()
+
+
 add_library(Clipp::Clipp INTERFACE IMPORTED)
 set_target_properties(Clipp::Clipp
     PROPERTIES
@@ -190,6 +204,7 @@ message(STATUS "Found XercesC: ")
 message(STATUS "  version:   " ${XercesC_VERSION})
 
 find_package(GDAL REQUIRED CONFIG)
+find_program(GDAL_TRANSLATE gdal_translate REQUIRED)
 
 message(STATUS "Found GDAL: ")
 message(STATUS "  version:        " ${GDAL_VERSION})
@@ -264,7 +279,6 @@ if(UNIX)
 endif()
 
 message(STATUS "Found: ")
-find_program(GDAL_TRANSLATE gdal_translate REQUIRED)
 message(STATUS "  gdal_translate: " ${GDAL_TRANSLATE})
 
 find_program(MAKE_EXECUTABLE NAMES make gmake REQUIRED)

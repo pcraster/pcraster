@@ -3,6 +3,7 @@
 
 #include "stddefx.h"
 
+#include <stdexcept>
 
 
 namespace calc {
@@ -16,7 +17,7 @@ namespace calc {
 
 
 //! exception class to throw a premature end of running the model.
-class QuitPremature
+class QuitPremature : public std::runtime_error
 {
 
 private:

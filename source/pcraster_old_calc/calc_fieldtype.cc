@@ -11,12 +11,12 @@ calc::SyntaxArgumentError::SyntaxArgumentError(const std::string &s) : std::runt
 }
 
 calc::SyntaxVsClash::SyntaxVsClash(const std::string &oldVs, const std::string &newVs)
-    : d_oldVs(oldVs), d_newVs(newVs)
+    : std::runtime_error("SyntaxVsClash exception: " + oldVs + " " + newVs), d_oldVs(oldVs), d_newVs(newVs)
 {
 }
 
 calc::SyntaxStClash::SyntaxStClash(const std::string &oldSt, const std::string &newSt)
-    : d_oldSt(oldSt), d_newSt(newSt)
+    : std::runtime_error("SyntaxStClash exception: " + oldSt + " " + newSt), d_oldSt(oldSt), d_newSt(newSt)
 {
 }
 

@@ -12,6 +12,7 @@
 #include <functional>
 #include <iostream>
 #include <map>
+#include <stdexcept>
 
 /*!
   \file
@@ -28,9 +29,10 @@ std::unique_ptr<MessagesTestDB> MessagesTestDB::d_instance;
 
 namespace detail
 {
-struct AddError {
+struct AddError : public std::runtime_error {
   std::string reason;
   std::string text;
+  AddError() : std::runtime_error("AddError exception") {};
 };
 
 class DBCol

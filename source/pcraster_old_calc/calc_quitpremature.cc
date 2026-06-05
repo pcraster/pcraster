@@ -40,7 +40,7 @@ public:
 //------------------------------------------------------------------------------
 
 //! ctor
-calc::QuitPremature::QuitPremature()
+calc::QuitPremature::QuitPremature() : std::runtime_error("QuitPremature exception")
 {
 }
 

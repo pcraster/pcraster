@@ -66,14 +66,14 @@ class SyntaxArgumentError : public std::runtime_error {
   SyntaxArgumentError(const std::string& s);
 };
 
-class SyntaxVsClash {
+class SyntaxVsClash : public std::runtime_error {
   public:
   std::string d_oldVs,d_newVs;
   SyntaxVsClash(
     const std::string& oldVs, const std::string& newVs);
 };
 
-class SyntaxStClash {
+class SyntaxStClash : public std::runtime_error {
   public: 
     std::string d_oldSt,d_newSt;
     SyntaxStClash(const std::string& oldSt, const std::string& newSt);

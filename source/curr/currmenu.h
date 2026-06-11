@@ -19,7 +19,7 @@ typedef struct CURR_SELECT_BOX {
     int currPosition;     /* position of cursor in items */
     int firstItemVis;     /* first item visible */
     const int *otherKeys; /* other legal keys */
-    int nrKeys;           /* number of keys */
+    size_t nrKeys;        /* number of keys */
     int posX;             /* start X position of window */
     int posY;             /* start Y position of window */
     WINDOW *window;       /* window */

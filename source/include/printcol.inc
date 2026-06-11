@@ -89,7 +89,7 @@ static int PutCell(FILE *outputFile, /* write-only output file */
   return fprintf(outputFile, "%s", buf) < 0;
 }
 
-static void PrintError(int res, int r, int c, const REAL8 *val)
+static void PrintError(int res, size_t r, size_t c, const REAL8 *val)
 {
   if (res == 2) {
     PRECOND(!IS_MV_REAL8(val));

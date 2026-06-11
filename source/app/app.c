@@ -35,12 +35,12 @@ static bool firstTimeCalled = true; /* for prefix PROGRESS */
 /******************/
 
 /* Write busy with given row number to stderr and returns */
-void AppRowProgress(int r) /* number of current row */
+void AppRowProgress(size_t r) /* number of current row */
 {
   if (appOutput != APP_PROGRESS) {
     return;
   }
-  (void)fprintf(stderr, "\rBusy with row: %d", r);
+  (void)fprintf(stderr, "\rBusy with row: %zu", r);
   FLUSH(stderr);
   FLUSH(stdout);
 }

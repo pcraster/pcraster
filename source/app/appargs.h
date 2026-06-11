@@ -114,7 +114,7 @@ extern void AppVerbose(
     const char *fmt,
     ...);
 
-extern void AppRowProgress(int r);
+extern void AppRowProgress(size_t r);
 
 extern void AppEndRowProgress(void);
 

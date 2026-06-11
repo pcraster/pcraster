@@ -302,7 +302,7 @@ error:
 } /* ParseEnv */
 
 static int CheckSetFlag(FLAG *currFlag, /* write-only */
-                        int i,          /* flag index */
+                        size_t i,       /* flag index */
                         const char *a)  /* argument of index */
 {
   PRECOND(a != NULL);
@@ -338,7 +338,7 @@ static int ParseLocalFlags(int *locArgPtr, /* read-write local arg ptr */
 
   for (i = 1; f != NULL && f[i] != '\0'; i++) {
     char *flagPtr = strchr(localFlags, f[i]);
-    int flagIndex = 0;
+    long flagIndex = 0;
     if (flagPtr == NULL) {
       return RetError(1, "Unknown option '%c'", f[i]);
     }

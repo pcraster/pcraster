@@ -41,7 +41,7 @@ typedef LOOK_UP_KEY **(*SEARCH)(const void *key, const void *base, size_t nmemb,
 /* Get number of keys in look up table
  * Returns number of keys in look up table
  */
-int NrKeysLookupTable(const struct LOOK_UP_TABLE *table) /* table */
+size_t NrKeysLookupTable(const struct LOOK_UP_TABLE *table) /* table */
 {
   PRECOND(table != NULL);
   return table->nrKeys;
@@ -149,11 +149,11 @@ static int TestGtLt(const double *v, const LOOK_UP_KEY *k)
   return 0;
 }
 
-static int cmpNrKeys;
+static long cmpNrKeys;
 
 static int CmpKey(const double *keyValues, const LOOK_UP_KEY **keys)
 {
-  int i = 0;
+  long i = 0;
   int r = 0;
   const QSORT_CMP Cmp[] = {(QSORT_CMP)TestOne,   (QSORT_CMP)TestInfInf, (QSORT_CMP)TestGeInf,
                            (QSORT_CMP)TestGtInf, (QSORT_CMP)TestInfLe,  (QSORT_CMP)TestGeLe,

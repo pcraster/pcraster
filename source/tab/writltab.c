@@ -84,11 +84,11 @@ static void PrintKey(FILE *f, const SPEC *s, const LOOK_UP_KEY *k, bool lastCol)
   }
 
   if (k->t == TEST_ONE) {
-    int len = s->lFmt + s->hFmt;
+    size_t len = s->lFmt + s->hFmt;
     if (s->allOne) {
-      fprintf(f, "%-*s", len, lBuf);
+      fprintf(f, "%-*s", (int)len, lBuf);
     } else {
-      fprintf(f, " %-*s", len + 2, lBuf);
+      fprintf(f, " %-*s", (int)len + 2, lBuf);
     } /* minus one for preceding space
                                                  * plus 3 for [,]
                                                  */

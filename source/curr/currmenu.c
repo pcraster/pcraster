@@ -177,7 +177,7 @@ static CURR_SELECT_BOX *CurrInitSelectBox(int beginY,         /* start y-coordin
                                           const char **items, /* items to select */
                                           int nrItems,        /* number of items */
                                           const int *otherKeys, /* other legal keys */
-                                          int nrKeys,           /* number of other legal keys */
+                                          size_t nrKeys,        /* number of other legal keys */
                                           const char *otherMsg)
 {
   CURR_SELECT_BOX *b = NULL;

@@ -104,7 +104,7 @@ void *CacheGetRow(MAP **in,      /* read-only list of input maps */
 {
   size_t r = 0;
   int lowestCount = 0;
-  int lru = -1;
+  long  lru = -1;
   size_t rowNr = (size_t)floor(rowInd);
 
   counter++;

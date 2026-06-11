@@ -89,7 +89,7 @@ extern int WriteLookupTable(const char *fileName, const LOOK_UP_TABLE *t);
 extern void FreeLookupTable(LOOK_UP_TABLE *t);
 extern int AllocLookupTable(LOOK_UP_TABLE *t);
 /* lookup.c */
-extern int NrKeysLookupTable(const struct LOOK_UP_TABLE *table);
+extern size_t NrKeysLookupTable(const struct LOOK_UP_TABLE *table);
 extern LOOK_UP_KEY *FindLookupKey(const LOOK_UP_TABLE *t, const double *keyValues);
 extern int Lookup(double *result, const LOOK_UP_TABLE *table, const double *keyValues);
 extern size_t FindCrossKey(

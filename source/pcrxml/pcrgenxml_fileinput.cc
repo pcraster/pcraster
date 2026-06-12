@@ -77,7 +77,7 @@ void pcrxml::FileInput::clean()
 
 //! copy ctor
 pcrxml::FileInput::FileInput(const FileInput &src)
-    : pcrxml::Element(src), canChooseOtherFiles(src.canChooseOtherFiles), map(((src.map) != nullptr) ? new Map(*(src.map)) : nullptr), stack(((src.stack) != nullptr) ? new Stack(*(src.stack)) : nullptr), table(((src.table) != nullptr) ? new Table(*(src.table)) : nullptr), timeSeries(((src.timeSeries) != nullptr) ? new TimeSeries(*(src.timeSeries)) : nullptr)
+    : pcrxml::Element(src), canChooseOtherFiles(src.canChooseOtherFiles), map(((src.map) != nullptr) ? new Map(*(src.map)) : nullptr), stack(((src.stack) != nullptr) ? new Stack(*(src.stack)) : nullptr), timeSeries(((src.timeSeries) != nullptr) ? new TimeSeries(*(src.timeSeries)) : nullptr), table(((src.table) != nullptr) ? new Table(*(src.table)) : nullptr)
 {
   for (auto i : src.data) {
     data.push_back(new Data(*i));

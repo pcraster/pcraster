@@ -67,7 +67,7 @@ void pcrxml::ParameterItem::clean()
 }
 
 //! copy ctor
-pcrxml::ParameterItem::ParameterItem(const ParameterItem &src) : pcrxml::Element(src), label(src.label), fileInput(((src.fileInput) != nullptr) ? new FileInput(*(src.fileInput)) : nullptr), numericInput(((src.numericInput) != nullptr) ? new NumericInput(*(src.numericInput)) : nullptr), scriptLink(new ScriptLink(*(src.scriptLink))), showData(((src.showData) != nullptr) ? new ShowData(*(src.showData)) : nullptr)
+pcrxml::ParameterItem::ParameterItem(const ParameterItem &src) : pcrxml::Element(src), label(src.label), scriptLink(new ScriptLink(*(src.scriptLink))), numericInput(((src.numericInput) != nullptr) ? new NumericInput(*(src.numericInput)) : nullptr), fileInput(((src.fileInput) != nullptr) ? new FileInput(*(src.fileInput)) : nullptr), showData(((src.showData) != nullptr) ? new ShowData(*(src.showData)) : nullptr)
 {
 }
 

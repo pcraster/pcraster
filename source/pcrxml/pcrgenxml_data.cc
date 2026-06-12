@@ -78,7 +78,7 @@ void pcrxml::Data::clean()
 //! copy ctor
 pcrxml::Data::Data(const Data &src)
     : pcrxml::Element(src), name(src.name), description(src.description),
-      externalFileName(src.externalFileName), ioType(src.ioType), map(((src.map) != nullptr) ? new Map(*(src.map)) : nullptr), nonSpatial(((src.nonSpatial) != nullptr) ? new NonSpatial(*(src.nonSpatial)) : nullptr), stack(((src.stack) != nullptr) ? new Stack(*(src.stack)) : nullptr), table(((src.table) != nullptr) ? new Table(*(src.table)) : nullptr), timeSeries(((src.timeSeries) != nullptr) ? new TimeSeries(*(src.timeSeries)) : nullptr)
+      externalFileName(src.externalFileName), ioType(src.ioType), map(((src.map) != nullptr) ? new Map(*(src.map)) : nullptr), nonSpatial(((src.nonSpatial) != nullptr) ? new NonSpatial(*(src.nonSpatial)) : nullptr), stack(((src.stack) != nullptr) ? new Stack(*(src.stack)) : nullptr), timeSeries(((src.timeSeries) != nullptr) ? new TimeSeries(*(src.timeSeries)) : nullptr), table(((src.table) != nullptr) ? new Table(*(src.table)) : nullptr)
 {
 }
 

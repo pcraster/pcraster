@@ -46,7 +46,7 @@ PCRModflow::~PCRModflow()
  * spatial dimensions passed by clone()
  */
 
-PCRModflow::PCRModflow(const geo::RasterSpace &raster) : dal::Client("", false), d_cellsize(raster.cellSize()), d_north(raster.north()), d_nrOfCells(d_nrOfRows * d_nrOfColumns), d_nrOfColumns(raster.nrCols()), d_nrOfRows(raster.nrRows()), d_west(raster.west()), d_widthColumns(raster.cellSize()), d_widthRows(raster.cellSize())
+PCRModflow::PCRModflow(const geo::RasterSpace &raster) : dal::Client("", false), d_nrOfRows(raster.nrRows()), d_nrOfColumns(raster.nrCols()), d_nrOfCells(d_nrOfRows * d_nrOfColumns), d_widthRows(raster.cellSize()), d_widthColumns(raster.cellSize()), d_cellsize(raster.cellSize()), d_west(raster.west()), d_north(raster.north())
 {
   initDataStructures();
   //
@@ -65,7 +65,7 @@ PCRModflow::PCRModflow(const geo::RasterSpace &raster) : dal::Client("", false),
  * arguments are spatial properties retrieved from the linkIn
  */
 PCRModflow::PCRModflow(size_t nrRows, size_t nrCols, double cellsize, double west, double north)
-    : dal::Client("", false), d_cellsize(cellsize), d_north(north), d_nrOfCells(d_nrOfRows * d_nrOfColumns), d_nrOfColumns(nrCols), d_nrOfRows(nrRows), d_west(west), d_widthColumns(cellsize), d_widthRows(cellsize)
+    : dal::Client("", false), d_nrOfRows(nrRows), d_nrOfColumns(nrCols), d_nrOfCells(d_nrOfRows * d_nrOfColumns), d_widthRows(cellsize), d_widthColumns(cellsize), d_cellsize(cellsize), d_west(west), d_north(north)
 {
   initDataStructures();
   //

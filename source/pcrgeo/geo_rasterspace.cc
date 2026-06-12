@@ -32,9 +32,8 @@
  * assert(rs.valid());
  * \endcode
  */
-geo::RasterSpace::RasterSpace() : RasterDim(), d_angle(0), d_cellSize(1), d_left(0), d_projection(YIncrB2T), d_top(0)
+geo::RasterSpace::RasterSpace() : RasterDim(), d_cellSize(1), d_left(0), d_top(0), d_angle(0), d_projection(YIncrB2T)
 {
-
   setup();
 }
 

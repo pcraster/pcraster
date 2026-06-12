@@ -24,7 +24,7 @@ class Exception : public std::runtime_error {
   std::string d_msg;
 public:
   Exception(std::string const& msg):
-    d_msg(msg), std::runtime_error(msg)
+    std::runtime_error(msg), d_msg(msg)
   {
   }
   std::string const& msg() const {

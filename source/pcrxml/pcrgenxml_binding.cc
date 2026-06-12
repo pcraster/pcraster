@@ -76,7 +76,7 @@ void pcrxml::Binding::clean()
 
 //! copy ctor
 pcrxml::Binding::Binding(const Binding &src)
-    : pcrxml::Element(src), parameter(src.parameter), value(src.value), map(((src.map) != nullptr) ? new Map(*(src.map)) : nullptr), nonSpatial(((src.nonSpatial) != nullptr) ? new NonSpatial(*(src.nonSpatial)) : nullptr), stack(((src.stack) != nullptr) ? new Stack(*(src.stack)) : nullptr), table(((src.table) != nullptr) ? new Table(*(src.table)) : nullptr), timeSeries(((src.timeSeries) != nullptr) ? new TimeSeries(*(src.timeSeries)) : nullptr)
+    : pcrxml::Element(src), parameter(src.parameter), value(src.value), map(((src.map) != nullptr) ? new Map(*(src.map)) : nullptr), nonSpatial(((src.nonSpatial) != nullptr) ? new NonSpatial(*(src.nonSpatial)) : nullptr), stack(((src.stack) != nullptr) ? new Stack(*(src.stack)) : nullptr), timeSeries(((src.timeSeries) != nullptr) ? new TimeSeries(*(src.timeSeries)) : nullptr), table(((src.table) != nullptr) ? new Table(*(src.table)) : nullptr)    
 {
 }
 

@@ -54,7 +54,7 @@ void pcrxml::AreaMapDTD::clean()
 }
 
 //! copy ctor
-pcrxml::AreaMapDTD::AreaMapDTD(const AreaMapDTD &src) : pcrxml::Element(src), rasterMask(((src.rasterMask) != nullptr) ? new RasterMask(*(src.rasterMask)) : nullptr), rasterSpace(((src.rasterSpace) != nullptr) ? new RasterSpace(*(src.rasterSpace)) : nullptr)
+pcrxml::AreaMapDTD::AreaMapDTD(const AreaMapDTD &src) : pcrxml::Element(src), rasterSpace(((src.rasterSpace) != nullptr) ? new RasterSpace(*(src.rasterSpace)) : nullptr), rasterMask(((src.rasterMask) != nullptr) ? new RasterMask(*(src.rasterMask)) : nullptr)
 {
 }
 

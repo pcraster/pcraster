@@ -1,4 +1,3 @@
-#include "stddefx.h"
 #include "calc_cmdlinecalc.h"
 #include "calc_LibraryClass.h"
 #include <iostream>
@@ -26,9 +25,7 @@ int main(
              calc::LibraryClass(argc,argv)
                   {}
       };
-      // std::auto_ptr<ClientHolder> holder(new ClientHolder(argc,argv));
-      auto* holder=new ClientHolder(argc,argv);
-      (void)holder; // shut up compiler
+      std::unique_ptr<ClientHolder> holder(new ClientHolder(argc,argv));
     try {
       result = calc::executeCommandLine(argc,argv);
     } catch(...) {

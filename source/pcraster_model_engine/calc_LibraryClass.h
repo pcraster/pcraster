@@ -31,14 +31,15 @@ namespace calc {
 
   //! used in main.cc of pcrcalc
   //  when used in calc_test.cc we get a segfault
-  struct LibraryClass: public LibraryClassNoQt,
-                   public dev::QtClient<QCoreApplication>
+  struct LibraryClass: public dev::QtClient<QCoreApplication>,
+                   public LibraryClassNoQt
   {
     LibraryClass(
          int argc,
          char** argv)
-      : LibraryClassNoQt(argv[0]),
-        dev::QtClient<QCoreApplication>(argc, argv)
+      : dev::QtClient<QCoreApplication>(argc, argv), 
+        LibraryClassNoQt(argv[0])
+        
         {
           assert(dev::QtClient<QCoreApplication>::isInitialized());
         }

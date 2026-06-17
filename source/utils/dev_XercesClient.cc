@@ -1,5 +1,6 @@
 #include "dev_XercesClient.h"
 
+#include <cassert>
 #include <xercesc/util/PlatformUtils.hpp>
 
 

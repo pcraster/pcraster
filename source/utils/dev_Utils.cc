@@ -2,6 +2,8 @@
 
 #include <cassert>
 #include <cstdlib>
+#include <string>
+#include <stdlib.h>
 
 #ifdef _WIN32
   #include <windows.h>

@@ -5,6 +5,8 @@
 #include "calc_field.h"
 #include "discr_block.h"
 
+#include <string>
+
 
 class PCRModflow;
 
@@ -24,6 +26,12 @@ class RCH{
 
   int              d_indicated_unit_number{262};
 
+  std::string      d_filename{"pcrmf_rch.txt"};
+  
+  std::string      d_data_rch_filename{"pcrmf_rch_data.txt"};
+  
+  std::string      d_data_irch_filename{"pcrmf_irch_data.txt"};
+  
  public:
   ~RCH();
   RCH(PCRModflow *mf, size_t option);
@@ -45,6 +53,18 @@ class RCH{
   void             write_indicated     (std::string const& path);
 
   bool             indicated_recharge  () const;
+  
+  std::string      filename            () const {
+    return d_filename;
+  };
+  
+  std::string      data_rch_filename   () const {
+    return d_data_rch_filename;
+  };
+  
+  std::string      data_irch_filename  () const {
+    return d_data_irch_filename;
+  };
 };
 
 #endif // INCLUDED_MODFLOW_RCH

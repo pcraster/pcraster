@@ -22,7 +22,10 @@ private:
   int              d_output_unit_number{271};
 
   int              d_input_unit_number{270};
-
+  
+  std::string      d_filename{"pcrmf_drn.txt"};
+  
+  std::string      d_data_filename{"pcrmf_drn_data.txt"};
 
 public:
   DRN(PCRModflow *mf);
@@ -44,6 +47,14 @@ public:
   void             write               (std::string const& path) const;
 
   void             write_list          (std::string const& path);
+  
+  std::string      filename            () const {
+    return d_filename;
+  };
+  
+  std::string      data_filename       () const {
+    return d_data_filename;
+  };
 };
 
 #endif // INCLUDED_DMODFLOW_RN

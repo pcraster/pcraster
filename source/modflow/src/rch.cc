@@ -202,7 +202,7 @@ void RCH::getRecharge(float *values, size_t layer, std::string const &path) cons
 void RCH::write(std::string const &path)
 {
 
-  std::string const filename = mf::execution_path(path, "pcrmf.rch");
+  std::string const filename = mf::execution_path(path, d_filename);
 
   std::ofstream content(filename);
 
@@ -233,7 +233,7 @@ void RCH::write(std::string const &path)
 void RCH::write_array(std::string const &path)
 {
 
-  std::string const filename = mf::execution_path(path, "pcrmf_rch.asc");
+  std::string const filename = mf::execution_path(path, d_data_rch_filename);
 
   std::ofstream content(filename);
 
@@ -258,7 +258,7 @@ void RCH::write_array(std::string const &path)
 void RCH::write_indicated(std::string const &path)
 {
 
-  std::string const filename = mf::execution_path(path, "pcrmf_irch.asc");
+  std::string const filename = mf::execution_path(path, d_data_irch_filename);
 
   std::ofstream content(filename);
 

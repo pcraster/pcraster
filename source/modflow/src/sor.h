@@ -2,6 +2,7 @@
 #define INCLUDED_MODFLOW_SOR
 
 #include <ostream>
+#include <string>
 
 
 
@@ -19,6 +20,8 @@ private:
 
   bool             d_updated{true};
 
+  std::string      d_filename{"pcrmf_sor.txt"};
+  
 public:
 
                    ~SOR();
@@ -33,6 +36,10 @@ public:
   void             update              ();
 
   bool             modified            () const;
+  
+  std::string      filename            () const {
+    return d_filename;
+  };
 
   friend std::ostream& operator<<      (std::ostream& os,
                                         const SOR& sor);

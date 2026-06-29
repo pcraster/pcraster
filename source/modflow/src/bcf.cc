@@ -157,7 +157,7 @@ void BCF::writeBCF()
       }
     }
   }
-  d_mf->d_cmethods->writeToFile("pcrmf.bc6_old", content.str());
+  d_mf->d_cmethods->writeToFile(d_filename, content.str());
 }
 
 /**
@@ -738,7 +738,7 @@ bool BCF::transient() const
 void BCF::write(std::string const &path)
 {
 
-  std::string const filename = mf::execution_path(path, "pcrmf.bc6");
+  std::string const filename = mf::execution_path(path, d_filename);
 
   std::ofstream content(filename);
 
@@ -843,7 +843,7 @@ void BCF::write(std::string const &path)
 void BCF::write_hy(std::string const &path)
 {
 
-  std::string const filename = mf::execution_path(path, "pcrmf_bcf_hy.asc");
+  std::string const filename = mf::execution_path(path, d_data_hy_filename);
 
   std::ofstream content(filename);
 
@@ -883,7 +883,7 @@ void BCF::write_hy(std::string const &path)
 void BCF::write_tran(std::string const &path)
 {
 
-  std::string const filename = mf::execution_path(path, "pcrmf_bcf_tran.asc");
+  std::string const filename = mf::execution_path(path, d_data_tran_filename);
 
   std::ofstream content(filename);
 
@@ -929,7 +929,7 @@ void BCF::write_tran(std::string const &path)
 void BCF::write_vcond(std::string const &path)
 {
 
-  std::string const filename = mf::execution_path(path, "pcrmf_bcf_vcont.asc");
+  std::string const filename = mf::execution_path(path, d_data_vcond_filename);
 
   std::ofstream content(filename);
 
@@ -1030,7 +1030,7 @@ bool BCF::rewetting() const
 void BCF::write_wetdry(std::string const &path)
 {
 
-  std::string const filename = mf::execution_path(path, "pcrmf_bcf_wetdry.asc");
+  std::string const filename = mf::execution_path(path, d_data_rewet_filename);
 
   std::ofstream content(filename);
 
@@ -1070,7 +1070,7 @@ void BCF::write_wetdry(std::string const &path)
 void BCF::write_sf1(std::string const &path)
 {
 
-  std::string const filename = mf::execution_path(path, "pcrmf_bcf_sf1.asc");
+  std::string const filename = mf::execution_path(path, d_data_sf1_filename);
 
   std::ofstream content(filename);
 
@@ -1102,7 +1102,7 @@ void BCF::write_sf1(std::string const &path)
 void BCF::write_sf2(std::string const &path)
 {
 
-  std::string const filename = mf::execution_path(path, "pcrmf_bcf_sf2.asc");
+  std::string const filename = mf::execution_path(path, d_data_sf2_filename);
 
   std::ofstream content(filename);
 

@@ -38,6 +38,20 @@ private:
 
   size_t getLaycon(size_t lcon);
 
+  std::string      d_filename{"pcrmf_bc6.txt"};
+  
+  std::string      d_data_hy_filename{"pcrmf_hy_data.txt"};
+  
+  std::string      d_data_vcond_filename{"pcrmf_vcond_data.txt"};
+  
+  std::string      d_data_tran_filename{"pcrmf_tran_data.txt"};
+  
+  std::string      d_data_sf1_filename{"pcrmf_sf1_data.txt"};
+  
+  std::string      d_data_sf2_filename{"pcrmf_sf2_data.txt"};
+  
+  std::string      d_data_rewet_filename{"pcrmf_rewet_data.txt"};
+
 //  void             calcSf1             (std::stringstream &aStream, size_t layer, const std::string &msg) const;
 
 public:
@@ -109,6 +123,34 @@ public:
   int              tran_unit_number() const;
   int              sf1_unit_number() const;
   int              sf2_unit_number() const;
+  
+  std::string      filename            () const {
+    return d_filename;
+  };
+  
+  std::string      data_hy_filename   () const {
+    return d_data_hy_filename;
+  };
+  
+  std::string      data_vcond_filename  () const {
+    return d_data_vcond_filename;
+  };
+  
+  std::string      data_tran_filename  () const {
+    return d_data_tran_filename;
+  };
+  
+  std::string      data_sf1_filename   () const {
+    return d_data_sf1_filename;
+  };
+  
+  std::string      data_sf2_filename  () const {
+    return d_data_sf2_filename;
+  };
+  
+  std::string      data_rewet_filename  () const {
+    return d_data_rewet_filename;
+  };
 };
 
 #endif // INCLUDED_MODFLOW_BCF

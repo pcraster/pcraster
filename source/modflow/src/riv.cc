@@ -183,7 +183,7 @@ void RIV::write(std::string const &path)
   // # riv cells is calculated by write_list
   assert(d_nr_river_cells != 0);
 
-  std::string const filename = mf::execution_path(path, "pcrmf.riv");
+  std::string const filename = mf::execution_path(path, d_filename);
 
   std::ofstream content(filename);
 
@@ -208,7 +208,7 @@ void RIV::write_list(std::string const &path)
 {
   // This method also calculates the nr of river cells,
   // needs to be called before write
-  std::string const filename = mf::execution_path(path, "pcrmf_riv.asc");
+  std::string const filename = mf::execution_path(path, d_data_filename);
   std::ofstream content(filename);
 
   if (!content.is_open()) {

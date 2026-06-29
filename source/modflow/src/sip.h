@@ -2,6 +2,7 @@
 #define INCLUDED_MODFLOW_SIP
 
 #include <ostream>
+#include <string>
 
 
 class SIP {
@@ -22,6 +23,8 @@ private:
   size_t           d_iprsip{1};
 
   bool             d_updated{true};
+  
+  std::string      d_filename{"pcrmf_sip.txt"};
 
  public:
 
@@ -40,6 +43,10 @@ private:
   void             update              ();
 
   bool             modified            () const;
+  
+  std::string      filename            () const {
+    return d_filename;
+  };
 
   friend std::ostream& operator<<      (std::ostream& os,
                                         const SIP& sip);

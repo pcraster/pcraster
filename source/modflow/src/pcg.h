@@ -29,6 +29,8 @@ private:
   double           d_damp{-1.0};
 
   bool             d_updated{true};
+  
+  std::string      d_filename{"pcrmf_pcg.txt"};
 
 public:
 
@@ -49,6 +51,10 @@ public:
   void             update              ();
 
   bool             modified            () const;
+  
+  std::string      filename            () const {
+    return d_filename;
+  };
 
   friend std::ostream& operator<<      (std::ostream& os,
                                         const PCG& pcg);

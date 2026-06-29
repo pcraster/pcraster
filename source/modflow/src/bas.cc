@@ -359,7 +359,7 @@ void BAS::write(std::string const &path) const
       nrLayer++;
     }
   }
-  d_mf->d_cmethods->writeToFile(mf::execution_path(path, "pcrmf.ba6"), content.str());
+  d_mf->d_cmethods->writeToFile(mf::execution_path(path, d_filename), content.str());
 }
 
 void BAS::write_bound_array(std::string const &path) const
@@ -381,7 +381,7 @@ void BAS::write_bound_array(std::string const &path) const
       }
     }
   }
-  d_mf->d_cmethods->writeToFile(mf::execution_path(path, "pcrmf_bounds.asc"), content.str());
+  d_mf->d_cmethods->writeToFile(mf::execution_path(path, d_data_ibound_filename), content.str());
 }
 
 void BAS::write_head_array(std::string const &path) const
@@ -392,5 +392,5 @@ void BAS::write_head_array(std::string const &path) const
   for (int i = d_mf->dd_nrLayer - 1; i >= 0; i--) {
     d_mf->d_cmethods->writeMatrix2(content, d_mf->d_layer2BlockLayer, *(d_mf->d_initialHead), i);
   }
-  d_mf->d_cmethods->writeToFile(mf::execution_path(path, "pcrmf_heads.asc"), content.str());
+  d_mf->d_cmethods->writeToFile(mf::execution_path(path, d_data_heads_filename), content.str());
 }

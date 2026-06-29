@@ -6,7 +6,7 @@
 #include "discr_blockdata.h"
 #include "calc_field.h"
 
-
+#include <string>
 
 
 class PCRModflow;
@@ -23,9 +23,11 @@ class RIV{
   int              d_output_unit_number{250};
 
   int              d_input_unit_number{251};
+  
+  std::string      d_filename{"pcrmf_riv.txt"};
 
-  //int              d_fortran_unit_number;
-
+  std::string      d_data_filename{"pcrmf_riv_data.txt"};
+  
  public:
   ~RIV();
   RIV(PCRModflow *mf);
@@ -46,6 +48,13 @@ class RIV{
 
   void             write_list          (std::string const& path);
 
+  std::string      filename            () const {
+    return d_filename;
+  };
+  
+  std::string      data_filename       () const {
+    return d_data_filename;
+  };
 };
 
 #endif // INCLUDED_MODFLOW_RIV

@@ -483,13 +483,13 @@ void DIS::write_dis(std::string const &path) const
   // Item 7:  PERLEN NSTP TSMULT SS/TR
   content << d_perlen << " " << d_nstp << " " << d_tsmult << " " << d_sstr << "\n";
 
-  d_mf->d_cmethods->writeToFile(mf::execution_path(path, "pcrmf.dis"), content.str());
+  d_mf->d_cmethods->writeToFile(mf::execution_path(path, d_filename), content.str());
 }
 
 void DIS::write_dis_array(std::string const &path) const
 {
 
-  std::string const filename = mf::execution_path(path, "pcrmf_elev.asc");
+  std::string const filename = mf::execution_path(path, d_data_filename);
 
   std::ofstream content(filename);
 

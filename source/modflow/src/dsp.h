@@ -28,6 +28,8 @@ private:
   size_t           d_ipdr4{999};
 
   bool             d_updated{true};
+  
+  std::string      d_filename{"pcrmf_de4.txt"};
 
 public:
 
@@ -47,6 +49,10 @@ public:
   void             update              ();
 
   bool             modified            () const;
+  
+  std::string      filename            () const {
+    return d_filename;
+  };
 
   friend std::ostream& operator<<      (std::ostream& os,
                                         const DSP& dsp);

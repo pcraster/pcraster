@@ -25,6 +25,12 @@ private:
   int              d_external_unit_number_heads{400};
 
   int              d_external_unit_number_bounds{401};
+  
+  std::string      d_filename{"pcrmf_ba6.txt"};
+  
+  std::string      d_data_heads_filename{"pcrmf_heads_data.txt"};
+  
+  std::string      d_data_ibound_filename{"pcrmf_bounds_data.txt"};
 
 public:
   ~BAS();
@@ -52,6 +58,18 @@ public:
   void             write_head_array    (std::string const& path) const;
 
   void             write_bound_array   (std::string const& path) const;
+  
+  std::string      filename            () const {
+    return d_filename;
+  };
+  
+  std::string      data_heads_filename  () const {
+    return d_data_heads_filename;
+  };
+  
+  std::string      data_ibound_filename  () const {
+    return d_data_ibound_filename;
+  };
 };
 
 #endif // INCLUDED_MODFLOW_BAS

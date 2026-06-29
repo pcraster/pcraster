@@ -5,6 +5,7 @@
 #include "discr_blockdata.h"
 #include "calc_field.h"
 
+#include <string>
 
 
 
@@ -24,7 +25,11 @@ class GHB{
   int              d_output_unit_number{255};
 
   int              d_input_unit_number{256};
-
+  
+  std::string      d_filename{"pcrmf_ghb.txt"};
+  
+  std::string      d_data_filename{"pcrmf_ghb_data.txt"};
+  
  public:
 
   GHB(PCRModflow *mf);
@@ -44,6 +49,14 @@ class GHB{
   void             write               (std::string const& path);
 
   void             write_list          (std::string const& path);
+  
+  std::string      filename            () const {
+    return d_filename;
+  };
+  
+  std::string      data_filename       () const {
+    return d_data_filename;
+  };
 
 };
 

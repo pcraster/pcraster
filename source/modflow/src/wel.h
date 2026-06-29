@@ -4,6 +4,7 @@
 #include "stddefx.h"
 #include "discr_blockdata.h"
 
+#include <string>
 
 
 class PCRModflow;
@@ -22,8 +23,11 @@ class WEL{
   int              d_output_unit_number{0};
 
   int              d_input_unit_number{280};
+  
+  std::string      d_filename{"pcrmf_wel.txt"};
+  
+  std::string      d_data_filename{"pcrmf_wel_data.txt"};
 
-  //int              d_fortran_unit_number;
  public:
   WEL(PCRModflow *mf);
   ~WEL();
@@ -38,6 +42,14 @@ class WEL{
   void             write               (std::string const& path);
 
   void             write_list          (std::string const& path);
+  
+  std::string      filename            () const {
+    return d_filename;
+  };
+  
+  std::string      data_filename       () const {
+    return d_data_filename;
+  };
 };
 
 #endif // INCLUDED_MODFLOW_WEL

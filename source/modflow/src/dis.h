@@ -7,6 +7,7 @@
 #include "calc_field.h"
 
 #include <sstream>
+#include <string>
 
 
 
@@ -34,7 +35,10 @@ private:
   void             write_row_width     (std::ostringstream& content) const;
 
   void             write_col_width     (std::ostringstream& content) const;
-
+  
+  std::string      d_filename{"pcrmf_dis.txt"};
+  
+  std::string      d_data_filename{"pcrmf_dis_data.txt"};
 
 public:
   ~DIS();
@@ -64,6 +68,14 @@ public:
   void             write_dis_array     (std::string const& path) const;
 
   void             update_parameter    (float stressPeriodLength, size_t nrOfTimesteps, float timeStepMultiplier);
+  
+  std::string      filename            () const {
+    return d_filename;
+  };
+  
+  std::string      data_filename       () const {
+    return d_data_filename;
+  };
 };
 
 #endif // INCLUDED_MODFLOW_DIS

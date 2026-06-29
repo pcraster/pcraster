@@ -62,7 +62,7 @@ void GHB::write(std::string const &path)
   // # ghb cells is calculated by write_list
   assert(d_nr_ghb_cells != 0);
 
-  std::string const filename = mf::execution_path(path, "pcrmf.ghb");
+  std::string const filename = mf::execution_path(path, d_filename);
 
   std::ofstream content(filename);
 
@@ -86,7 +86,7 @@ void GHB::write_list(std::string const &path)
 {
   // This method also calculates the nr of ghb cells,
   // needs to be called before write
-  std::string const filename = mf::execution_path(path, "pcrmf_ghb.asc");
+  std::string const filename = mf::execution_path(path, d_data_filename);
   std::ofstream content(filename);
 
   if (!content.is_open()) {

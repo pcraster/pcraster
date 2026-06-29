@@ -128,7 +128,7 @@ calc::Field *WEL::get_well(size_t layer, std::string const &path)
 void WEL::write_list(std::string const &path)
 {
 
-  std::string const filename = mf::execution_path(path, "pcrmf_wel.asc");
+  std::string const filename = mf::execution_path(path, d_data_filename);
 
   std::ofstream content(filename);
 
@@ -170,7 +170,7 @@ void WEL::write(std::string const &path)
   // # wel cells is calculated by write_list
   assert(d_nr_wel_cells != 0);
 
-  std::string const filename = mf::execution_path(path, "pcrmf.wel");
+  std::string const filename = mf::execution_path(path, d_filename);
 
   std::ofstream content(filename);
 

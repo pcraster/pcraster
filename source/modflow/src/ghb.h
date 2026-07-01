@@ -30,6 +30,8 @@ class GHB{
   
   std::string      d_data_filename{"pcrmf_ghb_data.txt"};
   
+  std::string      d_output_ghb_filename{"pcrmf_ghb.bin"};
+  
  public:
 
   GHB(PCRModflow *mf);
@@ -58,6 +60,9 @@ class GHB{
     return d_data_filename;
   };
 
+  std::string      output_ghb_filename  () const {
+    return d_output_ghb_filename;
+  };
 };
 
 #endif

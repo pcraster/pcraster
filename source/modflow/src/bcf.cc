@@ -422,13 +422,13 @@ void BCF::get_binary(float *values, const std::string &description, size_t start
   // http://water.usgs.gov/nrp/gwsoftware/modflow2000/Guide/index.html
 
 
-  const std::string filename(mf::execution_path(path, "fort." + std::to_string(d_output_unit_number)));
+  const std::string filename(mf::execution_path(path, d_output_bcf_filename));
   //std::string filename("fort." + boost::lexical_cast<std::string>(d_output_unit_number));
 
   std::ifstream file(filename.c_str(), std::ios::in | std::ios::binary);
   if (!file.is_open()) {
     std::stringstream stmp;
-    stmp << "Can not open file containing BCF cell-by-cell flow terms";
+    stmp << "Can not open file containing BCF cell-by-cell flow terms " << filename;
     d_mf->d_cmethods->error(stmp.str(), "run");
   }
 
@@ -437,9 +437,9 @@ void BCF::get_binary(float *values, const std::string &description, size_t start
   int const nr_bytes = sizeof(float);
 
   // first we should check if the requested content is at 'that' position...
-  // 36 metadata; 16 2 * block markers
+  // 36 metadata
   int const skip_bytes_until_block =
-      mf::recordMarkerSize + (start * (36 + 16 + nr_cells * nr_result_layer * nr_bytes));
+       (start * (36 + nr_cells * nr_result_layer * nr_bytes));
 
   file.seekg(skip_bytes_until_block);
 
@@ -459,7 +459,7 @@ void BCF::get_binary(float *values, const std::string &description, size_t start
 
   // jump to the right block and position, skip the metadata, block marker;
   // multiplier holds layer number of the layer we are interested in
-  size_t const new_pos = skip_bytes_until_block + 36 + 8 + (nr_cells * multiplier * nr_bytes);
+  size_t const new_pos = skip_bytes_until_block + 36 + (nr_cells * multiplier * nr_bytes);
   file.seekg(new_pos);
 
   char *charData = new char[nr_cells * nr_bytes];

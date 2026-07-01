@@ -28,6 +28,8 @@ class RIV{
 
   std::string      d_data_filename{"pcrmf_riv_data.txt"};
   
+  std::string      d_output_riv_filename{"pcrmf_riv.bin"};
+  
  public:
   ~RIV();
   RIV(PCRModflow *mf);
@@ -54,6 +56,10 @@ class RIV{
   
   std::string      data_filename       () const {
     return d_data_filename;
+  };
+  
+  std::string      output_riv_filename  () const {
+    return d_output_riv_filename;
   };
 };
 

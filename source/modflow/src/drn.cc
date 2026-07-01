@@ -217,14 +217,14 @@ void DRN::getDrain(float *values, size_t layer, std::string const &path) const
 
   const std::string desc("          DRAINS");
   std::stringstream stmp;
-  stmp << "Can not open file containing DRAINS cell-by-cell flow terms";
+  stmp << "Can not open file containing drain cell-by-cell flow terms " << d_output_drn_filename;
 
   // modflow reports from top to bottom, thus
   // get the 'inverse' layer number to start from the right position
   int const pos_multiplier = d_mf->get_modflow_layernr(layer);
 
   mf::BinaryReader const reader;
-  const std::string filename(mf::execution_path(path, "fort." + std::to_string(d_output_unit_number)));
+  const std::string filename(mf::execution_path(path, d_output_drn_filename));
   reader.read(stmp.str(), filename, values, desc, pos_multiplier);
 }
 
@@ -236,7 +236,7 @@ calc::Field *DRN::getDrain(size_t layer, std::string const &path) const
 
   const std::string desc("          DRAINS");
   std::stringstream stmp;
-  stmp << "Can not open file containing DRAINS cell-by-cell flow terms";
+  stmp << "Can not open file containing drain cell-by-cell flow terms " << d_output_drn_filename;
 
   // modflow reports from top to bottom, thus
   // get the 'inverse' layer number to start from the right position
@@ -246,7 +246,7 @@ calc::Field *DRN::getDrain(size_t layer, std::string const &path) const
   auto *cells = static_cast<REAL4 *>(spatial->dest());
 
   mf::BinaryReader const reader;
-  const std::string filename(mf::execution_path(path, "fort." + std::to_string(d_output_unit_number)));
+  const std::string filename(mf::execution_path(path, d_output_drn_filename));
   reader.read(stmp.str(), filename, cells, desc, pos_multiplier);
 
   return spatial;

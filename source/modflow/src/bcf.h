@@ -51,6 +51,9 @@ private:
   std::string      d_data_sf2_filename{"pcrmf_sf2_data.txt"};
   
   std::string      d_data_rewet_filename{"pcrmf_rewet_data.txt"};
+  
+  std::string      d_output_bcf_filename{"pcrmf_bcf.bin"};
+  
 
 //  void             calcSf1             (std::stringstream &aStream, size_t layer, const std::string &msg) const;
 
@@ -150,6 +153,10 @@ public:
   
   std::string      data_rewet_filename  () const {
     return d_data_rewet_filename;
+  };
+  
+  std::string      output_bcf_filename  () const {
+    return d_output_bcf_filename;
   };
 };
 

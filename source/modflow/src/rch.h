@@ -32,6 +32,8 @@ class RCH{
   
   std::string      d_data_irch_filename{"pcrmf_irch_data.txt"};
   
+  std::string      d_output_rch_filename{"pcrmf_rch.bin"};
+  
  public:
   ~RCH();
   RCH(PCRModflow *mf, size_t option);
@@ -64,6 +66,10 @@ class RCH{
   
   std::string      data_irch_filename  () const {
     return d_data_irch_filename;
+  };
+  
+  std::string      output_rch_filename  () const {
+    return d_output_rch_filename;
   };
 };
 

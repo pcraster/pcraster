@@ -138,7 +138,7 @@ calc::Field *RIV::getRiverLeakage(size_t layer, std::string const &path) const
 
   const std::string desc("   RIVER LEAKAGE");
   std::stringstream stmp;
-  stmp << "Can not open file containing DRAINS cell-by-cell flow terms";
+  stmp << "Can not open file containing river leakage cell-by-cell flow terms " << d_output_riv_filename;
 
   // modflow reports from top to bottom, thus
   // get the 'inverse' layer number to start from the right position
@@ -148,7 +148,7 @@ calc::Field *RIV::getRiverLeakage(size_t layer, std::string const &path) const
   auto *cells = static_cast<REAL4 *>(spatial->dest());
 
   mf::BinaryReader const reader;
-  const std::string filename(mf::execution_path(path, "fort." + std::to_string(d_output_unit_number)));
+  const std::string filename(mf::execution_path(path, d_output_riv_filename));
   reader.read(stmp.str(), filename, cells, desc, pos_multiplier);
 
   return spatial;
@@ -165,7 +165,7 @@ void RIV::getRiverLeakage(float *values, size_t layer, std::string const &path) 
 
   const std::string desc("   RIVER LEAKAGE");
   std::stringstream stmp;
-  stmp << "Can not open file containing DRAINS cell-by-cell flow terms";
+  stmp << "Can not open file containing river leakage cell-by-cell flow terms " << d_output_riv_filename;
 
   // modflow reports from top to bottom, thus
   // get the 'inverse' layer number to start from the right position
@@ -173,7 +173,7 @@ void RIV::getRiverLeakage(float *values, size_t layer, std::string const &path) 
 
   //get_binary(cells, desc, start_pos, pos_multiplier);
   mf::BinaryReader const reader;
-  const std::string filename(mf::execution_path(path, "fort." + std::to_string(d_output_unit_number)));
+  const std::string filename(mf::execution_path(path, d_output_riv_filename));
   reader.read(stmp.str(), filename, values, desc, pos_multiplier);
 }
 

@@ -159,7 +159,7 @@ calc::Field *RCH::getRecharge(size_t layer, std::string const &path) const
 
   const std::string desc("        RECHARGE");
   std::stringstream stmp;
-  stmp << "Can not open file containing DRAINS cell-by-cell flow terms";
+  stmp << "Can not open file containing recharge cell-by-cell flow terms " << d_output_rch_filename;
 
   // modflow reports from top to bottom, thus
   // get the 'inverse' layer number to start from the right position
@@ -186,7 +186,7 @@ void RCH::getRecharge(float *values, size_t layer, std::string const &path) cons
 
   const std::string desc("        RECHARGE");
   std::stringstream stmp;
-  stmp << "Can not open file containing recharge cell-by-cell flow terms";
+  stmp << "Can not open file containing recharge cell-by-cell flow terms " << d_output_rch_filename;
 
   // modflow reports from top to bottom, thus
   // get the 'inverse' layer number to start from the right position
@@ -195,7 +195,7 @@ void RCH::getRecharge(float *values, size_t layer, std::string const &path) cons
 
   //get_binary(cells, desc, start_pos, pos_multiplier);
   mf::BinaryReader const reader;
-  const std::string filename(mf::execution_path(path, "fort." + std::to_string(d_output_unit_number)));
+  const std::string filename(mf::execution_path(path, d_output_rch_filename));
   reader.read(stmp.str(), filename, values, desc, pos_multiplier);
 }
 

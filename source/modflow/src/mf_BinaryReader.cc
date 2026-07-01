@@ -63,7 +63,7 @@ void BinaryReader::read(const std::string &err_mgs, const std::string &filename,
   // 36 metadata; 16 2 * block markers
   //int skip_bytes_until_block = mf::recordMarkerSize + start * (36 + 16 + nr_cells * nr_result_layer * nr_bytes);
 
-  file.seekg(mf::recordMarkerSize);
+  //file.seekg(mf::recordMarkerSize);
 
   char tmp[4];
   file.read(tmp, 4);  // dummy read kstep
@@ -73,9 +73,6 @@ void BinaryReader::read(const std::string &err_mgs, const std::string &filename,
   char desc[17];
   file.read(desc, 16);
   desc[16] = '\0';
-
-  //std::cout << desc << std::endl;
-  //std::cout << description << std::endl;
 
   if (description.compare(desc) != 0) {
     std::cerr << "Error in PCRasterModflow: " << '\n';
@@ -101,8 +98,7 @@ void BinaryReader::read(const std::string &err_mgs, const std::string &filename,
 
   // jump to the right block and position, skip the metadata, block marker;
   // multiplier holds layer number of the layer we are interested in
-  size_t const new_pos = nr_bytes + 36 + 8 + (multiplier * (nr_cells * nr_bytes));
-
+  size_t const new_pos = 36 + (multiplier * (nr_cells * nr_bytes));
 
   //size_t nr_cells = row * col;
   file.seekg(new_pos);

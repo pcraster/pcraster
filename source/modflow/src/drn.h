@@ -26,6 +26,8 @@ private:
   std::string      d_filename{"pcrmf_drn.txt"};
   
   std::string      d_data_filename{"pcrmf_drn_data.txt"};
+  
+  std::string      d_output_drn_filename{"pcrmf_drn.bin"};
 
 public:
   DRN(PCRModflow *mf);
@@ -54,6 +56,10 @@ public:
   
   std::string      data_filename       () const {
     return d_data_filename;
+  };
+  
+  std::string      output_drain_filename  () const {
+    return d_output_drn_filename;
   };
 };
 

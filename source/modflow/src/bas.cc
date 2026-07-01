@@ -134,8 +134,7 @@ void BAS::setNoFlowConstant(float value)
 void BAS::getHeadsFromBinary(std::string const &path)
 {
 
-  const std::string filename(
-      mf::execution_path(path, "fort." + std::to_string(d_fortran_unit_number_heads)));
+  const std::string filename(mf::execution_path(path, d_output_heads_filename));
   //std::string filename("fort." + boost::lexical_cast<std::string>(d_fortran_unit_number_heads));
 
   std::ifstream file(filename.c_str(), std::ios::in | std::ios::binary);
@@ -149,34 +148,22 @@ void BAS::getHeadsFromBinary(std::string const &path)
     size_t const blockLayer = d_mf->mfLayer2BlockLayer(layer);  //+1);
     // first record contains the header informations
     // they are omitted because we already know nrRows aso
-    char header[mf::recordMarkerSize];
-    int headerSizeBytes = 0;
-    file.read(header, mf::recordMarkerSize);
-    std::memcpy(&headerSizeBytes, &(header[0]), 4);
+    // Don't know why those 8 are in the MF output additionally to 36 metadata...
+    int headerSizeBytes = 36 + 8; 
+    char *headerData = new char[headerSizeBytes];
+    file.read(headerData, headerSizeBytes);
 
-    assert(headerSizeBytes == 44);
-    // read the header data inclusive the trailing bytes
-    // header information is already known
-    char *headerData = new char[headerSizeBytes + mf::recordMarkerSize];
-    file.read(headerData, headerSizeBytes + mf::recordMarkerSize);
-    // read the header of the data record
-    char dataHeader[mf::recordMarkerSize];
-    int dataSizeBytes = 0;
-    file.read(dataHeader, mf::recordMarkerSize);
-    std::memcpy(&dataSizeBytes, &(dataHeader[0]), 4);
+    int dataSizeBytes = d_mf->d_nrOfCells * sizeof(float);
     // read the data
     char *charData = new char[dataSizeBytes];
     file.read(charData, dataSizeBytes);
     auto *floatData = reinterpret_cast<REAL4 *>(charData);
 
     size_t const cellMax = d_mf->d_nrOfCells;
-    //int k = 0;
     for (size_t pos = 0; pos < cellMax; pos++) {
       auto val = floatData[pos];
       d_mf->d_initialHead->cell(pos)[blockLayer] = val;
     }
-    // read the tailing bytes, discard content
-    file.read(header, mf::recordMarkerSize);
     delete[] charData;
     charData = nullptr;
     delete[] headerData;
@@ -191,8 +178,7 @@ void BAS::getHeadsFromBinary(std::string const &path)
 void BAS::getBASBlockData(discr::BlockData<INT4> &bdata, std::string const &path)
 {
 
-  const std::string filename(
-      mf::execution_path(path, "fort." + std::to_string(d_fortran_unit_number_bounds)));
+  const std::string filename(mf::execution_path(path, d_output_ibound_filename));
   //std::string filename("fort." + boost::lexical_cast<std::string>(d_fortran_unit_number_bounds));
 
   std::ifstream file(filename.c_str());

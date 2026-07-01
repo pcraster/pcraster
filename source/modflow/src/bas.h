@@ -31,6 +31,10 @@ private:
   std::string      d_data_heads_filename{"pcrmf_heads_data.txt"};
   
   std::string      d_data_ibound_filename{"pcrmf_bounds_data.txt"};
+  
+  std::string      d_output_heads_filename{"pcrmf_heads.bin"};
+  
+  std::string      d_output_ibound_filename{"pcrmf_bounds.txt"};
 
 public:
   ~BAS();
@@ -69,6 +73,14 @@ public:
   
   std::string      data_ibound_filename  () const {
     return d_data_ibound_filename;
+  };
+  
+  std::string      output_heads_filename  () const {
+    return d_output_heads_filename;
+  };
+  
+  std::string      output_ibound_filename  () const {
+    return d_output_ibound_filename;
   };
 };
 

@@ -137,8 +137,6 @@ calc::Field *RIV::getRiverLeakage(size_t layer, std::string const &path) const
   d_mf->d_gridCheck->isConfined(layer, "getRiverLeakage");
 
   const std::string desc("   RIVER LEAKAGE");
-  std::stringstream stmp;
-  stmp << "Can not open file containing river leakage cell-by-cell flow terms " << d_output_riv_filename;
 
   // modflow reports from top to bottom, thus
   // get the 'inverse' layer number to start from the right position
@@ -149,6 +147,8 @@ calc::Field *RIV::getRiverLeakage(size_t layer, std::string const &path) const
 
   mf::BinaryReader const reader;
   const std::string filename(mf::execution_path(path, d_output_riv_filename));
+  std::stringstream stmp;
+  stmp << "Can not open file containing river leakage cell-by-cell flow terms " << filename;
   reader.read(stmp.str(), filename, cells, desc, pos_multiplier);
 
   return spatial;
@@ -164,8 +164,6 @@ void RIV::getRiverLeakage(float *values, size_t layer, std::string const &path) 
   d_mf->d_gridCheck->isConfined(layer, "getRiverLeakage");
 
   const std::string desc("   RIVER LEAKAGE");
-  std::stringstream stmp;
-  stmp << "Can not open file containing river leakage cell-by-cell flow terms " << d_output_riv_filename;
 
   // modflow reports from top to bottom, thus
   // get the 'inverse' layer number to start from the right position
@@ -174,6 +172,8 @@ void RIV::getRiverLeakage(float *values, size_t layer, std::string const &path) 
   //get_binary(cells, desc, start_pos, pos_multiplier);
   mf::BinaryReader const reader;
   const std::string filename(mf::execution_path(path, d_output_riv_filename));
+  std::stringstream stmp;
+  stmp << "Can not open file containing river leakage cell-by-cell flow terms " << filename;
   reader.read(stmp.str(), filename, values, desc, pos_multiplier);
 }
 

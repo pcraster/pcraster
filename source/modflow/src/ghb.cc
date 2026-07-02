@@ -130,8 +130,6 @@ calc::Field *GHB::getGhbLeakage(size_t layer, std::string const &path) const
   d_mf->d_gridCheck->isConfined(layer, "getGeneralHeadLeakage");
 
   const std::string desc(" HEAD DEP BOUNDS");
-  std::stringstream stmp;
-  stmp << "Can not open file containing GHB cell-by-cell flow terms " << d_output_ghb_filename;
 
   // modflow reports from top to bottom, thus
   // get the 'inverse' layer number to start from the right position
@@ -142,6 +140,8 @@ calc::Field *GHB::getGhbLeakage(size_t layer, std::string const &path) const
 
   mf::BinaryReader const reader;
   const std::string filename(mf::execution_path(path, d_output_ghb_filename));
+  std::stringstream stmp;
+  stmp << "Can not open file containing GHB cell-by-cell flow terms " << filename;
   reader.read(stmp.str(), filename, cells, desc, pos_multiplier);
 
   return spatial;

@@ -4,6 +4,7 @@
 #include "com_strlib.h"
 
 #include <algorithm>
+#include <filesystem>
 #include <iostream>
 
 /*!
@@ -17,8 +18,6 @@
 namespace com
 {
 
-const char DIR_PATH_DELIM = DIR_PATH_DELIM_CHAR;
-
 #ifdef WIN32
 const char DRIVE_DELIM = ':';
 #endif
@@ -31,7 +30,7 @@ const char DRIVE_DELIM = ':';
 
 const std::string &com::PathName::dirPathDelimNative()
 {
-  static std::string const str(1, DIR_PATH_DELIM);
+  static std::string const str(1, std::filesystem::path::preferred_separator);
   return str;
 }
 

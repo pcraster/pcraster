@@ -56,22 +56,6 @@
 # endif
 #endif
 
-#ifdef DOS_FS  
-# define DIR_PATH_DELIM_CHAR  '\\'
-# ifdef UNIX_FS
-#  error  TWO FILESYSTEMS SPECIFIED (DOS_FS, UNIX_FS)
-# endif
-#else
-# ifdef UNIX_FS
-#  define DIR_PATH_DELIM_CHAR  '/'
-#  ifdef DOS_FS
-#   error  TWO FILESYSTEMS SPECIFIED (DOS_FS, UNIX_FS)
-#  endif
-# else
-#  error  NO FILESYSTEM SPECIFIED (DOS_FS, UNIX_FS)
-# endif
-#endif
-
 /***************************************************************************/
 /*                                                                         */
 /*  CPU STUFF                                                              */

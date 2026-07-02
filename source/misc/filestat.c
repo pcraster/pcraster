@@ -32,6 +32,12 @@
 /*********************/
 static char privateBuffer[1024];
 
+#ifdef _WIN32
+  const char DIR_PATH_DELIM_CHAR = '\\';
+#else
+  const char DIR_PATH_DELIM_CHAR = '/';
+#endif
+
 /******************/
 /* IMPLEMENTATION */
 /******************/

@@ -1,4 +1,7 @@
 
+#include "appargs.h"
+#include "appdataio.h"
+#include "debug.h"
 #include "stddefx.h"
 
 
@@ -7,10 +10,10 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include <string.h> /* memcpy */
 #include "misc.h"
-#include "app.h"
 #include "table.h"
+#include <stdio.h>
+#include <string.h> /* memcpy */
 
 /* global header (opt.) and test's prototypes "" */
 #include "table_p.h"

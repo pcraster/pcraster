@@ -13,6 +13,9 @@ extern "C" {
 #endif
 
 #include <stdbool.h>
+#include <stddef.h>
+#include <stdio.h>
+    
 
 /* error.c */
 extern int exitOnError;

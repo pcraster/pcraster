@@ -1,6 +1,6 @@
-#include "stddefx.h"
 
 #include "mathx.h"
+#include <math.h>
 
 /* round to closest integer
 * On most systems rint() is available, but not part of the

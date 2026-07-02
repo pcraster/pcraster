@@ -1,4 +1,4 @@
-#include "stddefx.h"
+#include "debug.h"
 
 /**************************************************************************/
 /*  ran.c                                                                */
@@ -246,7 +246,6 @@ static unsigned int MilliSecSeed(void)
 #ifdef HAS_GETTIMEOFDAY
 #include <math.h>
 #include <sys/time.h>
-#include <unistd.h>
 
 /* assuming a 32 bit machine we have
  * UINT_MAX  4294967295

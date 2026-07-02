@@ -1,3 +1,5 @@
+#include "appargs.h"
+#include "debug.h"
 #include "stddefx.h"
 
 
@@ -6,11 +8,11 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include <math.h>
-#include <string.h>
 #include "misc.h"
-#include "app.h"
 #include "table.h"
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
 
 /* global header (opt.) and test's prototypes "" */
 #include "table_p.h"

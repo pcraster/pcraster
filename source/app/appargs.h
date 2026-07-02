@@ -1,8 +1,6 @@
 #ifndef INCLUDED_APP_APPARGS
 #define INCLUDED_APP_APPARGS
 
-#include <stdbool.h>
-
 /* stuf to install option from command
  * line and retrieve those values
  */
@@ -10,7 +8,9 @@
 #ifdef __cplusplus
  extern "C" {
 #endif
-
+     
+#include <stdbool.h>
+#include <stddef.h>
 
 typedef enum APP_COORD{
   APP_C,      /* center */

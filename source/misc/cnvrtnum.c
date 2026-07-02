@@ -1,13 +1,16 @@
-#include "stddefx.h"
+#include "debug.h"
 
 /********/
 /* USES */
 /********/
 
 /* libs ext. <>, our ""  */
+#include "misc.h"
+#include <limits.h>
+#include <errno.h>
 #include <ctype.h> /* isspace */
 #include <math.h>  /* floor */
-#include "misc.h"
+#include <stdlib.h>
 
 /* global header (opt.) and cnvrtnum's prototypes "" */
 

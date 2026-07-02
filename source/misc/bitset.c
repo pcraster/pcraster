@@ -1,4 +1,4 @@
-#include "stddefx.h"
+#include "debug.h"
 
 /* algorithm is taken from
   *  Holub's compiler design in C (or something like that)
@@ -13,7 +13,6 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include <string.h> /* memcpy */
 #include "misc.h"
 
 /* global header (opt.) and bitset's prototypes "" */

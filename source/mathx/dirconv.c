@@ -1,4 +1,4 @@
-#include "stddefx.h"
+#include "debug.h"
 
 
 /********/
@@ -7,6 +7,7 @@
 
 /* libs ext. <>, our ""  */
 #include "mathx.h"
+#include <math.h>
 
 /* global header (opt.) and dirconv's prototypes "" */
 

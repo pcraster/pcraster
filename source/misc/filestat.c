@@ -1,3 +1,4 @@
+#include "debug.h"
 #include "stddefx.h"
 
 /********/
@@ -5,12 +6,8 @@
 /********/
 
 /* libs ext. <>, our ""  */
+#include <stdio.h>
 #include <sys/stat.h>
-#ifndef _MSC_VER
-#include <unistd.h>
-#include <dirent.h>
-#endif
-
 #include <string.h>
 #include "misc.h"
 

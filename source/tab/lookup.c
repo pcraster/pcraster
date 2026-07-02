@@ -1,3 +1,4 @@
+#include "debug.h"
 #include "stddefx.h"
 
 
@@ -7,6 +8,7 @@
 
 /* libs ext. <>, our ""  */
 #include <search.h>
+#include <stdlib.h>
 #ifdef _MSC_VER
 #define lfind _lfind
 #endif

@@ -1,4 +1,3 @@
-#include "stddefx.h"
 #include "misc.h"
 
 /* Comparison function for unsigned char

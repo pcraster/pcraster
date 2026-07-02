@@ -1,12 +1,14 @@
+#include "debug.h"
 #include "stddefx.h"
 
 /********/
 /* USES */
 /********/
 /* libs ext. <>, our ""  */
-#include <string.h> /* memmove */
 #include "misc.h"
 #include "table.h"
+#include <stdlib.h>
+#include <string.h> /* memmove */
 
 /* global header (opt.) and test's prototypes "" */
 

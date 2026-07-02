@@ -1,6 +1,4 @@
-
-#include <math.h>
-
+#include "debug.h"
 #include "stddefx.h"
 
 /**************************************************************************/
@@ -15,6 +13,8 @@
 /********/
 #include "mathx.h"
 #include "misc.h"
+
+#include <math.h>
 
 /***************/
 /* EXTERNALS   */

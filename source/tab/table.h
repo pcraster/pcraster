@@ -6,6 +6,7 @@ extern "C" {
 #endif
 
 #include "csf.h"
+#include "stddefx.h"
 
 typedef int (* RETURN_ID)(const void *r);
 typedef void (* INIT_REC)(void *r, int id);

@@ -1,5 +1,6 @@
-#include "stddefx.h"
+#include "debug.h"
 #include "misc.h"
+#include "stddefx.h"
 #include <string.h> /* memmove */
 
 #ifndef INTEL16

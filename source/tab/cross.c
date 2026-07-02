@@ -1,3 +1,4 @@
+#include "debug.h"
 #include "stddefx.h"
 
 
@@ -10,6 +11,7 @@
 #include "misc.h"
 #include "table.h"
 #include <math.h>
+#include <stdio.h>
 #include <string.h>
 
 /* global header (opt.) and test's prototypes "" */

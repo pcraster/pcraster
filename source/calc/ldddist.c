@@ -1,6 +1,7 @@
 #include <math.h>
+#include <stddef.h>
 
-#include "stddefx.h"
+#include "debug.h"
 
 /********/
 /* USES */
@@ -9,13 +10,11 @@
 /* libs ext. <>, our ""  */
 #include "misc.h"
 #include "calc.h"
-#include "mathx.h" /* pow , sqrt */
 
 /* global header (opt.) and test's prototypes "" */
 
 /* headers of this app. modules called */
 #include "p_calc_list.h"
-#include "app.h" /* appOutput, appUnitTrue */
 
 /***************/
 /* EXTERNALS   */

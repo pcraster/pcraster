@@ -1,8 +1,9 @@
-#include "stddefx.h"
 #include "com_subject.h"
 #include "com_observer.h"
+#include "debug.h"
 
 #include <algorithm>
+#include <vector>
 
 /*!
   \file

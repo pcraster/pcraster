@@ -1,11 +1,16 @@
-#include "stddefx.h"
 #include "geo_csfmap.h"
-#include "com_pathname.h"
+#include "com_exception.h"
 #include "com_file.h"
-#include "geo_exception.h"
+#include "com_legend.h"
+#include "com_pathname.h"
 #include "csf.h"
+#include "debug.h"
+#include "geo_exception.h"
 #include "geo_rasterspace.h"
 #include "geo_util.h"
+#include <csfattr.h>
+#include <cstddef>
+#include <string>
 
 /*!
   \file

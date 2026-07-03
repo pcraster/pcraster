@@ -1,5 +1,7 @@
-#include "stddefx.h"
 #include "com_streamwriter.h"
+#include <cstddef>
+#include <ostream>
+#include <string>
 
 /*!
   \file

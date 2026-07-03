@@ -1,5 +1,7 @@
 #include <math.h>
+#include <stddef.h>
 
+#include "pcrcalcd.h"
 #include "stddefx.h"
 
 
@@ -9,9 +11,7 @@
 
 /* libs ext. <>, our ""  */
 #include "calc.h"
-#include "app.h"
 #include "misc.h"
-#include "mathx.h"
 
 /* global header (opt.) and test's prototypes "" */
 

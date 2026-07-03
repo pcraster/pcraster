@@ -8,15 +8,13 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include "misc.h"
 #include "calc.h"
-#include "app.h"   /* appUnitTrue, appOutput */
 #include "mathx.h" /* Ran */
+#include "misc.h"
 
 /* global header (opt.) and test's prototypes "" */
 
 /* headers of this app. modules called */
-#include "p_calc_list.h" /* RemFromList */
 
 /***************/
 /* EXTERNALS   */

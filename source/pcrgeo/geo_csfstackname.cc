@@ -1,16 +1,19 @@
-#include "stddefx.h"
 #include "geo_csfstackname.h"
 #include "com_exception.h"
 #include "com_pathinfo.h"
 #include "com_strlib.h"
 #include "dal_FilesystemUtils.h"
+#include "debug.h"
 
 #include <algorithm>
-#include <filesystem>
-#include <cmath>
-#include <iterator>
-#include <sstream>
 #include <cctype>
+#include <cmath>
+#include <cstddef>
+#include <filesystem>
+#include <iterator>
+#include <ostream>
+#include <sstream>
+#include <vector>
 
 //------------------------------------------------------------------------------
 

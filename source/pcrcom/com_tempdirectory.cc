@@ -1,11 +1,12 @@
-#include "stddefx.h"
 #include "com_tempdirectory.h"
 #include "com_exception.h"
 #include "com_strlib.h"
 #include "com_uniquestringgenerator.h"
 #include "com_pathinfo.h"  // tempDirectoryName
 
+#include <filesystem>
 #include <sstream>
+#include <string>
 
 /*!
   \file

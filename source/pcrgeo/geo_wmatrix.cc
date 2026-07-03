@@ -1,5 +1,5 @@
-#include "stddefx.h"
 #include "geo_wmatrix.h"
+#include "geo_point.h"
 #include <cmath>
 
 /*!

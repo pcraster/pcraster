@@ -1,9 +1,7 @@
 #include <math.h>
 
-#include "stddefx.h"
 
 #include "calc.h" /* appUnitTrue, appOutput */
-#include "app.h"  /* appUnitTrue, appOutput */
 
 /* gradx(): calculates the directional derivative (gradient)
  * of a scalar field f(x,y) in the x-wise direction:

@@ -1,11 +1,11 @@
-#include "stddefx.h"
 #include "com_pathname.h"
 #include "com_pathinfo.h"  // currentWorkingDirectory()
-#include "com_strlib.h"
+#include "debug.h"
 
-#include <algorithm>
+#include <cstddef>
 #include <filesystem>
 #include <iostream>
+#include <string>
 
 /*!
   \file

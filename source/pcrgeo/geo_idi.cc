@@ -1,9 +1,11 @@
-#include "stddefx.h"
 #include "geo_idi.h"
 #include "com_autoarrayptr.h"
 #include "geo_point.h"
+#include "debug.h"
 
 #include <algorithm>
+#include <cstddef>
+#include <vector>
 
 namespace geo
 {

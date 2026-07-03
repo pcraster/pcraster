@@ -1,4 +1,4 @@
-#include "stddefx.h"
+#include "debug.h"
 
 
 /********/
@@ -13,6 +13,7 @@
 
 /* headers of this app. modules called */
 #include "p_calc_list.h"
+#include <stddef.h>
 
 /***************/
 /* EXTERNALS   */

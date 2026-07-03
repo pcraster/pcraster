@@ -1,12 +1,13 @@
-#include "stddefx.h"
 #include "com_table.h"
 #include "com_basictable.h"
 #include "com_exception.h"
 #include "com_file.h"
 #include "com_pathname.h"
 #include "com_strconv.h"
-#include "com_strlib.h"
+#include "debug.h"
 
+#include <cstddef>
+#include <fstream>
 #include <iostream>
 #include <stdexcept>
 #include <string>

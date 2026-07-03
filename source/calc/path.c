@@ -1,4 +1,5 @@
-#include "stddefx.h"
+#include "appargs.h"
+#include "debug.h"
 /*
  */
 
@@ -8,7 +9,6 @@
 /* libs ext. <>, our ""  */
 #include "misc.h"
 #include "calc.h"
-#include "app.h"
 
 /* global header (opt.) and test's prototypes "" */
 

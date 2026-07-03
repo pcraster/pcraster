@@ -1,8 +1,10 @@
-#include "stddefx.h"
 #include "com_appargs.h"
 #include "com_strlib.h"
+#include "debug.h"
 
 #include <cstring>
+#include <string>
+#include <vector>
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS

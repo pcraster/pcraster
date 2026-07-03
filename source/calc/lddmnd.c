@@ -1,5 +1,8 @@
 #include <math.h>
 
+#include "appargs.h"
+#include "appdataio.h"
+#include "debug.h"
 #include "stddefx.h"
 
 /*
@@ -13,7 +16,6 @@
 #include "mathx.h" /* Ran() */
 #include "misc.h"
 #include "calc.h"
-#include "app.h"
 
 /* global header (opt.) and test's prototypes "" */
 

@@ -1,4 +1,3 @@
-#include "stddefx.h"
 #include "geo_voxel.h"
 
 /*!

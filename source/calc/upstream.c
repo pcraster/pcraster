@@ -1,6 +1,7 @@
 #include <math.h>
 
-#include "stddefx.h"
+#include "appargs.h"
+#include "pcrcalcd.h"
 /*
  */
 /********/
@@ -13,7 +14,6 @@
 /* global header (opt.) and test's prototypes "" */
 
 /* headers of this app. modules called */
-#include "app.h"
 
 /***************/
 /* EXTERNALS   */

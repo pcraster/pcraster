@@ -1,7 +1,9 @@
-#include "stddefx.h"
 #include "geo_addfilter.h"
-#include "com_csfcell.h"
 #include "geo_celllocvisitor.h"
+#include "geo_filter.h"
+#include "geo_simpleraster.h"
+#include <cstddef>
+#include <pcrtypes.h>
 
 /*!
   \file

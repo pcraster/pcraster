@@ -1,7 +1,8 @@
-#include "stddefx.h"
 #include "com_progresstracker.h"
+#include "debug.h"
 
 #include <algorithm>
+#include <cstddef>
 
 /*!
   \file

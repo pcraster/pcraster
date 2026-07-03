@@ -1,9 +1,10 @@
-#include "stddefx.h"
 #include "geo_columnfile.h"
 #include "com_exception.h"
 #include "com_file.h"
 #include "com_strlib.h"
+#include "debug.h"
 
+#include <cstddef>
 #include <fstream>
 #include <iterator>
 #include <set>

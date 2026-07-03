@@ -1,5 +1,6 @@
-#include "stddefx.h"
 #include "com_ilabeledprogresstracker.h"
+#include "com_progresstracker.h"
+#include <cstddef>
 
 /*!
   \file

@@ -1,6 +1,11 @@
-#include "stddefx.h"
 #include "geo_riksneighbourhood.h"
 #include "com_math.h"
+#include "debug.h"
+#include "geo_neighbourhood.h"
+#include <cmath>
+#include <cstddef>
+#include <cstdlib>
+#include <tuple>
 
 /*!
   \file

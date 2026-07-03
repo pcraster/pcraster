@@ -1,6 +1,10 @@
-#include "stddefx.h"
-#include "com_exception.h"
 #include "com_pathinfo.h"
+#include "com_exception.h"
+#include "debug.h"
+#include <cerrno>
+#include <cstdlib>
+#include <filesystem>
+#include <sys/stat.h>
 
 #ifdef WIN32
 #include "com_win32.h"
@@ -25,7 +29,6 @@
 #include <cstdio>
 #include <cstring>
 #include <stdexcept>
-#include <set>
 
 /*!
   \file

@@ -1,4 +1,4 @@
-#include "stddefx.h"
+#include "appargs.h"
 /*
  */
 
@@ -8,7 +8,6 @@
 /* libs ext. <>, our ""  */
 #include <math.h>
 #include "csf.h"
-#include "app.h"
 
 /* apps. called */
 

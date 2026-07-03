@@ -1,3 +1,5 @@
+#include "appdataio.h"
+#include "debug.h"
 #include "stddefx.h"
 
 
@@ -5,14 +7,12 @@
 /* USES */
 /********/
 /* libs ext. <>, our ""  */
-#include "app.h" /* appUnitTrue, appOutput */
 #include "calc.h"
 #include "mathx.h" /* sqr,sqrt */
 #include "misc.h"
-#include "table.h"
 #include <math.h>
-#include <string.h> /* memmove */
 #include <stdlib.h>
+#include <string.h> /* memmove */
 
 /* global header (opt.) and test's prototypes "" */
 

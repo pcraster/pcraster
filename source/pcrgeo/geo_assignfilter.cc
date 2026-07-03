@@ -1,5 +1,7 @@
-#include "stddefx.h"
 #include "geo_assignfilter.h"
+#include "geo_filter.h"
+#include "geo_simpleraster.h"
+#include <cstddef>
 
 /*!
   \file

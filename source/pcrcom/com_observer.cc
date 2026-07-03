@@ -1,4 +1,3 @@
-#include "stddefx.h"
 #include "com_observer.h"
 
 /*!

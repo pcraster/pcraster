@@ -1,7 +1,5 @@
-#include "stddefx.h"
 #include "geo_const.h"
 
-#include <string>
 
 
 /*!

@@ -1,4 +1,4 @@
-#include "stddefx.h"
+#include "debug.h"
 
 
 /********/
@@ -14,7 +14,6 @@
 #include <math.h>
 
 /* headers of this app. modules called */
-#include "mathx.h" /* pow(x, y)  */
 
 /***************/
 /* EXTERNALS   */

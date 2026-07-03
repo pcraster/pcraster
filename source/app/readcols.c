@@ -1,3 +1,6 @@
+#include "appargs.h"
+#include "appdataio.h"
+#include "debug.h"
 #include "stddefx.h"
 
 
@@ -6,10 +9,11 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include "app.h"
 #include "csf.h"
 #include "misc.h"
 #include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h> /* memcpy */
 
 /*************/

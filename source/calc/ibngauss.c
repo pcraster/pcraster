@@ -1,6 +1,5 @@
 #include <math.h>
 
-#include "stddefx.h"
 
 
 /********/
@@ -8,10 +7,9 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include "misc.h"
 #include "calc.h"
-#include "app.h" /* appUnitTrue, appOutput */
 #include "mathx.h"
+#include "misc.h"
 
 /* global header (opt.) and test's prototypes "" */
 

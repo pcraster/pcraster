@@ -1,6 +1,5 @@
 #include <math.h>
 
-#include "stddefx.h"
 
 
 /********/

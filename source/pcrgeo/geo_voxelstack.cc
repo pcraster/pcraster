@@ -1,8 +1,8 @@
-#include "stddefx.h"
 #include "geo_voxelstack.h"
+#include "debug.h"
+#include "geo_voxel.h"
 
 #include <algorithm>
-#include <functional>
 
 /*!
   \file

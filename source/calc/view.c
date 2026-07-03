@@ -1,6 +1,10 @@
 #include <math.h>
+#include <stdlib.h>
+#include <stddef.h>
 
-#include "stddefx.h"
+#include "appargs.h"
+#include "appdataio.h"
+#include "debug.h"
 
 /********/
 /* USES */
@@ -8,12 +12,10 @@
 /* libs ext. <>, our ""  */
 #include "misc.h"
 #include "calc.h"
-#include "app.h" /* AppProgress */
 
 /* global header (opt.) and test's prototypes "" */
 
 /* headers of this app. modules called */
-#include "mathx.h" /* pow(x, y)  */
 
 /***************/
 /* EXTERNALS   */

@@ -1,5 +1,5 @@
-#include "stddefx.h"
 #include "geo_cellloc.h"
+#include <ostream>
 
 /*!
   \file

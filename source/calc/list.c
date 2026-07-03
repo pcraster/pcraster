@@ -1,3 +1,4 @@
+#include "debug.h"
 #include "stddefx.h"
 
 
@@ -11,6 +12,7 @@
 
 /* global header (opt.) and test's prototypes "" */
 #include "p_calc_list.h"
+#include <stddef.h>
 
 /* headers of this app. modules called */
 

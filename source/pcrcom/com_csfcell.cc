@@ -1,5 +1,8 @@
 #include "com_csfcell.h"
 #include "com_math.h"
+#include "debug.h"
+#include "pcrtypes.h"
+#include <cstddef>
 
 /*!
   \file

@@ -1,5 +1,6 @@
-#include "stddefx.h"
 #include "geo_celllocvisitor.h"
+#include "debug.h"
+#include <cstddef>
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS

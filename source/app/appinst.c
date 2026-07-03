@@ -1,16 +1,18 @@
-#include "stddefx.h"
+#include "appargs.h"
+#include "debug.h"
 #include "pcraster_version.h"
+#include "stddefx.h"
 
 /********/
 /* USES */
 /********/
 
 /* libs ext. <>, our ""  */
-#include "app.h"      /* GetOpt, ArgArguments, InstallArgs */
 #include "misc.h"     /* ChkRealloc, StrcpTmpMalloc */
-#include "pcrshell.h" /* set directory */
 #include <ctype.h>    /* isspace */
 #include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h> /* memmove, strlen, strchr, strcmp */
 
 #include "app_options.h"

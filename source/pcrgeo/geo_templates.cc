@@ -1,9 +1,12 @@
-#include "geo_voxelstack.h"
 #include "csftypes.h"
+#include "geo_csfraster.cc"
+#include "geo_csfraster.h"
+#include "geo_griddedpoints.cc"
+#include "geo_griddedpoints.h"
 #include "geo_point.h"
 #include "geo_raster.cc"
-#include "geo_csfraster.cc"
-#include "geo_griddedpoints.cc"
+#include "geo_raster.h"
+#include "geo_voxelstack.h"
 
 template class geo::Raster<geo::VoxelStack>;
 

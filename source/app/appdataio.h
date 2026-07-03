@@ -10,6 +10,7 @@ extern "C" {
 #endif
 
 #include "csf.h"
+#include <stdbool.h>
 
 extern REAL4 AppCastREAL4(double newS);
 

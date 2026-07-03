@@ -1,6 +1,7 @@
-#include "stddefx.h"
 #include "geo_apprasterspace.h"
-#include "app.h"
+#include "appargs.h"
+#include "geo_rasterspace.h"
+#include <cstddef>
 
 geo::AppRasterSpace::AppRasterSpace(const RasterSpace &rs) : d_rs(rs), d_trueCoords(static_cast<int>(appUnitTrue) != 0)
 {

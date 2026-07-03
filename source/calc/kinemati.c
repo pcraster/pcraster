@@ -1,5 +1,8 @@
 #include <math.h>
+#include <stddef.h>
+#include <stdio.h>
 
+#include "debug.h"
 #include "stddefx.h"
 
 // vim: fileformat=dos
@@ -10,10 +13,8 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include "mathx.h"
 #include "misc.h"
 #include "calc.h"
-#include "app.h" /* AppRowProgress */
 
 /* global header (opt.) and test's prototypes "" */
 

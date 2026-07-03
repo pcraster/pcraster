@@ -1,6 +1,6 @@
 #include <math.h>
 
-#include "stddefx.h"
+#include "debug.h"
 
 /********/
 /* USES */

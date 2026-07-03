@@ -5,6 +5,7 @@
  */
 
 #include "csftypes.h"
+#include <stddef.h>
 
 
 #ifdef USE_IN_PCRCALC

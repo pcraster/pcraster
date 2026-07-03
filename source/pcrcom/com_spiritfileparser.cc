@@ -1,10 +1,10 @@
-#include "stddefx.h"
 #include "com_spiritfileparser.h"
 #include "com_exception.h"
-#include "com_pathname.h"
 #include "com_file.h"
 #include "com_filemap.h"
 #include "com_math.h"
+#include "com_pathname.h"
+#include <cstddef>
 
 
 /*!

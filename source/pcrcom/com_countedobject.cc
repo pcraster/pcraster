@@ -1,5 +1,6 @@
-#include "stddefx.h"
 #include "com_countedobject.h"
+#include "debug.h"
+#include <cstddef>
 
 
 /*!

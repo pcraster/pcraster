@@ -1,8 +1,9 @@
-#include "stddefx.h"
 #include "geo_neighbour.h"
 #include "csftypes.h"
+#include "debug.h"
 #include "geo_cellloc.h"
 
+#include <cstddef>
 #include <limits>
 
 //------------------------------------------------------------------------------

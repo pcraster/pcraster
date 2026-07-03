@@ -1,3 +1,6 @@
+#include "appargs.h"
+#include "appdataio.h"
+#include "debug.h"
 #include "stddefx.h"
 
 
@@ -6,12 +9,11 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include "app.h" /* AppProgress, APP_PROGRESS, appOutput */
 #include "calc.h"
-#include "mathx.h" /* pow, sqrt */
 #include "misc.h"
-#include <ctype.h>
 #include <math.h>
+#include <stdlib.h>
+#include <stddef.h>
 
 /* global header (opt.) and test's prototypes "" */
 

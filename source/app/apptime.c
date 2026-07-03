@@ -1,4 +1,5 @@
-#include "stddefx.h"
+#include "appargs.h"
+#include "debug.h"
 
 
 /********/
@@ -6,10 +7,10 @@
 /********/
 
 /* libs ext. <>, our ""  */
+#include <stdio.h>
 #include <time.h>
 
 /* apps. called */
-#include "app.h"
 
 /*************/
 /* EXTERNALS */

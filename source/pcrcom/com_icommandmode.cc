@@ -1,5 +1,6 @@
-#include "stddefx.h"
 #include "com_icommandmode.h"
+#include "com_labeledprogresstracked.h"
+#include "com_progressbar.h"
 
 /*!
   \file

@@ -1,15 +1,17 @@
-#include "stddefx.h"
 #include "geo_csfstack.h"
-#include "com_csfcell.h"
 #include "com_exception.h"
 #include "com_legend.h"
 #include "com_pathname.h"
-#include "com_strlib.h"
+#include "debug.h"
 #include "geo_csfmap.h"
+#include "geo_csfstackname.h"
 #include "geo_def.h"
+#include "geo_raster.h"
 #include "geo_util.h"
 
+#include <cstddef>
 #include <memory>
+#include <pcrtypes.h>
 #include <string>
 
 /*!

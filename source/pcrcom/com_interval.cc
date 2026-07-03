@@ -1,14 +1,17 @@
-#include "stddefx.h"
+#include "com_interval.h"
 #include "com_intervaltypes.h"
 #include "com_math.h"
+#include "debug.h"
 
 #include <boost/spirit/include/classic_core.hpp>
 #include <boost/spirit/include/classic_assign_actor.hpp>
 #include <boost/algorithm/string/trim.hpp>
 
+#include <limits>
 #include <optional>
-#include <string>
+#include <ostream>
 #include <sstream>
+#include <string>
 #include <vector>
 
 /*!

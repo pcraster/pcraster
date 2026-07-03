@@ -1,4 +1,3 @@
-#include "stddefx.h"
 
 /********/
 /* USES */
@@ -7,7 +6,6 @@
 /* libs ext. <>, our ""  */
 #include "misc.h"
 #include "csf.h"
-#include "app.h"
 
 /*************/
 /* EXTERNALS */

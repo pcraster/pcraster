@@ -1,11 +1,15 @@
-#include "stddefx.h"
-#include "dal_Raster.h"
 #include "geo_rasterspace.h"
-#include "geo_cellloc.h"
 #include "com_exception.h"
-#include "geo_util.h"
+#include "dal_Raster.h"
+#include "debug.h"
+#include "geo_cellloc.h"
+#include "geo_def.h"
+#include "geo_rasterdim.h"
 
 #include <cmath>
+#include <cstddef>
+#include <istream>
+#include <ostream>
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS

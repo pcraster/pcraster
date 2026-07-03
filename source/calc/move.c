@@ -8,10 +8,8 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include "mathx.h" /* sqrt, sqr */
 #include "misc.h"
 #include "calc.h"
-#include "app.h"
 
 /* global header (opt.) and test's prototypes "" */
 

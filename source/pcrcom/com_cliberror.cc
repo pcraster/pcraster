@@ -1,6 +1,5 @@
-#include "stddefx.h"
 #include "com_cliberror.h"
-#include "com_exception.h"
+#include <string>
 
 
 /*!

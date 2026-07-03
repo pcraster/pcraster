@@ -1,7 +1,12 @@
-#include "stddefx.h"
 #include "geo_block.h"
-#include "com_file.h"
-#include "geo_util.h"
+#include "debug.h"
+#include "geo_def.h"
+#include "geo_raster.h"
+#include "geo_voxelstack.h"
+#include <algorithm>
+#include <cstddef>
+#include <istream>
+#include <ostream>
 
 /*!
   \file

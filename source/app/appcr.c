@@ -1,4 +1,4 @@
-#include "stddefx.h"
+#include "appargs.h"
 
 /********/
 /* USES */
@@ -8,7 +8,6 @@
 #include "csf.h"
 
 /* apps. called */
-#include "app.h"
 
 /*************/
 /* EXTERNALS */

@@ -1,8 +1,11 @@
-#include "stddefx.h"
 #include "geo_circularneighbourhood.h"
+#include "geo_neighbourhood.h"
 #include "geo_scanconversion.h"
+#include "geo_simpleraster.h"
 
 #include <boost/math/special_functions/round.hpp>
+#include <cmath>
+#include <cstddef>
 
 /*!
   \file

@@ -1,6 +1,6 @@
-#include "stddefx.h"
 #include "com_uniquestringgenerator.h"
 #include "com_strlib.h"
+#include <string>
 
 /*!
   \file

@@ -1,4 +1,3 @@
-#include "stddefx.h"
 #include "com_rimap.h"
 
 #include <boost/math/special_functions/round.hpp>

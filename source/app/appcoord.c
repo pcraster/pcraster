@@ -1,5 +1,5 @@
+#include "appargs.h"
 #include <assert.h>
-#include "stddefx.h"
 /*
  *
  */
@@ -9,7 +9,6 @@
 /********/
 /* libs ext. <>, our ""  */
 #include "csf.h"
-#include "app.h"
 
 /* apps. called */
 

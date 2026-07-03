@@ -1,10 +1,16 @@
 // Instantiate templates with the types used in the com-lib.
-#include "stddefx.h"
-#include "csftypes.h"
-#include "com_commandmodeargument.h"
 #include "com_axis.cc"
-#include "com_legendclass.cc"
+#include "com_axis.h"
+#include "com_labeledprogresstracked.h"
+#include "com_labeledprogresstracker.h"
 #include "com_legend.cc"
+#include "com_legend.h"
+#include "com_legendclass.cc"
+#include "com_legendclass.h"
+#include "com_progresstracked.h"
+#include "com_raster.h"
+#include "com_singlevaluedraster.h"
+#include "csftypes.h"
 
 
 template class com_Axis<REAL8>;

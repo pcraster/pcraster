@@ -1,6 +1,8 @@
-#include "stddefx.h"
 #include "geo_mooreneighbourhood.h"
+#include "debug.h"
+#include "geo_neighbourhood.h"
 #include <boost/math/special_functions/round.hpp>
+#include <cstddef>
 
 /*!
   \file

@@ -1,21 +1,27 @@
-#include "stddefx.h"
 #include "geo_util.h"
-#include "com_csfcell.h"
 #include "com_file.h"
-#include "com_math.h"
 #include "com_pathname.h"
 #include "com_strlib.h"
+#include "debug.h"
 #include "geo_averagefilter.h"
 #include "geo_csfmap.h"
 #include "geo_csfstackname.h"
+#include "geo_def.h"
 #include "geo_exception.h"
 #include "geo_filterengine.h"
+#include "geo_raster.h"
+#include "geo_rasterboundaries.h"
+#include "geo_rasterdim.h"
+#include "geo_simpleraster.h"
 
+#include <cstddef>
 #include <fstream>
+#include <iosfwd>
 #include <iostream>
 #include <memory>
 #include <stdexcept>
 #include <string>
+#include <vector>
 
 
 /*!

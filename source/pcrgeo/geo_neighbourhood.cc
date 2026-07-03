@@ -1,11 +1,17 @@
-#include "stddefx.h"
 #include "geo_neighbourhood.h"
 #include "dal_MathUtils.h"
+#include "debug.h"
+#include "geo_cellloc.h"
+#include "geo_rasterdim.h"
+#include "geo_simpleraster.h"
 
-#include <cmath>
-#include <numeric>
 #include <algorithm>
+#include <cmath>
+#include <cstddef>
+#include <iterator>
+#include <numeric>
 #include <random>
+#include <vector>
 
 /*!
   \file

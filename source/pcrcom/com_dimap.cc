@@ -1,6 +1,6 @@
-#include "stddefx.h"
 #include "com_dimap.h"
 
+#include <algorithm>
 #include <boost/math/special_functions/round.hpp>
 
 #include <cmath>

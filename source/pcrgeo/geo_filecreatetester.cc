@@ -1,16 +1,21 @@
-#include "stddefx.h"
 #include "geo_filecreatetester.h"
-#include "csf.h"
 #include "com_exception.h"
-#include "geo_util.h"
 #include "com_file.h"
+#include "com_math.h"
 #include "com_table.h"
-#include "com_csfcell.h"
+#include "csf.h"
+#include "debug.h"
 #include "geo_csfmap.h"
 #include "geo_csfraster.h"
+#include "geo_raster.h"
+#include "geo_util.h"
 
 #include <cmath>
+#include <cstddef>
+#include <fstream>
+#include <pcrtypes.h>
 #include <sstream>
+#include <string>
 
 /*!
   \file

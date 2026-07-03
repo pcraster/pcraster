@@ -1,5 +1,9 @@
 #include <math.h>
+#include <stddef.h>
+#include <stdlib.h>
 
+#include "appargs.h"
+#include "debug.h"
 #include "stddefx.h"
 
 
@@ -9,8 +13,6 @@
 /* libs ext. <>, our ""  */
 #include "misc.h"
 #include "calc.h"
-#include "app.h"
-#include "mathx.h"
 
 /* global header (opt.) and test's prototypes "" */
 

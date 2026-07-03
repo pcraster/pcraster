@@ -1,11 +1,14 @@
-#include "stddefx.h"
 #include "com_keyvaluetable.h"
+#include "com_exception.h"
 #include "com_interval.h"
 #include "com_strconv.h"
-#include "com_algorithm.h"
+#include "debug.h"
 
+#include <cstddef>
 #include <sstream>
 #include <stdexcept>
+#include <string>
+#include <utility>
 
 /*!
   \file

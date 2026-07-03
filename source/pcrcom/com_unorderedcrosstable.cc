@@ -1,10 +1,13 @@
-#include "stddefx.h"
 #include "com_unorderedcrosstable.h"
-#include "com_exception.h"
 #include "com_countedobject.cc"
+#include "com_countedobject.h"
+#include "com_exception.h"
+#include "debug.h"
 
 #include <algorithm>
+#include <cstddef>
 #include <iostream>
+#include <map>
 
 
 /*!

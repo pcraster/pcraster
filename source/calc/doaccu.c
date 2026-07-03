@@ -1,4 +1,4 @@
-#include "stddefx.h"
+#include "debug.h"
 
 
 /********/
@@ -8,7 +8,6 @@
 /* libs ext. <>, our ""  */
 #include "misc.h"
 #include "calc.h"
-#include "app.h" /* AppRowProgress */
 
 /* global header (opt.) and test's prototypes "" */
 
@@ -17,6 +16,7 @@
 #include "accu.h" /* FUNCTION */
 
 #include <math.h>
+#include <stddef.h>
 
 /***************/
 /* EXTERNALS   */

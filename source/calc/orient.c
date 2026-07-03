@@ -1,6 +1,6 @@
 #include <math.h>
 
-#include "stddefx.h"
+#include "appargs.h"
 
 
 /********/
@@ -12,7 +12,6 @@
 #include "misc.h"
 #include "calc.h"
 #include "delta.h"
-#include "app.h"
 
 /* global header (opt.) and test's prototypes "" */
 

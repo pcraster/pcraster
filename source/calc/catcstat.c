@@ -1,6 +1,7 @@
 #include <math.h>
+#include <stddef.h>
 
-#include "stddefx.h"
+#include "debug.h"
 
 
 /********/
@@ -10,13 +11,11 @@
 /* libs ext. <>, our ""  */
 #include "misc.h"
 #include "calc.h"
-#include "app.h" /* AppRowProgress */
 
 /* global header (opt.) and test's prototypes "" */
 
 /* headers of this app. modules called */
 #include "p_calc_list.h"
-#include "accu.h" /* FUNCTION */
 
 /***************/
 /* EXTERNALS   */

@@ -1,11 +1,13 @@
-#include "stddefx.h"
 #include "geo_rasterfileconverter.h"
 #include "com_exception.h"
 #include "com_file.h"
-#include "com_csfcell.h"
+#include "debug.h"
 #include "geo_bandmap.h"
 
+#include <cstddef>
+#include <fstream>
 #include <iostream>
+#include <pcrtypes.h>
 
 /*!
   \file

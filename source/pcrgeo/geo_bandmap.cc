@@ -1,15 +1,22 @@
-#include "stddefx.h"
 #include "geo_bandmap.h"
-#include "com_file.h"
-#include "com_strlib.h"
 #include "com_csfcell.h"
-#include "com_keyvaluetable.h"
+#include "com_exception.h"
+#include "com_file.h"
 #include "com_intervaltypes.h"
+#include "com_keyvaluetable.h"
+#include "com_strlib.h"
+#include "debug.h"
+#include "geo_def.h"
 #include "geo_rasterspace.h"
 #include "geo_simpleraster.h"
 
 #include <algorithm>
+#include <cstddef>
+#include <fstream>
 #include <iomanip>
+#include <ios>
+#include <pcrtypes.h>
+#include <string>
 #include <vector>
 
 /*!

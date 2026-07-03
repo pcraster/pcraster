@@ -1,17 +1,18 @@
+#include "appargs.h"
+#include "appdataio.h"
 #include <assert.h>
-#include "stddefx.h"
 
 /********/
 /* USES */
 /********/
 
 /* libs ext. <>, our ""  */
-#include "misc.h"
 #include "csf.h"
+#include "misc.h"
 #include <math.h>
+#include <stdio.h>
 
 /* apps. called */
-#include "app.h"
 
 /*************/
 /* EXTERNALS */

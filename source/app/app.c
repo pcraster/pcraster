@@ -1,3 +1,5 @@
+#include "appargs.h"
+#include "appdataio.h"
 #include "stddefx.h"
 
 
@@ -6,9 +8,9 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include "app.h"
 #include "misc.h"
 #include <stdarg.h> /* va_list, va_arg, va_start and va_end */
+#include <stdio.h>
 
 /* apps. called */
 

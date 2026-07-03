@@ -1,12 +1,16 @@
-#include "stddefx.h"
 #include "com_exception.h"
-#include "com_strlib.h"
 #include "com_pathname.h"
+#include "com_strlib.h"
+#include "debug.h"
 
+#include <cerrno>
 #include <cstring>
-#include <string>
-#include <vector>
 #include <map>
+#include <sstream>
+#include <stdexcept>
+#include <string>
+#include <utility>
+#include <vector>
 
 /*!
   \file

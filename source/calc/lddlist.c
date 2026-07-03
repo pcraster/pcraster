@@ -1,4 +1,5 @@
-#include "stddefx.h"
+#include "debug.h"
+#include "pcrcalcd.h"
 
 /*
  * lddlist.c
@@ -18,6 +19,7 @@
 
 /* headers of this app. modules called */
 #include "calc.h"
+#include <stddef.h>
 
 /***************/
 /* EXTERNALS   */

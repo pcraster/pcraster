@@ -1,10 +1,11 @@
-#include "stddefx.h"
 #include "com_directory.h"
 #include "com_exception.h"
-#include "com_pathinfo.h"
 #include "com_file.h"
+#include "com_pathinfo.h"
+#include "debug.h"
 
 #include <cstdio>
+#include <filesystem>
 #include <vector>
 
 /*!

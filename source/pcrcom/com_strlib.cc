@@ -1,18 +1,25 @@
-#include "stddefx.h"
 #include "com_strlib.h"
-#include "com_stringfo.h"
 #include "com_algorithm.h"
 #include "com_strconv.h"
+#include "com_stringfo.h"
+#include "debug.h"
+#include "stddefx.h"
 
 #include <cctype>
-#include <cstring>
+#include <cerrno>
 #include <cstdarg>
 #include <cstdio>
 #include <cstdlib>
+#include <cstring>
 #include <iomanip>
-#include <stdexcept>
-#include <vector>
+#include <ios>
+#include <iterator>
 #include <set>
+#include <sstream>
+#include <stdexcept>
+#include <string.h>
+#include <string>
+#include <vector>
 
 //! Converts the printf-like format argument to a string.
 /*! Warning: result message should be smaller than 250 chars

@@ -1,3 +1,6 @@
+#include "appargs.h"
+#include "appdataio.h"
+#include "debug.h"
 #include "stddefx.h"
 
 
@@ -6,9 +9,9 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include "misc.h"
 #include "calc.h"
-#include "app.h" /* AppProgress, APP_PROGRESS, appOutput */
+#include "misc.h"
+#include <stddef.h>
 
 /* global header (opt.) and test's prototypes "" */
 

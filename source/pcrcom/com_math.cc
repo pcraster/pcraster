@@ -1,5 +1,6 @@
-#include "stddefx.h"
 #include "com_math.h"
+#include "debug.h"
+#include <cmath>
 
 /*!
   \file

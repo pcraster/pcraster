@@ -1,5 +1,7 @@
-#include "stddefx.h"
 #include "com_intervalmap.h"
+#include "com_interval.h"
+#include <cstddef>
+#include <vector>
 
 /*!
   \file

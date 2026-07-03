@@ -1,8 +1,8 @@
-#include "stddefx.h"
 #include "geo_rectangle.h"
 #include "geo_const.h"
 #include "geo_point.h"
 
+#include <algorithm>
 #include <cmath>
 
 /*!

@@ -1,6 +1,6 @@
-#include "stddefx.h"
 #include "com_dynamiclibrary.h"
 #include "com_pathname.h"
+#include <string>
 
 #ifdef WIN32
 
@@ -129,7 +129,6 @@ void *com::DynamicLibrary::address(const std::string &symbolName) const
   return addr;
 }
 
-#include <iostream>
 
 /*! quick hack to find directory where library is found, by searching
  *  symbol and setting the directory if found

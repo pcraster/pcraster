@@ -1,8 +1,13 @@
-#include "stddefx.h"
 #include "com_progressbar.h"
 #include "com_dimap.h"
+#include "com_iprogressbar.h"
+#include "com_progresstracker.h"
+#include "com_streamwriter.h"
+#include "debug.h"
 
 #include <boost/math/special_functions/round.hpp>
+#include <cstddef>
+#include <ostream>
 
 /*!
   \file

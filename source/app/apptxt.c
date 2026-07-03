@@ -1,4 +1,4 @@
-#include "stddefx.h"
+#include "debug.h"
 
 
 /********/
@@ -9,7 +9,8 @@
 #include "misc.h" /*  StartTimer(), PauseOffTimer() etc. */
 
 /* apps. called */
-#include "app.h"
+#include <stddef.h>
+#include <stdio.h>
 
 /*************/
 /* EXTERNALS */

@@ -1,6 +1,6 @@
 #include <math.h>
 
-#include "stddefx.h"
+#include "debug.h"
 
 /********/
 /* USES */
@@ -14,6 +14,7 @@
 #include "mathx.h"
 
 #include <stdbool.h>
+#include <stdio.h>
 
 static void AddToState(REAL8 addThis, int r, int c, MAP_REAL8 *stateOut) /* Read-write state map */
 {

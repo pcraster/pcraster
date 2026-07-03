@@ -1,9 +1,13 @@
-#include "stddefx.h"
 #include "com_filemap.h"
 #include "com_exception.h"
-#include "com_pathname.h"
 #include "com_file.h"
 #include "com_math.h"
+#include "com_pathname.h"
+#include "debug.h"
+#include <cstddef>
+#include <cstdio>
+#include <fcntl.h>
+#include <string>
 
 
 #ifdef WIN32
@@ -117,11 +121,10 @@ public:
 #else
 // linux/posix
 
-#include <unistd.h>
+#include <sys/fcntl.h>
 #include <sys/mman.h>
 #include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/fcntl.h>
+#include <unistd.h>
 
 static int getPageSize()
 {

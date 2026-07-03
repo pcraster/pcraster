@@ -1,5 +1,8 @@
 #include <math.h>
+#include <stddef.h>
 
+#include "appdataio.h"
+#include "debug.h"
 #include "stddefx.h"
 
 
@@ -10,8 +13,6 @@
 /* libs ext. <>, our ""  */
 #include "misc.h"
 #include "calc.h"
-#include "app.h"   /* appUnitTrue, appOutput */
-#include "mathx.h" /* sqrt */
 
 /* global header (opt.) and test's prototypes "" */
 

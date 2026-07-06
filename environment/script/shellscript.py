@@ -7,8 +7,6 @@ import sys
 import time
 import traceback
 
-#import utils
-
 
 # Base class for shell scripts.
 #
@@ -171,64 +169,3 @@ class ShellScript(object):
 
     def _run(self):
         return 0
-
-    ##
-    # \deprecated Use arguments().
-    def argv(self):
-        print("deprecated, update your script")
-        return [self.name] + self.arguments
-
-    ##
-    # \deprecated Use len(arguments()).
-    def nrArguments(self):
-        print("deprecated, update your script")
-        return len(self.argv())
-
-    ##
-    # \deprecated Use name().
-    def appName(self):
-        print("deprecated, update your script")
-        return self.name
-
-    ##
-    # \deprecated Not crucial for a basic shellscript class.
-    def duration(self):
-        print("deprecated, update your script")
-        self._endTime = time.time()
-        return "%s" % (utils.duration(self._startTime, self._endTime))
-
-    ##
-    # \deprecated Not crucial for a basic shellscript class.
-    def printDuration(self):
-        print("deprecated, update your script")
-        self._endTime = time.time()
-        self.showMessage("duration %s: %s" % (self.name,
-                                              utils.duration(self._startTime, self._endTime)))
-
-    ##
-    # \deprecated Not crucial for a basic shellscript class.
-    def preRun(self):
-        print("deprecated, update your script")
-
-    ##
-    # \deprecated Not crucial for a basic shellscript class.
-    def postRun(self):
-        print("deprecated, update your script")
-
-    ##
-    # \deprecated Use showMessage().
-    def message(self, msg):
-        print("deprecated, update your script")
-        self.showMessage(msg)
-
-    ##
-    # \deprecated Use showWarning().
-    def warning(self, msg):
-        print("deprecated, update your script")
-        self.showWarning(msg)
-
-    ##
-    # \deprecated Use showError().
-    def error(self, msg):
-        print("deprecated, update your script")
-        self.showError(msg)

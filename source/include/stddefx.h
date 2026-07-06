@@ -120,11 +120,6 @@
 # endif
 #endif
 
-/* ANSI */
-#include <stddef.h>
-#include <stdlib.h>
-#include <limits.h>
-#include <errno.h>
 
 #ifdef BORLANDC
 /* end exclusion of C-linkage

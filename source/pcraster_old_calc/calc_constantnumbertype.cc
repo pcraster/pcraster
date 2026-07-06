@@ -2,6 +2,7 @@
 #include "calc_constantnumbertype.h"
 #include "calc_vs.h"  // intersect
 
+#include <climits>
 #include <sstream>
 
 static VS TypeNumber(double value)

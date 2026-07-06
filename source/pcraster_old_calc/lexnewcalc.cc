@@ -92,6 +92,7 @@ typedef unsigned int flex_uint32_t;
 
 /* begin standard C++ headers. */
 #include <cerrno>
+#include <climits>
 #include <cstdlib>
 #include <cstring>
 #include <iostream>

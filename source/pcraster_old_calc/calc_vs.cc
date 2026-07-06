@@ -6,6 +6,7 @@
 #include "geo_exception.h"
 #include "calc_map2csf.h"
 
+#include <climits>
 #include <sstream>
 
 /*! pick one value scale that is the

@@ -1,3 +1,6 @@
+#include "appargs.h"
+#include "appdataio.h"
+#include "debug.h"
 #include "stddefx.h"
 
 /*
@@ -10,10 +13,12 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include <string.h>
 #include "csf.h"
 #include "misc.h"
-#include "app.h"
+#include <csfattr.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /* global header (opt.) and maplabel's prototypes "" */
 

@@ -1,7 +1,6 @@
 // #define CHKMEM_C
 
 #include "debug.h"
-#include "stddefx.h"
 #include <stdlib.h>
 
 /**************************************************************************/

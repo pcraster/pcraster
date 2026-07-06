@@ -1,3 +1,4 @@
+#include "debug.h"
 #include "stddefx.h"
 
 
@@ -6,13 +7,14 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include <ctype.h>
+#include "csf.h"
+#include "currmenu.h" /* Curr... */
+#include "misc.h"
+#include <csfattr.h>
+#include <curses.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
-#include "csf.h"
-#include "misc.h"
-#include "currmenu.h" /* Curr... */
 
 /* apps. of this module called */
 #include "select.h"

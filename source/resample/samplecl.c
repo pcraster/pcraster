@@ -1,3 +1,5 @@
+#include "appargs.h"
+#include "debug.h"
 #include "stddefx.h"
 
 
@@ -13,7 +15,6 @@
 #include <string.h>   /* memmove */
 #include "point.h"
 #include "table.h"
-#include "app.h" /* AppRowProgress */
 
 /* global header (opt.) and test's prototypes "" */
 

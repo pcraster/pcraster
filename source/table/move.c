@@ -1,4 +1,4 @@
-#include "stddefx.h"
+#include "debug.h"
 
 
 /********/
@@ -6,10 +6,11 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include <string.h>
 #include "misc.h"
 #include "move.h"
 #include "table.h"
+#include <stdio.h>
+#include <string.h>
 
 /* apps. called */
 

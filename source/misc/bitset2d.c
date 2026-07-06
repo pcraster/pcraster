@@ -1,5 +1,4 @@
 #include "debug.h"
-#include "stddefx.h"
 
 /* algorithm is taken from 
   *  Holub's compiler design in C (or something like that)

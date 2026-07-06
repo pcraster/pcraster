@@ -1,3 +1,6 @@
+#include "appargs.h"
+#include "appdataio.h"
+#include "geometry.h"
 #include "stddefx.h"
 
 /* TODO
@@ -14,13 +17,12 @@
 /* USES */
 /********/
 /* libs ext. <>, our ""  */
-#include "app.h"
 #include "csf.h"
 #include "mathx.h" /* M_2PI */
 #include "misc.h"
-#include "table.h"
-#include <ctype.h>
+#include <stddef.h>
 #include <math.h>
+#include <stdlib.h>
 
 /* apps. called */
 #include "sample.h" /* Sample */

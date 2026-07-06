@@ -1,3 +1,5 @@
+#include "debug.h"
+#include "geometry.h"
 #include "stddefx.h"
 
 
@@ -8,6 +10,7 @@
 /* libs ext. <>, our ""  */
 #include "misc.h"
 #include <math.h>
+#include <stddef.h>
 
 /* global header (opt.) and test's prototypes "" */
 #include "point.h"

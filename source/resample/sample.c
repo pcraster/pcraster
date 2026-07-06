@@ -1,4 +1,7 @@
-#include "stddefx.h"
+#include "appargs.h"
+#include "appdataio.h"
+#include "debug.h"
+#include "misc.h"
 
 
 /********/
@@ -6,7 +9,8 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include "app.h"
+#include <math.h>
+#include <stddef.h>
 
 /* global header (opt.) and test's prototypes "" */
 

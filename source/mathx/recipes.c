@@ -1,5 +1,4 @@
 #include "debug.h"
-#include "stddefx.h"
 
 /**************************************************************************/
 /*  recipes.c                                                            */
@@ -15,6 +14,7 @@
 #include "misc.h"
 
 #include <math.h>
+#include <stddef.h>
 
 /***************/
 /* EXTERNALS   */

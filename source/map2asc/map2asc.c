@@ -1,4 +1,4 @@
-#include "stddefx.h"
+#include "appargs.h"
 
 /*
  *
@@ -9,11 +9,10 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include "app.h" /* appOutput, APP_PROGRESS, AppProgress */
 #include "csf.h"
 #include "misc.h"
-#include <ctype.h> /* isdigit */
 #include <math.h>
+#include <stdio.h>
 #include <string.h> /* strlen, strcpy */
 
 #include "map2asc.h"

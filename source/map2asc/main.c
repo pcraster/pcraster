@@ -1,4 +1,5 @@
-#include "stddefx.h"
+#include "appargs.h"
+#include "appdataio.h"
 
 /*
  */
@@ -8,10 +9,10 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include <string.h> /* strchr */
-#include "misc.h"
 #include "csf.h"
-#include "app.h" /* GetOpt, InstallArgs, ArgArguments */
+#include "misc.h"
+#include <stdlib.h>
+#include <string.h> /* strchr */
 
 /* apps. called */
 #include "map2asc.h"

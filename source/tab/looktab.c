@@ -9,6 +9,8 @@
 #include "misc.h"
 #include "table.h"
 
+#include <stddef.h>
+
 /* global header (opt.) and test's prototypes "" */
 
 /* headers of this app. modules called */

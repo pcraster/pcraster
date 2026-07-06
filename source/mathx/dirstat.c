@@ -1,8 +1,8 @@
 #include "debug.h"
 #include "mathx.h"
-#include "stddefx.h"
 
 #include <math.h>
+#include <stddef.h>
 
 /* Calculate the first four moments of a directional data sample
  * Input and result are in radians and between 0 and 2pi. The sample size must be larger

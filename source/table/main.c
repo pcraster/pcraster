@@ -1,4 +1,6 @@
-#include "stddefx.h"
+#include "appargs.h"
+#include "appdataio.h"
+#include "debug.h"
 
 
 /********/
@@ -8,11 +10,12 @@
 /* libs ext. <>, our ""  */
 #include "csf.h"
 #include "misc.h"
-#include "app.h"
 #include "table.h"
 
 /* apps. called */
 #include "move.h"
+#include <stddef.h>
+#include <stdlib.h>
 
 /*************/
 /* EXTERNALS */

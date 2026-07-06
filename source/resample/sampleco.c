@@ -1,5 +1,8 @@
 #include <math.h>
+#include <stddef.h>
 
+#include "appargs.h"
+#include "debug.h"
 #include "stddefx.h"
 
 
@@ -14,7 +17,6 @@
 #include "geometry.h" /* Intersect, PointInPolygon, AreaPolygon */
 #include "mathx.h"    /* ceil, floor, ScaleRad */
 #include "point.h"
-#include "app.h"
 
 /* global header (opt.) and test's prototypes "" */
 

@@ -26,10 +26,7 @@ set(SOURCES
     staticPCRasterBase.py
     Timeoutput.py
     ${PROJECT_SOURCE_DIR}/environment/script/forkscript.py
-    ${PROJECT_SOURCE_DIR}/environment/script/pcr.py
-    ${PROJECT_SOURCE_DIR}/environment/script/pcrstat.py
     ${PROJECT_SOURCE_DIR}/environment/script/shellscript.py
-    ${PROJECT_SOURCE_DIR}/environment/script/utils.py
 )
 
 install(

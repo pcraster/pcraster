@@ -193,11 +193,6 @@ install(
         ${CMAKE_CURRENT_BINARY_DIR}/operations.py
         ${CMAKE_CURRENT_BINARY_DIR}/__init__.py
         ${CMAKE_CURRENT_BINARY_DIR}/__about__.py
-        ${PROJECT_SOURCE_DIR}/environment/script/forkscript.py
-        ${PROJECT_SOURCE_DIR}/environment/script/pcr.py
-        ${PROJECT_SOURCE_DIR}/environment/script/pcrstat.py
-        ${PROJECT_SOURCE_DIR}/environment/script/shellscript.py
-        ${PROJECT_SOURCE_DIR}/environment/script/utils.py
     DESTINATION
         ${PCRASTER_PYTHON_INSTALL_DIR}/pcraster
 )

@@ -1,9 +1,9 @@
+import importlib
 import os
 import pathlib
 import platform
 import shutil
 import sys
-
 
 # On Windows prepend the path to our dlls to the PATH environment variable.
 # Otherwise our dlls won't be found when our Python extensions are loaded
@@ -62,44 +62,40 @@ from .__about__ import (
     __version__, __author__, __uri__, __license__, __copyright__
 )
 
-try:
+# Depending on the build or runtime configuration the following may be available
+if importlib.util.find_spec("pcraster._pcraster_modflow") is not None:
     from ._pcraster_modflow import *
-except ImportError:
-    pass  # Modflow module was not installed
-
-try:
-    _var = "PCRASTER_NR_WORKER_THREADS"
-    _workers = int(os.environ[_var])
-    from .multicore import *
-    set_nr_worker_threads(_workers)
-except ValueError as err:
-    msg = "Could not obtain the number of worker threads. The environment variable {} is set to '{}'; use an integer value instead.".format(
-        _var, os.environ[_var])
-    raise RuntimeError(msg)
-except KeyError:
-    pass  # No multicore module use intended
-except ImportError:
-    pass  # Multicore module was not installed
 
 
-try:
-    import matplotlib
+if importlib.util.find_spec("pcraster.multicore") is not None:
+    try:
+        _var = "PCRASTER_NR_WORKER_THREADS"
+        _workers = int(os.environ[_var])
+        from .multicore import *
+        set_nr_worker_threads(_workers)
+    except ValueError as err:
+        msg = f"Could not obtain the number of worker threads. The environment variable { _var} is set to '{os.environ[_var]}'; use an integer value instead."
+        raise RuntimeError(msg)
+    except KeyError:
+        pass  # No multicore module use intended
+
+
+if importlib.util.find_spec("matplotlib") is not None:
     from .matplotlib import plot
-
-except ImportError as e:
-    pass  # Matplotlib module was not installed
 
 
 def runtime_scope(user_main):
-    """ Decorator doing nothing but helps LUE """
+    """Decorator doing nothing but helps LUE"""
+
     def decorated_function(*args, **kwargs):
         user_main(*args, **kwargs)
 
     return decorated_function
 
+
 def pcraster_provider():
-    """ Helper function returning main PCRaster (sub)packages """
-    sys.path.insert(0, '../..')
+    """Helper function returning main PCRaster (sub)packages"""
+    sys.path.insert(0, "../..")
     import pcraster as pcr_prov
     import pcraster.framework as pcrfw_prov
 

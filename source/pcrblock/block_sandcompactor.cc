@@ -1,9 +1,10 @@
-#include "stddefx.h"
 #include "block_sandcompactor.h"
 #include "dal_MathUtils.h"
+#include "debug.h"
 
 #include <cmath>
 #include <numbers>
+#include <pcrtypes.h>
 
 
 /*!

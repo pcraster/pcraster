@@ -1,8 +1,9 @@
-#include "stddefx.h"
 #include "block_dehaancompactor.h"
 #include "dal_MathUtils.h"
+#include "debug.h"
 
 #include <cmath>
+#include <pcrtypes.h>
 
 
 /*!

@@ -1,10 +1,16 @@
-#include "stddefx.h"
+#include "block_voxelatheight.h"
 #include "dal_MathUtils.h"
+#include "debug.h"
 #include "discr_block.h"
 #include "discr_blockdata.h"
-#include "block_voxelatheight.h"
+#include "discr_raster.h"
 
+#include <algorithm>
 #include <cmath>
+#include <cstddef>
+#include <map>
+#include <pcrtypes.h>
+#include <vector>
 
 namespace block {
 

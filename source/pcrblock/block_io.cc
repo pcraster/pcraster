@@ -1,11 +1,19 @@
-#include "stddefx.h"
+#include "dal_Block.h"
+#include "dal_Def.h"
 #include "dal_GSLIBBlockDriver.h"
 #include "dal_PCRBlockDriver.h"
+#include "dal_PropertyKeys.h"
+#include "dal_Type.h"
 #include "dal_VTKBlockDriver.h"
+#include "debug.h"
 #include "discr_block.h"
 #include "discr_blockdata.h"
 
+#include <cstddef>
 #include <memory>
+#include <pcrtypes.h>
+#include <string>
+#include <vector>
 
 
 namespace block {

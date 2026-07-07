@@ -1,5 +1,9 @@
-#include "stddefx.h"
+#include "debug.h"
+#include "discr_block.h"
 #include "discr_blockdata.h"
+#include <cstddef>
+#include <pcrtypes.h>
+#include <vector>
 
 
 /*!

@@ -1,7 +1,11 @@
-#include "stddefx.h"
+#include "block_voxelatheight.h"
 #include "discr_blockdata.h"
 #include "discr_rasterdata.h"
-#include "block_voxelatheight.h"
+#include "discr_voxelstack.h"
+#include <algorithm>
+#include <cstddef>
+#include <pcrtypes.h>
+#include <vector>
 
 
 

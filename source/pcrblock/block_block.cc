@@ -1,7 +1,10 @@
-#include "stddefx.h"
+#include "debug.h"
 #include "discr_block.h"
 #include "discr_blockdata.h"
+#include "discr_raster.h"
 #include "discr_rasterdata.h"
+#include <cstddef>
+#include <pcrtypes.h>
 
 
 /*!

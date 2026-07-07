@@ -1,15 +1,20 @@
-#include "stddefx.h"
-#include "dal_MathUtils.h"
-#include "discr_block.h"
-#include "discr_blockdata.h"
-#include "discr_rasterdata.h"
-#include "discr_voxelstack.h"
 #include "block_compactors.h"
 #include "block_dehaancompactor.h"
 #include "block_types.h"
+#include "dal_MathUtils.h"
+#include "debug.h"
+#include "discr_block.h"
+#include "discr_blockdata.h"
+#include "discr_raster.h"
+#include "discr_rasterdata.h"
+#include "discr_voxelstack.h"
 
+#include <algorithm>
 #include <cmath>
+#include <cstddef>
 #include <functional>
+#include <pcrtypes.h>
+#include <vector>
 
 /*!
   \file

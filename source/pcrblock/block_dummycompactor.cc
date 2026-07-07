@@ -1,6 +1,7 @@
-#include "stddefx.h"
 #include "block_dummycompactor.h"
 #include "dal_MathUtils.h"
+#include "debug.h"
+#include <pcrtypes.h>
 
 
 /*!

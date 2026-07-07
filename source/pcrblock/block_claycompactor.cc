@@ -1,7 +1,8 @@
-#include "stddefx.h"
 #include "block_claycompactor.h"
+#include "debug.h"
 
 #include <cmath>
+#include <pcrtypes.h>
 
 
 /*!

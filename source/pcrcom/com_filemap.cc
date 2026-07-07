@@ -5,6 +5,7 @@
 #include "com_pathname.h"
 #include "debug.h"
 #include <cstddef>
+#include <cstdlib>
 #include <cstdio>
 #include <fcntl.h>
 #include <string>
@@ -123,7 +124,6 @@ public:
 
 #include <sys/fcntl.h>
 #include <sys/mman.h>
-#include <sys/types.h>
 #include <unistd.h>
 
 static int getPageSize()

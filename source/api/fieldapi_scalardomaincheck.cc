@@ -1,7 +1,10 @@
-#include "stddefx.h"
 #include "fieldapi_scalardomaincheck.h"
-#include "geo_cellloc.h"
+#include "com_interval.h"
 #include "fieldapi_interface.h"
+#include "geo_cellloc.h"
+#include <cstddef>
+#include <string>
+#include <vector>
 
 /*!
   \file

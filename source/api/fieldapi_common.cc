@@ -1,6 +1,6 @@
-#include "stddefx.h"
 #include "fieldapi_common.h"
-#include "geo_cellloc.h"
+#include "geo_rasterdim.h"
+#include <cstddef>
 
 /*!
   \file

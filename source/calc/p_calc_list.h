@@ -1,6 +1,8 @@
 #ifndef  INCLUDED_LIBCALC_LIST
 #define  INCLUDED_LIBCALC_LIST
 
+#include "calc.h"
+
 typedef struct NODE
 {
      int rowNr;

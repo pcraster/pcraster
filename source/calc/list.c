@@ -8,7 +8,6 @@
 
 /* libs ext. <>, our ""  */
 #include "misc.h"
-#include "calc.h"
 
 /* global header (opt.) and test's prototypes "" */
 #include "p_calc_list.h"

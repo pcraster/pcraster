@@ -1,6 +1,12 @@
-#include "stddefx.h"
 #include "discr_block.h"
 #include "dal_MathUtils.h"
+#include "debug.h"
+#include "discr_raster.h"
+#include "discr_rasterdata.h"
+#include "discr_voxelstack.h"
+#include <algorithm>
+#include <cstddef>
+#include <pcrtypes.h>
 
 
 

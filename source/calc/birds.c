@@ -1,6 +1,6 @@
 #include <math.h>
 
-#include "stddefx.h"
+#include "pcrcalcd.h"
 
 
 /********/
@@ -10,7 +10,6 @@
 /* libs ext. <>, our ""  */
 #include "calc.h"
 #include "mathx.h" /* Ran */
-#include "misc.h"
 
 /* global header (opt.) and test's prototypes "" */
 

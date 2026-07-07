@@ -15,7 +15,11 @@
 #include "csftypes.h"
 #include "api.h"
 #include "api_p.h"
+#include "debug.h"
+#include "pcrcalcd.h"
 
+#include <stddef.h>
+#include <stdlib.h>
 #include <stdbool.h>
 
 /* headers of this app. modules called */

@@ -1,4 +1,6 @@
-#include "stddefx.h"
+#include "appargs.h"
+#include "appdataio.h"
+#include "debug.h"
 
 
 /********/
@@ -7,7 +9,6 @@
 
 /* libs ext. <>, our ""  */
 #include <math.h> /* sqrt */
-#include "app.h"  /* appUnit */
 
 /* global header (opt.) and mapdim's prototypes "" */
 #include "api.h"

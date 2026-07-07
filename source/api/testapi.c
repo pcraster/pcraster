@@ -1,11 +1,12 @@
-#include "stddefx.h"
+#include "debug.h"
 
 /********/
 /* USES */
 /********/
 
 /* libs ext. <>, our ""  */
-#include <math.h> /* sqrt() */
+#include <stddef.h>
+#include <stdlib.h>
 
 /* global header (opt.) and testapi's prototypes "" */
 #include "misc.h"
@@ -13,7 +14,6 @@
 #include "api.h"
 #include "api_p.h"
 
-#include "app.h"
 
 /* headers of this app. modules called */
 

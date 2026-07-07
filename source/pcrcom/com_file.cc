@@ -2,11 +2,11 @@
 #include "com_exception.h"
 #include "com_pathinfo.h"
 #include "debug.h"
-#include "stddefx.h"
 
 #include <cctype>
 #include <cerrno>
 #include <cstdio>
+#include <cstdlib>
 #include <cstring>
 #include <filesystem>
 #include <fstream>

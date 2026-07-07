@@ -10,6 +10,7 @@
 #include "calc.h"
 #include "mathx.h"
 #include "misc.h"
+#include "pcrcalcd.h"
 
 /* global header (opt.) and test's prototypes "" */
 

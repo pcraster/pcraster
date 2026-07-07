@@ -1,5 +1,5 @@
-#include "stddefx.h"
 #include "discr_raster.h"
+#include <cstddef>
 
 
 /*!

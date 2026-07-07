@@ -1,9 +1,10 @@
-#include "stddefx.h"
 #include "discr_voxelstack.h"
-#include "pcrtypes.h"
 #include "dal_MathUtils.h"
+#include "debug.h"
+#include "pcrtypes.h"
 
-#include <numeric>
+#include <cstddef>
+#include <vector>
 
 
 /*!

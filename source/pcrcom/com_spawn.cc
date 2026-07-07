@@ -2,9 +2,8 @@
 #include "com_appargs.h"
 #include "debug.h"
 
-#include <stdlib.h>
+#include <sched.h>
 #include <string>
-#include <sys/types.h>
 #include <sys/wait.h>
 
 #ifndef _MSC_VER
@@ -21,6 +20,7 @@
 #endif
 
 #include <cerrno>
+#include <cstdlib>
 
 /*!
   \file

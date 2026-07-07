@@ -13,9 +13,8 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include "mathx.h" /* Ran() */
-#include "misc.h"
 #include "calc.h"
+#include "mathx.h" /* Ran() */
 
 /* global header (opt.) and test's prototypes "" */
 

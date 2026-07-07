@@ -1,5 +1,13 @@
-#include "stddefx.h"
 #include "fieldapi_interface.h"
+#include "debug.h"
+#include "fieldapi_common.h"
+#include "fieldapi_readonly.h"
+#include "fieldapi_readonlynonspatial.h"
+#include "fieldapi_readonlyspatial.h"
+#include "fieldapi_readwrite.h"
+#include "fieldapi_readwritedata.h"
+#include "geo_cellloc.h"
+#include <vector>
 
 /*!
   \file

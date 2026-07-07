@@ -1,10 +1,15 @@
 #include "fieldapi_readonly.cc"
-#include "fieldapi_readwritedata.cc"
-#include "fieldapi_readwrite.cc"
-#include "fieldapi_readonlyspatial.cc"
+#include "fieldapi_readonly.h"
 #include "fieldapi_readonlynonspatial.cc"
+#include "fieldapi_readonlynonspatial.h"
+#include "fieldapi_readonlyspatial.cc"
+#include "fieldapi_readonlyspatial.h"
+#include "fieldapi_readwrite.cc"
+#include "fieldapi_readwrite.h"
+#include "fieldapi_readwritedata.cc"
 
 #include "csftypes.h"
+#include "fieldapi_readwritedata.h"
 
 template class fieldapi::ReadOnly<REAL8>;
 template class fieldapi::ReadOnly<INT4>;

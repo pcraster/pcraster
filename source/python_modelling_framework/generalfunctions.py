@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import os
 
-
-from pcraster import *
+import pcraster as pcr
 
 # time in hours
 
 
 def getCellValue(Map, Row, Column):
-    Value, Valid = cellvalue(Map, Row, Column)
+    Value, Valid = pcr.cellvalue(Map, Row, Column)
     if Valid:
         return Value
     else:
@@ -17,7 +17,7 @@ def getCellValue(Map, Row, Column):
 
 def getCellValueAtBooleanLocation(location, map):
     # map can be any type, return value always float
-    valueMap = mapmaximum(ifthen(location, scalar(map)))
+    valueMap = pcr.mapmaximum(pcr.ifthen(location, pcr.scalar(map)))
     value = getCellValue(valueMap, 1, 1)
     return value
 
@@ -36,29 +36,29 @@ def onePeriod(self, startTime, endTime, timeStepDuration, currentTimeStep):
 
 
 def mapeq(mapOne, mapTwo):
-    mapOneScalar = scalar(mapOne)
-    mapTwoScalar = scalar(mapTwo)
+    mapOneScalar = pcr.scalar(mapOne)
+    mapTwoScalar = pcr.scalar(mapTwo)
     difference = mapOneScalar - mapTwoScalar
-    cellEqual = pcreq(difference, scalar(0))
-    mapEqual = pcrgt(mapminimum(scalar(cellEqual)), scalar(0.5))
+    cellEqual = pcr.pcreq(difference, pcr.scalar(0))
+    mapEqual = pcr.pcrgt(pcr.mapminimum(pcr.scalar(cellEqual)), pcr.scalar(0.5))
     return getCellValue(mapEqual, 1, 1)
 
 
 def slopeToDownstreamNeighbour(dem, ldd):
-    slopeToDownstreamNeighbour = (dem - downstream(ldd, dem)) / downstreamdist(ldd)
+    slopeToDownstreamNeighbour = (dem - pcr.downstream(ldd, dem)) / pcr.downstreamdist(ldd)
     return slopeToDownstreamNeighbour
 
 
 def slopeToDownstreamNeighbourNotFlat(dem, ldd, minSlope):
     slopeToDownstreamNeighbourMap = slopeToDownstreamNeighbour(dem, ldd)
-    lddArea = defined(ldd)
-    minSlopeCover = ifthen(lddArea, scalar(minSlope))
-    slopeToDownstreamNeighbourNotFlat = cover(max(minSlopeCover, slopeToDownstreamNeighbourMap), minSlopeCover)
+    lddArea = pcr.defined(ldd)
+    minSlopeCover = pcr.ifthen(lddArea, pcr.scalar(minSlope))
+    slopeToDownstreamNeighbourNotFlat = pcr.cover(pcr.max(minSlopeCover, slopeToDownstreamNeighbourMap), minSlopeCover)
     return slopeToDownstreamNeighbourNotFlat
 
 
 def distancetodownstreamcell(Ldd):
-    distanceToDownstreamCell = max(downstreamdist(Ldd), celllength())
+    distanceToDownstreamCell = pcr.max(pcr.downstreamdist(Ldd), pcr.celllength())
     return distanceToDownstreamCell
 
 
@@ -84,6 +84,6 @@ def normalcorrelated(normalX, normalY, correlation):
     # x=normal()
     # y=ax+b*normal()
     # correlation = a /  sqrt( sqr(a) + sqr(b) )
-    x = scalar(normalX)
-    y = (x + sqrt((1 / sqr(correlation)) - 1) * scalar(normalY)) * scalar(correlation)
+    x = pcr.scalar(normalX)
+    y = (x + pcr.sqrt((1 / pcr.sqr(correlation)) - 1) * pcr.scalar(normalY)) * pcr.scalar(correlation)
     return x, y

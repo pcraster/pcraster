@@ -95,7 +95,7 @@ class TimeoutputTimeseries(object):
                 self._spatialDatatype = str(expression.dataType())
         except AttributeError as e:
             datatype, sep, tail = str(e).partition(" ")
-            msg = "Argument must be a PCRaster map, type %s given. If necessary use data conversion functions like scalar()" % (datatype)
+            msg = f"Argument must be a PCRaster map, type {datatype} given. If necessary use data conversion functions like pcr.scalar()"
             raise AttributeError(msg)
 
         if self._spatialIdGiven:

@@ -4,7 +4,9 @@ import os
 import unittest
 import testcase
 import pathlib
+
 import runoff
+import pcraster as pcr
 from pcraster.framework import *
 
 
@@ -87,21 +89,21 @@ class TimeoutputTest(testcase.TestCase):
       dynModelFw.run()
     except AttributeError as e:
       errorCatched=True
-      self.assertEqual(str(e), "Argument must be a PCRaster map, type 'float' given. If necessary use data conversion functions like scalar()")
+      self.assertEqual(str(e), "Argument must be a PCRaster map, type 'float' given. If necessary use data conversion functions like pcr.scalar()")
     self.assertTrue(errorCatched)
 
   def test_06(self):
     """ bug: using a boolean map as idMap generates 1e31"""
     class Model(DynamicModel):
       def __init__(self, cloneMap):
-        setclone(cloneMap)
+        pcr.setclone(cloneMap)
 
       def initial(self):
         # initialise timeoutput
         self.tss = TimeoutputTimeseries("test6", self, "mask.map")
 
       def dynamic(self):
-        self.tss.sample(spatial(scalar(1)))
+        self.tss.sample(pcr.spatial(pcr.scalar(1)))
 
     m = Model("mask.map")
     dynModelFw = DynamicFramework(m, lastTimeStep=4)
@@ -114,9 +116,9 @@ class TimeoutputTest(testcase.TestCase):
     """ test allowed data types  for idMap """
     class Model(DynamicModel):
       def __init__(self, cloneMap):
-        setclone(cloneMap)
+        pcr.setclone(cloneMap)
       def initial(self):
-        self.tss = TimeoutputTimeseries("test7", self, scalar("mask.map"))
+        self.tss = TimeoutputTimeseries("test7", self, pcr.scalar("mask.map"))
       def dynamic(self):
          pass
 
@@ -134,7 +136,7 @@ class TimeoutputTest(testcase.TestCase):
     """ bug: can not create tss in sub directory"""
     class Model(DynamicModel):
       def __init__(self, cloneMap):
-        setclone(cloneMap)
+        pcr.setclone(cloneMap)
 
       def initial(self):
         # initialise timeoutput
@@ -142,7 +144,7 @@ class TimeoutputTest(testcase.TestCase):
         self.tss = TimeoutputTimeseries(os.path.join("dirForTest8","test8"), self, "mask.map")
 
       def dynamic(self):
-        self.tss.sample(spatial(scalar(1)))
+        self.tss.sample(pcr.spatial(pcr.scalar(1)))
 
     m = Model("mask.map")
     dynModelFw = DynamicFramework(m, lastTimeStep=4)
@@ -154,7 +156,7 @@ class TimeoutputTest(testcase.TestCase):
       def __init__(self, cloneMap):
         DynamicModel.__init__(self)
         MonteCarloModel.__init__(self)
-        setclone(cloneMap)
+        pcr.setclone(cloneMap)
 
       def premcloop(self):
           pass
@@ -166,7 +168,7 @@ class TimeoutputTest(testcase.TestCase):
             self, "mask.map")
 
       def dynamic(self):
-        self.tss.sample(spatial(scalar(1)))
+        self.tss.sample(pcr.spatial(pcr.scalar(1)))
 
       def postmcloop(self):
           pass
@@ -191,12 +193,12 @@ class TimeoutputTest(testcase.TestCase):
         cellSize = 5.0
         west = 7.0
         north = 8.0
-        setclone(nrRows, nrCols, cellSize, west, north)
+        pcr.setclone(nrRows, nrCols, cellSize, west, north)
       def initial(self):
-        locs = ordinal(1)
+        locs = pcr.ordinal(1)
         self.tss = TimeoutputTimeseries("test10", self, locs)
       def dynamic(self):
-        self.tss.sample(spatial(scalar(0.1 + self.currentTimeStep())))
+        self.tss.sample(pcr.spatial(pcr.scalar(0.1 + self.currentTimeStep())))
 
     m = Model()
     dynModelFw = DynamicFramework(m, lastTimeStep=5)

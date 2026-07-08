@@ -4,7 +4,7 @@ import os
 import shutil
 import numpy
 import numpy.ma
-from pcraster import *
+import pcraster as pcr
 from .frameworkBase import generateNameS, generateNameT, generateNameST
 from . import generalfunctions, regression
 
@@ -52,7 +52,7 @@ def selectSArrays(
   sampleNumbers):
     masks = []
     arrays = []
-    nrCells = clone().nrRows() * clone().nrCols()
+    nrCells = pcr.clone().nrRows() * pcr.clone().nrCols()
 
     # For each cell.
     # Create empty arrays for cell values and 'missing valueness'.
@@ -66,12 +66,12 @@ def selectSArrays(
     # Read raster and assign cell values to arrays.
     s = 0
     while s < len(sampleNumbers):
-        raster = readmap(generateNameS(name, sampleNumbers[s]))
+        raster = pcr.readmap(generateNameS(name, sampleNumbers[s]))
 
         # For each cell.
         c = 0
         while c < nrCells:
-            arrays[c][s], masks[c][s] = cellvalue(raster, c + 1)
+            arrays[c][s], masks[c][s] = pcr.cellvalue(raster, c + 1)
             c += 1
         s += 1
 
@@ -90,8 +90,8 @@ def selectSArrays(
 # in the names variable. With this array the function is called which can
 # calculate statistics or whatever.
 def aggregateSPerCell(name, sampleNumbers, calculator):
-    for row in range(clone().nrRows()):
-        for col in range(clone().nrCols()):
+    for row in range(pcr.clone().nrRows()):
+        for col in range(pcr.clone().nrCols()):
             calculator.run(row, col, selectSArray(name, sampleNumbers, row, col))
     return calculator.result()
 
@@ -119,7 +119,7 @@ class PercentileCalculator:
 
     def run(self,
             arrays):
-        for c in range(clone().nrRows() * clone().nrCols()):
+        for c in range(pcr.clone().nrRows() * pcr.clone().nrCols()):
             if len(arrays[c]) > 0:
                 arrays[c].sort()
                 for p in range(len(self.d_percentiles)):
@@ -146,13 +146,13 @@ def probability(name, sampleNumbers):
 
     Returns a raster with probabilities.
     """
-    present = scalar(0)
-    count = scalar(0)
+    present = pcr.scalar(0)
+    count = pcr.scalar(0)
     for sample in sampleNumbers:
         filename = generateNameS(name, sample)
-        raster = readmap(filename)
-        present = ifthenelse(raster, present + 1, present)
-        count = ifthen(defined(raster), count + 1)
+        raster = pcr.readmap(filename)
+        present = pcr.ifthenelse(raster, present + 1, present)
+        count = pcr.ifthen(pcr.defined(raster), count + 1)
     return present / count
 
 
@@ -168,13 +168,13 @@ def average(name, sampleNumbers):
 
     Returns a raster with average values.
     """
-    sum = scalar(0)
-    count = scalar(0)
+    sum = pcr.scalar(0)
+    count = pcr.scalar(0)
     for sample in sampleNumbers:
         filename = generateNameS(name, sample)
-        raster = readmap(filename)
+        raster = pcr.readmap(filename)
         sum = sum + raster
-        count = ifthen(defined(raster), count + 1)
+        count = pcr.ifthen(pcr.defined(raster), count + 1)
     return sum / count
 
 
@@ -190,13 +190,13 @@ def variance(name, sampleNumbers):
 
     Returns a raster with variances.
     """
-    sumOfSquaredValues, sumOfValues, count = scalar(0), scalar(0), scalar(0)
+    sumOfSquaredValues, sumOfValues, count = pcr.scalar(0), pcr.scalar(0), pcr.scalar(0)
     for sample in sampleNumbers:
         filename = generateNameS(name, sample)
-        raster = readmap(filename)
+        raster = pcr.readmap(filename)
         sumOfSquaredValues = sumOfSquaredValues + raster ** 2
         sumOfValues = sumOfValues + raster
-        count = ifthen(defined(raster), count + 1)
+        count = pcr.ifthen(pcr.defined(raster), count + 1)
     return (count * sumOfSquaredValues - sumOfValues ** 2) / (count * (count - 1))
 
 
@@ -212,7 +212,7 @@ def stddev(name, sampleNumbers):
 
     Returns a raster with standard deviations.
     """
-    return sqrt(variance(name, sampleNumbers))
+    return pcr.sqrt(variance(name, sampleNumbers))
 
 
 def percentile(
@@ -254,16 +254,16 @@ def timeseries(name, timeSteps, row, col):
 
 
 # def varmean(names,sampleNumbers, timeSteps):
-#  nrSamples=scalar(len(sampleNumbers))
+#  nrSamples=pcr.scalar(len(sampleNumbers))
 #  for name in names:
 #    for step in timeSteps:
-#      sumSquared=scalar(0.0)
-#      sum=scalar(0.0)
+#      sumSquared=pcr.scalar(0.0)
+#      sum=pcr.scalar(0.0)
 #      for sample in sampleNumbers:
-#        realization=scalar(generateNameST(name,sample,step))
+#        realization=pcr.scalar(generateNameST(name,sample,step))
 #        sumSquared=sumSquared+realization*realization
 #        sum=sum+realization
-#      std=(scalar(1.0)/nrSamples)*sqrt(nrSamples*sumSquared-sum*sum)
+#      std=(pcr.scalar(1.0)/nrSamples)*sqrt(nrSamples*sumSquared-sum*sum)
 #      var=std*std
 #      mean=sum/nrSamples
 #      report(var, generateNameT(name + '-var', step))
@@ -271,7 +271,7 @@ def timeseries(name, timeSteps, row, col):
 
 
 def correlation(location, independentName, dependentName, locationName, sampleNumbers, timeSteps):
-    location = boolean(location)
+    location = pcr.boolean(location)
     name = independentName + '_' + dependentName + '_' + locationName
     tssFileIntercept = file("%s%s.tss" % (name, '_int'), "w")
     tssFileSlope = file("%s%s.tss" % (name, '_slope'), "w")
@@ -281,10 +281,10 @@ def correlation(location, independentName, dependentName, locationName, sampleNu
         for sample in sampleNumbers:
             smallValue = 0.0000000000000000001
             fileNameOne = generateNameST(dependentName, sample, step)
-            valueOne = generalfunctions.getCellValueAtBooleanLocation(location, scalar(fileNameOne))
+            valueOne = generalfunctions.getCellValueAtBooleanLocation(location, pcr.scalar(fileNameOne))
             pairList = [valueOne + smallValue]
             fileNameTwo = generateNameST(independentName, sample, step)
-            valueTwo = generalfunctions.getCellValueAtBooleanLocation(location, scalar(fileNameTwo))
+            valueTwo = generalfunctions.getCellValueAtBooleanLocation(location, pcr.scalar(fileNameTwo))
             pairList.append(valueTwo + smallValue)
             values.append(pairList)
             # print valueOne + smallValue, valueTwo + smallValue
@@ -319,11 +319,11 @@ def sampleMin(name, sampleNumbers):
 
     Returns a raster with minimum values.
     """
-    minimum = scalar(1e31)
+    minimum = pcr.scalar(1e31)
     for sample in sampleNumbers:
         filename = generateNameS(name, sample)
-        raster = scalar(readmap(filename))
-        minimum = ifthenelse(pcrlt(raster, minimum), raster, minimum)
+        raster = pcr.scalar(pcr.readmap(filename))
+        minimum = pcr.ifthenelse(pcr.pcrlt(raster, minimum), raster, minimum)
     return minimum
 
 
@@ -339,11 +339,11 @@ def sampleMax(name, sampleNumbers):
 
     Returns a raster with maximum values.
     """
-    maximum = scalar(-1e31)
+    maximum = pcr.scalar(-1e31)
     for sample in sampleNumbers:
         filename = generateNameS(name, sample)
-        raster = scalar(readmap(filename))
-        maximum = ifthenelse(pcrgt(raster, maximum), raster, maximum)
+        raster = pcr.scalar(pcr.readmap(filename))
+        maximum = pcr.ifthenelse(pcr.pcrgt(raster, maximum), raster, maximum)
     return maximum
 
 
@@ -362,7 +362,7 @@ def uniquesamples(name, sampleNumbers):
     uniqueSets = []
     for sample in sampleNumbers:
         filename = generateNameS(name, sample)
-        raster = readmap(filename)
+        raster = pcr.readmap(filename)
         setNumber = 0
         sampleAddedToExistingSet = False
         for uniqueSet in uniqueSets:
@@ -387,20 +387,20 @@ def mcaveragevariance(names, sampleNumbers, timeSteps):
             minimum = sampleMin(name + '.map', sampleNumbers)
             maximum = sampleMax(name + '.map', sampleNumbers)
             # std=stddev(name + '.map', sampleNumbers)
-            report(mean, name + '-ave.map')
-            report(var, name + '-var.map')
-            report(minimum, name + '-min.map')
-            report(maximum, name + '-max.map')
-            report(sqrt(var) / mean, name + '-err.map')
+            pcr.report(mean, name + '-ave.map')
+            pcr.report(var, name + '-var.map')
+            pcr.report(minimum, name + '-min.map')
+            pcr.report(maximum, name + '-max.map')
+            pcr.report(pcr.sqrt(var) / mean, name + '-err.map')
     else:
-        nrSamples = scalar(len(sampleNumbers))
+        nrSamples = pcr.scalar(len(sampleNumbers))
         for name in names:
             for step in timeSteps:
                 var = variance(generateNameT(name, step), sampleNumbers)
                 mean = average(generateNameT(name, step), sampleNumbers)
-                report(mean, generateNameT(name + '-ave', step))
-                report(var, generateNameT(name + '-var', step))
-                report(sqrt(var) / mean, generateNameT(name + '-err', step))
+                pcr.report(mean, generateNameT(name + '-ave', step))
+                pcr.report(var, generateNameT(name + '-var', step))
+                pcr.report(pcr.sqrt(var) / mean, generateNameT(name + '-err', step))
 
 
 def mcpercentiles(
@@ -412,7 +412,7 @@ def mcpercentiles(
         for name in names:
             results = percentile(name + ".map", sampleNumbers, percentiles)
             for i in range(len(percentiles)):
-                report(results[i], "%s_%s.map" % (name, percentiles[i]))
+                pcr.report(results[i], "%s_%s.map" % (name, percentiles[i]))
     else:
         for name in names:
             for step in timeSteps:
@@ -420,7 +420,7 @@ def mcpercentiles(
                                      percentiles)
                 assert len(results) == len(percentiles)
                 for i in range(len(percentiles)):
-                    report(results[i], "%s_%d_%s.map" % (name, step, percentiles[i]))
+                    pcr.report(results[i], "%s_%d_%s.map" % (name, step, percentiles[i]))
 
 
 def createtimeseries(names, nameExtension, locations, sampleNumbers, timeSteps):
@@ -432,8 +432,8 @@ def createtimeseries(names, nameExtension, locations, sampleNumbers, timeSteps):
             tssFile.write("timestep\n")
             tssFile.write("%s\n" % (name))
             for step in timeSteps:
-                timeseriesValue = mapmaximum(ifthen(locations, generateNameT(name, step)))
-                value, valid = cellvalue(timeseriesValue, 1, 1); assert valid
+                timeseriesValue = pcr.mapmaximum(pcr.ifthen(locations, generateNameT(name, step)))
+                value, valid = pcr.cellvalue(timeseriesValue, 1, 1); assert valid
                 tssFile.write("%d %g\n" % (step, value))
             tssFile.close()
     else:
@@ -445,8 +445,8 @@ def createtimeseries(names, nameExtension, locations, sampleNumbers, timeSteps):
                 tssFile.write("timestep\n")
                 tssFile.write("%s\n" % (name))
                 for step in timeSteps:
-                    timeseriesValue = mapmaximum(ifthen(locations, generateNameST(name, sample, step)))
-                    value, valid = cellvalue(timeseriesValue, 1, 1); assert valid
+                    timeseriesValue = pcr.mapmaximum(pcr.ifthen(locations, generateNameST(name, sample, step)))
+                    value, valid = pcr.cellvalue(timeseriesValue, 1, 1); assert valid
                     tssFile.write("%d %g\n" % (step, value))
                 tssFile.close()
 
@@ -462,8 +462,8 @@ def createtimeseriesnewfileformat(names, locations, sampleNumbers, timeSteps, qu
                 tssFile.write("%s\n" % (name))
                 for step in timeSteps:
                     filename = name + ("_%d_" % (step)) + str(quantile) + ".map"
-                    timeseriesValue = mapmaximum(ifthen(locations, filename))
-                    value, valid = cellvalue(timeseriesValue, 1, 1); assert valid
+                    timeseriesValue = pcr.mapmaximum(pcr.ifthen(locations, filename))
+                    value, valid = pcr.cellvalue(timeseriesValue, 1, 1); assert valid
                     tssFile.write("%d %g\n" % (step, value))
                 tssFile.close()
     else:

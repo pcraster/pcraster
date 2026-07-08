@@ -2,10 +2,16 @@
 \note
 Do not edit, generated from libs/pcrxml/generate.py
 */
-#include "stddefx.h"
+#include "pcrxml_element.h"
+#include "pcrgenxml_input.h"
+#include "pcrgenxml_compute.h"
+#include "pcrgenxml_interpolate.h"
+#include "pcrgenxml_lodings.h"
+#include "debug.h"
 #include "pcrgenxml_datasetconfiguration.h"
 #include "pcrxml_childelementvisitor.h"
 #include <qdom.h>
+#include <string>
 
 const std::string pcrxml::DataSetConfiguration::d_elementName("DataSetConfiguration");
 

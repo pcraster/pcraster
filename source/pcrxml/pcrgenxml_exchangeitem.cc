@@ -2,10 +2,13 @@
 \note
 Do not edit, generated from libs/pcrxml/generate.py
 */
-#include "stddefx.h"
+#include "pcrxml_element.h"
+#include "pcrgenxml_variable.h"
+#include "debug.h"
 #include "pcrgenxml_exchangeitem.h"
 #include "pcrxml_childelementvisitor.h"
 #include <qdom.h>
+#include <string>
 
 const std::string pcrxml::ExchangeItem::d_elementName("exchangeItem");
 

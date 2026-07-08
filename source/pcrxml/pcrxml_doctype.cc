@@ -1,4 +1,4 @@
-#include "stddefx.h"
+#include <string>
 #include "pcrxml_doctype.h"
 
 

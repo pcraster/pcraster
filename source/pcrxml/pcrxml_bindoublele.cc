@@ -1,9 +1,13 @@
-#include "stddefx.h"
+#include "pcrxml_attribute.h"
+#include "debug.h"
 #include "pcrxml_bindoublele.h"
 
 #include <cmath>
+#include <cstddef>
 #include <iomanip>
+#include <ios>
 #include <sstream>
+#include <string>
 
 /*!
   \file

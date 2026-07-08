@@ -91,3 +91,9 @@ if(PCRASTER_INSTALL_FILES_DEVELOPER)
             doc/developer/c/include
     )
 endif()
+
+set(CLANG_TIDY_COMMAND "clang-tidy-22" "-checks=-*,misc-include-cleaner" "-fix")
+set_target_properties(pcrxml
+    PROPERTIES
+        CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}"
+)

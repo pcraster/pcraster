@@ -1,9 +1,10 @@
-#include "stddefx.h"
+#include "debug.h"
 #include "pcrxml_attribute.h"
 #include "com_exception.h"
 #include "pcrxml_stringconv.h"
 
 #include <QDomDocument>
+#include <string>
 
 /*!
   \file

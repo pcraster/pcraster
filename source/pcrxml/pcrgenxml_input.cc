@@ -2,10 +2,15 @@
 \note
 Do not edit, generated from libs/pcrxml/generate.py
 */
-#include "stddefx.h"
+#include "pcrxml_element.h"
+#include "pcrgenxml_inputlodings.h"
+#include "pcrgenxml_inputpoints.h"
+#include "pcrgenxml_inputfile.h"
+#include "debug.h"
 #include "pcrgenxml_input.h"
 #include "pcrxml_childelementvisitor.h"
 #include <qdom.h>
+#include <string>
 
 const std::string pcrxml::Input::d_elementName("Input");
 

@@ -2,9 +2,11 @@
 \note
 Do not edit, generated from libs/pcrxml/generate.py
 */
-#include "stddefx.h"
+#include "pcrxml_element.h"
+#include "debug.h"
 #include "pcrgenxml_showdata.h"
 #include <qdom.h>
+#include <string>
 
 
 const std::string pcrxml::ShowData::d_elementName("ShowData");

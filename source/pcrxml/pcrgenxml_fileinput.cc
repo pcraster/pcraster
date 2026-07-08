@@ -2,10 +2,17 @@
 \note
 Do not edit, generated from libs/pcrxml/generate.py
 */
-#include "stddefx.h"
+#include "pcrxml_element.h"
+#include "pcrgenxml_map.h"
+#include "pcrgenxml_stack.h"
+#include "pcrgenxml_timeseries.h"
+#include "pcrgenxml_table.h"
+#include "pcrgenxml_data.h"
+#include "debug.h"
 #include "pcrgenxml_fileinput.h"
 #include "pcrxml_childelementvisitor.h"
 #include <qdom.h>
+#include <string>
 
 const std::string pcrxml::FileInput::d_elementName("FileInput");
 

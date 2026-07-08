@@ -1,8 +1,11 @@
-#include "stddefx.h"
+#include "debug.h"
 #include "pcrxml_pcdata.h"
 #include "com_strlib.h"
 
 #include <QDomDocument>
+#include <cstddef>
+#include <string>
+#include <qstringview.h>
 
 /*!
   \file

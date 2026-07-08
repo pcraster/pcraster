@@ -2,10 +2,14 @@
 \note
 Do not edit, generated from libs/pcrxml/generate.py
 */
-#include "stddefx.h"
+#include "pcrxml_element.h"
+#include "pcrgenxml_datatypedtd.h"
+#include "pcrgenxml_timesteprange.h"
+#include "debug.h"
 #include "pcrgenxml_stack.h"
 #include "pcrxml_childelementvisitor.h"
 #include <qdom.h>
+#include <string>
 
 const std::string pcrxml::Stack::d_elementName("Stack");
 

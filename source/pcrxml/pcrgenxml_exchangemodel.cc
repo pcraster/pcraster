@@ -2,10 +2,15 @@
 \note
 Do not edit, generated from libs/pcrxml/generate.py
 */
-#include "stddefx.h"
+#include "pcrxml_element.h"
+#include "pcrgenxml_integertimer.h"
+#include "pcrgenxml_areamapdtd.h"
+#include "pcrgenxml_exchangeitem.h"
+#include "debug.h"
 #include "pcrgenxml_exchangemodel.h"
 #include "pcrxml_childelementvisitor.h"
 #include <qdom.h>
+#include <string>
 
 const std::string pcrxml::ExchangeModel::d_elementName("exchangeModel");
 

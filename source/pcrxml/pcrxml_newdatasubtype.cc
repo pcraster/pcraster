@@ -1,4 +1,3 @@
-#include "stddefx.h"
 #include "pcrxml_newdatasubtype.h"
 #include "pcrgenxml_datatypedtd.h"
 #include "pcrxml_csfvs2datatype.h"

@@ -1,8 +1,10 @@
-#include "stddefx.h"
+#include "debug.h"
 #include "pcrxml_childelementvisitor.h"
 #include "pcrxml_stringconv.h"
 #include "com_exception.h"
 
+#include <qdom.h>
+#include <string>
 #include <utility>
 
 /*!

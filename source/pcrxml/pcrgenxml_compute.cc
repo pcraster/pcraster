@@ -2,9 +2,11 @@
 \note
 Do not edit, generated from libs/pcrxml/generate.py
 */
-#include "stddefx.h"
+#include "pcrxml_element.h"
+#include "debug.h"
 #include "pcrgenxml_compute.h"
 #include <qdom.h>
+#include <string>
 
 
 const std::string pcrxml::Compute::d_elementName("Compute");

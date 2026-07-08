@@ -2,10 +2,16 @@
 \note
 Do not edit, generated from libs/pcrxml/generate.py
 */
-#include "stddefx.h"
+#include "pcrxml_element.h"
+#include "pcrgenxml_numericsetting.h"
+#include "pcrgenxml_filesetting.h"
+#include "pcrgenxml_binding.h"
+#include "pcrgenxml_modelrunchild.h"
+#include "debug.h"
 #include "pcrgenxml_modelrunsettings.h"
 #include "pcrxml_childelementvisitor.h"
 #include <qdom.h>
+#include <string>
 
 const std::string pcrxml::ModelRunSettings::d_elementName("ModelRunSettings");
 

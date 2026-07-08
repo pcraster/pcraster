@@ -1,8 +1,13 @@
-#include "stddefx.h"
+#include "debug.h"
 #include "pcrxml_dom.h"
 #include "pcrxml_domalgorithm.h"
 
 #include <QTextStream>
+#include <vector>
+#include <qdom.h>
+#include <cstddef>
+#include <ostream>
+#include <string>
 
 /*!
   \file

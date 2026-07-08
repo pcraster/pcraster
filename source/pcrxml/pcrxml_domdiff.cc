@@ -1,4 +1,3 @@
-#include "stddefx.h"
 #include "pcrxml_domdiff.h"
 #include "com_exception.h"
 #include "pcrxml_domalgorithm.h"
@@ -8,6 +7,7 @@
 
 #include <list>
 #include <sstream>
+#include <string>
 
 /*!
   \file

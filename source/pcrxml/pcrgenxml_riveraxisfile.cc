@@ -2,9 +2,11 @@
 \note
 Do not edit, generated from libs/pcrxml/generate.py
 */
-#include "stddefx.h"
+#include "pcrxml_element.h"
+#include "debug.h"
 #include "pcrgenxml_riveraxisfile.h"
 #include <qdom.h>
+#include <string>
 
 
 const std::string pcrxml::RiverAxisFile::d_elementName("RiverAxisFile");

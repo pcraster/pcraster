@@ -2,10 +2,14 @@
 \note
 Do not edit, generated from libs/pcrxml/generate.py
 */
-#include "stddefx.h"
+#include "pcrxml_element.h"
+#include "pcrgenxml_computedriveraxis.h"
+#include "pcrgenxml_riveraxisfile.h"
+#include "debug.h"
 #include "pcrgenxml_inputpoints.h"
 #include "pcrxml_childelementvisitor.h"
 #include <qdom.h>
+#include <string>
 
 const std::string pcrxml::InputPoints::d_elementName("InputPoints");
 

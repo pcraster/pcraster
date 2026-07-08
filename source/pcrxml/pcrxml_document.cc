@@ -1,14 +1,19 @@
-#include "stddefx.h"
+#include "debug.h"
 #include "pcrxml_document.h"
 #include "com_pathinfo.h"
 #include "com_pathname.h"
 #include "com_file.h"
-#include "com_strlib.h"
 #include "com_exception.h"
 #include "pcrxml_dom.h"
 
 #include <QFile>
 
+#include <qdom.h>
+#include <string>
+#include <cstddef>
+#include <qtversionchecks.h>
+#include <qstringview.h>
+#include <qfiledevice.h>
 #include <utility>
 
 /*!

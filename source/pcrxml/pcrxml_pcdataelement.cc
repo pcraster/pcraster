@@ -1,10 +1,13 @@
-#include "stddefx.h"
+#include "pcrxml_element.h"
+#include "debug.h"
 #include "pcrxml_pcdataelement.h"
 #include "com_exception.h"
 #include "pcrxml_stringconv.h"
 
 #include <QDomDocument>
 
+#include <string>
+#include <cstddef>
 #include <utility>
 
 // Application headers.

@@ -2,9 +2,14 @@
 \note
 Do not edit, generated from libs/pcrxml/generate.py
 */
-#include "stddefx.h"
+#include "pcrxml_element.h"
+#include "pcrgenxml_rasterspace.h"
+#include "pcrgenxml_rastermask.h"
+#include "debug.h"
 #include "pcrgenxml_areamapdtd.h"
 #include "pcrxml_childelementvisitor.h"
+#include <string>
+#include <qdom.h>
 
 const std::string pcrxml::AreaMapDTD::d_elementName("areaMapDTD");
 

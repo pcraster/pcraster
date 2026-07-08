@@ -1,4 +1,5 @@
-#include "stddefx.h"
+#include "pcrdatatype.h"
+#include "debug.h"
 #include "pcrxml_pcrvs2datatype.h"
 #include "pcrgenxml_datatypeenum.h"
 

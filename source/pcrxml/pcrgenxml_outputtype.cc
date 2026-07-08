@@ -2,9 +2,12 @@
 \note
 Do not edit, generated from libs/pcrxml/generate.py
 */
+#include "pcrxml_attribute.h"
 #include "stddefx.h"
 #include "pcrgenxml_outputtype.h"
 #include "pcrxml_enumnmtoken.h"
+#include <cstddef>
+#include <string>
 
 namespace pcrxml
 {

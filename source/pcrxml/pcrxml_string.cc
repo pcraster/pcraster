@@ -1,8 +1,8 @@
-#include "stddefx.h"
+#include "pcrxml_attribute.h"
 #include "pcrxml_string.h"
-#include "pcrxml_stringconv.h"
 
 #include <QDomDocument>
+#include <string>
 
 /*!
   \file

@@ -1,7 +1,8 @@
-#include "stddefx.h"
 #include "pcrxml_stringconv.h"
 
 #include <QString>
+#include <string>
+#include <qstringview.h>
 
 /*!
   \file

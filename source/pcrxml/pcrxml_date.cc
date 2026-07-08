@@ -1,4 +1,6 @@
-#include "stddefx.h"
+#include "pcrxml_attribute.h"
+#include "pcrxml_string.h"
+#include <string>
 #include "pcrxml_date.h"
 
 

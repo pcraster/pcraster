@@ -1,7 +1,9 @@
-#include "stddefx.h"
+#include "pcrxml_attribute.h"
+#include "pcrxml_string.h"
 #include "pcrxml_interspacedsentence.h"
 #include "com_strlib.h"
 #include "com_exception.h"
+#include <string>
 
 /*!
   \file

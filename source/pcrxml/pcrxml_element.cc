@@ -1,8 +1,7 @@
-#include "stddefx.h"
+#include "debug.h"
 #include "pcrxml_element.h"
 #include "pcrxml_stringconv.h"
 #include "com_file.h"
-#include "pcrxml_doctype.h"
 #include "pcrxml_ostream.h"
 #include "com_pathname.h"
 #include "pcrxml_document.h"
@@ -11,6 +10,8 @@
 #include <QDomDocument>
 
 #include <fstream>
+#include <string>
+#include <iostream>
 
 /*!
   \file

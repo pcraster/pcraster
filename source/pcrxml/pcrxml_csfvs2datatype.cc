@@ -1,4 +1,3 @@
-#include "stddefx.h"
 #include "pcrxml_csfvs2datatype.h"
 #include "pcrgenxml_datatypeenum.h"
 

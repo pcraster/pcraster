@@ -1,4 +1,3 @@
-#include "stddefx.h"
 #include "pcrxml_ostream.h"
 #include "pcrxml_stringconv.h"
 

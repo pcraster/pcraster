@@ -2,9 +2,16 @@
 \note
 Do not edit, generated from libs/pcrxml/generate.py
 */
-#include "stddefx.h"
+#include "pcrxml_element.h"
+#include "pcrgenxml_map.h"
+#include "pcrgenxml_nonspatial.h"
+#include "pcrgenxml_stack.h"
+#include "pcrgenxml_timeseries.h"
+#include "pcrgenxml_table.h"
+#include "debug.h"
 #include "pcrgenxml_binding.h"
 #include <qdom.h>
+#include <string>
 #include "pcrxml_childelementvisitor.h"
 
 const std::string pcrxml::Binding::d_elementName("Binding");

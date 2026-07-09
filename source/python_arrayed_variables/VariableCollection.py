@@ -44,14 +44,13 @@ class ValueFromParameterTable(object):
         parameterFile.close()
 
         for line in lines:
-            result = self._parseLine(line, lineNo, nrColumns, externalNames, keyDict)
+            self._parseLine(line, lineNo, nrColumns, externalNames, keyDict)
             lineNo += 1
 
     def _parseLine(self, line, lineNumber, nrColumns, externalNames, keyDict):
 
         line = re.sub("\n", "", line)
         line = re.sub("\t", " ", line)
-        result = None
 
         # read until first comment
         content = ""
@@ -83,7 +82,7 @@ class ValueFromParameterTable(object):
                     else:
                         msg = "Conversion to %s failed" % (self._dataType)
                         raise Exception(msg)
-                except ValueError as e:
+                except ValueError:
                     try:
                         tmp = float(variableValue)
                         if self._dataType == pcraster.Scalar:
@@ -94,7 +93,7 @@ class ValueFromParameterTable(object):
                             msg = "Conversion to %s failed" % (self._dataType)
                             raise Exception(msg)
 
-                    except ValueError as e:
+                    except ValueError:
                         variableValue = re.sub("\\\\", "/", variableValue)
                         variableValue = variableValue.strip()
                         path = os.path.normpath(variableValue)
@@ -118,12 +117,12 @@ class ValueFromParameterTable(object):
 
                 key = tuple(transformedKeys)
 
-                if not key in keyDict:
+                if key not in keyDict:
                     tmp = re.sub(r"\(|\)|,", "", str(key))
                     msg = "Error reading %s line %d, %s unknown collection index" % (self._fileName, lineNumber, tmp)
                     raise ValueError(msg)
 
-                if not keyDict[key] is None:
+                if keyDict[key] is not None:
                     tmp = re.sub(r"\(|\)|,", "", str(key))
                     msg = "Error reading %s line %d, %s %s already initialised" % (self._fileName, lineNumber, self._varName, tmp)
                     raise ValueError(msg)
@@ -233,7 +232,7 @@ class VariableCollection(object):
         # block adding a new one
         if isinstance(key, str):
             key = tuple([key])
-        if not key in self._impl:
+        if key not in self._impl:
             raise ValueError("cannot add elements to a VariableCollection")
         self._impl[key] = value
 
@@ -277,7 +276,7 @@ class VariableCollection(object):
         variableName, sep, tail = line.partition("=")
         variableName = variableName.strip()
 
-        if re.search(r"self.", variableName) != None:
+        if re.search(r"self.", variableName) is not None:
             variableName = variableName[5:]
 
         return variableName

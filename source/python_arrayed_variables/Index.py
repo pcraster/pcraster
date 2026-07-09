@@ -38,7 +38,7 @@ class Index(object):
         self.__dict__["_externalNames"] = externalNames
 
         for v in values:
-            if not self.__dict__.get(v) == None:
+            if self.__dict__.get(v) is not None:
                 raise AttributeError("Error in initialisation of class Index: array indices must be unique, %s already used" % (v))
             self.__dict__[v] = v
 

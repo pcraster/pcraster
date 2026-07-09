@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-
-from numpy import *
+import types
 
 
 # ----------------------------------------------------------------------#
@@ -24,11 +22,11 @@ def linearRegression(rawData, equationOrder):
     # of 2 maps to Y = C0 + C1*X + C2*X*X.
 
     # require part of contract
-    assert type(rawData) == types.ListType, "Raw data input must be a list"
+    assert type(rawData) is list, "Raw data input must be a list"
     assert equationOrder > 0, "Equation order must be greater than 0th order"
     assert len(rawData) >= equationOrder, "Number of data points must be >= to number of coefficients be calculated"
     for each in rawData:
-        assert type(each) == types.ListType, "Raw data input must be a list of data values"
+        assert type(each) is list, "Raw data input must be a list of data values"
         assert len(each) > 1, "More than one data point is required for the raw data"
         assert len(each) == len(rawData[0]), "All data points in raw data must have the same number items"
 
@@ -59,15 +57,15 @@ def regression(rawData, xEquationForm, yEquationForm=lambda rawItem: rawItem[0])
     # of 2 maps to Y = C0 + C1*X + C2*X*X.
 
     # require part of contract
-    assert type(rawData) == types.ListType, "Raw data input must be a list"
-    assert type(xEquationForm) == types.ListType, "X Equation form must be defined in a list"
-    assert type(yEquationForm == types.FunctionType), "Y Equation form must be a lambda function"
+    assert type(rawData) is list, "Raw data input must be a list"
+    assert type(xEquationForm) is list, "X Equation form must be defined in a list"
+    assert type(yEquationForm is types.FunctionType), "Y Equation form must be a lambda function"
     assert len(xEquationForm) > 0, "X Equation form must not be an empty list"
     assert len(rawData) >= len(xEquationForm), "Number of data points must be >= to number of coefficients be calculated"
     for each in xEquationForm:
-        assert type(each) == types.FunctionType, "X Equation form must be lambda functions"
+        assert type(each) is types.FunctionType, "X Equation form must be lambda functions"
     for each in rawData:
-        assert type(each) == types.ListType, "Raw data input must be a list of data values"
+        assert type(each) is list, "Raw data input must be a list of data values"
         assert len(each) > 1, "More than one data point is required for the raw data"
         assert len(each) == len(rawData[0]), "All data points in raw data must have the same number items"
 
@@ -116,12 +114,12 @@ def linearRSquared(rawData, coefficients):
     # Purpose: Compute the R-Squared statistic for the supplied coefficients
 
     # require part of contract
-    assert type(rawData) == types.ListType, "Raw data input must be a list"
-    assert type(coefficients) == types.ListType, "Computed coefficients must be a list"
+    assert type(rawData) is list, "Raw data input must be a list"
+    assert type(coefficients) is list, "Computed coefficients must be a list"
     assert len(coefficients) > 0, "At least coefficient is required"
     assert len(rawData) >= len(coefficients), "Number of data points must be >= to number of coefficients"
     for each in rawData:
-        assert type(each) == types.ListType, "Raw data input must be a list of data values"
+        assert type(each) is list, "Raw data input must be a list of data values"
         assert len(each) > 1, "More than one data point is required for the raw data"
         assert len(each) == len(rawData[0]), "All data points in raw data must have the same number items"
 
@@ -139,13 +137,13 @@ def solveRSquared(rawData, coefficients, xEquationForm, yEquationForm=lambda raw
     # Purpose: Compute the R-Squared statistic for the supplied coefficients
 
     # require part of contract
-    assert type(rawData) == types.ListType, "Raw data input must be a list"
-    assert type(xEquationForm) == types.ListType, "X Equation form must be defined in a list"
-    assert type(yEquationForm == types.FunctionType), "Y Equation form must be a lambda function"
+    assert type(rawData) is list, "Raw data input must be a list"
+    assert type(xEquationForm) is list, "X Equation form must be defined in a list"
+    assert type(yEquationForm is types.FunctionType), "Y Equation form must be a lambda function"
     assert len(xEquationForm) > 0, "X Equation form must not be an empty list"
     assert len(rawData) >= len(xEquationForm), "Number of data points must be >= to number of coefficients be calculated"
     for each in xEquationForm:
-        assert type(each) == types.FunctionType, "X Equation form must be lambda functions"
+        assert type(each) is types.FunctionType, "X Equation form must be lambda functions"
     for each in rawData:
         assert len(each) == len(rawData[0]), "All data points in raw data must have the same number items"
         assert len(each) > 1, "More than one data point is required for the raw data"
@@ -216,8 +214,8 @@ def gauss(AMatrix, BMatrix):
     # where |A| and |B| are supplied and |coefficient| is the solution.
 
     # require part of contract
-    assert type(AMatrix) == types.ListType, "Input matrix must be a list"
-    assert type(BMatrix) == types.ListType, "Input matrix must be a list"
+    assert type(AMatrix) is list, "Input matrix must be a list"
+    assert type(BMatrix) is list, "Input matrix must be a list"
     assert len(AMatrix) > 0, "Input matrix must not be an empty list"
     assert len(AMatrix) == len(BMatrix), "A and B matrix must have same number of rows"
     for each in AMatrix:
@@ -227,7 +225,7 @@ def gauss(AMatrix, BMatrix):
     n = len(AMatrix)
 
     # copy the matrices to local variables - inplace substitution used
-    A = map(lambda x: list(x), AMatrix)
+    A = [list(x) for x in AMatrix]
     B = list(BMatrix)
 
     # initialize the output results

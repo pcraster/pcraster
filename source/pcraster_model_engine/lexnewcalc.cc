@@ -2085,7 +2085,7 @@ void calc::LexGrammar::parseComment()
           pos->throwError(getLibError());
         }
         // add a space so it is never empty
-        d_optionLine += " ";
+        d_optionLine += ' ';
         return;
       }
       d_optionLine += static_cast<char>(c);

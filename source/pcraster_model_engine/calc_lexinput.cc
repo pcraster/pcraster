@@ -172,7 +172,7 @@ void calc::LexInput::installArgvScript(int argc, const char **argv, bool substit
   std::string contents;
   for (int i = 0; i < argc; ++i) {
     contents += argv[i];
-    contents += " ";  // separator
+    contents += ' ';  // separator
     if (contents.find(";;") != std::string::npos) {
       // from here on the rest are d_shellArgs:
       installShellArgs(argc - i - 1, argv + i + 1);

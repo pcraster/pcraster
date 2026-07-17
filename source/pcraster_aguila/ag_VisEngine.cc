@@ -508,79 +508,79 @@ std::string VisEngine::changeToString() const
 
   if ((_data->_change & CURSOR) != 0U) {
     if (!result.empty()) {
-      result += "|";
+      result += '|';
     }
     result += "cursor";
   }
   if ((_data->_change & QUANTILE) != 0U) {
     if (!result.empty()) {
-      result += "|";
+      result += '|';
     }
     result += "quantile";
   }
   if ((_data->_change & TIME) != 0U) {
     if (!result.empty()) {
-      result += "|";
+      result += '|';
     }
     result += "time";
   }
   if ((_data->_change & SELECTION) != 0U) {
     if (!result.empty()) {
-      result += "|";
+      result += '|';
     }
     result += "selection";
   }
   if ((_data->_change & VISIBILITY) != 0U) {
     if (!result.empty()) {
-      result += "|";
+      result += '|';
     }
     result += "visibility";
   }
   if ((_data->_change & OTHERATTRIB) != 0U) {
     if (!result.empty()) {
-      result += "|";
+      result += '|';
     }
     result += "otherattrib";
   }
   if ((_data->_change & DRAWPROPS) != 0U) {
     if (!result.empty()) {
-      result += "|";
+      result += '|';
     }
     result += "drawprops";
   }
   if ((_data->_change & MAP2DZOOM) != 0U) {
     if (!result.empty()) {
-      result += "|";
+      result += '|';
     }
     result += "map2dzoom";
   }
   if ((_data->_change & MAP2DSCALE) != 0U) {
     if (!result.empty()) {
-      result += "|";
+      result += '|';
     }
     result += "map2dscale";
   }
   if ((_data->_change & MAP2DMOVE) != 0U) {
     if (!result.empty()) {
-      result += "|";
+      result += '|';
     }
     result += "map2dmove";
   }
   if ((_data->_change & QUADLENGTH) != 0U) {
     if (!result.empty()) {
-      result += "|";
+      result += '|';
     }
     result += "quadlength";
   }
   if ((_data->_change & MAP3DSCALE) != 0U) {
     if (!result.empty()) {
-      result += "|";
+      result += '|';
     }
     result += "map3dscale";
   }
   if ((_data->_change & OTHERHEIGHT) != 0U) {
     if (!result.empty()) {
-      result += "|";
+      result += '|';
     }
     result += "otherheight";
   }
@@ -592,7 +592,7 @@ std::string VisEngine::changeToString() const
   /// }
   if ((_data->_change & VALUE_SELECTION) != 0U) {
     if (!result.empty()) {
-      result += "|";
+      result += '|';
     }
     result += "value_selection";
   }

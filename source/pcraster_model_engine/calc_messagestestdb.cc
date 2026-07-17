@@ -119,7 +119,7 @@ class MessagesTestDBPrivate :
     if (!contents.empty()) {
       // reading in trims last end-of-line needed
       if (contents[contents.size() - 1] != '\n') {
-        contents += "\n";
+        contents += '\n';
       }
     }
     pn.setExtension("res");

@@ -128,7 +128,7 @@ std::string geo::CSFStackName::asAguilaArgument(const std::string &stackName, in
   DEVELOP_PRECOND(!stackName.empty());
   DEVELOP_PRECOND(stackName.find('.') != stackName.size() - 1);
   std::string arg(dal::timeStepPath83(std::filesystem::path(stackName), start).string());
-  arg += "+";
+  arg += '+';
   arg += com::intToStr(stop);
   return arg;
 }

@@ -279,7 +279,7 @@ PCR_DAL_DECL std::string dimensionToString(
         result += dimension.value<std::string>(i);
       }
 
-      result += "}";
+      result += '}';
 
       break;
     }
@@ -514,7 +514,7 @@ PCR_DAL_DECL std::string dataSpaceAddressToString(
     }
 
     if(!address.isValid(i)) {
-      result += "x";
+      result += 'x';
     }
     else {
       result += coordinateToString(space, address, i);

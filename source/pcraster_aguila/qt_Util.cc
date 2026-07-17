@@ -106,11 +106,11 @@ std::string qt::getOpenFileName(const std::vector<com::FileFormatInfo> &fileForm
 
         // Add space BETWEEN the extension filters.
         if (*ext_it != extensions.back()) {
-          filter += " ";
+          filter += ' ';
         }
       }
 
-      filter += ")";
+      filter += ')';
 
       // Separator between the filters.
       filter += ";;";

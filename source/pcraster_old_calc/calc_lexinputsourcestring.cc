@@ -30,7 +30,7 @@ calc::LexInputSourceString::LexInputSourceString(int nrArgv, const char **argv) 
 {
   d_contents = std::for_each(argv, argv + nrArgv, com::Concatenate(" "));
   d_contents = com::replaceStrByStr(d_contents, ";;", ";");
-  d_contents += "\n";
+  d_contents += '\n';
 }
 
 calc::LexInputSourceString::~LexInputSourceString()

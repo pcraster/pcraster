@@ -304,7 +304,7 @@ std::string ConnectionInfo::name() const
 
   assert(!database().empty());
   if(!name.empty()) {
-    name += ":";
+    name += ':';
   }
   name += database();
 

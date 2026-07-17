@@ -112,8 +112,8 @@ int com::spawn(const char *exeName)
  */
 int com::spawn(const std::string &exeName, const std::string &otherArgs)
 {
-  PRECOND(otherArgs.find("\"") == std::string::npos);
-  PRECOND(otherArgs.find("\'") == std::string::npos);
+  PRECOND(otherArgs.find('\"') == std::string::npos);
+  PRECOND(otherArgs.find('\'') == std::string::npos);
   AppArgs const a(exeName, otherArgs);
   return spawn((const char *)a.argv()[0], (const char **)a.argv());
 }

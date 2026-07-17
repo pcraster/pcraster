@@ -193,14 +193,14 @@ typedef int (*QSORT_CMP)(const void *e1, const void *e2);
     #define PRINT_VAR(x) \
       std::cerr << __FILE__ << ":" << __LINE__ <<":"  \
                 << __PRETTY_FUNCTION__  << ": " \
-                << STREAM_VAR(x) << std::endl;
+                << STREAM_VAR(x) << '\n';
   #else
     // Ansi C++ must support this
     #define IN_MEMBER_FUNCTION() \
       dbs.inMemberFunction(__FILE__,__LINE__);
     #define PRINT_VAR(x) \
       std::cerr << __FILE__ << ":" << __LINE__ <<": " \
-                << STREAM_VAR(x) << std::endl;
+                << STREAM_VAR(x) << '\n';
   #endif
 
  #else

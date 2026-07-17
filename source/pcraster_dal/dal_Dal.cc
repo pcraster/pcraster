@@ -42,7 +42,7 @@ namespace dal {
 
 #define QUERY(driver, name, space) \
   if(_debugging) { \
-    std::cout << "query " << (name) << " in " << dataSpaceToString(space) << " using " << (driver).name() << std::endl; \
+    std::cout << "query " << (name) << " in " << dataSpaceToString(space) << " using " << (driver).name() << '\n'; \
   }
 
 /*

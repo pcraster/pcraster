@@ -161,18 +161,18 @@ void calc::PointCodeBlock::genCode(std::ostream &s) const
   ParSet const vContents = transfer();
 
 #ifdef DEBUG
-  s << "/* " << std::endl << *this;
+  s << "/* \n" << *this;
 
   // index into array v
   //  enum { A=0,B=1,C=2, etc, };
-  s << "enum {" << std::endl;
+  s << "enum {\n";
   size_t index = 0;
   for (auto vContent : vContents) {
     s << vContent->name() << "=" << index++ << "," << std::endl;
   }
-  s << "};" << std::endl;
+  s << "};\n";
 
-  s << "*/ " << std::endl;
+  s << "*/ \n";
 #endif
 
   generatePointCodeBody(s, d_pointCode, vContents);
@@ -259,8 +259,8 @@ void calc::PointCodeBlock::print(std::ostream &s) const
 {
   s << rangeText() << '\n';
 #ifdef DEBUG_DEVELOP
-  s << " d_pars" << d_pars << std::endl;
-  s << " Update" << setIntersection(d_input, d_output) << std::endl;
+  s << " d_pars" << d_pars << '\n';
+  s << " Update" << setIntersection(d_input, d_output) << '\n';
 #endif
   s << " d_input" << d_input << '\n';
   s << " d_output" << d_output << '\n';

@@ -53,7 +53,7 @@
    __except(EXCEPTION_EXECUTE_HANDLER) {                        \
     errStr << "ERROR System exception:\n "                      \
            << com::win32ExceptionString(GetExceptionCode())     \
-           << std::endl;                                        \
+           << '\n';                                             \
   } }
 #else
 
@@ -98,10 +98,10 @@ extern "C" std::type_info *__cxa_current_exception_type ();
 #define PRINT_EXCEPTION_TYPE(stream) \
     std::type_info *t=__cxa_current_exception_type ();          \
     if (t)                                                      \
-      (stream) << " typeinfo::name = " << t->name() << std::endl;
+      (stream) << " typeinfo::name = " << t->name() << '\n';
 #else
 #define PRINT_EXCEPTION_TYPE(stream) \
-      (stream) << " typeinfo::name = " << "not present " << std::endl;
+      (stream) << " typeinfo::name = " << "not present \n';
 #endif
 
 #define CATCH_ALL(stream,prefix,appSpecificCatch)       \

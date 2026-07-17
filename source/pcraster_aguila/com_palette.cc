@@ -1,7 +1,9 @@
 #include "com_palette.h"
 #include "com_colour.h"
 
-enum {
+#include <cstdint>
+
+enum : std::int8_t {
   RED,
   GREEN,
   BLUE

@@ -7,6 +7,7 @@
 #include "com_logclassifier.h"
 #include "com_tlogclassifier.h"
 
+#include <cstdint>
 #include <vector>
 
 
@@ -44,10 +45,10 @@ class Classifier
 public:
 
   //! Possible classification types.
-  enum Algorithm { LIN, LOG, TLOG, USERDEFINED, INVALID_ALGORITHM };
+  enum Algorithm : std::int8_t { LIN, LOG, TLOG, USERDEFINED, INVALID_ALGORITHM };
 
   //! Possible classification modes.
-  enum Mode { INVALID_MODE, AUTO, EXACT };
+  enum Mode : std::int8_t { INVALID_MODE, AUTO, EXACT };
 
 private:
 

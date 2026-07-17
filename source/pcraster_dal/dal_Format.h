@@ -5,6 +5,7 @@
 #include "dal_Configure.h"
 #include "dal_Def.h"
 
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -33,21 +34,21 @@ class PCR_DAL_DECL Format
 
 public:
 
-  enum StorageMedium {
+  enum StorageMedium : std::int8_t {
     Database,
     File,
     Memory,
     NrMedia
   };
 
-  enum Discretisation {
+  enum Discretisation : std::int8_t {
     Raster,
     Vector,
     Block,
     NrDiscretisations
   };
 
-  enum Type {
+  enum Type : std::int8_t {
     Attribute,
     Graphics,
     NrTypes

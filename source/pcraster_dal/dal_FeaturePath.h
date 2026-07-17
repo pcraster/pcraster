@@ -1,6 +1,7 @@
 #ifndef INCLUDED_DAL_FEATUREPATH
 #define INCLUDED_DAL_FEATUREPATH
 
+#include <cstdint>
 #include <iostream>
 #include <string>
 
@@ -50,7 +51,7 @@ protected:
 
 public:
 
-  enum ParseStrategy {
+  enum ParseStrategy : std::int8_t {
     //! Assume an attribute is present in the path.
     WithAttribute,
 

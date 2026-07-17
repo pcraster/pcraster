@@ -8,6 +8,7 @@
 
 #include <any>
 #include <cassert>
+#include <cstdint>
 #include <cstring>
 
 
@@ -62,7 +63,7 @@ class PCR_DAL_DECL Matrix: public Dataset
 public:
 
   //! for transfer methods
-  enum Ownership {
+  enum Ownership : std::int8_t {
     //! transfer cells arg must be created with new T[]
     TakeOwnership,
     //! transfer will only refer to the cells arg pointer

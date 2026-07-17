@@ -5,6 +5,7 @@
 #include "dal_DataSpaceIterator.h"
 #include "dal_Dimension.h"
 
+#include <cstdint>
 #include <vector>
 
 
@@ -116,7 +117,7 @@ private:
 
 public:
 
-  enum IntersectionOptions {
+  enum IntersectionOptions : std::int8_t {
     //! Keep the coordinates of the shared dimensions as they are.
     DontIntersectCoordinates = 0x00000001,
 

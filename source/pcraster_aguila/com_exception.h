@@ -1,6 +1,7 @@
 #ifndef INCLUDED_COM_EXCEPTION
 #define INCLUDED_COM_EXCEPTION
 
+#include <cstdint>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -9,7 +10,7 @@
 namespace  com {
 
 //! Predefined system messages \sa com::SystemMessages for explanation.
-enum Errno {
+enum Errno : std::int8_t {
        E_NOSYSTEMMESSAGE,
        E_NOMEM,
        E_NODISKSPACE,

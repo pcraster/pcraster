@@ -3,6 +3,7 @@
 
 #include "pcrtypes.h"
 
+#include <cstdint>
 #include <vector>
 
 
@@ -10,7 +11,7 @@
 namespace dal {
 
 //! Dataset types.
-enum DatasetType {
+enum DatasetType : std::int8_t {
 
   //! Spatial raster data. Each cell has the same type.
   RASTER,
@@ -85,7 +86,7 @@ enum DatasetProperties {
 /*!
  * all integer and float types map to typedef's in csftypes.h (e.g. TI_INT1 to INT1)
  */
-enum TypeId {
+enum TypeId : std::int8_t {
   //! Signed 1 byte integer.
   TI_INT1,
 
@@ -135,7 +136,7 @@ typedef std::vector<REAL4> REAL4_VECTOR;
 
 
 //! Some files have headers, some don't, some sometimes.
-enum HeaderType {
+enum HeaderType : std::int8_t {
 
   //! Read header if it is present.
   AUTO_HEADER,
@@ -148,7 +149,7 @@ enum HeaderType {
 };
 
 //! Type of coordinates.
-enum CoordinateType {
+enum CoordinateType : std::int8_t {
 
   //! Dimension has reference to some numeric range.
   NumericalCoordinates,
@@ -161,7 +162,7 @@ enum CoordinateType {
 };
 
 //! High level meaning of dimension.
-enum Meaning {
+enum Meaning : std::int8_t {
 
   //! Model scenarios.
   Scenarios,
@@ -182,7 +183,7 @@ enum Meaning {
   NrMeanings
 };
 
-enum DiscretisationType {
+enum DiscretisationType : std::int8_t {
 
   //! Dimension is defined at locations at regular intervals. Dimension is 'binned'.
   RegularDiscretisation,
@@ -197,7 +198,7 @@ enum DiscretisationType {
   NrDiscretisationTypes
 };
 
-enum FilenameConvention {
+enum FilenameConvention : std::int8_t {
 
   //! Use PCRaster convention for naming dynamic stacks (name0000.001, etc).
   PCRConvention=0x00000001,
@@ -222,7 +223,7 @@ typedef size_t FilenameConventions;
   \warning   .
   \sa        .
 */
-enum DriverProperty {
+enum DriverProperty : std::int8_t {
 
   //! Reads and writes discretisation info and attribute values in one go.
   CombinesDiscretisationAndData = 0x00000001,
@@ -246,7 +247,7 @@ typedef size_t DriverProperties;
 //! Properties to tune the data sources.
 /*!
 */
-enum DataSourceProperty {
+enum DataSourceProperty : std::int8_t {
   //! Write data that is read to the cache for later reference.
   CacheDataOnRead = 0x00000001,
 
@@ -256,7 +257,7 @@ enum DataSourceProperty {
 
 typedef size_t DataSourceProperties;
 
-enum MissingDataStrategy {
+enum MissingDataStrategy : std::int8_t {
   SetToMissingValue,
   Interpolate,
   UsePrevious,
@@ -267,7 +268,7 @@ enum MissingDataStrategy {
 //! Determines how to search through the data space for data items
 /*!
 */
-enum SearchMethod {
+enum SearchMethod : std::int8_t {
   //! Depth-first. Start with the data space and continue the search in sub-spaces with dimensions removed, until data items are found.
   NarrowSpaceWhenNeeded,
 
@@ -278,7 +279,7 @@ enum SearchMethod {
 //! Determines when the search for data items should stop.
 /*!
 */
-enum SearchHaltCondition {
+enum SearchHaltCondition : std::int8_t {
   //! Stop when the first data item is found.
   HaltOnFirstItemFound,
 

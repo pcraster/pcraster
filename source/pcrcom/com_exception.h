@@ -3,6 +3,7 @@
 
 #include "stddefx.h"
 
+#include <cstdint>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -14,7 +15,7 @@ namespace  com {
 class PathName;
 
 //! Predefined system messages \sa com::SystemMessages for explanation.
-enum Errno {
+enum Errno : std::int8_t {
        E_NOSYSTEMMESSAGE,
        E_NOMEM,
        E_NODISKSPACE,

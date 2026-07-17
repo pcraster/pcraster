@@ -1,7 +1,7 @@
 #ifndef INCLUDED_COM_BITVECTOR
 #define INCLUDED_COM_BITVECTOR
 
-
+#include <cstdint>
 
 
 namespace com {
@@ -27,7 +27,7 @@ class BitVector
 
 private:
 
-  enum { BITSPERWORD = 32, SHIFT = 5, MASK = 0x1F };
+  enum : std::int8_t { BITSPERWORD = 32, SHIFT = 5, MASK = 0x1F };
 
   //! Number of bits in vector.
   size_t           d_size;

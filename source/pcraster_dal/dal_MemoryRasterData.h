@@ -7,6 +7,7 @@
 #include "dal_Raster.h"
 
 #include <any>
+#include <cstdint>
 #include <memory>
 #include <vector>
 
@@ -111,7 +112,7 @@ protected:
 
 public:
 
-  enum RasterContents {
+  enum RasterContents : std::int8_t {
     HeaderOnly,
     IncludingValues
   };

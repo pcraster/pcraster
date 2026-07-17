@@ -300,16 +300,16 @@ void Map2DView::mousePressEvent(QMouseEvent *event)
 {
   _mapViewMouseTarget.press(event->pos());
 
-  if (event->modifiers() & (Qt::ShiftModifier != 0U)) {
+  if (event->modifiers() & Qt::ShiftModifier) {
     if (event->button() == Qt::LeftButton) {
       startZoomAreaMode();
     }
-  } else if (event->modifiers() & (Qt::ControlModifier != 0U)) {
+  } else if (event->modifiers() & Qt::ControlModifier) {
     if (event->button() == Qt::LeftButton) {
       startQueryMode();
       queryMap(event->pos());
     }
-  } else if (event->modifiers() & (Qt::AltModifier != 0U)) {
+  } else if (event->modifiers() & Qt::AltModifier) {
   } else {
     // No, it may be that we are going to Pan or ZoomByRectangle. In that case
     // we don't want the spatial cursor to change.
@@ -332,15 +332,15 @@ QRect Map2DView::zoomRectangle() const
 
 void Map2DView::mouseReleaseEvent(QMouseEvent *event)
 {
-  if (event->modifiers() & (Qt::ShiftModifier != 0U)) {
+  if (event->modifiers() & Qt::ShiftModifier) {
     if ((event->button() == Qt::LeftButton)) {
       // Reset the mouse target, otherwise the zoom rectangle will be shown.
       QRect const rectangle(zoomRectangle());
       _mapViewMouseTarget.initialize();
       zoomByRectangle(rectangle);
     }
-  } else if (event->modifiers() & (Qt::ControlModifier != 0U)) {
-  } else if (event->modifiers() & (Qt::AltModifier != 0U)) {
+  } else if (event->modifiers() & Qt::ControlModifier) {
+  } else if (event->modifiers() & Qt::AltModifier) {
   } else {
     if ((event->button() == Qt::LeftButton) && _action == Query) {
       queryMap(event->pos());
@@ -355,9 +355,9 @@ void Map2DView::mouseDoubleClickEvent(QMouseEvent *event)
 {
   assert(!_mapViewMouseTarget.moved());
 
-  if (event->modifiers() & (Qt::ShiftModifier != 0U)) {
-  } else if (event->modifiers() & (Qt::ControlModifier != 0U)) {
-  } else if (event->modifiers() & (Qt::AltModifier != 0U)) {
+  if (event->modifiers() & Qt::ShiftModifier) {
+  } else if (event->modifiers() & Qt::ControlModifier) {
+  } else if (event->modifiers() & Qt::AltModifier) {
   } else {
     if (event->button() == Qt::LeftButton) {
       // This makes the crosshair disappear.
@@ -385,19 +385,19 @@ void Map2DView::mouseMoveEvent(QMouseEvent *event)
     return;
   }
 
-  if (event->modifiers() & (Qt::ShiftModifier != 0U)) {
-    if (event->buttons() & (Qt::LeftButton != 0U)) {
+  if (event->modifiers() & Qt::ShiftModifier) {
+    if (event->buttons() & Qt::LeftButton) {
       startZoomAreaMode();
       repaint();
     }
-  } else if (event->modifiers() & (Qt::ControlModifier != 0U)) {
-    if (event->buttons() & (Qt::LeftButton != 0U)) {
+  } else if (event->modifiers() & Qt::ControlModifier) {
+    if (event->buttons() & Qt::LeftButton) {
       startQueryMode();
       queryMap(event->pos());
     }
-  } else if (event->modifiers() & (Qt::AltModifier != 0U)) {
+  } else if (event->modifiers() & Qt::AltModifier) {
   } else {
-    if (event->buttons() & (Qt::LeftButton != 0U)) {
+    if (event->buttons() & Qt::LeftButton) {
       startPanMode();
       dataObject().map2DMoveBy(pixelsToWorldUnits(_mapViewMouseTarget.movement().x()),
                                pixelsToWorldUnits(_mapViewMouseTarget.movement().y()), true);
@@ -414,9 +414,9 @@ void Map2DView::mouseMoveEvent(QMouseEvent *event)
 
 void Map2DView::wheelEvent(QWheelEvent *event)
 {
-  if (event->modifiers() & (Qt::ShiftModifier != 0U)) {
-  } else if (event->modifiers() & (Qt::ControlModifier != 0U)) {
-  } else if (event->modifiers() & (Qt::AltModifier != 0U)) {
+  if (event->modifiers() & Qt::ShiftModifier) {
+  } else if (event->modifiers() & Qt::ControlModifier) {
+  } else if (event->modifiers() & Qt::AltModifier) {
   } else {
     int const nrDegrees = event->angleDelta().y() / 8;
     double const fraction = nrDegrees / 360.0;
@@ -431,7 +431,7 @@ void Map2DView::wheelEvent(QWheelEvent *event)
 
 void Map2DView::keyPressEvent(QKeyEvent *event)
 {
-  if (event->modifiers() & (Qt::ShiftModifier != 0U)) {
+  if (event->modifiers() & Qt::ShiftModifier) {
     switch (event->key()) {
       case Qt::Key_Plus: {
         // Zoom map in.
@@ -443,7 +443,7 @@ void Map2DView::keyPressEvent(QKeyEvent *event)
         break;
       }
     }
-  } else if (event->modifiers() & (Qt::ControlModifier != 0U)) {
+  } else if (event->modifiers() & Qt::ControlModifier) {
 
     switch (event->key()) {
 
@@ -478,7 +478,7 @@ void Map2DView::keyPressEvent(QKeyEvent *event)
         break;
       }
     }
-  } else if (event->modifiers() & (Qt::AltModifier != 0U)) {
+  } else if (event->modifiers() & Qt::AltModifier) {
     event->ignore();
   } else {
 

@@ -101,7 +101,7 @@ extern "C" std::type_info *__cxa_current_exception_type ();
       (stream) << " typeinfo::name = " << t->name() << '\n';
 #else
 #define PRINT_EXCEPTION_TYPE(stream) \
-      (stream) << " typeinfo::name = " << "not present \n';
+      (stream) << " typeinfo::name = " << "not present \n";
 #endif
 
 #define CATCH_ALL(stream,prefix,appSpecificCatch)       \

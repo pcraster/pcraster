@@ -493,7 +493,7 @@ bool ag::SceneView::dirty() const
 
 void ag::SceneView::keyPressEvent(QKeyEvent *event)
 {
-  if (event->modifiers() & (Qt::ShiftModifier != 0U)) {
+  if (event->modifiers() & Qt::ShiftModifier) {
     switch (event->key()) {
       case Qt::Key_Up: {
         // Move camera to the front.
@@ -551,7 +551,7 @@ void ag::SceneView::keyPressEvent(QKeyEvent *event)
         break;
       }
     }
-  } else if (event->modifiers() & (Qt::ControlModifier != 0U)) {
+  } else if (event->modifiers() & Qt::ControlModifier) {
     switch (event->key()) {
       case Qt::Key_K: {
         // Move camera to the front.

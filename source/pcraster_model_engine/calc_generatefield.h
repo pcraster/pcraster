@@ -3,6 +3,8 @@
 
 #include "csftypes.h"
 
+#include <cstddef>
+
 
 namespace geo {
   class RasterSpace;

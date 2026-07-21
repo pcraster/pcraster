@@ -3,6 +3,8 @@
 
 #include "stddefx.h"
 
+#include <cstddef>
+
 
 namespace calc {
   // IOpImpl declarations.

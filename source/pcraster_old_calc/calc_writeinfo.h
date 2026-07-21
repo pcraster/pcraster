@@ -1,6 +1,9 @@
 #ifndef INCLUDED_OLDCALC_WRITEINFO
 #define INCLUDED_OLDCALC_WRITEINFO
 
+#include <cstddef>
+
+
 namespace calc {
 class IScript;
 class Report;

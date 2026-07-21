@@ -1,17 +1,20 @@
 #ifndef INCLUDED_INCLUDE_DEBUG
 #define INCLUDED_INCLUDE_DEBUG
 
-#include <stdio.h>
-
 /* #undef NDEBUG */
 
 #ifdef DEBUG_DEVELOP
-#include <assert.h>
-# define DEVELOP_POSTCOND(cond)   assert(cond)
-# define DEVELOP_PRECOND(cond)    assert(cond)
+  #ifdef __cplusplus
+    #include <cassert>
+  #else
+    #include <assert.h>
+  #endif
+
+  #define DEVELOP_POSTCOND(cond)   assert(cond)
+  #define DEVELOP_PRECOND(cond)    assert(cond)
 #else
-# define DEVELOP_POSTCOND(cond)
-# define DEVELOP_PRECOND(cond)
+  #define DEVELOP_POSTCOND(cond)
+  #define DEVELOP_PRECOND(cond)
 #endif
 
 #ifdef DEBUG
@@ -24,8 +27,6 @@
  */
 #define USE_PRECOND_CONST static int constCond_t_=1;
 
-
-# include <assert.h>
 
 /* deprecated  use ifdef instead */
 # define IFDEBUG(action)      action

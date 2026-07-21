@@ -4,6 +4,7 @@
 #include "stddefx.h"
 #include "pcraster_model_engine_export.h"
 
+#include <cstddef>
 
 
 namespace geo {

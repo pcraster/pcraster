@@ -3,6 +3,7 @@
 
 #include "stddefx.h"
 
+#include <cstddef>
 
 
 namespace discr {

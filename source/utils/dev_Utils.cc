@@ -1,14 +1,13 @@
 #include "dev_Utils.h"
 
-#include <cassert>
-#include <cstdlib>
-#include <string>
-#include <stdlib.h>
-
 #ifdef _WIN32
   #include <windows.h>
 #endif
 
+#include <cassert>
+#include <cstdlib>
+#include <string>
+#include <stdlib.h>
 
 
 namespace dev {

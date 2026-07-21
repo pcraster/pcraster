@@ -1136,10 +1136,10 @@ PYBIND11_MODULE(_pcraster, module)
     )"
   );
 
-  module.def("pcr2numpy", pp::field_to_array);
-  module.def("numpy2pcr", pp::array_to_field,
+  module.def("_pcr2numpy", pp::field_to_array);
+  module.def("_numpy2pcr", pp::array_to_field,
     pb::return_value_policy::automatic);
-  module.def("pcr_as_numpy", pp::field_as_array);
+  module.def("_pcr_as_numpy", pp::field_as_array);
 
   module.def("cellvalue", pp::fieldGetCellIndex, R"(
    Return a cell value from a map.

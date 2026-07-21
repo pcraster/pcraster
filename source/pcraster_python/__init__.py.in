@@ -56,8 +56,8 @@ except Exception as error:
 # If importing the compiled module succeeds everything else should be fine as well
 from .operations import *
 from . import operators
-from .aguila import *
-from .numpy_operations import *
+from .aguila import aguila
+from .numpy_operations import pcr2numpy, numpy2pcr, pcr_as_numpy
 from .__about__ import (
     __version__, __author__, __uri__, __license__, __copyright__
 )

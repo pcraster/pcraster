@@ -13,7 +13,7 @@ def pcr2numpy(
 
     Returns an array.
     """
-    return _pcraster.pcr2numpy(_pcraster.clone(), map, mv)
+    return _pcraster._pcr2numpy(_pcraster.clone(), map, mv)
 
 
 def numpy2pcr(
@@ -31,7 +31,7 @@ def numpy2pcr(
 
     Returns a map.
     """
-    return _pcraster.numpy2pcr(_pcraster.clone(), dataType, array, mv)
+    return _pcraster._numpy2pcr(_pcraster.clone(), dataType, array, mv)
 
 
 def pcr_as_numpy(
@@ -43,4 +43,4 @@ def pcr_as_numpy(
 
     Returns an array.
     """
-    return _pcraster.pcr_as_numpy(_pcraster.clone(), map)
+    return _pcraster._pcr_as_numpy(_pcraster.clone(), map)

@@ -6,14 +6,16 @@
 #include "com_exception.h"
 #include "pcrxml_dom.h"
 
+#include <QByteArray>
+#include <QDomDocument>
+#include <QDomElement>
+#include <QDomNode>
 #include <QFile>
+#include <QString>
+#include <QtVersionChecks>
 
-#include <qdom.h>
 #include <string>
 #include <cstddef>
-#include <qtversionchecks.h>
-#include <qstringview.h>
-#include <qfiledevice.h>
 #include <utility>
 
 /*!
@@ -150,7 +152,7 @@ pcrxml::Document::Document(const com::PathName &file)
 {
   com::PathInfo(file).testOpenForReading();
   QFile f(QString(file.toString().c_str()));
-  bool const success = f.open(QIODevice::ReadOnly);
+  bool const success = f.open(QFile::ReadOnly);
   // com::testOpenForReading() should assert this
   // but it does not:
   //  POSTCOND(success);

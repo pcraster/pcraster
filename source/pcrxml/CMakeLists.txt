@@ -109,6 +109,8 @@ target_include_directories(pcrxml
 )
 
 target_link_libraries(pcrxml
+    PRIVATE
+        Qt${QT_VERSION_MAJOR}::Core    
     PUBLIC
         pcraster::pcrcom
         Qt${QT_VERSION_MAJOR}::Xml

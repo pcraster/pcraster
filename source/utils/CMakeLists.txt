@@ -44,6 +44,5 @@ if(PCRASTER_BUILD_TEST)
         LINK_LIBRARIES
             pcraster::utils
             Qt${QT_VERSION_MAJOR}::Core
-            Clipp::Clipp
     )
 endif()

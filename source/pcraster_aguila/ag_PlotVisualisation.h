@@ -5,9 +5,9 @@
 #include "ag_IVisualisation.h"
 #include "ag_LineMarker.h"
 
-#include <QtCharts/QChartView>
-#include <QtCharts/QLineSeries>
-#include <QtCharts/QValueAxis>
+#include <QChartView>
+#include <QLineSeries>
+#include <QValueAxis>
 #include <QGraphicsView>
 
 #include <map>

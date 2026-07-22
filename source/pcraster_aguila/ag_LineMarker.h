@@ -3,7 +3,7 @@
 
 #include <QGraphicsSceneHoverEvent>
 #include <QGraphicsItem>
-#include <QtCharts/QChart>
+#include <QChart>
 
 
 

@@ -6,7 +6,7 @@
 
 #include <QApplication>
 #include <QPainter>
-#include <QtCharts/QLineSeries>
+#include <QLineSeries>
 #include <QMouseEvent>
 
 /*!
@@ -50,9 +50,6 @@ public:
 namespace ag
 {
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-using namespace QtCharts;
-#endif
 
 PlotVisualisation::PlotVisualisation(DataObject *object, std::string const &visualisationName,
                                      QWidget *parent, char const * /* name */)
@@ -66,12 +63,17 @@ PlotVisualisation::PlotVisualisation(DataObject *object, std::string const &visu
   setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
   setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+  m_chart = new QtCharts::QChart;
+  m_axisX = new QtCharts::QValueAxis;
+  m_axisY = new QtCharts::QValueAxis;
+#else
   m_chart = new QChart;
-  m_chart->legend()->hide();
-
   m_axisX = new QValueAxis;
   m_axisY = new QValueAxis;
+#endif
+  m_chart->legend()->hide();
+
 
   setRenderHint(QPainter::Antialiasing);
   this->setChart(m_chart);
@@ -220,7 +222,11 @@ void PlotVisualisation::drawCurve(DataGuide const &guide, double *x, double *y, 
       ++ySubEnd;
     }
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    auto *series = new QtCharts::QLineSeries();
+#else
     auto *series = new QLineSeries();
+#endif
 
     // Plain inserting the values...
     for (size_t i = 0; i < nrValues; ++i) {
@@ -309,7 +315,11 @@ bool PlotVisualisation::intersectMarker(double *x, double *y, long int marker,
   auto it = _curvesPerGuide.find(guide);
 
   if (it != _curvesPerGuide.end()) {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    for (QtCharts::QLineSeries const *curve : (*it).second) {
+#else
     for (QLineSeries const *curve : (*it).second) {
+#endif
       assert(curve);
       assert(curve->points().length() > 1);
 

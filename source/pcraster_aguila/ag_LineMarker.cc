@@ -7,13 +7,12 @@
 namespace ag
 {
 
-
+  
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-using namespace QtCharts;
+  LineMarker::LineMarker(QtCharts::QChart *chart) : QGraphicsItem(chart), m_chart(chart)
+#else
+  LineMarker::LineMarker(QChart *chart) : QGraphicsItem(chart), m_chart(chart)
 #endif
-
-
-LineMarker::LineMarker(QChart *chart) : QGraphicsItem(chart), m_chart(chart)
 {
   m_ymin = -1;
   m_ymax = -1;

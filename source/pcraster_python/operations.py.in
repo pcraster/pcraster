@@ -1151,114 +1151,6 @@ def pcrbmin(arg1, arg2):
         raise RuntimeError(f"pcrbmin: {exception}")
 
 
-def timeinputscalar(arg1, arg2, arg3=None):
-    try:
-        arg1 = _pcraster.DataStorageId(arg1)
-        if isinstance(arg2, str):
-            arg2 = _pcraster.readmap(arg2)
-        elif isinstance(arg2, int) or isinstance(arg2, float):
-            arg2 = _pcraster._newNonSpatialField(arg2)
-        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTSCALAR)
-        results = []
-        _pcraster._rte().pushDataStorageId(arg1)
-        _pcraster._rte().pushField(arg2)
-        _pcraster._rte().checkAndExec(operator, 2)
-        results.append(_pcraster._rte().releasePopField())
-        return results[0]
-    except RuntimeError as exception:
-        raise RuntimeError(f"timeinputscalar: {exception}")
-
-
-def timeinputdirectional(arg1, arg2, arg3=None):
-    try:
-        arg1 = _pcraster.DataStorageId(arg1)
-        if isinstance(arg2, str):
-            arg2 = _pcraster.readmap(arg2)
-        elif isinstance(arg2, int) or isinstance(arg2, float):
-            arg2 = _pcraster._newNonSpatialField(arg2)
-        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTDIRECTIONAL)
-        results = []
-        _pcraster._rte().pushDataStorageId(arg1)
-        _pcraster._rte().pushField(arg2)
-        _pcraster._rte().checkAndExec(operator, 2)
-        results.append(_pcraster._rte().releasePopField())
-        return results[0]
-    except RuntimeError as exception:
-        raise RuntimeError(f"timeinputdirectional: {exception}")
-
-
-def timeinputboolean(arg1, arg2, arg3=None):
-    try:
-        arg1 = _pcraster.DataStorageId(arg1)
-        if isinstance(arg2, str):
-            arg2 = _pcraster.readmap(arg2)
-        elif isinstance(arg2, int) or isinstance(arg2, float):
-            arg2 = _pcraster._newNonSpatialField(arg2)
-        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTBOOLEAN)
-        results = []
-        _pcraster._rte().pushDataStorageId(arg1)
-        _pcraster._rte().pushField(arg2)
-        _pcraster._rte().checkAndExec(operator, 2)
-        results.append(_pcraster._rte().releasePopField())
-        return results[0]
-    except RuntimeError as exception:
-        raise RuntimeError(f"timeinputboolean: {exception}")
-
-
-def timeinputldd(arg1, arg2, arg3=None):
-    try:
-        arg1 = _pcraster.DataStorageId(arg1)
-        if isinstance(arg2, str):
-            arg2 = _pcraster.readmap(arg2)
-        elif isinstance(arg2, int) or isinstance(arg2, float):
-            arg2 = _pcraster._newNonSpatialField(arg2)
-        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTLDD)
-        results = []
-        _pcraster._rte().pushDataStorageId(arg1)
-        _pcraster._rte().pushField(arg2)
-        _pcraster._rte().checkAndExec(operator, 2)
-        results.append(_pcraster._rte().releasePopField())
-        return results[0]
-    except RuntimeError as exception:
-        raise RuntimeError(f"timeinputldd: {exception}")
-
-
-def timeinputnominal(arg1, arg2, arg3=None):
-    try:
-        arg1 = _pcraster.DataStorageId(arg1)
-        if isinstance(arg2, str):
-            arg2 = _pcraster.readmap(arg2)
-        elif isinstance(arg2, int) or isinstance(arg2, float):
-            arg2 = _pcraster._newNonSpatialField(arg2)
-        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTNOMINAL)
-        results = []
-        _pcraster._rte().pushDataStorageId(arg1)
-        _pcraster._rte().pushField(arg2)
-        _pcraster._rte().checkAndExec(operator, 2)
-        results.append(_pcraster._rte().releasePopField())
-        return results[0]
-    except RuntimeError as exception:
-        raise RuntimeError(f"timeinputnominal: {exception}")
-
-
-def timeinputordinal(arg1, arg2, arg3=None):
-    try:
-        arg1 = _pcraster.DataStorageId(arg1)
-        if isinstance(arg2, str):
-            arg2 = _pcraster.readmap(arg2)
-        elif isinstance(arg2, int) or isinstance(arg2, float):
-            arg2 = _pcraster._newNonSpatialField(arg2)
-        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTORDINAL)
-        results = []
-        _pcraster._rte().pushDataStorageId(arg1)
-        _pcraster._rte().pushField(arg2)
-        _pcraster._rte().checkAndExec(operator, 2)
-        results.append(_pcraster._rte().releasePopField())
-        return results[0]
-    except RuntimeError as exception:
-        raise RuntimeError(f"timeinputordinal: {exception}")
-
-
 def lookupnominal(arg1, *arg2):
     try:
         arg1 = _pcraster.DataStorageId(arg1)
@@ -4355,3 +4247,111 @@ def maptotal(arg1):
         return _pcraster.maptotal(arg1)
     except RuntimeError as exception:
         raise RuntimeError("maptotal: %s" % (str(exception)))
+        
+
+def timeinputscalar(arg1, arg2, arg3=None):
+    try:
+        arg1 = _pcraster.DataStorageId(arg1)
+        if isinstance(arg2, str):
+            arg2 = _pcraster.readmap(arg2)
+        elif isinstance(arg2, int) or isinstance(arg2, float):
+            arg2 = _pcraster._newNonSpatialField(arg2)
+        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTSCALAR)
+        results = []
+        _pcraster._rte().pushDataStorageId(arg1)
+        _pcraster._rte().pushField(arg2)
+        _pcraster._rte().checkAndExec(operator, 2)
+        results.append(_pcraster._rte().releasePopField())
+        return results[0]
+    except RuntimeError as exception:
+        raise RuntimeError(f"timeinputscalar: {exception}")
+
+
+def timeinputdirectional(arg1, arg2, arg3=None):
+    try:
+        arg1 = _pcraster.DataStorageId(arg1)
+        if isinstance(arg2, str):
+            arg2 = _pcraster.readmap(arg2)
+        elif isinstance(arg2, int) or isinstance(arg2, float):
+            arg2 = _pcraster._newNonSpatialField(arg2)
+        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTDIRECTIONAL)
+        results = []
+        _pcraster._rte().pushDataStorageId(arg1)
+        _pcraster._rte().pushField(arg2)
+        _pcraster._rte().checkAndExec(operator, 2)
+        results.append(_pcraster._rte().releasePopField())
+        return results[0]
+    except RuntimeError as exception:
+        raise RuntimeError(f"timeinputdirectional: {exception}")
+
+
+def timeinputboolean(arg1, arg2, arg3=None):
+    try:
+        arg1 = _pcraster.DataStorageId(arg1)
+        if isinstance(arg2, str):
+            arg2 = _pcraster.readmap(arg2)
+        elif isinstance(arg2, int) or isinstance(arg2, float):
+            arg2 = _pcraster._newNonSpatialField(arg2)
+        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTBOOLEAN)
+        results = []
+        _pcraster._rte().pushDataStorageId(arg1)
+        _pcraster._rte().pushField(arg2)
+        _pcraster._rte().checkAndExec(operator, 2)
+        results.append(_pcraster._rte().releasePopField())
+        return results[0]
+    except RuntimeError as exception:
+        raise RuntimeError(f"timeinputboolean: {exception}")
+
+
+def timeinputldd(arg1, arg2, arg3=None):
+    try:
+        arg1 = _pcraster.DataStorageId(arg1)
+        if isinstance(arg2, str):
+            arg2 = _pcraster.readmap(arg2)
+        elif isinstance(arg2, int) or isinstance(arg2, float):
+            arg2 = _pcraster._newNonSpatialField(arg2)
+        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTLDD)
+        results = []
+        _pcraster._rte().pushDataStorageId(arg1)
+        _pcraster._rte().pushField(arg2)
+        _pcraster._rte().checkAndExec(operator, 2)
+        results.append(_pcraster._rte().releasePopField())
+        return results[0]
+    except RuntimeError as exception:
+        raise RuntimeError(f"timeinputldd: {exception}")
+
+
+def timeinputnominal(arg1, arg2, arg3=None):
+    try:
+        arg1 = _pcraster.DataStorageId(arg1)
+        if isinstance(arg2, str):
+            arg2 = _pcraster.readmap(arg2)
+        elif isinstance(arg2, int) or isinstance(arg2, float):
+            arg2 = _pcraster._newNonSpatialField(arg2)
+        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTNOMINAL)
+        results = []
+        _pcraster._rte().pushDataStorageId(arg1)
+        _pcraster._rte().pushField(arg2)
+        _pcraster._rte().checkAndExec(operator, 2)
+        results.append(_pcraster._rte().releasePopField())
+        return results[0]
+    except RuntimeError as exception:
+        raise RuntimeError(f"timeinputnominal: {exception}")
+
+
+def timeinputordinal(arg1, arg2, arg3=None):
+    try:
+        arg1 = _pcraster.DataStorageId(arg1)
+        if isinstance(arg2, str):
+            arg2 = _pcraster.readmap(arg2)
+        elif isinstance(arg2, int) or isinstance(arg2, float):
+            arg2 = _pcraster._newNonSpatialField(arg2)
+        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTORDINAL)
+        results = []
+        _pcraster._rte().pushDataStorageId(arg1)
+        _pcraster._rte().pushField(arg2)
+        _pcraster._rte().checkAndExec(operator, 2)
+        results.append(_pcraster._rte().releasePopField())
+        return results[0]
+    except RuntimeError as exception:
+        raise RuntimeError(f"timeinputordinal: {exception}")

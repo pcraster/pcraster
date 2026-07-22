@@ -27,7 +27,14 @@ import pcraster
     <!--<xsl:for-each select="Operation[@syntax!='None'] | Operation[@name='if']">-->
     <xsl:for-each select="Operation[@syntax!='None']">
       <xsl:choose>
+        <!-- Disable autogeneration to replace with customised versions -->
         <xsl:when test="@name='maptotal'"></xsl:when>
+        <xsl:when test="@name='timeinputscalar'"></xsl:when>
+        <xsl:when test="@name='timeinputdirectional'"></xsl:when>
+        <xsl:when test="@name='timeinputboolean'"></xsl:when>
+        <xsl:when test="@name='timeinputldd'"></xsl:when>
+        <xsl:when test="@name='timeinputnominal'"></xsl:when>
+        <xsl:when test="@name='timeinputordinal'"></xsl:when>
         <xsl:otherwise>
           <xsl:call-template name="pythonOperation">
             <xsl:with-param name="operation" select="."/>
@@ -35,11 +42,15 @@ import pcraster
         </xsl:otherwise>
       </xsl:choose>
     </xsl:for-each>
-
-    <xsl:text>
+      
+<xsl:text>
 
 def ifthen(arg1, arg2):
     try:
+        if isinstance(arg2, str):
+            arg2 = _pcraster.readmap(arg2)
+        elif isinstance(arg2, int) or isinstance(arg2, float):
+            arg2 = _pcraster._newNonSpatialField(arg2)
         if isinstance(arg1, str):
             arg1 = _pcraster.readmap(arg1)
         elif (isinstance(arg1, int) or isinstance(arg1, float)) and not arg2.isSpatial():
@@ -48,10 +59,6 @@ def ifthen(arg1, arg2):
             arg1 = pcraster.spatial(pcraster.boolean(arg1))
         elif isinstance(arg1, int) or isinstance(arg1, float):
             arg1 = _pcraster._newNonSpatialField(arg1)
-        if isinstance(arg2, str):
-            arg2 = _pcraster.readmap(arg2)
-        elif isinstance(arg2, int) or isinstance(arg2, float):
-            arg2 = _pcraster._newNonSpatialField(arg2)
         operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_IFTHEN)
         results = []
         _pcraster._rte().pushField(arg1)
@@ -97,7 +104,115 @@ def maptotal(arg1):
             arg1 = _pcraster._newNonSpatialField(arg1)
         return _pcraster.maptotal(arg1)
     except RuntimeError as exception:
-        raise RuntimeError("maptotal: %s" % (str(exception)))</xsl:text>
+        raise RuntimeError("maptotal: %s" % (str(exception)))
+        
+
+def timeinputscalar(arg1, arg2, arg3=None):
+    try:
+        arg1 = _pcraster.DataStorageId(arg1)
+        if isinstance(arg2, str):
+            arg2 = _pcraster.readmap(arg2)
+        elif isinstance(arg2, int) or isinstance(arg2, float):
+            arg2 = _pcraster._newNonSpatialField(arg2)
+        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTSCALAR)
+        results = []
+        _pcraster._rte().pushDataStorageId(arg1)
+        _pcraster._rte().pushField(arg2)
+        _pcraster._rte().checkAndExec(operator, 2)
+        results.append(_pcraster._rte().releasePopField())
+        return results[0]
+    except RuntimeError as exception:
+        raise RuntimeError(f"timeinputscalar: {exception}")
+
+
+def timeinputdirectional(arg1, arg2, arg3=None):
+    try:
+        arg1 = _pcraster.DataStorageId(arg1)
+        if isinstance(arg2, str):
+            arg2 = _pcraster.readmap(arg2)
+        elif isinstance(arg2, int) or isinstance(arg2, float):
+            arg2 = _pcraster._newNonSpatialField(arg2)
+        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTDIRECTIONAL)
+        results = []
+        _pcraster._rte().pushDataStorageId(arg1)
+        _pcraster._rte().pushField(arg2)
+        _pcraster._rte().checkAndExec(operator, 2)
+        results.append(_pcraster._rte().releasePopField())
+        return results[0]
+    except RuntimeError as exception:
+        raise RuntimeError(f"timeinputdirectional: {exception}")
+
+
+def timeinputboolean(arg1, arg2, arg3=None):
+    try:
+        arg1 = _pcraster.DataStorageId(arg1)
+        if isinstance(arg2, str):
+            arg2 = _pcraster.readmap(arg2)
+        elif isinstance(arg2, int) or isinstance(arg2, float):
+            arg2 = _pcraster._newNonSpatialField(arg2)
+        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTBOOLEAN)
+        results = []
+        _pcraster._rte().pushDataStorageId(arg1)
+        _pcraster._rte().pushField(arg2)
+        _pcraster._rte().checkAndExec(operator, 2)
+        results.append(_pcraster._rte().releasePopField())
+        return results[0]
+    except RuntimeError as exception:
+        raise RuntimeError(f"timeinputboolean: {exception}")
+
+
+def timeinputldd(arg1, arg2, arg3=None):
+    try:
+        arg1 = _pcraster.DataStorageId(arg1)
+        if isinstance(arg2, str):
+            arg2 = _pcraster.readmap(arg2)
+        elif isinstance(arg2, int) or isinstance(arg2, float):
+            arg2 = _pcraster._newNonSpatialField(arg2)
+        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTLDD)
+        results = []
+        _pcraster._rte().pushDataStorageId(arg1)
+        _pcraster._rte().pushField(arg2)
+        _pcraster._rte().checkAndExec(operator, 2)
+        results.append(_pcraster._rte().releasePopField())
+        return results[0]
+    except RuntimeError as exception:
+        raise RuntimeError(f"timeinputldd: {exception}")
+
+
+def timeinputnominal(arg1, arg2, arg3=None):
+    try:
+        arg1 = _pcraster.DataStorageId(arg1)
+        if isinstance(arg2, str):
+            arg2 = _pcraster.readmap(arg2)
+        elif isinstance(arg2, int) or isinstance(arg2, float):
+            arg2 = _pcraster._newNonSpatialField(arg2)
+        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTNOMINAL)
+        results = []
+        _pcraster._rte().pushDataStorageId(arg1)
+        _pcraster._rte().pushField(arg2)
+        _pcraster._rte().checkAndExec(operator, 2)
+        results.append(_pcraster._rte().releasePopField())
+        return results[0]
+    except RuntimeError as exception:
+        raise RuntimeError(f"timeinputnominal: {exception}")
+
+
+def timeinputordinal(arg1, arg2, arg3=None):
+    try:
+        arg1 = _pcraster.DataStorageId(arg1)
+        if isinstance(arg2, str):
+            arg2 = _pcraster.readmap(arg2)
+        elif isinstance(arg2, int) or isinstance(arg2, float):
+            arg2 = _pcraster._newNonSpatialField(arg2)
+        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTORDINAL)
+        results = []
+        _pcraster._rte().pushDataStorageId(arg1)
+        _pcraster._rte().pushField(arg2)
+        _pcraster._rte().checkAndExec(operator, 2)
+        results.append(_pcraster._rte().releasePopField())
+        return results[0]
+    except RuntimeError as exception:
+        raise RuntimeError(f"timeinputordinal: {exception}")</xsl:text>
   </xsl:document>
 
   <xsl:document href="operations.inc"
@@ -108,7 +223,7 @@ def maptotal(arg1):
 #include "major_op.h"
 #define INCLUDED_MAJOR_OP
 #endif
-enum_&lt;MAJOR_CODE&gt;(module, "MAJOR_CODE")&#xA;</xsl:text>
+pb::native_enum&lt;MAJOR_CODE&gt;(module, "MAJOR_CODE", "enum.Enum")&#xA;</xsl:text>
     <xsl:for-each select="Operation[@syntax!='None'] | Operation[@name='if']">
       <xsl:variable name="operation" select="."/>
       <xsl:for-each select="$operation/Result">
@@ -123,6 +238,7 @@ enum_&lt;MAJOR_CODE&gt;(module, "MAJOR_CODE")&#xA;</xsl:text>
         <xsl:value-of select="concat('  .value(&quot;', $opcode, '&quot;, ', $opcode, ')&#xA;')"/>
       </xsl:for-each>
     </xsl:for-each>
+    <xsl:text>  .finalize()&#xA;</xsl:text>
     <xsl:text> ;&#xA;</xsl:text>
   </xsl:document>
 </xsl:template>

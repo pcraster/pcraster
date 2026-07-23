@@ -311,7 +311,7 @@ Table* TextTableDriver::open(
     return nullptr;
   }
 
-    std::unique_ptr<Table> table(new Table());
+    std::unique_ptr<Table> table = std::make_unique<Table>();
 
   if(!open(*table, stream)) {
     return nullptr;

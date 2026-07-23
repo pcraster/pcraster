@@ -123,7 +123,7 @@ Constant* TextConstantDriver::open(
   std::ifstream stream;
 
   if(TextFileDriver::open(stream, path)) {
-    std::unique_ptr<Constant> constant(new Constant());
+    std::unique_ptr<Constant> constant = std::make_unique<Constant>();
 
     if(open(*constant, stream)) {
       result = constant.release();

@@ -5,6 +5,7 @@
 #include <QGridLayout>
 #include <QMenu>
 #include <QMessageBox>
+#include <memory>
 
 // PCRaster library headers.
 
@@ -182,7 +183,7 @@ void LegendView::saveGraphData()
 
     if (guide.type() == geo::STACK) {
       // This table is generated so we keep it in a scoped pointer.
-      scopedTable.reset(new dal::Table());
+      scopedTable = std::make_unique<dal::Table>();
       dataObject().rasterDataSources().data(guide).readTimeSeries(
           dataObject().dataSpace(), dataObject().dataSpaceAddress(), *scopedTable.get());
       table = scopedTable.get();

@@ -25,7 +25,7 @@ int main(
              calc::LibraryClass(argc,argv)
                   {}
       };
-      std::unique_ptr<ClientHolder> holder(new ClientHolder(argc,argv));
+      std::unique_ptr<ClientHolder> holder = std::make_unique<ClientHolder>(argc,argv);
     try {
       result = calc::executeCommandLine(argc,argv);
     } catch(...) {

@@ -427,7 +427,7 @@ Vector* VectorDriver::read(
   _data->validate(name, space, address, *x, *y, true);
   _data->read(*x, *y, name, space, address);
 
-  std::unique_ptr<Vector> result(new Vector(x->dimensions(), x->typeId()));
+  std::unique_ptr<Vector> result = std::make_unique<Vector>(x->dimensions(), x->typeId());
   result->transfer(*x, *y);
 
   return result.release();

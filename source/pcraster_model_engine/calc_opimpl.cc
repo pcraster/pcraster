@@ -535,10 +535,10 @@ void calc::Order::exec(RunTimeEnv *rte, const Operator &op, size_t nrArgs) const
 
   switch (args[0].cri()) {
     case CRI_4:
-      expr.reset(new VSpatial<double, INT4>(args[0].src_4()));
+      expr = std::make_unique<VSpatial<double, INT4>>(args[0].src_4());
       break;
     case CRI_f:
-      expr.reset(new VSpatial<double, REAL4>(args[0].src_f()));
+      expr = std::make_unique<VSpatial<double, REAL4>>(args[0].src_f());
       break;
     default:
       POSTCOND(false);
@@ -558,20 +558,20 @@ void calc::AreaOrder::exec(RunTimeEnv *rte, const Operator &op, size_t nrArgs) c
 
   switch (args[0].cri()) {
     case CRI_4:
-      expr.reset(new VSpatial<double, INT4>(args[0].src_4()));
+      expr = std::make_unique<VSpatial<double, INT4>>(args[0].src_4());
       break;
     case CRI_f:
-      expr.reset(new VSpatial<double, REAL4>(args[0].src_f()));
+      expr = std::make_unique<VSpatial<double, REAL4>>(args[0].src_f());
       break;
     default:
       POSTCOND(false);
   }
   switch (args[1].cri()) {
     case CRI_1:
-      areaClass.reset(new VSpatial<INT4, UINT1>(args[1].src_1()));
+      areaClass = std::make_unique<VSpatial<INT4, UINT1>>(args[1].src_1());
       break;
     case CRI_4:
-      areaClass.reset(new VSpatial<INT4, INT4>(args[1].src_4()));
+      areaClass = std::make_unique<VSpatial<INT4, INT4>>(args[1].src_4());
       break;
     default:
       POSTCOND(false);

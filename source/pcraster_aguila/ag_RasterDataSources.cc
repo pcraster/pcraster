@@ -1,5 +1,7 @@
 #include "ag_RasterDataSources.h"
 
+#include <memory>
+
 // Library headers.
 
 // PCRaster library headers.
@@ -62,7 +64,7 @@ ag::RasterDataSources::~RasterDataSources()
 ag::DataInfo<ag::Raster> ag::RasterDataSources::openData(std::string const &name,
                                                          dal::DataSpace const &space) const
 {
-  std::unique_ptr<Raster> raster(new Raster(name, space));
+  std::unique_ptr<Raster> raster = std::make_unique<Raster>(name, space);
   assert(raster.get());
 
   /*

@@ -131,7 +131,7 @@ template <class T> void geo::CSFStack<T>::init()
       fn = d_name.baseName();
     }
 
-    std::unique_ptr<CSFMap> map(new CSFMap(fn));  // READ
+    std::unique_ptr<CSFMap> map = std::make_unique<CSFMap>(fn);  // READ
 
     // Value scale.
     PRECOND(map->valueScale() != VS_UNDEFINED);
@@ -222,7 +222,7 @@ template <class T> void geo::CSFStack<T>::load(size_t t)
       }
     } else {
       // Load data from file.
-      std::unique_ptr<CSFMap> map(new CSFMap(fn));  // READ
+      std::unique_ptr<CSFMap> map = std::make_unique<CSFMap>(fn);  // READ
       map->useAs(d_useType);
       map->getCells(d_raster->cells());
     }

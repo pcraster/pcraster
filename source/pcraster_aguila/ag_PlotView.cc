@@ -286,7 +286,7 @@ void PlotView::drawPlots()
     switch (guide.type()) {
       case geo::STACK: {
         // This table is generated so we keep it in a scoped pointer.
-        scopedTable.reset(new dal::Table());
+        scopedTable = std::make_unique<dal::Table>();
         dataObject().rasterDataSources().data(guide).readTimeSeries(
             dataObject().dataSpace(), dataObject().dataSpaceAddress(), *scopedTable.get());
         table = scopedTable.get();
@@ -296,7 +296,7 @@ void PlotView::drawPlots()
       }
       case geo::FEATURE: {
         // This table is generated so we keep it in a scoped pointer.
-        scopedTable.reset(new dal::Table());
+        scopedTable = std::make_unique<dal::Table>();
         dataObject().featureDataSources().data(guide).readTimeSeries(
             dataObject().dataSpace(), dataObject().dataSpaceAddress(), *scopedTable.get());
         table = scopedTable.get();
@@ -306,7 +306,7 @@ void PlotView::drawPlots()
       }
       case geo::VECTOR: {
         // This table is generated so we keep it in a scoped pointer.
-        scopedTable.reset(new dal::Table());
+        scopedTable = std::make_unique<dal::Table>();
         dataObject().vectorDataSources().data(guide).readTimeSeries(
             dataObject().dataSpace(), dataObject().dataSpaceAddress(), *scopedTable.get());
         table = scopedTable.get();

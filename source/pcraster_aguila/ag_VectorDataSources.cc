@@ -1,5 +1,7 @@
 #include "ag_VectorDataSources.h"
 
+#include <memory>
+
 // External headers.
 
 // Project headers.
@@ -42,7 +44,7 @@ VectorDataSources::~VectorDataSources()
 
 DataInfo<Vector> VectorDataSources::openData(std::string const &name, dal::DataSpace const &space) const
 {
-  std::unique_ptr<Vector> vector(new Vector(name, space));
+  std::unique_ptr<Vector> vector = std::make_unique<Vector>(name, space);
   assert(vector.get());
 
   DataInfo<Vector> const info(vector.get(), VS_SCALAR, vector->dataSpace());

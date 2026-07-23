@@ -1,5 +1,7 @@
 #include "ag_FeatureDataSources.h"
 
+#include <memory>
+
 // External headers.
 
 // Project headers.
@@ -45,7 +47,7 @@ FeatureDataSources::~FeatureDataSources()
 DataInfo<FeatureLayer> FeatureDataSources::openData(std::string const &name,
                                                     dal::DataSpace const &space) const
 {
-  std::unique_ptr<FeatureLayer> layer(new FeatureLayer(name, space));
+  std::unique_ptr<FeatureLayer> layer = std::make_unique<FeatureLayer>(name, space);
   assert(layer.get());
 
   DataInfo<FeatureLayer> const info(layer.get(), layer->valueScale(), layer->dataSpace());

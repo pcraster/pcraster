@@ -1,5 +1,7 @@
 #include "stddefx.h"
 #include "calc_xmlscriptclientinterface.h"
+
+#include <memory>
 #include "PCRasterXSD.h"
 #include "pcrxsd_dominput.h"
 #include "calc_stringparser.h"
@@ -204,7 +206,7 @@ void XMLScriptClientInterface::parse()
 
 ASTScript *XMLScriptClientInterface::createScriptAndAnalyzeNoContext()
 {
-  std::unique_ptr<ASTScript> script(new ASTScript());
+  std::unique_ptr<ASTScript> script = std::make_unique<ASTScript>();
   script->setReportOnlyForXMLScriptOutput(true);
 
   try {

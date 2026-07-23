@@ -35,9 +35,9 @@ discr::Block* read(
          static_cast<dal::BlockDriver&>(driver).read(name));
   POSTCOND(blockCopy->containsDiscretisationInfo());
 
-  std::unique_ptr<discr::Block> result(new discr::Block(
+  std::unique_ptr<discr::Block> result = std::make_unique<discr::Block>(
          blockCopy->nrRows(), blockCopy->nrCols(), blockCopy->cellSize(),
-         blockCopy->west(), blockCopy->north()));
+         blockCopy->west(), blockCopy->north());
 
   for(size_t i = 0; i < blockCopy->nrCells(); ++i) {
     if(pcr::isMV(blockCopy->baseElevation()->cell<REAL4>(i))) {
@@ -103,9 +103,9 @@ discr::BlockData<ValueType>* read(
 static dal::Block* createBlockForDiscretisation(
          discr::Block const& block)
 {
-  std::unique_ptr<dal::Block> result(new dal::Block(
+  std::unique_ptr<dal::Block> result = std::make_unique<dal::Block>(
          block.nrRows(), block.nrCols(), block.cellSize(),
-         block.west(), block.north()));
+         block.west(), block.north());
   result->createCells();
   result->baseElevation()->createCells();
   result->setIsRegular(block.isRegular());
@@ -134,9 +134,9 @@ static dal::Block* createBlockForData(
          discr::BlockData<ValueType> const& data)
 {
   discr::Block const& block(*data.block());
-  std::unique_ptr<dal::Block> result(new dal::Block(
+  std::unique_ptr<dal::Block> result = std::make_unique<dal::Block>(
          block.nrRows(), block.nrCols(),
-         dal::TypeTraits<std::vector<ValueType> >::typeId));
+         dal::TypeTraits<std::vector<ValueType> >::typeId);
   result->createCells();
 
   DEVELOP_POSTCOND(result->cellsAreCreated());

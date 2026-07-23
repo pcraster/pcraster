@@ -28,6 +28,7 @@
 #include <algorithm>
 #include <cmath>
 #include <iterator>
+#include <memory>
 #include <set>
 #include <sstream>
 
@@ -1265,7 +1266,7 @@ void DataObject::setXML(DataGuide const &guide, pcrxml::DrawProperties const &dp
   }
 
   if (dp.palette().present()) {
-    std::unique_ptr<com::RawPalette> palette(new com::RawPalette());
+    std::unique_ptr<com::RawPalette> palette = std::make_unique<com::RawPalette>();
     palette->setMaximum(255);
     pcrxml::Palette const &xp(dp.palette().get());
     for (const auto &i : xp.rgb()) {

@@ -801,7 +801,7 @@ Parser::body(int *_retsignal)
 			// no initial body is dynamic
 			_retv=std::move(dynamic);
 		} else { // both
-			AP_ASTNodeList body(new calc::ASTNodeList());
+			AP_ASTNodeList body = std::make_unique<calc::ASTNodeList>();
 			body->transferPushBack(initial.release());
 			body->transferPushBack(dynamic.release());
 			_retv=std::move(body);
@@ -1611,9 +1611,9 @@ Parser::assignmentTail(int *_retsignal, const calc::ASTPar& lhs, bool& swap )
 								std::swap(sym1,sym2);
 							}
 							std::unique_ptr<ASTExpr>
-							e(new calc::ASTExpr(
+							e = std::make_unique<calc::ASTExpr>(
 							sym1.position(),
-							calc::oneOf2Mrf(op1->opCode())));
+							calc::oneOf2Mrf(op1->opCode()));
 							e->transferFunctionArgs(args.release());
 							_retv=std::move(e);
  consume();
@@ -2358,7 +2358,7 @@ Parser::misc_expr(int *_retsignal)
 #line 994 "calcparser.g"
 							
 							// empty node list by default
-							AP_ASTNodeVector args(new calc::ASTNodeVector());
+							AP_ASTNodeVector args = std::make_unique<calc::ASTNodeVector>();
  consume();
 #line 999 "calcparser.g"
 							{

@@ -14,6 +14,7 @@
 #include "geo_rasterspace.h"
 
 #include <deque>
+#include <memory>
 
 /*!
   \file
@@ -53,7 +54,7 @@ public:
     PositionName pn("checkAndExec");
 
     ASTExpr e(&pn, d_op);
-    std::unique_ptr<ASTNodeVector> av(new ASTNodeVector());
+    std::unique_ptr<ASTNodeVector> av = std::make_unique<ASTNodeVector>();
 
     for (size_t r = 0; r < d_nrActualArgs; ++r) {
       // reverser order popping

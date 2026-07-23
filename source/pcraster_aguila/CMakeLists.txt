@@ -224,6 +224,7 @@ if(PCRASTER_WITH_OPENGL)
             Qt${QT_VERSION_MAJOR}::Widgets
             Qt${QT_VERSION_MAJOR}::OpenGL
             Qt${QT_VERSION_MAJOR}::Xml
+            Qt${QT_VERSION_MAJOR}::Charts
             GDAL::GDAL
             ${QtOpenGLWidgets}
     )
@@ -234,6 +235,7 @@ else()
             Boost::headers
             Qt${QT_VERSION_MAJOR}::Widgets
             Qt${QT_VERSION_MAJOR}::Xml
+            Qt${QT_VERSION_MAJOR}::Charts
             GDAL::GDAL
     )
 endif()

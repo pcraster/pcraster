@@ -1,6 +1,8 @@
 #include "dal_FeaturePath.h"
 
 #include <cassert>
+#include <cstddef>
+#include <ostream>
 
 
 

@@ -1,4 +1,8 @@
 #include "dal_BrowseInfo.h"
+#include "dal_DataSpace.h"
+#include "dal_Def.h"
+#include "pcrtypes.h"
+#include <string>
 
 
 

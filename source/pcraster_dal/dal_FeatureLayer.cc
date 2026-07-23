@@ -1,7 +1,16 @@
 #include "dal_FeatureLayer.h"
+#include "dal_Array.h"
 #include "dal_Client.h"
+#include "dal_Configure.h"
+#include "dal_Dataset.h"
+#include "dal_Def.h"
+#include "dal_FeatureLayerGeometries.h"
 #include "dal_Library.h"
-#include "dal_Type.h"
+#include "dal_SpaceDimensions.h"
+#include "dal_SpatialCoordinate.h"
+#include "pcrtypes.h"
+#include <cassert>
+#include <cstddef>
 
 
 

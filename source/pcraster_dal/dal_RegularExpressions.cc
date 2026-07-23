@@ -1,6 +1,8 @@
 #include "dal_RegularExpressions.h"
 
 #include <format>
+#include <regex>
+#include <string>
 
 
 

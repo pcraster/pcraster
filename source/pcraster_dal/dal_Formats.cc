@@ -1,4 +1,7 @@
 #include "dal_Formats.h"
+#include "dal_Format.h"
+#include <cstddef>
+#include <string>
 
 
 

@@ -1,4 +1,8 @@
 #include "dal_DataSpaceQueryResult.h"
+#include "dal_DataSpace.h"
+#include "dal_DataSpaceAddress.h"
+#include "dal_Def.h"
+#include <string>
 
 
 

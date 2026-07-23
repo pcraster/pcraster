@@ -1,10 +1,23 @@
 #include "dal_TextMatrixDriver.h"
+#include "dal_Array.h"
 #include "dal_BasicTypes.h"
+#include "dal_DataSpace.h"
+#include "dal_Def.h"
 #include "dal_Exception.h"
-#include "dal_Table.h"
 #include "dal_FilesystemUtils.h"
+#include "dal_Matrix.h"
+#include "dal_MatrixDriver.h"
+#include "dal_PropertyKeys.h"
+#include "dal_Table.h"
+#include "dal_TextFileDriver.h"
+#include "dal_Utils.h"
+#include "pcrtypes.h"
 
+#include <cassert>
+#include <cstddef>
 #include <fstream>
+#include <string>
+#include <vector>
 
 
 /*!

@@ -3,9 +3,18 @@
 #include "dal_SQLTableDriver.h"
 #include "dal_TextTableDriver.h"
 #include "dal_Utils.h"
+#include "dal_Dal.h"
+#include "dal_Dataset.h"
+#include "dal_Def.h"
+#include "dal_Driver.h"
 
 #include <QStringList>
 #include <QSqlDatabase>
+
+#include <cassert>
+#include <memory>
+#include <string>
+#include <tuple>
 
 
 /*!

@@ -11,7 +11,11 @@
 #endif
 
 #include <cassert>
-
+#include <cstddef>
+#include <iterator>
+#include <map>
+#include <utility>
+#include <vector>
 
 
 /*!

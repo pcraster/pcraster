@@ -1,8 +1,20 @@
 #include "dal_GSLIBBlockDriver.h"
+#include "dal_Block.h"
+#include "dal_BlockDriver.h"
+#include "dal_DataSpace.h"
+#include "dal_Def.h"
 #include "dal_FilesystemUtils.h"
+#include "dal_PropertyKeys.h"
+#include "dal_TextFileDriver.h"
+#include "dal_Utils.h"
+#include "pcrtypes.h"
 
+#include <cassert>
+#include <cstddef>
 #include <filesystem>
+#include <fstream>
 #include <limits>
+#include <vector>
 
 
 

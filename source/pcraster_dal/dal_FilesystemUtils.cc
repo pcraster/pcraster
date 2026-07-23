@@ -1,7 +1,17 @@
 #include "dal_FilesystemUtils.h"
+#include "dal_Configure.h"
+#include "dal_DataSpace.h"
 #include "dal_DataSpaceAddress.h"
+#include "dal_Def.h"
 #include "dal_Exception.h"
 #include "dal_StackInfo.h"
+#include <algorithm>
+#include <cassert>
+#include <cstdlib>
+#include <cstring>
+#include <string>
+#include <tuple>
+#include <vector>
 
 #ifdef WIN32
   #include <io.h>            // access

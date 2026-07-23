@@ -1,8 +1,22 @@
 #include "dal_PCRBlockDriver.h"
+#include "dal_Block.h"
+#include "dal_BlockDriver.h"
+#include "dal_DataSpace.h"
+#include "dal_Def.h"
 #include "dal_FilesystemUtils.h"
+#include "dal_PropertyKeys.h"
+#include "dal_TextFileDriver.h"
+#include "dal_Utils.h"
+#include "pcrtypes.h"
 
+#include <cassert>
 #include <cmath>
+#include <cstddef>
+#include <cstring>
 #include <filesystem>
+#include <fstream>
+#include <ios>
+#include <vector>
 
 
 /*!

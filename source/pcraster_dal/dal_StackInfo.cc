@@ -1,13 +1,17 @@
 #include "dal_StackInfo.h"
+#include "dal_Def.h"
 #include "dal_Exception.h"
 #include "dal_FilesystemUtils.h"
 
 #include <boost/lexical_cast.hpp>
 
+#include <algorithm>
+#include <cassert>
+#include <cctype>  // std::isdigit on current locale
+#include <cstddef>
 #include <filesystem>
 #include <format>
-#include <iostream>
-#include <cctype>  // std::isdigit on current locale
+#include <string>
 
 
 /*!

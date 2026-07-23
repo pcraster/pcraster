@@ -1,12 +1,24 @@
 #include "dal_Driver.h"
-#include "dal_Dataset.h"
+#include "dal_Array.h"
+#include "dal_BrowseInfo.h"
 #include "dal_DataSpaceAddress.h"
 #include "dal_DataSpaceIterator.h"
+#include "dal_DataSpaceQueryResult.h"
+#include "dal_Dataset.h"
+#include "dal_Def.h"
 #include "dal_Dimension.h"
+#include "dal_Format.h"
+#include "dal_Properties.h"
+#include "dal_PropertyKeys.h"
 #include "dal_Table.h"
 #include "dal_Utils.h"
+#include "pcrtypes.h"
 
-#include <iostream>
+#include <cassert>
+#include <cstddef>
+#include <memory>
+#include <string>
+#include <vector>
 
 /*!
   \file

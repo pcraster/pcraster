@@ -1,4 +1,14 @@
 #include "dal_Library.h"
+#include "dal_Cache.h"
+#include "dal_Def.h"
+#include "dal_Environment.h"
+#include "dal_FeatureLayerGeometries.h"
+#include "dal_MemoryDataPool.h"
+#include <cassert>
+#include <filesystem>
+#include <memory>
+#include <string>
+#include <vector>
 
 
 

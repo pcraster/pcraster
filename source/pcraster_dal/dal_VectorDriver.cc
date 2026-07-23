@@ -1,17 +1,37 @@
 #include "dal_VectorDriver.h"
+#include "dal_BrowseInfo.h"
+#include "dal_DataSpace.h"
+#include "dal_DataSpaceIterator.h"
+#include "dal_Def.h"
+#include "dal_Driver.h"
 #include "dal_Exception.h"
 #include "dal_FilesystemUtils.h"
+#include "dal_MathUtils.h"
+#include "dal_Matrix.h"
+#include "dal_PropertyKeys.h"
 #include "dal_Raster.h"
 #include "dal_RasterDal.h"
 #include "dal_RegularExpressions.h"
-#include "dal_Types.h"
+#include "dal_Type.h"
+#include "dal_Utils.h"
+#include "dal_Vector.h"
+#include "pcrtypes.h"
 
 #include <boost/lexical_cast.hpp>
 
+#include <algorithm>
+#include <any>
+#include <cassert>
 #include <cmath>
+#include <cstddef>
 #include <filesystem>
 #include <format>
 #include <memory>
+#include <regex>
+#include <set>
+#include <string>
+#include <tuple>
+#include <vector>
 
 
 /*!

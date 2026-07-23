@@ -1,4 +1,8 @@
 #include "dal_Block.h"
+#include "dal_Def.h"
+#include "dal_Raster.h"
+#include <cassert>
+#include <cstddef>
 
 
 /*!

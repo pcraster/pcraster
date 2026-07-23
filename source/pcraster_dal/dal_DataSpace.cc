@@ -1,13 +1,22 @@
 #include "dal_DataSpace.h"
+#include "dal_Configure.h"
 #include "dal_DataSpaceAddress.h"
+#include "dal_DataSpaceIterator.h"
+#include "dal_Def.h"
+#include "dal_MathUtils.h"
 #include "dal_RasterDimensions.h"
 #include "dal_SpatialCoordinate.h"
 #include "dal_Utils.h"
 
 #include <algorithm>
-#include <functional>
+#include <any>
+#include <cassert>
 #include <cmath>
+#include <cstddef>
+#include <functional>
+#include <set>
 #include <string>
+#include <vector>
 
 
 /*!

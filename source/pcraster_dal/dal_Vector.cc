@@ -1,4 +1,11 @@
 #include "dal_Vector.h"
+#include "dal_Dataset.h"
+#include "dal_Def.h"
+#include "dal_RasterDimensions.h"
+#include "pcrtypes.h"
+#include <cassert>
+#include <cstddef>
+#include <memory>
 
 
 

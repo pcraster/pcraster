@@ -1,7 +1,15 @@
 #include "dal_StepCoordinateMapper.h"
+#include "dal_CoordinateMapper.h"
 #include "dal_DataSpace.h"
+#include "dal_Def.h"
+#include "dal_MathUtils.h"
+#include "dal_StepMapper.h"
 
+#include <cassert>
+#include <cmath>
+#include <cstddef>
 #include <sstream>
+#include <string>
 
 
 /*!

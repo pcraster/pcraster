@@ -1,5 +1,8 @@
 #include "dal_Raster.h"
+#include "dal_Def.h"
+#include "dal_Matrix.h"
 #include "dal_RasterDimensions.h"
+#include <cstddef>
 
 
 

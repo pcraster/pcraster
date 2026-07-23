@@ -1,5 +1,12 @@
 #include "dal_MemoryTableDriver.h"
+#include "dal_DataSpace.h"
+#include "dal_Def.h"
 #include "dal_MemoryDataPool.h"
+#include "dal_PropertyKeys.h"
+#include "dal_Table.h"
+#include "dal_TableDriver.h"
+#include "dal_Utils.h"
+#include <cassert>
 
 
 

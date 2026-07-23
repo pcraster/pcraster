@@ -1,5 +1,4 @@
 #include "dal_Dal.h"
-
 #include "dal_Client.h"
 #include "dal_CSFRasterDriver.h"
 #include "dal_GeoEASTableDriver.h"
@@ -12,15 +11,28 @@
 #include "dal_TextMatrixDriver.h"
 #include "dal_TextTableDriver.h"
 #include "dal_VectorDriver.h"
+#include "dal_DataSpaceAddress.h"
+#include "dal_DataSpaceQueryResult.h"
+#include "dal_Def.h"
+#include "dal_Environment.h"
+#include "dal_Formats.h"
+#include "dal_PropertyKeys.h"
+#include "dal_Utils.h"
 
 #include <QSqlDatabase>
 #include <QStringList>
 #include <ogrsf_frmts.h>
 #include <gdal_priv.h>
 
+#include <cassert>
+#include <cstddef>
+#include <iostream>
 #include <algorithm>
 #include <functional>
 #include <memory>
+#include <string>
+#include <tuple>
+#include <vector>
 
 
 /*!

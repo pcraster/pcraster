@@ -1,6 +1,11 @@
 #include "dal_Type.h"
 #include "dal_BasicTypes.h"
+#include "dal_Def.h"
 #include "dal_Types.h"
+#include "pcrtypes.h"
+#include <cassert>
+#include <string>
+#include <vector>
 
 
 /*!

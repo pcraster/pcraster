@@ -1,6 +1,14 @@
 #include "dal_Matrix.h"
+#include "dal_Configure.h"
+#include "dal_Dataset.h"
+#include "dal_Def.h"
+#include "pcrtypes.h"
 
 #include <algorithm>
+#include <any>
+#include <cassert>
+#include <cstddef>
+#include <string>
 
 
 

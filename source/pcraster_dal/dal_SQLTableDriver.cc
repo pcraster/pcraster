@@ -1,22 +1,39 @@
 #include "dal_SQLTableDriver.h"
+#include "dal_Array.h"
 #include "dal_ConnectionInfo.h"
+#include "dal_Def.h"
 #include "dal_Exception.h"
 #include "dal_FilesystemUtils.h"
+#include "dal_MathUtils.h"
+#include "dal_PropertyKeys.h"
+#include "dal_Table.h"
+#include "dal_TableDriver.h"
 #include "dal_Utils.h"
+#include "pcrtypes.h"
 
 #include <boost/function.hpp>
+
 #include <QSqlDatabase>
-#include <QSqlField>
 #include <QSqlError>
+#include <QSqlField>
 #include <QSqlIndex>
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QString>
 #include <QStringList>
 
+#include <algorithm>
+#include <cassert>
 #include <cmath>
+#include <cstddef>
 #include <filesystem>
 #include <format>
+#include <map>
+#include <memory>
+#include <set>
+#include <string>
+#include <tuple>
+#include <vector>
 
 /*!
   \file

@@ -1,4 +1,5 @@
 #include "dal_Properties.h"
+#include <cstddef>
 
 
 

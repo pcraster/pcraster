@@ -1,6 +1,9 @@
 #include "dal_Format.h"
+#include "dal_Def.h"
 
 #include <cassert>
+#include <string>
+#include <vector>
 
 
 

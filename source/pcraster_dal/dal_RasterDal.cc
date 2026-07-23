@@ -7,6 +7,9 @@
 #include "dal_Raster.h"
 #include "dal_RasterDriver.h"
 #include "dal_Utils.h"
+#include "dal_Dal.h"
+#include "dal_Def.h"
+#include "dal_Driver.h"
 
 #include <gdal_version.h>
 
@@ -16,6 +19,11 @@
   #include <gdal_priv.h>
 #endif
 
+#include <any>
+#include <cassert>
+#include <memory>
+#include <string>
+#include <tuple>
 
 /*!
   \file

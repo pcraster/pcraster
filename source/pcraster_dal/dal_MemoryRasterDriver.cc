@@ -1,6 +1,13 @@
 #include "dal_MemoryRasterDriver.h"
+#include "dal_DataSpace.h"
+#include "dal_Def.h"
 #include "dal_MemoryDataPool.h"
+#include "dal_PropertyKeys.h"
+#include "dal_Raster.h"
+#include "dal_RasterDriver.h"
+#include "dal_Utils.h"
 
+#include <cassert>
 #include <memory>
 
 

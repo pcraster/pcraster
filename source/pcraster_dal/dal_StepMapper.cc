@@ -1,5 +1,9 @@
 #include "dal_StepMapper.h"
 #include "dal_MathUtils.h"
+#include <algorithm>
+#include <cassert>
+#include <cmath>
+#include <ostream>
 
 
 

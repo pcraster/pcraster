@@ -1,4 +1,10 @@
 #include "dal_MemoryDataPool.h"
+#include "dal_DataSpace.h"
+#include "dal_MemoryRasterData.h"
+#include <cassert>
+#include <map>
+#include <string>
+#include <utility>
 
 
 

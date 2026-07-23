@@ -3,6 +3,9 @@
 #include "dal_GDALRasterDriver.h"
 #include "dal_Library.h"
 #include "dal_OgrFeatureDriver.h"
+#include <cassert>
+#include <cstddef>
+#include <filesystem>
 
 
 

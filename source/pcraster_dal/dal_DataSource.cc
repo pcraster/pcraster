@@ -1,14 +1,26 @@
 #include "dal_DataSource.h"
+#include "dal_Array.h"
 #include "dal_Client.h"
+#include "dal_Configure.h"
 #include "dal_Dal.h"
-#include "dal_Dataset.h"
+#include "dal_DataSpaceIterator.h"
+#include "dal_DataSpaceQueryResult.h"
+#include "dal_Def.h"
 #include "dal_FeatureDriver.h"
+#include "dal_MathUtils.h"
+#include "dal_Raster.h"
 #include "dal_RasterDriver.h"
 #include "dal_TableDriver.h"
 #include "dal_Utils.h"
 #include "dal_VectorDriver.h"
+#include "pcrtypes.h"
 
+#include <any>
+#include <cassert>
 #include <cmath>
+#include <cstddef>
+#include <string>
+#include <tuple>
 
 
 /*!

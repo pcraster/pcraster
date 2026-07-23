@@ -1,5 +1,8 @@
 #include "dal_SpaceDimensions.h"
+#include "dal_Configure.h"
 #include "dal_MathUtils.h"
+#include <algorithm>
+#include <cassert>
 
 
 

@@ -1,11 +1,18 @@
 #include "dal_MapperUtils.h"
+#include "dal_Configure.h"
+#include "dal_Def.h"
 #include "dal_Dimension.h"
+#include "dal_MathUtils.h"
 #include "dal_SpaceStepMapper.h"
 #include "dal_StepMapper.h"
 #include "dal_TimeStepMapper.h"
 #include "dal_Utils.h"
 
+#include <algorithm>
+#include <cassert>
 #include <cmath>
+#include <cstddef>
+#include <vector>
 
 namespace dal {
 

@@ -1,13 +1,25 @@
 #include "dal_GeoEASTableDriver.h"
 #include "dal_BasicTypes.h"
-#include "dal_Exception.h"
+#include "dal_DataSpace.h"
+#include "dal_Def.h"
 #include "dal_FilesystemUtils.h"
+#include "dal_PropertyKeys.h"
+#include "dal_Table.h"
+#include "dal_TextFileDriver.h"
+#include "dal_TextTableDriver.h"
+#include "dal_Utils.h"
+#include "pcrtypes.h"
 
 #include <boost/algorithm/string.hpp>
 #include <boost/spirit/include/classic.hpp>
 
+#include <cassert>
+#include <cstddef>
 #include <filesystem>
 #include <fstream>
+#include <istream>
+#include <string>
+#include <vector>
 
 
 /*!

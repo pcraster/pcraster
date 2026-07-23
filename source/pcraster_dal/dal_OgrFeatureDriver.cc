@@ -1,16 +1,25 @@
 #include "dal_OgrFeatureDriver.h"
+#include "dal_Array.h"
+#include "dal_BrowseInfo.h"
 #include "dal_Client.h"
 #include "dal_Dal.h"
+#include "dal_Def.h"
 #include "dal_Exception.h"
+#include "dal_FeatureDriver.h"
+#include "dal_FeatureLayer.h"
+#include "dal_FeatureLayerGeometries.h"
 #include "dal_FeaturePath.h"
 #include "dal_FilesystemUtils.h"
 #include "dal_Library.h"
+#include "dal_PropertyKeys.h"
+#include "dal_SpatialCoordinate.h"
+#include "dal_Table.h"
 #include "dal_TableDriver.h"
+#include "dal_Utils.h"
+#include "pcrtypes.h"
 
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/function.hpp>
-
-#include <gdal_version.h>
 
 #if GDAL_VERSION_NUM >= GDAL_COMPUTE_VERSION(3, 12, 0)
   #include <gdal_vector_cpp.h>
@@ -18,10 +27,15 @@
   #include <ogrsf_frmts.h>
 #endif
 
+#include <algorithm>
 #include <filesystem>
 #include <format>
 #include <memory>
-
+#include <cassert>
+#include <cstddef>
+#include <string>
+#include <tuple>
+#include <vector>
 
 /*!
   \file

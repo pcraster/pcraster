@@ -1,5 +1,18 @@
 #include "dal_MemoryRasterData.h"
+#include "dal_DataSpace.h"
+#include "dal_DataSpaceAddress.h"
+#include "dal_Def.h"
+#include "dal_Dimension.h"
+#include "dal_Matrix.h"
+#include "dal_MemoryData.h"
 #include "dal_Raster.h"
+#include "pcrtypes.h"
+#include <any>
+#include <cassert>
+#include <cstddef>
+#include <string>
+#include <tuple>
+#include <vector>
 
 
 

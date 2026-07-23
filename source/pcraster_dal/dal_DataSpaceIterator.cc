@@ -1,8 +1,17 @@
 #include "dal_DataSpaceIterator.h"
+#include "dal_Configure.h"
 #include "dal_DataSpace.h"
+#include "dal_Def.h"
+#include "dal_Dimension.h"
+#include "dal_MathUtils.h"
 #include "dal_RasterDimensions.h"
+#include "dal_SpaceDimensions.h"
+#include "dal_SpatialCoordinate.h"
 
+#include <cassert>
 #include <cmath>
+#include <cstddef>
+#include <string>
 
 /*!
   \file

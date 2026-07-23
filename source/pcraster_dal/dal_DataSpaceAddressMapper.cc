@@ -1,5 +1,9 @@
 #include "dal_DataSpaceAddressMapper.h"
 #include "dal_CoordinateMapper.h"
+#include <cassert>
+#include <cstddef>
+#include <string>
+#include <vector>
 
 
 

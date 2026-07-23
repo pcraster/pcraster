@@ -1,7 +1,15 @@
 #include "dal_TextFileDriver.h"
-#include "dal_Utils.h"
+#include "dal_Def.h"
+#include "dal_Types.h"
 
 #include <algorithm>
+#include <cassert>
+#include <cstddef>
+#include <filesystem>
+#include <fstream>
+#include <ios>
+#include <string>
+#include <vector>
 
 
 /*!

@@ -1,5 +1,12 @@
 #include "dal_MatrixDriver.h"
+#include "dal_Def.h"
+#include "dal_Driver.h"
+#include "dal_Format.h"
+#include "dal_Matrix.h"
 #include "dal_Utils.h"
+#include "pcrtypes.h"
+#include <cassert>
+#include <string>
 
 
 

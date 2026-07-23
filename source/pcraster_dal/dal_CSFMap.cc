@@ -1,10 +1,17 @@
 #include "dal_CSFMap.h"
 #include "csf.h"
+#include "csfattr.h"
+#include "dal_Def.h"
 #include "dal_Table.h"
 #include "dal_Utils.h"
+#include "pcrtypes.h"
 
+#include <any>
+#include <cassert>
+#include <cstddef>
 #include <filesystem>
 #include <memory>
+#include <vector>
 
 /*!
   \file

@@ -1,8 +1,15 @@
 #include "dal_RasterDimensions.h"
+#include "dal_Configure.h"
 #include "dal_MathUtils.h"
+#include "dal_MatrixDimensions.h"
+#include "dal_SpaceDimensions.h"
 #include "dal_SpatialCoordinate.h"
 
+#include <algorithm>
+#include <cassert>
 #include <cmath>
+#include <cstddef>
+#include <tuple>
 
 /*!
   \file

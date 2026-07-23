@@ -1,7 +1,10 @@
 #include "dal_SpaceStepMapper.h"
 #include "dal_MathUtils.h"
 
+#include <algorithm>
 #include <cassert>
+#include <cstddef>
+#include <ostream>
 
 
 /*!

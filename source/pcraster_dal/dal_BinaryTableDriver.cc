@@ -1,7 +1,20 @@
 #include "dal_BinaryTableDriver.h"
+#include "dal_Array.h"
+#include "dal_DataSpace.h"
+#include "dal_Def.h"
 #include "dal_FilesystemUtils.h"
+#include "dal_PropertyKeys.h"
+#include "dal_Table.h"
+#include "dal_TableDriver.h"
+#include "dal_TextFileDriver.h"
+#include "dal_Utils.h"
+#include "pcrtypes.h"
 
+#include <cassert>
+#include <cstddef>
 #include <filesystem>
+#include <fstream>
+#include <ios>
 
 /*!
   \file

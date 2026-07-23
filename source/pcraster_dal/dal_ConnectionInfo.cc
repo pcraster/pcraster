@@ -5,6 +5,8 @@
 
 #include <cassert>
 #include <format>
+#include <string>
+#include <vector>
 
 
 /*!

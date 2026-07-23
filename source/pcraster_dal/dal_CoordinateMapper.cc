@@ -1,5 +1,7 @@
 #include "dal_CoordinateMapper.h"
 #include "dal_Utils.h"
+#include <cstddef>
+#include <string>
 
 
 

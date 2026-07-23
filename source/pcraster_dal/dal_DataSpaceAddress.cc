@@ -1,6 +1,7 @@
 #include "dal_DataSpaceAddress.h"
 
 #include <cassert>
+#include <cstddef>
 
 
 

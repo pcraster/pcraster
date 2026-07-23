@@ -1,17 +1,27 @@
 #include "dal_CSFRasterDriver.h"
+#include "dal_BrowseInfo.h"
 #include "dal_CSFMap.h"
 #include "dal_DataSpace.h"
 #include "dal_DataSpaceAddress.h"
-#include "dal_Dimension.h"
-#include "dal_Exception.h"
+#include "dal_Def.h"
 #include "dal_FilesystemUtils.h"
+#include "dal_MathUtils.h"
 #include "dal_PropertyKeys.h"
+#include "dal_Raster.h"
 #include "dal_RasterDimensions.h"
+#include "dal_RasterDriver.h"
+#include "dal_SpatialCoordinate.h"
 #include "dal_Table.h"
 #include "dal_Type.h"
+#include "dal_Utils.h"
+#include "pcrtypes.h"
 
+#include <cassert>
 #include <cmath>
+#include <cstdlib>
 #include <cstring>
+#include <filesystem>
+#include <vector>
 
 
 /*!

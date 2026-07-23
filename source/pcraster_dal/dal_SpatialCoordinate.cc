@@ -1,4 +1,5 @@
 #include "dal_SpatialCoordinate.h"
+#include "dal_Configure.h"
 #include "dal_MathUtils.h"
 
 

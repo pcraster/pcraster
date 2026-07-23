@@ -1,4 +1,6 @@
 #include "dal_MathUtils.h"
+#include "pcrtypes.h"
+#include <cassert>
 
 
 

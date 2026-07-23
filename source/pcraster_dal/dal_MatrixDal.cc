@@ -1,7 +1,14 @@
 #include "dal_MatrixDal.h"
 #include "dal_TextMatrixDriver.h"
+#include "dal_Dal.h"
+#include "dal_Dataset.h"
+#include "dal_Def.h"
+#include "dal_Driver.h"
 
-
+#include <cassert>
+#include <memory>
+#include <string>
+#include <tuple>
 
 /*!
   \file

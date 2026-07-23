@@ -1,19 +1,24 @@
 #include "dal_Utils.h"
+#include "dal_Configure.h"
 #include "dal_DataSpace.h"
 #include "dal_DataSpaceAddress.h"
+#include "dal_Def.h"
 #include "dal_Exception.h"
-#include "dal_Library.h"
-#include "dal_Matrix.h"
-#include "dal_MatrixDal.h"
-#include "dal_Raster.h"
-#include "dal_RasterDal.h"
 #include "dal_RasterDimensions.h"
-#include "dal_Table.h"
-#include "dal_TableDal.h"
+#include "dal_SpaceDimensions.h"
+#include "dal_SpatialCoordinate.h"
+#include "pcrtypes.h"
 
 #include <boost/algorithm/string.hpp>
 
+#include <algorithm>
+#include <cassert>
+#include <cstddef>
 #include <format>
+#include <set>
+#include <string>
+#include <tuple>
+#include <vector>
 
 namespace dal {
 

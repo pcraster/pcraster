@@ -80,7 +80,7 @@ void MultiMap2DView::createInterface()
       label->setAlignment(Qt::AlignHCenter);
       label->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed));
 
-      d_mapViews.push_back(std::make_tuple(label, new Map2DView(&dataObject(), this)));
+      d_mapViews.emplace_back(label, new Map2DView(&dataObject(), this));
 
       layout->addWidget(std::get<0>(d_mapViews.back()), row, col);
       layout->addWidget(std::get<1>(d_mapViews.back()), row + 1, col);

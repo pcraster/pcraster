@@ -377,8 +377,7 @@ void LegendView::recreateLegend(std::vector<DataGuide> const &guides)
       LegendTuple const tuple(guides, legend);
       _legendTuples.push_back(tuple);
 
-      drawPropertiesLegendIndexTuples.push_back(
-          DrawPropertiesLegendIndexTuple(properties, _legendTuples.size() - 1));
+      drawPropertiesLegendIndexTuples.emplace_back(properties, _legendTuples.size() - 1);
     }
 
     // Make sure the table knows which guide is in which row.

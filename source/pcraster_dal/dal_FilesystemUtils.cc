@@ -1027,7 +1027,7 @@ void possibleFileBasedAttributeFileNames(
   std::string extension;
 
   std::vector<std::string> fileTypesToSkip;
-  fileTypesToSkip.push_back(".zip");
+  fileTypesToSkip.emplace_back(".zip");
 #ifdef _WIN32
   fileTypesToSkip.push_back(".bat");
   fileTypesToSkip.push_back(".exe");
@@ -1056,7 +1056,7 @@ void possibleFileBasedAttributeFileNames(
       continue;
     }
 
-    leaves.push_back(std::string(filename.c_str()));
+    leaves.emplace_back(filename.c_str());
   }
 
   std::sort(leaves.begin(), leaves.end());

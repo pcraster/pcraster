@@ -51,7 +51,7 @@ extern "C" int Idi(MAP_REAL8 *m_resultMap,    /* write-only output map  */
   for (geo::CellLocVisitor c(mask); c.valid(); ++c) {
     REAL8 inpVal = NAN;
     if (input.get(inpVal, *c)) {
-      points.push_back(geo::IdiPoint<geo::CellLoc>(*c, inpVal));
+      points.emplace_back(*c, inpVal);
     }
   }
   size_t const nrPoints = points.size();

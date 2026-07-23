@@ -111,8 +111,8 @@ VTKBlockDriver::VTKBlockDriver()
   properties |= Writer;
 
   std::vector<std::string> extensions;
-  extensions.push_back(".vtk");
-  extensions.push_back(".xml");
+  extensions.emplace_back(".vtk");
+  extensions.emplace_back(".xml");
   format().setExtensions(extensions);
 }
 

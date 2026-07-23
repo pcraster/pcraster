@@ -1484,7 +1484,7 @@ std::string dataSpaceAddressToSqlQuery(
       case Scenarios: {
         if(std::find(fieldNames.begin(), fieldNames.end(), "scenario") ==
               fieldNames.end()) {
-          tmpFieldNames.push_back("scenario");
+          tmpFieldNames.emplace_back("scenario");
         }
 
         if(address.isValid(i)) {
@@ -1497,7 +1497,7 @@ std::string dataSpaceAddressToSqlQuery(
       case Time: {
         if(std::find(fieldNames.begin(), fieldNames.end(), "date") ==
               fieldNames.end()) {
-          tmpFieldNames.push_back("date");
+          tmpFieldNames.emplace_back("date");
         }
 
         if(address.isValid(i)) {
@@ -1510,7 +1510,7 @@ std::string dataSpaceAddressToSqlQuery(
       case CumulativeProbabilities: {
         if(std::find(fieldNames.begin(), fieldNames.end(), "quantile") ==
               fieldNames.end()) {
-          tmpFieldNames.push_back("quantile");
+          tmpFieldNames.emplace_back("quantile");
         }
 
         if(address.isValid(i)) {

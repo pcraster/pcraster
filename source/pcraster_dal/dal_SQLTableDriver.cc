@@ -223,8 +223,8 @@ SQLTableDriver::SQLTableDriver(
   std::vector<std::string> extensions;
 
   if(name() == "QSQLITE") {
-    extensions.push_back(".sql3");
-    extensions.push_back(".sqlite3");
+    extensions.emplace_back(".sql3");
+    extensions.emplace_back(".sqlite3");
   }
 
   format().setExtensions(extensions);
@@ -534,15 +534,15 @@ Table* SQLTableDriver::open(
 
     resultFieldNames.reserve(index.count());
 for(int i = 0; i < index.count(); ++i) {
-      resultFieldNames.push_back(index.fieldName(i).toUtf8().constData());
+      resultFieldNames.emplace_back(index.fieldName(i).toUtf8().constData());
     }
 
     {
       std::vector<std::string> indexFields;
-      indexFields.push_back("scenario");
-      indexFields.push_back("fid");
-      indexFields.push_back("quantile");
-      indexFields.push_back("date");
+      indexFields.emplace_back("scenario");
+      indexFields.emplace_back("fid");
+      indexFields.emplace_back("quantile");
+      indexFields.emplace_back("date");
 
       for(std::string const& name : resultFieldNames) {
         if(std::find(indexFields.begin(), indexFields.end(), name) ==
@@ -564,7 +564,7 @@ for(int i = 0; i < index.count(); ++i) {
       assert(record.contains(QString::fromUtf8(name.c_str())));
 
       field = record.field(QString::fromUtf8(name.c_str()));
-      titles.push_back(std::string(field.name().toUtf8().constData()));
+      titles.emplace_back(field.name().toUtf8().constData());
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
       typeIds.push_back(qtTypeId2DalTypeId(field.metaType()));
 #else

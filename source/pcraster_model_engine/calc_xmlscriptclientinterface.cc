@@ -74,7 +74,7 @@ public:
       maps.push_back(in);
     }
     if (maps.size() == 1) {
-      maps.push_back(StatTable::InputMap());
+      maps.emplace_back();
     }
     auto *st = new StatTable(name, maps[0], maps[1]);
     d_code->transferPushBack(st);

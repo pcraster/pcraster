@@ -8,9 +8,9 @@ BOOST_AUTO_TEST_CASE(constructor)
   using namespace dal;
 
   std::vector<std::string> titles;
-  titles.push_back("col1");
-  titles.push_back("col2");
-  titles.push_back("col3");
+  titles.emplace_back("col1");
+  titles.emplace_back("col2");
+  titles.emplace_back("col3");
 
   std::vector<TypeId> typeIds;
   typeIds.push_back(TI_STRING);

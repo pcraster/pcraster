@@ -729,7 +729,7 @@ void calc::StatComputation::scalarScalarTable(const REAL4 *subject, size_t nrVal
   for (size_t i = 0; i < nrValues; i++) {
     if (!pcr::isMV(subject[i]) && !pcr::isMV(cross[i])) {
       m.visit(subject[i], cross[i]);
-      r.push_back(CP(subject[i], cross[i]));
+      r.emplace_back(subject[i], cross[i]);
     }
   }
 
@@ -767,7 +767,7 @@ void calc::StatComputation::GGTable(const REAL4 *subject) const
   for (size_t i = 0; i < d_cross.d_field->nrValues(); i++) {
     if (!pcr::isMV(subject[i]) && !pcr::isMV(cross[i])) {
       m.visit2(subject[i], cross[i]);
-      r.push_back(CP(subject[i], cross[i]));
+      r.emplace_back(subject[i], cross[i]);
     }
   }
 

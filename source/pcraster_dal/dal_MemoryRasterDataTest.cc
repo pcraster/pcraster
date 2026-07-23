@@ -35,7 +35,7 @@ BOOST_AUTO_TEST_CASE(test_)
   // }
 
   std::shared_ptr<Raster> raster;
-  values.push_back((REAL4*)q1);
+  values.emplace_back((REAL4*)q1);
 
   {
     MemoryRasterData data(values, space, typeId, nrRows, nrCols, cellSize,
@@ -64,14 +64,14 @@ BOOST_AUTO_TEST_CASE(test_)
   values.clear();
 
   std::vector<std::any> tmp;
-  tmp.push_back(static_cast<REAL4*>(q1));
-  values.push_back(FloatTuple(0.1F, tmp));
+  tmp.emplace_back(static_cast<REAL4*>(q1));
+  values.emplace_back(FloatTuple(0.1F, tmp));
   tmp.clear();
-  tmp.push_back((REAL4*)q5);
-  values.push_back(FloatTuple(0.5F, tmp));
+  tmp.emplace_back((REAL4*)q5);
+  values.emplace_back(FloatTuple(0.5F, tmp));
   tmp.clear();
-  tmp.push_back((REAL4*)q9);
-  values.push_back(FloatTuple(0.9F, tmp));
+  tmp.emplace_back((REAL4*)q9);
+  values.emplace_back(FloatTuple(0.9F, tmp));
 
   {
     MemoryRasterData data(values, space, typeId, nrRows, nrCols, cellSize,

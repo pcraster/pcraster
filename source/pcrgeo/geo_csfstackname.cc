@@ -383,7 +383,7 @@ void geo::CSFStackName::stackNamePool(std::vector<com::PathName> &pool) const
 
   for (std::filesystem::directory_iterator f(directoryName.path()); f != end_iter; ++f) {
     if (isMemberOfStack(f->path().filename())) {
-      pool.push_back(f->path().filename());
+      pool.emplace_back(f->path().filename());
     }
   }
 

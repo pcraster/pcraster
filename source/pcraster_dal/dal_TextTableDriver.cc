@@ -74,7 +74,7 @@ TextTableDriver::TextTableDriver(HeaderType headerType)
   properties |= Writer;
 
   std::vector<std::string> extensions;
-  extensions.push_back(".col");
+  extensions.emplace_back(".col");
   format().setExtensions(extensions);
 }
 

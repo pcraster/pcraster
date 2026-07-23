@@ -62,12 +62,12 @@ Aguila::Aguila(int &argc, char **argv, qt::ApplicationRole role)
 
   // List drivers our users most likely need.
   std::vector<std::string> drivers;
-  drivers.push_back("CSF");
-  drivers.push_back("ESRI Shapefile");
-  drivers.push_back("HDF4Image");
-  drivers.push_back("HDF4");
-  drivers.push_back("GML");
-  drivers.push_back("KML");
+  drivers.emplace_back("CSF");
+  drivers.emplace_back("ESRI Shapefile");
+  drivers.emplace_back("HDF4Image");
+  drivers.emplace_back("HDF4");
+  drivers.emplace_back("GML");
+  drivers.emplace_back("KML");
   dal::Client::dal().favourDrivers(drivers);
 
   applyGplLicense("PCRaster owners");

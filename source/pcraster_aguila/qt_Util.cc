@@ -62,7 +62,7 @@ std::string qt::getOpenFileName(dal::Formats const &formats, QWidget *parent, ch
     dal::Format const &format(formats[i]);
 
     if (format.isFileBased()) {
-      fileFormats.push_back(com::FileFormatInfo(format.description(), format.extensions()));
+      fileFormats.emplace_back(format.description(), format.extensions());
     }
   }
 

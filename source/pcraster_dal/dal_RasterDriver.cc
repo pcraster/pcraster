@@ -585,8 +585,8 @@ void RasterDriver::browseFileBasedRasterAttributes(
           ? properties.value<CSF_VS>(DAL_CSF_VALUESCALE)
           : VS_NOTDETERMINED;
 
-        attributes.push_back(BrowseInfo(name, space, raster->type(),
-              raster->typeId(), valueScale, this->name()));
+        attributes.emplace_back(name, space, raster->type(),
+              raster->typeId(), valueScale, this->name());
       }
 
       // Erase all file names that belong to the stack.
@@ -659,8 +659,8 @@ void RasterDriver::browseFileBasedRasterAttributes(
           ? properties.value<CSF_VS>(DAL_CSF_VALUESCALE)
           : VS_NOTDETERMINED;
 
-        attributes.push_back(BrowseInfo(name, space, raster->type(),
-              raster->typeId(), valueScale, this->name()));
+        attributes.emplace_back(name, space, raster->type(),
+              raster->typeId(), valueScale, this->name());
       }
 
       for(long j = ids.size() - 1; j >= 0; --j) {
@@ -730,8 +730,8 @@ void RasterDriver::browseFileBasedRasterAttributes(
           ? properties.value<CSF_VS>(DAL_CSF_VALUESCALE)
           : VS_NOTDETERMINED;
 
-        attributes.push_back(BrowseInfo(name, space, raster->type(),
-              raster->typeId(), valueScale, this->name()));
+        attributes.emplace_back(name, space, raster->type(),
+              raster->typeId(), valueScale, this->name());
       }
 
       // Erase all file names that belong to the stack.
@@ -813,8 +813,8 @@ void RasterDriver::browseFileBasedRasterAttributes(
               ? properties.value<CSF_VS>(DAL_CSF_VALUESCALE)
               : VS_NOTDETERMINED;
 
-            attributes.push_back(BrowseInfo(name, space, raster->type(),
-              raster->typeId(), valueScale, this->name()));
+            attributes.emplace_back(name, space, raster->type(),
+              raster->typeId(), valueScale, this->name());
           }
 
           // Erase all file names that belong to the stack.
@@ -849,8 +849,8 @@ void RasterDriver::browseFileBasedRasterAttributes(
         name += extension;
       }
 
-      attributes.push_back(BrowseInfo(name, DataSpace(), raster->type(),
-         raster->typeId(), valueScale, this->name()));
+      attributes.emplace_back(name, DataSpace(), raster->type(),
+         raster->typeId(), valueScale, this->name());
       leaves.erase(leaves.begin() + i);
       --i;
     }

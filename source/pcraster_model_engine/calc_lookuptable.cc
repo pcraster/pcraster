@@ -38,7 +38,7 @@ public:
 
   void operator()(pcrxml::LookupRow const &r)
   {
-    d_records->push_back(RelationRecord());
+    d_records->emplace_back();
     std::for_each(r.lookupColumn().begin(), r.lookupColumn().end(),
                   [this](auto &&PH1) { addCol(std::forward<decltype(PH1)>(PH1)); });
   }
@@ -237,7 +237,7 @@ void calc::LookupTable::setRecords(const std::string &fileName, const std::vecto
     d_records.reserve(table->nrRecords);
     for (size_t r = 0; r < table->nrRecords; ++r) {
       DEVELOP_PRECOND(table->nrKeys + 1 == d_vs.size());
-      d_records.push_back(RelationRecord(table->records[r], d_vs.size()));
+      d_records.emplace_back(table->records[r], d_vs.size());
     }
   } catch (...) {
     FreeLookupTable(table);

@@ -19,7 +19,7 @@ BOOST_AUTO_TEST_CASE(testArgOrderAL)
     pcr::setMV(chance1[0]);
     INT4 result[1] = {-1};
     std::vector<ArgOrderIdInfo> args;
-    args.push_back(ArgOrderIdInfo(chance1, 2, 2.4));
+    args.emplace_back(chance1, 2, 2.4);
     ArgOrderAndAddArea::argOrderAreaLimited(args, result, 1);
     BOOST_TEST(result[0] == MV_INT4);
   }
@@ -27,7 +27,7 @@ BOOST_AUTO_TEST_CASE(testArgOrderAL)
     REAL4 chance1[5] = {0.1F, 0.2F, 0.3F, 0.4F, 0.5F};
     INT4 result[5] = {-1, -1, -1, -1, -1};
     std::vector<ArgOrderIdInfo> args;
-    args.push_back(ArgOrderIdInfo(chance1, 2, 2.4));
+    args.emplace_back(chance1, 2, 2.4);
     ArgOrderAndAddArea::argOrderAreaLimited(args, result, 5);
     BOOST_TEST(result[0] == 0);
     BOOST_TEST(result[1] == 0);
@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE(testArgOrderAL)
     pcr::setMV(chance1[3]);
     INT4 result[5] = {-1, -1, -1, -1, -1};
     std::vector<ArgOrderIdInfo> args;
-    args.push_back(ArgOrderIdInfo(chance1, 2, 2.4));
+    args.emplace_back(chance1, 2, 2.4);
     ArgOrderAndAddArea::argOrderAreaLimited(args, result, 5);
     BOOST_TEST(result[0] == 0);
     BOOST_TEST(result[1] == 0);
@@ -55,8 +55,8 @@ BOOST_AUTO_TEST_CASE(testArgOrderAL)
     pcr::setMV(chance2[1]);
     INT4 result[9] = {-1, -1, -1, -1, -1, -1};
     std::vector<ArgOrderIdInfo> args;
-    args.push_back(ArgOrderIdInfo(chance1, 11, 2));
-    args.push_back(ArgOrderIdInfo(chance2, 12, 2));
+    args.emplace_back(chance1, 11, 2);
+    args.emplace_back(chance2, 12, 2);
     ArgOrderAndAddArea::argOrderAreaLimited(args, result, 9);
     BOOST_TEST(result[0] == 11);
     BOOST_TEST(result[1] == MV_INT4);
@@ -86,7 +86,7 @@ BOOST_AUTO_TEST_CASE(testArgOrder)
     pcr::setMV(chance1[0]);
     INT4 result[1] = {-1};
     std::vector<ArgOrderIdInfo> args;
-    args.push_back(ArgOrderIdInfo(chance1, 2));
+    args.emplace_back(chance1, 2);
     ArgOrderAndAddArea::argOrder(args, result, 1);
     BOOST_TEST(result[0] == MV_INT4);
   }
@@ -97,8 +97,8 @@ BOOST_AUTO_TEST_CASE(testArgOrder)
     pcr::setMV(chance2[1]);
     INT4 result[9] = {-1, -1, -1, -1, -1, -1, -1, -1, -1};
     std::vector<ArgOrderIdInfo> args;
-    args.push_back(ArgOrderIdInfo(chance1, 11));
-    args.push_back(ArgOrderIdInfo(chance2, 12));
+    args.emplace_back(chance1, 11);
+    args.emplace_back(chance2, 12);
 
     ArgOrderAndAddArea::argOrder(args, result, 9);
 
@@ -128,10 +128,10 @@ BOOST_AUTO_TEST_CASE(testAddArea)
   std::vector<ArgOrderIdInfo> args;
 
   REAL4 chance1[8] = {0.99F, 0.65F, 0.99F, 0.92F, 0.92F, 0.99F, 0.11F, 0.09F};
-  args.push_back(ArgOrderIdInfo(chance1, 1, 1));
+  args.emplace_back(chance1, 1, 1);
 
   REAL4 chance2[8] = {0.87F, 0.99F, 0.98F, 0.97F, 0.38F, 0.98F, 0.21F, 0.12F};
-  args.push_back(ArgOrderIdInfo(chance2, 2, 4));
+  args.emplace_back(chance2, 2, 4);
 
   ArgOrderAndAddArea::argOrderAddAreaLimited(args, currentId, result, 8);
   BOOST_TEST(result[0] == 1);

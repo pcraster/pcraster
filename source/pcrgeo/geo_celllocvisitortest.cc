@@ -23,7 +23,7 @@ BOOST_AUTO_TEST_CASE(all)
   std::vector<CellLoc> thisOrder;
   for (size_t row = 0; row < nrRows; row++) {
     for (size_t col = 0; col < nrCols; col++) {
-      thisOrder.push_back(CellLoc(row, col));
+      thisOrder.emplace_back(row, col);
     }
   }
 

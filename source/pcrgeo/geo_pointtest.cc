@@ -88,8 +88,8 @@ BOOST_AUTO_TEST_CASE(closer)
   BOOST_TEST(!c(P(2, 0), P(1, 0)));
 
   std::vector<P> l;
-  l.push_back(P(2, 0));
-  l.push_back(P(1, 0));
+  l.emplace_back(2, 0);
+  l.emplace_back(1, 0);
 
   BOOST_TEST(l[0][X] == 2);
   BOOST_TEST(l[1][X] == 1);

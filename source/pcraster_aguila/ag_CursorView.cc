@@ -210,7 +210,7 @@ void CursorView::createInterface()
         gridLayout->addWidget(value, i, 2);
       }
 
-      d_dimensionTuples.push_back(std::make_tuple(title, edit, value));
+      d_dimensionTuples.emplace_back(title, edit, value);
     }
   }
 

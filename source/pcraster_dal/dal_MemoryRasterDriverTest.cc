@@ -49,7 +49,7 @@ BOOST_AUTO_TEST_CASE(empty_data_space)
   cells[5] = 11.0;
 
   std::vector<std::any> values;
-  values.push_back(cells.get());
+  values.emplace_back(cells.get());
 
   DataSpace const space;
   TypeId const typeId = TI_REAL4;
@@ -133,14 +133,14 @@ BOOST_AUTO_TEST_CASE(test_)
   typedef std::tuple<float, std::vector<std::any> > FloatTuple;
 
   std::vector<std::any> tmp;
-  tmp.push_back(q1.get());
-  values.push_back(FloatTuple(0.1F, tmp));
+  tmp.emplace_back(q1.get());
+  values.emplace_back(FloatTuple(0.1F, tmp));
   tmp.clear();
-  tmp.push_back(q5.get());
-  values.push_back(FloatTuple(0.5F, tmp));
+  tmp.emplace_back(q5.get());
+  values.emplace_back(FloatTuple(0.5F, tmp));
   tmp.clear();
-  tmp.push_back(q9.get());
-  values.push_back(FloatTuple(0.9F, tmp));
+  tmp.emplace_back(q9.get());
+  values.emplace_back(FloatTuple(0.9F, tmp));
 
   MemoryRasterData const data(values, space, typeId, nrRows, nrCols, cellSize,
        west, north);

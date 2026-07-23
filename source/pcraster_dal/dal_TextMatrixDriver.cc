@@ -54,7 +54,7 @@ TextMatrixDriver::TextMatrixDriver()
   properties |= Reader;
 
   std::vector<std::string> extensions;
-  extensions.push_back(".txt");
+  extensions.emplace_back(".txt");
   format().setExtensions(extensions);
 }
 

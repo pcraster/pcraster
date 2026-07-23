@@ -126,12 +126,12 @@ Library::~Library()
 void Library::addGraphicsFormats()
 {
   std::vector<std::string> extensions;
-  extensions.push_back(".png");
+  extensions.emplace_back(".png");
   _knownFormats.push_back(Format("PNG", "Portable Network Graphics", GRAPHIC,
          extensions, Format::Raster, Format::Graphics));
 
   extensions.clear();
-  extensions.push_back(".eps");
+  extensions.emplace_back(".eps");
   _knownFormats.push_back(Format("EPS", "Encapsulated PostScript", GRAPHIC,
          extensions, Format::Vector, Format::Graphics));
 }
@@ -144,16 +144,16 @@ void Library::addGraphicsFormats()
 void Library::addAttributeFormats()
 {
   std::vector<std::string> extensions;
-  extensions.push_back(".pcrmap");
-  extensions.push_back(".csf");
-  extensions.push_back(".map");
+  extensions.emplace_back(".pcrmap");
+  extensions.emplace_back(".csf");
+  extensions.emplace_back(".map");
 
   _knownFormats.push_back(Format("CSF", "PCRaster Raster", RASTER,
          extensions, Format::Raster, Format::Attribute));
 
   extensions.clear();
-  extensions.push_back(".pcrtss");
-  extensions.push_back(".tss");
+  extensions.emplace_back(".pcrtss");
+  extensions.emplace_back(".tss");
 
   _knownFormats.push_back(Format("TSS", "PCRaster Time Series", TABLE,
          extensions, Format::Vector, Format::Attribute));

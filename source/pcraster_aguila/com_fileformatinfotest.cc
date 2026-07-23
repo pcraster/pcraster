@@ -12,9 +12,9 @@ BOOST_AUTO_TEST_CASE(constructor)
   BOOST_TEST(myFileInfo.extension() == std::string("fmt"));
 
   std::vector<std::string> extensions;
-  extensions.push_back(std::string("fmt"));
-  extensions.push_back(std::string("frm"));
-  extensions.push_back(std::string("mtf"));
+  extensions.emplace_back("fmt");
+  extensions.emplace_back("frm");
+  extensions.emplace_back("mtf");
   BOOST_TEST(myFileInfo.extensions() == extensions);
 
   //  BOOST_TEST(myFileInfo.matchesExtension("frm"));

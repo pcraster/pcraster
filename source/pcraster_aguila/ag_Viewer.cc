@@ -594,7 +594,7 @@ Viewer::QueryResults Viewer::querySearchDataSpace(dal::DataSpace const &searchSp
       dal::throwCannotBeOpened(name, searchSpace);
     }
 
-    queryResults.push_back(QueryResult(name, result));
+    queryResults.emplace_back(name, result);
   }
 
   return queryResults;

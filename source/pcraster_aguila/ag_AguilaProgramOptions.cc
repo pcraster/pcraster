@@ -61,7 +61,7 @@ viewPlusSyntaxToStringSet(std::vector<std::string> const &viewValues)
   r = AguilaProgramOptions::viewPlusSyntaxToViewCtor(viewValues);
   std::vector<pcrxml::StringSet> s;
   for (auto &v : r) {
-    s.push_back(pcrxml::StringSet());
+    s.emplace_back();
     for (auto &i : v) {
       s.back().item().push_back(i);
     }
@@ -338,14 +338,14 @@ public:
 
   {
     std::vector<std::string> optionNames;
-    optionNames.push_back("mapView");
+    optionNames.emplace_back("mapView");
 #ifdef AGUILA_WITH_OPENGL
-    optionNames.push_back("drapeView");
+    optionNames.emplace_back("drapeView");
 #endif
-    optionNames.push_back("timeGraphView");
-    optionNames.push_back("probabilityGraphView");
-    optionNames.push_back("valueOnly");
-    optionNames.push_back("defaultView");
+    optionNames.emplace_back("timeGraphView");
+    optionNames.emplace_back("probabilityGraphView");
+    optionNames.emplace_back("valueOnly");
+    optionNames.emplace_back("defaultView");
 
     for (auto &optionName : optionNames) {
 
@@ -393,7 +393,7 @@ ag::AguilaProgramOptions::viewPlusSyntaxToViewCtor(std::vector<std::string> cons
 
   for (auto it = viewValues.begin(); it != viewValues.end(); ++it) {
 
-    r.push_back(SV());
+    r.emplace_back();
     r.back().push_back(*it);
 
     while (it + 1 != viewValues.end() && *(it + 1) == "+" && it + 2 != viewValues.end()) {

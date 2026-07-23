@@ -56,7 +56,7 @@ TextConstantDriver::TextConstantDriver()
   properties |= Writer;
 
   std::vector<std::string> extensions;
-  extensions.push_back(".txt");
+  extensions.emplace_back(".txt");
   format().setExtensions(extensions);
 }
 

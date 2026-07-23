@@ -107,8 +107,8 @@ extern "C" int ExtentOfView(MAP_REAL8 *m_result,              // scalar, average
   auto nrDirections = static_cast<size_t>(nrDirectionsInterface.value(0, 0));
 
   std::vector<fieldapi::ScalarDomainCheck> nsDomains;
-  nsDomains.push_back(fieldapi::ScalarDomainCheck(nrDirectionsInterface, "Number of directions",
-                                                  com::GreaterThan<double>(0)));
+  nsDomains.emplace_back(nrDirectionsInterface, "Number of directions",
+                                                  com::GreaterThan<double>(0));
   int const nsCheck = fieldapi::checkScalarDomains(nsDomains, geo::CellLoc(0, 0));
   if (nsCheck != -1) {
     return RetError(1, nsDomains[nsCheck].msg().c_str());
@@ -159,7 +159,7 @@ extern "C" int ExtentOfView(MAP_REAL8 *m_result,              // scalar, average
       angle *= std::numbers::pi / 180;
       offsetY = boost::math::iround(std::tan(angle) * offsetX);
     }
-    offsets.push_back(std::make_pair(angle, std::make_pair(offsetX, offsetY)));
+    offsets.emplace_back(angle, std::make_pair(offsetX, offsetY));
   }
 
   int x = 0;

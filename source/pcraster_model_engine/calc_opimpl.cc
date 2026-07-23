@@ -599,7 +599,7 @@ void calc::ArgOrderWithIdAddAreaLimited::exec(RunTimeEnv *rte, const Operator &o
     PRECOND(!args[i + 2].isSpatial());
     double const areaLimit = args[i + 2].src_f()[0];
 
-    argOrderArgs.push_back(ArgOrderIdInfo(chances, id, areaLimit));
+    argOrderArgs.emplace_back(chances, id, areaLimit);
   }
   INT4 *r = (INT4 *)args.dest();
   PRECOND(args[0].isSpatial());
@@ -623,7 +623,7 @@ void calc::ArgOrderAddAreaLimited::exec(RunTimeEnv *rte, const Operator &op, siz
     PRECOND(!args[i + 1].isSpatial());
     double const areaLimit = args[i + 1].src_f()[0];
 
-    argOrderArgs.push_back(ArgOrderIdInfo(chances, id, areaLimit));
+    argOrderArgs.emplace_back(chances, id, areaLimit);
   }
   INT4 *r = (INT4 *)args.dest();
   PRECOND(args[0].isSpatial());
@@ -648,7 +648,7 @@ void calc::ArgOrderWithIdAreaLimited::exec(RunTimeEnv *rte, const Operator &op, 
     PRECOND(!args[i + 2].isSpatial());
     double const areaLimit = args[i + 2].src_f()[0];
 
-    argOrderArgs.push_back(ArgOrderIdInfo(chances, id, areaLimit));
+    argOrderArgs.emplace_back(chances, id, areaLimit);
   }
   INT4 *r = (INT4 *)args.dest();
   ArgOrderAndAddArea::argOrderAreaLimited(argOrderArgs, r, args[0].nrValues());
@@ -671,7 +671,7 @@ void calc::ArgOrderAreaLimited::exec(RunTimeEnv *rte, const Operator &op, size_t
     PRECOND(!args[i + 1].isSpatial());
     double const areaLimit = args[i + 1].src_f()[0];
 
-    argOrderArgs.push_back(ArgOrderIdInfo(chances, id, areaLimit));
+    argOrderArgs.emplace_back(chances, id, areaLimit);
   }
   INT4 *r = (INT4 *)args.dest();
   ArgOrderAndAddArea::argOrderAreaLimited(argOrderArgs, r, args[0].nrValues());
@@ -692,7 +692,7 @@ void calc::ArgOrderWithId::exec(RunTimeEnv *rte, const Operator &op, size_t nrAr
     PRECOND(!args[i + 1].isSpatial());
     INT4 const id = args[i + 1].src_4()[0];
 
-    argOrderArgs.push_back(ArgOrderIdInfo(chances, id));
+    argOrderArgs.emplace_back(chances, id);
   }
 
   INT4 *r = (INT4 *)args.dest();
@@ -712,7 +712,7 @@ void calc::ArgOrder::exec(RunTimeEnv *rte, const Operator &op, size_t nrArgs) co
 
     INT4 const id = argOrderArgs.size() + 1;
 
-    argOrderArgs.push_back(ArgOrderIdInfo(chances, id));
+    argOrderArgs.emplace_back(chances, id);
   }
 
   INT4 *r = (INT4 *)args.dest();

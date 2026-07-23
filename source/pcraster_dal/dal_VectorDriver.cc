@@ -676,8 +676,8 @@ void VectorDriver::browse(
               ? properties.value<CSF_VS>(DAL_CSF_VALUESCALE)
               : VS_NOTDETERMINED;
 
-            attributes.push_back(BrowseInfo(name, space, vector->type(),
-              vector->typeId(), valueScale, this->name()));
+            attributes.emplace_back(name, space, vector->type(),
+              vector->typeId(), valueScale, this->name());
           }
 
           // Erase all file names that belong to the stack.
@@ -721,8 +721,8 @@ void VectorDriver::browse(
               ? properties.value<CSF_VS>(DAL_CSF_VALUESCALE)
               : VS_NOTDETERMINED;
 
-            attributes.push_back(BrowseInfo(name, DataSpace(), vector->type(),
-              vector->typeId(), valueScale, this->name()));
+            attributes.emplace_back(name, DataSpace(), vector->type(),
+              vector->typeId(), valueScale, this->name());
           }
 
           leaves.erase(leaves.begin() + j);

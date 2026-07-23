@@ -57,7 +57,7 @@ calc::LookupTable::LookupTable(const LookupTable &t, const std::vector<bool> &re
   }
   for (const auto &d_record : t.d_records) {
     if (d_record.match(remove, filterKeys)) {
-      d_records.push_back(LookupRecord(d_record, keep));
+      d_records.emplace_back(d_record, keep);
     }
   }
 }
@@ -74,7 +74,7 @@ void calc::LookupTable::setRecords(const std::string &fileName, const std::vecto
   try {
     d_records.reserve(table->nrRecords);
     for (size_t r = 0; r < table->nrRecords; r++) {
-      d_records.push_back(LookupRecord(table->records[r], table->nrKeys));
+      d_records.emplace_back(table->records[r], table->nrKeys);
     }
   } catch (...) {
     FreeLookupTable(table);

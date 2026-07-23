@@ -693,45 +693,45 @@ void GDALRasterDriver::init()
   std::vector<std::string> extensions;
 
   if(name() == "AAIGrid") {
-    extensions.push_back(".asc");
+    extensions.emplace_back(".asc");
   }
   else if(name() == "BMP") {
-    extensions.push_back(".bmp");
+    extensions.emplace_back(".bmp");
   }
   else if(name() == "Erdas Imagine Images (.img)") {
-    extensions.push_back(".img");
+    extensions.emplace_back(".img");
   }
   else if(name() == "GIF") {
-    extensions.push_back(".gif");
+    extensions.emplace_back(".gif");
   }
   else if(name() == "GTiff") {
-    extensions.push_back(".tif");
-    extensions.push_back(".tiff");
+    extensions.emplace_back(".tif");
+    extensions.emplace_back(".tiff");
   }
   else if(name() == "HDF4") {
-    extensions.push_back(".hdf");
-    extensions.push_back(".hdf4");
+    extensions.emplace_back(".hdf");
+    extensions.emplace_back(".hdf4");
   }
   else if(name() == "HDF4Image") {
-    extensions.push_back(".hdf");
+    extensions.emplace_back(".hdf");
   }
   else if(name() == "ILWIS") {
-    extensions.push_back(".mpl");
-    extensions.push_back(".mpr");
+    extensions.emplace_back(".mpl");
+    extensions.emplace_back(".mpr");
   }
   else if(name() == "JPEG") {
-    extensions.push_back(".jpg");
+    extensions.emplace_back(".jpg");
   }
   else if(name() == "PCRASTER") {
-    extensions.push_back(".csf");
-    extensions.push_back(".map");
-    extensions.push_back(".pcr");
+    extensions.emplace_back(".csf");
+    extensions.emplace_back(".map");
+    extensions.emplace_back(".pcr");
   }
   else if(name() == "PNM") {
-    extensions.push_back(".pnm");
+    extensions.emplace_back(".pnm");
   }
   else if(name() == "WCS" || name() == "WMS") {
-    extensions.push_back(".xml");
+    extensions.emplace_back(".xml");
   }
 
   format().setExtensions(extensions);

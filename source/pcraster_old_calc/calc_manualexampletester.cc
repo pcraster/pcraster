@@ -111,7 +111,7 @@ void calc::ManualExampleTester::test() const
   std::vector<geo::FileCreateTester> fct;
   fct.reserve(d_result.size());
   for (const auto &i : d_result) {
-    fct.push_back(geo::FileCreateTester(i));
+    fct.emplace_back(i);
   }
 
   // create results

@@ -92,8 +92,7 @@ void calc::ExternalSymbols::addFunction(const PCR_EXTERNAL_FUNCTION_SYNOPSIS &fd
   }
 
 
-  d_table.push_back(
-      ExternalFunction(Operator(fd.name, (MAJOR_CODE)(nrInternalOpCodes() + d_table.size()),
+  d_table.emplace_back(Operator(fd.name, (MAJOR_CODE)(nrInternalOpCodes() + d_table.size()),
                                 // <-- CW must become size of other + current
                                 SYNTAX_FUNC,
                                 VS_FIELD,    // vs is determined when calling the resultTypes function
@@ -101,7 +100,7 @@ void calc::ExternalSymbols::addFunction(const PCR_EXTERNAL_FUNCTION_SYNOPSIS &fd
                                 fd.nrArgs, EXEC_EXTERN,
                                 d_table.size(),  // minor
                                 CG_PLAIN),       // or special of new type ?
-                       fd.resultTypes, fd.algorithm));
+                       fd.resultTypes, fd.algorithm);
 
   for (int i = 0; i < std::abs(fd.nrArgs); i++) {
     d_table.back().pushBackArg(fd.argTypes[i].vs, fd.argTypes[i].st);
@@ -118,7 +117,7 @@ void calc::ExternalSymbols::addModelLink(const PCR_EXTERNAL_MODELLINK_SYNOPSIS &
     throw com::Exception(str.str());
   }
 
-  d_modelLinkProxies.push_back(ModelLinkProxy(synopsis.name, synopsis.creator));
+  d_modelLinkProxies.emplace_back(synopsis.name, synopsis.creator);
 }
 
 struct name_is {

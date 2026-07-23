@@ -343,8 +343,8 @@ void DataProperties::addBooleanStackProperties(DataObject const &dataObject, Dat
       UINT1 max = 0;
       if (raster.min<UINT1>(min) && raster.max<UINT1>(max)) {
         std::vector<com_LegendClass<UINT1>> classes;
-        classes.push_back(com_LegendClass<UINT1>(0, "false"));
-        classes.push_back(com_LegendClass<UINT1>(1, "true"));
+        classes.emplace_back(0, "false");
+        classes.emplace_back(1, "true");
         classifier->setClasses(classes);
       }
     }
@@ -571,15 +571,15 @@ void DataProperties::addLddStackProperties(const DataObject &dataObject, const D
     _data->_lddClassifiers.push_back(classifier);
 
     std::vector<com_LegendClass<UINT1>> classes;
-    classes.push_back(com_LegendClass<UINT1>(1, "sw"));
-    classes.push_back(com_LegendClass<UINT1>(2, "s"));
-    classes.push_back(com_LegendClass<UINT1>(3, "se"));
-    classes.push_back(com_LegendClass<UINT1>(4, "w"));
-    classes.push_back(com_LegendClass<UINT1>(5, "pit"));
-    classes.push_back(com_LegendClass<UINT1>(6, "e"));
-    classes.push_back(com_LegendClass<UINT1>(7, "nw"));
-    classes.push_back(com_LegendClass<UINT1>(8, "n"));
-    classes.push_back(com_LegendClass<UINT1>(9, "ne"));
+    classes.emplace_back(1, "sw");
+    classes.emplace_back(2, "s");
+    classes.emplace_back(3, "se");
+    classes.emplace_back(4, "w");
+    classes.emplace_back(5, "pit");
+    classes.emplace_back(6, "e");
+    classes.emplace_back(7, "nw");
+    classes.emplace_back(8, "n");
+    classes.emplace_back(9, "ne");
     classifier->setClasses(classes);
 
     _data->_lddDrawProperties[guide] = new LddDrawProps(title, com::defaultPalette(VS_LDD), classifier);
@@ -1280,7 +1280,7 @@ void DataProperties::copyRangeDrawProperties(DataGuide const &guide, DataPropert
   } else if (targetClassifiers.size() < sourceClassifiers.size()) {
     // Add empty classifier tuples for those which source has more than target.
     for (size_t i = targetClassifiers.size(); i < sourceClassifiers.size(); ++i) {
-      targetClassifiers.push_back(RangeDrawProps::ClassifierTuple());
+      targetClassifiers.emplace_back();
     }
   }
 

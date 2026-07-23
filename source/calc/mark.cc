@@ -112,7 +112,7 @@ static int MarkWhileSum(MAP_UINT1 *m_resultMap, const MAP_REAL8 *m_order, const 
     REAL8 orderVal = NAN;
     REAL8 amountVal = NAN;
     if (order.get(orderVal, *c) && amount.get(amountVal, *c)) {
-      points.push_back(MarkPoint(*c, orderVal, amountVal));
+      points.emplace_back(*c, orderVal, amountVal);
     } else {
       result.putMV(*c);
     }

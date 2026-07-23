@@ -198,7 +198,7 @@ void calc::SymbolTable::setArcViewExtCheckData(std::vector<ArcViewExtCheckData> 
           pn = i->name();
         }
         pn.makeAbsolute();
-        r.push_back(ArcViewExtCheckData(static_cast<int>(i->stack != nullptr), pn.toString()));
+        r.emplace_back(static_cast<int>(i->stack != nullptr), pn.toString());
       }
       default:;
     }

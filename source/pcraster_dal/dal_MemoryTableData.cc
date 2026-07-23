@@ -108,7 +108,7 @@ void MemoryTableData::initialiseValues(
          std::vector<std::any>& values)
 {
   assert(values.empty());
-  values.push_back(std::vector<std::any>());
+  values.emplace_back(std::vector<std::any>());
 }
 
 

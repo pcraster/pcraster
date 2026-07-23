@@ -164,20 +164,17 @@ extern "C" int DynamicWave(MAP_REAL8 *m_resultQ,    // scalar, new Q      [  , m
   // non spatial domains, check once
   std::vector<fieldapi::ScalarDomainCheck> domains;
   std::vector<fieldapi::ScalarDomainCheck> nsDomains;
-  domains.push_back(fieldapi::ScalarDomainCheck(Hin, "Hin", com::GreaterThanEqualTo<double>(0)));
-  domains.push_back(
-      fieldapi::ScalarDomainCheck(channelRoughness, "ChannelRoughness", com::GreaterThan<double>(0)));
-  domains.push_back(fieldapi::ScalarDomainCheck(L, "ChannelLength", com::GreaterThan<double>(0)));
-  domains.push_back(
-      fieldapi::ScalarDomainCheck(Bw, "ChannelBottomWidth", com::GreaterThanEqualTo<double>(0)));
-  domains.push_back(fieldapi::ScalarDomainCheck(yc, "ChannelDepth", com::GreaterThanEqualTo<double>(0)));
-  domains.push_back(fieldapi::ScalarDomainCheck(z, "ChannelForm", com::GreaterThanEqualTo<double>(0)));
+  domains.emplace_back(Hin, "Hin", com::GreaterThanEqualTo<double>(0));
+  domains.emplace_back(channelRoughness, "ChannelRoughness", com::GreaterThan<double>(0));
+  domains.emplace_back(L, "ChannelLength", com::GreaterThan<double>(0));
+  domains.emplace_back(Bw, "ChannelBottomWidth", com::GreaterThanEqualTo<double>(0));
+  domains.emplace_back(yc, "ChannelDepth", com::GreaterThanEqualTo<double>(0));
+  domains.emplace_back(z, "ChannelForm", com::GreaterThanEqualTo<double>(0));
 
   // floodplainWidth (FW) is special case, done in processing loop
-  nsDomains.push_back(fieldapi::ScalarDomainCheck(timeStepInSecondsInterface, "TimeStepInSeconds",
-                                                  com::GreaterThan<double>(0)));
-  nsDomains.push_back(
-      fieldapi::ScalarDomainCheck(nrTimeSlicesInterface, "NrTimeSlices", com::GreaterThan<double>(0)));
+  nsDomains.emplace_back(timeStepInSecondsInterface, "TimeStepInSeconds",
+                                                  com::GreaterThan<double>(0));
+  nsDomains.emplace_back(nrTimeSlicesInterface, "NrTimeSlices", com::GreaterThan<double>(0));
 
   int const nsCheck = fieldapi::checkScalarDomains(nsDomains, geo::CellLoc(0, 0));
   if (nsCheck != -1) {  // pcrcalc/test350

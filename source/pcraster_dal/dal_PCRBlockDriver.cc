@@ -55,7 +55,7 @@ PCRBlockDriver::PCRBlockDriver()
   properties |= Writer;
 
   std::vector<std::string> extensions;
-  extensions.push_back(".pcrblock");
+  extensions.emplace_back(".pcrblock");
   format().setExtensions(extensions);
 }
 

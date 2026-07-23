@@ -17,10 +17,10 @@ struct Fixture
         std::vector<TypeId> typeIds;
 
         title = "Table1";
-        titles.push_back("UINT1");
-        titles.push_back("INT4");
-        titles.push_back("NR_TYPE_IDS");
-        titles.push_back("REAL4");
+        titles.emplace_back("UINT1");
+        titles.emplace_back("INT4");
+        titles.emplace_back("NR_TYPE_IDS");
+        titles.emplace_back("REAL4");
         typeIds.push_back(TI_UINT1);
         typeIds.push_back(TI_INT4);
         typeIds.push_back(TI_NR_TYPES);

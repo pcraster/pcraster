@@ -95,7 +95,7 @@ void calc::Operator::pushBackInput(VS vs, ST st, bool repeat)
     PRECOND(d_inputTailRepeat == 0);
     d_inputTailRepeat = 1;
   }
-  d_inputs.push_back(DataType(vs, st));
+  d_inputs.emplace_back(vs, st);
 #ifdef DEBUG_DEVELOP
   // check if test in ExprVisitor are ok for non field
   if (d_inputs.size() == 1 && !isIn(vs, VS_FIELD)) {
@@ -137,7 +137,7 @@ void calc::Operator::pushBackInput(VS vs, ST st, bool repeat)
 
 void calc::Operator::pushBackResult(VS vs, ST st)
 {
-  d_results.push_back(DataType(vs, st));
+  d_results.emplace_back(vs, st);
 }
 
 void calc::Operator::setPointOn(DomainIll domainType)

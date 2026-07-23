@@ -126,7 +126,7 @@ calc::LddGraph::LddGraph(const UINT1 *lddField, const IFieldRDConversion &conv)
         break;
       case LDD_PIT:
         catchmentBegin.push_back(d_edge.size());
-        d_catchments.push_back(Catchment(p));
+        d_catchments.emplace_back(p);
 
         /* evaluate from the pit upstream, in breadth first order
        * only breadth first is the correct ordering for both

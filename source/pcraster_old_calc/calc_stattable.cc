@@ -624,7 +624,7 @@ void calc::StatTable::scalarScalarTable(const REAL4 *subject, FieldStack &stack,
   for (size_t i = 0; i < nrValues; i++) {
     if (!pcr::isMV(subject[i]) && !pcr::isMV(cross[i])) {
       m.visit(subject[i], cross[i]);
-      r.push_back(CP(subject[i], cross[i]));
+      r.emplace_back(subject[i], cross[i]);
     }
   }
 
@@ -667,7 +667,7 @@ void calc::StatTable::GGTable(const REAL4 *subject, FieldStack &stack) const
   for (size_t i = 0; i < d->nrValues(); i++) {
     if (!pcr::isMV(subject[i]) && !pcr::isMV(cross[i])) {
       m.visit2(subject[i], cross[i]);
-      r.push_back(CP(subject[i], cross[i]));
+      r.emplace_back(subject[i], cross[i]);
     }
   }
 

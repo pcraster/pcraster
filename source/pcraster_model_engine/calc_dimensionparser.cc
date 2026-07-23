@@ -124,7 +124,7 @@ calc::DimensionParser& calc::DimensionParser::operator=(DimensionParser const& r
 //! add a symbol
 void calc::DimensionParser::add(const std::string &symbol)
 {
-  d_symbols.push_back(SymbolPower(symbol));
+  d_symbols.emplace_back(symbol);
 }
 
 //! set power of last added symbol

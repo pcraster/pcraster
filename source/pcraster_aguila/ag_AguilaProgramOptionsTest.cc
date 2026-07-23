@@ -19,15 +19,15 @@ BOOST_AUTO_TEST_CASE(view_plus_syntax_to_view_constructor)
     // r[1][2] = e
     // r[2][0] = f
     std::vector<std::string> arguments;
-    arguments.push_back("a");
-    arguments.push_back("+");
-    arguments.push_back("b");
-    arguments.push_back("c");
-    arguments.push_back("+");
-    arguments.push_back("d");
-    arguments.push_back("+");
-    arguments.push_back("e");
-    arguments.push_back("f");
+    arguments.emplace_back("a");
+    arguments.emplace_back("+");
+    arguments.emplace_back("b");
+    arguments.emplace_back("c");
+    arguments.emplace_back("+");
+    arguments.emplace_back("d");
+    arguments.emplace_back("+");
+    arguments.emplace_back("e");
+    arguments.emplace_back("f");
 
     std::vector<std::vector<std::string>> result;
     result = AguilaProgramOptions::viewPlusSyntaxToViewCtor(arguments);
@@ -52,11 +52,11 @@ BOOST_AUTO_TEST_CASE(view_plus_syntax_to_view_constructor)
     // r[1][1] = d+e
     // r[2][0] = f
     std::vector<std::string> arguments;
-    arguments.push_back("a+b");
-    arguments.push_back("c");
-    arguments.push_back("+");
-    arguments.push_back("d+e");
-    arguments.push_back("f");
+    arguments.emplace_back("a+b");
+    arguments.emplace_back("c");
+    arguments.emplace_back("+");
+    arguments.emplace_back("d+e");
+    arguments.emplace_back("f");
 
     std::vector<std::vector<std::string>> result;
     result = AguilaProgramOptions::viewPlusSyntaxToViewCtor(arguments);
@@ -76,7 +76,7 @@ BOOST_AUTO_TEST_CASE(view_plus_syntax_to_view_constructor)
     // results in
     // r[0][0] = volcano/volcano0.090+volcano/lava0000.090
     std::vector<std::string> arguments;
-    arguments.push_back("volcano/volcano0.090+volcano/lava0000.090");
+    arguments.emplace_back("volcano/volcano0.090+volcano/lava0000.090");
 
     std::vector<std::vector<std::string>> result;
     result = AguilaProgramOptions::viewPlusSyntaxToViewCtor(arguments);

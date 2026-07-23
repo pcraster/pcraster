@@ -49,7 +49,7 @@ GSLIBBlockDriver::GSLIBBlockDriver()
   properties |= Writer;
 
   std::vector<std::string> extensions;
-  extensions.push_back(".gslib");
+  extensions.emplace_back(".gslib");
   format().setExtensions(extensions);
 }
 

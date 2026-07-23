@@ -25,7 +25,7 @@ BOOST_AUTO_TEST_CASE(determine_type_id)
 
   {
     std::vector<std::string> row;
-    row.push_back("NROWS");
+    row.emplace_back("NROWS");
 
     TypeId typeId = TI_NR_TYPES;
     driver.determineTypeId(row, typeId);
@@ -34,8 +34,8 @@ BOOST_AUTO_TEST_CASE(determine_type_id)
 
   {
     std::vector<std::string> row;
-    row.push_back("NROWS");
-    row.push_back("4");
+    row.emplace_back("NROWS");
+    row.emplace_back("4");
 
     TypeId typeId = TI_NR_TYPES;
     driver.determineTypeId(row, typeId);

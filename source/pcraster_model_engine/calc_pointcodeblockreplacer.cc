@@ -121,7 +121,7 @@ void calc::PointCodeBlockReplacer::visitNodeList(ASTNodeList *l)
   I pbBegin;
   I pbEnd;
 
-  d_info.push(BlockInfo());
+  d_info.emplace();
   for (auto i = pbBegin = pbEnd = l->begin(); i != l->end(); ++i) {
     // non ASTAss will keep top false
     // ASTAss will set top true and then

@@ -1332,7 +1332,7 @@ void pt::ParticleTracker::averageConcentration(
     if(!_particles.isMV(*loc)) {
       for(auto it =
          _particles.begin(*loc); it != _particles.end(*loc); ++it) {
-        pointValues.push_back(PointValue(Point(*it), (*it).concentration()));
+        pointValues.emplace_back(Point(*it), (*it).concentration());
       }
     }
   }

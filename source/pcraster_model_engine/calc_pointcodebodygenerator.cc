@@ -349,7 +349,7 @@ const std::string &calc::PointCodeBodyGenerator::arg(size_t argNr) const
 
 void calc::PointCodeBodyGenerator::push(const std::string &argName)
 {
-  d_args.push_back(argName);
+  d_args.emplace_back(argName);
 }
 
 void calc::PointCodeBodyGenerator::popArgsPushResult(const std::string &function, size_t nrArgs)

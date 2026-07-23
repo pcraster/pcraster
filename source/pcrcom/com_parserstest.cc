@@ -11,24 +11,24 @@ BOOST_AUTO_TEST_CASE(comment_parser)
 
   std::vector<std::string> valid;
   std::vector<std::string> invalid;
-  valid.push_back("#");
-  valid.push_back("##");
-  valid.push_back("# #");
-  valid.push_back("# # ");
-  valid.push_back("#blabla");
-  valid.push_back("# blabla");
-  valid.push_back("# bla bla bla bla #");
+  valid.emplace_back("#");
+  valid.emplace_back("##");
+  valid.emplace_back("# #");
+  valid.emplace_back("# # ");
+  valid.emplace_back("#blabla");
+  valid.emplace_back("# blabla");
+  valid.emplace_back("# bla bla bla bla #");
 
-  invalid.push_back("");
-  invalid.push_back("   ");
-  invalid.push_back(" #");
-  invalid.push_back(" #####");
-  invalid.push_back(" # # # # #");
-  invalid.push_back("//");
-  invalid.push_back("//#");
-  invalid.push_back("// # bla");
-  invalid.push_back("/* # bla");
-  invalid.push_back("/* # bla */");
+  invalid.emplace_back("");
+  invalid.emplace_back("   ");
+  invalid.emplace_back(" #");
+  invalid.emplace_back(" #####");
+  invalid.emplace_back(" # # # # #");
+  invalid.emplace_back("//");
+  invalid.emplace_back("//#");
+  invalid.emplace_back("// # bla");
+  invalid.emplace_back("/* # bla");
+  invalid.emplace_back("/* # bla */");
 
   for (auto &it : valid) {
     BOOST_TEST(boost::spirit::parse(it.c_str(), parser).full);
@@ -47,16 +47,16 @@ BOOST_AUTO_TEST_CASE(section_header_parser)
 
   std::vector<std::string> valid;
   std::vector<std::string> invalid;
-  valid.push_back("binding");
-  valid.push_back("areamap");
-  valid.push_back("timer");
-  valid.push_back("initial");
-  valid.push_back("dynamic");
+  valid.emplace_back("binding");
+  valid.emplace_back("areamap");
+  valid.emplace_back("timer");
+  valid.emplace_back("initial");
+  valid.emplace_back("dynamic");
 
-  invalid.push_back("");
-  invalid.push_back(" binding");
-  invalid.push_back("binding ");
-  invalid.push_back(" binding ");
+  invalid.emplace_back("");
+  invalid.emplace_back(" binding");
+  invalid.emplace_back("binding ");
+  invalid.emplace_back(" binding ");
 
   for (auto &it : valid) {
     BOOST_TEST(boost::spirit::parse(it.c_str(), parser).full);
@@ -75,15 +75,15 @@ BOOST_AUTO_TEST_CASE(number_parser)
 
   std::vector<std::string> valid;
   std::vector<std::string> invalid;
-  valid.push_back("0");
-  valid.push_back("1");
-  valid.push_back("0.1");
-  valid.push_back("1e32");
+  valid.emplace_back("0");
+  valid.emplace_back("1");
+  valid.emplace_back("0.1");
+  valid.emplace_back("1e32");
 
-  invalid.push_back("");
-  invalid.push_back("a");
-  invalid.push_back(" ");
-  invalid.push_back(" 5");
+  invalid.emplace_back("");
+  invalid.emplace_back("a");
+  invalid.emplace_back(" ");
+  invalid.emplace_back(" 5");
 
   for (auto &it : valid) {
     BOOST_TEST(boost::spirit::parse(it.c_str(), parser).full);
@@ -102,19 +102,19 @@ BOOST_AUTO_TEST_CASE(variable_name_parser)
 
   std::vector<std::string> valid;
   std::vector<std::string> invalid;
-  valid.push_back("a");
-  valid.push_back("abracadr");
-  valid.push_back("fileName");
-  valid.push_back("fileName5");
+  valid.emplace_back("a");
+  valid.emplace_back("abracadr");
+  valid.emplace_back("fileName");
+  valid.emplace_back("fileName5");
   // valid.push_back("file_name");
-  valid.push_back("BlablaBla");
-  valid.push_back("PRRDDLKJ");
-  valid.push_back("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
+  valid.emplace_back("BlablaBla");
+  valid.emplace_back("PRRDDLKJ");
+  valid.emplace_back("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
 
-  invalid.push_back("");
-  invalid.push_back(" ");
-  invalid.push_back("5fileName");
-  invalid.push_back("55");
+  invalid.emplace_back("");
+  invalid.emplace_back(" ");
+  invalid.emplace_back("5fileName");
+  invalid.emplace_back("55");
   // invalid.push_back("5(");
   // invalid.push_back("(");
   // invalid.push_back("f()");
@@ -136,18 +136,18 @@ BOOST_AUTO_TEST_CASE(filename_parser)
 
   std::vector<std::string> valid;
   std::vector<std::string> invalid;
-  valid.push_back("a");
-  valid.push_back("a.b");
-  valid.push_back("a.bcd");
-  valid.push_back("abcdefgh");
-  valid.push_back("abcdefgh.");
-  valid.push_back("abcdefgh.i");
-  valid.push_back("abcdefgh.ijk");
-  valid.push_back("AbCdEfGh.iJk");
+  valid.emplace_back("a");
+  valid.emplace_back("a.b");
+  valid.emplace_back("a.bcd");
+  valid.emplace_back("abcdefgh");
+  valid.emplace_back("abcdefgh.");
+  valid.emplace_back("abcdefgh.i");
+  valid.emplace_back("abcdefgh.ijk");
+  valid.emplace_back("AbCdEfGh.iJk");
 
-  invalid.push_back("");
-  invalid.push_back(" ");
-  invalid.push_back("abcdefghi");
+  invalid.emplace_back("");
+  invalid.emplace_back(" ");
+  invalid.emplace_back("abcdefghi");
 
   for (auto &it : valid) {
     BOOST_TEST(boost::spirit::parse(it.c_str(), parser).full);

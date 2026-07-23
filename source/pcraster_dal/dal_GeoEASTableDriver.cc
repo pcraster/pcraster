@@ -52,9 +52,9 @@ dal::GeoEASTableDriver::GeoEASTableDriver()
   properties |= Writer;
 
   std::vector<std::string> extensions;
-  extensions.push_back(".eas");
-  extensions.push_back(".tss");
-  extensions.push_back(".col");
+  extensions.emplace_back(".eas");
+  extensions.emplace_back(".tss");
+  extensions.emplace_back(".col");
   format().setExtensions(extensions);
 }
 

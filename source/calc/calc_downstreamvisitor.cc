@@ -31,7 +31,7 @@ calc::DownStreamVisitor::DownStreamVisitor(const fieldapi::ReadOnlyUint1 &lddMap
   PRECOND(d_lddMap.get(pitV, catchmentOutletPit));
   PRECOND(pitV == 5);
 #endif
-  d_inProcess.push(geo::DownStreamVisitorCell(catchmentOutletPit));
+  d_inProcess.emplace(catchmentOutletPit);
   next();
 }
 
@@ -63,7 +63,7 @@ void calc::DownStreamVisitor::next()
     f.next(isUpstreamNB);
     // add isUpstreamNB
     if (isUpstreamNB) {
-      d_inProcess.push(geo::DownStreamVisitorCell(geo::CellLoc(rowNB, colNB)));
+      d_inProcess.emplace(geo::CellLoc(rowNB, colNB));
     }
   }
 }

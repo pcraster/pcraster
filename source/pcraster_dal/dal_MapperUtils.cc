@@ -91,8 +91,8 @@ PCR_DAL_DECL void stepMap(
       newFirstStep = mapper->source(first);
       newLastStep = mapper->source(last);
 
-      stepMappers->push_back(StepMapper(newFirstStep, newLastStep,
-         firstStep, lastStep));
+      stepMappers->emplace_back(newFirstStep, newLastStep,
+         firstStep, lastStep);
     }
   }
 }
@@ -172,8 +172,8 @@ PCR_DAL_DECL void spaceStepMap(
       double const newFirstStep = mapper->source(lowestCoordinate);
       double const newLastStep = mapper->source(highestCoordinate);
 
-      stepMappers->push_back(StepMapper(newFirstStep, newLastStep,
-         lowestIndex, highestIndex));
+      stepMappers->emplace_back(newFirstStep, newLastStep,
+         lowestIndex, highestIndex);
     }
   }
 }
@@ -245,8 +245,8 @@ PCR_DAL_DECL void timeStepMap(
       double const newFirstStep = mapper->source(firstTime);
       double const newLastStep = mapper->source(lastTime);
 
-      stepMappers->push_back(StepMapper(newFirstStep, newLastStep,
-         firstStep, lastStep));
+      stepMappers->emplace_back(newFirstStep, newLastStep,
+         firstStep, lastStep);
     }
   }
 }

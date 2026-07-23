@@ -19,8 +19,8 @@ com_Palette::com_Palette(const int colourRange[][3], int colourMaxVal, size_t nr
   size_t colourNr = 0;
 
   for (colourNr = 0; colourNr < nrColours; colourNr++) {
-    d_colourRange.push_back(com_Colour(colourRange[colourNr][RED], colourRange[colourNr][GREEN],
-                                       colourRange[colourNr][BLUE]));
+    d_colourRange.emplace_back(colourRange[colourNr][RED], colourRange[colourNr][GREEN],
+                                       colourRange[colourNr][BLUE]);
   }
 
   // Scale the colour values to a range from 0 to 256.

@@ -651,14 +651,11 @@ extern "C" int Transient(void **out, const void **in, int nrArgs)
   // Domain checks...
   std::vector<fieldapi::ScalarDomainCheck> scalarDomains;
   std::vector<fieldapi::ScalarDomainCheck> nsDomains;
-  scalarDomains.push_back(
-      fieldapi::ScalarDomainCheck(transmissivity, "transmissivity", com::GreaterThan<double>(0)));
-  scalarDomains.push_back(fieldapi::ScalarDomainCheck(storageCoefficient, "storage coefficient",
-                                                      com::GreaterThan<double>(0)));
-  nsDomains.push_back(
-      fieldapi::ScalarDomainCheck(intervalInterface, "interval", com::GreaterThan<double>(0)));
-  nsDomains.push_back(
-      fieldapi::ScalarDomainCheck(toleranceInterface, "tolerance", com::GreaterThan<double>(0)));
+  scalarDomains.emplace_back(transmissivity, "transmissivity", com::GreaterThan<double>(0));
+  scalarDomains.emplace_back(storageCoefficient, "storage coefficient",
+                                                      com::GreaterThan<double>(0));
+  nsDomains.emplace_back(intervalInterface, "interval", com::GreaterThan<double>(0));
+  nsDomains.emplace_back(toleranceInterface, "tolerance", com::GreaterThan<double>(0));
 
   // Checks...
   int check = 0;

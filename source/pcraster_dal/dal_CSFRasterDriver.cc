@@ -78,9 +78,9 @@ CSFRasterDriver::CSFRasterDriver()
   properties |= Writer;
 
   std::vector<std::string> extensions;
-  extensions.push_back(".csf");
-  extensions.push_back(".map");
-  extensions.push_back(".pcrmap");
+  extensions.emplace_back(".csf");
+  extensions.emplace_back(".map");
+  extensions.emplace_back(".pcrmap");
   format().setExtensions(extensions);
 }
 

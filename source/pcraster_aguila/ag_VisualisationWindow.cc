@@ -416,8 +416,7 @@ void VisualisationWindow::saveAs(com::FileFormatInfo const &format, std::string 
   //   addressPathTuples.push_back(AddressPathTuple(dataSpaceAddress(), name));
   // }
   for (dal::DataSpaceIterator it = iterationSpace.begin(); it != iterationSpace.end(); ++it) {
-    addressPathTuples.push_back(
-        AddressPathTuple(*it, branchPath / dal::pathForDataSpaceAddress(name, iterationSpace, *it)));
+    addressPathTuples.emplace_back(*it, branchPath / dal::pathForDataSpaceAddress(name, iterationSpace, *it));
   }
 
   assert(!addressPathTuples.empty());

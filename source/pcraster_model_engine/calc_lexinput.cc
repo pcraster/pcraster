@@ -208,7 +208,7 @@ void calc::LexInput::installShellArgs(int nrArgV, const char **argV)
 {
   d_shellArgs.clear();
   for (size_t i = 0; i < (size_t)nrArgV; i++) {
-    d_shellArgs.push_back(argV[i]);
+    d_shellArgs.emplace_back(argV[i]);
     if (d_shellArgs.back()[0] == '$') {
       std::ostringstream msg;  // argscalc/test84
       msg << "recursive substitution value: " << d_shellArgs[i] << " is illegal";

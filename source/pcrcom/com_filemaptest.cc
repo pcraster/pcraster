@@ -34,12 +34,12 @@ BOOST_AUTO_TEST_CASE(iterators)
   // read some stuff
   const char *files[2] = {"zinc.unix.eas", "zinc.dos.eas"};
   std::vector<std::string> header;
-  header.push_back("Zinc measurements on River Meuse flood plains");
-  header.push_back("3");
-  header.push_back("xcoord, m");
-  header.push_back("ycoord, m");
-  header.push_back("zinc, ppm");
-  header.push_back("181072 333611 1022");
+  header.emplace_back("Zinc measurements on River Meuse flood plains");
+  header.emplace_back("3");
+  header.emplace_back("xcoord, m");
+  header.emplace_back("ycoord, m");
+  header.emplace_back("zinc, ppm");
+  header.emplace_back("181072 333611 1022");
 
   for (auto &file : files) {
     com::PathName const pn(file);

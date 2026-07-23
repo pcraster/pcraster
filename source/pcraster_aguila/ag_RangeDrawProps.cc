@@ -547,7 +547,7 @@ const com::Classifier *RangeDrawProps::rawValueClassifier() const
 void RangeDrawProps::pushClassifier(com::Classifier *rawValueClassifier,
                                     com::Classifier *displayValueClassifier)
 {
-  _classifiers.push_back(ClassifierTuple(rawValueClassifier, displayValueClassifier));
+  _classifiers.emplace_back(rawValueClassifier, displayValueClassifier);
 }
 
 RangeDrawProps::ClassifierTuple RangeDrawProps::popClassifier()

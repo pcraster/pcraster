@@ -424,23 +424,23 @@ void OgrFeatureDriver::init()
   std::vector<std::string> extensions;
 
   if(name() == "CSV") {
-    extensions.push_back(".csv");
+    extensions.emplace_back(".csv");
   }
   else if(name() == "ESRI Shapefile") {
-    extensions.push_back(".shp");
+    extensions.emplace_back(".shp");
   }
   else if(name() == "GeoJSON") {
-    extensions.push_back(".json");
-    extensions.push_back(".geojson");
+    extensions.emplace_back(".json");
+    extensions.emplace_back(".geojson");
   }
   else if(name() == "GML") {
-    extensions.push_back(".gml");
+    extensions.emplace_back(".gml");
   }
   else if(name() == "KML") {
-    extensions.push_back(".kml");
+    extensions.emplace_back(".kml");
   }
   else if(name() == "VRT") {
-    extensions.push_back(".vrt");
+    extensions.emplace_back(".vrt");
   }
 
   format().setExtensions(extensions);
@@ -1245,8 +1245,8 @@ void OgrFeatureDriver::filterOutUnsupportedFileNames(
   std::vector<std::string> extensions;
 
   if(name() == "ESRI Shapefile") {
-    extensions.push_back(".dbf");
-    extensions.push_back(".shx");
+    extensions.emplace_back(".dbf");
+    extensions.emplace_back(".shx");
   }
 
   for(size_t i = 0; i < leaves.size(); ++i) {
@@ -1357,8 +1357,8 @@ void OgrFeatureDriver::browse(
 
           // TODO Determine value scale.
           // TODO Determine data space.
-          attributes.push_back(BrowseInfo(name, space, FEATURE,
-              TI_NR_TYPES, VS_NOTDETERMINED, this->name()));
+          attributes.emplace_back(name, space, FEATURE,
+              TI_NR_TYPES, VS_NOTDETERMINED, this->name());
         }
       }
 

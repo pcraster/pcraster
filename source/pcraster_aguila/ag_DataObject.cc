@@ -1891,7 +1891,7 @@ void DataObject::localStepMappings(std::vector<dal::DimensionTimeStepMapping> &t
 
           if (mapper != nullptr) {
             // Possibly zero!
-            timeMappings.push_back(dal::DimensionTimeStepMapping(space.dimension(dimensionId), mapper));
+            timeMappings.emplace_back(space.dimension(dimensionId), mapper);
           }
         } else if (subDimension.meaning() == dal::Space) {
           switch (subDimension.discretisation()) {
@@ -1904,8 +1904,7 @@ void DataObject::localStepMappings(std::vector<dal::DimensionTimeStepMapping> &t
 
               if (mapper != nullptr) {
                 // Possibly zero!
-                spaceMappings.push_back(
-                    dal::DimensionSpaceStepMapping(space.dimension(dimensionId), mapper));
+                spaceMappings.emplace_back(space.dimension(dimensionId), mapper);
               }
 
               break;

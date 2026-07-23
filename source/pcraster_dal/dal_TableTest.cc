@@ -21,10 +21,10 @@ struct Fixture
         typeIds.push_back(TI_NR_TYPES);
         typeIds.push_back(TI_REAL4);
 
-        titles.push_back("UINT1");
-        titles.push_back("INT4");
-        titles.push_back("NR_TYPES");
-        titles.push_back("REAL4");
+        titles.emplace_back("UINT1");
+        titles.emplace_back("INT4");
+        titles.emplace_back("NR_TYPES");
+        titles.emplace_back("REAL4");
 
         d_table1 = new Table("Table1", titles, typeIds);
         d_table1->createCols();

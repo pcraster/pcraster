@@ -20,7 +20,7 @@ calc::Constant::Constant(const Symbol &castFunctionName, VS castDestination, con
 {
   try {
     d_type.restrictUser(castDestination, false);
-  } catch (SyntaxVsClash) {
+  } catch (const SyntaxVsClash&) {
     /* pcrcalc/test41a,test42 */
     std::ostringstream msg;
     msg << "Illegal conversion applied: '" << value() << "' is not a valid '"

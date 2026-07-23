@@ -55,7 +55,7 @@ calc::ASTNumber::ASTNumber(const Id &castFunctionName, VS castDestination, const
   init();
   try {
     returnDataType(0).restrict(DataType(castDestination, false));
-  } catch (VSClash) {
+  } catch (const VSClash&) {
     /* pcrcalc/test41a,test42 */
     std::ostringstream msg;
     msg << "Illegal conversion applied: '" << value() << "' is not a valid '"

@@ -104,7 +104,7 @@ BOOST_AUTO_TEST_CASE(testRestrict)
     BOOST_TEST(r1 != dt);  // test eq
     try {
       dt.restrict(r1);
-    } catch (TableClash) {
+    } catch (const TableClash&) {
       catched = true;
     }
     BOOST_TEST(catched);

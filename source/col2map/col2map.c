@@ -389,7 +389,7 @@ int Col2Map(MAP *out,              /* output file */
 
   // if (LimitedVersionCheck((int)nrRows, (int)nrCols, -1, -1, (int)nrRecordsRead, -1))
   //     goto error1;
-  if ((recList = (double **)CHK_MALLOC_TYPE(double *, nrRecords)) == NULL) {
+  if ((recList = CHK_MALLOC_TYPE(double *, nrRecords)) == NULL) {
     goto error1;
   }
   for (ri = 0; ri < nrRecords; ri++) {

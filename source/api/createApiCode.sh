@@ -7,19 +7,22 @@ RANDEF=randef.tem
 TESTAPI=testapi.tem
 
 
-#ranuint1.c: $RANCOM
+# ranuint1.c: $RANCOM
 echo "/* DO NOT EDIT: CREATED FROM $RANCOM */" > ranuint1.c
 echo "#line 1 \"$RANCOM\"" >> ranuint1.c
 sed -e s/THIS_TYPE_T/UINT1_T/g  -e s/THIS_TYPE/UINT1/g $RANCOM >> ranuint1.c
-# TODO redundant cast
+# Warning redundant cast
+sed -i 's/(UINT1)(\*(UINT1 \*)v)/(*(UINT1 *)v)/g' ranuint1.c
 
-#ranint4.c: $RANCOM
+
+# ranint4.c: $RANCOM
 echo "/* DO NOT EDIT: CREATED FROM $RANCOM */" > ranint4.c
 echo "#line 1 \"$RANCOM\"" >> ranint4.c
 sed -e s/THIS_TYPE_T/INT4/g  -e s/THIS_TYPE/INT4/g $RANCOM >> ranint4.c
-# TODO redundant cast
+# Warning redundant cast
+sed -i 's/(INT4)(\*(INT4 \*)v)/(*(INT4 *)v)/g' ranint4.c
 
-#ranreal8.c: $RANCOM
+# ranreal8.c: $RANCOM
 echo "/* DO NOT EDIT: CREATED FROM $RANCOM */" > ranreal8.c
 echo "#line 1 \"$RANCOM\"" >> ranreal8.c
 sed -e s/THIS_TYPE_T/REAL8/g  -e s/THIS_TYPE/REAL8/g $RANCOM >> ranreal8.c
@@ -59,4 +62,4 @@ sed 's/THIS_TYPE/REAL8/g' < $TESTAPI >> testapi.inc
 sed -i 's/ZERO/NAN/g'  testapi.inc
 
 # -Wtautological-compare
-sed -i 's/ && CR_INT4 == CR_INT4//g'  testapi.inc
+sed -i 's/ && CR_INT4 == CR_INT4//g' testapi.inc

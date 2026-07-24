@@ -74,7 +74,7 @@ size_t RasterDrawer::nrCellsPerPixel(QTransform const &mapper) const
 
   // Return a minimum of 1 cell per pixel, but possibly more. Err on the safe
   // side.
-  return std::max(size_t(1), static_cast<size_t>(std::floor(nrCellsPerPixel)));
+  return std::max(static_cast<size_t>(1), static_cast<size_t>(std::floor(nrCellsPerPixel)));
 }
 
 void RasterDrawer::draw(QPainter &painter, QRectF const &dirtyMapAreaInPixels,

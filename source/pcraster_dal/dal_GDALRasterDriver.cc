@@ -331,43 +331,43 @@ Raster* GDALDataset2Raster(
   if((hasMinimum != 0) && (hasMaximum != 0)) {
     switch(typeId) {
       case TI_UINT1: {
-        raster->setExtremes(std::any(UINT1(minimum)),
-              std::any(UINT1(maximum)));
+        raster->setExtremes(std::any(static_cast<UINT1>(minimum)),
+              std::any(static_cast<UINT1>(maximum)));
         break;
       }
       case TI_UINT2: {
-        raster->setExtremes(std::any(UINT2(minimum)),
-              std::any(UINT2(maximum)));
+        raster->setExtremes(std::any(static_cast<UINT2>(minimum)),
+              std::any(static_cast<UINT2>(maximum)));
         break;
       }
       case TI_UINT4: {
-        raster->setExtremes(std::any(UINT4(minimum)),
-              std::any(UINT4(maximum)));
+        raster->setExtremes(std::any(static_cast<UINT4>(minimum)),
+              std::any(static_cast<UINT4>(maximum)));
         break;
       }
       case TI_INT1: {
-        raster->setExtremes(std::any(INT1(minimum)),
-              std::any(INT1(maximum)));
+        raster->setExtremes(std::any(static_cast<INT1>(minimum)),
+              std::any(static_cast<INT1>(maximum)));
         break;
       }
       case TI_INT2: {
-        raster->setExtremes(std::any(INT2(minimum)),
-              std::any(INT2(maximum)));
+        raster->setExtremes(std::any(static_cast<INT2>(minimum)),
+              std::any(static_cast<INT2>(maximum)));
         break;
       }
       case TI_INT4: {
-        raster->setExtremes(std::any(INT4(minimum)),
-              std::any(INT4(maximum)));
+        raster->setExtremes(std::any(static_cast<INT4>(minimum)),
+              std::any(static_cast<INT4>(maximum)));
         break;
       }
       case TI_REAL4: {
-        raster->setExtremes(std::any(REAL4(minimum)),
-              std::any(REAL4(maximum)));
+        raster->setExtremes(std::any(static_cast<REAL4>(minimum)),
+              std::any(static_cast<REAL4>(maximum)));
         break;
       }
       case TI_REAL8: {
-        raster->setExtremes(std::any(REAL8(minimum)),
-              std::any(REAL8(maximum)));
+        raster->setExtremes(std::any(static_cast<REAL8>(minimum)),
+              std::any(static_cast<REAL8>(maximum)));
         break;
       }
       default: {

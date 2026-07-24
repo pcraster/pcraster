@@ -835,7 +835,7 @@ void calc::StatComputation::classScalarTable(const SubjectType *subject) const
   for (auto i = m.begin(); i != m.end(); ++i) {
     auto end = start + i->second.nr();
     if (start != end) {
-      m[i->first].d_med = (REAL4)median(start, end);
+      m[i->first].d_med = static_cast<REAL4>(median(start, end));
     }
     start = end;
   }

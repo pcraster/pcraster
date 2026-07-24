@@ -83,7 +83,7 @@ int com::spawn(const char *exeName, const char **args)
     _exit(-1);
   }
 #endif
-  int const result = posix_spawn(&pid, exeName, nullptr, &attr, (char *const *)args, nullptr);
+  int const result = posix_spawn(&pid, exeName, nullptr, &attr, const_cast<char *const *>(args), nullptr);
   if (result != 0) {
     _exit(-1);
   }

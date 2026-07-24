@@ -102,7 +102,7 @@ void calc::orderOperation(REAL4 *res, IVSpatial<double> const &val, size_t len)
   for (size_t i = 0; i < order.size(); ++i) {
     assert(order[i] < len);
     // index in order (i) is the order nr
-    res[order[i]] = (REAL4)i + 1;
+    res[order[i]] = static_cast<REAL4>(i) + 1;
   }
 }
 

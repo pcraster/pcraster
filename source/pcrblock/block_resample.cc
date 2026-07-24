@@ -432,9 +432,9 @@ firstFraction: 0
 4.2 - 4.2
 */
       firstFraction =
-         (double(std::min(currentStack.topElevation(curItFirst - currentStack.begin()),
+         (static_cast<double>(std::min(currentStack.topElevation(curItFirst - currentStack.begin()),
                  newVoxelTop)) -
-         std::max(currentHeight, double(newVoxelBottom))) / *curItFirst;
+         std::max(currentHeight, static_cast<double>(newVoxelBottom))) / *curItFirst;
       // std::cout << "firstFraction: " << firstFraction << std::endl;
       // std::cout << dal::comparable(firstFraction, 0.0) << std::endl;
       // DEVELOP_POSTCOND(firstFraction > 0.0);
@@ -476,9 +476,9 @@ newVoxelBottom: 4
 firstFraction: 0.999998
 */
       lastFraction =
-             (double(std::min(currentStack.topElevation(curItLast - currentStack.begin()),
+             (static_cast<double>(std::min(currentStack.topElevation(curItLast - currentStack.begin()),
                  newVoxelTop)) -
-             std::max(currentHeight, double(newVoxelBottom))) / *curItLast;
+             std::max(currentHeight, static_cast<double>(newVoxelBottom))) / *curItLast;
       // std::cout << "lastFraction: " << lastFraction << std::endl;
       // DEVELOP_POSTCOND(lastFraction > 0.0);
       // DEVELOP_POSTCOND(dal::smallerOrComparable(lastFraction, 1.0));

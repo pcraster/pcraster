@@ -143,7 +143,7 @@ void calc::execPCB(std::vector<ParPCB *> &data, const void *dllFunctionAddress)
 
   // set up buffers, use src() equals dest() for output
   for (size_t c = 0; c < cp.size(); ++c) {
-    cp[c].v = (void *)(data[c]->field()->src());
+    cp[c].v = const_cast<void *>(data[c]->field()->src());
   }
 
   func(&cp[0], nrValues);

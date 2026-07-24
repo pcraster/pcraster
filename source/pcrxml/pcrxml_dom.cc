@@ -87,7 +87,7 @@ std::vector<QDomElement> pcrxml::matchByTagName(const QDomElement &tree, const Q
 {
   QDomNodeList const mrsList(tree.elementsByTagName(tagName));
   std::vector<QDomElement> v;
-  for (size_t i = 0; i < (size_t)mrsList.count(); i++) {
+  for (size_t i = 0; i < static_cast<size_t>(mrsList.count()); i++) {
     v.push_back(mrsList.item(i).toElement());
   }
   return v;
@@ -99,7 +99,7 @@ std::vector<QDomElement> pcrxml::childElements(const QDomElement &parent)
 {
   QDomNodeList const nodes(parent.childNodes());
   std::vector<QDomElement> v;
-  for (size_t i = 0; i < (size_t)nodes.count(); i++) {
+  for (size_t i = 0; i < static_cast<size_t>(nodes.count()); i++) {
     if (nodes.item(i).isElement()) {
       v.push_back(nodes.item(i).toElement());
     }

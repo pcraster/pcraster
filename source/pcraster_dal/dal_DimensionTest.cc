@@ -264,22 +264,22 @@ BOOST_AUTO_TEST_CASE(is_wide)
   using namespace dal;
 
   {
-    Dimension const dimension(Time, size_t(5), size_t(5), size_t(1));
+    Dimension const dimension(Time, static_cast<size_t>(5), static_cast<size_t>(5), static_cast<size_t>(1));
     BOOST_TEST(!dimension.isWide());
   }
 
   {
-    Dimension const dimension(Time, size_t(5), size_t(5), size_t(2));
+    Dimension const dimension(Time, static_cast<size_t>(5), static_cast<size_t>(5), static_cast<size_t>(2));
     BOOST_TEST(!dimension.isWide());
   }
 
   {
-    Dimension const dimension(Time, size_t(5), size_t(6), size_t(2));
+    Dimension const dimension(Time, static_cast<size_t>(5), static_cast<size_t>(6), static_cast<size_t>(2));
     BOOST_TEST(!dimension.isWide());
   }
 
   {
-    Dimension const dimension(Time, size_t(5), size_t(7), size_t(2));
+    Dimension const dimension(Time, static_cast<size_t>(5), static_cast<size_t>(7), static_cast<size_t>(2));
     BOOST_TEST(dimension.isWide());
   }
 }

@@ -53,9 +53,9 @@ BOOST_AUTO_TEST_CASE(dataset_type)
     // BOOST_TEST(type == RASTER);
 
     std::vector<size_t> timeSteps;
-    timeSteps.push_back(size_t(1));
-    timeSteps.push_back(size_t(10));
-    timeSteps.push_back(size_t(1));
+    timeSteps.push_back(static_cast<size_t>(1));
+    timeSteps.push_back(static_cast<size_t>(10));
+    timeSteps.push_back(static_cast<size_t>(1));
 
     space.addDimension(Dimension(Time, timeSteps));
     BOOST_TEST(space.hasTime());
@@ -177,7 +177,7 @@ BOOST_AUTO_TEST_CASE(data_space_to_field_names)
   scenarios.insert("mies");
   Dimension const scenario(Scenarios, scenarios);
 
-  Dimension const time(Time, size_t(1), size_t(10), size_t(1));
+  Dimension const time(Time, static_cast<size_t>(1), static_cast<size_t>(10), static_cast<size_t>(1));
   Dimension const uncertainty(CumulativeProbabilities, 0.01F, 0.99F, 0.01F);
 
   {

@@ -484,7 +484,7 @@ size_t Dimension::nrCoordinates() const
       auto first = std::any_cast<float>(_values[0]);
       auto last = std::any_cast<float>(_values[1]);
       auto interval = std::any_cast<float>(_values[2]);
-      result = round<float, size_t>(((last - first) / interval) + float(1.0));
+      result = round<float, size_t>(((last - first) / interval) + static_cast<float>(1.0));
 
       break;
     }

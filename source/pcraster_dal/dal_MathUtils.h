@@ -84,7 +84,7 @@ inline bool comparable(
          REAL4 const& rhs)
 {
   static boost::math::fpc::close_at_tolerance<REAL4> const tester(
-         boost::math::fpc::fpc_detail::fraction_tolerance<REAL4>(REAL4(1e-4)),
+         boost::math::fpc::fpc_detail::fraction_tolerance<REAL4>(static_cast<REAL4>(1e-4)),
          boost::math::fpc::FPC_STRONG);
 
   return tester(lhs, rhs);
@@ -96,7 +96,7 @@ inline bool comparable(
          REAL8 const& rhs)
 {
   static boost::math::fpc::close_at_tolerance<REAL8> const tester(
-         boost::math::fpc::fpc_detail::fraction_tolerance<REAL8>(REAL8(1e-6)),
+         boost::math::fpc::fpc_detail::fraction_tolerance<REAL8>(static_cast<REAL8>(1e-6)),
          boost::math::fpc::FPC_STRONG);
 
   return tester(lhs, rhs);

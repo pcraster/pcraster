@@ -184,8 +184,8 @@ void com::eat(std::istream &s, char c)
   int ch = 0;
 
   while (s) {
-    if ((ch = s.get()) != (int)c) {
-      s.putback((char)ch);
+    if ((ch = s.get()) != static_cast<int>(c)) {
+      s.putback(static_cast<char>(ch));
       break;
     }
   }
@@ -219,7 +219,7 @@ void com::toNextLine(std::istream &stream)
 
   while (ch != '\n') {
     if (std::isspace(ch) == 0) {
-      stream.putback((char)ch);
+      stream.putback(static_cast<char>(ch));
       std::ostringstream s;
       s << "Expecting whitespace but character read was '" << ch << '\'';
       throw com::Exception(s.str());
@@ -306,7 +306,7 @@ void com::write(const void *data, size_t dataLen, const PathName &fileName)
 {
   std::ofstream ofs;
   open(ofs, fileName, std::ios::binary);
-  ofs.write((const char *)data, dataLen);
+  ofs.write(static_cast<const char *>(data), dataLen);
 }
 
 //! wrapper for PathInfo::exists()

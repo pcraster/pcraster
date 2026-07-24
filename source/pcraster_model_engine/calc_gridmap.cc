@@ -83,13 +83,13 @@ calc::GridStat calc::GridMapOut::writeData(const void *allValues)
     geo::BandMap const map(d_fileName, d_rs, biggestCellRepr(d_vs), false, 0);
     switch (map.cellRepr()) {
       case CR_UINT1:
-        map.putCellsAsUINT1((const UINT1 *)allValues);
+        map.putCellsAsUINT1(static_cast<const UINT1 *>(allValues));
         break;
       case CR_INT2:
-        map.putCellsAsINT4((const INT4 *)allValues);
+        map.putCellsAsINT4(static_cast<const INT4 *>(allValues));
         break;
       case CR_REAL4:
-        map.putCellsAsREAL4((const REAL4 *)allValues);
+        map.putCellsAsREAL4(static_cast<const REAL4 *>(allValues));
         break;
       default:
         POSTCOND(false);
@@ -121,7 +121,7 @@ calc::GridStat calc::GridMapOut::writeData(const void *allValues)
   p.setValue(DAL_CSF_VALUESCALE, vs2CsfVs(d_vs));
   p.setValue(DAL_CSF_PROJECTION, geo::geoProjToCsf(d_rs.projection()));
 
-  raster.setCellsReference((void *)allValues);
+  raster.setCellsReference(const_cast<void *>(allValues));
 
   d_driver.write(raster, d_fileName);
   raster.setExtremes();
@@ -202,13 +202,13 @@ void calc::GridMapIn::createSpatial(void *dest, VS readAs)
     geo::BandMap const map(d_fileName);
     switch (biggestCellRepr(readAs)) {
       case CR_UINT1:
-        map.getCellsAsUINT1((UINT1 *)dest);
+        map.getCellsAsUINT1(static_cast<UINT1 *>(dest));
         break;
       case CR_INT4:
-        map.getCellsAsINT4((INT4 *)dest);
+        map.getCellsAsINT4(static_cast<INT4 *>(dest));
         break;
       case CR_REAL4:
-        map.getCellsAsREAL4((REAL4 *)dest);
+        map.getCellsAsREAL4(static_cast<REAL4 *>(dest));
         break;
       default:
         POSTCOND(false);

@@ -14,7 +14,7 @@ BOOST_AUTO_TEST_CASE(testInstallStringScript)
   li.installArgvScript(1, argv, false);
   int c = 0;
   while ((c = li.getChar()) != EOF) {
-    r += (char)c;
+    r += static_cast<char>(c);
   }
   // need for an additional newline
   BOOST_TEST(r == (s + " "));

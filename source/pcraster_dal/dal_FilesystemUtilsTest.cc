@@ -947,9 +947,9 @@ BOOST_AUTO_TEST_CASE(path_for_data_space_address)
     std::string const name = "soil";
     DataSpace space;
     std::vector<size_t> timeSteps;
-    timeSteps.push_back(size_t(10));
-    timeSteps.push_back(size_t(100));
-    timeSteps.push_back(size_t(1));
+    timeSteps.push_back(static_cast<size_t>(10));
+    timeSteps.push_back(static_cast<size_t>(100));
+    timeSteps.push_back(static_cast<size_t>(1));
     space.addDimension(Dimension(Time, timeSteps));
     DataSpaceAddress address = space.address();
     address.setCoordinate<size_t>(0, 10);

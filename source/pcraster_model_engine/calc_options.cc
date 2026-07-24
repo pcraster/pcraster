@@ -150,7 +150,7 @@ void calc::Options::processArgs(int argc, char **argv)
         setCompile(true);
         break;
       case 'd':
-        setDebugMVAssignments((const char *)OptArg);
+        setDebugMVAssignments(static_cast<const char *>(OptArg));
         break;
       case '1':
         setWriteEachTimeStep(true);
@@ -162,16 +162,16 @@ void calc::Options::processArgs(int argc, char **argv)
         setExitValueType(calc::RunTimeEnvSettings::EXIT_ON_0);
         break;
       case 'r':
-        setRunDirectory((const char *)OptArg);
+        setRunDirectory(static_cast<const char *>(OptArg));
         break;
       case 's': {
-        int const seed = *(const int *)OptArg;
+        int const seed = *static_cast<const int *>(OptArg);
         if (seed <= 0) {  // args/test26
           std::ostringstream s;
           s << "-s seed must be > 0 (not '" << seed << "')";
           throw com::Exception(s.str());
         }
-        setSeed((unsigned int)seed);
+        setSeed(static_cast<unsigned int>(seed));
       } break;
 
         // Function modifiers
@@ -192,15 +192,15 @@ void calc::Options::processArgs(int argc, char **argv)
       */
       // hack to kill EsriGrids
       case 'K':
-        setScriptFile((const char *)OptArg);
+        setScriptFile(static_cast<const char *>(OptArg));
         d_scriptType = SCRIPT_ESRI_GRID_KILL;
         break;
       // Parse options
       case 'b':
-        setExternalBindingFile((const char *)OptArg);
+        setExternalBindingFile(static_cast<const char *>(OptArg));
         break;
       case 'f':
-        setScriptFile((const char *)OptArg);
+        setScriptFile(static_cast<const char *>(OptArg));
         d_scriptType = SCRIPT_SCRIPT_FILE;
         break;
       case 'F':  // this is in #! mode

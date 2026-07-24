@@ -53,7 +53,7 @@ void TimeSliceVisitor::visitPerCachmentSlice()
         csi.nrTimeSlices = 1;  // suppress domain error
       }
     }
-    csi.sliceInSecs = d_timestepInSecs / (double)csi.nrTimeSlices;
+    csi.sliceInSecs = d_timestepInSecs / static_cast<double>(csi.nrTimeSlices);
     initPerCatchmentSlice(csi);
 
     for (auto i = c->downBegin(); i != c->downEnd(); ++i) {

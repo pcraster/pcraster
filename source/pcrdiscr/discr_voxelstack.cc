@@ -142,7 +142,7 @@ REAL4 VoxelStack::baseElevation() const
 {
   DEVELOP_PRECOND(!isMV());
 
-  return (REAL4)d_baseElevation;
+  return static_cast<REAL4>(d_baseElevation);
 }
 
 

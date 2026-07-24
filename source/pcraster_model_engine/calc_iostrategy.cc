@@ -166,7 +166,7 @@ void IOStrategy::setMemoryExchangeData(const ASTSymbolTable &symbols, void **dat
         // not both set
         PRECOND(ids[0] != noExchange || ids[1] != noExchange);
         if (id != noExchange) {
-          maxIdInt = std::max<long>(maxIdInt, (size_t)id);
+          maxIdInt = std::max<long>(maxIdInt, static_cast<size_t>(id));
           d_memoryData.insert(
               std::make_pair(si.name(), std::make_shared<MemoryExchangeItem>(si.name(), id)));
         }
@@ -441,7 +441,7 @@ GridStat IOStrategy::writeFieldUnpacked(const std::string &name, const Field *f)
       auto *mei = new MemoryExchangeItemField(name, mem->id(), allocatedCopy);
       d_memoryData[name] = std::shared_ptr<MemoryExchangeItem>(mei);
       // change user's d_dataTransferArray
-      d_dataTransferArray[mei->id()] = (void *)(allocatedCopy->src());
+      d_dataTransferArray[mei->id()] = const_cast<void *>(allocatedCopy->src());
     }
     return {};
   }
@@ -462,7 +462,7 @@ DataType IOStrategy::resolveInputField(const std::string &newExternalName, const
  */
 GridStat calc::IOStrategy::writeField(const std::string &fileName, const Field *f) const
 {
-  auto *hack = (IOStrategy *)this;
+  auto *hack = const_cast<IOStrategy *>(this);
   if (f->isSpatial()) {
     UnpackedSrc us(*d_spatialPacking, f);
     PRECOND(us.src()->nrValues() == rasterSpace().nrCells());

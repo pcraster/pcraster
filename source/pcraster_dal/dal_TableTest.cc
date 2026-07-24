@@ -40,9 +40,9 @@ struct Fixture
         col2.push_back(333);
 
         Array<REAL4>& col4(d_table1->col<REAL4>(3));
-        col4.push_back(REAL4(3.3));
-        col4.push_back(REAL4(4.4));
-        col4.push_back(REAL4(5.5));
+        col4.push_back(static_cast<REAL4>(3.3));
+        col4.push_back(static_cast<REAL4>(4.4));
+        col4.push_back(static_cast<REAL4>(5.5));
     }
 
     ~Fixture()

@@ -429,7 +429,7 @@ DataSpace SQLTableDriver::dataSpace(
     REAL4 interval = NAN;
 
     if(isIncreasingRange(first, last, interval, quantiles.begin(),
-         quantiles.end()) && first > REAL4(0.0)) {
+         quantiles.end()) && first > static_cast<REAL4>(0.0)) {
 
       std::vector<REAL4> quantiles;
       quantiles.push_back(first);

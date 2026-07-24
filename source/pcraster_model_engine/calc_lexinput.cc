@@ -47,14 +47,14 @@ char calc::LexInput::getRawCharEOFcheck()
   if (c == EOF) {
     throw com::Exception("end-of-file in substitution " + quote("${" + d_expInBuf));
   }
-  return (char)c;
+  return static_cast<char>(c);
 }
 
 int calc::LexInput::getParameterNr(const std::string &name, bool nIsShellArg)
 {
   int r = 0;
   if (CnvrtInt(&r, name.c_str())) {
-    if (r > 0 && r <= (int)d_shellArgs.size()) {
+    if (r > 0 && r <= static_cast<int>(d_shellArgs.size())) {
       return r;
     }
     return -1;
@@ -148,7 +148,7 @@ void calc::LexInput::printExpandedCode(std::ostream &outStream)
   do {
     c = getChar();
     if (c != EOF) {
-      outStream.put((char)c);
+      outStream.put(static_cast<char>(c));
     }
   } while (c != EOF);
 }
@@ -207,7 +207,7 @@ void calc::LexInput::installFileScript(const com::PathName &fileName)
 void calc::LexInput::installShellArgs(int nrArgV, const char **argV)
 {
   d_shellArgs.clear();
-  for (size_t i = 0; i < (size_t)nrArgV; i++) {
+  for (size_t i = 0; i < static_cast<size_t>(nrArgV); i++) {
     d_shellArgs.emplace_back(argV[i]);
     if (d_shellArgs.back()[0] == '$') {
       std::ostringstream msg;  // argscalc/test84

@@ -167,21 +167,21 @@ POINT2D *IntersectLines(POINT2D *p,     /* write-only, point of intersection. Pr
 
   if (l1->parY != 0) /* l2 not */
   {
-    p->x = (PTYPE)l1->xInt;
-    p->y = (PTYPE)YgivenX(l2, p->x);
+    p->x = static_cast<PTYPE>(l1->xInt);
+    p->y = static_cast<PTYPE>(YgivenX(l2, p->x));
     return (p);
   }
   if (l2->parY != 0) /* l1 not */
   {
-    p->x = (PTYPE)l2->xInt;
-    p->y = (PTYPE)YgivenX(l1, p->x);
+    p->x = static_cast<PTYPE>(l2->xInt);
+    p->y = static_cast<PTYPE>(YgivenX(l1, p->x));
     return (p);
   }
   if (l1->slope == l2->slope) {
     return (nullptr);
   }
-  p->x = (PTYPE)((l2->yInt - l1->yInt) / (l1->slope - l2->slope));
-  p->y = (PTYPE)YgivenX(l1, p->x);
+  p->x = static_cast<PTYPE>((l2->yInt - l1->yInt) / (l1->slope - l2->slope));
+  p->y = static_cast<PTYPE>(YgivenX(l1, p->x));
   return (p);
 }
 
@@ -548,7 +548,7 @@ int CentroidOfPolygon(POINT2D *c,         /* write-only. the centroid  */
           LDouble((pol[i + 1].y + pol[i].y) / 2);
     low += LDouble(pol[i + 1].x - pol[i].x) * LDouble((pol[i + 1].y + pol[i].y) / 2);
   }
-  c->x = (PTYPE)(up / low);
+  c->x = static_cast<PTYPE>(up / low);
 
   up = 0;
   low = 0;
@@ -558,7 +558,7 @@ int CentroidOfPolygon(POINT2D *c,         /* write-only. the centroid  */
           LDouble((pol[i + 1].x + pol[i].x) / 2);
     low += LDouble(pol[i + 1].y - pol[i].y) * LDouble((pol[i + 1].x + pol[i].x) / 2);
   }
-  c->y = (PTYPE)(up / low);
+  c->y = static_cast<PTYPE>(up / low);
 
   return (PointInPolygon(c, pol, nr));
 }
@@ -599,7 +599,7 @@ int SmallestFittingRectangleCentre(POINT2D *c, /* write-only. the centre of the 
   PRECOND(pol[0].y == pol[nr].y);
 
 
-  p = (POINT2D *)MemcpyChkMalloc(pol, (nr + 1) * sizeof(POINT2D));
+  p = static_cast<POINT2D *>(MemcpyChkMalloc(pol, (nr + 1) * sizeof(POINT2D)));
 
   smallArea = 0.0;
   angle = 0.0;
@@ -665,7 +665,7 @@ double AreaOfPolygon(const POINT2D *p, /* the polygon */
     a += (LDouble(p[i].x) * LDouble(p[i + 1].y)) - (LDouble(p[i].y) * LDouble(p[i + 1].x));
   }
   a /= -2;
-  return ((double)std::abs(a));
+  return (static_cast<double>(std::abs(a)));
 }
 
 /* clockwise angle of a point with the x-axis
@@ -842,9 +842,9 @@ POINT2D *RotPoint(POINT2D *p, /* read-write, point to rotated */
   c = cos(a);
   s = sin(a);
 
-  x = (PTYPE)(((p->x) * c) - ((p->y) * s));
-  p->y = (PTYPE)(((p->x) * s) + ((p->y) * c));
-  p->x = (PTYPE)x;
+  x = static_cast<PTYPE>(((p->x) * c) - ((p->y) * s));
+  p->y = static_cast<PTYPE>(((p->x) * s) + ((p->y) * c));
+  p->x = static_cast<PTYPE>(x);
 
   return (p);
 }

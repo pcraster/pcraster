@@ -84,7 +84,7 @@ void DirectionalRasterDrawer::draw(QPainter &painter, QRect const &indices,
       if (!pcr::isMV(matrix.cell<REAL4>(row, col))) {
         value = matrix.cell<REAL4>(row, col);
 
-        if (dal::comparable(value, REAL4(-1.0))) {
+        if (dal::comparable(value, static_cast<REAL4>(-1.0))) {
           colour = QColor(255, 0, 0);
         } else {
           colour = _properties.colour(value);
@@ -96,7 +96,7 @@ void DirectionalRasterDrawer::draw(QPainter &painter, QRect const &indices,
         leftScreen = world_to_screen.map(p).x();
         topScreen = world_to_screen.map(p).y();
 
-        if (!dal::comparable(value, REAL4(-1.0))) {
+        if (!dal::comparable(value, static_cast<REAL4>(-1.0))) {
           col += nrCellsPerPixel;
 
           while (col <= lastCol && !pcr::isMV(matrix.cell<REAL4>(row, col)) &&

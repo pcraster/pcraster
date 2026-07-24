@@ -34,7 +34,7 @@ const calc::Field *calc::AsIsPacking::unpack(const Field *f) const
 
 calc::Field *calc::AsIsPacking::pack(const Field *f) const
 {
-  return (Field *)f;
+  return const_cast<Field *>(f);
 }
 
 calc::Field *calc::AsIsPacking::createSpatial(VS vs) const

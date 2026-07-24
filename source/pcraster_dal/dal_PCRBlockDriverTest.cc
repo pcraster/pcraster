@@ -28,9 +28,9 @@ struct Fixture
         elevation->createCells();
 
         for(size_t i = 0; i < elevation->nrCells(); ++i) {
-          elevation->cell<REAL4>(i) = REAL4(i);
+          elevation->cell<REAL4>(i) = static_cast<REAL4>(i);
           auto& stack(d_blockDiscretisation->cell<REAL4_VECTOR>(i));
-          stack.insert(stack.end(), i, REAL4(i));
+          stack.insert(stack.end(), i, static_cast<REAL4>(i));
         }
 
         // elevation:

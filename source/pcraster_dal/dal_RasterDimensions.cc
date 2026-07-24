@@ -349,7 +349,7 @@ RasterDimensions RasterDimensions::areaDimensions(
          double east,
          double south) const
 {
-  RasterDimensions result(size_t(0), size_t(0), this->cellSize(),
+  RasterDimensions result(static_cast<size_t>(0), static_cast<size_t>(0), this->cellSize(),
          this->west(), this->north());
 
   if(west < east && north > south) {

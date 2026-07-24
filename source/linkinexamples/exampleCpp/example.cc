@@ -59,7 +59,7 @@ public:
          LinkInTransferArray linkInTransferArray)
   {
     assert(l.argument().size()==1);
-    firstConstructorArgument = ((float *)linkInTransferArray[0])[0];
+    firstConstructorArgument = (static_cast<float *>(linkInTransferArray[0]))[0];
   }
 
   static void operationArgumentCheck(std::string const& op) {
@@ -84,8 +84,8 @@ public:
       throw std::domain_error("attempting division by 0");
     }
 
-    auto       *result      = (float *)linkInTransferArray[0];
-    const auto *leftOperand = (const float *)linkInTransferArray[1];
+    auto       *result      = static_cast<float *>(linkInTransferArray[0]);
+    const auto *leftOperand = static_cast<const float *>(linkInTransferArray[1]);
     size_t       len=1; // NonSpatial
     if (l.argument()[0].spatialType() == pcrxml::SpatialType::Spatial) {
       len = static_cast<size_t>(l.context().areaMap().nrRows() *
@@ -113,7 +113,7 @@ static void checkerBoard(
 {
   assert(l.result().size()==1);
 
-  auto *result=(unsigned char *)linkInTransferArray[0];
+  auto *result=static_cast<unsigned char *>(linkInTransferArray[0]);
 
   unsigned char value = 0;
   size_t const nrRows=l.context().areaMap().nrRows();

@@ -365,7 +365,7 @@ std::string calc::Operator::strInput(int nr) const
 std::string calc::Operator::checkNrInputs(size_t actualNrInputs) const
 {
   // Check number of arguments
-  int const argCond = (int)d_inputs.size() - (int)actualNrInputs;
+  int const argCond = static_cast<int>(d_inputs.size()) - static_cast<int>(actualNrInputs);
   int const argTest = (argCond == 0) ? 0 : argCond / std::abs(argCond);
 
   std::string msg;

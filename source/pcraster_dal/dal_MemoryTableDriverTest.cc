@@ -37,9 +37,9 @@ struct Fixture
         col2.push_back(1);
         col2.push_back(2);
         col2.push_back(3);
-        col4.push_back(REAL4(1.1));
-        col4.push_back(REAL4(2.2));
-        col4.push_back(REAL4(3.3));
+        col4.push_back(static_cast<REAL4>(1.1));
+        col4.push_back(static_cast<REAL4>(2.2));
+        col4.push_back(static_cast<REAL4>(3.3));
 
         title = "Table2";
         titles.clear();

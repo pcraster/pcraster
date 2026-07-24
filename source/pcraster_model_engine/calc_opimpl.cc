@@ -490,7 +490,7 @@ void areaStatisticalOperation(RunTimeEnv *rte, const Operator &op, size_t nrArgs
   ExecArguments args(op, rte, nrArgs);
   AreaStatisticalOperation ao;
   PRECOND(args[0].nrValues() == args[1].nrValues());
-  auto *r = (REAL4 *)args.srcDest(0);
+  auto *r = static_cast<REAL4 *>(args.srcDest(0));
 
   switch (args[1].cri()) {
     case CRI_1:
@@ -530,7 +530,7 @@ void calc::Order::exec(RunTimeEnv *rte, const Operator &op, size_t nrArgs) const
 {
   ExecArguments args(op, rte, nrArgs);
 
-  auto *r = (REAL4 *)args.dest();
+  auto *r = static_cast<REAL4 *>(args.dest());
   std::unique_ptr<IVSpatial<double>> expr(nullptr);
 
   switch (args[0].cri()) {
@@ -552,7 +552,7 @@ void calc::AreaOrder::exec(RunTimeEnv *rte, const Operator &op, size_t nrArgs) c
 {
   ExecArguments args(op, rte, nrArgs);
 
-  auto *r = (REAL4 *)args.dest();
+  auto *r = static_cast<REAL4 *>(args.dest());
   std::unique_ptr<IVSpatial<double>> expr(nullptr);
   std::unique_ptr<IVSpatial<INT4>> areaClass(nullptr);
 
@@ -601,7 +601,7 @@ void calc::ArgOrderWithIdAddAreaLimited::exec(RunTimeEnv *rte, const Operator &o
 
     argOrderArgs.emplace_back(chances, id, areaLimit);
   }
-  INT4 *r = (INT4 *)args.dest();
+  INT4 *r = static_cast<INT4 *>(args.dest());
   PRECOND(args[0].isSpatial());
   ArgOrderAndAddArea::argOrderAddAreaLimited(argOrderArgs, args[0].src_4(), r, args[0].nrValues());
   args.pushResults();
@@ -625,7 +625,7 @@ void calc::ArgOrderAddAreaLimited::exec(RunTimeEnv *rte, const Operator &op, siz
 
     argOrderArgs.emplace_back(chances, id, areaLimit);
   }
-  INT4 *r = (INT4 *)args.dest();
+  INT4 *r = static_cast<INT4 *>(args.dest());
   PRECOND(args[0].isSpatial());
   ArgOrderAndAddArea::argOrderAddAreaLimited(argOrderArgs, args[0].src_4(), r, args[0].nrValues());
   args.pushResults();
@@ -650,7 +650,7 @@ void calc::ArgOrderWithIdAreaLimited::exec(RunTimeEnv *rte, const Operator &op, 
 
     argOrderArgs.emplace_back(chances, id, areaLimit);
   }
-  INT4 *r = (INT4 *)args.dest();
+  INT4 *r = static_cast<INT4 *>(args.dest());
   ArgOrderAndAddArea::argOrderAreaLimited(argOrderArgs, r, args[0].nrValues());
   args.pushResults();
 }
@@ -673,7 +673,7 @@ void calc::ArgOrderAreaLimited::exec(RunTimeEnv *rte, const Operator &op, size_t
 
     argOrderArgs.emplace_back(chances, id, areaLimit);
   }
-  INT4 *r = (INT4 *)args.dest();
+  INT4 *r = static_cast<INT4 *>(args.dest());
   ArgOrderAndAddArea::argOrderAreaLimited(argOrderArgs, r, args[0].nrValues());
   args.pushResults();
 }
@@ -695,7 +695,7 @@ void calc::ArgOrderWithId::exec(RunTimeEnv *rte, const Operator &op, size_t nrAr
     argOrderArgs.emplace_back(chances, id);
   }
 
-  INT4 *r = (INT4 *)args.dest();
+  INT4 *r = static_cast<INT4 *>(args.dest());
   ArgOrderAndAddArea::argOrder(argOrderArgs, r, args[0].nrValues());
   args.pushResults();
 }
@@ -715,7 +715,7 @@ void calc::ArgOrder::exec(RunTimeEnv *rte, const Operator &op, size_t nrArgs) co
     argOrderArgs.emplace_back(chances, id);
   }
 
-  INT4 *r = (INT4 *)args.dest();
+  INT4 *r = static_cast<INT4 *>(args.dest());
   ArgOrderAndAddArea::argOrder(argOrderArgs, r, args[0].nrValues());
   args.pushResults();
 }

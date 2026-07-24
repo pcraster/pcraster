@@ -73,10 +73,10 @@ BOOST_AUTO_TEST_CASE(merge)
   RasterDimensions const rasterDimensions(100, 60);
 
   Dimension const scenariosDimension(Scenarios, scenarios);
-  Dimension const samplesDimension(Samples, size_t(1), size_t(1000), size_t(1));
+  Dimension const samplesDimension(Samples, static_cast<size_t>(1), static_cast<size_t>(1000), static_cast<size_t>(1));
   Dimension const cummulativeProbabilitiesDimension(CumulativeProbabilities,
-         float(0.01), float(0.99), float(0.01));
-  Dimension const timeDimension(Time, size_t(1), size_t(1000), size_t(1));
+         static_cast<float>(0.01), static_cast<float>(0.99), static_cast<float>(0.01));
+  Dimension const timeDimension(Time, static_cast<size_t>(1), static_cast<size_t>(1000), static_cast<size_t>(1));
   Dimension const spaceDimension(Space, RegularDiscretisation, rasterDimensions);
 
   {
@@ -374,9 +374,9 @@ BOOST_AUTO_TEST_CASE(merge)
     RasterDimensions const rasterDimensions(87, 55, 5000.0, 464000.0, 6131500.0);
 
     space2.addDimension(Dimension(Scenarios, scenarios));
-    space2.addDimension(Dimension(Time, size_t(1986), size_t(2003), size_t(1)));
-    space2.addDimension(Dimension(CumulativeProbabilities, float(0.01),
-         float(0.99), float(0.01)));
+    space2.addDimension(Dimension(Time, static_cast<size_t>(1986), static_cast<size_t>(2003), static_cast<size_t>(1)));
+    space2.addDimension(Dimension(CumulativeProbabilities, static_cast<float>(0.01),
+         static_cast<float>(0.99), static_cast<float>(0.01)));
     space2.addDimension(Dimension(Space, BorderedDiscretisation,
          featureDimensions));
 
@@ -385,9 +385,9 @@ BOOST_AUTO_TEST_CASE(merge)
     scenarios.insert("25000");
 
     space1.addDimension(Dimension(Scenarios, scenarios));
-    space1.addDimension(Dimension(Time, size_t(1986), size_t(2003), size_t(1)));
-    space1.addDimension(Dimension(CumulativeProbabilities, float(0.01),
-         float(0.99), float(0.01)));
+    space1.addDimension(Dimension(Time, static_cast<size_t>(1986), static_cast<size_t>(2003), static_cast<size_t>(1)));
+    space1.addDimension(Dimension(CumulativeProbabilities, static_cast<float>(0.01),
+         static_cast<float>(0.99), static_cast<float>(0.01)));
     space1.addDimension(Dimension(Space, RegularDiscretisation,
          rasterDimensions));
     space1.addDimension(Dimension(Space, BorderedDiscretisation,
@@ -435,9 +435,9 @@ BOOST_AUTO_TEST_CASE(intersect)
   scenarios.insert("mies");
 
   std::vector<size_t> timeSteps;
-  timeSteps.push_back(size_t(1));
-  timeSteps.push_back(size_t(100));
-  timeSteps.push_back(size_t(1));
+  timeSteps.push_back(static_cast<size_t>(1));
+  timeSteps.push_back(static_cast<size_t>(100));
+  timeSteps.push_back(static_cast<size_t>(1));
 
   RasterDimensions const rasterDimensions(100, 100);
 
@@ -1051,9 +1051,9 @@ BOOST_AUTO_TEST_CASE(contains)
   {
     DataSpace space;
     std::vector<float> quantiles;
-    quantiles.push_back(float(0.1));
-    quantiles.push_back(float(0.9));
-    quantiles.push_back(float(0.01));
+    quantiles.push_back(static_cast<float>(0.1));
+    quantiles.push_back(static_cast<float>(0.9));
+    quantiles.push_back(static_cast<float>(0.01));
     space.addDimension(Dimension(CumulativeProbabilities, quantiles));
 
     DataSpaceAddress address(space.address());

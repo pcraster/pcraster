@@ -129,7 +129,7 @@ public:
 
   void print() const {
    const char *names[4]= { "Def", "Use", "Jump", "Enter"};
-   std::cerr << names[(int)type()]
+   std::cerr << names[static_cast<int>(type())]
              << " d_keepLive(" << d_keepLive << ")";
    if (def()||use()) {
      std::cerr << " d_par->shortPosText(" << d_par->shortPosText() << ")";

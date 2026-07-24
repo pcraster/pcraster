@@ -69,7 +69,7 @@ public:
     std::vector<size_t> dimensionSize;
 
     // UINT4 as xs:unsignedInt;
-    auto const *dimensions((UINT4 const *)memoryArray);
+    auto const *dimensions(static_cast<UINT4 const *>(memoryArray));
     size_t const nrDimensions = *dimensions;
     for (size_t i = 0; i < nrDimensions; ++i) {
       dimensions++;

@@ -177,7 +177,7 @@ void calc::DataType::restrict(VS req)
 //! return if this allow \a  spatialState
 ST calc::DataType::intersect(ST spatialState) const
 {
-  return (ST)((int)d_st & (int)spatialState);
+  return static_cast<ST>(static_cast<int>(d_st) & static_cast<int>(spatialState));
 }
 
 //! restrict this on requirements

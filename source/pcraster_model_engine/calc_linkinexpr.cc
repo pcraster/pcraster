@@ -230,7 +230,7 @@ void LinkInExpr::exec(RunTimeEnv *rte) const
   }
   for (size_t i = 0; i < nrArgs(); ++i) {
     li.argument().push_back(toXMLFieldTypeOfValue(args[i].type()));
-    transferArray.push_back((void *)args.src(i));
+    transferArray.push_back(const_cast<void *>(args.src(i)));
   }
   PRECOND(d_library);
 

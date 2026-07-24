@@ -177,7 +177,7 @@ public:
       if (size == -1) {
         throwError("lseek failed");
       }
-      len = (size_t)size - offset;
+      len = static_cast<size_t>(size) - offset;
       if (len == 0U) {
         throwError("mmap does not support 0 sized files");
       }
@@ -186,7 +186,7 @@ public:
     if (update) {
       prot |= PROT_WRITE;
     }
-    d_ptr = mmap(nullptr, len, prot, (update ? MAP_SHARED : MAP_PRIVATE), d_fd, (off_t)offset);
+    d_ptr = mmap(nullptr, len, prot, (update ? MAP_SHARED : MAP_PRIVATE), d_fd, static_cast<off_t>(offset));
     if (d_ptr == MAP_FAILED) {
       throwError("mmap failed");
     }
@@ -261,12 +261,12 @@ void *com::FileMap::pointer() const
 //! page size of underlying memory architecture
 size_t com::FileMap::pageSize()
 {
-  return (size_t)getPageSize();
+  return static_cast<size_t>(getPageSize());
 }
 
 const char *com::FileMap::begin() const
 {
-  return (const char *)pointer();
+  return static_cast<const char *>(pointer());
 }
 
 const char *com::FileMap::end() const

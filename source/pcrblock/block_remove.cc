@@ -39,7 +39,7 @@ static void remove(
   }
 
   // Test if there is more to remove. If so, dig in.
-  if(thickness > REAL4(0.0)) {
+  if(thickness > static_cast<REAL4>(0.0)) {
 
     if(stack.empty()) {
 

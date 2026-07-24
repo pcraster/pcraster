@@ -84,7 +84,7 @@ void calc::GenerateSpatial::xcoordinate(REAL4 *res) const
   size_t const n = d_spatialpacking.nrFieldCells();
   for (size_t i = 0; i < n; i++) {
     if (maskTrue(i)) {
-      res[i] = (REAL4)ct.getX(i);
+      res[i] = static_cast<REAL4>(ct.getX(i));
     } else {
       pcr::setMV(res[i]);
     }
@@ -97,7 +97,7 @@ void calc::GenerateSpatial::ycoordinate(REAL4 *res) const
   size_t const n = d_spatialpacking.nrFieldCells();
   for (size_t i = 0; i < n; i++) {
     if (maskTrue(i)) {
-      res[i] = (REAL4)ct.getY(i);
+      res[i] = static_cast<REAL4>(ct.getY(i));
     } else {
       pcr::setMV(res[i]);
     }
@@ -109,7 +109,7 @@ void calc::GenerateSpatial::uniform(REAL4 *res) const
   size_t const n = d_spatialpacking.nrFieldCells();
   for (size_t i = 0; i < n; i++) {
     if (maskTrue(i)) {
-      res[i] = (REAL4)Ran();
+      res[i] = static_cast<REAL4>(Ran());
     } else {
       pcr::setMV(res[i]);
     }
@@ -121,7 +121,7 @@ void calc::GenerateSpatial::normal(REAL4 *res) const
   size_t const n = d_spatialpacking.nrFieldCells();
   for (size_t i = 0; i < n; i++) {
     if (maskTrue(i)) {
-      res[i] = (REAL4)GasDev();
+      res[i] = static_cast<REAL4>(GasDev());
     } else {
       pcr::setMV(res[i]);
     }
@@ -134,7 +134,7 @@ void calc::GenerateSpatial::uniqueid(REAL4 *res) const
   if (d_nrMask == 1) {
     if (d_mask[0] == 1) {
       for (size_t i = 0; i < n; i++) {
-        res[i] = (REAL4)(i + 1);
+        res[i] = static_cast<REAL4>(i + 1);
       }
     } else {
       for (size_t i = 0; i < n; i++) {
@@ -149,7 +149,7 @@ void calc::GenerateSpatial::uniqueid(REAL4 *res) const
           res[i] = 0;
           break;
         case 1:
-          res[i] = (REAL4)id++;
+          res[i] = static_cast<REAL4>(id++);
           break;
         default:
           pcr::setMV(res[i]);
@@ -161,7 +161,7 @@ void calc::GenerateSpatial::uniqueid(REAL4 *res) const
 void calc::GenerateNonSpatial::celllength(REAL4 *res) const
 {
   geo::AppRasterSpace const ars(d_rasterSpace);
-  *res = (REAL4)ars.cellSize();
+  *res = static_cast<REAL4>(ars.cellSize());
 }
 
 void calc::GenerateNonSpatial::cellarea(REAL4 *res) const
@@ -172,10 +172,10 @@ void calc::GenerateNonSpatial::cellarea(REAL4 *res) const
 
 void calc::GenerateNonSpatial::mapuniform(REAL4 *res) const
 {
-  *res = (REAL4)Ran();
+  *res = static_cast<REAL4>(Ran());
 }
 
 void calc::GenerateNonSpatial::mapnormal(REAL4 *res) const
 {
-  *res = (REAL4)GasDev();
+  *res = static_cast<REAL4>(GasDev());
 }

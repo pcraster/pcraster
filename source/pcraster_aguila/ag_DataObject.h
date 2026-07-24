@@ -507,7 +507,7 @@ inline bool DataObject::value(
          dataSpace(guide).hasCumProbabilities() &&
          properties().rangeDrawProperties(guide).probabilityScale() ==
               RangeDrawProps::ExceedanceProbabilities) {
-        result = REAL4(1.0) - result;
+        result = static_cast<REAL4>(1.0) - result;
       }
       // </hack>
 
@@ -522,7 +522,7 @@ inline bool DataObject::value(
          dataSpace(guide).hasCumProbabilities() &&
          properties().rangeDrawProperties(guide).probabilityScale() ==
               RangeDrawProps::ExceedanceProbabilities) {
-        result = REAL4(1.0) - result;
+        result = static_cast<REAL4>(1.0) - result;
       }
       // </hack>
 

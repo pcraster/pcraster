@@ -21,13 +21,13 @@ BOOST_AUTO_TEST_CASE(no_compaction_add)
     // Test block.
 
     discr::Raster const raster(3, 1, 1.0, 0.0, 0.0);
-    discr::RasterData<REAL4> const baseElevation(&raster, REAL4(-5.0));
+    discr::RasterData<REAL4> const baseElevation(&raster, static_cast<REAL4>(-5.0));
     discr::Block block(baseElevation);
     typedef discr::Block::ThicknessType T;
 
     discr::RasterData<T> thicknesses(&raster);
-    thicknesses.cell(0) = T(0.0);
-    thicknesses.cell(1) = T(1.0);
+    thicknesses.cell(0) = static_cast<T>(0.0);
+    thicknesses.cell(1) = static_cast<T>(1.0);
     pcr::setMV(thicknesses.cell(2));
 
     noCompactionAdd(block, thicknesses);
@@ -59,7 +59,7 @@ BOOST_AUTO_TEST_CASE(macky_bridge_add)
 
   // Discretisations.
   discr::Raster const raster(nrRows, nrCols, cellSize, west, north);
-  discr::RasterData<REAL4> const baseElevation(&raster, REAL4(5.0));
+  discr::RasterData<REAL4> const baseElevation(&raster, static_cast<REAL4>(5.0));
   discr::Block block(baseElevation);
 
   // Data.
@@ -67,8 +67,8 @@ BOOST_AUTO_TEST_CASE(macky_bridge_add)
   discr::BlockData<INT4> sediment(&block, 3);
 
   // Add function arguments.
-  discr::RasterData<REAL4> const thickness(&raster, REAL4(15.5));
-  auto maxVoxelThickness = REAL4(1.0);
+  discr::RasterData<REAL4> const thickness(&raster, static_cast<REAL4>(15.5));
+  auto maxVoxelThickness = static_cast<REAL4>(1.0);
 
   // No compaction.
   Compactors<MackeyBridgeCompactor> compactors;

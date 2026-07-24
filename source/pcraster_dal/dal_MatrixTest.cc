@@ -48,7 +48,7 @@ BOOST_AUTO_TEST_CASE(extremes)
     matrix.setCellsReference(data);
     BOOST_TEST( matrix.cellsAreCreated());
     BOOST_TEST(!matrix.hasExtremes());
-    matrix.setExtremes(std::any(UINT1(0)), std::any(UINT1(5)));
+    matrix.setExtremes(std::any(static_cast<UINT1>(0)), std::any(static_cast<UINT1>(5)));
     BOOST_TEST(matrix.hasExtremes());
     BOOST_TEST(!matrix.allMV());
     BOOST_TEST(std::any_cast<UINT1>(matrix.min()) == 0);

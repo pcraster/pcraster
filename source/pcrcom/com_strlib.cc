@@ -57,7 +57,7 @@ size_t com::strToSize_t(const std::string &s)
 {
   int const v = strToInt(s);
   rangeErrorIf(v < 0, NOT_A_SIZET);
-  return (size_t)v;
+  return static_cast<size_t>(v);
 }
 
 //! Converts \a s to a bool
@@ -105,7 +105,7 @@ int com::strToInt(const std::string &s)
   char *endPtr = nullptr;
   long int const v = strtol(str, &endPtr, 10);
   strToCheck(str, endPtr, NOT_A_INT);
-  return (int)v;
+  return static_cast<int>(v);
 }
 
 //! Converts \a s to a double.

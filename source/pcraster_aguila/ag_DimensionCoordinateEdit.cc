@@ -111,7 +111,7 @@ void DimensionCoordinateEdit::valueChanged(int index)
   assert(index >= 0);
   assert(index < static_cast<int>(d_dimension->nrCoordinates()));
 
-  Q_EMIT coordinateSet(d_dimension, size_t(index));
+  Q_EMIT coordinateSet(d_dimension, static_cast<size_t>(index));
 }
 
 void DimensionCoordinateEdit::setCoordinate(size_t index)
@@ -122,13 +122,13 @@ void DimensionCoordinateEdit::setCoordinate(size_t index)
     case dal::ExactDiscretisation: {
       auto *comboBox = dynamic_cast<QComboBox *>(d_editWidget);
       assert(comboBox);
-      comboBox->setCurrentIndex(int(index));
+      comboBox->setCurrentIndex(static_cast<int>(index));
       break;
     }
     case dal::RegularDiscretisation: {
       auto *slider = dynamic_cast<QSlider *>(d_editWidget);
       assert(slider);
-      slider->setValue(int(index));
+      slider->setValue(static_cast<int>(index));
       break;
     }
     default: {

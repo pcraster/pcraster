@@ -110,7 +110,7 @@ void calc::Muskingum::exec(
 
        double const FlowRate = ((C1 * InflowPrev) + (C2*Inflow) + (C3*FlowRatePrev));
        IterationFlowRateMap[v] =FlowRate;  // m3/timestep
-       MyResultMap[v]=(float)(MyResultMap[v]+(FlowRate/d_csi.sliceInSecs));  // m3/sec
+       MyResultMap[v]=static_cast<float>(MyResultMap[v]+(FlowRate/d_csi.sliceInSecs));  // m3/sec
        MG_DEBUG(MyResultMap[v]);
 
        // NA alle visits

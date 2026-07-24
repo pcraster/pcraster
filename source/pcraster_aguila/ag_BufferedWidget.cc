@@ -367,13 +367,13 @@ void BufferedWidget::resizeEvent(QResizeEvent *event)
 
     // xRecycledBuffer = qRound(fractionalPart) == 0
     xRecycledBuffer =
-        fractionalPart < qreal(0.5) ? std::floor(xRecycledBuffer) : std::ceil(xRecycledBuffer);
+        fractionalPart < static_cast<qreal>(0.5) ? std::floor(xRecycledBuffer) : std::ceil(xRecycledBuffer);
 
     fractionalPart = std::modf(_anchor.y(), &intPart);
 
     // yRecycledBuffer = qRound(fractionalPart) == 0
     yRecycledBuffer =
-        fractionalPart < qreal(0.5) ? std::floor(yRecycledBuffer) : std::ceil(yRecycledBuffer);
+        fractionalPart < static_cast<qreal>(0.5) ? std::floor(yRecycledBuffer) : std::ceil(yRecycledBuffer);
 
     QPainter painter(&newBuffer);
     painter.drawPixmap(QPointF(xRecycledBuffer, yRecycledBuffer), _buffer,

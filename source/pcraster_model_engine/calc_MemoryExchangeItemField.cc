@@ -43,7 +43,7 @@ MemoryExchangeItemField::~MemoryExchangeItemField()
 
 void *MemoryExchangeItemField::rawValue() const
 {
-  return (void *)d_value->src();
+  return const_cast<void *>(d_value->src());
 }
 
 //! copy Field buffer into into dest.

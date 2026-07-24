@@ -29,31 +29,31 @@ BOOST_AUTO_TEST_CASE(testReportDefault)
   // _ifthenelse(A &result, const UINT1& arg0, const A& arg1,const A& arg2)
   {
     REAL4 r = -999;
-    _ifthenelse<>(r, MV_UINT1, (REAL4)1.0, (REAL4)2.0);
+    _ifthenelse<>(r, MV_UINT1, static_cast<REAL4>(1.0), static_cast<REAL4>(2.0));
     BOOST_TEST(pcr::isMV(r));
   }
   {
     REAL4 r = -999;
-    _ifthenelse<>(r, 0, (REAL4)1.0, (REAL4)2.0);
+    _ifthenelse<>(r, 0, static_cast<REAL4>(1.0), static_cast<REAL4>(2.0));
     BOOST_TEST(r == 2);
   }
   {
     REAL4 r = -999;
     REAL4 arg2 = NAN;
     pcr::setMV(arg2);
-    _ifthenelse<>(r, 0, (REAL4)1.0, arg2);
+    _ifthenelse<>(r, 0, static_cast<REAL4>(1.0), arg2);
     BOOST_TEST(pcr::isMV(r));
   }
   {
     REAL4 r = -999;
-    _ifthenelse<>(r, 1, (REAL4)1.0, (REAL4)2.0);
+    _ifthenelse<>(r, 1, static_cast<REAL4>(1.0), static_cast<REAL4>(2.0));
     BOOST_TEST(r == 1);
   }
   {
     REAL4 r = -999;
     REAL4 arg1 = NAN;
     pcr::setMV(arg1);
-    _ifthenelse<>(r, 1, arg1, (REAL4)2);
+    _ifthenelse<>(r, 1, arg1, static_cast<REAL4>(2));
     BOOST_TEST(pcr::isMV(r));
   }
 }

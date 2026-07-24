@@ -1404,11 +1404,11 @@ void DataSource::probability(
   else {
     if(!pcr::isMV(lowerValue) && pcr::isMV(upperValue)) {
       // Past the range of quantiles. Assume cum prob is 1.0.
-      *result = REAL4(1.0);
+      *result = static_cast<REAL4>(1.0);
     }
     else if(pcr::isMV(lowerValue) && !pcr::isMV(upperValue)) {
       // Before the range of quantiles. Assume cum prob is 0.0.
-      *result = REAL4(0.0);
+      *result = static_cast<REAL4>(0.0);
     }
     else {
       // Within the range of quantiles. Interpolate for cum prob.
@@ -1477,7 +1477,7 @@ PCR_DAL_DECL void DataSource::read(
 
     // Fixate the time step.
     iterSpace.dimension(indexOfTime).template setValues<size_t>(timeStep,
-         timeStep, size_t(1));
+         timeStep, static_cast<size_t>(1));
 
     // Determine probability of value at current time step.
     probability(*d_reader, value, iterSpace, &probabilities[i]);

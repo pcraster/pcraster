@@ -193,7 +193,7 @@ bool FeatureLayer::hasValues() const
   assert(_values.nrRecs() == size_t(0) ||
          _values.nrRecs() == _geometries->size());
 
-  return _values.nrRecs() > size_t(0);
+  return _values.nrRecs() > static_cast<size_t>(0);
 }
 
 

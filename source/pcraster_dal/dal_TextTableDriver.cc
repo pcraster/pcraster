@@ -562,7 +562,7 @@ void TextTableDriver::readValues(
       }
       case TI_REAL4: {
         Array<REAL4>& column = table.col<REAL4>(col);
-        toStdMV<REAL4>(column.begin(), column.end(), REAL4(1e+31));
+        toStdMV<REAL4>(column.begin(), column.end(), static_cast<REAL4>(1e+31));
         break;
       }
       case TI_REAL8: {

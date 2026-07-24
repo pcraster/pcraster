@@ -144,7 +144,7 @@ void ExceedanceProbabilityRasterDrawer::drawMultipleColours(QPainter &painter, Q
       // Loop over (part of) a row. Determine colour of each subsequent cell.
       // Draw rectangles of cells with equal colour.
       if (!pcr::isMV(matrix.cell<REAL4>(row, col))) {
-        colour = _properties.colour(REAL4(1.0) - matrix.cell<REAL4>(row, col));
+        colour = _properties.colour(static_cast<REAL4>(1.0) - matrix.cell<REAL4>(row, col));
 
         _raster->dimensions().coordinates(row, col, leftWorld, topWorld);
 
@@ -154,8 +154,8 @@ void ExceedanceProbabilityRasterDrawer::drawMultipleColours(QPainter &painter, Q
 
         col += nrCellsPerPixel;
 
-        while (col <= lastCol && !pcr::isMV(REAL4(1.0) - matrix.cell<REAL4>(row, col)) &&
-               _properties.colour(REAL4(1.0) - matrix.cell<REAL4>(row, col)) == colour) {
+        while (col <= lastCol && !pcr::isMV(static_cast<REAL4>(1.0) - matrix.cell<REAL4>(row, col)) &&
+               _properties.colour(static_cast<REAL4>(1.0) - matrix.cell<REAL4>(row, col)) == colour) {
           col += nrCellsPerPixel;
         }
 
@@ -269,10 +269,10 @@ void ExceedanceProbabilityRasterDrawer::drawContours(QPainter &painter, QRect co
           !pcr::isMV(matrix.cell<REAL4>(row + nrCellsPerPixel, col + nrCellsPerPixel)) &&
           !pcr::isMV(matrix.cell<REAL4>(row + nrCellsPerPixel, col))) {
 
-        values[0] = REAL4(1.0) - matrix.cell<REAL4>(row, col);
-        values[1] = REAL4(1.0) - matrix.cell<REAL4>(row, col + nrCellsPerPixel);
-        values[2] = REAL4(1.0) - matrix.cell<REAL4>(row + nrCellsPerPixel, col + nrCellsPerPixel);
-        values[3] = REAL4(1.0) - matrix.cell<REAL4>(row + nrCellsPerPixel, col);
+        values[0] = static_cast<REAL4>(1.0) - matrix.cell<REAL4>(row, col);
+        values[1] = static_cast<REAL4>(1.0) - matrix.cell<REAL4>(row, col + nrCellsPerPixel);
+        values[2] = static_cast<REAL4>(1.0) - matrix.cell<REAL4>(row + nrCellsPerPixel, col + nrCellsPerPixel);
+        values[3] = static_cast<REAL4>(1.0) - matrix.cell<REAL4>(row + nrCellsPerPixel, col);
 
         // Calculate the pixelcoordinates of the centre.
         _raster->dimensions().coordinates(row + 1, col + 1, cxWld, cyWld);

@@ -60,7 +60,7 @@ template <typename F> static void execLookupLookup(ExecArguments &a, F f)
         if (!a[k].getCell(keyVal, i)) {
           goto store;
         }
-        keyValues[k] = (RelationRecord::Float)keyVal;
+        keyValues[k] = static_cast<RelationRecord::Float>(keyVal);
       }
       f(tab, res, keyValues);
     store:

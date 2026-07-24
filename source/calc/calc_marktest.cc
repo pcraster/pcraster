@@ -57,7 +57,7 @@ public:
     if (!t) {
       std::cout << "result ";
       for (size_t i = 0; i < d_nrCells; i++) {
-        std::cout << (int)d_resultCells[i];
+        std::cout << static_cast<int>(d_resultCells[i]);
       }
       std::cout << "\n";
     }
@@ -74,7 +74,7 @@ public:
     if (!t) {
       std::cout << "result ";
       for (size_t i = 0; i < d_nrCells; i++) {
-        std::cout << (int)d_resultCells[i];
+        std::cout << static_cast<int>(d_resultCells[i]);
       }
       std::cout << "\n";
     }

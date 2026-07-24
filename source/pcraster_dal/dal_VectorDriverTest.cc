@@ -51,7 +51,7 @@ BOOST_AUTO_TEST_CASE(exists)
   // Temporal data.
   {
     DataSpace space;
-    space.addDimension(Dimension(Time, size_t(1), size_t(5), size_t(1)));
+    space.addDimension(Dimension(Time, static_cast<size_t>(1), static_cast<size_t>(5), static_cast<size_t>(1)));
     DataSpaceAddress address(space.address());
 
     address.setCoordinate<size_t>(0, 1);
@@ -105,7 +105,7 @@ BOOST_AUTO_TEST_CASE(open)
   // Temporal data.
   {
     DataSpace space;
-    space.addDimension(Dimension(Time, size_t(1), size_t(5), size_t(1)));
+    space.addDimension(Dimension(Time, static_cast<size_t>(1), static_cast<size_t>(5), static_cast<size_t>(1)));
     DataSpaceAddress address(space.address());
 
     address.setCoordinate<size_t>(0, 2);
@@ -160,7 +160,7 @@ BOOST_AUTO_TEST_CASE(data_space)
   // Temporal data.
   {
     DataSpace space;
-    space.addDimension(Dimension(Time, size_t(1), size_t(5), size_t(1)));
+    space.addDimension(Dimension(Time, static_cast<size_t>(1), static_cast<size_t>(5), static_cast<size_t>(1)));
     DataSpaceAddress address(space.address());
 
     address.setCoordinate<size_t>(0, 2);

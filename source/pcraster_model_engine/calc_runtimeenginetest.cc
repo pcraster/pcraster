@@ -238,9 +238,9 @@ BOOST_AUTO_TEST_CASE(testLoadByStorageId)
 
   const Operator *a = major2op(OP_LOOKUPNOMINAL);
 
-  NonSpatial o5(VS_O, (double)5);
-  NonSpatial o8(VS_O, (double)8);
-  NonSpatial o10(VS_O, (double)10);
+  NonSpatial o5(VS_O, static_cast<double>(5));
+  NonSpatial o8(VS_O, static_cast<double>(8));
+  NonSpatial o10(VS_O, static_cast<double>(10));
 
   RunTimeEngine rte(geo::RasterSpace(1, NR6));
 
@@ -315,7 +315,7 @@ BOOST_AUTO_TEST_CASE(testLoadByStorageId)
     rte.pushDataStorageId(&id);
 
     rte.pushField(&o5);
-    NonSpatial s8(VS_S, (double)8);
+    NonSpatial s8(VS_S, static_cast<double>(8));
     rte.pushField(&s8);  // one column wrong
     rte.pushField(&o8);
 

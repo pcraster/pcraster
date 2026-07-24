@@ -113,12 +113,12 @@ DataSpace BlockDriver::dataSpace(
 
   std::vector<std::any> rows;
   std::vector<std::any> cols;
-  rows.emplace_back(size_t(1));
+  rows.emplace_back(static_cast<size_t>(1));
   rows.emplace_back(block->nrRows());
-  rows.emplace_back(size_t(1));
-  cols.emplace_back(size_t(1));
+  rows.emplace_back(static_cast<size_t>(1));
+  cols.emplace_back(static_cast<size_t>(1));
   cols.emplace_back(block->nrCols());
-  cols.emplace_back(size_t(1));
+  cols.emplace_back(static_cast<size_t>(1));
 
   DataSpace const rasterSpace;
   assert(false); // Update to use RasterDimensions, see elsewhere.

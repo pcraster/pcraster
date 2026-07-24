@@ -606,7 +606,7 @@ void VectorDriver::browse(
   std::vector<std::string> const& extensions(format().extensions());
 
   // Temporal vector.
-  for(int i = 0; i < int(leaves.size()); ++i) {
+  for(int i = 0; i < static_cast<int>(leaves.size()); ++i) {
     // First find x component.
     if(std::regex_match(leaves[i], match, temporalVectorXRegex)) {
       name = std::string(match[1].first, match[1].second);
@@ -620,7 +620,7 @@ void VectorDriver::browse(
          step,
          extension));
 
-      for(int j = i + 1; j < int(leaves.size()); ++j) {
+      for(int j = i + 1; j < static_cast<int>(leaves.size()); ++j) {
         // See whether there is a matching y component.
         if(std::regex_match(leaves[j], match, regex)) {
           // Vector found.
@@ -635,7 +635,7 @@ void VectorDriver::browse(
           steps.clear();
           ids.clear();
 
-          for(int k = i; k < int(leaves.size()); ++k) {
+          for(int k = i; k < static_cast<int>(leaves.size()); ++k) {
             if(std::regex_match(leaves[k], match, regex)) {
               step = std::string(match[1].first, match[1].second);
               steps.insert(boost::lexical_cast<size_t>(step));
@@ -645,7 +645,7 @@ void VectorDriver::browse(
 
           assert(!steps.empty());
           DataSpace space(Dimension(Time, *steps.begin(), *steps.begin(),
-              size_t(1)));
+              static_cast<size_t>(1)));
           DataSpaceAddress address(space.address());
           address.setCoordinate<size_t>(0, *steps.begin());
 
@@ -689,7 +689,7 @@ void VectorDriver::browse(
   }
 
   // Vector.
-  for(int i = 0; i < int(leaves.size()); ++i) {
+  for(int i = 0; i < static_cast<int>(leaves.size()); ++i) {
     if(std::regex_match(leaves[i], match, vectorXRegex)) {
       name = std::string(match[1].first, match[1].second);
       extension = match[2].matched ?
@@ -700,7 +700,7 @@ void VectorDriver::browse(
          name,
          extension));
 
-      for(int j = i + 1; j < int(leaves.size()); ++j) {
+      for(int j = i + 1; j < static_cast<int>(leaves.size()); ++j) {
         if(std::regex_match(leaves[j], match, regex)) {
 
           if(std::find(extensions.begin(), extensions.end(),

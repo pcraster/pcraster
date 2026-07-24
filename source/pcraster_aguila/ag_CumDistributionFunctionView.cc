@@ -208,8 +208,8 @@ void CumDistributionFunctionView::setXAxisScale()
           max = dataset->max<REAL4>();
           extremesInitialised = true;
         } else {
-          min = std::min(min, double(dataset->min<REAL4>()));
-          max = std::max(max, double(dataset->max<REAL4>()));
+          min = std::min(min, static_cast<double>(dataset->min<REAL4>()));
+          max = std::max(max, static_cast<double>(dataset->max<REAL4>()));
         }
       }
     }

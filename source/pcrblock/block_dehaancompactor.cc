@@ -89,8 +89,8 @@ REAL4 DeHaanCompactor::operator()(
 
   double result = 0.0;
 
-  if(initialThickness > REAL4(0.0) && cummulativeLoad > REAL4(0.0) &&
-         duration > REAL4(0.0)) {
+  if(initialThickness > static_cast<REAL4>(0.0) && cummulativeLoad > static_cast<REAL4>(0.0) &&
+         duration > static_cast<REAL4>(0.0)) {
     result = initialThickness *
          pow(cummulativeLoad / 0.05, -d_b) * pow(duration, -d_c);
   }

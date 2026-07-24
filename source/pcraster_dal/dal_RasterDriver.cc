@@ -501,7 +501,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
 
   // Quantiles of temporal rasters.
   // <name>_<step>_<quantile>.{extension}
-  for(int i = 0; i < int(leaves.size()); ++i) {
+  for(int i = 0; i < static_cast<int>(leaves.size()); ++i) {
     if(std::regex_match(leaves[i], match,
          quantileOfTemporalRasterRegex)) {
       name = std::string(match[1].first, match[1].second);
@@ -540,9 +540,9 @@ void RasterDriver::browseFileBasedRasterAttributes(
       assert(!quantiles.empty());
 
       DataSpace space(Dimension(Time, *steps.begin(), *(--steps.end()),
-         size_t(1)));
+         static_cast<size_t>(1)));
       space.addDimension(Dimension(CumulativeProbabilities, *quantiles.begin(),
-         *(--quantiles.end()), float(0.01)));
+         *(--quantiles.end()), static_cast<float>(0.01)));
       DataSpaceAddress address(space.address());
       address.setCoordinate<size_t>(0, *steps.begin());
       address.setCoordinate<float>(1, *quantiles.begin());
@@ -600,7 +600,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
 
   // Quantiles of rasters.
   // <name>_<quantile>.{extension}
-  for(int i = 0; i < int(leaves.size()); ++i) {
+  for(int i = 0; i < static_cast<int>(leaves.size()); ++i) {
     if(std::regex_match(leaves[i], match, quantileOfRasterRegex)) {
       name = std::string(match[1].first, match[1].second);
       quantile = std::string(match[2].first, match[2].second);
@@ -630,7 +630,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
       assert(!quantiles.empty());
 
       DataSpace space(Dimension(CumulativeProbabilities, *quantiles.begin(),
-         *quantiles.begin(), float(0.01)));
+         *quantiles.begin(), static_cast<float>(0.01)));
       DataSpaceAddress address(space.address());
       address.setCoordinate<float>(0, *quantiles.begin());
 
@@ -673,7 +673,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
 
   // Temporal rasters.
   // <name>_<timestep>{.extension}
-  for(int i = 0; i < int(leaves.size()); ++i) {
+  for(int i = 0; i < static_cast<int>(leaves.size()); ++i) {
     if(std::regex_match(leaves[i], match, temporalRasterRegex)) {
       name = std::string(match[1].first, match[1].second);
       step = std::string(match[2].first, match[2].second);
@@ -702,7 +702,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
       assert(!steps.empty());
 
       DataSpace space(Dimension(Time, *steps.begin(), *steps.begin(),
-         size_t(1)));
+         static_cast<size_t>(1)));
       DataSpaceAddress address(space.address());
       address.setCoordinate<size_t>(0, *steps.begin());
 
@@ -747,7 +747,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
     // Temporal rasters.
     // 8.3 Dos convention.
     // <name><timestep>
-    for(int i = 0; i < int(leaves.size()); ++i) {
+    for(int i = 0; i < static_cast<int>(leaves.size()); ++i) {
       if(std::regex_match(leaves[i], match, dosRegex)) {
         std::string fileName(leaves[i]);
         assert(fileName[8] == '.');
@@ -768,7 +768,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
           steps.insert(boost::lexical_cast<size_t>(step));
           ids.push_back(i);
 
-          for(int j = i + 1; j < int(leaves.size()); ++j) {
+          for(int j = i + 1; j < static_cast<int>(leaves.size()); ++j) {
             if(std::regex_match(leaves[j], match, regex)) {
               step = std::string(match[1].first, match[1].second);
 
@@ -784,7 +784,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
           assert(!steps.empty());
 
           DataSpace space(Dimension(Time, *steps.begin(), *steps.begin(),
-              size_t(1)));
+              static_cast<size_t>(1)));
           DataSpaceAddress address(space.address());
           address.setCoordinate<size_t>(0, *steps.begin());
 
@@ -829,7 +829,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
   }
 
   // Single rasters.
-  for(int i = 0; i < int(leaves.size()); ++i) {
+  for(int i = 0; i < static_cast<int>(leaves.size()); ++i) {
     raster = open((path / leaves[i]).string());
 
     if(raster != nullptr) {

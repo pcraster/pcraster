@@ -30,7 +30,7 @@ void calc::LookupMapStack::exec(RunTimeEnv *rte, const Operator &op, size_t nrAr
   // RUNTIMER ERROR ON MV
   POSTCOND(!ns->isMV());
 
-  rte->pushField(stack->readLookup((int)ns->getValue()));
+  rte->pushField(stack->readLookup(static_cast<int>(ns->getValue())));
 }
 
 //------------------------------------------------------------------------------

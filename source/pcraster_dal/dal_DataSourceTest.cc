@@ -464,9 +464,9 @@ BOOST_AUTO_TEST_CASE(dataset_1)
 
     DataSpace space;
     std::vector<size_t> timeSteps;
-    timeSteps.push_back(size_t( 9));
-    timeSteps.push_back(size_t(21));
-    timeSteps.push_back(size_t(1));
+    timeSteps.push_back(static_cast<size_t>( 9));
+    timeSteps.push_back(static_cast<size_t>(21));
+    timeSteps.push_back(static_cast<size_t>(1));
     space.addDimension(Dimension(Time, timeSteps));
 
     DataSource source(datasetName, space);
@@ -476,9 +476,9 @@ BOOST_AUTO_TEST_CASE(dataset_1)
     {
       DataSpace realSpace;
       std::vector<size_t> timeSteps;
-      timeSteps.push_back(size_t(10));
-      timeSteps.push_back(size_t(20));
-      timeSteps.push_back(size_t(1));
+      timeSteps.push_back(static_cast<size_t>(10));
+      timeSteps.push_back(static_cast<size_t>(20));
+      timeSteps.push_back(static_cast<size_t>(1));
       realSpace.addDimension(Dimension(Time, timeSteps));
       BOOST_CHECK(source.enclosingDataSpace() == realSpace);
     }
@@ -566,9 +566,9 @@ BOOST_AUTO_TEST_CASE(dataset_1)
 
     DataSpace space;
     std::vector<size_t> timeSteps;
-    timeSteps.push_back(size_t(11));
-    timeSteps.push_back(size_t(19));
-    timeSteps.push_back(size_t(1));
+    timeSteps.push_back(static_cast<size_t>(11));
+    timeSteps.push_back(static_cast<size_t>(19));
+    timeSteps.push_back(static_cast<size_t>(1));
     space.addDimension(Dimension(Time, timeSteps));
     DataSource source(datasetName, space);
 
@@ -642,9 +642,9 @@ BOOST_AUTO_TEST_CASE(dataset_1)
 
     DataSpace space;
     std::vector<size_t> timeSteps;
-    timeSteps.push_back(size_t( 9));
-    timeSteps.push_back(size_t(21));
-    timeSteps.push_back(size_t(2));
+    timeSteps.push_back(static_cast<size_t>( 9));
+    timeSteps.push_back(static_cast<size_t>(21));
+    timeSteps.push_back(static_cast<size_t>(2));
     space.addDimension(Dimension(Time, timeSteps));
     DataSource source(datasetName, space);
 
@@ -740,9 +740,9 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
 
     DataSpace space;
     std::vector<float> quantiles;
-    quantiles.push_back(float(0.01));
-    quantiles.push_back(float(0.99));
-    quantiles.push_back(float(0.01));
+    quantiles.push_back(static_cast<float>(0.01));
+    quantiles.push_back(static_cast<float>(0.99));
+    quantiles.push_back(static_cast<float>(0.01));
     space.addDimension(Dimension(CumulativeProbabilities, quantiles));
 
     DataSource source(datasetName, space);
@@ -751,9 +751,9 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
     {
       DataSpace realSpace;
       std::vector<float> quantiles;
-      quantiles.push_back(float(0.1));
-      quantiles.push_back(float(0.9));
-      quantiles.push_back(float(0.01));
+      quantiles.push_back(static_cast<float>(0.1));
+      quantiles.push_back(static_cast<float>(0.9));
+      quantiles.push_back(static_cast<float>(0.01));
       realSpace.addDimension(Dimension(CumulativeProbabilities, quantiles));
       BOOST_CHECK(source.enclosingDataSpace() == realSpace);
     }
@@ -810,40 +810,40 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       source.read(*raster, address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       REAL4 value = NAN;
-      interpolate(value, REAL4(0.0), REAL4(0.1), REAL4(4.0), REAL4(0.05));
+      interpolate(value, static_cast<REAL4>(0.0), static_cast<REAL4>(0.1), static_cast<REAL4>(4.0), static_cast<REAL4>(0.05));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), value));
 
       // Test the retrieval of quantiles given a data value.
       address.unsetCoordinate(0);
-      source.read(*raster, REAL4(5.0), address);
+      source.read(*raster, static_cast<REAL4>(5.0), address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.5)));
 
-      source.read(*raster, REAL4(4.0), address);
+      source.read(*raster, static_cast<REAL4>(4.0), address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.25)));
 
-      source.read(*raster, REAL4(0.0), address);
+      source.read(*raster, static_cast<REAL4>(0.0), address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.1)));
 
-      source.read(*raster, REAL4(10.0), address);
+      source.read(*raster, static_cast<REAL4>(10.0), address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.9)));
 
       // Data value not present, within data range, must be interpolated.
-      source.read(*raster, REAL4(3.0), address);
+      source.read(*raster, static_cast<REAL4>(3.0), address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
-      interpolate(value, REAL4(0.25), REAL4(1), REAL4(0.1), REAL4(3.0));
+      interpolate(value, static_cast<REAL4>(0.25), static_cast<REAL4>(1), static_cast<REAL4>(0.1), static_cast<REAL4>(3.0));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), value));
 
       // Outside data range. Left tail: 0.0
-      source.read(*raster, REAL4(-1.0), address);
+      source.read(*raster, static_cast<REAL4>(-1.0), address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.0)));
 
       // Outside data range. Right tail: 1.0
-      source.read(*raster, REAL4(10.1), address);
+      source.read(*raster, static_cast<REAL4>(10.1), address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(1.0)));
     }
@@ -876,7 +876,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
 
       BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[10]));
       REAL4 value = NAN;
-      interpolate(value, REAL4(0.0), REAL4(0.1), REAL4(4.0), REAL4(0.05));
+      interpolate(value, static_cast<REAL4>(0.0), static_cast<REAL4>(0.1), static_cast<REAL4>(4.0), static_cast<REAL4>(0.05));
       BOOST_TEST(comparable(table.col<REAL4>(0)[10], value));
     }
   }
@@ -888,13 +888,13 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
 
     DataSpace space;
     std::vector<size_t> timeSteps;
-    timeSteps.push_back(size_t(9));
-    timeSteps.push_back(size_t(21));
-    timeSteps.push_back(size_t(1));
+    timeSteps.push_back(static_cast<size_t>(9));
+    timeSteps.push_back(static_cast<size_t>(21));
+    timeSteps.push_back(static_cast<size_t>(1));
     std::vector<float> quantiles;
-    quantiles.push_back(float(0.01));
-    quantiles.push_back(float(0.99));
-    quantiles.push_back(float(0.01));
+    quantiles.push_back(static_cast<float>(0.01));
+    quantiles.push_back(static_cast<float>(0.99));
+    quantiles.push_back(static_cast<float>(0.01));
     space.addDimension(Dimension(Time, timeSteps));
     space.addDimension(Dimension(CumulativeProbabilities, quantiles));
 
@@ -904,13 +904,13 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
     {
       DataSpace realSpace;
       std::vector<size_t> timeSteps;
-      timeSteps.push_back(size_t(10));
-      timeSteps.push_back(size_t(20));
-      timeSteps.push_back(size_t(1));
+      timeSteps.push_back(static_cast<size_t>(10));
+      timeSteps.push_back(static_cast<size_t>(20));
+      timeSteps.push_back(static_cast<size_t>(1));
       std::vector<float> quantiles;
-      quantiles.push_back(float(0.1));
-      quantiles.push_back(float(0.9));
-      quantiles.push_back(float(0.01));
+      quantiles.push_back(static_cast<float>(0.1));
+      quantiles.push_back(static_cast<float>(0.9));
+      quantiles.push_back(static_cast<float>(0.01));
       realSpace.addDimension(Dimension(Time, timeSteps));
       realSpace.addDimension(Dimension(CumulativeProbabilities, quantiles));
     }
@@ -958,7 +958,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       source.read(*raster, address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       REAL4 value = NAN;
-      interpolate(value, REAL4(6.0), REAL4(0.1), REAL4(7.0), REAL4(0.15));
+      interpolate(value, static_cast<REAL4>(6.0), static_cast<REAL4>(0.1), static_cast<REAL4>(7.0), static_cast<REAL4>(0.15));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), value));
 
       address.setCoordinate<size_t>(0, 16);
@@ -976,46 +976,46 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       // Test the retrieval of quantiles given a data value.
       address.setCoordinate<size_t>(0, 15);
       address.unsetCoordinate(1);
-      source.read(*raster, REAL4(5.0), address);
+      source.read(*raster, static_cast<REAL4>(5.0), address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.25)));
 
-      source.read(*raster, REAL4(1.0), address);
+      source.read(*raster, static_cast<REAL4>(1.0), address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.1)));
 
-      source.read(*raster, REAL4(11.0), address);
+      source.read(*raster, static_cast<REAL4>(11.0), address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.9)));
 
       address.setCoordinate<size_t>(0, 14);
-      source.read(*raster, REAL4(5.0), address);
+      source.read(*raster, static_cast<REAL4>(5.0), address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.5)));
 
       address.setCoordinate<size_t>(0, 21);
-      source.read(*raster, REAL4(6.0), address);
+      source.read(*raster, static_cast<REAL4>(6.0), address);
       BOOST_TEST(pcr::isMV(raster->cell<REAL4>(0)));
       // BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
       // BOOST_CHECK(comparable(raster->cell<REAL4>(0), REAL4(0.25)));
 
       address.setCoordinate<size_t>(0, 9);
-      source.read(*raster, REAL4(6.0), address);
+      source.read(*raster, static_cast<REAL4>(6.0), address);
       BOOST_TEST(pcr::isMV(raster->cell<REAL4>(0)));
 
       address.setCoordinate<size_t>(0, 15);
-      source.read(*raster, REAL4(8.0), address);
+      source.read(*raster, static_cast<REAL4>(8.0), address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
-      interpolate(value, REAL4(0.75), REAL4(1.0), REAL4(0.9), REAL4(3.0));
+      interpolate(value, static_cast<REAL4>(0.75), static_cast<REAL4>(1.0), static_cast<REAL4>(0.9), static_cast<REAL4>(3.0));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), value));
 
       // Outside data range. Left tail: 0.0
-      source.read(*raster, REAL4(-1.0), address);
+      source.read(*raster, static_cast<REAL4>(-1.0), address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.0)));
 
       // Outside data range. Right tail: 1.0
-      source.read(*raster, REAL4(11.1), address);
+      source.read(*raster, static_cast<REAL4>(11.1), address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(1.0)));
     }
@@ -1049,7 +1049,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
 
       BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[10]));
       REAL4 value = NAN;
-      interpolate(value, REAL4(1.0), REAL4(0.1), REAL4(5.0), REAL4(0.05));
+      interpolate(value, static_cast<REAL4>(1.0), static_cast<REAL4>(0.1), static_cast<REAL4>(5.0), static_cast<REAL4>(0.05));
       BOOST_TEST(comparable(table.col<REAL4>(0)[10], value));
 
       // Data for this time step does not exist, fall back to previous one.
@@ -1069,7 +1069,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       BOOST_TEST(comparable(table.col<REAL4>(0)[80], REAL4(10.0)));
 
       BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[10]));
-      interpolate(value, REAL4(0.0), REAL4(0.1), REAL4(4.0), REAL4(0.05));
+      interpolate(value, static_cast<REAL4>(0.0), static_cast<REAL4>(0.1), static_cast<REAL4>(4.0), static_cast<REAL4>(0.05));
       BOOST_TEST(comparable(table.col<REAL4>(0)[10], value));
 
       // Data for this time step does not exist, fall back to previous one.
@@ -1134,7 +1134,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       BOOST_TEST(table.nrRecs() == size_t(11));
       REAL4 value = NAN;
       BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[0]));
-      interpolate(value, REAL4(5.0), REAL4(0.1), REAL4(6.0), REAL4(0.15));
+      interpolate(value, static_cast<REAL4>(5.0), static_cast<REAL4>(0.1), static_cast<REAL4>(6.0), static_cast<REAL4>(0.15));
       BOOST_TEST(comparable(table.col<REAL4>(0)[0], value));
 
       BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[1]));
@@ -1144,14 +1144,14 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       BOOST_TEST(comparable(table.col<REAL4>(0)[4], value));
 
       BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[5]));
-      interpolate(value, REAL4(6.0), REAL4(0.1), REAL4(7.0), REAL4(0.15));
+      interpolate(value, static_cast<REAL4>(6.0), static_cast<REAL4>(0.1), static_cast<REAL4>(7.0), static_cast<REAL4>(0.15));
       BOOST_TEST(comparable(table.col<REAL4>(0)[5], value));
 
       BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[9]));
       BOOST_TEST(comparable(table.col<REAL4>(0)[9], value));
 
       BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[10]));
-      interpolate(value, REAL4(7.0), REAL4(0.1), REAL4(8.0), REAL4(0.15));
+      interpolate(value, static_cast<REAL4>(7.0), static_cast<REAL4>(0.1), static_cast<REAL4>(8.0), static_cast<REAL4>(0.15));
       BOOST_TEST(comparable(table.col<REAL4>(0)[10], value));
 
       address.setCoordinate<float>(1, 0.09F);
@@ -1210,7 +1210,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       BOOST_TEST(pcr::isMV(table.col<REAL4>(0)[9]));
 
       BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[10]));
-      interpolate(value, REAL4(0.1), REAL4(3.0), REAL4(0.25), REAL4(1.0));
+      interpolate(value, static_cast<REAL4>(0.1), static_cast<REAL4>(3.0), static_cast<REAL4>(0.25), static_cast<REAL4>(1.0));
       BOOST_TEST(comparable(table.col<REAL4>(0)[10], value));
     }
   }
@@ -1235,13 +1235,13 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
     scenarios.insert(mies);
     scenarios.insert(teun);
     std::vector<size_t> timeSteps;
-    timeSteps.push_back(size_t(9));
-    timeSteps.push_back(size_t(21));
-    timeSteps.push_back(size_t(1));
+    timeSteps.push_back(static_cast<size_t>(9));
+    timeSteps.push_back(static_cast<size_t>(21));
+    timeSteps.push_back(static_cast<size_t>(1));
     std::vector<float> quantiles;
-    quantiles.push_back(float(0.01));
-    quantiles.push_back(float(0.99));
-    quantiles.push_back(float(0.01));
+    quantiles.push_back(static_cast<float>(0.01));
+    quantiles.push_back(static_cast<float>(0.99));
+    quantiles.push_back(static_cast<float>(0.01));
     space.addDimension(Dimension(Scenarios, scenarios));
     space.addDimension(Dimension(Time, timeSteps));
     space.addDimension(Dimension(CumulativeProbabilities, quantiles));
@@ -1261,13 +1261,13 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       scenarios.insert(mies);
       scenarios.insert(noot);
       std::vector<size_t> timeSteps;
-      timeSteps.push_back(size_t(10));
-      timeSteps.push_back(size_t(20));
-      timeSteps.push_back(size_t(1));
+      timeSteps.push_back(static_cast<size_t>(10));
+      timeSteps.push_back(static_cast<size_t>(20));
+      timeSteps.push_back(static_cast<size_t>(1));
       std::vector<float> quantiles;
-      quantiles.push_back(float(0.1));
-      quantiles.push_back(float(0.9));
-      quantiles.push_back(float(0.01));
+      quantiles.push_back(static_cast<float>(0.1));
+      quantiles.push_back(static_cast<float>(0.9));
+      quantiles.push_back(static_cast<float>(0.01));
       DataSpace realSpace;
       realSpace.addDimension(Dimension(Scenarios, scenarios));
       realSpace.addDimension(Dimension(Time, timeSteps));
@@ -1322,30 +1322,30 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       source.read(*raster, address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       REAL4 value = NAN;
-      interpolate(value, REAL4(25.0), REAL4(0.1), REAL4(26.0), REAL4(0.15));
+      interpolate(value, static_cast<REAL4>(25.0), static_cast<REAL4>(0.1), static_cast<REAL4>(26.0), static_cast<REAL4>(0.15));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), value));
 
       // Test the retrieval of quantiles given a data value.
       address.setCoordinate<std::string>(0, mies);
       address.setCoordinate<size_t>(1, 20);
       address.unsetCoordinate(2);
-      source.read(*raster, REAL4(28.0), address);
+      source.read(*raster, static_cast<REAL4>(28.0), address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.75)));
 
-      source.read(*raster, REAL4(22.0), address);
+      source.read(*raster, static_cast<REAL4>(22.0), address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.1)));
 
-      source.read(*raster, REAL4(32.0), address);
+      source.read(*raster, static_cast<REAL4>(32.0), address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.9)));
 
-      source.read(*raster, REAL4(21.0), address);
+      source.read(*raster, static_cast<REAL4>(21.0), address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(0.0)));
 
-      source.read(*raster, REAL4(33.0), address);
+      source.read(*raster, static_cast<REAL4>(33.0), address);
       BOOST_TEST(!pcr::isMV(raster->cell<REAL4>(0)));
       BOOST_TEST(comparable(raster->cell<REAL4>(0), REAL4(1.0)));
     }
@@ -1380,7 +1380,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
 
       BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[10]));
       REAL4 value = NAN;
-      interpolate(value, REAL4(1.0), REAL4(0.1), REAL4(5.0), REAL4(0.05));
+      interpolate(value, static_cast<REAL4>(1.0), static_cast<REAL4>(0.1), static_cast<REAL4>(5.0), static_cast<REAL4>(0.05));
       BOOST_TEST(comparable(table.col<REAL4>(0)[10], value));
 
       // Data for this time step does not exist, fall back to previous one.
@@ -1400,7 +1400,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       BOOST_TEST(comparable(table.col<REAL4>(0)[80], REAL4(10.0)));
 
       BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[10]));
-      interpolate(value, REAL4(0.0), REAL4(0.1), REAL4(4.0), REAL4(0.05));
+      interpolate(value, static_cast<REAL4>(0.0), static_cast<REAL4>(0.1), static_cast<REAL4>(4.0), static_cast<REAL4>(0.05));
       BOOST_TEST(comparable(table.col<REAL4>(0)[10], value));
 
       // Time step outside of data space. All missing values.
@@ -1468,14 +1468,14 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       BOOST_TEST(table.nrRecs() == size_t(11));
       REAL4 value = NAN;
       BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[0]));
-      interpolate(value, REAL4(25.0), REAL4(0.1), REAL4(26.0), REAL4(0.15));
+      interpolate(value, static_cast<REAL4>(25.0), static_cast<REAL4>(0.1), static_cast<REAL4>(26.0), static_cast<REAL4>(0.15));
       BOOST_TEST(comparable(table.col<REAL4>(0)[0], value));
       BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[1]));
       BOOST_TEST(comparable(table.col<REAL4>(0)[1], value));
       BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[4]));
       BOOST_TEST(comparable(table.col<REAL4>(0)[4], value));
       BOOST_TEST(!pcr::isMV(table.col<REAL4>(0)[5]));
-      interpolate(value, REAL4(26.0), REAL4(0.1), REAL4(27.0), REAL4(0.15));
+      interpolate(value, static_cast<REAL4>(26.0), static_cast<REAL4>(0.1), static_cast<REAL4>(27.0), static_cast<REAL4>(0.15));
       BOOST_TEST(comparable(table.col<REAL4>(0)[5], value));
 
       // BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[12]));

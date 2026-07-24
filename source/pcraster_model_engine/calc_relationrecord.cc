@@ -56,38 +56,38 @@ calc::RelationRecord::RelationRecord(const LOOK_UP_KEY *keys, size_t nrKeys)
     const LOOK_UP_KEY *l = keys + k;
     switch (l->t) {
       case TEST_ONE:
-        push_back(new com::EqualTo<Float>((Float)l->l));
+        push_back(new com::EqualTo<Float>(static_cast<Float>(l->l)));
         break;
       case TEST_INF_INF:
         push_back(new com::AnythingInterval<Float>());  // infinity
         break;
       case TEST_GE_INF:
-        push_back(new com::GreaterThanEqualTo<Float>((Float)l->l));  // [l  ,inf>
+        push_back(new com::GreaterThanEqualTo<Float>(static_cast<Float>(l->l)));  // [l  ,inf>
         break;
       case TEST_GT_INF:
-        push_back(new com::GreaterThan<Float>((Float)l->l));  // <l  ,inf>
+        push_back(new com::GreaterThan<Float>(static_cast<Float>(l->l)));  // <l  ,inf>
         break;
       case TEST_INF_LE:
-        push_back(new com::LessThanEqualTo<Float>((Float)l->h));  // <inf,h]
+        push_back(new com::LessThanEqualTo<Float>(static_cast<Float>(l->h)));  // <inf,h]
         break;
       case TEST_GE_LE:
-        push_back(new com::BetweenLimits<Float>(com::GreaterThanEqualTo<Float>((Float)l->l),
-                                                com::LessThanEqualTo<Float>((Float)l->h)));  // [l  ,h]
+        push_back(new com::BetweenLimits<Float>(com::GreaterThanEqualTo<Float>(static_cast<Float>(l->l)),
+                                                com::LessThanEqualTo<Float>(static_cast<Float>(l->h))));  // [l  ,h]
         break;
       case TEST_GT_LE:
-        push_back(new com::BetweenLimits<Float>(com::GreaterThan<Float>((Float)l->l),
-                                                com::LessThanEqualTo<Float>((Float)l->h)));  // <l  ,h]
+        push_back(new com::BetweenLimits<Float>(com::GreaterThan<Float>(static_cast<Float>(l->l)),
+                                                com::LessThanEqualTo<Float>(static_cast<Float>(l->h))));  // <l  ,h]
         break;
       case TEST_INF_LT:
-        push_back(new com::LessThan<Float>((Float)l->h));  // <inf,h>
+        push_back(new com::LessThan<Float>(static_cast<Float>(l->h)));  // <inf,h>
         break;
       case TEST_GE_LT:
-        push_back(new com::BetweenLimits<Float>(com::GreaterThanEqualTo<Float>((Float)l->l),
-                                                com::LessThan<Float>((Float)l->h)));  // [l  ,h>
+        push_back(new com::BetweenLimits<Float>(com::GreaterThanEqualTo<Float>(static_cast<Float>(l->l)),
+                                                com::LessThan<Float>(static_cast<Float>(l->h))));  // [l  ,h>
         break;
       case TEST_GT_LT:
-        push_back(new com::BetweenLimits<Float>(com::GreaterThan<Float>((Float)l->l),
-                                                com::LessThan<Float>((Float)l->h)));  // <l  ,h>
+        push_back(new com::BetweenLimits<Float>(com::GreaterThan<Float>(static_cast<Float>(l->l)),
+                                                com::LessThan<Float>(static_cast<Float>(l->h))));  // <l  ,h>
         break;
       default:
         PRECOND(false);

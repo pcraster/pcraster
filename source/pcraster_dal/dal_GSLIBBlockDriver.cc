@@ -186,7 +186,7 @@ void GSLIBBlockDriver::write<UINT1>(
           stream << 255 << '\n';
         }
         else {
-          stream << INT4((*stacks[i])[voxel]) << '\n';
+          stream << static_cast<INT4>((*stacks[i])[voxel]) << '\n';
         }
       }
     }

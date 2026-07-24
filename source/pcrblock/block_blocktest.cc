@@ -16,9 +16,9 @@ BOOST_AUTO_TEST_CASE(create_)
 
   discr::Raster const raster(3, 1, 1.0, 0.0, 0.0);
   discr::RasterData<REAL4> elevation(&raster);
-  elevation.cell(0) = REAL4(1.0);
+  elevation.cell(0) = static_cast<REAL4>(1.0);
   pcr::setMV(elevation.cell(1));
-  elevation.cell(2) = REAL4(3.0);
+  elevation.cell(2) = static_cast<REAL4>(3.0);
 
   std::unique_ptr<discr::Block> block(create(&elevation));
   BOOST_TEST(block->cell(0).empty());
@@ -105,7 +105,7 @@ BOOST_AUTO_TEST_CASE(set_default_value)
 
     discr::BlockData<INT4> sediment(&block);
 
-    block.addVoxels(1, REAL4(2.3));
+    block.addVoxels(1, static_cast<REAL4>(2.3));
     BOOST_TEST(!block.cell(0).isMV());
     BOOST_TEST(sediment.cell(0).size() == 1);
     BOOST_TEST(pcr::isMV(sediment.cell(0)[0]));
@@ -124,7 +124,7 @@ BOOST_AUTO_TEST_CASE(set_default_value)
 
     setDefaultValue(sediment, values);
 
-    block.addVoxels(1, REAL4(2.3));
+    block.addVoxels(1, static_cast<REAL4>(2.3));
 
     BOOST_TEST(!block.cell(0).isMV());
     BOOST_TEST(sediment.cell(0).size() == 2);

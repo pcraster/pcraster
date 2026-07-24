@@ -304,7 +304,7 @@ BOOST_AUTO_TEST_CASE(write_)
   auto* cells = raster.cells<REAL4>();
 
   for(size_t i = 0; i < raster.nrCells(); ++i) {
-    cells[i] = REAL4(i);
+    cells[i] = static_cast<REAL4>(i);
   }
 
   // Create a space and address.

@@ -221,7 +221,7 @@ inline bool Raster::value<std::string>(
       UINT1 value = 0;
 
       if(this->value<UINT1>(value, space, address)) {
-        result = std::to_string(INT4(value));
+        result = std::to_string(static_cast<INT4>(value));
       }
 
       break;

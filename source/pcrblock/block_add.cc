@@ -49,7 +49,7 @@ void noCompactionAdd(
     }
     else if(!block.cell(i).isMV()) {
       DEVELOP_PRECOND(dal::greaterOrComparable(thickness.cell(i), REAL4(0.0)));
-      if(thickness.cell(i) > REAL4(0.0)) {
+      if(thickness.cell(i) > static_cast<REAL4>(0.0)) {
         block.addVoxels(i, 1, thickness.cell(i));
       }
     }
@@ -166,7 +166,7 @@ static void mackeyBridgeAdd(
   }
 
   // Check if there's accommodation space left to fill.
-  if(thickness > REAL4(0.0)) {
+  if(thickness > static_cast<REAL4>(0.0)) {
 
     // ------------------
     // PROCESS NEW VOXELS
@@ -197,7 +197,7 @@ static void mackeyBridgeAdd(
     // Now we have filled up thickness except for a small amount of
     // space left which is less than maxVoxelThickness. Here we add a
     // uncompacted voxel to fill up the last part of thickness.
-    if(thickness > REAL4(0.0)) {
+    if(thickness > static_cast<REAL4>(0.0)) {
 
       // Add a new voxel with thickness thickness.
       DEVELOP_PRECOND(sediment.size() == stack.size());
@@ -292,7 +292,7 @@ static void deHaanAdd(
 {
   DEVELOP_PRECOND(!(thickness < 0.0));
 
-  if(dal::comparable(thickness, REAL4(0.0))) {
+  if(dal::comparable(thickness, static_cast<REAL4>(0.0))) {
     return;
   }
 

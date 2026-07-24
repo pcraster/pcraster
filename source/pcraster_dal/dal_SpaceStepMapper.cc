@@ -125,7 +125,7 @@ double SpaceStepMapper::source(
 {
   assert(isValid());
 
-  return double(d_index) + ((coordinate - d_coordinate) / d_cellSize);
+  return static_cast<double>(d_index) + ((coordinate - d_coordinate) / d_cellSize);
 }
 
 

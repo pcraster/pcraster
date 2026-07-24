@@ -53,7 +53,7 @@ void ExceedanceProbabilityFeatureLayerDrawer::draw(QPainter &painter, long int f
   REAL4 value = NAN;
   layer().value<REAL4>(featureId, value);
 
-  painter.setBrush(pcr::isMV(value) ? Qt::transparent : _drawProperties.colour(REAL4(1.0) - value));
+  painter.setBrush(pcr::isMV(value) ? Qt::transparent : _drawProperties.colour(static_cast<REAL4>(1.0) - value));
 
   painter.drawPath(path);
 }

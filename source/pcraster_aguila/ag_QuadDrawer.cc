@@ -74,23 +74,23 @@ void ag::BooleanQuadDrawer::draw(size_t r, size_t c) const
   static const QColor &trueColour = d_dp.colourByIndex(1);
   static GLfloat diffuse_true[] = {trueColour.red() / m, trueColour.green() / m, trueColour.blue() / m,
                                    1.0};
-  static GLfloat specular_true[] = {GLfloat(0.5) * (trueColour.red() / m),
-                                    GLfloat(0.5) * (trueColour.green() / m),
-                                    GLfloat(0.5) * (trueColour.blue() / m), 1.0};
+  static GLfloat specular_true[] = {static_cast<GLfloat>(0.5) * (trueColour.red() / m),
+                                    static_cast<GLfloat>(0.5) * (trueColour.green() / m),
+                                    static_cast<GLfloat>(0.5) * (trueColour.blue() / m), 1.0};
   static GLfloat shininess_true[] = {25.0};
-  static GLfloat emission_true[] = {GLfloat(0.1) * (trueColour.red() / m),
-                                    GLfloat(0.1) * (trueColour.green() / m),
-                                    GLfloat(0.1) * (trueColour.blue() / m), 1.0};
+  static GLfloat emission_true[] = {static_cast<GLfloat>(0.1) * (trueColour.red() / m),
+                                    static_cast<GLfloat>(0.1) * (trueColour.green() / m),
+                                    static_cast<GLfloat>(0.1) * (trueColour.blue() / m), 1.0};
   static const QColor &falseColour = d_dp.colourByIndex(0);
   static GLfloat diffuse_false[] = {falseColour.red() / m, falseColour.green() / m,
                                     falseColour.blue() / m, 1.0};
-  static GLfloat specular_false[] = {GLfloat(0.5) * (falseColour.red() / m),
-                                     GLfloat(0.5) * (falseColour.green() / m),
-                                     GLfloat(0.5) * (falseColour.blue() / m), 1.0};
+  static GLfloat specular_false[] = {static_cast<GLfloat>(0.5) * (falseColour.red() / m),
+                                     static_cast<GLfloat>(0.5) * (falseColour.green() / m),
+                                     static_cast<GLfloat>(0.5) * (falseColour.blue() / m), 1.0};
   static GLfloat shininess_false[] = {25.0};
-  static GLfloat emission_false[] = {GLfloat(0.1) * (falseColour.red() / m),
-                                     GLfloat(0.1) * (falseColour.green() / m),
-                                     GLfloat(0.1) * (falseColour.blue() / m), 1.0};
+  static GLfloat emission_false[] = {static_cast<GLfloat>(0.1) * (falseColour.red() / m),
+                                     static_cast<GLfloat>(0.1) * (falseColour.green() / m),
+                                     static_cast<GLfloat>(0.1) * (falseColour.blue() / m), 1.0};
 
   UINT1 const v = d_raster.cell<UINT1>(r, c);
 
@@ -135,11 +135,11 @@ void ag::NominalQuadDrawer::draw(size_t r, size_t c) const
     const QColor &colour = d_dp.colourByIndex(i);
 
     GLfloat diffuse[] = {colour.red() / m, colour.green() / m, colour.blue() / m, 1.0};
-    GLfloat specular[] = {GLfloat(0.5) * (colour.red() / m), GLfloat(0.5) * (colour.green() / m),
-                          GLfloat(0.5) * (colour.blue() / m), 1.0};
+    GLfloat specular[] = {static_cast<GLfloat>(0.5) * (colour.red() / m), static_cast<GLfloat>(0.5) * (colour.green() / m),
+                          static_cast<GLfloat>(0.5) * (colour.blue() / m), 1.0};
     GLfloat shininess[] = {25.0};
-    GLfloat emission[] = {GLfloat(0.1) * (colour.red() / m), GLfloat(0.1) * (colour.green() / m),
-                          GLfloat(0.1) * (colour.blue() / m), 1.0};
+    GLfloat emission[] = {static_cast<GLfloat>(0.1) * (colour.red() / m), static_cast<GLfloat>(0.1) * (colour.green() / m),
+                          static_cast<GLfloat>(0.1) * (colour.blue() / m), 1.0};
 
     glColor3f(colour.red() / m, colour.green() / m, colour.blue() / m);
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, diffuse);
@@ -173,11 +173,11 @@ void ag::OrdinalQuadDrawer::draw(size_t r, size_t c) const
     const QColor &colour = d_dp.colourByIndex(i);
 
     GLfloat diffuse[] = {colour.red() / m, colour.green() / m, colour.blue() / m, 1.0};
-    GLfloat specular[] = {GLfloat(0.5) * (colour.red() / m), GLfloat(0.5) * (colour.green() / m),
-                          GLfloat(0.5) * (colour.blue() / m), 1.0};
+    GLfloat specular[] = {static_cast<GLfloat>(0.5) * (colour.red() / m), static_cast<GLfloat>(0.5) * (colour.green() / m),
+                          static_cast<GLfloat>(0.5) * (colour.blue() / m), 1.0};
     GLfloat shininess[] = {25.0};
-    GLfloat emission[] = {GLfloat(0.1) * (colour.red() / m), GLfloat(0.1) * (colour.green() / m),
-                          GLfloat(0.1) * (colour.blue() / m), 1.0};
+    GLfloat emission[] = {static_cast<GLfloat>(0.1) * (colour.red() / m), static_cast<GLfloat>(0.1) * (colour.green() / m),
+                          static_cast<GLfloat>(0.1) * (colour.blue() / m), 1.0};
 
     glColor3f(colour.red() / m, colour.green() / m, colour.blue() / m);
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, diffuse);
@@ -215,11 +215,11 @@ void ag::ScalarQuadDrawer::draw(size_t r, size_t c) const
     }
 
     GLfloat diffuse[] = {colour.red() / m, colour.green() / m, colour.blue() / m, 1.0};
-    GLfloat specular[] = {GLfloat(0.5) * (colour.red() / m), GLfloat(0.5) * (colour.green() / m),
-                          GLfloat(0.5) * (colour.blue() / m), 1.0};
+    GLfloat specular[] = {static_cast<GLfloat>(0.5) * (colour.red() / m), static_cast<GLfloat>(0.5) * (colour.green() / m),
+                          static_cast<GLfloat>(0.5) * (colour.blue() / m), 1.0};
     GLfloat shininess[] = {25.0};
-    GLfloat emission[] = {GLfloat(0.1) * (colour.red() / m), GLfloat(0.1) * (colour.green() / m),
-                          GLfloat(0.1) * (colour.blue() / m), 1.0};
+    GLfloat emission[] = {static_cast<GLfloat>(0.1) * (colour.red() / m), static_cast<GLfloat>(0.1) * (colour.green() / m),
+                          static_cast<GLfloat>(0.1) * (colour.blue() / m), 1.0};
 
     glColor3f(colour.red() / m, colour.green() / m, colour.blue() / m);
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, diffuse);
@@ -262,11 +262,11 @@ void ag::DirectionalQuadDrawer::draw(size_t r, size_t c) const
     }
 
     GLfloat diffuse[] = {colour.red() / m, colour.green() / m, colour.blue() / m, 1.0};
-    GLfloat specular[] = {GLfloat(0.5) * (colour.red() / m), GLfloat(0.5) * (colour.green() / m),
-                          GLfloat(0.5) * (colour.blue() / m), 1.0};
+    GLfloat specular[] = {static_cast<GLfloat>(0.5) * (colour.red() / m), static_cast<GLfloat>(0.5) * (colour.green() / m),
+                          static_cast<GLfloat>(0.5) * (colour.blue() / m), 1.0};
     GLfloat shininess[] = {25.0};
-    GLfloat emission[] = {GLfloat(0.1) * (colour.red() / m), GLfloat(0.1) * (colour.green() / m),
-                          GLfloat(0.1) * (colour.blue() / m), 1.0};
+    GLfloat emission[] = {static_cast<GLfloat>(0.1) * (colour.red() / m), static_cast<GLfloat>(0.1) * (colour.green() / m),
+                          static_cast<GLfloat>(0.1) * (colour.blue() / m), 1.0};
 
     glColor3f(colour.red() / m, colour.green() / m, colour.blue() / m);
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, diffuse);

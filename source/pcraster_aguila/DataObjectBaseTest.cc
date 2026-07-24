@@ -28,7 +28,7 @@ BOOST_AUTO_TEST_CASE(test)
 
   std::string const name("dataset1/aap/scalar");
   dal::DataSpace space;
-  space.addDimension(dal::Dimension(dal::Time, size_t(10), size_t(20), size_t(1)));
+  space.addDimension(dal::Dimension(dal::Time, static_cast<size_t>(10), static_cast<size_t>(20), static_cast<size_t>(1)));
 
   RasterDataSources dataSources;
   BOOST_TEST(dataSources.size() == size_t(0));

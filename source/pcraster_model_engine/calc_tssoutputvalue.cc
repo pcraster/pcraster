@@ -100,7 +100,7 @@ public:
     header.id = 1;
     header.vt = dal::TypeTraits<T>::csfCr;
     header.nrDim = 1;
-    header.lenDim1 = (UINT4)data.size();
+    header.lenDim1 = static_cast<UINT4>(data.size());
 
     static_assert(sizeof(Header) == (4 * sizeof(UINT4)));
     *((Header *)d_buffer) = header;
@@ -263,7 +263,7 @@ void calc::FileTimeoutput::printLine(size_t t, const double *v, std::ofstream &f
   const char *mvFmt = nullptr;
   int valFmt = 0;
 
-  switch ((CSF_VS)d_stackInfo.vs()) {  // dangerous typecast
+  switch (static_cast<CSF_VS>(d_stackInfo.vs())) {  // dangerous typecast
     case VS_LDD:
     case VS_BOOLEAN:
       mvFmt = "1e31";  // len 4

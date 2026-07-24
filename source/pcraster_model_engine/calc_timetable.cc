@@ -17,7 +17,7 @@ void calc::TimeTable::init(const std::string &fileName, VS resultFieldVs, size_t
     }
 
     // pcrcalc226
-    if (d_tss->nrSteps < (int)nrTimeStepsExpected) {
+    if (d_tss->nrSteps < static_cast<int>(nrTimeStepsExpected)) {
       throw com::Exception("Timeseries " + quote(fileName) + " contains only " + quote(d_tss->nrSteps) +
                            " entries (" + quote(nrTimeStepsExpected) + " required)");
     }

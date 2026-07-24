@@ -111,7 +111,7 @@ calc::DefinitionRole calc::ASTDefinition::definitionRole() const
   if (d_definitionRole.empty()) {
     return NotSpecified;
   }
-  return (DefinitionRole)d_definitionRole[0];
+  return static_cast<DefinitionRole>(d_definitionRole[0]);
 }
 
 calc::Dimension calc::ASTDefinition::unit() const

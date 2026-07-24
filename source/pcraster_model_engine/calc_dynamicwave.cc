@@ -48,7 +48,7 @@ public:
   {
     const auto *tab = dynamic_cast<const LookupTable *>(firstNonFieldInput());
     PRECOND(tab);
-    ((LookupTable *)tab)->setPrefixStableSort(1);
+    (const_cast<LookupTable *>(tab))->setPrefixStableSort(1);
   }
 };
 
@@ -197,7 +197,7 @@ double tableLookup(const LookupTable &tab, INT4 profileVal, float fromVal,
 
 double DWVisitor::dwLookup(size_t v, double fromVal, LookupColumns fromCol, LookupColumns toCol) const
 {
-  return tableLookup(d_tab, d_profileId[v], (float)fromVal, fromCol, toCol);
+  return tableLookup(d_tab, d_profileId[v], static_cast<float>(fromVal), fromCol, toCol);
 }
 
 double DWVisitor::dwPotential(size_t v) const
@@ -405,7 +405,7 @@ void calc::LookupState::exec(RunTimeEnv *rte, const Operator &op, size_t nrActua
     } else {
       float const h = potential[i] - bottomLevel[i];
       double const a = tableLookup(*tab, profileId[i], h, DynamicWaveTable::H, DynamicWaveTable::A);
-      r[i] = (float)(a * segmentLength[i]);
+      r[i] = static_cast<float>(a * segmentLength[i]);
     }
   }
 
@@ -437,7 +437,7 @@ void calc::LookupPotential::exec(RunTimeEnv *rte, const Operator &op, size_t nrA
       float const a = state[i] / segmentLength[i];  // m2
       double const h =
           tableLookup(*tab, profileId[i], a, DynamicWaveTable::A, DynamicWaveTable::H);  // m
-      r[i] = (float)(h + bottomLevel[i]);
+      r[i] = static_cast<float>(h + bottomLevel[i]);
     }
   }
 
@@ -560,9 +560,9 @@ void calc::Kinematic::exec(RunTimeEnv *rte, const Operator &op, size_t nrArgs) c
         pcr::setMV(d_Qnew[v]);
         return;
       }
-      d_Qnew[v] = (float)iterateToQnew(d_QSumDownStream[v],  // summed Q new in for all sub-catchments
+      d_Qnew[v] = static_cast<float>(iterateToQnew(d_QSumDownStream[v],  // summed Q new in for all sub-catchments
                                        d_Qnew[v],            /* current discharge */
-                                       d_q[v], d_alpha[v], d_beta[v], d_csi.sliceInSecs, d_deltaX[v]);
+                                       d_q[v], d_alpha[v], d_beta[v], d_csi.sliceInSecs, d_deltaX[v]));
     }
 
     KWVisitor(Field &qNew, VField<INT4> const &nrTimeSlices, Field const &timestepInSecs,
@@ -643,9 +643,9 @@ void calc::KinematicWave::exec(RunTimeEnv *rte, const Operator &op, size_t nrArg
         return;
       }
       d_Qnew[v] =
-          (float)iterateToQnew(d_QSumDownStream[v],  // summed Q new in for all sub-catchments
+          static_cast<float>(iterateToQnew(d_QSumDownStream[v],  // summed Q new in for all sub-catchments
                                d_Qnew[v],            /* current discharge */
-                               d_qChan[v], d_alpha[v], d_beta[v], d_csi.sliceInSecs, d_deltaX[v]);
+                               d_qChan[v], d_alpha[v], d_beta[v], d_csi.sliceInSecs, d_deltaX[v]));
       d_QSum[v] += d_Qnew[v];
     }
 
@@ -777,17 +777,17 @@ static double iterateToQnew(double Qin,  /* summed Q new in for all sub-catchmen
   // negative or 0. In that case we change Qkx+1 to 1e-30. This keeps the
   // convergence loop healthy.
   Qkx = (deltaTX * Qin + Qold * ab_pQ + sliceInSecs * q) / (deltaTX + ab_pQ);
-  Qkx = std::max(Qkx, (REAL)1e-30); /* added test-case calc::KinematicTest::iterate1 */
-  fQkx = (deltaTX * Qkx) + (alpha * std::pow(Qkx, (REAL)beta)) - C; /* Current k */
-  dfQkx = deltaTX + (alpha * beta * std::pow(Qkx, (REAL)beta - 1)); /* Current k */
+  Qkx = std::max(Qkx, static_cast<REAL>(1e-30)); /* added test-case calc::KinematicTest::iterate1 */
+  fQkx = (deltaTX * Qkx) + (alpha * std::pow(Qkx, static_cast<REAL>(beta))) - C; /* Current k */
+  dfQkx = deltaTX + (alpha * beta * std::pow(Qkx, static_cast<REAL>(beta) - 1)); /* Current k */
   Qkx -= fQkx / dfQkx;                                              /* Next k */
-  Qkx = std::max(Qkx, (REAL)1e-30);
+  Qkx = std::max(Qkx, static_cast<REAL>(1e-30));
   count = 0;
   do {
-    fQkx = (deltaTX * Qkx) + (alpha * std::pow(Qkx, (REAL)beta)) - C; /* Current k */
-    dfQkx = deltaTX + (alpha * beta * std::pow(Qkx, (REAL)beta - 1)); /* Current k */
+    fQkx = (deltaTX * Qkx) + (alpha * std::pow(Qkx, static_cast<REAL>(beta))) - C; /* Current k */
+    dfQkx = deltaTX + (alpha * beta * std::pow(Qkx, static_cast<REAL>(beta) - 1)); /* Current k */
     Qkx -= fQkx / dfQkx;                                              /* Next k */
-    Qkx = std::max(Qkx, (REAL)1e-30);
+    Qkx = std::max(Qkx, static_cast<REAL>(1e-30));
     count++;
   } while (std::fabs(fQkx) > epsilon && count < MAX_ITERS);
 
@@ -811,7 +811,7 @@ static double iterateToQnew(double Qin,  /* summed Q new in for all sub-catchmen
   // }
 #endif
   Qk1 = Qkx;
-  return std::max(Qk1, (REAL)0);
+  return std::max(Qk1, static_cast<REAL>(0));
 }
 
 //------------------------------------------------------------------------------

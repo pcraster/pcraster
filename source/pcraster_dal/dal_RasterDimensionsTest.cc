@@ -179,7 +179,7 @@ BOOST_AUTO_TEST_CASE(overlap)
 
   // Empty raster dimensions.
   {
-    RasterDimensions const raster(size_t(0), size_t(0));
+    RasterDimensions const raster(static_cast<size_t>(0), static_cast<size_t>(0));
 
     std::tie(area1, area2) = RasterDimensions::overlap(raster, raster);
     BOOST_TEST(area1.nrRows() == size_t(0));
@@ -189,7 +189,7 @@ BOOST_AUTO_TEST_CASE(overlap)
 
   // One empty, one non-empty raster dimension.
   {
-    RasterDimensions const raster1(size_t(0), size_t(0));
+    RasterDimensions const raster1(static_cast<size_t>(0), static_cast<size_t>(0));
     RasterDimensions const raster2(3, 4, 5.0, 1.0, 2.0);
 
     std::tie(area1, area2) = RasterDimensions::overlap(raster1, raster2);

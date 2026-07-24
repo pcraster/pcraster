@@ -127,7 +127,7 @@ void calc::Report::update(const Timer &timer)
     }
 
     if (m.end == 0) {
-      if (m.start >= (int)timer.startInt()) {  // single
+      if (m.start >= static_cast<int>(timer.startInt())) {  // single
         d_reportAt[m.start] = true;
       }
     } else {  // range
@@ -135,7 +135,7 @@ void calc::Report::update(const Timer &timer)
         m.step = 1;
       }
       PRECOND(m.start <= m.end && m.step >= 1);
-      for (size_t i = m.start; i <= (size_t)m.end; i += m.step) {
+      for (size_t i = m.start; i <= static_cast<size_t>(m.end); i += m.step) {
         if (i >= timer.startInt()) {
           // see AdjustStackMinMax
           // and test pcrcalc/234a

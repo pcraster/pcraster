@@ -20,7 +20,7 @@ static size_t execCallMarker = 0;
 
 void calc::CalcLibDemoObjectLink::setDem(const REAL4 *dem)
 {
-  execCallMarker = 100 * (size_t)dem[0];
+  execCallMarker = 100 * static_cast<size_t>(dem[0]);
 }
 
 void calc::CalcLibDemoObjectLink::getDem(REAL4 *dem)

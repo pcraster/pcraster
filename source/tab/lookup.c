@@ -184,7 +184,7 @@ LOOK_UP_KEY *FindLookupKey(const LOOK_UP_TABLE *t,  /* lookup table */
                               */
 {
   LOOK_UP_KEY **k = NULL;
-  size_t nr = (size_t)(t->nrRecords);
+  size_t nr = t->nrRecords;
   PRECOND(t->searchMethod == 1 || t->searchMethod == 0);
   cmpNrKeys = t->nrKeys;
   if (t->searchMethod == 0) {
@@ -206,7 +206,7 @@ size_t FindCrossKey(const LOOK_UP_TABLE *t,  /* lookup table */
 {
   // SEARCH m[2] = { (SEARCH)lfind,(SEARCH)bsearch};
   LOOK_UP_KEY **k = NULL;
-  size_t nr = (size_t)(t->nrRecords - startHere);
+  size_t nr = t->nrRecords - startHere;
   PRECOND(t->searchMethod == 1 || t->searchMethod == 0);
   cmpNrKeys = t->nrKeys;
   if (t->searchMethod == 0) {

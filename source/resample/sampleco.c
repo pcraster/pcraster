@@ -65,11 +65,11 @@ static double WeightDirectionalMean(double *totalWeight, /* write-only total of 
   tC = tS = tD = tC2 = tS2 = 0;
 
   for (i = 0; i < n; i++) {
-    tC += (double)list[i].area * cos((double)list[i].value);
-    tS += (double)list[i].area * sin((double)list[i].value);
-    tC2 += (double)list[i].area * cos((double)list[i].value * 2);
-    tS2 += (double)list[i].area * sin((double)list[i].value * 2);
-    *totalWeight += (double)list[i].area;
+    tC += list[i].area * cos((double)list[i].value);
+    tS += list[i].area * sin((double)list[i].value);
+    tC2 += list[i].area * cos((double)list[i].value * 2);
+    tS2 += list[i].area * sin((double)list[i].value * 2);
+    *totalWeight += list[i].area;
   }
 
   if (*totalWeight == 0) {

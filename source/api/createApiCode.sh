@@ -11,10 +11,13 @@ TESTAPI=testapi.tem
 echo "/* DO NOT EDIT: CREATED FROM $RANCOM */" > ranuint1.c
 echo "#line 1 \"$RANCOM\"" >> ranuint1.c
 sed -e s/THIS_TYPE_T/UINT1_T/g  -e s/THIS_TYPE/UINT1/g $RANCOM >> ranuint1.c
+# TODO redundant cast
+
 #ranint4.c: $RANCOM
 echo "/* DO NOT EDIT: CREATED FROM $RANCOM */" > ranint4.c
 echo "#line 1 \"$RANCOM\"" >> ranint4.c
 sed -e s/THIS_TYPE_T/INT4/g  -e s/THIS_TYPE/INT4/g $RANCOM >> ranint4.c
+# TODO redundant cast
 
 #ranreal8.c: $RANCOM
 echo "/* DO NOT EDIT: CREATED FROM $RANCOM */" > ranreal8.c

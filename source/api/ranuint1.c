@@ -306,7 +306,7 @@ MAP_UINT1 *InitMapUINT1(size_t r,     /* number of rows */
 
   if (spatial) {
     m->st = PCR_ST_SPATIAL;
-    m->spatialValue = MallocIndex2d(r, c, (size_t)CELLSIZE(inCr), v);
+    m->spatialValue = MallocIndex2d(r, c, CELLSIZE(inCr), v);
     if (m->spatialValue == NULL) {
       Free(m);
       return NULL;
@@ -343,7 +343,7 @@ MAP_UINT1 *InitMapUINT1(size_t r,     /* number of rows */
     switch (inCr) {
       case CR_UINT1:
         PRECOND(*((UINT1 *)v) != MV_UINT1);
-        m->nonSpatialValue = (UINT1)(*(UINT1 *)v);
+        m->nonSpatialValue = (*(UINT1 *)v);
         m->maxVal = (int)m->nonSpatialValue;
         break;
       case CR_INT4:

@@ -46,7 +46,7 @@
  */
 unsigned char **NewBitMatrix(size_t nrRows, size_t nrCols)
 {
-  size_t nrByteCols = (size_t)((nrCols / 8) + ((nrCols % 8) != 0));
+  size_t nrByteCols = (nrCols / 8) + ((nrCols % 8) != 0);
   return (unsigned char **)Malloc2d(nrRows, nrByteCols, sizeof(unsigned char));
 }
 

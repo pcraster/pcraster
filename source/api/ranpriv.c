@@ -98,7 +98,7 @@ void Put_INT4_in_INT4(INT4 **matrix,            /* map matrix */
                       const INT4 *value, int r, /* row number */
                       int c)                    /* column number */
 {
-  matrix[r][c] = (INT4)(*value);
+  matrix[r][c] = *value;
 }
 
 /* (LIBRARY_INTERNAL)

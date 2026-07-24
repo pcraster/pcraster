@@ -152,13 +152,13 @@ static int InstallLocalOptions(const char *o) /* option string passed to Install
   }
 #endif
 
-  localFlags = (char *)ChkMalloc((size_t)(n + 1));
-  groupInput = (char *)ChkMalloc((size_t)(n + 1));
-  groupResult = (char *)ChkMalloc((size_t)(n + 1));
+  localFlags = (char *)ChkMalloc(n + 1);
+  groupInput = (char *)ChkMalloc(n + 1);
+  groupResult = (char *)ChkMalloc(n + 1);
   if (localFlags == NULL || groupInput == NULL || groupResult == NULL) {
     return 1;
   }
-  localFlagsOptions = (char *)ChkCalloc((size_t)(n + 1), sizeof(char)); /* 0's are defaults */
+  localFlagsOptions = (char *)ChkCalloc(n + 1, sizeof(char)); /* 0's are defaults */
   if (localFlagsOptions == NULL) {
     return 1;
   }

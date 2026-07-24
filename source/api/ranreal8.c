@@ -306,7 +306,7 @@ MAP_REAL8 *InitMapREAL8(size_t r,     /* number of rows */
 
   if (spatial) {
     m->st = PCR_ST_SPATIAL;
-    m->spatialValue = MallocIndex2d(r, c, (size_t)CELLSIZE(inCr), v);
+    m->spatialValue = MallocIndex2d(r, c, CELLSIZE(inCr), v);
     if (m->spatialValue == NULL) {
       Free(m);
       return NULL;

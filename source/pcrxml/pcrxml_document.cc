@@ -12,7 +12,7 @@
 #include <QDomNode>
 #include <QFile>
 #include <QString>
-#include <QtVersionChecks>
+#include <QtGlobal>
 
 #include <string>
 #include <cstddef>

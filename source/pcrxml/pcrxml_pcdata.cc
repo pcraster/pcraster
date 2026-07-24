@@ -2,10 +2,13 @@
 #include "pcrxml_pcdata.h"
 #include "com_strlib.h"
 
+#include <QByteArray>
+#include <QDomCharacterData>
 #include <QDomDocument>
+#include <QDomNode>
+
 #include <cstddef>
 #include <string>
-#include <qstringview.h>
 
 /*!
   \file

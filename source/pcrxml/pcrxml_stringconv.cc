@@ -1,8 +1,9 @@
 #include "pcrxml_stringconv.h"
 
+#include <QByteArray>
 #include <QString>
+
 #include <string>
-#include <qstringview.h>
 
 /*!
   \file

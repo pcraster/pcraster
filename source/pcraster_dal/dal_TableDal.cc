@@ -73,9 +73,8 @@ std::tuple<std::shared_ptr<Table>, TableDriver*> TableDal::open(
          bool raiseException)
 {
   assert(nrDrivers() > 0);
-  std::shared_ptr<Dataset> dataset;
-  Driver* driver = nullptr;
-  std::tie(dataset, driver) = Dal::open(name, TABLE);
+  
+  auto [dataset, driver] = Dal::open(name, TABLE);
 
   // Table* table = dynamic_cast<Table*>(Dal::open(name, TABLE));
 

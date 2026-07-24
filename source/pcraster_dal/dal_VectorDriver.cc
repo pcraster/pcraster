@@ -376,9 +376,8 @@ Vector* VectorDriver::open(
          DataSpace const& space,
          DataSpaceAddress const& address) const
 {
-  std::shared_ptr<Raster> x;
-  std::shared_ptr<Raster> y;
-  std::tie(x, y) = _data->open(name, space, address, false);
+  
+  auto [x, y] = _data->open(name, space, address, false);
 
   if(!x || !y) {
     return nullptr;
@@ -420,9 +419,8 @@ Vector* VectorDriver::read(
          DataSpace const& space,
          DataSpaceAddress const& address) const
 {
-  std::shared_ptr<Raster> x;
-  std::shared_ptr<Raster> y;
-  std::tie(x, y) = _data->open(name, space, address, true);
+  
+  auto [x, y] = _data->open(name, space, address, true);
   assert(x && y);
   _data->validate(name, space, address, *x, *y, true);
   _data->read(*x, *y, name, space, address);
@@ -441,9 +439,8 @@ void VectorDriver::read(
          DataSpace const& space,
          DataSpaceAddress const& address) const
 {
-  std::shared_ptr<Raster> x;
-  std::shared_ptr<Raster> y;
-  std::tie(x, y) = _data->open(name, space, address, true);
+  
+  auto [x, y] = _data->open(name, space, address, true);
   assert(x && y);
   _data->validate(name, space, address, *x, *y, true);
   assert(vector.dimensions() == x->dimensions());

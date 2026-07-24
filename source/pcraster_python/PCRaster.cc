@@ -106,9 +106,8 @@ calc::Field* readField(
 {
   std::string name{input_path.string()};
   // Open the raster.
-  std::shared_ptr<dal::Raster> raster;
-  dal::RasterDriver* driver = nullptr;
-  std::tie(raster, driver) = globals.rasterDal().open(name);
+  
+  auto [raster, driver] = globals.rasterDal().open(name);
 
   if(!raster) {
     throw com::Exception(std::vformat("Raster {0}: can not be opened. Note: only the PCRaster file format is supported as input argument.\n",
@@ -221,9 +220,8 @@ pybind11::object readFieldCell(
          int col)
 {
   std::string filename{input_path.string()};
-  std::shared_ptr<dal::Raster> raster;
-  dal::RasterDriver* driver = nullptr;
-  std::tie(raster, driver) = globals.rasterDal().open(filename);
+  
+  auto [raster, driver] = globals.rasterDal().open(filename);
 
   if(!raster) {
     throw com::Exception(std::vformat("Raster {0}: can not be opened. Note: only the PCRaster file format is supported as input argument.\n",

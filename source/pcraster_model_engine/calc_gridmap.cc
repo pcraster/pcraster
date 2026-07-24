@@ -153,9 +153,8 @@ calc::GridStat calc::GridMapOut::writeData(const void *allValues)
 calc::GridMapIn::GridMapIn(std::string const &fileName) : GridMap(fileName)
 {
   // try {
-  std::shared_ptr<dal::Raster> raster;
-  dal::RasterDriver *driver = nullptr;
-  std::tie(raster, driver) = rasterDal->open(fileName);
+  
+  auto [raster, driver] = rasterDal->open(fileName);
   if (!raster) {  // TODO not  a recognized map instead of a PCRasterMap
     throw geo::NotA_PCRasterMap(fileName);
   }
@@ -235,9 +234,8 @@ void calc::GridMapIn::createSpatial(void *dest, VS readAs)
   // raster.setCellsReference(dest);
   // d_driver->read(raster,d_fileName);
 
-  std::shared_ptr<dal::Raster> raster;
-  dal::RasterDriver *driver = nullptr;
-  std::tie(raster, driver) = rasterDal->open(d_fileName);
+  
+  auto [raster, driver] = rasterDal->open(d_fileName);
   POSTCOND(raster);  // TODO not  a recognized map, but catched earlier on
   raster->setTypeId(typeId);
   raster->setCellsReference(dest);

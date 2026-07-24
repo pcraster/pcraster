@@ -97,9 +97,8 @@ std::tuple<std::shared_ptr<Raster>, RasterDriver*> RasterDal::open(
          std::string const& name) const
 {
   assert(nrDrivers() > 0);
-  std::shared_ptr<Dataset> dataset;
-  Driver* driver = nullptr;
-  std::tie(dataset, driver) = Dal::open(name, RASTER);
+  
+  auto [dataset, driver] = Dal::open(name, RASTER);
   return std::make_tuple(std::dynamic_pointer_cast<Raster>(dataset),
       dynamic_cast<RasterDriver*>(driver));
 }
@@ -112,9 +111,8 @@ std::tuple<std::shared_ptr<Raster>, RasterDriver*> RasterDal::open(
          DataSpaceAddress const& address) const
 {
   assert(nrDrivers() > 0);
-  std::shared_ptr<Dataset> dataset;
-  Driver* driver = nullptr;
-  std::tie(dataset, driver) = Dal::open(name, space, address, RASTER);
+  
+  auto [dataset, driver] = Dal::open(name, space, address, RASTER);
   return std::make_tuple(std::dynamic_pointer_cast<Raster>(dataset),
       dynamic_cast<RasterDriver*>(driver));
 }
@@ -134,9 +132,8 @@ std::shared_ptr<Raster> RasterDal::read(
 {
   assert(nrDrivers() > 0);
 
-  std::shared_ptr<Raster> raster;
-  RasterDriver* driver = nullptr;
-  std::tie(raster, driver) = open(name);
+  
+  auto [raster, driver] = open(name);
 
   if(!raster) {
     throwCannotBeOpened(name, RASTER);

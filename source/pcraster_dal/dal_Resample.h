@@ -124,9 +124,8 @@ public:
     result.setAllMV();
 
     // Handle overlapping cells.
-    RasterDimensions sourceOverlap;
-    RasterDimensions destinationOverlap;
-    std::tie(sourceOverlap, destinationOverlap) =
+    
+    auto [sourceOverlap, destinationOverlap] =
          RasterDimensions::overlap(argument.dimensions(), result.dimensions());
 
     switch(result.typeId()) {

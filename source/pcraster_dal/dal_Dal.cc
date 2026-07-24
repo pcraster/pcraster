@@ -616,9 +616,8 @@ std::tuple<std::shared_ptr<Dataset>, Driver*> Dal::open(
          std::string const& name,
          DatasetType datasetType) const
 {
-  DataSpaceQueryResult result;
-  Driver* driver = nullptr;
-  std::tie(result, driver) = search(name, datasetType, DataSpace(),
+  
+  auto [result, driver] = search(name, datasetType, DataSpace(),
          SearchThisSpaceOnly, HaltOnFirstItemFound);
 
   if(result) {
@@ -689,9 +688,8 @@ std::shared_ptr<Dataset> Dal::read(
 {
   assert(nrDrivers() > 0);
 
-  std::shared_ptr<Dataset> dataset;
-  Driver* driver = nullptr;
-  std::tie(dataset, driver) = open(name);
+  
+  auto [dataset, driver] = open(name);
 
   if(!dataset) {
     throwCannotBeOpened(name);

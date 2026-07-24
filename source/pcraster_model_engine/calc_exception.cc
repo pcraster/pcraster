@@ -7,7 +7,7 @@ calc::Exception::Exception(const std::string &message) : d_message(message)
 {
   com::removeFrontEndSpace(d_message);
   d_message += '\n';
-  append(d_message.c_str());
+  append(d_message);
 }
 
 calc::Exception::~Exception()

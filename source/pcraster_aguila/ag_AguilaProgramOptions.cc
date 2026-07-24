@@ -621,7 +621,7 @@ void AguilaProgramOptions::obtainProgramOptions(int argc, char **argv)
       using boost::property_tree::ptree;
       ptree pt;
 
-      read_ini(path.string().c_str(), pt);
+      read_ini(path.string(), pt);
 
       for (auto &key : pt) {
         if (key.first == "defaultView") {
@@ -660,7 +660,7 @@ void AguilaProgramOptions::obtainProgramOptions(int argc, char **argv)
 
       pcrxsd::DOMInput d(pcrxsd::DOMInput::CompiledIn);
       d.setValidate(true);
-      d.setFile(path.string().c_str());
+      d.setFile(path.string());
 
       try {
         d_configuration = pcrxml::aguila(*d.document()).release();

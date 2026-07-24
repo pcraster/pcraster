@@ -114,7 +114,7 @@ void CursorWindow::get()
 {
   pcrxsd::DOMInput d(pcrxsd::DOMInput::CompiledIn);
   d.setValidate(true);
-  d.setFile(d_fileToGetCursorValue.string().c_str());
+  d.setFile(d_fileToGetCursorValue.string());
 
   try {
     std::unique_ptr<pcrxml::Cursor> cursor(pcrxml::aguilaCursor(*d.document()));
@@ -519,7 +519,7 @@ void CursorWindow::appendToCursorValueMonitorFile()
 
   pcrxsd::DOMInput d(pcrxsd::DOMInput::CompiledIn);
   d.setValidate(true);
-  d.setFile(d_cursorValueMonitorPath.string().c_str());
+  d.setFile(d_cursorValueMonitorPath.string());
 
   try {
     // append acv to existing file (created in setCursorIO)

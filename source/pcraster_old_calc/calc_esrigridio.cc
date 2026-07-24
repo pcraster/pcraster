@@ -337,7 +337,7 @@ void calc::EsriGridIO::describeGridDbl(const std::string &grdnam, double *cellsz
   }
 
   //! patch! above call does puts cellsize in box[0] !
-  bndCellRead(grdnam.c_str(), box);
+  bndCellRead(grdnam, box);
   switch (dataTypeInt) {
     case CELLINT:
       isFloat = false;

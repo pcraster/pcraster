@@ -317,7 +317,7 @@ void qt::AppWindow::showAbout()
 */
 void qt::AppWindow::showWarning(const std::string &m) const
 {
-  showWarning(const_cast<AppWindow *>(this), appName().c_str(), m.c_str());
+  showWarning(const_cast<AppWindow *>(this), appName(), m);
 }
 
 //! Issue warning message and ask if Ok or to Cancel
@@ -328,7 +328,7 @@ void qt::AppWindow::showWarning(const std::string &m) const
  */
 bool qt::AppWindow::confirmOkWarning(const std::string &m)
 {
-  return confirmOkWarning(this, appName().c_str(), m.c_str());
+  return confirmOkWarning(this, appName(), m);
 }
 
 //! Shows an error message.
@@ -339,7 +339,7 @@ bool qt::AppWindow::confirmOkWarning(const std::string &m)
 */
 void qt::AppWindow::showError(const std::string &m) const
 {
-  showError(const_cast<AppWindow *>(this), appName().c_str(), m.c_str());
+  showError(const_cast<AppWindow *>(this), appName(), m);
 }
 
 //! Shows an information message.
@@ -350,7 +350,7 @@ void qt::AppWindow::showError(const std::string &m) const
 */
 void qt::AppWindow::showInfo(const std::string &m) const
 {
-  showInfo(const_cast<AppWindow *>(this), appName().c_str(), m.c_str());
+  showInfo(const_cast<AppWindow *>(this), appName(), m);
 }
 
 //! Returns the application window's name.

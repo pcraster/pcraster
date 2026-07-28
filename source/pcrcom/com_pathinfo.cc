@@ -7,23 +7,25 @@
 #include <sys/stat.h>
 
 #ifdef WIN32
-#include "com_win32.h"
-#ifdef _MSC_VER
-// chdir / getcwd
-#include <direct.h>
-#else
-#include <dir.h>
-#endif
-#include <io.h>  // access
+  #include "com_win32.h"
+  #ifdef _MSC_VER
+    // chdir / getcwd
+    #include <direct.h>
+  #else
+    #include <dir.h>
+  #endif
+  #include <io.h>  // access
 
-#define F_OK 0
-#define R_OK 4
-#define W_OK 2
-#define access _access
-#define chdir _chdir
-#define getcwd _getcwd
+  #define F_OK 0
+  #define R_OK 4
+  #define W_OK 2
+  #define access _access
+  #define chdir _chdir
+  #define getcwd _getcwd
+  
+  #include <set>
 #else
-#include <unistd.h>
+  #include <unistd.h>
 #endif
 
 #include <cstdio>

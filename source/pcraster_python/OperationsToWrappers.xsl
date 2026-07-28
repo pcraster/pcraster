@@ -102,7 +102,7 @@ def maptotal(arg1):
             arg1 = _pcraster.readmap(arg1)
         elif isinstance(arg1, int) or isinstance(arg1, float):
             arg1 = _pcraster._newNonSpatialField(arg1)
-        return _pcraster.maptotal(arg1)
+        return _pcraster._maptotal(arg1)
     except RuntimeError as exception:
         raise RuntimeError("maptotal: %s" % (str(exception)))
         

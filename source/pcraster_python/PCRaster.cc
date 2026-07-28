@@ -1036,7 +1036,7 @@ PYBIND11_MODULE(_pcraster, module)
     ;
 
   // implicitly_convertible<discr::RasterData<REAL4>, calc::Spatial>();
-  pb::class_<calc::DataStorageId, pb::smart_holder>(module, "DataStorageId")
+  pb::class_<calc::DataStorageId, pb::smart_holder>(module, "_DataStorageId")
       .def(pb::init<std::string const&>())
       ;
 
@@ -1263,5 +1263,5 @@ PYBIND11_MODULE(_pcraster, module)
     )"
   );
 
-  module.def("maptotal", &pp::maptotal);
+  module.def("_maptotal", &pp::maptotal);
 }

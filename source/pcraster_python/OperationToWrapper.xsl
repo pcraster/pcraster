@@ -140,7 +140,7 @@
             <xsl:value-of select="concat($indentation, '            ', $argumentName, ' = _pcraster._newNonSpatialField(', $argumentName, ')&#xa;')"/>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:value-of select="concat($indentation, '        ', $argumentName, ' = _pcraster.DataStorageId(', $argumentName, ')&#xa;')"/>
+            <xsl:value-of select="concat($indentation, '        ', $argumentName, ' = _pcraster._DataStorageId(', $argumentName, ')&#xa;')"/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:otherwise>

@@ -206,7 +206,7 @@ def cover(arg1, *arg2):
 
 def timeinput(arg1):
     try:
-        arg1 = _pcraster.DataStorageId(arg1)
+        arg1 = _pcraster._DataStorageId(arg1)
         operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUT)
         results = []
         _pcraster._rte().pushDataStorageId(arg1)
@@ -219,7 +219,7 @@ def timeinput(arg1):
 
 def timeinputsparse(arg1):
     try:
-        arg1 = _pcraster.DataStorageId(arg1)
+        arg1 = _pcraster._DataStorageId(arg1)
         operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTSPARSE)
         results = []
         _pcraster._rte().pushDataStorageId(arg1)
@@ -232,7 +232,7 @@ def timeinputsparse(arg1):
 
 def timeinputmodulo(arg1, arg2):
     try:
-        arg1 = _pcraster.DataStorageId(arg1)
+        arg1 = _pcraster._DataStorageId(arg1)
         if isinstance(arg2, str):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
@@ -250,7 +250,7 @@ def timeinputmodulo(arg1, arg2):
 
 def lookupmapstack(arg1, arg2):
     try:
-        arg1 = _pcraster.DataStorageId(arg1)
+        arg1 = _pcraster._DataStorageId(arg1)
         if isinstance(arg2, str):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
@@ -1153,7 +1153,7 @@ def pcrbmin(arg1, arg2):
 
 def lookupnominal(arg1, *arg2):
     try:
-        arg1 = _pcraster.DataStorageId(arg1)
+        arg1 = _pcraster._DataStorageId(arg1)
         arg2 = list(arg2)
         for i in range(len(arg2)):
             if isinstance(arg2[i], str):
@@ -1174,7 +1174,7 @@ def lookupnominal(arg1, *arg2):
 
 def lookupboolean(arg1, *arg2):
     try:
-        arg1 = _pcraster.DataStorageId(arg1)
+        arg1 = _pcraster._DataStorageId(arg1)
         arg2 = list(arg2)
         for i in range(len(arg2)):
             if isinstance(arg2[i], str):
@@ -1195,7 +1195,7 @@ def lookupboolean(arg1, *arg2):
 
 def lookupordinal(arg1, *arg2):
     try:
-        arg1 = _pcraster.DataStorageId(arg1)
+        arg1 = _pcraster._DataStorageId(arg1)
         arg2 = list(arg2)
         for i in range(len(arg2)):
             if isinstance(arg2[i], str):
@@ -1216,7 +1216,7 @@ def lookupordinal(arg1, *arg2):
 
 def lookupscalar(arg1, *arg2):
     try:
-        arg1 = _pcraster.DataStorageId(arg1)
+        arg1 = _pcraster._DataStorageId(arg1)
         arg2 = list(arg2)
         for i in range(len(arg2)):
             if isinstance(arg2[i], str):
@@ -1237,7 +1237,7 @@ def lookupscalar(arg1, *arg2):
 
 def lookuplinear(arg1, arg2):
     try:
-        arg1 = _pcraster.DataStorageId(arg1)
+        arg1 = _pcraster._DataStorageId(arg1)
         if isinstance(arg2, str):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
@@ -1255,7 +1255,7 @@ def lookuplinear(arg1, arg2):
 
 def lookupdirectional(arg1, *arg2):
     try:
-        arg1 = _pcraster.DataStorageId(arg1)
+        arg1 = _pcraster._DataStorageId(arg1)
         arg2 = list(arg2)
         for i in range(len(arg2)):
             if isinstance(arg2[i], str):
@@ -1276,7 +1276,7 @@ def lookupdirectional(arg1, *arg2):
 
 def lookupldd(arg1, *arg2):
     try:
-        arg1 = _pcraster.DataStorageId(arg1)
+        arg1 = _pcraster._DataStorageId(arg1)
         arg2 = list(arg2)
         for i in range(len(arg2)):
             if isinstance(arg2[i], str):
@@ -2226,7 +2226,7 @@ def muskingum(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9):
 
 def dynwavestate(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11):
     try:
-        arg1 = _pcraster.DataStorageId(arg1)
+        arg1 = _pcraster._DataStorageId(arg1)
         if isinstance(arg2, str):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
@@ -2289,7 +2289,7 @@ def dynwavestate(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, ar
 
 def dynwaveflux(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11):
     try:
-        arg1 = _pcraster.DataStorageId(arg1)
+        arg1 = _pcraster._DataStorageId(arg1)
         if isinstance(arg2, str):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
@@ -2352,7 +2352,7 @@ def dynwaveflux(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg
 
 def lookupstate(arg1, arg2, arg3, arg4, arg5):
     try:
-        arg1 = _pcraster.DataStorageId(arg1)
+        arg1 = _pcraster._DataStorageId(arg1)
         if isinstance(arg2, str):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
@@ -2385,7 +2385,7 @@ def lookupstate(arg1, arg2, arg3, arg4, arg5):
 
 def lookuppotential(arg1, arg2, arg3, arg4, arg5):
     try:
-        arg1 = _pcraster.DataStorageId(arg1)
+        arg1 = _pcraster._DataStorageId(arg1)
         if isinstance(arg2, str):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
@@ -4244,7 +4244,7 @@ def maptotal(arg1):
             arg1 = _pcraster.readmap(arg1)
         elif isinstance(arg1, int) or isinstance(arg1, float):
             arg1 = _pcraster._newNonSpatialField(arg1)
-        return _pcraster.maptotal(arg1)
+        return _pcraster._maptotal(arg1)
     except RuntimeError as exception:
         raise RuntimeError("maptotal: %s" % (str(exception)))
         

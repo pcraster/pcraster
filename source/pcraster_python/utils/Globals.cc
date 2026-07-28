@@ -1,8 +1,12 @@
 #include "Globals.h"
-#include "dal_RasterDal.h"
 #include "calc_globallibdefs.h"
 #include "calc_runtimeengine.h"
 #include "com_exception.h"
+#include "dal_Client.h"
+#include "dal_RasterDal.h"
+
+#include <cassert>
+
 
 
 /*!

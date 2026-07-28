@@ -1,4 +1,7 @@
 #include "numpy_conversion.h"
+#include "debug.h"
+#include "calc_types.h"
+#include "pcrdatatype.h"
 #include "pcrtypes.h"
 #include "geo_rasterspace.h"
 #include "dal_Utils.h"
@@ -6,11 +9,14 @@
 #include "calc_spatial.h"
 #include "value_scale_traits.h"
 
-#include <algorithm>
+#include <cassert>
 #include <cmath>
+#include <cstddef>
 #include <cstdint>
+#include <cstring>
 #include <format>
-#include <memory>
+#include <sstream>
+#include <stdexcept>
 #include <type_traits>
 
 

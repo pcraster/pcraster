@@ -1,8 +1,26 @@
+#include <cassert>
+#include <pcrtypes.h>
+#include <cstddef>
+#include <exception>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl/filesystem.h>
 #include <pybind11/native_enum.h>
 
-#include "stddefx.h"
+#include "dal_PropertyKeys.h"
+#include "dal_Utils.h"
+#include "dal_Def.h"
+#include "debug.h"
+#include "geo_def.h"
+#include "dal_RasterDimensions.h"
+#include "dal_Dimension.h"
+#include "dal_DataSpace.h"
+#include "dal_DataSpaceAddress.h"
+#include "dal_Type.h"
+#include "pcrdatatype.h"
+#include "calc_cr.h"
+#include "calc_vs.h"
+#include "geo_cellloc.h"
+#include "geo_rasterdim.h"
 #include "csf.h"
 #include "com_exception.h"
 #include "com_tune.h"
@@ -31,6 +49,9 @@
 #include <filesystem>
 #include <limits>
 #include <memory>
+#include <sstream>
+#include <stdexcept>
+#include <pyerrors.h>
 #include <string>
 
 template<

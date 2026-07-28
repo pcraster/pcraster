@@ -1,14 +1,24 @@
 #include "pickle.h"
 
 #include "Globals.h"
+#include "calc_cr.h"
 #include "calc_field.h"
 #include "calc_map2csf.h"
 #include "calc_spatial.h"
+#include "geo_def.h"
+#include "calc_types.h"
 #include "pcrtypes.h"
 #include <boost/algorithm/string.hpp>
+#include <cassert>
 #include <cmath>
+#include <cstddef>
+#include <cstdlib>
 #include <ios>
+#include <limits>
 #include <sstream>
+#include <vector>
+#include <string>
+#include <stdexcept>
 
 
 

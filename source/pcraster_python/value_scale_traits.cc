@@ -1,4 +1,7 @@
 #include "value_scale_traits.h"
+#include <string>
+#include "pcrdatatype.h"
+#include <cfloat>
 
 
 namespace pcraster {

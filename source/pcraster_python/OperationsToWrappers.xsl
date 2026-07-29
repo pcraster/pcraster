@@ -59,7 +59,7 @@ def ifthen(arg1, arg2):
             arg1 = pcraster.spatial(pcraster.boolean(arg1))
         elif isinstance(arg1, int) or isinstance(arg1, float):
             arg1 = _pcraster._newNonSpatialField(arg1)
-        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_IFTHEN)
+        operator = _pcraster._major2op(_pcraster._MAJOR_CODE.OP_IFTHEN)
         results = []
         _pcraster._rte().pushField(arg1)
         _pcraster._rte().pushField(arg2)
@@ -84,7 +84,7 @@ def ifthenelse(arg1, arg2, arg3):
             arg3 = _pcraster.readmap(arg3)
         elif isinstance(arg3, int) or isinstance(arg3, float):
             arg3 = _pcraster._newNonSpatialField(arg3)
-        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_IFTHENELSE)
+        operator = _pcraster._major2op(_pcraster._MAJOR_CODE.OP_IFTHENELSE)
         results = []
         _pcraster._rte().pushField(arg1)
         _pcraster._rte().pushField(arg2)
@@ -114,7 +114,7 @@ def timeinputscalar(arg1, arg2, arg3=None):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
             arg2 = _pcraster._newNonSpatialField(arg2)
-        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTSCALAR)
+        operator = _pcraster._major2op(_pcraster._MAJOR_CODE.OP_TIMEINPUTSCALAR)
         results = []
         _pcraster._rte().pushDataStorageId(arg1)
         _pcraster._rte().pushField(arg2)
@@ -132,7 +132,7 @@ def timeinputdirectional(arg1, arg2, arg3=None):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
             arg2 = _pcraster._newNonSpatialField(arg2)
-        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTDIRECTIONAL)
+        operator = _pcraster._major2op(_pcraster._MAJOR_CODE.OP_TIMEINPUTDIRECTIONAL)
         results = []
         _pcraster._rte().pushDataStorageId(arg1)
         _pcraster._rte().pushField(arg2)
@@ -150,7 +150,7 @@ def timeinputboolean(arg1, arg2, arg3=None):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
             arg2 = _pcraster._newNonSpatialField(arg2)
-        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTBOOLEAN)
+        operator = _pcraster._major2op(_pcraster._MAJOR_CODE.OP_TIMEINPUTBOOLEAN)
         results = []
         _pcraster._rte().pushDataStorageId(arg1)
         _pcraster._rte().pushField(arg2)
@@ -168,7 +168,7 @@ def timeinputldd(arg1, arg2, arg3=None):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
             arg2 = _pcraster._newNonSpatialField(arg2)
-        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTLDD)
+        operator = _pcraster._major2op(_pcraster._MAJOR_CODE.OP_TIMEINPUTLDD)
         results = []
         _pcraster._rte().pushDataStorageId(arg1)
         _pcraster._rte().pushField(arg2)
@@ -186,7 +186,7 @@ def timeinputnominal(arg1, arg2, arg3=None):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
             arg2 = _pcraster._newNonSpatialField(arg2)
-        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTNOMINAL)
+        operator = _pcraster._major2op(_pcraster._MAJOR_CODE.OP_TIMEINPUTNOMINAL)
         results = []
         _pcraster._rte().pushDataStorageId(arg1)
         _pcraster._rte().pushField(arg2)
@@ -204,7 +204,7 @@ def timeinputordinal(arg1, arg2, arg3=None):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
             arg2 = _pcraster._newNonSpatialField(arg2)
-        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTORDINAL)
+        operator = _pcraster._major2op(_pcraster._MAJOR_CODE.OP_TIMEINPUTORDINAL)
         results = []
         _pcraster._rte().pushDataStorageId(arg1)
         _pcraster._rte().pushField(arg2)
@@ -223,7 +223,7 @@ def timeinputordinal(arg1, arg2, arg3=None):
 #include "major_op.h"
 #define INCLUDED_MAJOR_OP
 #endif
-pb::native_enum&lt;MAJOR_CODE&gt;(module, "MAJOR_CODE", "enum.Enum")&#xA;</xsl:text>
+pb::native_enum&lt;MAJOR_CODE&gt;(module, "_MAJOR_CODE", "enum.Enum")&#xA;</xsl:text>
     <xsl:for-each select="Operation[@syntax!='None'] | Operation[@name='if']">
       <xsl:variable name="operation" select="."/>
       <xsl:for-each select="$operation/Result">

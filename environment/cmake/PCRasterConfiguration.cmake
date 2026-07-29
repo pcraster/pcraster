@@ -279,7 +279,7 @@ if(UNIX)
     message(STATUS "  includes : " ${CURSES_INCLUDE_DIRS})
 endif()
 
-message(STATUS "Found: ")
+message(STATUS "Found executables: ")
 message(STATUS "  gdal_translate: " ${GDAL_TRANSLATE})
 
 find_program(MAKE_EXECUTABLE NAMES make gmake REQUIRED)

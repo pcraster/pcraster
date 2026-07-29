@@ -325,7 +325,7 @@
             <xsl:with-param name="result" select="$result"/>
           </xsl:call-template>
         </xsl:variable>
-        <xsl:value-of select="concat($indentation, '        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.', $opcode, ')&#xA;')"/>
+        <xsl:value-of select="concat($indentation, '        operator = _pcraster._major2op(_pcraster._MAJOR_CODE.', $opcode, ')&#xA;')"/>
 
         <xsl:call-template name="pythonCreateResultsList">
           <xsl:with-param name="operation" select="$operation"/>

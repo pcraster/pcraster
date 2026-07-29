@@ -1040,7 +1040,7 @@ PYBIND11_MODULE(_pcraster, module)
       .def(pb::init<std::string const&>())
       ;
 
-  pb::class_<calc::ObjectLink, pb::smart_holder>(module, "ObjectLink");
+  pb::class_<calc::ObjectLink, pb::smart_holder>(module, "_ObjectLink");
 
   pb::class_<calc::RunTimeEngine, pb::smart_holder>(module, "RunTimeEngine")
     // the push method's have a check in PCRasterModelEngine for passing in 0/None
@@ -1091,7 +1091,7 @@ PYBIND11_MODULE(_pcraster, module)
 //     ;
 // #endif
 
-  pb::class_<calc::Operator, pb::smart_holder>(module, "Operator");
+  pb::class_<calc::Operator, pb::smart_holder>(module, "_Operator");
 
   module.def("_loadCalcLib", &calc::loadCalcLib);
   module.def("_major2op", &calc::major2op,

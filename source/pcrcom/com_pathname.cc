@@ -2,6 +2,10 @@
 #include "com_pathinfo.h"  // currentWorkingDirectory()
 #include "debug.h"
 
+#ifdef WIN32
+  #include "com_strlib.h"
+#endif
+
 #include <cstddef>
 #include <filesystem>
 #include <iostream>

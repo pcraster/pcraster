@@ -109,7 +109,7 @@ def maptotal(arg1):
 
 def timeinputscalar(arg1, arg2, arg3=None):
     try:
-        arg1 = _pcraster.DataStorageId(arg1)
+        arg1 = _pcraster._DataStorageId(arg1)
         if isinstance(arg2, str):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
@@ -127,7 +127,7 @@ def timeinputscalar(arg1, arg2, arg3=None):
 
 def timeinputdirectional(arg1, arg2, arg3=None):
     try:
-        arg1 = _pcraster.DataStorageId(arg1)
+        arg1 = _pcraster._DataStorageId(arg1)
         if isinstance(arg2, str):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
@@ -145,7 +145,7 @@ def timeinputdirectional(arg1, arg2, arg3=None):
 
 def timeinputboolean(arg1, arg2, arg3=None):
     try:
-        arg1 = _pcraster.DataStorageId(arg1)
+        arg1 = _pcraster._DataStorageId(arg1)
         if isinstance(arg2, str):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
@@ -163,7 +163,7 @@ def timeinputboolean(arg1, arg2, arg3=None):
 
 def timeinputldd(arg1, arg2, arg3=None):
     try:
-        arg1 = _pcraster.DataStorageId(arg1)
+        arg1 = _pcraster._DataStorageId(arg1)
         if isinstance(arg2, str):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
@@ -181,7 +181,7 @@ def timeinputldd(arg1, arg2, arg3=None):
 
 def timeinputnominal(arg1, arg2, arg3=None):
     try:
-        arg1 = _pcraster.DataStorageId(arg1)
+        arg1 = _pcraster._DataStorageId(arg1)
         if isinstance(arg2, str):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
@@ -199,7 +199,7 @@ def timeinputnominal(arg1, arg2, arg3=None):
 
 def timeinputordinal(arg1, arg2, arg3=None):
     try:
-        arg1 = _pcraster.DataStorageId(arg1)
+        arg1 = _pcraster._DataStorageId(arg1)
         if isinstance(arg2, str):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):

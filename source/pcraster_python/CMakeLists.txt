@@ -152,7 +152,7 @@ add_custom_command(
         ${CMAKE_CURRENT_SOURCE_DIR}/pcraster/operators.py
         $<TARGET_FILE_DIR:pcrcalc>/pcraster
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        ${CMAKE_CURRENT_SOURCE_DIR}/pcraster/matplotlib.py
+        ${CMAKE_CURRENT_SOURCE_DIR}/pcraster/plotting.py
         $<TARGET_FILE_DIR:pcrcalc>/pcraster
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         ${CMAKE_CURRENT_SOURCE_DIR}/pcraster/numpy_operations.py
@@ -189,7 +189,7 @@ install(
         pcraster/operators.py
         pcraster/numpy_operations.py
         pcraster/aguila.py
-        pcraster/matplotlib.py
+        pcraster/plotting.py
         ${CMAKE_CURRENT_BINARY_DIR}/operations.py
         ${CMAKE_CURRENT_BINARY_DIR}/__init__.py
         ${CMAKE_CURRENT_BINARY_DIR}/__about__.py

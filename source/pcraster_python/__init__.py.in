@@ -17,7 +17,26 @@ if sys.platform == "win32":
 
 # Check if we can import our compiled module
 try:
-    from ._pcraster import *
+    from ._pcraster import (
+        Boolean,
+        cellvalue_by_index,
+        Directional,
+        Nominal,
+        readFieldCell,
+        setglobaloption,
+        version_tuple,
+        cellvalue,
+        cellvalue_by_indices,
+        Ordinal,
+        readmap,
+        Scalar,
+        setrandomseed,
+        cellvalue_by_coordinates,
+        clone,
+        Ldd,
+        report,
+        setclone,
+    )
 except ImportError as error:
     # Test matching Python versions
     major, minor, patchlevel = platform.python_version_tuple()
@@ -64,7 +83,7 @@ from .__about__ import (
 
 # Depending on the build or runtime configuration the following may be available
 if importlib.util.find_spec("pcraster._pcraster_modflow") is not None:
-    from ._pcraster_modflow import *
+    from ._pcraster_modflow import initialise
 
 
 if importlib.util.find_spec("pcraster.multicore") is not None:
@@ -81,7 +100,7 @@ if importlib.util.find_spec("pcraster.multicore") is not None:
 
 
 if importlib.util.find_spec("matplotlib") is not None:
-    from .matplotlib import plot
+    from .plotting import plot
 
 
 def runtime_scope(user_main):

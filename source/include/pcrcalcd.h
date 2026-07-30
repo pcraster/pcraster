@@ -5,12 +5,8 @@
  */
 
 #include "csftypes.h"
+#include <stddef.h>
 
-#ifdef __cplusplus
-  #include <cstddef>
-#else
-  #include <stddef.h>
-#endif
 
 
 #ifdef USE_IN_PCRCALC

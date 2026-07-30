@@ -2,14 +2,14 @@
 #include "com_appargs.h"
 #include "debug.h"
 
-#include <sched.h>
 #include <string>
-#include <sys/wait.h>
 
 #ifndef _MSC_VER
-#include <unistd.h>
+  #include <sched.h>
+  #include <sys/wait.h>
+  #include <unistd.h>
 #else
-#include <process.h>
+  #include <process.h>
 #endif
 
 #ifndef WIN32

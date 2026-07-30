@@ -85,27 +85,35 @@ class Test(testcase.TestCase):
 
   def testNominal2Ordinal(self):
     nominalMap = pcraster.readmap("areaarea_Class.map")
+    self.assertEqual(nominalMap.dataType(), pcraster.Nominal)
     self.assertEqual(nominalMap.dataType(), pcraster.VALUESCALE.Nominal)
     ordinalMap = pcraster.ordinal(nominalMap)
+    self.assertEqual(ordinalMap.dataType(), pcraster.Ordinal)
     self.assertEqual(ordinalMap.dataType(), pcraster.VALUESCALE.Ordinal)
 
   def testOrdinal2Nominal(self):
     ordinalMap = pcraster.ordinal(pcraster.readmap("areaarea_Class.map"))
+    self.assertEqual(ordinalMap.dataType(), pcraster.Ordinal)
     self.assertEqual(ordinalMap.dataType(), pcraster.VALUESCALE.Ordinal)
     nominalMap = pcraster.nominal(ordinalMap)
     pcraster.report(nominalMap, "nominal.map")
+    self.assertEqual(nominalMap.dataType(), pcraster.Nominal)
     self.assertEqual(nominalMap.dataType(), pcraster.VALUESCALE.Nominal)
 
   def testNominal2Scalar(self):
     nominalMap = pcraster.readmap("areaarea_Class.map")
+    self.assertEqual(nominalMap.dataType(), pcraster.Nominal)
     self.assertEqual(nominalMap.dataType(), pcraster.VALUESCALE.Nominal)
     scalarMap = pcraster.scalar(nominalMap)
+    self.assertEqual(scalarMap.dataType(), pcraster.Scalar)
     self.assertEqual(scalarMap.dataType(), pcraster.VALUESCALE.Scalar)
 
   def testScalar2Nominal(self):
     scalarMap = pcraster.readmap("abs_Expr.map")
+    self.assertEqual(scalarMap.dataType(), pcraster.Scalar)
     self.assertEqual(scalarMap.dataType(), pcraster.VALUESCALE.Scalar)
     nominalMap = pcraster.nominal(scalarMap)
+    self.assertEqual(nominalMap.dataType(), pcraster.Nominal)
     self.assertEqual(nominalMap.dataType(), pcraster.VALUESCALE.Nominal)
 
   def testNonSpatialCreation(self):

@@ -36,6 +36,8 @@ try:
         Ldd,
         report,
         setclone,
+        VALUESCALE,
+        Field
     )
 except ImportError as error:
     # Test matching Python versions

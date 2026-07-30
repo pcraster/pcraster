@@ -18,6 +18,7 @@
     omit-xml-declaration="yes"
   >
     <xsl:text># &doNotEdit;
+import pathlib
 import pcraster._pcraster as _pcraster
 import pcraster
 </xsl:text>
@@ -47,11 +48,11 @@ import pcraster
 
 def ifthen(arg1, arg2):
     try:
-        if isinstance(arg2, str):
+        if isinstance(arg2, str) or isinstance(arg2, pathlib.PurePath):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
             arg2 = _pcraster._newNonSpatialField(arg2)
-        if isinstance(arg1, str):
+        if isinstance(arg1, str) or isinstance(arg1, pathlib.PurePath):
             arg1 = _pcraster.readmap(arg1)
         elif (isinstance(arg1, int) or isinstance(arg1, float)) and not arg2.isSpatial():
             arg1 = pcraster.spatial(pcraster.boolean(arg1))
@@ -72,15 +73,15 @@ def ifthen(arg1, arg2):
 
 def ifthenelse(arg1, arg2, arg3):
     try:
-        if isinstance(arg1, str):
+        if isinstance(arg1, str) or isinstance(arg1, pathlib.PurePath):
             arg1 = _pcraster.readmap(arg1)
         elif isinstance(arg1, int) or isinstance(arg1, float):
             arg1 = _pcraster._newNonSpatialField(arg1)
-        if isinstance(arg2, str):
+        if isinstance(arg2, str) or isinstance(arg2, pathlib.PurePath):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
             arg2 = _pcraster._newNonSpatialField(arg2)
-        if isinstance(arg3, str):
+        if isinstance(arg3, str) or isinstance(arg3, pathlib.PurePath):
             arg3 = _pcraster.readmap(arg3)
         elif isinstance(arg3, int) or isinstance(arg3, float):
             arg3 = _pcraster._newNonSpatialField(arg3)
@@ -98,7 +99,7 @@ def ifthenelse(arg1, arg2, arg3):
 
 def maptotal(arg1):
     try:
-        if isinstance(arg1, str):
+        if isinstance(arg1, str) or isinstance(arg1, pathlib.PurePath):
             arg1 = _pcraster.readmap(arg1)
         elif isinstance(arg1, int) or isinstance(arg1, float):
             arg1 = _pcraster._newNonSpatialField(arg1)
@@ -110,7 +111,7 @@ def maptotal(arg1):
 def timeinputscalar(arg1, arg2, arg3=None):
     try:
         arg1 = _pcraster._DataStorageId(arg1)
-        if isinstance(arg2, str):
+        if isinstance(arg2, str) or isinstance(arg2, pathlib.PurePath):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
             arg2 = _pcraster._newNonSpatialField(arg2)
@@ -128,7 +129,7 @@ def timeinputscalar(arg1, arg2, arg3=None):
 def timeinputdirectional(arg1, arg2, arg3=None):
     try:
         arg1 = _pcraster._DataStorageId(arg1)
-        if isinstance(arg2, str):
+        if isinstance(arg2, str) or isinstance(arg2, pathlib.PurePath):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
             arg2 = _pcraster._newNonSpatialField(arg2)
@@ -146,7 +147,7 @@ def timeinputdirectional(arg1, arg2, arg3=None):
 def timeinputboolean(arg1, arg2, arg3=None):
     try:
         arg1 = _pcraster._DataStorageId(arg1)
-        if isinstance(arg2, str):
+        if isinstance(arg2, str) or isinstance(arg2, pathlib.PurePath):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
             arg2 = _pcraster._newNonSpatialField(arg2)
@@ -164,7 +165,7 @@ def timeinputboolean(arg1, arg2, arg3=None):
 def timeinputldd(arg1, arg2, arg3=None):
     try:
         arg1 = _pcraster._DataStorageId(arg1)
-        if isinstance(arg2, str):
+        if isinstance(arg2, str) or isinstance(arg2, pathlib.PurePath):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
             arg2 = _pcraster._newNonSpatialField(arg2)
@@ -182,7 +183,7 @@ def timeinputldd(arg1, arg2, arg3=None):
 def timeinputnominal(arg1, arg2, arg3=None):
     try:
         arg1 = _pcraster._DataStorageId(arg1)
-        if isinstance(arg2, str):
+        if isinstance(arg2, str) or isinstance(arg2, pathlib.PurePath):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
             arg2 = _pcraster._newNonSpatialField(arg2)
@@ -200,7 +201,7 @@ def timeinputnominal(arg1, arg2, arg3=None):
 def timeinputordinal(arg1, arg2, arg3=None):
     try:
         arg1 = _pcraster._DataStorageId(arg1)
-        if isinstance(arg2, str):
+        if isinstance(arg2, str) or isinstance(arg2, pathlib.PurePath):
             arg2 = _pcraster.readmap(arg2)
         elif isinstance(arg2, int) or isinstance(arg2, float):
             arg2 = _pcraster._newNonSpatialField(arg2)

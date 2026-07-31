@@ -687,9 +687,9 @@ int CurrGetRadioSelection(const char **values, /* array of possible values
   WINDOW *inputWin = NULL;
 
   for (i = 1; i < nrValues; i++) {
-    len = MAX((size_t)len, strlen(values[i]));
+    len = MAX(len, strlen(values[i]));
   }
-  inputWin = newwin(1, len + 1, y, x); /* one more to put cursor */
+  inputWin = newwin(1, (int)(len + 1), y, x); /* one more to put cursor */
   PRECOND(len != 0);                   /* can not modify an empty string */
 
   PrintGetRadioSelection();

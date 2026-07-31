@@ -6,7 +6,6 @@
  * including win32 Os-errors
  * pcrcalc has example use
  */
-#include "stddefx.h"
 #include "com_exception.h"
 #include "dal_Exception.h"
 

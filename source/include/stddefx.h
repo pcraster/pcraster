@@ -111,24 +111,6 @@
 # endif
 #endif
 
-#ifdef BORLANDC
-/* start exclusion of C-linkage
- * including standard headers complains in C type linking
- */
-# ifdef __cplusplus
-  }
-# endif
-#endif
-
-
-#ifdef BORLANDC
-/* end exclusion of C-linkage
- * including standard headers complains in C type linking
- */
-# ifdef __cplusplus
- extern "C" {
-# endif
-#endif
 
 /* SELF */
 #include "environ.h"

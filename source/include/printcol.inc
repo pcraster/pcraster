@@ -1,5 +1,3 @@
-#include "stddefx.h"
-#include <math.h>
 
 static void MakeFmts(char *valFmt_s, char *mvStr_s, CSF_VS vs_s, /* set to scalar for X,Y */
                      const char *userFmt_s,                      /* empty if not specified */

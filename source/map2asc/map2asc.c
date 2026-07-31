@@ -9,6 +9,7 @@
 /********/
 
 /* libs ext. <>, our ""  */
+#include "stddefx.h"
 #include "csf.h"
 #include "misc.h"
 #include <math.h>

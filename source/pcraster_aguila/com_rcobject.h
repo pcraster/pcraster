@@ -20,8 +20,6 @@ private:
 
   size_t           d_refCount{0};
 
-  bool             d_shareable{true};
-
 protected:
 
   //----------------------------------------------------------------------------

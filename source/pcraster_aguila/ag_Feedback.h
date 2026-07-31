@@ -39,7 +39,7 @@ private:
 
 public:
 
-  typedef const GLfloat* const_iterator;
+  using const_iterator = const GLfloat *;
 
   //----------------------------------------------------------------------------
   // CREATORS

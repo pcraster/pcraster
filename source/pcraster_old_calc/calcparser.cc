@@ -225,7 +225,7 @@ class RunSettings;
 #define INCLUDED_LEXGRAMMAR
 #endif
 
-typedef calc::LexToken ANTLRToken;
+using ANTLRToken = calc::LexToken;
 
 #define NEW_EXPR(opTokenPtr, op, args) (new calc::BranchExprImpl(element(opTokenPtr), (op), (args)))
 

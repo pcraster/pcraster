@@ -31,14 +31,14 @@ class GriddedPoints
 
 public:
 
-  typedef std::list<Point> List;
+  using List = std::list<Point>;
 
 private:
 
   // Keep a list of points to prevent invalidation of pointers to the list
   // items.
-  typedef geo::SimpleRaster<List> PointsRaster;
-  typedef geo::SimpleRaster<bool> MVRaster;
+  using PointsRaster = geo::SimpleRaster<List>;
+  using MVRaster = geo::SimpleRaster<bool>;
 
   RasterSpace      d_space;
 
@@ -48,8 +48,8 @@ private:
 
 public:
 
-  typedef typename List::const_iterator const_iterator;
-  typedef typename List::iterator iterator;
+  using const_iterator = typename List::const_iterator;
+  using iterator = typename List::iterator;
 
   //----------------------------------------------------------------------------
   // CREATORS

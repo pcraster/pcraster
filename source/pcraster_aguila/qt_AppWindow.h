@@ -182,6 +182,6 @@ Q_SIGNALS:
 
 } // namespace
 
-typedef qt::AppWindow qt_AppWindow;
+using qt_AppWindow = qt::AppWindow;
 
 #endif

@@ -28,7 +28,7 @@ class BasicTable
 private:
 
   //! Iterator type for iterating over the columns. For internal use only.
-  typedef std::vector<std::vector<double> *>::iterator col_iterator;
+  using col_iterator = std::vector<std::vector<double> *>::iterator;
 
   //! Datastructure with all tabular data.
   std::vector<std::vector<double> *> d_columns;
@@ -56,7 +56,7 @@ protected:
 public:
 
   //! Iterator type for iterating over the records of a column.
-  typedef std::vector<double>::const_iterator const_iterator;
+  using const_iterator = std::vector<double>::const_iterator;
 
   //----------------------------------------------------------------------------
   // CREATORS

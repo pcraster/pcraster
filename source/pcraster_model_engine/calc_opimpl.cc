@@ -48,16 +48,16 @@ template <class V, class I> static void initOp(V &fArray, const I *f)
 }
 
 struct BinArg {
-  typedef enum LR {
+  using LR = enum LR {
     Left = 0,
     Right = 1
-  } LR;
+  };
 
-  typedef enum T {
+  using T = enum T {
     SS_NN = 0,
     NS = 1,
     SN = 2
-  } T;
+  };
 
   T t;
   size_t n;  // max array size

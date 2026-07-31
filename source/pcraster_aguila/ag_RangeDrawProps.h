@@ -29,8 +29,8 @@ class RangeDrawProps: public DrawProps
 
 public:
 
-  typedef std::tuple<com::Classifier*, com::Classifier*> ClassifierTuple;
-  typedef std::vector<ClassifierTuple> ClassifierTuples;
+  using ClassifierTuple = std::tuple<com::Classifier *, com::Classifier *>;
+  using ClassifierTuples = std::vector<ClassifierTuple>;
 
   enum ProbabilityScale {
     CumulativeProbabilities,
@@ -58,9 +58,9 @@ private:
 
 public:
 
-  typedef com::Classifier::Mode Mode;
+  using Mode = com::Classifier::Mode;
 
-  typedef com::Classifier::Algorithm Algorithm;
+  using Algorithm = com::Classifier::Algorithm;
 
   //----------------------------------------------------------------------------
   // CREATORS

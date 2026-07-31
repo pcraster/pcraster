@@ -203,9 +203,9 @@ template<typename R>
 Interval<R> * createIntervalFromLookupTableKey (const std::string& str);
 
 //! instantiated in com_interval.cc
-typedef Interval<double> IntervalD;
+using IntervalD = Interval<double>;
 //! instantiated in com_interval.cc
-typedef Interval<float>  IntervalF;
+using IntervalF = Interval<float>;
 
 } // namespace com
 

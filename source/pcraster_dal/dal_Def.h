@@ -129,9 +129,9 @@ enum TypeId : std::int8_t {
 
 
 
-typedef std::vector<UINT1> UINT1_VECTOR;
-typedef std::vector<INT4> INT4_VECTOR;
-typedef std::vector<REAL4> REAL4_VECTOR;
+using UINT1_VECTOR = std::vector<UINT1>;
+using INT4_VECTOR = std::vector<INT4>;
+using REAL4_VECTOR = std::vector<REAL4>;
 
 
 
@@ -211,7 +211,7 @@ enum FilenameConvention : std::int8_t {
 
 };
 
-typedef size_t FilenameConventions;
+using FilenameConventions = size_t;
 
 
 
@@ -242,7 +242,7 @@ enum DriverProperty : std::int8_t {
 
 };
 
-typedef size_t DriverProperties;
+using DriverProperties = size_t;
 
 //! Properties to tune the data sources.
 /*!
@@ -255,7 +255,7 @@ enum DataSourceProperty : std::int8_t {
   CacheDataOnWrite = 0x00000002
 };
 
-typedef size_t DataSourceProperties;
+using DataSourceProperties = size_t;
 
 enum MissingDataStrategy : std::int8_t {
   SetToMissingValue,

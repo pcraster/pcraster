@@ -28,7 +28,7 @@ public:
   const std::string& message() const { return d_msg; }
 };
 
-typedef struct ModelLinkArgSpec {
+using ModelLinkArgSpec = struct ModelLinkArgSpec {
     //! all accepted vs's
     PCR_VS vs;
     //! spatial type
@@ -37,7 +37,7 @@ typedef struct ModelLinkArgSpec {
     PCR_CR cr;
     //! opaque map handle
     void *value;
-} ModelLinkArgSpec;
+};
 
 class ModelLinkMethodSignature {
 public:
@@ -112,18 +112,18 @@ public:
 
 #define PCR_NR_EXT_MODELLINKS 64
 
-typedef ModelLink* (*PCR_EXTERNAL_MODELLINK_CREATOR)();
+using PCR_EXTERNAL_MODELLINK_CREATOR = ModelLink *(*)();
 
-typedef struct PCR_EXTERNAL_MODELLINK_SYNOPSIS {
+using PCR_EXTERNAL_MODELLINK_SYNOPSIS = struct PCR_EXTERNAL_MODELLINK_SYNOPSIS {
   char name[128];
   PCR_EXTERNAL_MODELLINK_CREATOR creator;
-} PCR_EXTERNAL_MODELLINK_SYNOPSIS;
+};
 
-typedef struct PCR_EXTERNAL_MODELLINK_LIST {
+using PCR_EXTERNAL_MODELLINK_LIST = struct PCR_EXTERNAL_MODELLINK_LIST {
   int apiVersionNr;
   int nrModelLinks;
   PCR_EXTERNAL_MODELLINK_SYNOPSIS modelLinkSynopsisList[PCR_NR_EXT_MODELLINKS];
-} PCR_EXTERNAL_MODELLINK_LIST;
+};
 
 }
 #endif

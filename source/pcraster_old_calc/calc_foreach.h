@@ -30,7 +30,7 @@ class IndexParameter;
  */
 class ForEach : public InnerStatementBlock {
 public:
-  typedef std::set<const class IndexParameter *>Set;
+  using Set = std::set<const class IndexParameter *>;
 private:
   void indexSet(Set& set,const IdList& idList);
 

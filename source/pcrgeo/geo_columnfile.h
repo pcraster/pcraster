@@ -87,7 +87,7 @@ private:
 public:
 
   //! Iterator type.
-  typedef std::vector<double>::const_iterator const_iterator;
+  using const_iterator = std::vector<double>::const_iterator;
   // typedef const double * const_iterator;
 
   //----------------------------------------------------------------------------

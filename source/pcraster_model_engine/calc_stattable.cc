@@ -32,8 +32,8 @@ bool StatTable::d_verbose = false;
 class StatComputation
 {
 public:
-  typedef std::vector<const com::IntervalF *> Intervals;
-  typedef float Real;
+  using Intervals = std::vector<const com::IntervalF *>;
+  using Real = float;
 
 private:
   struct InputMap {
@@ -194,11 +194,11 @@ private:
 //  typedef std::vector<SS_CP> SS_V;
 */
 
-typedef std::vector<CS_CP> CS_V;
+using CS_V = std::vector<CS_CP>;
 
 struct CSPolicy {
-  typedef CS_CP CP;
-  typedef CS_V V;
+  using CP = CS_CP;
+  using V = CS_V;
 
   static inline REAL4 partitionValue(const CP &v)
   {
@@ -207,8 +207,8 @@ struct CSPolicy {
 };
 
 struct Kruis3Policy {
-  typedef CS_CP CP;
-  typedef CS_V V;
+  using CP = CS_CP;
+  using V = CS_V;
 
   static inline REAL4 partitionValue(const CP &v)
   {
@@ -217,8 +217,8 @@ struct Kruis3Policy {
 };
 
 struct GGPolicy {
-  typedef CS_CP CP;
-  typedef CS_V V;
+  using CP = CS_CP;
+  using V = CS_V;
 
   static inline REAL4 partitionValueFirst(const CP &v)
   {

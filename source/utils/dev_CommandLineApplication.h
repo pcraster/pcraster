@@ -11,7 +11,7 @@
 
 namespace dev {
   // CommandLineApplication declarations.
-  typedef std::unordered_map<std::string, std::any> variables_map;
+  using variables_map = std::unordered_map<std::string, std::any>;
 }
 
 

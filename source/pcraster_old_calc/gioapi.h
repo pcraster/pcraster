@@ -10,7 +10,7 @@ extern "C" {
  * distribution. ESRI does not use const, we do
  * Checked that Arc 9.0 still has the identical header
  */
-typedef  const char * ConstCstr;
+using ConstCstr = const char *;
 
 /*
 ****************************************************
@@ -83,7 +83,7 @@ Buffer Cache Allocation is dependent on IO mode.
 #define REGIONRUNIO	7
 
 
-typedef	int		CELLTYPE;	/* cell values are 32 bit quantities */
+using CELLTYPE = int;	/* cell values are 32 bit quantities */
 
 #define	CELLINT		1		/* 32 bit signed integers */
 #define	CELLFLOAT	2		/* 32 bit floating point numbers*/

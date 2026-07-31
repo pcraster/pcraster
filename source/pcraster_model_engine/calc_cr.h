@@ -8,12 +8,12 @@
 namespace calc {
 
 //! cell representation index
-typedef enum CRIndex {
+using CRIndex = enum CRIndex {
  CRI_1=0,   /* UINT1 */
  CRI_4=1,   /* INT4 */
  CRI_f=2,   /* REAL4 */
  CRI_X=4    /* UNKNOWN */
-} CRIndex;
+};
 
 //! CSF_CR constant value from type deduced
 template<typename CR>

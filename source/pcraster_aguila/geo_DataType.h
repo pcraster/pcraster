@@ -8,7 +8,7 @@
 
 namespace geo {
 
-  typedef enum DataType {
+  using DataType = enum DataType {
     DT_INVALID,
     STACK,
     FEATURE,
@@ -16,7 +16,7 @@ namespace geo {
     BLOCK,
     TIMESERIES,
     MODELSCRIPT
-  } DataType;
+  };
 
   // geo::DataType    dataType            (const com::PathName& pathName);
 

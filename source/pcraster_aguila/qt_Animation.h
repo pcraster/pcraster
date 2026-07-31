@@ -48,7 +48,7 @@ class Animation: public QObject
 
 private:
 
-  typedef std::set<size_t>::const_iterator const_iterator;
+  using const_iterator = std::set<size_t>::const_iterator;
 
   // Qt-specific.
   Q_OBJECT

@@ -24,8 +24,8 @@ namespace calc
 {
 namespace detail
 {
-typedef std::pair<std::string, StatTable *> NameStatTablePair;
-typedef std::map<std::string, StatTable *> NameStatTableMap;
+using NameStatTablePair = std::pair<std::string, StatTable *>;
+using NameStatTableMap = std::map<std::string, StatTable *>;
 
 /*! parse the model parts
    */

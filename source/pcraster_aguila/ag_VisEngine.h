@@ -52,10 +52,9 @@ private:
 
 protected:
 
-  typedef std::vector<ag::DataGuide>::iterator dataguide_iterator;
+  using dataguide_iterator = std::vector<ag::DataGuide>::iterator;
 
-  typedef std::vector<ag::DataGuide>::const_reverse_iterator
-                   const_reverse_dataguide_iterator;
+  using const_reverse_dataguide_iterator = std::vector<ag::DataGuide>::const_reverse_iterator;
 
   void             addDataGuide        (const ag::DataGuide& aDataGuide);
 
@@ -97,8 +96,7 @@ public:
     BACKGROUND_COLOUR = 0x00010000
   };
 
-  typedef std::vector<ag::DataGuide>::const_iterator
-                   const_dataguide_iterator;
+  using const_dataguide_iterator = std::vector<ag::DataGuide>::const_iterator;
 
 /*
 0x00020000

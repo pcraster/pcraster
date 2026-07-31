@@ -36,8 +36,8 @@ private:
 
 public:
 
-  typedef std::vector<RgbTuple>::const_iterator const_iterator;
-  typedef std::vector<RgbTuple>::iterator iterator;
+  using const_iterator = std::vector<RgbTuple>::const_iterator;
+  using iterator = std::vector<RgbTuple>::iterator;
 
   //----------------------------------------------------------------------------
   // CREATORS

@@ -45,7 +45,7 @@ private:
 
   enum { COUNT_DYNAMIC=0, COUNT_REPEAT=1,COUNT_NR=2 };
 
-  typedef void (CFGVisitor::*Visit)();
+  using Visit = void (CFGVisitor::*)();
 
   void wrapVisitWithCatch(Visit  v);
   void setStep           ();

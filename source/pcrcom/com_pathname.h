@@ -94,7 +94,7 @@ public:
                       const std::string& pathFragment2);
 
 private:
-  typedef std::filesystem::path  Path;
+  using Path = std::filesystem::path;
   Path                             d_path;
 
   void set(const std::string& path);

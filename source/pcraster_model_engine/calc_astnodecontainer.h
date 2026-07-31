@@ -28,9 +28,9 @@ class ASTNodeContainer: public ASTNode
 {
 
 public:
-  typedef STLContainer AC;
-  typedef typename AC::iterator            iterator;
-  typedef typename AC::const_iterator      const_iterator;
+  using AC = STLContainer;
+  using iterator = typename AC::iterator;
+  using const_iterator = typename AC::const_iterator;
 protected:
   AC                         d_container;
 

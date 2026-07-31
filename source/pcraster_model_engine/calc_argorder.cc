@@ -17,8 +17,8 @@
 namespace calc::detail
 {
 struct AreaClaimReached {
-  typedef std::map<UINT4, ArgOrderIdInfo> State;
-  typedef std::vector<size_t>::iterator CellIter;
+  using State = std::map<UINT4, ArgOrderIdInfo>;
+  using CellIter = std::vector<size_t>::iterator;
   State state;
   CellIter posAreaClaimed;
 

@@ -16,7 +16,7 @@ namespace geo {
 namespace geo {
 
 //! linear index into raster
-typedef size_t LinearLoc;
+using LinearLoc = size_t;
 
 //! identifies a cell location by a row and column number
 /*! Typically used in a raster context.

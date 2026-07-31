@@ -45,7 +45,7 @@ private:
   com::UniqueStringGenerator  d_alreadyDefinedSymbols;
 
   //! store identifier->parameter pairs, to find
-  typedef std::map<std::string, Parameter> Identifier2Name;
+  using Identifier2Name = std::map<std::string, Parameter>;
   Identifier2Name                          d_identifier2Name;
 
   void parseRules(const QDomElement&  model, const std::string& tagName);

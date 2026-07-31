@@ -62,10 +62,10 @@ public:
 private:
 
   //! Type for storing the name - object relations.
-  typedef typename boost::bimap<std::string, T*> Map;
+  using Map = typename boost::bimap<std::string, T *>;
 
   //! Type for storing the use count per object.
-  typedef std::map<T* , size_t> UseCount;
+  using UseCount = std::map<T *, size_t>;
 
   //! Collection of name - object relations.
   Map              _map;

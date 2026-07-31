@@ -19,10 +19,10 @@ namespace tab {
 template<typename Class=int>
 class ClassClassCountMap : public std::map<Class,ClassCountMap<Class> >
 {
- typedef std::map<Class,ClassCountMap<Class> > Base;
- typedef typename Base::const_iterator      I;
- typedef typename std::set<Class>           S;
- typedef typename S::iterator               SI;
+ using Base = std::map<Class, ClassCountMap<Class>>;
+ using I = typename Base::const_iterator;
+ using S = typename std::set<Class>;
+ using SI = typename S::iterator;
  public:
   //----------------------------------------------------------------------------
   // CREATORS

@@ -36,7 +36,7 @@ private:
 
 public:
   //! FTTB return an ObjectLinkMeta later, this is again a list of ptrs to funcs
-  typedef ObjectLinkMeta (*GetMeta)();
+  using GetMeta = ObjectLinkMeta (*)();
 
   //----------------------------------------------------------------------------
   // CREATORS

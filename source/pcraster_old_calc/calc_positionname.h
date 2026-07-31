@@ -24,7 +24,7 @@ namespace calc {
  */
 class PositionName : public Position
 {
-  typedef std::shared_ptr<std::string> StringSharedPtr;
+  using StringSharedPtr = std::shared_ptr<std::string>;
 
   StringSharedPtr d_name;
 

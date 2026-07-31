@@ -92,15 +92,15 @@ private:
 
 public:
 
-typedef std::unique_ptr<calc::ASTNumber    > AP_ASTNumber;
-typedef std::unique_ptr<calc::ASTId        > AP_ASTId;
-typedef std::unique_ptr<calc::ASTNodeVector> AP_ASTNodeVector;
-typedef std::unique_ptr<calc::ASTNodeList  > AP_ASTNodeList;
-typedef std::unique_ptr<calc::ASTNode      > AP_ASTNode;
-typedef std::unique_ptr<calc::ASTPar       > AP_ASTPar;
-typedef std::unique_ptr<calc::ASTExpr      > AP_ASTExpr;
-typedef std::unique_ptr<calc::ASTStat      > AP_ASTStat;
-typedef std::unique_ptr<calc::ASTAss       > AP_ASTAss;
+using AP_ASTNumber = std::unique_ptr<calc::ASTNumber>;
+using AP_ASTId = std::unique_ptr<calc::ASTId>;
+using AP_ASTNodeVector = std::unique_ptr<calc::ASTNodeVector>;
+using AP_ASTNodeList = std::unique_ptr<calc::ASTNodeList>;
+using AP_ASTNode = std::unique_ptr<calc::ASTNode>;
+using AP_ASTPar = std::unique_ptr<calc::ASTPar>;
+using AP_ASTExpr = std::unique_ptr<calc::ASTExpr>;
+using AP_ASTStat = std::unique_ptr<calc::ASTStat>;
+using AP_ASTAss = std::unique_ptr<calc::ASTAss>;
 
 private:
 // not const due to LT(1) use

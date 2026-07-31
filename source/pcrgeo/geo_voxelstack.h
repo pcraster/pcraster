@@ -37,10 +37,10 @@ private:
 
 public:
 
-  typedef std::vector<Voxel>::const_iterator const_iterator;
-  typedef std::vector<Voxel>::const_reverse_iterator const_reverse_iterator;
-  typedef std::vector<Voxel>::iterator iterator;
-  typedef std::vector<Voxel>::reverse_iterator reverse_iterator;
+  using const_iterator = std::vector<Voxel>::const_iterator;
+  using const_reverse_iterator = std::vector<Voxel>::const_reverse_iterator;
+  using iterator = std::vector<Voxel>::iterator;
+  using reverse_iterator = std::vector<Voxel>::reverse_iterator;
 
   //----------------------------------------------------------------------------
   // CREATORS

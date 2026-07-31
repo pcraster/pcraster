@@ -49,7 +49,7 @@ struct ObjectLinkMethod {
 class PCR_ME_EXPORT ObjectLinkMeta
 {
 public:
-  typedef std::map<std::string, ObjectLinkMethod> MethodMap;
+  using MethodMap = std::map<std::string, ObjectLinkMethod>;
 
 private:
   std::string          d_className;

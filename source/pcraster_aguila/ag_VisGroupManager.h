@@ -80,10 +80,10 @@ private:
 
 public:
 
-  typedef std::vector<VisGroup *>::const_iterator const_iterator;
-  typedef std::vector<VisGroup *>::iterator iterator;
-  typedef std::vector<VisGroup *>::const_reverse_iterator const_reverse_iterator;
-  typedef std::vector<VisGroup *>::reverse_iterator reverse_iterator;
+  using const_iterator = std::vector<VisGroup *>::const_iterator;
+  using iterator = std::vector<VisGroup *>::iterator;
+  using const_reverse_iterator = std::vector<VisGroup *>::const_reverse_iterator;
+  using reverse_iterator = std::vector<VisGroup *>::reverse_iterator;
 
   //----------------------------------------------------------------------------
   // CREATORS

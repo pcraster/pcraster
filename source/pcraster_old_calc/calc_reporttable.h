@@ -34,7 +34,7 @@ private:
   //! Copy constructor. NOT IMPLEMENTED.
                    ReportTable               (const ReportTable&);
 
-  typedef        std::map<std::string,const ReportDefinition *> Table;
+  using Table = std::map<std::string, const ReportDefinition *>;
   Table          d_table;
   ReportDefault *d_reportDefault;
 

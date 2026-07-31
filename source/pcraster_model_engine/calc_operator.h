@@ -33,7 +33,7 @@ namespace calc {
  *   who are parallel with IOpImpl subclasses, let them all use the
  *   same name!
  */
-typedef enum ExecType {
+using ExecType = enum ExecType {
         EXEC_TYPE_MISC,   /*!< MISNAMED, more a EXEC_MIXED, mis-used for test_until */
         /* class PointOC: */
         EXEC_TYPE_SAME_UN,   /*!< Ad = op A?, */
@@ -63,16 +63,16 @@ typedef enum ExecType {
         EXEC_TYPE_T_IN,     /* timeinputfunctions */
         EXEC_TYPE_INDEX,    /* indextablefunctions */
         EXEC_TYPE_Direct    /* builtIn_op defined */
-} ExecType;
+};
 
 /*! appearance of an operator/function
  */
-typedef enum SYNTAX {
+using SYNTAX = enum SYNTAX {
     SYNTAX_FUNC=0, // Function: like func(...)
     SYNTAX_MRF=3,  // Multiple Return Function
     SYNTAX_OP=1,   // Operator: like ... op ...
     SYNTAX_NONE=2  // Internal: grammar construction
-} SYNTAX;
+};
 
 class Operator
 {
@@ -142,7 +142,7 @@ private:
 
 public:
 
-  typedef std::vector<DataType> ArgTypes;
+  using ArgTypes = std::vector<DataType>;
 
   //----------------------------------------------------------------------------
   // CREATORS

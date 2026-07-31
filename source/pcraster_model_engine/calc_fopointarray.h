@@ -27,9 +27,9 @@ namespace calc {
 template<class O>
  //! process array of n elements
  struct SameUnArray: public ISameUn {
-     typedef typename O::Type T;
+     using T = typename O::Type;
 
-     typedef T* Val;
+     using Val = T *;
      SameUnArray() : ISameUn() {
        f=(F)fImpl;
      }
@@ -48,8 +48,8 @@ template<class O>
 template<class O>
  //! process array of n elements
  struct DiffUnArray: public IDiffUn {
-     typedef       typename O::ResultType * RESTRICT Result; // (out-only)
-     typedef const typename O::InputType  * RESTRICT Input;
+     using Result = typename O::ResultType *__restrict; // (out-only)
+     using Input = const typename O::InputType *__restrict;
 
      CRIndex cri() const override {
         return crIndex<typename O::InputType>();
@@ -73,10 +73,10 @@ template<class O>
 template<class O>
  //! process array of n elements
  struct SameBinArray: public ISameBin {
-     typedef typename O::Type T;
+     using T = typename O::Type;
 
-     typedef const T * RESTRICT Input; // Input
-     typedef       T * RESTRICT Result; // Result (and input)
+     using Input = const T *__restrict; // Input
+     using Result = T *__restrict; // Result (and input)
 
      CRIndex cri() const override {
         return crIndex<T>();
@@ -147,8 +147,8 @@ template<class O>
 
 template<typename T>
  struct CoverArray: public ISameBin {
-     typedef const T* Input; // Input
-     typedef       T* Result; // Result (and input)
+     using Input = const T *; // Input
+     using Result = T *; // Result (and input)
 
      CRIndex cri() const override {
         return crIndex<T>();
@@ -194,9 +194,9 @@ template<typename T>
 
 template<typename T>
  struct IfThenArray: public IDiffBin {
-     typedef       T    * Result; // Result
-     typedef const UINT1* Cond;   // A1
-     typedef const T    * True;   // A2
+     using Result = T *; // Result
+     using Cond = const UINT1 *;   // A1
+     using True = const T *;   // A2
 
      //! used for 2nd arg, A2 that equal Result
      CRIndex cri() const override {
@@ -252,11 +252,11 @@ template<typename T>
 template<typename T>
  struct IfThenElseArray: public IIfThenElse {
    //! Result, always spatial here
-   typedef       T    * Result;
+   using Result = T *;
    //! always spatial here
-   typedef const UINT1* Cond;
+   using Cond = const UINT1 *;
    //!  type of both true and false branch
-   typedef const T    * Branch;
+   using Branch = const T *;
 
 
    //! used for 2nd arg: true branch
@@ -321,10 +321,10 @@ template<class O>
   *   not optimal for ne and eq -> sameBin fo's
   */
  struct DiffBinArray: public IDiffBin {
-     typedef typename O::Type T;
-     typedef UINT1*        R;
+     using T = typename O::Type;
+     using R = UINT1 *;
      //! A1 == A2 == E
-     typedef const   T*    E;
+     using E = const T *;
 
      CRIndex cri() const override {
         return crIndex<T>();
@@ -376,8 +376,8 @@ template<class O>
  */
  template<class O>
  struct AggregateArray: public IDiffUn {
-   typedef       typename O::AggregateType* R;
-   typedef const typename O::Input*         I;
+   using R = typename O::AggregateType *;
+   using I = const typename O::Input *;
 
    CRIndex cri() const override {
        return crIndex<typename O::Input>();

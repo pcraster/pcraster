@@ -37,8 +37,8 @@ namespace com {
 
 template<class valueT, class sumT=valueT>
 struct Sum {
-  typedef valueT argument_type;
-  typedef void result_type;
+  using argument_type = valueT;
+  using result_type = void;
   //! Running sum.
   sumT d_sum;
 

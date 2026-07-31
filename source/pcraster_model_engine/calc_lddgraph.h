@@ -52,14 +52,14 @@ public:
     //! downstream
     FieldId down()   const { return d_targetVertex; }
   };
-  typedef std::vector<Edge>             Edges;
-  typedef Edges::iterator               UpIterator;
-  typedef Edges::const_iterator         UpConstIterator;
+  using Edges = std::vector<Edge>;
+  using UpIterator = Edges::iterator;
+  using UpConstIterator = Edges::const_iterator;
 
-  typedef Edges::reverse_iterator       DownIterator;
-  typedef Edges::const_reverse_iterator DownConstIterator;
+  using DownIterator = Edges::reverse_iterator;
+  using DownConstIterator = Edges::const_reverse_iterator;
 
-  typedef size_t                        PitId;
+  using PitId = size_t;
   struct Catchment {
     //! field Id of a pit, index into d_pitFieldIds serves as PitId
     //! can be invalid if created by masked MV
@@ -77,8 +77,8 @@ public:
     }
   };
 
-  typedef std::vector<Catchment>        Catchments;
-  typedef Catchments::const_iterator    CatchmentsConstIterator;
+  using Catchments = std::vector<Catchment>;
+  using CatchmentsConstIterator = Catchments::const_iterator;
 
 
 

@@ -40,7 +40,7 @@ class ASTAss: public ASTNode
 {
 
 private:
-  typedef std::vector<ASTPar *> Pars;
+  using Pars = std::vector<ASTPar *>;
 
   //! list of Left Hand Sided parameters to assign to
   Pars             d_pars;

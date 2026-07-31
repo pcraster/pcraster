@@ -60,7 +60,7 @@ private:
   RunDirectory    d_runDirectory;
   Timer           d_timer;
 
-  typedef std::map<std::string, std::shared_ptr<MemoryExchangeItem> > MemoryData;
+  using MemoryData = std::map<std::string, std::shared_ptr<MemoryExchangeItem>>;
   MemoryData        d_memoryData;
   //! reference to user passed DataTransferArray
   /*!

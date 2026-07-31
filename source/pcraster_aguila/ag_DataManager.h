@@ -25,10 +25,10 @@ class DataManager
 
 public:
 
-  typedef typename std::vector< DataInfo<T> >::iterator data_iter;
-  typedef typename std::vector< DataInfo<T> >::const_iterator const_data_iter;
-  typedef typename std::vector<DataGuide>::iterator guide_iter;
-  typedef typename std::vector<DataGuide>::const_iterator const_guide_iter;
+  using data_iter = typename std::vector<DataInfo<T>>::iterator;
+  using const_data_iter = typename std::vector<DataInfo<T>>::const_iterator;
+  using guide_iter = typename std::vector<DataGuide>::iterator;
+  using const_guide_iter = typename std::vector<DataGuide>::const_iterator;
 
 private:
 

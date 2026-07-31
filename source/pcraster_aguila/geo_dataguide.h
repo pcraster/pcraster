@@ -37,7 +37,7 @@ class DataGuide
 public:
 
   //! Generic pointer type of data.
-  typedef const void* Address;
+  using Address = const void *;
 
 private:
 

@@ -34,8 +34,8 @@ private:
 
   Q_OBJECT
 
-  typedef std::tuple<std::vector<DataGuide>, Legend*> LegendTuple;
-  typedef std::vector<LegendTuple> LegendTuples;
+  using LegendTuple = std::tuple<std::vector<DataGuide>, Legend *>;
+  using LegendTuples = std::vector<LegendTuple>;
 
   ViewerType       _viewerType;
 

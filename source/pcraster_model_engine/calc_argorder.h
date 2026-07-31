@@ -21,10 +21,10 @@ namespace calc {
 class ArgOrderAndAddArea {
 
 public:
-  typedef std::vector<ArgOrderIdInfo> Vector;
-  typedef Vector::iterator          ArgIter;
-  typedef Vector::const_iterator    ArgConstIter;
-  typedef size_t                    CellIndex;
+  using Vector = std::vector<ArgOrderIdInfo>;
+  using ArgIter = Vector::iterator;
+  using ArgConstIter = Vector::const_iterator;
+  using CellIndex = size_t;
 
   static void       argOrder      (std::vector<ArgOrderIdInfo> const& args,
                                    INT4 * result,

@@ -59,13 +59,13 @@ private:
 public:
 
   //! Const iterator type.
-  typedef T const* const_iterator;
+  using const_iterator = const T *;
 
   //! Iterator type.
-  typedef T* iterator;
+  using iterator = T *;
 
   //! Value type.
-  typedef T value_type;
+  using value_type = T;
 
   //----------------------------------------------------------------------------
   // CREATORS

@@ -38,13 +38,13 @@ class SpiritFileParser
 
 public:
    // typedef boost::spirit::file_iterator<char> fit_t;
-   typedef const char *fit_t;
+   using fit_t = const char *;
 private:
    FileMap       *d_fileMap;
    fit_t d_fbegin,d_fend;
    //! wrap the file iterator to get position_iterators
 public:
-   typedef boost::spirit::classic::position_iterator<fit_t> iterator;
+   using iterator = boost::spirit::classic::position_iterator<fit_t>;
 private:
    iterator  d_begin,d_end;
    iterator  d_current;

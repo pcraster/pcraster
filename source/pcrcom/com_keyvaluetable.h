@@ -158,12 +158,12 @@ private:
   bool d_discardUnknownKeys{false};
 
   //! keys added key -> value
-  typedef std::map<std::string,std::string, com::StringLessNoCase > KeyValues;
+  using KeyValues = std::map<std::string, std::string, com::StringLessNoCase>;
   //! keys added
   KeyValues d_keyValues;
 
   //! key configurations
-  typedef std::map<std::string, KeyValueConfig *,com::StringLessNoCase > KeyConfigs;
+  using KeyConfigs = std::map<std::string, KeyValueConfig *, com::StringLessNoCase>;
   //! key configurations
   KeyConfigs d_keyConfigs;
 
@@ -270,7 +270,7 @@ private:
   //! Copy constructor.
                    KeyValueEnum               (const KeyValueEnum&);
 
-  typedef std::set<std::string, com::StringLessNoCase> EnumValues;
+  using EnumValues = std::set<std::string, com::StringLessNoCase>;
   EnumValues d_enumValues;
 
 public:

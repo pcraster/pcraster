@@ -3,6 +3,6 @@
 
 #include "pcrdatatype.h"
 
-typedef PCR_VS VS;
+using VS = PCR_VS;
 
 #endif

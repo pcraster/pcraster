@@ -8,7 +8,7 @@
  * bla bla bla bla bla bla bla bla bla bla
  */
 
-typedef struct PcrScriptImpl PcrScript;
+using PcrScript = struct PcrScriptImpl;
 
 #ifdef __cplusplus
  extern "C" {

@@ -33,13 +33,13 @@ class DataObjectBase
 private:
 
   //! Type of name, space, dataInfo tuples.
-  typedef std::tuple<std::string, dal::DataSpace, DataInfo<T> > Tuple;
+  using Tuple = std::tuple<std::string, dal::DataSpace, DataInfo<T>>;
 
   //! Type of tuple iterator.
-  typedef typename std::vector<Tuple>::iterator tuple_iter;
+  using tuple_iter = typename std::vector<Tuple>::iterator;
   //
   //! Type of const tuple iterator.
-  typedef typename std::vector<Tuple>::const_iterator const_tuple_iter;
+  using const_tuple_iter = typename std::vector<Tuple>::const_iterator;
 
   // TODO why is this a static collection?
   //! Collection with tuples.
@@ -65,9 +65,9 @@ protected:
 
 public:
 
-  typedef typename DataManager<T>::data_iter data_iter;
-  typedef typename DataManager<T>::const_data_iter const_data_iter;
-  typedef typename DataManager<T>::const_guide_iter const_guide_iter;
+  using data_iter = typename DataManager<T>::data_iter;
+  using const_data_iter = typename DataManager<T>::const_data_iter;
+  using const_guide_iter = typename DataManager<T>::const_guide_iter;
 
   //----------------------------------------------------------------------------
   // CREATORS

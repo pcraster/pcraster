@@ -113,8 +113,8 @@ typename calc::ASTNodeContainer<S>::const_iterator calc::ASTNodeContainer<S>::en
   return d_container.end();
 }
 
-typedef std::deque<calc::ASTNode *> Deque;
-typedef std::list<calc::ASTNode *> List;
+using Deque = std::deque<calc::ASTNode *>;
+using List = std::list<calc::ASTNode *>;
 template class calc::ASTNodeContainer<Deque>;
 template class calc::ASTNodeContainer<List>;
 

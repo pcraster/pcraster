@@ -31,7 +31,7 @@
 //------------------------------------------------------------------------------
 namespace calc
 {
-typedef StackReaderT<EsriMap> EsriStackReader;
+using EsriStackReader = StackReaderT<EsriMap>;
 
 template <> VS EsriStackReader::checkItem(size_t t, [[maybe_unused]] VS expectVsSet) const
 {

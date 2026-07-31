@@ -31,9 +31,8 @@ private:
 
 public:
 
-  typedef typename std::vector<com_LegendClass<T> >::iterator iterator;
-  typedef typename std::vector<com_LegendClass<T> >::const_iterator
-         const_iterator;
+  using iterator = typename std::vector<com_LegendClass<T>>::iterator;
+  using const_iterator = typename std::vector<com_LegendClass<T>>::const_iterator;
 
   //----------------------------------------------------------------------------
   // CREATORS

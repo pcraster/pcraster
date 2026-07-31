@@ -26,7 +26,7 @@
 
 namespace calc
 {
-typedef StackReaderT<CsfMap> CsfStackReader;
+using CsfStackReader = StackReaderT<CsfMap>;
 
 template <> VS CsfStackReader::checkItem(size_t t, VS expectVsSet) const
 {

@@ -20,7 +20,7 @@ namespace qtw {
 
 namespace qtd {
 
-typedef qt::Dialog qtDialog;
+using qtDialog = qt::Dialog;
 
 /*!
   \class SelectPalette

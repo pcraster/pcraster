@@ -40,7 +40,7 @@ private:
 protected:
 
 public:
-   typedef pcrxml::StringSet::item_const_iterator const_iterator;
+   using const_iterator = pcrxml::StringSet::item_const_iterator;
 
   //----------------------------------------------------------------------------
   // CREATORS

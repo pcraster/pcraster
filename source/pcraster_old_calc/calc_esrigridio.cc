@@ -17,7 +17,7 @@ std::string calc::EsriGridIO::d_dllName;
 
 #define STATIC_GRIDIO_FPTR(funcName) STATIC_DLL_FUNC_PTR(d_dll, funcName)
 
-typedef int (*IntVoidPtr)();
+using IntVoidPtr = int (*)();
 bool esriArcView3Only = false;
 
 #ifdef WIN32

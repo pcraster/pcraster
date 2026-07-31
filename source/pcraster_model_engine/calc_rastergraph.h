@@ -14,8 +14,8 @@ namespace calc {
 
 namespace calc {
 
-typedef IFieldRDConversion::FieldId  FieldId;
-typedef IFieldRDConversion::RasterId RasterId;
+using FieldId = IFieldRDConversion::FieldId;
+using RasterId = IFieldRDConversion::RasterId;
 
 //! base for graph implementations on raster configurations.
 /*!
@@ -26,7 +26,7 @@ class RasterGraph
 {
 public:
 
-  typedef unsigned char                Byte;
+  using Byte = unsigned char;
 
 protected:
 

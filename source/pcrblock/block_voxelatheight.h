@@ -38,8 +38,8 @@ private:
 protected:
 
 public:
-  typedef REAL4 argument_type;
-  typedef bool result_type;
+  using argument_type = REAL4;
+  using result_type = bool;
 
   //----------------------------------------------------------------------------
   // CREATORS

@@ -24,10 +24,10 @@ class InfoScript;
 class StatementBlock;
 
 class SymbolTable {
-  typedef std::pair<std::string, UserSymbol *>ParameterTableItem;
-  typedef std::map <std::string, UserSymbol *>ParameterTable;
-  typedef ParameterTable::const_iterator ConstIter;
-  typedef ParameterTable::iterator Iter;
+  using ParameterTableItem = std::pair<std::string, UserSymbol *>;
+  using ParameterTable = std::map<std::string, UserSymbol *>;
+  using ConstIter = ParameterTable::const_iterator;
+  using Iter = ParameterTable::iterator;
 
   ParameterTable  d_table;
 

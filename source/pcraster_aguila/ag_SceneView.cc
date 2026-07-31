@@ -84,7 +84,7 @@ void glu_perspective(GLfloat fovy, GLfloat aspect, GLfloat znear, GLfloat zfar)
 
 }  // namespace detail
 
-typedef std::vector<ag::SceneObject *>::iterator so_it;
+using so_it = std::vector<ag::SceneObject *>::iterator;
 
 class SceneViewPrivate
 {

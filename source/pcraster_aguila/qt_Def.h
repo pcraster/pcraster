@@ -6,7 +6,7 @@
 namespace qt
 {
 
-  typedef unsigned int SideFlags;
+  using SideFlags = unsigned int;
 
   enum Side
   {

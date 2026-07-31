@@ -8,7 +8,7 @@
 
 namespace calc {
 
-typedef  std::vector<Id> IdList;
+using IdList = std::vector<Id>;
 
 //! holds an id-list
 /*! An id-list can be empty

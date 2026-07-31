@@ -27,7 +27,7 @@ class Operations
 {
 
 private:
-  typedef const Operator *O;
+  using O = const Operator *;
 
   //! Assignment operator. NOT IMPLEMENTED.
   Operations&           operator=           (const Operations& rhs);
@@ -45,23 +45,23 @@ private:
     MAJOR_CODE    d_otherOneOfMRF;
   };
   //! example OP_SPREAD,{OP_SPREAD_MRF,OP_SPREADZONE}
-  typedef std::map<MAJOR_CODE, MRFRelatives> MRFRelations;
+  using MRFRelations = std::map<MAJOR_CODE, MRFRelatives>;
   MRFRelations                               d_mrfRelations;
 
-  typedef std::map<std::string,O>          NameOp;
+  using NameOp = std::map<std::string, O>;
   //! d_nameOp owns the Operator objects
   /*!
    *  stores both built-ins and externals
    */
   NameOp                                   d_nameOp;
 
-  typedef std::map<MAJOR_CODE ,O>          CodeOp;
+  using CodeOp = std::map<MAJOR_CODE, O>;
   //! only  stores both built-ins
   CodeOp                                   d_codeOp;
-  typedef std::map<std::string,MAJOR_CODE> Funcs;
+  using Funcs = std::map<std::string, MAJOR_CODE>;
   Funcs                                    d_funcs;
 
-  typedef std::map<std::string,CalcLib *>  LibMap;
+  using LibMap = std::map<std::string, CalcLib *>;
   LibMap                                   d_libs;
 
 public:

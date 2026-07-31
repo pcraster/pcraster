@@ -59,7 +59,7 @@ private:
 public:
 
   //! Type of the iterator for timesteps.
-  typedef std::vector<size_t>::const_iterator const_iterator;
+  using const_iterator = std::vector<size_t>::const_iterator;
 
   //----------------------------------------------------------------------------
   // CREATORS

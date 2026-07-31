@@ -32,7 +32,7 @@ class ASTDefinition
 {
 private:
 
-  typedef std::map<Id, Id> KeyValue;
+  using KeyValue = std::map<Id, Id>;
 
   Id               d_name;
   KeyValue         d_items;

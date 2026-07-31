@@ -51,12 +51,12 @@ typedef uint16_t flex_uint16_t;
 typedef int32_t flex_int32_t;
 typedef uint32_t flex_uint32_t;
 #else
-typedef signed char flex_int8_t;
-typedef short int flex_int16_t;
-typedef int flex_int32_t;
-typedef unsigned char flex_uint8_t;
-typedef unsigned short int flex_uint16_t;
-typedef unsigned int flex_uint32_t;
+using flex_int8_t = signed char;
+using flex_int16_t = short;
+using flex_int32_t = int;
+using flex_uint8_t = unsigned char;
+using flex_uint16_t = unsigned short;
+using flex_uint32_t = unsigned int;
 #endif /* ! C99 */
 
 /* Limits of integral types. */
@@ -164,7 +164,7 @@ enum {
 
 #ifndef YY_TYPEDEF_YY_BUFFER_STATE
 #define YY_TYPEDEF_YY_BUFFER_STATE
-typedef struct yy_buffer_state *YY_BUFFER_STATE;
+using YY_BUFFER_STATE = struct yy_buffer_state *;
 #endif
 
 extern int yyleng;
@@ -210,7 +210,7 @@ enum {
 
 #ifndef YY_TYPEDEF_YY_SIZE_T
 #define YY_TYPEDEF_YY_SIZE_T
-typedef unsigned int yy_size_t;
+using yy_size_t = unsigned int;
 #endif
 
 #ifndef YY_STRUCT_YY_BUFFER_STATE
@@ -322,7 +322,7 @@ void yyfree(void *);
 #define yywrap() 1
 #define YY_SKIP_YYWRAP
 
-typedef unsigned char YY_CHAR;
+using YY_CHAR = unsigned char;
 
 #define yytext_ptr yytext
 #define YY_INTERACTIVE

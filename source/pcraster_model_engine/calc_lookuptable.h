@@ -134,16 +134,16 @@ Generic Notation: [KeySelection]* -> (MWF|Linear|value)
  */
 class LookupTable : public DataValue {
 public:
-   typedef RelationRecord::Key                  Key;
-   typedef std::vector<RelationRecord>          Records;
-   typedef Records::const_iterator              const_iterator;
+   using Key = RelationRecord::Key;
+   using Records = std::vector<RelationRecord>;
+   using const_iterator = Records::const_iterator;
 private:
    detail::LookupTablePrefixMap                 *d_prefixMap{nullptr};
    detail::MemoryInputTableCreator              *d_memoryInputTableCreator{nullptr};
    //! vs of each column
    std::vector<VS>                               d_vs;
 
-   typedef Records::const_iterator               I;
+   using I = Records::const_iterator;
 
    Records                                       d_records;
 

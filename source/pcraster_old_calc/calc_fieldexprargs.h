@@ -8,7 +8,7 @@ namespace calc {
 
 class FieldExpr;
 
-typedef std::vector<FieldExpr *>FieldExprArgs;
+using FieldExprArgs = std::vector<FieldExpr *>;
 void cleanUp(FieldExprArgs&  argsVect);
 void cleanUp(const FieldExprArgs&  argsVect);
 

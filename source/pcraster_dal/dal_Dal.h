@@ -111,7 +111,7 @@ class PCR_DAL_DECL Dal
 protected:
 
   //! Type of the collection with drivers.
-  typedef std::vector<Driver*> Drivers;
+  using Drivers = std::vector<Driver *>;
 
 private:
 
@@ -122,11 +122,10 @@ private:
   Drivers          _drivers;
 
   //! Type for cached information: driver, result of search for first data item, result of search for all data items.
-  typedef std::tuple<Driver*, DataSpaceQueryResult, DataSpaceQueryResult>
-         CacheValue;
+  using CacheValue = std::tuple<Driver *, DataSpaceQueryResult, DataSpaceQueryResult>;
 
   // Type for lookup table with cached information. The key is the string representation of the attribute name and the data space.
-  typedef std::map<std::string, CacheValue> Cache;
+  using Cache = std::map<std::string, CacheValue>;
 
   //! Lookup table to find cached information of an attribute.
   Cache            _driversByDataset;

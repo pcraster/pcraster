@@ -16,7 +16,7 @@ class InfoScript;
 //! holds all arguments of type field expr
 class FieldArgs {
  public:
-  typedef std::vector<FieldExpr *> Args;
+  using Args = std::vector<FieldExpr *>;
  private:
   void checkArgs();
   //! position of arguments

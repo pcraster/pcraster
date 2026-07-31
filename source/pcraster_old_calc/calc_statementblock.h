@@ -20,7 +20,7 @@ class FieldParameter;
 class StatementBlock : public Statement {
  private:
   //! parameters whose values can be removed after executing this block
-  typedef std::list<FieldParameter *> FieldParList;
+  using FieldParList = std::list<FieldParameter *>;
   FieldParList d_valueDelete;
 
   //! to which block this statement belongs to, 0 for script
@@ -33,7 +33,7 @@ class StatementBlock : public Statement {
 
   // ACCESSORS
 
-  typedef std::list<Statement *> StatList;
+  using StatList = std::list<Statement *>;
   StatList   d_stats;
 
  public:

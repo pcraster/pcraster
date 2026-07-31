@@ -66,7 +66,7 @@ private:
    }
   };
 
-  typedef ASTNodeList::iterator I;
+  using I = ASTNodeList::iterator;
 
   ASTSymbolTable const& d_symbols;
   //! ASTNodeList are embedded in each other, keep info in a stack

@@ -19,7 +19,7 @@ class PositionText;
 
 //! how lexinput get its input
 class LexInputSource {
-  typedef std::shared_ptr<std::string> StringSharedPtr;
+  using StringSharedPtr = std::shared_ptr<std::string>;
 
            LexInputSource();
 protected:

@@ -19,7 +19,7 @@ namespace calc {
 
 class ParSet : public std::set<ASTPar *,ASTParPtrLessName>
 {
-  typedef std::set<ASTPar *,ASTParPtrLessName> Base;
+  using Base = std::set<ASTPar *, ASTParPtrLessName>;
 public:
   ASTPar*               find           (ASTPar*) const;
   std::vector<ASTPar *> toSortedVector ()        const;

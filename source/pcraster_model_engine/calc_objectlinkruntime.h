@@ -21,14 +21,8 @@ namespace calc {
 class RunTimeEnv;
 class ObjectLink;
 class Operator;
-typedef ObjectLink* (*ObjectLinkFactoryPtr)
-                   (const std::string&  stringArg,
-                    const geo::RasterSpace& rs,
-                    size_t              nrFieldArgs);
-typedef ObjectLink* (ObjectLinkFactory)
-                   (const std::string&  stringArg,
-                    const geo::RasterSpace& rs,
-                    size_t              nrFieldArgs);
+using ObjectLinkFactoryPtr = ObjectLink *(*)(const std::string &, const geo::RasterSpace &, size_t);
+using ObjectLinkFactory = ObjectLink *(const std::string &, const geo::RasterSpace &, size_t);
 
 void createObjectLink(
       const Operator&      op,

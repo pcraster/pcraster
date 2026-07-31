@@ -22,8 +22,8 @@ class ApiMap: private ObjCount<ApiMap> {
 
 template<typename MAP_API>
 class ApiMapC : public ApiMap {
-  typedef  MAP_API *(* InitMap)(size_t nrRows,size_t nrCols,void *v, bool spatial, CSF_CR inCr);
-  typedef  void (* DeleteInternal)(MAP_API *m);
+  using InitMap = MAP_API *(*)(size_t, size_t, void *, bool, CSF_CR);
+  using DeleteInternal = void (*)(MAP_API *);
   static   InitMap d_init;
   static   DeleteInternal d_del;
 
@@ -57,9 +57,9 @@ class ApiMapC : public ApiMap {
    }
 };
 
- typedef ApiMapC<MAP_UINT1> ApiMapUINT1;
- typedef ApiMapC<MAP_INT4>  ApiMapINT4;
- typedef ApiMapC<MAP_REAL8> ApiMapREAL8;
+ using ApiMapUINT1 = ApiMapC<MAP_UINT1>;
+ using ApiMapINT4 = ApiMapC<MAP_INT4>;
+ using ApiMapREAL8 = ApiMapC<MAP_REAL8>;
 
 }
 

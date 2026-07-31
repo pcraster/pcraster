@@ -36,7 +36,7 @@ namespace ag {
 
 namespace ag {
 
-typedef DrawProps GeometryDrawProps;
+using GeometryDrawProps = DrawProps;
 
 
 
@@ -61,7 +61,7 @@ class DataProperties
 
 private:
 
-  typedef std::vector<DataGuide>::iterator iterator;
+  using iterator = std::vector<DataGuide>::iterator;
 
   std::unique_ptr<DataPropertiesPrivate> _data;
 
@@ -204,9 +204,9 @@ private:
 
 public:
 
-  typedef std::vector<DataGuide>::const_iterator const_iterator;
+  using const_iterator = std::vector<DataGuide>::const_iterator;
 
-  typedef std::vector<DataGuide>::const_reverse_iterator const_reverse_iterator;
+  using const_reverse_iterator = std::vector<DataGuide>::const_reverse_iterator;
 
   //----------------------------------------------------------------------------
   // CREATORS

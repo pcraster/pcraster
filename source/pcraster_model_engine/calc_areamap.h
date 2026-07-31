@@ -37,7 +37,7 @@ class Field;
 class AreaMap
 {
 public:
-  typedef std::vector<bool> Mask;
+  using Mask = std::vector<bool>;
 
 private:
   //! to check the order crap AreaMap got into

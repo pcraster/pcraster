@@ -56,7 +56,7 @@ protected:
 
 public:
 
-  typedef std::vector<std::string>::const_iterator const_iterator;
+  using const_iterator = std::vector<std::string>::const_iterator;
 
   //----------------------------------------------------------------------------
   // CREATORS

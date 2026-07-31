@@ -20,14 +20,14 @@ namespace calc {
  *  \todo
  *    make IsRunningExecScript the 0 case
  */
-typedef enum ExecuteScriptStatus  {
+using ExecuteScriptStatus = enum ExecuteScriptStatus  {
      ErrorExecScript=0,  /*!< syntax or runtime error occurred */
      FinishedExecScript, /*!< script finished normally */
      FileOutputValueExecScript, /*!< -e was set, and and expr eval'ed to 0 */
      CanceledExecScript, /*!< user requested cancel, by a ProgressCallBack */
      IsRunningExecScript /*!< busy reading/parsing or executing script or
                               better: None of the above */
-} ExecuteScriptStatus;
+};
 
 //------------------------------------------------------------------------------
 // INLINE FUNCTIONS

@@ -32,7 +32,7 @@ private:
   //! Copy constructor. NOT IMPLEMENTED.
                    PointCodeBlockDll               (PointCodeBlockDll const& rhs);
 
-  typedef std::vector<PointCodeBlock *>  Blocks;
+  using Blocks = std::vector<PointCodeBlock *>;
 
   com::DynamicLibrary*    d_dll{nullptr};
 

@@ -36,8 +36,8 @@ private:
       d_dv(dv) {
      }
   };
-  typedef std::map<std::string, Entry> Table;
-  typedef Table::iterator              iterator;
+  using Table = std::map<std::string, Entry>;
+  using iterator = Table::iterator;
 
 public:
   //! wrap an iterator as a DataTable entry

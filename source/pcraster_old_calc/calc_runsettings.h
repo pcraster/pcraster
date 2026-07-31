@@ -28,7 +28,7 @@ namespace calc {
 class RunSettings
 {
 public:
-  typedef std::map<ExtSym,ExtSym>      Bindings;
+  using Bindings = std::map<ExtSym, ExtSym>;
 
 private:
 

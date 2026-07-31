@@ -35,7 +35,7 @@ struct ReportPar {
 };
 
 //! return value of ReportVisitor::reportPars()
-typedef std::map<std::string,ReportPar>  ReportPars;
+using ReportPars = std::map<std::string, ReportPar>;
 
 
 //! update all Report objects in AST and create a map of report positions

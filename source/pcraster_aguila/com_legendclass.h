@@ -90,9 +90,9 @@ public:
 template<class T>
 struct compClass1
 {
-  typedef com_LegendClass<T> first_argument_type;
-  typedef T second_argument_type;
-  typedef bool result_type;
+  using first_argument_type = com_LegendClass<T>;
+  using second_argument_type = T;
+  using result_type = bool;
   bool operator() (const com_LegendClass<T> &lc, T c) const
   { return lc.value() < c; }
 };
@@ -100,9 +100,9 @@ struct compClass1
 template<class T>
 struct compClass2
 {
-  typedef com_LegendClass<T> first_argument_type;
-  typedef T second_argument_type;
-  typedef bool result_type;
+  using first_argument_type = com_LegendClass<T>;
+  using second_argument_type = T;
+  using result_type = bool;
   bool operator() (T c, const com_LegendClass<T> &lc) const
   { return c < lc.value(); }
 };
@@ -110,9 +110,9 @@ struct compClass2
 template<class T>
 struct compClass
 {
-  typedef com_LegendClass<T> first_argument_type;
-  typedef T second_argument_type;
-  typedef bool result_type;
+  using first_argument_type = com_LegendClass<T>;
+  using second_argument_type = T;
+  using result_type = bool;
   bool operator() (const com_LegendClass<T> &lc, T c) const
   { return lc.value() < c; }
 
@@ -124,9 +124,9 @@ struct compClass
 template<class T>
 struct equalClass
 {
-  typedef com_LegendClass<T> first_argument_type;
-  typedef T second_argument_type;
-  typedef bool result_type;
+  using first_argument_type = com_LegendClass<T>;
+  using second_argument_type = T;
+  using result_type = bool;
   bool operator() (const com_LegendClass<T> &lc, T c) const
   { return lc.value() == c; }
 

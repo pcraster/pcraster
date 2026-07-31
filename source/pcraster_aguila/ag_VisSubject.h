@@ -36,7 +36,7 @@ protected:
 
 public:
 
-  typedef VisChangeManager::iterator iterator;
+  using iterator = VisChangeManager::iterator;
 
   //----------------------------------------------------------------------------
   // CREATORS

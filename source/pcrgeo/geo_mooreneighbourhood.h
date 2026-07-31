@@ -59,7 +59,7 @@ public:
 };
 
 //! Until this class is renamed this typedef.
-typedef MooreNeighbourhood SquareNeighbourhood;
+using SquareNeighbourhood = MooreNeighbourhood;
 
 
 

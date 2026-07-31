@@ -13,7 +13,7 @@ class ArrayDefinition;
 class IndexContainer {
 	const ArrayDefinition* d_partOf;
 public:
-	typedef std::set<const IndexParameter *>Set;
+	using Set = std::set<const IndexParameter *>;
 protected:
 	virtual void addToSet(Set& setToBeAddedTo)const=0;
 public:

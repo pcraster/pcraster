@@ -37,7 +37,7 @@ private:
   //! Copy constructor. NOT IMPLEMENTED.
                    AverageMap               (AverageMap const& rhs);
 
-  typedef        com::AverageMinMax< REAL4 > A;
+  using A = com::AverageMinMax<REAL4>;
   AreaAverageMap         d_map;
 
 public:

@@ -25,14 +25,14 @@ class XMLReflection;
 class RunTimeEnvSettings
 {
 public:
-  typedef enum ExitValueType {
+  using ExitValueType = enum ExitValueType {
     //! -e option
     LAST_VAL,
     //! -E option
     EXIT_ON_0,
     //! just 0 on success (default)
     ALWAYS_0
-  } ExitValueType;
+  };
 
 
 

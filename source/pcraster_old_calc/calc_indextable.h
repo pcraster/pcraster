@@ -13,14 +13,14 @@ namespace calc {
 //! An index table can initialize/create arrayed parameters
 class IndexTable : public Parameter {
  public:
-  typedef struct Value {
+  using Value = struct Value {
     std::string d_value;
     int    d_lineNr{};
-  } Value;
+  };
  private:
-  typedef std::vector<std::string> Key;
-  typedef std::pair<Key, Value>Pair;
-  typedef std::map<Key, Value> Table;
+  using Key = std::vector<std::string>;
+  using Pair = std::pair<Key, Value>;
+  using Table = std::map<Key, Value>;
   Table d_table;
   std::string err_msg;
 

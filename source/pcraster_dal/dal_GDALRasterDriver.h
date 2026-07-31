@@ -110,7 +110,7 @@ public:
   using RasterDriver::open;
 
 
-  typedef std::vector<GDALDriver*>::iterator iterator;
+  using iterator = std::vector<GDALDriver *>::iterator;
 
   static iterator  begin               ();
 

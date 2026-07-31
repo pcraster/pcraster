@@ -162,9 +162,9 @@ inline Projection Raster<T>::projection() const
 // FREE OPERATORS
 //------------------------------------------------------------------------------
 
-typedef Raster<UINT1>        UINT1Raster;
-typedef Raster<INT4>         INT4Raster;
-typedef Raster<REAL4>        REAL4Raster;
+using UINT1Raster = Raster<UINT1>;
+using INT4Raster = Raster<INT4>;
+using REAL4Raster = Raster<REAL4>;
 
 // typedef Raster<BoolType>     BoolRaster;
 // typedef Raster<NomType>      NomRaster;

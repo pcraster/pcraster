@@ -15,7 +15,7 @@ namespace calc {
 namespace calc {
 
 //!  this is the Object VS it is the extended VS: Field type or DataStorage (tables)
-typedef VS OVS;
+using OVS = VS;
 
 } // namespace calc
 

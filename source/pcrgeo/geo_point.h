@@ -69,7 +69,7 @@ public:
   //----------------------------------------------------------------------------
   //! dimension
   enum    { Dim = n };
-  typedef T CoordinateType;
+  using CoordinateType = T;
 
 private:
 
@@ -178,9 +178,9 @@ template<class P>
 class Closer {
   P d_closerTo;
  public:
-  typedef P first_argument_type;
-  typedef P second_argument_type;
-  typedef bool result_type;
+  using first_argument_type = P;
+  using second_argument_type = P;
+  using result_type = bool;
   Closer(const P& closerTo):
     d_closerTo(closerTo)
     {}

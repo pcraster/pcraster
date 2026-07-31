@@ -256,7 +256,7 @@ template <typename R> std::string com::BetweenLimits<R>::msg() const
 
 namespace com
 {
-typedef std::optional<double> OD;
+using OD = std::optional<double>;
 
 static void spiritParser(const std::string &str, std::vector<char> &ranges, OD &singleValue, OD &low,
                          OD &high)

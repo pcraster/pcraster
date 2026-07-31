@@ -29,7 +29,7 @@ private:
   int yylex() override;
   int YYcomment();
 protected:
-  typedef std::vector<std::string> Line;
+  using Line = std::vector<std::string>;
   virtual void processLine(const Line& line,int lineNr) =0;
   LexValueFile(std::istream *file);
 public:

@@ -99,11 +99,11 @@ private Q_SLOTS:
 
 public:
 
-  typedef std::vector<IVisualisation *>::iterator vis_iterator;
-  typedef std::vector<IVisualisation *>::const_iterator const_vis_iterator;
+  using vis_iterator = std::vector<IVisualisation *>::iterator;
+  using const_vis_iterator = std::vector<IVisualisation *>::const_iterator;
 
-  typedef std::vector<VisualisationWindow *>::iterator viswin_iterator;
-  typedef std::vector<VisualisationWindow *>::const_iterator const_viswin_iterator;
+  using viswin_iterator = std::vector<VisualisationWindow *>::iterator;
+  using const_viswin_iterator = std::vector<VisualisationWindow *>::const_iterator;
 
   //----------------------------------------------------------------------------
   // CREATORS

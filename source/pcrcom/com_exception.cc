@@ -22,7 +22,7 @@ namespace com
 class SystemMessages
 {
   std::map<Errno, std::string> d_msg;
-  typedef std::pair<Errno, std::string> Pair;
+  using Pair = std::pair<Errno, std::string>;
 
 public:
   SystemMessages()

@@ -15,19 +15,19 @@ namespace calc {
 
 namespace calc {
 
-typedef union ValueBuffer {
+using ValueBuffer = union ValueBuffer {
    UINT1   *d_UINT1;
    INT4    *d_INT4;
    REAL4   *d_REAL4;
    void    *d_void;
-} ValueBuffer;
+};
 
-typedef union ConstValueBuffer {
+using ConstValueBuffer = union ConstValueBuffer {
    const UINT1   *d_UINT1;
    const INT4    *d_INT4;
    const REAL4   *d_REAL4;
    const void    *d_void;
-} ConstValueBuffer;
+};
 
 
 void deallocate(ValueBuffer& v);

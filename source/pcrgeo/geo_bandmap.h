@@ -67,7 +67,7 @@ class RasterSpace;
 class BandMap
 {
  public:
-   typedef enum  Layout { BIL, BIP, BSQ } Layout;
+   using Layout = enum  Layout { BIL, BIP, BSQ };
 
    static  const std::string d_hostByteOrder;
    static  const std::string d_otherByteOrder;

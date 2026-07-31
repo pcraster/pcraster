@@ -33,16 +33,16 @@ class BindingTable
 private:
   enum DefinitionLevel { External, InScript };
 
-  typedef struct Right {
+  using Right = struct Right {
     DefinitionLevel   d_definitionLevel;
     Symbol d_value;
     //! enforced single vs by typecast, VS_FIELD if not set
     VS     d_vs;
     Right(DefinitionLevel definitionLevel, const Symbol& value, VS vs);
-  } Right;
+  };
 
   //! left = right is stored with left being the key
-  typedef std::map<Symbol,Right> Table;
+  using Table = std::map<Symbol, Right>;
   Table d_table;
 
 

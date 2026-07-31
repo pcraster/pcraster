@@ -40,9 +40,9 @@ struct DepthIndex {
 };
 
 struct furtherThan {
-  typedef DepthIndex first_argument_type;
-  typedef DepthIndex second_argument_type;
-  typedef bool result_type;
+  using first_argument_type = DepthIndex;
+  using second_argument_type = DepthIndex;
+  using result_type = bool;
 
   bool operator()(DepthIndex i1, DepthIndex i2)
   {

@@ -32,11 +32,10 @@ private:
 
 public:
 
-  typedef std::vector<com_Colour>::const_iterator const_iterator;
-  typedef std::vector<com_Colour>::iterator iterator;
-  typedef std::vector<com_Colour>::const_reverse_iterator
-                                   const_reverse_iterator;
-  typedef std::vector<com_Colour>::reverse_iterator reverse_iterator;
+  using const_iterator = std::vector<com_Colour>::const_iterator;
+  using iterator = std::vector<com_Colour>::iterator;
+  using const_reverse_iterator = std::vector<com_Colour>::const_reverse_iterator;
+  using reverse_iterator = std::vector<com_Colour>::reverse_iterator;
 
   //----------------------------------------------------------------------------
   // CREATORS

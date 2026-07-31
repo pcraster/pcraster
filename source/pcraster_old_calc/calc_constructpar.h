@@ -15,7 +15,7 @@ class StatementBlock;
  * parsing forces to do this: build this struct up
  * and when finished pass it to another constructor
  */
-typedef struct ConstructPar {
+using ConstructPar = struct ConstructPar {
 
   ConstructPar() {}
 
@@ -32,7 +32,7 @@ typedef struct ConstructPar {
   //! it's indices
   std::vector<Symbol>  d_index;
 
-} ConstructPar;
+};
 
 }
 

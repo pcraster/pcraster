@@ -19,7 +19,7 @@ class FieldStack;
 //! an expression that print to stdout
 class StatTable : public Statement
 {
-  typedef  std::vector<const com::IntervalF *>  Intervals;
+  using Intervals = std::vector<const com::IntervalF *>;
   struct InputMap {
     //! expr that generates input maps
     FieldExpr                          *d_expr{nullptr};

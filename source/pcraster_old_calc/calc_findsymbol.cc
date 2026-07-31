@@ -19,7 +19,7 @@ namespace calc
 class ParsArgTable
 {
   std::vector<Operator> d_ops;
-  typedef std::map<std::string, MAJOR_CODE> FuncMap;
+  using FuncMap = std::map<std::string, MAJOR_CODE>;
   FuncMap d_funcs;
 
 public:

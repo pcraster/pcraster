@@ -27,7 +27,7 @@ class RunTimeEnv;
 class JumpNode : public ASTNode
 {
 public:
-  typedef          std::set<std::string>  DeletesOnForward;
+  using DeletesOnForward = std::set<std::string>;
 private:
 
   //! Assignment operator. NOT IMPLEMENTED.

@@ -39,7 +39,7 @@ class CursorView: public Visualisation<>
 
 private:
 
-  typedef std::tuple<QLabel*, DimensionCoordinateEdit*, QLabel*> DimensionTuple;
+  using DimensionTuple = std::tuple<QLabel *, DimensionCoordinateEdit *, QLabel *>;
 
   Q_OBJECT
 

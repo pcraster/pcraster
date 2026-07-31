@@ -43,7 +43,7 @@ namespace geo {
 
 struct NB {
   //! value between 0 and 8
-  typedef unsigned int Code;
+  using Code = unsigned int;
   static bool valid(Code c) {
     return c < 8;
   }
@@ -76,7 +76,7 @@ struct NB {
  */
 struct LDD {
   //! value between 1 and 9
-  typedef unsigned int Code;
+  using Code = unsigned int;
   static bool valid(Code c) {
     return c>=1 && c <= 9;
   }

@@ -19,8 +19,8 @@ namespace calc {
  template<typename Result,
           typename Input>
  struct PointOpTypes {
-   typedef Result ResultType;
-   typedef Input  InputType;
+   using ResultType = Result;
+   using InputType = Input;
  };
 
  template<size_t  nr>
@@ -30,7 +30,7 @@ namespace calc {
 
  template<typename T>
  struct SameBinPoint : public PointOpTypes<T,T>, public NrInputs<2> {
-   typedef T Type;
+   using Type = T;
 
    //! is right domain illegal? for example, div by zero
    inline static bool rightDomainIll(const T&) {
@@ -57,7 +57,7 @@ namespace calc {
           class    Derived=detail::NoDomain<T>
  >
  struct SameUnPoint : public PointOpTypes<T,T>, public NrInputs<1> {
-   typedef T Type;
+   using Type = T;
    //! is domain ok? if not v is set to MV
    inline static bool domainOk(T& v) {
      if (Derived::onlyDomainIll(v)) {
@@ -78,7 +78,7 @@ namespace calc {
  template<typename T>
  struct DiffBinPoint : public PointOpTypes<UINT1,T>, public NrInputs<2>
  {
-   typedef T Type;
+   using Type = T;
  };
 
 

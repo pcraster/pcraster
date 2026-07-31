@@ -35,7 +35,7 @@ class Uint1Type: public BasicType<UINT1>
 
 public:
 
-  typedef boost::spirit::classic::uint_parser<UINT1, 10, 1, 3> Parser;
+  using Parser = boost::spirit::classic::uint_parser<UINT1, 10, 1, 3>;
 
 private:
 
@@ -56,7 +56,7 @@ class Uint2Type: public BasicType<UINT2>
 
 public:
 
-  typedef boost::spirit::classic::uint_parser<UINT2, 10, 1, 5> Parser;
+  using Parser = boost::spirit::classic::uint_parser<UINT2, 10, 1, 5>;
 
 private:
 
@@ -77,7 +77,7 @@ class Uint4Type: public BasicType<UINT4>
 
 public:
 
-  typedef boost::spirit::classic::uint_parser<UINT4, 10, 1, 10> Parser;
+  using Parser = boost::spirit::classic::uint_parser<UINT4, 10, 1, 10>;
 
 private:
 
@@ -98,7 +98,7 @@ class Int1Type: public BasicType<INT1>
 
 public:
 
-  typedef boost::spirit::classic::int_parser<INT1> Parser;
+  using Parser = boost::spirit::classic::int_parser<INT1>;
 
 private:
 
@@ -119,7 +119,7 @@ class Int2Type: public BasicType<INT2>
 
 public:
 
-  typedef boost::spirit::classic::int_parser<INT2> Parser;
+  using Parser = boost::spirit::classic::int_parser<INT2>;
 
 private:
 
@@ -140,7 +140,7 @@ class Int4Type: public BasicType<INT4>
 
 public:
 
-  typedef boost::spirit::classic::int_parser<INT4> Parser;
+  using Parser = boost::spirit::classic::int_parser<INT4>;
 
 private:
 
@@ -161,7 +161,7 @@ class Real4Type: public BasicType<REAL4>
 
 public:
 
-  typedef boost::spirit::classic::real_parser<REAL4, boost::spirit::classic::real_parser_policies<REAL4> > Parser;
+  using Parser = boost::spirit::classic::real_parser<REAL4, boost::spirit::classic::real_parser_policies<REAL4>>;
 
 private:
 
@@ -182,7 +182,7 @@ class Real8Type: public BasicType<REAL8>
 
 public:
 
-  typedef boost::spirit::classic::real_parser<REAL8, boost::spirit::classic::real_parser_policies<REAL8> > Parser;
+  using Parser = boost::spirit::classic::real_parser<REAL8, boost::spirit::classic::real_parser_policies<REAL8>>;
 
 private:
 

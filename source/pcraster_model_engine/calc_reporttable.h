@@ -41,7 +41,7 @@ private:
   /*! store as Report ptr since we do pass out ptrs and a map
    * is by value
    */
-  typedef          std::map<std::string,Report *> Table;
+  using Table = std::map<std::string, Report *>;
   Table            d_table;
   Report           d_reportDefault;
   Timer            d_timer;

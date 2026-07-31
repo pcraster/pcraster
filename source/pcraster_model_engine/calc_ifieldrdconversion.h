@@ -25,7 +25,7 @@ protected:
    virtual        ~IFieldRDConversion               () {}
 public:
   //! a linear numbering scheme within a (possible) non-rectangular area
-  typedef size_t        FieldId;
+  using FieldId = size_t;
 
   IFieldRDConversion&           operator=           (IFieldRDConversion const& rhs) = default;
 
@@ -36,7 +36,7 @@ public:
       convertible to a (row,col) index if the nrCols of the grid are
       known.
    */
-  typedef size_t        RasterId;
+  using RasterId = size_t;
 
 
   virtual RasterId            toRasterId(FieldId  fieldId)  const=0;

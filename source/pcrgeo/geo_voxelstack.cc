@@ -20,8 +20,8 @@ namespace geo
 {
 
 struct addDepth {
-  typedef const Voxel &argument_type;
-  typedef void result_type;
+  using argument_type = const Voxel &;
+  using result_type = void;
   REAL8 depth{0.0};
 
   addDepth()

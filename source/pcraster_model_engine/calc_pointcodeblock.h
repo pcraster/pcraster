@@ -35,7 +35,7 @@ private:
    */
   Code*                d_pointCode{nullptr};
 
-  typedef ASTNodeList::iterator       PointCodeIterator;
+  using PointCodeIterator = ASTNodeList::iterator;
 
 #ifdef DEBUG_DEVELOP
   /*! \brief all pars used either lhs or rhs in d_pointCode

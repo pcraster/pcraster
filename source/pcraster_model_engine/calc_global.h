@@ -19,7 +19,7 @@ namespace calc {
 //! global functions, with old MAP_ interface
 class Global: public OpImplRedirect
 {
-  typedef int (*F)(void *out, const void **ins);
+  using F = int (*)(void *, const void **);
 
 private:
 
@@ -57,7 +57,7 @@ public:
  */
 class MRF: public OpImplRedirect
 {
-  typedef int (*F)(void *out0, void *out1, const void **ins);
+  using F = int (*)(void *, void *, const void **);
 
 private:
 

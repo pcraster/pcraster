@@ -9,7 +9,7 @@
  *    declare VS and ST to be in global namespace for PCRasterModelEngine sources
  */
 
-typedef PCR_VS VS;
-typedef PCR_ST ST;
+using VS = PCR_VS;
+using ST = PCR_ST;
 
 #endif

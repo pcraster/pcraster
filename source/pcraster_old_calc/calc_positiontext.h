@@ -20,7 +20,7 @@ namespace calc {
 //! Position defined by line and char (column) number in a named Ascii text file
 class PositionText : public Position
 {
-  typedef std::shared_ptr<std::string> StringSharedPtr;
+  using StringSharedPtr = std::shared_ptr<std::string>;
 
   StringSharedPtr d_fileName;
 

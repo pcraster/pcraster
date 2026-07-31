@@ -83,10 +83,9 @@ public:
       name(_name) {}
   };
 
-  typedef std::vector<QueryResult>    QueryResults;
+  using QueryResults = std::vector<QueryResult>;
 
-  typedef VisGroup*  (ag::Viewer::*CreateView)   (std::vector<DataGuide> const& guides,
-                                      VisGroup* group, bool sync);
+  using CreateView = VisGroup *(Viewer::*)(const std::vector<DataGuide> &, VisGroup *, bool);
 
 private:
 

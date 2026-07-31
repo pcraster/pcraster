@@ -51,8 +51,8 @@ Operation forWhole(
 template<class T>
 struct Delete
 {
-  typedef const T* argument_type;
-  typedef void result_type;
+  using argument_type = const T *;
+  using result_type = void;
   void operator()(T const* item) const {
     delete item;
   }

@@ -16,7 +16,7 @@
 namespace calc
 {
 
-typedef std::set<std::string> StringSet;
+using StringSet = std::set<std::string>;
 
 class BindingToSymbol : public ASTVisitor
 {
@@ -32,7 +32,7 @@ private:
   ASTSymbolTable &d_symbols;
   const StringSet &d_interfaceSyms;
 
-  typedef std::map<std::string, const ASTAss *> Defined;
+  using Defined = std::map<std::string, const ASTAss *>;
   //! maps name to "left=right" syntax construct in ASTAss node
   Defined d_defined;
 

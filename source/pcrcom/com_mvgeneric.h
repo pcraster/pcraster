@@ -69,7 +69,7 @@ template<typename T>
    T       d_value;
    size_t  d_pos;
 
-   typedef NonSpatialIterator<T> NSI;
+   using NSI = NonSpatialIterator<T>;
   public:
    // default Copy ctor
    NonSpatialIterator(
@@ -113,7 +113,7 @@ template<typename T>
    T       d_value;
    size_t  d_n;
  public:
-   typedef NonSpatialIterator<T> const_iterator;
+   using const_iterator = NonSpatialIterator<T>;
 
    NonSpatialContainer(
        const   T& value,

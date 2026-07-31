@@ -173,9 +173,9 @@ template<typename T>
   };
 
 
-typedef  EndianSwap4<REAL4> EndianSwapREAL4;
-typedef  EndianSwap4<INT4>  EndianSwapINT4;
-typedef  EndianSwap2<INT2>  EndianSwapINT2;
+using EndianSwapREAL4 = EndianSwap4<REAL4>;
+using EndianSwapINT4 = EndianSwap4<INT4>;
+using EndianSwapINT2 = EndianSwap2<INT2>;
 
 //! implementation of template copyCells
 void copyCells( INT4 *dest, const UINT1 *src, size_t n);

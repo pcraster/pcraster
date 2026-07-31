@@ -33,8 +33,8 @@
 namespace ag
 {
 
-typedef std::vector<std::string> VecOfStr;
-typedef std::unordered_map<std::string, std::any> variables_map;
+using VecOfStr = std::vector<std::string>;
+using variables_map = std::unordered_map<std::string, std::any>;
 
 namespace detail
 {
@@ -93,13 +93,13 @@ template <class Set> struct Items {
 
 //! T is std::string,float or size_t
 template <typename T> struct SetParser {
-  typedef typename pcrxsd::RangeSetTypeTrait<T> RS;
+  using RS = typename pcrxsd::RangeSetTypeTrait<T>;
   static typename RS::Set set(std::string const &value);
 };
 
 //! T is float or size_t
 template <typename T> struct SetRangeParser : public SetParser<T> {
-  typedef typename pcrxsd::RangeSetTypeTrait<T> RS;
+  using RS = typename pcrxsd::RangeSetTypeTrait<T>;
   static typename RS::Range range(std::string const &value);
 
   static typename RS::RangeOrSet rangeOrSet(std::string const &str)

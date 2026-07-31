@@ -26,8 +26,8 @@ class Concatenate {
   //! Running string concatenation
   std::string d_str;
 public:
-  typedef const std::string& argument_type;
-  typedef void result_type;
+  using argument_type = const std::string &;
+  using result_type = void;
 
   //! Constructor.
   /*!

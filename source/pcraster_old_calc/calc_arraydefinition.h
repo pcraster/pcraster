@@ -22,7 +22,7 @@ class ArrayDefinition : public UserSymbol, public IndexContainer {
    friend class ParsIndexName;
  private:
   // ordered vector of indices
-   typedef std::vector<const class IndexParameterConstant *> IndexVector;
+   using IndexVector = std::vector<const class IndexParameterConstant *>;
 
   //! list of active indices, in correct order 
   IndexVector d_activeIndex;

@@ -40,7 +40,7 @@ class RasterData
 private:
 
   //! Iterator type.
-  typedef ValueType* iterator;
+  using iterator = ValueType *;
 
   //! Discretisation information.
   Raster const*    d_raster;

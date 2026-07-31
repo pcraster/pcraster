@@ -20,10 +20,10 @@ private:
   std::map<std::vector<size_t>,size_t> d_map2flatIndex;
 public:
   //! single index element
-  typedef std::vector<const class IndexParameterConstant *> Index;
+  using Index = std::vector<const class IndexParameterConstant *>;
 
 
-  typedef std::vector<std::vector<size_t> > IndexVector;
+  using IndexVector = std::vector<std::vector<size_t>>;
 
   //! vector of active indices
   IndexVector d_indices;

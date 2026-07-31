@@ -69,7 +69,7 @@ private:
   friend class RasterBoundariesTest;
 
   //! Iterator type.
-  typedef ValueType* iterator;
+  using iterator = ValueType *;
 
   //! Number of rows.
   size_t           d_nrRows;

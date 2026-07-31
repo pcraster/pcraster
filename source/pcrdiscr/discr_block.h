@@ -64,7 +64,7 @@ protected:
 
 public:
 
-  typedef VoxelStack::value_type ThicknessType;
+  using ThicknessType = VoxelStack::value_type;
 
   //----------------------------------------------------------------------------
   // CREATORS

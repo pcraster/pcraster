@@ -31,7 +31,7 @@ namespace calc
 
 struct RecordFirst {
 
-  typedef std::vector<UDEvent>::const_iterator P;
+  using P = std::vector<UDEvent>::const_iterator;
   // use end as not yet initialized marker
   const P d_end;
   // first in entire script

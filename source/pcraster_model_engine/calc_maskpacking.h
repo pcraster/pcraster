@@ -26,7 +26,7 @@ namespace calc {
 class MaskPacking: public SpatialPacking
 {
 public:
-   typedef std::vector<bool>        Mask;
+   using Mask = std::vector<bool>;
 private:
 
    template<typename T>

@@ -12,7 +12,7 @@ class TimeTable;
 //! holds a tss
 class  TssInputParameter : public TssParameter {
  public:
-     typedef std::vector<TimeTable *>ValueVector;
+     using ValueVector = std::vector<TimeTable *>;
  private:
      ValueVector d_vals;
  public:

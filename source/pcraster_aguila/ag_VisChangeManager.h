@@ -42,9 +42,9 @@ private:
 
 public:
 
-  typedef std::vector<VisObserver*>::const_iterator const_iterator;
+  using const_iterator = std::vector<VisObserver *>::const_iterator;
 
-  typedef std::vector<VisObserver*>::iterator iterator;
+  using iterator = std::vector<VisObserver *>::iterator;
 
   //----------------------------------------------------------------------------
   // CREATORS

@@ -56,10 +56,10 @@ private:
 public:
 
   //! Iterator type for the cell values.
-  typedef T* iterator;
+  using iterator = T *;
 
   //! Const iterator type for the cell values.
-  typedef const T* const_iterator;
+  using const_iterator = const T *;
 
   //----------------------------------------------------------------------------
   // CREATORS
@@ -958,12 +958,12 @@ inline SimpleRaster<ValueType> operator/(
 
 //------------------------------------------------------------------------------
 
-typedef SimpleRaster<UINT1> BooleanSimpleRaster;
-typedef SimpleRaster<INT4> NominalSimpleRaster;
-typedef SimpleRaster<INT4> OrdinalSimpleRaster;
-typedef SimpleRaster<REAL4> ScalarSimpleRaster;
-typedef SimpleRaster<REAL4> DirectionalSimpleRaster;
-typedef SimpleRaster<UINT1> LddSimpleRaster;
+using BooleanSimpleRaster = SimpleRaster<UINT1>;
+using NominalSimpleRaster = SimpleRaster<INT4>;
+using OrdinalSimpleRaster = SimpleRaster<INT4>;
+using ScalarSimpleRaster = SimpleRaster<REAL4>;
+using DirectionalSimpleRaster = SimpleRaster<REAL4>;
+using LddSimpleRaster = SimpleRaster<UINT1>;
 
 
 

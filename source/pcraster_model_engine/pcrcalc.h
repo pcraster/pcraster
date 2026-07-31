@@ -26,7 +26,7 @@
  typedef struct PcrScript { char dummy; } PcrScript;
 #else
 // attach to Pcrcalc class in PCRasterModelEngine.dll
- typedef struct Pcrcalc PcrScript;
+ using PcrScript = struct Pcrcalc;
  namespace calc {
    class ASTScript;
  }

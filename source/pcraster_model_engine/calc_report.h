@@ -18,7 +18,7 @@ namespace calc {
 namespace calc {
 
 //! define the moment
-typedef struct ParsReportMoment {
+using ParsReportMoment = struct ParsReportMoment {
   //! the single value, or the start of step (inclusive)
   /*!
    *  -1 marks endTime
@@ -36,7 +36,7 @@ typedef struct ParsReportMoment {
   //! verify correctness
 
   void check();
-} ParsReportMoment;
+};
 
 
 //! a definition as it appears in the timer section or in situ
@@ -47,7 +47,7 @@ class Report: public ASTId {
 private:
   //! initialized in update()
   std::vector<bool>             d_reportAt;
-  typedef std::vector<ParsReportMoment> PL;
+  using PL = std::vector<ParsReportMoment>;
   PL d_list;
 
   size_t d_startInt{1}, d_lastInt{1};

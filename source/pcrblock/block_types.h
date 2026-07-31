@@ -11,7 +11,7 @@
 namespace block {
   // Types declarations.
 
-typedef std::function<REAL4(REAL4, REAL4)> MackeyBridgeCompactor;
+using MackeyBridgeCompactor = std::function<REAL4 (REAL4, REAL4)>;
 
 }
 

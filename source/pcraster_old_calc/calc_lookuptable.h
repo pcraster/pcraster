@@ -22,7 +22,7 @@ namespace calc {
  */
 class LookupRecord {
 public:
- typedef std::vector<com::IntervalD* > Key;
+ using Key = std::vector<com::IntervalD *>;
  static void deleteKey(Key& key);
 private:
  void cloneKey(const Key& key);
@@ -64,7 +64,7 @@ public:
  */
 class LookupTable {
   public:
-   typedef std::vector<LookupRecord>             Records;
+   using Records = std::vector<LookupRecord>;
 
    const Records& records() const;
 

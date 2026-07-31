@@ -17,12 +17,12 @@ namespace calc {
 /*! 
  *  Describes what progress is made: next loop, next statement etc.
  */
-typedef enum ProgressPulse {
+using ProgressPulse = enum ProgressPulse {
     NoPulse=0,    /*!< Not used */
     LoopPulse,      /*!< Next loop/timestep */
     StatementPulse, /*!< Next statement */
     OperationPulse  /*!< next operation/expression, NOT YET IMPLEMENTED */
-} ProgressPulse;
+};
 
 //------------------------------------------------------------------------------
 // INLINE FUNCTIONS

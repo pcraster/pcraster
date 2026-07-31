@@ -13,9 +13,9 @@ namespace
 {
 
 template <class T> struct addressOfDataGuideIs {
-  typedef ag::DataGuide first_argument_type;
-  typedef T const *second_argument_type;
-  typedef bool result_type;
+  using first_argument_type = ag::DataGuide;
+  using second_argument_type = const T *;
+  using result_type = bool;
 
   bool operator()(ag::DataGuide const &guide, T const *address) const
   {
@@ -24,9 +24,9 @@ template <class T> struct addressOfDataGuideIs {
 };
 
 template <class T> struct addressOfDataInfoIs {
-  typedef ag::DataInfo<T> first_argument_type;
-  typedef T const *second_argument_type;
-  typedef bool result_type;
+  using first_argument_type = ag::DataInfo<T>;
+  using second_argument_type = const T *;
+  using result_type = bool;
 
   bool operator()(ag::DataInfo<T> const &info, T const *address) const
   {

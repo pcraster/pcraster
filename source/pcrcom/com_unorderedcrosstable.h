@@ -46,7 +46,7 @@ class UnOrderedCrossTable: public CountedObject<UnOrderedCrossTable>
 private:
 
   //! Iterator to cell values.
-  typedef size_t* iterator;
+  using iterator = size_t *;
 
   //! Map which relates table sizes to indices for the d_cells array.
   static std::map<size_t, size_t**> d_indicesMap;

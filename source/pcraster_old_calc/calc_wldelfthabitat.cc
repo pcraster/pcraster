@@ -312,7 +312,7 @@ void calc::WlDelftHabitat::parseXml()
     POSTCOND(de.tagName() == "Root");
 
     struct ParseHandler {
-      typedef void (WlDelftHabitat::*Parse)(const QDomElement &de);
+      using Parse = void (WlDelftHabitat::*)(const QDomElement &);
       const char *d_elementName;
       Parse d_parse;
 

@@ -148,7 +148,7 @@ template<TypeId T>
 
 template<>
 struct TypeOfTypeId<TI_UINT1> {
- typedef UINT1 Type;
+ using Type = UINT1;
 };
 
 //! Interface to runtime type info

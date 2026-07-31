@@ -102,8 +102,8 @@ struct special {
 template<typename A,
         typename I=A> /* REAL4 */
   struct MapTotal {
-     typedef A AggregateType;
-     typedef I Input;
+     using AggregateType = A;
+     using Input = I;
      static A init() { return A(); }
      static void op(A &r, const I& v) {
        r+=v;
@@ -113,8 +113,8 @@ template<typename A,
 template<typename A,
         typename I=A> /* UINT1 */
   struct MapAnd {
-     typedef A AggregateType;
-     typedef I Input;
+     using AggregateType = A;
+     using Input = I;
      static A init() { return A(1); /* true */ }
      static void op(A &r, const I& v) {
        r= r && v;
@@ -124,8 +124,8 @@ template<typename A,
 template<typename A,
         typename I=A> /* UINT1 */
   struct MapOr {
-     typedef A AggregateType;
-     typedef I Input;
+     using AggregateType = A;
+     using Input = I;
      static A init() { return A(1); /* true */ }
      static void op(A &r, const I& v) {
        r= r || v;
@@ -136,8 +136,8 @@ template<typename A,
 template<typename A /* INT4/REAL4 */,
         typename I=A>
   struct MapMinimum {
-     typedef A AggregateType;
-     typedef I Input;
+     using AggregateType = A;
+     using Input = I;
      static A init()
        { return com::NumericLimits<A>::maxValue(); }
      static void op(A &r, const I& v) {
@@ -148,8 +148,8 @@ template<typename A /* INT4/REAL4 */,
 template<typename A /* INT4/REAL4 */,
         typename I=A>
   struct MapMaximum {
-     typedef A AggregateType;
-     typedef I Input;
+     using AggregateType = A;
+     using Input = I;
      static A init()
        { return com::NumericLimits<A>::minValue(); }
      static void op(A &r, const I& v) {
@@ -160,8 +160,8 @@ template<typename A /* INT4/REAL4 */,
 template<typename A /* UINT1/INT4/REAL4 */,
         typename I=A>
   struct MapArea {
-     typedef A AggregateType;
-     typedef I Input;
+     using AggregateType = A;
+     using Input = I;
      static A init() { return A(); }
      static void op(A &r, const I& /* v */) {
        r+=(A)Area();

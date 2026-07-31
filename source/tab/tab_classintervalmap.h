@@ -18,12 +18,12 @@ template< class   IntervalMapT,
          >
 class ClassIntervalMap : public std::map<Class,IntervalMapT>
 {
- typedef std::map<Class,IntervalMapT>  Base;
- typedef typename Base::const_iterator I;
- typedef typename std::set<Class>      S;
- typedef typename S::iterator          SI;
+ using Base = std::map<Class, IntervalMapT>;
+ using I = typename Base::const_iterator;
+ using S = typename std::set<Class>;
+ using SI = typename S::iterator;
 
- typedef std::vector<const com::Interval<typename IntervalMapT::IT> *> Intervals;
+ using Intervals = std::vector<const com::Interval<typename IntervalMapT::IT> *>;
 
  Intervals d_intervals;
 

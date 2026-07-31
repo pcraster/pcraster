@@ -25,12 +25,12 @@ class RelationRecord : public std::vector<com::Interval<float> * >
    void        clean            ();
 
 public:
-  typedef float                  Float;
-  typedef com::Interval<Float>   Interval;
+  using Float = float;
+  using Interval = com::Interval<Float>;
   //! the Base class
-  typedef std::vector<Interval*> IntervalVector;
+  using IntervalVector = std::vector<Interval *>;
   //! Key matched up against IntervalVector
-  typedef std::vector<Float>     Key;
+  using Key = std::vector<Float>;
 
   //----------------------------------------------------------------------------
   // CREATORS

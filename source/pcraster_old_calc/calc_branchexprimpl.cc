@@ -530,12 +530,12 @@ void calc::BranchExprImpl::execGenSpatial(const Operator &op, FieldStack &stack)
   stack.push(res);
 }
 
-typedef enum FIELD_ARG {
+using FIELD_ARG = enum FIELD_ARG {
   NN = 0,
   SS = 1,
   NS = 2,
   SN = 3
-} FIELD_ARG;
+};
 
 static FIELD_ARG fieldArg(bool leftSpatial, bool rightSpatial)
 {

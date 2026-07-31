@@ -69,11 +69,11 @@ private:
 
   DataTable                   d_data;
 
-  typedef std::map<std::string, FieldWriter *> Writers;
+  using Writers = std::map<std::string, FieldWriter *>;
   Writers                     d_writers;
 
   //! map Field::src() to ICachedObject
-  typedef std::map<const void*, const ICachedObject *> Cache;
+  using Cache = std::map<const void *, const ICachedObject *>;
   Cache                       d_cache;
 
   Timer            d_timer;

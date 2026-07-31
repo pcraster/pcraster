@@ -36,7 +36,7 @@ namespace com {
 class CpuCycleCounter
 {
 public:
-  typedef unsigned long long Uint64;
+  using Uint64 = unsigned long long;
 private:
   friend class CpuCycleCounterTest;
 

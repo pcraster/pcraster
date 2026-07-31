@@ -23,8 +23,8 @@ namespace intervalMap {
   class PartitionFO {
     const com::Interval<R> *d_i;
     public:
-      typedef R argument_type;
-      typedef bool result_type;
+      using argument_type = R;
+      using result_type = bool;
       PartitionFO(const com::Interval<R> *i):
         d_i(i) {}
       bool operator()(R v) const {
@@ -70,14 +70,14 @@ template<class T,
 {
 
 public:
-  typedef T                                       ValueFO;
+  using ValueFO = T;
   //! interval type
-  typedef R                                       IT;
-  typedef Interval<R>                             IV;
-  typedef typename IntervalMap<T,R>::iterator       iterator;
-  typedef typename IntervalMap<T,R>::const_iterator const_iterator;
+  using IT = R;
+  using IV = Interval<R>;
+  using iterator = typename IntervalMap<T, R>::iterator;
+  using const_iterator = typename IntervalMap<T, R>::const_iterator;
 private:
-  typedef std::map<const IV *,T,intervalMap::IntervalPtrLess> Base;
+  using Base = std::map<const IV *, T, intervalMap::IntervalPtrLess>;
 
   T      d_outside;
   size_t d_nrVisits{0};
@@ -100,8 +100,8 @@ private:
     NotInInterval(const IntervalMap<T,R>& m):
       d_m(m) {}
     public:
-      typedef IT argument_type;
-      typedef bool result_type;
+      using argument_type = IT;
+      using result_type = bool;
       bool operator()(IT v) const {
          EqualTo<IT> key(v);
          auto p(d_m.find(&key));
@@ -269,13 +269,13 @@ template<class T,
  public std::vector<std::pair<const Interval<R> *,T > >
 {
 public:
-  typedef R                                       IT;
-  typedef Interval<R>                             IV;
-  typedef typename IntervalMultiMap<T,R>::iterator       iterator;
-  typedef typename IntervalMultiMap<T,R>::const_iterator const_iterator;
-  typedef std::pair<const IV *,T&>                     Pair;
+  using IT = R;
+  using IV = Interval<R>;
+  using iterator = typename IntervalMultiMap<T, R>::iterator;
+  using const_iterator = typename IntervalMultiMap<T, R>::const_iterator;
+  using Pair = std::pair<const IV *, T &>;
 private:
-  typedef std::vector<std::pair<const IV *,T > > Base;
+  using Base = std::vector<std::pair<const IV *, T>>;
 
   T      d_outside;
   size_t d_nrVisits{0};
@@ -298,8 +298,8 @@ private:
     NotInInterval(const IntervalMultiMap<T,R>& m):
       d_m(&m) {}
     public:
-      typedef IT argument_type;
-      typedef bool result_type;
+      using argument_type = IT;
+      using result_type = bool;
       bool operator()(IT v) const {
         for(auto i=d_m->begin();i!=d_m->end();++i) {
           if (i->first->valid(v)) {

@@ -125,7 +125,7 @@ public:
     KeepNonSharedDimensions = 0x00000002
   };
 
-  typedef size_t IntersectionFlags;
+  using IntersectionFlags = size_t;
 
   //----------------------------------------------------------------------------
   // CREATORS

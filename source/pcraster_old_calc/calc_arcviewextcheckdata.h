@@ -10,7 +10,7 @@
 namespace calc {
 
 //! hold a name of stack or map that is output in an esrigrid enabled script
-typedef struct ArcViewExtCheckData {
+using ArcViewExtCheckData = struct ArcViewExtCheckData {
   /*!
      \arg isStack boolean value stack map
      \arg name of stack or map
@@ -21,7 +21,7 @@ typedef struct ArcViewExtCheckData {
   int          d_isStack; // isMap otherwise
   //! name of stack prefix if isStack true, name of map otherwise
   std::string  d_name;
-} ArcViewExtCheckData;
+};
 
 //------------------------------------------------------------------------------
 // INLINE FUNCTIONS

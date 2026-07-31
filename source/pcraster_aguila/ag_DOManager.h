@@ -39,8 +39,8 @@ private:
 
 protected:
 
-  typedef std::vector<ag::DataObject *>::iterator iterator;
-  typedef std::vector<ag::DataObject *>::const_iterator const_iterator;
+  using iterator = std::vector<ag::DataObject *>::iterator;
+  using const_iterator = std::vector<ag::DataObject *>::const_iterator;
 
   //! Returns a const iterator to the first data object.
   const_iterator   begin               () const;

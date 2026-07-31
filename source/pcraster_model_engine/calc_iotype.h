@@ -19,8 +19,8 @@ namespace calc {
 class IOType
 {
 public:
-  typedef pcrxml::ModelInputType  Input;
-  typedef pcrxml::ModelOutputType Output;
+  using Input = pcrxml::ModelInputType;
+  using Output = pcrxml::ModelOutputType;
 
 private:
 

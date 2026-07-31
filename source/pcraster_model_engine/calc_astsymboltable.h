@@ -43,9 +43,9 @@ namespace calc {
 class ASTSymbolTable:
   public   std::map<std::string,ASTSymbolInfo>
 {
-  typedef std::map<std::string,ASTSymbolInfo> Base;
+  using Base = std::map<std::string, ASTSymbolInfo>;
 
-  typedef std::map<std::string, std::shared_ptr<LinkInLibrary> > LinkInLibraries;
+  using LinkInLibraries = std::map<std::string, std::shared_ptr<LinkInLibrary>>;
 
   LinkInLibraries    d_linkInLibraries;
 
@@ -91,7 +91,7 @@ public:
 };
 
 //! handy for foreach
-typedef std::pair<std::string, ASTSymbolInfo> ASTSymbolTablePair;
+using ASTSymbolTablePair = std::pair<std::string, ASTSymbolInfo>;
 
 
 

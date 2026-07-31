@@ -10,7 +10,7 @@
 namespace calc {
 
 //! define the moment
-typedef struct ParsReportMoment {
+using ParsReportMoment = struct ParsReportMoment {
   //! the single value, or the start of step (inclusive)
   int start;
   //! the step increase, 0 if not set by user
@@ -24,7 +24,7 @@ typedef struct ParsReportMoment {
   //! verify correctness
 
   void check();
-} ParsReportMoment;
+};
 
 //! holds at which timesteps data is written
 class Report {

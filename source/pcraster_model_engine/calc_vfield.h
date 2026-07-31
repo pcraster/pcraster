@@ -16,7 +16,7 @@ namespace calc {
 namespace calc {
 
 // field of bits, expected to have same size as VField
-typedef boost::dynamic_bitset<> BitField;
+using BitField = boost::dynamic_bitset<>;
 
 //! A value field with compile time type T but runtime spatial/nonspatial
 /*!

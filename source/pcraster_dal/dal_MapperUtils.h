@@ -23,17 +23,11 @@ namespace dal {
 //          boost::posix_time::ptime,
 //          boost::posix_time::time_duration> TimeMapping;
 
-typedef std::tuple<
-         Dimension,
-         TimeStepMapper const*> DimensionTimeStepMapping;
+using DimensionTimeStepMapping = std::tuple<Dimension, const TimeStepMapper *>;
 
-typedef std::tuple<
-         Dimension,
-         SpaceStepMapper const*> DimensionSpaceStepMapping;
+using DimensionSpaceStepMapping = std::tuple<Dimension, const SpaceStepMapper *>;
 
-typedef std::tuple<
-         Dimension,
-         StepMapper const*> DimensionStepMapping;
+using DimensionStepMapping = std::tuple<Dimension, const StepMapper *>;
 
 PCR_DAL_DECL void  stepMap             (
                              std::vector<DimensionStepMapping> const& mappings,

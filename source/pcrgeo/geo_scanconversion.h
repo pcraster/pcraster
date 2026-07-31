@@ -25,7 +25,7 @@ private:
 
 public:
 
-  typedef typename std::vector<std::pair<T, T> >::const_iterator const_iterator;
+  using const_iterator = typename std::vector<std::pair<T, T>>::const_iterator;
 
   bool operator()(T x, T y) {
     d_points.push_back(std::make_pair(x, y));

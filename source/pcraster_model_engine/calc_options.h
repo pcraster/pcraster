@@ -27,10 +27,10 @@ class Options : public RunTimeEnvSettings, public LexInputCreator
 
 private:
 
-  typedef enum SCRIPT_TYPE {
+  using SCRIPT_TYPE = enum SCRIPT_TYPE {
          SCRIPT_CMD_LINE, SCRIPT_SCRIPT_FILE,
          SCRIPT_SHELL_FILE, SCRIPT_ESRI_GRID_KILL
-  } SCRIPT_TYPE;
+  };
 
   //! Assignment operator. NOT IMPLEMENTED.
   Options&           operator=           (const Options& rhs);

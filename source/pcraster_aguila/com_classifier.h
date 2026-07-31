@@ -88,7 +88,7 @@ private:
 public:
 
   //! Type of pointer to a class border.
-  typedef std::vector<REAL8>::const_iterator const_iterator;
+  using const_iterator = std::vector<REAL8>::const_iterator;
 
   //----------------------------------------------------------------------------
   // CREATORS

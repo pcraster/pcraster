@@ -52,14 +52,11 @@ class LinkInLibraryPrivate
   }
 #endif
 
-  typedef const char *(LINKIN_CALL *ExecuteFun)(const char *xml,
-                                                LinkInTransferArray linkInTransferArray);
+  using ExecuteFun = const char *(*)(const char *, void **);
 
-  typedef void(LINKIN_CALL *RunContextFun)(int nrRows, int nrCols, double cellSize,
-                                           double xLowerLeftCorner, double yLowerLeftCorner,
-                                           int currentTimeStep);
+  using RunContextFun = void (*)(int, int, double, double, double, int);
 
-  typedef const char *(LINKIN_CALL *CheckFun)(const char *xml);
+  using CheckFun = const char *(*)(const char *);
 
   ExecuteFun d_execute;
   RunContextFun d_runContext;

@@ -41,7 +41,7 @@ private:
 #ifdef WIN32
   typedef HINSTANCE  DllHandle;
 #else
-  typedef void *     DllHandle;
+  using DllHandle = void *;
   mutable const   char *d_dllError{};
   bool               checkError() const;
 #endif

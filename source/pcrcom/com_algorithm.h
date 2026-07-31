@@ -101,7 +101,7 @@ template <typename K,typename T>
 class FindValue {
      T d_defValue;
   public:
-   typedef std::map<K,T> Map;
+   using Map = std::map<K, T>;
    FindValue(const T& defValue):
      d_defValue(defValue) {}
    T find(const Map& m, const K& key) {
@@ -122,8 +122,8 @@ class FindValue {
  */
 template <class T>
 struct Delete {
-    typedef const T* argument_type;
-    typedef void result_type;
+    using argument_type = const T *;
+    using result_type = void;
     void operator()(const T *item) const {
       delete item;
     }

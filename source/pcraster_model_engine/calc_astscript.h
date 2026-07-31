@@ -99,7 +99,7 @@ private:
   void             analyzeNoContextUnChecked();
   void             resolveUnChecked();
 
-  typedef std::vector<ASTDefinition> Interface;
+  using Interface = std::vector<ASTDefinition>;
 
   ASTSymbolTable   d_symbols;
   BindingTable     d_bindings;

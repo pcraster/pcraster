@@ -48,18 +48,18 @@ private:
   VisGroup*        d_group;
 
   //! Map to store dataset alias - dataset name combinations.
-  typedef std::map<std::string, std::set<std::string> > NameMap;
+  using NameMap = std::map<std::string, std::set<std::string>>;
   NameMap          d_nameMap;
 
-  typedef std::multimap<std::string, DataItemInformation> DataMap2;
+  using DataMap2 = std::multimap<std::string, DataItemInformation>;
   DataMap2         d_dataMap2;
 
   size_t           d_nrScenarios;
 
-  typedef std::map<std::string, pcrxml::AguilaData> DataMap;
+  using DataMap = std::map<std::string, pcrxml::AguilaData>;
   DataMap          d_dataMap;
 
-  typedef std::map<std::string, DataGuide> GuideMap;
+  using GuideMap = std::map<std::string, DataGuide>;
   GuideMap         d_guideMap;
 
   //! Assignment operator. NOT IMPLEMENTED.

@@ -79,7 +79,7 @@ private:
   //! set to 0 at start visit per Pit
   std::vector<double> d_fluxTS;
 
-  typedef double (*QDyn)(double Roughness, double Aact, double Sf, double R);
+  using QDyn = double (*)(double, double, double, double);
   const QDyn d_qDyn;
   static double qDynChezy(double, double, double, double);
   static double qDynManning(double, double, double, double);

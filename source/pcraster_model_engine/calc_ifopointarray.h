@@ -20,29 +20,29 @@ namespace calc {
   };
 
   struct ISameUn {
-   typedef       void* Val;
+   using Val = void *;
 
-   typedef void (*F)(Val l, size_t n);
+   using F = void (*)(Val, size_t);
    F f;
   };
 
   struct IDiffUn : public ISelectOnCRIndex {
    ~IDiffUn() override {}
-   typedef const void* Input;
-   typedef       void* Result; // (out-only)
+   using Input = const void *;
+   using Result = void *; // (out-only)
 
-   typedef void (*F)(Result r, Input v, size_t n);
+   using F = void (*)(Result, Input, size_t);
    F f{};
   };
 
   struct ISameBin : public ISelectOnCRIndex {
    ~ISameBin() override {}
-   typedef const void* Input;  // Input
-   typedef       void* Result; // Result (and input)
+   using Input = const void *;  // Input
+   using Result = void *; // Result (and input)
 
-   typedef void (*SS)(Result l, Input  r, size_t n);
-   typedef void (*NS)(Input  l, Result r, size_t n);
-   typedef void (*SN)(Result l, Input  r, size_t n);
+   using SS = void (*)(Result, Input, size_t);
+   using NS = void (*)(Input, Result, size_t);
+   using SN = void (*)(Result, Input, size_t);
 
    SS ss{};
    NS ns{};
@@ -57,11 +57,11 @@ namespace calc {
    */
   struct IDiffBin : public ISelectOnCRIndex {
    ~IDiffBin() override {}
-   typedef UINT1*        R;
-   typedef const void*   A1;
-   typedef const void*   A2;
+   using R = UINT1 *;
+   using A1 = const void *;
+   using A2 = const void *;
 
-   typedef void (*F)(R r, A1 a1, A2 a2,size_t n);
+   using F = void (*)(R, A1, A2, size_t);
 
    F ss{};
    F ns{};
@@ -70,7 +70,7 @@ namespace calc {
 
  struct IIfThenElse : public ISelectOnCRIndex {
    ~IIfThenElse() override {}
-   typedef void (*F)(void* r, const UINT1* c, const void *t, const void *f,size_t n);
+   using F = void (*)(void *, const UINT1 *, const void *, const void *, size_t);
 
    /*! dimension of true and false branch make different entries
     *  the result is always spatial

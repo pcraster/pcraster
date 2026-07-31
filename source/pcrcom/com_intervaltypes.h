@@ -112,7 +112,7 @@ class AnythingInterval : public Interval<R> {
 //! defines open or closed interval
 template<typename R=double>
 class BetweenLimits : public Interval<R> {
-  typedef  Interval<R>  IV;
+  using IV = Interval<R>;
   //! the lower limit
   /*!
    * just use Interval as long as ctor argument

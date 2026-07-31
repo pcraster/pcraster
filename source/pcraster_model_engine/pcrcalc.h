@@ -375,9 +375,9 @@ typedef void *DataTransferArray[];
 */
 
 #ifdef __cplusplus
-  //! not part of the API
-  calc::ASTScript const& pcr_internalScript(PcrScript *script);
- }
+ } // extern "C"
+ //! not part of the API
+ calc::ASTScript const& pcr_internalScript(PcrScript *script);
 #endif
 
 #endif

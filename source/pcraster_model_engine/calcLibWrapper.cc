@@ -89,7 +89,7 @@ bool ObjectLinkProxy<calc::CalcLibDemoObjectLink>::dispatch(const std::string &m
   return false;
 }
 
-extern "C" PCR_ME_EXPORT ObjectLinkMeta getMeta()
+/*extern "C"*/ PCR_ME_EXPORT ObjectLinkMeta getMeta()
 {
   ObjectLinkMeta olm("CalcLibDemoObjectLink", ObjectLinkProxy<calc::CalcLibDemoObjectLink>::create);
 

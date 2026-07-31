@@ -395,7 +395,7 @@ static bool CurrSelectItem(int *itemOrKey,     /* write-only selected item or ke
   PrintSelectMsgBox(b->otherMsg);
 
   while ((c = getch())) {
-    int i = 0;
+    size_t i = 0;
     if (CurrIsEnterKey(c)) {
       break; /* enter key used->quit */
     }

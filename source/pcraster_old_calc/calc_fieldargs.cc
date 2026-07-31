@@ -36,7 +36,7 @@ void calc::FieldArgs::checkArgs()
 {
   /* Check number of arguments
  */
-  int argTest = std::abs(op().nrArgs()) - (int)nrFieldArgs();
+  int argTest = std::abs(op().nrArgs()) - static_cast<int>(nrFieldArgs());
   argTest = (argTest == 0) ? 0 : argTest / std::abs(argTest);
 
   std::string msg("");
@@ -124,7 +124,7 @@ void calc::FieldArgs::executeArgs(calc::FieldStack &stack)
    * into COVERS
    * => leftmost arg on top
    */
-  for (int i = (int)d_args.size() - 1; i >= 0; i--) {
+  for (int i = static_cast<int>(d_args.size()) - 1; i >= 0; i--) {
     d_args[i]->execute(stack);
   }
 }
@@ -141,7 +141,7 @@ void calc::FieldArgs::prepareExecution()
     default:
       downTo = 0;
   }
-  for (int i = (int)d_args.size() - 1; i >= downTo; i--) {
+  for (int i = static_cast<int>(d_args.size()) - 1; i >= downTo; i--) {
     d_args[i]->prepareExecution();
   }
 }
@@ -158,7 +158,7 @@ void calc::FieldArgs::skipExecution()
     default:
       downTo = 0;
   }
-  for (int i = (int)d_args.size() - 1; i >= downTo; i--) {
+  for (int i = static_cast<int>(d_args.size()) - 1; i >= downTo; i--) {
     d_args[i]->skipExecution();
   }
 }

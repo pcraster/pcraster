@@ -89,7 +89,7 @@ pybind11::array field_to_array(
 
           detail::fill_data<UINT1>(data, field, field->isSpatial(), nr_values);
 
-          dal::fromStdMV<UINT1>((UINT1*)data, nr_values,
+          dal::fromStdMV<UINT1>(reinterpret_cast<UINT1*>(data), nr_values,
                 static_cast<UINT1>(missing_value));
 
           break;
@@ -101,7 +101,7 @@ pybind11::array field_to_array(
 
           detail::fill_data<INT4>(data, field, field->isSpatial(), nr_values);
 
-          dal::fromStdMV<INT4>((INT4*)data, nr_values,
+          dal::fromStdMV<INT4>(reinterpret_cast<INT4*>(data), nr_values,
                 static_cast<INT4>(missing_value));
 
           break;
@@ -113,7 +113,7 @@ pybind11::array field_to_array(
 
           detail::fill_data<REAL4>(data, field, field->isSpatial(), nr_values);
 
-          dal::fromStdMV<REAL4>((REAL4*)data, nr_values,
+          dal::fromStdMV<REAL4>(reinterpret_cast<REAL4*>(data), nr_values,
                 static_cast<REAL4>(missing_value));
 
           break;

@@ -30,7 +30,7 @@ namespace fieldapi
 template <> ReadOnlyUint1 *spatialInterface<UINT1>(const MAP_UINT1 *o)
 {
   if (o->inCellRepr == CR_UINT1) {
-    return new ReadOnlySpatial<UINT1, UINT1>((UINT1 **)o->spatialValue, o->nrRows, o->nrCols);
+    return new ReadOnlySpatial<UINT1, UINT1>(reinterpret_cast<UINT1 **>(o->spatialValue), o->nrRows, o->nrCols);
   }
   PRECOND(false);
   return nullptr;
@@ -40,9 +40,9 @@ template <> ReadOnlyInt4 *spatialInterface<INT4, MAP_INT4>(const MAP_INT4 *o)
 {
   switch (o->inCellRepr) {
     case CR_INT4:
-      return new ReadOnlySpatial<INT4, INT4>((INT4 **)o->spatialValue, o->nrRows, o->nrCols);
+      return new ReadOnlySpatial<INT4, INT4>(reinterpret_cast<INT4 **>(o->spatialValue), o->nrRows, o->nrCols);
     case CR_UINT1:
-      return new ReadOnlySpatial<INT4, UINT1>((UINT1 **)o->spatialValue, o->nrRows, o->nrCols);
+      return new ReadOnlySpatial<INT4, UINT1>(reinterpret_cast<UINT1 **>(o->spatialValue), o->nrRows, o->nrCols);
     default:;
   }
   PRECOND(false);
@@ -53,11 +53,11 @@ template <> ReadOnlyReal8 *spatialInterface<REAL8, MAP_REAL8>(const MAP_REAL8 *o
 {
   switch (o->inCellRepr) {
     case CR_REAL4:
-      return new ReadOnlySpatial<REAL8, REAL4>((REAL4 **)o->spatialValue, o->nrRows, o->nrCols);
+      return new ReadOnlySpatial<REAL8, REAL4>(reinterpret_cast<REAL4 **>(o->spatialValue), o->nrRows, o->nrCols);
     case CR_INT4:
-      return new ReadOnlySpatial<REAL8, INT4>((INT4 **)o->spatialValue, o->nrRows, o->nrCols);
+      return new ReadOnlySpatial<REAL8, INT4>(reinterpret_cast<INT4 **>(o->spatialValue), o->nrRows, o->nrCols);
     case CR_UINT1:
-      return new ReadOnlySpatial<REAL8, UINT1>((UINT1 **)o->spatialValue, o->nrRows, o->nrCols);
+      return new ReadOnlySpatial<REAL8, UINT1>(reinterpret_cast<UINT1 **>(o->spatialValue), o->nrRows, o->nrCols);
     default:;
   }
   PRECOND(false);
@@ -96,7 +96,7 @@ template class fieldapi::UpgradeReadOnly<REAL8, MAP_REAL8>;
 template <> ReadWriteUint1 *spatialInterface<UINT1>(MAP_UINT1 *o)
 {
   if (o->inCellRepr == CR_UINT1) {
-    return new ReadWriteData<UINT1, UINT1>((UINT1 **)o->spatialValue, o->nrRows, o->nrCols);
+    return new ReadWriteData<UINT1, UINT1>(reinterpret_cast<UINT1 **>(o->spatialValue), o->nrRows, o->nrCols);
   }
   PRECOND(false);
   return nullptr;
@@ -106,9 +106,9 @@ template <> ReadWriteInt4 *spatialInterface<INT4, MAP_INT4>(MAP_INT4 *o)
 {
   switch (o->inCellRepr) {
     case CR_INT4:
-      return new ReadWriteData<INT4, INT4>((INT4 **)o->spatialValue, o->nrRows, o->nrCols);
+      return new ReadWriteData<INT4, INT4>(reinterpret_cast<INT4 **>(o->spatialValue), o->nrRows, o->nrCols);
     case CR_UINT1:
-      return new ReadWriteData<INT4, UINT1>((UINT1 **)o->spatialValue, o->nrRows, o->nrCols);
+      return new ReadWriteData<INT4, UINT1>(reinterpret_cast<UINT1 **>(o->spatialValue), o->nrRows, o->nrCols);
     default:;
   }
   PRECOND(false);
@@ -119,11 +119,11 @@ template <> ReadWriteReal8 *spatialInterface<REAL8, MAP_REAL8>(MAP_REAL8 *o)
 {
   switch (o->inCellRepr) {
     case CR_REAL4:
-      return new ReadWriteData<REAL8, REAL4>((REAL4 **)o->spatialValue, o->nrRows, o->nrCols);
+      return new ReadWriteData<REAL8, REAL4>(reinterpret_cast<REAL4 **>(o->spatialValue), o->nrRows, o->nrCols);
     case CR_INT4:
-      return new ReadWriteData<REAL8, INT4>((INT4 **)o->spatialValue, o->nrRows, o->nrCols);
+      return new ReadWriteData<REAL8, INT4>(reinterpret_cast<INT4 **>(o->spatialValue), o->nrRows, o->nrCols);
     case CR_UINT1:
-      return new ReadWriteData<REAL8, UINT1>((UINT1 **)o->spatialValue, o->nrRows, o->nrCols);
+      return new ReadWriteData<REAL8, UINT1>(reinterpret_cast<UINT1 **>(o->spatialValue), o->nrRows, o->nrCols);
     default:;
   }
   PRECOND(false);

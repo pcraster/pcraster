@@ -103,7 +103,7 @@ SupportedSchema::~SupportedSchema()
 DOMLSInput *SupportedSchema::createInputSource() const
 {
   auto *memBufIS =
-      new MemBufInputSource((const XMLByte *)d_contents, strlen(d_contents) + 1, d_tag, false);
+      new MemBufInputSource(reinterpret_cast<const XMLByte *>(d_contents), strlen(d_contents) + 1, d_tag, false);
   return new Wrapper4InputSource(memBufIS);
 }
 

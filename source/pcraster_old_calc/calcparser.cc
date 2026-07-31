@@ -314,7 +314,7 @@ void Parser::externalBindings(int *_retsignal, calc::RunSettings &rs)
 #line 387 "calcparser.g"
       zzmatch_wsig(TOK_ID, _handler);
 
-      left = (ANTLRTokenPtr)LT(1);
+      left = ANTLRTokenPtr(LT(1));
       consume();
 #line 387 "calcparser.g"
       zzmatch_wsig(TOK_IS, _handler);
@@ -547,7 +547,7 @@ void Parser::modelCode(int *_retsignal)
 #line 418 "calcparser.g"
       zzmatch_wsig(TOK_DYNAMIC, _handler);
 
-      pos = (ANTLRTokenPtr)LT(1);
+      pos = ANTLRTokenPtr(LT(1));
 
 #line 419 "calcparser.g"
 
@@ -684,7 +684,7 @@ void Parser::timer(int *_retsignal)
 #line 454 "calcparser.g"
         zzmatch_wsig(TOK_ID, _handler);
 
-        tssID = (ANTLRTokenPtr)LT(1);
+        tssID = ANTLRTokenPtr(LT(1));
 
 #line 455 "calcparser.g"
 
@@ -787,7 +787,7 @@ void Parser::reportMomentDef(int *_retsignal)
 #line 471 "calcparser.g"
   zzmatch_wsig(TOK_ID, _handler);
 
-  reportId = (ANTLRTokenPtr)LT(1);
+  reportId = ANTLRTokenPtr(LT(1));
 
 #line 471 "calcparser.g"
   s = symbol(reportId);
@@ -804,7 +804,7 @@ void Parser::reportMomentDef(int *_retsignal)
   zzmatch_wsig(TOK_SC, _handler);
 
 #line 473 "calcparser.g"
-  script()->addReport(new calc::ReportDefinition(s, m, (int)script()->nrTimeSteps()));
+  script()->addReport(new calc::ReportDefinition(s, m, static_cast<int>(script()->nrTimeSteps())));
   consume();
   return;
 fail:
@@ -906,7 +906,7 @@ void Parser::bindingRight(int *_retsignal, const calc::DefPar &par)
 #line 499 "calcparser.g"
         zzmatch_wsig(TOK_CONV_F, _handler);
 
-        convF = (ANTLRTokenPtr)LT(1);
+        convF = ANTLRTokenPtr(LT(1));
         consume();
 #line 499 "calcparser.g"
         zzmatch_wsig(TOK_LP, _handler);
@@ -962,7 +962,7 @@ void Parser::bindingRight(int *_retsignal, const calc::DefPar &par)
 #line 521 "calcparser.g"
             zzmatch_wsig(TOK_INDEX_F, _handler);
 
-            indF = (ANTLRTokenPtr)LT(1);
+            indF = ANTLRTokenPtr(LT(1));
             consume();
 #line 522 "calcparser.g"
             zzmatch_wsig(TOK_LP, _handler);
@@ -1114,7 +1114,7 @@ calc::ParsIndex *Parser::indexDef(int *_retsignal)
 #line 574 "calcparser.g"
   zzmatch_wsig(TOK_ID, _handler);
 
-  name = (ANTLRTokenPtr)LT(1);
+  name = ANTLRTokenPtr(LT(1));
   consume();
 #line 587 "calcparser.g"
   {
@@ -1243,7 +1243,7 @@ void Parser::reportMoment(int *_retsignal, calc::ParsReportMoment &p)
 #line 603 "calcparser.g"
         zzmatch_wsig(TOK_INT, _handler);
 
-        start = (ANTLRTokenPtr)LT(1);
+        start = ANTLRTokenPtr(LT(1));
 
 #line 603 "calcparser.g"
         p.start = mytoken(start)->integerVal();
@@ -1262,7 +1262,7 @@ void Parser::reportMoment(int *_retsignal, calc::ParsReportMoment &p)
 #line 604 "calcparser.g"
               zzmatch_wsig(TOK_MOMENT_RANGE, _handler);
 
-              range = (ANTLRTokenPtr)LT(1);
+              range = ANTLRTokenPtr(LT(1));
 
 #line 605 "calcparser.g"
               p.end = mytoken(range)->integerVal();
@@ -1276,7 +1276,7 @@ void Parser::reportMoment(int *_retsignal, calc::ParsReportMoment &p)
 #line 607 "calcparser.g"
                   zzmatch_wsig(TOK_MOMENT_RANGE, _handler);
 
-                  range2 = (ANTLRTokenPtr)LT(1);
+                  range2 = ANTLRTokenPtr(LT(1));
 
 #line 608 "calcparser.g"
                   p.end = mytoken(range2)->integerVal();
@@ -1343,7 +1343,7 @@ int Parser::reportMomentStep(int *_retsignal)
 #line 622 "calcparser.g"
   zzmatch_wsig(TOK_INT, _handler);
 
-  v = (ANTLRTokenPtr)LT(1);
+  v = ANTLRTokenPtr(LT(1));
 
 #line 623 "calcparser.g"
   _retv = mytoken(v)->integerVal();
@@ -1378,7 +1378,7 @@ calc::IdList Parser::idList(int *_retsignal)
 #line 634 "calcparser.g"
   zzmatch_wsig(TOK_ID, _handler);
 
-  firstId = (ANTLRTokenPtr)LT(1);
+  firstId = ANTLRTokenPtr(LT(1));
 
 #line 634 "calcparser.g"
   list.push_back(symbol(firstId));
@@ -1392,7 +1392,7 @@ calc::IdList Parser::idList(int *_retsignal)
 #line 635 "calcparser.g"
       zzmatch_wsig(TOK_ID, _handler);
 
-      nextId = (ANTLRTokenPtr)LT(1);
+      nextId = ANTLRTokenPtr(LT(1));
 
 #line 635 "calcparser.g"
       list.push_back(symbol(nextId));
@@ -1520,7 +1520,7 @@ void Parser::codeBlock(int *_retsignal, calc::StatementBlock *inclIn)
 #line 669 "calcparser.g"
                 zzmatch_wsig(TOK_ID, _handler);
 
-                v = (ANTLRTokenPtr)LT(1);
+                v = ANTLRTokenPtr(LT(1));
 
 #line 669 "calcparser.g"
                 r = script()->findReport(symbol(v));
@@ -1540,7 +1540,7 @@ void Parser::codeBlock(int *_retsignal, calc::StatementBlock *inclIn)
                   calc::Symbol const s(script(), buf, nullptr);
                   calc::ReportDefinition *rd = nullptr;
                   rd = new calc::ReportDefinition(script()->generatedSymbol("reportMoments", buf),
-                                                  inSitu, (int)script()->nrTimeSteps());
+                                                  inSitu, static_cast<int>(script()->nrTimeSteps()));
                   r = rd;
                   script()->addReport(rd);
                 } else {
@@ -1595,7 +1595,7 @@ void Parser::codeBlock(int *_retsignal, calc::StatementBlock *inclIn)
 #line 693 "calcparser.g"
         zzmatch_wsig(TOK_ID, _handler);
 
-        modelId = (ANTLRTokenPtr)LT(1);
+        modelId = ANTLRTokenPtr(LT(1));
         consume();
 #line 693 "calcparser.g"
         zzmatch_wsig(TOK_IS, _handler);
@@ -1603,7 +1603,7 @@ void Parser::codeBlock(int *_retsignal, calc::StatementBlock *inclIn)
 #line 693 "calcparser.g"
         zzmatch_wsig(TOK_ID, _handler);
 
-        modelName = (ANTLRTokenPtr)LT(1);
+        modelName = ANTLRTokenPtr(LT(1));
         consume();
 #line 693 "calcparser.g"
         modelLinkArgs(&_signal, inclIn, strArg, args);
@@ -1657,12 +1657,12 @@ void Parser::foreach (int *_retsignal, calc::StatementBlock * inclIn)
 #line 703 "calcparser.g"
   zzmatch_wsig(TOK_FOREACH, _handler);
 
-  posF = (ANTLRTokenPtr)LT(1);
+  posF = ANTLRTokenPtr(LT(1));
   consume();
 #line 704 "calcparser.g"
   zzmatch_wsig(TOK_ID, _handler);
 
-  iterId = (ANTLRTokenPtr)LT(1);
+  iterId = ANTLRTokenPtr(LT(1));
   consume();
 #line 705 "calcparser.g"
   zzmatch_wsig(TOK_IN, _handler);
@@ -1673,7 +1673,7 @@ void Parser::foreach (int *_retsignal, calc::StatementBlock * inclIn)
 #line 705 "calcparser.g"
       zzmatch_wsig(TOK_ID, _handler);
 
-      inId = (ANTLRTokenPtr)LT(1);
+      inId = ANTLRTokenPtr(LT(1));
 
 #line 705 "calcparser.g"
       in = symbol(inId);
@@ -1708,7 +1708,7 @@ void Parser::foreach (int *_retsignal, calc::StatementBlock * inclIn)
 #line 709 "calcparser.g"
           zzmatch_wsig(TOK_ID, _handler);
 
-          exceptId = (ANTLRTokenPtr)LT(1);
+          exceptId = ANTLRTokenPtr(LT(1));
 
 #line 709 "calcparser.g"
           except = symbol(exceptId);
@@ -1771,7 +1771,7 @@ void Parser::repeat(int *_retsignal, calc::StatementBlock *inclIn)
 #line 727 "calcparser.g"
   zzmatch_wsig(TOK_REPEAT, _handler);
 
-  posR = (ANTLRTokenPtr)LT(1);
+  posR = ANTLRTokenPtr(LT(1));
   consume();
 #line 728 "calcparser.g"
   zzmatch_wsig(TOK_LC, _handler);
@@ -1924,7 +1924,7 @@ void Parser::assignmentTail(int *_retsignal, calc::StatementBlock *inclIn, const
 #line 775 "calcparser.g"
       zzmatch_wsig(TOK_ASSOP, _handler);
 
-      ass = (ANTLRTokenPtr)LT(1);
+      ass = ANTLRTokenPtr(LT(1));
       consume();
 #line 775 "calcparser.g"
       calc::FieldExpr *r_expr = expr(&_signal, inclIn);
@@ -1975,7 +1975,7 @@ void Parser::assignmentTail(int *_retsignal, calc::StatementBlock *inclIn, const
 #line 801 "calcparser.g"
         zzmatch_wsig(TOK_ID, _handler);
 
-        theId = (ANTLRTokenPtr)LT(1);
+        theId = ANTLRTokenPtr(LT(1));
         consume();
 #line 818 "calcparser.g"
         {
@@ -1988,7 +1988,7 @@ void Parser::assignmentTail(int *_retsignal, calc::StatementBlock *inclIn, const
 #line 805 "calcparser.g"
               zzmatch_wsig(TOK_ID, _handler);
 
-              methodId = (ANTLRTokenPtr)LT(1);
+              methodId = ANTLRTokenPtr(LT(1));
 
 #line 806 "calcparser.g"
               calc::FieldExprArgs args;
@@ -2014,7 +2014,7 @@ void Parser::assignmentTail(int *_retsignal, calc::StatementBlock *inclIn, const
 #line 821 "calcparser.g"
                 zzmatch_wsig(TOK_ID, _handler);
 
-                fid2 = (ANTLRTokenPtr)LT(1);
+                fid2 = ANTLRTokenPtr(LT(1));
 
 #line 822 "calcparser.g"
                 calc::Symbol const sym1 = symbol(theId);
@@ -2136,7 +2136,7 @@ calc::FieldExpr *Parser::expr(int *_retsignal, calc::StatementBlock *inclIn)
 #line 855 "calcparser.g"
       zzmatch_wsig(TOK_OR, _handler);
 
-      opS = (ANTLRTokenPtr)LT(1);
+      opS = ANTLRTokenPtr(LT(1));
       consume();
 #line 855 "calcparser.g"
       right = xor_expr(&_signal, inclIn);
@@ -2195,7 +2195,7 @@ calc::FieldExpr *Parser::xor_expr(int *_retsignal, calc::StatementBlock *inclIn)
 #line 873 "calcparser.g"
       zzmatch_wsig(TOK_XOR, _handler);
 
-      opS = (ANTLRTokenPtr)LT(1);
+      opS = ANTLRTokenPtr(LT(1));
       consume();
 #line 873 "calcparser.g"
       right = and_expr(&_signal, inclIn);
@@ -2244,7 +2244,7 @@ calc::FieldExpr *Parser::and_expr(int *_retsignal, calc::StatementBlock *inclIn)
 #line 885 "calcparser.g"
       zzmatch_wsig(TOK_AND, _handler);
 
-      opS = (ANTLRTokenPtr)LT(1);
+      opS = ANTLRTokenPtr(LT(1));
       consume();
 #line 885 "calcparser.g"
       right = eq_expr(&_signal, inclIn);
@@ -2293,7 +2293,7 @@ calc::FieldExpr *Parser::eq_expr(int *_retsignal, calc::StatementBlock *inclIn)
 #line 898 "calcparser.g"
       zzmatch_wsig(TOK_EQ, _handler);
 
-      opS = (ANTLRTokenPtr)LT(1);
+      opS = ANTLRTokenPtr(LT(1));
       consume();
 #line 898 "calcparser.g"
       right = comp_expr(&_signal, inclIn);
@@ -2342,7 +2342,7 @@ calc::FieldExpr *Parser::comp_expr(int *_retsignal, calc::StatementBlock *inclIn
 #line 910 "calcparser.g"
       zzmatch_wsig(TOK_COMP, _handler);
 
-      opS = (ANTLRTokenPtr)LT(1);
+      opS = ANTLRTokenPtr(LT(1));
       consume();
 #line 910 "calcparser.g"
       right = add_expr(&_signal, inclIn);
@@ -2391,7 +2391,7 @@ calc::FieldExpr *Parser::add_expr(int *_retsignal, calc::StatementBlock *inclIn)
 #line 923 "calcparser.g"
       zzsetmatch_wsig(ADD_GROUP_set, _handler);
 
-      opS = (ANTLRTokenPtr)LT(1);
+      opS = ANTLRTokenPtr(LT(1));
       consume();
 #line 923 "calcparser.g"
       right = mult_expr(&_signal, inclIn);
@@ -2441,7 +2441,7 @@ calc::FieldExpr *Parser::mult_expr(int *_retsignal, calc::StatementBlock *inclIn
 #line 937 "calcparser.g"
       zzsetmatch_wsig(MULT_GROUP_set, _handler);
 
-      opS = (ANTLRTokenPtr)LT(1);
+      opS = ANTLRTokenPtr(LT(1));
       consume();
 #line 937 "calcparser.g"
       right = pow_expr(&_signal, inclIn);
@@ -2490,7 +2490,7 @@ calc::FieldExpr *Parser::pow_expr(int *_retsignal, calc::StatementBlock *inclIn)
 #line 949 "calcparser.g"
       zzmatch_wsig(TOK_POW, _handler);
 
-      opS = (ANTLRTokenPtr)LT(1);
+      opS = ANTLRTokenPtr(LT(1));
       consume();
 #line 949 "calcparser.g"
       right = sign_expr(&_signal, inclIn);
@@ -2533,7 +2533,7 @@ calc::FieldExpr *Parser::sign_expr(int *_retsignal, calc::StatementBlock *inclIn
 #line 961 "calcparser.g"
       zzsetmatch_wsig(ADD_GROUP_set, _handler);
 
-      s = (ANTLRTokenPtr)LT(1);
+      s = ANTLRTokenPtr(LT(1));
 
 #line 961 "calcparser.g"
       signs.push_back(symbol(s));
@@ -2556,7 +2556,7 @@ calc::FieldExpr *Parser::sign_expr(int *_retsignal, calc::StatementBlock *inclIn
 		if (signs[i].name() == "-")
 		c->setValue(-c->value();
 	} else  */
-  for (int i = (int)(signs.size() - 1); i >= 0; i--) {
+  for (int i = static_cast<int>(signs.size() - 1); i >= 0; i--) {
     calc::FieldExprArgs args(1);
     args[0] = _retv;
     const calc::Operator &op = calc::major2op(signs[i].name() == "+" ? OP_UADD : OP_UMIN);
@@ -2590,7 +2590,7 @@ calc::FieldExpr *Parser::not_expr(int *_retsignal, calc::StatementBlock *inclIn)
 #line 984 "calcparser.g"
       zzmatch_wsig(TOK_NOT, _handler);
 
-      s = (ANTLRTokenPtr)LT(1);
+      s = ANTLRTokenPtr(LT(1));
 
 #line 984 "calcparser.g"
       signs.push_back(symbol(s));
@@ -2605,7 +2605,7 @@ calc::FieldExpr *Parser::not_expr(int *_retsignal, calc::StatementBlock *inclIn)
 
 #line 986 "calcparser.g"
 
-  for (int i = (int)(signs.size() - 1); i >= 0; i--) {
+  for (int i = static_cast<int>(signs.size() - 1); i >= 0; i--) {
     calc::FieldExprArgs args(1);
     args[0] = _retv;
     _retv = new calc::BranchExprImpl(signs[i], calc::major2op(OP_NOT), args);
@@ -2659,7 +2659,7 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
 #line 1001 "calcparser.g"
       zzmatch_wsig(TOK_IF, _handler);
 
-      opS = (ANTLRTokenPtr)LT(1);
+      opS = ANTLRTokenPtr(LT(1));
       consume();
 #line 1001 "calcparser.g"
       zzmatch_wsig(TOK_LP, _handler);
@@ -2712,7 +2712,7 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
 #line 1008 "calcparser.g"
         zzmatch_wsig(TOK_CONV_F, _handler);
 
-        convF = (ANTLRTokenPtr)LT(1);
+        convF = ANTLRTokenPtr(LT(1));
         consume();
 #line 1008 "calcparser.g"
         zzmatch_wsig(TOK_LP, _handler);
@@ -2770,7 +2770,7 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
 #line 1023 "calcparser.g"
           zzmatch_wsig(TOK_LOOKUP_F, _handler);
 
-          lookF = (ANTLRTokenPtr)LT(1);
+          lookF = ANTLRTokenPtr(LT(1));
           consume();
 #line 1024 "calcparser.g"
           zzmatch_wsig(TOK_LP, _handler);
@@ -2808,7 +2808,7 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
 #line 1037 "calcparser.g"
             zzmatch_wsig(TOK_TIMEIN_F, _handler);
 
-            tssF = (ANTLRTokenPtr)LT(1);
+            tssF = ANTLRTokenPtr(LT(1));
             consume();
 #line 1038 "calcparser.g"
             zzmatch_wsig(TOK_LP, _handler);
@@ -2860,7 +2860,7 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
 #line 1056 "calcparser.g"
                 zzmatch_wsig(TOK_REFERENCE, _handler);
 
-                r = (ANTLRTokenPtr)LT(1);
+                r = ANTLRTokenPtr(LT(1));
 
 #line 1057 "calcparser.g"
 
@@ -2874,7 +2874,7 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
 #line 1062 "calcparser.g"
                   zzmatch_wsig(TOK_TIMEINPUT, _handler);
 
-                  indF = (ANTLRTokenPtr)LT(1);
+                  indF = ANTLRTokenPtr(LT(1));
                   consume();
 #line 1063 "calcparser.g"
                   zzmatch_wsig(TOK_LP, _handler);
@@ -2927,7 +2927,7 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
 #line 1086 "calcparser.g"
                     zzmatch_wsig(TOK_ID, _handler);
 
-                    theId = (ANTLRTokenPtr)LT(1);
+                    theId = ANTLRTokenPtr(LT(1));
                     consume();
 #line 1088 "calcparser.g"
                     {
@@ -2977,7 +2977,7 @@ calc::FieldExpr *Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn
 #line 1109 "calcparser.g"
                           zzmatch_wsig(TOK_ID, _handler);
 
-                          methodId = (ANTLRTokenPtr)LT(1);
+                          methodId = ANTLRTokenPtr(LT(1));
 
 #line 1110 "calcparser.g"
                           calc::FieldExprArgs args;
@@ -3069,7 +3069,7 @@ void Parser::modelLinkArgs(int *_retsignal, calc::StatementBlock *inclIn, std::s
 #line 1132 "calcparser.g"
       zzmatch_wsig(TOK_REFERENCE, _handler);
 
-      ref = (ANTLRTokenPtr)LT(1);
+      ref = ANTLRTokenPtr(LT(1));
 
 #line 1132 "calcparser.g"
       strArg = symbol(ref).name();
@@ -3168,7 +3168,7 @@ calc::ConstructPar Parser::parWithIndeces(int *_retsignal, calc::StatementBlock 
 #line 1153 "calcparser.g"
       zzmatch_wsig(TOK_ID, _handler);
 
-      i = (ANTLRTokenPtr)LT(1);
+      i = ANTLRTokenPtr(LT(1));
 
 #line 1153 "calcparser.g"
       _retv.d_name = symbol(i);
@@ -3191,7 +3191,7 @@ calc::ConstructPar Parser::parWithIndeces(int *_retsignal, calc::StatementBlock 
 #line 1156 "calcparser.g"
         zzmatch_wsig(TOK_REFERENCE, _handler);
 
-        r = (ANTLRTokenPtr)LT(1);
+        r = ANTLRTokenPtr(LT(1));
 
 #line 1156 "calcparser.g"
         _retv.d_name = symbol(r);
@@ -3232,7 +3232,7 @@ calc::Symbol Parser::arrayIndex(int *_retsignal)
 #line 1161 "calcparser.g"
   zzmatch_wsig(TOK_ID, _handler);
 
-  id = (ANTLRTokenPtr)LT(1);
+  id = ANTLRTokenPtr(LT(1));
 
 #line 1161 "calcparser.g"
   _retv = symbol(id);
@@ -3265,7 +3265,7 @@ calc::Symbol Parser::qid(int *_retsignal)
 #line 1165 "calcparser.g"
     zzmatch_wsig(TOK_ID, _handler);
 
-    i = (ANTLRTokenPtr)LT(1);
+    i = ANTLRTokenPtr(LT(1));
 
 #line 1165 "calcparser.g"
     _retv = symbol(i);
@@ -3275,7 +3275,7 @@ calc::Symbol Parser::qid(int *_retsignal)
 #line 1166 "calcparser.g"
       zzmatch_wsig(TOK_REFERENCE, _handler);
 
-      r = (ANTLRTokenPtr)LT(1);
+      r = ANTLRTokenPtr(LT(1));
 
 #line 1166 "calcparser.g"
       _retv = symbol(r);
@@ -3360,7 +3360,7 @@ calc::Symbol Parser::unsignedNumber(int *_retsignal)
 #line 1189 "calcparser.g"
     zzmatch_wsig(TOK_INT, _handler);
 
-    v1 = (ANTLRTokenPtr)LT(1);
+    v1 = ANTLRTokenPtr(LT(1));
 
 #line 1190 "calcparser.g"
     _retv = symbol(v1);
@@ -3370,7 +3370,7 @@ calc::Symbol Parser::unsignedNumber(int *_retsignal)
 #line 1191 "calcparser.g"
       zzmatch_wsig(TOK_FLOAT, _handler);
 
-      v2 = (ANTLRTokenPtr)LT(1);
+      v2 = ANTLRTokenPtr(LT(1));
 
 #line 1192 "calcparser.g"
       _retv = symbol(v2);
@@ -3409,7 +3409,7 @@ calc::Symbol Parser::sign(int *_retsignal)
 #line 1195 "calcparser.g"
     zzmatch_wsig(TOK_PLUS, _handler);
 
-    v1 = (ANTLRTokenPtr)LT(1);
+    v1 = ANTLRTokenPtr(LT(1));
 
 #line 1196 "calcparser.g"
     _retv = symbol(v1);
@@ -3419,7 +3419,7 @@ calc::Symbol Parser::sign(int *_retsignal)
 #line 1198 "calcparser.g"
       zzmatch_wsig(TOK_MINUS, _handler);
 
-      v2 = (ANTLRTokenPtr)LT(1);
+      v2 = ANTLRTokenPtr(LT(1));
 
 #line 1199 "calcparser.g"
       _retv = symbol(v2);

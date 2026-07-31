@@ -37,13 +37,13 @@ void calc::BandMap::readInBuffer(VS readAs, void *val)
 {
   switch (biggestCellRepr(readAs)) {
     case CR_UINT1:
-      d_map.getCellsAsUINT1((UINT1 *)val);
+      d_map.getCellsAsUINT1(static_cast<UINT1 *>(val));
       break;
     case CR_INT4:
-      d_map.getCellsAsINT4((INT4 *)val);
+      d_map.getCellsAsINT4(static_cast<INT4 *>(val));
       break;
     case CR_REAL4:
-      d_map.getCellsAsREAL4((REAL4 *)val);
+      d_map.getCellsAsREAL4(static_cast<REAL4 *>(val));
       break;
     default:
       POSTCOND(false);
@@ -60,13 +60,13 @@ void calc::BandMap::writeData(const void *allValues)
 {
   switch (d_map.cellRepr()) {
     case CR_UINT1:
-      d_map.putCellsAsUINT1((const UINT1 *)allValues);
+      d_map.putCellsAsUINT1(static_cast<const UINT1 *>(allValues));
       break;
     case CR_INT2:
-      d_map.putCellsAsINT4((const INT4 *)allValues);
+      d_map.putCellsAsINT4(static_cast<const INT4 *>(allValues));
       break;
     case CR_REAL4:
-      d_map.putCellsAsREAL4((const REAL4 *)allValues);
+      d_map.putCellsAsREAL4(static_cast<const REAL4 *>(allValues));
       break;
     default:
       POSTCOND(false);

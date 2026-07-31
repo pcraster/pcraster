@@ -49,7 +49,7 @@ void *MemoryExchangeItemString::rawValue() const
 void MemoryExchangeItemString::beMemCpySrc(void *dest) const
 {
   const char *src = d_value.c_str();
-  std::strcpy((char *)dest, src);
+  std::strcpy(static_cast<char *>(dest), src);
 }
 
 //------------------------------------------------------------------------------

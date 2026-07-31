@@ -171,7 +171,7 @@ void ag::PostScript::fillPrimitivesArray()
       case GL_POLYGON_TOKEN:
         nrVertices = static_cast<size_t>(*it);
         ++it;
-        vertex = (const Feedback3DColor *)it;
+        vertex = reinterpret_cast<const Feedback3DColor *>(it);
 
         depthSum = vertex[0].d_z;
         for (size_t i = 1; i < nrVertices; ++i) {
@@ -245,7 +245,7 @@ ag::Feedback::const_iterator ag::PostScript::writePrimitive(std::ostream &os,
     case GL_POLYGON_TOKEN:
       nrVertices = static_cast<size_t>(*it);
       ++it;
-      vertex = (const Feedback3DColor *)it;
+      vertex = reinterpret_cast<const Feedback3DColor *>(it);
 
       os << "newpath\n"
          << vertex[0].d_red << " " << vertex[0].d_green << " " << vertex[0].d_blue << " setrgbcolor\n"

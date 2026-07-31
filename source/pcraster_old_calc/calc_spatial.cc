@@ -196,7 +196,7 @@ bool calc::Spatial::checkDebug(const calc::IScript &s, bool &allZero, size_t &bp
     std::unique_ptr<GridMap> debugMap(s.createMap(s.debugMapName(), VS_N));
     size_t const nrOutValues = s.rasterSpace().nrCells();
     geo::SimpleRaster<INT4> i4(1, nrOutValues);
-    com::copyCells(i4.cells(), (const UINT1 *)dd.decompressed(), nrOutValues);
+    com::copyCells(i4.cells(), static_cast<const UINT1 *>(dd.decompressed()), nrOutValues);
     debugMap->writeData(i4.cells());
     wroteOnce = true;
   }

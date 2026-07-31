@@ -116,7 +116,7 @@ BOOST_AUTO_TEST_CASE(set_mv)
   {
     double real8 = NAN;
     pcr::setMV(real8);
-    auto *c = (UINT1 *)&real8;
+    auto *c = reinterpret_cast<UINT1 *>(&real8);
     BOOST_TEST(c[0] == MV_UINT1);
     BOOST_TEST(c[1] == MV_UINT1);
     BOOST_TEST(c[2] == MV_UINT1);

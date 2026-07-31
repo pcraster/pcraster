@@ -366,7 +366,7 @@ DOMDocument *DOMInput::document()
     if (!d_string.empty()) {
 
       auto *memBufIS =
-          new MemBufInputSource((const XMLByte *)d_string.c_str(), d_string.size(), "inMemory", false);
+          new MemBufInputSource(reinterpret_cast<const XMLByte *>(d_string.c_str()), d_string.size(), "inMemory", false);
       Wrapper4InputSource wrp(memBufIS);
       d_document = d_parser->parse(&wrp);
     } else {

@@ -12,13 +12,13 @@ calc::NonSpatial::NonSpatial(VS vs, double value) : calc::Field(vs), d_crVal(big
 {
   switch (d_crVal) {
     case CR_REAL4:
-      d_vals = (REAL4)value;
+      d_vals = static_cast<REAL4>(value);
       break;
     case CR_INT4:
-      d_val4 = (INT4)value;
+      d_val4 = static_cast<INT4>(value);
       break;
     case CR_UINT1:
-      d_val1 = (UINT1)value;
+      d_val1 = static_cast<UINT1>(value);
       break;
     default:
       POSTCOND(false);  // NEVER
@@ -34,7 +34,7 @@ void calc::NonSpatial::analyzeBoolean(bool &noneAreTrue, bool &noneAreFalse) con
   if (isMv()) {
     return;
   }
-  if (((int)getValue()) == 1) {
+  if ((static_cast<int>(getValue())) == 1) {
     noneAreTrue = false;
   } else {
     noneAreFalse = false;
@@ -57,13 +57,13 @@ void calc::NonSpatial::setCell(const double &value, size_t /* i */)
   }
   switch (d_crVal) {
     case CR_REAL4:
-      d_vals = (REAL4)value;
+      d_vals = static_cast<REAL4>(value);
       break;
     case CR_INT4:
-      d_val4 = (INT4)value;
+      d_val4 = static_cast<INT4>(value);
       break;
     case CR_UINT1:
-      d_val1 = (UINT1)value;
+      d_val1 = static_cast<UINT1>(value);
       break;
     default:
       POSTCOND(false);  // NEVER
@@ -147,14 +147,14 @@ double calc::NonSpatial::getValue() const
   PRECOND(!isMv());
   switch (d_crVal) {
     case CR_REAL4:
-      return (double)d_vals;
+      return static_cast<double>(d_vals);
     case CR_INT4:
-      return (double)d_val4;
+      return static_cast<double>(d_val4);
     case CR_UINT1:
-      return (double)d_val1;
+      return static_cast<double>(d_val1);
     default:
       POSTCOND(false);  // NEVER
-      return (double)d_vals;
+      return static_cast<double>(d_vals);
   }
 }
 

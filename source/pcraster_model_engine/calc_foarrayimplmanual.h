@@ -45,7 +45,7 @@ namespace calc {
  struct PitArray: public IDiffUn {
    CRIndex cri() const override { return CRI_1; }
    PitArray() {
-       this->f=(F)fImpl;
+       this->f=reinterpret_cast<F>(fImpl);
    }
   static void fImpl(INT4* r,const UINT1* v, size_t n) {
     INT4   p=1;

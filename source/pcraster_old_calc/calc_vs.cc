@@ -105,22 +105,22 @@ std::string toString(VS setOfVs)
 
 bool isSubset(VS x, VS set)
 {
-  return ((VS)IS_IN_MACRO(x, set)) == x;
+  return (static_cast<VS>IS_IN_MACRO(x, set)) == x;
 }
 
 bool isIn(VS x, VS set)
 {
-  return ((VS)IS_IN_MACRO(x, set)) != VS_UNKNOWN;
+  return (static_cast<VS>IS_IN_MACRO(x, set)) != VS_UNKNOWN;
 }
 
 VS intersect(VS x, VS set)
 {
-  return (VS)IS_IN_MACRO(x, set);
+  return static_cast<VS>IS_IN_MACRO(x, set);
 }
 
 VS unionSet(VS set1, VS set2)
 {
-  return (VS)UNION_MACRO(set1, set2);
+  return static_cast<VS>UNION_MACRO(set1, set2);
 }
 
 int nrInSet(VS set)
@@ -131,10 +131,10 @@ int nrInSet(VS set)
 //! return set of VS possible for this number
 VS vsOfNumber(double value)
 {
-  int set = (int)VS_FIELD;
-  if (value >= (double)LONG_MIN && value <= (double)LONG_MAX) {
-    long const i = (long)value;
-    if (value == ((double)i)) {
+  int set = static_cast<int>(VS_FIELD);
+  if (value >= static_cast<double>LONG_MIN && value <= static_cast<double>(LONG_MAX)) {
+    long const i = static_cast<long>(value);
+    if (value == (static_cast<double>(i))) {
       /* if the value is not equal to 0 or 1
         then it's not a boolean */
       if (value != 0 && value != 1) {
@@ -154,7 +154,7 @@ VS vsOfNumber(double value)
      */
     set &= ~(VS_N | VS_O | VS_B | VS_L);
   }
-  return (VS)set;
+  return static_cast<VS>(set);
 }
 
 //! Is it a map or a table/tss/indextable?

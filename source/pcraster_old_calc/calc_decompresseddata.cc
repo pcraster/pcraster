@@ -45,7 +45,7 @@ const void *calc::DecompressedData::decompressed() const
   if (d_originalData != nullptr) {
     return d_originalData;
   }
-  return (const void *)d_decompressedCopy;
+  return reinterpret_cast<const void *>(d_decompressedCopy);
 }
 
 //------------------------------------------------------------------------------

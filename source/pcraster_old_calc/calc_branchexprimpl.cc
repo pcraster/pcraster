@@ -451,10 +451,10 @@ void calc::BranchExprImpl::execDiffUn(const calc::Operator &op, calc::FieldStack
         // these 2 always have spatial result, no matter if their
         // argument is spatial or not.
       case OP_UNIFORM:
-        f = (DO_DIFF_UN)Do_uniform_1;
+        f = reinterpret_cast<DO_DIFF_UN>(Do_uniform_1);
         break;
       case OP_NORMAL:
-        f = (DO_DIFF_UN)Do_normal_1;
+        f = reinterpret_cast<DO_DIFF_UN>(Do_normal_1);
       default:;
     }
   }
@@ -471,7 +471,7 @@ void Do_time(REAL4 *values, size_t n)
 {
   PRECOND(n == 1);
   (void)n;  // shut up compiler
-  *values = (REAL4)currentTime;
+  *values = static_cast<REAL4>(currentTime);
 }
 
 /* ARGSUSED */
@@ -479,7 +479,7 @@ void Do_timeslice(REAL4 *values, size_t n)
 {
   PRECOND(n == 1);
   (void)n;  // shut up compiler
-  *values = (REAL4)1;
+  *values = static_cast<REAL4>(1);
 }
 
 void calc::BranchExprImpl::execGenNonSpatial(const Operator &op, FieldStack &stack)
@@ -583,7 +583,7 @@ void calc::BranchExprImpl::execDiffBin(const calc::Operator &op, calc::FieldStac
   DO_DIFF_BIN f = jmpTableDiffBin[op.execId()][getSubIndex(fa)];
   POSTCOND(f != nullptr);
 
-  f((UINT1 *)res->destValue(), inp[0]->srcValue(), inp[1]->srcValue(), nrCells(inp[0], inp[1]));
+  f(static_cast<UINT1 *>(res->destValue()), inp[0]->srcValue(), inp[1]->srcValue(), nrCells(inp[0], inp[1]));
   checkMv(op, res);
   stack.push(res);
 }
@@ -636,7 +636,7 @@ void calc::BranchExprImpl::execSameBin(const calc::Operator &op, calc::FieldStac
     // CW note I do not need this (void *)
     //  if the jmpTableSameBin is better organized
     {  // OpTimer t(op);
-      f((void *)left->srcValue(), right->destValue(), nrCells(left, right));
+      f(const_cast<void *>(left->srcValue()), right->destValue(), nrCells(left, right));
     }
     checkMv(op, right);
     stack.push(right);
@@ -655,7 +655,7 @@ void calc::BranchExprImpl::execSameBin(const calc::Operator &op, calc::FieldStac
     // CW note I do not need this (void *)
     //  if the jmpTableSameBin is better organized
     {  // OpTimer t(op);
-      f(dest->destValue(), (void *)other->srcValue(), nrCells(dest, other));
+      f(dest->destValue(), const_cast<void *>(other->srcValue()), nrCells(dest, other));
     }
     checkMv(op, dest);
     stack.push(dest);
@@ -713,7 +713,7 @@ void calc::BranchExprImpl::execIfThen(const calc::Operator &op, calc::FieldStack
   DO_IFTHEN f = jmpTableIfThen[op.execId()][getSubIndex(fa)];
   POSTCOND(f != nullptr);
 
-  f(res->destValue(), (const UINT1 *)testBranch->srcValue(), trueBranch->srcValue(),
+  f(res->destValue(), static_cast<const UINT1 *>(testBranch->srcValue()), trueBranch->srcValue(),
     nrCells(testBranch, trueBranch));
 
   checkMv(op, res);
@@ -778,7 +778,7 @@ void calc::BranchExprImpl::execIfThenElse(const calc::Operator &op, calc::FieldS
   DO_IFTHENELSE f = jmpTableIfThenElse[op.execId()][ind];
   POSTCOND(f != nullptr);
 
-  f(res->destValue(), (const UINT1 *)testBranch->srcValue(), trueBranch->srcValue(),
+  f(res->destValue(), static_cast<const UINT1 *>(testBranch->srcValue()), trueBranch->srcValue(),
     falseBranch->srcValue(), n);
   checkMv(op, res);
   stack.push(res);

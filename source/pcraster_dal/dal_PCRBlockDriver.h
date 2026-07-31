@@ -165,7 +165,7 @@ inline void PCRBlockDriver::readVoxels(
          std::vector<T>& stack) const
 {
   UINT4 nrVoxels = 0;
-  stream.read((char*)&(nrVoxels), 4);
+  stream.read(reinterpret_cast<char*>(&(nrVoxels)), 4);
 
   stack.resize(nrVoxels);
 
@@ -190,7 +190,7 @@ inline void PCRBlockDriver::writeVoxels(
          std::ofstream& stream) const
 {
   UINT4 nrVoxels(stack.size());
-  stream.write((char*)&nrVoxels, sizeof(nrVoxels));
+  stream.write(reinterpret_cast<char*>(&nrVoxels), sizeof(nrVoxels));
 
   for(size_t j = 0; j < stack.size(); ++j) {
     stream.write((char const*)&stack[j], sizeof(T));

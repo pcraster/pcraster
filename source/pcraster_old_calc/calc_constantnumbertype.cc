@@ -7,10 +7,10 @@
 
 static VS TypeNumber(double value)
 {
-  int set = (int)VS_FIELD;
-  if (value >= (double)LONG_MIN && value <= (double)LONG_MAX) {
-    long const i = (long)value;
-    if (value == ((double)i)) {
+  int set = static_cast<int>(VS_FIELD);
+  if (value >= static_cast<double>LONG_MIN && value <= static_cast<double>(LONG_MAX)) {
+    long const i = static_cast<long>(value);
+    if (value == (static_cast<double>(i))) {
       /* if the value is not equal to 0 or 1 
         then it's not a boolean */
       if (value != 0 && value != 1) {
@@ -28,7 +28,7 @@ static VS TypeNumber(double value)
     /* even if it is an integer we cannot store it in a real: mask classifieds out */
     set &= ~(VS_N | VS_O | VS_B | VS_L);
   }
-  VS const setTypes = (VS)set;
+  VS const setTypes = static_cast<VS>(set);
   return setTypes;
 }
 

@@ -66,8 +66,8 @@ void calc::TimeinputExpr::execute(FieldStack &stack)
       GlobResult const result(VS_S, vs(), scriptConst().compressor());
       stack.push(id);  // GlobArgs must read from stack
       GlobArgs args(op(), scriptConst().compressor(), stack);
-      (void)TimeInputSeries((struct MAP_REAL8 *)result.MAPinterface(),
-                            (const struct MAP_INT4 *)args.mapVals()[0], tssTable, rowIndex);
+      (void)TimeInputSeries(static_cast<struct MAP_REAL8 *>(result.MAPinterface()),
+                            static_cast<const struct MAP_INT4 *>(args.mapVals()[0]), tssTable, rowIndex);
       stack.push(result.createField());
     }
   } catch (std::exception &v) {

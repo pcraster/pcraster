@@ -554,7 +554,7 @@ void calc::StatTable::classIntervalTable(const SubjectType *subject, FieldStack 
   PRECOND(d_cross.hasIntervals());
 
   FieldHandle d(stack.popReadOnly());
-  const auto *cross = (const REAL4 *)d->srcValue();
+  const auto *cross = static_cast<const REAL4 *>(d->srcValue());
 
   typedef detail::CS_CP CP;
   detail::CS_V r;
@@ -618,7 +618,7 @@ void calc::StatTable::scalarScalarTable(const REAL4 *subject, FieldStack &stack,
     cross = subject;
   } else {
     d = std::make_unique<FieldHandle>(stack.popReadOnly());
-    cross = (const REAL4 *)(*d)->srcValue();
+    cross = static_cast<const REAL4 *>((*d)->srcValue());
   }
 
   for (size_t i = 0; i < nrValues; i++) {
@@ -646,7 +646,7 @@ void calc::StatTable::GGTable(const REAL4 *subject, FieldStack &stack) const
   PRECOND(d_cross.cr() == CR_REAL4);
 
   FieldHandle d(stack.popReadOnly());
-  const auto *cross = (const REAL4 *)d->srcValue();
+  const auto *cross = static_cast<const REAL4 *>(d->srcValue());
 
 
   typedef detail::CS_CP CP;
@@ -724,7 +724,7 @@ template <typename SubjectType>
 void calc::StatTable::classScalarTable(const SubjectType *subject, FieldStack &stack) const
 {
   FieldHandle d(stack.popReadOnly());
-  const auto *cross = (const REAL4 *)d->srcValue();
+  const auto *cross = static_cast<const REAL4 *>(d->srcValue());
 
   typedef detail::CS_CP CP;
   typedef std::vector<CP> R;
@@ -814,7 +814,7 @@ void calc::StatTable::scalarTable(const REAL4 *beginS, const REAL4 *endS, const 
 void calc::StatTable::scalarSubject(FieldStack &stack) const
 {
   FieldHandle d(stack.popReadOnly());
-  const auto *r = (const REAL4 *)d->srcValue();
+  const auto *r = static_cast<const REAL4 *>(d->srcValue());
 
   if (!d_cross.defined() && !d_subject.hasIntervals()) {
     scalarTable(r, r + d->nrValues());
@@ -839,7 +839,7 @@ void calc::StatTable::scalarSubject(FieldStack &stack) const
   } else {
     // scalarTable (met 2 kolommen)
     FieldHandle cd(stack.popReadOnly());
-    const auto *c = (const REAL4 *)cd->srcValue();
+    const auto *c = static_cast<const REAL4 *>(cd->srcValue());
     scalarTable(r, r + d->nrValues(), c, c + cd->nrValues());
   }
 }

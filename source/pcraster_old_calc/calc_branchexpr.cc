@@ -64,7 +64,7 @@ void calc::BranchExpr::skipExecution()
 void calc::BranchExpr::buildTypes()
 {
   // xml if op has attr special set to true
-  if ((int)(op().opCode()) < OP_SIMPLE_RULE) {
+  if (static_cast<int>(op().opCode()) < OP_SIMPLE_RULE) {
     special();
   }
 

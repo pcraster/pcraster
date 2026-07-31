@@ -46,30 +46,30 @@ struct special {
      return -1;
     }
     PRECOND(v > 0 && v < ((UINT1)10) );
-    return (REAL4)(ldd2Dir[v] * M_2PI);
+    return static_cast<REAL4>(ldd2Dir[v] * M_2PI);
   }
    inline static REAL4 impl_4_2_d( const UINT4& v) {
      double (* f)(double x)=
      (appDirection == APP_RADIANS) ? ScaleRad : Deg2Rad;
-     return (REAL4)f(v);
+     return static_cast<REAL4>(f(v));
   }
    inline static REAL4 impl_s_2_d(const REAL4& v) {
      double (* f)(double x)=
      (appDirection == APP_RADIANS) ? ScaleRad : Deg2Rad;
-     return (REAL4)f(v);
+     return static_cast<REAL4>(f(v));
   }
    inline static REAL4 impl_1_2_d( const UINT1& v) {
      return impl_4_2_d(v);
   }
    inline static UINT1 impl_4_2_l( const INT4& v) {
-      auto   r = (UINT1)(std::abs(v) % 10);
+      auto   r = static_cast<UINT1>(std::abs(v) % 10);
       if (r == 0U) {
         return 5; // pit who cares
       }
       return r;// MISSING CODE: DO A LDD REPAIR
   }
    inline static UINT1 impl_s_2_l( const REAL4& v) {
-      return impl_4_2_l((INT4)v);
+      return impl_4_2_l(static_cast<INT4>(v));
   }
   inline static UINT1 impl_d_2_l( const REAL4& v) {
      const UINT1 lookup[8] = { 8, 9, 6, 3, 2, 1, 4, 7 };
@@ -79,7 +79,7 @@ struct special {
        return LDD_PIT;
 }
      /* shift a halfdir - eps. (0.0624999) */
-     auto r =(UINT1)( modf( (v/M_2PI)+shift, &dum)*8);
+     auto r =static_cast<UINT1>( modf( (v/M_2PI)+shift, &dum)*8);
      POSTCOND(r < ((UINT1)8) );
      // MISSING CODE: DO A REPAIR
      return lookup[r];
@@ -93,7 +93,7 @@ struct special {
       if (v==LDD_PIT) {
         return 0;
       }
-       return (REAL4)d[((int)v)%2];
+       return static_cast<REAL4>(d[(static_cast<int>(v))%2]);
     }
 };
 

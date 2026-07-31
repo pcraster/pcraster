@@ -197,10 +197,10 @@ void calc::EsriMap::readInBuffer(VS readAs, void *val)
       readInt(val4);
       switch (readAs) {
         case VS_B:
-          com::copyCells2Boolean((UINT1 *)val, val4, nrCells());
+          com::copyCells2Boolean(static_cast<UINT1 *>(val), val4, nrCells());
           break;
         case VS_L:
-          com::copyCells((UINT1 *)val, val4, nrCells());
+          com::copyCells(static_cast<UINT1 *>(val), val4, nrCells());
           break;
         default:
           PRECOND(false);
@@ -260,7 +260,7 @@ void calc::EsriMap::writeData(const void *allValues)
             }
           }
         }
-        calc::EsriGridIO::putWindowBand(d_chanId, 0, nrRows(), (const void *const *)outVal2d);
+        calc::EsriGridIO::putWindowBand(d_chanId, 0, nrRows(), reinterpret_cast<const void *const *>(outVal2d));
       } catch (...) {
         com::delete2d<float>(outVal2d);
         throw;
@@ -278,7 +278,7 @@ void calc::EsriMap::writeData(const void *allValues)
         }
       }
       try {
-        calc::EsriGridIO::putWindowBand(d_chanId, 0, nrRows(), (const void *const *)outVal2d);
+        calc::EsriGridIO::putWindowBand(d_chanId, 0, nrRows(), reinterpret_cast<const void *const *>(outVal2d));
       } catch (...) {
         com::delete2d<INT4>(outVal2d);
         throw;
@@ -297,7 +297,7 @@ void calc::EsriMap::writeData(const void *allValues)
             outVal[i] = inVal[i];
           }
         }
-        calc::EsriGridIO::putWindowBand(d_chanId, 0, nrRows(), (const void *const *)outVal2d);
+        calc::EsriGridIO::putWindowBand(d_chanId, 0, nrRows(), reinterpret_cast<const void *const *>(outVal2d));
       } catch (...) {
         com::delete2d<INT4>(outVal2d);
         throw;

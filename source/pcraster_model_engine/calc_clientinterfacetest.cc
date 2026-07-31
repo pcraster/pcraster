@@ -283,7 +283,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
     BOOST_TEST(!pcr_ScriptError(s));
 
     BOOST_TEST(data[1]);
-    const auto *output = (const float *)data[1];
+    const auto *output = static_cast<const float *>(data[1]);
     BOOST_TEST(output[1] == 7.5F);
     BOOST_TEST(output[24] == 7.5F);
     pcr_destroyScript(s);
@@ -332,7 +332,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
 
     BOOST_TEST(data[2]);  // allocated
     if (data[2] != nullptr) {
-      std::string const statTable((const char *)data[2]);
+      std::string const statTable(static_cast<const char *>(data[2]));
       BOOST_TEST(statTable == std::string("	memInput\n"
                                                "area	2500\n"
                                                "sum	112.5\n"
@@ -344,7 +344,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
     }
     BOOST_TEST(data[3]);  // allocated
     if (data[3] != nullptr) {
-      std::string const statTable((const char *)data[3]);
+      std::string const statTable(static_cast<const char *>(data[3]));
       BOOST_TEST(statTable == std::string("	memOutMap\n"
                                                "area	2500\n"
                                                "sum	187.5\n"
@@ -520,7 +520,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
     BOOST_TEST(memOutputDynamic[24] == -1.0F);  // should NOT be -1 !!!
 
     UINT4 valueLookup[3] = {1, 1, 10};
-    INT4 *value = (INT4 *)(valueLookup + 2);
+    INT4 *value = reinterpret_cast<INT4 *>(valueLookup + 2);
     *value = 10;
 
     // set what is used in dynamic
@@ -561,7 +561,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
     std::fill(memOutputDynamic, memOutputDynamic + 25, -1.0F);
 
     UINT4 valueLookup[3] = {1, 1, 10};
-    INT4 *value = (INT4 *)(valueLookup + 2);
+    INT4 *value = reinterpret_cast<INT4 *>(valueLookup + 2);
     *value = 10;
 
     void *data[NrData] = {
@@ -582,14 +582,14 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
     BOOST_TEST_REQUIRE(!pcr_ScriptError(s));
 
     BOOST_TEST(data[MemOutputInitial]);
-    auto *allocatedMemOutputInitial = (float *)data[MemOutputInitial];
+    auto *allocatedMemOutputInitial = static_cast<float *>(data[MemOutputInitial]);
     if (allocatedMemOutputInitial != nullptr) {
       BOOST_TEST(allocatedMemOutputInitial[0] == 5.0F);
     }
 
     BOOST_TEST(!data[MemOutputDynamic]);
     pcr_ScriptExecuteNextTimeStepMemory(s, data);
-    auto *allocatedMemOutputDynamic = (float *)data[MemOutputDynamic];
+    auto *allocatedMemOutputDynamic = static_cast<float *>(data[MemOutputDynamic]);
     BOOST_TEST(allocatedMemOutputDynamic);
     if (allocatedMemOutputDynamic != nullptr) {
       BOOST_TEST(allocatedMemOutputDynamic[1] == 13.5F);
@@ -602,7 +602,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
 
     data[MemOutputDynamic] = nullptr;  // reset to 0
     pcr_ScriptExecuteNextTimeStepMemory(s, data);
-    allocatedMemOutputDynamic = (float *)data[MemOutputDynamic];
+    allocatedMemOutputDynamic = static_cast<float *>(data[MemOutputDynamic]);
     BOOST_TEST(allocatedMemOutputDynamic);
 
     if (allocatedMemOutputDynamic != nullptr) {
@@ -709,13 +709,13 @@ BOOST_AUTO_TEST_CASE(testIOMemoryTimeoutput)
     BOOST_TEST_REQUIRE(!pcr_ScriptError(s));
     BOOST_TEST(data[0]);
     if (data[0] != nullptr) {
-      const auto *header = (const UINT4 *)data[0];
+      const auto *header = static_cast<const UINT4 *>(data[0]);
       BOOST_TEST(header[0] == (UINT4)1);         // id
       BOOST_TEST(header[1] == (UINT4)CR_REAL4);  // value type
       BOOST_TEST(header[2] == (UINT4)1);         // nrDim
       BOOST_TEST(header[3] == (UINT4)5);         // lenDim1
 
-      const auto *tss = (const float *)(header + 4);
+      const auto *tss = reinterpret_cast<const float *>(header + 4);
       BOOST_TEST(tss[0] == 1);
       BOOST_TEST(tss[1] == 2);
       BOOST_TEST(tss[2] == 3);
@@ -728,13 +728,13 @@ BOOST_AUTO_TEST_CASE(testIOMemoryTimeoutput)
     BOOST_TEST_REQUIRE(!pcr_ScriptError(s));
     BOOST_TEST(data[0]);
     if (data[0] != nullptr) {
-      const auto *header = (const UINT4 *)data[0];
+      const auto *header = static_cast<const UINT4 *>(data[0]);
       BOOST_TEST(header[0] == (UINT4)1);         // id
       BOOST_TEST(header[1] == (UINT4)CR_REAL4);  // value type
       BOOST_TEST(header[2] == (UINT4)1);         // nrDim
       BOOST_TEST(header[3] == (UINT4)5);         // lenDim1
 
-      const auto *tss = (const float *)(header + 4);
+      const auto *tss = reinterpret_cast<const float *>(header + 4);
       BOOST_TEST(tss[0] == 2);
       BOOST_TEST(tss[1] == 4);
       BOOST_TEST(tss[2] == 6);

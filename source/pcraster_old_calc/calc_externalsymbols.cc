@@ -92,7 +92,7 @@ void calc::ExternalSymbols::addFunction(const PCR_EXTERNAL_FUNCTION_SYNOPSIS &fd
   }
 
 
-  d_table.emplace_back(Operator(fd.name, (MAJOR_CODE)(nrInternalOpCodes() + d_table.size()),
+  d_table.emplace_back(Operator(fd.name, static_cast<MAJOR_CODE>(nrInternalOpCodes() + d_table.size()),
                                 // <-- CW must become size of other + current
                                 SYNTAX_FUNC,
                                 VS_FIELD,    // vs is determined when calling the resultTypes function

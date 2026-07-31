@@ -65,7 +65,7 @@ double pcrxml::BinDoubleLE::hexToDouble(const std::string &hexString)
   double v = NAN;
 
   PRECOND(hexString.size() == sizeof(double) * 2);
-  auto *ptr = (unsigned char *)&v;
+  auto *ptr = reinterpret_cast<unsigned char *>(&v);
   for (size_t i = 0; i < sizeof(double); i++) {
     std::istringstream is(hexString.substr(i * 2, 2));
     int value = 0;
@@ -87,7 +87,7 @@ pcrxml::BinDoubleLE::~BinDoubleLE()
 
 std::string pcrxml::BinDoubleLE::attrValueStr() const
 {
-  const auto *ptr = (const unsigned char *)&d_value;
+  const auto *ptr = reinterpret_cast<const unsigned char *>(&d_value);
   std::ostringstream o;
   for (size_t i = 0; i < sizeof(double); ++i) {
     o << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(ptr[i]);

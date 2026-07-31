@@ -448,13 +448,13 @@ void geo::BandMap::getCellsRaw(void *buf) const
   stream.seekg(d_skipBytes, std::ios::beg);
 
   if (d_nrBands == 1) {
-    stream.read((char *)buf, CSFSIZEOF(nrCells(), d_cellRepr));
+    stream.read(static_cast<char *>(buf), CSFSIZEOF(nrCells(), d_cellRepr));
   } else {
     // default to 1st band
     // all in byte units
     size_t const rowLen(CSFSIZEOF(nrCols(), d_cellRepr));
     size_t const skipAfterRow = rowLen * (d_nrBands - 1);
-    char *ptr = (char *)buf;
+    char *ptr = static_cast<char *>(buf);
     for (size_t r = 0; r < nrRows(); r++) {
       stream.read(ptr, rowLen);
       ptr += rowLen;
@@ -472,10 +472,10 @@ void geo::BandMap::getCellsRaw(void *buf) const
       case 0:
         break;
       case 1:
-        std::for_each((INT2 *)buf, ((INT2 *)buf) + nrCells(), com::EndianSwapINT2());
+        std::for_each(static_cast<INT2 *>(buf), (static_cast<INT2 *>(buf)) + nrCells(), com::EndianSwapINT2());
         break;
       case 2:
-        std::for_each((INT4 *)buf, ((INT4 *)buf) + nrCells(), com::EndianSwapINT4());
+        std::for_each(static_cast<INT4 *>(buf), (static_cast<INT4 *>(buf)) + nrCells(), com::EndianSwapINT4());
         break;
     }
   }
@@ -495,7 +495,7 @@ void geo::BandMap::getCellsAsUINT1(UINT1 *buf) const
 
   if (mvIsSet() && com::isUINT1(d_mvValue)) {
     // there is a mv and it is a valid range UINT1
-    pcr::AlterToStdMV<UINT1> const tsm((UINT1)d_mvValue);
+    pcr::AlterToStdMV<UINT1> const tsm(static_cast<UINT1>(d_mvValue));
     std::for_each(buf, buf + nrCells(), tsm);
   }
 }
@@ -505,17 +505,17 @@ void geo::BandMap::getCellsAsINT4(INT4 *buf) const
   // only up to broader casts allowed
 
   if (d_cellRepr == CR_UINT1) {
-    getCellsAsUINT1((UINT1 *)buf);  // with MV handling on UINT1
+    getCellsAsUINT1(reinterpret_cast<UINT1 *>(buf));  // with MV handling on UINT1
     // copy with MV transformation
-    com::copyCells(buf, (const UINT1 *)buf, nrCells());
+    com::copyCells(buf, reinterpret_cast<const UINT1 *>(buf), nrCells());
   } else {
     PRECOND(d_cellRepr == CR_INT2);
 
-    INT2 *b2 = (INT2 *)buf;
+    INT2 *b2 = reinterpret_cast<INT2 *>(buf);
     getCellsRaw(b2);
 
     if (mvIsSet() && com::isINT2(d_mvValue)) {
-      pcr::AlterToStdMV<INT2> const tsm((INT2)d_mvValue);
+      pcr::AlterToStdMV<INT2> const tsm(static_cast<INT2>(d_mvValue));
       std::for_each(b2, b2 + nrCells(), tsm);
     }
     // copy with MV transformation
@@ -527,17 +527,17 @@ void geo::BandMap::getCellsAsREAL4(REAL4 *buf) const
 {
   switch (d_cellRepr) {
     case CR_UINT1:
-      getCellsAsUINT1((UINT1 *)buf);  // with MV handling on UINT1
+      getCellsAsUINT1(reinterpret_cast<UINT1 *>(buf));  // with MV handling on UINT1
       // copy with MV transformation
-      com::copyCells(buf, (const UINT1 *)buf, nrCells());
+      com::copyCells(buf, reinterpret_cast<const UINT1 *>(buf), nrCells());
       break;
 
     case CR_INT2: {
-      INT2 *b2 = (INT2 *)buf;
+      INT2 *b2 = reinterpret_cast<INT2 *>(buf);
       getCellsRaw(b2);
 
       if (mvIsSet() && com::isINT2(d_mvValue)) {
-        pcr::AlterToStdMV<INT2> const tsm((INT2)d_mvValue);
+        pcr::AlterToStdMV<INT2> const tsm(static_cast<INT2>(d_mvValue));
         std::for_each(b2, b2 + nrCells(), tsm);
       }
       // copy with MV transformation
@@ -547,7 +547,7 @@ void geo::BandMap::getCellsAsREAL4(REAL4 *buf) const
     case CR_REAL4:
       getCellsRaw(buf);
       if (mvIsSet()) {  // assuming everything is a valid REAL4
-        pcr::AlterToStdMV<REAL4> const tsm((REAL4)d_mvValue);
+        pcr::AlterToStdMV<REAL4> const tsm(static_cast<REAL4>(d_mvValue));
         std::for_each(buf, buf + nrCells(), tsm);
       }
       break;
@@ -584,20 +584,20 @@ void geo::BandMap::putCellsRaw(const void *buf) const
   double maxV(-1);
   switch (cellRepr()) {
     case CR_UINT1: {
-      com::GetMinMax<UINT1> gmm((UINT1)mvValue());
-      gmm.add((const UINT1 *)buf, nrCells());
+      com::GetMinMax<UINT1> gmm(static_cast<UINT1>(mvValue()));
+      gmm.add(static_cast<const UINT1 *>(buf), nrCells());
       minV = gmm.min();
       maxV = gmm.max();
     } break;
     case CR_INT2: {
-      com::GetMinMax<INT2> gmm((INT2)mvValue());
-      gmm.add((const INT2 *)buf, nrCells());
+      com::GetMinMax<INT2> gmm(static_cast<INT2>(mvValue()));
+      gmm.add(static_cast<const INT2 *>(buf), nrCells());
       minV = gmm.min();
       maxV = gmm.max();
     } break;
     case CR_REAL4: {
-      com::GetMinMax<REAL4> gmm((REAL4)mvValue());
-      gmm.add((const REAL4 *)buf, nrCells());
+      com::GetMinMax<REAL4> gmm(static_cast<REAL4>(mvValue()));
+      gmm.add(static_cast<const REAL4 *>(buf), nrCells());
       minV = gmm.min();
       maxV = gmm.max();
     } break;

@@ -35,7 +35,7 @@ class ApiMapC : public ApiMap {
     //! ctor for read-only, GlobArg
     ApiMapC(const geo::RasterSpace& rs,const void *val,bool spatial,CSF_CR inCr):
       d_data(nullptr),
-      d_map(d_init(rs.nrRows(),rs.nrCols(),(void *)val,(int)spatial,inCr)) {}
+      d_map(d_init(rs.nrRows(),rs.nrCols(),const_cast<void *>(val),static_cast<int>(spatial),inCr)) {}
     //! ctor, always spatial, allocate data area
     ApiMapC(const geo::RasterSpace& rs,CSF_CR inCr):
       d_data(allocate(inCr,rs.nrCells())),

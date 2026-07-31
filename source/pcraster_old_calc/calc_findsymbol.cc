@@ -40,7 +40,7 @@ public:
   const Operator &op(MAJOR_CODE code) const
   {
     PRECOND(((size_t)code) < d_ops.size());
-    return d_ops[((size_t)code)];
+    return d_ops[(static_cast<size_t>(code))];
   }
 
   size_t nrInternalOpCodes() const
@@ -130,7 +130,7 @@ static void loadExternalSymbols()
 static size_t GetMinor(MAJOR_CODE op)
 {
   PRECOND((size_t)op >= nrInternalOpCodes());
-  size_t const minor = (size_t)(op)-nrInternalOpCodes();
+  size_t const minor = static_cast<size_t>(op)-nrInternalOpCodes();
   PRECOND(minor < ExternalSymbols::instance()->nrExternalFunctions());
   return minor;
 }
@@ -141,7 +141,7 @@ static size_t GetMinor(MAJOR_CODE op)
 
 const calc::Operator &calc::major2op(MAJOR_CODE major)
 {
-  auto maj = (size_t)major;
+  auto maj = static_cast<size_t>(major);
   if (maj < nrInternalOpCodes()) {
     return parsArgTable.op(major);
   } else {

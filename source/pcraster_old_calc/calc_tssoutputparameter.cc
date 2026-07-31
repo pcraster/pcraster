@@ -62,7 +62,7 @@ static int GetMaxId(const MAP_INT4 *id)
 //! add a line of values to the tss
 void calc::TssOutputParameter::AddTotss(size_t index, const void **args, bool isClassTss)
 {
-  const auto *idMap = (const MAP_INT4 *)args[0];
+  const auto *idMap = static_cast<const MAP_INT4 *>(args[0]);
   if (scriptConst().currentTimeStep() == 1) {  // initializing, first timestep
     PRECOND(nrInSet(d_vs) == 1);
     int const max = GetMaxId(idMap);
@@ -85,9 +85,9 @@ void calc::TssOutputParameter::AddTotss(size_t index, const void **args, bool is
   }
   int result = 0;
   if (isClassTss) {  // VS_BNO
-    result = AddToTssRowINT4(val, nrVals, idMap, (const MAP_INT4 *)args[1]);
+    result = AddToTssRowINT4(val, nrVals, idMap, static_cast<const MAP_INT4 *>(args[1]));
   } else {
-    result = AddToTssRowREAL8(val, nrVals, idMap, (const MAP_REAL8 *)args[1]);
+    result = AddToTssRowREAL8(val, nrVals, idMap, static_cast<const MAP_REAL8 *>(args[1]));
   }
   if (result != 0) {
     throw std::runtime_error("Failed to add data to timeseries");

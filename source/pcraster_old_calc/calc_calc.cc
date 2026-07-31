@@ -143,31 +143,31 @@ bool calc::Calc::processArgs(int argc, char **argv)
         script().setExitValueType(calc::Script::EXIT_ON_0);
         break;
       case 'r':
-        runDirectory = (const char *)OptArg;
+        runDirectory = static_cast<const char *>(OptArg);
         break;
       case 'b':
-        externalBindingFile = (const char *)OptArg;
+        externalBindingFile = static_cast<const char *>(OptArg);
         break;
       case 's': {
-        int const seed = *(const int *)OptArg;
+        int const seed = *static_cast<const int *>(OptArg);
         if (seed <= 0) {  // args/test26
           throw com::Exception("-s seed must be > 0 (not " + quote(seed) + ")");
         }
-        SetRan((unsigned int)seed);
+        SetRan(static_cast<unsigned int>(seed));
       } break;
       case 't':
         d_printShellExpansionOnly = true;
         break;
       case 'd':
-        script().setDebugMap((const char *)OptArg);
+        script().setDebugMap(static_cast<const char *>(OptArg));
         break;
       // case 'H' : script().setHtmlFile((const char *)OptArg);
       //      break;
       case 'X':
-        script().setXmlFile((const char *)OptArg);
+        script().setXmlFile(static_cast<const char *>(OptArg));
         break;
       case 'f':
-        setScriptFile((const char *)OptArg);
+        setScriptFile(static_cast<const char *>(OptArg));
         scriptType = SCRIPT_SCRIPT_FILE;
         shellArgsStart = 1;
         break;
@@ -185,7 +185,7 @@ bool calc::Calc::processArgs(int argc, char **argv)
         shellArgsStart = 2;
         break;
       case 'K':  // hack to kill EsriGrids
-        scriptName = (const char *)OptArg;
+        scriptName = static_cast<const char *>(OptArg);
         d_esriGridKillHack = true;
         break;
       case 'p':

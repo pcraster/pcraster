@@ -638,7 +638,7 @@ YY_DECL
 
     /* Create the reject buffer large enough to save one state per allowed character. */
     if ((yy_state_buf) == nullptr) {
-      (yy_state_buf) = (yy_state_type *)gramalloc(YY_STATE_BUF_SIZE);
+      (yy_state_buf) = static_cast<yy_state_type *>(gramalloc(YY_STATE_BUF_SIZE));
     }
 
     if ((yy_start) == 0) {
@@ -682,12 +682,12 @@ YY_DECL
     do {
       YY_CHAR yy_c = yy_ec[YY_SC_TO_UI(*yy_cp)];
       while (yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state) {
-        yy_current_state = (int)yy_def[yy_current_state];
+        yy_current_state = static_cast<int>(yy_def[yy_current_state]);
         if (yy_current_state >= 97) {
-          yy_c = yy_meta[(unsigned int)yy_c];
+          yy_c = yy_meta[static_cast<unsigned int>(yy_c)];
         }
       }
-      yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int)yy_c];
+      yy_current_state = yy_nxt[yy_base[yy_current_state] + static_cast<unsigned int>(yy_c)];
       *(yy_state_ptr)++ = yy_current_state;
       ++yy_cp;
     } while (yy_base[yy_current_state] != 182);
@@ -980,7 +980,7 @@ YY_DECL
                                */
 
           value = atol(yytext);
-          if (value < (long)INT_MIN || value > (long)INT_MAX)
+          if (value < static_cast<long>INT_MIN || value > static_cast<long>(INT_MAX))
             RETURN_FLOAT;
           RETURN_INT(atoi((char *)yytext), TOK_INT);
         }
@@ -1060,7 +1060,7 @@ YY_DECL
 
       case YY_END_OF_BUFFER: {
         /* Amount of text matched not including the EOB char. */
-        int const yy_amount_of_matched_text = (int)(yy_cp - (yytext_ptr)) - 1;
+        int const yy_amount_of_matched_text = static_cast<int>(yy_cp - (yytext_ptr)) - 1;
 
         /* Undo the effects of YY_DO_BEFORE_ACTION. */
         *yy_cp = (yy_hold_char);
@@ -1295,7 +1295,7 @@ int yyFlexLexer::yy_get_next_buffer()
   /* Try to read more data. */
 
   /* First move last chars to start of buffer. */
-  number_to_move = (int)((yy_c_buf_p) - (yytext_ptr)) - 1;
+  number_to_move = static_cast<int>((yy_c_buf_p) - (yytext_ptr)) - 1;
 
   for (i = 0; i < number_to_move; ++i) {
     *(dest++) = *(source++);
@@ -1365,12 +1365,12 @@ yy_state_type yyFlexLexer::yy_get_previous_state()
   for (yy_cp = (yytext_ptr) + YY_MORE_ADJ; yy_cp < (yy_c_buf_p); ++yy_cp) {
     YY_CHAR yy_c = ((*yy_cp != 0) ? yy_ec[YY_SC_TO_UI(*yy_cp)] : 1);
     while (yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state) {
-      yy_current_state = (int)yy_def[yy_current_state];
+      yy_current_state = static_cast<int>(yy_def[yy_current_state]);
       if (yy_current_state >= 97) {
-        yy_c = yy_meta[(unsigned int)yy_c];
+        yy_c = yy_meta[static_cast<unsigned int>(yy_c)];
       }
     }
-    yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int)yy_c];
+    yy_current_state = yy_nxt[yy_base[yy_current_state] + static_cast<unsigned int>(yy_c)];
     *(yy_state_ptr)++ = yy_current_state;
   }
 
@@ -1388,12 +1388,12 @@ yy_state_type yyFlexLexer::yy_try_NUL_trans(yy_state_type yy_current_state)
 
   YY_CHAR yy_c = 1;
   while (yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state) {
-    yy_current_state = (int)yy_def[yy_current_state];
+    yy_current_state = static_cast<int>(yy_def[yy_current_state]);
     if (yy_current_state >= 97) {
-      yy_c = yy_meta[(unsigned int)yy_c];
+      yy_c = yy_meta[static_cast<unsigned int>(yy_c)];
     }
   }
-  yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int)yy_c];
+  yy_current_state = yy_nxt[yy_base[yy_current_state] + static_cast<unsigned int>(yy_c)];
   yy_is_jam = static_cast<int>(yy_current_state == 96);
   if (yy_is_jam == 0) {
     *(yy_state_ptr)++ = yy_current_state;
@@ -1421,8 +1421,8 @@ void yyFlexLexer::yyunput(int c, char *yy_bp)
       *--dest = *--source;
     }
 
-    yy_cp += (int)(dest - source);
-    yy_bp += (int)(dest - source);
+    yy_cp += static_cast<int>(dest - source);
+    yy_bp += static_cast<int>(dest - source);
     YY_CURRENT_BUFFER_LVALUE->yy_n_chars = (yy_n_chars) = YY_CURRENT_BUFFER_LVALUE->yy_buf_size;
 
     if (yy_cp < YY_CURRENT_BUFFER_LVALUE->yy_ch_buf + 2) {
@@ -1430,7 +1430,7 @@ void yyFlexLexer::yyunput(int c, char *yy_bp)
     }
   }
 
-  *--yy_cp = (char)c;
+  *--yy_cp = static_cast<char>(c);
 
   (yytext_ptr) = yy_bp;
   (yy_hold_char) = *yy_cp;
@@ -1495,7 +1495,7 @@ int yyFlexLexer::yyinput()
     }
   }
 
-  c = *(unsigned char *)(yy_c_buf_p); /* cast for 8-bit char's */
+  c = *reinterpret_cast<unsigned char *>(yy_c_buf_p); /* cast for 8-bit char's */
   *(yy_c_buf_p) = '\0';               /* preserve yytext */
   (yy_hold_char) = *++(yy_c_buf_p);
 
@@ -1572,7 +1572,7 @@ YY_BUFFER_STATE yyFlexLexer::yy_create_buffer(std::istream *file, int size)
 {
   YY_BUFFER_STATE b = nullptr;
 
-  b = (YY_BUFFER_STATE)gramalloc(sizeof(struct yy_buffer_state));
+  b = static_cast<YY_BUFFER_STATE>(gramalloc(sizeof(struct yy_buffer_state)));
   if (b == nullptr) {
     YY_FATAL_ERROR("out of dynamic memory in yy_create_buffer()");
   }
@@ -1582,7 +1582,7 @@ YY_BUFFER_STATE yyFlexLexer::yy_create_buffer(std::istream *file, int size)
   /* yy_ch_buf has to be 2 characters longer than the size given because
 	 * we need to put in 2 end-of-buffer characters.
 	 */
-  b->yy_ch_buf = (char *)gramalloc(b->yy_buf_size + 2);
+  b->yy_ch_buf = static_cast<char *>(gramalloc(b->yy_buf_size + 2));
   if (b->yy_ch_buf == nullptr) {
     YY_FATAL_ERROR("out of dynamic memory in yy_create_buffer()");
   }
@@ -1610,10 +1610,10 @@ void yyFlexLexer::yy_delete_buffer(YY_BUFFER_STATE b)
   }
 
   if (b->yy_is_our_buffer != 0) {
-    gramfree((void *)b->yy_ch_buf);
+    gramfree(reinterpret_cast<void *>(b->yy_ch_buf));
   }
 
-  gramfree((void *)b);
+  gramfree(reinterpret_cast<void *>(b));
 }
 
 /* Initializes or reinitializes a buffer.
@@ -1742,7 +1742,7 @@ void yyFlexLexer::yyensure_buffer_stack()
          */
     num_to_alloc = 1;
     (yy_buffer_stack) =
-        (struct yy_buffer_state **)gramalloc(num_to_alloc * sizeof(struct yy_buffer_state *));
+        static_cast<struct yy_buffer_state **>(gramalloc(num_to_alloc * sizeof(struct yy_buffer_state *)));
 
     memset((yy_buffer_stack), 0, num_to_alloc * sizeof(struct yy_buffer_state *));
 
@@ -1757,8 +1757,8 @@ void yyFlexLexer::yyensure_buffer_stack()
     int const grow_size = 8 /* arbitrary grow size */;
 
     num_to_alloc = (yy_buffer_stack_max) + grow_size;
-    (yy_buffer_stack) = (struct yy_buffer_state **)gramrealloc(
-        (yy_buffer_stack), num_to_alloc * sizeof(struct yy_buffer_state *));
+    (yy_buffer_stack) = static_cast<struct yy_buffer_state **>(gramrealloc(
+        (yy_buffer_stack), num_to_alloc * sizeof(struct yy_buffer_state *)));
 
     /* zero only the new slots.*/
     memset((yy_buffer_stack) + (yy_buffer_stack_max), 0, grow_size * sizeof(struct yy_buffer_state *));
@@ -1775,10 +1775,10 @@ void yyFlexLexer::yy_push_state(int new_state)
     new_size = (yy_start_stack_depth) * sizeof(int);
 
     if ((yy_start_stack) == nullptr) {
-      (yy_start_stack) = (int *)gramalloc(new_size);
+      (yy_start_stack) = static_cast<int *>(gramalloc(new_size));
 
     } else {
-      (yy_start_stack) = (int *)gramrealloc((void *)(yy_start_stack), new_size);
+      (yy_start_stack) = static_cast<int *>(gramrealloc(reinterpret_cast<void *>(yy_start_stack), new_size));
     }
 
     if ((yy_start_stack) == nullptr) {
@@ -1888,12 +1888,12 @@ void *gramrealloc(void *ptr, yy_size_t size)
 	 * any pointer type to void*, and deal with argument conversions
 	 * as though doing an assignment.
 	 */
-  return realloc((char *)ptr, size);
+  return realloc(static_cast<char *>(ptr), size);
 }
 
 void gramfree(void *ptr)
 {
-  free((char *)ptr); /* see gramrealloc() for (char *) cast */
+  free(static_cast<char *>(ptr)); /* see gramrealloc() for (char *) cast */
 }
 
 #define YYTABLES_NAME "yytables"
@@ -1977,7 +1977,7 @@ static const KWORD keywordTable[] = /* must be sorted */
 
 static int cmp(const void *a, const void *b)
 {
-  return (strcmp(((const KWORD *)a)->name, ((const KWORD *)b)->name));
+  return (strcmp((static_cast<const KWORD *>(a))->name, (static_cast<const KWORD *>(b))->name));
 }
 
 #ifdef DEBUG
@@ -2013,7 +2013,7 @@ ANTLRAbstractToken *calc::LexGrammar::idOrKeyWord()
 
   dummy.name = yytext;
   p = static_cast<KWORD *>(
-      bsearch((const void *)&dummy, (const void *)keywordTable, NR_KWORDS, sizeof(KWORD), cmp));
+      bsearch(reinterpret_cast<const void *>(&dummy), (const void *)keywordTable, NR_KWORDS, sizeof(KWORD), cmp));
 
   if (p != nullptr) {
     LexToken *lt = createToken(p->token, p->op);
@@ -2173,7 +2173,7 @@ ANTLRTokenType calc::LexToken::getType() const
 ANTLRChar *calc::LexToken::getText() const
 {
   // Brutal cast, Ok
-  return (ANTLRChar *)d_text.c_str();
+  return const_cast<ANTLRChar *>(d_text.c_str());
 }
 
 const std::string &calc::LexToken::stringVal() const

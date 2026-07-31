@@ -18,5 +18,5 @@ template <> ApiMapREAL8::DeleteInternal ApiMapREAL8::d_del(DeleteInternalMAP_REA
 
 void *calc::ApiMap::allocate(CSF_CR inCr, size_t nrCells)
 {
-  return (void *)new char[CSFSIZEOF(nrCells, inCr)];
+  return reinterpret_cast<void *>(new char[CSFSIZEOF(nrCells, inCr)]);
 }

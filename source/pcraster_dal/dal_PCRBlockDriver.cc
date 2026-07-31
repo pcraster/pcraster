@@ -130,18 +130,18 @@ Block* PCRBlockDriver::open(
     UINT4 contentType = 0;
     UINT4 nrRows = 0;
     UINT4 nrCols = 0;
-    stream.read((char*)&contentType, 4);
-    stream.read((char*)&nrRows, 4);
-    stream.read((char*)&nrCols, 4);
+    stream.read(reinterpret_cast<char*>(&contentType), 4);
+    stream.read(reinterpret_cast<char*>(&nrRows), 4);
+    stream.read(reinterpret_cast<char*>(&nrCols), 4);
 
     if(contentType == 0) {
       // File contains discretisation information.
       REAL8 cellSize = NAN;
       REAL8 west = NAN;
       REAL8 north = NAN;
-      stream.read((char*)&cellSize, 8);
-      stream.read((char*)&west, 8);
-      stream.read((char*)&north, 8);
+      stream.read(reinterpret_cast<char*>(&cellSize), 8);
+      stream.read(reinterpret_cast<char*>(&west), 8);
+      stream.read(reinterpret_cast<char*>(&north), 8);
 
       if(stream.good()) {
         result = new Block(nrRows, nrCols, cellSize, west, north);
@@ -151,7 +151,7 @@ Block* PCRBlockDriver::open(
     else if(contentType == 1) {
       // File contains data.
       TypeId readTypeId;
-      stream.read((char*)&readTypeId, sizeof(readTypeId));
+      stream.read(reinterpret_cast<char*>(&readTypeId), sizeof(readTypeId));
 
       if(stream.good()) {
         assert(typeId == TI_NR_TYPES || readTypeId == typeId);
@@ -219,7 +219,7 @@ void PCRBlockDriver::readThicknesses(
          Block& block) const
 {
   for(size_t i = 0; i < block.nrCells(); ++i) {
-    stream.read((char*)&(block.baseElevation()->cell<REAL4>(i)), 4);
+    stream.read(reinterpret_cast<char*>(&(block.baseElevation()->cell<REAL4>(i))), 4);
 
     if(!pcr::isMV(block.baseElevation()->cell<REAL4>(i))) {
       readVoxels<REAL4>(stream, block.cell<std::vector<REAL4> >(i));
@@ -316,7 +316,7 @@ void PCRBlockDriver::writeThicknesses(
          std::ofstream& stream) const
 {
   for(size_t i = 0; i < block.nrCells(); ++i) {
-    stream.write((char const*)&(block.baseElevation()->cell<REAL4>(i)), 4);
+    stream.write(reinterpret_cast<char const*>(&(block.baseElevation()->cell<REAL4>(i))), 4);
 
     if(!pcr::isMV(block.baseElevation()->cell<REAL4>(i))) {
       writeVoxels<REAL4>(block.cell<std::vector<REAL4> >(i), stream);
@@ -355,21 +355,21 @@ void PCRBlockDriver::write(
   REAL8 north(block.north());
 
   stream.write(d_magicString, d_lengthOfMagicString);
-  stream.write((char*)&contentType, sizeof(contentType));
-  stream.write((char*)&nrRows, sizeof(nrRows));
-  stream.write((char*)&nrCols, sizeof(nrCols));
+  stream.write(reinterpret_cast<char*>(&contentType), sizeof(contentType));
+  stream.write(reinterpret_cast<char*>(&nrRows), sizeof(nrRows));
+  stream.write(reinterpret_cast<char*>(&nrCols), sizeof(nrCols));
 
   if(block.containsDiscretisationInfo()) {
     // Block contains discretisation information.
-    stream.write((char*)&cellSize, sizeof(cellSize));
-    stream.write((char*)&west, sizeof(west));
-    stream.write((char*)&north, sizeof(north));
+    stream.write(reinterpret_cast<char*>(&cellSize), sizeof(cellSize));
+    stream.write(reinterpret_cast<char*>(&west), sizeof(west));
+    stream.write(reinterpret_cast<char*>(&north), sizeof(north));
     writeThicknesses(block, stream);
   }
   else {
     // Block contains data.
     TypeId typeId(block.typeId());
-    stream.write((char*)&typeId, sizeof(typeId));
+    stream.write(reinterpret_cast<char*>(&typeId), sizeof(typeId));
 
     switch(block.typeId()) {
       case TI_UINT1_VECTOR: {

@@ -122,7 +122,7 @@ int IntersectRectangles(POINT2D *pol,      /* intersecting rectangle stored in p
     }
     sort[i].ind = i;
   }
-  qsort(sort, (size_t)n, sizeof(SORT), (QSORT_CMP)CmpAngle);
+  qsort(sort, static_cast<size_t>(n), sizeof(SORT), reinterpret_cast<QSORT_CMP>(CmpAngle));
   pol[0] = p[sort[0].ind];
   for (j = i = 1; i < n; i++) {
     pol[j] = p[sort[i].ind];

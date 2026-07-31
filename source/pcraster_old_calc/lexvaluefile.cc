@@ -614,12 +614,12 @@ YY_DECL
         (yy_last_accepting_cpos) = yy_cp;
       }
       while (yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state) {
-        yy_current_state = (int)yy_def[yy_current_state];
+        yy_current_state = static_cast<int>(yy_def[yy_current_state]);
         if (yy_current_state >= 52) {
-          yy_c = yy_meta[(unsigned int)yy_c];
+          yy_c = yy_meta[static_cast<unsigned int>(yy_c)];
         }
       }
-      yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int)yy_c];
+      yy_current_state = yy_nxt[yy_base[yy_current_state] + static_cast<unsigned int>(yy_c)];
       ++yy_cp;
     } while (yy_base[yy_current_state] != 83);
 
@@ -692,7 +692,7 @@ YY_DECL
 #line 74 "valuefile.l"
         {
           long const value = atol(YYText());
-          if (value < (long)INT_MIN || value > (long)INT_MAX) {
+          if (value < static_cast<long>INT_MIN || value > static_cast<long>(INT_MAX)) {
             return IT_FLOAT;
           }
           return IT_INT;
@@ -757,7 +757,7 @@ YY_DECL
 
       case YY_END_OF_BUFFER: {
         /* Amount of text matched not including the EOB char. */
-        int const yy_amount_of_matched_text = (int)(yy_cp - (yytext_ptr)) - 1;
+        int const yy_amount_of_matched_text = static_cast<int>(yy_cp - (yytext_ptr)) - 1;
 
         /* Undo the effects of YY_DO_BEFORE_ACTION. */
         *yy_cp = (yy_hold_char);
@@ -992,7 +992,7 @@ int yyFlexLexer::yy_get_next_buffer()
   /* Try to read more data. */
 
   /* First move last chars to start of buffer. */
-  number_to_move = (int)((yy_c_buf_p) - (yytext_ptr)) - 1;
+  number_to_move = static_cast<int>((yy_c_buf_p) - (yytext_ptr)) - 1;
 
   for (i = 0; i < number_to_move; ++i) {
     *(dest++) = *(source++);
@@ -1012,7 +1012,7 @@ int yyFlexLexer::yy_get_next_buffer()
       /* just a shorter name for the current buffer */
       YY_BUFFER_STATE b = YY_CURRENT_BUFFER;
 
-      int const yy_c_buf_p_offset = (int)((yy_c_buf_p)-b->yy_ch_buf);
+      int const yy_c_buf_p_offset = static_cast<int>((yy_c_buf_p)-b->yy_ch_buf);
 
       if (b->yy_is_our_buffer != 0) {
         int const new_size = b->yy_buf_size * 2;
@@ -1023,9 +1023,7 @@ int yyFlexLexer::yy_get_next_buffer()
           b->yy_buf_size *= 2;
         }
 
-        b->yy_ch_buf = (char *)
-            /* Include room in for 2 EOB chars. */
-            yyrealloc((void *)b->yy_ch_buf, b->yy_buf_size + 2);
+        b->yy_ch_buf = static_cast<char *>(yyrealloc(reinterpret_cast<void *>(b->yy_ch_buf), b->yy_buf_size + 2));
       } else {
         /* Can't grow it, we don't own it. */
         b->yy_ch_buf = nullptr;
@@ -1091,12 +1089,12 @@ yy_state_type yyFlexLexer::yy_get_previous_state()
       (yy_last_accepting_cpos) = yy_cp;
     }
     while (yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state) {
-      yy_current_state = (int)yy_def[yy_current_state];
+      yy_current_state = static_cast<int>(yy_def[yy_current_state]);
       if (yy_current_state >= 52) {
-        yy_c = yy_meta[(unsigned int)yy_c];
+        yy_c = yy_meta[static_cast<unsigned int>(yy_c)];
       }
     }
-    yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int)yy_c];
+    yy_current_state = yy_nxt[yy_base[yy_current_state] + static_cast<unsigned int>(yy_c)];
   }
 
   return yy_current_state;
@@ -1118,12 +1116,12 @@ yy_state_type yyFlexLexer::yy_try_NUL_trans(yy_state_type yy_current_state)
     (yy_last_accepting_cpos) = yy_cp;
   }
   while (yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state) {
-    yy_current_state = (int)yy_def[yy_current_state];
+    yy_current_state = static_cast<int>(yy_def[yy_current_state]);
     if (yy_current_state >= 52) {
-      yy_c = yy_meta[(unsigned int)yy_c];
+      yy_c = yy_meta[static_cast<unsigned int>(yy_c)];
     }
   }
-  yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int)yy_c];
+  yy_current_state = yy_nxt[yy_base[yy_current_state] + static_cast<unsigned int>(yy_c)];
   yy_is_jam = static_cast<int>(yy_current_state == 51);
 
   return (yy_is_jam != 0) ? 0 : yy_current_state;
@@ -1148,8 +1146,8 @@ void yyFlexLexer::yyunput(int c, char *yy_bp)
       *--dest = *--source;
     }
 
-    yy_cp += (int)(dest - source);
-    yy_bp += (int)(dest - source);
+    yy_cp += static_cast<int>(dest - source);
+    yy_bp += static_cast<int>(dest - source);
     YY_CURRENT_BUFFER_LVALUE->yy_n_chars = (yy_n_chars) = YY_CURRENT_BUFFER_LVALUE->yy_buf_size;
 
     if (yy_cp < YY_CURRENT_BUFFER_LVALUE->yy_ch_buf + 2) {
@@ -1157,7 +1155,7 @@ void yyFlexLexer::yyunput(int c, char *yy_bp)
     }
   }
 
-  *--yy_cp = (char)c;
+  *--yy_cp = static_cast<char>(c);
 
   if (c == '\n') {
     --yylineno;
@@ -1226,7 +1224,7 @@ int yyFlexLexer::yyinput()
     }
   }
 
-  c = *(unsigned char *)(yy_c_buf_p); /* cast for 8-bit char's */
+  c = *reinterpret_cast<unsigned char *>(yy_c_buf_p); /* cast for 8-bit char's */
   *(yy_c_buf_p) = '\0';               /* preserve yytext */
   (yy_hold_char) = *++(yy_c_buf_p);
 
@@ -1308,7 +1306,7 @@ YY_BUFFER_STATE yyFlexLexer::yy_create_buffer(std::istream *file, int size)
 {
   YY_BUFFER_STATE b = nullptr;
 
-  b = (YY_BUFFER_STATE)yyalloc(sizeof(struct yy_buffer_state));
+  b = static_cast<YY_BUFFER_STATE>(yyalloc(sizeof(struct yy_buffer_state)));
   if (b == nullptr) {
     YY_FATAL_ERROR("out of dynamic memory in yy_create_buffer()");
   }
@@ -1318,7 +1316,7 @@ YY_BUFFER_STATE yyFlexLexer::yy_create_buffer(std::istream *file, int size)
   /* yy_ch_buf has to be 2 characters longer than the size given because
 	 * we need to put in 2 end-of-buffer characters.
 	 */
-  b->yy_ch_buf = (char *)yyalloc(b->yy_buf_size + 2);
+  b->yy_ch_buf = static_cast<char *>(yyalloc(b->yy_buf_size + 2));
   if (b->yy_ch_buf == nullptr) {
     YY_FATAL_ERROR("out of dynamic memory in yy_create_buffer()");
   }
@@ -1346,10 +1344,10 @@ void yyFlexLexer::yy_delete_buffer(YY_BUFFER_STATE b)
   }
 
   if (b->yy_is_our_buffer != 0) {
-    yyfree((void *)b->yy_ch_buf);
+    yyfree(reinterpret_cast<void *>(b->yy_ch_buf));
   }
 
-  yyfree((void *)b);
+  yyfree(reinterpret_cast<void *>(b));
 }
 
 /* Initializes or reinitializes a buffer.
@@ -1478,7 +1476,7 @@ void yyFlexLexer::yyensure_buffer_stack()
          */
     num_to_alloc = 1;
     (yy_buffer_stack) =
-        (struct yy_buffer_state **)yyalloc(num_to_alloc * sizeof(struct yy_buffer_state *));
+        static_cast<struct yy_buffer_state **>(yyalloc(num_to_alloc * sizeof(struct yy_buffer_state *)));
 
     memset((yy_buffer_stack), 0, num_to_alloc * sizeof(struct yy_buffer_state *));
 
@@ -1493,8 +1491,8 @@ void yyFlexLexer::yyensure_buffer_stack()
     int const grow_size = 8 /* arbitrary grow size */;
 
     num_to_alloc = (yy_buffer_stack_max) + grow_size;
-    (yy_buffer_stack) = (struct yy_buffer_state **)yyrealloc(
-        (yy_buffer_stack), num_to_alloc * sizeof(struct yy_buffer_state *));
+    (yy_buffer_stack) = static_cast<struct yy_buffer_state **>(yyrealloc(
+        (yy_buffer_stack), num_to_alloc * sizeof(struct yy_buffer_state *)));
 
     /* zero only the new slots.*/
     memset((yy_buffer_stack) + (yy_buffer_stack_max), 0, grow_size * sizeof(struct yy_buffer_state *));
@@ -1511,10 +1509,10 @@ void yyFlexLexer::yy_push_state(int new_state)
     new_size = (yy_start_stack_depth) * sizeof(int);
 
     if ((yy_start_stack) == nullptr) {
-      (yy_start_stack) = (int *)yyalloc(new_size);
+      (yy_start_stack) = static_cast<int *>(yyalloc(new_size));
 
     } else {
-      (yy_start_stack) = (int *)yyrealloc((void *)(yy_start_stack), new_size);
+      (yy_start_stack) = static_cast<int *>(yyrealloc(reinterpret_cast<void *>(yy_start_stack), new_size));
     }
 
     if ((yy_start_stack) == nullptr) {
@@ -1624,12 +1622,12 @@ void *yyrealloc(void *ptr, yy_size_t size)
 	 * any pointer type to void*, and deal with argument conversions
 	 * as though doing an assignment.
 	 */
-  return realloc((char *)ptr, size);
+  return realloc(static_cast<char *>(ptr), size);
 }
 
 void yyfree(void *ptr)
 {
-  free((char *)ptr); /* see yyrealloc() for (char *) cast */
+  free(static_cast<char *>(ptr)); /* see yyrealloc() for (char *) cast */
 }
 
 #define YYTABLES_NAME "yytables"

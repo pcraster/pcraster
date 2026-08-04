@@ -2,7 +2,7 @@ Reference documentation
 -----------------------
 
 .. automodule:: pcraster._pcraster
-   :exclude-members: numpy2pcr, pcr2numpy, pcr_as_numpy, readFieldCell, MAJOR_CODE, VALUESCALE
+   :exclude-members: readFieldCell, MAJOR_CODE
    :members:
 
 .. autoclass:: RasterSpace
@@ -12,7 +12,6 @@ Reference documentation
 .. automodule:: pcraster.numpy_operations
    :members:
 
-.. automodule:: pcraster.aguila
-   :members: aguila
+.. autofunction:: pcraster.aguila.aguila
 
-.. autofunction:: pcraster.matplotlib.plot
+.. autofunction:: pcraster.plotting.plot 

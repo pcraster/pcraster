@@ -307,7 +307,7 @@ void DataConfiguration::add(std::string const &name, const dal::DataSpace &space
       assert(table.get());
 
       for (size_t i = table->nrCols(); i > 1; --i) {
-        std::string const colName = std::vformat("{0}{1, {1}}", std::make_format_args(name, i));
+        std::string const colName = std::vformat("{0}{{1, {1}}}", std::make_format_args(name, i));
         d_nameMap[name].insert(colName);
         d_dataMap2.insert(std::make_pair(
             colName, DataItemInformation(space, configuration, d_group->addData(colName, space))));

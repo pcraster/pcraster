@@ -88,7 +88,7 @@ geo::RasterSpace const& Globals::cloneSpace()
 calc::RunTimeEngine& Globals::rte()
 {
   if(_rte == nullptr){
-    throw com::Exception("no clone or area map specified, use setclone()");
+    throw com::Exception("no clone or area map specified, use setclone()\n");
   }
   return *_rte;
 }

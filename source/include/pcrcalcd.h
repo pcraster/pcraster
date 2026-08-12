@@ -4,6 +4,10 @@
  * code to load a function dynamic
  */
 
+#ifdef __cplusplus
+  extern "C" {
+#endif
+
 #include "csftypes.h"
 #include <stddef.h>
 
@@ -123,5 +127,9 @@ typedef struct PCR_MAP_REAL8 {
   int  (*NrCols)(const struct PCR_MAP_REAL8 *m);
   REAL8(*CellLength)(const struct PCR_MAP_REAL8 *m);
 } PCR_MAP_REAL8;
+
+#ifdef __cplusplus
+  } //extern "C"
+#endif
 
 #endif /* INCLUDED_INCLUDE_PCRCALCD */

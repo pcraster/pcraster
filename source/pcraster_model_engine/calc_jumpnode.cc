@@ -100,7 +100,7 @@ const std::set<std::string> &calc::JumpNode::deletesOnForward() const
 
 void calc::JumpNode::deleteForwards(RunTimeEnv &rte) const
 {
-  typedef std::set<std::string> S;
+  using S = std::set<std::string>;
   S const s(d_deletesOnForward);
   for (const auto &i : s) {
     rte.deleteValue(i);

@@ -22,10 +22,10 @@
 /**********************/
 /* SORT (LIBRARY_INTERNAL)
  */
-typedef struct SORT {
+using SORT = struct SORT {
   double angle; /* angle with c */
   int ind;      /* index in p */
-} SORT;
+};
 
 /*********************/
 /* LOCAL DEFINITIONS */

@@ -111,7 +111,7 @@ void calc::ModelLinkMethodStatement::run()
   }
 
   //! create the results
-  typedef std::shared_ptr<GlobResult> SGlobResult;
+  using SGlobResult = std::shared_ptr<GlobResult>;
   std::vector<SGlobResult> result;
   for (size_t i = 0; i < d_sig.d_result.size(); i++) {
     VS const vs = d_sig.d_result[i].vs;

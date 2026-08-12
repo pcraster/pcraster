@@ -14,9 +14,9 @@ class QDomElement;
 namespace pcrxml{
 class MigrationDirection : public Attribute {
   public:
-   typedef enum EnumType {
+   using EnumType = enum EnumType {
      E2W=0,W2E=1,N2S=2,S2N=3
-   } EnumType;
+   };
   private:
    EnumType d_value;
   public:

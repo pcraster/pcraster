@@ -11,7 +11,7 @@ XERCES_CPP_NAMESPACE_USE
 
 
 // TODO
-typedef std::string QString;
+using QString = std::string;
 
 //! count nodes that are attributes
 struct CountNodeAttrs {

@@ -100,11 +100,11 @@ bool calc::Calc::processArgs(int argc, char **argv)
     throwLibError();
   }
 
-  typedef enum SCRIPT_TYPE {
+  using SCRIPT_TYPE = enum SCRIPT_TYPE {
     SCRIPT_CMD_LINE,
     SCRIPT_SCRIPT_FILE,
     SCRIPT_SHELL_FILE
-  } SCRIPT_TYPE;
+  };
 
   SCRIPT_TYPE scriptType = SCRIPT_CMD_LINE;
 

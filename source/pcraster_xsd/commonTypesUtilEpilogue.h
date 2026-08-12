@@ -10,20 +10,20 @@ namespace pcrxsd {
 
   template<>
     struct RangeSetTypeTrait<float> {
-        typedef pcrxml::FloatRangeOrSet RangeOrSet;
-        typedef pcrxml::FloatRange      Range;
-        typedef pcrxml::FloatSet        Set;
+        using RangeOrSet = pcrxml::FloatRangeOrSet;
+        using Range = pcrxml::FloatRange;
+        using Set = pcrxml::FloatSet;
     };
 
   template<>
     struct RangeSetTypeTrait<size_t> {
-        typedef pcrxml::OneBasedIntegerRangeOrSet RangeOrSet;
-        typedef pcrxml::OneBasedIntegerRange      Range;
-        typedef pcrxml::OneBasedIntegerSet        Set;
+        using RangeOrSet = pcrxml::OneBasedIntegerRangeOrSet;
+        using Range = pcrxml::OneBasedIntegerRange;
+        using Set = pcrxml::OneBasedIntegerSet;
     };
   template<>
     struct RangeSetTypeTrait<std::string> {
-        typedef pcrxml::StringSet                 Set;
+        using Set = pcrxml::StringSet;
     };
 
   //! item contents of set to vector

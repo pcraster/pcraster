@@ -383,7 +383,7 @@ void VisualisationWindow::saveAs(com::FileFormatInfo const &format, std::string 
   dal::DataSpaceAddress const originalDataSpaceAddress(dataSpaceAddress());
 
   // Collection of (address, file name) tuples.
-  typedef std::tuple<dal::DataSpaceAddress, std::filesystem::path> AddressPathTuple;
+  using AddressPathTuple = std::tuple<dal::DataSpaceAddress, std::filesystem::path>;
   std::vector<AddressPathTuple> addressPathTuples;
 
   assert(iterationSpace.nrWideDimensions() <= 1);

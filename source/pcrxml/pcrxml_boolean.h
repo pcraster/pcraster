@@ -11,7 +11,7 @@ namespace pcrxml {
 
 
 //! XML Schema compliant boolean
-typedef SimpleAttr<bool>   Boolean;
+using Boolean = SimpleAttr<bool>;
 
 } // namespace pcrxml
 

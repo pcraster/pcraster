@@ -183,7 +183,7 @@ void ArgOrderAndAddArea::argOrderAddAreaLimited(std::vector<ArgOrderIdInfo> cons
                                                 const INT4 *currentId, INT4 *result, size_t len)
 {
   std::vector<ArgOrderIdInfo> argVector = initArgs(argsIn, result, len);
-  typedef std::map<UINT4, ArgOrderIdInfo> ArgMap;
+  using ArgMap = std::map<UINT4, ArgOrderIdInfo>;
   ArgMap args;
   for (auto &i : argVector) {
     args.insert(std::make_pair(i.id(), i));

@@ -56,7 +56,7 @@ void expand(std::vector<std::string> &values)
 static std::vector<pcrxml::StringSet>
 viewPlusSyntaxToStringSet(std::vector<std::string> const &viewValues)
 {
-  typedef std::vector<std::string> SV;
+  using SV = std::vector<std::string>;
   std::vector<SV> r;
   r = AguilaProgramOptions::viewPlusSyntaxToViewCtor(viewValues);
   std::vector<pcrxml::StringSet> s;
@@ -388,7 +388,7 @@ ag::AguilaProgramOptions::viewPlusSyntaxToViewCtor(std::vector<std::string> cons
   // r[1][1] = d
   // r[1][2] = e
   // r[2][0] = f
-  typedef std::vector<std::string> SV;
+  using SV = std::vector<std::string>;
   std::vector<SV> r;
 
   for (auto it = viewValues.begin(); it != viewValues.end(); ++it) {

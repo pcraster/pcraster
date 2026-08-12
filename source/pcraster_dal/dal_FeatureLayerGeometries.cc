@@ -59,7 +59,7 @@ FeatureLayerGeometries::FeatureLayerGeometries(
 
 FeatureLayerGeometries::~FeatureLayerGeometries()
 {
-  typedef std::map<FeatureId, OGRGeometry*>::value_type value_type;
+  using value_type = std::map<FeatureId, OGRGeometry*>::value_type;
 
   for(value_type const pair : _geometryByFeatureId) {
     OGRGeometryFactory::destroyGeometry(pair.second);

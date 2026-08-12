@@ -745,7 +745,7 @@ static double iterateToQnew(double Qin,  /* summed Q new in for all sub-catchmen
   const double epsilon(1E-12);  // iteration epsilon
 
   // Using Newton-Raphson Method
-  typedef long double REAL;
+  using REAL = long double;
   REAL Qk1 = NAN;  // Q at loop k+1 for i+1, j+1
   REAL ab_pQ = NAN;
   REAL deltaTX = NAN;

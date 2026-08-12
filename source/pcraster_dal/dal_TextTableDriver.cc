@@ -138,8 +138,8 @@ bool TextTableDriver::open(
          Table& table,
          std::istream& stream) const
 {
-  typedef std::vector<std::string> Record;
-  typedef std::vector<Record> Records;
+  using Record = std::vector<std::string>;
+  using Records = std::vector<Record>;
 
   // Adjust this if separator is variable.
   // See http://www.boost.org/libs/spirit/example/fundamental/list_parser.cpp

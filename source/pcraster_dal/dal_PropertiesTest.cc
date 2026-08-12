@@ -36,7 +36,7 @@ BOOST_AUTO_TEST_CASE(test_)
   BOOST_TEST(properties.value<int>("notThere",42) == 42);
 
   {
-    typedef std::map<std::string, std::pair<int, double> > MapMap;
+    using MapMap = std::map<std::string, std::pair<int, double> >;
     MapMap src;
     src["jan"] = std::make_pair(42, 3.4);
     Properties properties;

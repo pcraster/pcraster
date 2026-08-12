@@ -14,9 +14,9 @@ class QDomElement;
 namespace pcrxml{
 class Spatial : public Attribute {
   public:
-   typedef enum EnumType {
+   using EnumType = enum EnumType {
      Yes=0,Non=1,Either=2,NA=3
-   } EnumType;
+   };
   private:
    EnumType d_value;
   public:

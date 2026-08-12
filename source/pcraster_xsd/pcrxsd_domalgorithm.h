@@ -18,10 +18,10 @@
 
 namespace pcrxml {
 
-typedef XERCES_CPP_NAMESPACE::DOMNode     DOMNode;
-typedef XERCES_CPP_NAMESPACE::DOMNodeList DOMNodeList;
-typedef XERCES_CPP_NAMESPACE::DOMElement  DOMElement;
-typedef XERCES_CPP_NAMESPACE::DOMNamedNodeMap  DOMNamedNodeMap;
+using DOMNode = XERCES_CPP_NAMESPACE::DOMNode;
+using DOMNodeList = XERCES_CPP_NAMESPACE::DOMNodeList;
+using DOMElement = XERCES_CPP_NAMESPACE::DOMElement;
+using DOMNamedNodeMap = XERCES_CPP_NAMESPACE::DOMNamedNodeMap;
 
 //! function object for ordering nodes on Node::getNodeName()
 struct NodeNameLess {

@@ -33,11 +33,11 @@ inline IntegerType round(
          FloatType const& value)
 {
   // Boost.Numeric.Converter set up with nearest neighbour rounding.
-  typedef boost::numeric::conversion_traits<IntegerType, FloatType> Traits;
-  typedef typename boost::numeric::converter<IntegerType, FloatType,
+  using Traits = boost::numeric::conversion_traits<IntegerType, FloatType>;
+  using Converter = typename boost::numeric::converter<IntegerType, FloatType,
          Traits,
          boost::numeric::def_overflow_handler,
-         boost::numeric::RoundEven<typename Traits::source_type> > Converter;
+         boost::numeric::RoundEven<typename Traits::source_type> >;
 
   return Converter::convert(value);
 }

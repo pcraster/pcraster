@@ -34,7 +34,7 @@ calc::Dimension::Dimension() : std::vector<double>(NumBaseQuanties, 0)
 //! parse from string
 calc::Dimension::Dimension(const std::string &str) : std::vector<double>(NumBaseQuanties, 0)
 {
-  typedef std::map<std::string, Base> Id2Base;
+  using Id2Base = std::map<std::string, Base>;
   Id2Base id2base;
 
   id2base.insert(std::make_pair("m", Length));

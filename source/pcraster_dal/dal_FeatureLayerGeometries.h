@@ -121,7 +121,7 @@ template<class InsertIterator>
 void FeatureLayerGeometries::featureIds(
          InsertIterator inserter) const
 {
-  typedef std::map<OGRGeometry*, FeatureId>::value_type value_type;
+  using value_type = std::map<OGRGeometry*, FeatureId>::value_type;
 
   for(value_type pair : _featureIdByGeometry) {
     *inserter = pair.second;

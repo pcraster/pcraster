@@ -15,9 +15,9 @@ class QDomElement;
 namespace pcrxml{
 class DateFormat : public Attribute {
   public:
-   typedef enum EnumType {
+   using EnumType = enum EnumType {
      MONDDYYYY=0,ISO8601=1
-   } EnumType;
+   };
   private:
    EnumType d_value;
   public:

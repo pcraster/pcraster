@@ -320,7 +320,7 @@ void LegendView::recreateLegend(std::vector<DataGuide> const &guides)
   // Create legend.
 
   // (Draw property, index) tuple type.
-  typedef std::tuple<DrawProps *, size_t> DrawPropertiesLegendIndexTuple;
+  using DrawPropertiesLegendIndexTuple = std::tuple<DrawProps *, size_t>;
 
   // Collection of tuples.
   std::vector<DrawPropertiesLegendIndexTuple> drawPropertiesLegendIndexTuples;

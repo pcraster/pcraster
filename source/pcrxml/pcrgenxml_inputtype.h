@@ -14,9 +14,9 @@ class QDomElement;
 namespace pcrxml{
 class InputType : public Attribute {
   public:
-   typedef enum EnumType {
+   using EnumType = enum EnumType {
      Constant=0,None=1,Initial=2,Dynamic=3
-   } EnumType;
+   };
   private:
    EnumType d_value;
   public:

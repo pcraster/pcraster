@@ -8,8 +8,8 @@ BOOST_AUTO_TEST_CASE(test)
   using namespace geo;
 
   {
-    typedef Point<double, 2> Point;
-    typedef double Value;
+    using Point = Point<double, 2>;
+    using Value = double;
 
     Point point(2.2, 3.3);
     Value value(5.5);

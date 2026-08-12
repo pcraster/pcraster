@@ -22,7 +22,7 @@ class PCRMF_EXPORT ModflowLink {
     PCRModflow *d_pcrmf;
 
  public:
-  typedef std::map<std::string,ModflowLink *> Objects;
+  using Objects = std::map<std::string,ModflowLink *>;
   static  Objects objects;
 
   static void construct(pcrxml::LinkInExecuteInput const& l) // LinkInTransferArray linkInTransferArray

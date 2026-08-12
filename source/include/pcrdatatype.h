@@ -1,6 +1,10 @@
 #ifndef INCLUDED_INCLUDE_PCRDATATYPE
 #define INCLUDED_INCLUDE_PCRDATATYPE
 
+#ifdef __cplusplus
+  extern "C" {
+#endif
+
 /*!
    \enum PCR_VS
    \brief "extended" value scales
@@ -91,5 +95,9 @@ typedef struct OP_ARGS {
    PCR_VS vs;
    PCR_ST st;
 } OP_ARGS;
+
+#ifdef __cplusplus
+  } //extern "C"
+#endif
 
 #endif

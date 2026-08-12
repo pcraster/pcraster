@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE(testApply)
 {
   using namespace calc;
 
-  typedef std::unique_ptr<ASTScript> S;
+  using S = std::unique_ptr<ASTScript>;
   {
     const char *model = "binding constantNr=1;areamap inp1s.map; initial tmp.res = 5*constantNr;";
     S s(ASTTestFactory::createFromIdOrStr(model));

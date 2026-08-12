@@ -293,7 +293,7 @@ void calc::ASTScript::analyzeNoContextUnChecked()
   setLastUse(d_cfgCode);
 
   // compute ioTypes
-  typedef std::map<std::string, IOType> CodeTypes;
+  using CodeTypes = std::map<std::string, IOType>;
   CodeTypes const codeTypes = ioTypes(d_cfgCode);
   for (auto &codeType : codeTypes) {
     auto s = d_symbols.find(codeType.first);

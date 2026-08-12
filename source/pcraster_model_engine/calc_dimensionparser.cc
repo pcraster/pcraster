@@ -82,7 +82,7 @@ calc::DimensionParser::DimensionParser(const std::string &str)
 
   std::string line(str);
 
-  typedef boost::spirit::position_iterator<std::string::iterator> IteratorType;
+  using IteratorType = boost::spirit::position_iterator<std::string::iterator>;
   IteratorType const begin(line.begin(), line.end(), "");
   IteratorType const end;
 

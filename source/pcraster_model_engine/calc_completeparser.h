@@ -51,8 +51,8 @@ private:
   //! Copy constructor. NOT IMPLEMENTED.
                    CompleteParser               (const CompleteParser& rhs);
 
-  typedef  std::unique_ptr<GC>(Parser::* PMEM_AP)(int *retsignal);
-  typedef  void               (Parser::* PMEM_REF)(int *retsignal, GC& ref);
+  using PMEM_AP = std::unique_ptr<GC>(Parser::* )(int *retsignal);
+  using PMEM_REF = void               (Parser::* )(int *retsignal, GC& ref);
 
   ParserInput  d_pi;
   Parser       d_parser;

@@ -14,9 +14,9 @@ class QDomElement;
 namespace pcrxml{
 class PanelType : public Attribute {
   public:
-   typedef enum EnumType {
+   using EnumType = enum EnumType {
      Tab=0,Box=1
-   } EnumType;
+   };
   private:
    EnumType d_value;
   public:

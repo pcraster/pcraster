@@ -23,7 +23,7 @@ BOOST_AUTO_TEST_CASE(no_compaction_add)
     discr::Raster const raster(3, 1, 1.0, 0.0, 0.0);
     discr::RasterData<REAL4> const baseElevation(&raster, static_cast<REAL4>(-5.0));
     discr::Block block(baseElevation);
-    typedef discr::Block::ThicknessType T;
+    using T = discr::Block::ThicknessType;
 
     discr::RasterData<T> thicknesses(&raster);
     thicknesses.cell(0) = static_cast<T>(0.0);

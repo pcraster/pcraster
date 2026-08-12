@@ -197,7 +197,7 @@ class  RunSettings;
 
 using namespace calc;
 
-typedef calc::LexToken ANTLRToken;
+using ANTLRToken = calc::LexToken;
 
 void Parser::notImplemented(const ANTLRTokenPtr& at) const
 {

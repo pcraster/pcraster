@@ -14,9 +14,9 @@ class QDomElement;
 namespace pcrxml{
 class ScriptType : public Attribute {
   public:
-   typedef enum EnumType {
+   using EnumType = enum EnumType {
      Static=0,Dynamic=1
-   } EnumType;
+   };
   private:
    EnumType d_value;
   public:

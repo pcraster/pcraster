@@ -176,7 +176,7 @@ template <class Integral>
 void testCirclePoints(const geo::RememberPoints<Integral> &points,
                       const std::pair<Integral, Integral> &point)
 {
-  typedef std::pair<Integral, Integral> Point;
+  using Point = std::pair<Integral, Integral>;
   Integral x = point.first;
   Integral y = point.second;
 
@@ -235,7 +235,7 @@ BOOST_AUTO_TEST_CASE(midpoint_circle)
 {
   using namespace geo;
 
-  typedef std::pair<int, int> Point;
+  using Point = std::pair<int, int>;
 
   {
     RememberPoints<int> points;

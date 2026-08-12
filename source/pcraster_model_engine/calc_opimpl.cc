@@ -112,7 +112,7 @@ calc::SameBin::~SameBin()
 void calc::SameBin::exec(RunTimeEnv *rte, const Operator &op, size_t DEBUG_ARG(nrArgs)) const
 {
   PRECOND(nrArgs == 2);
-  typedef BinArg B;
+  using B = BinArg;
   ExecArguments a(op, rte, 2);
   B const b(a);
 
@@ -151,7 +151,7 @@ void calc::SameBin::genPointCode(PointCodeGenerator * /*g*/) const
 void calc::DiffBin::exec(RunTimeEnv *rte, const Operator &op, size_t DEBUG_ARG(nrArgs)) const
 {
   PRECOND(nrArgs == 2);
-  typedef BinArg B;
+  using B = BinArg;
   ExecArguments a(op, rte, 2);
   B const b(a);
 
@@ -191,7 +191,7 @@ void calc::DiffBin::genPointCode(PointCodeGenerator * /*g*/) const
 void calc::IfThenElse::exec(RunTimeEnv *rte, const Operator &op, size_t DEBUG_ARG(nrArgs)) const
 {
   PRECOND(nrArgs == 3);
-  typedef BinArg B;
+  using B = BinArg;
   ExecArguments a(op, rte, 3);
   B const b(a, 1, 2);
 

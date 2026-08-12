@@ -37,37 +37,37 @@ struct ValueScaleTraits {};
 template<>
 struct ValueScaleTraits<VS_B>
 {
-  typedef UINT1 ValueType;
+  using ValueType = UINT1;
 };
 
 template<>
 struct ValueScaleTraits<VS_L>
 {
-  typedef UINT1 ValueType;
+  using ValueType = UINT1;
 };
 
 template<>
 struct ValueScaleTraits<VS_N>
 {
-  typedef INT4 ValueType;
+  using ValueType = INT4;
 };
 
 template<>
 struct ValueScaleTraits<VS_O>
 {
-  typedef INT4 ValueType;
+  using ValueType = INT4;
 };
 
 template<>
 struct ValueScaleTraits<VS_S>
 {
-  typedef REAL4 ValueType;
+  using ValueType = REAL4;
 };
 
 template<>
 struct ValueScaleTraits<VS_D>
 {
-  typedef REAL4 ValueType;
+  using ValueType = REAL4;
 };
 
 //template<TypeId T>

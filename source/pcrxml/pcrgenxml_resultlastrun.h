@@ -14,9 +14,9 @@ class QDomElement;
 namespace pcrxml{
 class ResultLastRun : public Attribute {
   public:
-   typedef enum EnumType {
+   using EnumType = enum EnumType {
      None=0,Incomplete=1,New=2,Error=3,Canceled=4,Done=5,Changed=6
-   } EnumType;
+   };
   private:
    EnumType d_value;
   public:

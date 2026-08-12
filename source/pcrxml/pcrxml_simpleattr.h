@@ -54,8 +54,8 @@ public:
 
 };
 
-typedef SimpleAttr<size_t> PositiveInteger;
-typedef SimpleAttr<double> Double;
+using PositiveInteger = SimpleAttr<size_t>;
+using Double = SimpleAttr<double>;
 
 //------------------------------------------------------------------------------
 // INLINE FUNCTIONS

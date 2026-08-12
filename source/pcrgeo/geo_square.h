@@ -62,7 +62,7 @@ class Square
 {
 
 private:
-  typedef          Point<T,n> P;
+  using P = Point<T,n>;
   P                d_centre;
   T                d_halfWidth;
 

@@ -1323,9 +1323,9 @@ void pt::ParticleTracker::averageConcentration(
   }
   */
 
-  typedef geo::Point<double, 2> Point;
-  typedef double Value;
-  typedef geo::PointValue<Point, Value> PointValue;
+  using Point = geo::Point<double, 2>;
+  using Value = double;
+  using PointValue = geo::PointValue<Point, Value>;
   std::vector<PointValue> pointValues;
 
   for(geo::CellLocVisitor loc(nrRows(), nrCols()); loc.valid(); ++loc) {

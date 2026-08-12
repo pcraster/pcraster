@@ -116,9 +116,9 @@ void calc::ASTSymbolTable::throwSym(const SymException &s) const
  */
 void calc::ASTSymbolTable::checkDifferentExternalNames() const
 {
-  typedef std::string ExternalName;
-  typedef std::string SymbolNameWithThatExternalName;
-  typedef std::map<ExternalName, SymbolNameWithThatExternalName> CheckMap;
+  using ExternalName = std::string;
+  using SymbolNameWithThatExternalName = std::string;
+  using CheckMap = std::map<ExternalName, SymbolNameWithThatExternalName>;
   CheckMap checked;
 
   const calc::ASTSymbolTable &this_(*this);

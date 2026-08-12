@@ -14,7 +14,7 @@ namespace pcrxml {
     \todo
       careful: i18n decides how to use '.' and ',' !
  */
-typedef SimpleAttr<double>   Double;
+using Double = SimpleAttr<double>;
 
 } // namespace pcrxml
 

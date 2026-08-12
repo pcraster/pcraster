@@ -64,7 +64,7 @@ template<class Value, class Point, class Radius, class InputIterator>
 bool maximum(Value& value, Point const& point, Radius radius,
          InputIterator sourceBegin, InputIterator sourceEnd)
 {
-  typedef typename InputIterator::value_type PointValue;
+  using PointValue = typename InputIterator::value_type;
 
   // Determine points within the search area.
   std::vector<PointValue> subset;

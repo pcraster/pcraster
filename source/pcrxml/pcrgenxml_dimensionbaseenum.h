@@ -14,9 +14,9 @@ class QDomElement;
 namespace pcrxml{
 class DimensionBaseEnum : public Attribute {
   public:
-   typedef enum EnumType {
+   using EnumType = enum EnumType {
      Length=0,Mass=1,Time=2,ElectricCurrent=3,Temperature=4,AmountOfSubstance=5,LuminousIntensity=6,Currency=7
-   } EnumType;
+   };
   private:
    EnumType d_value;
   public:

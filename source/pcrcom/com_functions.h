@@ -20,7 +20,7 @@ template<class InputIterator>
 typename std::iterator_traits<InputIterator>::value_type minimum(
          InputIterator from_pos, InputIterator from_end) {
 
-  typedef typename std::iterator_traits<InputIterator>::value_type value_type;
+  using value_type = typename std::iterator_traits<InputIterator>::value_type;
   value_type value = value_type();
   pcr::setMV(value);
 
@@ -54,7 +54,7 @@ template<class InputIterator>
 typename std::iterator_traits<InputIterator>::value_type maximum(
          InputIterator from_pos, InputIterator from_end) {
 
-  typedef typename std::iterator_traits<InputIterator>::value_type value_type;
+  using value_type = typename std::iterator_traits<InputIterator>::value_type;
   value_type value = value_type();
   pcr::setMV(value);
 

@@ -107,7 +107,7 @@ BOOST_AUTO_TEST_CASE(iterator)
 {
   using namespace com;
 
-  typedef NonSpatialContainer<INT4> NSC;
+  using NSC = NonSpatialContainer<INT4>;
   // typedef NonSpatialIterator<INT4> NSI;
   NSC c(12, 5);
 
@@ -126,7 +126,7 @@ BOOST_AUTO_TEST_CASE(iterator)
 
   INT4 cs[5] = {1, 0, MV_INT4, 1, 0};
 
-  typedef mvGenericTest::MulSumOp MSO;
+  using MSO = mvGenericTest::MulSumOp;
   mvGenericTest::MulSumOp mso;
   mso = forEachNonMV(cs, c, 5, MSO());
 
@@ -150,7 +150,7 @@ BOOST_AUTO_TEST_CASE(spatial_non_spatial_iterate)
     UINT1 c[1] = {12};
     INT4 cs[5] = {1, 0, MV_INT4, 1, 0};
 
-    typedef mvGenericTest::MulSumOp MSO;
+    using MSO = mvGenericTest::MulSumOp;
     mvGenericTest::MulSumOp mso;
     mso = iterateNonMV2(cs, 5, c, 1, mso);
     BOOST_TEST(mso.sum == 24);
@@ -168,7 +168,7 @@ BOOST_AUTO_TEST_CASE(spatial_non_spatial_iterate)
     UINT1 c[1] = {12};
     UINT1 cs[5] = {1, 0, MV_UINT1, 1, 0};
 
-    typedef mvGenericTest::MulSumOp MSO;
+    using MSO = mvGenericTest::MulSumOp;
     mvGenericTest::MulSumOp mso;
     mso = iterateNonMV2(cs, 5, c, 1, mso);
     BOOST_TEST(mso.sum == 24);
@@ -188,7 +188,7 @@ BOOST_AUTO_TEST_CASE(spatial_non_spatial_for_each)
 {
   using namespace com;
 
-  typedef mvGenericTest::SetSum SS;
+  using SS = mvGenericTest::SetSum;
   {
     UINT1 c[1] = {12};
     INT4 cs[5] = {1, 0, MV_INT4, 1, 0};

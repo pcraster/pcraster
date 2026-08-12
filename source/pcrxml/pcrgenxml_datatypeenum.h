@@ -14,9 +14,9 @@ class QDomElement;
 namespace pcrxml{
 class DataTypeEnum : public Attribute {
   public:
-   typedef enum EnumType {
+   using EnumType = enum EnumType {
      Tss=0,Table=1,Field=2,Unknown=3,Boolean=4,Nominal=5,Ordinal=6,Scalar=7,Directional=8,Ldd=9
-   } EnumType;
+   };
   private:
    EnumType d_value;
   public:

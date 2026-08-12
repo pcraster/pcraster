@@ -10,11 +10,11 @@ BOOST_AUTO_TEST_CASE(layout)
   // assure size of point is equal to
   // the vector of coordinates
   {
-    typedef Point<float, 2> Punt;
+    using Punt = Point<float, 2>;
     BOOST_TEST(sizeof(Punt) == 8);
   }
   {
-    typedef Point<double, 3> Punt;
+    using Punt = Point<double, 3>;
     BOOST_TEST(sizeof(Punt) == 24);
   }
 }
@@ -27,7 +27,7 @@ BOOST_AUTO_TEST_CASE(index_direction)
     //  1D:
     //          0
     //    <  1 -c- >= 0
-    typedef Point<float, 1> Punt;
+    using Punt = Point<float, 1>;
     Punt c;
     Punt p;
     c[0] = 0;
@@ -47,7 +47,7 @@ BOOST_AUTO_TEST_CASE(index_direction)
   *   SW 3(c) | SE 2(d)
   *           2(f)
   */
-    typedef Point<float, 2> Punt;
+    using Punt = Point<float, 2>;
     Punt c;
     Punt p;
     c[0] = c[1] = 0;
@@ -79,8 +79,8 @@ BOOST_AUTO_TEST_CASE(closer)
 {
   using namespace geo;
 
-  typedef Point<float, 2> P;
-  typedef Closer<P> C;
+  using P = Point<float, 2>;
+  using C = Closer<P>;
 
   C const c(P(-5, 0));
 
@@ -106,7 +106,7 @@ BOOST_AUTO_TEST_CASE(distance)
 {
   using namespace geo;
 
-  typedef Point<float, 2> P;
+  using P = Point<float, 2>;
 
   // test compilation of enum
   BOOST_TEST(P::Dim == 2);

@@ -59,10 +59,10 @@ extern "C" bool app_setDynamicLibraries(
   return true;
 }
 
-typedef struct SAVE_STRTOK_IMPL {
+using SAVE_STRTOK_IMPL = struct SAVE_STRTOK_IMPL {
   size_t d_next{};
   std::vector<std::string> d_strings;
-} SAVE_STRTOK_IMPL;
+};
 
 SAVE_STRTOK createSaveStrtok(const char *str)
 {

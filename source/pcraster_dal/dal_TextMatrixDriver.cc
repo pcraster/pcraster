@@ -149,8 +149,8 @@ Matrix* TextMatrixDriver::open(
 
   Matrix* matrix = nullptr;
 
-  typedef std::vector<std::string> Row;
-  typedef std::vector<Row> Rows;
+  using Row = std::vector<std::string>;
+  using Rows = std::vector<Row>;
 
   // Adjust this if separator is variable.
   // See http://www.boost.org/libs/spirit/example/fundamental/list_parser.cpp

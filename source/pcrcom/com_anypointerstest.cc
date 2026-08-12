@@ -21,7 +21,7 @@ BOOST_AUTO_TEST_CASE(test_)
   BOOST_TEST(pointers.empty());
   BOOST_TEST(pointers.size() == 0);
 
-  typedef std::vector<double> Doubles;
+  using Doubles = std::vector<double>;
 
   Doubles doubles;
   BOOST_TEST(pointers.size<Doubles>() == 0);
@@ -57,7 +57,7 @@ BOOST_AUTO_TEST_CASE(test_)
   BOOST_TEST(!doublesPointer->empty());
   BOOST_TEST((*doublesPointer)[0] = 5.5);
 
-  typedef std::vector<int> Integers;
+  using Integers = std::vector<int>;
   Integers integers;
   BOOST_TEST(pointers.size<Integers>() == 0);
   size_t const idIntegers = pointers.insert(&integers);

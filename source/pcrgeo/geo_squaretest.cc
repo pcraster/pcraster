@@ -6,11 +6,11 @@ BOOST_AUTO_TEST_CASE(quad_square_at)
 {
   using namespace geo;
 
-  typedef Point<float, 2> Punt;
+  using Punt = Point<float, 2>;
   Punt c;
   c[0] = 20;
   c[1] = 20;
-  typedef geo::Square<float, 2> Kant;
+  using Kant = geo::Square<float, 2>;
   Kant const s(c, 10);
   /*  2D:
   *   NW 1(b) | NE 0(a)
@@ -45,13 +45,13 @@ BOOST_AUTO_TEST_CASE(contains)
 {
   using namespace geo;
 
-  typedef Point<float, 2> Punt;
+  using Punt = Point<float, 2>;
   Punt c;
   c[0] = 20;
   c[1] = 20;
 
   // default boundary, closed
-  typedef geo::Square<float, 2> Kant;
+  using Kant = geo::Square<float, 2>;
   Kant const s(c, 10);
   BOOST_TEST(s.contains(c));
 
@@ -64,24 +64,24 @@ BOOST_AUTO_TEST_CASE(contains)
   BOOST_TEST(s.contains(p));
 
 
-  typedef geo::Square<float, 2, OpenBoundaries> Open;
+  using Open = geo::Square<float, 2, OpenBoundaries>;
   Open const open(c, 10);
   // not the edge
   BOOST_TEST(!open.contains(p));
 
-  typedef geo::Square<float, 2, ClosedBoundaries> Closed;
+  using Closed = geo::Square<float, 2, ClosedBoundaries>;
   Closed const closed(c, 10);
   // the edge is in
   BOOST_TEST(closed.contains(p));
 
-  typedef geo::Square<float, 2, ClosedOpenBoundaries> ClosedOpen;
+  using ClosedOpen = geo::Square<float, 2, ClosedOpenBoundaries>;
   ClosedOpen const closedOpen(c, 10);
   p[0] = 10;  // left/lower is closed
   BOOST_TEST(closedOpen.contains(p));
   p[0] = 30;  // right/higher is open
   BOOST_TEST(!closedOpen.contains(p));
 
-  typedef geo::Square<float, 2, OpenClosedBoundaries> OpenClosed;
+  using OpenClosed = geo::Square<float, 2, OpenClosedBoundaries>;
   OpenClosed const openClosed(c, 10);
   p[0] = 10;  // left/lower is open
   BOOST_TEST(!openClosed.contains(p));
@@ -89,7 +89,7 @@ BOOST_AUTO_TEST_CASE(contains)
   BOOST_TEST(openClosed.contains(p));
 
   {
-    typedef geo::Square<float, 2, ClosedOpenBoundaries> OpenClosed;
+    using OpenClosed = geo::Square<float, 2, ClosedOpenBoundaries>;
     OpenClosed const oc(Punt(179020, 330940), 80);
     BOOST_TEST(!oc.contains(Punt(179973, 332255)));
   }
@@ -99,10 +99,10 @@ BOOST_AUTO_TEST_CASE(intersects)
 {
   using namespace geo;
 
-  typedef Point<float, 2> Punt;
+  using Punt = Point<float, 2>;
   Punt const c(20, 20);
   // default boundary, closed
-  typedef geo::Square<float, 2> Kant;
+  using Kant = geo::Square<float, 2>;
   Kant const s(c, 10);
   //! intersects with itself
   BOOST_TEST(s.intersects(s));
@@ -124,7 +124,7 @@ BOOST_AUTO_TEST_CASE(intersects)
   }
   {
     // no edge touch with open boundaries
-    typedef geo::Square<float, 2, OpenBoundaries> OK;
+    using OK = geo::Square<float, 2, OpenBoundaries>;
     OK const os(c, 10);
     OK const is(Punt(5, 5), 5);
     BOOST_TEST(!os.intersects(is));

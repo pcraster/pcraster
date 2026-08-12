@@ -247,7 +247,7 @@ void mldd::DagRaster::remove(const DagRaster &rm)
 void mldd::DagRaster::updateOrder()
 {
   std::vector<boost::default_color_type> raster(d_rd.nrCells());
-  typedef DagRasterPropertyMap<boost::default_color_type> Color;
+  using Color = DagRasterPropertyMap<boost::default_color_type>;
 
   Color const colorMap(d_rd, raster);
 
@@ -273,7 +273,7 @@ void mldd::DagRaster::conceptCheck() const
   using namespace boost;
   using namespace mldd;
 
-  typedef mldd::DagRasterPropertyMap<int> DrpInt;
+  using DrpInt = mldd::DagRasterPropertyMap<int>;
   function_requires<ReadWritePropertyMapConcept<DrpInt, mldd::Vertex>>();
   function_requires<GraphConcept<DagRaster>>();
   function_requires<VertexListGraphConcept<DagRaster>>();

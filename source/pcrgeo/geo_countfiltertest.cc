@@ -9,7 +9,7 @@ BOOST_AUTO_TEST_CASE(test)
 
   // Create source raster.
 #if defined(__x86_64__) || defined(__aarch64__)
-  typedef unsigned int count_t;
+  using count_t = unsigned int;
 #else
   typedef size_t count_t;
 #endif

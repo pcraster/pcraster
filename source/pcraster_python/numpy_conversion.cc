@@ -178,10 +178,10 @@ struct ArrayCopier<Source, Destination, value_scale,
             }
             else {
                 if(source_value < min || source_value > max) {
-                    typedef typename std::conditional<
+                    using PrintableType = typename std::conditional<
                         std::is_same<Source, std::uint8_t>::value ||
                         std::is_same<Source, std::int8_t>::value,
-                    std::int32_t, Source>::type PrintableType;
+                    std::int32_t, Source>::type;
                     size_t const row = i / space.nrCols();
                     size_t const col = i - (row * space.nrCols());
                     auto const s_val = static_cast<PrintableType>(source_value);
@@ -257,10 +257,10 @@ struct ArrayCopier<Source, Destination, value_scale,
             }
             else {
                 if(source_value > max) {
-                    typedef typename std::conditional<
+                    using PrintableType = typename std::conditional<
                         std::is_same<Source, std::uint8_t>::value ||
                         std::is_same<Source, std::int8_t>::value,
-                        std::int32_t, Source>::type PrintableType;
+                        std::int32_t, Source>::type;
 
                     size_t const row = i / space.nrCols();
                     size_t const col = i - (row * space.nrCols());
@@ -816,7 +816,7 @@ calc::Spatial* array_to_field(
         ValueScaleTraits<value_scale>::cell_representation_index,
         space.nrCells());
 
-    typedef typename ValueScaleTraits<value_scale>::Type Destination;
+    using Destination = typename ValueScaleTraits<value_scale>::Type;
 
     pybind11::buffer_info const info = array.request();
 

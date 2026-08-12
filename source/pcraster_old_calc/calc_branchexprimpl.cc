@@ -379,15 +379,15 @@ void calc::BranchExprImpl::executeDoubleAss(const calc::Operator &implOp, calc::
   executeArgs(stack);
   PRECOND(implOp.exec() == EXEC_DASS);
 
-  typedef int (*DO_DASS)(void *out1, void *out2, const void **ins);
+  using DO_DASS = int (*)(void *out1, void *out2, const void **ins);
 
   /* return 0 if everything went well
     *  non-zero otherwise
     */
-  typedef struct DASS_JMP {
+  using DASS_JMP = struct DASS_JMP {
     MAJOR_CODE op[2];
     DO_DASS func;
-  } DASS_JMP;
+  };
 
   static const DASS_JMP jmpTableDass[] = {
 #include "dassjmp.inc"
@@ -416,7 +416,7 @@ void calc::BranchExprImpl::execSameUn(const Operator &op, FieldStack &stack)
   executeArgs(stack);
   PRECOND(op.exec() == EXEC_SAME_UN);
 
-  typedef void (*DO_SAME_UN)(void *values, size_t nrValues);
+  using DO_SAME_UN = void (*)(void *values, size_t nrValues);
   static const DO_SAME_UN jmpTableSameUn[] = {
 #include "sunjmp.inc"
       (DO_SAME_UN) nullptr};
@@ -437,7 +437,7 @@ void calc::BranchExprImpl::execDiffUn(const calc::Operator &op, calc::FieldStack
 {
   executeArgs(stack);
   PRECOND(op.exec() == EXEC_DIFF_UN);
-  typedef void (*DO_DIFF_UN)(void *result, const void *values, size_t nrValues);
+  using DO_DIFF_UN = void (*)(void *result, const void *values, size_t nrValues);
   static const DO_DIFF_UN jmpTableDiffUn[] = {
 #include "dunjmp.inc"
       (DO_DIFF_UN) nullptr};
@@ -486,7 +486,7 @@ void calc::BranchExprImpl::execGenNonSpatial(const Operator &op, FieldStack &sta
 {
   // no args: so no executeArgs(stack)
   PRECOND(op.exec() == EXEC_GEN_NS);
-  typedef void (*DO_GEN_NS)(void *values, size_t nrvalues);
+  using DO_GEN_NS = void (*)(void *values, size_t nrvalues);
   static const DO_GEN_NS jmpTableGen[] = {
 #include "genjmp.inc"
       (DO_GEN_NS) nullptr};
@@ -562,7 +562,7 @@ static int getSubIndex(FIELD_ARG fieldArg)
 void calc::BranchExprImpl::execDiffBin(const calc::Operator &op, calc::FieldStack &stack)
 {
   executeArgs(stack);
-  typedef void (*DO_DIFF_BIN)(UINT1 *r, const void *val1, const void *val2, size_t nrValues);
+  using DO_DIFF_BIN = void (*)(UINT1 *r, const void *val1, const void *val2, size_t nrValues);
 
 #define Do_eq_s_sn NULL
 #define Do_eq_1_sn NULL
@@ -599,7 +599,7 @@ void calc::BranchExprImpl::execSameBin(const calc::Operator &op, calc::FieldStac
    * 1 = NS
    * 2 = SN
    */
-  typedef int (*DO_SAME_BIN)(void *val1, void *val2, size_t nrValues);
+  using DO_SAME_BIN = int (*)(void *val1, void *val2, size_t nrValues);
   /* return 1 if in case of NS or SN the non-spatial value
         *    creates a domain error (for example A/0)
         *        0 if no error
@@ -676,7 +676,7 @@ calc::FieldHandle calc::BranchExprImpl::conditionalBranch(bool skip, calc::Field
 
 void calc::BranchExprImpl::execIfThen(const calc::Operator &op, calc::FieldStack &stack)
 {
-  typedef void (*DO_IFTHEN)(void *result, const UINT1 *test, const void *true_expr, size_t nrValues);
+  using DO_IFTHEN = void (*)(void *result, const UINT1 *test, const void *true_expr, size_t nrValues);
 
   PRECOND(op.exec() == EXEC_IFTHEN);
   /*      if ( test_expr(inp[0])
@@ -756,7 +756,7 @@ void calc::BranchExprImpl::execIfThenElse(const calc::Operator &op, calc::FieldS
   calc::FieldHandle trueBranch = conditionalBranch(noneAreTrue, args[1], stack);
   inp[1] = &trueBranch;
 
-  typedef void (*DO_IFTHENELSE)(void *r, const UINT1 *test, const void *t, const void *f,
+  using DO_IFTHENELSE = void (*)(void *r, const UINT1 *test, const void *t, const void *f,
                                 size_t nrValues);
 
   static const DO_IFTHENELSE jmpTableIfThenElse[][8] = {
@@ -789,7 +789,7 @@ void calc::BranchExprImpl::execGlob(const Operator &implOp, FieldStack &stack)
   executeArgs(stack);
   PRECOND(implOp.exec() == EXEC_GLOBAL);
 
-  typedef int (*DO_GLOBAL)(void *out, const void **ins);
+  using DO_GLOBAL = int (*)(void *out, const void **ins);
   /* return 0 if everything went well
    * non-zero otherwise
    */

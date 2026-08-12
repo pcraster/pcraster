@@ -20,7 +20,7 @@ struct ValueScaleTraits<VS_B>
 {
     static std::string const name;
     static calc::CRIndex const cell_representation_index = calc::CRI_1;
-    typedef std::uint8_t Type;
+    using Type = std::uint8_t;
     static Type const minimum = 0;
     static Type const maximum = 1;
 };
@@ -31,7 +31,7 @@ struct ValueScaleTraits<VS_L>
 {
     static std::string const name;
     static calc::CRIndex const cell_representation_index = calc::CRI_1;
-    typedef std::uint8_t Type;
+    using Type = std::uint8_t;
     static Type const minimum = 1;
     static Type const maximum = 9;
 };
@@ -42,7 +42,7 @@ struct ValueScaleTraits<VS_N>
 {
     static std::string const name;
     static calc::CRIndex const cell_representation_index = calc::CRI_4;
-    typedef std::int32_t Type;
+    using Type = std::int32_t;
     static Type const minimum = std::numeric_limits<Type>::min() + 1;
     static Type const maximum = std::numeric_limits<Type>::max();
 };
@@ -53,7 +53,7 @@ struct ValueScaleTraits<VS_O>
 {
     static std::string const name;
     static calc::CRIndex const cell_representation_index = calc::CRI_4;
-    typedef std::int32_t Type;
+    using Type = std::int32_t;
     static Type const minimum = std::numeric_limits<Type>::min() + 1;
     static Type const maximum = std::numeric_limits<Type>::max();
 };
@@ -64,7 +64,7 @@ struct ValueScaleTraits<VS_S>
 {
     static std::string const name;
     static calc::CRIndex const cell_representation_index = calc::CRI_f;
-    typedef float Type;
+    using Type = float;
     static Type const minimum;
     static Type const maximum;
 };
@@ -75,7 +75,7 @@ struct ValueScaleTraits<VS_D>
 {
     static std::string const name;
     static calc::CRIndex const cell_representation_index = calc::CRI_f;
-    typedef float Type;
+    using Type = float;
     static Type const minimum;
     static Type const maximum;
 };

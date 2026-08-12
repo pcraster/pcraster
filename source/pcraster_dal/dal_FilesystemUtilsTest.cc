@@ -56,8 +56,8 @@ BOOST_AUTO_TEST_CASE(path_is_writable)
 // }
 
 
-typedef boost::function<std::filesystem::path
-    (std::filesystem::path const&, size_t)> TimeStepPathVariant;
+using TimeStepPathVariant = boost::function<std::filesystem::path
+    (std::filesystem::path const&, size_t)>;
 
 
 //! Tests \a variant.
@@ -646,7 +646,7 @@ BOOST_AUTO_TEST_CASE(path_for_sample)
 {
   using namespace dal;
 
-  typedef std::filesystem::path path;
+  using path = std::filesystem::path;
 
   BOOST_TEST(pathForSample("bla", 5) == path("5/bla"));
 

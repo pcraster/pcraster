@@ -7,14 +7,14 @@
 namespace com
 {
 
-typedef Interval<double> IntervalD;
+using IntervalD = Interval<double>;
 
 static IntervalD *create(const char *msg)
 {
   return com::createIntervalFromLookupTableKey<double>(std::string(msg));
 }
 
-typedef std::unique_ptr<com::Interval<double>> IVap;
+using IVap = std::unique_ptr<com::Interval<double>>;
 }  // namespace com
 
 BOOST_AUTO_TEST_CASE(from_lookup_table_key_correct_format)
@@ -429,26 +429,26 @@ BOOST_AUTO_TEST_CASE(round_error)
   BOOST_TEST(!BetweenLimits<>(GreaterThan<>(0.2), LessThanEqualTo<>(0.4)).valid(v));
   BOOST_TEST(BetweenLimits<>(GreaterThan<>(0), LessThanEqualTo<>(0.2)).valid(v));
   {
-    typedef float CT;  // choose template
+    using CT = float;  // choose template
     BOOST_TEST(!BetweenLimits<CT>(GreaterThan<CT>(0.2F), LessThanEqualTo<CT>(0.4F)).valid(vf));
     BOOST_TEST(BetweenLimits<CT>(GreaterThan<CT>(0.0F), LessThanEqualTo<CT>(0.2F)).valid(vf));
   }
   {
     // ROUNDING ERROR comparing float(0.2) ?= double(0.2)
-    typedef double CT;  // choose template
+    using CT = double;  // choose template
     BOOST_TEST(        // <-- this is not what we expect
         BetweenLimits<CT>(GreaterThan<CT>(0.2), LessThanEqualTo<CT>(0.4)).valid(vf));
     BOOST_TEST(!  // <-- this is not what we expect
                 BetweenLimits<CT>(GreaterThan<CT>(0.0), LessThanEqualTo<CT>(0.2)).valid(vf));
   }
   {                     // OK float instantiation
-    typedef double CT;  // choose template
+    using CT = double;  // choose template
     BOOST_TEST(!BetweenLimits<CT>(GreaterThan<CT>(0.2F), LessThanEqualTo<CT>(0.4F)).valid(vf));
     BOOST_TEST(BetweenLimits<CT>(GreaterThan<CT>(0.0F), LessThanEqualTo<CT>(0.2F)).valid(vf));
   }
   {
     // the solution, ctor argument must be a float if the valid argument is a float
-    typedef double CT;  // choose template
+    using CT = double;  // choose template
     BOOST_TEST(!BetweenLimits<CT>(GreaterThan<CT>(vf), LessThanEqualTo<CT>(0.4)).valid(vf));
     BOOST_TEST(BetweenLimits<CT>(GreaterThan<CT>(0), LessThanEqualTo<CT>(vf)).valid(vf));
   }
@@ -459,11 +459,11 @@ BOOST_AUTO_TEST_CASE(limit)
   using namespace com;
 
   {
-    typedef Interval<double> D;  // choose template
+    using D = Interval<double>;  // choose template
     BOOST_TEST(D::maxLimit() + D::minLimit() == 0);
   }
   {
-    typedef Interval<float> F;  // choose template
+    using F = Interval<float>;  // choose template
     BOOST_TEST(F::maxLimit() + F::minLimit() == 0);
   }
 }

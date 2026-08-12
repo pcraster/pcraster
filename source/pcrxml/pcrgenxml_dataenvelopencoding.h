@@ -14,9 +14,9 @@ class QDomElement;
 namespace pcrxml{
 class DataEnvelopEncoding : public Attribute {
   public:
-   typedef enum EnumType {
+   using EnumType = enum EnumType {
      text=0
-   } EnumType;
+   };
   private:
    EnumType d_value;
   public:

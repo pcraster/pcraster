@@ -12,9 +12,9 @@ BOOST_AUTO_TEST_CASE(points_in_area)
   using namespace geo;
 
   {
-    typedef Point<int, 2> Punt;
-    typedef double Value;
-    typedef std::vector<PointValue<Punt, Value>> PointValues;
+    using Punt = Point<int, 2>;
+    using Value = double;
+    using PointValues = std::vector<PointValue<Punt, Value>>;
 
     Value const value(0.0);
     PointValues points;
@@ -52,9 +52,9 @@ BOOST_AUTO_TEST_CASE(maximum_)
   using namespace geo;
 
   {
-    typedef Point<int, 2> Punt;
-    typedef int Value;
-    typedef std::vector<PointValue<Punt, Value>> PointValues;
+    using Punt = Point<int, 2>;
+    using Value = int;
+    using PointValues = std::vector<PointValue<Punt, Value>>;
 
     PointValues points;
     size_t const nrRows = 3;
@@ -92,9 +92,9 @@ BOOST_AUTO_TEST_CASE(maximum_)
   }
 
   {
-    typedef Point<double, 2> Point;
-    typedef int Value;
-    typedef std::vector<PointValue<Point, Value>> PointValues;
+    using Point = Point<double, 2>;
+    using Value = int;
+    using PointValues = std::vector<PointValue<Point, Value>>;
 
     PointValues points;
     size_t const nrRows = 3;

@@ -14,9 +14,9 @@ class QDomElement;
 namespace pcrxml{
 class RuntimePlatform : public Attribute {
   public:
-   typedef enum EnumType {
+   using EnumType = enum EnumType {
      RP_WIN32=0,RP_LINUX=1
-   } EnumType;
+   };
   private:
    EnumType d_value;
   public:

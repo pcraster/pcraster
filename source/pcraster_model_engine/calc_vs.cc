@@ -48,10 +48,10 @@ std::ostream &operator<<(std::ostream &msg, VS setOfVs)
     return msg;
   }
 
-  typedef struct VS_NAME {
+  using VS_NAME = struct VS_NAME {
     VS vs;
     const char *name;
-  } VS_NAME;
+  };
 
   const VS_NAME names[] = {{VS_S, "scalar"},
                            {VS_N, "nominal"},

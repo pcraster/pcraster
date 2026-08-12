@@ -39,7 +39,7 @@ BOOST_AUTO_TEST_CASE(testExpr)
 {
   using namespace calc;
 
-  typedef std::unique_ptr<ASTNode> E;
+  using E = std::unique_ptr<ASTNode>;
 
   {
     E const e(sp.createExpr("a"));
@@ -87,7 +87,7 @@ BOOST_AUTO_TEST_CASE(testAssignment)
 {
   using namespace calc;
 
-  typedef std::unique_ptr<ASTAss> A;
+  using A = std::unique_ptr<ASTAss>;
   {
     A a(sp.createAssignment("a=3*5;"));
     BOOST_TEST(a->nrPars() == 1);
@@ -116,12 +116,12 @@ BOOST_AUTO_TEST_CASE(testStatementList)
   using namespace calc;
 
   {
-    typedef std::unique_ptr<ASTNodeList> S;
+    using S = std::unique_ptr<ASTNodeList>;
     S s(sp.createStatementList(parsertest::model("pcrcalc11pre")));
     BOOST_TEST(s->size() == 2);
   }
   {  // repeat
-    typedef std::unique_ptr<ASTNodeList> S;
+    using S = std::unique_ptr<ASTNodeList>;
     S s(sp.createStatementList(parsertest::model("pcrcalc379")));
     BOOST_REQUIRE_EQUAL(s->size(), 2U);
     ASTNodeList::const_iterator n(s->begin());
@@ -135,7 +135,7 @@ BOOST_AUTO_TEST_CASE(testCode)
   using namespace calc;
 
   {  // only a dynamic section
-    typedef std::unique_ptr<ASTNode> B;
+    using B = std::unique_ptr<ASTNode>;
     B const l(sp.createCodeAsNode(parsertest::model("pcrcalc8a")));
     auto *d(astCast<DynamicSection>(l.get(), "C/b/0"));
     BOOST_TEST_REQUIRE(d);
@@ -143,7 +143,7 @@ BOOST_AUTO_TEST_CASE(testCode)
     BOOST_TEST(s->size() == 2U);
   }
   {  // initial plus dynamic
-    typedef std::unique_ptr<ASTNode> B;
+    using B = std::unique_ptr<ASTNode>;
     B const b(sp.createCodeAsNode(parsertest::model("pcrcalc8ab")));
     auto *l(astCast<ASTNodeList>(b.get(), "C/b"));
     BOOST_TEST_REQUIRE(l);
@@ -176,7 +176,7 @@ BOOST_AUTO_TEST_CASE(testStatement)
  */
   }
   {  // a report clause
-    typedef std::unique_ptr<ASTStat> S;
+    using S = std::unique_ptr<ASTStat>;
     S s(sp.createStatement(parsertest::model("pcrcalc301b")));
     BOOST_TEST(dynamic_cast<ASTAss *>(s->stat()));
     BOOST_TEST(s->reportParsed());
@@ -184,7 +184,7 @@ BOOST_AUTO_TEST_CASE(testStatement)
     BOOST_TEST(!s->reportInSitu());
   }
   {  // a report clause with id
-    typedef std::unique_ptr<ASTStat> S;
+    using S = std::unique_ptr<ASTStat>;
     S s(sp.createStatement("report(rep2) tmp.res= if(inp1b.map, ldd(5));"));
     BOOST_TEST(dynamic_cast<ASTAss *>(s->stat()));
     BOOST_TEST(s->reportParsed());
@@ -192,7 +192,7 @@ BOOST_AUTO_TEST_CASE(testStatement)
     BOOST_TEST(!s->reportInSitu());
   }
   {  // a report clause with insitu report
-    typedef std::unique_ptr<ASTStat> S;
+    using S = std::unique_ptr<ASTStat>;
     S s(sp.createStatement("report(1,3,5,10) tmp.res= if(inp1b.map, ldd(5));"));
     BOOST_TEST(dynamic_cast<ASTAss *>(s->stat()));
     BOOST_TEST(s->reportParsed());
@@ -206,7 +206,7 @@ BOOST_AUTO_TEST_CASE(testCheckAndRewriteParsedAST)
   using namespace calc;
 
   {  // implicit report on timeoutput fixed in checkAndRewriteParsedAST()
-    typedef std::unique_ptr<ASTStat> S;
+    using S = std::unique_ptr<ASTStat>;
     S s(sp.createStatement("s = timeoutput(inp1b.map,1);"));
     BOOST_TEST(s->reportParsed());
   }

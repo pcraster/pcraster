@@ -24,7 +24,7 @@ class  Class1 {
   float    firstConstructorArgument;
 
 public:
-  typedef std::map<std::string,Class1 *> Objects;
+  using Objects = std::map<std::string,Class1 *>;
   static  Objects objects;
 
   static void construct(

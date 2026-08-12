@@ -280,7 +280,7 @@ static double median(detail::CS_V::iterator begin, detail::CS_V::iterator end)
 template <class P, class M>
 static void crossPercentiles(M &m, typename P::V::iterator begin, typename P::V::iterator end)
 {
-  typedef typename P::V::iterator I;
+  using I = typename P::V::iterator;
   I endP;
   if (m.outside().nr()) {
     endP = m.partitionOutside(begin, end, P::partitionValue);
@@ -407,7 +407,7 @@ void calc::StatTable::setIdBinding(const ASTSymbolInfo &sym)
 
 void calc::StatTable::exec(RunTimeEnv *rte) const
 {
-  typedef StatComputation::Intervals I;
+  using I = StatComputation::Intervals;
 
   struct FetchIntervals {
     static I const *create(RunTimeEnv *rte)
@@ -527,10 +527,10 @@ template <typename T> void calc::StatComputation::classSubject() const
           classScalarTable(s);
         } else {
           if (com::noOverlap(*d_cross.d_intervals)) {
-            typedef typename com::IntervalMap<detail::ScalarStats, Real> IM;
+            using IM = typename com::IntervalMap<detail::ScalarStats, Real>;
             classIntervalTable<IM>(s);
           } else {
-            typedef typename com::IntervalMultiMap<detail::ScalarStats, Real> IM;
+            using IM = typename com::IntervalMultiMap<detail::ScalarStats, Real>;
             classIntervalTable<IM>(s);
           }
         }
@@ -543,7 +543,7 @@ template <typename T> void calc::StatComputation::classSubject() const
 
 template <typename T> void calc::StatComputation::classTable(const T *begin, const T *end) const
 {
-  typedef tab::ClassCountMap<INT4> M;
+  using M = tab::ClassCountMap<INT4>;
   M m;
   addSubjectClasses(m);
   m = com::forEachNonMV(begin, end, m);
@@ -557,7 +557,7 @@ template <typename T> void calc::StatComputation::classTable(const T *begin, con
 template <typename SubjectType, typename CrossType>
 void calc::StatComputation::classCrossTable(const SubjectType *subject) const
 {
-  typedef tab::ClassClassCountMap<INT4> M;
+  using M = tab::ClassClassCountMap<INT4>;
   M m;
   this->addCrossClasses(m);
 
@@ -572,7 +572,7 @@ void calc::StatComputation::classCrossTable(const SubjectType *subject) const
 
   // header line 2
   d_out << d_subject.d_name;
-  typedef typename std::set<INT4> S;
+  using S = typename std::set<INT4>;
   S const col = m.colClasses();
   S const row = m.rowClasses();
 
@@ -627,7 +627,7 @@ template <typename CountMap> void calc::StatComputation::addSubjectClasses(Count
     //  but we simple cast minimum to integer
 
     // MT() init 0, default Ctor
-    typedef typename CountMap::mapped_type MT;
+    using MT = typename CountMap::mapped_type;
     m.insert(std::make_pair(static_cast<int>(iv.min()), MT()));
   }
 }
@@ -665,11 +665,11 @@ void calc::StatComputation::classIntervalTable(const SubjectType *subject) const
 
   const REAL4 *cross = d_cross.d_field->src_f();
 
-  typedef detail::CS_CP CP;
+  using CP = detail::CS_CP;
   detail::CS_V r;
   r.reserve(d_cross.d_field->nrValues());
 
-  typedef tab::ClassIntervalMap<IntervalMapT> M;
+  using M = tab::ClassIntervalMap<IntervalMapT>;
   M m(*d_cross.d_intervals);
   addSubjectClasses(m);
 
@@ -708,12 +708,12 @@ void calc::StatComputation::classIntervalTable(const SubjectType *subject) const
 template <class IntervalMapT>
 void calc::StatComputation::scalarScalarTable(const REAL4 *subject, size_t nrValues) const
 {
-  typedef detail::CS_CP CP;
-  typedef std::vector<CP> R;
+  using CP = detail::CS_CP;
+  using R = std::vector<CP>;
   R r;
   r.reserve(nrValues);
 
-  typedef IntervalMapT M;
+  using M = IntervalMapT;
   M m;
   m.insertIntervals(*d_subject.d_intervals);
   POSTCOND(m.size() == d_subject.d_intervals->size());
@@ -749,13 +749,13 @@ void calc::StatComputation::GGTable(const REAL4 *subject) const
   const REAL4 *cross = d_cross.d_field->src_f();
 
 
-  typedef detail::CS_CP CP;
-  typedef std::vector<CP> R;
+  using CP = detail::CS_CP;
+  using R = std::vector<CP>;
   R r;
   r.reserve(d_cross.d_field->nrValues());
 
-  typedef com::IntervalMultiMap<detail::ScalarStats, Real> MapKey;
-  typedef com::IntervalMultiMap<MapKey, Real> M;
+  using MapKey = com::IntervalMultiMap<detail::ScalarStats, Real>;
+  using M = com::IntervalMultiMap<MapKey, Real>;
 
   M m;
   m.insertIntervals(*d_subject.d_intervals);
@@ -811,12 +811,12 @@ void calc::StatComputation::classScalarTable(const SubjectType *subject) const
 {
   const REAL4 *cross = d_cross.d_field->src_f();
 
-  typedef detail::CS_CP CP;
-  typedef std::vector<CP> R;
+  using CP = detail::CS_CP;
+  using R = std::vector<CP>;
   R r;
   r.reserve(d_cross.d_field->nrValues());
 
-  typedef std::map<INT4, detail::ScalarStats> M;
+  using M = std::map<INT4, detail::ScalarStats>;
   M m;
   addSubjectClasses(m);
 
@@ -908,10 +908,10 @@ void calc::StatComputation::scalarSubject() const
       // typedef com::IntervalMap<detail::ScalarStats, Real> IM;
       GGTable(r);  // GG
     } else if (com::noOverlap(*d_subject.d_intervals)) {
-      typedef com::IntervalMap<detail::ScalarStats, Real> IM;
+      using IM = com::IntervalMap<detail::ScalarStats, Real>;
       scalarScalarTable<IM>(r, d_subject.d_field->nrValues());  // Kruis-3
     } else {
-      typedef com::IntervalMultiMap<detail::ScalarStats, Real> IMM;
+      using IMM = com::IntervalMultiMap<detail::ScalarStats, Real>;
       scalarScalarTable<IMM>(r, d_subject.d_field->nrValues());  // Kruis-3
     }
   } else {

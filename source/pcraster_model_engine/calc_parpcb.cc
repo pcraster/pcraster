@@ -131,7 +131,7 @@ calc::Field *calc::ParPCB::field() const
 
 void calc::execPCB(std::vector<ParPCB *> &data, const void *dllFunctionAddress)
 {
-  typedef void (*DllFunction)(CellPtr *data, size_t n);
+  using DllFunction = void (*)(CellPtr *data, size_t n);
   auto func = (DllFunction)dllFunctionAddress;
 
   size_t nrValues = 1;

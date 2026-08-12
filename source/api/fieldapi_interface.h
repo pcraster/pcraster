@@ -29,11 +29,11 @@ template<class UseAsT, class OldMapApiT>
 };
 
 //! The Read Only Uint1 interface
-typedef ReadOnly<UINT1> ReadOnlyUint1;
+using ReadOnlyUint1 = ReadOnly<UINT1>;
 //! The Read Only Int4 interface
-typedef ReadOnly<INT4>  ReadOnlyInt4;
+using ReadOnlyInt4 = ReadOnly<INT4>;
 //! The Read Only Real8 interface
-typedef ReadOnly<REAL8> ReadOnlyReal8;
+using ReadOnlyReal8 = ReadOnly<REAL8>;
 
 
 //! specialization for MAP_* -> ReadWrite
@@ -52,11 +52,11 @@ template<class UseAsT, class OldMapApiT>
 };
 
 //! The Read Write Uint1 interface
-typedef ReadWrite<UINT1> ReadWriteUint1;
+using ReadWriteUint1 = ReadWrite<UINT1>;
 //! The Read Write Int4 interface
-typedef ReadWrite<INT4>  ReadWriteInt4;
+using ReadWriteInt4 = ReadWrite<INT4>;
 //! The Read Write Real8 interface
-typedef ReadWrite<REAL8> ReadWriteReal8;
+using ReadWriteReal8 = ReadWrite<REAL8>;
 
 bool nonMV(
     const std::vector<const fieldapi::Common*>& fields,

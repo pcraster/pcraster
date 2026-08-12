@@ -115,7 +115,7 @@ RasterDriver::determineFilenameCharacteristics(
     extension = defaultExtension(key);
   }
   else {
-    typedef boost::function< bool (std::string const&)> CallBack;
+    using CallBack = boost::function< bool (std::string const&)>;
 
     CallBack const callBack(dal::exists);
     std::tie(found, convention, extension) =

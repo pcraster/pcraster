@@ -44,12 +44,12 @@ namespace mldd {
 class DagRaster
 {
 public:
-  typedef geo::CellLoc vertex_descriptor;
+  using vertex_descriptor = geo::CellLoc;
 
 
-  typedef unsigned char EightBits;
+  using EightBits = unsigned char;
   EightBits d_0{0};
-  typedef geo::SimpleRaster<EightBits> NBRaster;
+  using NBRaster = geo::SimpleRaster<EightBits>;
 
 private:
   friend class DagRasterTest;
@@ -67,7 +67,7 @@ private:
   //! 2d matrix with the inflow bit codes
   NBRaster d_inflowNB;
 
-  typedef std::vector<Vertex> RTO;
+  using RTO = std::vector<Vertex>;
   //! reverse topological order
   RTO d_rto;
 

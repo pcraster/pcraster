@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE(base_elevation)
 {
   using namespace block;
 
-  typedef discr::Block::ThicknessType T;
+  using T = discr::Block::ThicknessType;
   discr::Raster const raster(3, 1);
 
   {
@@ -60,7 +60,7 @@ BOOST_AUTO_TEST_CASE(surface_elevation)
 {
   using namespace block;
 
-  typedef discr::Block::ThicknessType T;
+  using T = discr::Block::ThicknessType;
   discr::Raster const raster(3, 1);
 
   {

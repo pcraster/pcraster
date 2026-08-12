@@ -10,7 +10,7 @@ namespace pcrxml {
 
 
 //! XML Schema compliant positive integer
-typedef SimpleAttr<size_t>   PositiveInteger;
+using PositiveInteger = SimpleAttr<size_t>;
 
 } // namespace pcrxml
 

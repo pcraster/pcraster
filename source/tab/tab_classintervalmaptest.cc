@@ -15,7 +15,7 @@ BOOST_AUTO_TEST_CASE(class_interval_map)
   v.push_back(new com::GreaterThan<float>(4));
 
   {
-   typedef ClassIntervalMap< com::IntervalMap< com::AverageSdMinMax< >, float > > M;
+   using M = ClassIntervalMap< com::IntervalMap< com::AverageSdMinMax< >, float > >;
    M m(v);
    m.addClass(3);
    m.addClass(1);
@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_CASE(class_interval_map)
 
   {
    v.push_back(new com::GreaterThan<float>(4.5));
-   typedef tab::ClassIntervalMap< com::IntervalMultiMap< com::AverageSdMinMax<>,float > > M;
+   using M = tab::ClassIntervalMap< com::IntervalMultiMap< com::AverageSdMinMax<>,float > >;
    M m(v);
    m.addClass(3);
    m.addClass(1);

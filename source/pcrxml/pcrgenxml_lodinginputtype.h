@@ -14,9 +14,9 @@ class QDomElement;
 namespace pcrxml{
 class LodingInputType : public Attribute {
   public:
-   typedef enum EnumType {
+   using EnumType = enum EnumType {
      ASCII=0,RWSLOD=1
-   } EnumType;
+   };
   private:
    EnumType d_value;
   public:

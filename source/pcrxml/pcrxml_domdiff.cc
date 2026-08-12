@@ -69,7 +69,7 @@ struct NodeList : public std::list<QDomNode> {
 
   bool equal(const NodeList &nl2, bool throwOnDiff)
   {
-    typedef NodeList::const_iterator I;
+    using I = NodeList::const_iterator;
 
     struct Equal {
       bool d_throwOnDiff;

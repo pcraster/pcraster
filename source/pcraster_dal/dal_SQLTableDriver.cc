@@ -282,7 +282,7 @@ ConnectionInfo dal::SQLTableDriver::connectionInfoFor(
       }
       else {
         // Determine and cache database file properties.
-        typedef boost::function<bool (std::string const&)> CallBack;
+        using CallBack = boost::function<bool (std::string const&)>;
         CallBack const callBack([this](auto && PH1) { return databaseExists(std::forward<decltype(PH1)>(PH1)); });
 
         std::tie(found, convention, extension) =

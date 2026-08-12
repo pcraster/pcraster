@@ -148,7 +148,7 @@ void Viewer::createViews(pcrxml::Aguila const &cfg)
   VisGroup *group = newGroup();
   DataConfiguration const dc(/* d_dal, */ group, cfg.visualisationGroup());
 
-  typedef pcrxml::VisualisationGroup::view_sequence Views;
+  using Views = pcrxml::VisualisationGroup::view_sequence;
   Views const &xmlViews(cfg.visualisationGroup().view());
 
   // Collect in for Views loop, then display after loop.

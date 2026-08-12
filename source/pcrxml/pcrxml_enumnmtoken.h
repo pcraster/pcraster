@@ -30,7 +30,7 @@ private:
 
 public:
   //! type of enum
-  typedef typename T::EnumType EnumType;
+  using EnumType = typename T::EnumType;
 
   //----------------------------------------------------------------------------
   // CREATORS

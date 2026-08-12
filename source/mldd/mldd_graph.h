@@ -74,34 +74,34 @@ namespace boost {
   template <>
   struct graph_traits < mldd::DagRaster > {
 
-   typedef mldd::Vertex           vertex_descriptor;
-   typedef mldd::Edge             edge_descriptor;
+   using vertex_descriptor = mldd::Vertex;
+   using edge_descriptor = mldd::Edge;
 
-   typedef mldd::OutEdgeIterator  out_edge_iterator;
-   typedef mldd::VertexIterator   vertex_iterator;
+   using out_edge_iterator = mldd::OutEdgeIterator;
+   using vertex_iterator = mldd::VertexIterator;
 
-    typedef boost::iterator_adaptor<mldd::Edge,
+    using adjacency_iterator = boost::iterator_adaptor<mldd::Edge,
     //  mldd::mldd_adjacency_iterator_policies,
       mldd::Vertex, mldd::Vertex, const mldd::Vertex*,
       boost::multi_pass_input_iterator_tag,
       std::ptrdiff_t
-    > adjacency_iterator;
+    >;
 
 
-    typedef boost::iterator_adaptor<mldd::Edge,
+    using in_edge_iterator = boost::iterator_adaptor<mldd::Edge,
     //  mldd::mldd_in_edge_iterator_policies,
       mldd::Edge, const mldd::Edge&, const mldd::Edge*,
       std::forward_iterator_tag,
       std::ptrdiff_t
-    > in_edge_iterator;
+    >;
 
 
-    typedef boost::directed_tag directed_category;
-    typedef boost::allow_parallel_edge_tag edge_parallel_category; // not sure here
-    typedef mldd_graph_traversal_category traversal_category;
-    typedef size_t vertices_size_type;
-    typedef size_t edges_size_type;
-    typedef size_t degree_size_type;
+    using directed_category = boost::directed_tag;
+    using edge_parallel_category = boost::allow_parallel_edge_tag; // not sure here
+    using traversal_category = mldd_graph_traversal_category;
+    using vertices_size_type = size_t;
+    using edges_size_type = size_t;
+    using degree_size_type = size_t;
 
     static inline vertex_descriptor null_vertex() {
       return {0U, 0U};
@@ -126,7 +126,7 @@ namespace boost {
 
 namespace mldd {
 
-  typedef mldd::DagRaster G;
+  using G = mldd::DagRaster;
 
   boost::graph_traits<G>::vertex_descriptor
   source(boost::graph_traits<G>::edge_descriptor e,
@@ -149,7 +149,7 @@ namespace mldd {
     boost::graph_traits<G>::vertex_descriptor u,
     const G& g)
   {
-    typedef boost::graph_traits<G>::out_edge_iterator Iter;
+    using Iter = boost::graph_traits<G>::out_edge_iterator;
     return std::make_pair( Iter(g.beginOutEdge(u)), Iter(g.endOutEdge(u)) );
   }
 
@@ -228,14 +228,14 @@ namespace mldd {
 */
 
 
-  typedef DagRaster G;
+  using G = DagRaster;
 
   std::pair<
     boost::graph_traits<G>::vertex_iterator,
     boost::graph_traits<G>::vertex_iterator >
   vertices(const G& g)
   {
-    typedef boost::graph_traits<G>::vertex_iterator Iter;
+    using Iter = boost::graph_traits<G>::vertex_iterator;
     return std::make_pair( Iter(g,g.beginVertex()), Iter(g,g.endVertex()) );
   }
 
@@ -254,10 +254,10 @@ namespace mldd {
     geo::RasterDim    d_rd;
     std::vector<Val> &d_props;
 
-    typedef boost::read_write_property_map_tag category;
-    typedef Val                         value_type;
-    typedef value_type&                 reference;
-    typedef Vertex                      key_type;
+    using category = boost::read_write_property_map_tag;
+    using value_type = Val;
+    using reference = value_type&;
+    using key_type = Vertex;
     reference operator[](const key_type& v) const
     {
       return d_props[d_rd.convert(v)];

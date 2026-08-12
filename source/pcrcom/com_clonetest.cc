@@ -9,7 +9,7 @@ BOOST_AUTO_TEST_CASE(reset_clone)
   using namespace com;
 
   // typedef Interval<float> I; // virtual base of I
-  typedef EqualTo<float> E;
+  using E = EqualTo<float>;
   {
     E *dest = new E(4);
     E *src(nullptr);

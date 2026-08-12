@@ -14,9 +14,9 @@ class QDomElement;
 namespace pcrxml{
 class IoType : public Attribute {
   public:
-   typedef enum EnumType {
+   using EnumType = enum EnumType {
      Input=0,Output=1,Constant=2,Both=3,None=4
-   } EnumType;
+   };
   private:
    EnumType d_value;
   public:

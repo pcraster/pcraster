@@ -13,9 +13,9 @@ class QDomElement;
 namespace pcrxml{
 class UserDerive : public Attribute {
   public:
-   typedef enum EnumType {
+   using EnumType = enum EnumType {
      Tree=0,Child=1,None=2
-   } EnumType;
+   };
   private:
    EnumType d_value;
   public:

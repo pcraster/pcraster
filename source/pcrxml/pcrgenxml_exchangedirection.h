@@ -15,9 +15,9 @@ class QDomElement;
 namespace pcrxml{
 class ExchangeDirection : public Attribute {
   public:
-   typedef enum EnumType {
+   using EnumType = enum EnumType {
      Input=0,Output=1
-   } EnumType;
+   };
   private:
    EnumType d_value;
   public:

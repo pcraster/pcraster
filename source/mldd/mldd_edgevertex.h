@@ -14,7 +14,7 @@ namespace geo {
 
 namespace mldd {
 
-  typedef geo::CellLoc Vertex;
+  using Vertex = geo::CellLoc;
 
   class  Edge  {
     Vertex d_source,d_target;

@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_CASE(constructor)
     }
   }
 
-  typedef Block::ThicknessType T;
+  using T = Block::ThicknessType;
 
   {
     RasterData<REAL4> baseElevation(&raster, 3.0);
@@ -97,7 +97,7 @@ BOOST_AUTO_TEST_CASE(add_voxels)
 
   // Two rows, one column.
   Raster const raster(2, 1);
-  typedef Block::ThicknessType T;
+  using T = Block::ThicknessType;
 
   {
     Block block(raster, 5.0);
@@ -169,7 +169,7 @@ BOOST_AUTO_TEST_CASE(remove_voxels)
 
   // Two rows, one column.
   Raster const raster(2, 1, 1.0, 0.0, 0.0);
-  typedef Block::ThicknessType T;
+  using T = Block::ThicknessType;
 
   {
     Block block(raster, 5.0);
@@ -207,7 +207,7 @@ BOOST_AUTO_TEST_CASE(cut_voxels)
 
   // Two rows, one column.
   Raster const raster(2, 1, 1.0, 0.0, 0.0);
-  typedef Block::ThicknessType T;
+  using T = Block::ThicknessType;
 
   {
     Block block(raster, 5.0);
@@ -349,7 +349,7 @@ BOOST_AUTO_TEST_CASE(bottom_elevation)
   // Two rows, one column.
   Raster const raster(2, 1, 1.0, 0.0, 0.0);
   bool isValid = false;
-  typedef Block::ThicknessType T;
+  using T = Block::ThicknessType;
   T elevation = NAN;
 
   {
@@ -402,7 +402,7 @@ BOOST_AUTO_TEST_CASE(top_elevation)
   // Two rows, one column.
   Raster const raster(2, 1, 1.0, 0.0, 0.0);
   bool isValid = false;
-  typedef Block::ThicknessType T;
+  using T = Block::ThicknessType;
   T elevation = NAN;
 
   {
@@ -455,7 +455,7 @@ BOOST_AUTO_TEST_CASE(extreme_elevations)
   // Two rows, one column.
   Raster const raster(2, 1, 1.0, 0.0, 0.0);
   bool isValid = false;
-  typedef Block::ThicknessType T;
+  using T = Block::ThicknessType;
   T bottom = NAN;
   T top = NAN;
 

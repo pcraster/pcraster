@@ -8,8 +8,8 @@
 namespace com::intervalMapTest
 {
 struct UnarySimplest {
-  typedef double argument_type;
-  typedef double result_type;
+  using argument_type = double;
+  using result_type = double;
 
   double operator()(double v) const
   {
@@ -43,7 +43,7 @@ BOOST_AUTO_TEST_CASE(find)
 {
   using namespace com;
 
-  typedef IntervalMap<int> M;
+  using M = IntervalMap<int>;
   M m;
   BOOST_TEST(m.outside() == 0);
   BOOST_TEST(m.insertInterval(BetweenLimits<>(GreaterThan<>(3), LessThanEqualTo<>(4))));
@@ -84,7 +84,7 @@ BOOST_AUTO_TEST_CASE(visit)
 {
   using namespace com;
 
-  typedef IntervalMap<intervalMapTest::FO_MM> M;
+  using M = IntervalMap<intervalMapTest::FO_MM>;
   M m;
   m.insertInterval(BetweenLimits<>(GreaterThan<>(3), LessThanEqualTo<>(4)));
   m.insertInterval(GreaterThan<>(4));
@@ -149,7 +149,7 @@ BOOST_AUTO_TEST_CASE(multi_map)
 {
   using namespace com;
 
-  typedef IntervalMultiMap<intervalMapTest::FO_MM> M;
+  using M = IntervalMultiMap<intervalMapTest::FO_MM>;
   M m;
   // typedef IntervalMap<int>::iterator I;
 

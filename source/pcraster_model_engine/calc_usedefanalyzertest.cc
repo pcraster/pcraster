@@ -42,7 +42,7 @@ class Test
 
 
 public:
-  typedef std::set<std::string> NameSet;
+  using NameSet = std::set<std::string>;
 
   Test(const char *code) : d_a(StringParser::createCodeAsNode(code))
   {
@@ -234,7 +234,7 @@ BOOST_AUTO_TEST_CASE(testBugs)
 {
   using namespace calc;
 
-  typedef std::set<std::string> Set;
+  using Set = std::set<std::string>;
   {
     const char *code = "CF=inp1s.map;\n"
                        "tmp.res=CF+inp5s.map*(1-CF);\n";

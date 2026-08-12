@@ -14,9 +14,9 @@ class QDomElement;
 namespace pcrxml{
 class IOStrategyType : public Attribute {
   public:
-   typedef enum EnumType {
+   using EnumType = enum EnumType {
      IOFiles=0,IOMemory=1
-   } EnumType;
+   };
   private:
    EnumType d_value;
   public:

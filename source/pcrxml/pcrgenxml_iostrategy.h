@@ -14,9 +14,9 @@ class QDomElement;
 namespace pcrxml{
 class IoStrategy : public Attribute {
   public:
-   typedef enum EnumType {
+   using EnumType = enum EnumType {
      PCRaster=0,EsriGrid=1,Band=2
-   } EnumType;
+   };
   private:
    EnumType d_value;
   public:

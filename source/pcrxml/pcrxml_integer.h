@@ -10,7 +10,7 @@ namespace pcrxml {
 
 
 //! XML Schema compliant integer
-typedef SimpleAttr<int>   Integer;
+using Integer = SimpleAttr<int>;
 
 } // namespace pcrxml
 

@@ -6,11 +6,12 @@ PCRaster 4.5.0 (not yet released)
 
 The most relevant updates for users:
 
+* PCRaster operations now support ``pathlib`` filesystem paths.
+* We modernised the Python code of the ``pcraster`` package and fixed multiple deprecation and syntax warnings.
 * We added support for Qt version 6, which is now used by default. Qt 5.15 still can be selected when configuring and building time. But further support of Qt5 in upcoming releases is unlikely, and we stop testing builds with Qt5.
 * This is the last release for x86_64-based macOS systems. We no longer build, test and support the x86_64 (Intel) macOS architecture in upcoming releases.
-* We modernised the Python code of the ``pcraster`` package and fixed multiple deprecation and syntax warnings.
 * Source packages are from now on provided using XZ compression instead of BZip2 compression.
-* Numerous spelling errors were corrected, thanks to `mwtoews <https://github.com/mwtoews>`_
+* Numerous spelling errors in the code and documentation were corrected, thanks to `mwtoews <https://github.com/mwtoews>`_
 
 
 .. * aguila contour
@@ -18,14 +19,17 @@ The most relevant updates for users:
 
 We further improved the code quality and the build system to ensure an ongoing creation of PCRaster packages, amongst others:
 
-* Modernising the source code. C17 and C++20 are now the default standards when compiling PCRaster.
 * We removed the dependency to the deprecated OpenGL Utility Library (GLU). Linking to libGLU is no longer required.
+* We removed the build dependency to ``psutil``.
 * We replaced internal math and string utility libraries by standard equivalents.
 * Replacing numerous 3rd party code with C++ standard equivalents: numbers, gcd, tuple, format, signbit, isnan, mpl::if_c, is_integral, is_signed, is_same, integer types, bind, mem_fn
 * Various issues raised by compiler warnings were fixed.
 * We removed deprecated Qt code.
 * We removed deprecated Boost code.
+* Modernising the source code. C17 and C++20 are now the default standards when compiling PCRaster.
+* Various improvements to support gcc-17, clang-24, and Visual Studio 2026.
 
+.. do not set native flags by default
 .. * Qt6 by default 5 as option
 .. * Including outdated Boost headers were removed
 .. * find package config Boost

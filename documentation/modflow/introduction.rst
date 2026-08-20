@@ -1,6 +1,6 @@
 Introduction
 ============
-PCRaster is a Geographical Information System using a raster based approach to analyse spatial data. The included modelling language allows to develop iterative spatial-temporal environmental models. Detailed information about PCRaster is available at `www.pcraster.eu <http://www.pcraster.eu>`_.
+PCRaster is a Geographical Information System using a raster based approach to analyse spatial data. The included modelling language allows to develop iterative spatial-temporal environmental models. Detailed information about PCRaster is available at https://pcraster.geo.uu.nl/.
 
 MODFLOW simulates the three-dimensional groundwater flow through a porous medium by using a finite-difference method. It is developed by the U.S. Geological Survey and widely used for groundwater modelling. Amongst others impacts of rivers, drains and wells can be simulated. For detailed information about the physical and mathematical concepts we refer to the documentation at the MODFLOW website (http://water.usgs.gov/nrp/gwsoftware/modflow2000/modflow2000.html) and the user manuals (e.g. TWRI 6-A1, Open-File Report 00-92, both online available).
 

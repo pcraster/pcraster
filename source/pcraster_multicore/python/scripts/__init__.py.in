@@ -5,7 +5,7 @@ This is the PCRaster multicore package.
 PCRaster is a collection of tools and software libraries tailored to the
 construction of spatio-temporal models. Information about the development
 of PCRaster and its application in environmental modelling can be found
-at http://www.pcraster.eu
+at https://pcraster.geo.uu.nl/
 
 The multicore module provides alternative, multi-threaded implementations
 of several PCRaster operations. The following operators and operations

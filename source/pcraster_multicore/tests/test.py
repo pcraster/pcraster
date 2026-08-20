@@ -721,6 +721,10 @@ class TestMulticore(unittest.TestCase):
         self.assertEqual(isValid, True)
         self.assertEqual(value, 0)
 
+  def test_12(self):
+    """ test nr_worker_threads set by environment variable"""
+    self.assertEqual(nr_worker_threads(), 2)
+    
 
 suite = unittest.TestSuite()
 suite.addTest(unittest.TestLoader().loadTestsFromTestCase(test_import.ImportTest))

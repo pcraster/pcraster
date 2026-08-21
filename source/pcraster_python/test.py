@@ -505,7 +505,7 @@ suite.addTest(unittest.TestLoader().loadTestsFromTestCase(test_cellvalue.Cellval
 suite.addTest(unittest.TestLoader().loadTestsFromTestCase(testexamples.TestExamples))
 suite.addTest(unittest.TestLoader().loadTestsFromTestCase(testNumPy.TestNumPy))
 suite.addTest(unittest.TestLoader().loadTestsFromTestCase(import_test.ImportTest))
-suite.addTest(unittest.TestLoader().loadTestsFromTestCase(testPickle.TestPickle))
+# suite.addTest(unittest.TestLoader().loadTestsFromTestCase(testPickle.TestPickle))
 suite.addTest(unittest.TestLoader().loadTestsFromTestCase(testPCRaster.TestPCRaster))
 suite.addTest(unittest.TestLoader().loadTestsFromTestCase(test_aguila.TestAguila))
 

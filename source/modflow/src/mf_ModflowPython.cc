@@ -41,7 +41,7 @@ PCRModflowPython::~PCRModflowPython()
 {
 }
 
-void PCRModflowPython::set_row_width(pybind11::list const &arguments)
+void PCRModflowPython::set_row_width(nanobind::list const &arguments)
 {
 
   if (d_dis == nullptr) {
@@ -49,7 +49,7 @@ void PCRModflowPython::set_row_width(pybind11::list const &arguments)
         "Error in PCRasterModflow setRowWidth: Layers need to be specified at first!");
   }
 
-  size_t const nr_args = pybind11::len(arguments);
+  size_t const nr_args = nanobind::len(arguments);
 
   if (nr_args != d_nrOfRows) {
     std::ostringstream errMsg;
@@ -65,7 +65,7 @@ void PCRModflowPython::set_row_width(pybind11::list const &arguments)
   }
 }
 
-void PCRModflowPython::set_col_width(pybind11::list const &arguments)
+void PCRModflowPython::set_col_width(nanobind::list const &arguments)
 {
 
   if (d_dis == nullptr) {
@@ -73,7 +73,7 @@ void PCRModflowPython::set_col_width(pybind11::list const &arguments)
         "Error in PCRasterModflow setColumnWidth: Layers need to be specified at first!");
   }
 
-  size_t const nr_args = pybind11::len(arguments);
+  size_t const nr_args = nanobind::len(arguments);
 
   if (nr_args != d_nrOfColumns) {
     std::ostringstream errMsg;

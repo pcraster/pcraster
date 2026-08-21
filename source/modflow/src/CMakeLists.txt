@@ -85,5 +85,4 @@ target_include_directories(pcrmfpy
 target_link_libraries(pcrmfpy
     PUBLIC
         pcraster::model_engine
-        pybind11::pybind11
 )

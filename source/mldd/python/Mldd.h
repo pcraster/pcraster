@@ -3,7 +3,7 @@
 
 #include "mldd_mldd.h"
 
-#include <pybind11/pybind11.h>
+#include <nanobind/nanobind.h>
 #include <memory>
 
 
@@ -91,9 +91,9 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  pybind11::tuple  getStream           () const;
+  nanobind::tuple  getStream           () const;
 
-  pybind11::tuple  getWeight           () const;
+  nanobind::tuple  getWeight           () const;
 
   std::shared_ptr<calc::Field> getDem  () const;
 

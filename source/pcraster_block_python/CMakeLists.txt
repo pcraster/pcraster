@@ -1,5 +1,4 @@
-# NO_EXTRAS required for success on macOS conda build
-pybind11_add_module(_pcraster_block_python MODULE # NO_EXTRAS THIN_LTO
+nanobind_add_module(_pcraster_block_python
     blockpy_blockpy.cc
     blockpy_conversions.cc
     blockpy_functions.cc

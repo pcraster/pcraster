@@ -247,19 +247,20 @@ message(STATUS "  NumPy:" )
 message(STATUS "    version:      " ${Python_NumPy_VERSION})
 message(STATUS "    includes:     " ${Python_NumPy_INCLUDE_DIRS})
 
-# Find Python before pybind11!
-# We need pybind11 version 3
-if(PCRASTER_WITH_INTERNAL_PYBIND11)
-    FetchContent_Declare(pybind11
-        GIT_REPOSITORY https://github.com/pybind/pybind11.git
-        GIT_TAG 45fab4087eaaff234227a10cf7845e8b07f28a98  # v3.0.2
+# Find Python first!
+set (PCRASTER_WITH_INTERNAL_NANOBIND ON)
+if(PCRASTER_WITH_INTERNAL_NANOBIND)
+    FetchContent_Declare(nanobind
+        GIT_REPOSITORY https://github.com/wjakob/nanobind.git
+        GIT_TAG eb061164f3ff0f3567a6f545ec7f56c6a3fbf2fb
         SYSTEM
-        FIND_PACKAGE_ARGS 3.0.2 CONFIG
+        FIND_PACKAGE_ARGS 3.0 CONFIG
     )
-    FetchContent_MakeAvailable(pybind11)
+    FetchContent_MakeAvailable(nanobind)
 else()
-    find_package(pybind11 REQUIRED CONFIG)
+    find_package(nanobind REQUIRED CONFIG)
 endif()
+
 
 if(UNIX)
     set(CURSES_NEED_NCURSES TRUE)

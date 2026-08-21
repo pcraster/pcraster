@@ -1,7 +1,7 @@
 #ifndef INCLUDED_MODFLOW_MODFLOW_PYTHON
 #define INCLUDED_MODFLOW_MODFLOW_PYTHON
 
-#include <pybind11/pybind11.h>
+#include <nanobind/nanobind.h>
 
 #include "pcrmodflow.h"
 
@@ -47,9 +47,9 @@ public:
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  void             set_row_width       (pybind11::list const& arguments);
+  void             set_row_width       (nanobind::list const& arguments);
 
-  void             set_col_width       (pybind11::list const& arguments);
+  void             set_col_width       (nanobind::list const& arguments);
 
   //----------------------------------------------------------------------------
   // ACCESSORS

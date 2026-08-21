@@ -73,8 +73,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     )
 endif()
 
-# NO_EXTRAS required for success on macOS conda build
-pybind11_add_module(_pcraster MODULE # NO_EXTRAS THIN_LTO
+nanobind_add_module(_pcraster
     numpy_conversion.cc
     PCRaster.cc
     value_scale_traits.cc

@@ -20,6 +20,7 @@
 #include <string>
 #include <stdexcept>
 
+#include <nanobind/stl/string.h>
 
 
 namespace pcraster::python {
@@ -43,12 +44,12 @@ void str_values(std::stringstream & content, calc::Field const & raster){
 
 
 template<class T>
-void fill_raster(calc::Field & field, const pybind11::tuple& state){
+void fill_raster(calc::Field & field, const nanobind::tuple& state){
   // unpack the values from the state string
 
   std::vector<std::string> values;
 
-  auto s = state[0].cast<std::string>();
+  auto s = nanobind::cast<std::string>(state[0]);
   boost::trim(s);
   boost::split(values, s, boost::is_any_of(" "), boost::token_compress_on);
 
@@ -74,7 +75,7 @@ void fill_raster(calc::Field & field, const pybind11::tuple& state){
 }
 
 
-pybind11::tuple getstate(calc::Field const & raster){
+nanobind::tuple getstate(calc::Field const & raster){
 
   CSF_VS const value_scale = calc::vs2CsfVs(raster.vs());
   std::stringstream values;
@@ -115,18 +116,17 @@ pybind11::tuple getstate(calc::Field const & raster){
   int const vs = static_cast<int>(raster.vs());
   int const cri = static_cast<int>(raster.cri());
 
-  return pybind11::make_tuple(values.str(), vs, cri, nr_rows, nr_cols, north, west, cell_size, projection);
+  return nanobind::make_tuple(values.str(), vs, cri, nr_rows, nr_cols, north, west, cell_size, projection);
 }
 
 
-calc::Field* setstate(pybind11::tuple const & state) {
-  auto nr_rows = state[3].cast<size_t>();
-  auto nr_cols = state[4].cast<size_t>();
-  size_t const nr_cells = nr_rows * nr_cols;
-  auto north = state[5].cast<double>();
-  auto west = state[6].cast<double>();
-  auto cell_size = state[7].cast<double>() ;
-  int const projection = state[8].cast<int>();
+void setstate(calc::Field* field, nanobind::tuple const & state) {
+  auto nr_rows = nanobind::cast<size_t>(state[3]);
+  auto nr_cols = nanobind::cast<size_t>(state[4]);
+  auto north = nanobind::cast<double>(state[5]);
+  auto west = nanobind::cast<double>(state[6]);
+  auto cell_size = nanobind::cast<double>(state[7]);
+  int projection = nanobind::cast<int>(state[8]);
 
   if (!globals.cloneSpace().valid()) {
     geo::RasterSpace const cloneSpace(nr_rows, nr_cols, cell_size, west, north, static_cast<geo::Projection>(projection));
@@ -170,11 +170,7 @@ calc::Field* setstate(pybind11::tuple const & state) {
     }
   }
 
-  VS const vs = static_cast<VS>(state[1].cast<int>());
-  calc::CRIndex const cri = static_cast<calc::CRIndex>(state[2].cast<int>());
-
-  calc::Field *field = new calc::Spatial(vs, cri, nr_cells);
-
+  VS vs = static_cast<VS>(nanobind::cast<int>(state[1]));
   CSF_VS const csf_value_scale = calc::vs2CsfVs(vs);
 
   switch(csf_value_scale){
@@ -202,8 +198,6 @@ calc::Field* setstate(pybind11::tuple const & state) {
       break;
     }
   }
-
-  return field;
 }
 
 } // namespace pcraster::python

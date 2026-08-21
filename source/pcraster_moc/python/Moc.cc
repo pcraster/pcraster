@@ -113,7 +113,7 @@ Moc::~Moc()
 
 
 
-pybind11::tuple Moc::transport(
+nanobind::tuple Moc::transport(
          calc::Field const* fluxField,
          calc::Field const* xVelocityField,
          calc::Field const* yVelocityField,
@@ -216,7 +216,7 @@ pybind11::tuple Moc::transport(
          new calc::Spatial(VS_S, calc::CRI_f, nrCells));
   copy<UINT4, REAL4>(nrParticlesPerCell, nrParticlesPerCellField.get());
 
-  return pybind11::make_tuple(concentrationField, nrParticlesPerCellField);
+  return nanobind::make_tuple(concentrationField, nrParticlesPerCellField);
 }
 
 

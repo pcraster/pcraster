@@ -150,7 +150,7 @@ std::shared_ptr<calc::Field> Mldd::diffuse(
 
 
 
-pybind11::tuple Mldd::getStream() const
+nanobind::tuple Mldd::getStream() const
 {
   std::vector<calc::Spatial*> spatials(8);
 
@@ -167,7 +167,7 @@ pybind11::tuple Mldd::getStream() const
 
   _mldd.getStream(arrays);
 
-  return pybind11::make_tuple(
+  return nanobind::make_tuple(
          std::shared_ptr<calc::Field>(spatials[0]),
          std::shared_ptr<calc::Field>(spatials[1]),
          std::shared_ptr<calc::Field>(spatials[2]),
@@ -180,7 +180,7 @@ pybind11::tuple Mldd::getStream() const
 
 
 
-pybind11::tuple Mldd::getWeight() const
+nanobind::tuple Mldd::getWeight() const
 {
   std::vector<calc::Spatial*> spatials(8);
 
@@ -197,7 +197,7 @@ pybind11::tuple Mldd::getWeight() const
 
   _mldd.getWeight(arrays);
 
-  return pybind11::make_tuple(
+  return nanobind::make_tuple(
          std::shared_ptr<calc::Field>(spatials[0]),
          std::shared_ptr<calc::Field>(spatials[1]),
          std::shared_ptr<calc::Field>(spatials[2]),

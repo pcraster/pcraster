@@ -1,10 +1,12 @@
+#include <nanobind/nanobind.h>
+#include <nanobind/stl/filesystem.h>
+#include <nanobind/stl/string.h>
+#include <nanobind/stl/tuple.h>
+
 #include <cassert>
 #include <pcrtypes.h>
 #include <cstddef>
 #include <exception>
-#include <pybind11/pybind11.h>
-#include <pybind11/stl/filesystem.h>
-#include <pybind11/native_enum.h>
 
 #include "dal_PropertyKeys.h"
 #include "dal_Utils.h"
@@ -235,7 +237,7 @@ calc::Field* readField(
 
 
 // row >= 1, <= nrRows, col >= 1, <= nrCols
-pybind11::object readFieldCell(
+nanobind::object readFieldCell(
          std::filesystem::path const& input_path,
          int row,
          int col)
@@ -264,25 +266,25 @@ pybind11::object readFieldCell(
   dal::DataSpaceAddress address(space.address());
   address.setCoordinate(0, dal::SpatialCoordinate(x, y));
 
-  pybind11::object tuple;
+  nanobind::object tuple;
 
   switch(raster->typeId()) {
     case dal::TI_UINT1: {
       UINT1 v = 0;
       driver->read(&v, dal::TI_UINT1, filename, space, address);
-      tuple = pybind11::make_tuple(static_cast<float>(v), static_cast<int>(pcr::isMV(v)) == 0);
+      tuple = nanobind::make_tuple(static_cast<float>(v), static_cast<int>(pcr::isMV(v)) == 0);
       break;
     }
     case dal::TI_INT4: {
       INT4 v = 0;
       driver->read(&v, dal::TI_INT4, filename, space, address);
-      tuple = pybind11::make_tuple(static_cast<float>(v), static_cast<int>(pcr::isMV(v)) == 0);
+      tuple = nanobind::make_tuple(static_cast<float>(v), static_cast<int>(pcr::isMV(v)) == 0);
       break;
     }
     case dal::TI_REAL4: {
       REAL4 v = NAN;
       driver->read(&v, dal::TI_REAL4, filename, space, address);
-      tuple = pybind11::make_tuple(static_cast<float>(v), static_cast<int>(pcr::isMV(v)) == 0);
+      tuple = nanobind::make_tuple(static_cast<float>(v), static_cast<int>(pcr::isMV(v)) == 0);
       break;
     }
     default: {
@@ -444,7 +446,7 @@ calc::Field* newNonSpatialIntegralField(
 
 
 
-pybind11::tuple fieldGetCellIndex(
+nanobind::tuple fieldGetCellIndex(
          calc::Field const* field,
          size_t index)
 {
@@ -460,20 +462,20 @@ pybind11::tuple fieldGetCellIndex(
   }
   --index;
 
-  pybind11::tuple tuple;
+  nanobind::tuple tuple;
   double value = 0;
   bool const isValid = field->getCell(value, index);
 
   switch(field->vs()) {
     case VS_B: {
-      tuple = pybind11::make_tuple(
+      tuple = nanobind::make_tuple(
          static_cast<bool>(value), isValid);
       break;
     }
     case VS_L:
     case VS_N:
     case VS_O: {
-      tuple = pybind11::make_tuple(
+      tuple = nanobind::make_tuple(
          static_cast<int>(value), isValid);
       break;
     }
@@ -483,7 +485,7 @@ pybind11::tuple fieldGetCellIndex(
       // std::cout << (float(0.4) == float(value)) << std::endl;
       // --> std::cout << (double(float(0.4)) == value) << std::endl;
       // TODO pak een selectie van bytes om de float te maken?
-      tuple = pybind11::make_tuple(
+      tuple = nanobind::make_tuple(
          static_cast<float>(value), isValid);
       break;
     }
@@ -498,7 +500,7 @@ pybind11::tuple fieldGetCellIndex(
 
 
 
-pybind11::tuple fieldGetCellRowCol(
+nanobind::tuple fieldGetCellRowCol(
          calc::Field const* field,
          size_t row,
          size_t col)
@@ -527,7 +529,7 @@ pybind11::tuple fieldGetCellRowCol(
 
 
 
-pybind11::tuple cellvalue_by_index(
+nanobind::tuple cellvalue_by_index(
          calc::Field const* field,
          size_t index)
 {
@@ -545,26 +547,26 @@ pybind11::tuple cellvalue_by_index(
     }
   }
 
-  pybind11::tuple tuple;
+  nanobind::tuple tuple;
   double value = 0;
   bool const isValid = field->getCell(value, index);
 
   switch(field->vs()) {
     case VS_B: {
-      tuple = pybind11::make_tuple(
+      tuple = nanobind::make_tuple(
          static_cast<bool>(value), isValid);
       break;
     }
     case VS_L:
     case VS_N:
     case VS_O: {
-      tuple = pybind11::make_tuple(
+      tuple = nanobind::make_tuple(
          static_cast<int>(value), isValid);
       break;
     }
     case VS_S:
     case VS_D: {
-      tuple = pybind11::make_tuple(
+      tuple = nanobind::make_tuple(
          static_cast<float>(value), isValid);
       break;
     }
@@ -578,7 +580,7 @@ pybind11::tuple cellvalue_by_index(
 }
 
 
-pybind11::tuple cellvalue_by_indices(
+nanobind::tuple cellvalue_by_indices(
          calc::Field const* field,
          size_t row,
          size_t col)
@@ -610,7 +612,7 @@ pybind11::tuple cellvalue_by_indices(
 }
 
 
-pybind11::tuple cellvalue_by_coordinates(
+nanobind::tuple cellvalue_by_coordinates(
          calc::Field const* field,
          double xcoordinate,
          double ycoordinate)
@@ -761,7 +763,7 @@ void check_csftype(std::string const& filename){
     errMsg << "Cannot open '"
            << filename
            << "'. Note: only the PCRaster file format is supported as input argument.\n";
-    throw pybind11::type_error(errMsg.str());
+    throw nanobind::type_error(errMsg.str().c_str());
   }
   assert(raster);
   Mclose(raster);
@@ -859,7 +861,7 @@ void initGlobals()
 }
 
 
-pybind11::object copyField(
+nanobind::object copyField(
           calc::Field const & /* field */)
 {
   throw com::Exception("Shallow copy of PCRaster objects not supported");
@@ -868,7 +870,7 @@ pybind11::object copyField(
 
 calc::Field* deepCopyField(
           calc::Field const & field,
-          const pybind11::dict& /* memo */)
+          const nanobind::dict& /* memo */)
 {
   calc::Field* spatial = nullptr;
 
@@ -921,9 +923,10 @@ calc::Field* maptotal(calc::Field const & field)
 
 
 
-PYBIND11_MODULE(_pcraster, module)
+NB_MODULE(_pcraster, module)
 {
-  namespace pb = pybind11;
+  namespace nb = nanobind;
+  using namespace nanobind::literals;
   namespace pp = pcraster::python;
 
 #ifndef NDEBUG
@@ -941,7 +944,7 @@ PYBIND11_MODULE(_pcraster, module)
   }
 #endif
 
-  pb::register_exception_translator([](std::exception_ptr p) {
+  nb::register_exception_translator([](const std::exception_ptr &p, void * /* unused */) {
     try {
       if (p) {
         std::rethrow_exception(p);
@@ -970,11 +973,11 @@ PYBIND11_MODULE(_pcraster, module)
 
   module.def("_initGlobals", &pp::initGlobals);
 
-  module.def("clone", &pp::cloneSpace, pb::return_value_policy::reference, "Returns the clone RasterSpace object");
+  module.def("clone", &pp::cloneSpace, nb::rv_policy::reference, "Returns the clone RasterSpace object");
 
-  module.def("_rte", &pp::rte, pb::return_value_policy::reference);
+  module.def("_rte", &pp::rte, nb::rv_policy::reference);
 
-  module.def("setclone", &pp::setCloneSpaceFromFilename, R"(
+  module.def("setclone", &pp::setCloneSpaceFromFilename, "map"_a.none(), R"(
    Set the clone properties from an existing raster. Only the PCRaster file format is supported as input argument.
 
    map -- Filename of clone map.
@@ -1002,10 +1005,10 @@ PYBIND11_MODULE(_pcraster, module)
    seed -- An integer value >= 0. If the seed is 0 then the seed is taken
            from the current time.
      )",
-      pb::arg("seed")
+      nb::arg("seed")
   );
 
-  pb::class_<geo::RasterSpace, pb::smart_holder>(module, "RasterSpace")
+  nb::class_<geo::RasterSpace>(module, "RasterSpace")
     .def("nrRows", &geo::RasterSpace::nrRows, "Returns number of rows")
     .def("nrCols", &geo::RasterSpace::nrCols, "Returns number of columns")
     .def("north", &geo::RasterSpace::north, "Returns north coordinate")
@@ -1017,48 +1020,51 @@ PYBIND11_MODULE(_pcraster, module)
   // The shared_ptr argument is here, so functions can return in smart Field
   // pointers to pass/share ownership of the Field instance.
   // pb::class_<calc::Field, std::shared_ptr<calc::Field>>(module, "Field")
-  pb::class_<calc::Field, pb::smart_holder>(module, "Field")
+  nb::class_<calc::Field>(module, "Field")
     .def("isSpatial", &calc::Field::isSpatial)
     .def("_setCell", &calc::Field::setCell)
     .def("dataType", &calc::Field::vs)
     .def("__deepcopy__", pp::deepCopyField)
     .def("__copy__", pp::copyField)
-    //.def("__init__", boost::python::make_constructor(&pp::initField))
-    .def(pybind11::pickle(
-        [](const calc::Field &field) {
-          return pp::getstate(field);
-        }
-        ,
-        [](pybind11::tuple state) {
-          return pp::setstate(state);
-        }
-    ))
+
+    .def("__getstate__", [](const calc::Field &field) { return pp::getstate(field); })
+    .def("__setstate__", [](calc::Field &field, nanobind::tuple const & state) {
+      auto nr_rows = nanobind::cast<size_t>(state[3]);
+      auto nr_cols = nanobind::cast<size_t>(state[4]);
+      size_t nr_cells = nr_rows * nr_cols;
+      VS vs = static_cast<VS>(nanobind::cast<int>(state[1]));
+      calc::CRIndex cri = static_cast<calc::CRIndex>(nanobind::cast<int>(state[2]));
+      
+      new (&field) calc::Spatial(vs, cri, nr_cells);
+      pp::setstate(&field, state);
+      }
+    )
     ;
 
   // implicitly_convertible<discr::RasterData<REAL4>, calc::Spatial>();
-  pb::class_<calc::DataStorageId, pb::smart_holder>(module, "_DataStorageId")
-      .def(pb::init<std::string const&>())
+  nb::class_<calc::DataStorageId>(module, "_DataStorageId")
+      .def(nb::init<std::string const&>())
       ;
 
-  pb::class_<calc::ObjectLink, pb::smart_holder>(module, "_ObjectLink");
+  nb::class_<calc::ObjectLink>(module, "_ObjectLink");
 
-  pb::class_<calc::RunTimeEngine, pb::smart_holder>(module, "RunTimeEngine")
+  nb::class_<calc::RunTimeEngine>(module, "RunTimeEngine")
     // the push method's have a check in PCRasterModelEngine for passing in 0/None
     //  such that type error messages are nice
-    .def(pb::init<geo::RasterSpace const&>())
-    .def("pushField",         &calc::RunTimeEngine::pushField)
+    .def(nb::init<geo::RasterSpace const&>())
+    .def("pushField",         &calc::RunTimeEngine::pushField, "arg"_a.none())
     .def("pushObjectLink",    &calc::RunTimeEngine::pushObjectLink)
-    .def("pushDataStorageId", &calc::RunTimeEngine::pushDataStorageId)
+    .def("pushDataStorageId", &calc::RunTimeEngine::pushDataStorageId, "arg"_a.none())
     .def("releasePopField",       &calc::RunTimeEngine::releasePopField,
-         pb::return_value_policy::automatic)
+         nb::rv_policy::automatic)
     .def("releasePopObjectLink",  &calc::RunTimeEngine::releasePopObjectLink,
-         pb::return_value_policy::automatic)
+         nb::rv_policy::automatic)
     .def("setNrTimeSteps", &calc::RunTimeEngine::setNrTimeSteps)
     .def("setCurrentTimeStep", &calc::RunTimeEngine::setCurrentTimeStep)
-    .def("checkAndExec", &calc::RunTimeEngine::checkAndExec)
+    .def("checkAndExec", &calc::RunTimeEngine::checkAndExec, "arg1"_a.none(), "arg2"_a)
     ;
 
-  pb::native_enum<PCR_VS>(module, "VALUESCALE", "enum.Enum")
+  nb::enum_<PCR_VS>(module, "VALUESCALE")
     .value("Boolean", VS_B)
     .value("Nominal", VS_N)
     .value("Ordinal", VS_O)
@@ -1066,7 +1072,6 @@ PYBIND11_MODULE(_pcraster, module)
     .value("Directional", VS_D)
     .value("Ldd", VS_L)
     .export_values()
-    .finalize()
     ;
 
 // #ifdef DEBUG_DEVELOP
@@ -1091,24 +1096,24 @@ PYBIND11_MODULE(_pcraster, module)
 //     ;
 // #endif
 
-  pb::class_<calc::Operator, pb::smart_holder>(module, "_Operator");
+  nb::class_<calc::Operator>(module, "_Operator");
 
   module.def("_loadCalcLib", &calc::loadCalcLib);
   module.def("_major2op", &calc::major2op,
-    pb::return_value_policy::reference);
+    nb::rv_policy::reference);
   module.def("_opName2op", &calc::opName2op,
-    pb::return_value_policy::reference);
+    nb::rv_policy::reference);
 
 
   module.def("readFieldCell", pp::readFieldCell);
   module.def("_newScalarField", pp::newScalarField,
-         pb::return_value_policy::automatic);
-  module.def("_newNonSpatialField", pp::newNonSpatialFloatField,
-         pb::return_value_policy::automatic);
+         nb::rv_policy::automatic);
+  module.def("_newNonSpatialField", pp::newNonSpatialFloatField, nb::arg("arg").noconvert(),
+         nb::rv_policy::automatic);
   module.def("_newNonSpatialField", pp::newNonSpatialIntegralField,
-         pb::return_value_policy::automatic);
+         nb::rv_policy::automatic);
   module.def("_closeAtTolerance", pp::closeAtTolerance,
-         pb::return_value_policy::automatic);
+         nb::rv_policy::automatic);
 
 
   // User functions. -----------------------------------------------------------
@@ -1127,7 +1132,7 @@ PYBIND11_MODULE(_pcraster, module)
     )"
   );
 
-  module.def("report", pp::writeField, R"(
+  module.def("report", pp::writeField, "map"_a.none(), "filename"_a, R"(
    Write a map to a file.
 
    map -- Map you want to write.
@@ -1135,8 +1140,8 @@ PYBIND11_MODULE(_pcraster, module)
     )"
   );
 
-  module.def("readmap", pp::readField,
-         pb::return_value_policy::automatic, R"(
+  module.def("readmap", pp::readField, "filename"_a.none(),
+         nb::rv_policy::automatic, R"(
   Read a map.
 
   filename -- Filename of a PCRaster map to read.
@@ -1157,7 +1162,7 @@ PYBIND11_MODULE(_pcraster, module)
 
   module.def("_pcr2numpy", pp::field_to_array);
   module.def("_numpy2pcr", pp::array_to_field,
-    pb::return_value_policy::automatic);
+    nb::rv_policy::automatic);
   module.def("_pcr_as_numpy", pp::field_as_array);
 
   module.def("cellvalue", pp::fieldGetCellIndex, R"(
@@ -1174,7 +1179,7 @@ PYBIND11_MODULE(_pcraster, module)
 
    See also: cellvalue(map, row, col)
     )",
-    pb::arg("map"), pb::arg("index")
+    nb::arg("map"), nb::arg("index")
   );
 
   module.def("cellvalue", pp::fieldGetCellRowCol, R"(
@@ -1193,7 +1198,7 @@ PYBIND11_MODULE(_pcraster, module)
 
    See also: cellvalue(map, index)
     )",
-    pb::arg("map"), pb::arg("row"), pb::arg("col")
+    nb::arg("map"), nb::arg("row"), nb::arg("col")
   );
 
   module.def("cellvalue_by_index", pp::cellvalue_by_index, R"(
@@ -1210,7 +1215,7 @@ PYBIND11_MODULE(_pcraster, module)
 
    .. versionadded:: 4.3
     )",
-    pb::arg("map"), pb::arg("index")
+    nb::arg("map"), nb::arg("index")
   );
 
 
@@ -1229,7 +1234,7 @@ PYBIND11_MODULE(_pcraster, module)
 
    .. versionadded:: 4.3
     )",
-    pb::arg("map"), pb::arg("row"), pb::arg("col")
+    nb::arg("map"), nb::arg("row"), nb::arg("col")
   );
 
 
@@ -1250,11 +1255,11 @@ PYBIND11_MODULE(_pcraster, module)
 
    .. versionadded:: 4.3
     )",
-    pb::arg("map"), pb::arg("xcoordinate"), pb::arg("ycoordinate")
+    nb::arg("map"), nb::arg("xcoordinate"), nb::arg("ycoordinate")
   );
 
   module.def("version_tuple", [] () {
-    return pybind11::make_tuple(PCRASTER_VERSION_MAJOR, PCRASTER_VERSION_MINOR, PCRASTER_VERSION_PATCH);
+    return nb::make_tuple(PCRASTER_VERSION_MAJOR, PCRASTER_VERSION_MINOR, PCRASTER_VERSION_PATCH);
     },
     R"(
    Returns the PCRaster version as tuple (major, minor, patch)

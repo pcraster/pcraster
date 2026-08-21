@@ -8,16 +8,16 @@
 #include "com_exception.h"
 #include "fern/core/exception.h"
 
-#include <pybind11/pybind11.h>
+#include <nanobind/nanobind.h>
 
 
 
-PYBIND11_MODULE(_pcraster_multicore, module){
+NB_MODULE(_pcraster_multicore, module){
 
-  namespace pb = pybind11;
+  namespace nb = nanobind;
   namespace pmcpy = pcraster_multicore::python;
 
-  pb::register_exception_translator([](std::exception_ptr p) {
+  nb::register_exception_translator([](const std::exception_ptr &p, void * /* unused */) {
     try {
       if (p) {
         std::rethrow_exception(p);
@@ -35,8 +35,8 @@ PYBIND11_MODULE(_pcraster_multicore, module){
   });
 
   // show user defined docstrings and Python signatures, disable the C++ signatures
-  pb::options options;
-  options.disable_function_signatures();
+  // nb::options options;
+  // options.disable_function_signatures();
 
 
   try {
@@ -44,10 +44,10 @@ PYBIND11_MODULE(_pcraster_multicore, module){
       pmcpy::construct_execution_policy();
 
       // Upon module finalization, the execution policy must be destructed, not later
-      pb::module::import("atexit").attr("register")(
-          pb::cpp_function(&pmcpy::destruct_execution_policy));
+      nb::module_::import_("atexit").attr("register")(
+          nb::cpp_function(&pmcpy::destruct_execution_policy));
   }
-  catch(pb::error_already_set&) {
+  catch(nb::python_error&) {
       pmcpy::destruct_execution_policy();
       throw;
   }
@@ -55,7 +55,7 @@ PYBIND11_MODULE(_pcraster_multicore, module){
 
   module.def("set_nr_worker_threads", &pmcpy::set_nr_worker_threads,
     "Set the number of worker threads to be used in the PCRaster multicore algorithms",
-    pb::arg("nr_threads"));
+    nb::arg("nr_threads"));
 
   module.def("nr_worker_threads", &pmcpy::nr_worker_threads,
     "Returns the number of worker threads currently used in the PCRaster multicore algorithms");
@@ -69,242 +69,242 @@ PYBIND11_MODULE(_pcraster_multicore, module){
   // Local operations
   module.def("_and", &pmcpy::_and,
     "Cell-wise boolean and operation. Equivalent to 'expression1 & expression2'.",
-    pb::arg("expression1"), pb::arg("expression2")
+    nb::arg("expression1"), nb::arg("expression2")
     );
 
   module.def("_or", &pmcpy::_or,
     "Cell-wise boolean or operation. Equivalent to 'expression1 | expression2'.",
-    pb::arg("expression1"), pb::arg("expression2")
+    nb::arg("expression1"), nb::arg("expression2")
     );
 
   module.def("_xor", &pmcpy::_xor,
     "Cell-wise boolean xor operation. Equivalent to 'expression1 ^ expression2'.",
-    pb::arg("expression1"), pb::arg("expression2")
+    nb::arg("expression1"), nb::arg("expression2")
     );
 
   module.def("_not", &pmcpy::_not,
     "Cell-wise boolean not operation. Equivalent to '~expression'.",
-    pb::arg("expression")
+    nb::arg("expression")
     );
 
 
   module.def("defined", &pmcpy::defined,
     "Cell-wise, returns whether the cell value on expression is a missing value or not.",
-    pb::arg("expression")
+    nb::arg("expression")
     );
 
   module.def("cover", &pmcpy::cover,
     "Cell-wise, substitutes missing values with values taken from one or more expressions",
-    pb::arg("expression*")
+    nb::arg("expression*")
     );
 
   module.def("ifthen", &pmcpy::ifthen,
     "Cell-wise, for True values on condition expression1 is assigned, missing value otherwise.",
-    pb::arg("condition"), pb::arg("expression1")
+    nb::arg("condition"), nb::arg("expression1")
     );
 
   module.def("ifthenelse", &pmcpy::ifthenelse,
     "Cell-wise, for True values on condition expression1 is assigned, expression2 otherwise.",
-    pb::arg("condition"), pb::arg("expression1"), pb::arg("expression2")
+    nb::arg("condition"), nb::arg("expression1"), nb::arg("expression2")
     );
 
 
   module.def("maximum", &pmcpy::maximum,
     "Cell-wise maximum value of multiple expressions.",
-    pb::arg("expression*")
+    nb::arg("expression*")
     );
 
   module.def("minimum", &pmcpy::minimum,
     "Cell-wise minimum value of multiple expressions.",
-    pb::arg("expression*")
+    nb::arg("expression*")
     );
 
 
   module.def("boolean", &pmcpy::boolean,
     "Cell-wise conversion of expression to boolean data type.",
-    pb::arg("expression")
+    nb::arg("expression")
    );
 
   module.def("nominal", &pmcpy::nominal,
     "Cell-wise conversion of expression to nominal data type.",
-    pb::arg("expression")
+    nb::arg("expression")
     );
 
   module.def("ordinal", &pmcpy::ordinal,
     "Cell-wise conversion of expression to ordinal data type.",
-    pb::arg("expression")
+    nb::arg("expression")
     );
 
   module.def("scalar", &pmcpy::scalar,
     "Cell-wise conversion of expression to scalar data type.",
-    pb::arg("expression")
+    nb::arg("expression")
     );
 
 
   module.def("equal", &pmcpy::equal,
     "Cell-wise relational equal-to operation. Equivalent to 'expression1 == expression2'.",
-    pb::arg("expression1"), pb::arg("expression2")
+    nb::arg("expression1"), nb::arg("expression2")
     );
 
   module.def("unequal", &pmcpy::unequal,
     "Cell-wise relational not-equal-to  operation. Equivalent to 'expression1 != expression2'.",
-    pb::arg("expression1"), pb::arg("expression2")
+    nb::arg("expression1"), nb::arg("expression2")
     );
 
   module.def("less", &pmcpy::less,
     "Cell-wise relational less-than operation. Equivalent to 'expression1 < expression2'.",
-    pb::arg("expression1"), pb::arg("expression2")
+    nb::arg("expression1"), nb::arg("expression2")
     );
 
   module.def("less_equal", &pmcpy::less_equal,
     "Cell-wise relational less-than-or-equal-to operation. Equivalent to 'expression1 <= expression2'.",
-    pb::arg("expression1"), pb::arg("expression2")
+    nb::arg("expression1"), nb::arg("expression2")
     );
 
   module.def("greater", &pmcpy::greater,
     "Cell-wise relational greater-than operation. Equivalent to 'expression1 < expression2'.",
-    pb::arg("expression1"), pb::arg("expression2")
+    nb::arg("expression1"), nb::arg("expression2")
     );
 
   module.def("greater_equal", &pmcpy::greater_equal,
     "Cell-wise relational greater-than-or-equal-to operation. Equivalent to 'expression1 >= expression2'.",
-    pb::arg("expression1"), pb::arg("expression2")
+    nb::arg("expression1"), nb::arg("expression2")
     );
 
 
   module.def("add", &pmcpy::add,
     "Add arguments cell-wise. Equivalent to 'expression1 + expression2'.",
-    pb::arg("expression1"), pb::arg("expression2")
+    nb::arg("expression1"), nb::arg("expression2")
     );
 
   module.def("sub", &pmcpy::sub,
     "Subtract arguments cell-wise. Equivalent to 'expression1 - expression2'.",
-    pb::arg("expression1"), pb::arg("expression2")
+    nb::arg("expression1"), nb::arg("expression2")
     );
 
   module.def("mul", &pmcpy::mul,
     "Multiply arguments cell-wise. Equivalent to 'expression1 * expression2'.",
-    pb::arg("expression1"), pb::arg("expression2")
+    nb::arg("expression1"), nb::arg("expression2")
     );
 
   module.def("div", &pmcpy::div,
     "Divide arguments cell-wise. Equivalent to 'expression1 / expression2'.",
-    pb::arg("expression1"), pb::arg("expression2")
+    nb::arg("expression1"), nb::arg("expression2")
     );
 
 
   module.def("sqrt", &pmcpy::sqrt,
     "Cell-wise square root of an expression.",
-    pb::arg("expression")
+    nb::arg("expression")
     );
 
   module.def("abs", &pmcpy::abs,
     "Cell-wise absolute value of an expression.",
-    pb::arg("expression")
+    nb::arg("expression")
     );
 
   module.def("power", &pmcpy::power,
     "Cell-wise base raised to the power exponent. Equivalent to 'base ** exponent'.",
-    pb::arg("base"), pb::arg("exponent")
+    nb::arg("base"), nb::arg("exponent")
     );
 
   module.def("sqr", &pmcpy::sqr,
     "Cell-wise square of an expression.",
-    pb::arg("expression")
+    nb::arg("expression")
     );
 
   module.def("fac", &pmcpy::fac,
     "Cell-wise factorial of a natural positive number of an expression.",
-    pb::arg("expression")
+    nb::arg("expression")
     );
 
   module.def("ln", &pmcpy::ln,
     "Cell-wise natural logarithm of an expression.",
-    pb::arg("expression")
+    nb::arg("expression")
    );
 
   module.def("log10", &pmcpy::log10,
     "Cell-wise base 10 logarithm of an expression.",
-    pb::arg("expression")
+    nb::arg("expression")
    );
 
   module.def("rounddown", &pmcpy::rounddown,
     "Cell-wise the value of an expression is rounded downwards.",
-    pb::arg("expression")
+    nb::arg("expression")
    );
 
   module.def("roundup", &pmcpy::roundup,
     "Cell-wise the value of an expression is rounded upwards.",
-    pb::arg("expression")
+    nb::arg("expression")
    );
 
   module.def("roundoff", &pmcpy::roundoff,
     "Cell-wise the value of an expression is rounded off.",
-    pb::arg("expression")
+    nb::arg("expression")
    );
 
 
   module.def("cos", &pmcpy::cos,
     "Cell-wise cosine.",
-    pb::arg("expression")
+    nb::arg("expression")
     );
 
   module.def("sin", &pmcpy::sin,
     "Cell-wise sine.",
-    pb::arg("expression")
+    nb::arg("expression")
     );
 
   module.def("tan", &pmcpy::tan,
     "Cell-wise tangent.",
-    pb::arg("expression")
+    nb::arg("expression")
     );
 
   module.def("acos", &pmcpy::acos,
     "Cell-wise inverse cosine.",
-    pb::arg("expression")
+    nb::arg("expression")
     );
 
   module.def("asin", &pmcpy::asin,
     "Cell-wise inverse sine.",
-    pb::arg("expression")
+    nb::arg("expression")
     );
 
   module.def("atan", &pmcpy::atan,
     "Cell-wise inverse tangent.",
-    pb::arg("expression")
+    nb::arg("expression")
     );
 
 
   // Focal operations
   module.def("slope", &pmcpy::slope,
     "Cell-wise slope on basis of the elevation 'dem'.",
-    pb::arg("dem")
+    nb::arg("dem")
     );
 
   module.def("window4total", &pmcpy::window4total,
     "Cell-wise, sums the values of the four cells which lie above, below, left and right of the cell.",
-    pb::arg("expression")
+    nb::arg("expression")
     );
 
   module.def("windowtotal", &pmcpy::windowtotal,
     "Cell-wise, sums the values of a square window defined by windowlength.",
-    pb::arg("expression"), pb::arg("windowlength")
+    nb::arg("expression"), nb::arg("windowlength")
     );
 
   module.def("windowaverage", &pmcpy::windowaverage,
     "Cell-wise, averages the values of a square window defined by windowlength.",
-    pb::arg("expression"), pb::arg("windowlength")
+    nb::arg("expression"), nb::arg("windowlength")
     );
 
 
   // Operations on full map extent
   module.def("mapmaximum", &pmcpy::mapmaximum,
     "Maximum cell value of the expression.",
-    pb::arg("expression")
+    nb::arg("expression")
     );
 
   module.def("mapminimum", &pmcpy::mapminimum,
     "Minimum cell value of the expression.",
-    pb::arg("expression")
+    nb::arg("expression")
     );
 }

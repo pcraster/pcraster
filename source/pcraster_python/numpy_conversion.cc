@@ -34,6 +34,8 @@
 // - version checks are handled by numpy.
 
 
+namespace nb = nanobind;
+
 
 namespace pcraster::python {
 namespace detail {
@@ -62,6 +64,7 @@ bool isnan(T val) {
 
 } // namespace detail
 
+
 //!
 /*!
   \param     .
@@ -70,7 +73,7 @@ bool isnan(T val) {
   \warning   .
   \sa        .
 */
-pybind11::array field_to_array(
+nb::ndarray<nb::numpy> field_to_array(
     geo::RasterSpace const& space,
     calc::Field const* field,
     double const missing_value)
@@ -79,44 +82,75 @@ pybind11::array field_to_array(
 
     size_t const nr_values = space.nrCells();
 
-    pybind11::array nparray;
-
     switch(field->cr()) {
         case CR_UINT1: {
 
-          nparray = pybind11::array(pybind11::dtype("uint8"), nr_values, {});
-          char* data = static_cast<char*>(nparray.mutable_data());
+          char *data = new char[space.nrRows() * space.nrCols() * sizeof(uint8_t)];
 
           detail::fill_data<UINT1>(data, field, field->isSpatial(), nr_values);
 
           dal::fromStdMV<UINT1>(reinterpret_cast<UINT1*>(data), nr_values,
                 static_cast<UINT1>(missing_value));
-
-          break;
+          
+          // Delete 'data' when the 'owner' capsule expires
+          nb::capsule owner(data, [](void *p) noexcept {
+             delete[] (char *) p;
+          });
+          
+          return nb::ndarray<nb::numpy>(
+            data,
+            {space.nrRows(), space.nrCols()},
+            owner,
+            {},
+            nb::dtype<uint8_t>(),
+            nb::device::cpu::value
+          );
         }
         case CR_INT4: {
 
-          nparray = pybind11::array(pybind11::dtype("int32"), nr_values, {});
-          char* data = static_cast<char*>(nparray.mutable_data());
+          char *data = new char[space.nrRows() * space.nrCols() * sizeof(int32_t)];
 
           detail::fill_data<INT4>(data, field, field->isSpatial(), nr_values);
 
           dal::fromStdMV<INT4>(reinterpret_cast<INT4*>(data), nr_values,
                 static_cast<INT4>(missing_value));
-
-          break;
+          
+          // Delete 'data' when the 'owner' capsule expires
+          nb::capsule owner(data, [](void *p) noexcept {
+             delete[] (char *) p;
+          });
+          
+          return nb::ndarray<nb::numpy>(
+            data,
+            {space.nrRows(), space.nrCols()},
+            owner,
+            {},
+            nb::dtype<int32_t>(),
+            nb::device::cpu::value
+          );
         }
         case CR_REAL4: {
 
-          nparray = pybind11::array(pybind11::dtype("float32"), nr_values, {});
-          char* data = static_cast<char*>(nparray.mutable_data());
+          char *data = new char[space.nrRows() * space.nrCols() * sizeof(float)];
 
           detail::fill_data<REAL4>(data, field, field->isSpatial(), nr_values);
 
           dal::fromStdMV<REAL4>(reinterpret_cast<REAL4*>(data), nr_values,
                 static_cast<REAL4>(missing_value));
-
-          break;
+          
+          // Delete 'data' when the 'owner' capsule expires
+          nb::capsule owner(data, [](void *p) noexcept {
+             delete[] (char *) p;
+          });
+          
+          return nb::ndarray<nb::numpy>(
+            data,
+            {space.nrRows(), space.nrCols()},
+            owner,
+            {},
+            nb::dtype<float>(),
+            nb::device::cpu::value
+          );
         }
         default: {
             std::ostringstream errMsg;
@@ -126,9 +160,6 @@ pybind11::array field_to_array(
             throw std::invalid_argument(errMsg.str());
         }
     }
-
-    nparray.resize({space.nrRows(), space.nrCols()});
-    return nparray;
 }
 
 
@@ -809,7 +840,7 @@ template<
     VS value_scale>
 calc::Spatial* array_to_field(
     geo::RasterSpace const& space,
-    pybind11::array const& array,
+    nb::ndarray<nb::numpy> const& array,
     Source const missing_value)
 {
     auto* field = new calc::Spatial(value_scale,
@@ -818,10 +849,7 @@ calc::Spatial* array_to_field(
 
     using Destination = typename ValueScaleTraits<value_scale>::Type;
 
-    pybind11::buffer_info const info = array.request();
-
-    auto const* source = static_cast<Source const*>(
-          info.ptr);
+    auto const* source = static_cast<Source const*>(array.data());
     auto* destination = static_cast<Destination*>(field->dest());
 
     try {
@@ -867,7 +895,7 @@ calc::Spatial* array_to_field(
 calc::Field* array_to_field(
     geo::RasterSpace const& space,
     VS const value_scale,
-    pybind11::array const& array,
+    nb::ndarray<nb::numpy> const& array,
     double missing_value)
 {
     if(!space.valid()) {
@@ -875,81 +903,67 @@ calc::Field* array_to_field(
             "No valid raster defined: Set clone or load map from file");
     }
 
-    pybind11::buffer_info info = array.request();
-
-    if(info.ndim != 2){
+    if(array.ndim() != 2){
       throw std::invalid_argument("Input must be two-dimensional NumPy array");
     }
 
-    if(static_cast<size_t>(info.shape[0]) != space.nrRows()){
+    if(static_cast<size_t>(array.shape(0)) != space.nrRows()){
       size_t nr_rows = space.nrRows();
+      size_t sh = static_cast<size_t>(array.shape(0));
       throw std::logic_error(std::vformat(
             "Number of rows from input array ({0}) and current raster ({1}) are different",
-            std::make_format_args(info.shape[0], nr_rows)));
+            std::make_format_args(sh, nr_rows)));
     }
 
-    if(static_cast<size_t>(info.shape[1]) != space.nrCols()){
+    if(static_cast<size_t>(array.shape(1)) != space.nrCols()){
       size_t nr_cols = space.nrCols();
+      size_t sh = static_cast<size_t>(array.shape(1));
       throw std::logic_error(std::vformat(
             "Number of columns from input array ({0}) and current raster ({1}) are different",
-             std::make_format_args(info.shape[1], nr_cols)));
+             std::make_format_args(sh, nr_cols)));
     }
 
-    int const type{array.dtype().num()};
     calc::Spatial* field = nullptr;
 
     // http://docs.scipy.org/doc/numpy/reference/c-api.dtype.html
-    switch(type) {
-        case pybind11::detail::npy_api::NPY_BOOL_:
-        case pybind11::detail::npy_api::NPY_INT8_: {
-            ARRAY_TO_FIELD(std::int8_t, value_scale)
-            break;
-        }
-        case pybind11::detail::npy_api::NPY_UINT8_: {
-            ARRAY_TO_FIELD(std::uint8_t, value_scale)
-            break;
-        }
-        case pybind11::detail::npy_api::NPY_INT16_: {
-            ARRAY_TO_FIELD(std::int16_t, value_scale)
-            break;
-        }
-        case pybind11::detail::npy_api::NPY_UINT16_: {
-            ARRAY_TO_FIELD(std::uint16_t, value_scale)
-            break;
-        }
-        case pybind11::detail::npy_api::NPY_INT32_: {
-            if(std::isnan(missing_value)){
-                missing_value = MV_INT4;
-            }
-            ARRAY_TO_FIELD(std::int32_t, value_scale)
-            break;
-        }
-        case pybind11::detail::npy_api::NPY_UINT32_: {
-            ARRAY_TO_FIELD(std::uint32_t, value_scale)
-            break;
-        }
-        case pybind11::detail::npy_api::NPY_INT64_: {
-            if(std::isnan(missing_value)){
-                missing_value = MV_INT4;
-            }
-            ARRAY_TO_FIELD(std::int64_t, value_scale)
-            break;
-        }
-        case pybind11::detail::npy_api::NPY_UINT64_: {
-            ARRAY_TO_FIELD(std::uint64_t, value_scale)
-            break;
-        }
-        case pybind11::detail::npy_api::NPY_FLOAT_: {
-            ARRAY_TO_FIELD(float, value_scale)
-            break;
-        }
-        case pybind11::detail::npy_api::NPY_DOUBLE_: {
-            ARRAY_TO_FIELD(double, value_scale)
-            break;
-        }
-        default: {
-            throw std::logic_error("Unsupported array type");
-        }
+    if (array.dtype() == nb::dtype<std::int8_t>() || array.dtype() == nb::dtype<bool>()) {
+      ARRAY_TO_FIELD(std::int8_t, value_scale)
+    }
+    else if (array.dtype() == nb::dtype<std::uint8_t>()) {
+      ARRAY_TO_FIELD(std::uint8_t, value_scale)
+    }
+    else if (array.dtype() == nb::dtype<std::int16_t>()) {
+      ARRAY_TO_FIELD(std::int16_t, value_scale)
+    }
+    else if (array.dtype() == nb::dtype<std::uint16_t>()) {
+      ARRAY_TO_FIELD(std::uint16_t, value_scale)
+    }
+    else if (array.dtype() == nb::dtype<std::int32_t>()) {
+      if(std::isnan(missing_value)){
+        missing_value = MV_INT4;
+      }
+      ARRAY_TO_FIELD(std::int32_t, value_scale)
+    }
+    else if (array.dtype() == nb::dtype<std::uint32_t>()) {
+      ARRAY_TO_FIELD(std::uint32_t, value_scale)
+    }
+    else if (array.dtype() == nb::dtype<std::int64_t>()) {
+      if(std::isnan(missing_value)){
+         missing_value = MV_INT4;
+      }
+      ARRAY_TO_FIELD(std::int64_t, value_scale)
+    }
+    else if (array.dtype() == nb::dtype<std::uint64_t>()) {
+      ARRAY_TO_FIELD(std::uint64_t, value_scale)
+    }
+    else if (array.dtype() == nb::dtype<float>()) {
+      ARRAY_TO_FIELD(float, value_scale)
+    }
+    else if (array.dtype() == nb::dtype<double>()) {
+      ARRAY_TO_FIELD(double, value_scale)
+    }    
+    else {
+      throw std::logic_error("Unsupported array type");
     }
 
     return field;
@@ -967,19 +981,17 @@ calc::Field* array_to_field(
   \warning   .
   \sa        .
 */
-pybind11::array field_as_array(
+nb::ndarray<nb::numpy> field_as_array(
     geo::RasterSpace const& space,
-    pybind11::object* field_object)
+    nb::object* field_object)
 {
 
-    calc::Field *field = nullptr;
-
-    try {
-      field = field_object->cast<calc::Field *>();
-    }
-    catch (const pybind11::cast_error&) {
+    if(!nb::inst_check(field_object->ptr())) {
       throw std::logic_error("Expecting a PCRaster field");
     }
+    
+    calc::Field *field = nb::inst_ptr<calc::Field>(field_object->ptr());;
+    
     assert(field);
 
     if(field->isSpatial() == false) {
@@ -988,34 +1000,46 @@ pybind11::array field_as_array(
 
     PRECOND(field->src());
 
-    pybind11::array nparray;
-
     // pass field_object as handle to keep the ownership of the data (instead of making a copy by py::array)
     switch(field->cr()) {
       case CR_UINT1: {
-        nparray = pybind11::array(pybind11::dtype("uint8"),
-                                   {space.nrRows(), space.nrCols()},
-                                   {sizeof(UINT1) * space.nrCols(), sizeof(UINT1)},
-                                   field->src(),
-                                   *field_object);
-        break;
+
+         return nb::ndarray<nb::numpy>(
+           field->dest(),
+           { space.nrRows(), space.nrCols()},
+           field_object->ptr(),
+           {},
+           nb::dtype<UINT1>(),
+           nb::device::cpu::value
+         );
+
+         break;
       }
       case CR_INT4: {
-        nparray = pybind11::array(pybind11::dtype("int32"),
-                                   {space.nrRows(), space.nrCols()},
-                                   {sizeof(INT4) * space.nrCols(), sizeof(INT4)},
-                                   field->src(),
-                                   *field_object);
-        break;
+
+         return nb::ndarray<nb::numpy>(
+           field->dest(),
+           { space.nrRows(), space.nrCols()},
+           field_object->ptr(),
+           {},
+           nb::dtype<INT4>(),
+           nb::device::cpu::value
+         );
+
+         break;
        }
        case CR_REAL4: {
 
-        nparray = pybind11::array(pybind11::dtype("float32"),
-                                   {space.nrRows(), space.nrCols()},
-                                   {sizeof(REAL4) * space.nrCols(), sizeof(REAL4)},
-                                   field->src(),
-                                   *field_object);
-        break;
+         return nb::ndarray<nb::numpy>(
+           field->dest(),
+           { space.nrRows(), space.nrCols()},
+           field_object->ptr(),
+           {},
+           nb::dtype<REAL4>(),
+           nb::device::cpu::value
+         );
+
+         break;
       }
       default: {
         std::ostringstream errMsg;
@@ -1025,8 +1049,6 @@ pybind11::array field_as_array(
         throw std::invalid_argument(errMsg.str());
        }
     }
-
-    return nparray;
 }
 
 } // namespace pcraster::python

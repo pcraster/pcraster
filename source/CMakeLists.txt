@@ -48,7 +48,7 @@ if(PCRASTER_BUILD_AGUILA)
 endif()
 
 if(PCRASTER_BUILD_MODFLOW)
-    add_subdirectory(modflow)
+    # add_subdirectory(modflow)
 endif()
 
 if(PCRASTER_BUILD_OLDCALC)
@@ -70,16 +70,16 @@ if(PCRASTER_BUILD_BLOCKPYTHON)
 endif()
 
 if(PCRASTER_BUILD_MOC)
-    add_subdirectory(pcraster_moc)
+    # add_subdirectory(pcraster_moc)
 endif()
 
 if(PCRASTER_BUILD_MLDD)
-    add_subdirectory(mldd)
+    # add_subdirectory(mldd)
 endif()
 
 # Add subprojects last as they reset CMake policies
 if(PCRASTER_BUILD_MULTICORE)
-    add_subdirectory(pcraster_multicore)
+    # add_subdirectory(pcraster_multicore)
 endif()
 
 

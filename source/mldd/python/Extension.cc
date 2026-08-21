@@ -1,4 +1,5 @@
-#include <pybind11/pybind11.h>
+#include <nanobind/nanobind.h>
+#include <nanobind/stl/shared_ptr.h>
 
 #include "calc_field.h"
 
@@ -6,12 +7,12 @@
 
 
 
-PYBIND11_MODULE(_pcraster_mldd, module){
-  namespace pb = pybind11;
+NB_MODULE(_pcraster_mldd, module){
+  namespace nb = nanobind;
   namespace mp = mldd::python;
 
-  pb::class_<mp::Mldd, pb::smart_holder>(module, "initialise")
-    .def(pb::init<geo::RasterSpace const&>())
+  nb::class_<mp::Mldd>(module, "initialise")
+    .def(nb::init<geo::RasterSpace const&>())
     .def("setDem", &mp::Mldd::setDem)
     .def("getDem", &mp::Mldd::getDem)
     .def("addStream", &mp::Mldd::addStream)

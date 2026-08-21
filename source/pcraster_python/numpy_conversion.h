@@ -3,8 +3,8 @@
 
 #include "calc_vs.h"
 
-#include <pybind11/pybind11.h>
-#include <pybind11/numpy.h>
+#include <nanobind/nanobind.h>
+#include <nanobind/ndarray.h>
 
 
 namespace calc {
@@ -20,17 +20,17 @@ namespace pcraster::python {
 
 
 
-pybind11::array    field_to_array     (geo::RasterSpace const& space,
+nanobind::ndarray<nanobind::numpy>    field_to_array     (geo::RasterSpace const& space,
                                        calc::Field const* field,
                                        double const missing_value);
 
 calc::Field*       array_to_field     (geo::RasterSpace const& space,
                                        VS const value_scale,
-                                       pybind11::array const& array,
+                                       nanobind::ndarray<nanobind::numpy> const& array,
                                        double missing_value);
 
-pybind11::array    field_as_array     (geo::RasterSpace const& space,
-                                       pybind11::object* field_object);
+nanobind::ndarray<nanobind::numpy>    field_as_array     (geo::RasterSpace const& space,
+                                       nanobind::object* field_object);
 
 } // namespace pcraster::python
 

@@ -108,16 +108,10 @@ set_target_properties(_pcraster
             $<TARGET_FILE_DIR:pcrcalc>/pcraster
         LIBRARY_OUTPUT_DIRECTORY
             $<TARGET_FILE_DIR:pcrcalc>/pcraster
-        OUTPUT_NAME
-            "_pcraster"
         INSTALL_RPATH
             "$ORIGIN/../../lib"
         DEBUG_POSTFIX
             ""
-        PREFIX
-            "${PYTHON_MODULE_PREFIX}"
-        SUFFIX
-            "${PYTHON_MODULE_EXTENSION}"
 )
 
 # Determine bitness at compile time...

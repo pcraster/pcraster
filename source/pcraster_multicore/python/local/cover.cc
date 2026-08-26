@@ -23,7 +23,6 @@
 #include "fern/algorithm/policy/policies.h"
 #include "fern/algorithm/core/cover.h"
 
-#include <pybind11/pybind11.h>
 
 namespace fa = fern::algorithm;
 
@@ -136,22 +135,22 @@ calc::Field* spatial_int4(calc::Field* argument, PCR_VS valuescale){
 
 
 
-calc::Field* cover(pybind11::list const& arguments){
+calc::Field* cover(std::vector<calc::Field*> const& arguments){
 
-  size_t const nr_args = pybind11::len(arguments);
+  size_t const nr_args = arguments.size();
 
   if(nr_args == 0){
     throw std::runtime_error("at least 1 argument required, 0 given\n");
   }
 
   if(nr_args == 1){
-    return arguments[0].cast<calc::Field*>()->createClone();
+    return arguments[0]->createClone();
   }
 
   std::vector<calc::Field *> field_arguments;
 
   for(size_t idx = 0; idx < nr_args; ++idx){
-    field_arguments.push_back(arguments[idx].cast<calc::Field*>());
+    field_arguments.push_back(arguments[idx]);
     // arguments must have same extent as clone
     assert_equal_location_attributes(*field_arguments.at(idx));
   }

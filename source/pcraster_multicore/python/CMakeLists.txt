@@ -93,16 +93,10 @@ set_target_properties(_pcraster_multicore
             $<TARGET_FILE_DIR:pcrcalc>/pcraster/multicore
         LIBRARY_OUTPUT_DIRECTORY
             $<TARGET_FILE_DIR:pcrcalc>/pcraster/multicore
-        OUTPUT_NAME
-            "_pcraster_multicore"
         INSTALL_RPATH
             "$ORIGIN/../../../lib"
         DEBUG_POSTFIX
             ""
-        PREFIX
-            "${PYTHON_MODULE_PREFIX}"
-        SUFFIX
-            "${PYTHON_MODULE_EXTENSION}"
 )
 
 add_dependencies(_pcraster_multicore

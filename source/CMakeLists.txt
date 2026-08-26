@@ -79,7 +79,7 @@ endif()
 
 # Add subprojects last as they reset CMake policies
 if(PCRASTER_BUILD_MULTICORE)
-    # add_subdirectory(pcraster_multicore)
+    add_subdirectory(pcraster_multicore)
 endif()
 
 

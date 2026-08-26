@@ -1,9 +1,8 @@
 #pragma once
 
+#include <vector>
 
-namespace pybind11 {
-  class list;
-}
+
 
 namespace calc {
   class Field;
@@ -15,7 +14,7 @@ namespace calc {
 namespace pcraster_multicore::python {
 
 
-calc::Field* minimum(pybind11::list const& arguments);
+calc::Field* minimum(std::vector<calc::Field*> const& arguments);
 
 
 } // namespace pcraster_multicore::python

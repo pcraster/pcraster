@@ -70,11 +70,11 @@ if(PCRASTER_BUILD_BLOCKPYTHON)
 endif()
 
 if(PCRASTER_BUILD_MOC)
-    # add_subdirectory(pcraster_moc)
+    add_subdirectory(pcraster_moc)
 endif()
 
 if(PCRASTER_BUILD_MLDD)
-    # add_subdirectory(mldd)
+    add_subdirectory(mldd)
 endif()
 
 # Add subprojects last as they reset CMake policies

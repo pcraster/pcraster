@@ -3,8 +3,8 @@
 
 #include "pt_ParticleTracker.h"
 
-#include <nanobind/nanobind.h>
 #include <memory>
+#include <tuple>
 
 
 namespace calc {
@@ -57,7 +57,8 @@ public:
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  nanobind::tuple  transport           (
+  std::tuple<std::shared_ptr<calc::Field>, std::shared_ptr<calc::Field>>
+                   transport           (
                         calc::Field const* flux,
                         calc::Field const* xVelocity,
                         calc::Field const* yVelocity,

@@ -113,7 +113,7 @@ Moc::~Moc()
 
 
 
-nanobind::tuple Moc::transport(
+std::tuple<std::shared_ptr<calc::Field>, std::shared_ptr<calc::Field>> Moc::transport(
          calc::Field const* fluxField,
          calc::Field const* xVelocityField,
          calc::Field const* yVelocityField,
@@ -216,7 +216,7 @@ nanobind::tuple Moc::transport(
          new calc::Spatial(VS_S, calc::CRI_f, nrCells));
   copy<UINT4, REAL4>(nrParticlesPerCell, nrParticlesPerCellField.get());
 
-  return nanobind::make_tuple(concentrationField, nrParticlesPerCellField);
+  return std::make_tuple(concentrationField, nrParticlesPerCellField);
 }
 
 

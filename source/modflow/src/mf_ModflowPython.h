@@ -1,19 +1,15 @@
 #ifndef INCLUDED_MODFLOW_MODFLOW_PYTHON
 #define INCLUDED_MODFLOW_MODFLOW_PYTHON
 
-#include <nanobind/nanobind.h>
-
 #include "pcrmodflow.h"
 
+#include <vector>
 
 
 namespace mf {
   // Modflow declarations.
 }
 
-namespace pybind11 {
-  class list;
-}
 
 
 namespace mf {
@@ -47,9 +43,9 @@ public:
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  void             set_row_width       (nanobind::list const& arguments);
+  void             set_row_width       (std::vector<float> const& arguments);
 
-  void             set_col_width       (nanobind::list const& arguments);
+  void             set_col_width       (std::vector<float> const& arguments);
 
   //----------------------------------------------------------------------------
   // ACCESSORS

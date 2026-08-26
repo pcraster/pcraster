@@ -3,6 +3,7 @@
 #include "dis.h"
 
 #include <sstream>
+#include <vector>
 
 /*!
   \file
@@ -41,7 +42,7 @@ PCRModflowPython::~PCRModflowPython()
 {
 }
 
-void PCRModflowPython::set_row_width(nanobind::list const &arguments)
+void PCRModflowPython::set_row_width(std::vector<float> const &arguments)
 {
 
   if (d_dis == nullptr) {
@@ -49,7 +50,7 @@ void PCRModflowPython::set_row_width(nanobind::list const &arguments)
         "Error in PCRasterModflow setRowWidth: Layers need to be specified at first!");
   }
 
-  size_t const nr_args = nanobind::len(arguments);
+  size_t const nr_args = arguments.size();
 
   if (nr_args != d_nrOfRows) {
     std::ostringstream errMsg;
@@ -61,11 +62,11 @@ void PCRModflowPython::set_row_width(nanobind::list const &arguments)
   d_dis->reset_row_width();
 
   for (size_t idx = 0; idx < nr_args; ++idx) {
-    d_dis->append_row_width(arguments[idx].cast<float>());
+    d_dis->append_row_width(arguments[idx]);
   }
 }
 
-void PCRModflowPython::set_col_width(nanobind::list const &arguments)
+void PCRModflowPython::set_col_width(std::vector<float> const &arguments)
 {
 
   if (d_dis == nullptr) {
@@ -73,7 +74,7 @@ void PCRModflowPython::set_col_width(nanobind::list const &arguments)
         "Error in PCRasterModflow setColumnWidth: Layers need to be specified at first!");
   }
 
-  size_t const nr_args = nanobind::len(arguments);
+  size_t const nr_args = arguments.size();
 
   if (nr_args != d_nrOfColumns) {
     std::ostringstream errMsg;
@@ -85,7 +86,7 @@ void PCRModflowPython::set_col_width(nanobind::list const &arguments)
   d_dis->reset_col_width();
 
   for (size_t idx = 0; idx < nr_args; ++idx) {
-    d_dis->append_col_width(arguments[idx].cast<float>());
+    d_dis->append_col_width(arguments[idx]);
   }
 }
 

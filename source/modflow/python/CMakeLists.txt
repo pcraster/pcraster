@@ -26,10 +26,6 @@ set_target_properties(_pcraster_modflow_python
             "$ORIGIN/../../lib"
         DEBUG_POSTFIX
             ""
-        PREFIX
-            "${PYTHON_MODULE_PREFIX}"
-        SUFFIX
-            "${PYTHON_MODULE_EXTENSION}"
 )
 
 add_dependencies(_pcraster_modflow_python

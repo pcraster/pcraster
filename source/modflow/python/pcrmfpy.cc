@@ -1,25 +1,12 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_DISCR_BLOCKDATA
 #include "discr_blockdata.h"
-#define INCLUDED_DISCR_BLOCKDATA
-#endif
-
-#ifndef INCLUDED_GEO_RASTERSPACE
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
-
-
 #include "mf_ModflowPython.h"
-#include <pybind11/pybind11.h>
 
+#include <nanobind/nanobind.h>
+#include <nanobind/stl/filesystem.h>
+#include <nanobind/stl/string.h>
+#include <nanobind/stl/shared_ptr.h>
 
 
 
@@ -142,24 +129,21 @@ void (mf::PCRModflowPython::*setCondPy)(size_t, const calc::Field *, const calc:
 
 
 
-PYBIND11_MODULE(_pcraster_modflow, module){
+NB_MODULE(_pcraster_modflow, module){
 
-  namespace pb = pybind11;
+  namespace nb = nanobind;
 
-  using namespace pybind11::literals;
+  using namespace nanobind::literals;
 
 
-  // disables the C++ signatures in docstrings
-  pb::options options;
-  options.disable_function_signatures();
 
   // Desired methods in module documentation
   // are enforced by empty docstrings. Ugly, but fttb...
 
 
-  pb::class_<mf::PCRModflowPython, pb::smart_holder>(module, "initialise")
-    .def(pb::init<geo::RasterSpace const&>())
-    .def("run", &mf::PCRModflowPython::runModflow, pb::arg("working_directory")="", R"(
+  nb::class_<mf::PCRModflowPython>(module, "initialise")
+    .def(nb::init<geo::RasterSpace const&>())
+    .def("run", &mf::PCRModflowPython::runModflow, nb::arg("working_directory")="", R"(
 
     )")
     .def("converged", &mf::PCRModflowPython::converged, R"(
@@ -216,7 +200,7 @@ PYBIND11_MODULE(_pcraster_modflow, module){
          "hcond"_a,
          "vcond"_a,
          "layer"_a,
-         "calc"_a=true, /*pybind11::arg("laycon"),pybind11::arg("hcond"),pybind11::arg("vcond"),pybind11::arg("layer"),*/ /*pybind11::arg("calc")=true,*/ R"(
+         "calc"_a=true, R"(
 
     )")
     .def("setConductivity", setCondPS,

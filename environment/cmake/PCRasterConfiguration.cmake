@@ -252,9 +252,9 @@ set (PCRASTER_WITH_INTERNAL_NANOBIND ON)
 if(PCRASTER_WITH_INTERNAL_NANOBIND)
     FetchContent_Declare(nanobind
         GIT_REPOSITORY https://github.com/wjakob/nanobind.git
-        GIT_TAG eb061164f3ff0f3567a6f545ec7f56c6a3fbf2fb
+        GIT_TAG v3.0.0
         SYSTEM
-        FIND_PACKAGE_ARGS 3.0 CONFIG
+        FIND_PACKAGE_ARGS 3.0.0 CONFIG
     )
     FetchContent_MakeAvailable(nanobind)
 else()

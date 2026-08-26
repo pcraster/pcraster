@@ -209,8 +209,8 @@ bool BCF::hasConfinedSubLayer(size_t layer)
     return false;
   }
   for (int i = 0; i < size; i++) {
-    int const low = static_cast<const int>(d_mf->d_quasiConfined.at(i));
-    int const top = static_cast<const int>(d_mf->d_quasiConfined.at(i + 1));
+    int const low = static_cast<int>(d_mf->d_quasiConfined.at(i));
+    int const top = static_cast<int>(d_mf->d_quasiConfined.at(i + 1));
     if (((low - top) == 1) && (lay == (layer - 1))) {
       return true;
     }

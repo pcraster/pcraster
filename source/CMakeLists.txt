@@ -48,7 +48,7 @@ if(PCRASTER_BUILD_AGUILA)
 endif()
 
 if(PCRASTER_BUILD_MODFLOW)
-    # add_subdirectory(modflow)
+    add_subdirectory(modflow)
 endif()
 
 if(PCRASTER_BUILD_OLDCALC)

@@ -3,8 +3,8 @@
 
 #include "mldd_mldd.h"
 
-#include <nanobind/nanobind.h>
 #include <memory>
+#include <tuple>
 
 
 
@@ -16,6 +16,10 @@ namespace calc {
 
 
 namespace mldd::python {
+  
+  
+using FieldPtr = std::shared_ptr<calc::Field>;
+
 
 //! Wrapper class to interface between mldd::Mldd and the Python extension.
 /*!
@@ -91,9 +95,11 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  nanobind::tuple  getStream           () const;
+  std::tuple<FieldPtr, FieldPtr, FieldPtr, FieldPtr, FieldPtr, FieldPtr, FieldPtr, FieldPtr>
+                   getStream           () const;
 
-  nanobind::tuple  getWeight           () const;
+  std::tuple<FieldPtr, FieldPtr, FieldPtr, FieldPtr, FieldPtr, FieldPtr, FieldPtr, FieldPtr>
+                   getWeight           () const;
 
   std::shared_ptr<calc::Field> getDem  () const;
 

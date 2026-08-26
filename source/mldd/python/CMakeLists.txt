@@ -23,10 +23,6 @@ set_target_properties(_pcraster_mldd_python
             ""
         INSTALL_RPATH
             "$ORIGIN/../../../lib"
-        PREFIX
-            "${PYTHON_MODULE_PREFIX}"
-        SUFFIX
-            "${PYTHON_MODULE_EXTENSION}"
 )
 
 add_dependencies(_pcraster_mldd_python _pcraster)

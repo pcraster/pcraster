@@ -1,7 +1,9 @@
 #include "Mldd.h"
 #include "calc_spatial.h"
 
+#include <memory>
 #include <vector>
+#include <tuple>
 
 
 /*!
@@ -150,7 +152,7 @@ std::shared_ptr<calc::Field> Mldd::diffuse(
 
 
 
-nanobind::tuple Mldd::getStream() const
+std::tuple<FieldPtr, FieldPtr, FieldPtr, FieldPtr, FieldPtr, FieldPtr, FieldPtr, FieldPtr> Mldd::getStream() const
 {
   std::vector<calc::Spatial*> spatials(8);
 
@@ -167,7 +169,7 @@ nanobind::tuple Mldd::getStream() const
 
   _mldd.getStream(arrays);
 
-  return nanobind::make_tuple(
+  return std::make_tuple(
          std::shared_ptr<calc::Field>(spatials[0]),
          std::shared_ptr<calc::Field>(spatials[1]),
          std::shared_ptr<calc::Field>(spatials[2]),
@@ -180,7 +182,7 @@ nanobind::tuple Mldd::getStream() const
 
 
 
-nanobind::tuple Mldd::getWeight() const
+std::tuple<FieldPtr, FieldPtr, FieldPtr, FieldPtr, FieldPtr, FieldPtr, FieldPtr, FieldPtr> Mldd::getWeight() const
 {
   std::vector<calc::Spatial*> spatials(8);
 
@@ -197,7 +199,7 @@ nanobind::tuple Mldd::getWeight() const
 
   _mldd.getWeight(arrays);
 
-  return nanobind::make_tuple(
+  return std::make_tuple(
          std::shared_ptr<calc::Field>(spatials[0]),
          std::shared_ptr<calc::Field>(spatials[1]),
          std::shared_ptr<calc::Field>(spatials[2]),

@@ -196,14 +196,14 @@ def ifthen(arg1, arg2):
 
     try:
         if isinstance(arg1, bool):
-            arg1 = _pcraster.spatial(_pmc._newNonSpatialBoolean(arg1))
+            arg1 = _pcraster.spatial(_pmc._newNonSpatialBoolean(bool(arg1)))
         elif isinstance(arg1, float):
-            arg1 = _pcraster.spatial(_pmc._newNonSpatialBoolean(arg1))
+            arg1 = _pcraster.spatial(_pmc._newNonSpatialBoolean(bool(arg1)))
         elif isinstance(arg1, int):
             if arg1 == 0:
-                arg1 = _pcraster.spatial(_pmc._newNonSpatialBoolean(0))
+                arg1 = _pcraster.spatial(_pmc._newNonSpatialBoolean(bool(0)))
             else:
-                arg1 = _pcraster.spatial(_pmc._newNonSpatialBoolean(1))
+                arg1 = _pcraster.spatial(_pmc._newNonSpatialBoolean(bool(1)))
         elif isinstance(arg1, pcraster.Field) and not arg1.isSpatial():
             arg1 = _pcraster.spatial(_pmc.boolean(arg1))
         else:

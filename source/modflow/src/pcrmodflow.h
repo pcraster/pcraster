@@ -232,7 +232,7 @@ public:
 	    void setLayer(const discr::Block &thickness, const discr::BlockData<INT4> &conf);
 
 	    //
-	    void setDISParams(size_t timeUnits, size_t lentghUnits, float stressPeriodLength, size_t nrOfTimesteps, float timeStepMultiplier, bool isSteadyState);
+	    void setDISParams(size_t timeUnits, size_t lentghUnits, float stressPeriodLength, size_t nrOfTimesteps, float timeStepMultiplier, size_t isSteadyState);
 
       void         update_dis_parameter(float stressPeriodLength, size_t nrOfTimesteps, float timeStepMultiplier);
 	    // BAS

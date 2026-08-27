@@ -1227,7 +1227,7 @@ void PCRModflow::printList()
 }
 
 void PCRModflow::setDISParams(size_t timeUnits, size_t lentghUnits, float stressPeriodLength,
-                              size_t nrOfTimesteps, float timeStepMultiplier, bool isSteadyState)
+                              size_t nrOfTimesteps, float timeStepMultiplier, size_t isSteadyState)
 {
 
   if (d_dis == nullptr) {
@@ -1235,7 +1235,7 @@ void PCRModflow::setDISParams(size_t timeUnits, size_t lentghUnits, float stress
     d_cmethods->error(stmp, "setDISParameter");
   }
 
-  d_isSteadyState = isSteadyState;
+  d_isSteadyState = static_cast<bool>(isSteadyState);
   if (isSteadyState == false) {
     if (d_primaryStorage == nullptr) {
       d_primaryStorage = new discr::BlockData<REAL4>(d_baseArea);

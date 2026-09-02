@@ -939,10 +939,10 @@ void PCRModflow::removeTextFiles(std::string const &fileName) const
   }
 }
 
-bool PCRModflow::runModflow(const std::string &working_directory)
+bool PCRModflow::runModflow(const std::filesystem::path &working_directory)
 {
 
-  modflow_directory = working_directory;
+  modflow_directory = working_directory.string();
 
   if (d_modflow_converged == false) {
     std::string const stmp("The previous execution of Modflow failed to converge");
@@ -1524,72 +1524,72 @@ void PCRModflow::setDSP(size_t itmx, size_t mxup, size_t mxlow, size_t mxbw, siz
   d_modflow_converged = true;
 }
 
-void PCRModflow::createBottomPS(const std::string &lower, const std::string &upper)
+void PCRModflow::createBottomPS(const std::filesystem::path &lower, const std::filesystem::path &upper)
 {
   dal::RasterDal const rasterdal(true);
-  std::shared_ptr<dal::Raster> const raster1(rasterdal.read(lower, dal::TI_REAL4));
-  std::shared_ptr<dal::Raster> const raster2(rasterdal.read(upper, dal::TI_REAL4));
+  std::shared_ptr<dal::Raster> const raster1(rasterdal.read(lower.string(), dal::TI_REAL4));
+  std::shared_ptr<dal::Raster> const raster2(rasterdal.read(upper.string(), dal::TI_REAL4));
   createBottom(static_cast<REAL4 const *>(raster1->cells()),
                static_cast<REAL4 const *>(raster2->cells()));
 }
 
-void PCRModflow::addLayerPS(const std::string &values)
+void PCRModflow::addLayerPS(const std::filesystem::path &values)
 {
   dal::RasterDal const rasterdal(true);
-  std::shared_ptr<dal::Raster> const raster(rasterdal.read(values, dal::TI_REAL4));
+  std::shared_ptr<dal::Raster> const raster(rasterdal.read(values.string(), dal::TI_REAL4));
   addLayer(static_cast<REAL4 const *>(raster->cells()));
 }
 
-void PCRModflow::addConfinedLayerPS(const std::string &values)
+void PCRModflow::addConfinedLayerPS(const std::filesystem::path &values)
 {
   dal::RasterDal const rasterdal(true);
-  std::shared_ptr<dal::Raster> const raster(rasterdal.read(values, dal::TI_REAL4));
+  std::shared_ptr<dal::Raster> const raster(rasterdal.read(values.string(), dal::TI_REAL4));
   addConfinedLayer(static_cast<REAL4 const *>(raster->cells()));
 }
 
-void PCRModflow::setIBound(const std::string &values, size_t layer)
+void PCRModflow::setIBound(const std::filesystem::path &values, size_t layer)
 {
   dal::RasterDal const rasterdal(true);
-  std::shared_ptr<dal::Raster> const raster(rasterdal.read(values, dal::TI_INT4));
+  std::shared_ptr<dal::Raster> const raster(rasterdal.read(values.string(), dal::TI_INT4));
   setIBound(static_cast<INT4 const *>(raster->cells()), layer);
 }
 
-void PCRModflow::setInitialHead(const std::string &values, size_t layer)
+void PCRModflow::setInitialHead(const std::filesystem::path &values, size_t layer)
 {
   dal::RasterDal const rasterdal(true);
-  std::shared_ptr<dal::Raster> const raster(rasterdal.read(values, dal::TI_REAL4));
+  std::shared_ptr<dal::Raster> const raster(rasterdal.read(values.string(), dal::TI_REAL4));
   setInitialHead(static_cast<REAL4 const *>(raster->cells()), layer);
 }
 
-void PCRModflow::setCond(size_t laycon, const std::string &hcond, const std::string &vcond, size_t layer,
+void PCRModflow::setCond(size_t laycon, const std::filesystem::path &hcond, const std::filesystem::path &vcond, size_t layer,
                          bool calc)
 {
   dal::RasterDal const rasterdal(true);
-  std::shared_ptr<dal::Raster> const raster1(rasterdal.read(hcond, dal::TI_REAL4));
-  std::shared_ptr<dal::Raster> const raster2(rasterdal.read(vcond, dal::TI_REAL4));
+  std::shared_ptr<dal::Raster> const raster1(rasterdal.read(hcond.string(), dal::TI_REAL4));
+  std::shared_ptr<dal::Raster> const raster2(rasterdal.read(vcond.string(), dal::TI_REAL4));
 
   setHCond(static_cast<REAL4 const *>(raster1->cells()), layer, laycon);
   setVCond(static_cast<REAL4 const *>(raster2->cells()), layer);
   d_bcf->set_calculate_cond(calc);
 }
 
-void PCRModflow::setRecharge(const std::string &values, size_t optCode)
+void PCRModflow::setRecharge(const std::filesystem::path &values, size_t optCode)
 {
   dal::RasterDal const rasterdal(true);
   std::shared_ptr<dal::Raster> const raster(rasterdal.read(values, dal::TI_REAL4));
   setRecharge(static_cast<REAL4 const *>(raster->cells()), optCode);
 }
 
-void PCRModflow::setRechargeLay(const std::string &values, const std::string &layer)
+void PCRModflow::setRechargeLay(const std::filesystem::path &values, const std::filesystem::path &layer)
 {
   dal::RasterDal const rasterdal(true);
-  std::shared_ptr<dal::Raster> const raster1(rasterdal.read(values, dal::TI_REAL4));
-  std::shared_ptr<dal::Raster> const raster2(rasterdal.read(layer, dal::TI_INT4));
+  std::shared_ptr<dal::Raster> const raster1(rasterdal.read(values.string(), dal::TI_REAL4));
+  std::shared_ptr<dal::Raster> const raster2(rasterdal.read(layer.string(), dal::TI_INT4));
   setRechargeLay(static_cast<REAL4 const *>(raster1->cells()),
                  static_cast<INT4 const *>(raster2->cells()));
 }
 
-void PCRModflow::setWetting(const std::string &values, size_t mfLayer)
+void PCRModflow::setWetting(const std::filesystem::path &values, size_t mfLayer)
 {
 
   if (d_bcf == nullptr) {
@@ -1598,18 +1598,18 @@ void PCRModflow::setWetting(const std::string &values, size_t mfLayer)
   }
 
   dal::RasterDal const rasterdal(true);
-  std::shared_ptr<dal::Raster> const raster(rasterdal.read(values, dal::TI_REAL4));
+  std::shared_ptr<dal::Raster> const raster(rasterdal.read(values.string(), dal::TI_REAL4));
   setWetting(static_cast<REAL4 const *>(raster->cells()), mfLayer);
 }
 
-void PCRModflow::setWell(const std::string &values, size_t mfLayer)
+void PCRModflow::setWell(const std::filesystem::path &values, size_t mfLayer)
 {
   dal::RasterDal const rasterdal(true);
   std::shared_ptr<dal::Raster> const raster(rasterdal.read(values, dal::TI_REAL4));
   setWell(static_cast<REAL4 const *>(raster->cells()), mfLayer);
 }
 
-void PCRModflow::setStorage(const std::string &prim, const std::string &second, size_t layer)
+void PCRModflow::setStorage(const std::filesystem::path &prim, const std::filesystem::path &second, size_t layer)
 {
 
   if (d_bcf == nullptr) {
@@ -1617,30 +1617,30 @@ void PCRModflow::setStorage(const std::string &prim, const std::string &second, 
     d_cmethods->error(stmp, "setStorage");
   }
   dal::RasterDal const rasterdal(true);
-  std::shared_ptr<dal::Raster> const raster1(rasterdal.read(prim, dal::TI_REAL4));
-  std::shared_ptr<dal::Raster> const raster2(rasterdal.read(second, dal::TI_REAL4));
+  std::shared_ptr<dal::Raster> const raster1(rasterdal.read(prim.string(), dal::TI_REAL4));
+  std::shared_ptr<dal::Raster> const raster2(rasterdal.read(second.string(), dal::TI_REAL4));
 
   setPrimaryStorage(static_cast<REAL4 const *>(raster1->cells()), layer);
   setSecondaryStorage(static_cast<REAL4 const *>(raster2->cells()), layer);
 }
 
-void PCRModflow::setRiver(const std::string &rivH, const std::string &rivB, const std::string &rivC,
+void PCRModflow::setRiver(const std::filesystem::path &rivH, const std::filesystem::path &rivB, const std::filesystem::path &rivC,
                           size_t layer)
 {
   dal::RasterDal const rasterdal(true);
-  std::shared_ptr<dal::Raster> const raster1(rasterdal.read(rivH, dal::TI_REAL4));
-  std::shared_ptr<dal::Raster> const raster2(rasterdal.read(rivB, dal::TI_REAL4));
-  std::shared_ptr<dal::Raster> const raster3(rasterdal.read(rivC, dal::TI_REAL4));
+  std::shared_ptr<dal::Raster> const raster1(rasterdal.read(rivH.string(), dal::TI_REAL4));
+  std::shared_ptr<dal::Raster> const raster2(rasterdal.read(rivB.string(), dal::TI_REAL4));
+  std::shared_ptr<dal::Raster> const raster3(rasterdal.read(rivC.string(), dal::TI_REAL4));
 
   setRiver(static_cast<REAL4 const *>(raster1->cells()), static_cast<REAL4 const *>(raster2->cells()),
            static_cast<REAL4 const *>(raster3->cells()), layer);
 }
 
-void PCRModflow::setDrain(const std::string &elevation, const std::string &conductance, size_t layer)
+void PCRModflow::setDrain(const std::filesystem::path &elevation, const std::filesystem::path &conductance, size_t layer)
 {
   dal::RasterDal const rasterdal(true);
-  std::shared_ptr<dal::Raster> const raster1(rasterdal.read(elevation, dal::TI_REAL4));
-  std::shared_ptr<dal::Raster> const raster2(rasterdal.read(conductance, dal::TI_REAL4));
+  std::shared_ptr<dal::Raster> const raster1(rasterdal.read(elevation.string(), dal::TI_REAL4));
+  std::shared_ptr<dal::Raster> const raster2(rasterdal.read(conductance.string(), dal::TI_REAL4));
 
   setDrain(static_cast<REAL4 const *>(raster1->cells()), static_cast<REAL4 const *>(raster2->cells()),
            layer);
@@ -1699,14 +1699,14 @@ void PCRModflow::setGHB(const calc::Field *head, const calc::Field *cond, size_t
   d_ghb->setGHB(head, cond, layer);
 }
 
-void PCRModflow::setGHB(const std::string &head, const std::string &cond, size_t layer)
+void PCRModflow::setGHB(const std::filesystem::path &head, const std::filesystem::path &cond, size_t layer)
 {
   if (d_ghb == nullptr) {
     initGHB();
   }
   dal::RasterDal const rasterdal(true);
-  std::shared_ptr<dal::Raster> const raster1(rasterdal.read(head, dal::TI_REAL4));
-  std::shared_ptr<dal::Raster> const raster2(rasterdal.read(cond, dal::TI_REAL4));
+  std::shared_ptr<dal::Raster> const raster1(rasterdal.read(head.string(), dal::TI_REAL4));
+  std::shared_ptr<dal::Raster> const raster2(rasterdal.read(cond.string(), dal::TI_REAL4));
 
   d_ghb->setGHB(static_cast<REAL4 const *>(raster1->cells()),
                 static_cast<REAL4 const *>(raster2->cells()), layer);

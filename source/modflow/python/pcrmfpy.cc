@@ -5,8 +5,9 @@
 
 #include <nanobind/nanobind.h>
 #include <nanobind/stl/filesystem.h>
-#include <nanobind/stl/string.h>
 #include <nanobind/stl/shared_ptr.h>
+#include <nanobind/stl/string.h>
+#include <nanobind/stl/vector.h>
 
 
 
@@ -17,23 +18,23 @@
 // Wrapper for overloaded methods
 bool (mf::PCRModflowPython::*createBottomCalc)(const float *, const float *) = &mf::PCRModflowPython::createBottom;
 void (mf::PCRModflowPython::*createBottomPy)(const calc::Field *, const calc::Field *) = &mf::PCRModflowPython::createBottom;
-void (mf::PCRModflowPython::*createBottomPS)(const std::string&, const std::string&) = &mf::PCRModflowPython::createBottomPS;
+void (mf::PCRModflowPython::*createBottomPS)(const std::filesystem::path&, const std::filesystem::path&) = &mf::PCRModflowPython::createBottomPS;
 //void (mf::PCRModflowPython::*setLayer)(const discr::Block &, const discr::BlockData<INT4> &) = &mf::PCRModflowPython::setLayer;
 bool (mf::PCRModflowPython::*addLayerCalc)(const float *) = &mf::PCRModflowPython::addLayer;
 void (mf::PCRModflowPython::*addLayerPy)(const calc::Field *) = &mf::PCRModflowPython::addLayer;
-void (mf::PCRModflowPython::*addLayerPS)(const std::string&) = &mf::PCRModflowPython::addLayerPS;
+void (mf::PCRModflowPython::*addLayerPS)(const std::filesystem::path&) = &mf::PCRModflowPython::addLayerPS;
 
 bool (mf::PCRModflowPython::*addConfinedCalc)(const float *) = &mf::PCRModflowPython::addConfinedLayer;
 void (mf::PCRModflowPython::*addConfinedPy)(const calc::Field *) = &mf::PCRModflowPython::addConfinedLayer;
-void (mf::PCRModflowPython::*addConfinedPS)(const std::string&) = &mf::PCRModflowPython::addConfinedLayerPS;
+void (mf::PCRModflowPython::*addConfinedPS)(const std::filesystem::path&) = &mf::PCRModflowPython::addConfinedLayerPS;
 
 bool (mf::PCRModflowPython::*setBoundaryCalc)(const int *, size_t) = &mf::PCRModflowPython::setIBound;
-void (mf::PCRModflowPython::*setBoundaryPS)(const std::string&, size_t) = &mf::PCRModflowPython::setIBound;
+void (mf::PCRModflowPython::*setBoundaryPS)(const std::filesystem::path&, size_t) = &mf::PCRModflowPython::setIBound;
 void (mf::PCRModflowPython::*setBoundaryPy)(const calc::Field *values, size_t layer) = &mf::PCRModflowPython::setIBound;
 bool (mf::PCRModflowPython::*setBoundaryPyBlock)(const discr::BlockData<INT4> &) = &mf::PCRModflowPython::setIBound;
 
 bool (mf::PCRModflowPython::*setHeadCalc)(const float *, size_t) = &mf::PCRModflowPython::setInitialHead;
-void (mf::PCRModflowPython::*setHeadPS)(const std::string &, size_t) = &mf::PCRModflowPython::setInitialHead;
+void (mf::PCRModflowPython::*setHeadPS)(const std::filesystem::path &, size_t) = &mf::PCRModflowPython::setInitialHead;
 void (mf::PCRModflowPython::*setHeadPy)(const calc::Field *, size_t) = &mf::PCRModflowPython::setInitialHead;
 bool (mf::PCRModflowPython::*setHeadPyBlock)(const discr::BlockData<REAL4> &) = &mf::PCRModflowPython::setInitialHead;
 
@@ -46,7 +47,7 @@ bool (mf::PCRModflowPython::*setVCond2)(const float *, size_t) = &mf::PCRModflow
 void (mf::PCRModflowPython::*setVCond)(const discr::BlockData<REAL4> &) = &mf::PCRModflowPython::setVCond;
 
 bool (mf::PCRModflowPython::*setWettingCalc)(const float *, size_t) = &mf::PCRModflowPython::setWetting;
-void (mf::PCRModflowPython::*setWettingPS)(const std::string &, size_t) = &mf::PCRModflowPython::setWetting;
+void (mf::PCRModflowPython::*setWettingPS)(const std::filesystem::path &, size_t) = &mf::PCRModflowPython::setWetting;
 void (mf::PCRModflowPython::*setWettingPy)(const calc::Field *, size_t) = &mf::PCRModflowPython::setWetting;
 void (mf::PCRModflowPython::*setWettingPyBlock)(const discr::BlockData<REAL4> &) = &mf::PCRModflowPython::setWetting;
 
@@ -60,30 +61,30 @@ void (mf::PCRModflowPython::*setRecharge1)(const float *, size_t) = &mf::PCRModf
 void (mf::PCRModflowPython::*setRechargeLay1)(const float *, const int *) = &mf::PCRModflowPython::setRechargeLay;
 void (mf::PCRModflowPython::*setRecharge)(const calc::Field *, size_t) = &mf::PCRModflowPython::setRecharge;
 void (mf::PCRModflowPython::*setRechargeLay)(const calc::Field *, const calc::Field *) = &mf::PCRModflowPython::setRechargeLay;
-void (mf::PCRModflowPython::*setRechargePS)(const std::string &, size_t) = &mf::PCRModflowPython::setRecharge;
-void (mf::PCRModflowPython::*setRechargeLayPS)(const std::string &, const std::string &) = &mf::PCRModflowPython::setRechargeLay;
+void (mf::PCRModflowPython::*setRechargePS)(const std::filesystem::path &, size_t) = &mf::PCRModflowPython::setRecharge;
+void (mf::PCRModflowPython::*setRechargeLayPS)(const std::filesystem::path &, const std::filesystem::path &) = &mf::PCRModflowPython::setRechargeLay;
 
 bool (mf::PCRModflowPython::*setRiverCalc)(const float *, const float *, const float *, size_t) = &mf::PCRModflowPython::setRiver;
-void (mf::PCRModflowPython::*setRiverPS)(const std::string &, const std::string &, const std::string &, size_t) = &mf::PCRModflowPython::setRiver;
+void (mf::PCRModflowPython::*setRiverPS)(const std::filesystem::path &, const std::filesystem::path &, const std::filesystem::path &, size_t) = &mf::PCRModflowPython::setRiver;
 void (mf::PCRModflowPython::*setRiverPy)(const calc::Field *, const calc::Field *, const calc::Field *, size_t) = &mf::PCRModflowPython::setRiver;
 void (mf::PCRModflowPython::*setRiverPyBlock)(discr::BlockData<REAL4> &, discr::BlockData<REAL4> &, discr::BlockData<REAL4> &) = &mf::PCRModflowPython::setRiver;
 
 void (mf::PCRModflowPython::*setStoragePy)(const calc::Field *, const calc::Field *, size_t) = &mf::PCRModflowPython::setStorage;
-void (mf::PCRModflowPython::*setStoragePS)(const std::string &, const std::string &, size_t) = &mf::PCRModflowPython::setStorage;
+void (mf::PCRModflowPython::*setStoragePS)(const std::filesystem::path &, const std::filesystem::path &, size_t) = &mf::PCRModflowPython::setStorage;
 void (mf::PCRModflowPython::*setStoragePyBlock)(const discr::BlockData<REAL4> &, const discr::BlockData<REAL4> &) = &mf::PCRModflowPython::setStorage;
 
 
 bool (mf::PCRModflowPython::*setWellCalc)(const float *, size_t) = &mf::PCRModflowPython::setWell;
-void (mf::PCRModflowPython::*setWellPS)(const std::string &, size_t) = &mf::PCRModflowPython::setWell;
+void (mf::PCRModflowPython::*setWellPS)(const std::filesystem::path &, size_t) = &mf::PCRModflowPython::setWell;
 void (mf::PCRModflowPython::*setWellPy)(const calc::Field *, size_t) = &mf::PCRModflowPython::setWell;
 void (mf::PCRModflowPython::*setWellPyBlock)(discr::BlockData<REAL4> &) = &mf::PCRModflowPython::setWell;
 
 bool (mf::PCRModflowPython::*setDrainCalc)(const float *, const float *, size_t) = &mf::PCRModflowPython::setDrain;
-void (mf::PCRModflowPython::*setDrainPS)(const std::string &, const std::string &, size_t) = &mf::PCRModflowPython::setDrain;
+void (mf::PCRModflowPython::*setDrainPS)(const std::filesystem::path &, const std::filesystem::path &, size_t) = &mf::PCRModflowPython::setDrain;
 void (mf::PCRModflowPython::*setDrainPy)(const calc::Field *, const calc::Field *, size_t) = &mf::PCRModflowPython::setDrain;
 void (mf::PCRModflowPython::*setDrainPyBlock)(const discr::BlockData<REAL4> &, const discr::BlockData<REAL4> &) = &mf::PCRModflowPython::setDrain;
 
-void (mf::PCRModflowPython::*setGhbString)(const std::string &, const std::string &, size_t) = &mf::PCRModflowPython::setGHB;
+void (mf::PCRModflowPython::*setGhbString)(const std::filesystem::path &, const std::filesystem::path &, size_t) = &mf::PCRModflowPython::setGHB;
 void (mf::PCRModflowPython::*setGhbField)(const calc::Field *, const calc::Field *, size_t) = &mf::PCRModflowPython::setGHB;
 
 
@@ -121,7 +122,7 @@ calc::Field*     (mf::PCRModflowPython::*get_lower_facePy)      (size_t) = &mf::
 
 
 
-void (mf::PCRModflowPython::*setCondPS)(size_t, const std::string &, const std::string &, size_t, bool) = &mf::PCRModflowPython::setCond;
+void (mf::PCRModflowPython::*setCondPS)(size_t, const std::filesystem::path &, const std::filesystem::path &, size_t, bool) = &mf::PCRModflowPython::setCond;
 
 
 

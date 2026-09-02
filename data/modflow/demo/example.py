@@ -6,11 +6,11 @@
 # To run the script use
 # python example.py
 
-from pcraster import *
+import pcraster as pcr
 
 
-setclone("clone.map")
-mf = initialise(clone())
+pcr.setclone("clone.map")
+mf = pcr.initialise(pcr.clone())
 
 # grid specification
 mf.createBottomLayer("bottom.map", "l1_top.map")
@@ -60,43 +60,43 @@ mf.run()
 
 # retrieve head values
 hFive = mf.getHeads(5)
-report(hFive, "hFive.map")
+pcr.report(hFive, "hFive.map")
 hThree = mf.getHeads(3)
-report(hThree, "hThree.map")
+pcr.report(hThree, "hThree.map")
 hOne = mf.getHeads(1)
-report(hOne, "hOne.map")
+pcr.report(hOne, "hOne.map")
 
 # retrieve drain output
 dFive = mf.getDrain(5)
-report(dFive, "dFive.map")
+pcr.report(dFive, "dFive.map")
 
 # retrieve recharge output
 rFive = mf.getRecharge(5)
-report(rFive, "rFive.map")
+pcr.report(rFive, "rFive.map")
 
 # retrieve BCF outputs
 c5 = mf.getConstantHead(5)
-report(c5, "c5.map")
+pcr.report(c5, "c5.map")
 c3 = mf.getConstantHead(3)
-report(c3, "c3.map")
+pcr.report(c3, "c3.map")
 c1 = mf.getConstantHead(1)
-report(c1, "c1.map")
+pcr.report(c1, "c1.map")
 
 fr5 = mf.getRightFace(5)
-report(fr5, "fr5.map")
+pcr.report(fr5, "fr5.map")
 fr3 = mf.getRightFace(3)
-report(fr3, "fr3.map")
+pcr.report(fr3, "fr3.map")
 fr1 = mf.getRightFace(1)
-report(fr1, "fr1.map")
+pcr.report(fr1, "fr1.map")
 
 ff5 = mf.getFrontFace(5)
-report(ff5, "ff5.map")
+pcr.report(ff5, "ff5.map")
 ff3 = mf.getFrontFace(3)
-report(ff3, "ff3.map")
+pcr.report(ff3, "ff3.map")
 ff1 = mf.getFrontFace(1)
-report(ff1, "ff1.map")
+pcr.report(ff1, "ff1.map")
 
 fl5 = mf.getLowerFace(5)
-report(fl5, "fl5.map")
+pcr.report(fl5, "fl5.map")
 fl3 = mf.getLowerFace(3)
-report(fl3, "fl3.map")
+pcr.report(fl3, "fl3.map")

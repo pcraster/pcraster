@@ -8,6 +8,7 @@
 #include "discr_blockdata.h"
 #include "dal_Client.h"
 
+#include <filesystem>
 #include <string>
 #include <vector>
 
@@ -250,7 +251,7 @@ public:
 	    bool setVCond(const float *values, size_t layer);
 	    void setVCond(const discr::BlockData<REAL4> &values);
 	    void setCond(size_t laycon, const calc::Field * hcond, const calc::Field * vcond, size_t layer, bool calc=true);
-      void setCond(size_t laycon, const std::string & hcond, const std::string & vcond, size_t layer, bool calc=true);
+      void setCond(size_t laycon, const std::filesystem::path & hcond, const std::filesystem::path & vcond, size_t layer, bool calc=true);
 
 
 	    void setTRPY(float trpy);
@@ -284,7 +285,7 @@ public:
 	    void setWell(discr::BlockData<REAL4> &well);
       // GHB package
       void setGHB(const calc::Field * head, const calc::Field * cond, size_t layer);
-      void setGHB(const std::string & head, const std::string & cond, size_t layer);
+      void setGHB(const std::filesystem::path & head, const std::filesystem::path & cond, size_t layer);
       calc::Field* getGHBLeakage(size_t layer);
 	    // Solver packages
 	    void setSOR(size_t mxiter, double accl, double hclose);
@@ -292,7 +293,7 @@ public:
 	    void setPCG(size_t mxiter, size_t iteri, size_t npcond, double hclose, double rclose, double relax, double nbpol,  double damp);
 	    void setDSP(size_t itmx, size_t mxup, size_t mxlow, size_t mxbw, size_t ifreq, double accl,  double hclose);
 
-	    bool runModflow(const std::string & working_directory="");
+	    bool runModflow(const std::filesystem::path & working_directory="");
 
       void set_run_command(const std::string & command, const std::string & arguments);
 
@@ -344,20 +345,20 @@ public:
 
 
   // workaround?
-  void createBottomPS(const std::string & lower, const std::string & upper);
-  void addLayerPS(const std::string & values);
-  void addConfinedLayerPS(const std::string & values);
+  void createBottomPS(const std::filesystem::path & lower, const std::filesystem::path & upper);
+  void addLayerPS(const std::filesystem::path & values);
+  void addConfinedLayerPS(const std::filesystem::path & values);
 
 
-  void setIBound(const std::string & values, size_t layer);
-  void setInitialHead(const std::string & values, size_t layer);
-  void setRecharge(const std::string & , size_t optCode);
-  void setRechargeLay(const std::string & , const std::string & );
-  void setStorage(const std::string & , const std::string & , size_t layer);
-  void setWetting(const std::string & values, size_t mfLayer);
-  void setRiver(const std::string & rivH, const std::string & rivB, const std::string & rivC, size_t layer);
-  void setDrain(const std::string & elevation, const std::string & conductance, size_t layer);
-  void setWell(const std::string & well, size_t mfLayer);
+  void setIBound(const std::filesystem::path & values, size_t layer);
+  void setInitialHead(const std::filesystem::path & values, size_t layer);
+  void setRecharge(const std::filesystem::path & , size_t optCode);
+  void setRechargeLay(const std::filesystem::path & , const std::filesystem::path & );
+  void setStorage(const std::filesystem::path & , const std::filesystem::path & , size_t layer);
+  void setWetting(const std::filesystem::path & values, size_t mfLayer);
+  void setRiver(const std::filesystem::path & rivH, const std::filesystem::path & rivB, const std::filesystem::path & rivC, size_t layer);
+  void setDrain(const std::filesystem::path & elevation, const std::filesystem::path & conductance, size_t layer);
+  void setWell(const std::filesystem::path & well, size_t mfLayer);
 };
 
 #endif // INCLUDED_MODFLOW_PCRMODFLOW

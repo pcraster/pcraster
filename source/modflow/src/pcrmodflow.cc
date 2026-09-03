@@ -1576,7 +1576,7 @@ void PCRModflow::setCond(size_t laycon, const std::filesystem::path &hcond, cons
 void PCRModflow::setRecharge(const std::filesystem::path &values, size_t optCode)
 {
   dal::RasterDal const rasterdal(true);
-  std::shared_ptr<dal::Raster> const raster(rasterdal.read(values, dal::TI_REAL4));
+  std::shared_ptr<dal::Raster> const raster(rasterdal.read(values.string(), dal::TI_REAL4));
   setRecharge(static_cast<REAL4 const *>(raster->cells()), optCode);
 }
 
@@ -1605,7 +1605,7 @@ void PCRModflow::setWetting(const std::filesystem::path &values, size_t mfLayer)
 void PCRModflow::setWell(const std::filesystem::path &values, size_t mfLayer)
 {
   dal::RasterDal const rasterdal(true);
-  std::shared_ptr<dal::Raster> const raster(rasterdal.read(values, dal::TI_REAL4));
+  std::shared_ptr<dal::Raster> const raster(rasterdal.read(values.string(), dal::TI_REAL4));
   setWell(static_cast<REAL4 const *>(raster->cells()), mfLayer);
 }
 

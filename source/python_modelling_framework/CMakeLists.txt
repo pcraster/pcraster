@@ -17,7 +17,7 @@ set(SOURCES
     mcFramework.py
     mcPCRasterBase.py
     particleFilterFramework.py
-    PCRasterPythonFramework.py
+    # PCRasterPythonFramework.py
     pfBase.py
     pfPCRasterBase.py
     regression.py

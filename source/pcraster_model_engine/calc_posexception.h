@@ -5,6 +5,7 @@
 #include "com_exception.h"
 #include "pcraster_model_engine_export.h"
 
+#include <sstream>
 #include <string>
 
 

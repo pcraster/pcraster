@@ -32,27 +32,16 @@ jobs:
         steps:
 
             - name: Checkout PCRaster
-              uses: actions/checkout@v6
+              uses: actions/checkout@v7
 
             - uses: mamba-org/setup-micromamba@v3
               with:
                 environment-name: pcrbuild
                 create-args: >-
                   rattler-build
-                init-shell: >-
-                  bash
-                  powershell
+                init-shell: bash
 
             - name: Build
-              if: runner.os != 'Windows'
-              shell: bash -l {0}
               run: |
                   cd ${{ runner.temp }}
-                  rattler-build build --recipe ${{ github.workspace }}/environment/conda/recipe.yaml
-
-            - name: Build
-              if: runner.os == 'Windows'
-              shell: pwsh
-              run: |
-                  cd ${{ runner.temp }}
-                  rattler-build build --recipe ${{ github.workspace }}/environment/conda/recipe.yaml
+                  rattler-build build --recipe ${{ github.workspace }}/environment/conda/recipe.yaml --output-dir ${{ github.workspace }}/${{ target-platform }}

@@ -24,6 +24,10 @@ cmake --build . --target all --parallel %CPU_COUNT%
 
 if errorlevel 1 exit 1
 
+ctest --test-dir . --output-on-failure --build-config Release
+
+if errorlevel 1 exit 1
+
 cmake --build . --target install
 
 if errorlevel 1 exit 1

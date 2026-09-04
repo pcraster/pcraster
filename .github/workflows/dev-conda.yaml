@@ -44,4 +44,4 @@ jobs:
             - name: Build
               run: |
                   cd ${{ runner.temp }}
-                  rattler-build build --recipe ${{ github.workspace }}/environment/conda/recipe.yaml --output-dir ${{ github.workspace }}/${{ target-platform }}
+                  rattler-build build --recipe ${{ github.workspace }}/environment/conda/recipe.yaml --output-dir ${{ runner.temp }}/${{ target-platform }}

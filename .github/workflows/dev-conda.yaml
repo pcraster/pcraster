@@ -37,8 +37,7 @@ jobs:
             - uses: mamba-org/setup-micromamba@v3
               with:
                 environment-name: pcrbuild
-                create-args: >-
-                  rattler-build
+                create-args: rattler-build
                 init-shell: bash
 
             - name: Build

@@ -44,4 +44,29 @@ jobs:
             - name: Build
               run: |
                   cd ${{ runner.temp }}
-                  rattler-build build --recipe ${{ github.workspace }}/environment/conda/recipe.yaml --output-dir ${{ runner.temp }}/${{ target-platform }}
+                  rattler-build build --recipe ${{ github.workspace }}/environment/conda/recipe.yaml --output-dir ${{ runner.temp }}/${{ matrix.target-platform }}
+
+    deploy:
+        needs: build
+
+        runs-on: ubuntu-24.04
+
+        name: "Deploy Conda packages"
+
+        timeout-minutes: 15
+
+        steps:
+
+            - name: Init Micromamba
+            - uses: mamba-org/setup-micromamba@v3
+              with:
+                environment-name: pcrbuild
+                create-args: >-
+                  rattler-build
+                init-shell: bash
+
+            - name: Build
+              run: |
+                  cd ${{ runner.temp }}
+                  ls -altr
+                  ls -altr linux-64

@@ -57,7 +57,6 @@ jobs:
 
         steps:
 
-            - name: Init Micromamba
             - uses: mamba-org/setup-micromamba@v3
               with:
                 environment-name: pcrbuild

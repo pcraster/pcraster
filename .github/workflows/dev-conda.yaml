@@ -41,6 +41,7 @@ jobs:
                 init-shell: bash
 
             - name: Build
+              shell: bash -l {0}
               run: |
                   cd ${{ runner.temp }}
                   rattler-build build --recipe ${{ github.workspace }}/environment/conda/recipe.yaml --output-dir ${{ runner.temp }}/${{ matrix.target-platform }}
@@ -64,6 +65,7 @@ jobs:
                 init-shell: bash
 
             - name: Build
+              shell: bash -l {0}
               run: |
                   cd ${{ runner.temp }}
                   ls -altr

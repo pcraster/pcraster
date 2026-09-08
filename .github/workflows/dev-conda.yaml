@@ -10,9 +10,9 @@ jobs:
         strategy:
             matrix:
                 include:
-                  - os: ubuntu-24.04
+                  - os: ubuntu-26.04
                     target-platform: linux-64
-                  - os: ubuntu-24.04-arm
+                  - os: ubuntu-26.04-arm
                     target-platform: linux-aarch64
                   - os: macos-15
                     target-platform: osx-arm64
@@ -38,10 +38,20 @@ jobs:
               with:
                 environment-name: pcrbuild
                 create-args: rattler-build
-                init-shell: bash
+                init-shell:  >-
+                  bash
+                  powershell
 
             - name: Build
+              if: runner.os != 'Windows'
               shell: bash -l {0}
+              run: |
+                  cd ${{ runner.temp }}
+                  rattler-build build --recipe ${{ github.workspace }}/environment/conda/recipe.yaml --output-dir ${{ runner.temp }}/${{ matrix.target-platform }}
+
+            - name: Build
+              if: runner.os == 'Windows'
+              shell: pwsh
               run: |
                   cd ${{ runner.temp }}
                   rattler-build build --recipe ${{ github.workspace }}/environment/conda/recipe.yaml --output-dir ${{ runner.temp }}/${{ matrix.target-platform }}
@@ -49,7 +59,7 @@ jobs:
     deploy:
         needs: build
 
-        runs-on: ubuntu-24.04
+        runs-on: ubuntu-26.04
 
         name: "Deploy Conda packages"
 
@@ -60,8 +70,7 @@ jobs:
             - uses: mamba-org/setup-micromamba@v3
               with:
                 environment-name: pcrbuild
-                create-args: >-
-                  rattler-build
+                create-args: rattler-build
                 init-shell: bash
 
             - name: Build

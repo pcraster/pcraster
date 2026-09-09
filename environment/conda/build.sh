@@ -27,7 +27,8 @@ cmake ${CMAKE_ARGS} \
   -D CMAKE_BUILD_TYPE=Release \
   -D CMAKE_INSTALL_PREFIX="${PREFIX}" \
   -D PCRASTER_PYTHON_INSTALL_DIR=${SP_DIR} \
-  -D PCRASTER_BUILD_TEST=ON
+  -D PCRASTER_BUILD_TEST=ON \
+  -D CMAKE_OSX_DEPLOYMENT_TARGET=11.0 # only for macOS x64 actions
 
 cmake --build build --target all --parallel ${CPU_COUNT}
 

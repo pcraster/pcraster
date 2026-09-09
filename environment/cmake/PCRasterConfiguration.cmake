@@ -126,7 +126,7 @@ if(PCRASTER_BUILD_MULTICORE)
         string(REPLACE "defined(_MSC_VER)" "defined(_MSC_VER) && _MSC_VER < 1950" FERN_HEADER "${FERN_HEADER}")
         file(WRITE ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/convolution/neighborhood/square.h "${FERN_HEADER}")
         file(TOUCH ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/convolution/neighborhood/square.h.sentinel)
-    endif()    
+    endif()
 
     if(NOT EXISTS ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/core/thread_pool.h.sentinel)
         # Temporary fix for AppleClang 23
@@ -135,7 +135,15 @@ if(PCRASTER_BUILD_MULTICORE)
         file(WRITE ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/core/thread_pool.h "${FERN_HEADER}")
         file(TOUCH ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/core/thread_pool.h.sentinel)
     endif()
-        
+
+    if(NOT EXISTS ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/core/path.h.sentinel)
+        # Temporary fix for AppleClang 23
+        file(READ ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/core/path.h FERN_HEADER)
+        string(REPLACE "#include <vector>" "#include <vector>\n#include <string>\n#include <ostream>" FERN_HEADER "${FERN_HEADER}")
+        file(WRITE ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/core/path.h "${FERN_HEADER}")
+        file(TOUCH ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/core/path.h.sentinel)
+    endif()
+
 endif()
 
 CPMAddPackage("gh:pcraster/rasterformat#d461046182095d4587092bc8028e3508ff5cef36")

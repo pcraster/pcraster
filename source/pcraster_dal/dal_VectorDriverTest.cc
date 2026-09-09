@@ -78,7 +78,7 @@ BOOST_AUTO_TEST_CASE(exists)
 }
 
 
-BOOST_AUTO_TEST_CASE(open)
+BOOST_AUTO_TEST_CASE(open_)
 {
   using namespace dal;
 

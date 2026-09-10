@@ -13,6 +13,7 @@
 #include <cmath>
 #include <cstddef>
 #include <cstdlib>
+#include <format>
 #include <ios>
 #include <limits>
 #include <sstream>
@@ -134,39 +135,13 @@ void setstate(calc::Field* field, nanobind::tuple const & state) {
   }
   else {
     if ((globals.cloneSpace().nrRows() != nr_rows) || (globals.cloneSpace().nrCols() != nr_cols)) {
-      std::ostringstream errMsg;
-      errMsg << "number of rows and columns ("
-             << nr_rows
-             << ", "
-             << nr_cols
-             << ") differ from currently used ("
-             << globals.cloneSpace().nrRows()
-             << ", "
-             << globals.cloneSpace().nrCols()
-             << ")\n";
-      throw std::invalid_argument(errMsg.str());
+      throw std::invalid_argument(std::format("number of rows and columns ({}, {}) differ from currently used ({}, {})\n", nr_rows, nr_cols, globals.cloneSpace().nrRows(), globals.cloneSpace().nrCols()));
     }
     if ((globals.cloneSpace().north() != north) || (globals.cloneSpace().west() != west)) {
-      std::ostringstream errMsg;
-      errMsg << "west and north ("
-             << west
-             << ", "
-             << north
-             << ") differ from currently used ("
-             << globals.cloneSpace().west()
-             << ", "
-             << globals.cloneSpace().north()
-             << ")\n";
-      throw std::invalid_argument(errMsg.str());
+      throw std::invalid_argument(std::format("west and north ({}, {}) differ from currently used ({}, {})\n", west, north, globals.cloneSpace().west(), globals.cloneSpace().north()));
     }
     if (globals.cloneSpace().cellSize() != cell_size) {
-      std::ostringstream errMsg;
-      errMsg << "cell size ("
-             << cell_size
-             << ") differs from currently used ("
-             << globals.cloneSpace().cellSize()
-             << ")\n";
-      throw std::invalid_argument(errMsg.str());
+      throw std::invalid_argument(std::format("cell size ({}) differs from currently used ({})\n", cell_size, globals.cloneSpace().cellSize()));
     }
   }
 

@@ -3,11 +3,6 @@
 #include <nanobind/stl/string.h>
 #include <nanobind/stl/tuple.h>
 
-#include <cassert>
-#include <pcrtypes.h>
-#include <cstddef>
-#include <exception>
-
 #include "dal_PropertyKeys.h"
 #include "dal_Utils.h"
 #include "dal_Def.h"
@@ -46,15 +41,19 @@
 
 #include <boost/test/tools/floating_point_comparison.hpp>
 
+#include <cassert>
+#include <pcrtypes.h>
+#include <cstddef>
+#include <exception>
 #include <cmath>
 #include <format>
 #include <filesystem>
 #include <limits>
 #include <memory>
-#include <sstream>
 #include <stdexcept>
 #include <pyerrors.h>
 #include <string>
+#include <sstream>
 
 template<
     typename T>
@@ -537,13 +536,7 @@ nanobind::tuple cellvalue_by_index(
 
   if(field->isSpatial()){
     if(index >= globals.cloneSpace().nrCells()){
-      std::ostringstream errMsg;
-      errMsg << "cellvalue index '"
-             << index
-             << "' out of range [0, "
-             << globals.cloneSpace().nrCells() - 1
-             << "]";
-      throw std::invalid_argument(errMsg.str());
+      throw std::invalid_argument(std::format("cellvalue index '{}' out of range [0, {}]", index, globals.cloneSpace().nrCells() - 1));
     }
   }
 
@@ -588,22 +581,10 @@ nanobind::tuple cellvalue_by_indices(
   checkNotNullPointer(field);
   if(field->isSpatial()){
     if(row >= globals.cloneSpace().nrRows()){
-      std::ostringstream errMsg;
-      errMsg << "cellvalue row index '"
-             << row
-             << "' out of range [0, "
-             << globals.cloneSpace().nrRows() - 1
-             << "]";
-      throw std::invalid_argument(errMsg.str());
+      throw std::invalid_argument(std::format("cellvalue row index '{}' out of range [0, {}]", row, globals.cloneSpace().nrRows() - 1));
     }
     if(col >= globals.cloneSpace().nrCols()){
-      std::ostringstream errMsg;
-      errMsg << "cellvalue column index '"
-             << col
-             << "' out of range [0, "
-             << globals.cloneSpace().nrCols() - 1
-             << "]";
-      throw std::invalid_argument(errMsg.str());
+      throw std::invalid_argument(std::format("cellvalue column index '{}' out of range [0, {}]", col, globals.cloneSpace().nrCols() - 1));
     }
   }
 
@@ -636,27 +617,11 @@ nanobind::tuple cellvalue_by_coordinates(
   double const south = north - (nr_rows * cellsize);
 
   if((xcoordinate < west) || (xcoordinate > east)){
-    std::ostringstream errMsg;
-    errMsg << "xcoordinate '"
-           << xcoordinate
-           << "' out of range ["
-           << west
-           << ", "
-           << east
-           << "]";
-    throw std::invalid_argument(errMsg.str());
+    throw std::invalid_argument(std::format("xcoordinate '{}' out of range [{:.6}, {:.6}]", xcoordinate, west, east));
   }
 
   if((ycoordinate > north) || (ycoordinate < south)){
-    std::ostringstream errMsg;
-    errMsg << "ycoordinate '"
-           << ycoordinate
-           << "' out of range ["
-           << north
-           << ", "
-           << south
-           << "]";
-    throw std::invalid_argument(errMsg.str());
+    throw std::invalid_argument(std::format("ycoordinate '{}' out of range [{:.6}, {:.6}]", ycoordinate, north, south));
   }
 
   double const xCol = (xcoordinate - west) / cellsize;
@@ -759,11 +724,7 @@ void check_csftype(std::string const& filename){
   MAP* raster = Mopen(filename.c_str(), M_READ);
 
   if(raster == nullptr) {
-    std::ostringstream errMsg;
-    errMsg << "Cannot open '"
-           << filename
-           << "'. Note: only the PCRaster file format is supported as input argument.\n";
-    throw nanobind::type_error(errMsg.str().c_str());
+    throw nanobind::type_error(std::format("Cannot open '{}'. Note: only the PCRaster file format is supported as input argument.\n", filename).c_str());
   }
   assert(raster);
   Mclose(raster);
@@ -807,27 +768,15 @@ void setCloneSpaceFromValues(
   int const max_row_col = std::numeric_limits<int>::max();
 
   if( (nrRows < 1) || (nrRows > max_row_col) ) {
-    std::ostringstream errMsg;
-    errMsg << "Number of rows '"
-           << nrRows
-           << "' out of range [1, (2 ^ 31) - 1]";
-    throw std::invalid_argument(errMsg.str());
+    throw std::invalid_argument(std::format("Number of rows '{}' out of range [1, (2 ^ 31) - 1]", nrRows));
   }
 
   if( (nrCols < 1) || (nrCols > max_row_col) ) {
-    std::ostringstream errMsg;
-    errMsg << "Number of columns '"
-           << nrCols
-           << "' out of range [1, (2 ^ 31) - 1]";
-    throw std::invalid_argument(errMsg.str());
+    throw std::invalid_argument(std::format("Number of columns '{}' out of range [1, (2 ^ 31) - 1]", nrCols));
   }
 
   if(cellSize <= 0.0) {
-    std::ostringstream errMsg;
-    errMsg << "Cell size '"
-           << cellSize
-           << "' must be larger than 0";
-    throw std::invalid_argument(errMsg.str());
+    throw std::invalid_argument(std::format("Cell size '{}' must be larger than 0", cellSize));
 
   }
 

@@ -7,6 +7,7 @@
 #include "calc_spatial.h"
 
 #include <sstream>
+#include <format>
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -140,9 +141,7 @@ calc::Field *GHB::getGhbLeakage(size_t layer, std::string const &path) const
 
   mf::BinaryReader const reader;
   const std::string filename(mf::execution_path(path, d_output_ghb_filename));
-  std::stringstream stmp;
-  stmp << "Can not open file containing GHB cell-by-cell flow terms " << filename;
-  reader.read(stmp.str(), filename, cells, desc, pos_multiplier);
+  reader.read(std::format("Can not open file containing GHB cell-by-cell flow terms {}", filename), filename, cells, desc, pos_multiplier);
 
   return spatial;
 }

@@ -11,6 +11,7 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <format>
 #include <cassert>
 
 /**
@@ -168,9 +169,7 @@ calc::Field *RCH::getRecharge(size_t layer, std::string const &path) const
 
   mf::BinaryReader const reader;
   const std::string filename(mf::execution_path(path, d_output_rch_filename));
-  std::stringstream stmp;
-  stmp << "Can not open file containing recharge cell-by-cell flow terms " << filename;
-  reader.read(stmp.str(), filename, cells, desc, pos_multiplier);
+  reader.read(std::format("Can not open file containing recharge cell-by-cell flow terms {}", filename), filename, cells, desc, pos_multiplier);
 
   return spatial;
 }
@@ -194,9 +193,7 @@ void RCH::getRecharge(float *values, size_t layer, std::string const &path) cons
   //get_binary(cells, desc, start_pos, pos_multiplier);
   mf::BinaryReader const reader;
   const std::string filename(mf::execution_path(path, d_output_rch_filename));
-  std::stringstream stmp;
-  stmp << "Can not open file containing recharge cell-by-cell flow terms " << filename;
-  reader.read(stmp.str(), filename, values, desc, pos_multiplier);
+  reader.read(std::format("Can not open file containing recharge cell-by-cell flow terms {}", filename), filename, values, desc, pos_multiplier);
 }
 
 void RCH::write(std::string const &path)

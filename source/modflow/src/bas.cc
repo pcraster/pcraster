@@ -8,6 +8,7 @@
 #include "calc_spatial.h"
 
 #include <fstream>
+#include <format>
 #include <sstream>
 #include <vector>
 #include <iomanip>
@@ -139,9 +140,7 @@ void BAS::getHeadsFromBinary(std::string const &path)
 
   std::ifstream file(filename.c_str(), std::ios::in | std::ios::binary);
   if (!file.is_open()) {
-    std::stringstream stmp;
-    stmp << "Can not open head value result file " << filename;
-    d_mf->d_cmethods->error(stmp.str(), "run");
+    d_mf->d_cmethods->error(std::format("Can not open head value result file {}", filename), "run");
   }
 
   for (size_t layer = 0; layer < d_mf->d_nrMFLayer; layer++) {
@@ -183,9 +182,7 @@ void BAS::getBASBlockData(discr::BlockData<INT4> &bdata, std::string const &path
 
   std::ifstream file(filename.c_str());
   if (!file.is_open()) {
-    std::stringstream stmp;
-    stmp << "Can not open BAS result file " << filename;
-    d_mf->d_cmethods->error(stmp.str(), "run");
+    d_mf->d_cmethods->error(std::format("Can not open BAS result file {}", filename), "run");
   } else {
     int val = 0;
     int count = 0;

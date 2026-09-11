@@ -490,9 +490,7 @@ calc::Field *BCF::get_storage(size_t layer, std::string const &path) const
   const std::string desc("         STORAGE");
 
   if (d_mf->d_isSteadyState == true) {
-    std::stringstream stmp;
-    stmp << "Cannot obtain storage values from a steady-state simulation";
-    d_mf->d_cmethods->error(stmp.str(), "get_storage");
+    d_mf->d_cmethods->error("Cannot obtain storage values from a steady-state simulation", "get_storage");
   }
 
   // modflow reports from top to bottom, thus
@@ -518,9 +516,7 @@ void BCF::get_storage(float *values, size_t layer, std::string const &path) cons
   const std::string desc("         STORAGE");
 
   if (d_mf->d_isSteadyState == true) {
-    std::stringstream stmp;
-    stmp << "Cannot obtain storage values from a steady-state simulation";
-    d_mf->d_cmethods->error(stmp.str(), "get_storage");
+    d_mf->d_cmethods->error("Cannot obtain storage values from a steady-state simulation", "get_storage");
   }
 
   // modflow reports from top to bottom, thus

@@ -5,6 +5,7 @@
 #include "mf_utils.h"
 
 #include <fstream>
+#include <format>
 #include <vector>
 #include <iostream>
 #include <sstream>
@@ -29,19 +30,13 @@ DIS::DIS(PCRModflow *mf) : d_mf(mf), d_sstr("SS"), d_row_width(), d_col_width()
 void DIS::setParams(size_t itmuni, size_t lenuni, float perlen, size_t nstp, float tsmult, bool sstr)
 {
   if (itmuni > 5) {
-    std::stringstream stmp;
-    stmp << "Time unit mismatch: Set value within interval [0,5]";
-    d_mf->d_cmethods->error(stmp.str(), "setDISParameter");
+    d_mf->d_cmethods->error(std::format("Time unit mismatch ({}): Set value within interval [0, 5]", itmuni), "setDISParameter");
   }
   if (lenuni > 3) {
-    std::stringstream stmp;
-    stmp << "Length unit mismatch: Set value within interval [0,3]";
-    d_mf->d_cmethods->error(stmp.str(), "setDISParameter");
+    d_mf->d_cmethods->error(std::format("Length unit mismatch ({}): Set value within interval [0, 3]", lenuni), "setDISParameter");
   }
   if (nstp < 1) {
-    std::stringstream stmp;
-    stmp << "Number of time steps mismatch: Number must be larger than 1";
-    d_mf->d_cmethods->error(stmp.str(), "setDISParameter");
+    d_mf->d_cmethods->error(std::format("Number of time steps mismatch ({}): Number must be larger than 1", nstp), "setDISParameter");
   }
   d_itmuni = itmuni;
   d_lenuni = lenuni;

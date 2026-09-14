@@ -27,7 +27,6 @@ extern WINDOW *getWin; /* window to enter data for user */
 /**********************/
 /* LOCAL DECLARATIONS */
 /**********************/
-static char separator; /* separator between id and description */
 static char **legItems = NULL;
 static CURR_RADIO_SELECT_BOX *legBox;
 
@@ -182,7 +181,6 @@ extern int Menu(CSF_LEGEND *leg, int nrLeg, const char **mapNames, int nrMapName
   PRECOND(nrMapNames > 0);
 
   /* Initialize the screen */
-  separator = '.';
   CurrInitScreen();
 
   headerLines = PrintHeader(mapNames, nrMapNames, nrLeg == 1 ? MV_INT4 : leg[1].nr, leg[nrLeg - 1].nr);

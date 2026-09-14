@@ -170,10 +170,10 @@ com::UnOrderedCrossTable::~UnOrderedCrossTable()
   delete[] d_cells;
 
   if (nrObjectsCreated() == 1) {
-    for (auto &it : d_indicesMap) {
+    for (auto const &it : d_indicesMap) {
 
       size_t const size = it.first;
-      size_t **indices = it.second;
+      size_t ** const indices = it.second;
 
       for (size_t i = 0; i < size; ++i) {
         delete[] indices[i];
@@ -294,7 +294,7 @@ std::ostream &com::operator<<(std::ostream &stream, const UnOrderedCrossTable &t
   \warning   \a table must have the right size for the table in \a stream.
   \bug       Don't skip the newline. Check if the right amount of information is present on each line.
 */
-std::istream &com::operator>>(std::istream &stream, UnOrderedCrossTable &table)
+std::istream &com::operator>>(std::istream &stream, UnOrderedCrossTable const &table)
 {
   for (size_t i = 0; i < table.d_length; ++i) {
     stream >> table.d_cells[i];

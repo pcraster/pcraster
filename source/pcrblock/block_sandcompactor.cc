@@ -45,7 +45,7 @@ REAL4 SandCompactor::operator()(
   DEVELOP_PRECOND(dal::greaterOrComparable(originalThickness, REAL4(0.0)));
   DEVELOP_PRECOND(dal::greaterOrComparable(depth, REAL4(0.0)));
 
-  auto result = static_cast<REAL4>(
+  auto const result = static_cast<REAL4>(
     (0.51 + 0.49 * std::pow(std::numbers::e, -static_cast<double>(depth) / 3700.0)) *
     originalThickness);
 

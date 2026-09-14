@@ -93,7 +93,7 @@ nb::ndarray<nb::numpy> field_to_array(
                 static_cast<UINT1>(missing_value));
           
           // Delete 'data' when the 'owner' capsule expires
-          nb::capsule owner(data, [](void *p) noexcept {
+          nb::capsule const owner(data, [](void *p) noexcept {
              delete[] (char *) p;
           });
           
@@ -116,7 +116,7 @@ nb::ndarray<nb::numpy> field_to_array(
                 static_cast<INT4>(missing_value));
           
           // Delete 'data' when the 'owner' capsule expires
-          nb::capsule owner(data, [](void *p) noexcept {
+          nb::capsule const owner(data, [](void *p) noexcept {
              delete[] (char *) p;
           });
           
@@ -139,7 +139,7 @@ nb::ndarray<nb::numpy> field_to_array(
                 static_cast<REAL4>(missing_value));
           
           // Delete 'data' when the 'owner' capsule expires
-          nb::capsule owner(data, [](void *p) noexcept {
+          nb::capsule const owner(data, [](void *p) noexcept {
              delete[] (char *) p;
           });
           
@@ -194,9 +194,9 @@ struct ArrayCopier<Source, Destination, value_scale,
         Source const missing_value)
     {
         // Source can hold destination min/max for sure.
-        auto min = static_cast<Source>(
+        auto const min = static_cast<Source>(
             ValueScaleTraits<value_scale>::minimum);
-        auto max = static_cast<Source>(
+        auto const max = static_cast<Source>(
             ValueScaleTraits<value_scale>::maximum);
         Source source_value;
         size_t const nr_values = space.nrCells();
@@ -275,7 +275,7 @@ struct ArrayCopier<Source, Destination, value_scale,
     {
         // Source can hold destination max for sure.
         // (Source may not be able to hold destination min.)
-        auto max = static_cast<Source>(
+        auto const max = static_cast<Source>(
             ValueScaleTraits<value_scale>::maximum);
         Source source_value;
         size_t const nr_values = space.nrCells();
@@ -983,7 +983,7 @@ calc::Field* array_to_field(
 */
 nb::ndarray<nb::numpy> field_as_array(
     geo::RasterSpace const& space,
-    nb::object* field_object)
+    nb::object const* field_object)
 {
 
     if(!nb::inst_check(field_object->ptr())) {

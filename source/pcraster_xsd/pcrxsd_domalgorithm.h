@@ -70,7 +70,7 @@ void forEachNode(DOMNode* node, Operation& o) {
   for(auto i : nodeSet) {
     o(i);
   }
-  DOMNodeList* list = node->getChildNodes();
+  DOMNodeList const* list = node->getChildNodes();
   assert(list);
   for(size_t i=0; i < list->getLength(); ++i) {
     forEachNode(list->item(i),o);
@@ -93,7 +93,7 @@ template <class Operation>
  void forEachElement(DOMElement* e, Operation& o) {
   assert(e);
   o(e);
-  DOMNodeList* list = e->getChildNodes();
+  DOMNodeList const* list = e->getChildNodes();
   for(size_t i=0; i < list->getLength(); i++) {
     if (list->item(i)->getNodeType() == DOMNode::ELEMENT_NODE) {
       forEachElement(dynamic_cast<DOMElement *>(list->item(i)),o);
@@ -111,7 +111,7 @@ template <class Operation>
  */
 template <class Operation>
 void forEachChildElement(DOMElement* e, Operation& o) {
-  DOMNodeList* list = e->getChildNodes();
+  DOMNodeList const* list = e->getChildNodes();
   for(size_t i=0; i < list->getLength(); i++) {
     if (list->item(i)->getNodeType() == DOMNode::ELEMENT_NODE) {
       o(dynamic_cast<DOMElement *>(list->item(i)));

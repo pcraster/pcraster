@@ -32,7 +32,7 @@ public:
                          LinkInTransferArray linkInTransferArray)
   {
     std::string const objName=std::string(l.callPoint().object()->objectName());
-    auto i=objects.find(objName);
+    auto const i=objects.find(objName);
       // instance already exists, constructing again means deleting the old one
     if (i!=objects.end()) {
       delete i->second;
@@ -46,7 +46,7 @@ public:
                           LinkInTransferArray linkInTransferArray)
   {
     std::string const objName=std::string(l.callPoint().object()->objectName());
-    auto i=objects.find(objName);
+    auto const i=objects.find(objName);
     assert(i!=objects.end());
 
     std::string const methodName=std::string(l.callPoint().object()->methodName().get());

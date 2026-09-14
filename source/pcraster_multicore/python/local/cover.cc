@@ -91,7 +91,7 @@ calc::Field* cover(std::vector<calc::Field*> const&  field_arguments){
 }
 
 
-calc::Field* spatial_safe_bool(calc::Field* argument){
+calc::Field* spatial_safe_bool(calc::Field const* argument){
   double value = 0;
   argument->getCell(value, 0);
 
@@ -114,7 +114,7 @@ calc::Field* spatial_safe_bool(calc::Field* argument){
 }
 
 
-calc::Field* spatial_int4(calc::Field* argument, PCR_VS valuescale){
+calc::Field* spatial_int4(calc::Field const* argument, PCR_VS valuescale){
   double value = 0;
   argument->getCell(value, 0);
 

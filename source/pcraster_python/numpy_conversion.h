@@ -30,7 +30,7 @@ calc::Field*       array_to_field     (geo::RasterSpace const& space,
                                        double missing_value);
 
 nanobind::ndarray<nanobind::numpy>    field_as_array     (geo::RasterSpace const& space,
-                                       nanobind::object* field_object);
+                                       nanobind::object const* field_object);
 
 } // namespace pcraster::python
 

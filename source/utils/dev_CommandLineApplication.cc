@@ -155,7 +155,7 @@ std::string const& CommandLineApplication::commandName() const
 void CommandLineApplication::usage(
          std::ostream& stream) const
 {
-  auto fmt = clipp::doc_formatting{}
+  auto const fmt = clipp::doc_formatting{}
          .line_spacing(0)
          .indent_size(2)
          .paragraph_spacing(1)

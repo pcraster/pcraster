@@ -104,7 +104,7 @@ private:
       using result_type = bool;
       bool operator()(IT v) const {
          EqualTo<IT> key(v);
-         auto p(d_m.find(&key));
+         auto const p(d_m.find(&key));
          return p == d_m.end();
       }
   };
@@ -173,7 +173,7 @@ private:
    */
   T& findValue(IT k) {
     EqualTo<IT> key(k);
-    auto p = this->find(&key);
+    auto const p = this->find(&key);
     if (p==this->end()) {
       return d_outside;
     }

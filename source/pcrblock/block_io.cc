@@ -155,7 +155,7 @@ static dal::Block* createBlockForData(
 static void write(
          discr::Block const& block,
          std::string const& name,
-         dal::BlockDriver& driver)
+         dal::BlockDriver const& driver)
 {
   std::unique_ptr<dal::Block> const blockToWrite(createBlockForDiscretisation(block));
   driver.write(*blockToWrite, name);

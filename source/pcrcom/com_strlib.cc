@@ -101,7 +101,7 @@ static void strToCheck(const char *str, char const *endPtr, char const *errMsg)
  */
 int com::strToInt(const std::string &s)
 {
-  char *str = strToInit(s);
+  char const *str = strToInit(s);
   char *endPtr = nullptr;
   long int const v = strtol(str, &endPtr, 10);
   strToCheck(str, endPtr, NOT_A_INT);
@@ -113,7 +113,7 @@ int com::strToInt(const std::string &s)
  */
 double com::strToDouble(const std::string &s)
 {
-  char *str = strToInit(s);
+  char const *str = strToInit(s);
   char *endPtr = nullptr;
   double const v = strtod(str, &endPtr);
   strToCheck(str, endPtr, NOT_A_REAL);

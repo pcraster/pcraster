@@ -73,7 +73,7 @@ com::PathName com::currentWorkingDirectory()
 {
   PRECOND(com::detail::MAX_PATH_LENGTH < 2048);
   char buffer[2048];
-  char *currentDir = nullptr;
+  char const *currentDir = nullptr;
 
   if ((currentDir = ::getcwd(buffer, com::detail::MAX_PATH_LENGTH)) == nullptr) {
     throw std::logic_error(std::string("unable to determine current working directory"));
@@ -139,7 +139,7 @@ com::PathName com::tempDirectoryName()
   if (r > 0 && r <= 4095)
     tempDirName = buf;
 #else
-  char *r = getenv("TMP");
+  char const *r = getenv("TMP");
   if (r != nullptr) {
     tempDirName = r;
   }

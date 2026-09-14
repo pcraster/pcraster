@@ -37,7 +37,7 @@ com::KeyValueTable::KeyValueTable()
 //! dtor
 com::KeyValueTable::~KeyValueTable()
 {
-  for (auto &d_keyConfig : d_keyConfigs) {
+  for (auto const &d_keyConfig : d_keyConfigs) {
     delete d_keyConfig.second;
   }
 }
@@ -78,7 +78,7 @@ void com::KeyValueTable::insertKey(const KeyValueConfig &kvc, bool required)
  */
 void com::KeyValueTable::add(const std::string &key, const std::string &value)
 {
-  auto kc = d_keyConfigs.find(key);
+  auto const kc = d_keyConfigs.find(key);
   if (kc == d_keyConfigs.end()) {
     if (d_discardUnknownKeys) {
       return;
@@ -101,7 +101,7 @@ void com::KeyValueTable::add(const std::string &key, const std::string &value)
 //! is \a key set in the table?
 bool com::KeyValueTable::isSet(const std::string &key) const
 {
-  auto ka = d_keyValues.find(key);
+  auto const ka = d_keyValues.find(key);
   return ka != d_keyValues.end();
 }
 
@@ -116,7 +116,7 @@ bool com::KeyValueTable::isSet(const KeyValueConfig &key) const
 const std::string &com::KeyValueTable::value(const std::string &key) const
 {
   PRECOND(isSet(key));
-  auto ka = d_keyValues.find(key);
+  auto const ka = d_keyValues.find(key);
   PRECOND(ka != d_keyValues.end());
   return ka->second;
 }
@@ -275,7 +275,7 @@ com::KeyValueEnum *com::KeyValueEnum::createClone() const
 void com::KeyValueEnum::validate(const std::string &value) const
 {
   PRECOND(!d_enumValues.empty());
-  auto p = d_enumValues.find(value);
+  auto const p = d_enumValues.find(value);
   if (p == d_enumValues.end()) {
     throw com::Exception("value not allowed");
   }
@@ -302,7 +302,7 @@ const std::string &com::KeyValueEnum::value(const com::KeyValueTable &kvt) const
 //! return value for key \a kvt with casing as inserted with insert()
 const std::string &com::KeyValueEnum::configValue(const KeyValueTable &kvt) const
 {
-  auto p = d_enumValues.find(kvt.value(keyName()));
+  auto const p = d_enumValues.find(kvt.value(keyName()));
   PRECOND(p != d_enumValues.end());
   return *p;
 }

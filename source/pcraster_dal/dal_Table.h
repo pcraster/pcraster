@@ -1189,7 +1189,7 @@ inline void Table::erase(size_t col)
   // Test whether this column is already created.
   if(col < d_cols.size()) {
     if(d_cols[col].has_value()) {
-      auto* array = std::any_cast<Array<T>*>(d_cols[col]);
+      auto const* array = std::any_cast<Array<T>*>(d_cols[col]);
       delete array;
     }
 

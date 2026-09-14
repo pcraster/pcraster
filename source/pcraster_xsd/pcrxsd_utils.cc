@@ -69,7 +69,7 @@ std::string contentsIsXMLOrPCRasterFileFormat(std::string const &contents)
     dom.setValidate(false);
     dom.setString(contents);
     try {
-      DOMDocument *doc = dom.document();
+      DOMDocument const *doc = dom.document();
       return toString(doc->getDocumentElement()->getTagName());
     } catch (Exception &) {
       //PRINT_VAR(contents);

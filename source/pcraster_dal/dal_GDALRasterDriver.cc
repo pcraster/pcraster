@@ -250,10 +250,10 @@ static CSF_VS valueScale(
 
 
 RasterDimensions rasterDimensions(
-         GDALDataset& gdalDataset)
+         GDALDataset const& gdalDataset)
 {
-  auto nrRows = static_cast<size_t>(gdalDataset.GetRasterYSize());
-  auto nrCols = static_cast<size_t>(gdalDataset.GetRasterXSize());
+  auto const nrRows = static_cast<size_t>(gdalDataset.GetRasterYSize());
+  auto const nrCols = static_cast<size_t>(gdalDataset.GetRasterXSize());
 
   // Note that some formats don't support transformation to projection
   // coordinates. In those cases geoTransform is set to (0,1,0,0,0,1).
@@ -325,8 +325,8 @@ Raster* GDALDataset2Raster(
 
   int hasMinimum = 0;
   int hasMaximum = 0;
-  double minimum = rasterBand->GetMinimum(&hasMinimum);
-  double maximum = rasterBand->GetMaximum(&hasMaximum);
+  double const minimum = rasterBand->GetMinimum(&hasMinimum);
+  double const maximum = rasterBand->GetMaximum(&hasMaximum);
 
   if((hasMinimum != 0) && (hasMaximum != 0)) {
     switch(typeId) {
@@ -522,7 +522,7 @@ size_t rasterDriverCount()
 void deregisterGDALDrivers()
 {
   // Deregister currently registered raster drivers.
-  auto registeredDrivers = rasterDrivers();
+  auto const registeredDrivers = rasterDrivers();
   auto* manager = GetGDALDriverManager();
   assert(manager != nullptr);
 
@@ -540,7 +540,7 @@ void GDALRasterDriver::deregisterGDALDrivers()
 {
   detail::deregisterGDALDrivers();
 
-  auto* manager = GetGDALDriverManager();
+  auto const* manager = GetGDALDriverManager();
   assert(manager != nullptr);
 
   if(manager->GetDriverCount() > 0){
@@ -1095,7 +1095,7 @@ void GDALRasterDriver::write(
    * const char *pszFormat = "EHdr"; hmm. no create documented
    */
 
-   char **papszOptions = nullptr;
+   char const **papszOptions = nullptr;
 
    std::shared_ptr<GDALDataset> const poDstDS(d_driver->Create(name.c_str(),
        raster.nrCols(), raster.nrRows(), 1, gdalDataType(raster.typeId()),

@@ -117,7 +117,7 @@ public:
   {
     size_t id = 0;
 
-    auto it = std::find_if(
+    auto const it = std::find_if(
          d_objects.begin(), d_objects.end(),
          valueEquals<ObjectType*>(pointer));
     if(it != d_objects.end()) {
@@ -143,7 +143,7 @@ public:
   void             insert              (ObjectType* pointer,
                                         size_t id)
   {
-    auto it = std::find_if(
+    auto const it = std::find_if(
          d_objects.begin(), d_objects.end(), valueEquals<ObjectType*>(pointer));
     if(it != d_objects.end()) {
       PRECOND((*it).first == id);

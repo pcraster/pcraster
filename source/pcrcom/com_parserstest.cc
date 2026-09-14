@@ -30,11 +30,11 @@ BOOST_AUTO_TEST_CASE(comment_parser)
   invalid.emplace_back("/* # bla");
   invalid.emplace_back("/* # bla */");
 
-  for (auto &it : valid) {
+  for (auto const &it : valid) {
     BOOST_TEST(boost::spirit::parse(it.c_str(), parser).full);
   }
 
-  for (auto &it : invalid) {
+  for (auto const &it : invalid) {
     BOOST_TEST(!boost::spirit::parse(it.c_str(), parser).full);
   }
 }
@@ -58,11 +58,11 @@ BOOST_AUTO_TEST_CASE(section_header_parser)
   invalid.emplace_back("binding ");
   invalid.emplace_back(" binding ");
 
-  for (auto &it : valid) {
+  for (auto const &it : valid) {
     BOOST_TEST(boost::spirit::parse(it.c_str(), parser).full);
   }
 
-  for (auto &it : invalid) {
+  for (auto const &it : invalid) {
     BOOST_TEST(!boost::spirit::parse(it.c_str(), parser).full);
   }
 }
@@ -85,11 +85,11 @@ BOOST_AUTO_TEST_CASE(number_parser)
   invalid.emplace_back(" ");
   invalid.emplace_back(" 5");
 
-  for (auto &it : valid) {
+  for (auto const &it : valid) {
     BOOST_TEST(boost::spirit::parse(it.c_str(), parser).full);
   }
 
-  for (auto &it : invalid) {
+  for (auto const &it : invalid) {
     BOOST_TEST(!boost::spirit::parse(it.c_str(), parser).full);
   }
 }
@@ -119,11 +119,11 @@ BOOST_AUTO_TEST_CASE(variable_name_parser)
   // invalid.push_back("(");
   // invalid.push_back("f()");
 
-  for (auto &it : valid) {
+  for (auto const &it : valid) {
     BOOST_TEST(boost::spirit::parse(it.c_str(), parser).full);
   }
 
-  for (auto &it : invalid) {
+  for (auto const &it : invalid) {
     BOOST_TEST(!boost::spirit::parse(it.c_str(), parser).full);
   }
 }
@@ -149,11 +149,11 @@ BOOST_AUTO_TEST_CASE(filename_parser)
   invalid.emplace_back(" ");
   invalid.emplace_back("abcdefghi");
 
-  for (auto &it : valid) {
+  for (auto const &it : valid) {
     BOOST_TEST(boost::spirit::parse(it.c_str(), parser).full);
   }
 
-  for (auto &it : invalid) {
+  for (auto const &it : invalid) {
     BOOST_TEST(!boost::spirit::parse(it.c_str(), parser).full);
   }
 }

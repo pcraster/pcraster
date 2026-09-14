@@ -146,7 +146,7 @@ template<
 void Cache<T>::incrementUseCount(
     T const* object)
 {
-    auto it = _useCount.find(const_cast<T*>(object));
+    auto const it = _useCount.find(const_cast<T*>(object));
     assert(it != _useCount.end());
     ++(*it).second;
 }
@@ -170,7 +170,7 @@ void Cache<T>::decrementUseCount(
   assert(_map.size() == _useCount.size());
   assert(!_map.empty());
 
-  auto it = _useCount.find(const_cast<T*>(object));
+  auto const it = _useCount.find(const_cast<T*>(object));
   assert(it != _useCount.end());
   assert((*it).second > 0);
   --(*it).second;

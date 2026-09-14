@@ -110,7 +110,7 @@ size_t FeatureLayerGeometries::size() const
 OGRGeometry const& FeatureLayerGeometries::geometry(
          FeatureId featureId) const
 {
-  auto it =
+  auto const it =
          _geometryByFeatureId.find(featureId);
 
   assert(it != _geometryByFeatureId.end());
@@ -123,7 +123,7 @@ OGRGeometry const& FeatureLayerGeometries::geometry(
 FeatureId FeatureLayerGeometries::featureId(
          OGRGeometry const* geometry) const
 {
-  auto it =
+  auto const it =
          _featureIdByGeometry.find(const_cast<OGRGeometry*>(geometry));
   assert(it != _featureIdByGeometry.end());
 

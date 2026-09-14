@@ -193,9 +193,9 @@ void Dimension::checkConsistency()
       assert(_values[0].type() == typeid(float));
       assert(_values[1].type() == typeid(float));
       assert(_values[2].type() == typeid(float));
-      auto first = std::any_cast<float>(_values[0]);
-      auto last = std::any_cast<float>(_values[1]);
-      auto interval = std::any_cast<float>(_values[2]);
+      auto const first = std::any_cast<float>(_values[0]);
+      auto const last = std::any_cast<float>(_values[1]);
+      auto const interval = std::any_cast<float>(_values[2]);
       assert(first > float(0.0));
       assert(smallerOrComparable(first, last));
       assert(interval > float(0.0));
@@ -209,9 +209,9 @@ void Dimension::checkConsistency()
       assert(_values[0].type() == typeid(size_t));
       assert(_values[1].type() == typeid(size_t));
       assert(_values[2].type() == typeid(size_t));
-      auto first = std::any_cast<size_t>(_values[0]);
-      auto last = std::any_cast<size_t>(_values[1]);
-      auto interval = std::any_cast<size_t>(_values[2]);
+      auto const first = std::any_cast<size_t>(_values[0]);
+      auto const last = std::any_cast<size_t>(_values[1]);
+      auto const interval = std::any_cast<size_t>(_values[2]);
       assert(first > 0);
       assert(first <= last);
       assert(interval > 0);
@@ -225,9 +225,9 @@ void Dimension::checkConsistency()
       assert(_values[0].type() == typeid(size_t));
       assert(_values[1].type() == typeid(size_t));
       assert(_values[2].type() == typeid(size_t));
-      auto first = std::any_cast<size_t>(_values[0]);
-      auto last = std::any_cast<size_t>(_values[1]);
-      auto interval = std::any_cast<size_t>(_values[2]);
+      auto const first = std::any_cast<size_t>(_values[0]);
+      auto const last = std::any_cast<size_t>(_values[1]);
+      auto const interval = std::any_cast<size_t>(_values[2]);
       assert(first > 0);
       assert(first <= last);
       assert(interval > 0);
@@ -481,18 +481,18 @@ size_t Dimension::nrCoordinates() const
       break;
     }
     case CumulativeProbabilities: {
-      auto first = std::any_cast<float>(_values[0]);
-      auto last = std::any_cast<float>(_values[1]);
-      auto interval = std::any_cast<float>(_values[2]);
+      auto const first = std::any_cast<float>(_values[0]);
+      auto const last = std::any_cast<float>(_values[1]);
+      auto const interval = std::any_cast<float>(_values[2]);
       result = round<float, size_t>(((last - first) / interval) + static_cast<float>(1.0));
 
       break;
     }
     case Samples:
     case Time: {
-      auto first = std::any_cast<size_t>(_values[0]);
-      auto last = std::any_cast<size_t>(_values[1]);
-      auto interval = std::any_cast<size_t>(_values[2]);
+      auto const first = std::any_cast<size_t>(_values[0]);
+      auto const last = std::any_cast<size_t>(_values[1]);
+      auto const interval = std::any_cast<size_t>(_values[2]);
       result = ((last - first) / interval) + 1;
 
       break;

@@ -12,7 +12,7 @@ BOOST_AUTO_TEST_CASE(reset_clone)
   using E = EqualTo<float>;
   {
     E *dest = new E(4);
-    E *src(nullptr);
+    E const *src(nullptr);
     resetClone(dest, src);
     BOOST_TEST(dest == nullptr);
 

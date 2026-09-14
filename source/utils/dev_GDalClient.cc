@@ -71,7 +71,7 @@ GDalClient::~GDalClient()
     // Last GDalClient object is being destructed.
     if(_weInitializedGdal) {
       // We initialized the GDal library, so we need to clean up again.
-      int driver_count = GetGDALDriverManager()->GetDriverCount();
+      int const driver_count = GetGDALDriverManager()->GetDriverCount();
       for(int i = 0; i < driver_count; ++i) {
         auto* driver = GetGDALDriverManager()->GetDriver(0);
         GDALDeregisterDriver(driver);

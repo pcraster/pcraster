@@ -395,7 +395,7 @@ void FeatureLayer::value(
 {
   assert(featureId != OGRNullFID);
 
-  auto it =
+  auto const it =
          _valueIdByFeatureId.find(featureId);
   assert(it != _valueIdByFeatureId.end());
   size_t const valueId = (*it).second;

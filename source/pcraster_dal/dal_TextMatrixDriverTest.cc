@@ -21,7 +21,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
   TextMatrixDriver driver;
   bool exceptionCaught = false;
 
-  auto* matrix = dynamic_cast<Matrix*>(
+  auto const* matrix = dynamic_cast<Matrix*>(
          dynamic_cast<Driver&>(driver).open(filename));
   BOOST_TEST(!matrix);
 
@@ -46,7 +46,7 @@ BOOST_AUTO_TEST_CASE(empty)
   TextMatrixDriver driver;
   bool exceptionCaught = false;
 
-  auto* matrix = dynamic_cast<Matrix*>(
+  auto const* matrix = dynamic_cast<Matrix*>(
          dynamic_cast<Driver&>(driver).open(filename));
   BOOST_TEST(!matrix);
 
@@ -71,7 +71,7 @@ BOOST_AUTO_TEST_CASE(invalid_grammar)
   TextMatrixDriver driver;
   bool exceptionCaught = false;
 
-  auto* matrix = dynamic_cast<Matrix*>(
+  auto const* matrix = dynamic_cast<Matrix*>(
          dynamic_cast<Driver&>(driver).open(filename));
   BOOST_TEST(!matrix);
 

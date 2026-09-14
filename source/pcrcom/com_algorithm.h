@@ -105,7 +105,7 @@ class FindValue {
    explicit FindValue(const T& defValue):
      d_defValue(defValue) {}
    T find(const Map& m, const K& key) {
-     auto i=m.find(key);
+     auto const i=m.find(key);
      if (i == m.end()) {
        return d_defValue;
      }

@@ -53,7 +53,7 @@ public:
 
   SupportedSchema const *findBySystemId(std::string const &systemId)
   {
-    auto f = find(systemId);
+    auto const f = find(systemId);
     if (f == end()) {
       return nullptr;
     }

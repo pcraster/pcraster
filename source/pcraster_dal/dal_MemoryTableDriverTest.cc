@@ -81,7 +81,7 @@ BOOST_AUTO_TEST_CASE(test_)
   dynamic_cast<TableDriver&>(driver).write(*d_table1, "table1");
   BOOST_CHECK(dynamic_cast<Driver&>(driver).exists("table1"));
 
-  Table* table = dynamic_cast<TableDriver&>(driver).read("table1");
+  Table const* table = dynamic_cast<TableDriver&>(driver).read("table1");
   BOOST_CHECK(*d_table1 == *table);
   BOOST_CHECK(d_table1 != table);
   delete table;

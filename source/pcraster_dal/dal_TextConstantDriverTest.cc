@@ -25,7 +25,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
   BOOST_TEST(!dynamic_cast<ConstantDriver const&>(driver).exists(filename));
 
   // Open.
-  Constant* constant =
+  Constant const* constant =
          dynamic_cast<ConstantDriver const&>(driver).open(filename);
   BOOST_TEST(!constant);
 

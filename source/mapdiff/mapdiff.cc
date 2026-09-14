@@ -27,7 +27,7 @@ int main(int argc,      /* number of arguments */
   char *argv[])      /* list of arguments */
 {
   int c = 0;
-  char *fileName=nullptr;
+  char const *fileName = nullptr;
 
   exitOnError=1;
   /* install application */

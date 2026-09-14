@@ -26,7 +26,7 @@ template <typename T> void test_assignment()
   {
     T argument;
     pcr::setMV(argument);
-    auto result = argument;
+    auto const result = argument;
     BOOST_TEST(pcr::isMV(result));
   }
 }
@@ -47,7 +47,7 @@ template <typename T> void test_add()
     T argument1 = 3;
     T argument2 = 4;
     pcr::setMV(argument1);
-    auto result = com::add<T>(argument1, argument2);
+    auto const result = com::add<T>(argument1, argument2);
     BOOST_TEST(pcr::isMV(result));
   }
 
@@ -56,7 +56,7 @@ template <typename T> void test_add()
     T argument1 = 3;
     T argument2 = 4;
     pcr::setMV(argument2);
-    auto result = com::add<T>(argument1, argument2);
+    auto const result = com::add<T>(argument1, argument2);
     BOOST_TEST(pcr::isMV(result));
   }
 
@@ -66,7 +66,7 @@ template <typename T> void test_add()
     T argument2 = 4;
     pcr::setMV(argument1);
     pcr::setMV(argument2);
-    auto result = com::add<T>(argument1, argument2);
+    auto const result = com::add<T>(argument1, argument2);
     BOOST_TEST(pcr::isMV(result));
   }
 }
@@ -127,7 +127,7 @@ template <typename T> void test_subtract()
     T argument1 = 3;
     T argument2 = 4;
     pcr::setMV(argument1);
-    auto result = com::subtract<T>(argument1, argument2);
+    auto const result = com::subtract<T>(argument1, argument2);
     BOOST_TEST(pcr::isMV(result));
   }
 
@@ -136,7 +136,7 @@ template <typename T> void test_subtract()
     T argument1 = 3;
     T argument2 = 4;
     pcr::setMV(argument2);
-    auto result = com::subtract<T>(argument1, argument2);
+    auto const result = com::subtract<T>(argument1, argument2);
     BOOST_TEST(pcr::isMV(result));
   }
 
@@ -146,7 +146,7 @@ template <typename T> void test_subtract()
     T argument2 = 4;
     pcr::setMV(argument1);
     pcr::setMV(argument2);
-    auto result = com::subtract<T>(argument1, argument2);
+    auto const result = com::subtract<T>(argument1, argument2);
     BOOST_TEST(pcr::isMV(result));
   }
 }

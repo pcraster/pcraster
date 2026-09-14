@@ -146,7 +146,7 @@ int fieldId(
   int result = -1;
 
   // Feature definition is owned by the layer.
-  OGRFeatureDefn* featureDefinition = ogrLayer.GetLayerDefn();
+  OGRFeatureDefn const* featureDefinition = ogrLayer.GetLayerDefn();
   assert(featureDefinition);
   result = featureDefinition->GetFieldIndex(name.c_str());
 
@@ -178,7 +178,7 @@ int fieldId(
 
 void read(
          Table& table,
-         FeatureLayer& layer,
+         FeatureLayer const& layer,
          FeaturePath const& path,
          DataSpace const& space,
          DataSpaceAddress const& address)
@@ -518,7 +518,7 @@ FeaturePath OgrFeatureDriver::featurePathFor(
     // Data space and address are not relevant at this point.
 
     // A function to determine whether a dataset exists.
-    auto callBack = [&](std::string const& name) {
+    auto const callBack = [&](std::string const& name) {
         auto dataset = GDALOpenEx(name.c_str(), GDAL_OF_VECTOR,
             this->_driver_names, nullptr, nullptr);
         bool const result = dataset != nullptr;
@@ -621,7 +621,7 @@ TypeId OgrFeatureDriver::open(
   else if(typeId == TI_NR_TYPES) {
     // Determine field type.
     // Field definition is owned by the feature definition.
-    OGRFieldDefn* fieldDefinition(featureDefinition->GetFieldDefn(fieldId));
+    OGRFieldDefn const* fieldDefinition(featureDefinition->GetFieldDefn(fieldId));
     assert(fieldDefinition);
 
     typeId = detail::fieldTypeToTypeId(fieldDefinition->GetType());
@@ -696,7 +696,7 @@ FeatureLayer* OgrFeatureDriver::open(
 
       if(ogrLayer != nullptr) {
         // Feature definition is owned by the layer.
-        OGRFeatureDefn* featureDefinition = ogrLayer->GetLayerDefn();
+        OGRFeatureDefn const* featureDefinition = ogrLayer->GetLayerDefn();
         OGRwkbGeometryType const geometryType = featureDefinition->GetGeomType();
 
         if(geometryType != wkbNone && geometryType != wkbUnknown) {
@@ -1198,7 +1198,7 @@ void OgrFeatureDriver::read(
     }
 
     // Feature definition is owned by the layer.
-    OGRFeatureDefn* featureDefinition = ogrLayer->GetLayerDefn();
+    OGRFeatureDefn const* featureDefinition = ogrLayer->GetLayerDefn();
     OGRwkbGeometryType const geometryType = featureDefinition->GetGeomType();
 
     if(geometryType == wkbNone || geometryType == wkbUnknown) {
@@ -1316,7 +1316,7 @@ void OgrFeatureDriver::browse(
   OGRwkbGeometryType geometryType;
 
   // Iterate over all files.
-  for(auto & leave : leaves) {
+  for(auto  const& leave : leaves) {
     auto dataset = static_cast<GDALDataset*>(GDALOpenEx(
         (path / leave).string().c_str(), GDAL_OF_VECTOR, _driver_names,
         nullptr, nullptr));
@@ -1347,7 +1347,7 @@ void OgrFeatureDriver::browse(
         }
 
         for(int f = 0; f < featureDefinition->GetFieldCount(); ++f) {
-          OGRFieldDefn* fieldDefinition = featureDefinition->GetFieldDefn(f);
+          OGRFieldDefn const* fieldDefinition = featureDefinition->GetFieldDefn(f);
 
           name = leave + "/" + featureDefinition->GetName() + "/" +
               fieldDefinition->GetNameRef();

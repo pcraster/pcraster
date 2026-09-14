@@ -181,7 +181,7 @@ template <class Point> void GriddedPoints<Point>::remove(const Point &point, siz
 {
   PRECOND(!isMV(row, col));
 
-  auto it = std::find(begin(row, col), end(row, col), point);
+  auto const it = std::find(begin(row, col), end(row, col), point);
   POSTCOND(it != end(row, col));
 
   d_points.cell(row, col).erase(it);

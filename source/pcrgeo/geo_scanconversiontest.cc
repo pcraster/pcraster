@@ -267,7 +267,7 @@ BOOST_AUTO_TEST_CASE(midpoint_circle)
     pointsInOctant.emplace_back(12, 12);
     pointsInOctant.emplace_back(17, 0);
 
-    for (auto &it : pointsInOctant) {
+    for (auto const &it : pointsInOctant) {
       testCirclePoints(points, it);
     }
   }
@@ -288,7 +288,7 @@ BOOST_AUTO_TEST_CASE(midpoint_circle)
     pointsInOctant.emplace_back(8, 10);
     pointsInOctant.emplace_back(9, 9);
 
-    for (auto &it : pointsInOctant) {
+    for (auto const &it : pointsInOctant) {
       testCirclePoints(innerPoints, it);
     }
 
@@ -379,7 +379,7 @@ BOOST_AUTO_TEST_CASE(midpoint_circle)
     pointsInOctant.emplace_back(11, 11);
     pointsInOctant.emplace_back(11, 12);
 
-    for (auto &it : pointsInOctant) {
+    for (auto const &it : pointsInOctant) {
       testCirclePoints(points, it);
     }
   }

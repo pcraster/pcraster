@@ -733,7 +733,7 @@ inline T const* Matrix::cells() const
 {
   assert(cellsAreCreated());
 
-  T* pointer = std::any_cast<T*>(d_cells);
+  T const* pointer = std::any_cast<T*>(d_cells);
 
   return pointer;
 }

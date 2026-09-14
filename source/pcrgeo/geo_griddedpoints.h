@@ -219,8 +219,8 @@ inline geo::CellLoc geo::GriddedPoints<Point>::cellLoc(
   PRECOND(r >= 0.0);
   PRECOND(c >= 0.0);
 
-  auto row = static_cast<size_t>(r);
-  auto col = static_cast<size_t>(c);
+  auto const row = static_cast<size_t>(r);
+  auto const col = static_cast<size_t>(c);
 
   PRECOND(row < nrRows());
   PRECOND(col < nrCols());

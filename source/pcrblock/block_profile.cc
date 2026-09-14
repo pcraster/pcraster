@@ -22,7 +22,7 @@ static void profile(
     pcr::setMV(result);
   }
   else {
-    auto it = std::find_if(
+    auto const it = std::find_if(
            stack.begin(), stack.end(),
            VoxelAtHeight(stack.baseElevation(), height));
 

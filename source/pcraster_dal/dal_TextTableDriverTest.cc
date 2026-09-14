@@ -21,7 +21,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
   TextTableDriver const driver;
   bool exceptionCaught = false;
 
-  Table* table = driver.open(std::filesystem::path(filename));
+  Table const* table = driver.open(std::filesystem::path(filename));
   BOOST_TEST(!table);
 
   try {
@@ -45,7 +45,7 @@ BOOST_AUTO_TEST_CASE(empty)
   TextTableDriver driver;
   bool exceptionCaught = false;
 
-  Table* table = driver.open(std::filesystem::path(filename));
+  Table const* table = driver.open(std::filesystem::path(filename));
   BOOST_TEST(!table);
 
   try {
@@ -69,7 +69,7 @@ BOOST_AUTO_TEST_CASE(invalid_grammar)
   TextTableDriver driver;
   bool exceptionCaught=false;
 
-  Table* table=nullptr;
+  Table const* table=nullptr;
 
   try {
     exceptionCaught = false;

@@ -315,7 +315,7 @@ void writeFieldTemplate(
          std::string const& filename)
 {
   DEVELOP_PRECOND(globals.rasterDal().hasDriverByName("CSF"));
-  dal::RasterDriver* driver(globals.rasterDal().driverByName("CSF"));
+  dal::RasterDriver const* driver(globals.rasterDal().driverByName("CSF"));
 
   // PRECOND(field->isSpatial());
 
@@ -978,11 +978,11 @@ NB_MODULE(_pcraster, module)
 
     .def("__getstate__", [](const calc::Field &field) { return pp::getstate(field); })
     .def("__setstate__", [](calc::Field &field, nanobind::tuple const & state) {
-      auto nr_rows = nanobind::cast<size_t>(state[3]);
-      auto nr_cols = nanobind::cast<size_t>(state[4]);
-      size_t nr_cells = nr_rows * nr_cols;
-      VS vs = static_cast<VS>(nanobind::cast<int>(state[1]));
-      calc::CRIndex cri = static_cast<calc::CRIndex>(nanobind::cast<int>(state[2]));
+      auto const nr_rows = nanobind::cast<size_t>(state[3]);
+      auto const nr_cols = nanobind::cast<size_t>(state[4]);
+      size_t const nr_cells = nr_rows * nr_cols;
+      VS const vs = static_cast<VS>(nanobind::cast<int>(state[1]));
+      calc::CRIndex const cri = static_cast<calc::CRIndex>(nanobind::cast<int>(state[2]));
       
       new (&field) calc::Spatial(vs, cri, nr_cells);
       pp::setstate(&field, state);

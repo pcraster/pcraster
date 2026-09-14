@@ -60,7 +60,7 @@ void fill_raster(calc::Field & field, const nanobind::tuple& state){
 
   size_t count = 0;
 
-  for(auto & value : values){
+  for(auto const& value : values){
     if (value != "m") {
       // Correct direct parsing of hexstrings seems to be still discussed
       // without strtod reading hexstring will result in 0
@@ -127,7 +127,7 @@ void setstate(calc::Field* field, nanobind::tuple const & state) {
   auto north = nanobind::cast<double>(state[5]);
   auto west = nanobind::cast<double>(state[6]);
   auto cell_size = nanobind::cast<double>(state[7]);
-  int projection = nanobind::cast<int>(state[8]);
+  int const projection = nanobind::cast<int>(state[8]);
 
   if (!globals.cloneSpace().valid()) {
     geo::RasterSpace const cloneSpace(nr_rows, nr_cols, cell_size, west, north, static_cast<geo::Projection>(projection));
@@ -145,7 +145,7 @@ void setstate(calc::Field* field, nanobind::tuple const & state) {
     }
   }
 
-  VS vs = static_cast<VS>(nanobind::cast<int>(state[1]));
+  VS const vs = static_cast<VS>(nanobind::cast<int>(state[1]));
   CSF_VS const csf_value_scale = calc::vs2CsfVs(vs);
 
   switch(csf_value_scale){

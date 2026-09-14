@@ -47,7 +47,7 @@ void resample(
     }
   }
   else {
-    auto nrVoxels = static_cast<size_t>(
+    auto const nrVoxels = static_cast<size_t>(
          std::ceil(surface - base) / thickness);
     // No missing values in resulting block!
     for(size_t i = 0; i < block.nrCells(); ++i) {

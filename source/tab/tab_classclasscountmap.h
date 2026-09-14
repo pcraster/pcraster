@@ -78,7 +78,7 @@ class ClassClassCountMap : public std::map<Class,ClassCountMap<Class> >
 
   //! return the count, 0 if not in map
   size_t getCount(Class r, Class c) const {
-    auto i=this->find(r);
+    auto const i=this->find(r);
     if (i!=this->end()) {
       return i->second.getCount(c);
     }

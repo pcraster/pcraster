@@ -96,7 +96,7 @@ public:
   UnOrderedCrossTable& operator=       (const UnOrderedCrossTable& aTable);
 
   friend std::istream& operator>>      (std::istream& stream,
-                                        UnOrderedCrossTable& table);
+                                        UnOrderedCrossTable const& table);
 
   //----------------------------------------------------------------------------
   // ACCESSORS
@@ -218,7 +218,7 @@ std::ostream&      operator<<          (std::ostream& stream,
                                         const UnOrderedCrossTable& table);
 
 std::istream&      operator>>          (std::istream& stream,
-                                        UnOrderedCrossTable& table);
+                                        UnOrderedCrossTable const& table);
 
 
 

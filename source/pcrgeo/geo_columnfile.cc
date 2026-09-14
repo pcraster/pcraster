@@ -350,7 +350,7 @@ size_t geo_ColumnFile::nrRecs() const
 */
 geo_ColumnFile::const_iterator geo_ColumnFile::begin(size_t n) const
 {
-  auto it = d_selVars.find(n);
+  auto const it = d_selVars.find(n);
 
   if (it == d_selVars.end()) {
     throw std::range_error("geo_ColumnFile::begin(size_t)");
@@ -375,7 +375,7 @@ geo_ColumnFile::const_iterator geo_ColumnFile::begin(size_t n) const
 */
 geo_ColumnFile::const_iterator geo_ColumnFile::end(size_t n) const
 {
-  auto it = d_selVars.find(n);
+  auto const it = d_selVars.find(n);
 
   if (it == d_selVars.end()) {
     throw std::range_error("geo_ColumnFile::end(size_t)");
@@ -393,7 +393,7 @@ geo_ColumnFile::const_iterator geo_ColumnFile::end(size_t n) const
 
 std::vector<double> *geo_ColumnFile::data(size_t n) const
 {
-  auto it = d_selVars.find(n);
+  auto const it = d_selVars.find(n);
 
   if (it == d_selVars.end()) {
     throw std::range_error("geo_ColumnFile::data(size_t)");

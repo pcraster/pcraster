@@ -30,7 +30,7 @@ public:
 namespace detail {
 
 void testUInt1Raster1(
-         dal::RasterDriver& driver,
+         dal::RasterDriver const& driver,
          std::string const& name)
 {
   std::shared_ptr<dal::Raster> raster;
@@ -63,7 +63,7 @@ void testUInt1Raster1(
 
 
 void testInt4Raster1(
-         dal::RasterDriver& driver,
+         dal::RasterDriver const& driver,
          std::string const& name)
 {
   std::shared_ptr<dal::Raster> raster;
@@ -112,7 +112,7 @@ void testInt4Raster1(
 
 
 void testInt4Raster2(
-         dal::RasterDriver& driver,
+         dal::RasterDriver const& driver,
          std::string const& name)
 {
   std::shared_ptr<dal::Raster> raster;
@@ -145,7 +145,7 @@ void testInt4Raster2(
 
 
 void testReal4Raster1(
-         dal::RasterDriver& driver,
+         dal::RasterDriver const& driver,
          std::string const& name)
 {
   std::shared_ptr<dal::Raster> raster;
@@ -178,7 +178,7 @@ void testReal4Raster1(
 
 
 void testReal4Raster2(
-         dal::RasterDriver& driver,
+         dal::RasterDriver const& driver,
          std::string const& name)
 {
   std::shared_ptr<dal::Raster> raster;
@@ -212,7 +212,7 @@ void testReal4Raster2(
 
 
 void testUInt1Raster2(
-         dal::RasterDriver& driver,
+         dal::RasterDriver const& driver,
          std::string const& name)
 {
   std::shared_ptr<dal::Raster> raster;
@@ -265,7 +265,7 @@ void testUInt1Raster2(
 
 
 void testAllMVRaster(
-         dal::RasterDriver& driver,
+         dal::RasterDriver const& driver,
          std::string const& name)
 {
   std::shared_ptr<dal::Raster> raster;
@@ -294,7 +294,7 @@ void testAllMVRaster(
 
 
 void testTemporalRaster(
-         dal::RasterDriver& driver,
+         dal::RasterDriver const& driver,
          std::string const& name)
 {
   std::shared_ptr<dal::Raster> raster;
@@ -374,7 +374,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
   std::string const filename = "unexisting";
   GDALRasterDriver driver("PCRaster");
 
-  auto* raster = dynamic_cast<Raster*>(
+  auto const* raster = dynamic_cast<Raster*>(
          dynamic_cast<Driver&>(driver).open(filename));
   BOOST_TEST(!raster);
 
@@ -399,7 +399,7 @@ BOOST_AUTO_TEST_CASE(empty)
   std::string const filename = "emptyfile";
   GDALRasterDriver driver("PCRaster");
 
-  auto* raster = dynamic_cast<Raster*>(
+  auto const* raster = dynamic_cast<Raster*>(
          dynamic_cast<Driver&>(driver).open(filename));
   BOOST_TEST(!raster);
 

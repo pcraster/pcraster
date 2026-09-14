@@ -120,7 +120,7 @@ Dal::Dal(
 
   for(std::string const& name : environment.formatNames()) {
     // See if a driver by that name exists.
-    auto it = std::find_if(_autoAddedDrivers.begin(),
+    auto const it = std::find_if(_autoAddedDrivers.begin(),
          _autoAddedDrivers.end(), std::bind(
            std::equal_to<std::string>(), std::bind(&Driver::name, std::placeholders::_1), name));
 
@@ -141,7 +141,7 @@ Dal::Dal(
   }
   else {
     // Erase unneeded drivers.
-    for(Driver* driver : _autoAddedDrivers) {
+    for(Driver const* driver : _autoAddedDrivers) {
       delete driver;
     }
 
@@ -241,7 +241,7 @@ void Dal::add(
 void Dal::remove(
          Driver* driver)
 {
-  auto it = std::find(_drivers.begin(), _drivers.end(), driver);
+  auto const it = std::find(_drivers.begin(), _drivers.end(), driver);
 
   if(it != _drivers.end()) {
     _drivers.erase(it);
@@ -547,7 +547,7 @@ bool Dal::exists(
          DatasetType datasetType) const
 {
   bool result = false;
-  Driver* driver = driverByDataset(name, space);
+  Driver const* driver = driverByDataset(name, space);
 
   if(driver != nullptr) {
     result = driver->exists(name, space, address);

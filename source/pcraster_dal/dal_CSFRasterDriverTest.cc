@@ -48,7 +48,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
   std::string const filename = "unexisting";
   CSFRasterDriver driver;
 
-  auto* raster = dynamic_cast<Raster*>(
+  auto const* raster = dynamic_cast<Raster*>(
          dynamic_cast<Driver&>(driver).open(filename));
   BOOST_TEST(!raster);
   BOOST_CHECK_THROW(dynamic_cast<Driver const&>(driver).dataSpace(filename),
@@ -75,7 +75,7 @@ BOOST_AUTO_TEST_CASE(empty)
   std::string const filename = "emptyfile";
   CSFRasterDriver driver;
 
-  auto* raster = dynamic_cast<Raster*>(
+  auto const* raster = dynamic_cast<Raster*>(
          dynamic_cast<Driver&>(driver).open(filename));
   BOOST_TEST(!raster);
 

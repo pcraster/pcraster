@@ -138,7 +138,7 @@ BOOST_AUTO_TEST_CASE(read_)
     for(size_t i = 0; i < elevation.nrCells(); ++i) {
       BOOST_TEST(dal::comparable(elevation.cell<REAL4>(i), REAL4(i)));
 
-      auto& stack(block->cell<REAL4_VECTOR>(i));
+      auto const& stack(block->cell<REAL4_VECTOR>(i));
 
       BOOST_TEST(stack.size() == i);
 

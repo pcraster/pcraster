@@ -22,7 +22,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
   GeoEASTableDriver driver;
   bool exceptionCaught = false;
 
-  auto* table = dynamic_cast<Table*>(
+  auto const* table = dynamic_cast<Table*>(
          dynamic_cast<Driver&>(driver).open(filename));
   BOOST_TEST(!table);
 
@@ -47,7 +47,7 @@ BOOST_AUTO_TEST_CASE(empty)
   GeoEASTableDriver driver;
   bool exceptionCaught = false;
 
-  auto* table = dynamic_cast<Table*>(
+  auto const* table = dynamic_cast<Table*>(
          dynamic_cast<Driver&>(driver).open(filename));
   BOOST_TEST(!table);
 
@@ -72,7 +72,7 @@ BOOST_AUTO_TEST_CASE(invalid_grammer)
   GeoEASTableDriver driver;
   bool exceptionCaught = false;
 
-  auto* table = dynamic_cast<Table*>(
+  auto const* table = dynamic_cast<Table*>(
          dynamic_cast<Driver&>(driver).open(filename));
   BOOST_TEST(!table);
 

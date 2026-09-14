@@ -34,7 +34,7 @@ class GHB{
   
  public:
 
-  GHB(PCRModflow *mf);
+  explicit GHB(PCRModflow *mf);
 
   ~GHB();
 

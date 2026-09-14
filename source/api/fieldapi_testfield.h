@@ -29,7 +29,7 @@ template<class T, size_t d_nrRows, size_t d_nrCols>
 
   public:
      //! ctor
-     TestField(T *data):
+     explicit TestField(T *data):
        d_data(data)
      {
        T *p=d_data;

@@ -63,7 +63,7 @@ public:
                    Table               (size_t nrCols,
                                         size_t nrRecs);
 
-                   Table               (com::PathName const& fileName);
+                   explicit Table               (com::PathName const& fileName);
 
   //! Destructor.
   /* virtual */    ~Table              () override;

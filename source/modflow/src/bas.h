@@ -38,7 +38,7 @@ private:
 
 public:
   ~BAS();
-  BAS(PCRModflow *mf);
+  explicit BAS(PCRModflow *mf);
   void writeBAS();
   void setNoFlowConstant(float value);
   void setBASBlockData(const discr::BlockData<INT4> &source, discr::BlockData<INT4> &result);

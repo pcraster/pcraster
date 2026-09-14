@@ -50,7 +50,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-                   StreamWriter        (std::ostream& stream);
+                   explicit StreamWriter        (std::ostream& stream);
 
   /* virtual */    ~StreamWriter       ();
 

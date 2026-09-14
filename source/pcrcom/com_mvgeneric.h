@@ -115,7 +115,7 @@ template<typename T>
  public:
    using const_iterator = NonSpatialIterator<T>;
 
-   NonSpatialContainer(
+   explicit NonSpatialContainer(
        const   T& value,
        size_t  n=1):
      d_value(value),

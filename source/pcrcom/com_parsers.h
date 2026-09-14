@@ -23,7 +23,7 @@ struct CommentGrammar: public boost::spirit::grammar<CommentGrammar>
 
     boost::spirit::rule<ScannerT> comment;
 
-    definition(CommentGrammar const& ) {
+    explicit definition(CommentGrammar const& ) {
       comment = "#" >> *boost::spirit::anychar_p;
       // boost::spirit::comment_p("#");
     }
@@ -40,7 +40,7 @@ struct SectionHeaderGrammar: public boost::spirit::grammar<SectionHeaderGrammar>
 
     boost::spirit::rule<ScannerT> rule;
 
-    definition(SectionHeaderGrammar const& ) {
+    explicit definition(SectionHeaderGrammar const& ) {
       rule =
         boost::spirit::str_p("binding") |
         boost::spirit::str_p("areamap") |
@@ -61,7 +61,7 @@ struct CommandLineArgumentGrammar: public boost::spirit::grammar<CommandLineArgu
 
     boost::spirit::rule<ScannerT> rule;
 
-    definition(CommandLineArgumentGrammar const& ) : rule('$' >> boost::spirit::digit_p) {
+    explicit definition(CommandLineArgumentGrammar const& ) : rule('$' >> boost::spirit::digit_p) {
     }
 
     boost::spirit::rule<ScannerT> const& start() const {
@@ -76,7 +76,7 @@ struct EnvironmentVariableGrammar: public boost::spirit::grammar<EnvironmentVari
 
     boost::spirit::rule<ScannerT> rule;
 
-    definition(EnvironmentVariableGrammar const& ) {
+    explicit definition(EnvironmentVariableGrammar const& ) {
       rule = '$' >> +boost::spirit::alpha_p;
     }
 
@@ -92,7 +92,7 @@ struct VariableNameGrammar: public boost::spirit::grammar<VariableNameGrammar>
 
     boost::spirit::rule<ScannerT> rule;
 
-    definition(VariableNameGrammar const& ) {
+    explicit definition(VariableNameGrammar const& ) {
       rule = boost::spirit::alpha_p >>
          *(boost::spirit::alpha_p | boost::spirit::alnum_p);
     }
@@ -111,7 +111,7 @@ struct PureAlphabeticNameGrammar:
 
     boost::spirit::rule<ScannerT> rule;
 
-    definition(PureAlphabeticNameGrammar const& ) : rule(+(boost::spirit::alpha_p)) {
+    explicit definition(PureAlphabeticNameGrammar const& ) : rule(+(boost::spirit::alpha_p)) {
     }
 
     boost::spirit::rule<ScannerT> const& start() const {
@@ -126,7 +126,7 @@ struct NumberGrammar: public boost::spirit::grammar<NumberGrammar>
 
     boost::spirit::rule<ScannerT> rule;
 
-    definition(NumberGrammar const& ) : rule(boost::spirit::real_p) {
+    explicit definition(NumberGrammar const& ) : rule(boost::spirit::real_p) {
     }
 
     boost::spirit::rule<ScannerT> const& start() const {
@@ -141,7 +141,7 @@ struct FileNameGrammar: public boost::spirit::grammar<FileNameGrammar>
 
     boost::spirit::rule<ScannerT> rule;
 
-    definition(FileNameGrammar const& ) {
+    explicit definition(FileNameGrammar const& ) {
       // 8.3 format
       rule = boost::spirit::alpha_p >>
              boost::spirit::repeat_p(0, 7)[boost::spirit::alnum_p] >>

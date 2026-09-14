@@ -23,7 +23,7 @@ class LowerLimit : public Interval<R> {
  protected:
   //! value to compare against
   R d_minV;
-  LowerLimit(R minV): d_minV(minV) {}
+  explicit LowerLimit(R minV): d_minV(minV) {}
  public:
    bool    operator<(R /*v*/) const override { return false; }
    R  min() const override { return d_minV;     }
@@ -35,7 +35,7 @@ template<typename R=double>
 class GreaterThan : public LowerLimit<R> {
   public:
    //! ctor
-   GreaterThan(R minV):LowerLimit<R>(minV){}
+   explicit GreaterThan(R minV):LowerLimit<R>(minV){}
    bool        valid(R v)const override { return v > this->d_minV; }
    bool    operator>(R v)const override { return this->d_minV >= v;}
    std::string msg() const override;
@@ -48,7 +48,7 @@ template<typename R=double>
 class GreaterThanEqualTo : public LowerLimit<R> {
   public:
    //! ctor
-   GreaterThanEqualTo(R minV):LowerLimit<R>(minV){}
+   explicit GreaterThanEqualTo(R minV):LowerLimit<R>(minV){}
    bool valid(R v)        const override { return v >= this->d_minV; }
    bool    operator>(R v) const override { return this->d_minV >  v;}
    std::string msg() const override;
@@ -62,7 +62,7 @@ class UpperLimit : public Interval<R> {
 protected:
   //! value to compare against
   R d_maxV;
-  UpperLimit(R maxV): d_maxV(maxV) {}
+  explicit UpperLimit(R maxV): d_maxV(maxV) {}
 public:
    bool  operator>(R /*v*/) const override { return false;            }
    R  min() const override { return this->minLimit(); }
@@ -74,7 +74,7 @@ template<typename R=double>
 class LessThan : public UpperLimit<R> {
   public:
    //! ctor
-   LessThan(R maxV):UpperLimit<R>(maxV){}
+   explicit LessThan(R maxV):UpperLimit<R>(maxV){}
    bool valid(R v)const override       { return v < this->d_maxV;   }
    bool  operator<(R v) const override { return this->d_maxV <=  v; }
    std::string msg() const override;
@@ -86,7 +86,7 @@ template<typename R=double>
 class LessThanEqualTo : public UpperLimit<R> {
   public:
    //! ctor
-   LessThanEqualTo(R maxV):UpperLimit<R>(maxV){}
+   explicit LessThanEqualTo(R maxV):UpperLimit<R>(maxV){}
    bool valid(R v)const override       { return v <= this->d_maxV; }
    bool  operator<(R v) const override { return this->d_maxV <  v; }
    std::string msg() const override;

@@ -158,7 +158,7 @@ class EqualTo : public Interval<R> {
   R d_thisValue;
   public:
    //! ctor
-   EqualTo(R thisValue):d_thisValue(thisValue){}
+   explicit EqualTo(R thisValue):d_thisValue(thisValue){}
    bool valid(R v)const override       { return d_thisValue == v; }
    bool  operator<(R v) const override { return d_thisValue <  v;}
    bool  operator>(R v) const override { return d_thisValue >  v;}
@@ -172,7 +172,7 @@ class EqualTo : public Interval<R> {
 //! may  be thrown when constructing an Interval
 class BadIntervalFormat : public Exception {
  public:
-   BadIntervalFormat(const std::string& m):
+   explicit BadIntervalFormat(const std::string& m):
      Exception(m) {}
 };
 

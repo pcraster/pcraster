@@ -35,7 +35,7 @@ public:
 
                    PCRModflowPython    (size_t rows, size_t cols, double cellsize, double xll, double yll);
 
-                   PCRModflowPython    (const geo::RasterSpace &raster);
+                   explicit PCRModflowPython    (const geo::RasterSpace &raster);
 
   /* virtual */    ~PCRModflowPython   () override;
 

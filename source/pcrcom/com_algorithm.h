@@ -102,7 +102,7 @@ class FindValue {
      T d_defValue;
   public:
    using Map = std::map<K, T>;
-   FindValue(const T& defValue):
+   explicit FindValue(const T& defValue):
      d_defValue(defValue) {}
    T find(const Map& m, const K& key) {
      auto i=m.find(key);
@@ -135,7 +135,7 @@ class SeqInc {
   T d_next;
   T d_inc;
   public:
-    SeqInc(T begin=0, T inc=1): d_next(begin),d_inc(inc){}
+    explicit SeqInc(T begin=0, T inc=1): d_next(begin),d_inc(inc){}
     T operator()() {
      T v=d_next;
      d_next+=d_inc;

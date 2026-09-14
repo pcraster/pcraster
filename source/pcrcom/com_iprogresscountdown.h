@@ -37,7 +37,7 @@ protected:
 
                    IProgressCountdown  ();
 
-                   IProgressCountdown  (size_t nrSteps);
+                   explicit IProgressCountdown  (size_t nrSteps);
 
 public:
 

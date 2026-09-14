@@ -63,7 +63,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-                   SpiritFileParser             (const com::PathName& pn);
+                   explicit SpiritFileParser             (const com::PathName& pn);
 
   /* virtual */    ~SpiritFileParser              ();
 

@@ -42,7 +42,7 @@ private:
 
 public:
   ~DIS();
-  DIS(PCRModflow *mf);
+  explicit DIS(PCRModflow *mf);
   bool createBottom(const float *lower, const float *upper);
   bool addLayer(const float *values);
   bool addConfinedLayer(const float *values);

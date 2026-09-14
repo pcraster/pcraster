@@ -44,7 +44,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-                   FileMap               (const PathName& pn,
+                   explicit FileMap               (const PathName& pn,
                                           bool            update=false,
                                           size_t          offset=0,
                                           size_t          len=0);

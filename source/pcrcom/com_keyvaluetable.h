@@ -53,7 +53,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-                   KeyValueConfig              (const std::string& keyName);
+                   explicit KeyValueConfig              (const std::string& keyName);
 
                    KeyValueConfig              (const KeyValueConfig&) = default;
 
@@ -239,7 +239,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-                   KeyValueString(const std::string& keyName);
+                   explicit KeyValueString(const std::string& keyName);
 
                    KeyValueString               (const KeyValueString&) = default;
 
@@ -279,7 +279,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-                   KeyValueEnum(const std::string& keyName);
+                   explicit KeyValueEnum(const std::string& keyName);
 
   /* virtual */    ~KeyValueEnum              () override;
 
@@ -345,7 +345,7 @@ class KeyValueInteger : public KeyValueNumber {
  protected:
   double typeValidate(const std::string& value) const override;
  public:
-   KeyValueInteger(
+   explicit KeyValueInteger(
        const std::string& keyName,
        const Interval<double>* iv=nullptr);
    ~KeyValueInteger() override;
@@ -364,7 +364,7 @@ class KeyValueDouble : public KeyValueNumber {
  protected:
   double typeValidate(const std::string& value) const override;
  public:
-   KeyValueDouble(
+   explicit KeyValueDouble(
        const std::string& keyName,
        const Interval<double>* iv=nullptr);
    ~KeyValueDouble() override;

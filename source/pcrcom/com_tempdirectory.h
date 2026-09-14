@@ -48,7 +48,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-                   TempDirectory               (const std::string& prefix);
+                   explicit TempDirectory               (const std::string& prefix);
 
   /* virtual */    ~TempDirectory              ();
 

@@ -31,7 +31,7 @@ public:
 
                    Directory           ();
 
-                   Directory           (const PathName &pn);
+                   explicit Directory           (const PathName &pn);
 
                    Directory           (const Directory &d);
 

@@ -76,7 +76,7 @@ template<typename T>
     T d_MV;
     T d_min;
     T d_max;
-    GetMinMax(T MV):
+    explicit GetMinMax(T MV):
       d_MV(MV),d_min(MV),d_max(MV) {}
 
     void add(const T*v, size_t n) {

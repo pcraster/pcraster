@@ -23,7 +23,7 @@ template<class UseAsT, class OldMapApiT>
      //! the new interface
      ReadOnly<UseAsT> *d_ro;
    public:
-     UpgradeReadOnly(const OldMapApiT *o);
+     explicit UpgradeReadOnly(const OldMapApiT *o);
      ~UpgradeReadOnly();
      const ReadOnly<UseAsT>& readOnly();
 };
@@ -46,7 +46,7 @@ template<class UseAsT, class OldMapApiT>
      //! the new interface
      ReadWrite<UseAsT> *d_ro;
    public:
-     UpgradeReadWrite(OldMapApiT *o);
+     explicit UpgradeReadWrite(OldMapApiT *o);
      ~UpgradeReadWrite();
      ReadWrite<UseAsT>& readWrite();
 };

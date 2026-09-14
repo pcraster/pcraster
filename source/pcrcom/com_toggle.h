@@ -36,7 +36,7 @@ public:
   //----------------------------------------------------------------------------
 
   //! Constructor.
-                   com_Toggle          (bool enabled = true);
+                   explicit com_Toggle          (bool enabled = true);
 
   //! Destructor.
   virtual          ~com_Toggle         ();

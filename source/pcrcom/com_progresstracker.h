@@ -56,7 +56,7 @@ protected:
 
                    ProgressTracker    ();
 
-                   ProgressTracker    (size_t nrSteps);
+                   explicit ProgressTracker    (size_t nrSteps);
 
   bool             finished            () const;
 

@@ -32,7 +32,7 @@ public:
                    AppArgs             (const std::string& args0,
                                         const std::string& otherArgs);
 
-                   AppArgs             (const std::string& allArgs);
+                   explicit AppArgs             (const std::string& allArgs);
 
   /* virtual */   ~AppArgs             ();
 

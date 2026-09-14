@@ -67,7 +67,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-                   Exception           (const std::string &m);
+                   explicit Exception           (const std::string &m);
 
   /*!
    * In order to link cppunit with catching of all exception both ctor and dtor
@@ -145,9 +145,9 @@ class CommandLineException: public Exception
 
 public:
 
-                   CommandLineException(const std::string &m);
+                   explicit CommandLineException(const std::string &m);
 
-                   CommandLineException(const Exception& exception);
+                   explicit CommandLineException(const Exception& exception);
 
            ~CommandLineException() override;
 
@@ -165,7 +165,7 @@ class OutOfRangeException: public Exception
 
 public:
 
-                   OutOfRangeException(const std::string &m);
+                   explicit OutOfRangeException(const std::string &m);
            ~OutOfRangeException() override;
 
 };
@@ -183,7 +183,7 @@ class BadStreamFormat: public Exception
 
 public:
 
-                   BadStreamFormat (const std::string &m);
+                   explicit BadStreamFormat (const std::string &m);
            ~BadStreamFormat() override;
 
 };

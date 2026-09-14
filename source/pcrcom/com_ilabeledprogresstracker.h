@@ -42,7 +42,7 @@ private:
 
 protected:
 
-                   ILabeledProgressTracker(size_t nrSteps);
+                   explicit ILabeledProgressTracker(size_t nrSteps);
 
                    ILabeledProgressTracker(size_t nrSteps,
                                         std::string const& label);

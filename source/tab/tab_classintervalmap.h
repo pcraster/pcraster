@@ -37,7 +37,7 @@ class ClassIntervalMap : public std::map<Class,IntervalMapT>
   //----------------------------------------------------------------------------
   // CREATORS
   //----------------------------------------------------------------------------
-  ClassIntervalMap(const Intervals& intervals)
+  explicit ClassIntervalMap(const Intervals& intervals)
   {
     com::copyClone(intervals,d_intervals);
   }

@@ -17,7 +17,7 @@ class Common{
  private:
   PCRModflow *d_mf;
  public:
-  Common(PCRModflow *mf);
+  explicit Common(PCRModflow *mf);
   ~Common();
   void error(const std::string &msg, const std::string &methodName);
   bool writeToFile(const std::string &filename, const std::string &msg);

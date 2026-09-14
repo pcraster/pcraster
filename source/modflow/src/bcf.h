@@ -61,7 +61,7 @@ public:
   void             get_binary          (float *values, const std::string&, size_t type,
                                         size_t layer, std::string const& path) const;
                    ~BCF                ();
-                   BCF                 (PCRModflow *mf);
+                   explicit BCF                 (PCRModflow *mf);
 
   void             writeBCF();
 

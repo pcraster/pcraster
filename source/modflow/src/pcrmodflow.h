@@ -219,7 +219,7 @@ public:
 	    ~PCRModflow() override;
 
 	    //PCRModflow();
-	    PCRModflow(const geo::RasterSpace &raster);
+	    explicit PCRModflow(const geo::RasterSpace &raster);
 	    PCRModflow(size_t rows, size_t cols, double cellsize, double xll, double yll);
 
 

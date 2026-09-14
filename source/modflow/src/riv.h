@@ -32,7 +32,7 @@ class RIV{
   
  public:
   ~RIV();
-  RIV(PCRModflow *mf);
+  explicit RIV(PCRModflow *mf);
   //bool writeRIV() const;
   bool riverUpdated() const;
   void setRiverUpdated(bool value);

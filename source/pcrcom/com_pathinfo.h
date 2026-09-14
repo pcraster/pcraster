@@ -50,7 +50,7 @@ public:
 
                    PathInfo            ();
 
-                   PathInfo            (const PathName &pn);
+                   explicit PathInfo            (const PathName &pn);
 
                    PathInfo            (const PathInfo &pi);
 

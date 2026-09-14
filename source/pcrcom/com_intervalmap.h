@@ -25,7 +25,7 @@ namespace intervalMap {
     public:
       using argument_type = R;
       using result_type = bool;
-      PartitionFO(const com::Interval<R> *i):
+      explicit PartitionFO(const com::Interval<R> *i):
         d_i(i) {}
       bool operator()(R v) const {
         return d_i->valid(v);
@@ -97,7 +97,7 @@ private:
   struct NotInInterval
   {
     const IntervalMap<T,R> &d_m;
-    NotInInterval(const IntervalMap<T,R>& m):
+    explicit NotInInterval(const IntervalMap<T,R>& m):
       d_m(m) {}
     public:
       using argument_type = IT;
@@ -131,7 +131,7 @@ private:
   }
 
   //! Copy constructor.
-  IntervalMap(const IntervalMap<T>& rhs):
+  explicit IntervalMap(const IntervalMap<T>& rhs):
     Base(),
     d_outside()
   {
@@ -295,7 +295,7 @@ private:
   struct NotInInterval
   {
     const IntervalMultiMap<T,R>* d_m;
-    NotInInterval(const IntervalMultiMap<T,R>& m):
+    explicit NotInInterval(const IntervalMultiMap<T,R>& m):
       d_m(&m) {}
     public:
       using argument_type = IT;
@@ -333,7 +333,7 @@ private:
   }
 
   //! Copy constructor.
-  IntervalMultiMap(const IntervalMultiMap<T>& rhs):
+  explicit IntervalMultiMap(const IntervalMultiMap<T>& rhs):
    Base()
   {
       copy(rhs);

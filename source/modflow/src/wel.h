@@ -29,7 +29,7 @@ class WEL{
   std::string      d_data_filename{"pcrmf_wel_data.txt"};
 
  public:
-  WEL(PCRModflow *mf);
+  explicit WEL(PCRModflow *mf);
   ~WEL();
   //void writeWEL() const;
   bool setWell(const float *values, size_t mfLayer);

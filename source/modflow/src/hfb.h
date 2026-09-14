@@ -18,7 +18,7 @@ private:
   PCRModflow *d_mf;
 public:
   ~HFB();
-  HFB(PCRModflow *mf);
+  explicit HFB(PCRModflow *mf);
 };
 
 #endif // INCLUDED_MODFLOW_HFB

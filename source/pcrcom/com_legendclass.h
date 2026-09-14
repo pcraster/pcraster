@@ -39,7 +39,7 @@ public:
                    com_LegendClass     ();
 
   //! Constructor.
-                   com_LegendClass     (T v);
+                   explicit com_LegendClass     (T v);
 
   //! Constructor.
                    com_LegendClass     (T                  v,

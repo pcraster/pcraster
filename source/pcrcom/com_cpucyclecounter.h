@@ -62,7 +62,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-                   CpuCycleCounter               (size_t nrCounters=1);
+                   explicit CpuCycleCounter               (size_t nrCounters=1);
 
   /* virtual */    ~CpuCycleCounter              ();
 

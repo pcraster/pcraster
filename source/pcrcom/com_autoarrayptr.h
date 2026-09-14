@@ -10,7 +10,7 @@ template<class X>
   class auto_array_ptr {
     X* p_;
   public:
-    auto_array_ptr(X* p = 0) noexcept : p_(p) {}
+    explicit auto_array_ptr(X* p = 0) noexcept : p_(p) {}
     auto_array_ptr(auto_array_ptr<X>& ap) noexcept :
       p_(ap.release()) {}
     ~auto_array_ptr() {delete[ ]p_;}

@@ -15,7 +15,7 @@ class GridCheck{
   PCRModflow *d_mf;
  public:
   ~GridCheck();
-  GridCheck(PCRModflow *mf);
+  explicit GridCheck(PCRModflow *mf);
   void isGrid(size_t mfLayer, const std::string &methodName);
   void setVCond(size_t mfLayer, const std::string &methodName);
   void testMV(const float *values, const std::string &methodName);

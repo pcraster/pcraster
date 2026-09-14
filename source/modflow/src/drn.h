@@ -30,7 +30,7 @@ private:
   std::string      d_output_drn_filename{"pcrmf_drn.bin"};
 
 public:
-  DRN(PCRModflow *mf);
+  explicit DRN(PCRModflow *mf);
   ~DRN();
   //bool writeDRN() const;
   bool drainUpdated() const;

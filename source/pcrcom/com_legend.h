@@ -42,10 +42,10 @@ public:
                    Legend              ();
 
   //! Constructor.
-                   Legend              (const std::string &t);
+                   explicit Legend              (const std::string &t);
 
   //! Constructor.
-                   Legend         (const std::vector<com_LegendClass<T> > &c);
+                   explicit Legend         (const std::vector<com_LegendClass<T> > &c);
 
   //! Constructor.
                    Legend              (const std::string &t,

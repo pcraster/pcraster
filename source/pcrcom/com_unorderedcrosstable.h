@@ -83,7 +83,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-                   UnOrderedCrossTable (size_t size);
+                   explicit UnOrderedCrossTable (size_t size);
 
                    UnOrderedCrossTable (const UnOrderedCrossTable& aTable);
 

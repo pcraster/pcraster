@@ -41,7 +41,7 @@ private:
 
 public:
 
-  valueEquals(const Type& value)
+  explicit valueEquals(const Type& value)
     : d_value(value)
   {
   }

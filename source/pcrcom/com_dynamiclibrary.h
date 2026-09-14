@@ -13,7 +13,7 @@ namespace com {
 //! exception throw by com::DynamicLibrary object
 class DynamicLibraryException: public Exception {
  public:
-  DynamicLibraryException(const std::string& msg):
+  explicit DynamicLibraryException(const std::string& msg):
    Exception(msg) {}
  };
 
@@ -58,7 +58,7 @@ private:
 
 public:
   // CREATORS
-  DynamicLibrary(const std::string& libNameNoExt);
+  explicit DynamicLibrary(const std::string& libNameNoExt);
 
                    DynamicLibrary      (const DynamicLibrary&) = delete;
 

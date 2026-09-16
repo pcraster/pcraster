@@ -28,7 +28,7 @@ class PCRMF_EXPORT ModflowLink {
   static void construct(pcrxml::LinkInExecuteInput const& l) // LinkInTransferArray linkInTransferArray
   {
     std::string const objName=std::string(l.callPoint().object()->objectName());
-    auto i=objects.find(objName);
+    auto const i=objects.find(objName);
     // it is only allows to construct one modflow object
     if(!objects.empty()){
       std::cout << "Warning: only one PCRasterModflow extension object should be used, found additional object '" << objName << "'. Previous object will be deleted." << '\n';
@@ -47,7 +47,7 @@ class PCRMF_EXPORT ModflowLink {
 			 LinkInTransferArray linkInTransferArray)
     {
       std::string const objName=std::string(l.callPoint().object()->objectName());
-      auto i=objects.find(objName);
+      auto const i=objects.find(objName);
       assert(i!=objects.end());
 
       std::string const methodName=std::string(l.callPoint().object()->methodName().get());

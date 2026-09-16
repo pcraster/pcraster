@@ -33,7 +33,7 @@ namespace com {
 //------------------------------------------------------------------------------
 
 
-int spawn(const char *exeName, const char **args);
+int spawn(const char *exeName, const char ** const args);
 
 int spawn(const char *exeName);
 

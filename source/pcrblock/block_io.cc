@@ -167,7 +167,7 @@ void write(
          discr::Block const& block,
          std::string const& name)
 {
-  dal::PCRBlockDriver driver;
+  dal::PCRBlockDriver const driver;
   write(block, name, driver);
 }
 
@@ -177,7 +177,7 @@ void writeVTK(
          discr::Block const& block,
          std::string const& name)
 {
-  dal::VTKBlockDriver driver;
+  dal::VTKBlockDriver const driver;
   write(block, name, driver);
 }
 

@@ -69,7 +69,7 @@ extern "C" int Idi(MAP_REAL8 *m_resultMap,    /* write-only output map  */
   if ((!maxNr.spatial()) && (!radius.spatial())) {
     double const radVal = radius.value(0, 0);
     double const v = maxNr.value(0, 0);
-    auto maxNrP = static_cast<size_t>(v <= 0 ? 0 : v);
+    auto const maxNrP = static_cast<size_t>(v <= 0 ? 0 : v);
 
     if ((maxNrP == 0U) && (radVal <= 0)) {
       com::auto_array_ptr<double> const dist(new double[nrPoints]);

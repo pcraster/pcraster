@@ -199,7 +199,7 @@ BOOST_AUTO_TEST_CASE(cycle)
     geo::ScalarSimpleRaster dem(dr.rasterDim(),1);
     // upstream input is also 1
     // trick: use values of dem:
-    REAL4  *in=&(dem[0]);
+    REAL4 const *in=&(dem[0]);
     WeightMap const wm(dr,dem);
     Upstream u(wm,in,out);
     dr.downstreamVisitor(u);

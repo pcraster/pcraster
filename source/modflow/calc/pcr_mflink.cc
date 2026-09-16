@@ -23,8 +23,8 @@ void ModflowLink::run(){
  * creating the bottom layer
  */
 void  ModflowLink::createBottom(LinkInTransferArray linkInTransferArray){
-  auto *lower = static_cast<float *>(linkInTransferArray[1]);
-  auto *upper = static_cast<float *>(linkInTransferArray[2]);
+  auto const *lower = static_cast<float *>(linkInTransferArray[1]);
+  auto const *upper = static_cast<float *>(linkInTransferArray[2]);
   d_pcrmf->createBottom(lower, upper);
 
 }
@@ -33,7 +33,7 @@ void  ModflowLink::createBottom(LinkInTransferArray linkInTransferArray){
  * adding a layer on top of the grid
  */
 void  ModflowLink::addLayer(LinkInTransferArray linkInTransferArray){
-  auto *values = static_cast<float *>(linkInTransferArray[1]);
+  auto const *values = static_cast<float *>(linkInTransferArray[1]);
   d_pcrmf->addLayer(values);
 }
 
@@ -41,20 +41,20 @@ void  ModflowLink::addLayer(LinkInTransferArray linkInTransferArray){
  * adding a confined layer on top of the grid
  */
 void  ModflowLink::addConfinedLayer(LinkInTransferArray linkInTransferArray){
-  auto *values = static_cast<float *>(linkInTransferArray[1]);
+  auto const *values = static_cast<float *>(linkInTransferArray[1]);
   d_pcrmf->addConfinedLayer(values);
 }
 
 
 void ModflowLink::setBoundary(LinkInTransferArray linkInTransferArray){
-  int *values = static_cast<int *>(linkInTransferArray[1]);
+  int const *values = static_cast<int *>(linkInTransferArray[1]);
   int const layer = (static_cast<const int *>(linkInTransferArray[2]))[0];
   d_pcrmf->setIBound(values, layer);
 }
 
 
 void ModflowLink::setHead(LinkInTransferArray linkInTransferArray){
-  auto *values    =static_cast<float *>(linkInTransferArray[1]);
+  auto const *values    =static_cast<float *>(linkInTransferArray[1]);
   int const layer    = (static_cast<const int *>(linkInTransferArray[2]))[0];
   d_pcrmf->setInitialHead(values, layer);
 }
@@ -62,8 +62,8 @@ void ModflowLink::setHead(LinkInTransferArray linkInTransferArray){
 
 void ModflowLink::setConductivity(LinkInTransferArray linkInTransferArray){
   int const laycon    = (static_cast<const int *>(linkInTransferArray[1]))[0];
-  auto *hConds    =static_cast<float *>(linkInTransferArray[2]);
-  auto *vConds    =static_cast<float *>(linkInTransferArray[3]);
+  auto const *hConds    =static_cast<float *>(linkInTransferArray[2]);
+  auto const *vConds    =static_cast<float *>(linkInTransferArray[3]);
   int const layer    = (static_cast<const int *>(linkInTransferArray[4]))[0];
 
   d_pcrmf->setHCond(hConds, layer, laycon);
@@ -87,9 +87,9 @@ void ModflowLink::getRivLeak(LinkInTransferArray linkInTransferArray){
 
 
 void ModflowLink::setRiver(LinkInTransferArray linkInTransferArray){
-  auto *rivH    =static_cast<float *>(linkInTransferArray[1]);
-  auto *rivB    =static_cast<float *>(linkInTransferArray[2]);
-  auto *rivC    =static_cast<float *>(linkInTransferArray[3]);
+  auto const *rivH    =static_cast<float *>(linkInTransferArray[1]);
+  auto const *rivB    =static_cast<float *>(linkInTransferArray[2]);
+  auto const *rivC    =static_cast<float *>(linkInTransferArray[3]);
   int const mfLayer    = (static_cast<const int *>(linkInTransferArray[4]))[0];
   d_pcrmf->setRiver(rivH, rivB, rivC, mfLayer);
 }
@@ -132,8 +132,8 @@ void ModflowLink::setWettingParameter(LinkInTransferArray linkInTransferArray){
 }
 
 void ModflowLink::setStorage(LinkInTransferArray linkInTransferArray){
-  auto *primaryValues = static_cast<float *>(linkInTransferArray[1]);
-  auto *secondaryValues = static_cast<float *>(linkInTransferArray[2]);
+  auto const *primaryValues = static_cast<float *>(linkInTransferArray[1]);
+  auto const *secondaryValues = static_cast<float *>(linkInTransferArray[2]);
   int const mfLayer = (static_cast<const int *>(linkInTransferArray[3]))[0];
   d_pcrmf->setPrimaryStorage(primaryValues, mfLayer);
   d_pcrmf->setSecondaryStorage(secondaryValues, mfLayer);
@@ -142,7 +142,7 @@ void ModflowLink::setStorage(LinkInTransferArray linkInTransferArray){
 
 
 void ModflowLink::setWetting(LinkInTransferArray linkInTransferArray){
-  auto *values    =static_cast<float *>(linkInTransferArray[1]);
+  auto const *values    =static_cast<float *>(linkInTransferArray[1]);
   int const mfLayer    = (static_cast<const int *>(linkInTransferArray[2]))[0];
   d_pcrmf->setWetting(values, mfLayer);
 
@@ -152,14 +152,14 @@ void ModflowLink::setWetting(LinkInTransferArray linkInTransferArray){
  *
  */
 void ModflowLink::setRecharge(LinkInTransferArray linkInTransferArray){
-  auto *values = static_cast<float *>(linkInTransferArray[1]);
+  auto const *values = static_cast<float *>(linkInTransferArray[1]);
   int const rchCode = (static_cast<const int *>(linkInTransferArray[2]))[0];
   d_pcrmf->setRecharge(values, rchCode);
 }
 
 void ModflowLink::setIndicatedRecharge(LinkInTransferArray linkInTransferArray){
-  auto *rch = static_cast<float *>(linkInTransferArray[1]);
-  int *layer = static_cast<int *>(linkInTransferArray[2]);
+  auto const *rch = static_cast<float *>(linkInTransferArray[1]);
+  int const *layer = static_cast<int *>(linkInTransferArray[2]);
   d_pcrmf->setRechargeLay(rch, layer);
 }
 
@@ -171,8 +171,8 @@ void ModflowLink::getRecharge(LinkInTransferArray linkInTransferArray){
 }
 
 void ModflowLink::setDrain(LinkInTransferArray linkInTransferArray){
-  auto *elevation    =static_cast<float *>(linkInTransferArray[1]);
-  auto *conductance = static_cast<float *>(linkInTransferArray[2]);
+  auto const *elevation    =static_cast<float *>(linkInTransferArray[1]);
+  auto const *conductance = static_cast<float *>(linkInTransferArray[2]);
   int const mfLayer = (static_cast<const int *>(linkInTransferArray[3]))[0];
   d_pcrmf->setDrain(elevation, conductance, mfLayer);
 
@@ -189,7 +189,7 @@ void ModflowLink::getDrain(LinkInTransferArray linkInTransferArray){
 // Well package
 //
 void ModflowLink::setWell(LinkInTransferArray linkInTransferArray){
-  auto *well = static_cast<float *>(linkInTransferArray[1]);
+  auto const *well = static_cast<float *>(linkInTransferArray[1]);
   int const mfLayer = (static_cast<const int *>(linkInTransferArray[2]))[0];
   d_pcrmf->setWell(well, mfLayer);
 }

@@ -108,8 +108,8 @@ extern "C" int InfluenceSimpleGauss(MAP_REAL8 *m_out, const MAP_REAL8 *m_input, 
       int const maxDistCells = (int)ceil(maxDist);
       maxDist *= maxDist; /* square again, can do > cmp
                             before taking sqrt */
-      auto rStart = static_cast<size_t>(MAX(((int)c.row()) - maxDistCells, 0));
-      auto cStart = static_cast<size_t>(MAX(((int)c.col()) - maxDistCells, 0));
+      auto const rStart = static_cast<size_t>(MAX(((int)c.row()) - maxDistCells, 0));
+      auto const cStart = static_cast<size_t>(MAX(((int)c.col()) - maxDistCells, 0));
       size_t const rStop = std::min(nrRows, c.row() + maxDistCells);
       size_t const cStop = std::min(nrCols, c.col() + maxDistCells);
       for (size_t rDest = rStart; rDest < rStop; rDest++) {

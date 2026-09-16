@@ -53,7 +53,7 @@ void Common::writeMatrix(std::stringstream &aStream, const std::string &aString,
                          size_t layer)
 {
   size_t count = 0;
-  auto position = std::find(l2BlockLayer.begin(), l2BlockLayer.end(), static_cast<int>(layer));
+  auto const position = std::find(l2BlockLayer.begin(), l2BlockLayer.end(), static_cast<int>(layer));
   if (position != l2BlockLayer.end()) {
     aStream << aString << "\n";
     for (size_t j = 0; j < d_mf->d_nrOfRows; j++) {
@@ -70,7 +70,7 @@ void Common::writeMatrix2(std::stringstream &aStream, std::vector<int> &l2BlockL
                           const discr::BlockData<REAL4> &bdata, size_t layer)
 {
   size_t count = 0;
-  auto position = std::find(l2BlockLayer.begin(), l2BlockLayer.end(), static_cast<int>(layer));
+  auto const position = std::find(l2BlockLayer.begin(), l2BlockLayer.end(), static_cast<int>(layer));
   if (position != l2BlockLayer.end()) {
     for (size_t j = 0; j < d_mf->d_nrOfRows; j++) {
       for (size_t k = 0; k < d_mf->d_nrOfColumns; k++) {

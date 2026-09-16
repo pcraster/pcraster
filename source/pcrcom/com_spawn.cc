@@ -64,7 +64,7 @@
 
    Deprecated, NOT USED excep in calc_pointcodeblockdll.cc
 */
-int com::spawn(const char *exeName, const char **args)
+int com::spawn(const char *exeName, const char ** const args)
 {
 #ifdef WIN32
 #ifdef _MSC_VER

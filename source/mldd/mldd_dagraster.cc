@@ -222,7 +222,7 @@ mldd::OutEdgeIterator mldd::DagRaster::endOutEdge(const Vertex &c) const
 
 void mldd::DagRaster::downstreamVisitor(DownstreamVisitor &dv) const
 {
-  for (auto i : d_rto) {
+  for (auto const i : d_rto) {
     dv.initVertex(i);
   }
   for (auto i = d_rto.rbegin(); i != d_rto.rend(); ++i) {

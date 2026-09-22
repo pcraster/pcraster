@@ -94,7 +94,7 @@ void BinaryReader::read(const std::string &err_mgs, const std::string &filename,
   file.read(tmp, 4);
   std::memcpy(&lay, &(tmp[0]), 4);
 
-  size_t const nr_cells = static_cast<size_t>(row * col);
+  auto const nr_cells = static_cast<size_t>(row * col);
 
   // jump to the right block and position, skip the metadata, block marker;
   // multiplier holds layer number of the layer we are interested in

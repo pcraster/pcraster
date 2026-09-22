@@ -909,7 +909,7 @@ calc::Field* array_to_field(
 
     if(static_cast<size_t>(array.shape(0)) != space.nrRows()){
       size_t nr_rows = space.nrRows();
-      size_t sh = static_cast<size_t>(array.shape(0));
+      auto sh = static_cast<size_t>(array.shape(0));
       throw std::logic_error(std::vformat(
             "Number of rows from input array ({0}) and current raster ({1}) are different",
             std::make_format_args(sh, nr_rows)));
@@ -917,7 +917,7 @@ calc::Field* array_to_field(
 
     if(static_cast<size_t>(array.shape(1)) != space.nrCols()){
       size_t nr_cols = space.nrCols();
-      size_t sh = static_cast<size_t>(array.shape(1));
+      auto sh = static_cast<size_t>(array.shape(1));
       throw std::logic_error(std::vformat(
             "Number of columns from input array ({0}) and current raster ({1}) are different",
              std::make_format_args(sh, nr_cols)));
@@ -990,7 +990,7 @@ nb::ndarray<nb::numpy> field_as_array(
       throw std::logic_error("Expecting a PCRaster field");
     }
     
-    calc::Field *field = nb::inst_ptr<calc::Field>(field_object->ptr());;
+    auto *field = nb::inst_ptr<calc::Field>(field_object->ptr());;
     
     assert(field);
 

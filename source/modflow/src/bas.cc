@@ -148,19 +148,19 @@ void BAS::getHeadsFromBinary(std::string const &path)
     // first record contains the header informations
     // they are omitted because we already know nrRows aso
     // Don't know why those 8 are in the MF output additionally to 36 metadata...
-    int headerSizeBytes = 36 + 8; 
+    int const headerSizeBytes = 36 + 8; 
     char *headerData = new char[headerSizeBytes];
     file.read(headerData, headerSizeBytes);
 
-    int dataSizeBytes = d_mf->d_nrOfCells * sizeof(float);
+    int const dataSizeBytes = d_mf->d_nrOfCells * sizeof(float);
     // read the data
     char *charData = new char[dataSizeBytes];
     file.read(charData, dataSizeBytes);
-    auto *floatData = reinterpret_cast<REAL4 *>(charData);
+    auto const *floatData = reinterpret_cast<REAL4 *>(charData);
 
     size_t const cellMax = d_mf->d_nrOfCells;
     for (size_t pos = 0; pos < cellMax; pos++) {
-      auto val = floatData[pos];
+      auto const val = floatData[pos];
       d_mf->d_initialHead->cell(pos)[blockLayer] = val;
     }
     delete[] charData;

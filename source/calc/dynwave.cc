@@ -159,7 +159,7 @@ extern "C" int DynamicWave(MAP_REAL8 *m_resultQ,    // scalar, new Q      [  , m
 
   ReadOnlyReal8_ref(nrTimeSlicesInterface, m_nrTimeSlices);
   POSTCOND(!nrTimeSlicesInterface.spatial());
-  auto nrTimeSlices = static_cast<size_t>(nrTimeSlicesInterface.value(0, 0));
+  auto const nrTimeSlices = static_cast<size_t>(nrTimeSlicesInterface.value(0, 0));
 
   // non spatial domains, check once
   std::vector<fieldapi::ScalarDomainCheck> domains;
@@ -219,7 +219,7 @@ extern "C" int DynamicWave(MAP_REAL8 *m_resultQ,    // scalar, new Q      [  , m
   double const iterationTime = timeStepInSeconds / nrTimeSlices;  //[sec]
 
   for (size_t slice = 0; slice < nrTimeSlices; slice++) {
-    for (auto &catchmentOutlet : catchmentOutlets) {
+    for (auto const &catchmentOutlet : catchmentOutlets) {
       // WPA 2.1
       for (calc::DownStreamVisitor v(ldd, catchmentOutlet); v.valid(); ++v) {
         geo::CellLoc const c = *v;  // current cell

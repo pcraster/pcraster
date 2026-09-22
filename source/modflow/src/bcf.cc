@@ -464,7 +464,7 @@ void BCF::get_binary(float *values, const std::string &description, size_t start
 
   char *charData = new char[nr_cells * nr_bytes];
   file.read(charData, nr_cells * nr_bytes);
-  auto *floatData = reinterpret_cast<float *>(charData);
+  auto const *floatData = reinterpret_cast<float *>(charData);
 
   for (size_t pos = 0; pos < nr_cells; ++pos) {
     values[pos] = floatData[pos];

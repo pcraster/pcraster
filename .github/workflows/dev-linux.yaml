@@ -11,8 +11,8 @@ jobs:
                 os: [ubuntu-26.04]
                 qt5: ["ON", "OFF"]
                 compiler:
-                    - { cc: gcc-14  , cxx: g++-14    }
-                    - { cc: clang-18, cxx: clang++-18}
+                    - { cc: gcc-15  , cxx: g++-15    }
+                    - { cc: clang-22, cxx: clang++-22}
             fail-fast: false
 
         runs-on: ${{ matrix.os }}
@@ -88,8 +88,8 @@ jobs:
                 os: [ubuntu-26.04]
                 qt5: ["OFF"]
                 compiler:
-                    - { cc: gcc-14  , cxx: g++-14    }
-                    - { cc: clang-18, cxx: clang++-18}
+                    - { cc: gcc-15  , cxx: g++-15    }
+                    - { cc: clang-22, cxx: clang++-22}
             fail-fast: false
 
         runs-on: ${{ matrix.os }}

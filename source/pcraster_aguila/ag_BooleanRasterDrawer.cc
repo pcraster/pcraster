@@ -69,10 +69,10 @@ void BooleanRasterDrawer::draw(QPainter &painter, QRect const &indices,
   matrix.transfer(const_cast<UINT1 *>(_raster->cells<UINT1>()), dal::Matrix::DoNotTakeOwnerShip);
   UINT1 value = 0;
 
-  auto firstRow = static_cast<size_t>(indices.top());
-  auto lastRow = static_cast<size_t>(indices.bottom());
-  auto firstCol = static_cast<size_t>(indices.left());
-  auto lastCol = static_cast<size_t>(indices.right());
+  auto const firstRow = static_cast<size_t>(indices.top());
+  auto const lastRow = static_cast<size_t>(indices.bottom());
+  auto const firstCol = static_cast<size_t>(indices.left());
+  auto const lastCol = static_cast<size_t>(indices.right());
 
   QColor const trueColour = _properties.colourByIndex(1);
   QColor const falseColour = _properties.colourByIndex(0);

@@ -67,7 +67,7 @@ calc::DataTable::DataTable(const DataTable& rhs):
 
 bool calc::DataTable::contains(const std::string &name) const
 {
-  auto i(d_table.find(name));
+  auto const i(d_table.find(name));
   return i != d_table.end();
 }
 
@@ -76,7 +76,7 @@ bool calc::DataTable::contains(const std::string &name) const
  */
 const calc::DataValue *calc::DataTable::operator[](const std::string &name) const
 {
-  auto i(d_table.find(name));
+  auto const i(d_table.find(name));
   POSTCOND(i != d_table.end());
   return i->second.d_dv;
 }
@@ -87,7 +87,7 @@ const calc::DataValue *calc::DataTable::operator[](const std::string &name) cons
  */
 calc::DataTable::DTE calc::DataTable::dataLoad(const std::string &name)
 {
-  auto i(d_table.find(name));
+  auto const i(d_table.find(name));
   PRECOND(i != d_table.end());
   return {i};
 }
@@ -233,7 +233,7 @@ calc::DataValue *calc::DataTable::DTE::getOrReleaseValue(bool lastUse)
   }
   // BEGIN HACKED_UP
   else if (DataTable::d_useDiskStorage && symbol().ioType().input() != pcrxml::ModelInputType::None) {
-    auto *s = dynamic_cast<Spatial *>(dv);
+    auto const *s = dynamic_cast<Spatial *>(dv);
     if (s != nullptr) {
       dv->setReadOnlyReference(false);
       dataValue() = nullptr;
@@ -255,7 +255,7 @@ void calc::DataTable::DTE::resetValue(DataValue *value)
     // may cause this.
     // Someone else owns, create a copy
     // FTTB only fields can be assigned, hence reset
-    auto *f = dynamic_cast<Field *>(value);
+    auto const *f = dynamic_cast<Field *>(value);
     POSTCOND(f);
     value = f->createClone();
   }

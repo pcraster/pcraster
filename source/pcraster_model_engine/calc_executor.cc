@@ -107,14 +107,14 @@ void calc::Executor::wrapVisitWithCatch(Visit v)
   } catch (const com::Exception &e) {
     // if we have a current node, we can position
     // the error to that node
-    ASTNode *n = current();
+    ASTNode const *n = current();
     if (n != nullptr) {
       n->runtimeError(d_rte.timer().currentInt(), e.messages());
     } else {  // else rethrow
       throw;
     }
   } catch (const std::exception &e) {
-    ASTNode *n = current();
+    ASTNode const *n = current();
     if (n != nullptr) {
       n->runtimeError(d_rte.timer().currentInt(), e.what());
     } else {  // else rethrow

@@ -203,7 +203,7 @@ void LegendView::saveGraphData()
       size_t const index = space.indexOf(dal::Time);
       space.eraseDimension(index);
       address.eraseCoordinate(index);
-      dal::Driver *driver(dal::Client::dal().driverByName(format.name()));
+      dal::Driver const *driver(dal::Client::dal().driverByName(format.name()));
       assert(driver);
       dynamic_cast<dal::TableDriver const *>(driver)->write(*table, space, address, dialog.name());
     } catch (dal::Exception const &exception) {
@@ -293,7 +293,7 @@ std::vector<DataGuide> const &LegendView::dataGuides(QModelIndex const &index) c
   std::vector<DataGuide> const *result = nullptr;
 
   // Determine data guides connected to legend.
-  auto *legend = dynamic_cast<Legend *>(indexWidget(index));
+  auto const *legend = dynamic_cast<Legend *>(indexWidget(index));
   assert(legend);
   result = &dataGuides(legend);
 

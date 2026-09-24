@@ -414,8 +414,8 @@ void RangeDrawProps::assignLabels()
 
     _labels.resize(nrClasses() + 1);
 
-    com::Classifier *raw(rawValueClassifier());
-    com::Classifier *display(displayValueClassifier());
+    com::Classifier const *raw(rawValueClassifier());
+    com::Classifier const *display(displayValueClassifier());
 
     if (display != nullptr) {
 

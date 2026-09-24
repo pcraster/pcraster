@@ -200,14 +200,14 @@ void calc::ASTScript::applyInterface()
   // 2) apply bindings
   // make set of syms defined in interface
   std::set<std::string> interfaceSyms;
-  for (auto &i : d_interface) {
+  for (auto const &i : d_interface) {
     interfaceSyms.insert(i.name());
   }
   bt.applyToSymbols(d_symbols, interfaceSyms);
 
   // 3) apply interface
-  for (auto &i : d_interface) {
-    auto s = d_symbols.find(i.name());
+  for (auto const &i : d_interface) {
+    auto const s = d_symbols.find(i.name());
     if (s != d_symbols.end()) {
       s->second.setInfo(i);
     }
@@ -296,7 +296,7 @@ void calc::ASTScript::analyzeNoContextUnChecked()
   using CodeTypes = std::map<std::string, IOType>;
   CodeTypes const codeTypes = ioTypes(d_cfgCode);
   for (auto &codeType : codeTypes) {
-    auto s = d_symbols.find(codeType.first);
+    auto const s = d_symbols.find(codeType.first);
     PRECOND(s != d_symbols.end());
     s->second.setIoType(codeType.second);
   }
@@ -384,7 +384,7 @@ void calc::ASTScript::setReports()
 
   ReportPars const rps(rv.reportPars());
   for (auto &rp : rps) {
-    auto s = d_symbols.find(rp.first);
+    auto const s = d_symbols.find(rp.first);
     POSTCOND(s != d_symbols.end());
     ReportPar const &rpp(rp.second);
     s->second.setReport(rpp.d_par, rpp.d_report, rpp.d_inDynamic, d_reportOnlyForXMLScriptOutput);

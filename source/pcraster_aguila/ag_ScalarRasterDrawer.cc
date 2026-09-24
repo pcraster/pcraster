@@ -66,10 +66,10 @@ void ScalarRasterDrawer::drawSingleColour(QPainter &painter, QRect const &indice
                      dal::TypeTraits<REAL4>::typeId);
   matrix.transfer(const_cast<REAL4 *>(_raster->cells<REAL4>()), dal::Matrix::DoNotTakeOwnerShip);
 
-  auto firstRow = static_cast<size_t>(indices.top());
-  auto lastRow = static_cast<size_t>(indices.bottom());
-  auto firstCol = static_cast<size_t>(indices.left());
-  auto lastCol = static_cast<size_t>(indices.right());
+  auto const firstRow = static_cast<size_t>(indices.top());
+  auto const lastRow = static_cast<size_t>(indices.bottom());
+  auto const firstCol = static_cast<size_t>(indices.left());
+  auto const lastCol = static_cast<size_t>(indices.right());
 
   assert(_properties.palette()->nrColours() > 0);
   QColor const colour =
@@ -130,10 +130,10 @@ void ScalarRasterDrawer::drawMultipleColours(QPainter &painter, QRect const &ind
                      dal::TypeTraits<REAL4>::typeId);
   matrix.transfer(const_cast<REAL4 *>(_raster->cells<REAL4>()), dal::Matrix::DoNotTakeOwnerShip);
 
-  auto firstRow = static_cast<size_t>(indices.top());
-  auto lastRow = static_cast<size_t>(indices.bottom());
-  auto firstCol = static_cast<size_t>(indices.left());
-  auto lastCol = static_cast<size_t>(indices.right());
+  auto const firstRow = static_cast<size_t>(indices.top());
+  auto const lastRow = static_cast<size_t>(indices.bottom());
+  auto const firstCol = static_cast<size_t>(indices.left());
+  auto const lastCol = static_cast<size_t>(indices.right());
 
   QColor colour;
 

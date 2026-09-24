@@ -185,7 +185,7 @@ void ArgOrderAndAddArea::argOrderAddAreaLimited(std::vector<ArgOrderIdInfo> cons
   std::vector<ArgOrderIdInfo> argVector = initArgs(argsIn, result, len);
   using ArgMap = std::map<UINT4, ArgOrderIdInfo>;
   ArgMap args;
-  for (auto &i : argVector) {
+  for (auto const &i : argVector) {
     args.insert(std::make_pair(i.id(), i));
   }
 
@@ -255,7 +255,7 @@ void ArgOrderAndAddArea::argOrderAddAreaLimited(std::vector<ArgOrderIdInfo> cons
 
       result[*maxCell] = maxArg->id();
       // do this before swap
-      auto currentIdPtr = args.find(currentId[*maxCell]);
+      auto const currentIdPtr = args.find(currentId[*maxCell]);
 
       // maxCell is now done and should go before the next findStart
       //  swap the cell indices to achieve that

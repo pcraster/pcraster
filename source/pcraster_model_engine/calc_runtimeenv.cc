@@ -127,7 +127,7 @@ void calc::RunTimeEnv::checkConstraints(const RunTimeEnvSettings & /*s*/) const
 void calc::RunTimeEnv::deleteAllValues()
 {
   d_data.clean();
-  for (auto &i : d_cache) {
+  for (auto const &i : d_cache) {
     delete i.second;
   }
   d_cache.clear();
@@ -135,7 +135,7 @@ void calc::RunTimeEnv::deleteAllValues()
 
 void calc::RunTimeEnv::clean()
 {
-  for (auto &d_writer : d_writers) {
+  for (auto const &d_writer : d_writers) {
     delete d_writer.second;
   }
   d_writers.clear();
@@ -351,7 +351,7 @@ void calc::RunTimeEnv::assignOutTss(const std::string &tss)
 
 void calc::RunTimeEnv::deleteCacheEntry(const void *fieldSrcValue)
 {
-  auto pos = d_cache.find(fieldSrcValue);
+  auto const pos = d_cache.find(fieldSrcValue);
   if (pos != d_cache.end()) {
     delete pos->second;
     d_cache.erase(pos);
@@ -362,7 +362,7 @@ void calc::RunTimeEnv::deleteValue(const std::string &parName)
 {
   PRECOND(d_data.contains(parName));
   DataTable::DTE e(d_data.dataLoad(parName));
-  auto *f = dynamic_cast<Field *>(e.dataValue());
+  auto const *f = dynamic_cast<Field *>(e.dataValue());
   if (f != nullptr) {
     // a loaded field can have cached objects
     deleteCacheEntry(f->src());
@@ -374,7 +374,7 @@ void calc::RunTimeEnv::deleteValue(const std::string &parName)
 //! find an ICachedObject by Field::src value
 const calc::ICachedObject *calc::RunTimeEnv::cachedObject(const void *fieldSrcValue)
 {
-  auto pos = d_cache.find(fieldSrcValue);
+  auto const pos = d_cache.find(fieldSrcValue);
   if (pos != d_cache.end()) {
     return pos->second;
   }
@@ -385,7 +385,7 @@ const calc::ICachedObject *calc::RunTimeEnv::cachedObject(const void *fieldSrcVa
 void calc::RunTimeEnv::transferIfCached(const void *fieldSrcValue, const ICachedObject *obj)
 {
   // multiple delete problem
-  auto pos = d_cache.find(fieldSrcValue);
+  auto const pos = d_cache.find(fieldSrcValue);
   if (pos != d_cache.end()) {
     // a previous update may already took place
     if (pos->second == obj) {

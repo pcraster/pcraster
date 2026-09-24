@@ -74,7 +74,7 @@ FeatureLayer::FeatureLayer(std::string const &name, dal::DataSpace const &space)
 
     layer->setTypeId(useTypeId);
 
-    auto *driver = dynamic_cast<dal::FeatureDriver *>(dataSource().reader());
+    auto const *driver = dynamic_cast<dal::FeatureDriver *>(dataSource().reader());
     assert(driver);
 
     std::any min;

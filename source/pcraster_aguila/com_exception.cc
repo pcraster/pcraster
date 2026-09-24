@@ -36,7 +36,7 @@ public:
 
   const std::string &operator[](Errno nr) const
   {
-    auto f = d_msg.find(nr);
+    auto const f = d_msg.find(nr);
     assert(f != d_msg.end());
     return (*f).second;
   }

@@ -74,20 +74,20 @@ calc::ASTSymbolInfo &calc::ASTSymbolTable::operator[](const ASTPar *p)
 const calc::ASTSymbolInfo &calc::ASTSymbolTable::operator[](const ASTPar *p) const
 {
   PRECOND(contains(p->name()));
-  auto f = find(p->name());
+  auto const f = find(p->name());
   return f->second;
 }
 
 const calc::ASTSymbolInfo &calc::ASTSymbolTable::operator[](const std::string &name) const
 {
   PRECOND(contains(name));
-  auto f = find(name);
+  auto const f = find(name);
   return f->second;
 }
 
 bool calc::ASTSymbolTable::contains(const std::string &name) const
 {
-  auto f = find(name);
+  auto const f = find(name);
   return f != end();
 }
 
@@ -98,7 +98,7 @@ bool calc::ASTSymbolTable::contains(const ASTPar *p) const
 
 void calc::ASTSymbolTable::throwSym(const SymException &s) const
 {
-  auto f = find(s.symbolName());
+  auto const f = find(s.symbolName());
   if (f == end()) {  // not in table
     s.throwPos(s.symbolName());
   }
@@ -124,7 +124,7 @@ void calc::ASTSymbolTable::checkDifferentExternalNames() const
   const calc::ASTSymbolTable &this_(*this);
   for (ASTSymbolTablePair const i : this_) {
     const ASTSymbolInfo &s(i.second);
-    auto dup = checked.find(s.externalName());
+    auto const dup = checked.find(s.externalName());
     if (dup != checked.end()) {
       std::ostringstream str;
       str << "shares identical binding with '" << dup->second << "':" << s.externalName();

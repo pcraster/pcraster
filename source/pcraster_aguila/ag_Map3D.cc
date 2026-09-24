@@ -101,7 +101,7 @@ void Map3D::saveAsPNG(std::filesystem::path const &path) const
   }
 
   // Retrieve drawing.
-  auto map = d_mapView->grabFramebuffer();
+  auto const map = d_mapView->grabFramebuffer();
   if (map.isNull() || (!map.save(QString(path.string().c_str()), "PNG"))) {
     throw com::FileError(path.string(), "Error while saving");
   }

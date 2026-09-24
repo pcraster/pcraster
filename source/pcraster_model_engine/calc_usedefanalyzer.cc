@@ -101,7 +101,7 @@ public:
   reverse_iterator jumpOfEnter(reverse_iterator e) const
   {
     PRECOND(e->enter());
-    BasicBlock *b = e->block();
+    BasicBlock const *b = e->block();
     for (;; --e) {
       if (e->jump() && e->block() == b) {
         return e;
@@ -127,7 +127,7 @@ public:
           // propagate this keepLive back
           // to the last event
           // before (+1 of reverse_iterator) Jump
-          auto b = jumpOfEnter(e) + 1;
+          auto const b = jumpOfEnter(e) + 1;
           if (!b->keepLive()) {
             // back propagation did change something
             // that need a next iteration over the chain
@@ -183,7 +183,7 @@ public:
   void print() const
   {
     std::cerr << "----------" << '\n';
-    for (auto e : *this) {
+    for (auto const e : *this) {
       e.print();
     }
     std::cerr << "----------" << '\n';

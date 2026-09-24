@@ -62,7 +62,7 @@ struct special {
      return impl_4_2_d(v);
   }
    inline static UINT1 impl_4_2_l( const INT4& v) {
-      auto   r = static_cast<UINT1>(std::abs(v) % 10);
+      auto   const r = static_cast<UINT1>(std::abs(v) % 10);
       if (r == 0U) {
         return 5; // pit who cares
       }
@@ -79,7 +79,7 @@ struct special {
        return LDD_PIT;
 }
      /* shift a halfdir - eps. (0.0624999) */
-     auto r =static_cast<UINT1>( modf( (v/M_2PI)+shift, &dum)*8);
+     auto const r =static_cast<UINT1>( modf( (v/M_2PI)+shift, &dum)*8);
      POSTCOND(r < ((UINT1)8) );
      // MISSING CODE: DO A REPAIR
      return lookup[r];

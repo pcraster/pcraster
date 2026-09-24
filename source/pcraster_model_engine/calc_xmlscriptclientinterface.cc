@@ -131,7 +131,7 @@ public:
   //! only update the symbol if found in the model
   void updateUsedSymbols(pcrxml::Definition const &d)
   {
-    auto si = d_table.find(d.name());
+    auto const si = d_table.find(d.name());
     if (si == d_table.end()) {
       return;  // not found
     }
@@ -139,7 +139,7 @@ public:
     ASTSymbolInfo &i(si->second);
     i.setDefinition(d);
 
-    auto s = d_nameStatTableMap.find(d.name());
+    auto const s = d_nameStatTableMap.find(d.name());
     if (s != d_nameStatTableMap.end()) {
       // TODO now always report that is not conform scriptOutput meaning
       s->second->setIdBinding(i);

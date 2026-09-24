@@ -251,7 +251,7 @@ void VisEngine::rescan(DataObject const &object)
   /// }
 
   // Loop over the properties.
-  for (auto &_propertie : _data->_properties) {
+  for (auto const &_propertie : _data->_properties) {
 
     // Let's see if data is selected or unselected since the last time.
     if (_data->_properties.isSelected(_propertie) != object.isSelected(_propertie)) {

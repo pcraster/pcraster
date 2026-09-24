@@ -108,7 +108,7 @@ void calc::TimeinputTssOp::exec(RunTimeEnv *rte, const Operator &op, size_t nrAr
         throw DomainError("No match");
       }
 
-      REAL8 *vPtr = tss->vals[rowIndex] + colNr;
+      REAL8 const *vPtr = tss->vals[rowIndex] + colNr;
       if (IS_MV_REAL8(vPtr)) {  // pcrcalc37e
         throw DomainError("Read mv for non-spatial");
       }
@@ -127,7 +127,7 @@ void calc::TimeinputTssOp::exec(RunTimeEnv *rte, const Operator &op, size_t nrAr
           SET_MV_REAL8(&v);
           r.setCell(v, i);
         } else {
-          REAL8 *vPtr = tss->vals[rowIndex] + colNr;
+          REAL8 const *vPtr = tss->vals[rowIndex] + colNr;
           r.setCell(*vPtr, i);
         }
       }

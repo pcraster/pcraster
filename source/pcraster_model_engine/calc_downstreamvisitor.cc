@@ -51,7 +51,7 @@ void calc::DownstreamVisitor::visitCatchment(LddGraph::Catchment const &c)
 {
   startCatchment(c.d_pitId);
   auto d = c.downBegin();
-  auto end = c.downEnd();
+  auto const end = c.downEnd();
   for (; d != end; ++d) {
     finishVertex(d->up());
     visitEdge(d->up(), d->down());

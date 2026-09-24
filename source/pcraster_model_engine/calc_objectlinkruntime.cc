@@ -23,7 +23,7 @@ void calc::createObjectLink(const Operator & /* op */, ObjectLinkFactoryPtr olf,
 {
   // PRECOND(stringArg.empty()); // not yet implemented
   // PRECOND(!nrFieldArgs); // not yet implemented
-  ObjectLink *o(nullptr);
+  ObjectLink const *o(nullptr);
   o = olf("", rte->rasterSpace(), 0);
   rte->pushDataValue(o);
 }

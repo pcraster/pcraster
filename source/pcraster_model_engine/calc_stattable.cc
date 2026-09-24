@@ -412,7 +412,7 @@ void calc::StatTable::exec(RunTimeEnv *rte) const
   struct FetchIntervals {
     static I const *create(RunTimeEnv *rte)
     {
-      DataValue *dv = rte->popDataValue();
+      DataValue const *dv = rte->popDataValue();
       POSTCOND(dv);
       auto const *tab = dynamic_cast<LookupTable const *>(dv);
       POSTCOND(tab);
@@ -686,7 +686,7 @@ void calc::StatComputation::classIntervalTable(const SubjectType *subject) const
   // compute percentiles per subject
   auto start = r.begin();
   for (auto i = m.begin(); i != m.end(); ++i) {
-    auto end = start + i->second.nrVisits();
+    auto const end = start + i->second.nrVisits();
     crossPercentiles<detail::CSPolicy>(i->second, start, end);
     start = end;
   }
@@ -772,11 +772,11 @@ void calc::StatComputation::GGTable(const REAL4 *subject) const
   }
 
   // what is outside is not in any interval
-  auto endOutside = m.partitionOutside(r.begin(), r.end(), detail::GGPolicy::partitionValueFirst);
+  auto const endOutside = m.partitionOutside(r.begin(), r.end(), detail::GGPolicy::partitionValueFirst);
   crossPercentiles<detail::GGPolicy>(m.outside(), r.begin(), endOutside);
 
   for (auto i = m.begin(); i != m.end(); ++i) {
-    auto endP = m.partition(endOutside, r.end(), i, detail::GGPolicy::partitionValueFirst);
+    auto const endP = m.partition(endOutside, r.end(), i, detail::GGPolicy::partitionValueFirst);
     crossPercentiles<detail::GGPolicy>(i->second, endOutside, endP);
   }
 
@@ -833,7 +833,7 @@ void calc::StatComputation::classScalarTable(const SubjectType *subject) const
   // compute percentile per subject
   auto start = r.begin();
   for (auto i = m.begin(); i != m.end(); ++i) {
-    auto end = start + i->second.nr();
+    auto const end = start + i->second.nr();
     if (start != end) {
       m[i->first].d_med = static_cast<REAL4>(median(start, end));
     }

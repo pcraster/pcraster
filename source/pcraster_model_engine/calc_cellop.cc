@@ -65,7 +65,7 @@ calc::CellOp& calc::CellOp::operator=(CellOp const& rhs)
 
 void calc::CellOp::getCell(RunTimeEnv *rte, size_t i) const
 {
-  Field *f = rte->popField();
+  Field const *f = rte->popField();
   if (f->isSpatial()) {
     double value = NAN;
     f->getCell(value, i);

@@ -177,7 +177,7 @@ void CumDistributionFunctionView::setXAxisScale()
       }
     }
   } else {
-    SpatialDataset *dataset = nullptr;
+    SpatialDataset const *dataset = nullptr;
 
     for (DataGuide const &guide : visualisationEngine().dataGuides()) {
       assert(guide.type() == geo::STACK || guide.type() == geo::FEATURE);

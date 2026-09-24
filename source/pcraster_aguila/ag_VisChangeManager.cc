@@ -59,7 +59,7 @@ void ag::VisChangeManager::detach(VisObserver *o)
 {
   assert(o);
 
-  auto it = std::find(begin(), end(), o);
+  auto const it = std::find(begin(), end(), o);
 
 #ifdef DEBUG_DEVELOP
   assert(it != end());
@@ -75,7 +75,7 @@ void ag::VisChangeManager::detach(VisObserver *o)
 */
 bool ag::VisChangeManager::observedBy(VisObserver *o) const
 {
-  auto it = std::find(begin(), end(), o);
+  auto const it = std::find(begin(), end(), o);
   return it != end() ? true : false;
 }
 

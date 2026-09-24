@@ -57,10 +57,10 @@ calc::Operator::Operator(const std::string &fullyQualifiedName, const std::strin
       d_execType(EXEC_TYPE_EXTERN), d_impl(nullptr), d_objectLinkFactory(objectLinkFactory),
       d_commutative(false)
 {
-  for (auto i : result) {
+  for (auto const i : result) {
     pushBackResult(i.vs, i.st);
   }
-  for (auto i : input) {
+  for (auto const i : input) {
     pushBackInput(i.vs, i.st, false);
   }
 }

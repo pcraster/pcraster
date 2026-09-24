@@ -363,12 +363,12 @@ extern "C" PCR_ME_EXPORT const char *pcr_ScriptErrorMessage(Pcrcalc *script)
   return script->errorMessage().c_str();
 }
 
-extern "C" PCR_ME_EXPORT void pcr_destroyScript(Pcrcalc *script)
+extern "C" PCR_ME_EXPORT void pcr_destroyScript(Pcrcalc const *script)
 {
   delete script;
 }
 
-calc::ASTScript const &pcr_internalScript(Pcrcalc *script)
+calc::ASTScript const &pcr_internalScript(Pcrcalc const *script)
 {
   PRECOND(script);
   return script->pcr_internalScript();

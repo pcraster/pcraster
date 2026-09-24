@@ -232,7 +232,7 @@ void IOStrategy::resolve(ASTSymbolTable &symbols, std::string const &areaMap, Ti
   }
   if (needExplicitClone) {
     PRECOND(!areaMap.empty());
-    Field *f = createReadField(symbols[areaMap].externalName(), symbols[areaMap].dataType());
+    Field const *f = createReadField(symbols[areaMap].externalName(), symbols[areaMap].dataType());
     d_areaMap->transferMask(f);
   }
   if (d_areaMap->hasCoordinateMask()) {
@@ -250,7 +250,7 @@ void IOStrategy::debugMVAssignments(const Field *f) const
     return;
   }
 
-  Field *mark = f->findMVinMask(d_areaMap->mask());
+  Field const *mark = f->findMVinMask(d_areaMap->mask());
   if (mark != nullptr) {
     writeField(d_debugMVAssignmentsMap, mark);
     deleteFromPcrme(mark);
@@ -372,7 +372,7 @@ void* IOStrategy::memoryValue(std::string const& name) const {
  */
 MemoryExchangeItem *IOStrategy::memoryValue(std::string const &name) const
 {
-  auto i = d_memoryData.find(name);
+  auto const i = d_memoryData.find(name);
   if (i != d_memoryData.end()) {
     PRECOND(i->second.get());  // always has a value
     return i->second.get();
@@ -406,7 +406,7 @@ void IOStrategy::transferMemoryExchangeItemIntoDataTransferArray(MemoryExchangeI
 
 void IOStrategy::readField(void *dest, const std::string &name, const DataType &type) const
 {
-  MemoryExchangeItem *mem = memoryValue(name);
+  MemoryExchangeItem const *mem = memoryValue(name);
   if (mem == nullptr) {
     // file based
     PRECOND(type.st() == ST_SPATIAL);
@@ -426,7 +426,7 @@ void IOStrategy::readField(void *dest, const std::string &name, const DataType &
 
 GridStat IOStrategy::writeFieldUnpacked(const std::string &name, const Field *f)
 {
-  MemoryExchangeItem *mem = memoryValue(name);
+  MemoryExchangeItem const *mem = memoryValue(name);
 
   if (mem == nullptr) {
     return d_fs->writeFieldUnpacked(name, f);

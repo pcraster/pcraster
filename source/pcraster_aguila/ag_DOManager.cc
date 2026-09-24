@@ -59,7 +59,7 @@ void ag::DOManager::deleteDataObject(ag::DataObject *o)
   assert(o->nrObservers() == 0);
 #endif
 
-  auto it = std::find(d_dataObjects.begin(), d_dataObjects.end(), o);
+  auto const it = std::find(d_dataObjects.begin(), d_dataObjects.end(), o);
   assert(it != d_dataObjects.end());
   delete *it;
   d_dataObjects.erase(it);

@@ -103,7 +103,7 @@ void calc::ReportVisitor::visitStat(ASTStat *s)
 void calc::ReportVisitor::visitAss(ASTAss *a)
 {
   for (size_t i = 0; i < a->nrPars(); ++i) {
-    ASTPar *p(a->par(i));
+    ASTPar const *p(a->par(i));
     if (d_reportLastAssOfEverySymbol) {
       // always update
       updateReportPar(p);
@@ -131,7 +131,7 @@ void calc::ReportVisitor::jumpOutDynamicSection(DynamicSection *)
 void calc::ReportVisitor::updateReportPar(ASTPar const *p)
 {
   if (!d_reportLastAssOfEverySymbol) {
-    auto f = d_reportPars.find(p->name());
+    auto const f = d_reportPars.find(p->name());
     if (f != d_reportPars.end()) {
       // duplicate report, pcrcalc255
       p->symError("Report already done previous (" + f->second.d_par->shortPosText() + ")");

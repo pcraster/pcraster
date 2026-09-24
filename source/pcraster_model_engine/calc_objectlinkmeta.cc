@@ -85,7 +85,7 @@ void calc::ObjectLinkMeta::add(const std::string &methodName)
 void calc::ObjectLinkMeta::pushBack(const std::string &methodName, bool result, PCR_VS vs, PCR_ST st)
 {
   add(methodName);
-  auto pos = d_methods.find(methodName);
+  auto const pos = d_methods.find(methodName);
   POSTCOND(pos != d_methods.end());
   OP_ARGS const a = {vs, st};
   if (result) {

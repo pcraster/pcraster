@@ -60,9 +60,9 @@ viewPlusSyntaxToStringSet(std::vector<std::string> const &viewValues)
   std::vector<SV> r;
   r = AguilaProgramOptions::viewPlusSyntaxToViewCtor(viewValues);
   std::vector<pcrxml::StringSet> s;
-  for (auto &v : r) {
+  for (auto const &v : r) {
     s.emplace_back();
-    for (auto &i : v) {
+    for (auto const &i : v) {
       s.back().item().push_back(i);
     }
   }
@@ -347,7 +347,7 @@ public:
     optionNames.emplace_back("valueOnly");
     optionNames.emplace_back("defaultView");
 
-    for (auto &optionName : optionNames) {
+    for (auto const &optionName : optionNames) {
 
       if (variables.count(optionName) != 0U) {
         std::vector<pcrxml::StringSet> stringSets(
@@ -502,7 +502,7 @@ void AguilaProgramOptions::obtainProgramOptions(int argc, char **argv)
   VecOfStr probabilityGraphView;
   VecOfStr valueOnly;
 
-  auto genericOptions =
+  auto const genericOptions =
       "Command line options:" %
       ((clipp::option("-f", "--config") & clipp::values("config_filename", config_filename))
            .doc("read configuration from file"),
@@ -548,7 +548,7 @@ void AguilaProgramOptions::obtainProgramOptions(int argc, char **argv)
   std::string cursorValueMonitorFile;
   std::string fileToGetCursorValue;
 
-  auto configOptions =
+  auto const configOptions =
       "Command line and configuration file options:" %
       ((clipp::repeatable(clipp::option("-n", "--scenarios") & clipp::value("scenarios", scenarios)))
            .doc("scenarios available for data"),
@@ -577,16 +577,16 @@ void AguilaProgramOptions::obtainProgramOptions(int argc, char **argv)
   // All positional options should be translated into defaultView options.
   VecOfStr defaultView;
 
-  auto cli = (genericOptions, configOptions, clipp::opt_values("defaultView", defaultView),
+  auto const cli = (genericOptions, configOptions, clipp::opt_values("defaultView", defaultView),
               clipp::any_other(unrecognised));
 
-  auto result = clipp::parse(argc, argv, cli);
+  auto const result = clipp::parse(argc, argv, cli);
 
   //   clipp::debug::print(std::cout, result);
 
   if (show_help) {
 
-    auto fmt = clipp::doc_formatting{}.paragraph_spacing(0).first_column(0).doc_column(8);
+    auto const fmt = clipp::doc_formatting{}.paragraph_spacing(0).first_column(0).doc_column(8);
 
     std::filesystem::path const path(argv[0]);
     std::ostringstream stream;
@@ -623,7 +623,7 @@ void AguilaProgramOptions::obtainProgramOptions(int argc, char **argv)
 
       read_ini(path.string(), pt);
 
-      for (auto &key : pt) {
+      for (auto const &key : pt) {
         if (key.first == "defaultView") {
           defaultView.emplace_back(key.second.get_value<std::string>());
         } else if (key.first == "scenarios") {

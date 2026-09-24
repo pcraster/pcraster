@@ -485,7 +485,7 @@ void CursorWindow::appendToCursorValueMonitorFile()
         assert(dimension.discretisation() == dal::RegularDiscretisation);
 
         std::string const worldStr = dataObject.globalToWorldMapper().toString(address, i);
-        auto v = boost::lexical_cast<double>(worldStr);
+        auto const v = boost::lexical_cast<double>(worldStr);
         if (i == space.indexOf(dal::Space)) {
           // First space dimension: rows, y coordinates.
           dataSpaceStream << "rows = ";

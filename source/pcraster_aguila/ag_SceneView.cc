@@ -47,7 +47,7 @@ std::string glu_error_string(GLenum glErrCode)
       {GL_OUT_OF_MEMORY, "out of memory"},
       {GL_INVALID_FRAMEBUFFER_OPERATION, "invalid framebuffer operation"}};
 
-  if (auto err = gl_error_messages.find(glErrCode); err != gl_error_messages.end()) {
+  if (auto const err = gl_error_messages.find(glErrCode); err != gl_error_messages.end()) {
     return std::format("error reported by OpenGL library: {0}", err->second);
   } else {
     return std::format("error code reported by OpenGL library: {0}", glErrCode);
@@ -699,7 +699,7 @@ void ag::SceneView::addSceneObject(ag::SceneObject *s)
 void ag::SceneView::removeSceneObject(ag::SceneObject *s)
 {
   assert(s);
-  auto it = std::find(d_data->d_sceneObjects.begin(), d_data->d_sceneObjects.end(), s);
+  auto const it = std::find(d_data->d_sceneObjects.begin(), d_data->d_sceneObjects.end(), s);
   assert(it != d_data->d_sceneObjects.end());
   d_data->d_sceneObjects.erase(it);
   d_data->d_dirty = true;

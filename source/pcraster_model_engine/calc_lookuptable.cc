@@ -296,7 +296,7 @@ bool calc::LookupTable::find(double &result, const Key &prefixKey) const
 
   PRECOND(prefixKey.size() == nrCols() - 1);
 
-  auto p = find(prefixKey);
+  auto const p = find(prefixKey);
   if (p != d_records.end()) {
     result = p->back()->centre();
     return true;
@@ -324,7 +324,7 @@ bool calc::LookupTable::interpolate(
   PRECOND(d_prefixMap);
   PRECOND(prefixKey.size() == 1);  // FTTB
 
-  auto i = d_prefixMap->find(prefixKey[0]);
+  auto const i = d_prefixMap->find(prefixKey[0]);
   if (i == d_prefixMap->end()) {
     return false;
   }
@@ -363,7 +363,7 @@ bool calc::LookupTable::interpolate(double &result, const_iterator begin, const_
   DEVELOP_PRECOND(end <= d_records.end());
 
   // first element that has a value >= keyValue
-  auto gt = std::lower_bound(begin, end, keyValue, RelationRecordColLess(keyCol));
+  auto const gt = std::lower_bound(begin, end, keyValue, RelationRecordColLess(keyCol));
   if (gt == end) {
     return false;
   }
@@ -378,7 +378,7 @@ bool calc::LookupTable::interpolate(double &result, const_iterator begin, const_
   }
 
   // thus value between (gt-1) and gt
-  auto lt = gt - 1;
+  auto const lt = gt - 1;
   DEVELOP_PRECOND(lt->col(keyCol).max() != com::Interval<>::maxLimit());
   DEVELOP_PRECOND(gt->col(keyCol).min() != com::Interval<>::minLimit());
   // interpolate linear

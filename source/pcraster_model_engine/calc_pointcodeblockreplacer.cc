@@ -82,7 +82,7 @@ void calc::PointCodeBlockReplacer::visitAss(ASTAss *a)
   DEVELOP_PRECOND(!d_info.empty());
   info().d_allPoint = true;
   for (size_t i = 0; i < a->nrPars(); ++i) {
-    ASTPar *p = a->par(i);
+    ASTPar const *p = a->par(i);
     // FTTB skip reported stuff
     if ((d_symbols.count(p->name()) != 0U) && d_symbols[p->name()].reportPar() == p) {
       info().d_allPoint = false;

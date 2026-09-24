@@ -62,7 +62,7 @@ public:
       DataValue *argI = d_rte.popDataValue();
       switch (argI->ovs()) {
         case VS_STRING: {
-          auto *ds = dynamic_cast<DataStorageId *>(argI);
+          auto const *ds = dynamic_cast<DataStorageId *>(argI);
           if (d_syms.contains(ds->id())) {
             // d_rte already contains a value with this name
             d_args.push_front(d_rte.dataTable()[ds->id()]);
@@ -153,7 +153,7 @@ public:
   ASTPar *createFieldArg(const DataValue *fDv, size_t i)
   {
     ASTPar p(tmpPar(i));
-    Field *f = asField(fDv);
+    Field const *f = asField(fDv);
     p.returnDataType() = f->type();
     if (f->isSpatial() && f->nrValues() != d_rte.rasterSpace().nrCells()) {
       p.symError("Number of cells is different than clone or previous argument");

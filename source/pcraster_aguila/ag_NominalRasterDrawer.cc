@@ -68,10 +68,10 @@ void NominalRasterDrawer::draw(QPainter &painter, QRect const &indices,
   matrix.transfer(const_cast<INT4 *>(_raster->cells<INT4>()), dal::Matrix::DoNotTakeOwnerShip);
   INT4 value = 0;
 
-  auto firstRow = static_cast<size_t>(indices.top());
-  auto lastRow = static_cast<size_t>(indices.bottom());
-  auto firstCol = static_cast<size_t>(indices.left());
-  auto lastCol = static_cast<size_t>(indices.right());
+  auto const firstRow = static_cast<size_t>(indices.top());
+  auto const lastRow = static_cast<size_t>(indices.bottom());
+  auto const firstCol = static_cast<size_t>(indices.left());
+  auto const lastCol = static_cast<size_t>(indices.right());
 
   QColor colour;
 

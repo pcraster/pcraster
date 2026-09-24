@@ -13,7 +13,7 @@
  */
 calc::ASTPar *calc::ParSet::find(ASTPar *key) const
 {
-  auto pos = Base::find(key);
+  auto const pos = Base::find(key);
   if (pos != end()) {
     return *pos;
   }

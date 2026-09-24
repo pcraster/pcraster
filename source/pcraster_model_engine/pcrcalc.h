@@ -202,7 +202,7 @@ typedef void *DataTransferArray[];
 #else
  void
 #endif
-  pcr_destroyScript(PcrScript *script);
+  pcr_destroyScript(PcrScript const *script);
 
 /*! check if an error has occurred
  * \param script  the script object
@@ -377,7 +377,7 @@ typedef void *DataTransferArray[];
 #ifdef __cplusplus
  } // extern "C"
  //! not part of the API
- calc::ASTScript const& pcr_internalScript(PcrScript *script);
+ calc::ASTScript const& pcr_internalScript(PcrScript const *script);
 #endif
 
 #endif

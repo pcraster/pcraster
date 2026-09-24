@@ -190,8 +190,8 @@ void PlotVisualisation::drawCurve(DataGuide const &guide, double *x, double *y, 
 {
   // If missing values are present, a curve consists of several curve pieces.
   // Loop over values to find MV's.
-  double *xEnd = x + nrValues;
-  double *yEnd = y + nrValues;
+  double const *xEnd = x + nrValues;
+  double const *yEnd = y + nrValues;
   double *xSubBegin = nullptr;
   double *xSubEnd = nullptr;
   double *ySubBegin = nullptr;
@@ -312,7 +312,7 @@ bool PlotVisualisation::intersectMarker(double *x, double *y, long int marker,
   QPointF intersection;
   bool intersectionFound = false;
 
-  auto it = _curvesPerGuide.find(guide);
+  auto const it = _curvesPerGuide.find(guide);
 
   if (it != _curvesPerGuide.end()) {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)

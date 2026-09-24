@@ -48,7 +48,7 @@ calc::Dimension::Dimension(const std::string &str) : std::vector<double>(NumBase
 
   DimensionParser const dp(str);
   for (size_t i = 0; i < dp.symbols().size(); ++i) {
-    auto it = id2base.find(dp.symbols()[i].d_symbol);
+    auto const it = id2base.find(dp.symbols()[i].d_symbol);
     if (it != id2base.end()) {
       PRECOND(it->second < static_cast<int>(size()));
       at(it->second) = dp.symbols()[i].d_power;

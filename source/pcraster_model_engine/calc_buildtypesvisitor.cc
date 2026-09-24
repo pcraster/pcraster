@@ -282,7 +282,7 @@ public:
           case OP_TIMEINPUTMODULO: {
             mst.setUse(MapStackType::Modulo);
             PRECOND(e->nrArgs() == 2);
-            auto *n = dynamic_cast<ASTNumber *>(e->arg(1));
+            auto const *n = dynamic_cast<ASTNumber *>(e->arg(1));
             // typecheck already forces n to be ordinal integer
             if ((n == nullptr) || n->value() < 1) {
               e->arg(1)->posError("highestTimestepAvailable argument of "
@@ -370,7 +370,7 @@ void calc::BuildTypesVisitor::checkOnTimeinput(BaseExpr *o)
   DataType eResult = o->op().computeResultType(o->dataTypeArgs(), 0);
 
   // timeinput(sparse|modulo)
-  auto *ms = dynamic_cast<ASTPar *>(o->arg(0));
+  auto const *ms = dynamic_cast<ASTPar *>(o->arg(0));
   if (ms != nullptr) {
     POSTCOND(d_table.contains(ms));
     DataType const req(d_table[ms].dataType().resultType(), ST_SPATIAL);
@@ -417,7 +417,7 @@ void calc::BuildTypesVisitor::visitExpr(BaseExpr *o)
           lie->posError(vsError(lie->nameBefore(), v));
         }
 
-        LinkInExpr *ctor = d_table[lie->nameBefore()].objectLinkConstructor();
+        LinkInExpr const *ctor = d_table[lie->nameBefore()].objectLinkConstructor();
         PRECOND(ctor);
         lie->setAsMethod(ctor->nameAfter());
         libraryName = ctor->nameBefore();

@@ -204,10 +204,10 @@ void RasterDrawer::drawCells(QPainter &painter, QRect const &indices, QTransform
   // matrix.transfer(const_cast<T*>(_raster->cells<T>()),
   //        dal::Matrix::DoNotTakeOwnerShip);
 
-  auto firstRow = static_cast<size_t>(indices.top());
-  auto lastRow = static_cast<size_t>(indices.bottom());
-  auto firstCol = static_cast<size_t>(indices.left());
-  auto lastCol = static_cast<size_t>(indices.right());
+  auto const firstRow = static_cast<size_t>(indices.top());
+  auto const lastRow = static_cast<size_t>(indices.bottom());
+  auto const firstCol = static_cast<size_t>(indices.left());
+  auto const lastCol = static_cast<size_t>(indices.right());
 
   QColor const colour(Qt::black);
   // colour.setAlpha(150);  No, results in weird striping pattern.

@@ -290,7 +290,7 @@ calc::SpatialImpl::~SpatialImpl()
 
 void calc::SpatialImpl::exec(RunTimeEnv *rte, const Operator &op, size_t nrArgs) const
 {
-  Field *in = rte->popField();
+  Field const *in = rte->popField();
   bool const nop = in->isSpatial();
   rte->pushField(in);
   if (!nop) {
@@ -461,7 +461,7 @@ calc::Trig::~Trig()
 void calc::Trig::exec(RunTimeEnv *rte, const Operator &op, size_t nrArgs) const
 {
   // need conversion?
-  Field *in = rte->popField();
+  Field const *in = rte->popField();
   if (in->vs() != VS_D) {  // VS_S or VS_SD
     rte->pushField(in);
     major2op(OP_C_S_2_D)->exec(rte, 1);

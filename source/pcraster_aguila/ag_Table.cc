@@ -52,7 +52,7 @@ Table::Table(std::string const &name, dal::DataSpace const &space)
     : Dataset(name, space)
 
 {
-  auto *driver = dynamic_cast<dal::TableDriver *>(dataSource().reader());
+  auto const *driver = dynamic_cast<dal::TableDriver *>(dataSource().reader());
   assert(driver);
 
   std::unique_ptr<dal::Table> table(dataSource().open<dal::Table>());

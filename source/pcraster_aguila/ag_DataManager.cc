@@ -183,7 +183,7 @@ template <class T> DataGuide DataManager<T>::add(DataInfo<T> const &info)
   assert(isConsistent());
 
   // Let's see if we already know about the data in info.
-  auto it = std::find(_data.begin(), _data.end(), info);
+  auto const it = std::find(_data.begin(), _data.end(), info);
 
   if (it == _data.end()) {
     // No, store the info object for it.
@@ -196,7 +196,7 @@ template <class T> DataGuide DataManager<T>::add(DataInfo<T> const &info)
   DataGuide result;
 
   // Let's see if we already have a data guide for this data set.
-  auto guide_it = findGuide(info.data());
+  auto const guide_it = findGuide(info.data());
 
   if (guide_it != _guides.end()) {
     // Yes, return existing data guide.
@@ -245,7 +245,7 @@ template <class T> void DataManager<T>::remove(DataGuide const &guide)
   if (guide_it == _guides.end()) {
     // None of the remaining guides are pointing to the data of the erased
     // guide. Remove the information about the data too.
-    auto data_it = findData(copyOfGuide.address());
+    auto const data_it = findData(copyOfGuide.address());
     assert(data_it != _data.end());
     (void)_data.erase(data_it);
     assert(findGuide(copyOfGuide.address()) == _guides.end());
@@ -260,7 +260,7 @@ template <class T> T &DataManager<T>::data(DataGuide const &guide)
   assert(exists(guide));
   assert(exists(guide.address()));
 
-  auto it = findData(guide.address());
+  auto const it = findData(guide.address());
   assert(it != _data.end());
 
   return *(*it).data();
@@ -276,7 +276,7 @@ template <class T> const T &DataManager<T>::data(DataGuide const &guide) const
   assert(exists(guide));
   assert(exists(guide.address()));
 
-  auto it = findData(guide.address());
+  auto const it = findData(guide.address());
   assert(it != _data.end());
 
   return *(*it).data();
@@ -342,7 +342,7 @@ template <class T> std::set<size_t> DataManager<T>::timeSteps(DataGuide const &g
   assert(exists(guide));
   assert(exists(guide.address()));
 
-  auto it = findData(guide.address());
+  auto const it = findData(guide.address());
   assert(it != _data.end());
 
   return dal::timeSteps((*it).space());

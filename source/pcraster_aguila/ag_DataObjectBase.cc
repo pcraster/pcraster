@@ -117,7 +117,7 @@ template <class T> DataGuide DataObjectBase<T>::add(std::string const &name, dal
 
   assert(exists(name, space));
 
-  auto it = find(name, space);
+  auto const it = find(name, space);
   DataGuide const guide = _manager.add(std::get<2>(*it));
 
   return guide;
@@ -195,7 +195,7 @@ template <class T> std::string DataObjectBase<T>::name(DataGuide const &guide) c
 {
   assert(isValid(guide));
 
-  auto it = find(static_cast<const T *>(guide.address()));
+  auto const it = find(static_cast<const T *>(guide.address()));
   assert(it != _tuples.end());
 
   return std::get<0>(*it);
@@ -248,7 +248,7 @@ template <class T> DataGuide const &DataObjectBase<T>::dataGuide(geo::DataGuide 
 
 template <class T> DataInfo<T> const *DataObjectBase<T>::dataInfo(DataGuide const &guide) const
 {
-  auto it = find(static_cast<const T *>(guide.address()));
+  auto const it = find(static_cast<const T *>(guide.address()));
   assert(it != _tuples.end());
 
   return &std::get<2>(*it);

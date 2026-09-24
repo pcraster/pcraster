@@ -122,7 +122,7 @@ void RangeDrawPropertiesWidget::createRangeDrawPropertiesInterface()
   box->addWidget(_data->_nrClasses);
   groupBoxLayout()->addLayout(box);
 
-  auto *doubleValidator = new QDoubleValidator(groupBox());
+  auto const *doubleValidator = new QDoubleValidator(groupBox());
 
   _data->_maxCutoff = new QLineEdit();
   _data->_maxCutoff->setValidator(doubleValidator);

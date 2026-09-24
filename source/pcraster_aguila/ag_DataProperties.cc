@@ -83,34 +83,34 @@ public:
     dev::forWhole(_lddClassifiers, dev::Delete<com_ClassClassifier<UINT1>>());
     dev::forWhole(_rangeClassifiers, dev::Delete<com::Classifier>());
 
-    for (auto &_geometryDrawPropertie : _geometryDrawProperties) {
+    for (auto const &_geometryDrawPropertie : _geometryDrawProperties) {
       delete _geometryDrawPropertie.second;
     }
 
-    for (auto &_booleanDrawPropertie : _booleanDrawProperties) {
+    for (auto const &_booleanDrawPropertie : _booleanDrawProperties) {
       delete _booleanDrawPropertie.second;
     }
 
-    for (auto &_nominalDrawPropertie : _nominalDrawProperties) {
+    for (auto const &_nominalDrawPropertie : _nominalDrawProperties) {
       delete _nominalDrawPropertie.second;
     }
 
-    for (auto &_ordinalDrawPropertie : _ordinalDrawProperties) {
+    for (auto const &_ordinalDrawPropertie : _ordinalDrawProperties) {
       delete _ordinalDrawPropertie.second;
     }
 
-    for (auto &_lddDrawPropertie : _lddDrawProperties) {
+    for (auto const &_lddDrawPropertie : _lddDrawProperties) {
       delete _lddDrawPropertie.second;
     }
 
-    for (auto &_rangeDrawPropertie : _rangeDrawProperties) {
+    for (auto const &_rangeDrawPropertie : _rangeDrawProperties) {
       delete _rangeDrawPropertie.second;
     }
 
     {
       std::set<RangeDrawProps *> drawProperties;
 
-      for (auto &_mergedRangeDrawPropertie : _mergedRangeDrawProperties) {
+      for (auto const &_mergedRangeDrawPropertie : _mergedRangeDrawProperties) {
         drawProperties.insert(_mergedRangeDrawPropertie.second);
       }
 
@@ -122,7 +122,7 @@ public:
     {
       std::set<GeometryDrawProps *> drawProperties;
 
-      for (auto &_mergedGeometryDrawPropertie : _mergedGeometryDrawProperties) {
+      for (auto const &_mergedGeometryDrawPropertie : _mergedGeometryDrawProperties) {
         drawProperties.insert(_mergedGeometryDrawPropertie.second);
       }
 
@@ -170,7 +170,7 @@ void DataProperties::assertIntegrity()
 */
 size_t DataProperties::index(DataGuide const &guide) const
 {
-  auto it = std::find(_data->_guides.begin(), _data->_guides.end(), guide);
+  auto const it = std::find(_data->_guides.begin(), _data->_guides.end(), guide);
   assert(it != _data->_guides.end());
 
   return it - _data->_guides.begin();
@@ -279,8 +279,8 @@ void DataProperties::addScalarTimeSeriesProperties(DataObject const &dataObject,
 
     // Determine min and max of dependent variables.
     if (!table.allMV()) {
-      auto min = table.min<REAL4>();
-      auto max = table.max<REAL4>();
+      auto const min = table.min<REAL4>();
+      auto const max = table.max<REAL4>();
 
       rawValueClassifier->setNrClasses(1);
       rawValueClassifier->setExtremes(min, max);
@@ -914,10 +914,10 @@ void DataProperties::remove(DataGuide const &guide)
 void DataProperties::removeBooleanDrawProperties(const DataGuide &guide)
 {
   assert(_data->_booleanDrawProperties.find(guide) != _data->_booleanDrawProperties.end());
-  BooleanDrawProps *drawProps = _data->_booleanDrawProperties[guide];
+  BooleanDrawProps const *drawProps = _data->_booleanDrawProperties[guide];
   _data->_booleanDrawProperties.erase(guide);
 
-  auto iterator = std::find(_data->_booleanClassifiers.begin(), _data->_booleanClassifiers.end(),
+  auto const iterator = std::find(_data->_booleanClassifiers.begin(), _data->_booleanClassifiers.end(),
                             &drawProps->classifier());
   assert(iterator != _data->_booleanClassifiers.end());
 
@@ -932,7 +932,7 @@ void DataProperties::removeNominalDrawProperties(const DataGuide &guide)
   NominalDrawProps *drawProps = _data->_nominalDrawProperties[guide];
   _data->_nominalDrawProperties.erase(guide);
 
-  auto iterator = std::find(_data->_nominalClassifiers.begin(), _data->_nominalClassifiers.end(),
+  auto const iterator = std::find(_data->_nominalClassifiers.begin(), _data->_nominalClassifiers.end(),
                             &drawProps->classifier());
   assert(iterator != _data->_nominalClassifiers.end());
 
@@ -944,10 +944,10 @@ void DataProperties::removeNominalDrawProperties(const DataGuide &guide)
 void DataProperties::removeOrdinalDrawProperties(const DataGuide &guide)
 {
   assert(_data->_ordinalDrawProperties.find(guide) != _data->_ordinalDrawProperties.end());
-  OrdinalDrawProps *drawProps = _data->_ordinalDrawProperties[guide];
+  OrdinalDrawProps const *drawProps = _data->_ordinalDrawProperties[guide];
   _data->_ordinalDrawProperties.erase(guide);
 
-  auto iterator = std::find(_data->_ordinalClassifiers.begin(), _data->_ordinalClassifiers.end(),
+  auto const iterator = std::find(_data->_ordinalClassifiers.begin(), _data->_ordinalClassifiers.end(),
                             &drawProps->classifier());
   assert(iterator != _data->_ordinalClassifiers.end());
 
@@ -959,10 +959,10 @@ void DataProperties::removeOrdinalDrawProperties(const DataGuide &guide)
 void DataProperties::removeLddDrawProperties(const DataGuide &guide)
 {
   assert(_data->_lddDrawProperties.find(guide) != _data->_lddDrawProperties.end());
-  LddDrawProps *drawProps = _data->_lddDrawProperties[guide];
+  LddDrawProps const *drawProps = _data->_lddDrawProperties[guide];
   _data->_lddDrawProperties.erase(guide);
 
-  auto iterator =
+  auto const iterator =
       std::find(_data->_lddClassifiers.begin(), _data->_lddClassifiers.end(), &drawProps->classifier());
   assert(iterator != _data->_lddClassifiers.end());
 
@@ -2389,7 +2389,7 @@ void DataProperties::popClassifiers(DataGuide const &guide)
 void DataProperties::eraseRangeClassifier(com::Classifier *classifier)
 {
   assert(classifier);
-  auto it = std::find(_data->_rangeClassifiers.begin(), _data->_rangeClassifiers.end(), classifier);
+  auto const it = std::find(_data->_rangeClassifiers.begin(), _data->_rangeClassifiers.end(), classifier);
   assert(it != _data->_rangeClassifiers.end());
   delete *it;
   _data->_rangeClassifiers.erase(it);

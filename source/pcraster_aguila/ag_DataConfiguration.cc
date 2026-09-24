@@ -169,7 +169,7 @@ DataConfiguration::DataConfiguration(
       space.hasScenarios() ? space.dimension(space.indexOf(dal::Scenarios)).nrCoordinates() : 1;
 
   // Send properties and datemappers found to the data object.
-  for (auto &d : d_dataMap2) {
+  for (auto const &d : d_dataMap2) {
     DataGuide const &guide(d.second.guide);
     pcrxml::AguilaData const &configuration(d.second.configuration);
 

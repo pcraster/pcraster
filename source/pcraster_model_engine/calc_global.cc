@@ -127,8 +127,8 @@ void calc::MRF::exec(RunTimeEnv *rte, const Operator &op, size_t nrArgs) const
     a.pushResults();
   }
 
-  Field *r1 = rte->popField();
-  Field *r0 = rte->popField();
+  Field const *r1 = rte->popField();
+  Field const *r0 = rte->popField();
   rte->pushField(r1);
   rte->pushField(r0);
 }

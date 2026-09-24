@@ -74,7 +74,7 @@ std::string calc::LexInput::getParameter(const std::string &name, bool bracePres
       return "";
     case 0: /* env. variable */
     {
-      char *n = getenv(name.c_str());
+      char const *n = getenv(name.c_str());
       if (n != nullptr) {
         return n;
       }

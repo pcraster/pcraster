@@ -94,7 +94,7 @@ Raster::Raster(std::string const &name, dal::DataSpace const &dataSpace)
 
   std::any min;
   std::any max;
-  auto *driver = dynamic_cast<dal::RasterDriver *>(dataSource().reader());
+  auto const *driver = dynamic_cast<dal::RasterDriver *>(dataSource().reader());
   assert(driver);
 
   if (driver->extremes(min, max, d_raster->typeId(), dataSource().name(),

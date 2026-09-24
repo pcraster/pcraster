@@ -26,7 +26,7 @@ calc::ReportTable::ReportTable() : d_reportDefault(Report::reportDefault())
 
 calc::ReportTable::~ReportTable()
 {
-  for (auto &i : d_table) {
+  for (auto const &i : d_table) {
     delete i.second;
   }
 }
@@ -46,7 +46,7 @@ void calc::ReportTable::add(const Report &r)
   std::pair<Table::iterator, bool> const p = d_table.insert(std::make_pair(r.name(), rs));
 
   // first definition if error, or (new) position
-  auto fd = p.first;
+  auto const fd = p.first;
   if (!p.second) {  // pcrcalc/test238
     delete rs;
     std::ostringstream msg;
@@ -70,7 +70,7 @@ const calc::Report *calc::ReportTable::find(const calc::Id &name) const
     return reportDefault();
   }
 
-  auto p = d_table.find(name());
+  auto const p = d_table.find(name());
   if (p == d_table.end()) {  // pcrcalc/test237
     name.posError(name.qName() + " is not a report name");
   }

@@ -1299,7 +1299,7 @@ void yyFlexLexer::LexerOutput(const char *buf, int size)
 int yyFlexLexer::yy_get_next_buffer()
 {
   char *dest = YY_CURRENT_BUFFER_LVALUE->yy_ch_buf;
-  char *source = (yytext_ptr);
+  char const *source = (yytext_ptr);
   int number_to_move = 0;
   int i = 0;
   int ret_val = 0;
@@ -1388,7 +1388,7 @@ int yyFlexLexer::yy_get_next_buffer()
 yy_state_type yyFlexLexer::yy_get_previous_state()
 {
   yy_state_type yy_current_state = 0;
-  char *yy_cp = nullptr;
+  char const *yy_cp = nullptr;
 
   yy_current_state = (yy_start);
 
@@ -1448,7 +1448,7 @@ void yyFlexLexer::yyunput(int c, char *yy_bp)
     /* +2 for EOB chars. */
     int const number_to_move = (yy_n_chars) + 2;
     char *dest = &YY_CURRENT_BUFFER_LVALUE->yy_ch_buf[YY_CURRENT_BUFFER_LVALUE->yy_buf_size + 2];
-    char *source = &YY_CURRENT_BUFFER_LVALUE->yy_ch_buf[number_to_move];
+    char const *source = &YY_CURRENT_BUFFER_LVALUE->yy_ch_buf[number_to_move];
 
     while (source > YY_CURRENT_BUFFER_LVALUE->yy_ch_buf) {
       *--dest = *--source;
@@ -2016,7 +2016,7 @@ void calc::LexGrammar::checkSortedTable()
  */
 ANTLRAbstractToken *calc::LexGrammar::idOrKeyWord()
 {
-  KWORD *p = nullptr;
+  KWORD const *p = nullptr;
   KWORD dummy;
 
   IFDEBUG(checkSortedTable());

@@ -8,7 +8,10 @@
  * Purdue University Electrical Engineering
  * ANTLR Version 1.33MR19
  */
-enum ANTLRTokenType {
+
+#include <cstdint>
+
+enum ANTLRTokenType /*: std::uint16_t*/ {
 	TOK_DOLLAR=2,
 	TOK_EOF=3,
 	TOK_INTERFACE=4,

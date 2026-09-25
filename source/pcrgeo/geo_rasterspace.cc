@@ -310,7 +310,7 @@ bool geo::operator!=(const RasterSpace &lhs, const RasterSpace &rhs)
 std::ostream &geo::operator<<(std::ostream &s, const RasterSpace &rs)
 {
   s << rs.nrRows() << ' ' << rs.nrCols() << ' ' << rs.d_cellSize << '\n'
-    << rs.d_projection << ' ' << rs.d_left << ' ' << rs.d_top << '\n'
+    << std::to_string(rs.d_projection) << ' ' << rs.d_left << ' ' << rs.d_top << '\n'
     << rs.d_angle << '\n';
 
   return s;

@@ -3,6 +3,8 @@
 
 #include "stddefx.h"
 
+#include <cstdint>
+
 // #ifndef INCLUDED_CSF
 // #include "csf.h"
 // #define INCLUDED_CSF
@@ -12,7 +14,7 @@ namespace geo
 {
 
   //! Projection types.
-  enum Projection
+  enum Projection : std::uint8_t
   {
     IllegalProjection=0, /*!< not initialized, undefined */
 
@@ -39,7 +41,7 @@ namespace geo
   };
 
   //! Quadrants.
-  enum Quadrant
+  enum Quadrant : std::uint8_t
   {
     NorthWest,
     NorthEast,

@@ -4,6 +4,7 @@
 #include "stddefx.h"
 #include "com_pathname.h"
 
+#include <cstdint>
 
 namespace geo {
   class RasterSpace;
@@ -25,7 +26,7 @@ class XMLReflection;
 class RunTimeEnvSettings
 {
 public:
-  using ExitValueType = enum ExitValueType {
+  using ExitValueType = enum ExitValueType : std::uint8_t {
     //! -e option
     LAST_VAL,
     //! -E option

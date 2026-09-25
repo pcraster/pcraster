@@ -3,6 +3,7 @@
 
 #include "stddefx.h"
 
+#include <cstdint>
 #include <string>
 
 
@@ -24,7 +25,7 @@ class MapStackType
 {
 public:
   //! the use types, only a single type is allowed
-  enum Use { Unknown, Full, Sparse, Modulo, Lookup };
+  enum Use : std::uint8_t { Unknown, Full, Sparse, Modulo, Lookup };
 private:
 
   // Assignment operator. DEFAULT

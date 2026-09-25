@@ -5,6 +5,7 @@
 #include "calc_cfgvisitor.h"
 #include "calc_runtimeenv.h"
 
+#include <cstdint>
 
 namespace geo {
   // Executor declarations.
@@ -43,7 +44,7 @@ private:
 
   Field*            popResult       ();
 
-  enum { COUNT_DYNAMIC=0, COUNT_REPEAT=1,COUNT_NR=2 };
+  enum : std::uint8_t { COUNT_DYNAMIC=0, COUNT_REPEAT=1,COUNT_NR=2 };
 
   using Visit = void (CFGVisitor::*)();
 

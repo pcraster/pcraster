@@ -4,6 +4,7 @@
 #include "stddefx.h"
 #include "pcrtypes.h"
 
+#include <cstdint>
 
 // Module headers.
 
@@ -25,7 +26,7 @@ namespace calc {
 
  template<size_t  nr>
   struct NrInputs {
-    enum { N = nr };
+    enum : std::uint8_t { N = nr };
  };
 
  template<typename T>

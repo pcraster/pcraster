@@ -3,11 +3,13 @@
 
 #include "stddefx.h"
 
+#include <cstdint>
+
 
 namespace calc {
 
 //! type of possible illegal domain
-enum DomainIll {
+enum DomainIll : std::uint8_t {
     noDomainIll,    /*!< no illegal domain */
     onlyDomainIll,  /*!< unary argument has domain check */
     rightDomainIll, /*!< right (2nd) argument has domain check */

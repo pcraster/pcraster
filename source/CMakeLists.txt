@@ -91,3 +91,14 @@ if(PCRASTER_INSTALL_FILES_DEVELOPER)
             doc/developer/c/include
     )
 endif()
+
+
+
+
+
+set(CLANG_TIDY_COMMAND "/opt/sch/install/bin/clang-tidy" "-checks=-*,performance-enum-size" "-fix")
+set_target_properties(pcraster_model_engine pcraster_model_engine_objects pcraster_aguila_objects
+    PROPERTIES
+        CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}" 
+)
+

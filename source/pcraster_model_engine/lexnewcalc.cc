@@ -94,6 +94,7 @@ using flex_uint32_t = unsigned int;
 #include <cerrno>
 #include <climits>
 #include <cstdlib>
+#include <cstdint>
 #include <cstring>
 #include <iostream>
 /* end standard C++ headers. */
@@ -119,7 +120,7 @@ using flex_uint32_t = unsigned int;
 #endif
 
 /* Returned upon end-of-file. */
-enum {
+enum : std::uint8_t {
   YY_NULL = 0
 };
 
@@ -149,7 +150,7 @@ enum {
 /* Special action meaning "start processing a new file". */
 #define YY_NEW_FILE yyrestart(yyin)
 
-enum {
+enum : std::uint8_t {
   YY_END_OF_BUFFER_CHAR = 0
 };
 
@@ -169,7 +170,7 @@ using YY_BUFFER_STATE = struct yy_buffer_state *;
 
 extern int yyleng;
 
-enum {
+enum : std::uint8_t {
   EOB_ACT_CONTINUE_SCAN = 0,
   EOB_ACT_END_OF_FILE = 1,
   EOB_ACT_LAST_MATCH = 2
@@ -430,7 +431,7 @@ static yyconst flex_int16_t yy_chk[220] = {
 
     96, 96, 96, 96, 96,  96,  96, 96, 96, 96, 96, 96,  96,  96, 96, 96,  96, 96,  96};
 
-enum {
+enum : std::uint16_t {
   YY_TRAILING_MASK = 0x2000,
   YY_TRAILING_HEAD_MASK = 0x4000
 };
@@ -557,7 +558,7 @@ and ended by a quote */
  */
 #line 618 "<stdout>"
 
-enum {
+enum : std::uint8_t {
   INITIAL = 0
 };
 

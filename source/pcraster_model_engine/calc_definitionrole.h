@@ -3,6 +3,7 @@
 
 #include "stddefx.h"
 
+#include <cstdint>
 
 
 namespace calc {
@@ -14,7 +15,7 @@ namespace calc {
 namespace calc {
 
 //! Role a symbol has specified in its ASTDefinition
-enum DefinitionRole {
+enum DefinitionRole : std::uint8_t {
     NotSpecified= 0,
     Input       = 'i',
     Output      = 'o',

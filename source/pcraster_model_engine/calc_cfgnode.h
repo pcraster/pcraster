@@ -4,6 +4,7 @@
 #include "stddefx.h"
 
 #include <cstddef>
+#include <cstdint>
 
 
 namespace calc {
@@ -25,7 +26,7 @@ namespace calc {
 class CFGNode
 {
 public:
-  enum { Forward=0, Back=1, NrSuccs=2 } SuccType;
+  enum : std::uint8_t { Forward=0, Back=1, NrSuccs=2 } SuccType;
 
 private:
 

@@ -15,6 +15,7 @@
 #include "calc_TimeSliceVisitor.h"
 
 #include <cmath>
+#include <cstdint>
 #include <format>
 
 /*!
@@ -303,7 +304,7 @@ void calc::DynamicWave::exec(RunTimeEnv *rte, const Operator &op, size_t nrActua
   DynamicWaveExecArguments a(op, rte, nrActualInputs);
   const auto *tab = dynamic_cast<const LookupTable *>(a.firstNonFieldInput());
 
-  enum Args {
+  enum Args : std::int8_t {
     argProfileId = 0,
     argLdd = 1,
     argOldState = 2,
@@ -734,7 +735,7 @@ void calc::KinematicWave::exec(RunTimeEnv *rte, const Operator &op, size_t nrArg
   arg.pushResults();
 }
 
-enum {
+enum : std::uint16_t {
   MAX_ITERS = 3000
 };
 

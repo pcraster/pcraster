@@ -7,6 +7,7 @@
 #include "calc_datatype.h"
 #include "calc_objectlinkruntime.h"
 
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -33,7 +34,7 @@ namespace calc {
  *   who are parallel with IOpImpl subclasses, let them all use the
  *   same name!
  */
-using ExecType = enum ExecType {
+using ExecType = enum ExecType : std::uint8_t {
         EXEC_TYPE_MISC,   /*!< MISNAMED, more a EXEC_MIXED, mis-used for test_until */
         /* class PointOC: */
         EXEC_TYPE_SAME_UN,   /*!< Ad = op A?, */
@@ -67,7 +68,7 @@ using ExecType = enum ExecType {
 
 /*! appearance of an operator/function
  */
-using SYNTAX = enum SYNTAX {
+using SYNTAX = enum SYNTAX : std::uint8_t {
     SYNTAX_FUNC=0, // Function: like func(...)
     SYNTAX_MRF=3,  // Multiple Return Function
     SYNTAX_OP=1,   // Operator: like ... op ...

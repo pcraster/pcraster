@@ -5,6 +5,7 @@
 #include "csftypes.h"
 #include "com_pathname.h"
 
+#include <cstdint>
 #include <string>
 
 
@@ -67,7 +68,7 @@ class RasterSpace;
 class BandMap
 {
  public:
-   using Layout = enum  Layout { BIL, BIP, BSQ };
+   using Layout = enum Layout : std::uint8_t { BIL, BIP, BSQ };
 
    static  const std::string d_hostByteOrder;
    static  const std::string d_otherByteOrder;

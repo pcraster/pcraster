@@ -12,6 +12,7 @@
 #include "calc_operator.h"
 #include "calc_execarguments.h"
 
+#include <cstdint>
 #include <memory>
 
 /*!
@@ -48,12 +49,12 @@ template <class V, class I> static void initOp(V &fArray, const I *f)
 }
 
 struct BinArg {
-  using LR = enum LR {
+  using LR = enum LR : std::uint8_t {
     Left = 0,
     Right = 1
   };
 
-  using T = enum T {
+  using T = enum T : std::uint8_t {
     SS_NN = 0,
     NS = 1,
     SN = 2

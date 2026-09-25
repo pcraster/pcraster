@@ -3,6 +3,7 @@
 
 #include "stddefx.h"
 
+#include <cstdint>
 #include <vector>
 #include <string>
 
@@ -52,7 +53,7 @@ class Dimension : public std::vector<double>
 private:
 
 public:
-  enum Base {
+  enum Base : std::uint8_t {
         Length=0,
         Mass=1,
         Time=2,

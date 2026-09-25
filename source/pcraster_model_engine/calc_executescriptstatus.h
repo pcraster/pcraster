@@ -3,6 +3,7 @@
 
 #include "stddefx.h"
 
+#include <cstdint>
 
 
 namespace calc {
@@ -20,7 +21,7 @@ namespace calc {
  *  \todo
  *    make IsRunningExecScript the 0 case
  */
-using ExecuteScriptStatus = enum ExecuteScriptStatus  {
+using ExecuteScriptStatus = enum ExecuteScriptStatus : std::uint8_t {
      ErrorExecScript=0,  /*!< syntax or runtime error occurred */
      FinishedExecScript, /*!< script finished normally */
      FileOutputValueExecScript, /*!< -e was set, and and expr eval'ed to 0 */

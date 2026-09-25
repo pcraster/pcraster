@@ -5,6 +5,7 @@
 #include "calc_runtimeenvsettings.h"
 #include "calc_lexinputcreator.h"
 
+#include <cstdint>
 
 
 namespace calc {
@@ -27,7 +28,7 @@ class Options : public RunTimeEnvSettings, public LexInputCreator
 
 private:
 
-  using SCRIPT_TYPE = enum SCRIPT_TYPE {
+  using SCRIPT_TYPE = enum SCRIPT_TYPE : std::uint8_t {
          SCRIPT_CMD_LINE, SCRIPT_SCRIPT_FILE,
          SCRIPT_SHELL_FILE, SCRIPT_ESRI_GRID_KILL
   };

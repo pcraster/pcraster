@@ -4,6 +4,7 @@
 #include "stddefx.h"
 #include "calc_iopimpl.h"
 
+#include <cstdint>
 
 
 namespace calc {
@@ -15,7 +16,7 @@ namespace calc {
 namespace calc {
 
 struct DynamicWaveTable {
-   enum   LookupColumns { profileId=0,H=1,A=2,P=3 };
+   enum   LookupColumns : std::uint8_t { profileId=0,H=1,A=2,P=3 };
 };
 
 //! Dynamic wave implementation

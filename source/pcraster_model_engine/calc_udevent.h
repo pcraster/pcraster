@@ -3,6 +3,7 @@
 
 #include "stddefx.h"
 
+#include <cstdint>
 
 namespace calc {
   // UDEvent declarations.
@@ -16,7 +17,7 @@ namespace calc {
 //! Use Def Event as used in UseDefAnalyzer
 class UDEvent {
 public:
-  enum Type {
+  enum Type : std::uint8_t {
          Def=0, /*<! (re-)define the value of the parameter, reference */
          Use=1, /*<! use the value of the parameter, reference */
          Jump=2,/*<! parameter is keepLive at this JumpNode */

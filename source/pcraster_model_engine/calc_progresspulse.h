@@ -3,6 +3,7 @@
 
 #include "stddefx.h"
 
+#include <cstdint>
 
 
 namespace calc {
@@ -17,7 +18,7 @@ namespace calc {
 /*!
  *  Describes what progress is made: next loop, next statement etc.
  */
-using ProgressPulse = enum ProgressPulse {
+using ProgressPulse = enum ProgressPulse : std::uint8_t {
     NoPulse=0,    /*!< Not used */
     LoopPulse,      /*!< Next loop/timestep */
     StatementPulse, /*!< Next statement */

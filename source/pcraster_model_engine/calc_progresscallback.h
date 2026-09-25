@@ -4,6 +4,7 @@
 #include "stddefx.h"
 #include "calc_progresspulse.h"
 
+#include <cstdint>
 
 namespace calc {
   // ProgressCallBack declarations.
@@ -42,7 +43,7 @@ struct ProgressInfo
   int  nrTimeSteps;
 
   //! Where is execution now?
-  enum Status {
+  enum Status : std::uint8_t {
     Error=0,         /*!< Not Used, normal operation result must be
                           checked for errors, not the callback
                       */

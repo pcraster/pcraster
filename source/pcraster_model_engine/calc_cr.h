@@ -4,11 +4,13 @@
 #include "csftypes.h"
 #include "calc_vs.h"
 
+#include <cstdint>
+
 
 namespace calc {
 
 //! cell representation index
-using CRIndex = enum CRIndex {
+using CRIndex = enum CRIndex : std::uint8_t {
  CRI_1=0,   /* UINT1 */
  CRI_4=1,   /* INT4 */
  CRI_f=2,   /* REAL4 */

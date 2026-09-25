@@ -4,6 +4,7 @@
 // XERCES_CPP_NAMESPACE
 #include <xercesc/util/XercesVersion.hpp>
 
+#include <cstdint>
 #include <stdexcept>
 #include <string>
 
@@ -44,14 +45,14 @@ class DOMInput
 {
 public:
   //! type of error handler
-  enum ErrorHandlerType {
+  enum ErrorHandlerType : std::uint8_t {
     //! format readable by vi(m)
     Vi,
     //! verbose human readable
     Verbose
   };
   //! type of error handler
-  enum EntityResolverType {
+  enum EntityResolverType : std::uint8_t {
     //! The default xerces mechanism
     DefaultEntityResolver,
     //! Resolve by the compiled in schema's (for Aguila and pcrme)

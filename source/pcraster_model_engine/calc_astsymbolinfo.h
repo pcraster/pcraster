@@ -7,6 +7,7 @@
 #include "calc_definitionrole.h"
 #include "calc_iotype.h"
 
+#include <cstdint>
 #include <iostream>
 #include <vector>
 
@@ -36,7 +37,7 @@ namespace calc {
   class ASTDefinition;
 
 //! where is a symbol written
-enum  ReportPosition {
+enum  ReportPosition : std::uint8_t {
   RPInitial,  /*!< in a static script or initial section */
   RPDynamic,  /*!< in the dynamic section */
   RPNone      /*!< not reported */
@@ -146,7 +147,7 @@ private:
   ReportPosition      d_reportPosition;
 
   //! how is definition created, if existing
-  enum DefinitionCreation {
+  enum DefinitionCreation : std::uint8_t {
     NotCreated,
     Binding,
     Interface,

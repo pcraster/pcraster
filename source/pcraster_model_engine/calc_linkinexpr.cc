@@ -25,7 +25,8 @@ namespace calc
 template <typename TypeContainer> static std::vector<DataType> xml2DataType(TypeContainer const &c)
 {
   std::vector<DataType> v;
-  for (size_t i = 0; i < c.size(); ++i) {
+  v.reserve(c.size());
+for (size_t i = 0; i < c.size(); ++i) {
     v.push_back(xml2DataType(c[i]));
   }
   return v;

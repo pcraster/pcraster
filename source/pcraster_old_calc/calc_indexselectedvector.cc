@@ -10,7 +10,8 @@
 calc::ArrayDefVector calc::IndexSelectedVector::arrayDefVector() const
 {
   std::vector<const calc::ArrayDefinition *> vector;
-  for (size_t i = 0; i < size(); i++) {
+  vector.reserve(size());
+for (size_t i = 0; i < size(); i++) {
     vector.push_back(d_vector[i]->partOf());
   }
   return calc::ArrayDefVector(vector);

@@ -108,7 +108,8 @@ void calc::BaseExpr::transferArg(ASTNode *arg)
 std::vector<calc::DataType> calc::BaseExpr::dataTypeArgs() const
 {
   std::vector<DataType> da;
-  for (size_t i = 0; i < nrArgs(); ++i) {
+  da.reserve(nrArgs());
+for (size_t i = 0; i < nrArgs(); ++i) {
     da.push_back(arg(i)->returnDataType());
   }
   return da;

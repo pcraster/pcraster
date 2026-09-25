@@ -86,7 +86,7 @@ public:
                    {}
 
   //! Destructor.
-  /* virtual */    ~Square              () {}
+  /* virtual */    ~Square              () = default;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

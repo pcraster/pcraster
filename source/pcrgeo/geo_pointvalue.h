@@ -44,7 +44,7 @@ public:
 
                    PointValue          (PointValue const& pointValue);
 
-  /* virtual */    ~PointValue         ();
+  /* virtual */    ~PointValue         () = default;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -100,14 +100,6 @@ inline PointValue<Point, Value>::PointValue(Point const& point, Value const& val
 template<class Point, class Value>
 inline PointValue<Point, Value>::PointValue(PointValue const& pointValue)
   : d_point(pointValue.d_point), d_value(pointValue.d_value)
-{
-}
-
-//! Destructor.
-/*!
-*/
-template<class Point, class Value>
-inline PointValue<Point, Value>::~PointValue()
 {
 }
 

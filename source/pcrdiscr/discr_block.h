@@ -83,7 +83,8 @@ public:
 
                    Block               (RasterData<REAL4> const& baseElevation);
 
-  /* virtual */    ~Block              ();
+  //! Destructor.
+  /* virtual */    ~Block              () = default;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

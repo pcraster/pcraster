@@ -130,7 +130,8 @@ public:
 
   CommandLineApplication& operator=    (const CommandLineApplication& other) = delete;
 
-  virtual          ~CommandLineApplication();
+  //! Destructor.
+  virtual          ~CommandLineApplication() = default;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

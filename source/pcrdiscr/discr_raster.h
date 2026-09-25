@@ -61,7 +61,8 @@ public:
                                         double west = 0.0,
                                         double north = 0.0);
 
-  /* virtual */    ~Raster             ();
+  //! Destructor.
+  /* virtual */    ~Raster             () = default;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

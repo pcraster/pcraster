@@ -180,10 +180,6 @@ com::CommandLineException::CommandLineException(const Exception &exception)
 {
 }
 
-com::CommandLineException::~CommandLineException()
-{
-}
-
 //------------------------------------------------------------------------------
 
 com::OutOfRangeException::OutOfRangeException(const std::string &m)
@@ -193,20 +189,12 @@ com::OutOfRangeException::OutOfRangeException(const std::string &m)
 {
 }
 
-com::OutOfRangeException::~OutOfRangeException()
-{
-}
-
 //------------------------------------------------------------------------------
 
 com::BadStreamFormat::BadStreamFormat(const std::string &m)
 
     : com::Exception(m)
 
-{
-}
-
-com::BadStreamFormat::~BadStreamFormat()
 {
 }
 
@@ -238,10 +226,6 @@ com::FileError::FileError(const PathName &fileName, const std::string &diagnosis
 {
 }
 
-com::FileError::~FileError()
-{
-}
-
 //------------------------------------------------------------------------------
 
 com::OpenFileError::OpenFileError(const std::string &fileName, const std::string &diagnosis)
@@ -260,10 +244,6 @@ com::OpenFileError::OpenFileError(const std::string &fileName, Errno nr)
   d_no = nr;
 }
 
-com::OpenFileError::~OpenFileError()
-{
-}
-
 //------------------------------------------------------------------------------
 
 com::FileFormatError::FileFormatError(const std::string &fileName, const std::string &diagnosis)
@@ -273,10 +253,6 @@ com::FileFormatError::FileFormatError(const std::string &fileName, const std::st
 
 com::FileFormatError::FileFormatError(const com::PathName &fileName, const std::string &diagnosis)
     : FileError(fileName, diagnosis)
-{
-}
-
-com::FileFormatError::~FileFormatError()
 {
 }
 

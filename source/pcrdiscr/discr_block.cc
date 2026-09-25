@@ -183,15 +183,6 @@ Block::Block(
 
 
 
-//! Destructor.
-/*!
-*/
-Block::~Block()
-{
-}
-
-
-
 /* NOT IMPLEMENTED
 //! Assignment operator.
 Block& Block::operator=(

@@ -73,7 +73,7 @@ public:
    * In order to link cppunit with catching of all exception both ctor and dtor
    * must be inline
    */
-  virtual          ~Exception          () {}
+  virtual          ~Exception          () = default;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -149,7 +149,7 @@ public:
 
                    explicit CommandLineException(const Exception& exception);
 
-           ~CommandLineException() override;
+           ~CommandLineException() override = default;
 
 };
 
@@ -166,7 +166,7 @@ class OutOfRangeException: public Exception
 public:
 
                    explicit OutOfRangeException(const std::string &m);
-           ~OutOfRangeException() override;
+           ~OutOfRangeException() override = default;
 
 };
 
@@ -184,7 +184,7 @@ class BadStreamFormat: public Exception
 public:
 
                    explicit BadStreamFormat (const std::string &m);
-           ~BadStreamFormat() override;
+           ~BadStreamFormat() override = default;
 
 };
 
@@ -211,7 +211,7 @@ public:
                    FileError       (const PathName&    fileName,
                                     const std::string& diagnosis);
 
-           ~FileError      () override;
+           ~FileError      () override = default;
 
   const std::string& fileName()  const { return d_fileName;  }
   const std::string& diagnosis() const { return d_diagnosis; }
@@ -236,7 +236,7 @@ public:
                                     const std::string& diagnosis);
                    OpenFileError   (const std::string& fileName,
                                     Errno nr);
-          ~OpenFileError   () override;
+          ~OpenFileError   () override = default;
 
 };
 
@@ -257,7 +257,7 @@ public:
                                     const std::string& diagnosis);
                    FileFormatError (const PathName   & fileName,
                                     const std::string& diagnosis);
-           ~FileFormatError() override;
+           ~FileFormatError() override = default;
 
 };
 

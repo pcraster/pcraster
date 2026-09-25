@@ -88,14 +88,12 @@ public:
   //! Constructor.
   /*!
   */
-                   AnyPointers         ()
-  {}
+                   AnyPointers         () = default;
 
   //! Destructor.
   /*!
   */
-  /* virtual */    ~AnyPointers        ()
-  {}
+  /* virtual */    ~AnyPointers        () = default;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

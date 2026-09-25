@@ -59,14 +59,19 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-                   VoxelStack          ();
+  //! Default constructor.
+  /*!
+    Default base elevation is 0.0.
+  */
+                   VoxelStack          () = default;
 
                    VoxelStack          (REAL4 baseElevation);
 
                    VoxelStack          (const_iterator begin,
                                         const_iterator end);
 
-  /* virtual */    ~VoxelStack         ();
+  //! Destructor.
+  /* virtual */    ~VoxelStack         () = default;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

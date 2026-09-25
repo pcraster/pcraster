@@ -71,15 +71,6 @@ CommandLineApplication::CommandLineApplication(
 
 
 
-//! Destructor.
-/*!
-*/
-CommandLineApplication::~CommandLineApplication()
-{
-}
-
-
-
 clipp::group& CommandLineApplication::commandLineParser()
 {
   return _parser;

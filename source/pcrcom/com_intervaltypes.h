@@ -99,7 +99,7 @@ template<typename R=double>
 class AnythingInterval : public Interval<R> {
   public:
    //! ctor
-   AnythingInterval(){}
+   AnythingInterval() = default;
    bool valid     (R /* v */) const override { return true; }
    bool  operator<(R /* v */) const override { return false;}
    bool  operator>(R /* v */) const override { return false;}

@@ -26,19 +26,6 @@ namespace discr {
 // DEFINITION OF VOXELSTACK MEMBERS
 //------------------------------------------------------------------------------
 
-//! Default constructor.
-/*!
-  Default base elevation is 0.0.
-*/
-VoxelStack::VoxelStack()
-
-   
-
-{
-}
-
-
-
 //! Constructor.
 /*!
   \param     baseElevation Base elevation of stack.
@@ -70,15 +57,6 @@ VoxelStack::VoxelStack(
          const_iterator end)
 
   : std::vector<REAL4>(begin, end)
-{
-}
-
-
-
-//! Destructor.
-/*!
-*/
-VoxelStack::~VoxelStack()
 {
 }
 

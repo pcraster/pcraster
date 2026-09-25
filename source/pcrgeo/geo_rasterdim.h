@@ -37,11 +37,12 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-                   RasterDim               ();
+  //! default ctor leaving object in a invalid state (0,0), see valid()
+                   RasterDim               () = default;
 
                    RasterDim               (size_t nrRows, size_t nrCols);
 
-  /* virtual */    ~RasterDim              ();
+  /* virtual */    ~RasterDim              () = default;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -89,11 +90,6 @@ public:
 // INLINE FUNCTIONS
 //------------------------------------------------------------------------------
 
-//! default ctor leaving object in a invalid state (0,0), see valid()
-inline geo::RasterDim::RasterDim()
-{
-}
-
 //! ctor
 /*!
  * \todo
@@ -104,11 +100,6 @@ inline geo::RasterDim::RasterDim(size_t nrRows, size_t nrCols):
   d_nrRows(nrRows),d_nrCols(nrCols)
 {
 //  DEVELOP_POSTCOND(nrRows && nrCols);
-}
-
-
-inline RasterDim::~RasterDim()
-{
 }
 
 //! set value of nrRows

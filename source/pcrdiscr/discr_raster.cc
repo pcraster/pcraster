@@ -46,15 +46,6 @@ Raster::Raster(
 
 
 
-//! Destructor.
-/*!
-*/
-Raster::~Raster()
-{
-}
-
-
-
 //! Returns the number of rows in the raster.
 /*!
   \return    Number of rows.

@@ -58,7 +58,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-  virtual          ~IRaster            ();
+  virtual          ~IRaster            () = default;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -126,11 +126,6 @@ public:
 template<class T>
 IRaster<T>::IRaster(size_t nrRows, size_t nrCols)
   : d_nrRows(nrRows), d_nrCols(nrCols)
-{
-}
-
-template<class T>
-inline IRaster<T>::~IRaster ()
 {
 }
 

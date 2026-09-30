@@ -12,7 +12,7 @@ namespace calc {
 //! interface of ApiMapC objects
 class ApiMap {
  public:
-   virtual      ~ApiMap() {}
+   virtual      ~ApiMap() = default;
 
    virtual void *getCPointer()=0;
 };

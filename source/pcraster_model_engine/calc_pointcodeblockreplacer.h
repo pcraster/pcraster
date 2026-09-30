@@ -50,12 +50,8 @@ private:
    bool                   d_allPoint{false};
    ParSet                 d_pars;
    size_t                 d_nrPointsOps{0};
-   BlockInfo()
-                      {}
-   BlockInfo(BlockInfo const& rhs):
-     d_allPoint(rhs.d_allPoint),
-     d_pars(rhs.d_pars),
-     d_nrPointsOps(rhs.d_nrPointsOps) {}
+   BlockInfo() = default;
+   BlockInfo(BlockInfo const& rhs)= default;
    BlockInfo&  operator=( BlockInfo const& rhs) {
      if(this != &rhs) {
       d_allPoint   =rhs.d_allPoint;

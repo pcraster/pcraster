@@ -32,11 +32,11 @@ private:
 
 
 protected:
-                    IVSpatial              () {}
+                    IVSpatial              () = default;
 
 
 public:
-     virtual       ~IVSpatial              () {}
+     virtual       ~IVSpatial              () = default;
 
   //----------------------------------------------------------------------------
   // CREATORS

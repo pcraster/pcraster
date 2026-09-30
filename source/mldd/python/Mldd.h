@@ -49,7 +49,7 @@ public:
 
   Mldd&            operator=           (const Mldd&) = delete;
 
-  /* virtual */    ~Mldd               ();
+  /* virtual */    ~Mldd               () = default;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

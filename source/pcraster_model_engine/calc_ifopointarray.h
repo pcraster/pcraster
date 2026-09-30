@@ -16,7 +16,7 @@ namespace calc {
   //! interface specification, class must have a cri() function
   struct ISelectOnCRIndex {
     virtual CRIndex cri() const =0;
-    virtual ~ISelectOnCRIndex() {}
+    virtual ~ISelectOnCRIndex() = default;
   };
 
   struct ISameUn {
@@ -27,7 +27,7 @@ namespace calc {
   };
 
   struct IDiffUn : public ISelectOnCRIndex {
-   ~IDiffUn() override {}
+   ~IDiffUn() override = default;
    using Input = const void *;
    using Result = void *; // (out-only)
 
@@ -36,7 +36,7 @@ namespace calc {
   };
 
   struct ISameBin : public ISelectOnCRIndex {
-   ~ISameBin() override {}
+   ~ISameBin() override = default;
    using Input = const void *;  // Input
    using Result = void *; // Result (and input)
 
@@ -56,7 +56,7 @@ namespace calc {
    *  and a new created result type R
    */
   struct IDiffBin : public ISelectOnCRIndex {
-   ~IDiffBin() override {}
+   ~IDiffBin() override = default;
    using R = UINT1 *;
    using A1 = const void *;
    using A2 = const void *;
@@ -69,7 +69,7 @@ namespace calc {
   };
 
  struct IIfThenElse : public ISelectOnCRIndex {
-   ~IIfThenElse() override {}
+   ~IIfThenElse() override = default;
    using F = void (*)(void *, const UINT1 *, const void *, const void *, size_t);
 
    /*! dimension of true and false branch make different entries

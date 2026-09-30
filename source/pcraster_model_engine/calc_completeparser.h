@@ -80,9 +80,7 @@ public:
     d_parser.initialize();
   }
 
-  /* virtual */    ~CompleteParser              ()
-  {
-  }
+  /* virtual */    ~CompleteParser              () = default;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

@@ -107,11 +107,6 @@ Moc::Moc(geo::RasterSpace const& space,
 
 
 
-Moc::~Moc()
-{
-}
-
-
 
 std::tuple<std::shared_ptr<calc::Field>, std::shared_ptr<calc::Field>> Moc::transport(
          calc::Field const* fluxField,

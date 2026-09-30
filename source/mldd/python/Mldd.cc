@@ -40,12 +40,6 @@ Mldd::Mldd(
 
 
 
-Mldd::~Mldd()
-{
-}
-
-
-
 void Mldd::setDem(
          calc::Field const* dem)
 {

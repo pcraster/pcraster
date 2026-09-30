@@ -21,8 +21,8 @@ namespace calc {
 class  IFieldRDConversion {
 protected:
 
-                   IFieldRDConversion               () {}
-   virtual        ~IFieldRDConversion               () {}
+                   IFieldRDConversion               () = default;
+   virtual        ~IFieldRDConversion               () = default;
 public:
   //! a linear numbering scheme within a (possible) non-rectangular area
   using FieldId = size_t;

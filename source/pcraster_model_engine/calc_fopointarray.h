@@ -57,8 +57,7 @@ template<class O>
      DiffUnArray() {
        f=(F)fImpl;
      }
-     ~DiffUnArray() override {
-     }
+     ~DiffUnArray() override = default;
      static void fImpl(Result r, Input val, size_t n)
      {
        for(size_t i=0; i < n; ++i) {
@@ -88,9 +87,7 @@ template<class O>
        ns=(NS)nsImpl;
        sn=(SN)snImpl;
      }
-     ~SameBinArray() override
-     {
-     }
+     ~SameBinArray() override = default;
 
      //! check r and combo of r and l
      inline static bool domainIll(const T& r, const T& l) {
@@ -335,8 +332,7 @@ template<class O>
        ns=(F)nsImpl;
        sn=(F)snImpl;
      }
-     ~DiffBinArray() override {
-     }
+     ~DiffBinArray() override = default;
      static void ssImpl(R res, E l, E r,size_t n)
      {
        for(size_t i=0; i < n; ++i) {
@@ -386,8 +382,7 @@ template<class O>
    AggregateArray() {
        f=(F)fImpl;
    }
-   ~AggregateArray() override {
-   }
+   ~AggregateArray() override = default;
 
    static void fImpl(R r,I v, size_t n) {
      *r=O::init();

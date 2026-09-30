@@ -51,7 +51,7 @@ public:
 
   Moc&             operator=           (const Moc&) = delete;
 
-  /* virtual */    ~Moc                ();
+  /* virtual */    ~Moc                () = default;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

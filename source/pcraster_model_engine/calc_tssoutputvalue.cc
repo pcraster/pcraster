@@ -115,7 +115,7 @@ public:
     }
   }
 
-  ~MemoryExchangeItemTssRow()
+  ~MemoryExchangeItemTssRow() override
   {
     delete[] d_buffer;
   }

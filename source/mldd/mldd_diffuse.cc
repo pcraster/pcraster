@@ -31,17 +31,17 @@ public:
     d_data.d_fixedEdgeFlowTerm.reserve(nrEdges);
   }
 
-  ~DiffuseInit()
+  ~DiffuseInit() override
   {
   }
 
   //! set d_totalOutflow to 0 or MV is any of the input is MV
-  void initVertex(const Vertex &v)
+  void initVertex(const Vertex &v) override
   {
     d_data.initSet(linear(v));
   }
 
-  void downstreamEdge(const Edge &e)
+  void downstreamEdge(const Edge &e) override
   {
     DEVELOP_PRECOND(d_edgeVisitNr < d_data.d_fixedEdgeFlowTerm.capacity());
     d_data.initFlowTerm(e);
@@ -63,7 +63,7 @@ public:
   {
   }
 
-  void initVertex(const Vertex &vC)
+  void initVertex(const Vertex &vC) override
   {
     size_t const v = linear(vC);
     d_data.addDem(v);
@@ -71,7 +71,7 @@ public:
     d_outflow[v] = 0;
   }
 
-  void finishVertex(const Vertex &vC)
+  void finishVertex(const Vertex &vC) override
   {
     if (pcr::isMV(d_data.d_dem[vC])) {
       return;
@@ -84,7 +84,7 @@ public:
     d_data.d_totalOutflow[v] += d_outflow[v];
   }
 
-  void downstreamEdge(const Edge &e)
+  void downstreamEdge(const Edge &e) override
   {
     REAL4 const drop = d_data.drop(e);
     if (drop < 0) {

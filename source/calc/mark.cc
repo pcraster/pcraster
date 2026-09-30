@@ -69,7 +69,7 @@ public:
 class MarkLe : public MarkCondition
 {
 public:
-  virtual ~MarkLe() = default;
+  ~MarkLe() override = default;
 
   MarkLe(double treshold) : MarkCondition(treshold)
   {
@@ -85,7 +85,7 @@ public:
 class MarkGe : public MarkCondition
 {
 public:
-  virtual ~MarkGe() = default;
+  ~MarkGe() override = default;
 
   MarkGe(double treshold) : MarkCondition(treshold)
   {

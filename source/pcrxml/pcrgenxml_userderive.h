@@ -7,13 +7,14 @@ Do not edit, generated from libs/pcrxml/generate.py
 
 #include "pcrxml_attribute.h"
 
+#include <cstdint>
 
 class QDomElement;
 
 namespace pcrxml{
 class UserDerive : public Attribute {
   public:
-   using EnumType = enum EnumType {
+   using EnumType = enum EnumType : std::uint8_t {
      Tree=0,Child=1,None=2
    };
   private:

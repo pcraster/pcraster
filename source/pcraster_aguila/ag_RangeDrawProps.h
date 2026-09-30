@@ -5,6 +5,7 @@
 #include "ag_DrawProps.h"
 #include "ag_Types.h"
 
+#include <cstdint>
 #include <tuple>
 
 
@@ -32,7 +33,7 @@ public:
   using ClassifierTuple = std::tuple<com::Classifier *, com::Classifier *>;
   using ClassifierTuples = std::vector<ClassifierTuple>;
 
-  enum ProbabilityScale {
+  enum ProbabilityScale : std::uint8_t {
     CumulativeProbabilities,
 
     //! P(Z > value).

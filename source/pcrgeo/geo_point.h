@@ -3,6 +3,7 @@
 
 #include "stddefx.h"
 
+#include <cstdint>
 #include <cstring>
 #include <cmath>
 #include <functional>
@@ -47,7 +48,7 @@ namespace geo {
  * for the indexDirection, x on bit 0,
  * y on bit 1, etc.
  */
-enum { X = 0, Y = 1, Z = 2 };
+enum : std::uint8_t { X = 0, Y = 1, Z = 2 };
 
 
 
@@ -68,7 +69,7 @@ public:
   // TYPES
   //----------------------------------------------------------------------------
   //! dimension
-  enum    { Dim = n };
+  enum : std::uint8_t { Dim = n };
   using CoordinateType = T;
 
 private:

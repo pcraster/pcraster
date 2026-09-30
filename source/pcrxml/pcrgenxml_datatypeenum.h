@@ -7,6 +7,7 @@ Do not edit, generated from libs/pcrxml/generate.py
 
 #include "pcrxml_attribute.h"
 
+#include <cstdint>
 
 
 class QDomElement;
@@ -14,7 +15,7 @@ class QDomElement;
 namespace pcrxml{
 class DataTypeEnum : public Attribute {
   public:
-   using EnumType = enum EnumType {
+   using EnumType = enum EnumType : std::uint8_t {
      Tss=0,Table=1,Field=2,Unknown=3,Boolean=4,Nominal=5,Ordinal=6,Scalar=7,Directional=8,Ldd=9
    };
   private:

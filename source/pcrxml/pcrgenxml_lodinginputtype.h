@@ -7,6 +7,7 @@ Do not edit, generated from libs/pcrxml/generate.py
 
 #include "pcrxml_attribute.h"
 
+#include <cstdint>
 
 
 class QDomElement;
@@ -14,7 +15,7 @@ class QDomElement;
 namespace pcrxml{
 class LodingInputType : public Attribute {
   public:
-   using EnumType = enum EnumType {
+   using EnumType = enum EnumType : std::uint8_t {
      ASCII=0,RWSLOD=1
    };
   private:

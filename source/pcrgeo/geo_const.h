@@ -3,6 +3,7 @@
 
 #include "stddefx.h"
 
+#include <cstdint>
 #include <string>
 
 
@@ -37,7 +38,7 @@ struct geo_Const
   static const int RASTER;
 
   // valuescales
-  enum ValueScale { BOOLEAN, NOMINAL, ORDINAL, SCALAR, DIRECTIONAL, LDD,
+  enum ValueScale : std::uint8_t { BOOLEAN, NOMINAL, ORDINAL, SCALAR, DIRECTIONAL, LDD,
                     ILLEGALVS };
 
 };

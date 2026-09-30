@@ -3,6 +3,7 @@
 
 #include "stddefx.h"
 
+#include <cstdint>
 #include <fstream>
 #include <string>
 #include <set>
@@ -46,7 +47,7 @@ class geo_ColumnFile
 private:
 
   //! State values.
-  enum State { INITIAL, HEADER_READ, DATA_READ };
+  enum State : std::uint8_t { INITIAL, HEADER_READ, DATA_READ };
 
   //! State of object.
   State            d_state{INITIAL};

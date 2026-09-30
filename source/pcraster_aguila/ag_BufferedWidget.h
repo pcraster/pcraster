@@ -6,6 +6,7 @@
 #include <QRect>
 #include <QWidget>
 
+#include <cstdint>
 
 
 namespace ag {
@@ -39,7 +40,7 @@ class BufferedWidget: public QWidget
 public:
 
   //! Determines which part of the widget the contents are pinned to.
-  enum Alignment {
+  enum Alignment: std::uint8_t {
     //! When resizing, the contents should be pinned to the top left corner.
     TopLeft,
 

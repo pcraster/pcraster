@@ -1,6 +1,7 @@
 #ifndef INCLUDED_GEO_DATATYPE
 #define INCLUDED_GEO_DATATYPE
 
+#include <cstdint>
 #include <string>
 
 
@@ -8,7 +9,7 @@
 
 namespace geo {
 
-  using DataType = enum DataType {
+  using DataType = enum DataType : std::uint8_t {
     DT_INVALID,
     STACK,
     FEATURE,

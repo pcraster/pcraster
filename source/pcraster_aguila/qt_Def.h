@@ -1,6 +1,7 @@
 #ifndef INCLUDED_QT_DEF
 #define INCLUDED_QT_DEF
 
+#include <cstdint>
 
 
 namespace qt
@@ -8,7 +9,7 @@ namespace qt
 
   using SideFlags = unsigned int;
 
-  enum Side
+  enum Side : std::uint8_t
   {
     Left   = 0x00000001,
     Top    = 0x00000002,
@@ -16,13 +17,13 @@ namespace qt
     Bottom = 0x00000008
   };
 
-  enum Orientation
+  enum Orientation : std::uint8_t
   {
     Vertical,
     Horizontal
   };
 
-  enum Corner
+  enum Corner : std::uint8_t
   {
     UpperLeft,
     UpperRight,
@@ -30,7 +31,7 @@ namespace qt
     LowerRight
   };
 
-  enum ApplicationRole
+  enum ApplicationRole : std::uint8_t
   {
     //! Application has full control over the process.
     StandAlone,

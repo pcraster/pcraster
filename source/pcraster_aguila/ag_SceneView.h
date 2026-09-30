@@ -6,6 +6,7 @@
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
 
+#include <cstdint>
 
 
 namespace ag {
@@ -113,7 +114,7 @@ protected:
 
 public:
 
-  enum Camera { USER, TOP, FRONT, LEFT, BACK, RIGHT };
+  enum Camera : std::uint8_t { USER, TOP, FRONT, LEFT, BACK, RIGHT };
 
   //----------------------------------------------------------------------------
   // CREATORS

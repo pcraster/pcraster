@@ -6,6 +6,7 @@
 #include "ag_Types.h"
 #include "ag_MouseTarget.h"
 
+#include <cstdint>
 #include <vector>
 
 
@@ -41,7 +42,7 @@ private:
 
   MouseTarget      _mapViewMouseTarget;
 
-  enum Action {
+  enum Action : std::uint8_t {
     NoAction,
     Query,
     Pan,

@@ -8,6 +8,7 @@
 #include "discr_blockdata.h"
 #include "dal_Client.h"
 
+#include <cstdint>
 #include <filesystem>
 #include <string>
 #include <vector>
@@ -32,7 +33,7 @@ class HFB;
 class GHB;
 
 
-enum Solver {
+enum Solver : std::uint8_t {
   NO_SOLVER = 0,
   PCG_SOLVER,
   SOR_SOLVER,

@@ -102,13 +102,13 @@ size_t calc::ASTNodeContainer<S>::size() const
 }
 
 TEMPLATE_DECL
-typename calc::ASTNodeContainer<S>::const_iterator calc::ASTNodeContainer<S>::begin() const
+calc::ASTNodeContainer<S>::const_iterator calc::ASTNodeContainer<S>::begin() const
 {
   return d_container.begin();
 }
 
 TEMPLATE_DECL
-typename calc::ASTNodeContainer<S>::const_iterator calc::ASTNodeContainer<S>::end() const
+calc::ASTNodeContainer<S>::const_iterator calc::ASTNodeContainer<S>::end() const
 {
   return d_container.end();
 }

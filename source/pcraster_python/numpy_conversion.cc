@@ -209,7 +209,7 @@ struct ArrayCopier<Source, Destination, value_scale,
             }
             else {
                 if(source_value < min || source_value > max) {
-                    using PrintableType = typename std::conditional<
+                    using PrintableType = std::conditional<
                         std::is_same<Source, std::uint8_t>::value ||
                         std::is_same<Source, std::int8_t>::value,
                     std::int32_t, Source>::type;
@@ -288,7 +288,7 @@ struct ArrayCopier<Source, Destination, value_scale,
             }
             else {
                 if(source_value > max) {
-                    using PrintableType = typename std::conditional<
+                    using PrintableType = std::conditional<
                         std::is_same<Source, std::uint8_t>::value ||
                         std::is_same<Source, std::int8_t>::value,
                         std::int32_t, Source>::type;
@@ -847,7 +847,7 @@ calc::Spatial* array_to_field(
         ValueScaleTraits<value_scale>::cell_representation_index,
         space.nrCells());
 
-    using Destination = typename ValueScaleTraits<value_scale>::Type;
+    using Destination = ValueScaleTraits<value_scale>::Type;
 
     auto const* source = static_cast<Source const*>(array.data());
     auto* destination = static_cast<Destination*>(field->dest());

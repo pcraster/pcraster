@@ -231,7 +231,7 @@ static double median(detail::CS_V::iterator begin, detail::CS_V::iterator end)
 template <class P, class M>
 static void crossPercentiles(M &m, typename P::V::iterator begin, typename P::V::iterator end)
 {
-  using I = typename P::V::iterator;
+  using I = P::V::iterator;
   I endP;
   if (m.outside().nr()) {
     endP = m.partitionOutside(begin, end, P::partitionValue);
@@ -414,10 +414,10 @@ template <typename T> void calc::StatTable::classSubject(FieldStack &stack) cons
           classScalarTable(s, stack);
         } else {
           if (com::noOverlap(d_cross.d_intervals)) {
-            using IM = typename com::IntervalMap<detail::ScalarStats, float>;
+            using IM = com::IntervalMap<detail::ScalarStats, float>;
             classIntervalTable<IM>(s, stack);
           } else {
-            using IM = typename com::IntervalMultiMap<detail::ScalarStats, float>;
+            using IM = com::IntervalMultiMap<detail::ScalarStats, float>;
             classIntervalTable<IM>(s, stack);
           }
         }
@@ -465,7 +465,7 @@ void calc::StatTable::classCrossTable(const SubjectType *subject, FieldStack &st
 
   // header line 2
   out << d_subject.d_name;
-  using S = typename std::set<INT4>;
+  using S = std::set<INT4>;
   S const col = m.colClasses();
   S const row = m.rowClasses();
 
@@ -521,7 +521,7 @@ template <typename CountMap> void calc::StatTable::addSubjectClasses(CountMap &m
     //  but we simple cast min to integer
 
     // MT() init 0, default Ctor
-    using MT = typename CountMap::mapped_type;
+    using MT = CountMap::mapped_type;
     m.insert(std::make_pair(static_cast<int>(iv.min()), MT()));
   }
 }

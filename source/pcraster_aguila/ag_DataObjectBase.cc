@@ -60,7 +60,7 @@ template <class T> DataObjectBase<T>::~DataObjectBase()
   \param     data Pointer to data to find tuple for.
   \return    Iterator to tuple found.
 */
-template <class T> typename DataObjectBase<T>::tuple_iter DataObjectBase<T>::find(T const *data) const
+template <class T> DataObjectBase<T>::tuple_iter DataObjectBase<T>::find(T const *data) const
 {
   auto result = _tuples.begin();
 
@@ -83,7 +83,7 @@ template <class T> typename DataObjectBase<T>::tuple_iter DataObjectBase<T>::fin
   \return    Iterator to tuple found.
 */
 template <class T>
-typename DataObjectBase<T>::tuple_iter DataObjectBase<T>::find(std::string const &name,
+DataObjectBase<T>::tuple_iter DataObjectBase<T>::find(std::string const &name,
                                                                dal::DataSpace const &space) const
 {
   auto result = _tuples.begin();
@@ -211,32 +211,32 @@ template <class T> const T &DataObjectBase<T>::data(DataGuide const &guide) cons
   return _manager.data(guide);
 }
 
-template <class T> typename DataObjectBase<T>::data_iter DataObjectBase<T>::data_begin()
+template <class T> DataObjectBase<T>::data_iter DataObjectBase<T>::data_begin()
 {
   return _manager.data_begin();
 }
 
-template <class T> typename DataObjectBase<T>::const_data_iter DataObjectBase<T>::data_begin() const
+template <class T> DataObjectBase<T>::const_data_iter DataObjectBase<T>::data_begin() const
 {
   return _manager.data_begin();
 }
 
-template <class T> typename DataObjectBase<T>::data_iter DataObjectBase<T>::data_end()
+template <class T> DataObjectBase<T>::data_iter DataObjectBase<T>::data_end()
 {
   return _manager.data_end();
 }
 
-template <class T> typename DataObjectBase<T>::const_data_iter DataObjectBase<T>::data_end() const
+template <class T> DataObjectBase<T>::const_data_iter DataObjectBase<T>::data_end() const
 {
   return _manager.data_end();
 }
 
-template <class T> typename DataObjectBase<T>::const_guide_iter DataObjectBase<T>::guides_begin() const
+template <class T> DataObjectBase<T>::const_guide_iter DataObjectBase<T>::guides_begin() const
 {
   return _manager.guides_begin();
 }
 
-template <class T> typename DataObjectBase<T>::const_guide_iter DataObjectBase<T>::guides_end() const
+template <class T> DataObjectBase<T>::const_guide_iter DataObjectBase<T>::guides_end() const
 {
   return _manager.guides_end();
 }

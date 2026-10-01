@@ -129,7 +129,7 @@ template <class T> bool DataManager<T>::isConsistent(DataGuide const &guide) con
 }
 
 template <class T>
-typename DataManager<T>::guide_iter DataManager<T>::findGuide(DataGuide::Address const &address)
+DataManager<T>::guide_iter DataManager<T>::findGuide(DataGuide::Address const &address)
 {
   return std::find_if(_guides.begin(), _guides.end(),
                       [capture0 = static_cast<T const *>(address)](auto &&PH1) {
@@ -138,7 +138,7 @@ typename DataManager<T>::guide_iter DataManager<T>::findGuide(DataGuide::Address
 }
 
 template <class T>
-typename DataManager<T>::const_data_iter
+DataManager<T>::const_data_iter
 DataManager<T>::findData(DataGuide::Address const &address) const
 {
   return std::find_if(_data.begin(), _data.end(),
@@ -148,7 +148,7 @@ DataManager<T>::findData(DataGuide::Address const &address) const
 }
 
 template <class T>
-typename DataManager<T>::data_iter DataManager<T>::findData(DataGuide::Address const &address)
+DataManager<T>::data_iter DataManager<T>::findData(DataGuide::Address const &address)
 {
   return std::find_if(_data.begin(), _data.end(),
                       [capture0 = static_cast<T const *>(address)](auto &&PH1) {
@@ -307,32 +307,32 @@ template <class T> bool DataManager<T>::isValid(DataGuide const &guide) const
   return isConsistent(guide);
 }
 
-template <class T> typename DataManager<T>::data_iter DataManager<T>::data_begin()
+template <class T> DataManager<T>::data_iter DataManager<T>::data_begin()
 {
   return _data.begin();
 }
 
-template <class T> typename DataManager<T>::const_data_iter DataManager<T>::data_begin() const
+template <class T> DataManager<T>::const_data_iter DataManager<T>::data_begin() const
 {
   return _data.begin();
 }
 
-template <class T> typename DataManager<T>::data_iter DataManager<T>::data_end()
+template <class T> DataManager<T>::data_iter DataManager<T>::data_end()
 {
   return _data.end();
 }
 
-template <class T> typename DataManager<T>::const_data_iter DataManager<T>::data_end() const
+template <class T> DataManager<T>::const_data_iter DataManager<T>::data_end() const
 {
   return _data.end();
 }
 
-template <class T> typename DataManager<T>::const_guide_iter DataManager<T>::guides_begin() const
+template <class T> DataManager<T>::const_guide_iter DataManager<T>::guides_begin() const
 {
   return _guides.begin();
 }
 
-template <class T> typename DataManager<T>::const_guide_iter DataManager<T>::guides_end() const
+template <class T> DataManager<T>::const_guide_iter DataManager<T>::guides_end() const
 {
   return _guides.end();
 }

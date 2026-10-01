@@ -29,7 +29,7 @@ template <typename T> struct DimensionMaker {
   dal::DiscretisationType setType;
   dal::DiscretisationType rangeType;
 
-  dal::Dimension create(typename pcrxsd::RangeSetTypeTrait<T>::RangeOrSet const &f)
+  dal::Dimension create(pcrxsd::RangeSetTypeTrait<T>::RangeOrSet const &f)
   {
 
     if (f.set().present()) {

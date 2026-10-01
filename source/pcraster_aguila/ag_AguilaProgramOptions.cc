@@ -93,16 +93,16 @@ template <class Set> struct Items {
 
 //! T is std::string,float or size_t
 template <typename T> struct SetParser {
-  using RS = typename pcrxsd::RangeSetTypeTrait<T>;
-  static typename RS::Set set(std::string const &value);
+  using RS = pcrxsd::RangeSetTypeTrait<T>;
+  static RS::Set set(std::string const &value);
 };
 
 //! T is float or size_t
 template <typename T> struct SetRangeParser : public SetParser<T> {
-  using RS = typename pcrxsd::RangeSetTypeTrait<T>;
-  static typename RS::Range range(std::string const &value);
+  using RS = pcrxsd::RangeSetTypeTrait<T>;
+  static RS::Range range(std::string const &value);
 
-  static typename RS::RangeOrSet rangeOrSet(std::string const &str)
+  static RS::RangeOrSet rangeOrSet(std::string const &str)
   {
     typename RS::RangeOrSet f;
     if (str[0] == '{') {

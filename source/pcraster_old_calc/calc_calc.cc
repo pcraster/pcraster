@@ -16,6 +16,8 @@
 #include "calc_parserinput.h"
 #include "calc_modelparser.h"
 
+#include <cstdint>
+
 /*!
   \file
   This file contains the implementation of the Calc class.
@@ -100,7 +102,7 @@ bool calc::Calc::processArgs(int argc, char **argv)
     throwLibError();
   }
 
-  using SCRIPT_TYPE = enum SCRIPT_TYPE {
+  using SCRIPT_TYPE = enum SCRIPT_TYPE : std::uint8_t {
     SCRIPT_CMD_LINE,
     SCRIPT_SCRIPT_FILE,
     SCRIPT_SHELL_FILE

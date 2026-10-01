@@ -438,7 +438,7 @@ template <typename T> void calc::StatTable::classTable(const T *begin, const T *
   std::ofstream out;
   open(out);
   out << d_subject.d_name << "\t" << "opp" << "\n";
-  for (auto &i : m) {
+  for (auto  const&i : m) {
     out << i.first << "\t" << area(i.second) << "\n";
   }
 }
@@ -577,7 +577,7 @@ void calc::StatTable::classIntervalTable(const SubjectType *subject, FieldStack 
   // compute percentiles per subject
   auto start = r.begin();
   for (auto i = m.begin(); i != m.end(); ++i) {
-    auto end = start + i->second.nrVisits();
+    auto const end = start + i->second.nrVisits();
     crossPercentiles<detail::CSPolicy>(i->second, start, end);
     start = end;
   }
@@ -672,11 +672,11 @@ void calc::StatTable::GGTable(const REAL4 *subject, FieldStack &stack) const
   }
 
   // what is outside is not in any interval
-  auto endOutside = m.partitionOutside(r.begin(), r.end(), detail::GGPolicy::partitionValueFirst);
+  auto const endOutside = m.partitionOutside(r.begin(), r.end(), detail::GGPolicy::partitionValueFirst);
   crossPercentiles<detail::GGPolicy>(m.outside(), r.begin(), endOutside);
 
   for (auto i = m.begin(); i != m.end(); ++i) {
-    auto endP = m.partition(endOutside, r.end(), i, detail::GGPolicy::partitionValueFirst);
+    auto const endP = m.partition(endOutside, r.end(), i, detail::GGPolicy::partitionValueFirst);
     crossPercentiles<detail::GGPolicy>(i->second, endOutside, endP);
   }
 
@@ -748,7 +748,7 @@ void calc::StatTable::classScalarTable(const SubjectType *subject, FieldStack &s
   // compute percentile per subject
   auto start = r.begin();
   for (auto i = m.begin(); i != m.end(); ++i) {
-    auto end = start + i->second.nr();
+    auto const end = start + i->second.nr();
     if (start != end) {
       m[i->first].d_med = median(start, end);
     }
@@ -758,7 +758,7 @@ void calc::StatTable::classScalarTable(const SubjectType *subject, FieldStack &s
   std::ofstream out;
   open(out);
   scalarCrossHeader(out);
-  for (auto &i : m) {
+  for (auto  const&i : m) {
     i.second.printLine(i.first, area(1), out);
   }
 }

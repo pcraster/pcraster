@@ -9,6 +9,7 @@
 #include "calc_reporttable.h"
 #include "calc_bindingtable.h"
 
+#include <cstdint>
 #include <vector>
 
 
@@ -46,7 +47,7 @@ class Script:
   public StatementBlock,
   public IScript {
   public:
-  using ExitValueType = enum ExitValueType {
+  using ExitValueType = enum ExitValueType : std::uint8_t {
     //! -e option
     LAST_VAL,
     //! -E option

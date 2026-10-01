@@ -2,7 +2,10 @@
 /* major opcodes */
 #ifndef INCLUDED_OLDCALC_MAJOR_OP
 #define INCLUDED_OLDCALC_MAJOR_OP
-using MAJOR_CODE = enum MAJOR_CODE {
+
+#include <cstdint>
+
+using MAJOR_CODE = enum MAJOR_CODE : std::uint8_t {
 OP_NOP=0 ,
 OP_ILL=1 ,
 OP_IF_ELSE=2 ,

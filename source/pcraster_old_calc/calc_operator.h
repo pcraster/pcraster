@@ -6,19 +6,20 @@
 #include "major_op.h"
 
 #include <cmath>
+#include <cstdint>
 #include <string>
 #include <vector>
 
 
 /* appearance of an operator/function
  */
-using SYNTAX = enum SYNTAX {
+using SYNTAX = enum SYNTAX : std::uint8_t {
     SYNTAX_FUNC=0, /* like func(...)  */
     SYNTAX_OP=1,    /* like ... op ... */
     SYNTAX_NONE=2  /* grammar construction */
 };
 
-using CG = enum CG {    /* code generation type */
+using CG = enum CG : std::uint8_t {    /* code generation type */
   CG_COMM=0,   /* commutative operator */
   CG_VARARG=1, /* variable number of arguments 
                 * should be split out in binary ops.
@@ -32,7 +33,7 @@ using CG = enum CG {    /* code generation type */
  * \todo
  *   rename EXEC_MISC to something sensible
  */
-using EXEC = enum EXEC { /* execution type */
+using EXEC = enum EXEC : std::uint8_t { /* execution type */
         /* A is in { UINT1, INT4, REAL4 }
          * s,n,?,d = spatial,nonspatial,both, derived
          */

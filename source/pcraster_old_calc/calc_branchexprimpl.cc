@@ -16,6 +16,7 @@
 #include "calc_doubleass.h"
 
 #include <algorithm>
+#include <cstdint>
 #include <stdexcept>
 #include <memory>
 
@@ -530,7 +531,7 @@ void calc::BranchExprImpl::execGenSpatial(const Operator &op, FieldStack &stack)
   stack.push(res);
 }
 
-using FIELD_ARG = enum FIELD_ARG {
+using FIELD_ARG = enum FIELD_ARG : std::uint8_t {
   NN = 0,
   SS = 1,
   NS = 2,

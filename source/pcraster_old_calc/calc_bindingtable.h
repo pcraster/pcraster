@@ -5,6 +5,7 @@
 #include "calc_symbol.h"
 #include "vsenum.h"
 
+#include <cstdint>
 #include <map>
 #include <vector>
 
@@ -31,7 +32,7 @@ class BindingTable
 {
 
 private:
-  enum DefinitionLevel { External, InScript };
+  enum DefinitionLevel : std::uint8_t { External, InScript };
 
   using Right = struct Right {
     DefinitionLevel   d_definitionLevel;

@@ -8,6 +8,7 @@
 #include "com_intervaltypes.h"
 
 #include <cmath>
+#include <cstdint>
 #include <iostream>
 
 //------------------------------------------------------------------------------
@@ -62,7 +63,7 @@ public:
     Enclosed = Left | Top | Right | Bottom
   };
 
-  enum FlowCondition {
+  enum FlowCondition : std::uint8_t {
     NOFLOW = 0,
     CALCULATE = 1,
     FIXED = 2

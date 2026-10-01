@@ -208,7 +208,8 @@ class Generator:
        s.opCode=s.opCode+1
    g=self.output('major_op.h')
    c=OpCode(g)
-   g.write('typedef enum MAJOR_CODE {')
+   g.write('#include <cstdint>\n')
+   g.write('typedef enum MAJOR_CODE : std::uint8_t {')
    c.write('NOP');
    for n in self.operations:
      if (n.getAttribute('syntax')!='MRF'):

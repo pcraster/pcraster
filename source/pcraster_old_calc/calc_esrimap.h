@@ -4,6 +4,7 @@
 #include "com_exception.h"
 #include "calc_gridmap.h"
 
+#include <cstdint>
 #include <string>
 
 
@@ -22,7 +23,7 @@ private:
   //! illegal
   EsriMap(const EsriMap&);
 
-  enum GRIDSIZE { ROW_GRIDSIZE=0, COL_GRIDSIZE=1};
+  enum GRIDSIZE : std::uint8_t { ROW_GRIDSIZE=0, COL_GRIDSIZE=1};
   double d_cellSize{};
   // index:
   // 0 : left

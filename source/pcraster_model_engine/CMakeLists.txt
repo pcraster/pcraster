@@ -74,7 +74,7 @@ SET(OPCODE ${CMAKE_CURRENT_BINARY_DIR}/major_op.h)
 ADD_CUSTOM_COMMAND(
     OUTPUT  ${OPCODE}
     DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml
-    COMMENT "Generating code"
+    COMMENT "Generating major_op.h"
     COMMAND ${Python_EXECUTABLE}
         ${CMAKE_CURRENT_SOURCE_DIR}/createOperatorCppCode.py
         ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml

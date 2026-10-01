@@ -43,7 +43,7 @@ public:
                    ReadWriteData               (
                         StoredAsT **data, size_t nrRows, size_t nrCols);
 
-           ~ReadWriteData              () override;
+           ~ReadWriteData              () override = default;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

@@ -42,11 +42,6 @@ fieldapi::ReadOnlySpatial<UseAsT, StoredAsT>::ReadOnlySpatial(StoredAsT **data, 
 {
 }
 
-//! dtor
-template <class UseAsT, class StoredAsT> fieldapi::ReadOnlySpatial<UseAsT, StoredAsT>::~ReadOnlySpatial()
-{
-}
-
 template <class UseAsT, class StoredAsT>
 bool fieldapi::ReadOnlySpatial<UseAsT, StoredAsT>::get(UseAsT &value, int rowIndex, int colIndex) const
 {

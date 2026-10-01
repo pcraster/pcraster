@@ -36,11 +36,6 @@ fieldapi::ReadOnly<UseAsT>::ReadOnly(size_t nrRows, size_t nrCols) : Common(nrRo
 {
 }
 
-//! dtor
-template <class UseAsT> fieldapi::ReadOnly<UseAsT>::~ReadOnly()
-{
-}
-
 template <class UseAsT> bool fieldapi::ReadOnly<UseAsT>::isMV(const geo::CellLoc &l) const
 {
   UseAsT v;

@@ -34,7 +34,7 @@ public:
 
                    ReadWrite               (size_t nrRows, size_t nrCols);
 
-          ~ReadWrite              () override;
+          ~ReadWrite              () override = default;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

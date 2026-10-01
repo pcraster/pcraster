@@ -40,11 +40,6 @@ fieldapi::ReadWrite<UseAsT>::ReadWrite(size_t nrRows, size_t nrCols) : Common(nr
 {
 }
 
-//! dtor
-template <class UseAsT> fieldapi::ReadWrite<UseAsT>::~ReadWrite()
-{
-}
-
 template <class UseAsT>
 void fieldapi::ReadWrite<UseAsT>::copy(const ReadOnly<UseAsT> &src, const geo::CellLoc &l)
 {

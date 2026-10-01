@@ -38,7 +38,7 @@ public:
                 ReadOnlySpatial               (StoredAsT **data,
                                                size_t nrRows,size_t nrCols);
 
-       ~ReadOnlySpatial               () override;
+       ~ReadOnlySpatial               () override = default;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

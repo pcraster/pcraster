@@ -42,11 +42,6 @@ fieldapi::ReadOnlyNonSpatial<UseAsT>::ReadOnlyNonSpatial(UseAsT value, size_t nr
 {
 }
 
-//! dtor
-template <class UseAsT> fieldapi::ReadOnlyNonSpatial<UseAsT>::~ReadOnlyNonSpatial()
-{
-}
-
 template <class UseAsT>
 bool fieldapi::ReadOnlyNonSpatial<UseAsT>::get(UseAsT &value, int rowIndex, int colIndex) const
 {

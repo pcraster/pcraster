@@ -41,11 +41,6 @@ fieldapi::ReadWriteData<UseAsT, StoredAsT>::ReadWriteData(StoredAsT **data, size
 {
 }
 
-//! dtor
-template <class UseAsT, class StoredAsT> fieldapi::ReadWriteData<UseAsT, StoredAsT>::~ReadWriteData()
-{
-}
-
 template <class UseAsT, class StoredAsT>
 void fieldapi::ReadWriteData<UseAsT, StoredAsT>::put(UseAsT value, size_t rowIndex, size_t colIndex)
 {

@@ -34,7 +34,7 @@ protected:
              Common              (size_t nrRows,size_t nrCols);
 public:
 
-  virtual   ~Common              ();
+  virtual   ~Common              () = default;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

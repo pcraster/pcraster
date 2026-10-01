@@ -26,11 +26,6 @@ fieldapi::Common::Common(size_t nrRows, size_t nrCols) : RasterDim(nrRows, nrCol
 {
 }
 
-//! dtor
-fieldapi::Common::~Common()
-{
-}
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------

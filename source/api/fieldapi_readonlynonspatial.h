@@ -33,7 +33,7 @@ public:
                 ReadOnlyNonSpatial               (UseAsT value,
                                                   size_t nrRows,size_t nrCols);
 
-       ~ReadOnlyNonSpatial               () override;
+       ~ReadOnlyNonSpatial               () override = default;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

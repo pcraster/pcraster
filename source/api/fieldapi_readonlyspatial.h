@@ -23,11 +23,6 @@ public:
 
 
 private:
-  //! Assignment operator. NOT IMPLEMENTED.
-  ReadOnlySpatial&           operator=           (const ReadOnlySpatial&);
-
-  //! Copy constructor. NOT IMPLEMENTED.
-                   ReadOnlySpatial               (const ReadOnlySpatial&);
 
 public:
 
@@ -37,12 +32,15 @@ public:
 
                 ReadOnlySpatial               (StoredAsT **data,
                                                size_t nrRows,size_t nrCols);
+                
+                   ReadOnlySpatial               (const ReadOnlySpatial&) = delete;
 
        ~ReadOnlySpatial               () override = default;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
+  ReadOnlySpatial&           operator=           (const ReadOnlySpatial&) = delete;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

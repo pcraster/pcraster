@@ -28,12 +28,6 @@ private:
   //! implements the get part
   ReadOnlySpatial<UseAsT,StoredAsT> d_ro;
 
-  //! Assignment operator. NOT IMPLEMENTED.
-  ReadWriteData&           operator=           (const ReadWriteData&);
-
-  //! Copy constructor. NOT IMPLEMENTED.
-                   ReadWriteData               (const ReadWriteData&);
-
 public:
 
   //----------------------------------------------------------------------------
@@ -42,12 +36,15 @@ public:
 
                    ReadWriteData               (
                         StoredAsT **data, size_t nrRows, size_t nrCols);
+                   
+                   ReadWriteData               (const ReadWriteData&) = delete;
 
            ~ReadWriteData              () override = default;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
+  ReadWriteData&           operator=           (const ReadWriteData&) = delete;
 
   //! put a value
   void put(UseAsT value, size_t rowIndex, size_t colIndex) override;

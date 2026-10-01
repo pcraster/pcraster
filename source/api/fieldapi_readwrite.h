@@ -20,12 +20,6 @@ template<class UseAsT> class ReadWrite :
 
 private:
 
-  //! Assignment operator. NOT IMPLEMENTED.
-  ReadWrite&           operator=           (const ReadWrite&);
-
-  //! Copy constructor. NOT IMPLEMENTED.
-                   ReadWrite               (const ReadWrite&);
-
 public:
 
   //----------------------------------------------------------------------------
@@ -34,11 +28,14 @@ public:
 
                    ReadWrite               (size_t nrRows, size_t nrCols);
 
+                   ReadWrite               (const ReadWrite&) = delete;
+
           ~ReadWrite              () override = default;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
+  ReadWrite&           operator=           (const ReadWrite&) = delete;
 
   //! put a value
   virtual void put(UseAsT value, size_t rowIndex, size_t colIndex)=0;

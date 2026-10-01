@@ -19,13 +19,6 @@ class Common : public geo::RasterDim
 
 private:
 
-  //! Assignment operator. NOT IMPLEMENTED.
-  Common&           operator=           (const Common&);
-
-  //! Copy constructor. NOT IMPLEMENTED.
-                   Common               (const Common&);
-
-
   //----------------------------------------------------------------------------
   // CREATORS
   //----------------------------------------------------------------------------
@@ -34,11 +27,14 @@ protected:
              Common              (size_t nrRows,size_t nrCols);
 public:
 
+             Common              (const Common&) = delete;
+
   virtual   ~Common              () = default;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
+  Common&           operator=           (const Common&) = delete;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

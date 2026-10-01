@@ -20,12 +20,6 @@ template<class UseAsT> class ReadOnly : public Common
 
 private:
 
-  //! Assignment operator. NOT IMPLEMENTED.
-  ReadOnly&           operator=           (const ReadOnly&);
-
-  //! Copy constructor. NOT IMPLEMENTED.
-                   ReadOnly               (const ReadOnly&);
-
 protected:
                    ReadOnly              (size_t nrRows,size_t nrCols);
 
@@ -35,12 +29,14 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
+                   ReadOnly               (const ReadOnly&) = delete;
 
           ~ReadOnly              () override = default;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
-  //----------------------------------------------------------------------------
+  //---------------------------------------------------------------------------- 
+          ReadOnly&           operator=           (const ReadOnly&) = delete;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

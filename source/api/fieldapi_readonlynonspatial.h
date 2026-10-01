@@ -18,12 +18,6 @@ private:
   //! value
   UseAsT d_value;
 
-  //! Assignment operator. NOT IMPLEMENTED.
-  ReadOnlyNonSpatial&           operator=           (const ReadOnlyNonSpatial&);
-
-  //! Copy constructor. NOT IMPLEMENTED.
-                   ReadOnlyNonSpatial               (const ReadOnlyNonSpatial&);
-
 public:
 
   //----------------------------------------------------------------------------
@@ -33,11 +27,14 @@ public:
                 ReadOnlyNonSpatial               (UseAsT value,
                                                   size_t nrRows,size_t nrCols);
 
+                   ReadOnlyNonSpatial               (const ReadOnlyNonSpatial&) = delete;
+
        ~ReadOnlyNonSpatial               () override = default;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
+  ReadOnlyNonSpatial&           operator=           (const ReadOnlyNonSpatial&) = delete;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

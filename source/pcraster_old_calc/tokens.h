@@ -11,7 +11,7 @@
 
 #include <cstdint>
 
-enum ANTLRTokenType : std::uint16_t {
+enum ANTLRTokenType /*: std::uint16_t*/ {
 	TOK_DOLLAR=2,
 	TOK_EOF=3,
 	TOK_BINDING=4,
